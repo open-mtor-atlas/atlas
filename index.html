@@ -36,6 +36,11 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .hero-claim{padding:14px 2px 16px;border-bottom:1px solid var(--line);}
 .hero-claim p{font-family:'Inter',sans-serif;font-style:italic;font-size:16.5px;line-height:1.5;margin:0;color:var(--ink);max-width:900px;}
 .hero-claim .hl{font-style:normal;font-weight:700;color:var(--teal-deep);background:linear-gradient(transparent 62%, rgba(163,31,52,0.16) 62%);padding:0 1px;}
+.topbar-claim{flex:1;display:flex;justify-content:flex-end;}
+.topbar-claim p{font-family:'Inter',sans-serif;font-style:italic;font-size:13px;line-height:1.4;margin:0;color:var(--ink);max-width:470px;text-align:right;}
+.topbar-claim .hl{font-style:normal;font-weight:700;color:var(--teal-deep);background:linear-gradient(transparent 62%, rgba(163,31,52,0.16) 62%);padding:0 1px;}
+.studies-head-right{display:flex;align-items:center;gap:14px;}
+.studies-searchbar{flex:0 0 300px;min-width:0;}
 
 /* ---------- Homepage intro (Pathway Map splash) ---------- */
 .atlas-intro{padding:28px 2px 8px;border-bottom:1px solid var(--line-strong);}
@@ -279,6 +284,11 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   .ipy-callout{margin-left:116px;}
   .studies-wrap,.matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .graph-wrap{padding:12px 12px 4px;}
+  .topbar-claim{flex:1 1 100%;justify-content:flex-start;}
+  .topbar-claim p{text-align:left;max-width:none;font-size:12.5px;}
+  .studies-head{flex-wrap:wrap;gap:10px;}
+  .studies-head-right{flex:1 1 100%;flex-wrap:wrap;}
+  .studies-searchbar{flex:1 1 100%;}
 }
 @media (max-width:440px){
   .intro-headline{font-size:21px;}
@@ -299,15 +309,12 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
       <h1>Oliver's OPEN mTOR ATLAS</h1>
       <span class="tag">Evidence Platform</span>
     </div>
-    <div class="searchbar">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" placeholder="Search gene, drug, author, DOI…">
+    <div class="topbar-claim">
+      <p>The first mTOR resource built around the question every other database dodges: is there <span class="hl">strong evidence</span> this actually extends <span class="hl">human life</span>?</p>
     </div>
   </div>
 
-  <div class="hero-claim">
-    <p>The first mTOR resource built around the question every other database dodges: is there <span class="hl">strong evidence</span> this actually extends <span class="hl">human life</span>?</p>
-  </div>
+
 
   
 
@@ -526,7 +533,13 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
     <div class="studies-wrap" style="margin-top:0;">
       <div class="studies-head">
         <h3 id="studiesTitle">All Studies</h3>
-        <span class="mono" style="font-size:10px;color:var(--ink-soft);" id="studiesCount"></span>
+        <div class="studies-head-right">
+          <div class="searchbar studies-searchbar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="searchInput" type="text" placeholder="Search studies — title, author, DOI…">
+          </div>
+          <span class="mono" style="font-size:10px;color:var(--ink-soft);" id="studiesCount"></span>
+        </div>
       </div>
       <table class="studies">
         <thead><tr>
@@ -1193,24 +1206,7 @@ function goHome(){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function switchTab(which){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const t=document.querySelector('.tab[data-tab="'+which+'"]'); if(t) t.classList.add('active');
-  showView(which);
-}
-function currentTab(){ const a=document.querySelector('.tab.active'); return a?a.dataset.tab:'welcome'; }
-function routeForQuery(q){
-  const exact = ATLAS_ENTITIES.find(e=> e.name.toLowerCase()===q);
-  if(exact){ state.entity = exact.name; return 'map'; }
-  return 'studies';
-}
-document.getElementById('searchInput').addEventListener('input', e=>{
-  state.query = e.target.value;
-  const q = state.query.trim().toLowerCase();
-  const noList = ['welcome','evidence','questions','experiment','about'];
-  if(q && noList.includes(currentTab())) switchTab(routeForQuery(q));
-  renderAll();
-});
+document.getElementById('searchInput').addEventListener('input', e=>{ state.query = e.target.value; renderAll(); });
 document.querySelectorAll('table.studies th[data-sort]').forEach(th=>{
   th.addEventListener('click', ()=>{
     const key = th.dataset.sort;
@@ -1229,6 +1225,7 @@ document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
+    state.query=''; const si=document.getElementById('searchInput'); if(si) si.value='';
     showView(tab.dataset.tab);
     renderAll();
   });
