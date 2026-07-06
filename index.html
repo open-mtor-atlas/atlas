@@ -1200,13 +1200,8 @@ function switchTab(which){
 }
 function currentTab(){ const a=document.querySelector('.tab.active'); return a?a.dataset.tab:'welcome'; }
 function routeForQuery(q){
-  const entName = ATLAS_ENTITIES.filter(e=> e.name.toLowerCase().includes(q));
-  const entAny  = ATLAS_ENTITIES.filter(e=> e.name.toLowerCase().includes(q) || (e.desc||'').toLowerCase().includes(q));
-  const studyHit = ATLAS_STUDIES.some(s=> s.title.toLowerCase().includes(q) || s.authors.toLowerCase().includes(q) || (s.finding||'').toLowerCase().includes(q) || (s.doi||'').toLowerCase().includes(q));
-  if(entName.length===1){ state.entity = entName[0].name; return 'map'; }
-  if(entName.length>1) return 'entities';
-  if(studyHit) return 'studies';
-  if(entAny.length>0) return 'entities';
+  const exact = ATLAS_ENTITIES.find(e=> e.name.toLowerCase()===q);
+  if(exact){ state.entity = exact.name; return 'map'; }
   return 'studies';
 }
 document.getElementById('searchInput').addEventListener('input', e=>{
