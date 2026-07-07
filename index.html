@@ -129,7 +129,7 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .type-badge{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:0;color:#fff;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;}
 .section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
 .narrative{font-size:13.5px;line-height:1.6;color:var(--ink);}
-.study-mini{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;padding-right:4px;}
+.study-mini{display:flex;flex-direction:column;gap:6px;padding-right:4px;}
 .study-mini-item{padding:8px 12px;background:var(--paper);border:1px solid var(--line);border-radius:0;font-size:12px;}
 .study-mini-item .t{font-weight:600;margin-bottom:2px;}
 .study-mini-item .m{color:var(--ink-soft);font-size:10.5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
@@ -324,9 +324,9 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
       <div class="tab" data-tab="map">Pathway Map</div>
       <div class="tab" data-tab="entities">Entities</div>
       <div class="tab" data-tab="studies">Studies</div>
+      <div class="tab" data-tab="authors">Authors</div>
       <div class="tab" data-tab="evidence">Evidence</div>
       <div class="tab" data-tab="questions">Open Questions</div>
-      <div class="tab" data-tab="experiment">Experiment Log</div>
       <div class="tab" data-tab="about">About</div>
     </div>
   </div>
@@ -552,6 +552,39 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
         </tr></thead>
         <tbody id="studiesBody"></tbody>
       </table>
+      <div id="studiesPagination" style="margin-top:10px;text-align:center;"></div>
+    </div>
+  </div>
+
+  <div id="authorsView" style="display:none;">
+    <div id="topAuthorsBox" style="margin-bottom:16px;"></div>
+    <div class="studies-wrap" style="margin-top:0;">
+      <div class="studies-head">
+        <h3 id="authorsTitle">All Authors</h3>
+        <div class="studies-head-right">
+          <div class="searchbar studies-searchbar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="authorSearchInput" type="text" placeholder="Search authors by name…">
+          </div>
+          <span class="mono" style="font-size:10px;color:var(--ink-soft);" id="authorsCount"></span>
+        </div>
+      </div>
+      <div class="rail-title" id="authorLetterRow" style="margin:0 0 8px;flex-wrap:wrap;"></div>
+      <div class="rail-title" style="margin:0 0 8px;">
+        Sort by
+        <span class="mono author-sort-link" data-sort="name" style="cursor:pointer;text-decoration:underline;font-size:9px;">Name</span>
+        ·
+        <span class="mono author-sort-link" data-sort="count" style="cursor:pointer;text-decoration:underline;font-size:9px;"># Studies</span>
+      </div>
+      <table class="studies">
+        <thead><tr>
+          <th style="width:22%">Author</th>
+          <th style="width:8%"># Studies</th>
+          <th>Studies</th>
+        </tr></thead>
+        <tbody id="authorsBody"></tbody>
+      </table>
+      <div id="authorsPagination" style="margin-top:10px;text-align:center;"></div>
     </div>
   </div>
 
@@ -611,15 +644,6 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
     </div>
     <div class="footnote" style="margin-top:20px;">
       As new relevant papers get added to the Atlas, an open question here should either get resolved or get sharper — that's the point of keeping it visible rather than folding it into a review paragraph somewhere.
-    </div>
-  </div>
-
-  <div id="experimentView" style="display:none;">
-    <div class="empty-state">
-      <div class="empty-icon">⚗</div>
-      <h3>Experiment Registry — not started yet</h3>
-      <p>This is planned as an open, GitHub-style log where any contributor can submit a hypothesis, an experiment design, and its results — including results where the intervention <i>didn't</i> work. Right now the Atlas only tracks published literature (the Studies tab); it doesn't yet have a place for unpublished or in-progress experiments.</p>
-      <p>When this launches, entries here will follow the same rule as the rest of the Atlas: negative results are published with the same visibility as positive ones.</p>
     </div>
   </div>
 
@@ -692,6 +716,24 @@ const ATLAS_STUDIES = [{"id": "rec01xkVnPNb3s6ce", "sid": "DEM2016", "title": "L
 
 const ATLAS_ENTITIES = [{"id": "rec0i2GoK8KyXNRfq", "name": "Huntington's disease", "type": "Disease", "desc": "Neurodegenerative disease caused by a toxic polyglutamine-expanded protein; cleared via mTOR-inhibition-induced autophagy in animal models.", "studies": ["RAV2004", "TAN2024"]}, {"id": "rec330ZXTVVIXMfG8", "name": "PRAS40", "type": "Gene/Protein", "desc": "Insulin-regulated inhibitor subunit of mTORC1. Insulin triggers Akt to phosphorylate PRAS40, releasing its brake and switching mTORC1 on.", "studies": ["SAN2007"]}, {"id": "rec36nrSDD6ryBo7Y", "name": "TSC1/TSC2", "type": "Gene/Protein", "desc": "Tuberin-hamartin tumor suppressor complex; acts as a GTPase-activating protein for Rheb; integrates growth-factor and energy signals to control mTORC1.", "studies": ["INO2002", "TEE2003", "KAP2004", "KRU2010", "CHE2008", "GWI2008", "HOW2017", "INO2003"]}, {"id": "rec6VZzgZTnTVYNn5", "name": "T cell differentiation", "type": "Biological process", "desc": "Process by which immune T cells commit to effector versus regulatory fates; directly controlled by mTOR complex activity.", "studies": ["DEL2009"]}, {"id": "rec94NLBIvZ5m63sq", "name": "Torin1", "type": "Drug", "desc": "ATP-competitive ('active-site') mTOR inhibitor. Unlike rapamycin, it blocks the kinase active site directly and so fully inhibits BOTH complexes - the tool that revealed rapamycin-resistant functions of mTORC1.", "studies": ["THO2009"]}, {"id": "rec9KXiCWPtf8idYQ", "name": "Growth hormone / IGF-1 axis", "type": "Pathway/Complex", "desc": "Upstream growth-signaling axis; reduced activity (as in Ames dwarf mice) is one of the most robust lifespan-extending interventions known in mammals, acting upstream of PI3K/Akt/mTOR.", "studies": ["BRO1996", "FON2010"]}, {"id": "rec9M7aUz8w2Y0hKd", "name": "Cardiac aging", "type": "Outcome", "desc": "Age-related decline in heart function (hypertrophy, stiffening, reduced contractility). Late-life rapamycin partially reverses it in mice.", "studies": ["FLY2013"]}, {"id": "rec9N16OEhdTk5HEd", "name": "Curcumin", "type": "Drug", "desc": "Turmeric-derived polyphenol widely marketed for anti-aging effects; showed no lifespan effect in ITP testing.", "studies": ["STR2012"]}, {"id": "recA9IBFq2xeLZGtm", "name": "PP242", "type": "Drug", "desc": "An ATP-competitive mTOR kinase inhibitor (a 'TORKinib'); like Torin1, inhibits both mTORC1 and mTORC2 and blocks outputs that rapamycin leaves intact.", "studies": ["FEL2009"]}, {"id": "recASPVnqoO46rwnn", "name": "Longevity", "type": "Outcome", "desc": "Lifespan extension; the key outcome tracked across mTOR-targeting interventions.", "studies": ["HAR2009", "MAT2017", "SOL2014", "MIL2011", "STR2012", "SEL2009", "KAP2004", "VEL2003", "BJE2010", "BIT2016", "URF2017", "BLA2006", "BAN2014", "BRO1996", "MEL2003", "HAR2014", "KAE2005", "PYO2013", "MOE2025", "NCT05835999", "LEE2024", "HAN2025", "ZID2009", "WIL2012", "JOH2013", "KEN2016", "FON2010", "KRA2018", "FLY2013", "HAL2012", "LIU2020", "LAP2012"]}, {"id": "recB5vpUDNA1yfIWy", "name": "MCT oil", "type": "Drug", "desc": "Medium-chain triglyceride oil; tested by the ITP as a metabolic/longevity intervention with no significant lifespan effect.", "studies": ["STR2012"]}, {"id": "recCZgcmmYmiMOpKj", "name": "Leucine/BCAA restriction", "type": "Intervention", "desc": "Restriction of branched-chain amino acids (leucine, isoleucine, valine); modulates mTORC1 via the Sestrin2 sensor.", "studies": ["BAB2025"]}, {"id": "recD8beSU1dMUWUK8", "name": "Muscle growth", "type": "Biological process", "desc": "mTORC1-dependent process of skeletal muscle fiber enlargement (hypertrophy); driven by growth factors and exercise, blocked by rapamycin.", "studies": ["ROM2001", "DRU2009", "MOE2025"]}, {"id": "recEJSu6vef0nJTdn", "name": "Cognition", "type": "Outcome", "desc": "Learning, memory and related brain function. mTOR inhibition can enhance cognition in young mice and blunt age-related cognitive decline.", "studies": ["HAL2012"]}, {"id": "recFDos7uwpIr0ndg", "name": "Atg5", "type": "Gene/Protein", "desc": "Core gene required for autophagosome formation; overexpressing it in mice is sufficient to extend lifespan on its own.", "studies": ["PYO2013"]}, {"id": "recFxh2Lspee1Frkt", "name": "Lymphangioleiomyomatosis", "type": "Disease", "desc": "LAM - a rare progressive cystic lung disease in women driven by inappropriate mTOR activation; sirolimus stabilizes lung function (MILES trial).", "studies": ["MCC2011", "BIS2013"]}, {"id": "recGNNi3V9NVcwRiA", "name": "v-ATPase", "type": "Gene/Protein", "desc": "Vacuolar H+-ATPase; senses lysosomal amino acids from the inside and relays the signal to Ragulator-Rag to activate mTORC1.", "studies": ["ZON2011"]}, {"id": "recHG5IZ3KYbCZO9l", "name": "ULK1", "type": "Gene/Protein", "desc": "Initiator of autophagy; target of mTORC1 inhibition and AMPK activation.", "studies": ["LOF2011", "HOS2009", "KIM2011"]}, {"id": "recHdFCMnQbO3U7aR", "name": "TFEB", "type": "Gene/Protein", "desc": "Master transcription factor for lysosome biogenesis and autophagy. mTORC1 phosphorylates TFEB to trap it in the cytosol; when mTORC1 is off, TFEB enters the nucleus and turns on the cell's recycling program.", "studies": ["SET2011", "MAR2012"]}, {"id": "recIwMCDnfJJUWr4f", "name": "Rapamycin", "type": "Drug", "desc": "Sirolimus; mTORC1 inhibitor (and, with chronic dosing, mTORC2 too); immunosuppressant; extends lifespan in mice.", "studies": ["SAB1994", "HAR2009", "LAM2012", "MIL2011", "VEZ1975", "HEI1991", "BJE2010", "BIT2016", "URF2017", "DRU2009", "KAH2000", "MOE2025", "TAN2024", "LEE2024", "HAN2025", "CHO1996", "SAR2006", "THO2009", "FEL2009", "YAN2013", "DEM2009", "LAB2015", "WIL2012", "JOH2013", "MCC2011", "CHU2019", "KRA2018", "SPI2010", "CAC2010", "FLY2013", "HAL2012", "CUN2007"]}, {"id": "recJa9EmYCYjwzfkr", "name": "Oxaloacetic acid", "type": "Drug", "desc": "Metabolic intermediate marketed as a longevity supplement; no lifespan effect found in ITP testing.", "studies": ["STR2012"]}, {"id": "recKX8G9sbv0Hkryg", "name": "Mitochondrial biogenesis", "type": "Biological process", "desc": "Production of new mitochondria and their oxidative machinery. mTORC1 drives it via a YY1-PGC-1alpha transcriptional program, linking growth signaling to energy production.", "studies": ["CUN2007"]}, {"id": "recKltab95rfvNJPz", "name": "Renal cell carcinoma (RCC)", "type": "Disease", "desc": "Cancer of the kidney; target indication for everolimus treatment in clinical practice.", "studies": ["MOT2008", "HUD2007", "GUE2007"]}, {"id": "recMwb1sy0UeGbXyZ", "name": "Rictor", "type": "Gene/Protein", "desc": "Defining subunit of mTORC2 (Rapamycin-Insensitive Companion of mTOR); routes mTOR toward Akt and the cytoskeleton rather than S6K1/4E-BP1.", "studies": ["SAR2004", "SAR2006", "GUE2006"]}, {"id": "recN62rC5d0r56FgH", "name": "Prostate cancer", "type": "Disease", "desc": "Cancer in which oncogenic mTOR signaling reprograms the cell's translation to drive proliferation, invasion and metastasis.", "studies": ["HSI2012"]}, {"id": "recN9DI6QiuEsKm8D", "name": "mLST8", "type": "Gene/Protein", "desc": "mLST8 (GbetaL) - a shared subunit of BOTH mTOR complexes. Especially required for mTORC2 to assemble and signal to Akt; largely dispensable for mTORC1.", "studies": ["KIM2003", "GUE2006"]}, {"id": "recNwYEvjTbTSwyuW", "name": "Raptor", "type": "Gene/Protein", "desc": "Defining subunit of mTORC1; scaffold that presents substrates (S6K1, 4E-BP1) to mTOR. Its presence is what makes a complex 'mTORC1'.", "studies": ["KIM2002", "HARA2002", "GWI2008", "SAN2007", "KIM2003", "CUN2007", "GUE2006"]}, {"id": "recOF4bAQKEmd3b3x", "name": "mTOR", "type": "Gene/Protein", "desc": "Serine/threonine kinase; central regulator of cell growth and metabolism; direct target of rapamycin.", "studies": ["SAX2017", "SAB1994", "HEI1991", "VEL2003", "KAE2005", "KIM2002", "HARA2002", "SAR2004", "CHO1996", "YAN2013", "KIM2003"]}, {"id": "recTNyyQqQ0S8n7uP", "name": "GATOR2", "type": "Pathway/Complex", "desc": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.", "studies": ["BAR2013", "CHA2016"]}, {"id": "recTvf5jYk4e7hIw3", "name": "Simvastatin", "type": "Drug", "desc": "Cholesterol-lowering statin; tested as a candidate longevity drug in the same ITP cohort as rapamycin but showed no lifespan effect.", "studies": ["MIL2011"]}, {"id": "recVPVxqR0vhYVQp3", "name": "Everolimus", "type": "Drug", "desc": "Rapamycin analog (RAD001); used in oncology and tested for immune function in older adults.", "studies": ["MAN2014", "MOT2008", "KRU2010", "NCT05835999", "LEE2024", "MAN2018", "BAS2012", "YAO2011", "FRA2013", "BIS2013"]}, {"id": "recVwoT5AxT4BpDiK", "name": "Acarbose", "type": "Drug", "desc": "Alpha-glucosidase inhibitor (diabetes drug) that slows carbohydrate absorption; found by the ITP to extend mouse lifespan, especially in males.", "studies": ["HAR2014"]}, {"id": "recY34ObVxxAbnWRC", "name": "Immune function", "type": "Outcome", "desc": "Function of the immune system, especially vaccine response; improved by low-dose everolimus in older adults.", "studies": ["MAN2014", "LEE2024", "MAN2018", "MAN2021", "KRA2018"]}, {"id": "recaN4XcAIgfuoRPW", "name": "Breast cancer", "type": "Disease", "desc": "Hormone-receptor-positive advanced breast cancer becomes resistant to endocrine therapy partly by activating mTOR; adding the rapalog everolimus re-sensitizes it (BOLERO-2).", "studies": ["BAS2012"]}, {"id": "recb2EeWd29eaWJLv", "name": "Pancreatic neuroendocrine tumor", "type": "Disease", "desc": "Pancreatic neuroendocrine tumor - a cancer where mTOR drives growth; everolimus more than doubled progression-free survival (RADIANT-3), an FDA-approved indication.", "studies": ["YAO2011"]}, {"id": "recbZ77v8w6rg2hzp", "name": "Metformin", "type": "Drug", "desc": "Antidiabetic drug; activates AMPK and indirectly inhibits mTORC1.", "studies": ["ZHO2001", "BAN2014", "HOW2017"]}, {"id": "recbgpiMDUKAGvL5U", "name": "SAMTOR", "type": "Gene/Protein", "desc": "Sensor of S-adenosylmethionine (SAM), linking methionine / one-carbon metabolism to mTORC1 via GATOR1.", "studies": ["GU2017"]}, {"id": "recc0GQYJx3eYTs4e", "name": "FKBP12", "type": "Gene/Protein", "desc": "Rapamycin's docking protein. Rapamycin first binds FKBP12; only the FKBP12-rapamycin pair can grab mTOR. This is why rapamycin is an 'allosteric' (indirect) inhibitor - it works through a chaperone, not by blocking the active site.", "studies": ["CHO1996", "YAN2013"]}, {"id": "recd18lOsKKDum60I", "name": "Rag GTPases", "type": "Gene/Protein", "desc": "Family of small GTPases that let mTORC1 sense amino acids by controlling its localization near its activator Rheb inside the cell.", "studies": ["SAN2008", "MUT2026", "SAN2010", "ZON2011", "BAR2013"]}, {"id": "recdlNFdSnyFrPCXS", "name": "Alzheimer's disease", "type": "Disease", "desc": "Neurodegenerative disease marked by amyloid-beta plaques and tau tangles. mTOR overactivation blocks the autophagy that would clear these toxic proteins; rapamycin restores clearance in mouse models.", "studies": ["SPI2010", "CAC2010", "BAB2025"]}, {"id": "recey0ymoTeKF6d8i", "name": "Caloric restriction", "type": "Intervention", "desc": "Reduced caloric intake without malnutrition; associated with lifespan extension across species.", "studies": ["MAT2017", "ROM2016", "ZID2009", "FON2010"]}, {"id": "recey1b2hLeRdVGfz", "name": "CASTOR1", "type": "Gene/Protein", "desc": "Direct cytosolic arginine sensor for the mTORC1 pathway; arginine binding releases its inhibition of GATOR2.", "studies": ["CHA2016"]}, {"id": "recfB16iR3lsNPles", "name": "Akt/PKB", "type": "Gene/Protein", "desc": "Key kinase downstream of PI3K in growth signaling; activated by mTORC2.", "studies": ["SAR2005", "CAN2002", "INO2002", "ROM2001", "SAR2004", "PET2009", "SAR2006", "FEL2009", "SAN2007", "GUE2006"]}, {"id": "recfVnBmrJuAiHPvd", "name": "Cellular senescence", "type": "Biological process", "desc": "State in which a cell permanently stops dividing but stays alive, secreting inflammatory signals (the SASP). Senescent cells accumulate with age and drive age-related disease. mTOR both promotes the senescent state and powers its inflammatory secretions.", "studies": ["DEM2009", "LAB2015", "CHU2019"]}, {"id": "rechWJi3ZRZpnYIU9", "name": "PI3K", "type": "Gene/Protein", "desc": "Phosphoinositide 3-kinase; produces signaling lipids downstream of growth-factor receptors; activates Akt and sits upstream of the entire mTOR pathway.", "studies": ["CAN2002", "INO2002"]}, {"id": "recihwWrQGqx92hin", "name": "Sestrin2", "type": "Gene/Protein", "desc": "Direct intracellular leucine sensor; binds leucine and relays that signal to the Rag GTPases to activate mTORC1.", "studies": ["SAX2015"]}, {"id": "recjHZIvnctfyb6qI", "name": "mTORC1", "type": "Pathway/Complex", "desc": "mTOR Complex 1; regulates protein synthesis, autophagy, and growth in response to nutrients and growth factors.", "studies": ["SAX2017", "HAR2009", "SOL2014", "INO2002", "TEE2003", "SAN2008", "SAX2015", "SEL2009", "ROM2001", "KAP2004", "BJE2010", "GUE2007", "BLA2006", "DRU2009", "DEL2009", "RAV2004", "TAN2024", "MUT2026", "KIM2002", "HARA2002", "SAN2010", "PET2009", "ZON2011", "BAR2013", "CHA2016", "GU2017", "THO2012", "HSI2012", "SET2011", "MAR2012", "HOS2009", "KIM2011", "THO2009", "FEL2009", "DEM2009", "LAB2015", "ZID2009", "CHE2008", "WIL2012", "JOH2013", "KEN2016", "FON2010", "MAN2018", "MAN2021", "BAS2012", "YAO2011", "MCC2011", "CHU2019", "KRA2018", "FRA2013", "BIS2013", "SPI2010", "CAC2010", "FLY2013", "HAL2012", "LIU2020", "LAP2012", "GWI2008", "HOW2017", "SAN2007", "KIM2003", "CUN2007", "GUE2006", "INO2003"]}, {"id": "reckwayVnMMePy2JD", "name": "DEPTOR", "type": "Gene/Protein", "desc": "Endogenous inhibitor of both mTORC1 and mTORC2; paradoxically overexpressed in a subset of multiple myelomas.", "studies": ["PET2009"]}, {"id": "recl3awDionfOMQFs", "name": "Kidney transplant", "type": "Outcome", "desc": "Original and still-standard clinical use of rapamycin (as sirolimus), preventing organ rejection by suppressing T cell activation.", "studies": ["KAH2000"]}, {"id": "recmGnyLTWAq48SkR", "name": "Green tea extract", "type": "Drug", "desc": "Polyphenol-rich supplement tested by the ITP for lifespan effects; no significant effect found overall.", "studies": ["STR2012"]}, {"id": "recnIQhtEn74B4N5O", "name": "Tuberous sclerosis complex", "type": "Disease", "desc": "Genetic disorder from TSC1/TSC2 loss causing constitutive mTOR activation and benign tumors in brain, kidney, and elsewhere. Everolimus shrinks these tumors (EXIST trials) - the clearest proof that blocking mTOR helps a human disease.", "studies": ["FRA2013", "BIS2013"]}, {"id": "recnV1UIr54csSXmD", "name": "Autophagy", "type": "Biological process", "desc": "Cellular recycling process suppressed by mTORC1 and activated upon its inhibition; linked to longevity.", "studies": ["LOF2011", "BJE2010", "MEL2003", "RAV2004", "PYO2013", "SET2011", "MAR2012", "HOS2009", "KIM2011", "SPI2010", "CAC2010", "LIU2020"]}, {"id": "recnnF0M23UgrmNqj", "name": "AMPK", "type": "Gene/Protein", "desc": "AMP-activated protein kinase; cellular energy sensor; inhibits mTORC1 under low-energy conditions.", "studies": ["ZHO2001", "LOF2011", "KIM2011", "GWI2008", "HOW2017", "INO2003"]}, {"id": "recoqB8bKgN75Npnq", "name": "Temsirolimus", "type": "Drug", "desc": "Intravenous rapamycin ester (CCI-779); mTOR inhibitor approved for advanced renal cell carcinoma.", "studies": ["HUD2007"]}, {"id": "recquP2coxnQatYGn", "name": "RTB101", "type": "Drug", "desc": "An oral ATP-competitive mTOR inhibitor (formerly BEZ235) tested for boosting immune function in the elderly; improved antiviral gene expression but failed its phase 3 clinical endpoint.", "studies": ["MAN2018", "MAN2021"]}, {"id": "recsktFV5EKWUV9ZA", "name": "mTORC2", "type": "Pathway/Complex", "desc": "mTOR Complex 2; phosphorylates Akt/PKB, affects cell survival and glucose metabolism.", "studies": ["SAX2017", "SAR2005", "LAM2012", "GUE2007", "DEL2009", "SAR2004", "PET2009", "SAR2006", "FEL2009", "LIU2020", "LAP2012", "GUE2006"]}, {"id": "rectgtzcsER720DY5", "name": "S6K1", "type": "Gene/Protein", "desc": "Direct downstream effector of mTORC1 controlling protein synthesis; its deletion extends mouse lifespan similarly to caloric restriction.", "studies": ["SEL2009", "KIM2002", "HARA2002"]}, {"id": "rectl70ZB0TOkeOOx", "name": "Rheb", "type": "Gene/Protein", "desc": "Small GTPase that directly activates mTORC1 when in its GTP-bound state; held inactive by TSC1/TSC2.", "studies": ["TEE2003", "SAN2010", "SAN2007"]}, {"id": "rectvPDr3v3FBu6hh", "name": "Insulin resistance", "type": "Outcome", "desc": "Metabolic side effect of chronic mTORC2 inhibition; observed with long-term rapamycin dosing.", "studies": ["LAM2012", "POU2013", "NCT05835999", "KEN2016"]}, {"id": "recvF1P5XLq2wAZYG", "name": "Resveratrol", "type": "Drug", "desc": "Plant polyphenol popularized as a sirtuin activator and 'calorie-restriction mimetic'; failed to extend lifespan in ITP mouse studies and showed no metabolic benefit in a human RCT.", "studies": ["MIL2011", "POU2013", "STR2012"]}, {"id": "recwIzPSE6MOIg8CJ", "name": "4E-BP1", "type": "Gene/Protein", "desc": "Translational repressor; the master effector through which mTORC1 controls protein synthesis. mTORC1 phosphorylates 4E-BP1 to release eIF4E and switch translation ON.", "studies": ["THO2012", "HSI2012", "THO2009", "LAB2015", "ZID2009"]}, {"id": "recxQMUOwpAVZsXaO", "name": "Alzheimer's disease", "type": "Disease", "desc": "Neurodegenerative disease; effect of BCAA restriction on cognition and pathology tested in mouse models.", "studies": []}, {"id": "recxSzGoEa3hvvMFl", "name": "Skin aging", "type": "Outcome", "desc": "Visible and molecular aging of skin (photodamage, dermal thinning, senescence markers like p16). Topical rapamycin reduced these markers in a human trial.", "studies": ["CHU2019"]}, {"id": "recySj0MX12Z6a9YD", "name": "GATOR1", "type": "Pathway/Complex", "desc": "Negative regulator of the Rag GTPases (a GAP); switches mTORC1 OFF when amino acids are scarce. Tumor suppressor - mutated in some cancers.", "studies": ["BAR2013", "GU2017"]}, {"id": "recyvvHSBKGYpJnRM", "name": "Ragulator", "type": "Pathway/Complex", "desc": "Lysosome-anchored scaffold that recruits the Rag GTPases and positions mTORC1 on the lysosomal surface for activation.", "studies": ["SAN2010", "ZON2011", "MAR2012"]}, {"id": "reczdG530WYv87oZb", "name": "Macronutrient ratio", "type": "Intervention", "desc": "Ratio of protein:carbohydrate:fat in the diet; affects mTOR activation independently of total caloric intake.", "studies": ["SOL2014"]}];
 
+// ---------- authors index (derived client-side from ATLAS_STUDIES) ----------
+function buildAuthorsIndex(){
+  const map = new Map();
+  ATLAS_STUDIES.forEach(s=>{
+    const raw = (s.authors||"").split(";");
+    raw.forEach(part=>{
+      const name = part.replace(/\s*et al\.?\s*$/i,"").trim();
+      if(!name) return;
+      if(!map.has(name)) map.set(name, []);
+      map.get(name).push(s);
+    });
+  });
+  return Array.from(map.entries())
+    .map(([name,studies])=>({name, studies}))
+    .sort((a,b)=>a.name.localeCompare(b.name));
+}
+const AUTHORS_INDEX = buildAuthorsIndex();
+
 // ---------- helpers ----------
 const TYPE_COLOR = {
   "Gene/Protein":"#A31F34","Drug":"#C17A2E","Supplement":"#C9A66B","Intervention":"#3F8F5E",
@@ -724,7 +766,33 @@ function pyramidMeta(p){
 }
 const PYRAMID_ORDER = ["1 - Systematic Review","2 - Human Clinical Trial","3 - Human Observational","4 - Animal Study","5 - Mechanistic / In Vitro","Narrative Review","Preprint","Registered Trial"];
 
-let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", activeTypes: new Set(Object.keys(TYPE_COLOR)) };
+let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", activeTypes: new Set(Object.keys(TYPE_COLOR)), authorQuery:"", authorSortKey:"name", authorLetter:null, studiesPage:1, authorsPage:1 };
+
+// ---------- pagination ----------
+const PAGE_SIZE = 50;
+let _studiesFilterSig = null;
+let _authorsFilterSig = null;
+
+function goToStudiesPage(delta){
+  state.studiesPage = (state.studiesPage||1) + delta;
+  renderStudiesTable();
+  const wrap = document.querySelector('#studiesView .studies-wrap');
+  if(wrap) wrap.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function goToAuthorsPage(delta){
+  state.authorsPage = (state.authorsPage||1) + delta;
+  renderAuthorsTable();
+  const wrap = document.querySelector('#authorsView .studies-wrap');
+  if(wrap) wrap.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function renderPaginationControls(containerId, page, totalPages, gotoFnName){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(totalPages<=1){ el.innerHTML=''; return; }
+  const prevDisabled = page<=1 ? 'disabled' : '';
+  const nextDisabled = page>=totalPages ? 'disabled' : '';
+  el.innerHTML = `<button class="mono" ${prevDisabled} onclick="${gotoFnName}(-1)" style="cursor:pointer;padding:3px 10px;margin-right:8px;">&larr; Prev</button><span class="mono" style="font-size:11px;">Page ${page} of ${totalPages}</span><button class="mono" ${nextDisabled} onclick="${gotoFnName}(1)" style="cursor:pointer;padding:3px 10px;margin-left:8px;">Next &rarr;</button>`;
+}
 
 // Rank order for sorting the Tier column (strongest evidence first)
 const TIER_RANK = {A:0, B:1, C:2, D:3, PP:4, RT:5};
@@ -971,8 +1039,14 @@ function renderStudiesTable(){
     if((b.year||0)!==(a.year||0)) return (b.year||0)-(a.year||0);
     return (a.title||"").localeCompare(b.title||"");
   });
+  const sig = JSON.stringify([state.query, state.tierFilter, state.pyramidFilter, state.pyramidFilterSet, state.sortKey, state.sortDir]);
+  if(sig !== _studiesFilterSig){ state.studiesPage = 1; _studiesFilterSig = sig; }
+  const totalItems = rows.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+  state.studiesPage = Math.min(Math.max(1, state.studiesPage||1), totalPages);
+  const pageRows = rows.slice((state.studiesPage-1)*PAGE_SIZE, state.studiesPage*PAGE_SIZE);
   let html = "";
-  rows.forEach((s,idx)=>{
+  pageRows.forEach((s,idx)=>{
     const tm = tierMeta(s.tier);
     const pm = pyramidMeta(s.pyramid);
     const flag = s.category==="Negative_result" ? '<span class="flag">negative result</span>' : (s.category==="Ongoing_Trial" ? '<span class="flag">ongoing</span>' : '');
@@ -991,7 +1065,7 @@ function renderStudiesTable(){
     }
   });
   document.getElementById('studiesBody').innerHTML = html;
-  document.getElementById('studiesCount').textContent = rows.length + " of " + ATLAS_STUDIES.length + " studies";
+  document.getElementById('studiesCount').textContent = totalItems + " of " + ATLAS_STUDIES.length + " studies";
   const titleParts = [];
   if(state.tierFilter) titleParts.push(`Tier ${state.tierFilter}`);
   if(state.pyramidFilter) titleParts.push(`Type ${state.pyramidFilter}`);
@@ -999,6 +1073,7 @@ function renderStudiesTable(){
   const clearBtn = (state.tierFilter || state.pyramidFilter || state.pyramidFilterSet) ? ` <span class="more-link" onclick="clearStudyFilters()">[clear filter]</span>` : '';
   document.getElementById('studiesTitle').innerHTML = (titleParts.length ? `Studies — ${titleParts.join(' × ')}` : "All Studies") + clearBtn;
   updateSortIndicators();
+  renderPaginationControls('studiesPagination', state.studiesPage, totalPages, 'goToStudiesPage');
 }
 
 function updateSortIndicators(){
@@ -1011,6 +1086,105 @@ function updateSortIndicators(){
       th.classList.remove('sorted');
       if(ind) ind.textContent = "↕";
     }
+  });
+}
+
+// ---------- Authors tab ----------
+function jsStr(str){ return (str||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'"); }
+
+function filterStudiesByAuthor(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab[data-tab="studies"]').classList.add('active');
+  showView('studies');
+  state.query = name;
+  const si = document.getElementById('searchInput'); if(si) si.value = name;
+  renderStudiesTable();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function filterStudiesByTitle(title){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab[data-tab="studies"]').classList.add('active');
+  showView('studies');
+  state.query = title;
+  const si = document.getElementById('searchInput'); if(si) si.value = title;
+  renderStudiesTable();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderTopAuthors(){
+  const el = document.getElementById('topAuthorsBox');
+  if(!el) return;
+  const top = AUTHORS_INDEX.slice().sort((a,b)=>b.studies.length-a.studies.length).slice(0,5);
+  let html = `<div class="rail-title" style="margin:0 0 8px;">Top 5 Authors <span class="mono" style="font-size:9px;">by number of studies</span></div>`;
+  html += `<div style="display:flex;flex-wrap:wrap;gap:10px;">`;
+  top.forEach((a,idx)=>{
+    html += `<div class="study-mini-item" style="flex:1 1 160px;min-width:150px;cursor:pointer;" onclick="filterStudiesByAuthor('${jsStr(a.name)}')">
+      <div class="t"><span class="mono" style="font-size:11px;color:var(--ink-soft);margin-right:6px;">#${idx+1}</span><span style="text-decoration:underline;">${a.name}</span></div>
+      <div class="m"><span class="mono">${a.studies.length} studies</span></div>
+    </div>`;
+  });
+  html += `</div>`;
+  el.innerHTML = html;
+}
+
+function renderAuthorsTable(){
+  const q = (state.authorQuery||"").toLowerCase();
+  let rows = AUTHORS_INDEX.filter(a=> !q || a.name.toLowerCase().includes(q));
+  if(state.authorLetter) rows = rows.filter(a=>a.name.toUpperCase().startsWith(state.authorLetter));
+  rows = rows.slice().sort((a,b)=>{
+    if(state.authorSortKey==="count"){
+      const diff = b.studies.length - a.studies.length;
+      if(diff!==0) return diff;
+    }
+    return a.name.localeCompare(b.name);
+  });
+  const sig = JSON.stringify([state.authorQuery, state.authorLetter, state.authorSortKey]);
+  if(sig !== _authorsFilterSig){ state.authorsPage = 1; _authorsFilterSig = sig; }
+  const totalItems = rows.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+  state.authorsPage = Math.min(Math.max(1, state.authorsPage||1), totalPages);
+  const pageRows = rows.slice((state.authorsPage-1)*PAGE_SIZE, state.authorsPage*PAGE_SIZE);
+  const countEl = document.getElementById('authorsCount');
+  if(countEl) countEl.textContent = totalItems + " of " + AUTHORS_INDEX.length + " authors";
+  let html = "";
+  pageRows.forEach(a=>{
+    const studies = a.studies.slice().sort((x,y)=>(y.year||0)-(x.year||0));
+    const studiesHtml = studies.map(s=>
+      `<span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="event.stopPropagation();filterStudiesByTitle('${jsStr(s.title)}')" title="${s.title}">${s.title}</span> <span class="mono" style="font-size:10px;color:var(--ink-soft);">(${s.year||'—'})</span>`
+    ).join('; ');
+    html += `<tr>
+      <td><span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="filterStudiesByAuthor('${jsStr(a.name)}')">${a.name}</span></td>
+      <td class="mono">${a.studies.length}</td>
+      <td class="study-meta">${studiesHtml}</td>
+    </tr>`;
+  });
+  document.getElementById('authorsBody').innerHTML = html;
+  const clearBtn = state.authorLetter ? ` <span class="more-link" onclick="clearAuthorLetter()">[clear filter]</span>` : '';
+  document.getElementById('authorsTitle').innerHTML = (state.authorLetter ? `Authors — "${state.authorLetter}"` : "All Authors") + clearBtn;
+  document.querySelectorAll('#authorsView .author-letter').forEach(sp=>{
+    const isActive = (sp.dataset.letter||"") === (state.authorLetter||"");
+    sp.style.fontWeight = isActive ? "800" : "400";
+    sp.style.textDecoration = isActive ? "none" : "underline";
+    sp.style.opacity = isActive ? "1" : "0.75";
+  });
+  renderPaginationControls('authorsPagination', state.authorsPage, totalPages, 'goToAuthorsPage');
+}
+
+function clearAuthorLetter(){ state.authorLetter = null; renderAuthorsTable(); }
+
+function renderAuthorLetterRow(){
+  const el = document.getElementById('authorLetterRow');
+  if(!el) return;
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  let html = `<span class="mono author-letter" data-letter="" style="cursor:pointer;margin-right:8px;font-size:9px;text-decoration:underline;">All</span>`;
+  html += letters.map(l=>`<span class="mono author-letter" data-letter="${l}" style="cursor:pointer;margin-right:5px;font-size:9px;text-decoration:underline;">${l}</span>`).join("");
+  el.innerHTML = html;
+  el.querySelectorAll('.author-letter').forEach(sp=>{
+    sp.addEventListener('click', ()=>{
+      state.authorLetter = sp.dataset.letter || null;
+      renderAuthorsTable();
+    });
   });
 }
 
@@ -1185,11 +1359,11 @@ function renderWelcome(){
 }
 
 function renderAll(){
-  renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderEntitiesGrid(); renderBarChart(); renderTierPyramidMatrix(); renderEntityTypeChips(); renderWelcome();
+  renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderEntitiesGrid(); renderBarChart(); renderTierPyramidMatrix(); renderEntityTypeChips(); renderWelcome(); renderAuthorsTable();
 }
 
 function showView(which){
-  const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',evidence:'evidenceView',questions:'questionsView',experiment:'experimentView',about:'aboutView'};
+  const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',about:'aboutView'};
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
@@ -1207,6 +1381,13 @@ function goHome(){
 }
 
 document.getElementById('searchInput').addEventListener('input', e=>{ state.query = e.target.value; renderAll(); });
+document.getElementById('authorSearchInput').addEventListener('input', e=>{ state.authorQuery = e.target.value; renderAuthorsTable(); });
+document.querySelectorAll('#authorsView .author-sort-link').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    state.authorSortKey = el.dataset.sort;
+    renderAuthorsTable();
+  });
+});
 document.querySelectorAll('table.studies th[data-sort]').forEach(th=>{
   th.addEventListener('click', ()=>{
     const key = th.dataset.sort;
@@ -1231,7 +1412,10 @@ document.querySelectorAll('.tab').forEach(tab=>{
   });
 });
 
+renderTopAuthors();
+renderAuthorLetterRow();
 renderAll();
 </script>
 </body>
 </html>
+                                 
