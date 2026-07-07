@@ -76,10 +76,10 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .ipy-label{width:172px;flex-shrink:0;font-size:11.5px;padding-right:12px;text-align:right;line-height:1.25;}
 .ipy-label .n{font-weight:600;}
 .ipy-label .s{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink-soft);margin-top:1px;}
-.ipy-track{flex:1;display:flex;align-items:center;height:26px;}
-.ipy-fill{height:26px;border-radius:0;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;}
+.ipy-track{flex:1;display:flex;align-items:center;justify-content:center;height:26px;position:relative;}
+.ipy-fill{height:26px;border-radius:0;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ipy-fill .c{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;}
-.ipy-c-outside{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--ink);margin-left:8px;}
+.ipy-c-outside{position:absolute;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap;}
 .ipy-callout{margin-left:184px;margin-top:-5px;margin-bottom:13px;font-size:10.5px;color:var(--danger);font-style:italic;}
 .ipy-gap{display:flex;gap:12px;margin-top:20px;padding-top:18px;border-top:1px dashed var(--line-strong);}
 .ipy-gapbox{flex:1;border-radius:0;padding:12px 14px;}
@@ -1284,7 +1284,7 @@ function renderWelcome(){
     el.onclick = clickable ? ()=>jumpToStudiesByPyramid(code) : null;
     if(clickable) el.title = `Show these ${n} stud${n===1?'y':'ies'}`;
     el.innerHTML = outsideLabel
-      ? `<div class="ipy-fill" style="width:${w}%;background:${color};"></div><span class="ipy-c-outside">${n}</span>`
+      ? `<div class="ipy-fill" style="width:${w}%;background:${color};"></div><span class="ipy-c-outside" style="left:calc(50% + ${(w/2).toFixed(2)}% + 7px);">${n}</span>`
       : `<div class="ipy-fill" style="width:${w}%;background:${color};"><span class="c">${n}</span></div>`;
   }
   renderBar('ipyTrackP1', p1, 'var(--tier-a)', true, 'P1');
