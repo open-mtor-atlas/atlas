@@ -326,6 +326,16 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .ask-hit .h-find{font-size:13px;line-height:1.5;color:var(--ink);}
 .tier-badge{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;color:#fff;white-space:nowrap;}
 .tier-A{background:var(--tier-a);} .tier-B{background:var(--tier-b);} .tier-C{background:var(--tier-c);} .tier-D{background:var(--tier-d);}
+.tier-badge{cursor:help;}
+.ask-answer{border:1px solid var(--teal-deep);border-left:4px solid var(--teal-deep);background:var(--paper-raised);padding:15px 17px;margin-bottom:16px;}
+.ask-answer .aa-head{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-deep);font-weight:700;margin-bottom:7px;}
+.ask-answer .aa-text{font-family:'Source Serif 4',serif;font-size:16px;line-height:1.5;color:var(--ink);margin-bottom:8px;}
+.ask-answer .aa-src{font-size:12px;line-height:1.5;color:var(--ink-soft);}
+.ask-hit .h-abs{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-strong);}
+.ask-hit .h-abs-lbl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:5px;}
+.ask-hit .h-abs-body{font-size:12.5px;line-height:1.55;color:var(--ink);margin-bottom:9px;}
+.ask-hit .h-doi{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--teal-deep);}
+.ask-hit .h-doi.none{color:var(--ink-soft);border:none;}
 .ask-prompt{margin-top:18px;border:1px dashed var(--line-strong);background:rgba(0,0,0,0.02);padding:12px 14px;}
 .ask-prompt .lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:6px;}
 .ask-prompt textarea{width:100%;min-height:130px;border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:8px;resize:vertical;color:var(--ink-soft);background:var(--paper);}
@@ -387,7 +397,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   <div id="welcomeView" class="atlas-intro">
     <h2 class="intro-headline">Everything we know about mTOR — <em>and everything we don’t</em></h2>
     <div class="intro-lede">
-      mTOR has plenty of maps — interaction networks, pathway diagrams, drug catalogs. None of them tell you <strong>how strong the evidence behind a claim actually is</strong>, or <strong>whether it holds up in humans at all</strong>. Open mTOR Atlas starts from a <strong>hand-picked corpus of landmark studies</strong> — not all of PubMed — and grades every one by evidence tier, human vs. animal, and outcome, <strong>including the failures no one else tracks</strong>. <a href="#ask" onclick="document.querySelector('.tab[data-tab=&#39;ask&#39;]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Ask it anything</a> in plain language and each claim in the answer comes back <strong>cited and color-coded by evidence strength</strong>. And where the evidence runs thin, it maps the <strong>open gaps — and the testable hypotheses hiding inside them</strong>.
+      mTOR has plenty of maps — interaction networks, pathway diagrams, drug catalogs. None of them tell you <strong>how strong the evidence behind a claim actually is</strong>, or <strong>whether it holds up in humans at all</strong>. Open mTOR Atlas starts from a <strong>hand-picked corpus of landmark studies</strong> — not all of PubMed — and grades every one by evidence tier, human vs. animal, and outcome, <strong>including the failures no one else tracks</strong>. <a href="#ask" onclick="document.querySelector('.tab[data-tab=ask]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Ask it anything</a> in plain language and each claim in the answer comes back <strong>cited and color-coded by evidence strength</strong>. And where the evidence runs thin, it maps the <strong>open gaps — and the testable hypotheses hiding inside them</strong>.
     </div>
 
     <div class="intro-stats">
@@ -1542,22 +1552,43 @@ function renderAsk(q){
   if(!q){box.innerHTML="";return;}
   var hits=ragSearch(q,10);
   if(!hits.length){box.innerHTML='<div class="ask-count">No matching studies. Try one of the suggested queries above.</div>';return;}
-  var html='<div class="ask-count">Top '+hits.length+' studies for: &ldquo;'+_esc(q)+'&rdquo; &nbsp;(client-side TF-IDF retrieval, evidence-graded)</div>';
+  var top=hits[0].study;
+  var ans='<div class="ask-answer">'
+    +'<div class="aa-head">Short answer <span class="tier-badge tier-'+_tCls(top.tier)+'" title="'+_att(_tDesc(top.tier))+'">Tier '+_tL(top.tier)+'</span></div>'
+    +'<div class="aa-text">'+_esc(top.finding||top.title)+'</div>'
+    +'<div class="aa-src">Drawn from the top-matching study, '+_esc(_cite(top))+'. That is the conclusion of one study at evidence Tier '+_tL(top.tier)+' — the '+hits.length+' studies below show the fuller evidence base, including any that disagree. Click any study to read its abstract.</div>'
+    +'</div>';
+  var html=ans+'<div class="ask-count">Supporting studies (most relevant first) for: &ldquo;'+_esc(q)+'&rdquo;</div>';
   hits.forEach(function(h){
     var s=h.study;
+    var doi=(s.doi||'').trim();
+    var doiLink=doi
+      ?'<a class="h-doi" href="https://doi.org/'+_att(doi)+'" target="_blank" rel="noopener">Read full version — doi.org/'+_esc(doi)+' &#8599;</a>'
+      :'<span class="h-doi none">No DOI on record</span>';
     html+='<div class="ask-hit"><div class="h-top"><span class="h-rank">#'+h.rank+'</span>'
-      +'<span class="tier-badge tier-'+_tCls(s.tier)+'">Tier '+_tL(s.tier)+'</span>'
-      +'<span class="h-title" onclick="goStudy(\''+(s.sid||'')+'\')">'+_esc(s.title)+'</span></div>'
+      +'<span class="tier-badge tier-'+_tCls(s.tier)+'" title="'+_att(_tDesc(s.tier))+'">Tier '+_tL(s.tier)+'</span>'
+      +'<span class="h-title" onclick="toggleAbs('+h.rank+')" title="Click to show the abstract">'+_esc(s.title)+'</span></div>'
       +'<div class="h-meta">'+_esc(_cite(s))+' &nbsp;|&nbsp; model: '+_esc(s.model||'-')+'</div>'
-      +'<div class="h-find">'+_esc(s.finding||'')+'</div></div>';
+      +'<div class="h-find">'+_esc(s.finding||'')+'</div>'
+      +'<div class="h-abs" id="abs-'+h.rank+'" style="display:none;">'
+        +'<div class="h-abs-lbl">Abstract</div>'
+        +'<div class="h-abs-body">'+_esc(s.abstract||'No abstract on record.')+'</div>'
+        +doiLink
+      +'</div></div>';
   });
-  var ctx=hits.map(function(h){var s=h.study;return '['+h.rank+'] ('+(s.tier||'')+') '+s.title+' - '+_cite(s)+'. Abstract: '+(s.abstract||'').slice(0,600);}).join("\n\n");
-  var prompt='You are Atlas, an mTOR research assistant. Answer using ONLY the studies below. Cite every claim by its [n] and study ID, grade each by evidence tier (A>B>C>D), and return EXACTLY four sections: Answer / Evidence / Key Papers / Knowledge Gaps.\n\nQUESTION:\n'+q+'\n\nRETRIEVED STUDIES:\n'+ctx;
-  html+='<div class="ask-prompt"><div class="lbl">LLM prompt (retrieval + instructions) &mdash; paste into Claude / Gemini for the full four-section answer</div>'
-    +'<textarea id="askPrompt" readonly onclick="this.select()">'+_esc(prompt)+'</textarea>'
-    +'<button class="ask-btn ghost" style="margin-top:8px" onclick="var t=document.getElementById(\'askPrompt\');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value);this.textContent=\'Copied\';">Copy prompt</button></div>';
   box.innerHTML=html;
 }
+var TIER_DESC={
+ A:"Tier A — strongest evidence: systematic reviews and meta-analyses that pool many studies.",
+ B:"Tier B — direct human evidence: randomized controlled trials or cohort studies in people.",
+ C:"Tier C — animal or invertebrate models (mouse, fly, worm). Suggestive, but not yet shown in humans.",
+ D:"Tier D — mechanistic, cell-culture, or narrative-review evidence. Explains how it works, not whether it holds in a living body.",
+ PP:"Preprint — posted but not yet peer-reviewed. Treat with caution.",
+ RT:"Registered trial — ongoing, results still pending."
+};
+function _att(x){return _esc(x).replace(/"/g,"&quot;");}
+function _tDesc(t){return TIER_DESC[tierMeta(t).letter]||TIER_DESC.D;}
+function toggleAbs(r){var el=document.getElementById('abs-'+r); if(!el) return; el.style.display=(el.style.display==='none'?'block':'none');}
 function doAsk(q){var inp=document.getElementById('askInput'); if(inp) inp.value=q; renderAsk(q); }
 function initAsk(){
   var v=document.getElementById('askView'); if(!v) return;
@@ -1572,7 +1603,7 @@ function initAsk(){
   v.innerHTML='<div class="ask-wrap">'
    +'<div class="ask-eyebrow">Ask Atlas &middot; retrieval over '+ATLAS_STUDIES.length+' curated studies</div>'
    +'<h2 class="ask-headline">Ask a research question. Get the studies that answer it &mdash; ranked, tiered, cited.</h2>'
-   +'<p class="ask-lede">Type a natural-language question. Atlas retrieves the most relevant studies from the corpus (fully client-side, offline) and assembles an evidence-graded prompt you can hand to an LLM for a four-section answer: Answer / Evidence / Key Papers / Knowledge Gaps.</p>'
+   +'<p class="ask-lede">Type a natural-language question. Atlas retrieves the most relevant studies from the corpus (fully client-side, offline) and ranks them by relevance and evidence tier, each with its citation attached.</p>'
    +'<div class="ask-box"><input id="askInput" placeholder="e.g. does mTORC1 inhibition extend lifespan through autophagy?" /><button class="ask-btn" onclick="doAsk(document.getElementById(\'askInput\').value)">Ask</button></div>'
    +'<div class="ask-suggest-label">Try one of these</div>'
    +'<div class="ask-suggest" id="askSuggest"></div>'
