@@ -175,22 +175,6 @@ table.studies tr:hover td{background:rgba(163,31,52,0.05);}
 .flag{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:1px 5px;border-radius:0;border:1px solid var(--line-strong);color:var(--ink-soft);margin-left:4px;}
 .footnote{margin-top:18px;font-size:11px;color:var(--ink-soft);line-height:1.6;border-top:1px solid var(--line);padding-top:12px;}
 
-/* Entities grid */
-.entities-toolbar{padding:10px 2px;}
-.chip-row{display:flex;flex-wrap:wrap;gap:7px;}
-.type-chip{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:0;cursor:pointer;color:#fff;border:1.5px solid transparent;transition:opacity .1s;}
-.type-chip.off{opacity:0.3;background:var(--ink-soft) !important;color:var(--paper);}
-.type-chip .n{margin-left:5px;opacity:0.85;}
-.type-chip.all-chip{background:var(--teal-deep);border-color:var(--teal-deep);font-weight:600;}
-.type-chip.all-chip.off{opacity:0.3;background:var(--ink-soft) !important;border-color:transparent;}
-.entity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:6px;}
-.entity-card{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:12px 14px;cursor:pointer;transition:border-color .12s;}
-.entity-card:hover{border-color:var(--teal);}
-.entity-card .name{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px;}
-.entity-card .type{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:#fff;display:inline-block;padding:2px 7px;border-radius:0;margin-bottom:6px;}
-.entity-card .desc{font-size:11.5px;color:var(--ink-soft);line-height:1.45;margin-bottom:6px;}
-.entity-card .n{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal-deep);}
-
 /* Evidence tab */
 .evidence-grid{display:grid;grid-template-columns:280px 1fr 260px;gap:20px;border:1px solid var(--line-strong);background:var(--paper-raised);padding:18px 20px;}
 .evidence-col{min-width:0;}
@@ -393,8 +377,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
     <div class="tabs">
       <div class="tab active" data-tab="welcome">Welcome</div>
       <div class="tab" data-tab="ask">Ask Atlas</div>
-      <div class="tab" data-tab="map">Pathway Map</div>
-      <div class="tab" data-tab="entities">Entities</div>
+      <div class="tab" data-tab="map">Pathway/Entities</div>
       <div class="tab" data-tab="studies">Studies</div>
       <div class="tab" data-tab="authors">Authors</div>
       <div class="tab" data-tab="evidence">Evidence</div>
@@ -591,17 +574,6 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
         <div id="statsContainer2"></div>
       </div>
     </div>
-  </div>
-
-  <div id="entitiesView" style="display:none;">
-    <div class="entities-toolbar">
-      <div class="rail-title" style="margin:0 0 8px;">Filter by type <span class="mono" id="entitiesGridCount" style="font-size:9px;"></span></div>
-      <div class="chip-row">
-        <span class="type-chip all-chip" id="allEntitiesChip" onclick="toggleAllEntityTypes()">All Entities<span class="n" id="allEntitiesCount"></span></span>
-        <span id="entityTypeChips" style="display:contents;"></span>
-      </div>
-    </div>
-    <div class="entity-grid" id="entityGrid"></div>
   </div>
 
   <div id="studiesView" style="display:none;">
@@ -843,7 +815,7 @@ function pyramidMeta(p){
 }
 const PYRAMID_ORDER = ["1 - Systematic Review","2 - Human Clinical Trial","3 - Human Observational","4 - Animal Study","5 - Mechanistic / In Vitro","Narrative Review","Preprint","Registered Trial"];
 
-let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", activeTypes: new Set(Object.keys(TYPE_COLOR)), authorQuery:"", authorSortKey:"name", authorLetter:null, studiesPage:1, authorsPage:1 };
+let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", authorQuery:"", authorSortKey:"name", authorLetter:null, studiesPage:1, authorsPage:1 };
 
 // ---------- pagination ----------
 const PAGE_SIZE = 50;
@@ -1028,73 +1000,6 @@ function renderStats(){
     <div class="stat-box"><div class="num">${negative}</div><div class="lbl">Negative-result studies included</div></div>
     <div class="stat-box"><div class="num">${ongoing}</div><div class="lbl">Ongoing registered trial</div></div>`;
   ['statsContainer','statsContainer2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML = html; });
-}
-
-function renderEntitiesGrid(){
-  const q = state.query.toLowerCase();
-  const list = ATLAS_ENTITIES.filter(e=> state.activeTypes.has(e.type) && (!q || e.name.toLowerCase().includes(q) || e.desc.toLowerCase().includes(q)))
-    .slice().sort((a,b)=>a.name.localeCompare(b.name));
-  let html = "";
-  list.forEach(e=>{
-    html += `<div class="entity-card" onclick="openEntityFromGrid('${e.name.replace(/'/g,"\\'")}')">
-      <div class="type" style="background:${TYPE_COLOR[e.type]}">${e.type}</div>
-      <div class="name">${e.name}</div>
-      <div class="desc">${e.desc}</div>
-      <div class="n">${e.studies.length} linked ${e.studies.length===1?'study':'studies'}</div>
-    </div>`;
-  });
-  document.getElementById('entityGrid').innerHTML = html;
-  document.getElementById('entitiesGridCount').textContent = list.length + " of " + ATLAS_ENTITIES.length;
-}
-
-function renderEntityTypeChips(){
-  const order = ["Pathway/Complex","Gene/Protein","Biological process","Drug","Supplement","Intervention","Outcome","Side effect","Disease"];
-  const counts = {};
-  ATLAS_ENTITIES.forEach(e=>{ counts[e.type] = (counts[e.type]||0)+1; });
-  const presentTypes = order.filter(t=>counts[t]);
-  let html = "";
-  presentTypes.forEach(type=>{
-    const off = state.activeTypes.has(type) ? "" : "off";
-    html += `<span class="type-chip ${off}" style="background:${TYPE_COLOR[type]}" onclick="toggleEntityType('${type}')">${type}<span class="n">${counts[type]}</span></span>`;
-  });
-  const el = document.getElementById('entityTypeChips');
-  if(el) el.innerHTML = html;
-
-  // "All Entities" master chip: on only when every present type is active
-  const allOn = presentTypes.every(t=>state.activeTypes.has(t));
-  const allChip = document.getElementById('allEntitiesChip');
-  if(allChip) allChip.classList.toggle('off', !allOn);
-  const allCount = document.getElementById('allEntitiesCount');
-  if(allCount) allCount.textContent = ATLAS_ENTITIES.length;
-}
-
-function toggleEntityType(type){
-  if(state.activeTypes.has(type)) state.activeTypes.delete(type);
-  else state.activeTypes.add(type);
-  renderAll();
-}
-
-function toggleAllEntityTypes(){
-  const allTypes = Object.keys(TYPE_COLOR);
-  const presentTypes = allTypes.filter(t => ATLAS_ENTITIES.some(e=>e.type===t));
-  const allOn = presentTypes.every(t=>state.activeTypes.has(t));
-  if(allOn){
-    // everything is on -> turn everything off
-    state.activeTypes.clear();
-  } else {
-    // some or none on -> turn everything on
-    state.activeTypes = new Set(allTypes);
-  }
-  renderAll();
-}
-
-function openEntityFromGrid(name){
-  state.entity = name;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelector('.tab[data-tab="map"]').classList.add('active');
-  showView('map');
-  renderAll();
-  pushNav();
 }
 
 function renderStudiesTable(){
@@ -1443,7 +1348,7 @@ function renderWelcome(){
 }
 
 function renderAll(){
-  renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderEntitiesGrid(); renderBarChart(); renderTierPyramidMatrix(); renderEntityTypeChips(); renderWelcome(); renderAuthorsTable();
+  renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable();
 }
 
 let currentView = 'welcome';
@@ -1453,7 +1358,7 @@ function setActiveTab(view){
   if(el) el.classList.add('active');
 }
 function showView(which){
-  const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',events:'eventsView',about:'aboutView'};
+  const views = {welcome:'welcomeView',map:'mapView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',events:'eventsView',about:'aboutView'};
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
@@ -1466,7 +1371,7 @@ function syncURL(push){
   const p = new URLSearchParams();
   p.set('view', currentView);
   if(state.query) p.set('q', state.query);
-  if(currentView==='entities' && state.entity) p.set('entity', state.entity);
+  if(currentView==='map' && state.entity) p.set('entity', state.entity);
   if(state.tierFilter) p.set('tier', state.tierFilter);
   if(state.studiesPage>1) p.set('page', state.studiesPage);
   const hash = '#'+p.toString();
@@ -1537,7 +1442,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-08 16:26 UTC";
+const ATLAS_UPDATED = "2026-07-08 16:37 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists.", "hyp": "An intervention that suppresses the mTORC1/4E-BP arm while sparing mTORC2 (intermittent/low-dose rapamycin, or a 4E-BP-biased regimen) yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT05835999"], "conf": 0.8}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT05835999"], "conf": 0.65}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
