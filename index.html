@@ -298,6 +298,58 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   .wordmark h1{font-size:17px;}
   .wordmark .tag{display:none;}
 }
+
+/* ===== Ask Atlas (RAG) + Gaps layer ===== */
+.ask-wrap{padding:26px 2px 10px;}
+.ask-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);font-weight:600;margin-bottom:10px;}
+.ask-headline{font-family:'Inter',sans-serif;font-weight:700;font-size:28px;line-height:1.15;margin:0 0 8px;max-width:780px;}
+.ask-lede{font-size:14px;color:var(--ink-soft);max-width:700px;margin-bottom:18px;line-height:1.6;}
+.ask-box{display:flex;gap:8px;align-items:stretch;max-width:840px;margin-bottom:14px;}
+.ask-box input{flex:1;border:1.5px solid var(--line-strong);background:var(--paper-raised);padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);outline:none;}
+.ask-box input:focus{border-color:var(--teal);}
+.ask-btn{border:1.5px solid var(--teal);background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:0 20px;cursor:pointer;}
+.ask-btn:hover{background:var(--teal-deep);border-color:var(--teal-deep);}
+.ask-btn.ghost{background:none;color:var(--teal-deep);}
+.ask-btn.ghost:hover{background:rgba(163,31,52,0.08);}
+.ask-suggest{display:flex;flex-wrap:wrap;gap:7px;max-width:940px;margin-bottom:8px;}
+.ask-chip{font-family:'IBM Plex Mono',monospace;font-size:11.5px;border:1px solid var(--line-strong);padding:6px 11px;cursor:pointer;color:var(--ink);background:var(--paper-raised);transition:all .12s;}
+.ask-chip:hover{border-color:var(--teal);color:var(--teal-deep);background:rgba(163,31,52,0.06);}
+.ask-suggest-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin:14px 0 8px;}
+.ask-results{margin-top:22px;max-width:1000px;}
+.ask-count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin-bottom:12px;}
+.ask-hit{border:1px solid var(--line);border-left:3px solid var(--line-strong);padding:13px 15px;margin-bottom:10px;background:var(--paper-raised);}
+.ask-hit .h-top{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap;}
+.ask-hit .h-rank{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);}
+.ask-hit .h-title{font-family:'Source Serif 4',serif;font-weight:600;font-size:15px;color:var(--ink);cursor:pointer;}
+.ask-hit .h-title:hover{color:var(--teal-deep);text-decoration:underline;}
+.ask-hit .h-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);margin:4px 0 6px;}
+.ask-hit .h-find{font-size:13px;line-height:1.5;color:var(--ink);}
+.tier-badge{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;color:#fff;white-space:nowrap;}
+.tier-A{background:var(--tier-a);} .tier-B{background:var(--tier-b);} .tier-C{background:var(--tier-c);} .tier-D{background:var(--tier-d);}
+.ask-prompt{margin-top:18px;border:1px dashed var(--line-strong);background:rgba(0,0,0,0.02);padding:12px 14px;}
+.ask-prompt .lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:6px;}
+.ask-prompt textarea{width:100%;min-height:130px;border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:8px;resize:vertical;color:var(--ink-soft);background:var(--paper);}
+/* ---- Gaps & hypotheses ---- */
+.gap-finding{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 26px;}
+.gap-finding .gf{border:1px solid var(--line-strong);border-top:3px solid var(--danger);padding:13px 15px;background:var(--paper-raised);}
+.gap-finding .gf h4{margin:0 0 6px;font-size:13.5px;font-family:'Inter',sans-serif;}
+.gap-finding .gf p{margin:0;font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+.gap-card{border:1px solid var(--line-strong);margin-bottom:14px;background:var(--paper-raised);}
+.gap-card .gc-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(163,31,52,0.04);flex-wrap:wrap;}
+.gap-card .gc-id{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;color:var(--teal-deep);}
+.gap-card .gc-title{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;flex:1;min-width:220px;}
+.gap-card .gc-type{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line-strong);padding:2px 8px;color:var(--ink-soft);}
+.gap-conf{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft);}
+.gap-card .gc-body{padding:14px 16px;}
+.gap-card .gc-row{margin-bottom:11px;}
+.gap-card .gc-row:last-child{margin-bottom:0;}
+.gap-card .gc-k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-deep);font-weight:600;margin-bottom:3px;}
+.gap-card .gc-v{font-size:13px;line-height:1.55;color:var(--ink);}
+.gap-card .gc-hyp{background:rgba(163,31,52,0.05);border-left:3px solid var(--teal);padding:8px 11px;font-size:13px;line-height:1.55;}
+.gap-card .gc-studies{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.study-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;border:1px solid var(--line-strong);padding:3px 8px;cursor:pointer;color:var(--ink);background:var(--paper);}
+.study-chip:hover{border-color:var(--teal);color:var(--teal-deep);}
+@media(max-width:800px){.gap-finding{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -321,12 +373,13 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   <div class="tabs-row">
     <div class="tabs">
       <div class="tab active" data-tab="welcome">Welcome</div>
+      <div class="tab" data-tab="ask">Ask Atlas</div>
       <div class="tab" data-tab="map">Pathway Map</div>
       <div class="tab" data-tab="entities">Entities</div>
       <div class="tab" data-tab="studies">Studies</div>
       <div class="tab" data-tab="authors">Authors</div>
       <div class="tab" data-tab="evidence">Evidence</div>
-      <div class="tab" data-tab="questions">Open Questions</div>
+      <div class="tab" data-tab="questions">Gaps &amp; Hypotheses</div>
       <div class="tab" data-tab="about">About</div>
     </div>
   </div>
@@ -493,6 +546,8 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
       to keep this page and the tabs below in step.
     </div>
   </div>
+
+  <div id="askView" style="display:none;"></div>
 
   <div id="mapView" style="display:none;">
     <div class="grid">
@@ -1363,7 +1418,7 @@ function renderAll(){
 }
 
 function showView(which){
-  const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',about:'aboutView'};
+  const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',about:'aboutView'};
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
@@ -1415,7 +1470,150 @@ document.querySelectorAll('.tab').forEach(tab=>{
 renderTopAuthors();
 renderAuthorLetterRow();
 renderAll();
+
+/* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
+const ATLAS_GAPS = [
+ {id:"H1", type:"Evidence desert",
+  title:"Sensor-selective geroprotection without the metabolic penalty",
+  basis:"Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) and the Rag / GATOR / Ragulator machinery is supported ONLY by tier-D mechanistic studies and links to ZERO aging outcomes. They are the most drug-specific nodes in the pathway, yet phenotype-untested.",
+  hyp:"Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via the SAMTOR to GATOR1 axis, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.",
+  exp:"Mouse arms: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.",
+  studies:["GU2017","SAX2015","LAM2012"], conf:0.75},
+ {id:"H2", type:"Contradiction / tension",
+  title:"mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance",
+  basis:"Longevity comes from mTORC1, but chronic rapamycin's harm (insulin resistance) comes from disrupting mTORC2 (LAM2012). No in-vivo mTORC1-selective aging test exists in the corpus.",
+  hyp:"An intervention that suppresses the mTORC1 / 4E-BP arm while sparing mTORC2 (intermittent or low-dose rapamycin, or a 4E-BP-biased regimen) yields the lifespan benefit without glucose intolerance.",
+  exp:"Mouse lifespan: continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design.",
+  studies:["LAM2012","KEN2016","THO2009","NCT05835999"], conf:0.80},
+ {id:"H3", type:"Contradiction / tension",
+  title:"Muscle-sparing, pulsed mTORC1 inhibition",
+  basis:"mTORC1 is required for muscle - raptor-KO causes dystrophy, rapamycin blocks human muscle protein synthesis (DRU2009), Akt/mTOR is necessary and sufficient for hypertrophy (ROM2001) - yet mTOR inhibition is the leading longevity lever. The corpus never resolves the trade-off.",
+  hyp:"Time-restricted / pulsed mTORC1 inhibition (a drug trough that permits post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.",
+  exp:"Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass / fiber CSA + autophagic flux (LC3-II/p62).",
+  studies:["DRU2009","ROM2001","MOE2025","BIT2016"], conf:0.70},
+ {id:"H4", type:"Mechanism-to-outcome gap",
+  title:"Is autophagy actually REQUIRED for the mammalian lifespan benefit?",
+  basis:"Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.",
+  hyp:"Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.",
+  exp:"Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.",
+  studies:["BJE2010","MEL2003","PYO2013"], conf:0.70},
+ {id:"H5", type:"Human-endpoint gap",
+  title:"A sensor / autophagy biomarker panel as a surrogate endpoint for human trials",
+  basis:"Of 32 longevity-linked studies, 20 are tier-C animal; the human entries are safety, immune or observational - none has a lifespan or healthspan primary endpoint. Human lifespan endpoints are impractically long.",
+  hyp:"A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.",
+  exp:"Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms.",
+  studies:["MOE2025","LEE2024","NCT05835999"], conf:0.65}
+];
+const ATLAS_FINDINGS = [
+ {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
+ {h:"Human hard-endpoint desert", p:"Of 32 longevity-linked studies, 20 are tier-C animal; the four human entries are safety, immune or observational - none with a lifespan or healthspan primary endpoint. The one trial that could deliver it (EVERLAST) has no results yet."}
+];
+
+const _STOP=new Set("the a an and or of to in for on with without into within is are was were be been by as at from that this these those we our it its their they can could may might also than then thus here show shows showed found finds role not no yes but which who whom via using use used both between each other more most less".split(" "));
+function _tok(s){return (s||"").toLowerCase().replace(/[^a-z0-9\s-]/g," ").split(/\s+/).filter(w=>w.length>=3 && !_STOP.has(w));}
+let _RAGIDX=null;
+function buildRagIndex(){
+  const docs=ATLAS_STUDIES.map(s=>_tok((s.title||"")+" "+(s.finding||"")+" "+(s.abstract||"")+" "+(s.model||"")));
+  const df={}; docs.forEach(d=>{new Set(d).forEach(w=>df[w]=(df[w]||0)+1);});
+  const N=docs.length, idf={}; Object.keys(df).forEach(w=>idf[w]=Math.log((N+1)/(df[w]+1))+1);
+  const vecs=docs.map(d=>{const tf={};d.forEach(w=>tf[w]=(tf[w]||0)+1);const v={};let n=0;for(const w in tf){const x=(1+Math.log(tf[w]))*(idf[w]||0);v[w]=x;n+=x*x;}n=Math.sqrt(n)||1;for(const w in v)v[w]/=n;return v;});
+  _RAGIDX={idf,vecs};
+}
+function ragSearch(q,k){
+  if(!_RAGIDX) buildRagIndex();
+  const t=_tok(q); if(!t.length) return [];
+  const tf={}; t.forEach(w=>tf[w]=(tf[w]||0)+1);
+  const qv={}; let n=0;
+  for(const w in tf){const x=(1+Math.log(tf[w]))*(_RAGIDX.idf[w]||0);qv[w]=x;n+=x*x;}
+  n=Math.sqrt(n)||1; for(const w in qv) qv[w]/=n;
+  const sc=_RAGIDX.vecs.map((v,i)=>{let s=0;for(const w in qv){if(v[w])s+=qv[w]*v[w];}return [s,i];});
+  sc.sort((a,b)=>b[0]-a[0]);
+  return sc.slice(0,k).filter(x=>x[0]>0).map((x,r)=>({study:ATLAS_STUDIES[x[1]],score:x[0],rank:r+1}));
+}
+function _tL(t){var L=((t||"?").trim()[0]||"?").toUpperCase();return L;}
+function _tCls(t){var L=_tL(t);return ("ABCD".indexOf(L)>=0)?L:"D";}
+function _cite(s){var a=(s.authors||"").split(/[;,]/)[0].trim();return a+" ("+(s.year||"?")+") ["+(s.sid||s.doi||"")+"]";}
+function _esc(x){return (x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function renderAsk(q){
+  var box=document.getElementById('askResults'); if(!box) return;
+  q=(q||"").trim();
+  if(!q){box.innerHTML="";return;}
+  var hits=ragSearch(q,10);
+  if(!hits.length){box.innerHTML='<div class="ask-count">No matching studies. Try one of the suggested queries above.</div>';return;}
+  var html='<div class="ask-count">Top '+hits.length+' studies for: &ldquo;'+_esc(q)+'&rdquo; &nbsp;(client-side TF-IDF retrieval, evidence-graded)</div>';
+  hits.forEach(function(h){
+    var s=h.study;
+    html+='<div class="ask-hit"><div class="h-top"><span class="h-rank">#'+h.rank+'</span>'
+      +'<span class="tier-badge tier-'+_tCls(s.tier)+'">Tier '+_tL(s.tier)+'</span>'
+      +'<span class="h-title" onclick="goStudy(\''+(s.sid||'')+'\')">'+_esc(s.title)+'</span></div>'
+      +'<div class="h-meta">'+_esc(_cite(s))+' &nbsp;|&nbsp; model: '+_esc(s.model||'-')+'</div>'
+      +'<div class="h-find">'+_esc(s.finding||'')+'</div></div>';
+  });
+  var ctx=hits.map(function(h){var s=h.study;return '['+h.rank+'] ('+(s.tier||'')+') '+s.title+' - '+_cite(s)+'. Abstract: '+(s.abstract||'').slice(0,600);}).join("\n\n");
+  var prompt='You are Atlas, an mTOR research assistant. Answer using ONLY the studies below. Cite every claim by its [n] and study ID, grade each by evidence tier (A>B>C>D), and return EXACTLY four sections: Answer / Evidence / Key Papers / Knowledge Gaps.\n\nQUESTION:\n'+q+'\n\nRETRIEVED STUDIES:\n'+ctx;
+  html+='<div class="ask-prompt"><div class="lbl">LLM prompt (retrieval + instructions) &mdash; paste into Claude / Gemini for the full four-section answer</div>'
+    +'<textarea id="askPrompt" readonly onclick="this.select()">'+_esc(prompt)+'</textarea>'
+    +'<button class="ask-btn ghost" style="margin-top:8px" onclick="var t=document.getElementById(\'askPrompt\');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value);this.textContent=\'Copied\';">Copy prompt</button></div>';
+  box.innerHTML=html;
+}
+function doAsk(q){var inp=document.getElementById('askInput'); if(inp) inp.value=q; renderAsk(q); }
+function initAsk(){
+  var v=document.getElementById('askView'); if(!v) return;
+  var sug=[
+   "transient mTORC1 activation for muscle regeneration without suppressing autophagy",
+   "how do Rag GTPases activate mTORC1 at the lysosome",
+   "does mTORC1 inhibition extend lifespan through autophagy",
+   "mTORC1 vs mTORC2 selectivity and insulin resistance",
+   "amino acid sensing by leucine, arginine and methionine sensors",
+   "rapamycin effect on human muscle protein synthesis"
+  ];
+  v.innerHTML='<div class="ask-wrap">'
+   +'<div class="ask-eyebrow">Ask Atlas &middot; retrieval over '+ATLAS_STUDIES.length+' curated studies</div>'
+   +'<h2 class="ask-headline">Ask a research question. Get the studies that answer it &mdash; ranked, tiered, cited.</h2>'
+   +'<p class="ask-lede">Type a natural-language question. Atlas retrieves the most relevant studies from the corpus (fully client-side, offline) and assembles an evidence-graded prompt you can hand to an LLM for a four-section answer: Answer / Evidence / Key Papers / Knowledge Gaps.</p>'
+   +'<div class="ask-box"><input id="askInput" placeholder="e.g. does mTORC1 inhibition extend lifespan through autophagy?" /><button class="ask-btn" onclick="doAsk(document.getElementById(\'askInput\').value)">Ask</button></div>'
+   +'<div class="ask-suggest-label">Try one of these</div>'
+   +'<div class="ask-suggest" id="askSuggest"></div>'
+   +'<div class="ask-results" id="askResults"></div>'
+   +'</div>';
+  document.getElementById('askSuggest').innerHTML=sug.map(function(q){return '<span class="ask-chip" onclick="doAsk(this.textContent)">'+_esc(q)+'</span>';}).join('');
+  var inp=document.getElementById('askInput');
+  inp.addEventListener('keydown',function(e){if(e.key==="Enter")doAsk(inp.value);});
+}
+function goStudy(code){
+  if(!code) return;
+  var si=document.getElementById('searchInput'); if(si) si.value=code;
+  state.query=code;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  var tb=document.querySelector('.tab[data-tab="studies"]'); if(tb) tb.classList.add('active');
+  showView('studies'); renderAll();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function renderGaps(){
+  var v=document.getElementById('questionsView'); if(!v) return;
+  var find=ATLAS_FINDINGS.map(function(f){return '<div class="gf"><h4>'+f.h+'</h4><p>'+f.p+'</p></div>';}).join('');
+  var cards=ATLAS_GAPS.map(function(g){
+    var chips=g.studies.map(function(c){return '<span class="study-chip" onclick="goStudy(\''+c+'\')">'+c+'</span>';}).join('');
+    return '<div class="gap-card"><div class="gc-head"><span class="gc-id">'+g.id+'</span>'
+     +'<span class="gc-title">'+g.title+'</span><span class="gc-type">'+g.type+'</span>'
+     +'<span class="gap-conf">confidence '+g.conf.toFixed(2)+'</span></div>'
+     +'<div class="gc-body">'
+     +'<div class="gc-row"><div class="gc-k">Why it is a gap (evidence basis)</div><div class="gc-v">'+g.basis+'</div></div>'
+     +'<div class="gc-row"><div class="gc-k">Testable hypothesis</div><div class="gc-hyp">'+g.hyp+'</div></div>'
+     +'<div class="gc-row"><div class="gc-k">Proposed experiment</div><div class="gc-v">'+g.exp+'</div></div>'
+     +'<div class="gc-row"><div class="gc-k">Supporting studies</div><div class="gc-studies">'+chips+'</div></div>'
+     +'</div></div>';
+  }).join('');
+  v.innerHTML='<div class="oq-intro"><h3>What we don&rsquo;t know &mdash; and why</h3>'
+   +'<p>A pathway map shows what is known. This section is the opposite: gaps surfaced automatically by joining the Atlas&rsquo;s entity graph to each study&rsquo;s evidence tier (A&gt;B&gt;C&gt;D). Two structural findings, then five testable hypotheses &mdash; each anchored to the studies that define the gap. Click any study code to open it.</p></div>'
+   +'<div class="gap-finding">'+find+'</div>'
+   +cards
+   +'<div class="footnote" style="margin-top:20px;">Generated by the Phase-3 gap-finder from the Knowledge_Gaps Airtable table. Re-run the sync to refresh as studies are added.</div>';
+}
+initAsk();
+renderGaps();
+
 </script>
 </body>
 </html>
-                                 
