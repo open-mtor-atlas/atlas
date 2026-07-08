@@ -885,7 +885,7 @@ function renderTree(){
     if(q && !e.name.toLowerCase().includes(q) && !e.desc.toLowerCase().includes(q)) return;
     (groups[e.type] = groups[e.type]||[]).push(e);
   });
-  const order = ["Pathway/Complex","Gene/Protein","Drug","Supplement","Intervention","Outcome","Side effect","Disease"];
+  const order = ["Pathway/Complex","Gene/Protein","Biological process","Drug","Supplement","Intervention","Outcome","Side effect","Disease"];
   let html = "";
   order.forEach(type=>{
     if(!groups[type]) return;
@@ -1035,7 +1035,7 @@ function renderEntitiesGrid(){
 }
 
 function renderEntityTypeChips(){
-  const order = ["Pathway/Complex","Gene/Protein","Drug","Supplement","Intervention","Outcome","Side effect","Disease"];
+  const order = ["Pathway/Complex","Gene/Protein","Biological process","Drug","Supplement","Intervention","Outcome","Side effect","Disease"];
   const counts = {};
   ATLAS_ENTITIES.forEach(e=>{ counts[e.type] = (counts[e.type]||0)+1; });
   const presentTypes = order.filter(t=>counts[t]);
