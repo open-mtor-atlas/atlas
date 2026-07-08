@@ -982,6 +982,7 @@ function toggleTierFilter(letter, jumpToStudies){
     showView('studies');
   }
   renderAll();
+  pushNav();
 }
 
 function renderBarChart(){
@@ -1081,6 +1082,7 @@ function openEntityFromGrid(name){
   document.querySelector('.tab[data-tab="map"]').classList.add('active');
   showView('map');
   renderAll();
+  pushNav();
 }
 
 function renderStudiesTable(){
@@ -1164,6 +1166,7 @@ function filterStudiesByAuthor(name){
   state.query = name;
   const si = document.getElementById('searchInput'); if(si) si.value = name;
   renderStudiesTable();
+  pushNav();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -1174,6 +1177,7 @@ function filterStudiesByTitle(title){
   state.query = title;
   const si = document.getElementById('searchInput'); if(si) si.value = title;
   renderStudiesTable();
+  pushNav();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -1266,6 +1270,7 @@ function filterByMatrixCell(tierLetter, pyramidCode, count){
   document.querySelector('.tab[data-tab="studies"]').classList.add('active');
   showView('studies');
   renderAll();
+  pushNav();
 }
 
 // Deep-link from the Welcome page: jump to the Studies tab filtered to one or more pyramid levels.
@@ -1279,10 +1284,11 @@ function jumpToStudiesByPyramid(codes, label){
   document.querySelector('.tab[data-tab="studies"]').classList.add('active');
   showView('studies');
   renderAll();
+  pushNav();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function selectEntity(name){ state.entity = name; renderAll(); }
+function selectEntity(name){ state.entity = name; renderAll(); pushNav(); }
 
 function toggleAbstract(boxId){
   const el = document.getElementById(boxId);
@@ -1428,13 +1434,46 @@ function renderAll(){
   renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderEntitiesGrid(); renderBarChart(); renderTierPyramidMatrix(); renderEntityTypeChips(); renderWelcome(); renderAuthorsTable();
 }
 
+let currentView = 'welcome';
+function setActiveTab(view){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const el = document.querySelector('.tab[data-tab="'+view+'"]');
+  if(el) el.classList.add('active');
+}
 function showView(which){
   const views = {welcome:'welcomeView',map:'mapView',entities:'entitiesView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',about:'aboutView'};
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
   });
+  currentView = which;
+  setActiveTab(which);
 }
+/* ===== URL <-> state sync so browser back/forward works ===== */
+function syncURL(push){
+  const p = new URLSearchParams();
+  p.set('view', currentView);
+  if(state.query) p.set('q', state.query);
+  if(currentView==='entities' && state.entity) p.set('entity', state.entity);
+  if(state.tierFilter) p.set('tier', state.tierFilter);
+  if(state.studiesPage>1) p.set('page', state.studiesPage);
+  const hash = '#'+p.toString();
+  if(location.hash === hash) return;
+  if(push) history.pushState(null,'',hash); else history.replaceState(null,'',hash);
+}
+function pushNav(){ syncURL(true); }
+function applyHash(){
+  const p = new URLSearchParams(location.hash.slice(1));
+  const view = p.get('view') || 'welcome';
+  state.query = p.get('q') || '';
+  if(p.get('entity')) state.entity = p.get('entity');
+  state.tierFilter = p.get('tier') || null;
+  state.studiesPage = parseInt(p.get('page')||'1',10) || 1;
+  const si = document.getElementById('searchInput'); if(si) si.value = state.query;
+  showView(view);
+  renderAll();
+}
+window.addEventListener('popstate', applyHash);
 
 function goHome(){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -1443,10 +1482,11 @@ function goHome(){
   document.getElementById('searchInput').value = '';
   state.query = '';
   renderAll();
+  pushNav();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-document.getElementById('searchInput').addEventListener('input', e=>{ state.query = e.target.value; renderAll(); });
+document.getElementById('searchInput').addEventListener('input', e=>{ state.query = e.target.value; state.studiesPage = 1; renderAll(); syncURL(false); });
 document.getElementById('authorSearchInput').addEventListener('input', e=>{ state.authorQuery = e.target.value; renderAuthorsTable(); });
 document.querySelectorAll('#authorsView .author-sort-link').forEach(el=>{
   el.addEventListener('click', ()=>{
@@ -1475,12 +1515,14 @@ document.querySelectorAll('.tab').forEach(tab=>{
     state.query=''; const si=document.getElementById('searchInput'); if(si) si.value='';
     showView(tab.dataset.tab);
     renderAll();
+    pushNav();
   });
 });
 
 renderTopAuthors();
 renderAuthorLetterRow();
 renderAll();
+if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
 const ATLAS_GAPS = [
@@ -1620,6 +1662,7 @@ function goStudy(code){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   var tb=document.querySelector('.tab[data-tab="studies"]'); if(tb) tb.classList.add('active');
   showView('studies'); renderAll();
+  pushNav();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function renderGaps(){
