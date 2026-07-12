@@ -78,4 +78,36 @@ def main():
         # ANCHOR to the known next declaration (the goAuthor() function that
         # immediately follows in the page's <script>), same defensive reasoning
         # as ATLAS_STUDIES above -- a literal "];" inside a desc/mtor/speakers
-        # string
+        # string must not be able to truncate the match early.
+        new_h, c4 = re.subn(
+            r"const ATLAS_EVENTS = \[.*?\];\n\nfunction goAuthor",
+            lambda m: js + "\n\nfunction goAuthor",
+            h, count=1, flags=re.S,
+        )
+        if c4:
+            if new_h != h:
+                changed = True
+            h = new_h
+            print("ATLAS_EVENTS: updated (%d records)" % len(events))
+        else:
+            print("ATLAS_EVENTS: NOT FOUND in index.html (pattern mismatch)")
+    else:
+        print("ATLAS_EVENTS: no events_baked.json, leaving untouched")
+
+    ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    h, c3 = re.subn(r'const ATLAS_UPDATED = "[^"]*";', 'const ATLAS_UPDATED = "' + ts + '";', h, count=1)
+    if c3:
+        changed = True
+
+    with open(HTML, "w", encoding="utf-8") as fh:
+        fh.write(h)
+        fh.flush()
+        os.fsync(fh.fileno())
+    print("index.html rewritten (last updated " + ts + ", content_changed=%s)." % changed)
+
+    size = os.path.getsize(HTML)
+    print("index.html size after write:", size, "bytes")
+
+
+if __name__ == "__main__":
+    main()
