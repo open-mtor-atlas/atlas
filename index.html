@@ -2005,4 +2005,16 @@ function showAuthorBio(name){
     </div>
   </div>`;
 
-  const ov = document.createElement('di
+  const ov = document.createElement('div');
+  ov.id = 'authorBioOverlay';
+  ov.className = 'bio-overlay';
+  ov.onclick = closeAuthorBio;
+  ov.innerHTML = html;
+  document.body.appendChild(ov);
+  document.addEventListener('keydown', _bioEscHandler);
+  ov.scrollTop = 0;
+}
+
+</script>
+</body>
+</html>
