@@ -636,7 +636,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
           <span class="mono" style="font-size:10px;color:var(--ink-soft);" id="studiesCount"></span>
         </div>
       </div>
-      <table class="studies">
+      <table class="studies" id="studiesTable">
         <thead><tr>
           <th data-sort="title" style="width:34%">Study <span class="sort-ind"></span></th>
           <th data-sort="year">Year <span class="sort-ind"></span></th>
@@ -665,16 +665,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
         </div>
       </div>
       <div class="rail-title" id="authorLetterRow" style="margin:0 0 8px;flex-wrap:wrap;"></div>
-      <div class="rail-title" style="margin:0 0 8px;">
-        Sort by
-        <span class="mono author-sort-link" data-sort="name" style="cursor:pointer;text-decoration:underline;font-size:9px;">Name</span>
-        ·
-        <span class="mono author-sort-link" data-sort="count" style="cursor:pointer;text-decoration:underline;font-size:9px;"># Studies</span>
-      </div>
-      <table class="studies">
+      <table class="studies" id="authorsTable">
         <thead><tr>
-          <th style="width:22%">Author</th>
-          <th style="width:8%"># Studies</th>
+          <th data-sort="name" style="width:22%">Author <span class="sort-ind"></span></th>
+          <th data-sort="count" style="width:8%"># Studies <span class="sort-ind"></span></th>
           <th>Studies</th>
         </tr></thead>
         <tbody id="authorsBody"></tbody>
@@ -1254,11 +1248,25 @@ function renderStudiesTable(){
 }
 
 function updateSortIndicators(){
-  document.querySelectorAll('table.studies th[data-sort]').forEach(th=>{
+  document.querySelectorAll('#studiesTable th[data-sort]').forEach(th=>{
     const ind = th.querySelector('.sort-ind');
     if(th.dataset.sort===state.sortKey){
       th.classList.add('sorted');
       if(ind) ind.textContent = state.sortDir==="asc" ? "▲" : "▼";
+    } else {
+      th.classList.remove('sorted');
+      if(ind) ind.textContent = "↕";
+    }
+  });
+}
+
+function updateAuthorSortIndicators(){
+  document.querySelectorAll('#authorsTable th[data-sort]').forEach(th=>{
+    const ind = th.querySelector('.sort-ind');
+    if(th.dataset.sort===state.authorSortKey){
+      th.classList.add('sorted');
+      // name sorts A→Z, count sorts highest-first
+      if(ind) ind.textContent = th.dataset.sort==="count" ? "▼" : "▲";
     } else {
       th.classList.remove('sorted');
       if(ind) ind.textContent = "↕";
@@ -1351,6 +1359,7 @@ function renderAuthorsTable(){
     sp.style.opacity = isActive ? "1" : "0.75";
   });
   renderPaginationControls('authorsPagination', state.authorsPage, totalPages, 'goToAuthorsPage');
+  updateAuthorSortIndicators();
 }
 
 function clearAuthorLetter(){ state.authorLetter = null; renderAuthorsTable(); }
@@ -1601,13 +1610,7 @@ function goHome(){
 
 document.getElementById('searchInput').addEventListener('input', e=>{ state.query = e.target.value; state.studiesPage = 1; renderAll(); syncURL(false); });
 document.getElementById('authorSearchInput').addEventListener('input', e=>{ state.authorQuery = e.target.value; renderAuthorsTable(); });
-document.querySelectorAll('#authorsView .author-sort-link').forEach(el=>{
-  el.addEventListener('click', ()=>{
-    state.authorSortKey = el.dataset.sort;
-    renderAuthorsTable();
-  });
-});
-document.querySelectorAll('table.studies th[data-sort]').forEach(th=>{
+document.querySelectorAll('#studiesTable th[data-sort]').forEach(th=>{
   th.addEventListener('click', ()=>{
     const key = th.dataset.sort;
     if(state.sortKey===key){
@@ -1618,6 +1621,12 @@ document.querySelectorAll('table.studies th[data-sort]').forEach(th=>{
       state.sortDir = (key==="year") ? "desc" : "asc";
     }
     renderStudiesTable();
+  });
+});
+document.querySelectorAll('#authorsTable th[data-sort]').forEach(th=>{
+  th.addEventListener('click', ()=>{
+    state.authorSortKey = th.dataset.sort;
+    renderAuthorsTable();
   });
 });
 
@@ -1996,16 +2005,4 @@ function showAuthorBio(name){
     </div>
   </div>`;
 
-  const ov = document.createElement('div');
-  ov.id = 'authorBioOverlay';
-  ov.className = 'bio-overlay';
-  ov.onclick = closeAuthorBio;
-  ov.innerHTML = html;
-  document.body.appendChild(ov);
-  document.addEventListener('keydown', _bioEscHandler);
-  ov.scrollTop = 0;
-}
-
-</script>
-</body>
-</html>
+  const ov = document.createElement('di
