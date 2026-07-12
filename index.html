@@ -126,6 +126,18 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .entity-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;}
 .entity-head h2{font-family:'Inter',sans-serif;font-size:25px;font-weight:700;margin:0 0 4px;color:var(--ink);}
 .entity-sub{font-size:12.5px;color:var(--ink-soft);}
+.map-toggle{display:flex;gap:6px;}
+.map-toggle-btn{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border:1px solid var(--line-strong);background:var(--paper-raised);color:var(--ink-soft);cursor:pointer;border-radius:0;}
+.map-toggle-btn:hover{background:rgba(163,31,52,0.08);}
+.map-toggle-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.fullmap-scroll{overflow-x:auto;overflow-y:hidden;}
+.fullmap-legend{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:8px 4px 2px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink-soft);border-top:1px solid var(--line);margin-top:4px;}
+.fullmap-legend .lg-title{font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.06em;}
+.fullmap-legend .sep{color:var(--line-strong);}
+.fullmap-legend .item{display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.fullmap-legend .sw{width:9px;height:9px;flex-shrink:0;border-radius:1px;}
+.map-node text{pointer-events:none;user-select:none;}
+.map-node:hover{opacity:0.85;}
 .type-badge{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:0;color:#fff;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;}
 .section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
 .narrative{font-size:13.5px;line-height:1.6;color:var(--ink);}
@@ -609,8 +621,16 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 
       <div class="center">
         <div class="graph-wrap">
-          <div class="graph-caption"><span>Knowledge Graph — shared studies</span><span class="hint">click a node to explore</span></div>
+          <div class="graph-caption">
+            <span>Knowledge Graph — shared studies</span>
+            <div class="map-toggle">
+              <button class="map-toggle-btn active" id="btnFocusMap" onclick="setMapMode('focus')" type="button">Focused</button>
+              <button class="map-toggle-btn" id="btnFullMap" onclick="setMapMode('full')" type="button">Full Pathway Map</button>
+            </div>
+            <span class="hint" id="graphHint">click a node to explore</span>
+          </div>
           <div id="graphContainer"></div>
+          <div id="fullMapContainer" class="fullmap-scroll" style="display:none;"></div>
         </div>
         <div class="entity-detail" id="entityDetail"></div>
       </div>
@@ -766,6 +786,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
           <div class="role">Creator &amp; Curator — Prague, Czech Republic — Age 15</div>
           <p>Oliver is a high school student in Prague with a self-directed research interest in mTOR signaling, longevity biology, and evidence-based science curation. He started the Open mTOR Atlas to build the kind of resource he wished existed when he began reading primary literature on the pathway: one structured database that holds studies, mechanisms, interventions, and honest evidence grades side by side, rather than scattered across dozens of review articles and pathway maps.</p>
           <p style="margin-top:10px;">His current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b> — most of the literature treats mTORC1/mTORC2 activity as fixed rather than something that shifts over time in a real cell. Oliver is interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth, one of the open questions raised in this Atlas's Gaps &amp; Hypotheses tab.</p>
+          <p style="margin-top:10px;">Outside of mTOR, Oliver is a lifelong football fan and follows Real Madrid closely, plays electric guitar, and has a strong interest in AI and programming, fashion, and entrepreneurship.</p>
           <p style="margin-top:10px;"><span class="mono" style="font-size:11.5px;color:var(--ink-soft);">Contact —</span> <span class="mono" style="font-size:11.5px;">oliver.barton1113(at)gmail.com</span></p>
         </div>
       </div>
@@ -1002,7 +1023,7 @@ function pyramidMeta(p){
 }
 const PYRAMID_ORDER = ["1 - Systematic Review","2 - Human Clinical Trial","3 - Human Observational","4 - Animal Study","5 - Mechanistic / In Vitro","Narrative Review","Preprint","Registered Trial"];
 
-let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", authorQuery:"", authorSortKey:"name", authorLetter:null, studiesPage:1, authorsPage:1 };
+let state = { entity:"Rapamycin", query:"", tierFilter:null, pyramidFilter:null, pyramidFilterSet:null, pyramidFilterLabel:null, sortKey:"tier", sortDir:"asc", authorQuery:"", authorSortKey:"name", authorLetter:null, studiesPage:1, authorsPage:1, mapMode:"focus" };
 
 // ---------- pagination ----------
 const PAGE_SIZE = 50;
@@ -1095,6 +1116,518 @@ function renderGraph(){
   svg += `</svg>`;
   document.getElementById('graphContainer').innerHTML = svg;
 }
+// ================= Full Pathway Map (all 65 entities, illustrative) =================
+const MAP_NODES = [
+  {id:'ghigf1',entity:'Growth hormone / IGF-1 axis',label:'GH / IGF-1 axis',x:860,y:60},
+  {id:'castor1',entity:'CASTOR1',x:78,y:180},
+  {id:'sestrin2',entity:'Sestrin2',x:194,y:180},
+  {id:'samtor',entity:'SAMTOR',x:310,y:180},
+  {id:'gator2',entity:'GATOR2',x:150,y:270},
+  {id:'gator1',entity:'GATOR1',x:150,y:360},
+  {id:'rag',entity:'Rag GTPases',x:280,y:360},
+  {id:'ragulator',entity:'Ragulator',x:280,y:440},
+  {id:'vatpase',entity:'v-ATPase',x:395,y:440},
+  {id:'pi3k',entity:'PI3K',x:650,y:182},
+  {id:'akt',entity:'Akt/PKB',x:772,y:264},
+  {id:'tsc',entity:'TSC1/TSC2',x:650,y:350},
+  {id:'rheb',entity:'Rheb',x:650,y:424},
+  {id:'ampk',entity:'AMPK',x:410,y:502},
+  {id:'fkbp12',entity:'FKBP12',x:452,y:560},
+  {id:'mtorc1box',entity:'mTORC1',label:'mTORC1',x:610,y:456,isComplexLabel:true},
+  {id:'mtor1',entity:'mTOR',x:596,y:520},
+  {id:'raptor',entity:'Raptor',x:530,y:572},
+  {id:'pras40',entity:'PRAS40',x:680,y:572},
+  {id:'deptor1',entity:'DEPTOR',x:530,y:480},
+  {id:'mlst8_1',entity:'mLST8',x:680,y:480},
+  {id:'mtorc2box',entity:'mTORC2',label:'mTORC2',x:882,y:456,isComplexLabel:true},
+  {id:'mtor2',entity:'mTOR',x:866,y:520},
+  {id:'rictor',entity:'Rictor',x:932,y:572},
+  {id:'deptor2',entity:'DEPTOR',x:932,y:480},
+  {id:'mlst8_2',entity:'mLST8',x:800,y:572},
+  {id:'s6k1',entity:'S6K1',x:210,y:698},
+  {id:'4ebp1',entity:'4E-BP1',x:368,y:698},
+  {id:'ulk1',entity:'ULK1',x:540,y:698},
+  {id:'tfeb',entity:'TFEB',x:698,y:698},
+  {id:'atg5',entity:'Atg5',x:856,y:698},
+  {id:'muscle',entity:'Muscle growth',x:150,y:784},
+  {id:'mito',entity:'Mitochondrial biogenesis',x:340,y:784},
+  {id:'autophagy',entity:'Autophagy',x:540,y:784},
+  {id:'senescence',entity:'Cellular senescence',x:718,y:784},
+  {id:'tcell',entity:'T cell differentiation',x:900,y:784},
+  {id:'caloricrestriction_p',entity:'Caloric restriction'},
+  {id:'leucinebcaarestriction_p',entity:'Leucine/BCAA restriction'},
+  {id:'macronutrientratio_p',entity:'Macronutrient ratio'},
+  {id:'rapamycin_p',entity:'Rapamycin'},
+  {id:'everolimus_p',entity:'Everolimus'},
+  {id:'metformin_p',entity:'Metformin'},
+  {id:'resveratrol_p',entity:'Resveratrol'},
+  {id:'rtb101_p',entity:'RTB101'},
+  {id:'torin1_p',entity:'Torin1'},
+  {id:'curcumin_p',entity:'Curcumin'},
+  {id:'pp242_p',entity:'PP242'},
+  {id:'mctoil_p',entity:'MCT oil'},
+  {id:'oxaloaceticacid_p',entity:'Oxaloacetic acid'},
+  {id:'simvastatin_p',entity:'Simvastatin'},
+  {id:'acarbose_p',entity:'Acarbose'},
+  {id:'greenteaextract_p',entity:'Green tea extract'},
+  {id:'temsirolimus_p',entity:'Temsirolimus'},
+  {id:'longevity_p',entity:'Longevity'},
+  {id:'immunefunction_p',entity:'Immune function'},
+  {id:'insulinresistance_p',entity:'Insulin resistance'},
+  {id:'cardiacaging_p',entity:'Cardiac aging'},
+  {id:'cognition_p',entity:'Cognition'},
+  {id:'kidneytransplant_p',entity:'Kidney transplant'},
+  {id:'skinaging_p',entity:'Skin aging'},
+  {id:'renalcellcarcinomarcc_p',entity:'Renal cell carcinoma (RCC)'},
+  {id:'alzheimersdisease_p',entity:'Alzheimer\'s disease'},
+  {id:'huntingtonsdisease_p',entity:'Huntington\'s disease'},
+  {id:'lymphangioleiomyomatosis_p',entity:'Lymphangioleiomyomatosis'},
+  {id:'tuberoussclerosiscomplex_p',entity:'Tuberous sclerosis complex'},
+  {id:'prostatecancer_p',entity:'Prostate cancer'},
+  {id:'breastcancer_p',entity:'Breast cancer'},
+  {id:'pancreaticneuroendocrinetumor_p',entity:'Pancreatic neuroendocrine tumor'},
+];
+
+const MAP_CORE_EDGES = [
+  ['castor1','gator2','inhibit'],
+  ['sestrin2','gator2','inhibit'],
+  ['samtor','gator2','inhibit'],
+  ['gator2','gator1','inhibit'],
+  ['gator1','rag','inhibit'],
+  ['ragulator','rag','activate'],
+  ['vatpase','ragulator','activate'],
+  ['rag','mtorc1box','activate'],
+  ['ghigf1','pi3k','activate'],
+  ['pi3k','akt','activate'],
+  ['akt','tsc','inhibit'],
+  ['akt','pras40','activate'],
+  ['tsc','rheb','inhibit'],
+  ['rheb','mtorc1box','activate'],
+  ['ampk','tsc','activate'],
+  ['ampk','raptor','inhibit'],
+  ['pras40','mtor1','inhibit'],
+  ['deptor1','mtor1','inhibit'],
+  ['fkbp12','mtor1','inhibit'],
+  ['mtorc1box','s6k1','activate'],
+  ['mtorc1box','4ebp1','inhibit'],
+  ['mtorc1box','ulk1','inhibit'],
+  ['mtorc1box','tfeb','inhibit'],
+  ['ulk1','autophagy','activate'],
+  ['tfeb','autophagy','activate'],
+  ['atg5','autophagy','activate'],
+  ['s6k1','muscle','activate'],
+  ['4ebp1','muscle','activate'],
+  ['mtorc1box','mito','activate'],
+  ['mtorc1box','tcell','activate'],
+  ['mtorc1box','senescence','activate'],
+  ['mtorc2box','akt','activate'],
+  ['deptor2','mtorc2box','inhibit'],
+  ['rictor','mtorc2box','activate'],
+];
+
+const MAP_PERIPH_EDGES = [
+  ['caloricrestriction_p','longevity_p',3],
+  ['caloricrestriction_p','mtorc1box',2],
+  ['leucinebcaarestriction_p','alzheimersdisease_p',1],
+  ['macronutrientratio_p','mtorc1box',1],
+  ['macronutrientratio_p','longevity_p',1],
+  ['rapamycin_p','mtorc1box',18],
+  ['rapamycin_p','longevity_p',13],
+  ['everolimus_p','mtorc1box',5],
+  ['everolimus_p','immunefunction_p',3],
+  ['metformin_p','ampk',2],
+  ['metformin_p','tsc',1],
+  ['resveratrol_p','longevity_p',2],
+  ['resveratrol_p','rapamycin_p',1],
+  ['rtb101_p','mtorc1box',2],
+  ['rtb101_p','immunefunction_p',2],
+  ['torin1_p','mtorc1box',1],
+  ['torin1_p','4ebp1',1],
+  ['curcumin_p','resveratrol_p',1],
+  ['curcumin_p','mctoil_p',1],
+  ['pp242_p','akt',1],
+  ['pp242_p','mtorc1box',1],
+  ['mctoil_p','resveratrol_p',1],
+  ['mctoil_p','curcumin_p',1],
+  ['oxaloaceticacid_p','resveratrol_p',1],
+  ['oxaloaceticacid_p','curcumin_p',1],
+  ['simvastatin_p','rapamycin_p',1],
+  ['simvastatin_p','resveratrol_p',1],
+  ['acarbose_p','longevity_p',1],
+  ['greenteaextract_p','resveratrol_p',1],
+  ['greenteaextract_p','curcumin_p',1],
+  ['temsirolimus_p','renalcellcarcinomarcc_p',1],
+  ['longevity_p','mtorc1box',16],
+  ['longevity_p','rapamycin_p',13],
+  ['immunefunction_p','mtorc1box',3],
+  ['immunefunction_p','everolimus_p',3],
+  ['insulinresistance_p','longevity_p',2],
+  ['insulinresistance_p','mtorc1box',1],
+  ['cardiacaging_p','mtorc1box',1],
+  ['cardiacaging_p','rapamycin_p',1],
+  ['cognition_p','mtorc1box',1],
+  ['cognition_p','rapamycin_p',1],
+  ['kidneytransplant_p','rapamycin_p',1],
+  ['skinaging_p','mtorc1box',1],
+  ['skinaging_p','senescence',1],
+  ['renalcellcarcinomarcc_p','mtorc1box',1],
+  ['renalcellcarcinomarcc_p','mtorc2box',1],
+  ['alzheimersdisease_p','mtorc1box',2],
+  ['alzheimersdisease_p','autophagy',2],
+  ['huntingtonsdisease_p','mtorc1box',2],
+  ['huntingtonsdisease_p','autophagy',1],
+  ['lymphangioleiomyomatosis_p','mtorc1box',2],
+  ['lymphangioleiomyomatosis_p','rapamycin_p',1],
+  ['tuberoussclerosiscomplex_p','mtorc1box',2],
+  ['tuberoussclerosiscomplex_p','everolimus_p',2],
+  ['prostatecancer_p','mtorc1box',1],
+  ['prostatecancer_p','4ebp1',1],
+  ['breastcancer_p','mtorc1box',1],
+  ['breastcancer_p','everolimus_p',1],
+  ['pancreaticneuroendocrinetumor_p','mtorc1box',1],
+  ['pancreaticneuroendocrinetumor_p','everolimus_p',1],
+];
+
+const MAP_BANDS = [
+  {label:"INTERVENTIONS", ids:["caloricrestriction_p","leucinebcaarestriction_p","macronutrientratio_p"]},
+  {label:"PHARMACOLOGICAL AGENTS", ids:["rapamycin_p","everolimus_p","temsirolimus_p","torin1_p","pp242_p","metformin_p","resveratrol_p","rtb101_p","acarbose_p","simvastatin_p","curcumin_p","mctoil_p","oxaloaceticacid_p","greenteaextract_p"]},
+  {label:"OUTCOMES", ids:["longevity_p","immunefunction_p","insulinresistance_p","cardiacaging_p","cognition_p","kidneytransplant_p","skinaging_p"]},
+  {label:"DISEASE RELEVANCE", ids:["renalcellcarcinomarcc_p","alzheimersdisease_p","huntingtonsdisease_p","lymphangioleiomyomatosis_p","tuberoussclerosiscomplex_p","prostatecancer_p","breastcancer_p","pancreaticneuroendocrinetumor_p"]},
+];
+
+const MAP_BOX_C1 = {x:493,y:434,w:234,h:172};
+const MAP_BOX_C2 = {x:774,y:434,w:206,h:172};
+const MAP_W = 1080;
+const MAP_MEMBRANE_Y = 108;
+const MAP_MEMBRANE_H = 30;
+
+function mapNodeById(id){ return MAP_NODES.find(n=>n.id===id); }
+
+function typeSlug(type){ return (type||"Gene/Protein").replace(/[^a-zA-Z]/g,'').toLowerCase(); }
+
+function clamp255(v){ return Math.max(0, Math.min(255, Math.round(v))); }
+function lightenHex(hex, amt){
+  hex = (hex||"#171F1B").replace('#','');
+  const r = parseInt(hex.substring(0,2),16), g = parseInt(hex.substring(2,4),16), b = parseInt(hex.substring(4,6),16);
+  const nr = clamp255(r + (255-r)*amt), ng = clamp255(g + (255-g)*amt), nb = clamp255(b + (255-b)*amt);
+  const toHex = function(v){ const s = v.toString(16); return s.length===1 ? '0'+s : s; };
+  return '#' + toHex(nr) + toHex(ng) + toHex(nb);
+}
+
+function mapNodeGeom(n){
+  const e = entityByName(n.entity);
+  const type = e ? e.type : "Gene/Protein";
+  if(type==="Gene/Protein") return {kind:"ellipse", rx:37, ry:17};
+  if(type==="Pathway/Complex") return {kind:"rrect", minW:102, h:31};
+  if(type==="Biological process") return {kind:"pill", minW:106, h:27};
+  if(type==="Drug") return {kind:"pill", minW:90, h:27};
+  if(type==="Intervention") return {kind:"pill", minW:98, h:27};
+  if(type==="Outcome") return {kind:"pilldash", minW:98, h:27};
+  if(type==="Disease") return {kind:"rrect", minW:102, h:27};
+  return {kind:"ellipse", rx:37, ry:17};
+}
+
+function wrapLabel(label, maxChars){
+  if(label.length<=maxChars) return [label];
+  const words = label.split(' ');
+  let lines=[], cur='';
+  words.forEach(w=>{
+    const test = (cur+' '+w).trim();
+    if(test.length<=maxChars || !cur){ cur = test; }
+    else { lines.push(cur); cur = w; }
+  });
+  if(cur) lines.push(cur);
+  if(lines.length>2){ lines = [lines[0], lines.slice(1).join(' ')]; }
+  if(lines[1] && lines[1].length>maxChars+7){ lines[1] = lines[1].slice(0,maxChars+4)+'…'; }
+  return lines.slice(0,2);
+}
+
+function prepNode(n){
+  const g = mapNodeGeom(n);
+  const label = n.label || n.entity;
+  n._label = label;
+  if(g.kind==="ellipse"){
+    n._lines = wrapLabel(label, 12);
+    n._w = g.rx*2; n._h = g.ry*2; n._geom = g;
+    if(n._lines.length>1){ n._h += 12; }
+    return;
+  }
+  const lines = wrapLabel(label, 15);
+  const charW = 5.5;
+  const lineW = Math.max.apply(null, lines.map(function(l){return l.length;})) * charW + 22;
+  n._lines = lines;
+  n._w = Math.max(g.minW, lineW);
+  n._h = lines.length>1 ? g.h+13 : g.h;
+  n._geom = g;
+}
+
+function borderDist(kind, hw, hh, dx, dy){
+  const len = Math.sqrt(dx*dx+dy*dy)||1e-6;
+  const ux=dx/len, uy=dy/len;
+  if(kind==="ellipse"){
+    const denom = Math.sqrt((ux*ux)/(hw*hw)+(uy*uy)/(hh*hh))||1e-6;
+    return 1/denom;
+  }
+  const tx = Math.abs(ux)>1e-6 ? hw/Math.abs(ux) : Infinity;
+  const ty = Math.abs(uy)>1e-6 ? hh/Math.abs(uy) : Infinity;
+  return Math.min(tx,ty);
+}
+
+function nodeShape(n){
+  if(n.id==='mtorc1box') return {x:610,y:520,hw:117,hh:86,kind:'rect'};
+  if(n.id==='mtorc2box') return {x:877,y:520,hw:103,hh:86,kind:'rect'};
+  if(!n._geom) prepNode(n);
+  const kind = n._geom.kind==='ellipse' ? 'ellipse' : 'rect';
+  const hw = n._geom.kind==='ellipse' ? n._geom.rx : n._w/2;
+  const hh = n._geom.kind==='ellipse' ? n._geom.ry : n._h/2;
+  return {x:n.x, y:n.y, hw:hw, hh:hh, kind:kind};
+}
+
+function trimLine(x1,y1,x2,y2,r1,r2){
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy)||1;
+  const ux=dx/len, uy=dy/len;
+  return {x1:x1+ux*r1, y1:y1+uy*r1, x2:x2-ux*r2, y2:y2-uy*r2};
+}
+
+function edgeLine(a,b){
+  const na = mapNodeById(a), nb = mapNodeById(b);
+  if(!na||!nb) return null;
+  const A = nodeShape(na), B = nodeShape(nb);
+  const dx=B.x-A.x, dy=B.y-A.y;
+  const r1 = borderDist(A.kind,A.hw,A.hh,dx,dy)+4;
+  const r2 = borderDist(B.kind,B.hw,B.hh,-dx,-dy)+4;
+  return trimLine(A.x,A.y,B.x,B.y,r1,r2);
+}
+
+// simple deterministic hash used to alternate curve direction so edges don't all bow the same way
+function hashStr(s){
+  let h = 0;
+  for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) | 0; }
+  return h;
+}
+
+function drawCoreEdge(a,b,kind){
+  const L = edgeLine(a,b); if(!L) return "";
+  const dx = L.x2-L.x1, dy = L.y2-L.y1;
+  const len = Math.sqrt(dx*dx+dy*dy)||1;
+  const mx = (L.x1+L.x2)/2, my = (L.y1+L.y2)/2;
+  const bow = Math.min(16, len*0.12) * (hashStr(a+b)%2===0 ? 1 : -1);
+  const px = -dy/len, py = dx/len;
+  const cx = mx + px*bow, cy = my + py*bow;
+  const marker = kind==="inhibit" ? "url(#mapInhibit)" : "url(#mapActivate)";
+  const stroke = kind==="inhibit" ? "#B4442E" : "#3A3F3B";
+  const op = kind==="inhibit" ? 0.85 : 0.62;
+  return '<path d="M' + L.x1.toFixed(1) + ',' + L.y1.toFixed(1) + ' Q' + cx.toFixed(1) + ',' + cy.toFixed(1) + ' ' + L.x2.toFixed(1) + ',' + L.y2.toFixed(1) + '" fill="none" stroke="' + stroke + '" stroke-width="1.5" stroke-linecap="round" opacity="' + op + '" marker-end="' + marker + '"/>';
+}
+
+function drawPeriphEdge(a,b,shared){
+  const L = edgeLine(a,b); if(!L) return "";
+  const op = Math.min(0.13+shared*0.08, 0.5);
+  return '<line x1="' + L.x1.toFixed(1) + '" y1="' + L.y1.toFixed(1) + '" x2="' + L.x2.toFixed(1) + '" y2="' + L.y2.toFixed(1) + '" stroke="#8B8579" stroke-width="1" stroke-dasharray="2,3" opacity="' + op + '"><title>' + shared + ' shared ' + (shared===1?'study':'studies') + '</title></line>';
+}
+
+function drawMapNode(n, selected){
+  const e = entityByName(n.entity);
+  const type = e ? e.type : "Gene/Protein";
+  const color = TYPE_COLOR[type] || "#171F1B";
+  const slug = typeSlug(type);
+  if(!n._geom) prepNode(n);
+  const safeName = n.entity.replace(/'/g,"\\'");
+  const tip = n._label + ' — ' + type + (e?(' · '+e.studies.length+' linked studies'):'');
+  if(n.isComplexLabel){
+    return '<g class="map-node" style="cursor:pointer" onclick="selectEntity(\'' + safeName + '\')"><title>' + tip + '</title><text x="' + n.x + '" y="' + n.y + '" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" font-weight="700" fill="#FFFFFF">' + n._label + '</text></g>';
+  }
+  const g = n._geom;
+  const selAttrs = selected ? 'stroke-width="3.2"' : 'stroke-width="1.5"';
+  const fillUrl = 'url(#grad-' + slug + ')';
+  let shape = "";
+  const lineCount = n._lines.length;
+  if(g.kind==="ellipse"){
+    shape = '<ellipse cx="' + n.x + '" cy="' + n.y + '" rx="' + (n._w/2) + '" ry="' + (n._h/2) + '" fill="' + fillUrl + '" stroke="' + color + '" ' + selAttrs + ' filter="url(#nodeShadow)"/>';
+  } else if(g.kind==="pill"||g.kind==="pilldash"){
+    shape = '<rect x="' + (n.x-n._w/2) + '" y="' + (n.y-n._h/2) + '" width="' + n._w + '" height="' + n._h + '" rx="' + (n._h/2) + '" fill="' + fillUrl + '" stroke="' + color + '" ' + selAttrs + ' filter="url(#nodeShadow)" ' + (g.kind==='pilldash'?'stroke-dasharray="4,2"':'') + '/>';
+  } else {
+    shape = '<rect x="' + (n.x-n._w/2) + '" y="' + (n.y-n._h/2) + '" width="' + n._w + '" height="' + n._h + '" rx="5" fill="' + fillUrl + '" stroke="' + color + '" ' + selAttrs + ' filter="url(#nodeShadow)"/>';
+  }
+  let text = "";
+  if(lineCount===1){
+    text = '<text x="' + n.x + '" y="' + (n.y+3) + '" text-anchor="middle" font-family="IBM Plex Mono" font-size="8.4" font-weight="600" fill="#171F1B">' + n._lines[0] + '</text>';
+  } else {
+    text = '<text x="' + n.x + '" y="' + (n.y-3) + '" text-anchor="middle" font-family="IBM Plex Mono" font-size="8.2" font-weight="600" fill="#171F1B">' + n._lines[0] + '</text>'
+         + '<text x="' + n.x + '" y="' + (n.y+8) + '" text-anchor="middle" font-family="IBM Plex Mono" font-size="8.2" font-weight="600" fill="#171F1B">' + n._lines[1] + '</text>';
+  }
+  return '<g class="map-node" style="cursor:pointer" onclick="selectEntity(\'' + safeName + '\')"><title>' + tip + '</title>' + shape + text + '</g>';
+}
+
+function layoutBand(ids, startY){
+  const margin=44, gap=15, rowGap=14;
+  const avail = MAP_W - margin*2;
+  const nodes = ids.map(function(id){ const n=mapNodeById(id); prepNode(n); return n; });
+  const rows=[]; let row=[]; let rowW=-gap;
+  nodes.forEach(function(n){
+    if(row.length>0 && rowW+gap+n._w>avail){ rows.push(row); row=[]; rowW=-gap; }
+    row.push(n); rowW += gap+n._w;
+  });
+  if(row.length) rows.push(row);
+  let y = startY;
+  rows.forEach(function(r){
+    const totalW = r.reduce(function(a,n){return a+n._w;},0) + gap*(r.length-1);
+    let x = margin + (avail-totalW)/2;
+    const rowH = Math.max.apply(null, r.map(function(n){return n._h;}));
+    r.forEach(function(n){ n.x = x + n._w/2; n.y = y + rowH/2; x += n._w + gap; });
+    y += rowH + rowGap;
+  });
+  return y;
+}
+
+// ---- decorative organelle / membrane artwork ----
+function buildDefs(){
+  let defs = '<defs>';
+  defs += '<marker id="mapActivate" markerWidth="11" markerHeight="11" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="#3A3F3B"/></marker>';
+  defs += '<marker id="mapInhibit" markerWidth="11" markerHeight="11" refX="4.5" refY="4.5" orient="auto"><rect x="3.5" y="0.5" width="2.4" height="8" rx="1.2" fill="#B4442E"/></marker>';
+  defs += '<filter id="nodeShadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="blur"/><feOffset in="blur" dx="0" dy="1.6" result="off"/><feComponentTransfer in="off" result="shadow"><feFuncA type="linear" slope="0.28"/></feComponentTransfer><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  defs += '<filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/><feOffset in="blur" dx="0" dy="2" result="off"/><feComponentTransfer in="off" result="shadow"><feFuncA type="linear" slope="0.22"/></feComponentTransfer><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  Object.keys(TYPE_COLOR).forEach(function(type){
+    const slug = typeSlug(type);
+    const c = TYPE_COLOR[type];
+    defs += '<linearGradient id="grad-' + slug + '" x1="0%" y1="0%" x2="100%" y2="100%">'
+      + '<stop offset="0%" stop-color="' + lightenHex(c,0.86) + '"/>'
+      + '<stop offset="100%" stop-color="' + lightenHex(c,0.58) + '"/>'
+      + '</linearGradient>';
+  });
+  defs += '<linearGradient id="grad-complexbox" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F7F5EF"/><stop offset="100%" stop-color="#E7E2D5"/></linearGradient>';
+  defs += '<radialGradient id="grad-lysosome" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#EEF3F8"/><stop offset="100%" stop-color="#D7E1EC"/></radialGradient>';
+  // phospholipid bilayer tile: pale core with two rows of head/tail lipids
+  defs += '<pattern id="lipidPattern" x="0" y="0" width="17" height="' + MAP_MEMBRANE_H + '" patternUnits="userSpaceOnUse">'
+    + '<rect width="17" height="' + MAP_MEMBRANE_H + '" fill="#FBF7ED"/>'
+    + '<circle cx="8.5" cy="5" r="4.3" fill="#F0DFB8" stroke="#9C8259" stroke-width="0.8"/>'
+    + '<line x1="8.5" y1="9.2" x2="6.3" y2="' + (MAP_MEMBRANE_H/2-1) + '" stroke="#9C8259" stroke-width="1.1" stroke-linecap="round"/>'
+    + '<line x1="8.5" y1="9.2" x2="10.7" y2="' + (MAP_MEMBRANE_H/2-1) + '" stroke="#9C8259" stroke-width="1.1" stroke-linecap="round"/>'
+    + '<circle cx="8.5" cy="' + (MAP_MEMBRANE_H-5) + '" r="4.3" fill="#F0DFB8" stroke="#9C8259" stroke-width="0.8"/>'
+    + '<line x1="8.5" y1="' + (MAP_MEMBRANE_H-9.2) + '" x2="6.3" y2="' + (MAP_MEMBRANE_H/2+1) + '" stroke="#9C8259" stroke-width="1.1" stroke-linecap="round"/>'
+    + '<line x1="8.5" y1="' + (MAP_MEMBRANE_H-9.2) + '" x2="10.7" y2="' + (MAP_MEMBRANE_H/2+1) + '" stroke="#9C8259" stroke-width="1.1" stroke-linecap="round"/>'
+    + '</pattern>';
+  defs += '</defs>';
+  return defs;
+}
+
+function drawMembrane(){
+  let s = '';
+  const x1 = 20, x2 = MAP_W-20, y = MAP_MEMBRANE_Y;
+  s += '<rect x="' + x1 + '" y="' + y + '" width="' + (x2-x1) + '" height="' + MAP_MEMBRANE_H + '" fill="url(#lipidPattern)" stroke="#9C8259" stroke-width="0.8" filter="url(#softShadow)"/>';
+  s += '<text x="' + x1 + '" y="' + (y-8) + '" font-family="IBM Plex Mono" font-size="9" letter-spacing="1" fill="#8B7355">PLASMA MEMBRANE (PHOSPHOLIPID BILAYER)</text>';
+  // receptor glyph where the GH/IGF-1 axis signal crosses the membrane
+  const rx = 755, topY = y-2, botY = y+MAP_MEMBRANE_H+2;
+  s += '<path d="M' + (rx-13) + ',' + (topY-14) + ' Q' + rx + ',' + (topY+4) + ' ' + rx + ',' + (topY+10) + ' L' + rx + ',' + (botY-6) + '" fill="none" stroke="#171F1B" stroke-width="3" stroke-linecap="round"/>';
+  s += '<path d="M' + (rx+13) + ',' + (topY-14) + ' Q' + rx + ',' + (topY+4) + ' ' + rx + ',' + (topY+10) + '" fill="none" stroke="#171F1B" stroke-width="3" stroke-linecap="round"/>';
+  s += '<circle cx="' + rx + '" cy="' + (botY-2) + '" r="3.4" fill="#171F1B"/>';
+  return s;
+}
+
+function drawLysosome(){
+  const cx=270, cy=392, rx=258, ry=172;
+  let s = '';
+  s += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" fill="url(#grad-lysosome)" filter="url(#softShadow)"/>';
+  s += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" fill="none" stroke="#9CB4CC" stroke-width="3"/>';
+  s += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (rx-4) + '" ry="' + (ry-4) + '" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.7"/>';
+  // faint luminal texture dots
+  const dots = [[-160,90],[-90,120],[60,110],[130,60],[-190,-40],[150,-70],[20,140]];
+  dots.forEach(function(d){
+    s += '<circle cx="' + (cx+d[0]) + '" cy="' + (cy+d[1]) + '" r="2.2" fill="#9CB4CC" opacity="0.35"/>';
+  });
+  s += '<text x="' + (cx-rx+18) + '" y="' + (cy+ry-20) + '" font-family="IBM Plex Mono" font-size="9.5" letter-spacing="1" fill="#5B7A9D" opacity="0.85">LYSOSOME</text>';
+  return s;
+}
+
+function drawComplexBox(box, label, entityName){
+  let s = '';
+  s += '<rect x="' + box.x + '" y="' + box.y + '" width="' + box.w + '" height="' + box.h + '" rx="10" fill="url(#grad-complexbox)" stroke="#3A3F3B" stroke-width="1.6" filter="url(#softShadow)"/>';
+  s += '<rect x="' + box.x + '" y="' + box.y + '" width="' + box.w + '" height="' + box.h + '" rx="10" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.55" transform="translate(1,1)"/>';
+  const safeName = entityName.replace(/'/g, "\\'");
+  const barY = box.y, barH = 27;
+  s += '<g style="cursor:pointer" onclick="selectEntity(\'' + safeName + '\')"><title>' + label + ' — Pathway/Complex</title>';
+  s += '<rect x="' + (box.x+2) + '" y="' + barY + '" width="' + (box.w-4) + '" height="' + barH + '" rx="8" fill="#171F1B"/>';
+  s += '<text x="' + (box.x+box.w/2) + '" y="' + (barY+barH/2+4.5) + '" text-anchor="middle" font-family="Inter" font-size="13.5" font-weight="700" fill="#FFFFFF">' + label + '</text>';
+  s += '</g>';
+  return s;
+}
+function renderFullMap(){
+  const container = document.getElementById('fullMapContainer');
+  if(!container) return;
+
+  let cursorY = 838;
+  const bandMeta = [];
+  MAP_BANDS.forEach(function(band){
+    const labelY = cursorY;
+    const bodyStart = cursorY + 17;
+    const bottom = layoutBand(band.ids, bodyStart);
+    bandMeta.push({label:band.label, labelY:labelY});
+    cursorY = bottom + 24;
+  });
+  const H = cursorY + 10;
+
+  let svg = '<svg viewBox="0 0 ' + MAP_W + ' ' + H + '" width="100%" style="min-width:940px;display:block;">';
+  svg += buildDefs();
+
+  svg += drawLysosome();
+  svg += drawMembrane();
+
+  const coreSections = [
+    [14,240,"NUTRIENT &amp; GROWTH-FACTOR SIGNALING"],
+    [14,410,"MTOR COMPLEXES"],
+    [14,671,"DOWNSTREAM EFFECTORS"],
+    [14,753,"BIOLOGICAL PROCESSES"]
+  ];
+  coreSections.forEach(function(s){
+    svg += '<text x="' + s[0] + '" y="' + s[1] + '" font-family="IBM Plex Mono" font-size="9.5" font-weight="700" letter-spacing="1" fill="#8B9089">' + s[2] + '</text>';
+  });
+  bandMeta.forEach(function(b){
+    svg += '<line x1="14" y1="' + (b.labelY-14) + '" x2="' + (MAP_W-14) + '" y2="' + (b.labelY-14) + '" stroke="#0A0A0A" stroke-width="0.6" opacity="0.1"/>';
+    svg += '<text x="14" y="' + b.labelY + '" font-family="IBM Plex Mono" font-size="9.5" font-weight="700" letter-spacing="1" fill="#8B9089">' + b.label + '</text>';
+  });
+
+  svg += drawComplexBox(MAP_BOX_C1, 'mTORC1', 'mTORC1');
+  svg += drawComplexBox(MAP_BOX_C2, 'mTORC2', 'mTORC2');
+
+  MAP_PERIPH_EDGES.forEach(function(e){ svg += drawPeriphEdge(e[0],e[1],e[2]); });
+  MAP_CORE_EDGES.forEach(function(e){ svg += drawCoreEdge(e[0],e[1],e[2]); });
+
+  const selName = state.entity;
+  MAP_NODES.forEach(function(n){ if(n.isComplexLabel) return; svg += drawMapNode(n, n.entity===selName); });
+
+  svg += '</svg>';
+
+  const legend = '<div class="fullmap-legend">'
+    + '<span class="lg-title">Legend</span>'
+    + '<span class="item"><span class="sw" style="background:#A31F34"></span>Gene/Protein</span>'
+    + '<span class="item"><span class="sw" style="background:#171F1B"></span>Pathway/Complex</span>'
+    + '<span class="item"><span class="sw" style="background:#5B7A9D"></span>Biological process</span>'
+    + '<span class="item"><span class="sw" style="background:#C17A2E"></span>Drug</span>'
+    + '<span class="item"><span class="sw" style="background:#3F8F5E"></span>Intervention</span>'
+    + '<span class="item"><span class="sw" style="background:#5B6B75"></span>Outcome</span>'
+    + '<span class="item"><span class="sw" style="background:#B4442E"></span>Disease</span>'
+    + '<span class="sep">|</span>'
+    + '<span class="item"><svg width="22" height="10"><line x1="0" y1="5" x2="16" y2="5" stroke="#3A3F3B" stroke-width="1.3"/><polygon points="16,2 21,5 16,8" fill="#3A3F3B"/></svg>activates</span>'
+    + '<span class="item"><svg width="22" height="10"><line x1="0" y1="5" x2="16" y2="5" stroke="#B4442E" stroke-width="1.3"/><line x1="16" y1="1" x2="16" y2="9" stroke="#B4442E" stroke-width="2"/></svg>inhibits</span>'
+    + '<span class="item"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#8B8579" stroke-width="1" stroke-dasharray="2,3"/></svg>linked via shared-study evidence</span>'
+    + '</div>';
+
+  container.innerHTML = svg + legend;
+}
+
+function setMapMode(mode){
+  state.mapMode = mode;
+  const bf = document.getElementById('btnFocusMap'), bm = document.getElementById('btnFullMap');
+  if(bf) bf.classList.toggle('active', mode==='focus');
+  if(bm) bm.classList.toggle('active', mode==='full');
+  const gc = document.getElementById('graphContainer'), fc = document.getElementById('fullMapContainer');
+  if(gc) gc.style.display = mode==='focus' ? '' : 'none';
+  if(fc) fc.style.display = mode==='full' ? '' : 'none';
+  const hint = document.getElementById('graphHint');
+  if(hint) hint.textContent = mode==='full' ? 'click any node to open its detail' : 'click a node to explore';
+  if(mode==='full') renderFullMap();
+}
+// ================= /Full Pathway Map =================
 
 function renderDetail(){
   const e = entityByName(state.entity);
@@ -1553,7 +2086,7 @@ function renderWelcome(){
 }
 
 function renderAll(){
-  renderTree(); renderGraph(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable();
+  renderTree(); renderGraph(); renderFullMap(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable();
 }
 
 let currentView = 'welcome';
@@ -1647,7 +2180,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-12 10:53 UTC";
+const ATLAS_UPDATED = "2026-07-12 12:07 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09): direct clinical confirmation now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, empirically confirming that sparing mTORC2 avoids the glucose-intolerance signature seen with chronic rapamycin/rapalogs. This is the strongest human evidence yet for the mechanistic premise of H2, though it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
