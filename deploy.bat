@@ -1,0 +1,145 @@
+@echo off
+REM ============================================================
+REM  Deploy the Open mTOR Atlas to GitHub Pages.
+REM  Pushes the two files the live site needs:
+REM      index.html                       (the page: abstract RAG + gaps)
+REM      atlas_fulltext\chunk_index.json  (the Deep-search full-text index)
+REM
+REM  Steps:
+REM   1) (optional) refresh baked data from Airtable   -> if AIRTABLE_TOKEN is set
+REM   2) rebuild the Deep-search chunk index           -> best effort
+REM   3) back up the two files to deploy, VERIFY the backup is complete
+REM   4) sync local repo to origin/main (nothing on GitHub is deleted)
+REM   5) restore the two files, VERIFY again, commit, push
+REM
+REM  Verification (added 2026-07-13): this repo's folder is OneDrive-synced,
+REM  and large writes to index.html have repeatedly been silently truncated
+REM  mid-file (incident: commit 11fc84f went live missing its closing
+REM  html tag and the site broke -- nothing rendered). verify_index_html.py
+REM  now gates every commit: if it reports a problem, this script stops
+REM  BEFORE committing or pushing instead of shipping a broken file.
+REM
+REM  NOTE: keep parentheses OUT of any echo text that sits inside an
+REM  if (...) ( ... ) block below -- cmd.exe parses the whole block as one
+REM  unit and a stray unescaped paren anywhere inside breaks parsing with
+REM  "was unexpected at this time", even if that branch never executes.
+REM
+REM  Target: https://github.com/open-mtor-atlas/atlas  (branch main)
+REM  Use ONLY this script (replaces earlier deploy_*.bat / git_*.bat).
+REM ============================================================
+cd /d "%~dp0"
+
+set "COMMIT_MSG=Atlas update %date% %time%"
+
+echo.
+echo === Stamping last-updated timestamp ===
+python stamp_updated.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: stamp_updated.py failed or refused to run - see message above.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === optional: Refresh ATLAS_STUDIES/ATLAS_GAPS from Airtable ===
+if defined AIRTABLE_TOKEN (
+  python sync_airtable.py
+) else (
+  echo    AIRTABLE_TOKEN not set - skipping data refresh, deploying current index.html
+)
+
+echo.
+echo === Rebuild Deep-search chunk index - best effort ===
+python atlas_fulltext\build_chunk_index.py
+if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
+
+echo.
+echo === Verifying index.html BEFORE backup - catch corruption early ===
+python verify_index_html.py index.html
+if errorlevel 1 (
+  echo.
+  echo ABORTED: index.html already looks corrupted - not backing it up or deploying it.
+  echo Restore a known-good index.html, e.g. from the last good git commit, and re-run.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === Backing up the files to deploy ===
+copy /Y index.html "index_deploy_backup.html" >nul
+if exist "atlas_fulltext\chunk_index.json" copy /Y "atlas_fulltext\chunk_index.json" "chunkindex_deploy_backup.json" >nul
+
+echo.
+echo === Verifying the backup copy is complete ===
+python verify_index_html.py index_deploy_backup.html
+if errorlevel 1 (
+  echo.
+  echo ABORTED: the backup copy of index.html looks corrupted - the copy itself
+  echo may have been truncated. Not proceeding. Re-run deploy.bat.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === Removing any stuck git lock ===
+del /f /q ".git\index.lock" 2>nul
+
+echo.
+echo === Fetching state from GitHub ===
+git fetch origin
+
+echo.
+echo === Temporarily renaming colliding untracked files ===
+if exist "ChatGPT Image 6. 7. 2026 17_07_15.png" ren "ChatGPT Image 6. 7. 2026 17_07_15.png" "_local_img_backup.png"
+
+echo.
+echo === Syncing local repo to origin/main ===
+git reset --hard origin/main
+
+echo.
+echo === Restoring the files to deploy ===
+copy /Y "index_deploy_backup.html" index.html >nul
+if not exist "atlas_fulltext" mkdir "atlas_fulltext"
+if exist "chunkindex_deploy_backup.json" copy /Y "chunkindex_deploy_backup.json" "atlas_fulltext\chunk_index.json" >nul
+
+echo.
+echo === Verifying restored index.html BEFORE commit - the real safety gate ===
+python verify_index_html.py index.html
+if errorlevel 1 (
+  echo.
+  echo ABORTED: index.html looks corrupted after being restored from backup -
+  echo the restore or copy step itself may have been truncated. NOT committing
+  echo or pushing. The backup file index_deploy_backup.html has been left in
+  echo place for inspection instead of being cleaned up. Re-run deploy.bat.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === Staging and committing index.html and chunk_index.json ===
+git add index.html
+if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
+git commit -m "%COMMIT_MSG%"
+
+echo.
+echo === Status before push ===
+git status
+
+echo.
+echo === Push to GitHub ===
+git push origin main
+
+echo.
+echo === Cleaning up temp files ===
+del "index_deploy_backup.html" 2>nul
+del "chunkindex_deploy_backup.json" 2>nul
+if exist "_local_img_backup.png" ren "_local_img_backup.png" "ChatGPT Image 6. 7. 2026 17_07_15.png"
+
+echo.
+echo ============================================================
+echo  Check above that the push finished without error - Writing... done.
+echo  Live site updates in about 1 minute. Deep search loads
+echo  atlas_fulltext/chunk_index.json on demand.
+echo ============================================================
+pause
