@@ -366,6 +366,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 @media(max-width:800px){.gap-finding{grid-template-columns:1fr;}}
 
 .ask-deep{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin:-4px 0 16px;cursor:pointer;}
+.ask-deep-note{font-size:11.5px;color:var(--ink-soft);margin:2px 0 14px;} .ask-deep-note a{color:var(--teal-deep);}
 .dp-hit{border:1px solid var(--line);border-left:3px solid var(--teal);padding:12px 15px;margin-bottom:10px;background:var(--paper-raised);}
 .dp-hit .dp-top{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
 .dp-hit .dp-sec{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line-strong);padding:2px 7px;color:var(--ink-soft);}
@@ -3004,7 +3005,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-13 08:44 UTC";
+const ATLAS_UPDATED = "2026-07-13 09:15 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09): direct clinical confirmation now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, empirically confirming that sparing mTORC2 avoids the glucose-intolerance signature seen with chronic rapamycin/rapalogs. This is the strongest human evidence yet for the mechanistic premise of H2, though it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
@@ -3097,6 +3098,7 @@ function initAsk(){
    +'<p class="ask-lede">Type a natural-language question. Atlas retrieves the most relevant studies from the corpus (fully client-side, offline) and ranks them by relevance and evidence tier, each with its citation attached.</p>'
    +'<div class="ask-box"><input id="askInput" placeholder="e.g. does mTORC1 inhibition extend lifespan through autophagy?" /><button class="ask-btn" onclick="doAsk(document.getElementById(\'askInput\').value)">Ask</button></div>'
    +'<label class="ask-deep"><input type="checkbox" id="askDeep"> Deep search &mdash; search full-text passages (open-licensed studies; loads a ~3 MB index on first use)</label>'
+   +'<div class="ask-deep-note" id="askDeepNote" style="display:none;"></div>'
    +'<div class="ask-suggest-label">Try one of these</div>'
    +'<div class="ask-suggest" id="askSuggest"></div>'
    +'<div class="ask-results" id="askResults"></div>'
@@ -3104,6 +3106,10 @@ function initAsk(){
   document.getElementById('askSuggest').innerHTML=sug.map(function(q){return '<span class="ask-chip" onclick="doAsk(this.textContent)">'+_esc(q)+'</span>';}).join('');
   var inp=document.getElementById('askInput');
   inp.addEventListener('keydown',function(e){if(e.key==="Enter")doAsk(inp.value);});
+  if(location.protocol==='file:'){
+    var dn=document.getElementById('askDeepNote');
+    if(dn){ dn.style.display='block'; dn.innerHTML='Opened as a local file &mdash; Deep search can\u2019t fetch its index here. It works on the <a href="https://open-mtor-atlas.github.io/atlas/" target="_blank" rel="noopener">live site</a>.'; }
+  }
 }
 function goStudy(code){
   if(!code) return;
@@ -3132,9 +3138,15 @@ function evJump(id){
   el.scrollIntoView({behavior:'smooth',block:'start'});
   el.classList.add('ev-flash'); setTimeout(function(){el.classList.remove('ev-flash');},1200);
 }
+function toggleEvent(id){
+  var li=document.getElementById(id); if(!li) return;
+  li.classList.toggle('expanded');
+}
 function renderEvents(){
   var v=document.getElementById('eventsView'); if(!v) return;
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var COUNTRY_FLAG={'USA':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#B22234"/><rect y="1.15" width="20" height="1.15" fill="#fff"/><rect y="3.46" width="20" height="1.15" fill="#fff"/><rect y="5.77" width="20" height="1.15" fill="#fff"/><rect y="8.08" width="20" height="1.15" fill="#fff"/><rect y="10.38" width="20" height="1.15" fill="#fff"/><rect y="12.69" width="20" height="1.15" fill="#fff"/><rect width="8" height="8.08" fill="#3C3B6E"/></svg>','Canada':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#fff"/><rect width="5" height="15" fill="#D80621"/><rect x="15" width="5" height="15" fill="#D80621"/><polygon points="10,1.6 10.9,3.6 12.6,2.7 11.8,4.7 13.6,5.1 12.1,6.3 13.2,7.6 11.4,7.3 11.7,9.1 10,8.1 10,10.4 9.3,8.7 8.3,9.1 8.6,7.3 6.8,7.6 7.9,6.3 6.4,5.1 8.2,4.7 7.4,2.7 9.1,3.6" fill="#D80621"/></svg>','Czech Republic':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="7.5" fill="#fff"/><rect y="7.5" width="20" height="7.5" fill="#D7141A"/><polygon points="0,0 0,15 10,7.5" fill="#11457E"/></svg>','Denmark':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#C60C30"/><rect x="6" width="3" height="15" fill="#fff"/><rect y="6" width="20" height="3" fill="#fff"/></svg>','Ireland':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="6.67" height="15" fill="#169B62"/><rect x="6.67" width="6.67" height="15" fill="#fff"/><rect x="13.33" width="6.67" height="15" fill="#FF883E"/></svg>','Spain':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#AA151B"/><rect y="3.75" width="20" height="7.5" fill="#F1BF00"/></svg>','Taiwan':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#FE0000"/><rect width="10" height="7.5" fill="#000095"/><circle cx="5" cy="3.75" r="1.8" fill="#fff"/></svg>','United Kingdom':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#00247D"/><polygon points="0,0 2.4,0 20,13.2 20,15 17.6,15 0,1.8" fill="#fff"/><polygon points="20,0 17.6,0 0,13.2 0,15 2.4,15 20,1.8" fill="#fff"/><polygon points="0,0 1.2,0 20,14.1 20,15 18.8,15 0,0.9" fill="#CF142B"/><polygon points="20,0 18.8,0 0,14.1 0,15 1.2,15 20,0.9" fill="#CF142B"/><rect x="8" width="4" height="15" fill="#fff"/><rect y="5.5" width="20" height="4" fill="#fff"/><rect x="8.8" width="2.4" height="15" fill="#CF142B"/><rect y="6.3" width="20" height="2.4" fill="#CF142B"/></svg>','Germany':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="5" fill="#000"/><rect y="5" width="20" height="5" fill="#DD0000"/><rect y="10" width="20" height="5" fill="#FFCE00"/></svg>','France':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="6.67" height="15" fill="#0055A4"/><rect x="6.67" width="6.67" height="15" fill="#fff"/><rect x="13.33" width="6.67" height="15" fill="#EF4135"/></svg>','Switzerland':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#D52B1E"/><rect x="8" y="4" width="4" height="7" fill="#fff"/><rect x="5.5" y="6.5" width="9" height="2" fill="#fff"/></svg>','Netherlands':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="5" fill="#AE1C28"/><rect y="5" width="20" height="5" fill="#fff"/><rect y="10" width="20" height="5" fill="#21468B"/></svg>','Italy':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="6.67" height="15" fill="#009246"/><rect x="6.67" width="6.67" height="15" fill="#fff"/><rect x="13.33" width="6.67" height="15" fill="#CE2B37"/></svg>','Sweden':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#006AA7"/><rect x="6" width="3" height="15" fill="#FECC00"/><rect y="6" width="20" height="3" fill="#FECC00"/></svg>','Japan':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#fff"/><circle cx="10" cy="7.5" r="4" fill="#BC002D"/></svg>','Australia':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#00247D"/><rect x="4.3" width="1.4" height="7.5" fill="#fff"/><rect y="3.05" width="10" height="1.4" fill="#fff"/><rect x="4.6" width="0.8" height="7.5" fill="#CF142B"/><rect y="3.35" width="10" height="0.8" fill="#CF142B"/><circle cx="15" cy="4" r="0.9" fill="#fff"/><circle cx="16.5" cy="8" r="0.7" fill="#fff"/><circle cx="13.5" cy="9.5" r="0.6" fill="#fff"/><circle cx="17.5" cy="11.5" r="0.6" fill="#fff"/><circle cx="10.5" cy="12.5" r="0.5" fill="#fff"/></svg>','Singapore':'<svg viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="7.5" fill="#EE2536"/><rect y="7.5" width="20" height="7.5" fill="#fff"/><circle cx="4.5" cy="3.75" r="2.2" fill="#fff"/><circle cx="5.4" cy="3.75" r="1.9" fill="#EE2536"/></svg>'};
+  function flagFor(c){return COUNTRY_FLAG[c] ? '<span class="ev-flag">'+COUNTRY_FLAG[c]+'</span> ' : '';}
   var today=new Date(); today.setHours(0,0,0,0);
   // assign stable ids + computed status
   ATLAS_EVENTS.forEach(function(e,i){ e._id='ev'+i; e._up=(new Date(e.end+'T00:00:00')>=today); });
@@ -3143,20 +3155,7 @@ function renderEvents(){
   var past=ATLAS_EVENTS.filter(function(e){return !e._up;})
       .sort(function(x,y){return x.start>y.start?-1:x.start<y.start?1:0;});    // most recent first
 
-  function idxItem(e){
-    return '<li class="ev-idx-li" onclick="evJump(\''+e._id+'\')">'
-      +'<span class="ev-idx-date">'+esc(e.dates)+'</span>'
-      +'<span class="ev-idx-name">'+esc(e.name)+'</span>'
-      +'<span class="ev-idx-loc">'+esc(e.city)+', '+esc(e.country)+'</span>'
-      +'</li>';
-  }
-  var indexHtml='<div class="ev-index">'
-    +'<div class="ev-index-h">On this page</div>'
-    +(upcoming.length?'<div class="ev-idx-sub ev-idx-up">Upcoming &amp; confirmed</div><ol class="ev-idx-list">'+upcoming.map(idxItem).join('')+'</ol>':'')
-    +(past.length?'<div class="ev-idx-sub ev-idx-past">Past</div><ol class="ev-idx-list">'+past.map(idxItem).join('')+'</ol>':'')
-    +'</div>';
-
-  function card(e){
+  function detail(e){
     var badge='<span class="ev-badge ev-'+(e._up?'up':'past')+'">'+(e._up?'Upcoming':'Past')+'</span>';
     var authChips='';
     if(e.authors && e.authors.length){
@@ -3164,47 +3163,54 @@ function renderEvents(){
         +e.authors.map(function(a){return '<span class="ev-authchip" title="Open in Authors" onclick="goAuthor(\''+a.replace(/'/g,"\\'")+'\')">'+esc(a)+'</span>';}).join('')
         +'</div></div>';
     }
-    return '<div class="ev-card" id="'+e._id+'">'
-      +'<div class="ev-head"><span class="ev-series">'+esc(e.series)+'</span>'+badge+'</div>'
-      +'<div class="ev-body">'
-      +'<h4 class="ev-title"><a href="'+e.url+'" target="_blank" rel="noopener">'+esc(e.name)+'</a></h4>'
-      +'<div class="ev-meta"><span>'+esc(e.dates)+'</span><span>'+esc(e.city)+', '+esc(e.country)+'</span><span>'+esc(e.venue)+'</span></div>'
+    return '<div class="ev-detail-head"><span class="ev-series">'+esc(e.series)+'</span>'+badge+'</div>'
+      +'<div class="ev-meta"><span>'+esc(e.dates)+'</span><span>'+flagFor(e.country)+esc(e.city)+', '+esc(e.country)+'</span><span>'+esc(e.venue)+'</span></div>'
       +'<p class="ev-desc">'+esc(e.desc)+'</p>'
       +'<div class="ev-row"><div class="ev-k">Why it matters for mTOR</div><div class="ev-v">'+esc(e.mtor)+'</div></div>'
       +'<div class="ev-row"><div class="ev-k">Organizers</div><div class="ev-v">'+esc(e.organizers)+'</div></div>'
       +'<div class="ev-row"><div class="ev-k">Speakers</div><div class="ev-v ev-spk">'+esc(e.speakers)+'</div></div>'
       +authChips
-      +'<div class="ev-foot"><a href="'+e.url+'" target="_blank" rel="noopener">Conference site &rarr;</a></div>'
-      +'</div>'
-      +'</div>';
+      +'<div class="ev-foot"><a href="'+e.url+'" target="_blank" rel="noopener">Conference site &rarr;</a></div>';
   }
+
+  function item(e){
+    return '<li class="ev-item" id="'+e._id+'">'
+      +'<div class="ev-item-head" onclick="toggleEvent(\''+e._id+'\')">'
+        +'<span class="ev-item-arrow">&#9656;</span>'
+        +'<span class="ev-item-date">'+esc(e.dates)+'</span>'
+        +'<span class="ev-item-name">'+esc(e.name)+'</span>'
+        +'<span class="ev-item-loc">'+flagFor(e.country)+esc(e.city)+', '+esc(e.country)+'</span>'
+      +'</div>'
+      +'<div class="ev-item-detail">'+detail(e)+'</div>'
+      +'</li>';
+  }
+
   var css='<style>'
     +'.ev-intro{max-width:900px;margin:0 auto 24px;}'
     +'.ev-intro h3{font-family:"Inter",sans-serif;margin:0 0 8px;font-size:19px;color:var(--ink);}'
     +'.ev-intro p{color:var(--ink-soft);line-height:1.6;margin:0;font-size:13px;}'
-    +'.ev-index{max-width:1100px;margin:0 auto 30px;border:1px solid var(--line-strong);background:rgba(163,31,52,0.03);padding:18px 22px;}'
-    +'.ev-index-h{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}'
-    +'.ev-idx-sub{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin:16px 0 6px;padding-top:12px;border-top:1px solid var(--line);}'
-    +'.ev-idx-sub:first-of-type{border-top:none;padding-top:0;margin-top:0;}'
-    +'.ev-idx-up{color:var(--tier-a);} .ev-idx-past{color:var(--ink-soft);}'
-    +'.ev-idx-list{list-style:none;margin:0 0 6px;padding:0;display:table;width:100%;border-spacing:0;}'
-    +'.ev-idx-li{display:table-row;cursor:pointer;}'
-    +'.ev-idx-li:hover>*{background:rgba(163,31,52,0.06);}'
-    +'.ev-idx-date,.ev-idx-name,.ev-idx-loc{display:table-cell;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line);}'
-    +'.ev-idx-li:last-child .ev-idx-date,.ev-idx-li:last-child .ev-idx-name,.ev-idx-li:last-child .ev-idx-loc{border-bottom:none;}'
-    +'.ev-idx-date{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;padding-left:4px;}'
-    +'.ev-idx-name{font-size:13.5px;color:var(--ink);line-height:1.4;}'
-    +'.ev-idx-loc{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-soft);white-space:nowrap;text-align:right;padding-right:4px;}'
-    +'.ev-section-h{max-width:1100px;margin:32px auto 14px;font-family:"IBM Plex Mono",monospace;font-weight:700;color:var(--ink-soft);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line-strong);padding-bottom:8px;}'
-    +'.ev-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:18px;align-items:stretch;}'
-    +'.ev-card{border:1px solid var(--line-strong);background:var(--paper-raised);display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s;}'
-    +'.ev-card.ev-flash{border-color:var(--teal);box-shadow:0 0 0 3px rgba(163,31,52,.15);}'
-    +'.ev-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 18px;border-bottom:1px solid var(--line);background:rgba(163,31,52,0.04);}'
+    +'.ev-section-h{max-width:1100px;margin:28px auto 12px;font-family:"IBM Plex Mono",monospace;font-weight:700;color:var(--ink-soft);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line-strong);padding-bottom:8px;}'
+    +'.ev-section-h:first-of-type{margin-top:8px;}'
+    +'.ev-list{max-width:1100px;margin:0 auto 4px;list-style:none;padding:0;border:1px solid var(--line-strong);background:var(--paper-raised);}'
+    +'.ev-item{border-bottom:1px solid var(--line);}'
+    +'.ev-item:last-child{border-bottom:none;}'
+    +'.ev-item.ev-flash{background:rgba(163,31,52,.07);}'
+    +'.ev-item-head{display:flex;align-items:baseline;gap:14px;padding:11px 16px;cursor:pointer;}'
+    +'.ev-item-head:hover{background:rgba(163,31,52,0.05);}'
+    +'.ev-item-arrow{flex-shrink:0;width:9px;font-size:9px;color:var(--ink-soft);transition:transform .15s ease;}'
+    +'.ev-item.expanded .ev-item-arrow{transform:rotate(90deg);}'
+    +'.ev-item-date{flex-shrink:0;width:158px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;}'
+    +'.ev-item-name{flex:1;font-size:13.5px;color:var(--ink);line-height:1.4;}'
+    +'.ev-item.expanded .ev-item-name{font-weight:600;}'
+    +'.ev-item-loc{flex-shrink:0;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-soft);white-space:nowrap;text-align:right;}'
+    +'.ev-flag{display:inline-block;width:16px;height:12px;vertical-align:-1px;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.18);margin-right:3px;}'
+    +'.ev-flag svg{display:block;width:100%;height:100%;}'
+    +'.ev-item-detail{display:none;padding:4px 18px 20px 39px;}'
+    +'.ev-item.expanded .ev-item-detail{display:block;}'
+    +'.ev-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0 10px;padding-top:14px;border-top:1px solid var(--line);}'
     +'.ev-series{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;color:var(--teal-deep);text-transform:uppercase;letter-spacing:.04em;}'
     +'.ev-badge{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border:1px solid;line-height:1.6;}'
     +'.ev-up{background:rgba(47,122,82,0.1);color:var(--tier-a);border-color:var(--tier-a);} .ev-past{background:transparent;color:var(--ink-soft);border-color:var(--line-strong);}'
-    +'.ev-body{padding:14px 18px 16px;display:flex;flex-direction:column;flex:1;}'
-    +'.ev-title{margin:0 0 8px;font-size:17px;line-height:1.3;font-family:"Inter",sans-serif;} .ev-title a{color:var(--ink);text-decoration:none;} .ev-title a:hover{color:var(--teal-deep);text-decoration:underline;}'
     +'.ev-meta{display:flex;flex-wrap:wrap;align-items:baseline;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-soft);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line);}'
     +'.ev-meta span{position:relative;padding-right:13px;margin-right:3px;}'
     +'.ev-meta span:not(:last-child)::after{content:"·";position:absolute;right:4px;top:0;color:var(--line-strong);}'
@@ -3214,15 +3220,14 @@ function renderEvents(){
     +'.ev-auth{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}'
     +'.ev-authchip{cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;background:var(--paper);color:var(--ink);border:1px solid var(--line-strong);padding:3px 9px;}'
     +'.ev-authchip:hover{border-color:var(--teal);color:var(--teal-deep);}'
-    +'.ev-foot{margin-top:auto;padding-top:10px;} .ev-foot a{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal-deep);text-decoration:none;font-weight:700;} .ev-foot a:hover{text-decoration:underline;}'
-    +'@media(max-width:560px){.ev-idx-list{display:block;} .ev-idx-li{display:block;padding:8px 2px;border-bottom:1px solid var(--line);} .ev-idx-date,.ev-idx-name,.ev-idx-loc{display:block;padding:1px 6px;border-bottom:none;} .ev-idx-loc{display:none;}}'
+    +'.ev-foot{margin-top:6px;} .ev-foot a{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal-deep);text-decoration:none;font-weight:700;} .ev-foot a:hover{text-decoration:underline;}'
+    +'@media(max-width:560px){.ev-item-head{flex-wrap:wrap;} .ev-item-date{width:auto;order:1;} .ev-item-name{order:0;flex-basis:100%;margin-bottom:2px;} .ev-item-loc{display:none;} .ev-item-detail{padding-left:18px;}}'
     +'</style>';
   v.innerHTML=css
    +'<div class="ev-intro"><h3>Events &mdash; mTOR, metabolism &amp; geroscience meetings</h3>'
-   +'<p>Conferences and symposia where the people behind this corpus present. Curated for mTOR relevance (2025, 2026 and confirmed future). Speakers who are also authors of studies in the Atlas are linked &mdash; click a name to open them in the Authors tab.</p></div>'
-   +indexHtml
-   +(upcoming.length?'<div class="ev-section-h">Upcoming &amp; confirmed</div><div class="ev-grid">'+upcoming.map(card).join('')+'</div>':'')
-   +(past.length?'<div class="ev-section-h">Past</div><div class="ev-grid">'+past.map(card).join('')+'</div>':'');
+   +'<p>Conferences and symposia where the people behind this corpus present. Curated for mTOR relevance (2025, 2026 and confirmed future). Click a conference to expand its details. Speakers who are also authors of studies in the Atlas are linked &mdash; click a name to open them in the Authors tab.</p></div>'
+   +(upcoming.length?'<div class="ev-section-h">Upcoming &amp; confirmed</div><ol class="ev-list">'+upcoming.map(item).join('')+'</ol>':'')
+   +(past.length?'<div class="ev-section-h">Past</div><ol class="ev-list">'+past.map(item).join('')+'</ol>':'');
 }
 
 function renderGaps(){
@@ -3258,7 +3263,13 @@ function deepSearch(q){
     if(_cidxLoading) return; _cidxLoading=true;
     fetch('atlas_fulltext/chunk_index.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
      .then(function(j){_CIDX=j;_cidxLoading=false;deepSearch(q);})
-     .catch(function(e){_cidxLoading=false;box.innerHTML='<div class="ask-count">Full-text index not available ('+e+'). Generate it with atlas_fulltext/build_chunk_index.py and deploy chunk_index.json alongside the page (served over http, not opened as a local file).</div>';});
+     .catch(function(e){_cidxLoading=false;
+       if(location.protocol==='file:'){
+         box.innerHTML='<div class="ask-count">Deep search needs to load a ~3\u00a0MB index file, and browsers block that when a page is opened directly from disk (no server). This works normally on the live site &mdash; open <a href="https://open-mtor-atlas.github.io/atlas/" target="_blank" rel="noopener">open-mtor-atlas.github.io/atlas</a> and try Deep search there, or serve this folder locally over http instead of double-clicking the file.</div>';
+       } else {
+         box.innerHTML='<div class="ask-count">Full-text index failed to load ('+e+'). It should be deployed at atlas_fulltext/chunk_index.json alongside this page &mdash; check the deployment, or regenerate it with atlas_fulltext/build_chunk_index.py.</div>';
+       }
+     });
     return;
   }
   var idf=_CIDX.idf, chunks=_CIDX.chunks, t=_tokD(q), tf={};
