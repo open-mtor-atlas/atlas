@@ -71,7 +71,7 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .itl-body{font-size:12px;color:var(--ink-soft);line-height:1.55;max-width:600px;}
 .itl-body a.doi{color:var(--teal-deep);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;border-bottom:1px dotted var(--teal-deep);}
 
-.ipy-panel{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:22px 24px 20px;}
+.ipy-panel{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:22px 24px 20px;max-width:660px;}
 .ipy-row{display:flex;align-items:center;margin-bottom:11px;}
 .ipy-label{width:172px;flex-shrink:0;font-size:11.5px;padding-right:12px;text-align:right;line-height:1.25;}
 .ipy-label .n{font-weight:600;}
@@ -91,7 +91,7 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 .ipy-gapbox .glbl{font-size:11.5px;font-weight:600;margin-top:2px;}
 .ipy-gapbox .gnote{font-size:10.5px;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
 
-.ipy-other-grid{display:flex;gap:10px;flex-wrap:wrap;}
+.ipy-other-grid{display:flex;gap:10px;flex-wrap:wrap;max-width:660px;}
 .ipy-chip{display:flex;align-items:center;gap:8px;background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:9px 13px;font-size:12px;}
 .ipy-chip .dot{width:9px;height:9px;border-radius:0;flex-shrink:0;}
 .ipy-chip .lbl{color:var(--ink);}
@@ -449,6 +449,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   #lineageView .canvas {overflow-x:auto;padding:18px 0 8px}
   #lineageView .canvas svg {display:block}   /* rendered 1:1 and scrolled — never scaled down, so labels stay legible */
   #lineageView .hint {font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px}
+  #lineageView .zoom-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 6px;}
+  #lineageView .zoom-bar .hint{margin:0;}
+  #lineageView .zoom-controls{display:flex;gap:4px;flex-shrink:0;}
+  #lineageView .zoom-btn{min-width:32px;text-align:center;font-weight:700;padding:5px 10px;}
 
   #lineageView .lane-rule {stroke:var(--line);stroke-width:1}
   #lineageView .lane-head {font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--ink);text-transform:uppercase;font-weight:500}
@@ -829,7 +833,14 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 
   <main>
     <div class="canvas">
-      <p class="hint">Scroll sideways across the six branches →</p>
+      <div class="zoom-bar">
+        <p class="hint">Drag the scrollbar to pan &middot; use +/&minus; to zoom</p>
+        <div class="zoom-controls">
+          <button type="button" class="chip zoom-btn" id="lineageZoomOut" aria-label="Zoom out">&minus;</button>
+          <button type="button" class="chip zoom-btn" id="lineageZoomFit" aria-label="Fit to screen">Fit</button>
+          <button type="button" class="chip zoom-btn" id="lineageZoomIn" aria-label="Zoom in">+</button>
+        </div>
+      </div>
       <svg id="lineageTree" role="img" aria-label="Time-scaled lineage of landmark mTOR studies"></svg>
     </div>
     <aside class="panel" id="lineagePanel">
@@ -1451,6 +1462,41 @@ document.getElementById("lineageLegend").innerHTML =
    <div><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="3 3"></circle></svg>Open question</div>
    <div><svg width="34" height="8" viewBox="0 0 34 8"><path d="M0 4H34" stroke="rgba(0,0,0,0.34)" stroke-width="2"></path></svg>Enables / extends</div>
    <div><svg width="34" height="8" viewBox="0 0 34 8"><path d="M0 4H34" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6 4"></path></svg>Overturns</div>`;
+
+/* ---------- zoom / fit-to-screen ---------- */
+let baseScale = 1, zoomMult = 1;
+const ZMIN = 0.35, ZMAX = 3;
+function applyZoom(){
+  const s = baseScale * zoomMult;
+  svg.style.width = (W * s) + "px";
+  svg.style.height = (H * s) + "px";
+}
+function computeFit(){
+  const canvasEl = svg.parentElement;
+  const cw = canvasEl ? canvasEl.clientWidth : W;
+  baseScale = cw > 0 ? Math.min(cw / W, 1) : 1;
+  applyZoom();
+}
+function zoomBy(factor){
+  zoomMult = Math.min(ZMAX, Math.max(ZMIN, zoomMult * factor));
+  applyZoom();
+}
+function zoomFit(){
+  zoomMult = 1;
+  computeFit();
+}
+computeFit();
+let _fitResizeT = null;
+window.addEventListener("resize", () => {
+  clearTimeout(_fitResizeT);
+  _fitResizeT = setTimeout(computeFit, 150);
+});
+const _zIn = document.getElementById("lineageZoomIn");
+const _zOut = document.getElementById("lineageZoomOut");
+const _zFit = document.getElementById("lineageZoomFit");
+if (_zIn) _zIn.addEventListener("click", () => zoomBy(1.25));
+if (_zOut) _zOut.addEventListener("click", () => zoomBy(0.8));
+if (_zFit) _zFit.addEventListener("click", zoomFit);
     })();
     </script>
   </div>
@@ -2870,7 +2916,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-13 07:53 UTC";
+const ATLAS_UPDATED = "2026-07-13 08:06 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09): direct clinical confirmation now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, empirically confirming that sparing mTORC2 avoids the glucose-intolerance signature seen with chronic rapamycin/rapalogs. This is the strongest human evidence yet for the mechanistic premise of H2, though it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
