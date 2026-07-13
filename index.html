@@ -413,6 +413,123 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 
 .author-thumb{width:44px;height:56px;object-fit:cover;flex-shrink:0;border:1px solid var(--line-strong);background:#e9e7e2;}
 .author-thumb-mono{width:44px;height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;color:#fff;letter-spacing:.5px;}
+
+/* ===== Lineage tab (scoped) ===== */
+#lineageView{--serif:'Source Serif 4',serif;--sans:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace;}
+#lineageView .lineage-history{padding:8px 2px 4px;border-top:1px solid var(--line-strong);margin-top:6px;}
+
+  /* Tokens taken from the live Atlas (open-mtor-atlas.github.io/atlas) */
+  #lineageView a {color:var(--teal-deep);text-decoration:none;border-bottom:1px solid rgba(163,31,52,.3)}
+  #lineageView a:hover {border-bottom-color:var(--teal)}
+  #lineageView :focus-visible {outline:2px solid var(--teal);outline-offset:3px}
+
+  #lineageView .wrap {max-width:1560px;margin:0 auto;padding:0 32px}
+  #lineageView header {padding:44px 0 26px;border-bottom:1px solid var(--line)}
+  #lineageView .eyebrow {font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+  #lineageView .eyebrow b {color:var(--teal);font-weight:600}
+  #lineageView h1 {font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 14px;letter-spacing:-0.01em}
+  #lineageView .lede {max-width:66ch;color:var(--ink-soft);margin:0 0 28px;font-size:15.5px}
+  #lineageView .lede strong {color:var(--ink);font-weight:600}
+  #lineageView .lede .hb {color:var(--tier-b);font-weight:600}
+
+  #lineageView .stats {display:flex;flex-wrap:wrap;gap:34px;margin:0}
+  #lineageView .stat .n {font-family:var(--serif);font-size:30px;font-weight:700;line-height:1;display:block}
+  #lineageView .stat .n.warn {color:var(--danger)}
+  #lineageView .stat .l {font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:7px}
+
+  #lineageView .controls {padding:16px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+  #lineageView .chip {font-family:var(--mono);font-size:11px;letter-spacing:.05em;background:var(--paper);color:var(--ink-soft);
+        border:1px solid var(--line);border-radius:1px;padding:6px 12px;cursor:pointer}
+  #lineageView .chip:hover {border-color:var(--line-strong);color:var(--ink)}
+  #lineageView .chip[aria-pressed="true"] {background:var(--ink);color:#fff;border-color:var(--ink)}
+  #lineageView .chip.solo {margin-left:auto}
+  #lineageView .chip.solo[aria-pressed="true"] {background:var(--tier-b);border-color:var(--tier-b)}
+
+  #lineageView main {display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;align-items:start;padding:0 0 50px}
+  #lineageView .canvas {overflow-x:auto;padding:18px 0 8px}
+  #lineageView .canvas svg {display:block}   /* rendered 1:1 and scrolled — never scaled down, so labels stay legible */
+  #lineageView .hint {font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px}
+
+  #lineageView .lane-rule {stroke:var(--line);stroke-width:1}
+  #lineageView .lane-head {font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--ink);text-transform:uppercase;font-weight:500}
+  #lineageView .lane-head .idx {fill:var(--teal)}
+  #lineageView .lane-note {font-family:var(--sans);font-size:11.5px;fill:var(--ink-soft)}
+  #lineageView .yr {font-family:var(--mono);font-size:11px;fill:var(--ink-soft)}
+  #lineageView .yr-rule {stroke:var(--line);stroke-dasharray:1 5}
+
+  #lineageView .edge {fill:none;stroke:var(--line-strong);stroke-opacity:.5}
+  #lineageView .edge.converges {stroke:var(--teal);stroke-opacity:.6}
+  #lineageView .edge.contradicts {stroke:var(--danger);stroke-opacity:.85;stroke-dasharray:7 5}
+  #lineageView .edge.opens {stroke:var(--teal);stroke-opacity:.4;stroke-dasharray:2 4}
+  #lineageView .edge.lit {stroke-opacity:1;stroke-width:2.6}
+  #lineageView .edge.dim {stroke-opacity:.08}
+
+  #lineageView .node {cursor:pointer}
+  #lineageView .node .glyph {stroke:rgba(0,0,0,.45);stroke-width:1}
+  #lineageView .node .hit {fill:transparent}
+  #lineageView .node.t-a .glyph {fill:var(--tier-a)}
+  #lineageView .node.t-b .glyph {fill:var(--tier-b)}
+  #lineageView .node.t-c .glyph {fill:var(--tier-c)}
+  #lineageView .node.t-d .glyph {fill:var(--tier-d)}
+  #lineageView .node.nul .glyph {fill:var(--paper);stroke:var(--danger);stroke-width:2.4}
+  #lineageView .node.rev .glyph {fill:var(--paper);stroke:var(--danger);stroke-width:2}
+  #lineageView .node.bud .glyph {fill:none;stroke:var(--teal);stroke-width:1.5;stroke-dasharray:3 3}
+
+  #lineageView .card {fill:var(--paper-raised);stroke:var(--line);stroke-width:1}
+  #lineageView .node.t-b .card {stroke:rgba(47,111,168,.55)}
+  #lineageView .node.nul .card, #lineageView .node.rev .card {stroke:rgba(180,68,46,.5)}
+  #lineageView .node.bud .card {fill:none;stroke:rgba(163,31,52,.35);stroke-dasharray:3 3}
+  #lineageView .tether {fill:none;stroke:var(--line);stroke-width:1}
+  #lineageView .lbl {font-family:var(--sans);font-size:13px;font-weight:500;fill:var(--ink)}
+  #lineageView .card-yr {font-family:var(--mono);font-size:10px;fill:var(--ink-soft)}
+  #lineageView .node.bud .lbl {fill:var(--teal-deep);font-style:italic}
+  #lineageView .node:hover .card, #lineageView .node.sel .card {fill:#FAF8F5;stroke:var(--ink)}
+  #lineageView .node.sel .glyph {stroke:var(--ink);stroke-width:2.4}
+  #lineageView .node.dim {opacity:.16}
+
+  #lineageView .bud-pulse {transform-box:fill-box;transform-origin:center;animation:lineagePulse 3.4s ease-in-out infinite}
+  @keyframes lineagePulse{0%,100%{opacity:.5;r:9}50%{opacity:1;r:12}}
+
+  #lineageView .gap-band {fill:var(--danger);fill-opacity:.045;stroke:var(--danger);stroke-opacity:.3;stroke-dasharray:3 4}
+  #lineageView .gap-lbl {font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--danger);text-transform:uppercase;font-weight:500}
+  #lineageView .gap-sub {font-family:var(--sans);font-size:12px;fill:var(--ink-soft)}
+
+  #lineageView .panel {position:sticky;top:18px;background:var(--paper-raised);border:1px solid var(--line);border-radius:1px;
+         padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);min-height:300px}
+  #lineageView .panel .empty {color:var(--ink-soft)}
+  #lineageView .badge {display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+         padding:3px 7px;border-radius:1px;margin:0 5px 9px 0;border:1px solid var(--line);color:var(--ink-soft)}
+  #lineageView .badge.tier {color:#fff;border:none}
+  #lineageView .badge.tier.a {background:var(--tier-a)}
+  #lineageView .badge.tier.b {background:var(--tier-b)}
+  #lineageView .badge.tier.c {background:var(--tier-c)}
+  #lineageView .badge.tier.d {background:var(--tier-d)}
+  #lineageView .badge.tier.q {background:var(--teal)}
+  #lineageView .panel h2 {font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.25;margin:5px 0 6px}
+  #lineageView .cite {font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.6}
+  #lineageView .panel h3 {font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:15px 0 5px;font-weight:600}
+  #lineageView .panel p {margin:0;font-size:13.5px}
+  #lineageView .open-note {color:var(--danger)}
+  #lineageView .rel {font-size:13px;margin:4px 0;color:var(--ink-soft);cursor:pointer}
+  #lineageView .rel:hover {color:var(--ink)}
+  #lineageView .rel .r {font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--teal-deep);margin-right:6px}
+  #lineageView .rel .r.contradicts {color:var(--danger)}
+  #lineageView .links {margin-top:15px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px}
+
+  #lineageView .legend {display:flex;flex-wrap:wrap;gap:22px;padding:0 0 36px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft)}
+  #lineageView .legend div {display:flex;align-items:center;gap:7px}
+  #lineageView .sw {width:12px;height:12px;border-radius:1px;display:inline-block}
+  #lineageView footer {border-top:1px solid var(--line);padding:22px 0 60px;color:var(--ink-soft);font-size:12.5px;max-width:80ch}
+  #lineageView code {font-family:var(--mono);font-size:11.5px;background:#F3F1EE;padding:1px 4px}
+
+  @media (max-width:1000px){
+    #lineageView main {grid-template-columns:1fr}
+    #lineageView .panel {position:static}
+    #lineageView .wrap {padding:0 18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    #lineageView * {animation:none!important;transition:none!important}
+  }
 </style>
 </head>
 <body>
@@ -443,6 +560,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
       <div class="tab" data-tab="evidence">Evidence</div>
       <div class="tab" data-tab="questions">Gaps &amp; Hypotheses</div>
       <div class="tab" data-tab="events">Events</div>
+      <div class="tab" data-tab="lineage">Lineage</div>
       <div class="tab" data-tab="about">About</div>
     </div>
   </div>
@@ -460,82 +578,6 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
       <div class="intro-stat"><div class="num">1975</div><div class="lbl">the story begins</div></div>
     </div>
 
-    <div class="intro-cols">
-    <div class="intro-col">
-    <div class="intro-section">
-      <h3>How we got here</h3>
-      <div class="intro-section-desc">
-        Every entry in this Atlas traces back to a real paper. Here are six moments that built
-        the field — from a soil sample on a Pacific island to a clinical trial that didn't work.
-      </div>
-      <div class="itl">
-        <div class="itl-item">
-          <div class="itl-year">1975</div>
-          <div class="itl-title">A molecule from Rapa Nui</div>
-          <div class="itl-body">
-            Vézina and colleagues isolate a compound from <em>Streptomyces</em> bacteria in a soil
-            sample from Rapa Nui (Easter Island), with antifungal activity nobody can yet explain.
-            They name it after the island: rapamycin.
-            <a class="doi" href="https://doi.org/10.7164/antibiotics.28.721" target="_blank">DOI: 10.7164/antibiotics.28.721</a>
-          </div>
-        </div>
-        <div class="itl-item">
-          <div class="itl-year">1994</div>
-          <div class="itl-title">The target gets a name</div>
-          <div class="itl-body">
-            Sabatini and colleagues identify the protein rapamycin actually binds inside human
-            cells — the Mammalian Target Of Rapamycin. Two decades of "what does this drug even
-            do?" finally has a molecular answer.
-            <a class="doi" href="https://doi.org/10.1016/0092-8674(94)90570-3" target="_blank">DOI: 10.1016/0092-8674(94)90570-3</a>
-          </div>
-        </div>
-        <div class="itl-item">
-          <div class="itl-year">2002–2004</div>
-          <div class="itl-title">One protein, two complexes</div>
-          <div class="itl-body">
-            Kim et al. discover Raptor, the partner protein that defines mTOR Complex 1. Two
-            years later, Sarbassov et al. discover Rictor — defining a second, rapamycin-<em>resistant</em>
-            complex, mTORC2. mTOR turns out to have two faces at the molecular level too.
-            <a class="doi" href="https://doi.org/10.1016/s0092-8674(02)00808-5" target="_blank">DOI: 10.1016/s0092-8674(02)00808-5</a>
-             · <a class="doi" href="https://doi.org/10.1016/j.cub.2004.06.054" target="_blank">DOI: 10.1016/j.cub.2004.06.054</a>
-          </div>
-        </div>
-        <div class="itl-item">
-          <div class="itl-year">2009</div>
-          <div class="itl-title">The first drug shown to extend mammalian lifespan</div>
-          <div class="itl-body">
-            The NIA Interventions Testing Program, led by Harrison and colleagues, shows rapamycin
-            extends lifespan in genetically heterogeneous mice — even when treatment starts late
-            in life. First pharmacological intervention ever shown to do this in a mammal.
-            <a class="doi" href="https://doi.org/10.1038/nature08221" target="_blank">DOI: 10.1038/nature08221</a>
-          </div>
-        </div>
-        <div class="itl-item">
-          <div class="itl-year">2018</div>
-          <div class="itl-title">From mice to people</div>
-          <div class="itl-body">
-            Mannick and colleagues show low-dose mTOR inhibition reduces infection rates and
-            improves vaccine response in elderly volunteers — the first hint the mouse result
-            might translate to humans.
-            <a class="doi" href="https://doi.org/10.1126/scitranslmed.aaq1564" target="_blank">DOI: 10.1126/scitranslmed.aaq1564</a>
-          </div>
-        </div>
-        <div class="itl-item">
-          <div class="itl-year">2021</div>
-          <div class="itl-title">The reality check</div>
-          <div class="itl-body">
-            The follow-up phase 3 trial — 1,024 participants — misses its primary endpoint. The
-            drug still switched on the right antiviral genes; it just didn't reduce clinically
-            symptomatic illness. This Atlas keeps that result next to the success that came before
-            it, because a database that only remembers the wins isn't science.
-            <a class="doi" href="https://doi.org/10.1016/S2666-7568(21)00062-3" target="_blank">DOI: 10.1016/S2666-7568(21)00062-3</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <div class="intro-col">
     <div class="intro-section">
       <h3>The evidence pyramid</h3>
       <div class="intro-section-desc">
@@ -599,8 +641,6 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
         <div class="ipy-chip"><span class="dot" style="background:var(--pp);"></span><span class="lbl">Preprint (not peer-reviewed)</span><span class="n" id="otherPreprint">—</span></div>
         <div class="ipy-chip"><span class="dot" style="background:var(--rt);"></span><span class="lbl">Registered Trial (ongoing)</span><span class="n" id="otherRegistered">—</span></div>
       </div>
-    </div>
-    </div>
     </div>
 
     <div class="intro-snapshot-note">
@@ -775,6 +815,645 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="eventsView" style="display:none;"></div>
+
+  <div id="lineageView" style="display:none;">
+    <div class="wrap">
+  <header>
+    <p class="eyebrow"><b>Open mTOR Atlas</b> · Lineage</p>
+    <h1>How mTOR biology actually grew</h1>
+    <p class="lede">Every node is a landmark study. Every edge is a claim about <strong>what one study made possible for the next</strong> — not who cited whom. The vertical axis is real time, so the empty stretches are part of the argument. Nodes carry the Atlas's own evidence tiers: <span class="hb">blue is direct human evidence</span>. Count the blue.</p>
+    <div class="stats" id="lineageStats"></div>
+  </header>
+
+  <div class="controls" id="lineageControls"></div>
+
+  <main>
+    <div class="canvas">
+      <p class="hint">Scroll sideways across the six branches →</p>
+      <svg id="lineageTree" role="img" aria-label="Time-scaled lineage of landmark mTOR studies"></svg>
+    </div>
+    <aside class="panel" id="lineagePanel">
+      <p class="empty">Select any node to read what it unlocked, what it left open, and which studies it grew from.</p>
+    </aside>
+  </main>
+
+  <div class="legend" id="lineageLegend"></div>
+
+  <footer>
+    Study metadata retrieved and verified via PubMed; evidence tiers follow the Atlas's own A–D scheme. Lineage edges are editorial — they encode enablement, extension, convergence, contradiction and open questions, and are curated rather than derived from citation counts. Node positions, edges, counts and the translation gap are computed at runtime from the <code>LINEAGE</code> array; nothing is hardcoded. Add a study and the tree grows.
+  </footer>
+    </div>
+
+    <div class="lineage-history">
+    <div class="intro-section">
+      <h3>How we got here</h3>
+      <div class="intro-section-desc">
+        Every entry in this Atlas traces back to a real paper. Here are six moments that built
+        the field — from a soil sample on a Pacific island to a clinical trial that didn't work.
+      </div>
+      <div class="itl">
+        <div class="itl-item">
+          <div class="itl-year">1975</div>
+          <div class="itl-title">A molecule from Rapa Nui</div>
+          <div class="itl-body">
+            Vézina and colleagues isolate a compound from <em>Streptomyces</em> bacteria in a soil
+            sample from Rapa Nui (Easter Island), with antifungal activity nobody can yet explain.
+            They name it after the island: rapamycin.
+            <a class="doi" href="https://doi.org/10.7164/antibiotics.28.721" target="_blank">DOI: 10.7164/antibiotics.28.721</a>
+          </div>
+        </div>
+        <div class="itl-item">
+          <div class="itl-year">1994</div>
+          <div class="itl-title">The target gets a name</div>
+          <div class="itl-body">
+            Sabatini and colleagues identify the protein rapamycin actually binds inside human
+            cells — the Mammalian Target Of Rapamycin. Two decades of "what does this drug even
+            do?" finally has a molecular answer.
+            <a class="doi" href="https://doi.org/10.1016/0092-8674(94)90570-3" target="_blank">DOI: 10.1016/0092-8674(94)90570-3</a>
+          </div>
+        </div>
+        <div class="itl-item">
+          <div class="itl-year">2002–2004</div>
+          <div class="itl-title">One protein, two complexes</div>
+          <div class="itl-body">
+            Kim et al. discover Raptor, the partner protein that defines mTOR Complex 1. Two
+            years later, Sarbassov et al. discover Rictor — defining a second, rapamycin-<em>resistant</em>
+            complex, mTORC2. mTOR turns out to have two faces at the molecular level too.
+            <a class="doi" href="https://doi.org/10.1016/s0092-8674(02)00808-5" target="_blank">DOI: 10.1016/s0092-8674(02)00808-5</a>
+             · <a class="doi" href="https://doi.org/10.1016/j.cub.2004.06.054" target="_blank">DOI: 10.1016/j.cub.2004.06.054</a>
+          </div>
+        </div>
+        <div class="itl-item">
+          <div class="itl-year">2009</div>
+          <div class="itl-title">The first drug shown to extend mammalian lifespan</div>
+          <div class="itl-body">
+            The NIA Interventions Testing Program, led by Harrison and colleagues, shows rapamycin
+            extends lifespan in genetically heterogeneous mice — even when treatment starts late
+            in life. First pharmacological intervention ever shown to do this in a mammal.
+            <a class="doi" href="https://doi.org/10.1038/nature08221" target="_blank">DOI: 10.1038/nature08221</a>
+          </div>
+        </div>
+        <div class="itl-item">
+          <div class="itl-year">2018</div>
+          <div class="itl-title">From mice to people</div>
+          <div class="itl-body">
+            Mannick and colleagues show low-dose mTOR inhibition reduces infection rates and
+            improves vaccine response in elderly volunteers — the first hint the mouse result
+            might translate to humans.
+            <a class="doi" href="https://doi.org/10.1126/scitranslmed.aaq1564" target="_blank">DOI: 10.1126/scitranslmed.aaq1564</a>
+          </div>
+        </div>
+        <div class="itl-item">
+          <div class="itl-year">2021</div>
+          <div class="itl-title">The reality check</div>
+          <div class="itl-body">
+            The follow-up phase 3 trial — 1,024 participants — misses its primary endpoint. The
+            drug still switched on the right antiviral genes; it just didn't reduce clinically
+            symptomatic illness. This Atlas keeps that result next to the success that came before
+            it, because a database that only remembers the wins isn't science.
+            <a class="doi" href="https://doi.org/10.1016/S2666-7568(21)00062-3" target="_blank">DOI: 10.1016/S2666-7568(21)00062-3</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <script>
+    (function(){
+/* ============================================================
+   Open mTOR Atlas — Lineage component (standalone)
+   Field shape mirrors ATLAS_STUDIES plus a `lineage` block.
+   relation: ENABLES | EXTENDS | CONVERGES | CONTRADICTS | OPENS
+   type:     FOUNDATIONAL | TOOL | MECHANISM | LIFESPAN |
+             TRANSLATION | REVERSAL | NULL | OPEN
+   Every PMID below verified against PubMed.
+   ============================================================ */
+
+const BRANCHES = [
+  { id:"A", name:"Chemistry & target", note:"The trunk: a molecule becomes a probe" },
+  { id:"B", name:"Complex architecture", note:"mTORC1 vs mTORC2" },
+  { id:"C", name:"Upstream sensing", note:"Energy, growth factors, amino acids" },
+  { id:"D", name:"Downstream output", note:"Translation and autophagy" },
+  { id:"E", name:"Ageing & lifespan", note:"Yeast → worm → fly → mouse → ?" },
+  { id:"F", name:"Clinic", note:"Oncology, immunity, longevity" }
+];
+
+const LINEAGE = [
+  { pmid:"1102508", year:1975, label:"Rapamycin isolated", authors:"Vézina, Kudelski & Sehgal",
+    journal:"J Antibiot", doi:"10.7164/antibiotics.28.721", species:"Microbial", tier:"D",
+    title:"Rapamycin (AY-22,989), a new antifungal antibiotic. I. Taxonomy of the producing streptomycete and isolation of the active principle.",
+    lineage:{ branch:"A", type:"TOOL", thickness:5, parents:[],
+      unlocked:"A soil bacterium from Rapa Nui yields a molecule with an unusually clean effect on cell growth. Nobody yet knows what it binds.", still_open:null }},
+
+  { pmid:"1715094", year:1991, label:"TOR1/TOR2 in yeast", authors:"Heitman, Movva & Hall",
+    journal:"Science", doi:"10.1126/science.1715094", species:"Yeast", tier:"D",
+    title:"Targets for cell cycle arrest by the immunosuppressant rapamycin in yeast.",
+    lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:5, parents:[{pmid:"1102508", relation:"ENABLES"}],
+      unlocked:"Resistance mutations name the target: TOR1 and TOR2. The field's true origin — a drug converted into a genetic handle.",
+      still_open:"The paper frames rapamycin as an immunosuppressant that blocks T-cell activation. That framing survives eighteen years, until it is inverted (Araki, 2009)." }},
+
+  { pmid:"7518356", year:1994, label:"RAFT1 — mammalian TOR", authors:"Sabatini et al.",
+    journal:"Cell", doi:"10.1016/0092-8674(94)90570-3", species:"Mammalian cells", tier:"D",
+    title:"RAFT1: a mammalian protein that binds to FKBP12 in a rapamycin-dependent fashion and is homologous to yeast TORs.",
+    lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:5, parents:[{pmid:"1715094", relation:"EXTENDS"}],
+      unlocked:"The yeast gene has a mammalian counterpart. mTOR exists, and the entire yeast literature becomes relevant to human biology.", still_open:null }},
+
+  { pmid:"8008069", year:1994, label:"FRAP — parallel find", authors:"Brown, Albers … Schreiber",
+    journal:"Nature", doi:"10.1038/369756a0", species:"Mammalian cells", tier:"D",
+    title:"A mammalian protein targeted by G1-arresting rapamycin-receptor complex.",
+    lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:3, parents:[{pmid:"1715094", relation:"EXTENDS"}],
+      unlocked:"Two labs isolate the same protein within weeks by different routes. Parallel discovery signals a ripe question — worth showing, not collapsing into one node.", still_open:null }},
+
+  { pmid:"12150925", year:2002, label:"Raptor", authors:"Kim, Sarbassov … Sabatini",
+    journal:"Cell", doi:"10.1016/s0092-8674(02)00808-5", species:"Mammalian cells", tier:"D",
+    title:"mTOR interacts with raptor to form a nutrient-sensitive complex that signals to the cell growth machinery.",
+    lineage:{ branch:"B", type:"MECHANISM", thickness:5, parents:[{pmid:"7518356", relation:"ENABLES"}],
+      unlocked:"mTOR is not a lone kinase but the core of a complex. Raptor is the scaffold that lets mTORC1 reach its substrates.", still_open:null }},
+
+  { pmid:"12150926", year:2002, label:"Raptor — parallel find", authors:"Hara, Maruki … Yonezawa",
+    journal:"Cell", doi:"10.1016/s0092-8674(02)00833-4", species:"Mammalian cells", tier:"D",
+    title:"Raptor, a binding partner of target of rapamycin (TOR), mediates TOR action.",
+    lineage:{ branch:"B", type:"MECHANISM", thickness:2, parents:[{pmid:"7518356", relation:"ENABLES"}],
+      unlocked:"The same complex, back to back in the same issue of Cell, plus C. elegans genetics tying raptor to TOR function in a whole animal.", still_open:null }},
+
+  { pmid:"12408816", year:2002, label:"TORC1 vs TORC2 in yeast", authors:"Loewith … Hall",
+    journal:"Mol Cell", doi:"10.1016/s1097-2765(02)00636-6", species:"Yeast", tier:"D",
+    title:"Two TOR complexes, only one of which is rapamycin sensitive, have distinct roles in cell growth control.",
+    lineage:{ branch:"B", type:"FOUNDATIONAL", thickness:5, parents:[{pmid:"1715094", relation:"EXTENDS"}],
+      unlocked:"Yeast reveals the architecture before mammals do: two complexes, and rapamycin only touches one of them. This predicts mTORC2 two years early.", still_open:null }},
+
+  { pmid:"15268862", year:2004, label:"Rictor / mTORC2", authors:"Sarbassov … Sabatini",
+    journal:"Curr Biol", doi:"10.1016/j.cub.2004.06.054", species:"Mammalian cells", tier:"D",
+    title:"Rictor, a novel binding partner of mTOR, defines a rapamycin-insensitive and raptor-independent pathway that regulates the cytoskeleton.",
+    lineage:{ branch:"B", type:"MECHANISM", thickness:5,
+      parents:[{pmid:"12408816", relation:"CONVERGES"},{pmid:"12150925", relation:"CONVERGES"}],
+      unlocked:"Two lineages meet: yeast genetics said a second complex should exist, mammalian biochemistry finds it. A convergence node — the shape a citation graph cannot show you.", still_open:null }},
+
+  { pmid:"15718470", year:2005, label:"mTORC2 phosphorylates Akt", authors:"Sarbassov, Guertin, Ali & Sabatini",
+    journal:"Science", doi:"10.1126/science.1106148", species:"Mammalian cells", tier:"D",
+    title:"Phosphorylation and regulation of Akt/PKB by the rictor-mTOR complex.",
+    lineage:{ branch:"B", type:"MECHANISM", thickness:5, parents:[{pmid:"15268862", relation:"ENABLES"}],
+      unlocked:"mTORC2 is the missing S473 kinase for Akt. The pathway closes on itself, and mTORC2 becomes a metabolic node you cannot casually switch off.",
+      still_open:"The origin of the selectivity problem: chronic rapalog dosing eventually reaches mTORC2, which is where the insulin resistance and hyperlipidaemia seen in the clinic come from." }},
+
+  { pmid:"12869586", year:2003, label:"TSC2 is a GAP for Rheb", authors:"Inoki, Li, Xu & Guan",
+    journal:"Genes Dev", doi:"10.1101/gad.1110003", species:"Mammalian cells", tier:"D",
+    title:"Rheb GTPase is a direct target of TSC2 GAP activity and regulates mTOR signaling.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:5, parents:[{pmid:"7518356", relation:"ENABLES"}],
+      unlocked:"The growth-factor input is wired: Akt relieves TSC1/TSC2, TSC2 stops shutting off Rheb, Rheb turns on mTORC1. A disease gene becomes a pathway component.", still_open:null }},
+
+  { pmid:"14651849", year:2003, label:"AMPK phosphorylates TSC2", authors:"Inoki, Zhu & Guan",
+    journal:"Cell", doi:"10.1016/s0092-8674(03)00929-2", species:"Mammalian cells", tier:"D",
+    title:"TSC2 mediates cellular energy response to control cell growth and survival.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:4, parents:[{pmid:"12869586", relation:"EXTENDS"}],
+      unlocked:"Energy status enters the pathway. Low ATP → AMPK → TSC2 → mTORC1 off. The mechanistic bridge to caloric restriction and, later, to metformin.", still_open:null }},
+
+  { pmid:"18497260", year:2008, label:"Rags sense amino acids", authors:"Sancak … Bar-Peled, Sabatini",
+    journal:"Science", doi:"10.1126/science.1157535", species:"Mammalian cells", tier:"D",
+    title:"The Rag GTPases bind raptor and mediate amino acid signaling to mTORC1.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:5, parents:[{pmid:"12150925", relation:"ENABLES"}],
+      unlocked:"Amino acids act through a separate input that works by moving mTORC1, not by activating it directly. Location becomes a mechanism.", still_open:null }},
+
+  { pmid:"20381137", year:2010, label:"mTORC1 on the lysosome", authors:"Sancak, Bar-Peled, Zoncu … Sabatini",
+    journal:"Cell", doi:"10.1016/j.cell.2010.02.024", species:"Mammalian cells", tier:"D",
+    title:"Ragulator-Rag complex targets mTORC1 to the lysosomal surface and is necessary for its activation by amino acids.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:5, parents:[{pmid:"18497260", relation:"EXTENDS"}],
+      unlocked:"The lysosome — long treated as the cell's rubbish bin — turns out to be the platform where growth is decided.", still_open:null }},
+
+  { pmid:"22053050", year:2011, label:"v-ATPase: inside-out", authors:"Zoncu, Bar-Peled, Efeyan … Sabatini",
+    journal:"Science", doi:"10.1126/science.1207056", species:"Mammalian cells", tier:"D",
+    title:"mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:3, parents:[{pmid:"20381137", relation:"EXTENDS"}],
+      unlocked:"The signal starts inside the lysosomal lumen and is read outwards. Counter-intuitive, and it relocates where 'nutrient status' physically lives.", still_open:null }},
+
+  { pmid:"23723238", year:2013, label:"GATOR1 / GATOR2", authors:"Bar-Peled, Chantranupong … Sabatini",
+    journal:"Science", doi:"10.1126/science.1232044", species:"Mammalian cells", tier:"D",
+    title:"A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:4, parents:[{pmid:"18497260", relation:"EXTENDS"}],
+      unlocked:"The negative arm of amino-acid sensing — and it is mutated in human cancers. Also the handle that makes the leucine sensor findable.", still_open:null }},
+
+  { pmid:"26449471", year:2015, label:"Sestrin2: leucine sensor", authors:"Wolfson, Chantranupong … Sabatini",
+    journal:"Science", doi:"10.1126/science.aab2674", species:"Mammalian cells", tier:"D",
+    title:"Sestrin2 is a leucine sensor for the mTORC1 pathway.",
+    lineage:{ branch:"C", type:"MECHANISM", thickness:4, parents:[{pmid:"23723238", relation:"ENABLES"}],
+      unlocked:"A twenty-year question closes: a protein binds leucine directly, with a Kd matching the concentration at which leucine half-maximally activates mTORC1. The cell has a leucine receptor.", still_open:null }},
+
+  { pmid:"19211835", year:2009, label:"mTORC1 → ULK1: autophagy", authors:"Hosokawa … Mizushima",
+    journal:"Mol Biol Cell", doi:"10.1091/mbc.e08-12-1248", species:"Mammalian cells", tier:"D",
+    title:"Nutrient-dependent mTORC1 association with the ULK1-Atg13-FIP200 complex required for autophagy.",
+    lineage:{ branch:"D", type:"MECHANISM", thickness:5, parents:[{pmid:"12150925", relation:"ENABLES"}],
+      unlocked:"The direct molecular link from nutrient status to self-digestion — the wire connecting mTOR to nearly every longevity mechanism people care about.",
+      still_open:"Nutrient input is dynamic, but this is measured as an on/off state. Whether the timing of mTORC1 release, rather than its average level, sets autophagic flux is unsettled." }},
+
+  { pmid:"22552098", year:2012, label:"4E-BPs and TOP mRNAs", authors:"Thoreen, Chantranupong … Sabatini",
+    journal:"Nature", doi:"10.1038/nature11083", species:"Mouse cells", tier:"D",
+    title:"A unifying model for mTORC1-mediated regulation of mRNA translation.",
+    lineage:{ branch:"D", type:"REVERSAL", thickness:4, parents:[{pmid:"12150925", relation:"ENABLES"}],
+      unlocked:"Ribosome profiling under a full mTOR inhibitor shows the translational program is almost entirely TOP-motif mRNAs, controlled by the 4E-BPs. Earlier models built on 5'UTR complexity find no support.",
+      still_open:"Rapamycin only partially inhibits 4E-BP phosphorylation — so twenty years of rapamycin data were reading a partial inhibitor as if it were complete." }},
+
+  { pmid:"22343943", year:2012, label:"mTORC1 → TFEB", authors:"Settembre, Zoncu … Sabatini, Ballabio",
+    journal:"EMBO J", doi:"10.1038/emboj.2012.32", species:"Mammalian cells", tier:"D",
+    title:"A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB.",
+    lineage:{ branch:"D", type:"MECHANISM", thickness:4,
+      parents:[{pmid:"20381137", relation:"CONVERGES"},{pmid:"19211835", relation:"EXTENDS"}],
+      unlocked:"The sensing branch and the autophagy branch fuse: mTORC1 sits on the lysosome and phosphorylates the transcription factor that builds more lysosomes.",
+      still_open:"TFEB shuttles in and out of the nucleus — an inherently time-dependent readout, and a natural place to test whether pulse frequency carries information." }},
+
+  { pmid:"14668850", year:2003, label:"Lifespan+ in C. elegans", authors:"Vellai … Müller",
+    journal:"Nature", doi:"10.1038/426620a", species:"C. elegans", tier:"C",
+    title:"Genetics: influence of TOR kinase on lifespan in C. elegans.",
+    lineage:{ branch:"E", type:"LIFESPAN", thickness:5, parents:[{pmid:"1715094", relation:"EXTENDS"}],
+      unlocked:"The first time TOR is tied to how long an animal lives. The pathway stops being about cell size and starts being about ageing.", still_open:null }},
+
+  { pmid:"15186745", year:2004, label:"Lifespan+ in Drosophila", authors:"Kapahi, Zid … Benzer",
+    journal:"Curr Biol", doi:"10.1016/j.cub.2004.03.059", species:"Drosophila", tier:"C",
+    title:"Regulation of lifespan in Drosophila by modulation of genes in the TOR signaling pathway.",
+    lineage:{ branch:"E", type:"LIFESPAN", thickness:4, parents:[{pmid:"14668850", relation:"EXTENDS"}],
+      unlocked:"Replication in a second organism — and the effect depends on nutritional state, the first strong hint that TOR is the mechanism behind dietary restriction.", still_open:null }},
+
+  { pmid:"16293764", year:2005, label:"Restriction acts via TOR", authors:"Kaeberlein … Kennedy",
+    journal:"Science", doi:"10.1126/science.1115535", species:"Yeast", tier:"C",
+    title:"Regulation of yeast replicative life span by TOR and Sch9 in response to nutrients.",
+    lineage:{ branch:"E", type:"LIFESPAN", thickness:4, parents:[{pmid:"1715094", relation:"EXTENDS"}],
+      unlocked:"Deleting TOR1 adds nothing on top of caloric restriction — they are the same road. Restriction stops being a mystery and becomes a pathway.", still_open:null }},
+
+  { pmid:"19587680", year:2009, label:"Mouse lifespan +14%", authors:"Harrison, Strong … Miller",
+    journal:"Nature", doi:"10.1038/nature08221", species:"Mouse", tier:"C",
+    title:"Rapamycin fed late in life extends lifespan in genetically heterogeneous mice.",
+    lineage:{ branch:"E", type:"LIFESPAN", thickness:5,
+      parents:[{pmid:"14668850", relation:"EXTENDS"},{pmid:"15186745", relation:"EXTENDS"},{pmid:"16293764", relation:"EXTENDS"}],
+      unlocked:"A drug started at 600 days — roughly a 60-year-old human — extends life in a mammal: about 14% in females and 9% in males, replicated at three independent sites in genetically heterogeneous mice. The heaviest node in the tree.",
+      still_open:"It is a mouse. Seventeen years on, no human trial has tested a lifespan or healthspan endpoint. Everything above this node on the human side is inference." }},
+
+  { pmid:"17538086", year:2007, label:"Temsirolimus, phase 3", authors:"Hudes … Motzer",
+    journal:"N Engl J Med", doi:"10.1056/NEJMoa066838", species:"Human", tier:"B",
+    title:"Temsirolimus, interferon alfa, or both for advanced renal-cell carcinoma.",
+    lineage:{ branch:"F", type:"TRANSLATION", thickness:4, parents:[{pmid:"7518356", relation:"ENABLES"}],
+      unlocked:"The first hard human outcome for an mTOR inhibitor: median overall survival 10.9 months versus 7.3 on interferon. Also the first clean human safety picture — rash, oedema, hyperglycaemia, hyperlipidaemia.",
+      still_open:"An oncology endpoint in sick patients says almost nothing about dosing a healthy person for decades." }},
+
+  { pmid:"19543266", year:2009, label:"Rapamycin boosts memory", authors:"Araki … Ahmed",
+    journal:"Nature", doi:"10.1038/nature08155", species:"Mouse & primate", tier:"C",
+    title:"mTOR regulates memory CD8 T-cell differentiation.",
+    lineage:{ branch:"F", type:"REVERSAL", thickness:5,
+      parents:[{pmid:"1715094", relation:"CONTRADICTS"},{pmid:"12150925", relation:"ENABLES"}],
+      unlocked:"The drug filed for eighteen years as an immunosuppressant makes memory T cells better — in quantity and in quality, in mice and in macaques. The field's assumption inverts.",
+      still_open:"Immunosuppression and immune enhancement depend on dose and timing. Nobody has mapped where that boundary sits in humans." }},
+
+  { pmid:"22149876", year:2011, label:"Everolimus, BOLERO-2", authors:"Baselga … Hortobagyi",
+    journal:"N Engl J Med", doi:"10.1056/NEJMoa1109653", species:"Human", tier:"B",
+    title:"Everolimus in postmenopausal hormone-receptor-positive advanced breast cancer.",
+    lineage:{ branch:"F", type:"TRANSLATION", thickness:3, parents:[{pmid:"17538086", relation:"EXTENDS"}],
+      unlocked:"Progression-free survival roughly doubles when everolimus is added to endocrine therapy. mTOR inhibition becomes standard oncology care, and its side-effect profile gets characterised in thousands of people.", still_open:null }},
+
+  { pmid:"25540326", year:2014, label:"RAD001 in older adults", authors:"Mannick … Klickstein",
+    journal:"Sci Transl Med", doi:"10.1126/scitranslmed.3009892", species:"Human", tier:"B",
+    title:"mTOR inhibition improves immune function in the elderly.",
+    lineage:{ branch:"F", type:"TRANSLATION", thickness:5,
+      parents:[{pmid:"19543266", relation:"EXTENDS"},{pmid:"19587680", relation:"EXTENDS"}],
+      unlocked:"The first time the ageing branch touches a human. Low-dose everolimus raises influenza-vaccine response by about 20% in older adults and lowers PD-1 on T cells.",
+      still_open:"The endpoint is a surrogate — antibody titre, not health, not lifespan." }},
+
+  { pmid:"29997249", year:2018, label:"Phase 2a: fewer infections", authors:"Mannick … Klickstein",
+    journal:"Sci Transl Med", doi:"10.1126/scitranslmed.aaq1564", species:"Human", tier:"B",
+    title:"TORC1 inhibition enhances immune function and reduces infections in the elderly.",
+    lineage:{ branch:"F", type:"TRANSLATION", thickness:4, parents:[{pmid:"25540326", relation:"EXTENDS"}],
+      unlocked:"264 older adults, six weeks of low-dose TORC1 inhibition, and a significant drop in infections reported over the following year. The strongest human signal the field has produced.",
+      still_open:"Phase 2a, self-reported infections. Closer to health than a titre — but still not ageing." }},
+
+  { pmid:"33977284", year:2021, label:"Phase 3 misses endpoint", authors:"Mannick … Shergill",
+    journal:"Lancet Healthy Longev", doi:"10.1016/S2666-7568(21)00062-3", species:"Human", tier:"B",
+    title:"Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials.",
+    lineage:{ branch:"F", type:"NULL", thickness:5, parents:[{pmid:"29997249", relation:"CONTRADICTS"}],
+      unlocked:"1,024 participants. RTB101 did not reduce clinically symptomatic respiratory illness — 26% versus 25%, p=0.65. The antiviral genes still switched on; the clinical outcome did not move.",
+      still_open:"The biomarker moved and the patient did not. This is the node most databases would quietly omit, and the reason the Atlas records failures at the same weight as successes." }},
+
+  { pmid:"27279227", year:2016, label:"RapaLink-1", authors:"Rodrik-Outmezguine … Rosen, Shokat",
+    journal:"Nature", doi:"10.1038/nature17963", species:"Cells & mouse", tier:"C",
+    title:"Overcoming mTOR resistance mutations with a new-generation mTOR inhibitor.",
+    lineage:{ branch:"F", type:"TOOL", thickness:5,
+      parents:[{pmid:"15718470", relation:"ENABLES"},{pmid:"17538086", relation:"CONTRADICTS"}],
+      unlocked:"Linking the rapamycin pocket to the kinase pocket in a single molecule defeats resistance mutations that beat both earlier generations — and it is the chemistry that makes true mTORC1 selectivity thinkable. Direct ancestor of the bi-steric inhibitors now in human trials.",
+      still_open:"Selectivity in cells is not selectivity in a person dosed for years." }},
+
+  /* ---- Open questions: buds, not findings. No PMID. ---- */
+  { pmid:"OQ-SELECTIVITY", year:2026, label:"mTORC1-only, in humans?", authors:null, species:"Open question", tier:null,
+    lineage:{ branch:"B", type:"OPEN", thickness:1,
+      parents:[{pmid:"15718470", relation:"OPENS"},{pmid:"27279227", relation:"OPENS"}], unlocked:null,
+      still_open:"Bi-steric inhibitors spare mTORC2 acutely. Whether that holds under chronic human dosing — and whether sparing mTORC2 removes the metabolic toxicity — is being answered right now." }},
+
+  { pmid:"OQ-FREQUENCY", year:2026, label:"Frequency, not level?", authors:null, species:"Open question", tier:null,
+    lineage:{ branch:"D", type:"OPEN", thickness:1,
+      parents:[{pmid:"22552098", relation:"OPENS"},{pmid:"19211835", relation:"OPENS"},{pmid:"22343943", relation:"OPENS"}], unlocked:null,
+      still_open:"Every mechanism on this branch was measured at steady state. If mTORC1 oscillates with feeding, growth-factor bursts and the cell cycle, then two cells with identical average activity could have opposite fates. Almost nothing in the literature is designed to detect that." }},
+
+  { pmid:"OQ-CHRONO", year:2026, label:"Does timing matter?", authors:null, species:"Open question", tier:null,
+    lineage:{ branch:"F", type:"OPEN", thickness:1,
+      parents:[{pmid:"33977284", relation:"OPENS"},{pmid:"27279227", relation:"OPENS"}], unlocked:null,
+      still_open:"Every human trial so far dosed on a fixed schedule chosen for convenience. If mTORC1 is phase-dependent, dose timing is an untested variable sitting inside every null result — including the one directly below this bud." }},
+
+  { pmid:"OQ-HUMAN", year:2026, label:"Human healthspan?", authors:null, species:"Open question", tier:null,
+    lineage:{ branch:"E", type:"OPEN", thickness:1,
+      parents:[{pmid:"19587680", relation:"OPENS"},{pmid:"33977284", relation:"OPENS"}], unlocked:null,
+      still_open:"Untested — not disputed, not emerging. No completed trial has used a human ageing endpoint. This is the question the Atlas exists to keep visible." }}
+];
+
+/* ---------- layout ----------
+   Glyphs sit on their exact year, on the centre line of their column.
+   Only the label cards are packed apart and tethered back, so the time
+   axis is never distorted to make room for text.                        */
+const Y0 = 1974, Y1 = 2027;
+const PX_PER_YEAR = 27;
+const TOP = 104, LEFT = 84, LANE_W = 292, RIGHT_PAD = 150;
+const W = LEFT + BRANCHES.length * LANE_W + RIGHT_PAD;
+const H = TOP + (Y1 - Y0) * PX_PER_YEAR + 40;
+
+const yOf = y => TOP + (y - Y0) * PX_PER_YEAR;
+const laneX = b => LEFT + LANE_W / 2 + BRANCHES.findIndex(x => x.id === b) * LANE_W;
+
+const byId = new Map(LINEAGE.map(d => [d.pmid, d]));
+const pos = new Map(), card = new Map();
+const CARD_H = 24, CARD_GAP = 28;
+
+BRANCHES.forEach(br => {
+  const nodes = LINEAGE.filter(d => d.lineage.branch === br.id).sort((a, b) => a.year - b.year);
+  let prev = -Infinity;
+  nodes.forEach(d => {
+    const y = yOf(d.year);
+    pos.set(d.pmid, { x: laneX(br.id), y });
+    const cy = Math.max(y, prev + CARD_GAP);
+    card.set(d.pmid, cy);
+    prev = cy;
+  });
+});
+
+/* ---------- derived stats ---------- */
+const findings   = LINEAGE.filter(d => d.lineage.type !== "OPEN");
+const humanNodes = findings.filter(d => d.tier === "B");
+const openNodes  = LINEAGE.filter(d => d.lineage.type === "OPEN");
+const reversals  = findings.filter(d => d.lineage.type === "REVERSAL" || d.lineage.type === "NULL");
+const ageingEndpoints = humanNodes.filter(d => /lifespan|healthspan/i.test(d.lineage.unlocked || "")).length;
+const span = Math.max(...findings.map(d => d.year)) - Math.min(...findings.map(d => d.year));
+
+document.getElementById("lineageStats").innerHTML = [
+  [findings.length, "landmark studies"],
+  [span + " yrs", "soil sample to clinic"],
+  [humanNodes.length, "tier B — human"],
+  [ageingEndpoints, "human ageing endpoints", true],
+  [reversals.length, "reversals & nulls"],
+  [openNodes.length, "questions still open"]
+].map(([n, l, warn]) =>
+  `<div class="stat"><span class="n${warn ? " warn" : ""}">${n}</span><span class="l">${l}</span></div>`
+).join("");
+
+/* ---------- svg ---------- */
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("lineageTree");
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+svg.setAttribute("width", W);
+svg.setAttribute("height", H);
+
+const el = (tag, attrs = {}, text) => {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (text != null) n.textContent = text;
+  return n;
+};
+
+for (let y = 1975; y <= 2025; y += 5) {
+  svg.appendChild(el("line", { class:"yr-rule", x1:LEFT - 10, x2:W - 30, y1:yOf(y), y2:yOf(y) }));
+  svg.appendChild(el("text", { class:"yr", x:LEFT - 22, y:yOf(y) + 4, "text-anchor":"end" }, y));
+}
+svg.appendChild(el("text", { class:"yr", x:LEFT - 22, y:yOf(2026) + 4, "text-anchor":"end" }, "now"));
+
+BRANCHES.forEach(br => {
+  const x = laneX(br.id);
+  svg.appendChild(el("line", { class:"lane-rule", x1:x, x2:x, y1:TOP - 34, y2:H - 30 }));
+  const t = el("text", { class:"lane-head", x:x, y:44, "text-anchor":"middle" });
+  t.appendChild(el("tspan", { class:"idx" }, br.id + " · "));
+  t.appendChild(el("tspan", {}, br.name));
+  svg.appendChild(t);
+  svg.appendChild(el("text", { class:"lane-note", x:x, y:64, "text-anchor":"middle" }, br.note));
+});
+
+/* signature: the translation gap */
+const gapTop = yOf(2009), gapBot = yOf(2026), gapW = 244;
+const gx = laneX("E") - gapW / 2;
+svg.appendChild(el("rect", { class:"gap-band", x:gx, y:gapTop, width:gapW, height:gapBot - gapTop, rx:1 }));
+const rot = (cls, dx, txt) => {
+  const px = gx + dx, py = gapTop + 120;
+  svg.appendChild(el("text", { class:cls, x:px, y:py, transform:`rotate(-90 ${px} ${py})`, "text-anchor":"start" }, txt));
+};
+rot("gap-lbl", 17, "The translation gap");
+rot("gap-sub", 35, "17 years since the mouse result. No completed human trial has shown a lifespan or healthspan benefit.");
+
+/* edges */
+const edgeEls = [];
+LINEAGE.forEach(child => {
+  child.lineage.parents.forEach(p => {
+    const a = pos.get(p.pmid), b = pos.get(child.pmid);
+    if (!a || !b) return;
+    const dy = (b.y - a.y) * 0.42;
+    const parent = byId.get(p.pmid);
+    const path = el("path", {
+      class: "edge " + p.relation.toLowerCase(),
+      d: `M ${a.x} ${a.y} C ${a.x} ${a.y + dy}, ${b.x} ${b.y - dy}, ${b.x} ${b.y}`,
+      "stroke-width": p.relation === "OPENS" ? 1.4 : 1 + (parent ? parent.lineage.thickness : 1) * 0.4
+    });
+    path.dataset.from = p.pmid;
+    path.dataset.to = child.pmid;
+    svg.appendChild(path);
+    edgeEls.push(path);
+  });
+});
+
+/* nodes */
+const glyph = (type, x, y) => {
+  switch (type) {
+    case "TOOL":         return el("rect",    { class:"glyph", x:x-7, y:y-7, width:14, height:14, rx:1 });
+    case "LIFESPAN":     return el("polygon", { class:"glyph", points:`${x},${y-9} ${x+8},${y+6} ${x-8},${y+6}` });
+    case "TRANSLATION":
+    case "NULL":         return el("polygon", { class:"glyph", points:`${x},${y-9} ${x+8},${y} ${x},${y+9} ${x-8},${y}` });
+    case "FOUNDATIONAL": return el("circle",  { class:"glyph", cx:x, cy:y, r:9 });
+    case "OPEN":         return el("circle",  { class:"glyph bud-pulse", cx:x, cy:y, r:9 });
+    default:             return el("circle",  { class:"glyph", cx:x, cy:y, r:6.5 });
+  }
+};
+
+const PAD = 11, GAP_GLYPH = 17;
+const nodeEls = new Map();
+
+LINEAGE.forEach(d => {
+  const { x, y } = pos.get(d.pmid);
+  const cy = card.get(d.pmid);
+  const t = d.lineage.type;
+  const isOpen = t === "OPEN";
+  const cls = ["node"];
+  if (isOpen) cls.push("bud");
+  else {
+    cls.push("t-" + d.tier.toLowerCase());
+    if (t === "NULL") cls.push("nul");
+    else if (t === "REVERSAL") cls.push("rev");
+  }
+
+  const g = el("g", { class:cls.join(" "), tabindex:"0", role:"button",
+                      "aria-label":`${isOpen ? "Open question" : d.year}. ${d.label}` });
+
+  const yrTxt = isOpen ? "open" : String(d.year);
+  const cardW = PAD + yrTxt.length * 6.1 + 9 + d.label.length * 6.7 + PAD;
+  const cx = x + GAP_GLYPH;
+
+  if (Math.abs(cy - y) > 1)
+    g.appendChild(el("path", { class:"tether", d:`M ${x + 7} ${y} L ${cx - 4} ${cy}` }));
+
+  g.appendChild(el("rect", { class:"card", x:cx, y:cy - CARD_H/2, width:cardW, height:CARD_H, rx:1 }));
+  g.appendChild(el("text", { class:"card-yr", x:cx + PAD, y:cy + 4 }, yrTxt));
+  g.appendChild(el("text", { class:"lbl", x:cx + PAD + yrTxt.length * 6.1 + 9, y:cy + 4.5 }, d.label));
+
+  g.appendChild(glyph(t, x, y));
+  g.appendChild(el("circle", { class:"hit", cx:x, cy:y, r:15 }));
+
+  g.addEventListener("click", () => select(d.pmid));
+  g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.pmid); }});
+  g.addEventListener("mouseenter", () => highlight(d.pmid));
+  g.addEventListener("mouseleave", () => { if (!selected) clearHighlight(); else highlight(selected); });
+
+  svg.appendChild(g);
+  nodeEls.set(d.pmid, g);
+});
+
+/* --- highlight / select --- */
+let selected = null;
+
+function neighbours(pmid){
+  const s = new Set([pmid]);
+  edgeEls.forEach(e => {
+    if (e.dataset.to === pmid) s.add(e.dataset.from);
+    if (e.dataset.from === pmid) s.add(e.dataset.to);
+  });
+  return s;
+}
+function highlight(pmid){
+  const keep = neighbours(pmid);
+  nodeEls.forEach((g, id) => g.classList.toggle("dim", !keep.has(id)));
+  edgeEls.forEach(e => {
+    const on = e.dataset.to === pmid || e.dataset.from === pmid;
+    e.classList.toggle("lit", on);
+    e.classList.toggle("dim", !on);
+  });
+}
+function clearHighlight(){
+  nodeEls.forEach(g => g.classList.remove("dim"));
+  edgeEls.forEach(e => e.classList.remove("lit","dim"));
+}
+
+const REL_COPY = {
+  ENABLES:"enabled by", EXTENDS:"extends", CONVERGES:"converges from",
+  CONTRADICTS:"overturns", OPENS:"grows out of"
+};
+const TIER_NAME = { A:"Tier A — systematic review", B:"Tier B — human", C:"Tier C — animal", D:"Tier D — mechanistic" };
+const panel = document.getElementById("lineagePanel");
+
+function select(pmid){
+  selected = pmid;
+  nodeEls.forEach(g => g.classList.remove("sel"));
+  nodeEls.get(pmid).classList.add("sel");
+  highlight(pmid);
+  panel.innerHTML = render(byId.get(pmid));
+  panel.querySelectorAll("[data-goto]").forEach(a =>
+    a.addEventListener("click", () => select(a.dataset.goto)));
+  if (window.innerWidth <= 1000) panel.scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+function render(d){
+  const L = d.lineage;
+  const isOpen = L.type === "OPEN";
+  const kids = LINEAGE.filter(k => k.lineage.parents.some(p => p.pmid === d.pmid));
+
+  let h = isOpen
+    ? `<span class="badge tier q">open question</span>`
+    : `<span class="badge tier ${d.tier.toLowerCase()}">${TIER_NAME[d.tier]}</span>`;
+  h += `<span class="badge">${L.type.toLowerCase()}</span>`;
+  h += `<span class="badge">branch ${L.branch}</span>`;
+  h += `<h2>${d.label}</h2>`;
+  if (!isOpen) h += `<p class="cite">${d.authors} · ${d.journal} · ${d.year}<br>${d.species}<br>${d.title}</p>`;
+
+  if (L.unlocked)   h += `<h3>What it unlocked</h3><p>${L.unlocked}</p>`;
+  if (L.still_open) h += `<h3>${isOpen ? "The question" : "What stayed open"}</h3><p class="open-note">${L.still_open}</p>`;
+
+  if (L.parents.length){
+    h += `<h3>Grew from</h3>` + L.parents.map(p => {
+      const par = byId.get(p.pmid);
+      return `<p class="rel" data-goto="${p.pmid}"><span class="r ${p.relation.toLowerCase()}">${REL_COPY[p.relation]}</span>${par.label} · ${par.year}</p>`;
+    }).join("");
+  }
+  if (kids.length){
+    h += `<h3>Led to</h3>` + kids.map(k => {
+      const rel = k.lineage.parents.find(p => p.pmid === d.pmid).relation;
+      return `<p class="rel" data-goto="${k.pmid}"><span class="r ${rel.toLowerCase()}">${REL_COPY[rel]}</span>${k.label}${k.lineage.type === "OPEN" ? "" : " · " + k.year}</p>`;
+    }).join("");
+  }
+  if (!isOpen){
+    h += `<div class="links">
+      <a href="https://pubmed.ncbi.nlm.nih.gov/${d.pmid}/" target="_blank" rel="noopener">PMID ${d.pmid}</a> ·
+      <a href="https://doi.org/${d.doi}" target="_blank" rel="noopener">DOI</a>
+    </div>`;
+  }
+  return h;
+}
+
+/* ---------- controls ---------- */
+const controls = document.getElementById("lineageControls");
+const active = new Set(BRANCHES.map(b => b.id));
+let humanOnly = false;
+
+BRANCHES.forEach(br => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.setAttribute("aria-pressed","true");
+  b.textContent = br.id + " · " + br.name;
+  b.addEventListener("click", () => {
+    active.has(br.id) ? active.delete(br.id) : active.add(br.id);
+    b.setAttribute("aria-pressed", String(active.has(br.id)));
+    applyFilters();
+  });
+  controls.appendChild(b);
+});
+const hb = document.createElement("button");
+hb.className = "chip solo"; hb.setAttribute("aria-pressed","false");
+hb.textContent = "Show tier B (human) only";
+hb.addEventListener("click", () => {
+  humanOnly = !humanOnly;
+  hb.setAttribute("aria-pressed", String(humanOnly));
+  applyFilters();
+});
+controls.appendChild(hb);
+
+function applyFilters(){
+  const visible = new Set();
+  LINEAGE.forEach(d => {
+    const ok = active.has(d.lineage.branch) &&
+               (!humanOnly || d.tier === "B" || d.lineage.type === "OPEN");
+    if (ok) visible.add(d.pmid);
+    nodeEls.get(d.pmid).classList.toggle("dim", !ok);
+  });
+  edgeEls.forEach(e =>
+    e.classList.toggle("dim", !(visible.has(e.dataset.from) && visible.has(e.dataset.to))));
+  selected = null;
+  nodeEls.forEach(g => g.classList.remove("sel"));
+}
+
+/* ---------- legend (derived from the data, so it cannot drift) ---------- */
+const tiersUsed = [...new Set(findings.map(d => d.tier))].sort();
+document.getElementById("lineageLegend").innerHTML =
+  tiersUsed.map(t => `<div><span class="sw" style="background:var(--tier-${t.toLowerCase()})"></span>${TIER_NAME[t]}</div>`).join("") +
+  `<div><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="none" stroke="var(--danger)" stroke-width="2"></circle></svg>Reversal or null result</div>
+   <div><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="3 3"></circle></svg>Open question</div>
+   <div><svg width="34" height="8" viewBox="0 0 34 8"><path d="M0 4H34" stroke="rgba(0,0,0,0.34)" stroke-width="2"></path></svg>Enables / extends</div>
+   <div><svg width="34" height="8" viewBox="0 0 34 8"><path d="M0 4H34" stroke="var(--danger)" stroke-width="2" stroke-dasharray="6 4"></path></svg>Overturns</div>`;
+    })();
+    </script>
+  </div>
 
   <div id="aboutView" style="display:none;">
     <div class="about-wrap">
@@ -2101,7 +2780,7 @@ function setActiveTab(view){
   if(el) el.classList.add('active');
 }
 function showView(which){
-  const views = {welcome:'welcomeView',map:'mapView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',events:'eventsView',about:'aboutView'};
+  const views = {welcome:'welcomeView',map:'mapView',studies:'studiesView',authors:'authorsView',evidence:'evidenceView',questions:'questionsView',ask:'askView',events:'eventsView',lineage:'lineageView',about:'aboutView'};
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
@@ -2191,7 +2870,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-13 07:27 UTC";
+const ATLAS_UPDATED = "2026-07-13 07:53 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09): direct clinical confirmation now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, empirically confirming that sparing mTORC2 avoids the glucose-intolerance signature seen with chronic rapamycin/rapalogs. This is the strongest human evidence yet for the mechanistic premise of H2, though it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
