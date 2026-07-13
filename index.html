@@ -45,7 +45,7 @@ body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;fon
 /* ---------- Homepage intro (Pathway Map splash) ---------- */
 .atlas-intro{padding:28px 2px 8px;border-bottom:1px solid var(--line-strong);}
 .intro-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);font-weight:600;margin-bottom:10px;}
-.intro-headline{font-family:'Inter',sans-serif;font-weight:700;font-size:32px;line-height:1.14;letter-spacing:-0.01em;margin:0 0 14px;max-width:760px;color:var(--ink);}
+.intro-headline{font-family:'Source Serif 4',serif;font-weight:700;font-size:32px;line-height:1.14;letter-spacing:-0.01em;margin:0 0 14px;max-width:760px;color:var(--ink);}
 .intro-headline em{font-style:italic;color:var(--teal-deep);}
 .intro-lede{font-size:14.5px;line-height:1.62;color:var(--ink-soft);max-width:660px;margin-bottom:22px;}
 .intro-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
@@ -303,10 +303,16 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   .wordmark .tag{display:none;}
 }
 
+/* ===== Shared section header (aligns titles across all tabs) ===== */
+.atlas-section-head{padding:4px 0 22px;border-bottom:1px solid var(--line);margin:0 0 24px;}
+.ase-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px;font-weight:600;}
+.ase-eyebrow b{color:var(--teal);font-weight:600;}
+.ase-title{font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin:0;letter-spacing:-0.01em;color:var(--ink);}
+
 /* ===== Ask Atlas (RAG) + Gaps layer ===== */
 .ask-wrap{padding:26px 2px 10px;}
 .ask-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);font-weight:600;margin-bottom:10px;}
-.ask-headline{font-family:'Inter',sans-serif;font-weight:700;font-size:28px;line-height:1.15;margin:0 0 8px;max-width:780px;}
+.ask-headline{font-family:'Source Serif 4',serif;font-weight:700;font-size:28px;line-height:1.15;margin:0 0 8px;max-width:780px;}
 .ask-lede{font-size:14px;color:var(--ink-soft);max-width:700px;margin-bottom:18px;line-height:1.6;}
 .ask-box{display:flex;gap:8px;align-items:stretch;max-width:840px;margin-bottom:14px;}
 .ask-box input{flex:1;border:1.5px solid var(--line-strong);background:var(--paper-raised);padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);outline:none;}
@@ -582,6 +588,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="welcomeView" class="atlas-intro">
+    <div class="ase-eyebrow">Open mTOR Atlas · <b>Welcome</b></div>
     <h2 class="intro-headline">Everything we know about mTOR — <em>and everything we don’t</em></h2>
     <div class="intro-lede">
       mTOR has plenty of maps — interaction networks, pathway diagrams, drug catalogs. None of them tell you <strong>how strong the evidence behind a claim actually is</strong>, or <strong>whether it holds up in humans at all</strong>. Open mTOR Atlas starts from a <strong>hand-picked corpus of landmark studies</strong> — not all of PubMed — and grades every one by evidence tier, human vs. animal, and outcome, <strong>including the failures no one else tracks</strong>. <a href="#ask" onclick="document.querySelector('.tab[data-tab=ask]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Ask it anything</a> in plain language and each claim in the answer comes back <strong>cited and color-coded by evidence strength</strong>. And where the evidence runs thin, it maps the <strong>open gaps — and the testable hypotheses hiding inside them</strong>.
@@ -669,6 +676,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   <div id="askView" style="display:none;"></div>
 
   <div id="mapView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>Pathway &amp; Entities</b></div>
+      <h2 class="ase-title">The mTOR pathway, mapped end to end.</h2>
+    </div>
     <div class="grid">
       <div class="rail-left">
         <div class="rail-title">Entities <span class="mono" id="entityCount" style="font-size:9px;"></span></div>
@@ -701,6 +712,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="studiesView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>Studies</b></div>
+      <h2 class="ase-title">Every study, sortable by tier and year.</h2>
+    </div>
     <div class="studies-wrap" style="margin-top:0;">
       <div class="studies-head">
         <h3 id="studiesTitle">All Studies</h3>
@@ -728,6 +743,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="authorsView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>Authors</b></div>
+      <h2 class="ase-title">The people behind the papers.</h2>
+    </div>
     <div id="topAuthorsBox" style="margin-bottom:16px;"></div>
     <div class="studies-wrap" style="margin-top:0;">
       <div class="studies-head">
@@ -754,6 +773,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="evidenceView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>Evidence</b></div>
+      <h2 class="ase-title">How strong is the evidence, and why.</h2>
+    </div>
     <div class="evidence-grid">
       <div class="evidence-col">
         <div class="rail-title">Evidence Tiers <span class="mono" style="font-size:9px;">click to filter — jumps to Studies</span></div>
@@ -777,6 +800,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   </div>
 
   <div id="questionsView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>Gaps &amp; Hypotheses</b></div>
+      <h2 class="ase-title">Where the evidence runs out.</h2>
+    </div>
     <div class="oq-intro">
       <h3>What this section is</h3>
       <p>A pathway map or a study table can only show what's already known. This section is the opposite: real gaps that show up once you actually connect the Atlas's own entities and studies — questions a landmark paper raised but didn't answer, or two findings that don't yet fit together cleanly. Each one links back to the specific entities and studies behind it, so you can go check the primary literature yourself rather than take the gap on faith.</p>
@@ -1584,6 +1611,10 @@ if (canvasEl){
   </div>
 
   <div id="aboutView" style="display:none;">
+    <div class="atlas-section-head">
+      <div class="ase-eyebrow">Open mTOR Atlas · <b>About</b></div>
+      <h2 class="ase-title">The person and the project.</h2>
+    </div>
     <div class="about-wrap">
       <div class="about-hero">
         <h3>Author</h3>
@@ -3005,7 +3036,7 @@ renderAll();
 if(location.hash.length>1){ applyHash(); }
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-07-13 09:15 UTC";
+const ATLAS_UPDATED = "2026-07-13 12:41 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Evidence desert", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "Every amino-acid sensor (Sestrin2, CASTOR1, SAMTOR, v-ATPase) is supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes. They are the most pharmacologically specific nodes yet phenotype-untested.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LAM2012"], "conf": 0.75}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "Longevity comes from mTORC1 but chronic rapamycin's harm (insulin resistance) comes from mTORC2 disruption (LAM2012). QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days caused NO glucose impairment and inhibited mTORC1 only -> intermittent dosing decouples benefit from harm in vivo. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09): direct clinical confirmation now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, empirically confirming that sparing mTORC2 avoids the glucose-intolerance signature seen with chronic rapamycin/rapalogs. This is the strongest human evidence yet for the mechanistic premise of H2, though it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016 transient rapamycin (8 mg/kg i.p. x 90 days) -> males +60% post-treatment life expectancy (p=0.02), but females NO survival benefit (p=0.26) and MORE aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002). So 'transient dosing captures the benefit' holds, but sex-specifically and with a female harm signal a pulsed/muscle-sparing design must control for.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: EVERY completed human trial with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): safety only, no significant differences. The human 'wins' are disease indications (BOLERO-2, RADIANT-3 PFS 5% vs 2%) or surrogate biomarkers (topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but ZERO with a hard aging endpoint. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M; BIT2016 male benefit but female harm); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on tier-D mechanistic evidence - and the sensors link to ZERO longevity / aging outcomes. The most drug-specific part of the pathway is phenotype-untested."},
@@ -3224,7 +3255,8 @@ function renderEvents(){
     +'@media(max-width:560px){.ev-item-head{flex-wrap:wrap;} .ev-item-date{width:auto;order:1;} .ev-item-name{order:0;flex-basis:100%;margin-bottom:2px;} .ev-item-loc{display:none;} .ev-item-detail{padding-left:18px;}}'
     +'</style>';
   v.innerHTML=css
-   +'<div class="ev-intro"><h3>Events &mdash; mTOR, metabolism &amp; geroscience meetings</h3>'
+   +'<div class="atlas-section-head"><div class="ase-eyebrow">Open mTOR Atlas &middot; <b>Events</b></div><h2 class="ase-title">Where mTOR researchers meet.</h2></div>'
+   +'<div class="ev-intro">'
    +'<p>Conferences and symposia where the people behind this corpus present. Curated for mTOR relevance (2025, 2026 and confirmed future). Click a conference to expand its details. Speakers who are also authors of studies in the Atlas are linked &mdash; click a name to open them in the Authors tab.</p></div>'
    +(upcoming.length?'<div class="ev-section-h">Upcoming &amp; confirmed</div><ol class="ev-list">'+upcoming.map(item).join('')+'</ol>':'')
    +(past.length?'<div class="ev-section-h">Past</div><ol class="ev-list">'+past.map(item).join('')+'</ol>':'');
@@ -3245,7 +3277,8 @@ function renderGaps(){
      +'<div class="gc-row"><div class="gc-k">Supporting studies</div><div class="gc-studies">'+chips+'</div></div>'
      +'</div></div>';
   }).join('');
-  v.innerHTML='<div class="oq-intro"><h3>What we don&rsquo;t know &mdash; and why</h3>'
+  v.innerHTML='<div class="atlas-section-head"><div class="ase-eyebrow">Open mTOR Atlas &middot; <b>Gaps &amp; Hypotheses</b></div><h2 class="ase-title">Where the evidence runs out.</h2></div>'
+   +'<div class="oq-intro"><h3>What we don&rsquo;t know &mdash; and why</h3>'
    +'<p>A pathway map shows what is known. This section is the opposite: gaps surfaced automatically by joining the Atlas&rsquo;s entity graph to each study&rsquo;s evidence tier (A&gt;B&gt;C&gt;D). Two structural findings, then five testable hypotheses &mdash; each anchored to the studies that define the gap. Click any study code to open it.</p></div>'
    +'<div class="gap-finding">'+find+'</div>'
    +cards
