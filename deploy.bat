@@ -90,6 +90,35 @@ echo === Fetching state from GitHub ===
 git fetch origin
 
 echo.
+echo === Checking nobody else already pushed a newer index.html ===
+set "LOCAL_BASE_HTML="
+set "REMOTE_NOW_HTML="
+for /f "delims=" %%i in ('git rev-parse HEAD:index.html 2^>nul') do set "LOCAL_BASE_HTML=%%i"
+for /f "delims=" %%i in ('git rev-parse origin/main:index.html 2^>nul') do set "REMOTE_NOW_HTML=%%i"
+if not defined LOCAL_BASE_HTML (
+  echo    WARNING: could not read HEAD:index.html - skipping this check.
+  goto :skip_html_race_gate
+)
+if not defined REMOTE_NOW_HTML (
+  echo    WARNING: could not read origin/main:index.html - skipping this check.
+  goto :skip_html_race_gate
+)
+if not "%LOCAL_BASE_HTML%"=="%REMOTE_NOW_HTML%" (
+  echo.
+  echo ABORTED: index.html on GitHub has changed since your last sync.
+  echo Another machine or Cowork session already pushed a newer index.html than
+  echo the one your local edits are based on. This script restores index.html
+  echo wholesale from your local backup - it does not merge - so deploying now
+  echo would silently overwrite their changes.
+  echo.
+  echo Fix: git pull origin main, reconcile or reapply your edits on top of the
+  echo current index.html, then re-run deploy.bat.
+  pause
+  exit /b 1
+)
+:skip_html_race_gate
+
+echo.
 echo === Temporarily renaming colliding untracked files ===
 if exist "ChatGPT Image 6. 7. 2026 17_07_15.png" ren "ChatGPT Image 6. 7. 2026 17_07_15.png" "_local_img_backup.png"
 
