@@ -97,11 +97,10 @@ def main():
     if os.path.exists(GAPS_JSON):
         gaps = json.load(open(GAPS_JSON, encoding="utf-8"))
         js = "const ATLAS_GAPS = " + json.dumps(gaps, ensure_ascii=False) + ";"
-        new_h, c2 = re.subn(
-            r"const ATLAS_GAPS = \[.*?\];\n(?=const ATLAS_FINDINGS)",
-            lambda m: js + "\n",
-            h, count=1, flags=re.S,
-        )
+        # Simple pattern: replace only the ATLAS_GAPS array literal.
+        # Do NOT anchor to ATLAS_FINDINGS -- that caused ATLAS_FINDINGS to be silently
+        # consumed and deleted whenever the lookahead pattern misbehaved.
+        new_h, c2 = re.subn(r"const ATLAS_GAPS = \[.*?\];", lambda m: js, h, count=1, flags=re.S)
         if c2:
             if new_h != h:
                 changed = True
@@ -109,6 +108,8 @@ def main():
             print("ATLAS_GAPS: updated (%d records)" % len(gaps))
         else:
             print("ATLAS_GAPS: NOT FOUND in index.html (pattern mismatch)")
+        if "const ATLAS_FINDINGS" not in h:
+            print("WARNING: ATLAS_FINDINGS is missing from index.html!")
     else:
         print("ATLAS_GAPS: no gaps_baked.json, leaving untouched")
 
@@ -139,12 +140,4 @@ def main():
     if c3:
         changed = True
 
-    write_verified(HTML, h, expect_suffix="</html>")
-    print("index.html rewritten and verified (last updated " + ts + ", content_changed=%s)." % changed)
-
-    size = os.path.getsize(HTML)
-    print("index.html size after write:", size, "bytes")
-
-
-if __name__ == "__main__":
-    main()
+    write_verified(HTML, h, e
