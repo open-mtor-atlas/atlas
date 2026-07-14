@@ -8,14 +8,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root{
-  --paper:#0e1219; --paper-raised:#131a23; --ink:#d4dfe8; --ink-soft:#94adc0;
-  --line:rgba(108,168,178,0.1); --line-strong:rgba(108,168,178,0.2);
-  --teal:#6ca8b2; --teal-deep:#5a9aaa; --amber:#c4955e;
-  --tier-a:#6ca8b2; --tier-b:#6a9fd4; --tier-c:#c4955e; --tier-d:#6e8fa4;
-  --pp:#a07ac8; --rt:#6a9fd4; --danger:#c4614a;
-  --on-teal:#0e1219; --on-ink:#0e1219;
-  --on-teal:#0e1219; --on-ink:#0e1219;
-  --on-teal:#0e1219; --on-ink:#0e1219;
+  --paper:#FFFFFF; --paper-raised:#FFFFFF; --ink:#0A0A0A; --ink-soft:#55524C;
+  --line:rgba(0,0,0,0.13); --line-strong:rgba(0,0,0,0.34);
+  --teal:#A31F34; --teal-deep:#7A1626; --amber:#C17A2E;
+  --tier-a:#2F7A52; --tier-b:#2F6FA8; --tier-c:#C17A2E; --tier-d:#8A8375;
+  --pp:#8B5FBF; --rt:#5F8BBF; --danger:#B4442E;
+  --on-teal:#ffffff; --on-ink:#ffffff;
 }
 *{box-sizing:border-box;} html,body{margin:0;padding:0;}
 body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;}
@@ -556,13 +554,13 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
     #lineageView * {animation:none!important;transition:none!important}
   }
 
-html[data-theme="light"]{
-  --paper:#FFFFFF; --paper-raised:#FFFFFF; --ink:#0A0A0A; --ink-soft:#55524C;
-  --line:rgba(0,0,0,0.13); --line-strong:rgba(0,0,0,0.34);
-  --teal:#A31F34; --teal-deep:#7A1626; --amber:#C17A2E;
-  --tier-a:#2F7A52; --tier-b:#2F6FA8; --tier-c:#C17A2E; --tier-d:#8A8375;
-  --pp:#8B5FBF; --rt:#5F8BBF; --danger:#B4442E;
-  --on-teal:#ffffff; --on-ink:#ffffff;
+html[data-theme="dark"]{
+  --paper:#0e1219; --paper-raised:#131a23; --ink:#d4dfe8; --ink-soft:#94adc0;
+  --line:rgba(108,168,178,0.1); --line-strong:rgba(108,168,178,0.2);
+  --teal:#6ca8b2; --teal-deep:#5a9aaa; --amber:#c4955e;
+  --tier-a:#6ca8b2; --tier-b:#6a9fd4; --tier-c:#c4955e; --tier-d:#6e8fa4;
+  --pp:#a07ac8; --rt:#6a9fd4; --danger:#c4614a;
+  --on-teal:#0e1219; --on-ink:#0e1219;
 }
 .theme-toggle{background:none;border:1px solid var(--line-strong);padding:5px 12px;cursor:pointer;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;flex-shrink:0;border-radius:0;line-height:1.4;transition:all .15s;}
 .theme-toggle:hover{border-color:var(--teal);color:var(--teal);}
@@ -582,8 +580,8 @@ html[data-theme="light"]{
       <p>The first mTOR resource built around the question every other database dodges: is there <span class="hl">strong evidence</span> this actually extends <span class="hl">human life</span>?</p>
     </div>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" type="button" title="Switch theme">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <span id="themeLabel">Light</span>
+      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span id="themeLabel">Dark</span>
     </button>
   </div>
 
@@ -3438,7 +3436,7 @@ function showAuthorBio(name){
 
 <script>
 (function(){
-  var saved = localStorage.getItem('atlas-theme') || 'dark';
+  var saved = localStorage.getItem('atlas-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
   function updateBtn(theme){
     var btn = document.getElementById('themeToggle');
@@ -3453,7 +3451,7 @@ function showAuthorBio(name){
     }
   }
   window.toggleTheme = function(){
-    var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    var cur = document.documentElement.getAttribute('data-theme') || 'light';
     var next = cur === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('atlas-theme', next);
@@ -3466,7 +3464,7 @@ function showAuthorBio(name){
 </script>
 <script>
 (function(){
-  var saved = localStorage.getItem('atlas-theme') || 'dark';
+  var saved = localStorage.getItem('atlas-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
   function updateBtn(theme){
     var btn = document.getElementById('themeToggle');
@@ -3481,7 +3479,7 @@ function showAuthorBio(name){
     }
   }
   window.toggleTheme=function(){
-    var cur=document.documentElement.getAttribute('data-theme')||'dark';
+    var cur=document.documentElement.getAttribute('data-theme')||'light';
     var next=cur==='dark'?'light':'dark';
     document.documentElement.setAttribute('data-theme',next);
     localStorage.setItem('atlas-theme',next);
