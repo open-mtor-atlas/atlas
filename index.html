@@ -3,7 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oliver's mTOR Atlas</title>
+<title>Oliver's mTOR Atlas | Evidence-Graded mTOR Research Database</title>
+<meta name="description" content="The Open mTOR Atlas grades 255+ curated mTOR studies by evidence tier (A-D), surfaces knowledge gaps and testable hypotheses, and answers research questions through a citation-backed AI assistant.">
+<meta name="keywords" content="mTOR, mTORC1, mTORC2, autophagy, rapamycin, longevity research, aging biology, evidence-based research, knowledge graph, TSC complex">
+<meta name="author" content="Open mTOR Atlas">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mtor-atlas.org/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#A31F34">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Open mTOR Atlas">
+<meta property="og:title" content="Oliver's mTOR Atlas | Evidence-Graded mTOR Research Database">
+<meta property="og:description" content="255+ curated mTOR studies graded by evidence tier, knowledge gaps and testable hypotheses, and a citation-backed AI research assistant.">
+<meta property="og:url" content="https://mtor-atlas.org/">
+<meta property="og:image" content="https://mtor-atlas.org/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Oliver's mTOR Atlas | Evidence-Graded mTOR Research Database">
+<meta name="twitter:description" content="255+ curated mTOR studies graded by evidence tier, knowledge gaps and testable hypotheses, and a citation-backed AI research assistant.">
+<meta name="twitter:image" content="https://mtor-atlas.org/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Open mTOR Atlas",
+  "description": "A curated, evidence-graded database of mTOR pathway research: about 255 studies rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "url": "https://mtor-atlas.org/",
+  "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity", "aging biology", "TSC complex", "evidence-based research"],
+  "creator": {
+    "@type": "Organization",
+    "name": "Open mTOR Atlas"
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en"
+}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -439,7 +479,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   #lineageView header {padding:44px 0 26px;border-bottom:1px solid var(--line)}
   #lineageView .eyebrow {font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
   #lineageView .eyebrow b {color:var(--teal);font-weight:600}
-  #lineageView h1 {font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 14px;letter-spacing:-0.01em}
+  #lineageView h2 {font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 14px;letter-spacing:-0.01em}
   #lineageView .lede {max-width:66ch;color:var(--ink-soft);margin:0 0 28px;font-size:15.5px}
   #lineageView .lede strong {color:var(--ink);font-weight:600}
   #lineageView .lede .hb {color:var(--tier-b);font-weight:600}
@@ -880,7 +920,7 @@ html[data-theme="dark"]{
     <div class="wrap">
   <header>
     <p class="eyebrow"><b>Oliver's mTOR Atlas</b> · Lineage</p>
-    <h1>How mTOR biology actually grew</h1>
+    <h2>How mTOR biology actually grew</h2>
     <p class="lede">Every node is a landmark study. Every edge is a claim about <strong>what one study made possible for the next</strong> — not who cited whom. The vertical axis is real time, so the empty stretches are part of the argument. Nodes carry the Atlas's own evidence tiers: <span class="hb">blue is direct human evidence</span>. Count the blue.</p>
     <div class="stats" id="lineageStats"></div>
   </header>
