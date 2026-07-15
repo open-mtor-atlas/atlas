@@ -419,7 +419,10 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .dp-hit .dp-sec{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line-strong);padding:2px 7px;color:var(--ink-soft);}
 .dp-hit .dp-sid{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--teal-deep);cursor:pointer;}
 .dp-hit .dp-sid:hover{text-decoration:underline;}
+.dp-hit .dp-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:14.5px;line-height:1.3;color:var(--ink);cursor:pointer;margin:1px 0 7px;}
+.dp-hit .dp-title:hover{color:var(--teal-deep);text-decoration:underline;}
 .dp-hit .dp-text{font-size:12.5px;line-height:1.55;color:var(--ink);}
+.dp-hit .dp-text mark.dp-hl{background:rgba(193,122,46,0.28);color:var(--ink);padding:0 1px;border-radius:1px;}
 .site-footer{max-width:1440px;margin:20px auto 0;padding:16px 26px 26px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.03em;text-align:center;}
 
 /* ===== Author bio page (top-5 scientist story) ===== */
@@ -3391,9 +3394,23 @@ function deepSearch(q){
   if(!top.length){box.innerHTML='<div class="ask-count">No matching passages.</div>';return;}
   var html='<div class="ask-count">Top '+top.length+' full-text passages for: &ldquo;'+_esc(q)+'&rdquo; &nbsp;(from '+chunks.length+' passages, open-licensed studies)</div>';
   top.forEach(function(pair,r){var c=chunks[pair[1]];
-    html+='<div class="dp-hit"><div class="dp-top"><span class="h-rank">#'+(r+1)+'</span><span class="dp-sec">'+_esc(c.section)+'</span><span class="dp-sid" onclick="goStudy(\''+c.sid+'\')">'+c.sid+'</span></div><div class="dp-text">'+_esc(c.text)+'</div></div>';
+    var st=(typeof studyBySid==='function')?studyBySid(c.sid):null;
+    var ttl=(st&&st.title)?_esc(st.title):'';
+    html+='<div class="dp-hit"><div class="dp-top"><span class="h-rank">#'+(r+1)+'</span><span class="dp-sec">'+_esc(c.section)+'</span><span class="dp-sid" onclick="goStudy(\''+c.sid+'\')">'+c.sid+'</span></div>'
+     +(ttl?'<div class="dp-title" onclick="goStudy(\''+c.sid+'\')">'+ttl+'</div>':'')
+     +'<div class="dp-text">'+_hl(_esc(c.text),t)+'</div></div>';
   });
   box.innerHTML=html;
+}
+function _hl(escText,tokens){
+  if(!tokens||!tokens.length) return escText;
+  var seen={},uniq=[];
+  tokens.forEach(function(w){if(w&&!seen[w]){seen[w]=1;uniq.push(w);}});
+  if(!uniq.length) return escText;
+  uniq.sort(function(a,b){return b.length-a.length;});
+  var pat=uniq.map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|');
+  var re=new RegExp('\\b('+pat+')','gi');
+  return escText.replace(re,'<mark class="dp-hl">$1</mark>');
 }
 
 initAsk();
