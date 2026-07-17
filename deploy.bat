@@ -33,7 +33,7 @@ set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
 echo === Stamping last-updated timestamp ===
-python stamp_updated.py
+py stamp_updated.py
 if errorlevel 1 (
   echo.
   echo ABORTED: stamp_updated.py failed or refused to run - see message above.
@@ -44,19 +44,19 @@ if errorlevel 1 (
 echo.
 echo === optional: Refresh ATLAS_STUDIES/ATLAS_GAPS from Airtable ===
 if defined AIRTABLE_TOKEN (
-  python sync_airtable.py
+  py sync_airtable.py
 ) else (
   echo    AIRTABLE_TOKEN not set - skipping data refresh, deploying current index.html
 )
 
 echo.
 echo === Rebuild Deep-search chunk index - best effort ===
-python atlas_fulltext\build_chunk_index.py
+py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
 echo === Verifying index.html BEFORE backup - catch corruption early ===
-python verify_index_html.py index.html
+py verify_index_html.py index.html
 if errorlevel 1 (
   echo.
   echo ABORTED: index.html already looks corrupted - not backing it up or deploying it.
@@ -72,7 +72,7 @@ if exist "atlas_fulltext\chunk_index.json" copy /Y "atlas_fulltext\chunk_index.j
 
 echo.
 echo === Verifying the backup copy is complete ===
-python verify_index_html.py index_deploy_backup.html
+py verify_index_html.py index_deploy_backup.html
 if errorlevel 1 (
   echo.
   echo ABORTED: the backup copy of index.html looks corrupted - the copy itself
@@ -134,41 +134,7 @@ if exist "chunkindex_deploy_backup.json" copy /Y "chunkindex_deploy_backup.json"
 
 echo.
 echo === Verifying restored index.html BEFORE commit - the real safety gate ===
-python verify_index_html.py index.html
+py verify_index_html.py index.html
 if errorlevel 1 (
   echo.
-  echo ABORTED: index.html looks corrupted after being restored from backup -
-  echo the restore or copy step itself may have been truncated. NOT committing
-  echo or pushing. The backup file index_deploy_backup.html has been left in
-  echo place for inspection instead of being cleaned up. Re-run deploy.bat.
-  pause
-  exit /b 1
-)
-
-echo.
-echo === Staging and committing index.html and chunk_index.json ===
-git add index.html
-if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
-git commit -m "%COMMIT_MSG%"
-
-echo.
-echo === Status before push ===
-git status
-
-echo.
-echo === Push to GitHub ===
-git push origin main
-
-echo.
-echo === Cleaning up temp files ===
-del "index_deploy_backup.html" 2>nul
-del "chunkindex_deploy_backup.json" 2>nul
-if exist "_local_img_backup.png" ren "_local_img_backup.png" "ChatGPT Image 6. 7. 2026 17_07_15.png"
-
-echo.
-echo ============================================================
-echo  Check above that the push finished without error - Writing... done.
-echo  Live site updates in about 1 minute. Deep search loads
-echo  atlas_fulltext/chunk_index.json on demand.
-echo ============================================================
-pause
+  echo ABORT
