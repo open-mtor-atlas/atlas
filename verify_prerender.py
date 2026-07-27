@@ -74,6 +74,25 @@ def main():
             n = open(p, encoding="utf-8").read().count("<loc>")
             print("%-22s %d URL" % (sm, n))
 
+    # Rozbité interní odkazy. Entity pod prahem stránku nedostanou, ale objevují
+    # se jako sousedé -- při prvním generování takhle vzniklo 110 odkazů na 404.
+    dead = {}
+    nlinks = 0
+    for p in pages:
+        h = open(p, encoding="utf-8").read()
+        for m in re.finditer(r'href="/([^"#?]+?)/"', h):
+            nlinks += 1
+            if not os.path.exists(os.path.join(HERE, m.group(1), "index.html")):
+                dead.setdefault(m.group(1), 0)
+                dead[m.group(1)] += 1
+    print("interních odkazů  : %d" % nlinks)
+    if dead:
+        print("CHYBA: %d rozbitých cílů, %d výskytů:"
+              % (len(dead), sum(dead.values())))
+        for k in sorted(dead, key=lambda x: -dead[x])[:10]:
+            print("   %4d×  /%s/" % (dead[k], k))
+        ok = False
+
     # Kontrola, že v sitemap nejsou adresy, které neexistují na disku.
     smp = os.path.join(HERE, "sitemap-entities.xml")
     if os.path.exists(smp):

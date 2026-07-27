@@ -163,7 +163,22 @@ Curated by Oliver Barton, Prague.</p>
 
 # ------------------------------------------------------------ study pages ---
 
-def study_page(s, ent_by_sid):
+def ent_ref(x, haspage):
+    """Odkaz na entitu POUZE když její stránka existuje.
+
+    Entity pod prahem PAGE_THRESHOLD stránku nedostanou, ale pořád se objevují
+    jako sousedé. Odkazovat na ně znamená vyrobit 404 -- při prvním generování
+    jich takhle vzniklo 110. Bez stránky se vypíšou jako text: informace
+    zůstane, rozbitý odkaz ne.
+    """
+    d = TYPE_DIR.get(x["type"], "entity")
+    slug = slugify(x["name"])
+    if (d, slug) in haspage:
+        return f'<a href="/{d}/{slug}/">{e(x["name"])}</a>'
+    return f'<span>{e(x["name"])}</span>'
+
+
+def study_page(s, ent_by_sid, haspage):
     sid = s["sid"]
     code, label, colour = tier_bits(s.get("tier"))
     url = f"{SITE}/study/{sid}/"
@@ -214,9 +229,7 @@ def study_page(s, ent_by_sid):
         rows.append(("Source", " · ".join(links)))
 
     ents = ent_by_sid.get(sid, [])
-    tag_html = "".join(
-        f'<a href="/{TYPE_DIR.get(x["type"],"entity")}/{slugify(x["name"])}/">'
-        f'{e(x["name"])}</a>' for x in ents)
+    tag_html = "".join(ent_ref(x, haspage) for x in ents)
 
     body = [f"<h1>{e(title)}</h1>",
             f'<p class="meta">{e(s.get("authors") or "")} · {e(s.get("year") or "")} · '
@@ -249,7 +262,7 @@ def study_page(s, ent_by_sid):
 
 # ----------------------------------------------------------- entity pages ---
 
-def entity_page(ent, studies_by_sid, all_entities):
+def entity_page(ent, studies_by_sid, all_entities, haspage):
     d = TYPE_DIR.get(ent["type"], "entity")
     slug = slugify(ent["name"])
     url = f"{SITE}/{d}/{slug}/"
@@ -319,10 +332,16 @@ def entity_page(ent, studies_by_sid, all_entities):
             shared[o["id"]] = (n, o)
     top = sorted(shared.values(), key=lambda kv: -kv[0])[:12]
     if top:
-        body.append('<h2>Related entities</h2><div class="tags">' + "".join(
-            f'<a href="/{TYPE_DIR.get(o["type"],"entity")}/{slugify(o["name"])}/">'
-            f'{e(o["name"])} <span style="color:#8A8375">{n}</span></a>'
-            for n, o in top) + "</div>")
+        chips = []
+        for n, o in top:
+            d2, s2 = TYPE_DIR.get(o["type"], "entity"), slugify(o["name"])
+            count = f' <span style="color:#8A8375">{n}</span>'
+            if (d2, s2) in haspage:
+                chips.append(f'<a href="/{d2}/{s2}/">{e(o["name"])}{count}</a>')
+            else:
+                chips.append(f'<span>{e(o["name"])}{count}</span>')
+        body.append('<h2>Related entities</h2><div class="tags">'
+                    + "".join(chips) + "</div>")
 
     body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
     crumb = (f'<a href="{SITE}/">Atlas</a> › '
@@ -407,12 +426,17 @@ def main():
         for sid in x["studies"]:
             ent_by_sid.setdefault(sid, []).append(x)
 
+    # Které entity stránku DOSTANOU. Musí se spočítat PŘED generováním, jinak
+    # se odkazuje na adresy, které nikdy nevzniknou.
+    haspage = {(TYPE_DIR.get(x["type"], "entity"), slugify(x["name"]))
+               for x in entities if len(x["studies"]) >= PAGE_THRESHOLD}
+
     urls = []
 
     for s in studies:
         if not s.get("sid"):
             continue
-        url, page = study_page(s, ent_by_sid)
+        url, page = study_page(s, ent_by_sid, haspage)
         write(os.path.join(HERE, "study", s["sid"], "index.html"), page)
         urls.append(("study", url))
 
@@ -421,7 +445,7 @@ def main():
         if len(x["studies"]) < PAGE_THRESHOLD:
             skipped += 1
             continue
-        url, d, slug, page = entity_page(x, by_sid, entities)
+        url, d, slug, page = entity_page(x, by_sid, entities, haspage)
         if (d, slug) in seen:
             print("  ! kolize slugu %s/%s: %s vs %s — přeskočeno"
                   % (d, slug, seen[(d, slug)], x["name"]))
