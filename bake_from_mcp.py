@@ -140,4 +140,12 @@ def main():
     if c3:
         changed = True
 
-    write_verified(HTML, h, e
+    write_verified(HTML, h, expect_suffix="</html>")
+    print("index.html rewritten and verified (%d bytes, last updated %s)."
+          % (len(h.encode("utf-8")), ts))
+    if not changed:
+        print("  (no constant changed -- only the timestamp was refreshed)")
+
+
+if __name__ == "__main__":
+    main()
