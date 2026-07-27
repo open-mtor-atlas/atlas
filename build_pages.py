@@ -443,6 +443,94 @@ def patch_home(n_pages):
     return "odkaz vložen do patičky"
 
 
+SPA_MARKER = "/* deep-links-added-by-build-pages */"
+
+SPA_HELPER = """
+%s
+function atlasPageUrl(ent){
+  var TD={"Gene/Protein":"gene","Pathway/Complex":"complex","Drug":"drug",
+          "Intervention":"intervention","Biological process":"process",
+          "Disease":"disease","Outcome":"outcome","Organelle":"organelle",
+          "Nutrient/Metabolite":"nutrient"};
+  if(!ent || !ent.studies || ent.studies.length < 3) return null;
+  var d = TD[ent.type] || "entity";
+  var s = (ent.name||"").normalize("NFKD")
+            .replace(/['’ʼ`]/g,"")
+            .replace(/[\\u0300-\\u036f]/g,"")
+            .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+  return "/"+d+"/"+s+"/";
+}
+""" % SPA_MARKER
+
+
+def patch_spa_links():
+    """Prolinkuje obsah SPA na statické stránky.
+
+    POZOR NA OČEKÁVÁNÍ: tyhle odkazy vznikají až v JavaScriptu, takže je uvidí
+    uživatel a Googlebot (ten JS renderuje), ale NE crawlery bez JS, kvůli
+    kterým celá fáze 6 vznikla. Pro ně zůstává cestou /browse/ a vzájemné
+    odkazy mezi statickými stránkami. Tohle je bonus pro lidi a pro Google,
+    ne náhrada za pre-rendering.
+    """
+    p = os.path.join(HERE, "index.html")
+    if not os.path.exists(p):
+        return "index.html nenalezen"
+    h = open(p, encoding="utf-8").read()
+    if SPA_MARKER in h:
+        return "odkazy už tam jsou"
+    orig_len = len(h)
+    done = []
+
+    # 1) pomocná funkce před renderDetail()
+    h, c = re.subn(r"function renderDetail\(\)\{",
+                   lambda m: SPA_HELPER + "\nfunction renderDetail(){",
+                   h, count=1)
+    if not c:
+        return "POZOR: renderDetail() nenalezen, nic nezměněno"
+    done.append("helper")
+
+    # 2) odkaz na stránku entity vedle type-badge
+    old = ('<span class="type-badge" style="background:${TYPE_COLOR[e.type]}">'
+           '${e.type}</span></div>')
+    new = ('<span class="type-badge" style="background:${TYPE_COLOR[e.type]}">'
+           '${e.type}</span>'
+           '${atlasPageUrl(e) ? `<a class="doi-link" href="${atlasPageUrl(e)}" '
+           'style="margin-left:10px;white-space:nowrap">standalone page &rarr;</a>` : ``}'
+           '</div>')
+    if old in h:
+        h = h.replace(old, new, 1)
+        done.append("entita")
+
+    # 3) odkaz na stránku studie do sloupce Source v tabulce studií.
+    #    stopPropagation, jinak by klik na odkaz zároveň rozbalil abstrakt.
+    old2 = ('<td>${s.doi.startsWith(\'10.\') ? `<a class="doi-link" '
+            'href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>` : '
+            '`<span class="mono" style="font-size:10.5px;">${s.doi}</span>`}</td>')
+    new2 = ('<td>${s.doi.startsWith(\'10.\') ? `<a class="doi-link" '
+            'href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>` : '
+            '`<span class="mono" style="font-size:10.5px;">${s.doi}</span>`}'
+            '${s.sid ? `<br><a class="doi-link" href="/study/${s.sid}/" '
+            'onclick="event.stopPropagation()">Atlas page &rarr;</a>` : ``}</td>')
+    if old2 in h:
+        h = h.replace(old2, new2, 1)
+        done.append("studie")
+
+    if len(done) < 2:
+        return "POZOR: nalezeno jen %s — vzory se rozešly, NEZAPSÁNO" % done
+
+    if DRY:
+        return "dry-run (%s)" % ", ".join(done)
+    tmp = p + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(h); f.flush(); os.fsync(f.fileno())
+    chk = open(tmp, encoding="utf-8").read()
+    if len(chk) != len(h) or not chk.rstrip().endswith("</html>") or len(h) < orig_len:
+        os.remove(tmp)
+        return "POZOR: ověření zápisu selhalo, NEZAPSÁNO"
+    os.replace(tmp, p)
+    return "prolinkováno: " + ", ".join(done)
+
+
 def purge_generated():
     """Smaže jen to, co tenhle skript vyrobil -- pozná se podle markeru.
     Ručně psané soubory zůstanou i kdyby ležely ve stejné složce."""
@@ -550,6 +638,7 @@ def main():
     write(os.path.join(HERE, "browse", "index.html"), bpage)
     urls.append(("entity", burl))
     print("rozcestník /browse/ :", patch_home(len(urls) + 1))
+    print("odkazy uvnitř SPA  :", patch_spa_links())
 
     for old, new in LEGACY_SLUGS.items():
         write(os.path.join(HERE, old, "index.html"),

@@ -2644,11 +2644,27 @@ function setMapMode(mode){
 }
 // ================= /Full Pathway Map =================
 
+
+/* deep-links-added-by-build-pages */
+function atlasPageUrl(ent){
+  var TD={"Gene/Protein":"gene","Pathway/Complex":"complex","Drug":"drug",
+          "Intervention":"intervention","Biological process":"process",
+          "Disease":"disease","Outcome":"outcome","Organelle":"organelle",
+          "Nutrient/Metabolite":"nutrient"};
+  if(!ent || !ent.studies || ent.studies.length < 3) return null;
+  var d = TD[ent.type] || "entity";
+  var s = (ent.name||"").normalize("NFKD")
+            .replace(/['’ʼ`]/g,"")
+            .replace(/[\u0300-\u036f]/g,"")
+            .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+  return "/"+d+"/"+s+"/";
+}
+
 function renderDetail(){
   const e = entityByName(state.entity);
   const studies = e.studies.map(studyBySid).filter(Boolean).sort((a,b)=>(b.year||0)-(a.year||0));
   let html = `<div class="entity-head"><div><h2>${e.name}</h2><div class="entity-sub">${e.type} · ${e.studies.length} linked studies</div></div>
-    <span class="type-badge" style="background:${TYPE_COLOR[e.type]}">${e.type}</span></div>
+    <span class="type-badge" style="background:${TYPE_COLOR[e.type]}">${e.type}</span>${atlasPageUrl(e) ? `<a class="doi-link" href="${atlasPageUrl(e)}" style="margin-left:10px;white-space:nowrap">standalone page &rarr;</a>` : ``}</div>
     <div class="narrative">${e.desc}</div>
     <div class="section-label">Linked studies<span class="mono" style="font-size:9px;">${studies.length}</span></div>
     <div class="study-mini">`;
@@ -2777,7 +2793,7 @@ function renderStudiesTable(){
       <td>${s.model}</td>
       <td><span class="tier-pill" style="background:${tm.color}" title="Evidence strength">${tm.letter}</span></td>
       <td><span class="tier-pill" style="background:${pm.color}" title="${pm.label}">${pm.code}</span></td>
-      <td>${s.doi.startsWith('10.') ? `<a class="doi-link" href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>` : `<span class="mono" style="font-size:10.5px;">${s.doi}</span>`}</td>
+      <td>${s.doi.startsWith('10.') ? `<a class="doi-link" href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>` : `<span class="mono" style="font-size:10.5px;">${s.doi}</span>`}${s.sid ? `<br><a class="doi-link" href="/study/${s.sid}/" onclick="event.stopPropagation()">Atlas page &rarr;</a>` : ``}</td>
     </tr>`;
     if(hasAbstract){
       html += `<tr class="study-abstract-row" id="${rowId}"><td colspan="6"><div class="study-abstract-box"><span class="src">Medium abstract</span>${s.abstract}</div></td></tr>`;
