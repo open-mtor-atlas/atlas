@@ -135,6 +135,20 @@ def main():
     else:
         print("ATLAS_EVENTS: no events_baked.json, leaving untouched")
 
+    # Crawler-visible counts (meta descriptions, JSON-LD) and the no-JS
+    # fallbacks behind the runtime-populated spans. Shared with stamp_updated.py
+    # so both deploy paths (deploy.sh -> here, deploy.bat -> stamp_updated) keep
+    # them honest; importing is safe, that module only guards main() behind
+    # __main__.
+    try:
+        from stamp_updated import refresh_counts
+        h2 = refresh_counts(h)
+        if h2 != h:
+            changed = True
+        h = h2
+    except Exception as e:
+        print("  refresh_counts skipped: %s" % e)
+
     ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
     h, c3 = re.subn(r'const ATLAS_UPDATED = "[^"]*";', 'const ATLAS_UPDATED = "' + ts + '";', h, count=1)
     if c3:
