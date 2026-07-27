@@ -1,0 +1,59 @@
+# Deterministic line endings.
+#
+# Why this file exists: a `git add -A` on 2026-07-27 rewrote 47 files with
+# 12670 insertions and 12670 deletions -- exactly symmetric, i.e. not a single
+# real content change, just LF flipped to CRLF. Without a policy pinned here,
+# every machine's core.autocrlf decides on its own and diffs become unreadable
+# while history grows for nothing.
+#
+# Policy: LF in the repository and in the working tree, for everything text.
+# The two exceptions below are deliberate.
+
+* text=auto eol=lf
+
+# --- Windows scripts MUST stay CRLF -------------------------------------
+# cmd.exe parses a batch file by byte offset and its handling of goto/labels
+# is unreliable in LF-only files. deploy.bat uses labels (:skip_html_race_gate,
+# :bat_check_done), and this project has already lost two deploy runs to
+# cmd.exe losing its place in this exact file. Do not "simplify" these away.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# --- Binary: never touch, never diff as text ----------------------------
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.npz   binary
+*.pkl   binary
+*.skill binary
+*.pfx   binary
+*.pem   binary
+*.zip   binary
+*.xlsx  binary
+*.pptx  binary
+*.docx  binary
+
+# --- Text, explicit ------------------------------------------------------
+# Full texts fetched from Europe PMC and the derived indexes. Large and
+# machine-generated; marking them text keeps them LF but they are not worth
+# reading as diffs.
+*.xml       text eol=lf
+*.json      text eol=lf
+*.jsonl     text eol=lf
+*.csv       text eol=lf
+*.md        text eol=lf
+*.py        text eol=lf
+*.html      text eol=lf
+*.sh        text eol=lf
+*.txt       text eol=lf
+CNAME       text eol=lf
+
+# Keep generated bulk out of diff noise in `git log -p` and PR views.
+atlas_fulltext/raw/**    -diff
+atlas_fulltext/chunks.jsonl  -diff
+atlas_fulltext/chunk_index.json -diff
+atlas_rag/index/**       -diff
