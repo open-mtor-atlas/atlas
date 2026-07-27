@@ -82,8 +82,15 @@ if errorlevel 1 (
 )
 
 echo.
-echo === Removing any stuck git lock ===
+echo === Removing any stuck git locks ===
+REM  index.lock alone is not enough: a killed git also leaves ORIG_HEAD.lock or a
+REM  ref lock behind, and `git reset --hard` then fails with "Another git process
+REM  seems to be running" while this script carries on regardless. Confirmed
+REM  2026-07-27: a week-old ORIG_HEAD.lock silently broke every deploy.
 del /f /q ".git\index.lock" 2>nul
+del /f /q ".git\ORIG_HEAD.lock" 2>nul
+del /f /q ".git\HEAD.lock" 2>nul
+del /f /q ".git\refs\heads\main.lock" 2>nul
 
 echo.
 echo === Fetching state from GitHub ===
@@ -120,17 +127,40 @@ if not "%LOCAL_BASE_HTML%"=="%REMOTE_NOW_HTML%" (
 
 echo.
 echo === Temporarily renaming colliding untracked files ===
-if exist "ChatGPT Image 6. 7. 2026 17_07_15.png" ren "ChatGPT Image 6. 7. 2026 17_07_15.png" "_local_img_backup.png"
+REM  A leftover _local_img_backup.png from an interrupted run makes ren fail with
+REM  "A duplicate file name exists" - clear the target first.
+if exist "ChatGPT Image 6. 7. 2026 17_07_15.png" (
+  if exist "_local_img_backup.png" del /f /q "_local_img_backup.png" 2>nul
+  ren "ChatGPT Image 6. 7. 2026 17_07_15.png" "_local_img_backup.png"
+)
+
+echo.
+echo === Backing up baked data - reset below reverts it ===
+REM  studies_baked.json is TRACKED, so `git reset --hard` reverts it to whatever
+REM  is on origin - throwing away the fresh Airtable bake that sync_airtable.py
+REM  just wrote a few steps ago. Only index.html and chunk_index.json used to be
+REM  restored afterwards, so every deploy silently left this file stale, and any
+REM  local script reading it (backfill_pmids.py, gap analysis) saw old data.
+if exist "atlas_data\studies_baked.json" copy /Y "atlas_data\studies_baked.json" "studiesbaked_deploy_backup.json" >nul
 
 echo.
 echo === Syncing local repo to origin/main ===
 git reset --hard origin/main
+if errorlevel 1 (
+  echo.
+  echo ABORTED: git reset --hard failed - see the error above.
+  echo Nothing was committed or pushed. Your build is safe in index_deploy_backup.html.
+  pause
+  exit /b 1
+)
 
 echo.
 echo === Restoring the files to deploy ===
 copy /Y "index_deploy_backup.html" index.html >nul
 if not exist "atlas_fulltext" mkdir "atlas_fulltext"
 if exist "chunkindex_deploy_backup.json" copy /Y "chunkindex_deploy_backup.json" "atlas_fulltext\chunk_index.json" >nul
+if not exist "atlas_data" mkdir "atlas_data"
+if exist "studiesbaked_deploy_backup.json" copy /Y "studiesbaked_deploy_backup.json" "atlas_data\studies_baked.json" >nul
 
 echo.
 echo === Verifying restored index.html BEFORE commit - the real safety gate ===
