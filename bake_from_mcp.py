@@ -135,6 +135,11 @@ def main():
     else:
         print("ATLAS_EVENTS: no events_baked.json, leaving untouched")
 
+    ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    h, c3 = re.subn(r'const ATLAS_UPDATED = "[^"]*";', 'const ATLAS_UPDATED = "' + ts + '";', h, count=1)
+    if c3:
+        changed = True
+
     # Crawler-visible counts (meta descriptions, JSON-LD) and the no-JS
     # fallbacks behind the runtime-populated spans. Shared with stamp_updated.py
     # so both deploy paths (deploy.sh -> here, deploy.bat -> stamp_updated) keep
@@ -149,10 +154,6 @@ def main():
     except Exception as e:
         print("  refresh_counts skipped: %s" % e)
 
-    ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
-    h, c3 = re.subn(r'const ATLAS_UPDATED = "[^"]*";', 'const ATLAS_UPDATED = "' + ts + '";', h, count=1)
-    if c3:
-        changed = True
 
     write_verified(HTML, h, expect_suffix="</html>")
     print("index.html rewritten and verified (%d bytes, last updated %s)."

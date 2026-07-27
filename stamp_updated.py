@@ -89,6 +89,14 @@ def refresh_counts(h):
         (r'(<span id="atlasStatStudies">)\d+(</span>)', r"\g<1>%d\g<2>" % n_studies),
         (r'(<span id="atlasStatEntities">)\d+(</span>)', r"\g<1>%d\g<2>" % n_entities),
     ]
+    # Same reasoning for the footer date: JS rewrites #lastUpdated from
+    # ATLAS_UPDATED (and converts it to Prague time) on load, but a crawler sees
+    # only this literal. Stamp the raw UTC string -- no timezone maths here, and
+    # the browser still shows Prague time. Must run AFTER ATLAS_UPDATED is set.
+    m = re.search(r'const ATLAS_UPDATED = "([^"]*)"', h)
+    if m:
+        subs.append((r'(<span id="lastUpdated">)[^<]*(</span>)',
+                     r"\g<1>%s\g<2>" % m.group(1)))
     hits = 0
     for pat, rep in subs:
         h, n = re.subn(pat, rep, h)
