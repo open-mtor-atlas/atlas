@@ -352,6 +352,97 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
 
 # ------------------------------------------------------------------- main ---
 
+def browse_page(studies, entities, haspage):
+    """HTML rozcestník na všechny vygenerované stránky.
+
+    Bez něj jsou nové stránky SIROTCI: sitemapa je jen pozvánka, ale hlavní
+    signál, podle kterého se rozhoduje, co procházet a jakou tomu dát váhu, je
+    interní prolinkování. A crawler bez JS na homepage nevidí žádný odkaz --
+    SPA si je kreslí až za běhu, takže se k obsahu nemá kudy proklikat.
+    """
+    url = f"{SITE}/browse/"
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage",
+          "name": "Browse the Atlas", "url": url,
+          "isPartOf": {"@type": "Dataset", "name": "Oliver's mTOR Atlas",
+                       "url": SITE + "/"}}
+    body = ["<h1>Browse the Atlas</h1>",
+            f'<p class="summary">Every study and every topic in the Atlas, as a '
+            f'plain index. {len(studies)} studies, '
+            f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics.</p>']
+
+    by_type = {}
+    for x in entities:
+        if len(x["studies"]) < PAGE_THRESHOLD:
+            continue
+        by_type.setdefault(x["type"], []).append(x)
+    body.append("<h2>Topics</h2>")
+    for t in sorted(by_type):
+        items = sorted(by_type[t], key=lambda x: -len(x["studies"]))
+        body.append(f"<h3>{e(t)}</h3><p>" + " · ".join(
+            f'<a href="/{TYPE_DIR.get(t,"entity")}/{slugify(x["name"])}/">'
+            f'{e(x["name"])}</a> <span style="color:#8A8375">({len(x["studies"])})</span>'
+            for x in items) + "</p>")
+
+    body.append(f"<h2>Studies</h2><p>Sorted by year, newest first. "
+                f"Each links to a page with the abstract, evidence tier, DOI and PMID.</p>")
+    for s in sorted(studies, key=lambda s: -(s.get("year") or 0)):
+        if not s.get("sid"):
+            continue
+        code, _, colour = tier_bits(s.get("tier"))
+        body.append(
+            f'<p style="margin:0 0 7px"><a href="/study/{e(s["sid"])}/">'
+            f'{e(s.get("title") or s["sid"])}</a><br>'
+            f'<span style="color:#55524C;font-size:14px">{e(s.get("year") or "")} · '
+            f'{e(s.get("journal") or "")} · <span class="tier" '
+            f'style="background:{colour}">{code}</span></span></p>')
+
+    crumb = f'<a href="{SITE}/">Atlas</a> › Browse'
+    return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
+                      f"Index of all {len(studies)} curated mTOR studies and every "
+                      f"pathway topic in the Atlas, each graded by strength of evidence.",
+                      url, ld, "\n".join(body), crumb)
+
+
+HOME_MARKER = "<!-- browse-link-added-by-build-pages -->"
+
+
+def patch_home(n_pages):
+    """Vloží do patičky index.html odkaz na /browse/. Idempotentní.
+
+    Musí to být obyčejné <a> ve statickém HTML -- odkaz vykreslený JavaScriptem
+    crawler, kvůli kterému to celé děláme, neuvidí.
+    """
+    p = os.path.join(HERE, "index.html")
+    if not os.path.exists(p):
+        return "index.html nenalezen"
+    h = open(p, encoding="utf-8").read()
+    if HOME_MARKER in h:
+        h2 = re.sub(r"(%s\s*·\s*<a href=\"/browse/\">)[^<]*(</a>)" % re.escape(HOME_MARKER),
+                    lambda m: m.group(1) + "Browse all %d pages" % n_pages + m.group(2), h)
+        if h2 == h:
+            return "odkaz už tam je"
+        h = h2
+    else:
+        link = (f'{HOME_MARKER} · <a href="/browse/">Browse all {n_pages} pages</a>')
+        h2, c = re.subn(r"</footer>", link + "</footer>", h, count=1)
+        if not c:
+            return "POZOR: <footer> v index.html nenalezen, odkaz NEVLOŽEN"
+        h = h2
+    if DRY:
+        return "dry-run"
+    tmp = p + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(h)
+        f.flush()
+        os.fsync(f.fileno())
+    chk = open(tmp, encoding="utf-8").read()
+    if len(chk) != len(h) or not chk.rstrip().endswith("</html>"):
+        os.remove(tmp)
+        return "POZOR: ověření zápisu index.html selhalo, NEZAPSÁNO"
+    os.replace(tmp, p)
+    return "odkaz vložen do patičky"
+
+
 def purge_generated():
     """Smaže jen to, co tenhle skript vyrobil -- pozná se podle markeru.
     Ručně psané soubory zůstanou i kdyby ležely ve stejné složce."""
@@ -454,6 +545,11 @@ def main():
         write(os.path.join(HERE, d, slug, "index.html"), page)
         urls.append(("entity", url))
         made += 1
+
+    burl, bpage = browse_page(studies, entities, haspage)
+    write(os.path.join(HERE, "browse", "index.html"), bpage)
+    urls.append(("entity", burl))
+    print("rozcestník /browse/ :", patch_home(len(urls) + 1))
 
     for old, new in LEGACY_SLUGS.items():
         write(os.path.join(HERE, old, "index.html"),
