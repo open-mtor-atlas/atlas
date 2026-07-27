@@ -32,6 +32,36 @@ cd /d "%~dp0"
 set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
+echo === Checking deploy.bat itself matches origin ===
+REM  THIS FILE IS TRACKED BY GIT. The `git reset --hard origin/main` further down
+REM  therefore rewrites deploy.bat WHILE cmd.exe is executing it -- and cmd.exe
+REM  reads a batch file by byte offset as it goes, so if the file changes length
+REM  underneath it the script silently stops mid-run, or jumps to a garbage
+REM  offset and re-runs an earlier block. Both were observed on 2026-07-27.
+REM  Fail loudly here instead of dying silently 100 lines later.
+git fetch origin >nul 2>&1
+set "LOCAL_BAT="
+set "REMOTE_BAT="
+for /f "delims=" %%i in ('git hash-object deploy.bat 2^>nul') do set "LOCAL_BAT=%%i"
+for /f "delims=" %%i in ('git rev-parse origin/main:deploy.bat 2^>nul') do set "REMOTE_BAT=%%i"
+if not defined REMOTE_BAT goto :bat_check_done
+if not defined LOCAL_BAT goto :bat_check_done
+if not "%LOCAL_BAT%"=="%REMOTE_BAT%" (
+  echo.
+  echo ABORTED: deploy.bat differs from the version on origin/main.
+  echo Running now would let `git reset --hard` revert this script mid-execution
+  echo and it would stop without finishing - no commit, no push, no warning.
+  echo.
+  echo Commit and push deploy.bat first, then re-run:
+  echo     git add deploy.bat
+  echo     git commit -m "update deploy.bat"
+  echo     git push
+  pause
+  exit /b 1
+)
+:bat_check_done
+
+echo.
 echo === Stamping last-updated timestamp ===
 py stamp_updated.py
 if errorlevel 1 (

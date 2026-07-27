@@ -1,4 +1,28 @@
 update_github.bat
 *.pfx
 *.pem
-*.bat
+
+# NOTE: the blanket "*.bat" that used to sit here was misleading - deploy.bat is
+# tracked on purpose (README calls it the only supported deploy path) and a
+# gitignore entry never untracks an already-tracked file. It just hid the fact
+# that deploy.bat reverts itself during `git reset --hard`. deploy.bat now
+# guards against that explicitly at startup instead.
+
+# Deploy scratch files. deploy.bat rewrites these on EVERY run, so tracking them
+# means each deploy pushes ~4.5 MB of churn into git history, permanently.
+index_deploy_backup.html
+chunkindex_deploy_backup.json
+studiesbaked_deploy_backup.json
+
+# Build / OS junk
+__pycache__/
+*.pyc
+*.bak
+_local_img_backup.png
+testfile_git_probe.txt
+Thumbs.db
+.DS_Store
+
+# Local secrets - AIRTABLE_TOKEN belongs in the environment, never in a file
+.env
+*.token
