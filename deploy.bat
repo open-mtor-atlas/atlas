@@ -197,4 +197,40 @@ echo === Verifying restored index.html BEFORE commit - the real safety gate ===
 py verify_index_html.py index.html
 if errorlevel 1 (
   echo.
-  echo ABORT
+  echo ABORTED: index.html looks corrupted after being restored from backup -
+  echo the restore or copy step itself may have been truncated. NOT committing
+  echo or pushing. The backup file index_deploy_backup.html has been left in
+  echo place for inspection instead of being cleaned up. Re-run deploy.bat.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === Staging and committing index.html and chunk_index.json ===
+git add index.html
+if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
+if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
+git commit -m "%COMMIT_MSG%"
+
+echo.
+echo === Status before push ===
+git status
+
+echo.
+echo === Push to GitHub ===
+git push origin main
+
+echo.
+echo === Cleaning up temp files ===
+del "index_deploy_backup.html" 2>nul
+del "chunkindex_deploy_backup.json" 2>nul
+del "studiesbaked_deploy_backup.json" 2>nul
+if exist "_local_img_backup.png" ren "_local_img_backup.png" "ChatGPT Image 6. 7. 2026 17_07_15.png"
+
+echo.
+echo ============================================================
+echo  Check above that the push finished without error - Writing... done.
+echo  Live site updates in about 1 minute. Deep search loads
+echo  atlas_fulltext/chunk_index.json on demand.
+echo ============================================================
+pause
