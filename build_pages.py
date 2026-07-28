@@ -404,6 +404,7 @@ def browse_page(studies, entities, haspage):
 
 
 HOME_MARKER = "<!-- browse-link-added-by-build-pages -->"
+HOME_END = "<!-- /browse-link -->"
 
 
 def patch_home(n_pages):
@@ -416,18 +417,33 @@ def patch_home(n_pages):
     if not os.path.exists(p):
         return "index.html nenalezen"
     h = open(p, encoding="utf-8").read()
-    if HOME_MARKER in h:
-        h2 = re.sub(r"(%s\s*·\s*<a href=\"/browse/\">)[^<]*(</a>)" % re.escape(HOME_MARKER),
-                    lambda m: m.group(1) + "Browse all %d pages" % n_pages + m.group(2), h)
-        if h2 == h:
-            return "odkaz už tam je"
-        h = h2
-    else:
-        link = (f'{HOME_MARKER} · <a href="/browse/">Browse all {n_pages} pages</a>')
-        h2, c = re.subn(r"</footer>", link + "</footer>", h, count=1)
-        if not c:
-            return "POZOR: <footer> v index.html nenalezen, odkaz NEVLOŽEN"
-        h = h2
+    orig = h
+
+    # Odstraň dřívější vložení kdekoli v souboru.
+    #
+    # Délkový limit {0,400} je tam schválně. Bez něj se mazalo od PRVNÍ značky
+    # k PRVNÍ koncové -- a protože starší vložení koncovou značku nemá, druhý
+    # běh smazal celý blok dokumentu mezi nimi, včetně patičky webu. Omezená
+    # délka zaručí, že se v nejhorším případě nesmaže nic.
+    h = re.sub(re.escape(HOME_MARKER) + r".{0,400}?" + re.escape(HOME_END),
+               "", h, flags=re.S)
+    # starší formát bez koncové značky (vložení před 2026-07-27)
+    h = re.sub(re.escape(HOME_MARKER)
+               + r"\s*(?:&middot;|·)\s*<a href=\"/browse/\"[^>]*>[^<]*</a>"
+                 r"(?:\s*<span[^>]*>[^<]*</span>)?", "", h)
+
+    link = (f'{HOME_MARKER} &middot; '
+            f'<a href="/browse/" style="color:inherit">Browse the Atlas</a> '
+            f'<span class="mono" style="opacity:.65">{n_pages} pages</span>{HOME_END}')
+
+    # Ukotveno na SPRÁVNOU patičku, ne na první </footer> v souboru.
+    m = re.search(r'<footer class="site-footer">.*?</footer>', h, re.S)
+    if not m:
+        return "POZOR: <footer class=\"site-footer\"> nenalezen, odkaz NEVLOŽEN"
+    h = h[:m.end() - len("</footer>")] + link + h[m.end() - len("</footer>"):]
+
+    if h == orig:
+        return "odkaz už tam je"
     if DRY:
         return "dry-run"
     tmp = p + ".tmp"
@@ -440,7 +456,7 @@ def patch_home(n_pages):
         os.remove(tmp)
         return "POZOR: ověření zápisu index.html selhalo, NEZAPSÁNO"
     os.replace(tmp, p)
-    return "odkaz vložen do patičky"
+    return "odkaz v patičce webu"
 
 
 SPA_MARKER = "/* deep-links-added-by-build-pages */"
