@@ -17,6 +17,14 @@ echo "=== stamp + bake from atlas_data/*_baked.json ==="
 python3 bake_from_mcp.py
 
 echo
+echo "=== scientific claim calibration gate ==="
+if ! python3 validate_claims.py --strict --json atlas_data/claim_validation.json; then
+    echo "ABORTED: validate_claims.py found claims stronger than the evidence behind them."
+    echo "Fix the wording (or the tier), or re-run without --strict once each finding is reviewed."
+    exit 1
+fi
+
+echo
 echo "=== rebuild deep-search chunk index (local only) ==="
 python3 atlas_fulltext/build_chunk_index.py || echo "  (chunk index build failed - continuing with existing chunk_index.json)"
 

@@ -85,6 +85,17 @@ py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
+echo === Scientific claim calibration gate ===
+py validate_claims.py --strict --json atlas_data\claim_validation.json
+if errorlevel 1 (
+  echo.
+  echo ABORTED: validate_claims.py found claims stronger than the evidence behind them.
+  echo Fix the wording ^(or the tier^) listed above, or re-run without --strict if you
+  echo have reviewed each finding and decided it is acceptable. NOT deploying.
+  exit /b 1
+)
+
+echo.
 echo === Verifying index.html BEFORE backup - catch corruption early ===
 py verify_index_html.py index.html
 if errorlevel 1 (
