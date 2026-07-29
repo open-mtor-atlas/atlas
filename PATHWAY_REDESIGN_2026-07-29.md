@@ -40,7 +40,7 @@ That fourth point is the one everyone else omits, and it is where the Atlas can 
 | Learning levels | None | Three, switching text only |
 | Zoom / pan / search | None (a `min-width:940px` scroll box) | Full camera, search, focus mode, four filter axes |
 | Payload | Inside a 1.5 MB `index.html` | Lazy module, fetched on first open |
-| Tests | None | 1 150 assertions, mutation-verified |
+| Tests | None | 1 168 assertions, mutation-verified, plus a live-page gate |
 
 ---
 
@@ -178,8 +178,13 @@ The 100 signs were externally reviewed with **no sign errors found**, so they we
 | Control | Changes | Never changes |
 |---|---|---|
 | **Level** (beginner / student / research) | the *words* | the graph |
-| **Filter** (effect, evidence, directness, contested) | which edges are *visible* | the words |
+| **Detail** (Core / Full network) | how many interactions are drawn | the words |
+| **Filter** (effect, evidence, directness, contested) | which of those are *visible* | the words |
 | **Focus mode** | the *neighbourhood* in view | anything else |
+
+**Detail exists because the first live build violated principle 1.** Opening the explorer with all 100 interactions at fit-all zoom produced a hairball — impressive-looking, and worse for learning than showing less. Core shows 51: a *principled* subset, `directness === direct && mechanistic === high`, i.e. single molecular events we actually understand. Not a hand-picked "important" list, which would be an unfalsifiable editorial judgement.
+
+Critically, the withholding is announced. The canvas hint reads *"Core view — 51 of 100 steps"*, the default inspector explains what the other 49 are (compressed links, contested claims, organism-level outcomes) and how to see them, and guided routes ignore the detail set entirely — a lesson must never hide the step it is teaching.
 
 Keeping these independent is why the brief's instruction — *"switching levels should change explanations rather than rebuild the pathway"* — is enforceable. The smoke test asserts both halves: level switching changes the inspector text **and** leaves the node count identical.
 
@@ -217,7 +222,7 @@ Designed as its own layout, not a squeeze.
 - Visible focus rings on canvas nodes (3.4 px stroke) and every control (3 px outline)
 - Escape and arrow-key route navigation; all mode tabs expose `aria-selected`
 - `prefers-reduced-motion` fully honoured
-- Minimum touch target 44 × 44 px, enforced in CSS not by hope
+- **Touch targets: 44 × 44 px on touch viewports** (≤ 900 px), enforced in the media block. The desktop toolbar runs at 38 px, which satisfies WCAG 2.2 SC 2.5.8 (24 px, AA) for a precise pointer but not SC 2.5.5 (44 px, AAA) — so the AAA figure is applied where a finger is the input device. An earlier draft of this document claimed a flat 44 px minimum. A live measurement found 14 toolbar controls at 38 px — the document was overclaiming before the CSS was corrected, which is precisely why measurement has to outrank intention. The smoke test now asserts the rules exist so they cannot be deleted silently.
 - `<noscript>` points to the prerendered study and entity pages
 
 Four of these are asserted in the smoke test, so they cannot silently regress.
@@ -294,6 +299,19 @@ Three gates, all machine-run:
 
 The two automated gates are complementary and neither subsumes the other: the validator catches calibration and integrity, the smoke test catches rendering and pedagogy. The mutation above passes the validator and fails the smoke test.
 
+### Gate 4 — check the live page, because the tests cannot
+
+Four defects survived both automated gates and were found only by loading the deployed site. All four are now fixed and, where testable, pinned:
+
+1. **The section opened empty.** After the default subtab flipped to the new module, nothing called `setPathwayMode()` on view entry, so both panes stayed hidden. The smoke test mounts the module directly; it cannot test the shell that hosts it. Fixed in `showView('map')`, with `?entity=` deep-links routed to the Entity Browser and a new `?pw=explorer|guided|scenarios` deep-link.
+2. **The CDN served a stale module.** `index.html` changes every deploy so it is revalidated, but `pathway.js`, `pathway.css` and `model.json` are fetched at runtime from fixed URLs and stayed cached — the server had the new module and the browser ran the old one against the new model. `stamp_pathway_version.py` now hashes the three assets into `PW_ASSET_V` and the loader appends `?v=<hash>`. This failure mode is *created* by the lazy-loading decision, and would recur on every future model update.
+3. **The explorer was a hairball.** Led to the Detail control (§4).
+4. **The camera stranded in a throttled tab.** `requestAnimationFrame` does not fire at all in a hidden tab, so a route step advanced while backgrounded left the viewBox at frame 0 — the reader returned to a step whose subject was off screen. `animCam` now arms a `setTimeout` guaranteeing the destination while the tween keeps the nice path. Tested by stubbing rAF dead.
+
+Diagnosing (4) also exposed a **blind spot in the test suite itself**: it used `host.querySelector("svg")`, which returns the *overview* diagram rather than the canvas, so every camera assertion had been passing against the wrong element. Scoped to `#pwCanvas`, with new checks that the two are distinct and the canvas viewBox is well formed.
+
+The general lesson, recorded because it will recur: **a headless test of a module cannot test the page that mounts it, nor the cache that delivers it.** Live verification is a gate, not a courtesy.
+
 ## 12. Future extensibility
 
 Nothing in `pathway.js` mentions mTOR. It reads compartments, nodes, interactions and routes. To add AMPK, MAPK, PI3K, Wnt, Notch or autophagy as first-class pathways:
@@ -323,7 +341,10 @@ The layout engine, camera, inspector, evidence system, route engine and validato
 | C11 | Mobile bottom sheet, pinch, auto-framing, 44 px targets | ✅ |
 | C12 | Accessibility: keyboard graph, live region, shape-not-colour | ✅ 4 invariants tested |
 | C13 | Lazy-loaded module out of `index.html` | ✅ |
-| C14 | Automated validation gates | ✅ validator + 1 150 assertions, mutation-verified |
+| C14 | Automated validation gates | ✅ validator + 1 168 assertions, mutation-verified |
+| C15 | Detail control so the explorer never opens as a hairball | ✅ Core 51 / Full 100, withholding announced |
+| C16 | Content-hash cache-busting for the lazy assets | ✅ `stamp_pathway_version.py`, wired into deploy |
+| C17 | Camera reaches its target in a throttled tab | ✅ + a test that stubs rAF dead |
 
 ## 14. High impact — Phase 2
 
@@ -399,6 +420,9 @@ Correct — DEPDC5 epilepsy establishes GATOR1's human relevance, and the rule g
 **"You removed a feature (Full Pathway Map) users may have relied on."**
 Deliberate. It drew co-citation and mechanism in the same visual language. The underlying capability survives in the Entity Browser with an honest caption. This is the clearest case in the redesign where an existing feature was worse than nothing.
 
+**"Four defects reached production and were caught by hand. What else is you-checked-it-once rather than tested?"**
+Fair, and the honest list: the CSS media queries for mobile are written and source-asserted but were not visually verified on a device this session; the colour-contrast claims are convention-enforced, not measured; and nothing tests the Entity Browser after its demotion. Measuring touch targets on the live desktop page did already catch this document overclaiming a flat 44 px minimum, which is the kind of thing only measurement finds. All three remaining gaps are Phase 2 items, and none is a claim about biology.
+
 **"Show me your test for the claim that colour is never the only channel."**
 Not currently automated — it is enforced by CSS convention and review. The four accessibility invariants that *are* tested are keyboard reach, aria-labels, the live region and tab state. A contrast-and-channel audit belongs in Phase 2. *Conceded gap.*
 
@@ -430,7 +454,9 @@ The right claim to make today is: *the framework is ready for review; the corpus
 | `validate_pathway.py` | Structural + scientific calibration gate. `--strict` blocks deploy |
 | `pathway/pathway.js` | The module: overview, explorer, camera, inspector, route engine |
 | `pathway/pathway.css` | Visual language; shape-and-weight encoding, mobile bottom sheet |
-| `pathway/smoke_test.js` | 1 150 assertions in jsdom, mutation-verified |
+| `pathway/smoke_test.js` | 1 168 assertions in jsdom, mutation-verified |
+| `stamp_pathway_version.py` | Hashes the three lazy assets into `PW_ASSET_V` so the CDN cannot serve a stale module |
+| `_inject_pathway2.py` | Makes `showView('map')` initialise the pathway mode; adds `?pw=` deep-links |
 | `_inject_pathway.py` | Idempotent wiring into `index.html` with write verification |
 | `index.html.pre_pathway2` | Pre-redesign backup |
 
@@ -439,5 +465,6 @@ The right claim to make today is: *the framework is ready for review; the corpus
 ```bash
 py build_pathway_model.py      # regenerate model.json
 py validate_pathway.py --strict # scientific + structural gate
-node pathway/smoke_test.js      # 1 150 rendering / pedagogy assertions
+node pathway/smoke_test.js      # 1 168 rendering / pedagogy assertions
+py stamp_pathway_version.py     # cache-bust the lazy assets (deploy.sh does this)
 ```

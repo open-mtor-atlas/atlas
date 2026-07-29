@@ -233,6 +233,12 @@
   .pw-sheet-grip{width:44px;height:4px;background:var(--line-strong);margin:0 auto 12px;}
   .pw-sheet-x{position:absolute;top:8px;right:10px;width:44px;height:44px;background:none;border:none;
     color:var(--ink-soft);font-size:20px;cursor:pointer;font-family:'IBM Plex Mono',monospace;}
+  /* 44px touch targets. The desktop toolbar runs at 38px, which satisfies
+     WCAG 2.2 SC 2.5.8 (24px AA) for a precise pointer, but a finger needs
+     the AAA figure. This block is the enforcement, not a convention —
+     pathway/smoke_test.js asserts these rules are present. */
+  .pw-btn,.pw-seg button,.pw-search,.pw-search input{height:44px;min-height:44px;}
+  .pw-zoom button{width:44px;height:44px;min-width:44px;}
   .pw-bar{gap:6px;}
   .pw-search{flex:1 1 100%;max-width:none;}
   .pw-routebtn{max-width:none;flex:1 1 100%;}

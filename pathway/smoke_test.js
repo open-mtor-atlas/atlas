@@ -259,6 +259,26 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok([...D.querySelectorAll(".pw-mode")].every((b) => b.hasAttribute("aria-selected")),
     "mode tabs expose selection state");
 
+  /* jsdom has no layout engine, so touch-target size cannot be measured here.
+     What CAN be checked is that the rules exist — this was added after a live
+     check found 14 toolbar controls at 38px while the spec claimed 44px.
+     A source assertion is shallow, but it is not nothing, and it stops the
+     rule being deleted silently. */
+  console.log("— touch targets (source assertion) —");
+  const css = fs.readFileSync(path.join(ROOT, "pathway", "pathway.css"), "utf8");
+  const mobileBlock = (css.match(/@media \(max-width:900px\)\{[\s\S]*?\n\}/) || [""])[0];
+  ok(mobileBlock.length > 200, "mobile media block found");
+  ok(/\.pw-btn[^{]*\{[^}]*(min-)?height:44px/.test(mobileBlock),
+    "toolbar buttons are raised to 44px on touch viewports");
+  ok(/\.pw-seg button[^{]*\{[^}]*(min-)?height:44px/.test(mobileBlock),
+    "segmented controls are raised to 44px on touch viewports");
+  ok(/\.pw-zoom button[^{]*\{[^}]*width:44px/.test(mobileBlock),
+    "zoom buttons are raised to 44px on touch viewports");
+  ok(/\.pw-insp\{[^}]*position:fixed/.test(mobileBlock),
+    "inspector becomes a fixed bottom sheet on mobile");
+  ok(/@media \(prefers-reduced-motion:reduce\)/.test(css),
+    "reduced-motion block present");
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 
