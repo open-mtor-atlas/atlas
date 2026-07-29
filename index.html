@@ -4061,6 +4061,7 @@ function mxNodeOpen(ent){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
+var PW_ASSET_V = "3336c648a715";
 function pwLoadAsset(tag, attrs){
   return new Promise(function(res, rej){
     var e = document.createElement(tag);
@@ -4078,9 +4079,10 @@ function pwEnsure(){
   var host = document.getElementById("pathwayHost");
   host.innerHTML = '<p class="mono" style="padding:26px 0;color:var(--ink-soft);font-size:12px;">'
     + 'loading pathway model\u2026</p>';
-  pwLoading = pwLoadAsset("link", {rel:"stylesheet", href:"pathway/pathway.css"})
-    .then(function(){ return pwLoadAsset("script", {src:"pathway/pathway.js", defer:"defer"}); })
-    .then(function(){ return window.PathwayApp.boot(host, "pathway/model.json"); })
+  var v = "?v=" + (typeof PW_ASSET_V === "string" ? PW_ASSET_V : "dev");
+  pwLoading = pwLoadAsset("link", {rel:"stylesheet", href:"pathway/pathway.css" + v})
+    .then(function(){ return pwLoadAsset("script", {src:"pathway/pathway.js" + v, defer:"defer"}); })
+    .then(function(){ return window.PathwayApp.boot(host, "pathway/model.json" + v); })
     .catch(function(err){ pwLoading = null; throw err; });
   return pwLoading;
 }

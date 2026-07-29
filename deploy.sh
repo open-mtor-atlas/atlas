@@ -44,6 +44,12 @@ else
 fi
 
 echo
+echo "=== stamp pathway asset version (cache-busting) ==="
+# Bez tohohle může CDN obsloužit starý pathway.js k novému model.json.
+# Stalo se to při prvním nasazení Fáze 1; hash obsahu tomu zabrání.
+python3 stamp_pathway_version.py
+
+echo
 echo "=== rebuild deep-search chunk index (local only) ==="
 python3 atlas_fulltext/build_chunk_index.py || echo "  (chunk index build failed - continuing with existing chunk_index.json)"
 
