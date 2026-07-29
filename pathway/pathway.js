@@ -852,7 +852,11 @@
   /* ==== interaction wiring ============================================= */
   function wire() {
     // canvas events
-    var drag = null;
+    var drag = null, lastWasPan = false, lastDown = null;
+    /* 6px was too tight: ordinary trackpad clicks drift, and a drifted click
+       was silently swallowed. 10px still distinguishes a pan clearly, and
+       selection now lives on `click` anyway, so this only gates panning. */
+    var PAN_PX = 10;
     el.canvas.addEventListener("pointerdown", function (ev) {
       if (ev.target.closest(".pw-zoom")) return;
       /* Record WHAT WAS PRESSED here, at pointerdown, because this is the last
@@ -885,12 +889,34 @@
       drag = null;
       el.canvas.classList.remove("grabbing");
       try { el.canvas.releasePointerCapture(ev.pointerId); } catch (_) {}
-      if (!d || d.moved > 6) return;          // it was a pan, not a click
-      var eid = d.eid, nid = d.nid;
-      /* Belt and braces: if pointerdown landed on empty canvas but the pointer
-         is now over a shape (or the browser did not give us a useful target),
-         hit-test the release point directly. Never trust ev.target here. */
-      if (!eid && !nid) {
+      /* Selection is NOT done here — see the click handler below. This handler
+         only decides whether the gesture was a pan, and records it so the
+         click that follows can be ignored. */
+      lastWasPan = !!(d && d.moved > PAN_PX);
+      lastDown = d || null;
+    });
+
+    /* Selection runs on `click`, deliberately.
+       An earlier version selected on `pointerup` and read ev.target there.
+       That is fragile for three independent reasons: pointer capture can
+       retarget the event to the capturing element; a few pixels of pointer
+       drift during an ordinary click could trip the pan threshold and
+       suppress selection entirely; and pointerup carries no notion of
+       "the user activated this thing".
+       `click` is that notion. The browser only fires it for a genuine
+       activation, gives the correct target, is unaffected by capture, and is
+       also what assistive technology and keyboard activation produce. The
+       pointer handlers keep doing what only they can do: panning. */
+    el.canvas.addEventListener("click", function (ev) {
+      if (ev.target.closest && ev.target.closest(".pw-zoom")) return;
+      if (lastWasPan) { lastWasPan = false; return; }
+      var t = ev.target, eid = null, nid = null;
+      var ge = t.closest ? t.closest("[data-eid]") : null;
+      var gn = t.closest ? t.closest(".pw-n") : null;
+      if (ge) eid = ge.dataset.eid; else if (gn) nid = gn.dataset.nid;
+      // fall back to what was pressed, then to a hit-test of the click point
+      if (!eid && !nid && lastDown) { eid = lastDown.eid; nid = lastDown.nid; }
+      if (!eid && !nid && ev.clientX != null) {
         var u = document.elementFromPoint(ev.clientX, ev.clientY);
         if (u && u.closest) {
           var ue = u.closest("[data-eid]"), un = u.closest(".pw-n");

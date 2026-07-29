@@ -73,19 +73,37 @@ w.eval(src);
    later pointer event to the capturing element, so pointerup arrives with
    target === the canvas <div>. Forcing ev.target on pointerup (as this test
    used to) bypassed exactly the code path that was broken in production. */
+function fire(w, canvas, type, target, x, y) {
+  const e = new w.MouseEvent(type, { bubbles: true });
+  Object.defineProperty(e, "target", { value: target });
+  Object.defineProperty(e, "clientX", { value: x == null ? 500 : x });
+  Object.defineProperty(e, "clientY", { value: y == null ? 350 : y });
+  Object.defineProperty(e, "pointerId", { value: 1 });
+  canvas.dispatchEvent(e);
+  return e;
+}
+/* realClick reproduces the full browser sequence for a real activation:
+   pointerdown -> pointerup -> click. Two details matter and both were got
+   wrong before:
+     * pointerup may be RETARGETED to the capturing element by pointer
+       capture, so it is dispatched here with target === canvas;
+     * `click` is the event that actually means "the user activated this",
+       and it arrives with the correct target.
+   Selection is asserted through this path only. Dispatching a lone synthetic
+   pointerup with a forced target — as this test used to — exercised a code
+   path the platform never produces. */
 function realClick(w, canvas, shape, x, y) {
-  const down = new w.MouseEvent("pointerdown", { bubbles: true });
-  Object.defineProperty(down, "target", { value: shape });
-  Object.defineProperty(down, "clientX", { value: x == null ? 500 : x });
-  Object.defineProperty(down, "clientY", { value: y == null ? 350 : y });
-  Object.defineProperty(down, "pointerId", { value: 1 });
-  canvas.dispatchEvent(down);
-  const up = new w.MouseEvent("pointerup", { bubbles: true });
-  Object.defineProperty(up, "target", { value: canvas });   // <- capture retarget
-  Object.defineProperty(up, "clientX", { value: x == null ? 500 : x });
-  Object.defineProperty(up, "clientY", { value: y == null ? 350 : y });
-  Object.defineProperty(up, "pointerId", { value: 1 });
-  canvas.dispatchEvent(up);
+  fire(w, canvas, "pointerdown", shape, x, y);
+  fire(w, canvas, "pointerup", canvas, x, y);
+  fire(w, canvas, "click", shape, x, y);
+}
+/* A pan: press, move well past the threshold, release, and the click the
+   browser still emits. Must NOT select. */
+function realDrag(w, canvas, shape, x1, y1, x2, y2) {
+  fire(w, canvas, "pointerdown", shape, x1, y1);
+  fire(w, canvas, "pointermove", canvas, x2, y2);
+  fire(w, canvas, "pointerup", canvas, x2, y2);
+  fire(w, canvas, "click", canvas, x2, y2);
 }
 
 const host = w.document.getElementById("host");
@@ -242,24 +260,23 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="Rheb"]').querySelector(".nb"));
   ok(/Rheb/.test(D.getElementById("pwInsp").textContent) && /Inputs \(/.test(D.getElementById("pwInsp").innerHTML),
     "clicking a molecule populates the inspector despite capture retargeting");
-  // a drag must NOT be treated as a click
-  const dn = new w.MouseEvent("pointerdown", { bubbles: true });
-  Object.defineProperty(dn, "target", { value: D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb") });
-  Object.defineProperty(dn, "clientX", { value: 400 }); Object.defineProperty(dn, "clientY", { value: 300 });
-  Object.defineProperty(dn, "pointerId", { value: 1 });
-  canvasEl.dispatchEvent(dn);
-  const mv = new w.MouseEvent("pointermove", { bubbles: true });
-  Object.defineProperty(mv, "clientX", { value: 480 }); Object.defineProperty(mv, "clientY", { value: 340 });
-  Object.defineProperty(mv, "pointerId", { value: 1 });
-  canvasEl.dispatchEvent(mv);
-  const before = D.getElementById("pwInsp").textContent;
-  const up2 = new w.MouseEvent("pointerup", { bubbles: true });
-  Object.defineProperty(up2, "target", { value: canvasEl });
-  Object.defineProperty(up2, "clientX", { value: 480 }); Object.defineProperty(up2, "clientY", { value: 340 });
-  Object.defineProperty(up2, "pointerId", { value: 1 });
-  canvasEl.dispatchEvent(up2);
-  ok(D.getElementById("pwInsp").textContent === before,
+  // A pan must NOT select whatever was under the initial press.
+  realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="Rheb"]').querySelector(".nb"));
+  const beforeDrag = D.getElementById("pwInsp").textContent;
+  realDrag(w, canvasEl, D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb"), 400, 300, 480, 340);
+  ok(D.getElementById("pwInsp").textContent === beforeDrag,
     "a pan gesture does not select whatever was under the initial press");
+  // and a normal click still works immediately after a pan
+  realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb"));
+  ok(/mTORC1/.test(D.querySelector("#pwInsp h4").textContent),
+    "a click right after a pan still selects");
+  // keyboard activation must reach the same code path
+  const kn = D.querySelector('.pw-n[data-nid="AMPK"]');
+  const kev = new w.KeyboardEvent("keydown", { key: "Enter", bubbles: true });
+  Object.defineProperty(kev, "target", { value: kn });
+  canvasEl.dispatchEvent(kev);
+  ok(/AMPK/.test(D.querySelector("#pwInsp h4").textContent),
+    "keyboard Enter on a molecule selects it");
   D.querySelector('#pwDetail button[data-dt="core"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
   console.log("— panel class isolation —");
