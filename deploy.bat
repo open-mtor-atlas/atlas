@@ -41,6 +41,32 @@ REM  repo self-cleans on every deploy.
 if exist ".git\objects" del /f /q /s ".git\objects\tmp_obj_*" >nul 2>&1
 echo    done
 
+echo.
+echo === Removing any stuck git locks ===
+REM  MUST BE THE FIRST GIT-RELATED STEP. This block used to sit ~100 lines lower,
+REM  below the deploy.bat and index.html gates -- which meant those gates ran
+REM  while a stale lock was still in place. Observed 2026-07-29: a leftover
+REM  refs\remotes\origin\main.lock made the gate's `git fetch` fail silently
+REM  (it is redirected to nul), so origin/main still pointed two commits back and
+REM  the gate compared deploy.bat against an old blob and aborted a deploy that
+REM  was in fact perfectly in sync. A gate reading stale data is worse than no
+REM  gate: it fails closed on a healthy repo and teaches you to distrust it.
+REM
+REM  index.lock alone is not enough: a killed git also leaves ORIG_HEAD.lock or a
+REM  ref lock behind, and `git reset` then fails with "Another git process
+REM  seems to be running" while this script carries on regardless. Confirmed
+REM  2026-07-27: a week-old ORIG_HEAD.lock silently broke every deploy.
+del /f /q ".git\index.lock" 2>nul
+del /f /q ".git\ORIG_HEAD.lock" 2>nul
+del /f /q ".git\HEAD.lock" 2>nul
+del /f /q ".git\refs\heads\main.lock" 2>nul
+REM  A Cowork session that pushes through the FUSE bridge can leave these two
+REM  behind: it creates the object or ref but cannot unlink the lock. Neither
+REM  blocks a push, but origin/main.lock stops `git fetch` updating the
+REM  remote-tracking ref, which is what poisoned the gate above.
+del /f /q ".git\refs\remotes\origin\main.lock" 2>nul
+del /f /q ".git\objects\maintenance.lock" 2>nul
+
 set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
@@ -64,7 +90,11 @@ REM  to be pushed before it can matter.
 git fetch origin >nul 2>&1
 set "LOCAL_BAT="
 set "REMOTE_BAT="
-for /f "delims=" %%i in ('git hash-object deploy.bat 2^>nul') do set "LOCAL_BAT=%%i"
+REM  --path makes hash-object apply .gitattributes, i.e. the eol=crlf clean
+REM  filter, so a correctly CRLF working file hashes to the LF blob git
+REM  stores. Without it this comparison depends on core.autocrlf and can
+REM  report a false difference on a machine configured differently.
+for /f "delims=" %%i in ('git hash-object --path=deploy.bat deploy.bat 2^>nul') do set "LOCAL_BAT=%%i"
 for /f "delims=" %%i in ('git rev-parse origin/main:deploy.bat 2^>nul') do set "REMOTE_BAT=%%i"
 if not defined REMOTE_BAT goto :bat_check_done
 if not defined LOCAL_BAT goto :bat_check_done
@@ -144,23 +174,6 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-
-echo.
-echo === Removing any stuck git locks ===
-REM  index.lock alone is not enough: a killed git also leaves ORIG_HEAD.lock or a
-REM  ref lock behind, and `git reset` then fails with "Another git process
-REM  seems to be running" while this script carries on regardless. Confirmed
-REM  2026-07-27: a week-old ORIG_HEAD.lock silently broke every deploy.
-del /f /q ".git\index.lock" 2>nul
-del /f /q ".git\ORIG_HEAD.lock" 2>nul
-del /f /q ".git\HEAD.lock" 2>nul
-del /f /q ".git\refs\heads\main.lock" 2>nul
-REM  Added 2026-07-29: a Cowork session that pushes through the FUSE bridge can
-REM  leave this one behind too. It does not block the push itself, but it stops
-REM  `git fetch` updating the remote-tracking ref, so origin/main goes stale and
-REM  every gate below that compares against origin/main reads an old value.
-del /f /q ".git\refs\remotes\origin\main.lock" 2>nul
-del /f /q ".git\objects\maintenance.lock" 2>nul
 
 echo.
 echo === Fetching state from GitHub ===
