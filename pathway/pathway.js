@@ -852,7 +852,12 @@
       if (ev.target.closest(".pw-zoom")) return;
       drag = { x: ev.clientX, y: ev.clientY, cx: S.cam.x, cy: S.cam.y, moved: 0 };
       el.canvas.classList.add("grabbing");
-      el.canvas.setPointerCapture(ev.pointerId);
+      /* Guarded: setPointerCapture throws NotFoundError if the pointer id is
+         no longer active — reachable with rapid multi-touch, and it surfaced
+         as a live console exception. Capture is a nicety (it keeps the drag
+         alive outside the element); pan works without it, so never let it
+         break the gesture. */
+      try { el.canvas.setPointerCapture(ev.pointerId); } catch (_) {}
     });
     el.canvas.addEventListener("pointermove", function (ev) {
       if (!drag) return;
