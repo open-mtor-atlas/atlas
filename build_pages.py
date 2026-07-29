@@ -79,10 +79,10 @@ LEGACY_SLUGS = {}           # {"stary-slug": "novy-slug"} -> vygeneruje redirect
 TIER_LABEL = {
     "A - Systematic review": ("A", "Systematic review of human data", "#2F7A52"),
     "B - Human": ("B", "Direct human evidence", "#2F6FA8"),
-    "C - Animal": ("C", "Animal in vivo", "#C17A2E"),
-    "D - Mechanistic/Review": ("D", "Mechanistic / in vitro / review", "#8A8375"),
+    "C - Animal": ("C", "Animal in vivo", "#A56827"),
+    "D - Mechanistic/Review": ("D", "Mechanistic / in vitro / review", "#7C7569"),
     "Preprint": ("—", "Preprint, not peer-reviewed", "#8B5FBF"),
-    "Registered trial": ("—", "Registered trial, no results yet", "#5F8BBF"),
+    "Registered trial": ("—", "Registered trial, no results yet", "#5278A6"),
 }
 
 
@@ -106,7 +106,7 @@ def e(s):
 
 
 def tier_bits(t):
-    return TIER_LABEL.get((t or "").strip(), ("—", t or "ungraded", "#8A8375"))
+    return TIER_LABEL.get((t or "").strip(), ("—", t or "ungraded", "#7C7569"))
 
 
 def shell(title, desc, canonical, jsonld, body, breadcrumb):
@@ -135,7 +135,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb):
 </script>
 <style>
 :root{{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}}
+--teal:#A31F34;--amber:#A56827}}
 *{{box-sizing:border-box}}
 body{{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}}
@@ -165,6 +165,75 @@ footer{{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}}
 .abstract{{font-size:15px;color:#26241F}}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{{-webkit-text-size-adjust:100%;text-size-adjust:100%}}
+img,svg{{max-width:100%;height:auto}}
+.wrap{{overflow-wrap:break-word}}
+a{{overflow-wrap:anywhere}}
+
+@media (max-width:760px){{
+  .wrap{{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}}
+  h1{{font-size:clamp(21px,5.4vw,25px);line-height:1.22}}
+  h2{{font-size:16px;margin:26px 0 8px}}
+  .summary{{font-size:16px;padding-left:13px}}
+  body{{font-size:16px}}
+  nav.crumb{{font-size:12.5px;line-height:1.9}}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}}
+  .tags a{{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}}
+  .cta{{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{{display:inline-flex;align-items:center;min-height:44px}}
+  table{{font-size:15px}}
+}}
+
+@media (max-width:560px){{
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{{padding:7px 8px 7px 0}}
+  table.kv td:first-child{{width:38%}}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{{display:block}}
+  table.st tr:first-child,table.ev tr:first-child{{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{{display:block;width:100%}}
+  table.st tr,table.ev tr{{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}}
+  table.st td,table.ev td{{border:none;padding:3px 0}}
+  table.st td[data-l]::before,table.ev td[data-l]::before{{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{{font-weight:600;font-size:16px}}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{{
+    display:inline-block;width:auto;margin-right:20px}}
+  table.st td[data-l="Finding"]{{padding-top:7px;line-height:1.55}}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{{
+    display:inline-block;width:auto;margin-right:22px}}
+}}
+
+@media (max-width:380px){{
+  .wrap{{padding:16px 13px 48px}}
+  h1{{font-size:20px}}
+}}
+
+@media (prefers-reduced-motion:reduce){{
+  *{{animation:none!important;transition:none!important}}
+}}
 </style>
 </head>
 <body>
@@ -258,14 +327,14 @@ def study_page(s, ent_by_sid, haspage):
             f'<em>{e(s.get("journal") or "")}</em> · Atlas ID <code>{e(sid)}</code></p>']
     if s.get("finding"):
         body.append(f'<p class="summary">{e(s["finding"])}</p>')
-    body.append("<h2>At a glance</h2><table>")
+    body.append("<h2>At a glance</h2><table class=\"kv\">")
     for k, v in rows:
         body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{v}</td></tr>")
     body.append("</table>")
     if s.get("abstract"):
         body.append(f'<h2>Abstract</h2><p class="abstract">{e(s["abstract"])}</p>')
     if s.get("ai_effect") or s.get("ai_intervention"):
-        body.append("<h2>Extracted findings</h2><table>")
+        body.append("<h2>Extracted findings</h2><table class=\"kv\">")
         for k, f in (("Intervention", "ai_intervention"), ("Target", "ai_target"),
                      ("Model", "ai_species"), ("Effect", "ai_effect"),
                      ("Dose", "ai_dose"), ("Sample size", "ai_samplesize"),
@@ -319,28 +388,28 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
     if ent.get("desc"):
         body.append(f'<p class="summary">{e(ent["desc"])}</p>')
 
-    body.append("<h2>Evidence at a glance</h2><table>"
+    body.append("<h2>Evidence at a glance</h2><table class=\"ev\">"
                 "<tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>")
     for key, (code, label, colour) in TIER_LABEL.items():
         n = counts.get(code, 0)
         if code == "—" or n == 0:
             continue
-        body.append(f'<tr><td><span class="tier" style="background:{colour}">{code}'
-                    f'</span></td><td>{e(label)}</td><td>{n}</td></tr>')
+        body.append(f'<tr><td data-l="Tier"><span class="tier" style="background:{colour}">{code}'
+                    f'</span></td><td data-l="Meaning">{e(label)}</td><td data-l="Studies">{n}</td></tr>')
     body.append("</table>")
     if not counts.get("A") and not counts.get("B"):
         body.append("<p><em>No direct human evidence in the Atlas for this entity yet — "
                     "everything below rests on animal or mechanistic work.</em></p>")
 
-    body.append("<h2>Studies</h2><table>"
+    body.append("<h2>Studies</h2><table class=\"st\">"
                 "<tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>")
     for s in linked:
         code, _, colour = tier_bits(s.get("tier"))
         body.append(
-            f'<tr><td><a href="/study/{e(s["sid"])}/">{e(s["sid"])}</a></td>'
-            f'<td>{e(s.get("year") or "")}</td>'
-            f'<td><span class="tier" style="background:{colour}">{code}</span></td>'
-            f'<td>{e((s.get("finding") or s.get("title") or "")[:200])}</td></tr>')
+            f'<tr><td data-l="Study"><a href="/study/{e(s["sid"])}/">{e(s["sid"])}</a></td>'
+            f'<td data-l="Year">{e(s.get("year") or "")}</td>'
+            f'<td data-l="Tier"><span class="tier" style="background:{colour}">{code}</span></td>'
+            f'<td data-l="Finding">{e((s.get("finding") or s.get("title") or "")[:200])}</td></tr>')
     body.append("</table>")
 
     # Sousední entity podle sdílených studií.
@@ -357,7 +426,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
         chips = []
         for n, o in top:
             d2, s2 = TYPE_DIR.get(o["type"], "entity"), slugify(o["name"])
-            count = f' <span style="color:#8A8375">{n}</span>'
+            count = f' <span style="color:#7C7569">{n}</span>'
             if (d2, s2) in haspage:
                 chips.append(f'<a href="/{d2}/{s2}/">{e(o["name"])}{count}</a>')
             else:
@@ -401,7 +470,7 @@ def browse_page(studies, entities, haspage):
         items = sorted(by_type[t], key=lambda x: -len(x["studies"]))
         body.append(f"<h3>{e(t)}</h3><p>" + " · ".join(
             f'<a href="/{TYPE_DIR.get(t,"entity")}/{slugify(x["name"])}/">'
-            f'{e(x["name"])}</a> <span style="color:#8A8375">({len(x["studies"])})</span>'
+            f'{e(x["name"])}</a> <span style="color:#7C7569">({len(x["studies"])})</span>'
             for x in items) + "</p>")
 
     body.append(f"<h2>Studies</h2><p>Sorted by year, newest first. "

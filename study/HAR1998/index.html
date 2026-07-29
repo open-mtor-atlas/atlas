@@ -69,7 +69,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +99,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -108,8 +177,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Hara K; Avruch J et al. · 1998 · <em>The Journal of biological chemistry</em> · Atlas ID <code>HAR1998</code></p>
 <p class="summary">Amino acid sufficiency signals through mTOR to p70 S6K and 4E-BP1 via a common effector, first linking nutrients to mTOR.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>CHO cells; in vitro</td></tr>
 <tr><td><strong>Journal</strong></td><td>The Journal of biological chemistry</td></tr>
@@ -118,7 +187,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1074/jbc.273.23.14484">DOI 10.1074/jbc.273.23.14484</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/9603962/">PMID 9603962</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">The present study identifies the operation of a signal tranduction pathway in mammalian cells that provides a checkpoint control, linking amino acid sufficiency to the control of peptide chain initiation. Withdrawal of amino acids from the nutrient medium of CHO-IR cells results in a rapid deactivation of p70 S6 kinase and dephosphorylation of eIF-4E BP1, which become unresponsive to all agonists. Readdition of the amino acid mixture quickly restores the phosphorylation and responsiveness of p70 and eIF-4E BP1 to insulin. Increasing the ambient amino acids to twice that usually employed increases basal p70 activity to the maximal level otherwise attained in the presence of insulin and abrogates further stimulation by insulin. Withdrawal of most individual amino acids also inhibits p70, although with differing potency. Amino acid withdrawal from CHO-IR cells does not significantly alter insulin stimulation of tyrosine phosphorylation, phosphotyrosine-associated phosphatidylinositol 3-kinase activity, c-Akt/protein kinase B activity, or mitogen-activated protein kinase activity. The selective inhibition of p70 and eIF-4E BP1 phosphorylation by amino acid withdrawal resembles the response to rapamycin, which prevents p70 reactivation by amino acids, indicating that mTOR is required for the response to amino acids. A p70 deletion mutant, p70Delta2-46/DeltaCT104, that is resistant to inhibition by rapamycin (but sensitive to wortmannin) is also resistant to inhibition by amino acid withdrawal, indicating that amino acid sufficiency and mTOR signal to p70 through a common effector, which could be mTOR itself, or an mTOR-controlled downstream element, such as a protein phosphatase.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical (amino-acid withdrawal)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR / p70 S6K / 4E-BP1</td></tr>
 <tr><td><strong>Model</strong></td><td>CHO cells; in vitro</td></tr>

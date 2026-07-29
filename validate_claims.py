@@ -168,6 +168,24 @@ def check_studies(findings):
         # R5 -- absolute language anywhere
         scan_absolute(findings, where, blob)
 
+        # R7 -- Evidence_Tier must agree with Pyramid_Level.
+        # Pridano 2026-07-29 po externim review. Tier a pyramida jsou dve osy,
+        # ale nesmi si odporovat: DEN2026 mel tier "C - Animal" a zaroven
+        # pyramid "5 - Mechanistic / In Vitro" v jednom zaznamu -- jedna z tech
+        # dvou hodnot byla proste spatne, a nic to nezachytilo. LAM2012 byl
+        # cely mysi in vivo experiment gradovany D/5. Tohle pravidlo obojí
+        # chytne driv, nez to najde recenzent.
+        exp_pyr = {"A": ("1",), "B": ("2", "3"), "C": ("4",), "D": ("5", "Narrative Review")}
+        t0 = (tier or " ")[0]
+        if t0 in exp_pyr and pyr:
+            if not any(pyr.startswith(p) for p in exp_pyr[t0]):
+                add(findings, "ERROR", "R7 tier-pyramid-disagreement", where,
+                    "tier=%s / pyramid=%s" % (tier, pyr),
+                    "Evidence_Tier %r implies Pyramid_Level %s, but the record says %r. "
+                    "One of the two axes is wrong." % (tier, " or ".join(exp_pyr[t0]), pyr),
+                    "Decide what claim the study supports: an organismal phenotype grades C/4, "
+                    "a signalling mechanism grades D/5. See the Evidence_Tier field description.")
+
         # R1 -- uncontrolled trial + confirmation language
         design = model + " " + blob
         if UNCONTROLLED.search(design) and not CONTROLLED.search(design):

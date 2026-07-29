@@ -32,7 +32,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -62,6 +62,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -70,16 +139,16 @@ font-size:13px;color:var(--soft)}
 <h1>Alzheimer&#x27;s disease</h1>
 <p class="meta">Disease · 3 studies in the Atlas</p>
 <p class="summary">Neurodegenerative disease marked by amyloid-beta plaques and tau tangles. mTOR overactivation blocks the autophagy that would clear these toxic proteins; rapamycin restores clearance in mouse models.</p>
-<h2>Evidence at a glance</h2><table><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
-<tr><td><span class="tier" style="background:#C17A2E">C</span></td><td>Animal in vivo</td><td>3</td></tr>
+<h2>Evidence at a glance</h2><table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Meaning">Animal in vivo</td><td data-l="Studies">3</td></tr>
 </table>
 <p><em>No direct human evidence in the Atlas for this entity yet — everything below rests on animal or mechanistic work.</em></p>
-<h2>Studies</h2><table><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
-<tr><td><a href="/study/BAB2025/">BAB2025</a></td><td>2026</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>UPDATE (was bioRxiv preprint at seed time, peer-reviewed and published in Advanced Science March 2026). Restricting individual branched-chain amino acids has distinct, sex-specific effects on cognitio</td></tr>
-<tr><td><a href="/study/CAC2010/">CAC2010</a></td><td>2010</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Revealed a vicious cycle: amyloid-beta RAISES mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau - so the disease feeds itself. Rapamycin broke the loop in 3xTg-</td></tr>
-<tr><td><a href="/study/SPI2010/">SPI2010</a></td><td>2010</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Connected the longevity drug to a specific age-related disease. Long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer&#x27;s mouse model - and the benefit tracked wit</td></tr>
+<h2>Studies</h2><table class="st"><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
+<tr><td data-l="Study"><a href="/study/BAB2025/">BAB2025</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">UPDATE (was bioRxiv preprint at seed time, peer-reviewed and published in Advanced Science March 2026). Restricting individual branched-chain amino acids has distinct, sex-specific effects on cognitio</td></tr>
+<tr><td data-l="Study"><a href="/study/CAC2010/">CAC2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Revealed a vicious cycle: amyloid-beta RAISES mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau - so the disease feeds itself. Rapamycin broke the loop in 3xTg-</td></tr>
+<tr><td data-l="Study"><a href="/study/SPI2010/">SPI2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Connected the longevity drug to a specific age-related disease. Long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer&#x27;s mouse model - and the benefit tracked wit</td></tr>
 </table>
-<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#8A8375">2</span></a><a href="/drug/rapamycin/">Rapamycin <span style="color:#8A8375">2</span></a><a href="/process/autophagy/">Autophagy <span style="color:#8A8375">2</span></a><span>Leucine/BCAA restriction <span style="color:#8A8375">1</span></span></div>
+<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">2</span></a><a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">2</span></a><a href="/process/autophagy/">Autophagy <span style="color:#7C7569">2</span></a><span>Leucine/BCAA restriction <span style="color:#7C7569">1</span></span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#entities">Open in the Atlas explorer</a></p>
 <footer>
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR

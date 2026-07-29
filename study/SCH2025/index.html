@@ -67,7 +67,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -97,6 +97,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -106,7 +175,7 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Schram AM; Meyerowitz JG et al. · 2025 · <em>Clinical Cancer Research</em> · Atlas ID <code>SCH2025</code></p>
 <p class="summary">First-in-human, open-label dose-escalation trial (n=57, advanced solid tumors, no comparator arm) of a bi-steric mTORC1-selective inhibitor. Treatment-related hyperglycemia was low (4%) and not dose-limiting, alongside a 64% disease control rate. Because the trial was uncontrolled and made no head-to-head comparison against rapamycin or an ATP-site inhibitor, this is encouraging early clinical evidence consistent with the hypothesis that sparing mTORC2 reduces metabolic toxicity -- it does not establish mTORC2 sparing as the cause.
 </p>
-<h2>At a glance</h2><table>
+<h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#2F6FA8">B</span> Direct human evidence</td></tr>
 <tr><td><strong>Study type</strong></td><td>2 - Human Clinical Trial</td></tr>
 <tr><td><strong>Model system</strong></td><td>Human (Phase 1 dose escalation, n=57, advanced solid tumors, NCT04774952)</td></tr>
@@ -116,7 +185,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1158/1078-0432.CCR-25-2112">DOI 10.1158/1078-0432.CCR-25-2112</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/41056387/">PMID 41056387</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12666311/">Free full text (PMC12666311)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">PI3K/mTOR pathway activation drives oncogenesis and progression of many cancers. RMC-5552 is a bi-steric, mTOR complex 1 (mTORC1)-selective inhibitor that potently inhibits phosphorylation of key mTORC1 substrates eukaryotic initiation factor 4E-binding protein-1 and S6 kinase and exhibits selectivity for mTORC1 over mTORC2. In this study, we report results from a first-in-human, dose-escalation study of RMC-5552 in patients with advanced solid tumors (NCT04774952). The safety, tolerability, pharmacokinetics, and preliminary activity of RMC-5552 (1.6-16 mg intravenous infusion weekly) were evaluated in 57 patients. The most common treatment-related adverse events were mucositis (49%), nausea (44%), and fatigue (42%). Consistent with mTORC1 selectivity, treatment-related hyperglycemia incidence was generally low (4%) and not dose limiting. Additionally, we tested potential prophylaxis with tacrolimus mouthwash (TM), which was predicted to block the mechanism of action of RMC-5552 locally and alleviate treatment-related oral mucositis. Between 8- and 12-mg dosing, mucositis was 65% without TM versus 31% with TM. In this study, the disease control rate was 64%, and one patient with PTEN- and PIK3CA-altered endometrial cancer had a complete response and treatment was ongoing for &gt;6 months as of the June 2024 data cut. Clearance of PI3K/mTOR pathway variants among ctDNA was observed. The success of TM-mediated prophylaxis and the clearance of selected variants in ctDNA are concordant with selective, on-mechanism, antitumor activity following RMC-5552 treatment. These data show that RMC-5552, the first bi-steric mTORC1-selective inhibitor in the clinic, is active at tolerable doses and that selective inhibition of mTORC1 alleviates mTORC2-mediated hyperglycemia, overcoming a key limitation of prior mTOR inhibitors.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>RMC-5552 (bi-steric mTORC1-selective inhibitor), 1.6-16mg IV weekly</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 (4E-BP1, S6K1), sparing mTORC2</td></tr>
 <tr><td><strong>Model</strong></td><td>Human</td></tr>

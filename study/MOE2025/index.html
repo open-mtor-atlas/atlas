@@ -91,7 +91,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -121,6 +121,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -130,7 +199,7 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Moel M; Harinath G; Lee V; Nyquist A; Morgan SL; Isman A; Zalzala S · 2025 · <em>Aging (Albany NY)</em> · Atlas ID <code>MOE2025</code></p>
 <p class="summary">First completed long-term RCT of rapamycin for healthy human aging (NCT04488601, 48 weeks, n=114). Primary endpoint (visceral fat by DXA) showed NO significant change (p=0.942) - a null result exactly as pre-registered. Secondary endpoints were more promising: women on the 10mg/week dose had significant improvements in lean muscle mass and self-reported pain. A textbook example of why the pre-registered primary endpoint, not the most exciting secondary finding, is what should drive the headline conclusion.
 </p>
-<h2>At a glance</h2><table>
+<h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#2F6FA8">B</span> Direct human evidence</td></tr>
 <tr><td><strong>Study type</strong></td><td>2 - Human Clinical Trial</td></tr>
 <tr><td><strong>Model system</strong></td><td>Humans, RCT, ages 50-85 (n=114 completed)</td></tr>
@@ -144,7 +213,7 @@ font-size:13px;color:var(--soft)}
 Adverse and serious adverse events were similar across all groups. Visceral adiposity did not change significantly (η= 0.001,= 0.942), and changes in blood biomarkers remained within normal ranges. Lean tissue mass (η= 0.202,= 0.013) and self-reported pain (η= 0.168,= 0.015) improved significantly for women using 10 mg rapamycin. Self-reported emotional well-being (η= 0.108,= 0.023) and general health (η= 0.166,= 0.004) also improved for those using 5 mg rapamycin. No other significant effects were observed.
 
 Low-dose, intermittent rapamycin administration over 48 weeks is relatively safe in healthy, normative-aging adults, and was associated with significant improvements in lean tissue mass and pain in women. Future work will evaluate benefits of a broader range of rapamycin doses on healthspan metrics for longevity, and will aim to more comprehensively establish efficacy.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Intermittent low-dose rapamycin (5/10 mg weekly, 48 wk)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Human – RCT (PEARL, ages 50-85, n=114 completed)</td></tr>

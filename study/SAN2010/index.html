@@ -89,7 +89,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -119,6 +119,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -128,8 +197,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Sancak Y; Bar-Peled L; Zoncu R; Markhard AL; Nada S; Sabatini DM · 2010 · <em>Cell</em> · Atlas ID <code>SAN2010</code></p>
 <p class="summary">Established WHERE mTORC1 gets switched on: the lysosome surface. Identified Ragulator as the lysosomal dock that recruits the Rag GTPases and drags mTORC1 to the membrane where its activator Rheb lives. Amino acids work by controlling this translocation.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>Human cells + Drosophila</td></tr>
 <tr><td><strong>Journal</strong></td><td>Cell</td></tr>
@@ -138,7 +207,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/j.cell.2010.02.024">DOI 10.1016/j.cell.2010.02.024</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/20381137/">PMID 20381137</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3024592/">Free full text (PMC3024592)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">The mTORC1 kinase promotes growth in response to growth factors, energy levels, and amino acids, and its activity is often deregulated in disease. The Rag GTPases interact with mTORC1 and are proposed to activate it in response to amino acids by promoting mTORC1 translocation to a membrane-bound compartment that contains the mTORC1 activator, Rheb. We show that amino acids induce the movement of mTORC1 to lysosomal membranes, where the Rag proteins reside. A complex encoded by the MAPKSP1, ROBLD3, and c11orf59 genes, which we term Ragulator, interacts with the Rag GTPases, recruits them to lysosomes, and is essential for mTORC1 activation. Constitutive targeting of mTORC1 to the lysosomal surface is sufficient to render the mTORC1 pathway amino acid insensitive and independent of Rag and Ragulator, but not Rheb, function. Thus, Rag-Ragulator-mediated translocation of mTORC1 to lysosomal membranes is the key event in amino acid signaling to mTORC1.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical/genetic (Ragulator-Rag)</td></tr>
 <tr><td><strong>Target</strong></td><td>Ragulator / Rag / mTORC1 / Rheb</td></tr>
 <tr><td><strong>Model</strong></td><td>Human cells + Drosophila</td></tr>

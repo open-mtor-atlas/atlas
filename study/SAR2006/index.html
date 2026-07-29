@@ -95,7 +95,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -125,6 +125,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -134,8 +203,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Sarbassov DD; Ali SM; Sengupta S; Sheen JH; Hsu PP; Bagley AF; Markhard AL; Sabatini DM · 2006 · <em>Molecular Cell</em> · Atlas ID <code>SAR2006</code></p>
 <p class="summary">The molecular explanation for rapamycin&#x27;s dark side. Short-term rapamycin only hits mTORC1, but LONG-term treatment also strips down mTORC2 in many cells, cutting Akt signaling. This is the mechanistic root of the insulin-resistance side effect later shown in mice (see Lamming 2012) - crucial for anyone dosing rapamycin for longevity.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>Multiple human/mouse cell lines</td></tr>
 <tr><td><strong>Journal</strong></td><td>Molecular Cell</td></tr>
@@ -144,7 +213,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/j.molcel.2006.03.029">DOI 10.1016/j.molcel.2006.03.029</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/16603397/">PMID 16603397</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">The drug rapamycin has important uses in oncology, cardiology, and transplantation medicine, but its clinically relevant molecular effects are not understood. When bound to FKBP12, rapamycin interacts with and inhibits the kinase activity of a multiprotein complex composed of mTOR, mLST8, and raptor (mTORC1). The distinct complex of mTOR, mLST8, and rictor (mTORC2) does not interact with FKBP12-rapamycin and is not thought to be rapamycin sensitive. mTORC2 phosphorylates and activates Akt/PKB, a key regulator of cell survival. Here we show that rapamycin inhibits the assembly of mTORC2 and that, in many cell types, prolonged rapamycin treatment reduces the levels of mTORC2 below those needed to maintain Akt/PKB signaling. The proapoptotic and antitumor effects of rapamycin are suppressed in cells expressing an Akt/PKB mutant that is rapamycin resistant. Our work describes an unforeseen mechanism of action for rapamycin that suggests it can be used to inhibit Akt/PKB in certain cell types.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Rapamycin (prolonged treatment)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC2 / Akt</td></tr>
 <tr><td><strong>Model</strong></td><td>Multiple human/mouse cell lines</td></tr>

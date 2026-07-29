@@ -64,7 +64,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -94,6 +94,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -103,7 +172,7 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Bannister CA et al. · 2014 · <em>Diabetes, Obesity and Metabolism</em> · Atlas ID <code>BAN2014</code></p>
 <p class="summary">Diabetic patients started on metformin had longer median survival than matched non-diabetic controls without the drug. Retrospective and observational: consistent with a survival benefit, but confounding by indication and healthy-adherer effects cannot be excluded.
 </p>
-<h2>At a glance</h2><table>
+<h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#2F6FA8">B</span> Direct human evidence</td></tr>
 <tr><td><strong>Study type</strong></td><td>3 - Human Observational</td></tr>
 <tr><td><strong>Model system</strong></td><td>Humans, retrospective cohort (n=180,926)</td></tr>
@@ -119,7 +188,7 @@ We used retrospective observational data from the UK Clinical Practice Research 
 We identified 78,241 subjects treated with metformin, 12,222 treated with sulphonylurea, and 90,463 matched subjects without diabetes. This resulted in a total, censored follow-up period of 503,384 years. There were 7498 deaths in total, representing unadjusted mortality rates of 14.4 and 15.2, and 50.9 and 28.7 deaths per 1000 person-years for metformin monotherapy and their matched controls, and sulphonylurea monotherapy and their matched controls, respectively. With reference to observed survival in diabetic patients initiated with metformin monotherapy [survival time ratio (STR) = 1.0], adjusted median survival time was 15% lower (STR = 0.85, 95% CI 0.81-0.90) in matched individuals without diabetes and 38% lower (0.62, 0.58-0.66) in diabetic patients treated with sulphonylurea monotherapy.
 
 Patients with type 2 diabetes initiated with metformin monotherapy had longer survival than did matched, non-diabetic controls. Those treated with sulphonylurea had markedly reduced survival compared with both matched controls and those receiving metformin monotherapy. This supports the position of metformin as first-line therapy and implies that metformin may confer benefit in non-diabetes. Sulphonylurea remains a concern.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Metformin (vs sulphonylurea) monotherapy</td></tr>
 <tr><td><strong>Target</strong></td><td>AMPK / mTOR (indirect)</td></tr>
 <tr><td><strong>Model</strong></td><td>Human – retrospective cohort (n=180,926)</td></tr>

@@ -5,15 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="Intermittent rapamycin regimens preserve lifespan benefit while reducing glucose/immune side effects.
-">
+<meta name="description" content="Intermittent rapamycin regimens (weekly, or every 5 days) largely spared glucose tolerance, pyruvate tolerance, fasting glucose and insulin, beta-cell function and the immune system, while still inhibiting mTORC1 -- unlike daily dosing, which impaired all of them. IMPORTANT SCOPE: this study measure">
 <link rel="canonical" href="https://mtor-atlas.org/study/ARR2015/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="Intermittent rapamycin regimens preserve lifespan benefit while reducing glucose/immune side effects.
-">
+<meta property="og:description" content="Intermittent rapamycin regimens (weekly, or every 5 days) largely spared glucose tolerance, pyruvate tolerance, fasting glucose and insulin, beta-cell function and the immune system, while still inhibiting mTORC1 -- unlike daily dosing, which impaired all of them. IMPORTANT SCOPE: this study measure">
 <meta property="og:url" content="https://mtor-atlas.org/study/ARR2015/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -69,7 +67,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +97,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -106,10 +173,10 @@ font-size:13px;color:var(--soft)}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Atlas</a> › <a href="https://mtor-atlas.org/#studies">Studies</a> › ARR2015</nav>
 <h1>Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system</h1>
 <p class="meta">Arriola Apelo SI; Lamming DW et al. · 2015 · <em>Aging cell</em> · Atlas ID <code>ARR2015</code></p>
-<p class="summary">Intermittent rapamycin regimens preserve lifespan benefit while reducing glucose/immune side effects.
+<p class="summary">Intermittent rapamycin regimens (weekly, or every 5 days) largely spared glucose tolerance, pyruvate tolerance, fasting glucose and insulin, beta-cell function and the immune system, while still inhibiting mTORC1 -- unlike daily dosing, which impaired all of them. IMPORTANT SCOPE: this study measured side effects only. It did NOT measure lifespan or any other benefit endpoint, so it shows the harm can be reduced, not that the benefit is retained. For evidence that a non-continuous schedule preserves a survival benefit, see BIT2016.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse</td></tr>
 <tr><td><strong>Journal</strong></td><td>Aging cell</td></tr>
@@ -118,11 +185,11 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1111/acel.12405">DOI 10.1111/acel.12405</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/26463117/">PMID 26463117</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4717280/">Free full text (PMC4717280)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Inhibition of the mechanistic target of rapamycin (mTOR) signaling pathway by the FDA-approved drug rapamycin has been shown to promote lifespan and delay age-related diseases in model organisms including mice. Unfortunately, rapamycin has potentially serious side effects in humans, including glucose intolerance and immunosuppression, which may preclude the long-term prophylactic use of rapamycin as a therapy for age-related diseases. While the beneficial effects of rapamycin are largely mediated by the inhibition of mTOR complex 1 (mTORC1), which is acutely sensitive to rapamycin, many of the negative side effects are mediated by the inhibition of a second mTOR-containing complex, mTORC2, which is much less sensitive to rapamycin. We hypothesized that different rapamycin dosing schedules or the use of FDA-approved rapamycin analogs with different pharmacokinetics might expand the therapeutic window of rapamycin by more specifically targeting mTORC1. Here, we identified an intermittent rapamycin dosing schedule with minimal effects on glucose tolerance, and we find that this schedule has a reduced impact on pyruvate tolerance, fasting glucose and insulin levels, beta cell function, and the immune system compared to daily rapamycin treatment. Further, we find that the FDA-approved rapamycin analogs everolimus and temsirolimus efficiently inhibit mTORC1 while having a reduced impact on glucose and pyruvate tolerance. Our results suggest that many of the negative side effects of rapamycin treatment can be mitigated through intermittent dosing or the use of rapamycin analogs.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Rapamycin – alternative/intermittent dosing regimens</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 (vs mTORC2)</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse</td></tr>
-<tr><td><strong>Effect</strong></td><td>Intermittent regimens retain the lifespan benefit while mitigating side effects</td></tr>
+<tr><td><strong>Effect</strong></td><td>Intermittent regimens and rapalogs inhibit mTORC1 while largely sparing glucose tolerance and immune function; no survival endpoint was measured</td></tr>
 </table>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer>

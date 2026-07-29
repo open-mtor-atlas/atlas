@@ -69,7 +69,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +99,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -108,8 +177,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Tee AR; Cantley LC et al. · 2003 · <em>Current Biology</em> · Atlas ID <code>TEE2003</code></p>
 <p class="summary">TSC1-TSC2 acts as a GTPase-activating protein (GAP) for Rheb; when TSC is inactive, Rheb accumulates in its active GTP-bound form and directly activates mTORC1.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>Human cell lines</td></tr>
 <tr><td><strong>Journal</strong></td><td>Current Biology</td></tr>
@@ -122,7 +191,7 @@ font-size:13px;color:var(--soft)}
 We show that the small G protein Rheb (Ras homolog enriched in brain) is a molecular target of TSC1/TSC2 that regulates mTOR signaling. Overexpression of Rheb activates 40S ribosomal protein S6 kinase 1 (S6K1) but not p90 ribosomal S6 kinase 1 (RSK1) or Akt. Furthermore, Rheb induces phosphorylation of eukaryotic initiation factor 4E binding protein 1 (4E-BP1) and causes 4E-BP1 to dissociate from eIF4E. This dissociation is completely sensitive to rapamycin (an mTOR inhibitor) but not wortmannin (a phosphoinositide 3-kinase [PI3K] inhibitor). Rheb also activates S6K1 during amino acid insufficiency via a rapamycin-sensitive mechanism, suggesting that Rheb participates in nutrient signaling through mTOR. Moreover, Rheb does not activate a S6K1 mutant that is unresponsive to mTOR-mediated signals, confirming that Rheb functions upstream of mTOR. Overexpression of the Tuberin-Hamartin heterodimer inhibits Rheb-mediated S6K1 activation, suggesting that Tuberin functions as a Rheb GTPase activating protein (GAP). Supporting this notion, TSC patient-derived Tuberin GAP domain mutants were unable to inactivate Rheb in vivo. Moreover, in vitro studies reveal that Tuberin, when associated with Hamartin, acts as a Rheb GTPase-activating protein. Finally, we show that membrane localization of Rheb is important for its biological activity because a farnesylation-defective mutant of Rheb stimulated S6K1 activation less efficiently.
 
 We show that Rheb acts as a novel mediator of the nutrient signaling input to mTOR and is the molecular target of TSC1 and TSC2 within mammalian cells.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical/genetic (TSC1/TSC2)</td></tr>
 <tr><td><strong>Target</strong></td><td>TSC1-TSC2 (Hamartin/Tuberin) / Rheb / mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Human cell lines</td></tr>

@@ -32,7 +32,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -62,6 +62,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -70,16 +139,16 @@ font-size:13px;color:var(--soft)}
 <h1>Cellular senescence</h1>
 <p class="meta">Biological process · 3 studies in the Atlas</p>
 <p class="summary">State in which a cell permanently stops dividing but stays alive, secreting inflammatory signals (the SASP). Senescent cells accumulate with age and drive age-related disease. mTOR both promotes the senescent state and powers its inflammatory secretions.</p>
-<h2>Evidence at a glance</h2><table><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
-<tr><td><span class="tier" style="background:#2F6FA8">B</span></td><td>Direct human evidence</td><td>1</td></tr>
-<tr><td><span class="tier" style="background:#8A8375">D</span></td><td>Mechanistic / in vitro / review</td><td>2</td></tr>
+<h2>Evidence at a glance</h2><table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Meaning">Direct human evidence</td><td data-l="Studies">1</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Meaning">Mechanistic / in vitro / review</td><td data-l="Studies">2</td></tr>
 </table>
-<h2>Studies</h2><table><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
-<tr><td><a href="/study/CHU2019/">CHU2019</a></td><td>2019</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>A small human trial testing whether rapamycin can slow aging in a tissue you can actually see and biopsy - skin. Topical rapamycin significantly lowered the senescence marker p16 and raised collagen V</td></tr>
-<tr><td><a href="/study/LAB2015/">LAB2015</a></td><td>2015</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Explained HOW rapamycin calms &#x27;inflammaging&#x27;. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytoki</td></tr>
-<tr><td><a href="/study/DEM2009/">DEM2009</a></td><td>2009</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Blagosklonny&#x27;s key experiment behind his &#x27;hyperfunction&#x27; theory of aging. When a cell&#x27;s division is blocked but mTOR keeps driving growth, the cell tips into permanent senescence. Rapamycin uncouples </td></tr>
+<h2>Studies</h2><table class="st"><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
+<tr><td data-l="Study"><a href="/study/CHU2019/">CHU2019</a></td><td data-l="Year">2019</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">A small human trial testing whether rapamycin can slow aging in a tissue you can actually see and biopsy - skin. Topical rapamycin significantly lowered the senescence marker p16 and raised collagen V</td></tr>
+<tr><td data-l="Study"><a href="/study/LAB2015/">LAB2015</a></td><td data-l="Year">2015</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Explained HOW rapamycin calms &#x27;inflammaging&#x27;. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytoki</td></tr>
+<tr><td data-l="Study"><a href="/study/DEM2009/">DEM2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Blagosklonny&#x27;s key experiment behind his &#x27;hyperfunction&#x27; theory of aging. When a cell&#x27;s division is blocked but mTOR keeps driving growth, the cell tips into permanent senescence. Rapamycin uncouples </td></tr>
 </table>
-<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#8A8375">3</span></a><a href="/drug/rapamycin/">Rapamycin <span style="color:#8A8375">3</span></a><a href="/gene/mtor/">mTOR <span style="color:#8A8375">1</span></a><a href="/gene/4e-bp1/">4E-BP1 <span style="color:#8A8375">1</span></a><span>Skin aging <span style="color:#8A8375">1</span></span></div>
+<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">3</span></a><a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">3</span></a><a href="/gene/mtor/">mTOR <span style="color:#7C7569">1</span></a><a href="/gene/4e-bp1/">4E-BP1 <span style="color:#7C7569">1</span></a><span>Skin aging <span style="color:#7C7569">1</span></span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#entities">Open in the Atlas explorer</a></p>
 <footer>
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR

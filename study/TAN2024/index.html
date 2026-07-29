@@ -94,7 +94,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -124,6 +124,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -133,7 +202,7 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Tang Z; Guo M; Ding Y; Wen Y; Li B; Xiao Y; Ni R; Guan Z; Qi XL · 2024 · <em>bioRxiv (preprint)</em> · Atlas ID <code>TAN2024</code></p>
 <p class="summary">In mice engineered to overexpress a phosphomimetic tau variant, one week of rapamycin reversed tau-driven mitochondrial dysfunction and rescued cognitive performance in the Morris water maze - extends the mTOR-autophagy-neurodegeneration link (already seen with Huntington&#x27;s) to a direct tau-phosphorylation mechanism relevant to Alzheimer&#x27;s.
 </p>
-<h2>At a glance</h2><table>
+<h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8B5FBF">—</span> Preprint, not peer-reviewed</td></tr>
 <tr><td><strong>Study type</strong></td><td>Preprint</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse (Tau3E-overexpressing, hippocampal CA3)</td></tr>
@@ -143,7 +212,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1101/2024.11.24.625068">DOI 10.1101/2024.11.24.625068</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Aim: Hyperphosphorylated tau plays a crucial role in the pathogenesis of Alzheimer&#x27;s disease (AD). Whether mammalian target of rapamycin (mTOR) directly interacts with the Tau protein at Ser214, Ser356 and Thr231 is not clear. This study aimed to investigate whether mTOR-regulated tau phosphorylation disrupts mitochondrial dynamics and function and whether rapamycin, an mTOR inhibitor, can modulate tau phosphorylation levels and attenuate AD-related alterations. Methods: Adeno-associated virus (AAV) vectors were used to intracranially deliver the TauS214E/T231E/S356E (Tau3E) variant into 2-month-old C57BL/6 mice. The mice were intraperitoneally administered the mTOR inhibitor rapamycin for one week, followed by assessment via the Morris water maze test. Western blot, immunofluorescence staining and flow cytometry measured mTOR, p70S6K and tau expression, mitochondrial dynamics and reactive oxygen species (ROS) in HT22 cells and Tau3E-overexpressing mice, as well as postmortem brain tissue from AD patients. Results: p-mTOR-S2448 colocalized with p-Tau-Ser214, p-Tau-Ser356 and p-Tau-Thr231 in the hippocampal CA3 region of AD patients. HT22 cells and mice overexpressing Tau3E showed elevated p-mTOR, p-p70S6K and ROS, mitochondrial fragmentation, and increased p-Tau at the three sites; rapamycin partially mitigated the cognitive and molecular alterations. Conclusion: The study reveals a causal link between tau phosphorylation at Ser214/Ser356/Thr231 and mTOR upregulation with downstream ROS, mitochondrial dysfunction and cognitive impairment; rapamycin (i.p.) alleviates the impairment, reduces p-Tau and restores mitochondrial homeostasis, neuronal loss and cognition in mice. (Preprint abstract; source: bioRxiv.)</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Rapamycin (mTOR inhibition)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR / Tau (Ser214/Ser356/Thr231)</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (tauopathy, Tau3E CA3)</td></tr>

@@ -69,7 +69,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +99,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -108,8 +177,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Araki K; Ahmed R et al. · 2009 · <em>Nature</em> · Atlas ID <code>ARA2009</code></p>
 <p class="summary">mTOR is a key regulator of memory CD8 T-cell differentiation; rapamycin enhances memory responses.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse</td></tr>
 <tr><td><strong>Journal</strong></td><td>Nature</td></tr>
@@ -118,7 +187,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/nature08155">DOI 10.1038/nature08155</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19543266/">PMID 19543266</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2710807/">Free full text (PMC2710807)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Memory CD8 T cells are a critical component of protective immunity, and inducing effective memory T-cell responses is a major goal of vaccines against chronic infections and tumours. Considerable effort has gone into designing vaccine regimens that will increase the magnitude of the memory response, but there has been minimal emphasis on developing strategies to improve the functional qualities of memory T cells. Here we show that mTOR is a major regulator of memory CD8 T-cell differentiation, and in contrast to what we expected, the immunosuppressive drug rapamycin has immunostimulatory effects on the generation of memory CD8 T cells. Treatment of mice with rapamycin following acute lymphocytic choriomeningitis virus infection enhanced not only the quantity but also the quality of virus-specific CD8 T cells. Similar effects were seen after immunization of mice with a vaccine based on non-replicating virus-like particles. In addition, rapamycin treatment also enhanced memory T-cell responses in non-human primates following vaccination with modified vaccinia virus Ankara. Rapamycin was effective during both the expansion and contraction phases of the T-cell response; during the expansion phase it increased the number of memory precursors, and during the contraction phase it accelerated the memory T-cell differentiation program. Experiments using RNA interference to inhibit expression of mTOR, raptor or FKBP12 in antigen-specific CD8 T cells showed that mTOR acts intrinsically through the mTORC1 pathway to regulate memory T-cell differentiation. Thus these studies identify a molecular pathway regulating memory formation and provide an effective strategy for improving the functional qualities of vaccine- or infection-induced memory T cells.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Rapamycin (mTOR modulation)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse</td></tr>

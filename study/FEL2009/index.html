@@ -93,7 +93,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -123,6 +123,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -132,8 +201,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Feldman ME; Apsel B; Uotila A; Loewith R; Knight ZA; Ruggero D; Shokat KM · 2009 · <em>PLoS Biology</em> · Atlas ID <code>FEL2009</code></p>
 <p class="summary">The parallel discovery to Thoreen 2009 (same year), from the Shokat lab. Their TORKinibs (PP242, PP30) block mTOR&#x27;s active site, hitting both complexes and shutting down cap-dependent translation that rapamycin misses. Together these two papers established a whole new drug class beyond rapamycin.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse fibroblasts + primary cells</td></tr>
 <tr><td><strong>Journal</strong></td><td>PLoS Biology</td></tr>
@@ -142,7 +211,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1371/journal.pbio.1000038">DOI 10.1371/journal.pbio.1000038</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19209957/">PMID 19209957</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2637922/">Free full text (PMC2637922)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">The mammalian target of rapamycin (mTOR) regulates cell growth and survival by integrating nutrient and hormonal signals. These signaling functions are distributed between at least two distinct mTOR protein complexes: mTORC1 and mTORC2. mTORC1 is sensitive to the selective inhibitor rapamycin and activated by growth factor stimulation via the canonical phosphoinositide 3-kinase (PI3K)--&gt;Akt--&gt;mTOR pathway. Activated mTORC1 kinase up-regulates protein synthesis by phosphorylating key regulators of mRNA translation. By contrast, mTORC2 is resistant to rapamycin. Genetic studies have suggested that mTORC2 may phosphorylate Akt at S473, one of two phosphorylation sites required for Akt activation; this has been controversial, in part because RNA interference and gene knockouts produce distinct Akt phospho-isoforms. The central role of mTOR in controlling key cellular growth and survival pathways has sparked interest in discovering mTOR inhibitors that bind to the ATP site and therefore target both mTORC2 and mTORC1. We investigated mTOR signaling in cells and animals with two novel and specific mTOR kinase domain inhibitors (TORKinibs). Unlike rapamycin, these TORKinibs (PP242 and PP30) inhibit mTORC2, and we use them to show that pharmacological inhibition of mTOR blocks the phosphorylation of Akt at S473 and prevents its full activation. Furthermore, we show that TORKinibs inhibit proliferation of primary cells more completely than rapamycin. Surprisingly, we find that mTORC2 is not the basis for this enhanced activity, and we show that the TORKinib PP242 is a more effective mTORC1 inhibitor than rapamycin. Importantly, at the molecular level, PP242 inhibits cap-dependent translation under conditions in which rapamycin has no effect. Our findings identify new functional features of mTORC1 that are resistant to rapamycin but are effectively targeted by TORKinibs. These potent new pharmacological agents complement rapamycin in the study of mTOR and its role in normal physiology and human disease.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>ATP-competitive mTOR active-site inhibitors (vs rapamycin)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 &amp; mTORC2</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse fibroblasts + primary cells</td></tr>

@@ -69,7 +69,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +99,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -108,8 +177,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Harrison DE; Miller RA et al. · 2014 · <em>Aging Cell</em> · Atlas ID <code>HAR2014</code></p>
 <p class="summary">Beyond rapamycin, the same ITP program found acarbose extended male median lifespan by 22% - evidence that the registry surfaces real positive hits too, not only negative results.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse (genetically heterogeneous, ITP, 3 sites)</td></tr>
 <tr><td><strong>Journal</strong></td><td>Aging Cell</td></tr>
@@ -118,7 +187,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1111/acel.12170">DOI 10.1111/acel.12170</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/24245565/">PMID 24245565</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3954939/">Free full text (PMC3954939)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Four agents--acarbose (ACA), 17-α-estradiol (EST), nordihydroguaiaretic acid (NDGA), and methylene blue (MB)--were evaluated for lifespan effects in genetically heterogeneous mice tested at three sites. Acarbose increased male median lifespan by 22% (P &lt; 0.0001), but increased female median lifespan by only 5% (P = 0.01). This sexual dimorphism in ACA lifespan effect could not be explained by differences in effects on weight. Maximum lifespan (90th percentile) increased 11% (P &lt; 0.001) in males and 9% (P = 0.001) in females. EST increased male median lifespan by 12% (P = 0.002), but did not lead to a significant effect on maximum lifespan. The benefits of EST were much stronger at one test site than at the other two and were not explained by effects on body weight. EST did not alter female lifespan. NDGA increased male median lifespan by 8-10% at three different doses, with P-values ranging from 0.04 to 0.005. Females did not show a lifespan benefit from NDGA, even at a dose that produced blood levels similar to those in males, which did show a strong lifespan benefit. MB did not alter median lifespan of males or females, but did produce a small, statistically significant (6%, P = 0.004) increase in female maximum lifespan. These results provide new pharmacological models for exploring processes that regulate the timing of aging and late-life diseases, and in particular for testing hypotheses about sexual dimorphism in aging and health.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Acarbose, 17-α-estradiol, NDGA, methylene blue (dietary/pharmacologic)</td></tr>
 <tr><td><strong>Target</strong></td><td>Metabolic/aging pathways</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (genetically heterogeneous, NIA ITP, 3 sites)</td></tr>

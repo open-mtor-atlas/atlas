@@ -67,7 +67,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -97,6 +97,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -106,8 +175,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Meng D; Bandyopadhyay S et al. · 2023 · <em>Oncogene</em> · Atlas ID <code>MEN2023</code></p>
 <p class="summary">RMC-6272, a bi-steric molecule with &gt;25-fold selectivity for mTORC1 over mTORC2, completely suppresses mTORC1 (hitting the rapamycin-resistant substrate 4E-BP1) and overcomes hormone- and CDK4/6-inhibitor resistance in breast cancer cell lines and PDX -- the preclinical basis for the RMC-5552 selective-inhibitor clinical program.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Human ER+/HER2- breast cancer cell lines; mouse patient-derived xenografts (PDX)</td></tr>
 <tr><td><strong>Journal</strong></td><td>Oncogene</td></tr>
@@ -116,7 +185,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/s41388-023-02737-z">DOI 10.1038/s41388-023-02737-z</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/37264081/">PMID 37264081</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10328828/">Free full text (PMC10328828)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Activation of the PI3K-mTOR pathway is central to breast cancer pathogenesis including resistance to many targeted therapies. The mTOR kinase forms two distinct complexes, mTORC1 and mTORC2, and understanding which is required for the survival of malignant cells has been limited by tools to selectively and completely impair either subcomplex. To address this, we used RMC-6272, a bi-steric molecule with a rapamycin-like moiety linked to an mTOR active-site inhibitor that displays &gt;25-fold selectivity for mTORC1 over mTORC2 substrates. Complete suppression of mTORC1 by RMC-6272 causes apoptosis in ER+/HER2- breast cancer cell lines, particularly in those that harbor mutations in PIK3CA or PTEN, due to inhibition of the rapamycin resistant, mTORC1 substrate 4EBP1 and reduction of the pro-survival protein MCL1. RMC-6272 reduced translation of ribosomal mRNAs, MYC target genes, and components of the CDK4/6 pathway, suggesting enhanced impairment of oncogenic pathways compared to the partial mTORC1 inhibitor everolimus. RMC-6272 maintained efficacy in hormone therapy-resistant acquired cell lines and patient-derived xenografts (PDX), showed increased efficacy in CDK4/6 inhibitor treated acquired resistant cell lines versus their parental counterparts, and was efficacious in a PDX from a patient experiencing resistance to CDK4/6 inhibition. Bi-steric mTORC1-selective inhibition may be effective in overcoming multiple forms of therapy-resistance in ER+ breast cancers.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>RMC-6272 (bi-steric mTORC1-selective inhibitor)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 (4E-BP1), &gt;25-fold selective over mTORC2</td></tr>
 <tr><td><strong>Model</strong></td><td>Human cell lines; mouse PDX</td></tr>

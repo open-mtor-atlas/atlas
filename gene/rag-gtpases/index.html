@@ -43,7 +43,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -73,6 +73,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -81,19 +150,19 @@ font-size:13px;color:var(--soft)}
 <h1>Rag GTPases</h1>
 <p class="meta">Gene/Protein · 5 studies in the Atlas · also known as Rag, Rag GTPase, RagA, RagB, RagC, RagD</p>
 <p class="summary">Family of small GTPases that let mTORC1 sense amino acids by controlling its localization near its activator Rheb inside the cell.</p>
-<h2>Evidence at a glance</h2><table><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
-<tr><td><span class="tier" style="background:#8A8375">D</span></td><td>Mechanistic / in vitro / review</td><td>4</td></tr>
+<h2>Evidence at a glance</h2><table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Meaning">Mechanistic / in vitro / review</td><td data-l="Studies">4</td></tr>
 </table>
 <p><em>No direct human evidence in the Atlas for this entity yet — everything below rests on animal or mechanistic work.</em></p>
-<h2>Studies</h2><table><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
-<tr><td><a href="/study/BAR2013/">BAR2013</a></td><td>2013</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated</td></tr>
-<tr><td><a href="/study/ZON2011/">ZON2011</a></td><td>2011</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward (&#x27;inside-out&#x27;) to Ragulator-Rag. A surprising twist on where the c</td></tr>
-<tr><td><a href="/study/SAN2010/">SAN2010</a></td><td>2010</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Established WHERE mTORC1 gets switched on: the lysosome surface. Identified Ragulator as the lysosomal dock that recruits the Rag GTPases and drags mTORC1 to the membrane where its activator Rheb live</td></tr>
-<tr><td><a href="/study/SAN2008/">SAN2008</a></td><td>2008</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Identifies the Rag GTPase family as the missing link that lets mTORC1 sense amino acids by controlling whether mTOR is positioned near its activator Rheb.
+<h2>Studies</h2><table class="st"><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
+<tr><td data-l="Study"><a href="/study/BAR2013/">BAR2013</a></td><td data-l="Year">2013</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated</td></tr>
+<tr><td data-l="Study"><a href="/study/ZON2011/">ZON2011</a></td><td data-l="Year">2011</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward (&#x27;inside-out&#x27;) to Ragulator-Rag. A surprising twist on where the c</td></tr>
+<tr><td data-l="Study"><a href="/study/SAN2010/">SAN2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Established WHERE mTORC1 gets switched on: the lysosome surface. Identified Ragulator as the lysosomal dock that recruits the Rag GTPases and drags mTORC1 to the membrane where its activator Rheb live</td></tr>
+<tr><td data-l="Study"><a href="/study/SAN2008/">SAN2008</a></td><td data-l="Year">2008</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Identifies the Rag GTPase family as the missing link that lets mTORC1 sense amino acids by controlling whether mTOR is positioned near its activator Rheb.
 </td></tr>
-<tr><td><a href="/study/MUT2026/">MUT2026</a></td><td>2026</td><td><span class="tier" style="background:#8B5FBF">—</span></td><td>Identifies a new layer of control over mTORC1&#x27;s lysosomal machinery: cholesterol exchange between the ER and lysosome regulates lysosome movement via mTOR-dependent phosphorylation of LAMTOR1, a core </td></tr>
+<tr><td data-l="Study"><a href="/study/MUT2026/">MUT2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#8B5FBF">—</span></td><td data-l="Finding">Identifies a new layer of control over mTORC1&#x27;s lysosomal machinery: cholesterol exchange between the ER and lysosome regulates lysosome movement via mTOR-dependent phosphorylation of LAMTOR1, a core </td></tr>
 </table>
-<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#8A8375">5</span></a><a href="/organelle/lysosome/">Lysosome <span style="color:#8A8375">2</span></a><a href="/complex/ragulator/">Ragulator <span style="color:#8A8375">2</span></a><a href="/gene/rheb/">Rheb <span style="color:#8A8375">1</span></a><span>GATOR1 <span style="color:#8A8375">1</span></span><span>GATOR2 <span style="color:#8A8375">1</span></span><span>v-ATPase <span style="color:#8A8375">1</span></span></div>
+<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">5</span></a><a href="/organelle/lysosome/">Lysosome <span style="color:#7C7569">2</span></a><a href="/complex/ragulator/">Ragulator <span style="color:#7C7569">2</span></a><a href="/gene/rheb/">Rheb <span style="color:#7C7569">1</span></a><span>GATOR1 <span style="color:#7C7569">1</span></span><span>GATOR2 <span style="color:#7C7569">1</span></span><span>v-ATPase <span style="color:#7C7569">1</span></span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#entities">Open in the Atlas explorer</a></p>
 <footer>
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR

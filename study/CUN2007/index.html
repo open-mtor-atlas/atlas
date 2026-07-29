@@ -87,7 +87,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -117,6 +117,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -126,8 +195,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Cunningham JT; Rodgers JT; Arlow DH; Vazquez F; Mootha VK; Puigserver P · 2007 · <em>Nature</em> · Atlas ID <code>CUN2007</code></p>
 <p class="summary">Showed mTOR isn&#x27;t just about building proteins - it also runs the cell&#x27;s POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional program; block mTOR with rapamycin and mitochondrial output falls. Explains part of why mTOR inhibition reshapes metabolism.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#8A8375">D</span> Mechanistic / in vitro / review</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
 <tr><td><strong>Model system</strong></td><td>Skeletal muscle cells + tissue</td></tr>
 <tr><td><strong>Journal</strong></td><td>Nature</td></tr>
@@ -136,7 +205,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/nature06322">DOI 10.1038/nature06322</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/18046414/">PMID 18046414</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Transcriptional complexes that contain peroxisome-proliferator-activated receptor coactivator (PGC)-1alpha control mitochondrial oxidative function to maintain energy homeostasis in response to nutrient and hormonal signals. An important component in the energy and nutrient pathways is mammalian target of rapamycin (mTOR), a kinase that regulates cell growth, size and survival. However, it is unknown whether and how mTOR controls mitochondrial oxidative activities. Here we show that mTOR is necessary for the maintenance of mitochondrial oxidative function. In skeletal muscle tissues and cells, the mTOR inhibitor rapamycin decreased the gene expression of the mitochondrial transcriptional regulators PGC-1alpha, oestrogen-related receptor alpha and nuclear respiratory factors, resulting in a decrease in mitochondrial gene expression and oxygen consumption. Using computational genomics, we identified the transcription factor yin-yang 1 (YY1) as a common target of mTOR and PGC-1alpha. Knockdown of YY1 caused a significant decrease in mitochondrial gene expression and in respiration, and YY1 was required for rapamycin-dependent repression of those genes. Moreover, mTOR and raptor interacted with YY1, and inhibition of mTOR resulted in a failure of YY1 to interact with and be coactivated by PGC-1alpha. We have therefore identified a mechanism by which a nutrient sensor (mTOR) balances energy metabolism by means of the transcriptional control of mitochondrial oxidative function. These results have important implications for our understanding of how these pathways might be altered in metabolic diseases and cancer.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic/pharmacologic (mTOR; rapamycin)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR / YY1 / PGC-1α</td></tr>
 <tr><td><strong>Model</strong></td><td>Skeletal muscle cells + tissue</td></tr>

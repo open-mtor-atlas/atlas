@@ -67,7 +67,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -97,6 +97,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -106,8 +175,8 @@ font-size:13px;color:var(--soft)}
 <p class="meta">Babygirija R; Lamming DW et al. · 2026 · <em>Advanced Science</em> · Atlas ID <code>BAB2025</code></p>
 <p class="summary">UPDATE (was bioRxiv preprint at seed time, peer-reviewed and published in Advanced Science March 2026). Restricting individual branched-chain amino acids has distinct, sex-specific effects on cognition and AD pathology in 3xTg mice; restriction of isoleucine and valine (but not leucine) promotes metabolic health. Note: the different BCAAs act differentially on mTORC1, which is why single-amino-acid restriction matters.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse (Alzheimer&#x27;s disease model)</td></tr>
 <tr><td><strong>Journal</strong></td><td>Advanced Science</td></tr>
@@ -116,7 +185,7 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1002/advs.202515220">DOI 10.1002/advs.202515220</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/41817439/">PMID 41817439</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13248761/">Free full text (PMC13248761)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Dietary protein regulates metabolic health and aging, with many benefits of a low protein diet resulting from reduced consumption of the three branched-chain amino acids (BCAAs), leucine, isoleucine, and valine. Each BCAA has distinct physiological and molecular effects, and while restriction of protein or all three BCAAs improves cognition in mouse models of Alzheimer&#x27;s disease (AD), the role of each individual BCAA on AD is unknown. Here, we investigate the impact of restricting leucine, isoleucine, or valine on metabolism, AD pathology, molecular signaling, and cognition in male and female 3xTg AD mice. Mice were fed BCAA-restricted diets for nine months starting at six months of age. Restriction of either isoleucine or valine, but not leucine, improved metabolic health. We observed distinct, BCAA-specific effects on AD pathology, molecular signaling, and gene expression in both sexes as well as shared molecular responses in males. Restricting any BCAA improved short-term memory in males, with isoleucine having the strongest effect, while valine restriction led to the greatest cognitive benefits for females. These findings suggest that targeted BCAA restriction, particularly of isoleucine or valine, may form the basis of a novel sex-specific approach to prevent or delay AD.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Dietary (restriction of individual BCAAs: Leu/Ile/Val)</td></tr>
 <tr><td><strong>Target</strong></td><td>BCAAs / mTORC1</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (3xTg Alzheimer&#x27;s model)</td></tr>

@@ -5,15 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ribosomal protein S6 kinase 1 signaling regulates mammalian life span | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="Deleting S6K1 (a direct mTORC1 effector) extended lifespan and protected against age-related bone, immune, and motor decline in mice.
-">
+<meta name="description" content="Deleting S6K1 (a direct mTORC1 effector) extended lifespan in FEMALE mice (+19% median); the effect was not significant in males. It also protected against age-related bone, immune and motor decline. One of the clearest cases of the sex dimorphism catalogued in gap H6 - and a reminder that a single ">
 <link rel="canonical" href="https://mtor-atlas.org/study/SEL2009/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="Ribosomal protein S6 kinase 1 signaling regulates mammalian life span | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="Deleting S6K1 (a direct mTORC1 effector) extended lifespan and protected against age-related bone, immune, and motor decline in mice.
-">
+<meta property="og:description" content="Deleting S6K1 (a direct mTORC1 effector) extended lifespan in FEMALE mice (+19% median); the effect was not significant in males. It also protected against age-related bone, immune and motor decline. One of the clearest cases of the sex dimorphism catalogued in gap H6 - and a reminder that a single ">
 <meta property="og:url" content="https://mtor-atlas.org/study/SEL2009/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -69,7 +67,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -99,6 +97,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -106,10 +173,10 @@ font-size:13px;color:var(--soft)}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Atlas</a> › <a href="https://mtor-atlas.org/#studies">Studies</a> › SEL2009</nav>
 <h1>Ribosomal protein S6 kinase 1 signaling regulates mammalian life span</h1>
 <p class="meta">Selman C; Withers DJ et al. · 2009 · <em>Science</em> · Atlas ID <code>SEL2009</code></p>
-<p class="summary">Deleting S6K1 (a direct mTORC1 effector) extended lifespan and protected against age-related bone, immune, and motor decline in mice.
+<p class="summary">Deleting S6K1 (a direct mTORC1 effector) extended lifespan in FEMALE mice (+19% median); the effect was not significant in males. It also protected against age-related bone, immune and motor decline. One of the clearest cases of the sex dimorphism catalogued in gap H6 - and a reminder that a single downstream branch, not mTORC1 as a whole, can carry much of the ageing signal.
 </p>
-<h2>At a glance</h2><table>
-<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#C17A2E">C</span> Animal in vivo</td></tr>
+<h2>At a glance</h2><table class="kv">
+<tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
 <tr><td><strong>Model system</strong></td><td>Mouse (S6K1 knockout)</td></tr>
 <tr><td><strong>Journal</strong></td><td>Science</td></tr>
@@ -118,11 +185,11 @@ font-size:13px;color:var(--soft)}
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1126/science.1177221">DOI 10.1126/science.1177221</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19797661/">PMID 19797661</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4954603/">Free full text (PMC4954603)</a></td></tr>
 </table>
 <h2>Abstract</h2><p class="abstract">Caloric restriction (CR) protects against aging and disease, but the mechanisms by which this affects mammalian life span are unclear. We show in mice that deletion of ribosomal S6 protein kinase 1 (S6K1), a component of the nutrient-responsive mTOR (mammalian target of rapamycin) signaling pathway, led to increased life span and resistance to age-related pathologies, such as bone, immune, and motor dysfunction and loss of insulin sensitivity. Deletion of S6K1 induced gene expression patterns similar to those seen in CR or with pharmacological activation of adenosine monophosphate (AMP)-activated protein kinase (AMPK), a conserved regulator of the metabolic response to CR. Our results demonstrate that S6K1 influences healthy mammalian life-span and suggest that therapeutic manipulation of S6K1 and AMPK might mimic CR and could provide broad protection against diseases of aging.</p>
-<h2>Extracted findings</h2><table>
+<h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic (S6K1 knockout)</td></tr>
 <tr><td><strong>Target</strong></td><td>S6K1 / mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (S6K1 KO)</td></tr>
-<tr><td><strong>Effect</strong></td><td>S6K1 deletion extends lifespan and confers resistance to age-related pathologies (especially in females)</td></tr>
+<tr><td><strong>Effect</strong></td><td>S6K1 deletion extends lifespan in female mice only (+19% median, not significant in males) and improves healthspan measures</td></tr>
 </table>
 <h2>Related topics</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1</a><a href="/outcome/longevity/">Longevity</a><a href="/gene/s6k1/">S6K1</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>

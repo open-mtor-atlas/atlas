@@ -37,7 +37,7 @@
 </script>
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
---teal:#A31F34;--amber:#C17A2E}
+--teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
@@ -67,6 +67,75 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
 font-size:13px;color:var(--soft)}
 .abstract{font-size:15px;color:#26241F}
 
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -75,61 +144,61 @@ font-size:13px;color:var(--soft)}
 <h1>Rapamycin</h1>
 <p class="meta">Drug · 36 studies in the Atlas · also known as Sirolimus, RAPA, AY-22989</p>
 <p class="summary">Sirolimus; mTORC1 inhibitor (and, with chronic dosing, mTORC2 too); immunosuppressant; extends lifespan in mice.</p>
-<h2>Evidence at a glance</h2><table><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
-<tr><td><span class="tier" style="background:#2F7A52">A</span></td><td>Systematic review of human data</td><td>1</td></tr>
-<tr><td><span class="tier" style="background:#2F6FA8">B</span></td><td>Direct human evidence</td><td>7</td></tr>
-<tr><td><span class="tier" style="background:#C17A2E">C</span></td><td>Animal in vivo</td><td>11</td></tr>
-<tr><td><span class="tier" style="background:#8A8375">D</span></td><td>Mechanistic / in vitro / review</td><td>16</td></tr>
+<h2>Evidence at a glance</h2><table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#2F7A52">A</span></td><td data-l="Meaning">Systematic review of human data</td><td data-l="Studies">1</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Meaning">Direct human evidence</td><td data-l="Studies">7</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Meaning">Animal in vivo</td><td data-l="Studies">12</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Meaning">Mechanistic / in vitro / review</td><td data-l="Studies">15</td></tr>
 </table>
-<h2>Studies</h2><table><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
-<tr><td><a href="/study/LEE2024/">LEE2024</a></td><td>2024</td><td><span class="tier" style="background:#2F7A52">A</span></td><td>The first systematic review of rapamycin/rapalogs in humans for aging. Screened 18,400 articles, included 19 studies. Found improvements in immune, cardiovascular, and skin (integumentary) parameters;</td></tr>
-<tr><td><a href="/study/GIL2026/">GIL2026</a></td><td>2026</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>Low-dose rapamycin in ME/CFS patients reduced fatigue symptoms, modulated purine biosynthesis via IMP dehydrogenase inhibition, reduced microglial inflammatory responses, and improved mitochondrial en</td></tr>
-<tr><td><a href="/study/MOE2025/">MOE2025</a></td><td>2025</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>First completed long-term RCT of rapamycin for healthy human aging (NCT04488601, 48 weeks, n=114). Primary endpoint (visceral fat by DXA) showed NO significant change (p=0.942) - a null result exactly</td></tr>
-<tr><td><a href="/study/CHU2019/">CHU2019</a></td><td>2019</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>A small human trial testing whether rapamycin can slow aging in a tissue you can actually see and biopsy - skin. Topical rapamycin significantly lowered the senescence marker p16 and raised collagen V</td></tr>
-<tr><td><a href="/study/KRA2018/">KRA2018</a></td><td>2018</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>A safety-first pilot RCT (n=25, ages 70-95) asking the basic question before any longevity trial: is daily rapamycin safe in healthy older people? Over 8+ weeks it was well tolerated with only minor r</td></tr>
-<tr><td><a href="/study/MCC2011/">MCC2011</a></td><td>2011</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>A landmark placebo-controlled RCT (n=89) - the first to show that rapamycin (sirolimus) benefits a human lung disease. In LAM, lung function normally declines relentlessly; sirolimus STOPPED that decl</td></tr>
-<tr><td><a href="/study/DRU2009/">DRU2009</a></td><td>2009</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>Rapamycin given before resistance exercise completely blocked the normal post-exercise increase in human muscle protein synthesis.
+<h2>Studies</h2><table class="st"><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
+<tr><td data-l="Study"><a href="/study/LEE2024/">LEE2024</a></td><td data-l="Year">2024</td><td data-l="Tier"><span class="tier" style="background:#2F7A52">A</span></td><td data-l="Finding">The first systematic review of rapamycin/rapalogs in humans for aging. Screened 18,400 articles, included 19 studies. Found improvements in immune, cardiovascular, and skin (integumentary) parameters;</td></tr>
+<tr><td data-l="Study"><a href="/study/GIL2026/">GIL2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">Low-dose rapamycin in ME/CFS patients reduced fatigue symptoms, modulated purine biosynthesis via IMP dehydrogenase inhibition, reduced microglial inflammatory responses, and improved mitochondrial en</td></tr>
+<tr><td data-l="Study"><a href="/study/MOE2025/">MOE2025</a></td><td data-l="Year">2025</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">First completed long-term RCT of rapamycin for healthy human aging (NCT04488601, 48 weeks, n=114). Primary endpoint (visceral fat by DXA) showed NO significant change (p=0.942) - a null result exactly</td></tr>
+<tr><td data-l="Study"><a href="/study/CHU2019/">CHU2019</a></td><td data-l="Year">2019</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">A small human trial testing whether rapamycin can slow aging in a tissue you can actually see and biopsy - skin. Topical rapamycin significantly lowered the senescence marker p16 and raised collagen V</td></tr>
+<tr><td data-l="Study"><a href="/study/KRA2018/">KRA2018</a></td><td data-l="Year">2018</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">A safety-first pilot RCT (n=25, ages 70-95) asking the basic question before any longevity trial: is daily rapamycin safe in healthy older people? Over 8+ weeks it was well tolerated with only minor r</td></tr>
+<tr><td data-l="Study"><a href="/study/MCC2011/">MCC2011</a></td><td data-l="Year">2011</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">A landmark placebo-controlled RCT (n=89) - the first to show that rapamycin (sirolimus) benefits a human lung disease. In LAM, lung function normally declines relentlessly; sirolimus STOPPED that decl</td></tr>
+<tr><td data-l="Study"><a href="/study/DRU2009/">DRU2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">Rapamycin given before resistance exercise completely blocked the normal post-exercise increase in human muscle protein synthesis.
 </td></tr>
-<tr><td><a href="/study/KAH2000/">KAH2000</a></td><td>2000</td><td><span class="tier" style="background:#2F6FA8">B</span></td><td>The trial that established rapamycin (sirolimus) as an immunosuppressant in kidney transplant patients - its original, still-standard clinical use.
+<tr><td data-l="Study"><a href="/study/KAH2000/">KAH2000</a></td><td data-l="Year">2000</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">The trial that established rapamycin (sirolimus) as an immunosuppressant in kidney transplant patients - its original, still-standard clinical use.
 </td></tr>
-<tr><td><a href="/study/ZHU2026/">ZHU2026</a></td><td>2026</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>LKB1/AMPK deficiency exacerbates trichloroethylene-induced liver injury by impairing mTOR-regulated mitophagy and causing mitochondrial DNA leakage; rapamycin and AMPK activation are protective, nomin</td></tr>
-<tr><td><a href="/study/URF2017/">URF2017</a></td><td>2017</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>A short 10-week course of low-dose rapamycin improved heart function measures in healthy pet dogs with no clinical side effects.
+<tr><td data-l="Study"><a href="/study/ZHU2026/">ZHU2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">LKB1/AMPK deficiency exacerbates trichloroethylene-induced liver injury by impairing mTOR-regulated mitophagy and causing mitochondrial DNA leakage; rapamycin and AMPK activation are protective, nomin</td></tr>
+<tr><td data-l="Study"><a href="/study/URF2017/">URF2017</a></td><td data-l="Year">2017</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">A short 10-week course of low-dose rapamycin improved heart function measures in healthy pet dogs with no clinical side effects.
 </td></tr>
-<tr><td><a href="/study/BIT2016/">BIT2016</a></td><td>2016</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Just 3 months of rapamycin late in life increased subsequent life expectancy by up to 60% - evidence that transient, not lifelong, dosing can capture the benefit.
+<tr><td data-l="Study"><a href="/study/BIT2016/">BIT2016</a></td><td data-l="Year">2016</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Just 3 months of rapamycin late in life increased subsequent life expectancy by up to 60% - evidence that transient, not lifelong, dosing can capture the benefit.
 </td></tr>
-<tr><td><a href="/study/FLY2013/">FLY2013</a></td><td>2013</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Striking evidence that in mice mTOR inhibition doesn&#x27;t just SLOW aging - it can partly reverse an established age-related phenotype. Giving rapamycin to already-old (24-month) mice for 3 months improv</td></tr>
-<tr><td><a href="/study/HAL2012/">HAL2012</a></td><td>2012</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Asked whether the lifespan-extending dose of rapamycin harms or helps the aging BRAIN. Reassuringly, it enhanced learning and memory in young mice, prevented age-related cognitive decline in old ones,</td></tr>
-<tr><td><a href="/study/WIL2012/">WIL2012</a></td><td>2012</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Answered a crucial objection: does rapamycin really slow AGING, or just prevent the cancers that kill mice? By showing slower age-related change across many tissues (heart, liver, tendon, activity), i</td></tr>
-<tr><td><a href="/study/MIL2011/">MIL2011</a></td><td>2011</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>In the same experimental design that showed rapamycin extended median lifespan by 10-18%, neither resveratrol nor simvastatin had any significant effect on survival - a direct head-to-head negative co</td></tr>
-<tr><td><a href="/study/BJE2010/">BJE2010</a></td><td>2010</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Feeding rapamycin extended fly lifespan through autophagy and reduced translation, and worked even in flies already on a lifespan-maximizing diet.
+<tr><td data-l="Study"><a href="/study/FLY2013/">FLY2013</a></td><td data-l="Year">2013</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Striking evidence that in mice mTOR inhibition doesn&#x27;t just SLOW aging - it can partly reverse an established age-related phenotype. Giving rapamycin to already-old (24-month) mice for 3 months improv</td></tr>
+<tr><td data-l="Study"><a href="/study/HAL2012/">HAL2012</a></td><td data-l="Year">2012</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Asked whether the lifespan-extending dose of rapamycin harms or helps the aging BRAIN. Reassuringly, it enhanced learning and memory in young mice, prevented age-related cognitive decline in old ones,</td></tr>
+<tr><td data-l="Study"><a href="/study/LAM2012/">LAM2012</a></td><td data-l="Year">2012</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">In mice, chronic rapamycin also disrupts mTORC2, causing insulin resistance; lifespan extension can be uncoupled from this side effect.
 </td></tr>
-<tr><td><a href="/study/CAC2010/">CAC2010</a></td><td>2010</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Revealed a vicious cycle: amyloid-beta RAISES mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau - so the disease feeds itself. Rapamycin broke the loop in 3xTg-</td></tr>
-<tr><td><a href="/study/SPI2010/">SPI2010</a></td><td>2010</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Connected the longevity drug to a specific age-related disease. Long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer&#x27;s mouse model - and the benefit tracked wit</td></tr>
-<tr><td><a href="/study/HAR2009/">HAR2009</a></td><td>2009</td><td><span class="tier" style="background:#C17A2E">C</span></td><td>Rapamycin fed from 600 days of age extended median lifespan by 9-14% in both sexes.
+<tr><td data-l="Study"><a href="/study/WIL2012/">WIL2012</a></td><td data-l="Year">2012</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Answered a crucial objection: does rapamycin really slow AGING, or just prevent the cancers that kill mice? By showing slower age-related change across many tissues (heart, liver, tendon, activity), i</td></tr>
+<tr><td data-l="Study"><a href="/study/MIL2011/">MIL2011</a></td><td data-l="Year">2011</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">In the same experimental design that showed rapamycin extended median lifespan by 10-18%, neither resveratrol nor simvastatin had any significant effect on survival - a direct head-to-head negative co</td></tr>
+<tr><td data-l="Study"><a href="/study/BJE2010/">BJE2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Feeding rapamycin extended fly lifespan through autophagy and reduced translation, and worked even in flies already on a lifespan-maximizing diet.
 </td></tr>
-<tr><td><a href="/study/JIB2026/">JIB2026</a></td><td>2026</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Rapamycin fails to protect spermatogonial stem cells from cisplatin-induced damage in vitro, indicating sex-specific or context-specific limits to rapamycin&#x27;s cytoprotective role and suggesting male f</td></tr>
-<tr><td><a href="/study/PIR2026/">PIR2026</a></td><td>2026</td><td><span class="tier" style="background:#8A8375">D</span></td><td>mTOR/TOR pathway interventions achieve large lifespan extensions in simple organisms but face declining efficacy in mammals due to distributed multi-tissue buffering, redundancy, and pharmacokinetic c</td></tr>
-<tr><td><a href="/study/HAN2025/">HAN2025</a></td><td>2025</td><td><span class="tier" style="background:#8A8375">D</span></td><td>A deliberately cautious review of low-dose rapamycin in healthy adults, and re-models one cohort using the PhenoAge biological-aging clock. Verdict: despite strong animal lifespan data, human evidence</td></tr>
-<tr><td><a href="/study/LAB2015/">LAB2015</a></td><td>2015</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Explained HOW rapamycin calms &#x27;inflammaging&#x27;. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytoki</td></tr>
-<tr><td><a href="/study/JOH2013/">JOH2013</a></td><td>2013</td><td><span class="tier" style="background:#8A8375">D</span></td><td>The landmark Nature review that put mTOR at the center of aging biology. Lays out the case that inhibiting mTOR extends lifespan across species and guards against a growing list of age-related disease</td></tr>
-<tr><td><a href="/study/YAN2013/">YAN2013</a></td><td>2013</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Solved the crystal structure of the mTOR kinase itself. Revealed why the active site is so hard to reach - it sits in a deep recess guarded by the FRB domain, which acts as a &#x27;gatekeeper&#x27; letting subs</td></tr>
-<tr><td><a href="/study/LAM2012/">LAM2012</a></td><td>2012</td><td><span class="tier" style="background:#8A8375">D</span></td><td>In mice, chronic rapamycin also disrupts mTORC2, causing insulin resistance; lifespan extension can be uncoupled from this side effect.
+<tr><td data-l="Study"><a href="/study/CAC2010/">CAC2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Revealed a vicious cycle: amyloid-beta RAISES mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau - so the disease feeds itself. Rapamycin broke the loop in 3xTg-</td></tr>
+<tr><td data-l="Study"><a href="/study/SPI2010/">SPI2010</a></td><td data-l="Year">2010</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Connected the longevity drug to a specific age-related disease. Long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer&#x27;s mouse model - and the benefit tracked wit</td></tr>
+<tr><td data-l="Study"><a href="/study/HAR2009/">HAR2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Rapamycin fed from 600 days of age extended median lifespan by 9-14% in both sexes.
 </td></tr>
-<tr><td><a href="/study/DEM2009/">DEM2009</a></td><td>2009</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Blagosklonny&#x27;s key experiment behind his &#x27;hyperfunction&#x27; theory of aging. When a cell&#x27;s division is blocked but mTOR keeps driving growth, the cell tips into permanent senescence. Rapamycin uncouples </td></tr>
-<tr><td><a href="/study/FEL2009/">FEL2009</a></td><td>2009</td><td><span class="tier" style="background:#8A8375">D</span></td><td>The parallel discovery to Thoreen 2009 (same year), from the Shokat lab. Their TORKinibs (PP242, PP30) block mTOR&#x27;s active site, hitting both complexes and shutting down cap-dependent translation that</td></tr>
-<tr><td><a href="/study/THO2009/">THO2009</a></td><td>2009</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosp</td></tr>
-<tr><td><a href="/study/CUN2007/">CUN2007</a></td><td>2007</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Showed mTOR isn&#x27;t just about building proteins - it also runs the cell&#x27;s POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional progr</td></tr>
-<tr><td><a href="/study/SAR2006/">SAR2006</a></td><td>2006</td><td><span class="tier" style="background:#8A8375">D</span></td><td>The molecular explanation for rapamycin&#x27;s dark side. Short-term rapamycin only hits mTORC1, but LONG-term treatment also strips down mTORC2 in many cells, cutting Akt signaling. This is the mechanisti</td></tr>
-<tr><td><a href="/study/CHO1996/">CHO1996</a></td><td>1996</td><td><span class="tier" style="background:#8A8375">D</span></td><td>The crystal structure that showed HOW rapamycin works at the atomic level: one rapamycin molecule glues two proteins together - FKBP12 and mTOR&#x27;s FRB domain - by plugging into two hydrophobic pockets </td></tr>
-<tr><td><a href="/study/SAB1994/">SAB1994</a></td><td>1994</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Discovery of the protein RAFT1 (today&#x27;s mTOR) as the direct target of the FKBP12-rapamycin complex; founding paper of the entire mTOR field.
+<tr><td data-l="Study"><a href="/study/JIB2026/">JIB2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Rapamycin fails to protect spermatogonial stem cells from cisplatin-induced damage in vitro, indicating sex-specific or context-specific limits to rapamycin&#x27;s cytoprotective role and suggesting male f</td></tr>
+<tr><td data-l="Study"><a href="/study/PIR2026/">PIR2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">mTOR/TOR pathway interventions achieve large lifespan extensions in simple organisms but face declining efficacy in mammals due to distributed multi-tissue buffering, redundancy, and pharmacokinetic c</td></tr>
+<tr><td data-l="Study"><a href="/study/HAN2025/">HAN2025</a></td><td data-l="Year">2025</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">A deliberately cautious review of low-dose rapamycin in healthy adults, and re-models one cohort using the PhenoAge biological-aging clock. Verdict: despite strong animal lifespan data, human evidence</td></tr>
+<tr><td data-l="Study"><a href="/study/LAB2015/">LAB2015</a></td><td data-l="Year">2015</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Explained HOW rapamycin calms &#x27;inflammaging&#x27;. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytoki</td></tr>
+<tr><td data-l="Study"><a href="/study/JOH2013/">JOH2013</a></td><td data-l="Year">2013</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">The landmark Nature review that put mTOR at the center of aging biology. Lays out the case that inhibiting mTOR extends lifespan across species and guards against a growing list of age-related disease</td></tr>
+<tr><td data-l="Study"><a href="/study/YAN2013/">YAN2013</a></td><td data-l="Year">2013</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Solved the crystal structure of the mTOR kinase itself. Revealed why the active site is so hard to reach - it sits in a deep recess guarded by the FRB domain, which acts as a &#x27;gatekeeper&#x27; letting subs</td></tr>
+<tr><td data-l="Study"><a href="/study/DEM2009/">DEM2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Blagosklonny&#x27;s key experiment behind his &#x27;hyperfunction&#x27; theory of aging. When a cell&#x27;s division is blocked but mTOR keeps driving growth, the cell tips into permanent senescence. Rapamycin uncouples </td></tr>
+<tr><td data-l="Study"><a href="/study/FEL2009/">FEL2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">The parallel discovery to Thoreen 2009 (same year), from the Shokat lab. Their TORKinibs (PP242, PP30) block mTOR&#x27;s active site, hitting both complexes and shutting down cap-dependent translation that</td></tr>
+<tr><td data-l="Study"><a href="/study/THO2009/">THO2009</a></td><td data-l="Year">2009</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosp</td></tr>
+<tr><td data-l="Study"><a href="/study/CUN2007/">CUN2007</a></td><td data-l="Year">2007</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Showed mTOR isn&#x27;t just about building proteins - it also runs the cell&#x27;s POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional progr</td></tr>
+<tr><td data-l="Study"><a href="/study/SAR2006/">SAR2006</a></td><td data-l="Year">2006</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">The molecular explanation for rapamycin&#x27;s dark side. Short-term rapamycin only hits mTORC1, but LONG-term treatment also strips down mTORC2 in many cells, cutting Akt signaling. This is the mechanisti</td></tr>
+<tr><td data-l="Study"><a href="/study/CHO1996/">CHO1996</a></td><td data-l="Year">1996</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">The crystal structure that showed HOW rapamycin works at the atomic level: one rapamycin molecule glues two proteins together - FKBP12 and mTOR&#x27;s FRB domain - by plugging into two hydrophobic pockets </td></tr>
+<tr><td data-l="Study"><a href="/study/SAB1994/">SAB1994</a></td><td data-l="Year">1994</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Discovery of the protein RAFT1 (today&#x27;s mTOR) as the direct target of the FKBP12-rapamycin complex; founding paper of the entire mTOR field.
 </td></tr>
-<tr><td><a href="/study/HEI1991/">HEI1991</a></td><td>1991</td><td><span class="tier" style="background:#8A8375">D</span></td><td>Discovery of the TOR1 and TOR2 genes in yeast as the targets whose disruption causes rapamycin&#x27;s cell-cycle-arresting toxicity - the original genetic identification of the TOR pathway.
+<tr><td data-l="Study"><a href="/study/HEI1991/">HEI1991</a></td><td data-l="Year">1991</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Discovery of the TOR1 and TOR2 genes in yeast as the targets whose disruption causes rapamycin&#x27;s cell-cycle-arresting toxicity - the original genetic identification of the TOR pathway.
 </td></tr>
-<tr><td><a href="/study/VEZ1975/">VEZ1975</a></td><td>1975</td><td><span class="tier" style="background:#8A8375">D</span></td><td>The original isolation of rapamycin from a soil bacterium found on Easter Island, discovered first as an antifungal compound decades before its mTOR-inhibiting mechanism was known.
+<tr><td data-l="Study"><a href="/study/VEZ1975/">VEZ1975</a></td><td data-l="Year">1975</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">The original isolation of rapamycin from a soil bacterium found on Easter Island, discovered first as an antifungal compound decades before its mTOR-inhibiting mechanism was known.
 </td></tr>
-<tr><td><a href="/study/TAN2024/">TAN2024</a></td><td>2024</td><td><span class="tier" style="background:#8B5FBF">—</span></td><td>In mice engineered to overexpress a phosphomimetic tau variant, one week of rapamycin reversed tau-driven mitochondrial dysfunction and rescued cognitive performance in the Morris water maze - extends</td></tr>
+<tr><td data-l="Study"><a href="/study/TAN2024/">TAN2024</a></td><td data-l="Year">2024</td><td data-l="Tier"><span class="tier" style="background:#8B5FBF">—</span></td><td data-l="Finding">In mice engineered to overexpress a phosphomimetic tau variant, one week of rapamycin reversed tau-driven mitochondrial dysfunction and rescued cognitive performance in the Morris water maze - extends</td></tr>
 </table>
-<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#8A8375">20</span></a><a href="/gene/mtor/">mTOR <span style="color:#8A8375">20</span></a><a href="/outcome/longevity/">Longevity <span style="color:#8A8375">15</span></a><a href="/process/autophagy/">Autophagy <span style="color:#8A8375">3</span></a><a href="/complex/mtorc2/">mTORC2 <span style="color:#8A8375">3</span></a><a href="/process/cellular-senescence/">Cellular senescence <span style="color:#8A8375">3</span></a><a href="/gene/akt-pkb/">Akt/PKB <span style="color:#8A8375">2</span></a><a href="/gene/4e-bp1/">4E-BP1 <span style="color:#8A8375">2</span></a><a href="/outcome/immune-function/">Immune function <span style="color:#8A8375">2</span></a><a href="/disease/alzheimers-disease/">Alzheimer&#x27;s disease <span style="color:#8A8375">2</span></a><a href="/process/muscle-growth/">Muscle growth <span style="color:#8A8375">2</span></a><span>FKBP12 <span style="color:#8A8375">2</span></span></div>
+<h2>Related entities</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">20</span></a><a href="/gene/mtor/">mTOR <span style="color:#7C7569">20</span></a><a href="/outcome/longevity/">Longevity <span style="color:#7C7569">15</span></a><a href="/process/autophagy/">Autophagy <span style="color:#7C7569">3</span></a><a href="/complex/mtorc2/">mTORC2 <span style="color:#7C7569">3</span></a><a href="/process/cellular-senescence/">Cellular senescence <span style="color:#7C7569">3</span></a><a href="/gene/akt-pkb/">Akt/PKB <span style="color:#7C7569">2</span></a><a href="/gene/4e-bp1/">4E-BP1 <span style="color:#7C7569">2</span></a><a href="/outcome/immune-function/">Immune function <span style="color:#7C7569">2</span></a><a href="/disease/alzheimers-disease/">Alzheimer&#x27;s disease <span style="color:#7C7569">2</span></a><a href="/process/muscle-growth/">Muscle growth <span style="color:#7C7569">2</span></a><span>FKBP12 <span style="color:#7C7569">2</span></span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#entities">Open in the Atlas explorer</a></p>
 <footer>
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
