@@ -316,6 +316,29 @@ for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_a
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
 
+REM  The pipeline scripts themselves, the validators and the repo config. These
+REM  are not site content, but if a deploy does not stage them the generator on
+REM  origin drifts away from the generator on disk - and the next person to run
+REM  build_pages.py regenerates every page from the OLD template, silently
+REM  undoing whatever the last session changed. That is not hypothetical: the
+REM  mobile-optimisation pass on 2026-07-29 rewrote build_pages.py to emit media
+REM  queries, and without this block the 311 regenerated pages would have shipped
+REM  while the generator that produced them stayed behind.
+echo    including pipeline scripts and repo config
+for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py finish_review_fixes.py .gitignore .gitattributes) do (
+  if exist "%%F" git add "%%F"
+)
+
+REM  BACKSTOP. Everything above names files explicitly, which is good for reading
+REM  intent and bad at catching what nobody thought to name - twice now a tracked
+REM  file changed, went unstaged, and drifted: events_baked.json, then
+REM  build_pages.py. `git add -u` stages modifications AND DELETIONS of files git
+REM  already tracks, and touches nothing untracked, so scratch files and the
+REM  ignored test scaffolding stay out. It also stages the two deletions from the
+REM  mobile pass, which no `if exist` line could ever catch - the whole point of a
+REM  deletion is that the file is gone.
+git add -u
+
 git commit -m "%COMMIT_MSG%"
 
 echo.
