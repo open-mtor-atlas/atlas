@@ -40,6 +40,28 @@ CLEAN = "--clean" in sys.argv
 PAGE_THRESHOLD = 3          # quality gate z plánu fáze 6
 GENERATED_MARKER = "<!-- generated-by-build-pages -->"
 
+# Google Rich Results validuje i VNOŘENÉ Dataset uzly (isPartOf). Holý stub
+# {name, url} = "chybí pole description / creator / license" v Search Console.
+# Musí sedět s hlavním Dataset blokem v index.html.
+DATASET_REF = {
+    "@type": "Dataset",
+    "name": "Oliver's mTOR Atlas",
+    "url": SITE + "/",
+    "description": (
+        "A curated, evidence-graded database of mTOR pathway research: about 275 "
+        "studies, with every eligible peer-reviewed primary study rated by evidence "
+        "tier (A = systematic review/meta-analysis, B = human trial, C = animal model, "
+        "D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, "
+        "diseases and interventions, plus AI-identified knowledge gaps and testable "
+        "hypotheses."
+    ),
+    "creator": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
+                "url": SITE + "/"},
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": True,
+    "inLanguage": "en",
+}
+
 # Entity_Type -> URL prefix. Změna = rozbité odkazy, viz hlavička.
 TYPE_DIR = {
     "Gene/Protein": "gene",
@@ -190,7 +212,7 @@ def study_page(s, ent_by_sid, haspage):
         "headline": title, "name": title,
         "datePublished": str(s.get("year") or ""),
         "url": url, "inLanguage": "en",
-        "isPartOf": {"@type": "Dataset", "name": "Oliver's mTOR Atlas", "url": SITE + "/"},
+        "isPartOf": dict(DATASET_REF),
     }
     if s.get("journal"):
         ld["publication"] = {"@type": "Periodical", "name": s["journal"]}
@@ -363,8 +385,7 @@ def browse_page(studies, entities, haspage):
     url = f"{SITE}/browse/"
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "Browse the Atlas", "url": url,
-          "isPartOf": {"@type": "Dataset", "name": "Oliver's mTOR Atlas",
-                       "url": SITE + "/"}}
+          "isPartOf": dict(DATASET_REF)}
     body = ["<h1>Browse the Atlas</h1>",
             f'<p class="summary">Every study and every topic in the Atlas, as a '
             f'plain index. {len(studies)} studies, '
