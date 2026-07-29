@@ -69,12 +69,19 @@ w.eval(src);
 
 const host = w.document.getElementById("host");
 
-w.PathwayApp.boot(host, "pathway/model.json").then(() => {
+w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   const D = w.document;
-  const svg = host.querySelector("svg");
+  /* NB: host contains TWO svgs - the overview diagram and the canvas. An
+     earlier version of this test did host.querySelector("svg") and silently
+     asserted against the overview, which made the camera checks meaningless.
+     Always scope to #pwCanvas. */
+  const svg = D.querySelector("#pwCanvas svg");
+  const ovSvg = D.querySelector(".pw-ov-svg");
 
   console.log("— render —");
-  ok(!!svg, "SVG built");
+  ok(!!svg, "canvas SVG built");
+  ok(!!ovSvg && ovSvg !== svg, "overview SVG is a separate element from the canvas");
+  ok((svg.getAttribute("viewBox") || "").split(" ").length === 4, "canvas has a 4-part viewBox");
   ok(D.querySelectorAll(".pw-n").length === model.nodes.length,
     `all ${model.nodes.length} nodes rendered (got ${D.querySelectorAll(".pw-n").length})`);
   model.interactions.forEach((e) => {
@@ -185,6 +192,23 @@ w.PathwayApp.boot(host, "pathway/model.json").then(() => {
       if (i < total - 1) next.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
     }
   });
+
+  // Camera must reach its destination even when requestAnimationFrame never
+  // fires. It does not fire in a hidden tab, which is exactly how this was
+  // found: a route step in a backgrounded tab left the camera at frame 0.
+  console.log("— camera robustness —");
+  const rafBackup = w.requestAnimationFrame;
+  w.requestAnimationFrame = () => 0;                 // simulate a hidden tab
+  w.PathwayApp.setMode("guided");
+  D.querySelector('.pw-routebtn[data-r="aa"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.getElementById("pwStart").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const vbStart = svg.getAttribute("viewBox");
+  D.getElementById("pwNext").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  await new Promise((r) => setTimeout(r, 700));
+  const vbAfter = svg.getAttribute("viewBox");
+  ok(vbAfter !== vbStart, "camera still reaches its target with requestAnimationFrame dead");
+  ok(!/NaN|Infinity/.test(vbAfter), "camera target is finite");
+  w.requestAnimationFrame = rafBackup;
 
   console.log("— detail set —");
   w.PathwayApp.setMode("explorer");

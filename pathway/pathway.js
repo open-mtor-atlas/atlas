@@ -39,7 +39,7 @@
     detailSet: "core",
     filters: { effect: null, evidence: null, physOnly: false },
     routeId: null, step: -1,
-    cam: null, camTarget: null, anim: null
+    cam: null, camTarget: null, anim: null, snap: null
   };
 
   var NH = 30, LANE = 13;
@@ -379,13 +379,26 @@
   function animCam(to) {
     if (reduced()) { S.cam = to; applyCam(); return; }
     if (S.anim) cancelAnimationFrame(S.anim);
+    if (S.snap) clearTimeout(S.snap);
     var from = { x: S.cam.x, y: S.cam.y, w: S.cam.w, h: S.cam.h }, t0 = performance.now(), T = 480;
+    var done = false;
+    /* Safety net. requestAnimationFrame does not fire at all in a hidden or
+       heavily throttled tab, so a tween started while the tab is backgrounded
+       would leave the camera stranded at frame 0 — the reader returns to a
+       route step whose subject is off screen. The tween stays the nice path;
+       this guarantees the destination regardless. */
+    S.snap = setTimeout(function () {
+      if (done) return;
+      if (S.anim) cancelAnimationFrame(S.anim);
+      S.cam = to; applyCam();
+    }, T + 80);
     (function tick(now) {
       var p = Math.min(1, (now - t0) / T), k = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
       S.cam = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k,
                 w: from.w + (to.w - from.w) * k, h: from.h + (to.h - from.h) * k };
       applyCam();
       if (p < 1) S.anim = requestAnimationFrame(tick);
+      else { done = true; clearTimeout(S.snap); }
     })(t0);
   }
   function zoomAt(cx, cy, k) {
