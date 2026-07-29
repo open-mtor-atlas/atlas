@@ -127,12 +127,17 @@
   ];
 
   function renderOverview() {
-    var W = 940, colW = 214, gap = 28, y0 = 96, hubY = 300, outY = 470;
+    /* 4 columns of colW plus 3 gaps = 940, and they start at x=34, so the
+       canvas must be 34*2 wider than the content or the last column is
+       clipped. It was: the fourth input box ended at x=974 in a 940-wide
+       viewBox and "is anything wrong?" was cut off on the live page. */
+    var colW = 214, gap = 28, pad = 34;
+    var W = pad * 2 + colW * 4 + gap * 3, y0 = 96, hubY = 300, outY = 470;
     var s = '<svg class="pw-ov-svg" viewBox="0 0 ' + W + ' 600" role="img" aria-label="' +
       'How mTOR works: four independent inputs converge on mTORC1, which decides between building and recycling">';
     s += '<text class="ov-cap" x="' + (W / 2) + '" y="26" text-anchor="middle">FOUR INDEPENDENT QUESTIONS · ASKED AT THE SAME TIME</text>';
     OV_IN.forEach(function (o, i) {
-      var x = 34 + i * (colW + gap), cx = x + colW / 2;
+      var x = pad + i * (colW + gap), cx = x + colW / 2;
       s += '<g class="ov-in ov-hit" data-route="' + o[2] + '" tabindex="0" role="button" aria-label="' + esc(o[0]) + ' — open guided route">'
         + '<rect class="ov-box" x="' + x + '" y="' + y0 + '" width="' + colW + '" height="58"/>'
         + '<text x="' + cx + '" y="' + (y0 + 24) + '" text-anchor="middle">' + esc(o[0]) + '</text>'
@@ -146,7 +151,7 @@
     s += '<text class="ov-cap" x="' + (W / 2) + '" y="' + (hubY + 68)
       + '" text-anchor="middle">SWITCHES ON ONLY IF THE ANSWERS AGREE</text>';
     OV_OUT.forEach(function (o, i) {
-      var x = 34 + i * (colW + gap), cx = x + colW / 2;
+      var x = pad + i * (colW + gap), cx = x + colW / 2;
       s += '<path class="ov-arm" d="M' + (W / 2) + ',' + (hubY + 78) + ' C' + (W / 2) + ',' + (outY - 40)
         + ' ' + cx + ',' + (outY - 46) + ' ' + cx + ',' + outY + '" marker-end="url(#ovA)"/>';
       s += '<g class="ov-out"><rect class="ov-box" x="' + x + '" y="' + outY + '" width="' + colW + '" height="56"/>'

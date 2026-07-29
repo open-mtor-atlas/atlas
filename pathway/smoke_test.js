@@ -107,6 +107,20 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(/parallel and independent/.test(host.innerHTML),
     "overview states the inputs are parallel (guards against re-introducing a false serial cascade)");
 
+  /* Nothing may sit outside the overview viewBox. jsdom cannot lay out, but
+     rect x/width are literal attributes, so overflow IS checkable — and it
+     had happened: 4 columns starting at x=34 in a 940-wide viewBox put the
+     fourth box's right edge at 974, clipping "is anything wrong?" live. */
+  const ovVB = (ovSvg.getAttribute("viewBox") || "0 0 0 0").split(" ").map(Number);
+  [...ovSvg.querySelectorAll("rect")].forEach((rc) => {
+    const x = parseFloat(rc.getAttribute("x")), wd = parseFloat(rc.getAttribute("width"));
+    const y = parseFloat(rc.getAttribute("y")), ht = parseFloat(rc.getAttribute("height"));
+    ok(x >= ovVB[0] - 0.5 && x + wd <= ovVB[0] + ovVB[2] + 0.5,
+      `overview rect at x=${x} w=${wd} fits the ${ovVB[2]}-wide viewBox`);
+    ok(y >= ovVB[1] - 0.5 && y + ht <= ovVB[1] + ovVB[3] + 0.5,
+      `overview rect at y=${y} h=${ht} fits the ${ovVB[3]}-tall viewBox`);
+  });
+
   console.log("— inspector —");
   let inspected = 0;
   model.interactions.forEach((e) => {

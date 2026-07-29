@@ -40,7 +40,7 @@ That fourth point is the one everyone else omits, and it is where the Atlas can 
 | Learning levels | None | Three, switching text only |
 | Zoom / pan / search | None (a `min-width:940px` scroll box) | Full camera, search, focus mode, four filter axes |
 | Payload | Inside a 1.5 MB `index.html` | Lazy module, fetched on first open |
-| Tests | None | 1 171 assertions, mutation-verified, plus a live-page gate |
+| Tests | None | 1 189 assertions, mutation-verified, plus a live-page gate |
 
 ---
 
@@ -301,7 +301,7 @@ The two automated gates are complementary and neither subsumes the other: the va
 
 ### Gate 4 — check the live page, because the tests cannot
 
-Five defects survived both automated gates and were found only by loading the deployed site. All five are now fixed and, where testable, pinned:
+Seven defects survived both automated gates and were found only by loading the deployed site. All seven are now fixed and, where testable, pinned:
 
 1. **The section opened empty.** After the default subtab flipped to the new module, nothing called `setPathwayMode()` on view entry, so both panes stayed hidden. The smoke test mounts the module directly; it cannot test the shell that hosts it. Fixed in `showView('map')`, with `?entity=` deep-links routed to the Entity Browser and a new `?pw=explorer|guided|scenarios` deep-link.
 2. **The CDN served a stale module.** `index.html` changes every deploy so it is revalidated, but `pathway.js`, `pathway.css` and `model.json` are fetched at runtime from fixed URLs and stayed cached — the server had the new module and the browser ran the old one against the new model. `stamp_pathway_version.py` now hashes the three assets into `PW_ASSET_V` and the loader appends `?v=<hash>`. This failure mode is *created* by the lazy-loading decision, and would recur on every future model update.
@@ -311,6 +311,9 @@ Five defects survived both automated gates and were found only by loading the de
 5. **The Scenario Lab card stole the route step's identity.** The placeholder reused the `.pw-step-n` class, and `#pwScen` sits earlier in the DOM than `#pwGuidedUI` — so once the Scenario Lab had rendered, an unscoped `querySelector(".pw-step-n")` returned *"Phase 2 — in build"* instead of the live step badge. The smoke test made exactly that unscoped lookup and passed only because it never visited the Scenario Lab first: a **pass that depended on test ordering**. Renamed to `.pw-badge` (shared card styling is fine; shared identity is not), the lookup scoped to `#pwStep`, and a regression added that visits the Scenario Lab *first* and then asserts exactly one `.pw-step-n` exists.
 
 Diagnosing (4) also exposed a **blind spot in the test suite itself**: it used `host.querySelector("svg")`, which returns the *overview* diagram rather than the canvas, so every camera assertion had been passing against the wrong element. Scoped to `#pwCanvas`, with new checks that the two are distinct and the canvas viewBox is well formed.
+
+6. **An unguarded `setPointerCapture`.** It throws `NotFoundError` when the pointer id is no longer active — reachable with rapid multi-touch, and it appeared as a live console exception. Pointer capture only keeps a drag alive outside the element; panning works without it, so it must never break the gesture. Wrapped in `try/catch`.
+7. **The overview diagram overflowed its own viewBox.** Four 214-wide columns with 28-wide gaps start at x=34, so the fourth box's right edge landed at 974 inside a 940-wide viewBox — *"is anything wrong?"* was clipped on the live page. The canvas width is now derived from the column arithmetic instead of hard-coded. jsdom cannot lay out, but `rect` x/width are literal attributes, so **overflow is checkable**: every rect in the overview is now asserted to fit, and reverting the width reproduces exactly two failures.
 
 Two general lessons, recorded because both will recur:
 
@@ -346,11 +349,12 @@ The layout engine, camera, inspector, evidence system, route engine and validato
 | C11 | Mobile bottom sheet, pinch, auto-framing, 44 px targets | ✅ |
 | C12 | Accessibility: keyboard graph, live region, shape-not-colour | ✅ 4 invariants tested |
 | C13 | Lazy-loaded module out of `index.html` | ✅ |
-| C14 | Automated validation gates | ✅ validator + 1 171 assertions, mutation-verified |
+| C14 | Automated validation gates | ✅ validator + 1 189 assertions, mutation-verified |
 | C15 | Detail control so the explorer never opens as a hairball | ✅ Core 51 / Full 100, withholding announced |
 | C16 | Content-hash cache-busting for the lazy assets | ✅ `stamp_pathway_version.py`, wired into deploy |
 | C17 | Camera reaches its target in a throttled tab | ✅ + a test that stubs rAF dead |
 | C18 | Panel class isolation (`.pw-badge` vs `.pw-step-n`) | ✅ + an order-independent regression |
+| C19 | Overview diagram fits its viewBox | ✅ + a geometry-overflow assertion on every rect |
 
 ## 14. High impact — Phase 2
 
@@ -460,7 +464,7 @@ The right claim to make today is: *the framework is ready for review; the corpus
 | `validate_pathway.py` | Structural + scientific calibration gate. `--strict` blocks deploy |
 | `pathway/pathway.js` | The module: overview, explorer, camera, inspector, route engine |
 | `pathway/pathway.css` | Visual language; shape-and-weight encoding, mobile bottom sheet |
-| `pathway/smoke_test.js` | 1 171 assertions in jsdom, mutation-verified |
+| `pathway/smoke_test.js` | 1 189 assertions in jsdom, mutation-verified |
 | `stamp_pathway_version.py` | Hashes the three lazy assets into `PW_ASSET_V` so the CDN cannot serve a stale module |
 | `_inject_pathway2.py` | Makes `showView('map')` initialise the pathway mode; adds `?pw=` deep-links |
 | `_inject_pathway.py` | Idempotent wiring into `index.html` with write verification |
@@ -471,6 +475,6 @@ The right claim to make today is: *the framework is ready for review; the corpus
 ```bash
 py build_pathway_model.py      # regenerate model.json
 py validate_pathway.py --strict # scientific + structural gate
-node pathway/smoke_test.js      # 1 171 rendering / pedagogy assertions
+node pathway/smoke_test.js      # 1 189 rendering / pedagogy assertions
 py stamp_pathway_version.py     # cache-bust the lazy assets (deploy.sh does this)
 ```
