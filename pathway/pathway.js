@@ -29,6 +29,14 @@
     detail: "core",
     sel: null, selKind: null,
     focus: null, hops: 1,
+    /* detail: "core" | "full".
+       The explorer must not open as a hairball. Principle 1 of the redesign
+       is "never overwhelm beginners", and 100 interactions at fit-all zoom
+       does exactly that. "Core" is a PRINCIPLED subset, not a hand-picked
+       one: single molecular events we understand mechanistically
+       (directness === direct AND mechanistic === high) — 51 of 100. The
+       label says so, so the reader knows what is being withheld and why. */
+    detailSet: "core",
     filters: { effect: null, evidence: null, physOnly: false },
     routeId: null, step: -1,
     cam: null, camTarget: null, anim: null
@@ -318,6 +326,33 @@
     var c = S.cam;
     el.svg.setAttribute("viewBox", c.x.toFixed(1) + " " + c.y.toFixed(1) + " " + c.w.toFixed(1) + " " + c.h.toFixed(1));
   }
+  function updateHint() {
+    var box = $("pwHintBox"); if (!box) return;
+    var shown = M.interactions.filter(function (e) { return S.detailSet === "full" || isCore(e); }).length;
+    box.innerHTML = S.detailSet === "core"
+      ? "<b>Core view</b> — " + shown + " of " + M.interactions.length + " steps: the direct, "
+        + "mechanistically well-understood ones. Switch DETAIL to Full network for the compressed and contested links."
+      : "<b>Full network</b> — all " + M.interactions.length + " curated steps. Long dashes are compressed "
+        + "multi-step links; amber halos mark disagreement.";
+  }
+
+  /* Opening camera frames the signalling core (plasma membrane → lysosome),
+     not the whole canvas. Outcomes and inputs are one scroll away rather
+     than competing for attention with the mechanism on first paint. */
+  function frameCore() {
+    var band = M.bands.filter(function (b) {
+      return ["pm", "cytosol", "lyso"].indexOf(b.compartment) >= 0;
+    });
+    if (!band.length) return fitAll();
+    var y1 = Math.min.apply(null, band.map(function (b) { return b.y; }));
+    var y2 = Math.max.apply(null, band.map(function (b) { return b.y + b.h; }));
+    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var h = (y2 - y1) + 40, w = h * r;
+    if (w < M.meta.canvas.w * 0.86) { w = M.meta.canvas.w * 0.86; h = w / r; }
+    S.cam = { x: (M.meta.canvas.w - w) / 2, y: y1 - (h - (y2 - y1)) / 2, w: w, h: h };
+    applyCam();
+  }
+
   function fitAll() {
     var W = M.meta.canvas.w, H = M.meta.canvas.h;
     var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
@@ -378,8 +413,14 @@
     }
     return keep;
   }
+  function isCore(e) {
+    return e.directness === "direct" && e.confidence.mechanistic === "high";
+  }
   function edgePasses(e) {
     var f = S.filters;
+    /* Route mode always shows the route's own edges regardless of detail set:
+       a guided lesson must never hide the step it is teaching. */
+    if (S.detailSet === "core" && S.mode !== "guided" && !isCore(e)) return false;
     if (f.effect && e.effect !== f.effect) return false;
     if (f.evidence === "human" && e.confidence.human_relevance !== "established") return false;
     if (f.evidence === "direct" && e.directness !== "direct") return false;
@@ -523,6 +564,13 @@
       + '<div class="k">How to read the diagram</div>'
       + '<p class="pw-empty">Bands are real cellular compartments, top to bottom. Two of them — Inputs and '
       + "Biological outcomes — are marked <em>not a cellular location</em>, because they are not.</p>"
+      /* Say what is being withheld, and why. A subset the reader does not know
+         about is a subset the reader will mistake for the whole pathway. */
+      + '<div class="k">You are seeing the Core view</div>'
+      + '<p class="pw-empty">51 of the ' + n.interactions + " curated steps: the ones that are single molecular "
+      + "events we understand mechanistically. The other 49 are compressed multi-step links, contested claims or "
+      + "organism-level outcomes — all real, all cited, all one click away under <b>DETAIL → Full network</b>. "
+      + "Nothing is withheld without saying so.</p>"
       + '<div class="k">The one thing to notice</div>'
       + '<p class="pw-empty">Nearly every arrow into mTORC1 lands on the lysosomal band. mTORC1 is only switched on '
       + "there. Nutrient sensing is not chemistry happening in free solution — it is a set of mechanisms for getting "
@@ -705,7 +753,7 @@
     el.explorerUI.classList.toggle("pw-hide", m !== "explorer");
     el.guidedUI.classList.toggle("pw-hide", m !== "guided");
     el.stageWrap.classList.toggle("pw-hide", m !== "explorer" && m !== "guided");
-    if (m === "explorer") { S.routeId = null; S.step = -1; inspectDefault(); fitAll(); paint(); }
+    if (m === "explorer") { S.routeId = null; S.step = -1; inspectDefault(); updateHint(); frameCore(); paint(); }
     if (m === "guided") { if (!S.routeId) S.routeId = M.routes[0].id; S.step = -1; renderGuided(); }
     if (m === "scenarios") renderScenarios();
     say("Switched to " + m);
@@ -732,6 +780,9 @@
       + '      <span class="pw-lbl">LEVEL</span><div class="pw-seg" id="pwLevel" role="group" aria-label="Explanation level">'
       + '        <button data-lv="beginner">Beginner</button><button data-lv="student" aria-pressed="true">Student</button>'
       + '        <button data-lv="research">Research</button></div>'
+      + '      <span class="pw-lbl">DETAIL</span><div class="pw-seg" id="pwDetail" role="group" aria-label="Level of detail">'
+      + '        <button data-dt="core" aria-pressed="true" title="Single molecular events we understand mechanistically">Core</button>'
+      + '        <button data-dt="full" title="Every curated interaction, including compressed and contested ones">Full network</button></div>'
       + '      <span class="pw-lbl">SHOW</span><div class="pw-seg" id="pwEffect" role="group" aria-label="Filter by effect">'
       + '        <button data-ef="" aria-pressed="true">All</button><button data-ef="activates">Activating</button>'
       + '        <button data-ef="inhibits">Inhibiting</button></div>'
@@ -829,11 +880,15 @@
     $("pwFit").addEventListener("click", function () { fitAll(); paint(); });
     $("pwReset").addEventListener("click", function () {
       S.focus = null; S.filters = { effect: null, evidence: null, physOnly: false };
+      S.detailSet = "core";
+      el.explorerUI.querySelectorAll("#pwDetail button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.dt === "core"));
+      });
       el.focusBtn.setAttribute("aria-pressed", "false");
       el.explorerUI.querySelectorAll("#pwEffect button,#pwEvid2 button").forEach(function (b) {
         b.setAttribute("aria-pressed", String(!b.dataset.ef && !b.dataset.ev));
       });
-      el.find.value = ""; inspectDefault(); fitAll(); paint();
+      el.find.value = ""; inspectDefault(); updateHint(); frameCore(); paint();
     });
     el.focusBtn.addEventListener("click", function () {
       if (S.focus) { S.focus = null; el.focusBtn.setAttribute("aria-pressed", "false"); fitAll(); }
@@ -856,6 +911,15 @@
       S.level = v || "student";
       if (S.selKind === "node") inspectNode(S.sel); else if (S.selKind === "edge") inspectEdge(S.sel);
       say("Explanation level: " + S.level + ". The network is unchanged — only the words change.");
+    });
+    seg($("pwDetail"), "dt", function (v) {
+      S.detailSet = v || "core";
+      var n = M.interactions.filter(function (e) { return S.detailSet === "full" || isCore(e); }).length;
+      say(S.detailSet === "core"
+        ? "Core view: " + n + " of " + M.interactions.length + " interactions — the direct, mechanistically "
+          + "well-understood steps. Switch to Full network to add compressed, indirect and contested links."
+        : "Full network: all " + n + " curated interactions, including indirect and contested ones.");
+      updateHint(); paint();
     });
     seg($("pwEffect"), "ef", function (v) { S.filters.effect = v; paint(); });
     seg($("pwEvid2"), "ev", function (v) { S.filters.evidence = v; paint(); });
@@ -904,7 +968,8 @@
     });
 
     window.addEventListener("resize", function () {
-      if (S.mode === "explorer" || S.mode === "guided") { fitAll(); paint(); }
+      if (S.mode === "explorer") { frameCore(); paint(); }
+      else if (S.mode === "guided") { fitAll(); paint(); }
     });
   }
 
@@ -930,7 +995,8 @@
     el.svg = el.canvas.querySelector("svg");
     renderOverview();
     wire();
-    fitAll();
+    updateHint();
+    frameCore();
     inspectDefault();
     paint();
     setMode(S.mode);

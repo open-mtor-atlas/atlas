@@ -186,8 +186,26 @@ w.PathwayApp.boot(host, "pathway/model.json").then(() => {
     }
   });
 
-  console.log("— filters —");
+  console.log("— detail set —");
   w.PathwayApp.setMode("explorer");
+  const isCore = (e) => e.directness === "direct" && e.confidence.mechanistic === "high";
+  const coreVisible = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
+  ok(coreVisible.length > 0 && coreVisible.every(isCore),
+    `explorer opens in Core view showing only direct+high steps (${coreVisible.length}/${model.interactions.length})`);
+  ok(coreVisible.length < model.interactions.length,
+    "Core view is genuinely a subset — the explorer does not open as a hairball");
+  ok(/Core view/.test(D.getElementById("pwHintBox").innerHTML),
+    "the canvas states that it is showing a subset, and how big");
+  ok(/Full network/.test(D.getElementById("pwInsp").innerHTML),
+    "the inspector says how to see the withheld interactions");
+  D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(model.interactions.every((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim")),
+    "Full network reveals every curated interaction");
+  D.querySelector('#pwDetail button[data-dt="core"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
+  console.log("— filters —");
+  // filters compose with the detail set rather than fighting it
+  D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   D.querySelector('#pwEvid2 button[data-ev="human"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   const humanShown = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
   ok(humanShown.length > 0 && humanShown.every((e) => e.confidence.human_relevance === "established"),
@@ -197,8 +215,11 @@ w.PathwayApp.boot(host, "pathway/model.json").then(() => {
   ok(contested.length > 0 && contested.every((e) => e.confidence.consensus === "contested"),
     `contested filter works (${contested.length})`);
   D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-  ok(model.interactions.every((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim")),
-    "reset restores every interaction");
+  const afterReset = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
+  ok(afterReset.length === model.interactions.filter(isCore).length && afterReset.every(isCore),
+    "reset clears filters and returns to the Core view (not to the hairball)");
+  ok(D.querySelector('#pwDetail button[data-dt="core"]').getAttribute("aria-pressed") === "true",
+    "reset leaves the DETAIL control agreeing with what is drawn");
 
   console.log("— search —");
   D.getElementById("pwFind").value = "Rheb";
