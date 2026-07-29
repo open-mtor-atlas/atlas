@@ -346,7 +346,7 @@ def study_page(s, ent_by_sid, haspage):
         body.append(f'<h2>Related topics</h2><div class="tags">{tag_html}</div>')
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
-    crumb = f'<a href="{SITE}/">Atlas</a> › <a href="{SITE}/#studies">Studies</a> › {e(sid)}'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › <a href="{SITE}/#studies">Studies</a> › {e(sid)}'
     return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, ld,
                       "\n".join(body), crumb)
 
@@ -435,7 +435,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
                     + "".join(chips) + "</div>")
 
     body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
-    crumb = (f'<a href="{SITE}/">Atlas</a> › '
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
              f'<a href="{SITE}/#entities">{e(ent["type"])}</a> › {e(ent["name"])}')
     return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
                                desc, url, ld, "\n".join(body), crumb)
@@ -486,7 +486,7 @@ def browse_page(studies, entities, haspage):
             f'{e(s.get("journal") or "")} · <span class="tier" '
             f'style="background:{colour}">{code}</span></span></p>')
 
-    crumb = f'<a href="{SITE}/">Atlas</a> › Browse'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › Browse'
     return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
                       f"Index of all {len(studies)} curated mTOR studies and every "
                       f"pathway topic in the Atlas, each graded by strength of evidence.",
