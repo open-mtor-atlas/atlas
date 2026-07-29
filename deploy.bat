@@ -155,6 +155,12 @@ del /f /q ".git\index.lock" 2>nul
 del /f /q ".git\ORIG_HEAD.lock" 2>nul
 del /f /q ".git\HEAD.lock" 2>nul
 del /f /q ".git\refs\heads\main.lock" 2>nul
+REM  Added 2026-07-29: a Cowork session that pushes through the FUSE bridge can
+REM  leave this one behind too. It does not block the push itself, but it stops
+REM  `git fetch` updating the remote-tracking ref, so origin/main goes stale and
+REM  every gate below that compares against origin/main reads an old value.
+del /f /q ".git\refs\remotes\origin\main.lock" 2>nul
+del /f /q ".git\objects\maintenance.lock" 2>nul
 
 echo.
 echo === Fetching state from GitHub ===
