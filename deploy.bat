@@ -8,9 +8,11 @@ REM
 REM  Steps:
 REM   1) (optional) refresh baked data from Airtable   -> if AIRTABLE_TOKEN is set
 REM   2) rebuild the Deep-search chunk index           -> best effort
-REM   3) back up the two files to deploy, VERIFY the backup is complete
-REM   4) sync local repo to origin/main (nothing on GitHub is deleted)
-REM   5) restore the two files, VERIFY again, commit, push
+REM   3) gate on validate_claims.py - refuse to ship claims stronger than
+REM      the evidence behind them
+REM   4) back up index.html + chunk index, VERIFY the backup is complete
+REM   5) move HEAD to origin/main WITHOUT touching the working tree
+REM   6) VERIFY again, stage the whole site incl. pre-rendered pages, commit, push
 REM
 REM  Verification (added 2026-07-13): this repo's folder is OneDrive-synced,
 REM  and large writes to index.html have repeatedly been silently truncated
@@ -29,16 +31,36 @@ REM  Use ONLY this script (replaces earlier deploy_*.bat / git_*.bat).
 REM ============================================================
 cd /d "%~dp0"
 
+echo.
+echo === Housekeeping: clearing stray git temp objects ===
+REM  When a Cowork sandbox session writes git objects through the FUSE bridge to
+REM  this Windows folder it can create the object but not unlink its temp file,
+REM  leaving .git\objects\??\tmp_obj_* behind - harmless orphans git ignores,
+REM  but they accumulate. Deleting them natively from Windows works fine, so the
+REM  repo self-cleans on every deploy.
+if exist ".git\objects" del /f /q /s ".git\objects\tmp_obj_*" >nul 2>&1
+echo    done
+
 set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
 echo === Checking deploy.bat itself matches origin ===
-REM  THIS FILE IS TRACKED BY GIT. The `git reset --hard origin/main` further down
-REM  therefore rewrites deploy.bat WHILE cmd.exe is executing it -- and cmd.exe
-REM  reads a batch file by byte offset as it goes, so if the file changes length
-REM  underneath it the script silently stops mid-run, or jumps to a garbage
-REM  offset and re-runs an earlier block. Both were observed on 2026-07-27.
-REM  Fail loudly here instead of dying silently 100 lines later.
+REM  ORIGINAL REASON (2026-07-27): this file is tracked, so the old
+REM  `git reset --hard origin/main` rewrote deploy.bat WHILE cmd.exe was
+REM  executing it. cmd.exe reads a batch file by byte offset as it goes, so a
+REM  file that changes length underneath it either stops mid-run or jumps to a
+REM  garbage offset and re-runs an earlier block. Both were observed.
+REM
+REM  THAT HAZARD IS GONE as of 2026-07-29: the reset below is MIXED and never
+REM  touches the working tree, so this script can no longer be rewritten while
+REM  it runs.
+REM
+REM  The check is kept because it now guards something else, and something real:
+REM  deploy.bat is NOT in the `git add` list below, so a local edit to it never
+REM  ships. Without this gate a changed deploy.bat would sit unpushed forever
+REM  while every deploy quietly kept using the origin version - the local and
+REM  live deploy logic drifting apart with no signal. Aborting forces the edit
+REM  to be pushed before it can matter.
 git fetch origin >nul 2>&1
 set "LOCAL_BAT="
 set "REMOTE_BAT="
@@ -49,8 +71,9 @@ if not defined LOCAL_BAT goto :bat_check_done
 if not "%LOCAL_BAT%"=="%REMOTE_BAT%" (
   echo.
   echo ABORTED: deploy.bat differs from the version on origin/main.
-  echo Running now would let `git reset --hard` revert this script mid-execution
-  echo and it would stop without finishing - no commit, no push, no warning.
+  echo deploy.bat is not staged by this script, so your local change would never
+  echo reach GitHub - every future deploy would keep running the origin version
+  echo while your edit sat here unused.
   echo.
   echo Commit and push deploy.bat first, then re-run:
   echo     git add deploy.bat
@@ -125,7 +148,7 @@ if errorlevel 1 (
 echo.
 echo === Removing any stuck git locks ===
 REM  index.lock alone is not enough: a killed git also leaves ORIG_HEAD.lock or a
-REM  ref lock behind, and `git reset --hard` then fails with "Another git process
+REM  ref lock behind, and `git reset` then fails with "Another git process
 REM  seems to be running" while this script carries on regardless. Confirmed
 REM  2026-07-27: a week-old ORIG_HEAD.lock silently broke every deploy.
 del /f /q ".git\index.lock" 2>nul
@@ -176,20 +199,35 @@ if exist "ChatGPT Image 6. 7. 2026 17_07_15.png" (
 )
 
 echo.
-echo === Backing up baked data - reset below reverts it ===
-REM  studies_baked.json is TRACKED, so `git reset --hard` reverts it to whatever
-REM  is on origin - throwing away the fresh Airtable bake that sync_airtable.py
-REM  just wrote a few steps ago. Only index.html and chunk_index.json used to be
-REM  restored afterwards, so every deploy silently left this file stale, and any
-REM  local script reading it (backfill_pmids.py, gap analysis) saw old data.
+echo === Backing up baked data - belt and braces ===
+REM  The reset below is MIXED as of 2026-07-29, so it no longer touches the
+REM  working tree and this backup is no longer load-bearing. It is kept because
+REM  the verify-after-restore step underneath it is the corruption gate that
+REM  caught the truncated index.html incident, and that gate is worth keeping
+REM  even when the thing it guards against has become unlikely.
 if exist "atlas_data\studies_baked.json" copy /Y "atlas_data\studies_baked.json" "studiesbaked_deploy_backup.json" >nul
 
 echo.
 echo === Syncing local repo to origin/main ===
-git reset --hard origin/main
+REM  WAS `git reset --hard origin/main` until 2026-07-29. That reverted EVERY
+REM  tracked file to origin, and only index.html, chunk_index.json and
+REM  studies_baked.json were copied back afterwards - so anything else the build
+REM  had just regenerated was silently thrown away. That bit during the claim
+REM  calibration audit: build_pages.py had rewritten 43 pre-rendered pages under
+REM  study\ and the entity folders, and a --hard reset would have reverted all of
+REM  them to the old wording while the SPA shipped the corrected text. The
+REM  pre-rendered pages are what AI crawlers read, so the fix would have gone
+REM  live for humans and not for GPTBot or ClaudeBot.
+REM
+REM  A MIXED reset does the one thing this step is actually for - move HEAD and
+REM  the index to origin/main so the commit below is a clean fast-forward - and
+REM  leaves the working tree completely untouched. Files are then committed
+REM  because they are named in the `git add` list, never because they survived a
+REM  reset. Nothing generated can be lost here any more.
+git reset origin/main
 if errorlevel 1 (
   echo.
-  echo ABORTED: git reset --hard failed - see the error above.
+  echo ABORTED: git reset to origin/main failed - see the error above.
   echo Nothing was committed or pushed. Your build is safe in index_deploy_backup.html.
   pause
   exit /b 1
@@ -217,10 +255,31 @@ if errorlevel 1 (
 )
 
 echo.
-echo === Staging and committing index.html and chunk_index.json ===
+echo === Staging and committing the site ===
+REM  This list is the deploy's contract: a file that is not named here does not
+REM  reach the live site, however freshly it was generated. When you add a new
+REM  build artifact, add it here in the same commit.
 git add index.html
 if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
 if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
+if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
+if exist "atlas_data\events_baked.json" git add atlas_data\events_baked.json
+
+REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
+REM  crawlers actually read, since they do not run the SPA's JavaScript.
+echo    including pre-rendered pages and sitemaps
+for %%D in (study gene complex drug disease outcome process intervention nutrient organelle browse) do (
+  if exist "%%D" git add "%%D"
+)
+if exist "sitemap.xml" git add sitemap.xml
+for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml robots.txt) do (
+  if exist "%%F" git add "%%F"
+)
+if exist "lineage_1.html" git add lineage_1.html
+
+REM  Claim-calibration report from the gate that ran at the top of this script.
+if exist "atlas_data\claim_validation.json" git add atlas_data\claim_validation.json
+
 git commit -m "%COMMIT_MSG%"
 
 echo.
