@@ -12,7 +12,8 @@ REM   3) gate on validate_claims.py - refuse to ship claims stronger than
 REM      the evidence behind them
 REM   4) back up index.html + chunk index, VERIFY the backup is complete
 REM   5) move HEAD to origin/main WITHOUT touching the working tree
-REM   6) VERIFY again, stage the whole site incl. pre-rendered pages, commit, push
+REM   6) VERIFY again, stage the whole site incl. pre-rendered pages and every
+REM      tracked pipeline output, commit, push
 REM
 REM  Verification (added 2026-07-13): this repo's folder is OneDrive-synced,
 REM  and large writes to index.html have repeatedly been silently truncated
@@ -298,6 +299,22 @@ if exist "lineage_1.html" git add lineage_1.html
 
 REM  Claim-calibration report from the gate that ran at the top of this script.
 if exist "atlas_data\claim_validation.json" git add atlas_data\claim_validation.json
+
+REM  Everything else the pipeline scripts write. None of this is served to a
+REM  browser - the live site is index.html plus the pre-rendered pages above -
+REM  but all of it is TRACKED, so a deploy that does not stage it lets the copy
+REM  in git drift away from the copy on disk. That drift is exactly what bit
+REM  events_baked.json: hand-fixed on disk, never committed, silently reverted
+REM  on the next reset, and the fix had to be redone after every deploy.
+REM
+REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
+REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
+REM  one that this particular run did not touch costs nothing.
+echo    including pipeline data and reports
+for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv) do (
+  if exist "atlas_data\%%F" git add "atlas_data\%%F"
+)
+if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
 
 git commit -m "%COMMIT_MSG%"
 
