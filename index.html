@@ -4178,6 +4178,20 @@ function showView(which){
   });
   currentView = which;
   setActiveTab(which);
+  /* PATHWAY-2.0-BOOTSTRAP
+     Sekce Pathway se musí sama rozhodnout, který panel zobrazí. Bez tohohle
+     zůstanou po přepnutí výchozího režimu oba skryté. Deep-link na entitu
+     má přednost — o entitu si uživatel výslovně řekl. */
+  if(which === 'map'){
+    var p = new URLSearchParams(location.hash.slice(1));
+    var wantEntities = !!p.get('entity');
+    setPathwayMode(wantEntities ? 'entities' : 'mechanism');
+    var pw = p.get('pw');
+    if(!wantEntities && pw){
+      pwEnsure().then(function(){ window.PathwayApp.setMode(pw); })
+                .catch(function(e){ console.error(e); });
+    }
+  }
 }
 /* ===== URL <-> state sync so browser back/forward works ===== */
 function syncURL(push){
