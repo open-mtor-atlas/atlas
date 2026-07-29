@@ -67,6 +67,27 @@ w.showView = () => {};
 
 w.eval(src);
 
+
+/* realClick reproduces what a real mouse does, which the old test did not:
+   pointerdown lands on the SVG shape, then setPointerCapture retargets every
+   later pointer event to the capturing element, so pointerup arrives with
+   target === the canvas <div>. Forcing ev.target on pointerup (as this test
+   used to) bypassed exactly the code path that was broken in production. */
+function realClick(w, canvas, shape, x, y) {
+  const down = new w.MouseEvent("pointerdown", { bubbles: true });
+  Object.defineProperty(down, "target", { value: shape });
+  Object.defineProperty(down, "clientX", { value: x == null ? 500 : x });
+  Object.defineProperty(down, "clientY", { value: y == null ? 350 : y });
+  Object.defineProperty(down, "pointerId", { value: 1 });
+  canvas.dispatchEvent(down);
+  const up = new w.MouseEvent("pointerup", { bubbles: true });
+  Object.defineProperty(up, "target", { value: canvas });   // <- capture retarget
+  Object.defineProperty(up, "clientX", { value: x == null ? 500 : x });
+  Object.defineProperty(up, "clientY", { value: y == null ? 350 : y });
+  Object.defineProperty(up, "pointerId", { value: 1 });
+  canvas.dispatchEvent(up);
+}
+
 const host = w.document.getElementById("host");
 
 w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
@@ -132,9 +153,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ["RAG-MTORC1", "RHEB-MTORC1", "MTORC1-RCC", "RAPA-MTORC2", "S6K1-IRS1"].forEach((id) => {
     const hit = D.querySelector(`.pw-hitline[data-eid="${id}"]`);
     if (!hit) return;
-    const ev = new w.MouseEvent("pointerup", { bubbles: true });
-    Object.defineProperty(ev, "target", { value: hit });
-    host.querySelector("#pwCanvas").dispatchEvent(ev);
+    realClick(w, D.getElementById("pwCanvas"), hit);
     const insp = D.getElementById("pwInsp").innerHTML;
     inspected++;
     ok(/Mechanism/.test(insp), `${id}: inspector shows mechanism`);
@@ -146,9 +165,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
 
   // the load-bearing pedagogical claim
   const hitRag = D.querySelector('.pw-hitline[data-eid="RAG-MTORC1"]');
-  const ev2 = new w.MouseEvent("pointerup", { bubbles: true });
-  Object.defineProperty(ev2, "target", { value: hitRag });
-  host.querySelector("#pwCanvas").dispatchEvent(ev2);
+  realClick(w, D.getElementById("pwCanvas"), hitRag);
   ok(/recruits/.test(D.getElementById("pwInsp").innerHTML),
     "RAG-MTORC1 is described as recruitment, not activation");
   ok(!/allosterically activates/.test(D.getElementById("pwInsp").innerHTML),
@@ -156,9 +173,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
 
   console.log("— learning levels —");
   const nodeG = D.querySelector('.pw-n[data-nid="mTORC1"]');
-  const evN = new w.MouseEvent("pointerup", { bubbles: true });
-  Object.defineProperty(evN, "target", { value: nodeG });
-  host.querySelector("#pwCanvas").dispatchEvent(evN);
+  realClick(w, D.getElementById("pwCanvas"), nodeG.querySelector(".nb") || nodeG);
   const texts = {};
   ["beginner", "student", "research"].forEach((lv) => {
     D.querySelector(`#pwLevel button[data-lv="${lv}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
@@ -174,9 +189,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     const n = model.nodes.find((x) => x.compartment === c.id);
     if (!n) return;
     const g = D.querySelector(`.pw-n[data-nid="${w.CSS.escape(n.id)}"]`);
-    const evS = new w.MouseEvent("pointerup", { bubbles: true });
-    Object.defineProperty(evS, "target", { value: g });
-    host.querySelector("#pwCanvas").dispatchEvent(evS);
+    realClick(w, D.getElementById("pwCanvas"), g.querySelector(".nb") || g);
     ok(/Declared simplification/.test(D.getElementById("pwInsp").innerHTML),
       `compartment ${c.id} declares its simplification on its nodes`);
   });
@@ -214,6 +227,41 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   // panel had rendered, an unscoped lookup returned "Phase 2 — in build"
   // instead of the live step. Visit it FIRST, then assert the route step
   // still reads correctly both scoped and unscoped.
+  /* The bug this guards: pointer capture retargets pointerup to the canvas
+     div, so reading ev.target there found no shape and clicking a molecule or
+     an arrow silently did nothing on the live site. */
+  console.log("— click survives pointer capture retargeting —");
+  const canvasEl = D.getElementById("pwCanvas");
+  inspectDefaultCheck: {
+    D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="TSC-RHEB"]'));
+    const t = D.getElementById("pwInsp").textContent;
+    ok(/acts as a GAP on/.test(t), "clicking an arrow populates the inspector despite capture retargeting");
+    ok(!/Click any molecule or any arrow/.test(t), "inspector is no longer showing its empty state");
+  }
+  realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="Rheb"]').querySelector(".nb"));
+  ok(/Rheb/.test(D.getElementById("pwInsp").textContent) && /Inputs \(/.test(D.getElementById("pwInsp").innerHTML),
+    "clicking a molecule populates the inspector despite capture retargeting");
+  // a drag must NOT be treated as a click
+  const dn = new w.MouseEvent("pointerdown", { bubbles: true });
+  Object.defineProperty(dn, "target", { value: D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb") });
+  Object.defineProperty(dn, "clientX", { value: 400 }); Object.defineProperty(dn, "clientY", { value: 300 });
+  Object.defineProperty(dn, "pointerId", { value: 1 });
+  canvasEl.dispatchEvent(dn);
+  const mv = new w.MouseEvent("pointermove", { bubbles: true });
+  Object.defineProperty(mv, "clientX", { value: 480 }); Object.defineProperty(mv, "clientY", { value: 340 });
+  Object.defineProperty(mv, "pointerId", { value: 1 });
+  canvasEl.dispatchEvent(mv);
+  const before = D.getElementById("pwInsp").textContent;
+  const up2 = new w.MouseEvent("pointerup", { bubbles: true });
+  Object.defineProperty(up2, "target", { value: canvasEl });
+  Object.defineProperty(up2, "clientX", { value: 480 }); Object.defineProperty(up2, "clientY", { value: 340 });
+  Object.defineProperty(up2, "pointerId", { value: 1 });
+  canvasEl.dispatchEvent(up2);
+  ok(D.getElementById("pwInsp").textContent === before,
+    "a pan gesture does not select whatever was under the initial press");
+  D.querySelector('#pwDetail button[data-dt="core"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
   console.log("— panel class isolation —");
   w.PathwayApp.setMode("scenarios");
   ok(D.querySelectorAll("#pwScen .pw-step-n").length === 0,

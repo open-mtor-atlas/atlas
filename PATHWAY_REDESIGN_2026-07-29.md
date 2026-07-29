@@ -40,7 +40,7 @@ That fourth point is the one everyone else omits, and it is where the Atlas can 
 | Learning levels | None | Three, switching text only |
 | Zoom / pan / search | None (a `min-width:940px` scroll box) | Full camera, search, focus mode, four filter axes |
 | Payload | Inside a 1.5 MB `index.html` | Lazy module, fetched on first open |
-| Tests | None | 1 189 assertions, mutation-verified, plus a live-page gate |
+| Tests | None | 1 193 assertions, mutation-verified, plus a live-page gate |
 
 ---
 
@@ -301,7 +301,7 @@ The two automated gates are complementary and neither subsumes the other: the va
 
 ### Gate 4 — check the live page, because the tests cannot
 
-Seven defects survived both automated gates and were found only by loading the deployed site. All seven are now fixed and, where testable, pinned:
+Eight defects survived both automated gates and were found only by loading the deployed site. All eight are now fixed and, where testable, pinned:
 
 1. **The section opened empty.** After the default subtab flipped to the new module, nothing called `setPathwayMode()` on view entry, so both panes stayed hidden. The smoke test mounts the module directly; it cannot test the shell that hosts it. Fixed in `showView('map')`, with `?entity=` deep-links routed to the Entity Browser and a new `?pw=explorer|guided|scenarios` deep-link.
 2. **The CDN served a stale module.** `index.html` changes every deploy so it is revalidated, but `pathway.js`, `pathway.css` and `model.json` are fetched at runtime from fixed URLs and stayed cached — the server had the new module and the browser ran the old one against the new model. `stamp_pathway_version.py` now hashes the three assets into `PW_ASSET_V` and the loader appends `?v=<hash>`. This failure mode is *created* by the lazy-loading decision, and would recur on every future model update.
@@ -315,10 +315,13 @@ Diagnosing (4) also exposed a **blind spot in the test suite itself**: it used `
 6. **An unguarded `setPointerCapture`.** It throws `NotFoundError` when the pointer id is no longer active — reachable with rapid multi-touch, and it appeared as a live console exception. Pointer capture only keeps a drag alive outside the element; panning works without it, so it must never break the gesture. Wrapped in `try/catch`.
 7. **The overview diagram overflowed its own viewBox.** Four 214-wide columns with 28-wide gaps start at x=34, so the fourth box's right edge landed at 974 inside a 940-wide viewBox — *"is anything wrong?"* was clipped on the live page. The canvas width is now derived from the column arithmetic instead of hard-coded. jsdom cannot lay out, but `rect` x/width are literal attributes, so **overflow is checkable**: every rect in the overview is now asserted to fit, and reverting the width reproduces exactly two failures.
 
+8. **Clicking a molecule or an arrow did nothing.** The worst of the eight, because it disabled the section's primary interaction. `setPointerCapture` on the canvas — added so a pan survives the cursor leaving the element — **retargets every subsequent pointer event to the capturing element**, so at `pointerup` `ev.target` is the canvas `<div>`, not the SVG shape. The handler read `ev.target`, found no `[data-eid]` or `.pw-n`, and returned silently. What is instructive is *why the test missed it*: the test dispatched a synthetic `pointerup` with `ev.target` **forced onto the shape**, which is precisely the step reality does not perform. The test asserted a code path that could not run in a browser. Worse, defect (6) — the `NotFoundError` from `setPointerCapture` — was the symptom pointing straight at this, and wrapping it in `try/catch` silenced the signal while preserving the bug. Fixed by recording the pressed element at `pointerdown` (the last moment `ev.target` is trustworthy), with `elementFromPoint` on release as a fallback, plus explicit capture release. The test now has a `realClick()` helper that reproduces capture retargeting; reverting the fix produces 20+ failures.
+
 Two general lessons, recorded because both will recur:
 
 - **A headless test of a module cannot test the page that mounts it, nor the cache that delivers it.** Live verification is a gate, not a courtesy.
-- **An assertion that passes because of the order the test runs in is not an assertion.** Both (4) and (5) were green for months of test-time before a human looked at the screen — one scoped to the wrong element, one to the wrong panel. Any global `querySelector` in a test over a multi-panel app should be treated as a bug until scoped.
+- **An assertion that passes because of the order the test runs in is not an assertion.** Both (4) and (5) were green before a human looked at the screen — one scoped to the wrong element, one to the wrong panel. Any global `querySelector` in a test over a multi-panel app should be treated as a bug until scoped.
+- **A synthetic event that overrides what the browser controls tests nothing.** Defect (8) hid behind `Object.defineProperty(ev, "target", …)` on `pointerup` — the test supplied the one value the platform would have supplied differently. Synthetic input must reproduce the platform's *mechanics* (capture retargeting, event order, coalescing), not just the shape of the event object. And when a real browser throws an exception that the test does not, that exception is evidence, not noise: silencing (6) with `try/catch` masked (8) for a full deploy cycle.
 
 ## 12. Future extensibility
 
@@ -349,12 +352,13 @@ The layout engine, camera, inspector, evidence system, route engine and validato
 | C11 | Mobile bottom sheet, pinch, auto-framing, 44 px targets | ✅ |
 | C12 | Accessibility: keyboard graph, live region, shape-not-colour | ✅ 4 invariants tested |
 | C13 | Lazy-loaded module out of `index.html` | ✅ |
-| C14 | Automated validation gates | ✅ validator + 1 189 assertions, mutation-verified |
+| C14 | Automated validation gates | ✅ validator + 1 193 assertions, mutation-verified |
 | C15 | Detail control so the explorer never opens as a hairball | ✅ Core 51 / Full 100, withholding announced |
 | C16 | Content-hash cache-busting for the lazy assets | ✅ `stamp_pathway_version.py`, wired into deploy |
 | C17 | Camera reaches its target in a throttled tab | ✅ + a test that stubs rAF dead |
 | C18 | Panel class isolation (`.pw-badge` vs `.pw-step-n`) | ✅ + an order-independent regression |
 | C19 | Overview diagram fits its viewBox | ✅ + a geometry-overflow assertion on every rect |
+| C20 | Click works under pointer-capture retargeting | ✅ + `realClick()` reproducing real pointer mechanics |
 
 ## 14. High impact — Phase 2
 
@@ -464,7 +468,7 @@ The right claim to make today is: *the framework is ready for review; the corpus
 | `validate_pathway.py` | Structural + scientific calibration gate. `--strict` blocks deploy |
 | `pathway/pathway.js` | The module: overview, explorer, camera, inspector, route engine |
 | `pathway/pathway.css` | Visual language; shape-and-weight encoding, mobile bottom sheet |
-| `pathway/smoke_test.js` | 1 189 assertions in jsdom, mutation-verified |
+| `pathway/smoke_test.js` | 1 193 assertions in jsdom, mutation-verified |
 | `stamp_pathway_version.py` | Hashes the three lazy assets into `PW_ASSET_V` so the CDN cannot serve a stale module |
 | `_inject_pathway2.py` | Makes `showView('map')` initialise the pathway mode; adds `?pw=` deep-links |
 | `_inject_pathway.py` | Idempotent wiring into `index.html` with write verification |
@@ -475,6 +479,6 @@ The right claim to make today is: *the framework is ready for review; the corpus
 ```bash
 py build_pathway_model.py      # regenerate model.json
 py validate_pathway.py --strict # scientific + structural gate
-node pathway/smoke_test.js      # 1 189 rendering / pedagogy assertions
+node pathway/smoke_test.js      # 1 193 rendering / pedagogy assertions
 py stamp_pathway_version.py     # cache-bust the lazy assets (deploy.sh does this)
 ```

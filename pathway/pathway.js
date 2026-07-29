@@ -855,7 +855,16 @@
     var drag = null;
     el.canvas.addEventListener("pointerdown", function (ev) {
       if (ev.target.closest(".pw-zoom")) return;
-      drag = { x: ev.clientX, y: ev.clientY, cx: S.cam.x, cy: S.cam.y, moved: 0 };
+      /* Record WHAT WAS PRESSED here, at pointerdown, because this is the last
+         moment ev.target is the SVG shape. setPointerCapture below retargets
+         every later pointer event — including pointerup — to the capturing
+         element, so at pointerup ev.target is the canvas <div> and any
+         closest("[data-eid]") lookup returns null. That is what made clicking
+         a molecule or an arrow do nothing. */
+      var t0 = ev.target, ge = t0.closest ? t0.closest("[data-eid]") : null;
+      var gn = t0.closest ? t0.closest(".pw-n") : null;
+      drag = { x: ev.clientX, y: ev.clientY, cx: S.cam.x, cy: S.cam.y, moved: 0,
+               eid: ge ? ge.dataset.eid : null, nid: gn ? gn.dataset.nid : null };
       el.canvas.classList.add("grabbing");
       /* Guarded: setPointerCapture throws NotFoundError if the pointer id is
          no longer active — reachable with rapid multi-touch, and it surfaced
@@ -872,14 +881,24 @@
       S.cam.x = drag.cx - dx; S.cam.y = drag.cy - dy; applyCam();
     });
     el.canvas.addEventListener("pointerup", function (ev) {
-      var wasDrag = drag && drag.moved > 6;
-      drag = null; el.canvas.classList.remove("grabbing");
-      if (wasDrag) return;
-      var t = ev.target;
-      var e1 = t.closest ? t.closest("[data-eid]") : null;
-      var n1 = t.closest ? t.closest(".pw-n") : null;
-      if (e1) { inspectEdge(e1.dataset.eid); paint(); }
-      else if (n1) { inspectNode(n1.dataset.nid); paint(); }
+      var d = drag;
+      drag = null;
+      el.canvas.classList.remove("grabbing");
+      try { el.canvas.releasePointerCapture(ev.pointerId); } catch (_) {}
+      if (!d || d.moved > 6) return;          // it was a pan, not a click
+      var eid = d.eid, nid = d.nid;
+      /* Belt and braces: if pointerdown landed on empty canvas but the pointer
+         is now over a shape (or the browser did not give us a useful target),
+         hit-test the release point directly. Never trust ev.target here. */
+      if (!eid && !nid) {
+        var u = document.elementFromPoint(ev.clientX, ev.clientY);
+        if (u && u.closest) {
+          var ue = u.closest("[data-eid]"), un = u.closest(".pw-n");
+          if (ue) eid = ue.dataset.eid; else if (un) nid = un.dataset.nid;
+        }
+      }
+      if (eid) { inspectEdge(eid); paint(); }
+      else if (nid) { inspectNode(nid); paint(); }
     });
     el.canvas.addEventListener("wheel", function (ev) {
       ev.preventDefault();
