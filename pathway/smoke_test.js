@@ -186,7 +186,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
         `route ${r.id} step ${i + 1}: answer ${k + 1} is substantive`));
       const hd = D.querySelector("#pwStep .pw-step-hd h4");
       ok(hd && hd.textContent.trim().length > 12, `route ${r.id} step ${i + 1}: has a headline`);
-      ok(/Step \d+ \/ \d+ · /.test(D.querySelector(".pw-step-n").textContent),
+      ok(/Step \d+ \/ \d+ · /.test(D.querySelector("#pwStep .pw-step-n").textContent),
         `route ${r.id} step ${i + 1}: states position and compartment`);
       const next = D.getElementById("pwNext");
       if (i < total - 1) next.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
@@ -196,6 +196,22 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   // Camera must reach its destination even when requestAnimationFrame never
   // fires. It does not fire in a hidden tab, which is exactly how this was
   // found: a route step in a backgrounded tab left the camera at frame 0.
+  // Regression: the Scenario Lab card used to reuse .pw-step-n, so once that
+  // panel had rendered, an unscoped lookup returned "Phase 2 — in build"
+  // instead of the live step. Visit it FIRST, then assert the route step
+  // still reads correctly both scoped and unscoped.
+  console.log("— panel class isolation —");
+  w.PathwayApp.setMode("scenarios");
+  ok(D.querySelectorAll("#pwScen .pw-step-n").length === 0,
+    "Scenario Lab does not borrow the guided-route step badge class");
+  w.PathwayApp.setMode("guided");
+  D.querySelector('.pw-routebtn[data-r="aa"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.getElementById("pwStart").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(D.querySelectorAll(".pw-step-n").length === 1,
+    "exactly one .pw-step-n exists in the document while a route step is open");
+  ok(/Step \d+ \/ \d+ · /.test(D.querySelector(".pw-step-n").textContent),
+    "the step badge names its position and compartment even after the Scenario Lab has rendered");
+
   console.log("— camera robustness —");
   const rafBackup = w.requestAnimationFrame;
   w.requestAnimationFrame = () => 0;                 // simulate a hidden tab

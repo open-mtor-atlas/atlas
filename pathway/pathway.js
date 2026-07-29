@@ -734,7 +734,13 @@
   /* ==== 4. SCENARIOS (Phase 2) ========================================= */
   function renderScenarios() {
     el.scen.innerHTML = '<div class="pw-step"><div class="pw-step-hd"><h4>Scenario Laboratory</h4>'
-      + '<span class="pw-step-n">Phase 2 — in build</span></div>'
+      /* NOT .pw-step-n. That class belongs to guided-route step badges, and
+         reusing it here meant a global querySelector(".pw-step-n") found the
+         Scenario Lab badge instead of the live route step, because #pwScen
+         sits earlier in the DOM. Cost me a false negative in live testing and
+         a vacuous pass in the smoke test. Shared card styling is fine;
+         shared identity is not. */
+      + '<span class="pw-badge">Phase 2 — in build</span></div>'
       + "<p>The Scenario Laboratory will let you switch on conditions — fed, starved, exercised, hypoxic, "
       + "PTEN-null, PIK3CA-mutant, TSC1/2-null, high or low leucine, acute or chronic rapamycin, Torin, "
       + "metformin — and watch the network change qualitatively.</p>"
