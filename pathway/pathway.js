@@ -1,0 +1,957 @@
+/* =========================================================================
+   pathway.js — Pathway & Mechanism 2.0
+   Lazy-loaded module. Reads pathway/model.json, which is the single source
+   of truth for pathway biology (built by build_pathway_model.py, gated by
+   validate_pathway.py).
+
+   WHY THIS IS A SEPARATE FILE
+   The previous explorer lived inside a 1.5 MB index.html together with
+   hand-tuned layout constants and a second, independent copy of the same
+   pathway (MAP_NODES / MAP_CORE_EDGES). Two consequences: the two copies
+   drifted, and every explorer change risked the whole page. This module
+   owns the section, is fetched only when the Pathway tab is first opened,
+   and derives every pixel from the model.
+
+   WHAT IT DELIBERATELY DOES NOT DO
+   It never invents biology. Every sentence shown to the user is either a
+   curated field from model.json or a template assembled from curated
+   fields, and templates state their own limits ("multiple steps compressed"
+   rather than pretending a relay is one event).
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  var M = null;                          // the model
+  var el = {};                           // cached DOM
+  var S = {                              // UI state
+    mode: "overview",
+    level: "student",
+    detail: "core",
+    sel: null, selKind: null,
+    focus: null, hops: 1,
+    filters: { effect: null, evidence: null, physOnly: false },
+    routeId: null, step: -1,
+    cam: null, camTarget: null, anim: null
+  };
+
+  var NH = 30, LANE = 13;
+  var LEVELS = ["beginner", "student", "research"];
+
+  /* ---- helpers --------------------------------------------------------- */
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function $(id) { return document.getElementById(id); }
+  function nodeById(id) { return M.nodeIx[id]; }
+  function edgeById(id) { return M.edgeIx[id]; }
+  function nw(label) { return Math.max(76, String(label).length * 7.4 + 24); }
+  function reduced() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  }
+  function say(msg) { if (el.sr) el.sr.textContent = msg; }
+
+  /* Mechanistic verb phrases. The whole point of the redesign: an arrow is
+     not a verb. "Recruits" and "activates" are different claims, and the
+     reader must be told which one they are looking at. */
+  var VERB = {
+    "binding": "binds",
+    "recruitment": "recruits",
+    "localisation": "provides the location required by",
+    "translocation": "relocates",
+    "scaffolding": "tethers",
+    "phosphorylation": "phosphorylates",
+    "dephosphorylation": "reverses the lipid signal read by",
+    "gap-activity": "acts as a GAP on",
+    "gef-activity": "acts as a GEF on",
+    "complex-assembly": "assembles into",
+    "complex-disassembly": "disassembles",
+    "allosteric-activation": "allosterically activates",
+    "allosteric-inhibition": "allosterically inhibits",
+    "competitive-inhibition": "competitively blocks",
+    "transcriptional": "transcriptionally controls",
+    "transport": "transports",
+    "signal-relay": "relays a signal to",
+    "functional-consequence": "changes",
+    "clinical-outcome": "changes, in clinical trials,",
+    "association": "is statistically associated with"
+  };
+  var TYPE_TAG = {
+    "phosphorylation": "P", "dephosphorylation": "−P", "gap-activity": "GAP",
+    "gef-activity": "GEF", "recruitment": "MOVE", "translocation": "MOVE",
+    "localisation": "LOC", "scaffolding": "HOLD", "binding": "BIND",
+    "complex-assembly": "ASM", "complex-disassembly": "DIS",
+    "allosteric-activation": "ALLO", "allosteric-inhibition": "ALLO",
+    "competitive-inhibition": "COMP", "transcriptional": "TXN",
+    "transport": "TRANS", "signal-relay": "⋯", "functional-consequence": "→",
+    "clinical-outcome": "TRIAL", "association": "?"
+  };
+  var MARK = {
+    "activates": "pwArrowA", "inhibits": "pwBar", "required-for": "pwChev",
+    "recruits": "pwChev", "binds": "pwDot", "context-dependent": "pwQ"
+  };
+  var CONF_W = { high: 100, medium: 62, low: 28 };
+  var CONF_C = { high: "g", medium: "a", low: "r" };
+  var HR_W = { established: 100, plausible: 55, untested: 18 };
+  var HR_C = { established: "g", plausible: "a", untested: "r" };
+
+  /* ==== 1. OVERVIEW ====================================================
+     The brief asked for a vertical cascade:
+         Growth factors -> Nutrients -> Energy -> Stress -> mTOR
+     That diagram would teach a misconception. Those four are PARALLEL,
+     independent inputs converging on one hub; growth factors do not feed
+     into nutrient sensing. Drawing them in series implies a causal chain
+     that does not exist and would have to be unlearned in the Explorer.
+     So the overview keeps the promise (understand mTOR in 15 seconds)
+     with the correct topology: four inputs converge, one hub decides,
+     outputs fan out — and it names the coincidence rule explicitly,
+     because that rule IS the logic of the pathway.
+     ==================================================================== */
+  var OV_IN = [
+    ["Growth factors", "is it safe to grow?", "gf"],
+    ["Nutrients", "are the parts available?", "aa"],
+    ["Energy", "can we afford it?", "energy"],
+    ["Stress", "is anything wrong?", "energy"]
+  ];
+  var OV_OUT = [
+    ["Protein synthesis", "build"], ["Lipid + nucleotide synthesis", "build"],
+    ["Cell growth", "build"], ["Autophagy", "recycle — switched OFF"]
+  ];
+
+  function renderOverview() {
+    var W = 940, colW = 214, gap = 28, y0 = 96, hubY = 300, outY = 470;
+    var s = '<svg class="pw-ov-svg" viewBox="0 0 ' + W + ' 600" role="img" aria-label="' +
+      'How mTOR works: four independent inputs converge on mTORC1, which decides between building and recycling">';
+    s += '<text class="ov-cap" x="' + (W / 2) + '" y="26" text-anchor="middle">FOUR INDEPENDENT QUESTIONS · ASKED AT THE SAME TIME</text>';
+    OV_IN.forEach(function (o, i) {
+      var x = 34 + i * (colW + gap), cx = x + colW / 2;
+      s += '<g class="ov-in ov-hit" data-route="' + o[2] + '" tabindex="0" role="button" aria-label="' + esc(o[0]) + ' — open guided route">'
+        + '<rect class="ov-box" x="' + x + '" y="' + y0 + '" width="' + colW + '" height="58"/>'
+        + '<text x="' + cx + '" y="' + (y0 + 24) + '" text-anchor="middle">' + esc(o[0]) + '</text>'
+        + '<text class="ov-cap" x="' + cx + '" y="' + (y0 + 43) + '" text-anchor="middle">' + esc(o[1]) + '</text></g>';
+      s += '<path class="ov-arm" d="M' + cx + ',' + (y0 + 58) + ' C' + cx + ',' + (y0 + 110)
+        + ' ' + (W / 2) + ',' + (hubY - 66) + ' ' + (W / 2) + ',' + (hubY - 26) + '" marker-end="url(#ovA)"/>';
+    });
+    s += '<g class="ov-hub"><rect class="ov-box" x="' + (W / 2 - 132) + '" y="' + (hubY - 22)
+      + '" width="264" height="70"/><text x="' + (W / 2) + '" y="' + (hubY + 15)
+      + '" text-anchor="middle">mTORC1</text></g>';
+    s += '<text class="ov-cap" x="' + (W / 2) + '" y="' + (hubY + 68)
+      + '" text-anchor="middle">SWITCHES ON ONLY IF THE ANSWERS AGREE</text>';
+    OV_OUT.forEach(function (o, i) {
+      var x = 34 + i * (colW + gap), cx = x + colW / 2;
+      s += '<path class="ov-arm" d="M' + (W / 2) + ',' + (hubY + 78) + ' C' + (W / 2) + ',' + (outY - 40)
+        + ' ' + cx + ',' + (outY - 46) + ' ' + cx + ',' + outY + '" marker-end="url(#ovA)"/>';
+      s += '<g class="ov-out"><rect class="ov-box" x="' + x + '" y="' + outY + '" width="' + colW + '" height="56"/>'
+        + '<text x="' + cx + '" y="' + (outY + 24) + '" text-anchor="middle" font-size="11.5">' + esc(o[0]) + '</text>'
+        + '<text class="ov-cap" x="' + cx + '" y="' + (outY + 42) + '" text-anchor="middle">' + esc(o[1]) + '</text></g>';
+    });
+    s += '<defs><marker id="ovA" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" viewBox="0 0 10 10" '
+      + 'refX="9" refY="5" orient="auto"><path d="M0.5,1 L9.5,5 L0.5,9 Z" fill="currentColor" opacity=".55"/></marker></defs>';
+    s += "</svg>";
+
+    var n = M.meta.counts;
+    el.ov.innerHTML =
+      '<p class="pw-ov-lede">mTOR is the cell\'s <b>investment committee</b>. It does not sense one thing — '
+      + 'it collects four independent reports about the outside world and only authorises building when they agree.</p>'
+      + '<p class="pw-ov-sub">Growth factors say whether growing is <em>permitted</em>. Nutrients say whether the raw materials '
+      + '<em>exist</em>. Energy says whether the cell can <em>afford</em> the work. Stress says whether anything is <em>wrong</em>. '
+      + 'When the answers agree, mTORC1 switches on and the cell builds. When they do not, mTORC1 goes quiet and the cell '
+      + 'starts recycling itself instead. Everything else on this page is the machinery that makes that one decision.</p>'
+      + s
+      + '<p class="pw-ov-note"><b>Read the shape, not just the words.</b> The four inputs are drawn side by side because they '
+      + 'are <em>parallel and independent</em> — growth factors do not feed into nutrient sensing. A textbook that stacks them '
+      + 'in a single chain is teaching a chain that does not exist. Inside the cell the independence is physical: nutrients '
+      + 'control <em>where</em> mTORC1 sits, growth factors control <em>whether it is switched on</em>. Neither alone is enough. '
+      + 'That is called coincidence detection, and it is the single most important idea in this pathway.</p>'
+      + '<div class="pw-ov-acts">'
+      + '<button class="pw-ov-act" data-go="explorer"><b>Explore the network →</b><span>All ' + n.interactions
+      + ' curated steps in ' + M.compartments.length + ' cellular compartments. Zoom, search, filter by evidence.</span></button>'
+      + '<button class="pw-ov-act" data-go="guided"><b>Follow a guided route →</b><span>' + n.routes
+      + ' narrated walkthroughs. Each one answers what happened, why, what changed, and how certain we are.</span></button>'
+      + '<button class="pw-ov-act" data-go="scenarios"><b>Experiment with scenarios →</b><span>Starvation, PTEN loss, '
+      + 'rapamycin. Qualitative, clearly labelled as educational modelling.</span></button>'
+      + "</div>";
+    el.ov.querySelectorAll("[data-go]").forEach(function (b) {
+      b.addEventListener("click", function () { setMode(b.dataset.go); });
+    });
+    el.ov.querySelectorAll("[data-route]").forEach(function (g) {
+      function open() { S.routeId = g.dataset.route; setMode("guided"); }
+      g.addEventListener("click", open);
+      g.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+      });
+    });
+  }
+
+  /* ==== 2. EXPLORER — geometry ========================================= */
+  function anchor(n, tx, ty) {
+    var w = nw(n.label) / 2, h = NH / 2, dx = tx - n.x, dy = ty - n.y;
+    if (!dx && !dy) return { x: n.x, y: n.y };
+    var sx = dx === 0 ? Infinity : w / Math.abs(dx);
+    var sy = dy === 0 ? Infinity : h / Math.abs(dy);
+    var k = Math.min(sx, sy);
+    return { x: n.x + dx * k, y: n.y + dy * k };
+  }
+
+  function geom(e) {
+    var A = nodeById(e.source), B = nodeById(e.target);
+    if (!A || !B) return null;
+    var lane = (e._lane || 0) * LANE;
+    var sameBand = Math.abs(A.y - B.y) < 4;
+    var c1, c2, a, b;
+    if (sameBand) {
+      // arc out of the band so a within-compartment edge never runs under boxes
+      var up = A.x <= B.x ? -1 : 1, rise = 44 + Math.abs(lane);
+      c1 = { x: A.x + (B.x - A.x) * 0.25, y: A.y + up * rise };
+      c2 = { x: A.x + (B.x - A.x) * 0.75, y: B.y + up * rise };
+    } else {
+      var mid = (A.y + B.y) / 2;
+      c1 = { x: A.x + lane, y: mid };
+      c2 = { x: B.x - lane, y: mid };
+    }
+    a = anchor(A, c1.x, c1.y); b = anchor(B, c2.x, c2.y);
+    var d = "M" + a.x.toFixed(1) + "," + a.y.toFixed(1) + " C" + c1.x.toFixed(1) + "," + c1.y.toFixed(1)
+      + " " + c2.x.toFixed(1) + "," + c2.y.toFixed(1) + " " + b.x.toFixed(1) + "," + b.y.toFixed(1);
+    var m = { x: (a.x + 3 * c1.x + 3 * c2.x + b.x) / 8, y: (a.y + 3 * c1.y + 3 * c2.y + b.y) / 8 };
+    return { d: d, mid: m, a: a, b: b };
+  }
+
+  function assignLanes() {
+    var buckets = {};
+    M.interactions.forEach(function (e) {
+      var k = e.source + "|" + nodeById(e.target).compartment;
+      (buckets[k] = buckets[k] || []).push(e);
+    });
+    Object.keys(buckets).forEach(function (k) {
+      var g = buckets[k];
+      g.forEach(function (e, i) { e._lane = g.length === 1 ? 0 : (i - (g.length - 1) / 2) * 2; });
+    });
+  }
+
+  function defs() {
+    var d = '<defs>'
+      + '<pattern id="pwHatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'
+      + '<line x1="0" y1="0" x2="0" y2="7" stroke="currentColor" stroke-width="1" opacity=".07"/></pattern>';
+    var head = 'markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" viewBox="0 0 10 10" orient="auto"';
+    /* Markers use currentColor, and every f-* class sets BOTH stroke and color.
+       `context-stroke` would be tidier but is not universally supported; a
+       marker inheriting `color` from its referencing path is. */
+    d += '<marker id="pwArrowA" ' + head + ' refX="9" refY="5"><path d="M0.5,1 L9.5,5 L0.5,9 Z" fill="currentColor"/></marker>';
+    d += '<marker id="pwBar" ' + head + ' refX="5" refY="5"><path d="M5,0.6 L5,9.4" stroke="currentColor" stroke-width="2.8" fill="none"/></marker>';
+    d += '<marker id="pwChev" ' + head + ' refX="8" refY="5"><path d="M1,1 L8,5 L1,9" stroke="currentColor" stroke-width="1.9" fill="none"/></marker>';
+    d += '<marker id="pwDot" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.4" fill="currentColor"/></marker>';
+    d += '<marker id="pwQ" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/></marker>';
+    return d + "</defs>";
+  }
+
+  function buildSVG() {
+    var W = M.meta.canvas.w, H = M.meta.canvas.h;
+    var s = '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="xMidYMid meet" role="application" '
+      + 'aria-label="mTOR mechanism network, arranged by cellular compartment">' + defs();
+
+    // bands
+    s += '<g class="pw-bands" aria-hidden="true">';
+    M.bands.forEach(function (b, i) {
+      var c = M.compIx[b.compartment];
+      s += '<rect class="' + (c.physical ? "pw-band-phys" : "pw-band-hatch") + '" x="0" y="' + b.y
+        + '" width="' + W + '" height="' + b.h + '"/>';
+      s += '<line class="' + (c.physical && i > 0 ? "pw-membrane" : "pw-bandline") + '" x1="0" y1="' + b.y
+        + '" x2="' + W + '" y2="' + b.y + '"/>';
+      s += '<text class="pw-bandlab" x="16" y="' + (b.y + 16) + '">' + esc(c.name) + "</text>";
+      if (!c.physical) {
+        s += '<text class="pw-bandwarn" x="' + (16 + c.name.length * 8.2) + '" y="' + (b.y + 16)
+          + '">— NOT A CELLULAR LOCATION</text>';
+      }
+    });
+    s += "</g>";
+
+    // interactions
+    var hits = "", lines = "", tags = "";
+    M.interactions.forEach(function (e) {
+      var g = geom(e); if (!g) return;
+      e._g = g;
+      var cls = "pw-e f-" + e.effect + " d-" + e.directness + " m-" + e.confidence.mechanistic;
+      if (e.confidence.consensus === "contested") {
+        lines += '<path class="pw-contest" data-eid="' + esc(e.id) + '" d="' + g.d + '"/>';
+      }
+      lines += '<path id="pwe-' + esc(e.id) + '" class="' + cls + '" data-eid="' + esc(e.id) + '" d="' + g.d
+        + '" marker-end="url(#' + (MARK[e.effect] || "pwArrowA") + ')"/>';
+      hits += '<path class="pw-hitline" data-eid="' + esc(e.id) + '" d="' + g.d + '"><title>'
+        + esc(sentence(e)) + "</title></path>";
+      var tag = TYPE_TAG[e.type] || "";
+      if (tag) {
+        var tw = tag.length * 6 + 8;
+        tags += '<g class="pw-tagg" data-eid="' + esc(e.id) + '">'
+          + '<rect class="pw-tagbg" x="' + (g.mid.x - tw / 2).toFixed(1) + '" y="' + (g.mid.y - 7).toFixed(1)
+          + '" width="' + tw + '" height="14"/>'
+          + '<text class="pw-tag" x="' + g.mid.x.toFixed(1) + '" y="' + (g.mid.y + 0.5).toFixed(1) + '">'
+          + esc(tag) + "</text></g>";
+      }
+    });
+    s += '<g class="pw-edges">' + lines + tags + hits + "</g>";
+
+    // nodes
+    s += '<g class="pw-nodes">';
+    M.nodes.forEach(function (n) {
+      var w = nw(n.label), x = n.x - w / 2, y = n.y - NH / 2;
+      s += '<g class="pw-n c-' + esc(n.cls) + '" data-nid="' + esc(n.id) + '" tabindex="0" role="button" '
+        + 'aria-label="' + esc(n.label + ", " + n.cls + " in " + M.compIx[n.compartment].name) + '">'
+        + '<rect class="nb" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1)
+        + '" height="' + NH + '"/>';
+      if (n.cls === "complex") {
+        s += '<rect class="nb2" x="' + (x + 3.2).toFixed(1) + '" y="' + (y + 3.2).toFixed(1)
+          + '" width="' + (w - 6.4).toFixed(1) + '" height="' + (NH - 6.4) + '"/>';
+      }
+      s += '<text x="' + n.x + '" y="' + (n.y + 0.5) + '">' + esc(n.label) + "</text></g>";
+    });
+    s += "</g></svg>";
+    return s;
+  }
+
+  function sentence(e) {
+    return nodeById(e.source).label + " " + (VERB[e.type] || e.type) + " " + nodeById(e.target).label
+      + " — net effect: " + e.effect + " (" + e.directness + ", " + e.timescale + ")";
+  }
+
+  /* ==== camera ========================================================= */
+  function applyCam() {
+    var c = S.cam;
+    el.svg.setAttribute("viewBox", c.x.toFixed(1) + " " + c.y.toFixed(1) + " " + c.w.toFixed(1) + " " + c.h.toFixed(1));
+  }
+  function fitAll() {
+    var W = M.meta.canvas.w, H = M.meta.canvas.h;
+    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var w = W, h = W / r;
+    if (h < H) { h = H; w = H * r; }
+    S.cam = { x: (W - w) / 2, y: (H - h) / 2, w: w, h: h };
+    applyCam();
+  }
+  function frameBox(bx, by, bw, bh, pad) {
+    pad = pad == null ? 190 : pad;
+    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var w = Math.max(bw + pad * 2, 420), h = w / r;
+    if (h < bh + pad * 2) { h = bh + pad * 2; w = h * r; }
+    animCam({ x: bx + bw / 2 - w / 2, y: by + bh / 2 - h / 2, w: w, h: h });
+  }
+  function frameNode(id) { var n = nodeById(id); if (n) frameBox(n.x - 60, n.y - 20, 120, 40, 240); }
+  function frameEdge(id) {
+    var e = edgeById(id); if (!e || !e._g) return;
+    var A = nodeById(e.source), B = nodeById(e.target);
+    var x1 = Math.min(A.x, B.x) - 90, x2 = Math.max(A.x, B.x) + 90;
+    var y1 = Math.min(A.y, B.y) - 60, y2 = Math.max(A.y, B.y) + 60;
+    frameBox(x1, y1, x2 - x1, y2 - y1, 90);
+  }
+  function animCam(to) {
+    if (reduced()) { S.cam = to; applyCam(); return; }
+    if (S.anim) cancelAnimationFrame(S.anim);
+    var from = { x: S.cam.x, y: S.cam.y, w: S.cam.w, h: S.cam.h }, t0 = performance.now(), T = 480;
+    (function tick(now) {
+      var p = Math.min(1, (now - t0) / T), k = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      S.cam = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k,
+                w: from.w + (to.w - from.w) * k, h: from.h + (to.h - from.h) * k };
+      applyCam();
+      if (p < 1) S.anim = requestAnimationFrame(tick);
+    })(t0);
+  }
+  function zoomAt(cx, cy, k) {
+    var r = el.canvas.getBoundingClientRect();
+    var fx = (cx - r.left) / r.width, fy = (cy - r.top) / r.height;
+    var px = S.cam.x + S.cam.w * fx, py = S.cam.y + S.cam.h * fy;
+    var w = Math.max(300, Math.min(M.meta.canvas.w * 2.4, S.cam.w * k));
+    var h = w * (S.cam.h / S.cam.w);
+    S.cam = { x: px - w * fx, y: py - h * fy, w: w, h: h };
+    applyCam();
+  }
+
+  /* ==== paint (filters, focus, selection) ============================== */
+  function neighbourhood(nid, hops) {
+    var keep = {}, frontier = [nid];
+    keep[nid] = 1;
+    for (var h = 0; h < hops; h++) {
+      var next = [];
+      M.interactions.forEach(function (e) {
+        if (keep[e.source] && !keep[e.target]) { next.push(e.target); }
+        if (keep[e.target] && !keep[e.source]) { next.push(e.source); }
+      });
+      next.forEach(function (n) { keep[n] = 1; });
+      frontier = next;
+    }
+    return keep;
+  }
+  function edgePasses(e) {
+    var f = S.filters;
+    if (f.effect && e.effect !== f.effect) return false;
+    if (f.evidence === "human" && e.confidence.human_relevance !== "established") return false;
+    if (f.evidence === "direct" && e.directness !== "direct") return false;
+    if (f.evidence === "contested" && e.confidence.consensus !== "contested") return false;
+    if (f.physOnly && !M.compIx[e.compartment].physical) return false;
+    return true;
+  }
+  function paint() {
+    var keep = S.focus ? neighbourhood(S.focus, S.hops) : null;
+    var routeSet = null;
+    if (S.mode === "guided" && S.routeId) {
+      routeSet = {};
+      (M.routeIx[S.routeId].interactions || []).forEach(function (i) { routeSet[i] = 1; });
+    }
+    var shownNodes = {};
+    M.interactions.forEach(function (e) {
+      var p = $("pwe-" + e.id); if (!p) return;
+      var ok = edgePasses(e)
+        && (!keep || (keep[e.source] && keep[e.target]))
+        && (!routeSet || routeSet[e.id]);
+      p.classList.toggle("dim", !ok);
+      p.classList.toggle("sel", S.selKind === "edge" && S.sel === e.id);
+      var tg = el.svg.querySelector('.pw-tagg[data-eid="' + e.id + '"]');
+      if (tg) tg.style.opacity = ok ? (S.cam.w < 1100 ? 1 : 0) : 0;
+      var ct = el.svg.querySelector('.pw-contest[data-eid="' + e.id + '"]');
+      if (ct) ct.style.opacity = ok ? "" : 0;
+      if (ok) { shownNodes[e.source] = 1; shownNodes[e.target] = 1; }
+    });
+    el.svg.querySelectorAll(".pw-n").forEach(function (g) {
+      var id = g.dataset.nid;
+      g.classList.toggle("dim", !shownNodes[id]);
+      g.classList.toggle("sel", S.selKind === "node" && S.sel === id);
+    });
+  }
+
+  /* ==== inspector ====================================================== */
+  function tierDot(t) {
+    var c = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)" }[t] || "var(--tier-d)";
+    return '<i class="pw-dot" style="background:' + c + '">' + esc(t || "?") + "</i>";
+  }
+  function studyRows(sids, label) {
+    if (!sids || !sids.length) return "";
+    var out = '<div class="k">' + label + " (" + sids.length + ")</div>";
+    sids.forEach(function (sid) {
+      var st = (typeof studyBySid === "function") ? studyBySid(sid) : null;
+      if (!st) { out += '<div class="pw-ev-m">' + esc(sid) + " — not in corpus</div>"; return; }
+      var first = st.authors ? String(st.authors).split(";")[0].trim() : "";
+      out += '<button class="pw-ev" data-sid="' + esc(sid) + '" type="button">'
+        + '<span class="pw-ev-t">' + esc(st.title) + "</span>"
+        + '<span class="pw-ev-m">' + tierDot((st.tier || "").toUpperCase()[0]) + esc(first)
+        + (first ? " · " : "") + esc(st.year || "") + " · " + esc(sid) + "</span></button>";
+    });
+    return out;
+  }
+  function confBlock(e) {
+    var c = e.confidence;
+    return '<div class="k">Confidence — three separate things</div><div class="pw-conf">'
+      + meter("Mechanism", c.mechanistic, CONF_W[c.mechanistic], CONF_C[c.mechanistic])
+      + meter("Human relevance", c.human_relevance, HR_W[c.human_relevance], HR_C[c.human_relevance])
+      + '<div class="pw-confrow"><span>Field consensus</span><span><b>' + esc(c.consensus) + "</b></span></div>"
+      + '<div class="pw-confrow"><span>Best study tier</span><span>' + tierDot(e.evidence.best_tier)
+      + " " + esc(e.evidence.kind) + "</span></div></div>"
+      + '<p style="font-size:11.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55;">'
+      + "A step can be mechanistically certain and still untested in humans. Study tier grades the "
+      + "<em>papers</em>; mechanism confidence grades the <em>biology</em>. They are not the same number.</p>";
+  }
+  function meter(label, val, w, c) {
+    return '<div class="pw-confrow"><span>' + label + '</span><span class="pw-meter ' + c
+      + '"><i style="width:' + w + '%"></i></span><span style="flex:0 0 78px;text-align:right"><b>'
+      + esc(val) + "</b></span></div>";
+  }
+
+  function inspectEdge(id) {
+    var e = edgeById(id); if (!e) return;
+    S.sel = id; S.selKind = "edge";
+    var A = nodeById(e.source), B = nodeById(e.target);
+    var h = '<h4>' + esc(A.label) + " <span style=\"color:var(--ink-soft)\">" + esc(VERB[e.type] || e.type)
+      + "</span> " + esc(B.label) + "</h4>"
+      + '<div class="pw-verb">' + esc(e.type) + " · net effect " + esc(e.effect) + "</div>"
+      + '<div class="pw-chips">'
+      + '<span class="pw-chip"><b>where</b> ' + esc(M.compIx[e.compartment].name) + "</span>"
+      + '<span class="pw-chip"><b>when</b> ' + esc(e.timescale) + "</span>"
+      + '<span class="pw-chip' + (e.directness !== "direct" ? " warn" : "") + '"><b>link</b> '
+      + esc(e.directness) + "</span>"
+      + '<span class="pw-chip"><b>model</b> ' + esc(e.species.join(", ") || "—") + "</span>"
+      + (e.confidence.consensus === "contested" ? '<span class="pw-chip bad">contested</span>' : "")
+      + "</div>"
+      + '<div class="k">Mechanism</div><p>' + esc(e.mechanism) + "</p>"
+      + (e.teaching_note ? '<div class="pw-teach"><b>Why this distinction matters.</b> ' + esc(e.teaching_note) + "</div>" : "")
+      + (e.directness === "indirect"
+          ? '<div class="pw-bound"><b>Compressed.</b> This arrow spans more than one molecular event. '
+            + "It is drawn as one line for readability, not because it is one step.</div>" : "")
+      + (e.boundary ? '<div class="pw-bound"><b>Boundary conditions.</b> ' + esc(e.boundary) + "</div>" : "")
+      + confBlock(e)
+      + studyRows(e.evidence.supporting, "Supporting evidence")
+      + studyRows(e.evidence.conflicting, "Conflicting evidence")
+      + '<div class="k">Curation</div><p style="font-size:11.5px;color:var(--ink-soft)">'
+      + esc(e.id) + " · reviewed " + esc(e.review.reviewed) + " by " + esc(e.review.reviewer) + "</p>";
+    setInsp(h);
+  }
+
+  function inspectNode(id) {
+    var n = nodeById(id); if (!n) return;
+    S.sel = id; S.selKind = "node";
+    var ins = [], outs = [];
+    M.interactions.forEach(function (e) {
+      if (e.target === id) ins.push(e);
+      if (e.source === id) outs.push(e);
+    });
+    function list(arr, dir) {
+      if (!arr.length) return '<p class="pw-empty">none in this model</p>';
+      return arr.map(function (e) {
+        var other = dir === "in" ? nodeById(e.source) : nodeById(e.target);
+        return '<button class="pw-ev" data-eid="' + esc(e.id) + '" type="button">'
+          + '<span class="pw-ev-t">' + (dir === "in" ? esc(other.label) + " → " : "→ " + esc(other.label))
+          + "</span><span class=\"pw-ev-m\">" + esc(e.type) + " · " + esc(e.effect) + " · "
+          + esc(e.confidence.mechanistic) + " mech · " + tierDot(e.evidence.best_tier) + "</span></button>";
+      }).join("");
+    }
+    var c = M.compIx[n.compartment];
+    setInsp('<h4>' + esc(n.label) + "</h4>"
+      + '<div class="pw-verb">' + esc(n.cls) + " · " + esc(c.name) + "</div>"
+      + "<p>" + esc(n.explain[S.level]) + "</p>"
+      + (!c.physical ? '<div class="pw-bound">' + esc(c.blurb) + "</div>"
+                     : '<div class="k">Compartment</div><p style="font-size:12px;color:var(--ink-soft)">' + esc(c.blurb) + "</p>")
+      /* Declared simplifications are shown, not buried. If a band compresses
+         real cell biology, the reader is told so on every node in it. */
+      + (c.sensing_note ? '<div class="pw-bound"><b>Declared simplification.</b> ' + esc(c.sensing_note) + "</div>" : "")
+      + '<div class="k">Inputs (' + ins.length + ")</div>" + list(ins, "in")
+      + '<div class="k">Outputs (' + outs.length + ")</div>" + list(outs, "out")
+      + '<div class="pw-nav"><button class="pw-btn" data-focus="' + esc(id) + '">Focus here</button>'
+      + '<button class="pw-btn" data-entity="' + esc(id) + '">Open entity page</button></div>');
+  }
+
+  function inspectDefault() {
+    S.sel = null; S.selKind = null;
+    var n = M.meta.counts;
+    setInsp('<h4>' + n.interactions + " curated steps · " + n.nodes + " molecules</h4>"
+      + '<p class="pw-empty">Click any molecule or any arrow. The panel will tell you what kind of event it is, '
+      + "where in the cell it happens, how fast, how certain we are, and which papers say so.</p>"
+      + '<div class="k">How to read the diagram</div>'
+      + '<p class="pw-empty">Bands are real cellular compartments, top to bottom. Two of them — Inputs and '
+      + "Biological outcomes — are marked <em>not a cellular location</em>, because they are not.</p>"
+      + '<div class="k">The one thing to notice</div>'
+      + '<p class="pw-empty">Nearly every arrow into mTORC1 lands on the lysosomal band. mTORC1 is only switched on '
+      + "there. Nutrient sensing is not chemistry happening in free solution — it is a set of mechanisms for getting "
+      + "one kinase onto one membrane.</p>", true);
+  }
+
+  function setInsp(html, isDefault) {
+    el.insp.innerHTML = '<div class="pw-sheet-grip"></div>'
+      + (isDefault ? "" : '<button class="pw-sheet-x" aria-label="Close details">×</button>') + html;
+    if (!isDefault && window.matchMedia("(max-width:900px)").matches) el.insp.classList.add("open");
+    if (isDefault) el.insp.classList.remove("open");
+    el.insp.scrollTop = 0;
+    var x = el.insp.querySelector(".pw-sheet-x");
+    if (x) x.addEventListener("click", function () { el.insp.classList.remove("open"); inspectDefault(); paint(); });
+    el.insp.querySelectorAll("[data-sid]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var st = (typeof studyBySid === "function") ? studyBySid(b.dataset.sid) : null;
+        if (st && typeof filterStudiesByTitle === "function") filterStudiesByTitle(st.title);
+      });
+    });
+    el.insp.querySelectorAll("[data-eid]").forEach(function (b) {
+      b.addEventListener("click", function () { inspectEdge(b.dataset.eid); frameEdge(b.dataset.eid); paint(); });
+    });
+    el.insp.querySelectorAll("[data-focus]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        S.focus = S.focus === b.dataset.focus ? null : b.dataset.focus;
+        el.focusBtn.setAttribute("aria-pressed", S.focus ? "true" : "false");
+        if (S.focus) frameNode(S.focus); else fitAll();
+        paint();
+      });
+    });
+    el.insp.querySelectorAll("[data-entity]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var name = b.dataset.entity;
+        if (typeof entityByName === "function" && entityByName(name) && typeof selectEntity === "function") {
+          if (typeof showView === "function") showView("map");
+          selectEntity(name);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else { say("No dedicated entity page for " + name + " yet."); }
+      });
+    });
+  }
+
+  /* ==== 3. GUIDED ROUTES =============================================== */
+  /* Steps are hand-authored where authored; otherwise assembled from
+     curated fields. The assembled version is explicit about being a
+     derivation, and never claims more than the model records. */
+  function stepFor(route, i) {
+    var authored = (route.steps || []).find(function (s, k) { return k === i; });
+    var eid = authored ? authored.interaction : route.spine[i];
+    var e = edgeById(eid);
+    if (!e) return null;
+    var A = nodeById(e.source), B = nodeById(e.target), c = M.compIx[e.compartment];
+    var nextE = edgeById(authored ? null : route.spine[i + 1]);
+    var base = {
+      interaction: eid,
+      what: A.label + " " + (VERB[e.type] || e.type) + " " + B.label + ".",
+      why: e.mechanism,
+      changed: "The net effect on " + B.label + " is: " + e.effect
+        + ". " + (e.type === "recruitment" || e.type === "localisation"
+          ? "Note that this changes where " + B.label + " is, not whether it is switched on."
+          : e.type === "phosphorylation"
+            ? "A phosphate is added — which here " + (e.effect === "inhibits" ? "shuts down" : "switches on")
+              + " " + B.label + "'s function."
+            : ""),
+      consequence: nextE
+        ? "Because " + B.label + " changed, the next event becomes possible: "
+          + nodeById(nextE.source).label + " → " + nodeById(nextE.target).label + "."
+        : (B.explain[S.level] || ""),
+      certainty: "Mechanistic confidence " + e.confidence.mechanistic + "; human relevance "
+        + e.confidence.human_relevance + "; field consensus " + e.confidence.consensus
+        + ". Best supporting study is tier " + e.evidence.best_tier + " (" + e.evidence.kind
+        + ", " + (e.species.join(", ") || "model not stated") + ")."
+        + (e.boundary ? " Boundary conditions: " + e.boundary : ""),
+      matters: e.teaching_note || B.explain.research
+    };
+    if (authored) {
+      Object.keys(authored).forEach(function (k) { if (authored[k]) base[k] = authored[k]; });
+    }
+    base._e = e; base._where = c.name; base._authored = !!authored;
+    return base;
+  }
+
+  function renderGuided() {
+    var r = M.routeIx[S.routeId] || M.routes[0];
+    S.routeId = r.id;
+    var total = (r.steps && r.steps.length) ? r.steps.length : r.spine.length;
+    el.routes.innerHTML = M.routes.map(function (x) {
+      var n = (x.steps && x.steps.length) ? x.steps.length : x.spine.length;
+      return '<button class="pw-routebtn" data-r="' + esc(x.id) + '" aria-pressed="'
+        + (x.id === r.id) + '">' + esc(x.name) + "<small>" + n + " STEPS · "
+        + x.interactions.length + " CURATED LINKS</small></button>";
+    }).join("");
+    el.routes.querySelectorAll("[data-r]").forEach(function (b) {
+      b.addEventListener("click", function () { S.routeId = b.dataset.r; S.step = -1; renderGuided(); });
+    });
+
+    if (S.step < 0) {
+      el.prog.innerHTML = "";
+      el.step.innerHTML = '<div class="pw-step-hd"><h4>' + esc(r.name) + '</h4>'
+        + '<span class="pw-step-n">' + total + " steps</span></div>"
+        + "<p>" + r.story + "</p>"
+        + '<div class="pw-nav"><button class="pw-btn" id="pwStart">Start the walkthrough →</button>'
+        + '<span class="pw-where">' + r.interactions.length + " curated links · every step cites its papers</span></div>";
+      $("pwStart").addEventListener("click", function () { S.step = 0; renderGuided(); });
+      fitAll(); paint();
+      return;
+    }
+
+    var st = stepFor(r, S.step);
+    if (!st) { S.step = -1; return renderGuided(); }
+    el.prog.innerHTML = Array.apply(null, { length: total }).map(function (_, k) {
+      return '<i class="' + (k < S.step ? "done" : k === S.step ? "now" : "") + '"></i>';
+    }).join("");
+    el.step.innerHTML = '<div class="pw-step-hd">'
+      + "<h4>" + esc(st.what) + "</h4>"
+      + '<span class="pw-step-n">Step ' + (S.step + 1) + " / " + total + " · " + esc(st._where) + "</span></div>"
+      + '<dl class="pw-q"><dt>Why does it happen?</dt><dd>' + esc(st.why) + "</dd></dl>"
+      + '<dl class="pw-q"><dt>What changed?</dt><dd>' + esc(st.changed) + "</dd></dl>"
+      + '<dl class="pw-q"><dt>What follows from it?</dt><dd>' + esc(st.consequence) + "</dd></dl>"
+      + '<dl class="pw-q"><dt>How certain are we?</dt><dd>' + esc(st.certainty) + "</dd></dl>"
+      + '<dl class="pw-q"><dt>Why do scientists care?</dt><dd>' + esc(st.matters) + "</dd></dl>"
+      + '<div class="pw-nav">'
+      + '<button class="pw-btn" id="pwPrev"' + (S.step === 0 ? " disabled" : "") + ">← Back</button>"
+      + '<button class="pw-btn" id="pwNext">' + (S.step === total - 1 ? "Finish" : "Next →") + "</button>"
+      + '<button class="pw-btn" id="pwEvid">Evidence for this step</button>'
+      + '<span class="pw-where">' + (st._authored ? "hand-authored" : "assembled from curated fields") + "</span></div>";
+
+    $("pwPrev").addEventListener("click", function () { if (S.step > 0) { S.step--; renderGuided(); } });
+    $("pwNext").addEventListener("click", function () {
+      if (S.step < total - 1) { S.step++; renderGuided(); } else { S.step = -1; renderGuided(); }
+    });
+    $("pwEvid").addEventListener("click", function () { inspectEdge(st.interaction); });
+
+    S.sel = st.interaction; S.selKind = "edge";
+    paint();
+    var p = $("pwe-" + st.interaction);
+    if (p && !reduced()) { p.classList.add("flow"); setTimeout(function () { p.classList.remove("flow"); }, 2600); }
+    var src = el.svg.querySelector('.pw-n[data-nid="' + CSS.escape(st._e.source) + '"]');
+    var tgt = el.svg.querySelector('.pw-n[data-nid="' + CSS.escape(st._e.target) + '"]');
+    [src, tgt].forEach(function (g) {
+      if (!g) return; g.classList.add("pulse"); setTimeout(function () { g.classList.remove("pulse"); }, 3000);
+    });
+    frameEdge(st.interaction);
+    say("Step " + (S.step + 1) + " of " + total + ", in the " + st._where + ". " + st.what);
+  }
+
+  /* ==== 4. SCENARIOS (Phase 2) ========================================= */
+  function renderScenarios() {
+    el.scen.innerHTML = '<div class="pw-step"><div class="pw-step-hd"><h4>Scenario Laboratory</h4>'
+      + '<span class="pw-step-n">Phase 2 — in build</span></div>'
+      + "<p>The Scenario Laboratory will let you switch on conditions — fed, starved, exercised, hypoxic, "
+      + "PTEN-null, PIK3CA-mutant, TSC1/2-null, high or low leucine, acute or chronic rapamycin, Torin, "
+      + "metformin — and watch the network change qualitatively.</p>"
+      + '<div class="pw-bound"><b>Why it is not shipped yet, deliberately.</b> A sandbox that propagates '
+      + "signals through this graph will produce a confident answer for every condition you give it, including "
+      + "the conditions where the real biology is governed by feedback loops the graph compresses into single "
+      + "arrows. Shipping that before it is constrained would make the Atlas less accurate while making it look "
+      + "more impressive. The engine is being built against hand-curated, cited expected outcomes for each "
+      + "scenario: if the propagation does not reproduce the literature, the build fails and nothing deploys.</p>"
+      + '<div class="k">What it will never do</div>'
+      + '<p class="pw-empty">It will not output numbers. There will be no predicted fold-changes, no simulated '
+      + "western blots and no dose-response curves, because this graph cannot legitimately produce any of those. "
+      + "Direction and confidence only, always labelled as educational modelling rather than validated simulation.</p>"
+      + '<div class="pw-nav"><button class="pw-btn" data-go="guided">Follow a guided route instead →</button></div></div>';
+    el.scen.querySelectorAll("[data-go]").forEach(function (b) {
+      b.addEventListener("click", function () { setMode(b.dataset.go); });
+    });
+  }
+
+  /* ==== mode switching ================================================= */
+  function setMode(m) {
+    S.mode = m;
+    ["overview", "explorer", "guided", "scenarios"].forEach(function (k) {
+      var b = $("pwMode-" + k);
+      if (b) b.setAttribute("aria-selected", String(k === m));
+    });
+    el.ov.classList.toggle("pw-hide", m !== "overview");
+    el.scen.classList.toggle("pw-hide", m !== "scenarios");
+    el.explorerUI.classList.toggle("pw-hide", m !== "explorer");
+    el.guidedUI.classList.toggle("pw-hide", m !== "guided");
+    el.stageWrap.classList.toggle("pw-hide", m !== "explorer" && m !== "guided");
+    if (m === "explorer") { S.routeId = null; S.step = -1; inspectDefault(); fitAll(); paint(); }
+    if (m === "guided") { if (!S.routeId) S.routeId = M.routes[0].id; S.step = -1; renderGuided(); }
+    if (m === "scenarios") renderScenarios();
+    say("Switched to " + m);
+  }
+
+  /* ==== shell ========================================================== */
+  function shell() {
+    return ''
+      + '<div class="pw" id="pwRoot">'
+      + '<div class="pw-sr" id="pwSR" role="status" aria-live="polite"></div>'
+      + '<div class="pw-modes" role="tablist" aria-label="Pathway views">'
+      + '  <button class="pw-mode" id="pwMode-overview" role="tab" aria-selected="true">Overview</button>'
+      + '  <button class="pw-mode" id="pwMode-explorer" role="tab" aria-selected="false">Mechanism Explorer</button>'
+      + '  <button class="pw-mode" id="pwMode-guided" role="tab" aria-selected="false">Guided Routes</button>'
+      + '  <button class="pw-mode" id="pwMode-scenarios" role="tab" aria-selected="false">Scenario Lab</button>'
+      + "</div>"
+      + '<div class="pw-panelwrap">'
+      + '  <div id="pwOverview"></div>'
+      + '  <div id="pwScen" class="pw-hide"></div>'
+      + '  <div id="pwExplorerUI" class="pw-hide">'
+      + '    <div class="pw-bar">'
+      + '      <label class="pw-search"><span class="pw-lbl">FIND</span>'
+      + '        <input id="pwFind" type="search" placeholder="protein, complex, drug…" aria-label="Find a molecule"></label>'
+      + '      <span class="pw-lbl">LEVEL</span><div class="pw-seg" id="pwLevel" role="group" aria-label="Explanation level">'
+      + '        <button data-lv="beginner">Beginner</button><button data-lv="student" aria-pressed="true">Student</button>'
+      + '        <button data-lv="research">Research</button></div>'
+      + '      <span class="pw-lbl">SHOW</span><div class="pw-seg" id="pwEffect" role="group" aria-label="Filter by effect">'
+      + '        <button data-ef="" aria-pressed="true">All</button><button data-ef="activates">Activating</button>'
+      + '        <button data-ef="inhibits">Inhibiting</button></div>'
+      + '      <div class="pw-seg" id="pwEvid2" role="group" aria-label="Filter by evidence">'
+      + '        <button data-ev="" aria-pressed="true">Any evidence</button><button data-ev="direct">Direct only</button>'
+      + '        <button data-ev="human">Human-relevant</button><button data-ev="contested">Contested</button></div>'
+      + '      <button class="pw-btn" id="pwFocus" aria-pressed="false">Focus mode</button>'
+      + '      <button class="pw-btn" id="pwReset">Reset view</button>'
+      + "    </div></div>"
+      + '  <div id="pwGuidedUI" class="pw-hide"><div class="pw-routes" id="pwRoutes"></div>'
+      + '    <div class="pw-prog" id="pwProg"></div><div class="pw-step" id="pwStep"></div></div>'
+      + '  <div class="pw-stage pw-hide" id="pwStageWrap">'
+      + '    <div class="pw-canvas" id="pwCanvas">'
+      + '      <div class="pw-zoom"><button id="pwIn" aria-label="Zoom in">+</button>'
+      + '        <button id="pwOut" aria-label="Zoom out">−</button><button id="pwFit" aria-label="Fit to view">⤢</button></div>'
+      + '      <div class="pw-hint" id="pwHintBox">Drag to pan · scroll to zoom · click any arrow</div></div>'
+      + '    <div class="pw-insp" id="pwInsp" aria-live="polite"></div>'
+      + "  </div>"
+      + '  <details class="pw-legend"><summary>Visual language — what every line and box means</summary>'
+      + '    <div class="pw-legend-grid">' + legend() + "</div></details>"
+      + "</div></div>";
+  }
+
+  function legend() {
+    function line(cls, mark, txt) {
+      return '<div><svg width="46" height="14"><defs></defs><path class="pw-e ' + cls
+        + '" d="M2,7 H34" marker-end="url(#' + mark + ')"/></svg>' + txt + "</div>";
+    }
+    return line("f-activates m-high d-direct", "pwArrowA", "<b>Activates</b> — direct, high confidence")
+      + line("f-inhibits m-high d-direct", "pwBar", "<b>Inhibits</b> — bar terminus, never just colour")
+      + line("f-required-for m-medium d-direct", "pwChev", "<b>Required for / recruits</b> — enables, does not switch on")
+      + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical interaction, no directional claim")
+      + line("f-activates m-medium d-indirect", "pwArrowA", "<b>Long dash</b> — indirect: more than one molecular step")
+      + line("f-activates m-low d-unresolved", "pwArrowA", "<b>Dotted + thin</b> — unresolved mechanism, low confidence")
+      + '<div><svg width="46" height="16"><rect class="nb" x="2" y="3" width="30" height="11" fill="var(--paper)" stroke="var(--line-strong)"/></svg>Protein</div>'
+      + '<div><svg width="46" height="16"><rect x="2" y="2" width="32" height="13" fill="var(--paper)" stroke="var(--line-strong)" stroke-width="1.8"/><rect x="5" y="5" width="26" height="7" fill="none" stroke="var(--line-strong)"/></svg><b>Complex</b> — double border</div>'
+      + '<div><svg width="46" height="16"><rect x="2" y="3" width="30" height="11" fill="none" stroke="var(--line-strong)" stroke-dasharray="5 3"/></svg>Process</div>'
+      + '<div><svg width="46" height="16"><rect x="2" y="3" width="30" height="11" fill="none" stroke="var(--line-strong)" stroke-dasharray="3 3"/></svg><i>Outcome / disease</i> — not a molecule</div>'
+      + '<div><svg width="46" height="16"><path d="M2,8 H34" stroke="var(--amber)" stroke-width="6" opacity=".25"/><path d="M2,8 H34" stroke="var(--danger)" stroke-width="2"/></svg><b>Amber halo</b> — the field disagrees</div>'
+      + '<div><svg width="46" height="16"><text x="16" y="12" font-family="IBM Plex Mono" font-size="9" fill="var(--ink-soft)">GAP</text></svg>Mid-line tag = mechanistic verb</div>';
+  }
+
+  /* ==== interaction wiring ============================================= */
+  function wire() {
+    // canvas events
+    var drag = null;
+    el.canvas.addEventListener("pointerdown", function (ev) {
+      if (ev.target.closest(".pw-zoom")) return;
+      drag = { x: ev.clientX, y: ev.clientY, cx: S.cam.x, cy: S.cam.y, moved: 0 };
+      el.canvas.classList.add("grabbing");
+      el.canvas.setPointerCapture(ev.pointerId);
+    });
+    el.canvas.addEventListener("pointermove", function (ev) {
+      if (!drag) return;
+      var r = el.canvas.getBoundingClientRect();
+      var dx = (ev.clientX - drag.x) / r.width * S.cam.w, dy = (ev.clientY - drag.y) / r.height * S.cam.h;
+      drag.moved = Math.max(drag.moved, Math.abs(ev.clientX - drag.x) + Math.abs(ev.clientY - drag.y));
+      S.cam.x = drag.cx - dx; S.cam.y = drag.cy - dy; applyCam();
+    });
+    el.canvas.addEventListener("pointerup", function (ev) {
+      var wasDrag = drag && drag.moved > 6;
+      drag = null; el.canvas.classList.remove("grabbing");
+      if (wasDrag) return;
+      var t = ev.target;
+      var e1 = t.closest ? t.closest("[data-eid]") : null;
+      var n1 = t.closest ? t.closest(".pw-n") : null;
+      if (e1) { inspectEdge(e1.dataset.eid); paint(); }
+      else if (n1) { inspectNode(n1.dataset.nid); paint(); }
+    });
+    el.canvas.addEventListener("wheel", function (ev) {
+      ev.preventDefault();
+      zoomAt(ev.clientX, ev.clientY, ev.deltaY > 0 ? 1.14 : 1 / 1.14);
+      paint();
+    }, { passive: false });
+    // pinch
+    var pts = {};
+    el.canvas.addEventListener("pointerdown", function (e) { pts[e.pointerId] = e; });
+    el.canvas.addEventListener("pointerup", function (e) { delete pts[e.pointerId]; });
+    el.canvas.addEventListener("pointermove", function (e) {
+      if (!pts[e.pointerId]) return;
+      pts[e.pointerId] = e;
+      var ids = Object.keys(pts);
+      if (ids.length !== 2) return;
+      var a = pts[ids[0]], b = pts[ids[1]];
+      var d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+      if (el.canvas._pd) {
+        zoomAt((a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2, el.canvas._pd / d);
+      }
+      el.canvas._pd = d;
+    });
+    el.canvas.addEventListener("pointercancel", function () { el.canvas._pd = null; });
+
+    $("pwIn").addEventListener("click", function () { var r = el.canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1 / 1.35); paint(); });
+    $("pwOut").addEventListener("click", function () { var r = el.canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1.35); paint(); });
+    $("pwFit").addEventListener("click", function () { fitAll(); paint(); });
+    $("pwReset").addEventListener("click", function () {
+      S.focus = null; S.filters = { effect: null, evidence: null, physOnly: false };
+      el.focusBtn.setAttribute("aria-pressed", "false");
+      el.explorerUI.querySelectorAll("#pwEffect button,#pwEvid2 button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(!b.dataset.ef && !b.dataset.ev));
+      });
+      el.find.value = ""; inspectDefault(); fitAll(); paint();
+    });
+    el.focusBtn.addEventListener("click", function () {
+      if (S.focus) { S.focus = null; el.focusBtn.setAttribute("aria-pressed", "false"); fitAll(); }
+      else if (S.selKind === "node") { S.focus = S.sel; el.focusBtn.setAttribute("aria-pressed", "true"); frameNode(S.focus); }
+      else { say("Select a molecule first, then switch on focus mode."); }
+      paint();
+    });
+
+    // segmented controls
+    function seg(container, attr, apply) {
+      container.querySelectorAll("button").forEach(function (b) {
+        b.addEventListener("click", function () {
+          container.querySelectorAll("button").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+          b.setAttribute("aria-pressed", "true");
+          apply(b.dataset[attr] || null);
+        });
+      });
+    }
+    seg($("pwLevel"), "lv", function (v) {
+      S.level = v || "student";
+      if (S.selKind === "node") inspectNode(S.sel); else if (S.selKind === "edge") inspectEdge(S.sel);
+      say("Explanation level: " + S.level + ". The network is unchanged — only the words change.");
+    });
+    seg($("pwEffect"), "ef", function (v) { S.filters.effect = v; paint(); });
+    seg($("pwEvid2"), "ev", function (v) { S.filters.evidence = v; paint(); });
+
+    // search
+    el.find.addEventListener("input", function () {
+      var q = el.find.value.trim().toLowerCase();
+      if (!q) { paint(); return; }
+      var hit = M.nodes.filter(function (n) { return n.label.toLowerCase().indexOf(q) >= 0; });
+      el.svg.querySelectorAll(".pw-n").forEach(function (g) {
+        g.classList.toggle("dim", !hit.some(function (n) { return n.id === g.dataset.nid; }));
+      });
+      if (hit.length === 1) { frameNode(hit[0].id); inspectNode(hit[0].id); }
+      say(hit.length + " molecules match " + q);
+    });
+    el.find.addEventListener("keydown", function (ev) {
+      if (ev.key !== "Enter") return;
+      var q = el.find.value.trim().toLowerCase();
+      var hit = M.nodes.filter(function (n) { return n.label.toLowerCase().indexOf(q) >= 0; })[0];
+      if (hit) { frameNode(hit.id); inspectNode(hit.id); paint(); }
+    });
+
+    // keyboard on nodes
+    el.canvas.addEventListener("keydown", function (ev) {
+      var g = ev.target.closest ? ev.target.closest(".pw-n") : null;
+      if (g && (ev.key === "Enter" || ev.key === " ")) {
+        ev.preventDefault(); inspectNode(g.dataset.nid); frameNode(g.dataset.nid); paint();
+      }
+      if (ev.key === "Escape") { S.focus = null; inspectDefault(); fitAll(); paint(); }
+      if (ev.key === "+" || ev.key === "=") { var r = el.canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1 / 1.3); }
+      if (ev.key === "-") { var r2 = el.canvas.getBoundingClientRect(); zoomAt(r2.left + r2.width / 2, r2.top + r2.height / 2, 1.3); }
+      if (ev.key === "0") fitAll();
+    });
+
+    // route step keys
+    document.addEventListener("keydown", function (ev) {
+      if (S.mode !== "guided" || S.step < 0) return;
+      if (ev.target.tagName === "INPUT") return;
+      if (ev.key === "ArrowRight") { var n = $("pwNext"); if (n) n.click(); }
+      if (ev.key === "ArrowLeft") { var p = $("pwPrev"); if (p && !p.disabled) p.click(); }
+    });
+
+    // mode tabs
+    ["overview", "explorer", "guided", "scenarios"].forEach(function (k) {
+      $("pwMode-" + k).addEventListener("click", function () { setMode(k); });
+    });
+
+    window.addEventListener("resize", function () {
+      if (S.mode === "explorer" || S.mode === "guided") { fitAll(); paint(); }
+    });
+  }
+
+  /* ==== boot =========================================================== */
+  function index() {
+    M.nodeIx = {}; M.edgeIx = {}; M.compIx = {}; M.routeIx = {};
+    M.nodes.forEach(function (n) { M.nodeIx[n.id] = n; });
+    M.interactions.forEach(function (e) { M.edgeIx[e.id] = e; });
+    M.compartments.forEach(function (c) { M.compIx[c.id] = c; });
+    M.routes.forEach(function (r) { M.routeIx[r.id] = r; });
+  }
+
+  function mount(host) {
+    host.innerHTML = shell();
+    el.ov = $("pwOverview"); el.scen = $("pwScen");
+    el.explorerUI = $("pwExplorerUI"); el.guidedUI = $("pwGuidedUI");
+    el.stageWrap = $("pwStageWrap"); el.canvas = $("pwCanvas"); el.insp = $("pwInsp");
+    el.routes = $("pwRoutes"); el.prog = $("pwProg"); el.step = $("pwStep");
+    el.find = $("pwFind"); el.focusBtn = $("pwFocus"); el.sr = $("pwSR");
+
+    assignLanes();
+    el.canvas.insertAdjacentHTML("afterbegin", buildSVG());
+    el.svg = el.canvas.querySelector("svg");
+    renderOverview();
+    wire();
+    fitAll();
+    inspectDefault();
+    paint();
+    setMode(S.mode);
+  }
+
+  var booted = false;
+  window.PathwayApp = {
+    boot: function (host, modelUrl) {
+      if (booted) return Promise.resolve();
+      booted = true;
+      return fetch(modelUrl, { cache: "no-cache" })
+        .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+        .then(function (json) { M = json; index(); mount(host); return M.meta; })
+        .catch(function (err) {
+          booted = false;
+          host.innerHTML = '<div class="pw"><div class="pw-step"><h4>Pathway model could not be loaded</h4>'
+            + '<p class="pw-empty">' + esc(String(err)) + ". The mechanism data lives in pathway/model.json; "
+            + "if you are running this from a local file rather than a web server, the browser will block the fetch.</p></div></div>";
+          throw err;
+        });
+    },
+    setMode: function (m) { if (M) setMode(m); }
+  };
+})();

@@ -25,6 +25,25 @@ if ! python3 validate_claims.py --strict --json atlas_data/claim_validation.json
 fi
 
 echo
+echo "=== pathway model gate (Pathway & Mechanism 2.0) ==="
+# Dvě nezávislé branky. Validátor hlídá kalibraci a integritu modelu,
+# smoke test hlídá, že se to skutečně vykreslí a že trasy učí to, co mají.
+# Ani jedna nenahrazuje druhou: přeznačení RAG-MTORC1 z "recruitment" na
+# "activation" projde validátorem a padne na smoke testu.
+if ! python3 validate_pathway.py --strict; then
+    echo "ABORTED: pathway/model.json failed the scientific calibration gate."
+    exit 1
+fi
+if command -v node >/dev/null 2>&1; then
+    if ! node pathway/smoke_test.js; then
+        echo "ABORTED: pathway explorer smoke test failed."
+        exit 1
+    fi
+else
+    echo "  (node not available - skipping the 1150-assertion explorer smoke test)"
+fi
+
+echo
 echo "=== rebuild deep-search chunk index (local only) ==="
 python3 atlas_fulltext/build_chunk_index.py || echo "  (chunk index build failed - continuing with existing chunk_index.json)"
 

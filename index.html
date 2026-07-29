@@ -1555,9 +1555,10 @@ html.force-desktop .mnav-scrim{display:none !important;}
       <div class="ase-eyebrow">Oliver's mTOR Atlas · <b>Pathway</b></div>
       <h2 class="ase-title">The mTOR pathway, mapped end to end.</h2>
     </div>
+<!-- PATHWAY-2.0 -->
     <div class="subtab-bar">
-      <button class="subtab-btn active" id="btnPwEntities" onclick="setPathwayMode('entities')" type="button">Entity Map</button>
-      <button class="subtab-btn" id="btnPwMechanism" onclick="setPathwayMode('mechanism')" type="button">Mechanism Explorer</button>
+      <button class="subtab-btn active" id="btnPwMechanism" onclick="setPathwayMode('mechanism')" type="button">Pathway &amp; Mechanism</button>
+      <button class="subtab-btn" id="btnPwEntities" onclick="setPathwayMode('entities')" type="button">Entity Browser</button>
     </div>
     <div class="grid" id="pwEntitiesPane">
       <div class="rail-left">
@@ -1569,10 +1570,7 @@ html.force-desktop .mnav-scrim{display:none !important;}
         <div class="graph-wrap">
           <div class="graph-caption">
             <span>Knowledge Graph — shared studies</span>
-            <div class="map-toggle">
-              <button class="map-toggle-btn" id="btnFocusMap" onclick="setMapMode('focus')" type="button">Focused</button>
-              <button class="map-toggle-btn active" id="btnFullMap" onclick="setMapMode('full')" type="button">Full Pathway Map</button>
-            </div>
+            <span class="hint" style="font-size:10px;">shared-study links only — for mechanism, see Pathway &amp; Mechanism</span>
             <span class="hint" id="graphHint">click any node to open its detail</span>
           </div>
           <div id="graphContainer" style="display:none;"></div>
@@ -1582,28 +1580,8 @@ html.force-desktop .mnav-scrim{display:none !important;}
       </div>
     </div>
     <div id="mechanismView" style="display:none;">
-      <div class="mx-wrap">
-        <div class="mx-routebar" id="mxRouteBar"></div>
-        <div class="mx-head">
-          <div class="mx-sub" id="mxSub"></div>
-          <button class="mx-playbtn" id="mxPlay" type="button" onclick="mxPlayRoute()">▶ Play the route</button>
-        </div>
-        <div class="mx-grid">
-          <div class="mx-canvas" id="mxCanvas"></div>
-          <div class="mx-panel" id="mxPanel"></div>
-        </div>
-        <div class="mx-legend">
-          <span><i class="mx-lswatch" style="border-top-color:var(--tier-a)"></i>activates</span>
-          <span><i class="mx-lswatch" style="border-top-color:var(--danger)"></i>inhibits</span>
-          <span><i class="mx-lswatch" style="border-top-color:var(--tier-b)"></i>binds</span>
-          <span><i class="mx-lswatch" style="border-top-color:var(--pp)"></i>required for</span>
-          <span><i class="mx-lswatch" style="border-top-color:#1F8A8A"></i>recruits</span>
-          <span><i class="mx-lswatch" style="border-top-color:var(--ink-soft);border-top-style:dashed"></i>contested / context-dependent</span>
-          <span>thicker line = stronger evidence tier · badge = best tier behind that step</span>
-        </div>
-        <div class="mx-caveat">
-          <b>Read the badges, not just the arrows.</b> Nearly every step in the sensor branch rests on tier&nbsp;D evidence — cell culture and structures, not organisms. That is not a flaw in the drawing; it is the actual state of the field, and it is what the Atlas exists to make visible. Every edge here cites at least one study in this corpus; nothing is drawn from memory. Edges are curated and carry a review status — <span class="mx-pill">Proposed</span> means awaiting reviewer sign-off.
-        </div>
+      <div id="pathwayHost">
+        <noscript><p style="padding:18px 0;">The Pathway &amp; Mechanism explorer needs JavaScript. Every study and entity in the Atlas is also available as a plain HTML page — see the sitemap.</p></noscript>
       </div>
     </div>
   </div>
@@ -4083,18 +4061,43 @@ function mxNodeOpen(ent){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
+function pwLoadAsset(tag, attrs){
+  return new Promise(function(res, rej){
+    var e = document.createElement(tag);
+    Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+    e.onload = res; e.onerror = function(){ rej(new Error("failed to load " + (attrs.src||attrs.href))); };
+    document.head.appendChild(e);
+  });
+}
+/* Pathway & Mechanism 2.0 se stahuje teprve při prvním otevření tabu.
+   Model má ~150 kB a modul ~40 kB; drží se to mimo first paint, což je
+   celý důvod, proč sekce už nežije v index.html. */
+var pwLoading = null;
+function pwEnsure(){
+  if(pwLoading) return pwLoading;
+  var host = document.getElementById("pathwayHost");
+  host.innerHTML = '<p class="mono" style="padding:26px 0;color:var(--ink-soft);font-size:12px;">'
+    + 'loading pathway model\u2026</p>';
+  pwLoading = pwLoadAsset("link", {rel:"stylesheet", href:"pathway/pathway.css"})
+    .then(function(){ return pwLoadAsset("script", {src:"pathway/pathway.js", defer:"defer"}); })
+    .then(function(){ return window.PathwayApp.boot(host, "pathway/model.json"); })
+    .catch(function(err){ pwLoading = null; throw err; });
+  return pwLoading;
+}
 function setPathwayMode(mode){
-  const ent = document.getElementById("pwEntitiesPane");
-  const mech = document.getElementById("mechanismView");
-  const bE = document.getElementById("btnPwEntities");
-  const bM = document.getElementById("btnPwMechanism");
-  if(ent) ent.style.display = (mode==="mechanism") ? "none" : "";
-  if(mech) mech.style.display = (mode==="mechanism") ? "" : "none";
-  if(bE) bE.classList.toggle("active", mode!=="mechanism");
-  if(bM) bM.classList.toggle("active", mode==="mechanism");
+  var ent  = document.getElementById("pwEntitiesPane");
+  var mech = document.getElementById("mechanismView");
+  var bE = document.getElementById("btnPwEntities");
+  var bM = document.getElementById("btnPwMechanism");
+  var showMech = (mode !== "entities");
+  if(ent)  ent.style.display  = showMech ? "none" : "";
+  if(mech) mech.style.display = showMech ? "" : "none";
+  if(bE) bE.classList.toggle("active", !showMech);
+  if(bM) bM.classList.toggle("active", showMech);
+  if(showMech) pwEnsure().catch(function(e){ console.error(e); });
 }
 
-function mxSetRoute(id){ mxRouteId = id; mxSel = null; renderMechanism(); }
+function mxSetRoute(id){ mxRouteId = id; mxSel = null; /* deprecated by Pathway 2.0 — see build_pathway_model.py: renderMechanism(); */ }
 
 function mxPlayRoute(){
   if(mxPlaying) return;
@@ -4158,7 +4161,7 @@ function renderMechanism(){
 }
 
 function renderAll(){
-  renderTree(); renderGraph(); renderFullMap(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable(); renderMechanism();
+  renderTree(); renderGraph(); renderFullMap(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable(); /* deprecated by Pathway 2.0 — see build_pathway_model.py: renderMechanism(); */
 }
 
 let currentView = 'welcome';
