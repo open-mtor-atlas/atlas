@@ -69,6 +69,15 @@ def main():
     html = io.open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     errs, warns = [], []
 
+    # Read the EFFECTIVE value, not the first one.
+    #
+    # The first version of this gate parsed only the first `:root{` block and
+    # therefore validated values that were not what the browser painted: a
+    # later `html:not([data-theme="dark"])` rule -- added months earlier to fix
+    # the contrast of the OLD amber/grey tiers -- still overrode --tier-c and
+    # --tier-d. The gate reported a clean equal-luminance palette while the live
+    # site showed the ramp. Same blind-spot class as an unscoped querySelector:
+    # checking a value that is not the one in force is not a check.
     i = html.find(":root{")
     light_block = html[i:html.find("}", i)]
     j = html.find('[data-theme="dark"]{')
@@ -76,6 +85,21 @@ def main():
 
     light = {k: grab(light_block, k) for k in TIERS + STATUS}
     dark = {k: grab(dark_block, k) for k in TIERS + STATUS}
+
+    # Any tier variable redefined outside those two blocks wins in the cascade
+    # and must be treated as an error, not silently ignored.
+    for k in TIERS + STATUS:
+        hits = [m.start() for m in re.finditer(r"--tier-%s\s*:" % k, html)]
+        outside = [h for h in hits
+                   if not (i <= h < html.find("}", i) or j <= h < html.find("}", j))]
+        if outside:
+            errs.append("--tier-%s is redefined outside :root and the dark theme (at %s). "
+                        "That override is what the browser actually paints, so this gate "
+                        "would be validating a value nobody sees."
+                        % (k, ", ".join(str(o) for o in outside)))
+        if len(hits) > 2:
+            errs.append("--tier-%s has %d definitions; expected exactly 2 (light + dark)"
+                        % (k, len(hits)))
     for k in TIERS + STATUS:
         if not light[k]:
             errs.append("--tier-%s missing from :root" % k)
@@ -124,6 +148,19 @@ def main():
             if d < 110:
                 errs.append("tier %s collides with the %s brand colour (%d apart)"
                             % (k.upper(), bk, d))
+
+    # 4b. a tier letter must never appear without its meaning, and must never be
+    #     described as a "strength". The live badges carried title="Evidence
+    #     strength" — the exact framing the review objected to, baked into the
+    #     markup while TIER_LABELS sat unused one call site away.
+    if 'title="Evidence strength"' in html:
+        errs.append('a tier badge is still labelled "Evidence strength". A tier records the '
+                    "KIND of study, not its strength; that title is the misreading itself.")
+    if "function tierTitle(" not in html:
+        errs.append("tierTitle() is gone — tier letters would render without their meaning")
+    if html.count("tierTitle(") < 4:
+        errs.append("tierTitle() has only %d call sites; every badge emitter must use it, "
+                    "or some letters stand alone again" % html.count("tierTitle("))
 
     # 5. status tiers must render outlined, not filled
     if "status:true" not in html:

@@ -1090,10 +1090,13 @@ svg:not(#lineageTree):not(.fullmap-scroll svg):not(.mx-canvas svg){max-width:100
    Scoped with :not([data-theme="dark"]) so the dark palette - which
    already measures 5.5-8.0:1 - is left untouched. */
 html:not([data-theme="dark"]){
-  --tier-c:#A56827;   /* 4.56:1 with white */
-  --tier-d:#7C7569;   /* 4.56:1 on white   */
-  --amber:#A56827;
-}
+  /* --tier-c and --tier-d used to be overridden here to reach 4.56:1, because
+     the old amber/grey tier palette failed WCAG AA for white badge text. The
+     new equal-luminance palette in :root already measures 6.4:1, so those two
+     overrides are gone -- keeping them would have quietly restored the very
+     amber-and-grey ramp the recolour removed. --amber is a separate token used
+     for warnings and rules, and its contrast fix still stands. */
+  --amber:#A56827; }
 
 /* -- visible focus for keyboard users, everywhere -- */
 a:focus-visible,button:focus-visible,input:focus-visible,
@@ -3503,7 +3506,7 @@ function renderDetail(){
       <div class="finding">${s.finding}${moreLink}</div>
       ${abstractBox}
       <div class="m"><span>${s.authors}</span><span>·</span><span>${s.year||'ongoing'}</span><span>·</span><span>${s.journal}</span>
-      <span class="tier-pill" style="background:${tm.color}" title="Evidence strength">${tm.letter}</span>
+      <span class="tier-pill${tm.status?' st':''}" style="${tm.status?`color:${tm.color};border:1.5px solid ${tm.color};background:transparent`:`background:${tm.color}`}" title="${tierTitle(tm.letter)}" aria-label="Evidence tier ${tm.letter}: ${tierTitle(tm.letter)}">${tm.letter}</span>
       <span class="tier-pill" style="background:${pm.color}" title="${pm.label} (study type)">${pm.code}</span>
       ${s.doi && s.doi.startsWith('10.') ? `<a class="doi-link" href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>`:`<span class="mono" style="font-size:10px;">${s.doi}</span>`}
       </div></div>`;
@@ -3639,7 +3642,7 @@ function renderStudiesTable(){
       <td><div class="study-title">${s.title}</div><div class="study-meta">${s.authors} · <i>${s.journal}</i>${flag}</div></td>
       <td class="mono">${s.year||'—'}</td>
       <td>${s.model}</td>
-      <td><span class="tier-pill" style="background:${tm.color}" title="Evidence strength">${tm.letter}</span></td>
+      <td><span class="tier-pill${tm.status?' st':''}" style="${tm.status?`color:${tm.color};border:1.5px solid ${tm.color};background:transparent`:`background:${tm.color}`}" title="${tierTitle(tm.letter)}" aria-label="Evidence tier ${tm.letter}: ${tierTitle(tm.letter)}">${tm.letter}</span></td>
       <td><span class="tier-pill" style="background:${pm.color}" title="${pm.label}">${pm.code}</span></td>
       <td>${s.doi.startsWith('10.') ? `<a class="doi-link" href="https://doi.org/${s.doi}" target="_blank">${s.doi}</a>` : `<span class="mono" style="font-size:10.5px;">${s.doi}</span>`}${s.sid ? `<br><a class="doi-link" href="/study/${s.sid}/" onclick="event.stopPropagation()">Atlas page &rarr;</a>` : ``}</td>
     </tr>`;
@@ -4089,7 +4092,7 @@ function mxPanelEdge(e){
     const tm = tierMeta(s.tier);
     const first = s.authors ? String(s.authors).split(";")[0].trim() : "";
     return `<button class="mx-ev" data-sid="${mxEsc(sid)}" type="button"><span class="mx-ev-t">${mxEsc(s.title)}</span>`
-      + `<span class="mx-ev-m"><span class="mx-tierdot" style="background:${tm.color}">${tm.letter}</span>`
+      + `<span class="mx-ev-m"><span class="mx-tierdot" style="background:${tm.color}" title="${tierTitle(tm.letter)}">${tm.letter}</span>`
       + `${mxEsc(first)}${first?" · ":""}${mxEsc(s.year||"")} · ${mxEsc(sid)}</span></button>`;
   }).join("");
   return `<h4>${mxEsc(S)} <span style="color:${sg.c}">${mxEsc(sg.label)}</span> ${mxEsc(T)}</h4>`
