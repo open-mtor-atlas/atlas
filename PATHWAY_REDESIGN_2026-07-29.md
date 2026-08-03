@@ -40,7 +40,7 @@ That fourth point is the one everyone else omits, and it is where the Atlas can 
 | Learning levels | None | Three, switching text only |
 | Zoom / pan / search | None (a `min-width:940px` scroll box) | Full camera, search, focus mode, four filter axes |
 | Payload | Inside a 1.5 MB `index.html` | Lazy module, fetched on first open |
-| Tests | None | 1 195 assertions, mutation-verified, plus a live-page gate |
+| Tests | None | 1 404 assertions, mutation-verified, plus a live-page gate |
 
 ---
 
@@ -358,7 +358,7 @@ The layout engine, camera, inspector, evidence system, route engine and validato
 | C11 | Mobile bottom sheet, pinch, auto-framing, 44 px targets | ✅ |
 | C12 | Accessibility: keyboard graph, live region, shape-not-colour | ✅ 4 invariants tested |
 | C13 | Lazy-loaded module out of `index.html` | ✅ |
-| C14 | Automated validation gates | ✅ validator + 1 195 assertions, mutation-verified |
+| C14 | Automated validation gates | ✅ validator + 1 404 assertions, mutation-verified |
 | C15 | Detail control so the explorer never opens as a hairball | ✅ Core 51 / Full 100, withholding announced |
 | C16 | Content-hash cache-busting for the lazy assets | ✅ `stamp_pathway_version.py`, wired into deploy |
 | C17 | Camera reaches its target in a throttled tab | ✅ + a test that stubs rAF dead |
@@ -474,7 +474,7 @@ The right claim to make today is: *the framework is ready for review; the corpus
 | `validate_pathway.py` | Structural + scientific calibration gate. `--strict` blocks deploy |
 | `pathway/pathway.js` | The module: overview, explorer, camera, inspector, route engine |
 | `pathway/pathway.css` | Visual language; shape-and-weight encoding, mobile bottom sheet |
-| `pathway/smoke_test.js` | 1 195 assertions in jsdom, mutation-verified |
+| `pathway/smoke_test.js` | 1 404 assertions in jsdom, mutation-verified |
 | `stamp_pathway_version.py` | Hashes the three lazy assets into `PW_ASSET_V` so the CDN cannot serve a stale module |
 | `_inject_pathway2.py` | Makes `showView('map')` initialise the pathway mode; adds `?pw=` deep-links |
 | `_inject_pathway.py` | Idempotent wiring into `index.html` with write verification |
@@ -485,6 +485,41 @@ The right claim to make today is: *the framework is ready for review; the corpus
 ```bash
 py build_pathway_model.py      # regenerate model.json
 py validate_pathway.py --strict # scientific + structural gate
-node pathway/smoke_test.js      # 1 195 rendering / pedagogy assertions
+node pathway/smoke_test.js      # 1 404 rendering / pedagogy assertions
 py stamp_pathway_version.py     # cache-bust the lazy assets (deploy.sh does this)
 ```
+
+---
+
+## 20. Second scientific review pass — what changed
+
+An external review of the shipped section raised eight findings. All eight are addressed; two of them were *already implemented and undiscoverable*, which is a design failure rather than a data gap.
+
+| # | Finding | Response |
+|---|---|---|
+| 1 | Map reads as verified fact; needs a context-dependence notice | Standing notice above every panel + `context_note` on 13 interactions where it bites hardest. The reviewer's own example is now explicit on the edge. |
+| 2 | Nodes all look equally important | Derived per-node evidence: studies in corpus, strongest tier, earliest cited year, interaction count, distinct mechanisms. Border weight reflects it; number is in the inspector and the aria-label. |
+| 3 | No temporal dynamics — "the biggest biological gap" | Cumulative **BY TIME** control (s → min → hr → chronic). 35 → 52 → 60 → 61 interactions: the network unfolds. |
+| 4 | Feedback loops not prominent; map reads linear | Cycles **detected in the build**, collapsed to 4 distinct mechanisms, named and explained. Loops the map *cannot* close are declared. |
+| 6 | Wants phosphorylates / translocates / stabilizes / degrades | First two already existed among 20 types — **the legend only listed effects**, so types were invisible. Legend rebuilt around two axes; `stabilization` and `degradation` added. |
+| 7 | Same molecule does different things in different contexts | `context_roles` for 15 multi-role molecules. |
+| 8 | Separate Pathway from Mechanism more sharply | **VIEW: Mechanism (61) / Pathway (100)** replaces the Core/Full toggle. |
+| 9 | Tier letters read as a quality grade | A tier letter is never rendered without its meaning; panel states tiers describe study *kind*, not quality. |
+
+### The two findings that were really design failures
+
+**Finding 6 was a legend bug.** `phosphorylation`, `translocation`, `dephosphorylation` and 17 other mechanistic types had been in the model since Phase 1, each rendered as a mid-line tag — but the tags only appear below viewBox width 1100, and the legend listed only the four *effects*. A reviewer reading the legend correctly concluded the types did not exist. The lesson: **a capability the legend does not describe does not exist to the reader.** The legend now presents effect, certainty and mechanistic type as three labelled axes, with every type in the model enumerated and counted.
+
+**Finding 9 was a surfacing bug.** The Atlas has had `TIER_LABELS` site-wide from the start — A = systematic review/meta-analysis, B = human trial/cohort, C = animal model, D = mechanistic/cell-culture — which is almost exactly the reviewer's proposed vocabulary. The pathway panel rendered the bare letter. Fixed by never rendering a letter without its meaning.
+
+### Where I did not do what was asked
+
+**The site-wide tier recolour.** Amber-and-grey for C and D does read as a quality ramp, and the criticism is fair. But those colours are shared with the Studies tab, every study badge and the evidence matrix; recolouring them inside the pathway module alone would break the "one coherent product" requirement, and recolouring them globally is a cross-page design decision with its own review. Done instead: the letter never appears without its meaning, and the panel states outright that tiers are not a quality score. **The global recolour remains open and is recommended** — categorical hues rather than a green-to-grey ramp.
+
+**Loop sign is a parity, not a strength.** Every detected loop is negative feedback. That is computed from the parity of inhibitory steps, and it ships with a caveat saying so: parity gives direction, not magnitude, and magnitude is exactly what varies by cell type. Weighting loop arms would require quantitative data this corpus does not contain.
+
+### What finding 3 opens up
+
+Timescale was curated per interaction from Phase 1 but only shown as an inspector chip. Making it a *cumulative axis* turns it into the thing the reviewer identified: the map stops being a circuit diagram and starts being a sequence. It is also the cheapest route to the standout feature in §17 — a "what happens in the first 30 seconds versus the first six hours" reading of the same network, which no other pathway resource offers, because no other resource records timescale per interaction.
+
+The honest limit: six ordinal buckets are not kinetics. There are no rate constants here, and there should not be — the Atlas has no data to support them. The control answers *what has happened by now*, not *how fast*.
