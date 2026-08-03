@@ -504,7 +504,7 @@ An external review of the shipped section raised eight findings. All eight are a
 | 6 | Wants phosphorylates / translocates / stabilizes / degrades | First two already existed among 20 types — **the legend only listed effects**, so types were invisible. Legend rebuilt around two axes; `stabilization` and `degradation` added. |
 | 7 | Same molecule does different things in different contexts | `context_roles` for 15 multi-role molecules. |
 | 8 | Separate Pathway from Mechanism more sharply | **VIEW: Mechanism (61) / Pathway (100)** replaces the Core/Full toggle. |
-| 9 | Tier letters read as a quality grade | A tier letter is never rendered without its meaning; panel states tiers describe study *kind*, not quality. |
+| 9 | Tier letters read as a quality grade | **Global recolour done.** Four study types at equal luminance (ramp 59× flatter), PP/RT outlined as status, every letter carries its meaning, new palette gate. |
 
 ### The two findings that were really design failures
 
@@ -514,7 +514,27 @@ An external review of the shipped section raised eight findings. All eight are a
 
 ### Where I did not do what was asked
 
-**The site-wide tier recolour.** Amber-and-grey for C and D does read as a quality ramp, and the criticism is fair. But those colours are shared with the Studies tab, every study badge and the evidence matrix; recolouring them inside the pathway module alone would break the "one coherent product" requirement, and recolouring them globally is a cross-page design decision with its own review. Done instead: the letter never appears without its meaning, and the panel states outright that tiers are not a quality score. **The global recolour remains open and is recommended** — categorical hues rather than a green-to-grey ramp.
+**~~The site-wide tier recolour.~~ Done — and it was bigger than a swatch swap.**
+
+The old palette ran green → blue → amber → grey: vivid to dull, which reads as a ranking, so tier D looked like bad science when it only means *mechanistic work in cells*. The fix is a **rule**, not four new colours:
+
+- The four study types sit at **equal relative luminance**. Spread across A–D is **0.0018, down from 0.1065 — 59× flatter.** With equal brightness no tier can look better than another; only hue differs, and hue encodes the system studied: A/B human, C animal, D molecular. Chosen by solving for target luminance per hue, because equal *HSL lightness* makes the ramp worse (green reads far brighter than violet at the same L).
+- Every pair is ≥107 apart, so they remain tellable apart.
+- **PP and RT render outlined, not filled.** They describe how *complete* the evidence is, not what kind it is — a different sort of claim gets a different form, not merely a different hue. This also freed the hue space that four filled tiers needed.
+- A tier letter is **never rendered alone**: `tierTitle()` attaches the descriptive label as tooltip and accessible name at every emitter.
+
+**Two things this fixed that were not in the review.**
+
+*An accessibility failure.* The old tier C (`#C17A2E`) and D (`#8A8375`) carried white badge text at **3.45:1 and 3.76:1 — both below WCAG AA.** All six now exceed 4.5:1 in both themes. The recolour was not only a semantic fix.
+
+*A latent coupling bug.* `pathway.css` coloured its edge effects from `--tier-a` / `--rt` / `--pp`, so recolouring the evidence tiers silently changed what the pathway arrows mean — "activates" would have turned from green to indigo. Edge effects now own `--pw-act` / `--pw-inh` / `--pw-req` / `--pw-bind`. **Two unrelated vocabularies must not share tokens**, and the gate now fails if they ever do again.
+
+**Two more findings that only the live page revealed.** Both were missed by the first version of the gate, and both are the same blind-spot class as the earlier `querySelector` failures:
+
+1. **A stale override was winning the cascade.** An earlier contrast pass had added `html:not([data-theme="dark"]){--tier-c:#A56827;--tier-d:#7C7569}` *because the old tiers failed contrast*. It still applied, so the live light theme showed amber C and grey D — the exact ramp being removed — while `:root` held the new values. The gate had parsed only the first `:root{` block and so **validated values the browser never painted.** It now rejects any `--tier-*` defined outside the two theme blocks and requires exactly two definitions per token. *Checking a value that is not the one in force is not a check.*
+2. **The badges were labelled `title="Evidence strength"`** — the misreading itself, hard-coded in the markup, while `TIER_LABELS` sat unused one call site away. The gate now fails if that string returns or if `tierTitle()` loses call sites.
+
+New gate: `check_tier_palette.py --strict`, wired into `deploy.sh`. Mutation-verified — restoring the old ramp trips 4 errors, re-adding the override trips 4, re-coupling an edge to a tier variable trips 1, restoring the old title trips 1.
 
 **Loop sign is a parity, not a strength.** Every detected loop is negative feedback. That is computed from the parity of inhibitory steps, and it ships with a caveat saying so: parity gives direction, not magnitude, and magnitude is exactly what varies by cell type. Weighting loop arms would require quantitative data this corpus does not contain.
 
