@@ -61,7 +61,16 @@
   --paper:#FFFFFF; --paper-raised:#FFFFFF; --ink:#0A0A0A; --ink-soft:#55524C;
   --line:rgba(0,0,0,0.13); --line-strong:rgba(0,0,0,0.34);
   --teal:#A31F34; --teal-deep:#7A1626; --amber:#C17A2E; --ep-hyp:#6B4E9E;
-  --tier-a:#2F7A52; --tier-b:#2F6FA8; --tier-c:#C17A2E; --tier-d:#8A8375;
+  /* Evidence tiers describe WHAT KIND OF STUDY produced a finding, not how
+     good it is. The previous palette ran green -> blue -> amber -> grey,
+     which reads as a quality ramp and made tier D look like bad science.
+     These four are at EQUAL RELATIVE LUMINANCE (spread 0.002 vs 0.107
+     before), so no tier can look brighter or duller than another; only
+     hue differs, and hue encodes the system studied: blue = human
+     evidence, teal = human primary, green = animal, violet = molecular.
+     Contrast verified >=4.5:1 for white badge text in both themes. */
+  --tier-a:#4951C8; --tier-b:#226870; --tier-c:#3B6A20; --tier-d:#9632A6;
+  --tier-pp:#484E57; --tier-rt:#6B5413;
   --pp:#8B5FBF; --rt:#5278A6; --danger:#B4442E;
   --on-teal:#ffffff; --on-ink:#ffffff;
 }
@@ -407,6 +416,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .tier-badge{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;color:var(--paper);white-space:nowrap;}
 .tier-A{background:var(--tier-a);} .tier-B{background:var(--tier-b);} .tier-C{background:var(--tier-c);} .tier-D{background:var(--tier-d);}
 .tier-badge{cursor:help;}
+.tier-badge.st,.tier-pill.st{background:transparent !important;}
 .ask-answer{border:1px solid var(--teal-deep);border-left:4px solid var(--teal-deep);background:var(--paper-raised);padding:15px 17px;margin-bottom:16px;}
 .ask-answer .aa-head{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-deep);font-weight:700;margin-bottom:7px;}
 .ask-answer .aa-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.5;color:var(--ink);margin-bottom:8px;}
@@ -633,7 +643,8 @@ html[data-theme="dark"]{
   --paper:#0e1219; --paper-raised:#131a23; --ink:#d4dfe8; --ink-soft:#94adc0;
   --line:rgba(108,168,178,0.1); --line-strong:rgba(108,168,178,0.2);
   --teal:#6ca8b2; --teal-deep:#5a9aaa; --amber:#c4955e; --ep-hyp:#ab90d8;
-  --tier-a:#6ca8b2; --tier-b:#6a9fd4; --tier-c:#c4955e; --tier-d:#6e8fa4;
+  --tier-a:#AEB1E0; --tier-b:#74C0C9; --tier-c:#8AC469; --tier-d:#D4A4DC;
+  --tier-pp:#A7AEBA; --tier-rt:#D3AD43;
   --pp:#a07ac8; --rt:#6a9fd4; --danger:#c4614a;
   --on-teal:#0e1219; --on-ink:#0e1219;
 }
@@ -1675,6 +1686,7 @@ html.force-desktop .mnav-scrim{display:none !important;}
       <div class="matrix-wrap">
         <div class="rail-title" style="margin:0 0 6px;">Two Axes of Evidence</div>
         <p class="matrix-intro">A study's evidence tier (how strong the supporting evidence is) and its study type (what kind of experiment produced it) are two separate things — a mouse study can be extremely well-designed and still cap out at Tier C, simply because it isn't a human. This matrix cross-references both, so you can see, for example, exactly how many of the Atlas's studies are human trials that also carry Tier B evidence.</p>
+        <p class="matrix-intro" style="border-left:2px solid var(--line-strong);padding-left:12px;"><b>A tier is not a grade.</b> The letter records <em>what kind of study</em> produced a finding, not how good that study is. A Tier&nbsp;D structural paper can settle a mechanism outright — it simply is not human evidence. That is why the four tier colours are now at deliberately equal brightness, differing only in hue: <span class="tier-badge" style="background:var(--tier-a)">A</span> and <span class="tier-badge" style="background:var(--tier-b)">B</span> are human evidence, <span class="tier-badge" style="background:var(--tier-c)">C</span> is animal, <span class="tier-badge" style="background:var(--tier-d)">D</span> is molecular. Nothing in the palette ranks them, because ranking them would misrepresent what they mean. Two further markers are drawn <em>outlined</em> rather than filled, because they describe how complete the evidence is rather than what kind it is: <span class="tier-badge st" style="color:var(--tier-pp);border:1.5px solid var(--tier-pp);background:transparent">PP</span> preprint, not yet peer-reviewed, and <span class="tier-badge st" style="color:var(--tier-rt);border:1.5px solid var(--tier-rt);background:transparent">RT</span> registered trial with results pending.</p>
         <div id="tierPyramidMatrix"></div>
       </div>
     </div>
@@ -2792,11 +2804,24 @@ function tierMeta(tier){
   if(/^A/.test(tier)) return {letter:"A",color:"var(--tier-a)"};
   if(/^B/.test(tier)) return {letter:"B",color:"var(--tier-b)"};
   if(/^C/.test(tier)) return {letter:"C",color:"var(--tier-c)"};
-  if(/registered trial/i.test(tier)) return {letter:"RT",color:"var(--rt)"};
-  if(/preprint/i.test(tier)) return {letter:"PP",color:"var(--pp)"};
+  if(/registered trial/i.test(tier)) return {letter:"RT",color:"var(--tier-rt)",status:true};
+  if(/preprint/i.test(tier)) return {letter:"PP",color:"var(--tier-pp)",status:true};
   return {letter:"D",color:"var(--tier-d)"};
 }
 const TIER_LABELS = {A:"systematic review / meta-analysis",B:"human RCT / cohort",C:"animal or invertebrate model",D:"mechanistic / cell-culture / review",PP:"preprint — not yet peer-reviewed",RT:"registered trial, results pending"};
+/* A tier letter must never appear on its own. The letter says WHAT KIND of
+   study produced a finding; alone it reads as a mark out of four, which is
+   how "D" came to look like bad science. Every badge therefore carries the
+   descriptive label as a tooltip and as its accessible name. */
+function tierTitle(letter){ return (TIER_LABELS[letter]||"study type not recorded") + " — this describes the kind of study, not its quality"; }
+function tierBadge(tier, extraClass){
+  const tm = tierMeta(tier);
+  const cls = "tier-badge" + (tm.status ? " st" : "") + (extraClass ? " " + extraClass : "");
+  const style = tm.status ? "color:"+tm.color+";border:1.5px solid "+tm.color+";background:transparent;"
+                          : "background:"+tm.color+";";
+  return '<span class="'+cls+'" style="'+style+'" title="'+tierTitle(tm.letter)+'" '
+       + 'aria-label="Evidence tier '+tm.letter+': '+tierTitle(tm.letter)+'">'+tm.letter+'</span>';
+}
 
 function pyramidMeta(p){
   if(!p) return {code:"—",label:"unclassified",color:"var(--ink-soft)"};
@@ -4109,7 +4134,7 @@ function mxNodeOpen(ent){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
-var PW_ASSET_V = "e856b1b2ccd1";
+var PW_ASSET_V = "a35227e68c92";
 function pwLoadAsset(tag, attrs){
   return new Promise(function(res, rej){
     var e = document.createElement(tag);

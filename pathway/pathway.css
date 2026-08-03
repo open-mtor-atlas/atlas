@@ -132,12 +132,25 @@
 .pw-e.m-high{stroke-width:2.5;}
 .pw-e.m-medium{stroke-width:1.8;}
 .pw-e.m-low{stroke-width:1.2;}
+/* Edge effect colours are DEDICATED variables, not borrowed tier variables.
+   They used to reuse --tier-a / --rt / --pp, which coupled two unrelated
+   concepts: "what this arrow does biologically" and "what kind of study
+   supports a finding". Recolouring the evidence tiers therefore silently
+   changed the meaning of the arrows. Never again — these are independent
+   vocabularies and now have independent tokens.
+
+   Note also: colour is never the only channel here. Effect is additionally
+   encoded by the line terminus (arrowhead / bar / chevron / dot), so these
+   hues are a reinforcement, not the signal. */
+.pw{--pw-act:#2F7A52;--pw-inh:#B4442E;--pw-req:#5278A6;--pw-bind:#8B5FBF;}
+[data-theme="dark"] .pw{--pw-act:#6ca8b2;--pw-inh:#c4614a;--pw-req:#6a9fd4;--pw-bind:#a07ac8;}
+
 /* stroke AND color: the marker glyph inherits `color` from this path, which
    is how the arrowhead / bar / dot ends up the same colour as its line. */
-.pw-e.f-activates{stroke:var(--tier-a);color:var(--tier-a);}
-.pw-e.f-inhibits{stroke:var(--danger);color:var(--danger);}
-.pw-e.f-required-for{stroke:var(--rt);color:var(--rt);}
-.pw-e.f-recruits,.pw-e.f-binds{stroke:var(--pp);color:var(--pp);}
+.pw-e.f-activates{stroke:var(--pw-act);color:var(--pw-act);}
+.pw-e.f-inhibits{stroke:var(--pw-inh);color:var(--pw-inh);}
+.pw-e.f-required-for{stroke:var(--pw-req);color:var(--pw-req);}
+.pw-e.f-recruits,.pw-e.f-binds{stroke:var(--pw-bind);color:var(--pw-bind);}
 .pw-e.f-context-dependent{stroke:var(--ink-soft);color:var(--ink-soft);}
 .pw-e.dim{opacity:.07;}
 .pw-e.sel{stroke-width:4;}
@@ -319,3 +332,14 @@
   .pw-role{grid-template-columns:1fr;gap:2px;}
   .pw-legsec h5 span{float:none;display:block;}
 }
+
+
+/* ---- evidence tiers: study TYPE, not quality ---------------------------
+   Tier chips are filled and equal-luminance so none looks better than
+   another. PP (preprint) and RT (registered trial, results pending) are
+   COMPLETENESS STATUS rather than a kind of study, so they get a different
+   treatment entirely — outlined, which reads as provisional — instead of
+   competing for hue space with the four study types. */
+.pw-dot.st{background:transparent !important;border:1.5px solid currentColor;}
+.pw-tierlegend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 16px;margin-top:10px;}
+.pw-tierlegend div{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);line-height:1.4;}

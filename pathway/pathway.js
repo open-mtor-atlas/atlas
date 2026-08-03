@@ -530,9 +530,18 @@
 
   /* ==== inspector ====================================================== */
   function tierDot(t) {
-    var c = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)" }[t] || "var(--tier-d)";
+    var map = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)",
+                PP: "var(--tier-pp)", RT: "var(--tier-rt)" };
+    var c = map[t] || "var(--tier-d)";
     var meaning = TIER_MEANING[t] || "study type not recorded";
-    return '<i class="pw-dot" style="background:' + c + '" title="' + esc(meaning) + '">' + esc(t || "?") + "</i>";
+    /* PP and RT are completeness STATUS, not a kind of study, so they render
+       outlined rather than filled — a different claim gets a different form,
+       not just a different hue. */
+    var status = (t === "PP" || t === "RT");
+    var style = status ? "color:" + c + ";border:1.5px solid " + c + ";background:transparent;"
+                       : "background:" + c + ";";
+    return '<i class="pw-dot' + (status ? " st" : "") + '" style="' + style
+      + '" title="' + esc(meaning + " — the kind of study, not its quality") + '">' + esc(t || "?") + "</i>";
   }
   /* Never a bare letter. The tier says what KIND of study it is; it is not a
      mark out of four, and a tier-D structural paper can be definitive. */
