@@ -251,7 +251,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   console.log("— click survives pointer capture retargeting —");
   const canvasEl = D.getElementById("pwCanvas");
   inspectDefaultCheck: {
-    D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
     realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="TSC-RHEB"]'));
     const t = D.getElementById("pwInsp").textContent;
     ok(/acts as a GAP on/.test(t), "clicking an arrow populates the inspector despite capture retargeting");
@@ -277,7 +277,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   canvasEl.dispatchEvent(kev);
   ok(/AMPK/.test(D.querySelector("#pwInsp h4").textContent),
     "keyboard Enter on a molecule selects it");
-  D.querySelector('#pwDetail button[data-dt="core"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.querySelector('#pwView button[data-vw="mechanism"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
   console.log("— panel class isolation —");
   w.PathwayApp.setMode("scenarios");
@@ -305,26 +305,75 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(!/NaN|Infinity/.test(vbAfter), "camera target is finite");
   w.requestAnimationFrame = rafBackup;
 
-  console.log("— detail set —");
+  console.log("— abstraction axis: mechanism vs pathway —");
   w.PathwayApp.setMode("explorer");
-  const isCore = (e) => e.directness === "direct" && e.confidence.mechanistic === "high";
-  const coreVisible = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
-  ok(coreVisible.length > 0 && coreVisible.every(isCore),
-    `explorer opens in Core view showing only direct+high steps (${coreVisible.length}/${model.interactions.length})`);
-  ok(coreVisible.length < model.interactions.length,
-    "Core view is genuinely a subset — the explorer does not open as a hairball");
-  ok(/Core view/.test(D.getElementById("pwHintBox").innerHTML),
-    "the canvas states that it is showing a subset, and how big");
-  ok(/Full network/.test(D.getElementById("pwInsp").innerHTML),
-    "the inspector says how to see the withheld interactions");
-  D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-  ok(model.interactions.every((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim")),
-    "Full network reveals every curated interaction");
-  D.querySelector('#pwDetail button[data-dt="core"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const COMPRESSED = { "signal-relay": 1, "functional-consequence": 1, "clinical-outcome": 1, "association": 1 };
+  const isMech = (e) => !COMPRESSED[e.type];
+  const vis = () => model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
+  const mechShown = vis();
+  ok(mechShown.length > 0 && mechShown.every(isMech),
+    `explorer opens in Mechanism view: molecular events only (${mechShown.length}/${model.interactions.length})`);
+  ok(mechShown.length < model.interactions.length, "Mechanism view is a genuine subset");
+  ok(/Mechanism view/.test(D.getElementById("pwHintBox").innerHTML),
+    "the canvas states which abstraction level is shown");
+  D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(vis().length === model.interactions.length, "Pathway view adds the compressed links and outcomes");
+  ok(/Pathway view/.test(D.getElementById("pwHintBox").innerHTML), "hint follows the view");
+
+  console.log("— temporal dynamics —");
+  const TIME_ORDER = ["constitutive", "seconds", "minutes", "hours", "days", "chronic"];
+  ["seconds", "minutes", "hours", "chronic"].forEach((tm) => {
+    D.querySelector(`#pwTime button[data-tm="${tm}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    const shown = vis();
+    ok(shown.length > 0, `time window "${tm}" shows something`);
+    ok(shown.every((e) => e.timescale === "constitutive"
+        || TIME_ORDER.indexOf(e.timescale) <= TIME_ORDER.indexOf(tm)),
+      `time window "${tm}" is cumulative and excludes slower steps`);
+    ok(/cumulative up to/.test(D.getElementById("pwHintBox").innerHTML),
+      `time window "${tm}" is announced on the canvas`);
+  });
+  // the window must actually grow
+  const counts = ["seconds", "minutes", "hours", "chronic"].map((tm) => {
+    D.querySelector(`#pwTime button[data-tm="${tm}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    return vis().length;
+  });
+  ok(counts[0] < counts[counts.length - 1], `the network unfolds over time (${counts.join(" → ")})`);
+  ok(counts.every((c, i) => i === 0 || c >= counts[i - 1]), "each time window is a superset of the previous");
+  D.querySelector('#pwTime button[data-tm="all"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
+  console.log("— feedback loops —");
+  ok((model.loops || []).length >= 4, `model names ${(model.loops || []).length} feedback loops`);
+  model.loops.forEach((lp) => {
+    ok(["negative", "positive"].includes(lp.sign), `${lp.id} has a sign`);
+    ok((lp.sign_caveat || "").length > 20, `${lp.id} ships its sign caveat (parity is not strength)`);
+    ok(lp.interactions.every((eid) => model.interactions.some((e) => e.id === eid)),
+      `${lp.id} references only real interactions`);
+    // a loop must close: every node is both a source and a target within the loop
+    const srcs = new Set(), tgts = new Set();
+    lp.interactions.forEach((eid) => {
+      const e = model.interactions.find((x) => x.id === eid);
+      srcs.add(e.source); tgts.add(e.target);
+    });
+    ok([...srcs].every((n) => tgts.has(n)) && [...tgts].every((n) => srcs.has(n)),
+      `${lp.id} is a closed cycle`);
+  });
+  ok((model.open_loops || []).length >= 1,
+    "loops the literature describes but this map cannot close are declared, not omitted");
+  D.getElementById("pwLoops").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const loopShown = vis();
+  ok(loopShown.length > 0 && loopShown.every((e) => (e.loops || []).length),
+    `feedback filter shows only interactions inside a loop (${loopShown.length})`);
+  ok(/feedback loops only/i.test(D.getElementById("pwHintBox").innerHTML), "feedback mode is announced");
+  const li = D.getElementById("pwInsp").innerHTML;
+  ok(/feedback loops/.test(li) && /set point|set-point/.test(li),
+    "the loop panel explains that a loop has a set point rather than a direction");
+  ok(/cannot close/.test(li), "the loop panel lists the loops this map cannot close");
+  D.getElementById("pwLoops").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
   console.log("— filters —");
   // filters compose with the detail set rather than fighting it
-  D.querySelector('#pwDetail button[data-dt="full"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   D.querySelector('#pwEvid2 button[data-ev="human"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   const humanShown = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
   ok(humanShown.length > 0 && humanShown.every((e) => e.confidence.human_relevance === "established"),
@@ -335,10 +384,12 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     `contested filter works (${contested.length})`);
   D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   const afterReset = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim"));
-  ok(afterReset.length === model.interactions.filter(isCore).length && afterReset.every(isCore),
-    "reset clears filters and returns to the Core view (not to the hairball)");
-  ok(D.querySelector('#pwDetail button[data-dt="core"]').getAttribute("aria-pressed") === "true",
-    "reset leaves the DETAIL control agreeing with what is drawn");
+  ok(afterReset.every(isMech) && afterReset.length === model.interactions.filter(isMech).length,
+    "reset clears filters and returns to the Mechanism view");
+  ok(D.querySelector('#pwView button[data-vw="mechanism"]').getAttribute("aria-pressed") === "true"
+     && D.querySelector('#pwTime button[data-tm="all"]').getAttribute("aria-pressed") === "true"
+     && D.getElementById("pwLoops").getAttribute("aria-pressed") === "false",
+    "reset leaves every control agreeing with what is drawn");
 
   console.log("— search —");
   D.getElementById("pwFind").value = "Rheb";
@@ -373,6 +424,73 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "inspector becomes a fixed bottom sheet on mobile");
   ok(/@media \(prefers-reduced-motion:reduce\)/.test(css),
     "reduced-motion block present");
+
+  console.log("— review pass: context, node evidence, roles, tiers, legend —");
+  // 1. the consensus-model caveat is standing, not a footnote
+  const cav = D.querySelector(".pw-caveat");
+  ok(!!cav, "standing context-dependence notice is present");
+  ok(/consensus model, not a list of verified facts/.test(cav.textContent),
+    "the notice says the map is a consensus model rather than verified fact");
+  ok(/cell types|tissue/.test(cav.textContent) && /dose/.test(cav.textContent),
+    "the notice names the axes of context dependence");
+  // edge-level context notes exist and render
+  const withCtx = model.interactions.filter((e) => (e.context_note || "").length > 20);
+  ok(withCtx.length >= 8, `${withCtx.length} interactions carry an explicit context note`);
+  const ampk = model.interactions.find((e) => e.id === "AMPK-TSC");
+  ok(/cell-type dependent/.test(ampk.context_note) && /TSC2-null/.test(ampk.context_note),
+    "the reviewer's own example (AMPK→TSC2) states that this arm is not universally dominant");
+  realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="AMPK-TSC"]'));
+  ok(/Context dependence/.test(D.getElementById("pwInsp").innerHTML),
+    "context dependence is shown on the interaction, not only in the banner");
+
+  // 2. node-level evidence strength
+  model.nodes.forEach((n) => {
+    const ev = n.evidence || {};
+    ok(typeof ev.studies_in_corpus === "number", `${n.id}: has a study count`);
+    ok(/not in the literature/.test(ev.caveat || ""),
+      `${n.id}: the count is labelled as corpus-only, not a literature count`);
+  });
+  const nodeCounts = model.nodes.map((n) => n.evidence.studies_in_corpus);
+  ok(Math.max(...nodeCounts) > Math.min(...nodeCounts) * 3,
+    `node support genuinely varies (${Math.min(...nodeCounts)}–${Math.max(...nodeCounts)} studies)`);
+  const weights = new Set([...D.querySelectorAll(".pw-n")].map((g) =>
+    ["ev-hi", "ev-mid", "ev-lo", "ev-min"].find((c) => g.classList.contains(c))));
+  ok(weights.size >= 3, `nodes carry at least 3 distinct visual weights (${[...weights].join(",")})`);
+  ok([...D.querySelectorAll(".pw-n")].every((g) => /studies in this corpus/.test(g.getAttribute("aria-label"))),
+    "study count is in the aria-label, so border weight is never the only channel");
+  realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb"));
+  const ni = D.getElementById("pwInsp").innerHTML;
+  ok(/studies in this corpus/.test(ni) && /earliest paper cited here/.test(ni),
+    "node inspector shows study count and earliest cited year, precisely labelled");
+  ok(!/>\s*Year of discovery/i.test(ni) && /not the year of discovery/i.test(ni),
+    "it labels the year as 'earliest paper cited here' and explicitly disclaims a discovery year");
+
+  // 7. context-dependent roles
+  const roled = model.nodes.filter((n) => (n.context_roles || []).length);
+  ok(roled.length >= 12, `${roled.length} molecules carry context-dependent roles`);
+  ok(/Context-dependent roles/.test(ni), "the roles section renders for mTORC1");
+  const akt = model.nodes.find((n) => n.id === "Akt/PKB");
+  ok(akt.context_roles.length >= 3 && akt.context_roles.some((r) => /FOXO/.test(r[1])),
+    "Akt lists roles beyond this map, including FOXO, as the reviewer asked");
+
+  // 9. tiers are a study type, not a grade
+  realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="EVE-RCC"]'));
+  const ti = D.getElementById("pwInsp").innerHTML;
+  ok(/human trial or cohort|systematic review/.test(ti),
+    "a tier letter is rendered together with what that tier MEANS");
+  ok(/kind of study, not its quality/.test(ti), "the panel states tiers are not a quality score");
+
+  // 6. legend separates effect from mechanism
+  const leg = D.querySelector(".pw-legend").innerHTML;
+  ok(/Net effect/.test(leg) && /Mechanistic type/.test(leg),
+    "legend presents effect and mechanistic type as two separate axes");
+  ["phosphorylation", "translocation", "stabilization", "degradation"].forEach((t) => {
+    ok(new RegExp(t).test(leg), `legend lists the "${t}" mechanism the reviewer asked for`);
+  });
+  ok(/Phosphorylates<\/em> is a mechanism|phosphorylation\s*can just as easily activate|can just as easily activate/.test(leg),
+    "legend explains that phosphorylation is a mechanism, not an effect");
+  ok(/more curated evidence behind that molecule/.test(leg),
+    "legend explains what node border weight means");
 
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");

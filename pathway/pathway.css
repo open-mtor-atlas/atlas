@@ -257,3 +257,65 @@
 
 /* screen-reader-only live region for camera / step announcements */
 .pw-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+/* =========================================================================
+   Review pass 2026-07-29 — findings 1,2,4,6,7,9
+   ========================================================================= */
+
+/* 1. Standing context-dependence notice. Not a footnote: it is a condition on
+      everything below it, so it sits above the whole section. */
+.pw-caveat{border:1px solid var(--amber);border-left-width:3px;padding:11px 14px;margin:14px 0 0;
+  font-size:12.5px;line-height:1.6;color:var(--ink-soft);background:var(--pw-band);}
+.pw-caveat b{color:var(--ink);}
+
+/* Edge-level context dependence, distinct from boundary conditions. */
+.pw-ctxnote{border-left:2px solid var(--rt);padding:9px 0 9px 12px;font-size:12.5px;line-height:1.6;
+  margin:12px 0;color:var(--ink-soft);}
+.pw-ctxnote b{color:var(--ink);}
+
+/* 2. Node evidence strength. */
+.pw-nodeev{display:grid;grid-template-columns:1fr 1fr;gap:7px 10px;margin-top:4px;}
+.pw-stat{display:flex;flex-direction:column;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.04em;color:var(--ink-soft);border-left:2px solid var(--line-strong);padding-left:8px;line-height:1.35;}
+.pw-stat b{font-size:17px;color:var(--ink);letter-spacing:0;font-weight:700;}
+.pw-tinynote{font-size:11px;color:var(--ink-soft);line-height:1.5;margin:9px 0 0;font-style:italic;}
+
+/* Border weight = how much curated evidence sits behind the molecule.
+   A hint only; the number is always in the inspector and the aria-label. */
+.pw-n.ev-hi  .nb{stroke-width:2.8;}
+.pw-n.ev-mid .nb{stroke-width:2.0;}
+.pw-n.ev-lo  .nb{stroke-width:1.4;}
+.pw-n.ev-min .nb{stroke-width:0.9;stroke-dasharray:4 2.5;}
+.pw-n.c-complex.ev-hi .nb{stroke-width:3.2;}
+
+/* 4. Feedback loops. */
+.pw-loop{border-top:1px solid var(--line);padding-bottom:8px;}
+.pw-loop:first-of-type{border-top:none;}
+
+/* 7. Context-dependent roles. */
+.pw-role{display:grid;grid-template-columns:104px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line);
+  font-size:12.5px;line-height:1.55;}
+.pw-rolelab{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--teal-deep);padding-top:2px;}
+
+/* 9. Tier letters never stand alone. */
+.pw-tiername{font-family:'DM Sans',sans-serif;font-size:10.5px;color:var(--ink-soft);letter-spacing:0;
+  text-transform:none;}
+
+/* 6. Legend: effect and mechanism shown as two separate axes. */
+.pw-legsec{margin-top:16px;}
+.pw-legsec:first-child{margin-top:8px;}
+.pw-legsec h5{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  margin:0 0 8px;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:5px;}
+.pw-legsec h5 span{float:right;color:var(--ink-soft);font-weight:400;text-transform:none;letter-spacing:.02em;}
+.pw-legtypes{grid-template-columns:repeat(auto-fit,minmax(255px,1fr));}
+.pw-legtag{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:16px;padding:0 5px;
+  border:1px solid var(--line-strong);font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  color:var(--ink);flex-shrink:0;}
+.pw-legend-grid i{font-style:normal;color:var(--ink-soft);}
+
+@media (max-width:900px){
+  .pw-nodeev{grid-template-columns:1fr 1fr;}
+  .pw-role{grid-template-columns:1fr;gap:2px;}
+  .pw-legsec h5 span{float:none;display:block;}
+}

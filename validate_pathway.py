@@ -45,6 +45,9 @@ TYPES = {
     "allosteric-inhibition", "competitive-inhibition", "transcriptional",
     "transport", "signal-relay", "functional-consequence", "clinical-outcome",
     "association",
+    # Nález recenze č. 6: "stabilizuje" a "degraduje" jsou jiná biologická
+    # tvrzení než "fosforyluje" — fosforylace je tady prostředek, ne děj.
+    "stabilization", "degradation",
 }
 EFFECTS = {"activates", "inhibits", "required-for", "recruits", "binds", "context-dependent"}
 TIMESCALES = {"seconds", "minutes", "hours", "days", "chronic", "constitutive"}
@@ -85,6 +88,7 @@ def main():
 
     # --- 2+3+4 interakce --------------------------------------------------
     seen = set()
+    ix = {i["id"]: i for i in m["interactions"]}
     for i in m["interactions"]:
         iid = i["id"]
         if iid in seen:
@@ -143,6 +147,42 @@ def main():
             E("%s: empty mechanism text" % iid)
         if c.get("consensus") == "contested" and not (i.get("boundary") or "").strip():
             W("%s: contested but no boundary conditions stated" % iid)
+
+    # --- uzly: odvozená síla důkazů (nález č. 2) --------------------------
+    for nid, n in nodes.items():
+        ev = n.get("evidence")
+        if not ev:
+            E("node %s: missing derived evidence block" % nid); continue
+        if ev.get("studies_in_corpus", 0) == 0 and (ev.get("interactions_in", 0) + ev.get("interactions_out", 0)):
+            W("node %s: has interactions but no cited studies behind any of them" % nid)
+        if not (ev.get("caveat") or "").strip():
+            E("node %s: evidence block must carry the corpus caveat — a bare study "
+              "count reads as a literature count and would be misleading" % nid)
+        for lvl in ("beginner", "student", "research"):
+            pass
+    # --- smyčky (nález č. 4) ----------------------------------------------
+    loop_ids = set()
+    for lp in m.get("loops", []):
+        if lp["id"] in loop_ids:
+            E("duplicate loop id %s" % lp["id"])
+        loop_ids.add(lp["id"])
+        if lp.get("sign") not in ("negative", "positive"):
+            E("loop %s: bad sign %r" % (lp["id"], lp.get("sign")))
+        if not (lp.get("sign_caveat") or "").strip():
+            E("loop %s: sign must ship with its caveat — parity says direction, not strength" % lp["id"])
+        for eid in lp["interactions"]:
+            if eid not in seen:
+                E("loop %s references unknown interaction %s" % (lp["id"], eid))
+        # a cycle must actually close
+        chain = [ix[e] for e in lp["interactions"] if e in ix]
+        if len(chain) == len(lp["interactions"]):
+            starts = [c["source"] for c in chain]
+            if sorted(starts) != sorted(lp["nodes"]):
+                W("loop %s: node list does not match the interaction sources" % lp["id"])
+    for lp in m.get("open_loops", []):
+        for k in ("name", "missing_step", "why"):
+            if not (lp.get(k) or "").strip():
+                E("open loop %r: missing %s" % (lp.get("name"), k))
 
     # --- trasy ------------------------------------------------------------
     for r in m.get("routes", []):

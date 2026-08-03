@@ -398,9 +398,10 @@ CUR = {
  "RHEB-MTORC1":      ("allosteric-activation","lyso","seconds","direct","high","established","established"),
  "AKT-PRAS40":       ("phosphorylation","cytosol","seconds","direct","high","established","established"),
  "PRAS40-MTORC1":    ("competitive-inhibition","lyso","seconds","direct","high","plausible","established"),
- "AMPK-TSC":         ("phosphorylation","cytosol","minutes","direct","high","established","established"),
+ "AMPK-TSC":         ("phosphorylation","cytosol","minutes","direct","high","established","established"),  # see CTX
  "AMPK-MTORC1":      ("phosphorylation","lyso","minutes","direct","high","established","established"),
- "MTORC1-GRB10":     ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
+ # mTORC1 phosphorylation STABILISES Grb10 rather than switching an enzyme on.
+ "MTORC1-GRB10":     ("stabilization","cytosol","minutes","direct","high","plausible","established"),
  "GRB10-IGF1":       ("signal-relay","pm","hours","indirect","medium","plausible","established"),
  "MTORC1-S6K1":      ("phosphorylation","cytosol","minutes","direct","high","established","established"),
  "MTORC1-4EBP1":     ("phosphorylation","cytosol","minutes","direct","high","established","established"),
@@ -416,7 +417,9 @@ CUR = {
  "MTORC1-LONGEVITY": ("functional-consequence","outcome","chronic","indirect","medium","untested","established"),
  "4EBP1-EIF4E":      ("competitive-inhibition","cytosol","seconds","direct","high","established","established"),
  "EIF4E-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","established","established"),
- "S6K1-PDCD4":       ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
+ # Reviewer point 6: the *outcome* of this phosphorylation is destruction of a
+ # repressor, which is a different biological claim from "adds a phosphate".
+ "S6K1-PDCD4":       ("degradation","cytosol","minutes","direct","high","plausible","established"),
  "PDCD4-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","plausible","established"),
  "TRANSL-MUSCLE":    ("functional-consequence","outcome","days","indirect","high","established","established"),
  "MTORC1-TFEB":      ("phosphorylation","lyso","minutes","direct","high","established","established"),
@@ -463,7 +466,7 @@ CUR = {
  "EVE-LAM":          ("clinical-outcome","outcome","chronic","indirect","medium","established","established"),
  "EVE-IMMUNE":       ("clinical-outcome","outcome","chronic","indirect","medium","established","contested"),
  "MTORC1-PROSTATE":  ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
- "S6K1-IRS1":        ("phosphorylation","cytosol","hours","direct","high","established","established"),
+ "S6K1-IRS1":        ("degradation","cytosol","hours","direct","high","established","established"),
  "IRS1-PI3K":        ("recruitment","pm","seconds","direct","high","established","established"),
  "ERK-TSC":          ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
  "MTORC1-MAPK":      ("signal-relay","cytosol","hours","indirect","high","established","established"),
@@ -561,6 +564,149 @@ ROUTE_STEPS = {
 }
 
 
+
+# ---------------------------------------------------------------------------
+# 3b. Kontextové poznámky doplněné nad rámec původního `ctx`.
+#
+# Nález recenze č. 1: mapa působí příliš definitivně. Jednotlivá hrana může
+# být v jednom buněčném typu nosná a v jiném zanedbatelná. Tam, kde to platí
+# silně, se to říká přímo na hraně — ne jen v globálním disclaimeru.
+# ---------------------------------------------------------------------------
+CTX_EXTRA = {
+ "AMPK-TSC": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways — activating TSC2 and directly phosphorylating Raptor — and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
+ "AMPK-MTORC1": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
+ "MTORC1-S6K1": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
+ "RHEB-MTORC1": "Rheb must be GTP-loaded and co-located with mTORC1. Rheb is also distributed across the ER and Golgi, and which pool supplies the activating Rheb is unresolved.",
+ "TSC-MTORC1": "Deliberately compressed: TSC acts on Rheb, never on mTORC1. Kept as one link so the overview reads cleanly.",
+ "PI3K-AKT": "PIP3 recruits Akt; recruitment alone does not activate it. Full activation additionally needs PDK1 (T308) and mTORC2 (S473), so the strength of this link depends on the activity of both of those.",
+ "MTORC2-AKT": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
+ "METFORMIN-MTORC1": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
+ "TRANSL-MUSCLE": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
+ "MTORC1-LONGEVITY": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
+ "EVE-IMMUNE": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
+ "ULK1-AMPK": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
+ "MTORC1-TFEB": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
+}
+
+
+
+# ---------------------------------------------------------------------------
+# 3c. Kontextové role uzlů.
+#
+# Nález recenze č. 7: stejná molekula dělá v různých kontextech různé věci.
+# Akt inhibuje TSC2, aktivuje mTORC1 nepřímo, řídí FOXO a metabolismus
+# glukózy — a mapa dráhy z toho ukazuje jen část. Tady se říká nahlas, co
+# molekula dělá i mimo tuhle mapu, aby si nikdo nemyslel, že vidí celou roli.
+# ---------------------------------------------------------------------------
+CONTEXT_ROLES = {
+ "Akt/PKB": [
+   ["In this map", "Inhibits the TSC complex and displaces PRAS40, so growth-factor signal reaches Rheb and then mTORC1."],
+   ["Beyond this map", "Phosphorylates and excludes FOXO transcription factors from the nucleus, suppressing a stress-resistance and autophagy programme that partly opposes mTORC1's outputs."],
+   ["Metabolism", "Drives glucose uptake via GLUT4 trafficking and inhibits GSK3 — effects largely independent of mTORC1."],
+   ["Isoform caveat", "AKT1/2/3 are not interchangeable; AKT2 dominates in insulin-responsive metabolic tissue, so 'Akt' in a paper may not be the Akt in your tissue."],
+ ],
+ "AMPK": [
+   ["In this map", "Two arms onto mTORC1 (activating TSC2, phosphorylating Raptor) plus a direct activating arm onto ULK1."],
+   ["Beyond this map", "Switches on catabolism broadly — fatty-acid oxidation via ACC, mitochondrial biogenesis via PGC-1α — not only mTORC1 suppression."],
+   ["Context", "Requires LKB1 (or CaMKK2) to be armed at all. LKB1-null cells cannot mount this response, which is why AMPK-dependence claims are cell-line specific."],
+ ],
+ "mTORC1": [
+   ["In this map", "The coincidence detector: switched on only at the lysosome, only when nutrient-supplied location and growth-factor-supplied Rheb activation coincide."],
+   ["Substrate selectivity", "Not a single on/off output. Rapamycin collapses S6K1 phosphorylation while sparing much of 4E-BP1, and TFEB phosphorylation depends on FLCN/RagC — so 'mTORC1 activity' depends on which substrate you measure."],
+   ["Beyond this map", "Also regulates ribosome biogenesis, one-carbon metabolism via ATF4, and immune cell differentiation."],
+ ],
+ "mTORC2": [
+   ["In this map", "Phosphorylates Akt S473 and SGK1; acutely rapamycin-insensitive, which is how it is separated from mTORC1 experimentally."],
+   ["Beyond this map", "Controls actin organisation via PKCα (the original yeast TORC2 phenotype) and ion transport via SGK1."],
+   ["Context", "Chronic rapamycin can disrupt mTORC2 assembly in some cell types but not others — a contested, time- and cell-type-dependent effect, not a general property."],
+ ],
+ "Sestrin2": [
+   ["In this map", "Leucine sensor acting as a brake: leucine-free Sestrin2 holds GATOR2 inactive."],
+   ["Beyond this map", "Stress-inducible via p53 and ATF4, so it also reports DNA damage and oxidative stress — it is a stress/nutrient junction, not a pure amino-acid sensor."],
+   ["Contested", "Whether the ~20 uM leucine affinity measured in vitro is the operating setpoint in tissue is untested."],
+ ],
+ "FLCN / FNIP1/2": [
+   ["In this map", "GAP for RagC/D; required for mTORC1 to phosphorylate TFEB."],
+   ["Apparent paradox", "A tumour suppressor in Birt-Hogg-Dube that behaves as a POSITIVE regulator of one mTORC1 arm. Resolved by substrate selectivity: losing FLCN leaves mTORC1 active on S6K1 while TFEB escapes into the nucleus."],
+ ],
+ "S6K1": [
+   ["In this map", "The canonical rapamycin-sensitive mTORC1 readout; degrades PDCD4 and IRS-1."],
+   ["Feedback", "Its IRS-1 arm is a negative feedback loop onto PI3K, so inhibiting mTORC1 reactivates Akt — half of why rapalog monotherapy underperforms."],
+   ["Context", "Its lifespan phenotype in mice is sex-specific (female), which is routinely dropped when the result is cited."],
+ ],
+ "4E-BP1": [
+   ["In this map", "Translational repressor released by mTORC1 phosphorylation."],
+   ["Why it matters disproportionately", "Only partially rapamycin-sensitive. That single fact explains the rapalog/Torin discrepancy and motivated the entire ATP-competitive inhibitor programme."],
+   ["Context", "Redundant with 4E-BP2 in many tissues, so single-knockout phenotypes understate the arm."],
+ ],
+ "TFEB": [
+   ["In this map", "Nuclear-excluded when phosphorylated by mTORC1; drives lysosomal and autophagy genes when free."],
+   ["Loop", "Its output builds more lysosomes, which is where mTORC1 is regulated — a slow feedback arm this map cannot fully close because the lysosome-biogenesis-to-mTORC1 step is not curated here."],
+ ],
+ "ULK1": [
+   ["In this map", "Autophagy initiator, inhibited by mTORC1 (S757) and activated by AMPK."],
+   ["Loop", "Phosphorylates AMPK back, dampening its own activator — so 'AMPK switches on autophagy' is a loop with its own set point, not an arrow."],
+ ],
+ "TSC1/TSC2": [
+   ["In this map", "The master brake: a GAP that switches Rheb off, integrating Akt, AMPK, ERK/RSK and REDD1 inputs."],
+   ["Regulation by location", "Substantially controlled by recruitment to and release from the lysosomal surface, not only by changes in catalytic activity — a mode of control easy to miss in an arrow diagram."],
+   ["Human relevance", "TSC1/TSC2 loss is the cleanest human demonstration that mTORC1 hyperactivation drives disease, and the setting where rapalogs work best."],
+ ],
+ "Rag GTPases": [
+   ["In this map", "Control mTORC1's LOCATION, not its activity."],
+   ["Nucleotide inversion", "RagA/B is active GTP-loaded; its partner RagC/D is active GDP-loaded. Reading both the same way inverts half the amino-acid arm."],
+ ],
+ "PI3K": [
+   ["In this map", "Produces PIP3, which recruits Akt and relieves the SIN1 PH domain on mTORC2."],
+   ["Beyond this map", "PIK3CA is among the most frequently mutated oncogenes in human cancer; its output is a lipid, so it is reversed by a phosphatase (PTEN) rather than switched off."],
+ ],
+ "Rheb": [
+   ["In this map", "The actual on-switch for mTORC1, and the convergence point of the whole growth-factor arm."],
+   ["Declared simplification", "Drawn on the lysosomal band because that is where it meets mTORC1, but a large Rheb pool sits on the ER and Golgi and which pool activates mTORC1 is argued."],
+ ],
+ "DEPTOR": [
+   ["In this map", "Built-in inhibitor of both complexes."],
+   ["Apparent paradox", "Overexpressed in a subset of multiple myeloma where cells depend on it — an inhibitor behaving as an oncogenic dependency."],
+ ],
+}
+
+
+
+# ---------------------------------------------------------------------------
+# 3d. Pojmenování zpětných smyček.
+#
+# Smyčky se hledají strojově (nemůže vzniknout rozpor se seznamem hran), ale
+# jméno dostane smyčka podle CHARAKTERISTICKÉ hrany. Pravidla se vyhodnocují
+# v tomhle pořadí, první vyhraje. Smyčka bez pravidla dostane jméno z cesty.
+# ---------------------------------------------------------------------------
+LOOP_RULES = [
+ ("S6K1-IRS1",   "S6K1 → IRS-1 feedback",
+  "The pathway's most clinically consequential loop. mTORC1 drives S6K1, S6K1 degrades IRS-1, and PI3K signalling falls. Block mTORC1 and IRS-1 is spared, so Akt reactivates — half the reason rapalog monotherapy underperforms."),
+ ("MTORC1-GRB10", "mTORC1 → Grb10 feedback",
+  "The second arm of negative feedback onto the receptor. mTORC1 phosphorylation stabilises Grb10, which damps insulin/IGF-1 receptor signalling."),
+ ("MTORC1-MAPK",  "mTORC1 → MAPK feedback",
+  "mTORC1 inhibition relieves feedback and activates ERK in a PI3K-dependent way. This is the rationale for combining mTOR with MEK inhibition rather than escalating mTOR inhibition alone."),
+ ("ULK1-AMPK",    "AMPK ↔ ULK1 set-point",
+  "ULK1 phosphorylates the very kinase that activated it. So 'AMPK switches on autophagy' is not an arrow but a loop with a set-point, and the steady state depends on the relative strength of both directions."),
+]
+
+
+
+# Smyčky, které literatura popisuje, ale tahle mapa je NEUZAVŘE, protože jí
+# chybí jeden krok. Recenzent jmenoval TFEB ↔ lysosome ↔ mTORC1 — a má pravdu,
+# že tam smyčka je. Detekce cyklů ji nenajde, protože krok "více lysosomů →
+# jiná regulace mTORC1" v korpusu nemáme. Mlčet o tom by znamenalo tvrdit,
+# že smyčka neexistuje.
+OPEN_LOOPS = [
+ {"name": "TFEB → lysosomal biogenesis → mTORC1",
+  "missing_step": "lysosomal biogenesis → mTORC1 regulation",
+  "why": "mTORC1 excludes TFEB from the nucleus; free TFEB builds more lysosomes; lysosomes are where mTORC1 is regulated. The literature describes this loop, but the final arm — how a changed lysosomal pool feeds back on mTORC1 activity — is not curated here, so cycle detection cannot close it. Shown as an open loop rather than omitted."},
+ {"name": "mTORC1 → autophagy → nutrient supply → mTORC1",
+  "missing_step": "autophagy → intracellular amino-acid pool",
+  "why": "Autophagy regenerates amino acids, which feed the very sensors that control mTORC1. This is a real homeostatic loop and the Atlas has both halves as separate arms, but no curated edge for autophagy-derived amino acids re-entering the sensing machinery."},
+]
+
+
 def read_atlas_array(html, name):
     i = html.find("const %s = [" % name)
     if i < 0:
@@ -652,6 +798,7 @@ def main():
         nodes.append({
             "id": name, "label": name, "cls": cls, "compartment": comp,
             "explain": {"beginner": beg, "student": stu, "research": res},
+            "context_roles": CONTEXT_ROLES.get(name, []),
         })
         by_comp.setdefault(comp, []).append(name)
 
@@ -693,6 +840,9 @@ def main():
             "mechanism": e["mech"],
             "teaching_note": TEACH.get(e["id"], ""),
             "boundary": e.get("ctx", ""),
+            # Nález recenze č. 1: kontextová závislost patří na hranu, ne jen
+            # do globálního disclaimeru.
+            "context_note": CTX_EXTRA.get(e["id"], ""),
             "note": e.get("note", ""),
             "evidence": {
                 "kind": e["dir"],
@@ -708,6 +858,120 @@ def main():
             },
             "review": {"reviewer": CURATOR, "reviewed": REVIEW_DATE, "updated": REVIEW_DATE},
         })
+
+    ix = {i["id"]: i for i in interactions}
+
+    # -----------------------------------------------------------------
+    # Nález recenze č. 2: uzly vypadaly stejně důležitě.
+    #
+    # Síla důkazů u uzlu se NEKURÁTORUJE, ODVOZUJE se z citací hran, které se
+    # ho dotýkají. Důležité: je to počet studií V TOMHLE KORPUSU, ne v
+    # literatuře — Sestrin2 má ve světě stovky prací, tady jich má tolik,
+    # kolik jich kurátor zařadil. Label to musí říkat, jinak je to lež.
+    # Stejně tak "first cited" není rok objevu, ale nejstarší citovaná práce.
+    # -----------------------------------------------------------------
+    sid_year = {x.get("sid"): x.get("year") for x in studies}
+    TIER_RANK = {"A": 0, "B": 1, "C": 2, "D": 3}
+    for n in nodes:
+        sids, types, effects = set(), set(), set()
+        deg_in = deg_out = 0
+        for i in interactions:
+            if i["source"] != n["id"] and i["target"] != n["id"]:
+                continue
+            sids.update(i["evidence"]["supporting"])
+            types.add(i["type"]); effects.add(i["effect"])
+            if i["source"] == n["id"]:
+                deg_out += 1
+            else:
+                deg_in += 1
+        years = [sid_year.get(x) for x in sids]
+        years = [int(y) for y in years if str(y).isdigit()]
+        tiers = sorted({sid_tier.get(x, "D") for x in sids}, key=lambda t: TIER_RANK.get(t, 9))
+        n["evidence"] = {
+            "studies_in_corpus": len(sids),
+            "best_tier": tiers[0] if tiers else None,
+            "tiers": tiers,
+            "first_cited_year": min(years) if years else None,
+            "latest_cited_year": max(years) if years else None,
+            "interactions_in": deg_in,
+            "interactions_out": deg_out,
+            "distinct_mechanisms": sorted(types),
+            "caveat": "Counts studies in this curated corpus, not in the literature. "
+                      "'First cited' is the earliest paper cited here, not the year of discovery.",
+        }
+
+    # -----------------------------------------------------------------
+    # Nález recenze č. 4: zpětné vazby byly v datech, ale nikde nepojmenované.
+    # Cykly se hledají strojově, aby nemohl vzniknout rozpor mezi seznamem
+    # smyček a hranami, ze kterých se skládají.
+    # -----------------------------------------------------------------
+    adj = {}
+    for i in interactions:
+        adj.setdefault(i["source"], []).append((i["target"], i["id"]))
+    raw = []
+
+    def walk(start, node, path, eids, depth):
+        if depth > 5:
+            return
+        for tgt, eid in adj.get(node, []):
+            if tgt == start and len(path) >= 2:
+                raw.append((path + [tgt], eids + [eid]))
+            elif tgt not in path and tgt > start:
+                walk(start, tgt, path + [tgt], eids + [eid], depth + 1)
+
+    for nm in sorted(adj):
+        walk(nm, nm, [nm], [], 0)
+    # Graf obsahuje 10 cyklů, ale jen ~4 odlišné biologické mechanismy —
+    # tentýž zpětnovazebný krok se objeví v několika delších cestách. Ukázat
+    # deset smyček se čtyřmi stejnými jmény je šum. Z každého pojmenovaného
+    # mechanismu se drží NEJKRATŠÍ cyklus (kanonická forma), nepojmenované
+    # se deduplikují podle množiny uzlů.
+    seen_cyc, loops, claimed = set(), [], set()
+    for path, eids in sorted(raw, key=lambda x: (len(x[1]), x[1])):
+        key = tuple(sorted(eids))
+        if key in seen_cyc:
+            continue
+        seen_cyc.add(key)
+        name, why, sig_hit = " → ".join(path), "", None
+        for sig, nm, wy in LOOP_RULES:
+            if sig in eids:
+                name, why, sig_hit = nm, wy, sig
+                break
+        if sig_hit:
+            if sig_hit in claimed:
+                continue                      # už máme kratší verzi
+            claimed.add(sig_hit)
+        else:
+            nk = frozenset(path[:-1])
+            if nk in claimed:
+                continue
+            claimed.add(nk)
+        signs = [ix[e]["effect"] for e in eids if e in ix]
+        neg = sum(1 for x in signs if x == "inhibits")
+        loops.append({
+            "id": "loop%02d" % (len(loops) + 1),
+            "nodes": path[:-1],
+            "interactions": eids,
+            "length": len(eids),
+            # Parita inhibicí: nepárová = negativní (stabilizující) zpětná
+            # vazba, párová = pozitivní (zesilující). Zjednodušení, které se
+            # říká nahlas: "required-for" a "recruits" se počítají jako
+            # neinhibiční, což je správně, ale parita neváží sílu ramen.
+            "sign": "negative" if neg % 2 == 1 else "positive",
+            "sign_caveat": "Sign is the parity of inhibitory steps around the loop. "
+                           "It says which direction the loop pushes, not how strongly — "
+                           "loop strength depends on the relative weight of each arm, "
+                           "which is cell-type dependent.",
+            "name": name,
+            "why": why,
+        })
+
+    loop_of = {}
+    for lp in loops:
+        for eid in lp["interactions"]:
+            loop_of.setdefault(eid, []).append(lp["id"])
+    for i in interactions:
+        i["loops"] = loop_of.get(i["id"], [])
 
     coords, bands, height = layout(by_comp, interactions, comp_order)
     for n in nodes:
@@ -743,7 +1007,10 @@ def main():
             "license": "CC BY 4.0",
             "source_of_truth": "pathway/model.json (generated by build_pathway_model.py)",
             "canvas": {"w": 1600, "h": height},
-            "counts": {"nodes": len(nodes), "interactions": len(interactions), "routes": len(routes)},
+            "counts": {"nodes": len(nodes), "interactions": len(interactions),
+                       "routes": len(routes), "loops": len(loops)},
+            "corpus_caveat": "Node study counts are counts within this curated corpus of "
+                             "%d studies, not within the literature." % len(studies),
             "vocab": {
                 "type": sorted({i["type"] for i in interactions}),
                 "effect": sorted({i["effect"] for i in interactions}),
@@ -752,6 +1019,7 @@ def main():
                 "mechanistic": ["high", "medium", "low"],
                 "human_relevance": ["established", "plausible", "untested"],
                 "consensus": ["established", "emerging", "contested"],
+                "loop_sign": ["negative", "positive"],
             },
         },
         "compartments": COMPARTMENTS,
@@ -759,6 +1027,8 @@ def main():
         "nodes": nodes,
         "interactions": interactions,
         "routes": routes,
+        "loops": loops,
+        "open_loops": OPEN_LOOPS,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)

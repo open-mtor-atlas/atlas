@@ -36,7 +36,16 @@
        one: single molecular events we understand mechanistically
        (directness === direct AND mechanistic === high) — 51 of 100. The
        label says so, so the reader knows what is being withheld and why. */
-    detailSet: "core",
+    /* Reviewer point 8: the old Core/Full toggle graded CONFIDENCE, which is
+       not the same axis as ABSTRACTION. "Who talks to whom" and "how it works
+       molecularly" are different questions and now have their own control.
+       The confidence rule did not disappear — it moved to the evidence
+       filters as "Well understood". */
+    view: "mechanism",          // mechanism | pathway
+    /* Reviewer point 3: the network is not a circuit. Cumulative time window,
+       so the map unfolds instead of arriving all at once. */
+    timeMax: "all",             // seconds | minutes | hours | days | chronic | all
+    loopsOnly: false, highlightLoop: null,
     filters: { effect: null, evidence: null, physOnly: false },
     routeId: null, step: -1,
     cam: null, camTarget: null, anim: null, snap: null
@@ -82,7 +91,9 @@
     "signal-relay": "relays a signal to",
     "functional-consequence": "changes",
     "clinical-outcome": "changes, in clinical trials,",
-    "association": "is statistically associated with"
+    "association": "is statistically associated with",
+    "stabilization": "stabilises",
+    "degradation": "triggers the degradation of"
   };
   var TYPE_TAG = {
     "phosphorylation": "P", "dephosphorylation": "−P", "gap-activity": "GAP",
@@ -92,11 +103,23 @@
     "allosteric-activation": "ALLO", "allosteric-inhibition": "ALLO",
     "competitive-inhibition": "COMP", "transcriptional": "TXN",
     "transport": "TRANS", "signal-relay": "⋯", "functional-consequence": "→",
-    "clinical-outcome": "TRIAL", "association": "?"
+    "clinical-outcome": "TRIAL", "association": "?",
+    "stabilization": "STAB", "degradation": "DEGR"
   };
   var MARK = {
     "activates": "pwArrowA", "inhibits": "pwBar", "required-for": "pwChev",
     "recruits": "pwChev", "binds": "pwDot", "context-dependent": "pwQ"
+  };
+  /* Reviewer point 9: a bare letter reads as a grade. The Atlas already has
+     descriptive labels site-wide (TIER_LABELS); the pathway panel just never
+     showed them. Never render a tier letter without its meaning next to it. */
+  var TIER_MEANING = {
+    A: "systematic review / meta-analysis",
+    B: "human trial or cohort",
+    C: "animal or invertebrate model",
+    D: "mechanistic — cell culture, structure or review",
+    PP: "preprint, not yet peer-reviewed",
+    RT: "registered trial, results pending"
   };
   var CONF_W = { high: 100, medium: 62, low: 28 };
   var CONF_C = { high: "g", medium: "a", low: "r" };
@@ -307,8 +330,16 @@
     s += '<g class="pw-nodes">';
     M.nodes.forEach(function (n) {
       var w = nw(n.label), x = n.x - w / 2, y = n.y - NH / 2;
-      s += '<g class="pw-n c-' + esc(n.cls) + '" data-nid="' + esc(n.id) + '" tabindex="0" role="button" '
-        + 'aria-label="' + esc(n.label + ", " + n.cls + " in " + M.compIx[n.compartment].name) + '">'
+      /* Reviewer point 2: every node looked equally important, and they are not.
+         Border weight now reflects how much curated evidence sits behind the
+         molecule. Weight is a HINT ONLY — the exact count is in the inspector
+         and in the aria-label, so this never becomes the sole channel. */
+      var ne = n.evidence || {}, sc = ne.studies_in_corpus || 0;
+      var wclass = sc >= 20 ? "ev-hi" : sc >= 8 ? "ev-mid" : sc >= 3 ? "ev-lo" : "ev-min";
+      s += '<g class="pw-n c-' + esc(n.cls) + " " + wclass + '" data-nid="' + esc(n.id) + '" tabindex="0" role="button" '
+        + 'aria-label="' + esc(n.label + ", " + n.cls + " in " + M.compIx[n.compartment].name
+          + ", " + sc + " studies in this corpus, strongest evidence "
+          + (TIER_MEANING[ne.best_tier] || "not recorded")) + '">'
         + '<rect class="nb" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1)
         + '" height="' + NH + '"/>';
       if (n.cls === "complex") {
@@ -333,13 +364,16 @@
   }
   function updateHint() {
     var box = $("pwHintBox"); if (!box) return;
-    var shown = M.interactions.filter(function (e) { return S.detailSet === "full" || isCore(e); }).length;
-    box.innerHTML = S.detailSet === "core"
-      ? "<b>Core view</b> — " + shown + " of " + M.interactions.length + " steps: the direct, "
-        + "mechanistically well-understood ones. Switch DETAIL to Full network for the compressed and contested links."
-      : "<b>Full network</b> — all " + M.interactions.length + " curated steps. Long dashes are compressed "
-        + "multi-step links; amber halos mark disagreement.";
+    var shown = M.interactions.filter(edgePasses).length;
+    var bits = [];
+    bits.push("<b>" + (S.view === "mechanism" ? "Mechanism" : "Pathway") + " view</b> — "
+      + shown + " of " + M.interactions.length + " steps");
+    if (S.view === "mechanism") bits.push("molecular events only; switch VIEW to Pathway for compressed links and outcomes");
+    if (S.timeMax !== "all") bits.push("cumulative up to <b>" + S.timeMax + "</b>");
+    if (S.loopsOnly) bits.push("<b>feedback loops only</b>");
+    box.innerHTML = bits.join(" · ");
   }
+
 
   /* Opening camera frames the signalling core (plasma membrane → lysosome),
      not the whole canvas. Outcomes and inputs are one scroll away rather
@@ -434,12 +468,31 @@
   function isCore(e) {
     return e.directness === "direct" && e.confidence.mechanistic === "high";
   }
+  /* A compressed link stands in for several molecular events, or reports an
+     organism-level consequence. Those belong to "who talks to whom", not to
+     "how it works". */
+  var COMPRESSED = { "signal-relay": 1, "functional-consequence": 1,
+                     "clinical-outcome": 1, "association": 1 };
+  function isMechanism(e) { return !COMPRESSED[e.type]; }
+
+  var TIME_ORDER = ["constitutive", "seconds", "minutes", "hours", "days", "chronic"];
+  function withinTime(e) {
+    if (S.timeMax === "all") return true;
+    // constitutive = always true, so it is present in every window
+    if (e.timescale === "constitutive") return true;
+    return TIME_ORDER.indexOf(e.timescale) <= TIME_ORDER.indexOf(S.timeMax);
+  }
   function edgePasses(e) {
     var f = S.filters;
     /* Route mode always shows the route's own edges regardless of detail set:
        a guided lesson must never hide the step it is teaching. */
-    if (S.detailSet === "core" && S.mode !== "guided" && !isCore(e)) return false;
+    if (S.mode !== "guided") {
+      if (S.view === "mechanism" && !isMechanism(e)) return false;
+      if (!withinTime(e)) return false;
+      if (S.loopsOnly && !(e.loops && e.loops.length)) return false;
+    }
     if (f.effect && e.effect !== f.effect) return false;
+    if (f.evidence === "core" && !isCore(e)) return false;
     if (f.evidence === "human" && e.confidence.human_relevance !== "established") return false;
     if (f.evidence === "direct" && e.directness !== "direct") return false;
     if (f.evidence === "contested" && e.confidence.consensus !== "contested") return false;
@@ -458,7 +511,8 @@
       var p = $("pwe-" + e.id); if (!p) return;
       var ok = edgePasses(e)
         && (!keep || (keep[e.source] && keep[e.target]))
-        && (!routeSet || routeSet[e.id]);
+        && (!routeSet || routeSet[e.id])
+        && (!S.highlightLoop || (e.loops || []).indexOf(S.highlightLoop) >= 0);
       p.classList.toggle("dim", !ok);
       p.classList.toggle("sel", S.selKind === "edge" && S.sel === e.id);
       var tg = el.svg.querySelector('.pw-tagg[data-eid="' + e.id + '"]');
@@ -477,7 +531,13 @@
   /* ==== inspector ====================================================== */
   function tierDot(t) {
     var c = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)" }[t] || "var(--tier-d)";
-    return '<i class="pw-dot" style="background:' + c + '">' + esc(t || "?") + "</i>";
+    var meaning = TIER_MEANING[t] || "study type not recorded";
+    return '<i class="pw-dot" style="background:' + c + '" title="' + esc(meaning) + '">' + esc(t || "?") + "</i>";
+  }
+  /* Never a bare letter. The tier says what KIND of study it is; it is not a
+     mark out of four, and a tier-D structural paper can be definitive. */
+  function tierPhrase(t) {
+    return tierDot(t) + " <span class=\"pw-tiername\">" + esc(TIER_MEANING[t] || "type not recorded") + "</span>";
   }
   function studyRows(sids, label) {
     if (!sids || !sids.length) return "";
@@ -499,16 +559,61 @@
       + meter("Mechanism", c.mechanistic, CONF_W[c.mechanistic], CONF_C[c.mechanistic])
       + meter("Human relevance", c.human_relevance, HR_W[c.human_relevance], HR_C[c.human_relevance])
       + '<div class="pw-confrow"><span>Field consensus</span><span><b>' + esc(c.consensus) + "</b></span></div>"
-      + '<div class="pw-confrow"><span>Best study tier</span><span>' + tierDot(e.evidence.best_tier)
-      + " " + esc(e.evidence.kind) + "</span></div></div>"
+      + '<div class="pw-confrow"><span>Strongest study</span><span>' + tierPhrase(e.evidence.best_tier)
+      + "</span></div>"
+      + '<div class="pw-confrow"><span>How it was shown</span><span>' + esc(e.evidence.kind) + "</span></div></div>"
       + '<p style="font-size:11.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55;">'
-      + "A step can be mechanistically certain and still untested in humans. Study tier grades the "
-      + "<em>papers</em>; mechanism confidence grades the <em>biology</em>. They are not the same number.</p>";
+      + "A step can be mechanistically certain and still untested in humans. "
+      + "<b>Tiers describe the kind of study, not its quality</b> — A/B are human evidence, C is animal, "
+      + "D is mechanistic work in cells, structures and reviews. A tier-D structural paper can settle a "
+      + "mechanism outright; it simply is not human evidence. Mechanism confidence grades the "
+      + "<em>biology</em>, tier grades the <em>study design</em>.</p>";
   }
   function meter(label, val, w, c) {
     return '<div class="pw-confrow"><span>' + label + '</span><span class="pw-meter ' + c
       + '"><i style="width:' + w + '%"></i></span><span style="flex:0 0 78px;text-align:right"><b>'
       + esc(val) + "</b></span></div>";
+  }
+
+  /* Reviewer point 4: the loops were in the data but never named, so the map
+     read as linear. Loops are detected in the build, so this list can never
+     disagree with the arrows it is made of. */
+  function loopBlock(e) {
+    if (!e.loops || !e.loops.length) return "";
+    return '<div class="k">Part of a feedback loop</div>'
+      + e.loops.map(function (lid) {
+          var lp = M.loopIx[lid]; if (!lp) return "";
+          return '<button class="pw-ev" data-loop="' + esc(lid) + '" type="button">'
+            + '<span class="pw-ev-t">' + esc(lp.name) + "</span>"
+            + '<span class="pw-ev-m">' + esc(lp.sign) + " feedback · " + lp.length
+            + " steps · " + esc(lp.nodes.join(" → ")) + "</span></button>";
+        }).join("");
+  }
+
+  function inspectLoops() {
+    S.sel = null; S.selKind = "loops";
+    var h = "<h4>" + M.loops.length + " feedback loops</h4>"
+      + '<p class="pw-empty">mTOR is not a one-way cascade. A loop does not have a direction so much as a '
+      + "<em>set point</em>, and its behaviour depends on the relative strength of each arm — which is "
+      + "cell-type dependent. Detected automatically from the curated interactions, so this list cannot "
+      + "disagree with the arrows it is built from.</p>";
+    M.loops.forEach(function (lp) {
+      h += '<div class="pw-loop"><button class="pw-ev" data-loop="' + esc(lp.id) + '" type="button">'
+        + '<span class="pw-ev-t">' + esc(lp.name) + '</span><span class="pw-ev-m">'
+        + esc(lp.sign) + " feedback · " + lp.length + " steps</span></button>"
+        + (lp.why ? '<p style="font-size:12px;line-height:1.55;margin:6px 0 0;">' + esc(lp.why) + "</p>" : "")
+        + "</div>";
+    });
+    h += '<div class="pw-bound"><b>Sign is a parity, not a strength.</b> '
+      + esc((M.loops[0] || {}).sign_caveat || "") + "</div>";
+    if (M.open_loops && M.open_loops.length) {
+      h += '<div class="k">Loops the literature describes that this map cannot close</div>';
+      M.open_loops.forEach(function (o) {
+        h += '<div class="pw-ctxnote"><b>' + esc(o.name) + "</b><br>Missing step: <i>" + esc(o.missing_step)
+          + "</i><br>" + esc(o.why) + "</div>";
+      });
+    }
+    setInsp(h, true);
   }
 
   function inspectEdge(id) {
@@ -532,6 +637,10 @@
           ? '<div class="pw-bound"><b>Compressed.</b> This arrow spans more than one molecular event. '
             + "It is drawn as one line for readability, not because it is one step.</div>" : "")
       + (e.boundary ? '<div class="pw-bound"><b>Boundary conditions.</b> ' + esc(e.boundary) + "</div>" : "")
+      /* Reviewer point 1, at edge level: context-dependence stated where the
+         claim is made, not only in the global banner. */
+      + (e.context_note ? '<div class="pw-ctxnote"><b>Context dependence.</b> ' + esc(e.context_note) + "</div>" : "")
+      + loopBlock(e)
       + confBlock(e)
       + studyRows(e.evidence.supporting, "Supporting evidence")
       + studyRows(e.evidence.conflicting, "Conflicting evidence")
@@ -559,9 +668,37 @@
       }).join("");
     }
     var c = M.compIx[n.compartment];
+    var ne = n.evidence || {};
+    /* Reviewer point 2: every node looked equally important. It is not. This
+       is derived from the citations on the interactions touching the node, so
+       it cannot drift from the edge data — and it is explicitly a count
+       WITHIN THIS CORPUS, which is a different claim from a literature count. */
+    var evBlock = '<div class="k">How well supported is this molecule?</div>'
+      + '<div class="pw-nodeev">'
+      + '<span class="pw-stat"><b>' + (ne.studies_in_corpus || 0) + "</b>studies in this corpus</span>"
+      + '<span class="pw-stat"><b>' + (ne.first_cited_year || "—") + "</b>earliest paper cited here</span>"
+      + '<span class="pw-stat"><b>' + ((ne.interactions_in || 0) + (ne.interactions_out || 0))
+      + "</b>curated interactions</span>"
+      + '<span class="pw-stat"><b>' + (ne.distinct_mechanisms || []).length + "</b>distinct mechanisms</span>"
+      + "</div>"
+      + '<div class="pw-confrow" style="margin-top:8px"><span>Strongest study</span><span>'
+      + tierPhrase(ne.best_tier) + "</span></div>"
+      + '<p class="pw-tinynote">' + esc(ne.caveat || "") + "</p>";
+    /* Reviewer point 7: the same molecule does different things in different
+       contexts, and this map only shows some of them. */
+    var roleBlock = "";
+    if (n.context_roles && n.context_roles.length) {
+      roleBlock = '<div class="k">Context-dependent roles</div>'
+        + n.context_roles.map(function (r) {
+            return '<div class="pw-role"><span class="pw-rolelab">' + esc(r[0]) + "</span>"
+              + "<span>" + esc(r[1]) + "</span></div>";
+          }).join("");
+    }
     setInsp('<h4>' + esc(n.label) + "</h4>"
       + '<div class="pw-verb">' + esc(n.cls) + " · " + esc(c.name) + "</div>"
       + "<p>" + esc(n.explain[S.level]) + "</p>"
+      + evBlock
+      + roleBlock
       + (!c.physical ? '<div class="pw-bound">' + esc(c.blurb) + "</div>"
                      : '<div class="k">Compartment</div><p style="font-size:12px;color:var(--ink-soft)">' + esc(c.blurb) + "</p>")
       /* Declared simplifications are shown, not buried. If a band compresses
@@ -611,6 +748,25 @@
     });
     el.insp.querySelectorAll("[data-eid]").forEach(function (b) {
       b.addEventListener("click", function () { inspectEdge(b.dataset.eid); frameEdge(b.dataset.eid); paint(); });
+    });
+    el.insp.querySelectorAll("[data-loop]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var lp = M.loopIx[b.dataset.loop]; if (!lp) return;
+        S.loopsOnly = true; S.view = "pathway";
+        el.explorerUI.querySelectorAll("#pwView button").forEach(function (o) {
+          o.setAttribute("aria-pressed", String(o.dataset.vw === "pathway"));
+        });
+        $("pwLoops").setAttribute("aria-pressed", "true");
+        S.highlightLoop = lp.id;
+        paint(); updateHint();
+        // frame the whole loop
+        var xs = [], ys = [];
+        lp.nodes.forEach(function (nm) { var nd = nodeById(nm); if (nd) { xs.push(nd.x); ys.push(nd.y); } });
+        if (xs.length) frameBox(Math.min.apply(null, xs) - 80, Math.min.apply(null, ys) - 60,
+          Math.max.apply(null, xs) - Math.min.apply(null, xs) + 160,
+          Math.max.apply(null, ys) - Math.min.apply(null, ys) + 120, 80);
+        say("Highlighting " + lp.name + ", a " + lp.sign + " feedback loop of " + lp.length + " steps.");
+      });
     });
     el.insp.querySelectorAll("[data-focus]").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -794,6 +950,15 @@
       + '  <button class="pw-mode" id="pwMode-guided" role="tab" aria-selected="false">Guided Routes</button>'
       + '  <button class="pw-mode" id="pwMode-scenarios" role="tab" aria-selected="false">Scenario Lab</button>'
       + "</div>"
+      /* Reviewer point 1: the map read as a set of verified facts. It is a
+         consensus model whose arrows carry different weight in different
+         tissues. That is not a footnote — it is a standing condition on
+         everything below it, so it is always visible, above the panels. */
+      + '<div class="pw-caveat" role="note"><b>This is the current consensus model, not a list of '
+      + 'verified facts.</b> Many interactions are context-dependent: their weight differs across cell '
+      + 'types, species, nutrient state, stress, stimulus duration and dose. An arrow that dominates in '
+      + 'one tissue can be negligible in another. Click any arrow for its boundary conditions, its '
+      + 'evidence, and how certain we actually are.</div>'
       + '<div class="pw-panelwrap">'
       + '  <div id="pwOverview"></div>'
       + '  <div id="pwScen" class="pw-hide"></div>'
@@ -804,15 +969,23 @@
       + '      <span class="pw-lbl">LEVEL</span><div class="pw-seg" id="pwLevel" role="group" aria-label="Explanation level">'
       + '        <button data-lv="beginner">Beginner</button><button data-lv="student" aria-pressed="true">Student</button>'
       + '        <button data-lv="research">Research</button></div>'
-      + '      <span class="pw-lbl">DETAIL</span><div class="pw-seg" id="pwDetail" role="group" aria-label="Level of detail">'
-      + '        <button data-dt="core" aria-pressed="true" title="Single molecular events we understand mechanistically">Core</button>'
-      + '        <button data-dt="full" title="Every curated interaction, including compressed and contested ones">Full network</button></div>'
+      + '      <span class="pw-lbl">VIEW</span><div class="pw-seg" id="pwView" role="group" aria-label="Level of abstraction">'
+      + '        <button data-vw="mechanism" aria-pressed="true" title="Molecular events only: binding, phosphorylation, GAP activity, recruitment, transport">Mechanism</button>'
+      + '        <button data-vw="pathway" title="Who talks to whom, including compressed multi-step links and organism-level outcomes">Pathway</button></div>'
+      + '      <span class="pw-lbl">BY TIME</span><div class="pw-seg" id="pwTime" role="group" aria-label="Cumulative timescale window">'
+      + '        <button data-tm="seconds" title="Events that happen within seconds">s</button>'
+      + '        <button data-tm="minutes" title="Cumulative: up to minutes">min</button>'
+      + '        <button data-tm="hours" title="Cumulative: up to hours">hr</button>'
+      + '        <button data-tm="chronic" title="Cumulative: up to chronic timescales">chronic</button>'
+      + '        <button data-tm="all" aria-pressed="true" title="No time filter">all</button></div>'
       + '      <span class="pw-lbl">SHOW</span><div class="pw-seg" id="pwEffect" role="group" aria-label="Filter by effect">'
       + '        <button data-ef="" aria-pressed="true">All</button><button data-ef="activates">Activating</button>'
       + '        <button data-ef="inhibits">Inhibiting</button></div>'
       + '      <div class="pw-seg" id="pwEvid2" role="group" aria-label="Filter by evidence">'
-      + '        <button data-ev="" aria-pressed="true">Any evidence</button><button data-ev="direct">Direct only</button>'
+      + '        <button data-ev="" aria-pressed="true">Any evidence</button><button data-ev="core">Well understood</button>'
+      + '        <button data-ev="direct">Direct only</button>'
       + '        <button data-ev="human">Human-relevant</button><button data-ev="contested">Contested</button></div>'
+      + '      <button class="pw-btn" id="pwLoops" aria-pressed="false" title="Show only interactions that form a feedback loop">Feedback loops</button>'
       + '      <button class="pw-btn" id="pwFocus" aria-pressed="false">Focus mode</button>'
       + '      <button class="pw-btn" id="pwReset">Reset view</button>'
       + "    </div></div>"
@@ -831,23 +1004,51 @@
   }
 
   function legend() {
+    /* Reviewer point 6 said phosphorylates/translocates were missing. They were
+       not — but the legend only listed EFFECTS, so the mechanistic types were
+       invisible unless you zoomed in far enough to see the mid-line tags. That
+       is a legend bug, not a data gap. The two axes are now labelled as two
+       axes, and every type in the model is listed with its tag. */
     function line(cls, mark, txt) {
-      return '<div><svg width="46" height="14"><defs></defs><path class="pw-e ' + cls
+      return '<div><svg width="46" height="14"><path class="pw-e ' + cls
         + '" d="M2,7 H34" marker-end="url(#' + mark + ')"/></svg>' + txt + "</div>";
     }
-    return line("f-activates m-high d-direct", "pwArrowA", "<b>Activates</b> — direct, high confidence")
-      + line("f-inhibits m-high d-direct", "pwBar", "<b>Inhibits</b> — bar terminus, never just colour")
+    var effects = ""
+      + line("f-activates m-high d-direct", "pwArrowA", "<b>Activates</b> — arrowhead")
+      + line("f-inhibits m-high d-direct", "pwBar", "<b>Inhibits</b> — bar, never colour alone")
       + line("f-required-for m-medium d-direct", "pwChev", "<b>Required for / recruits</b> — enables, does not switch on")
-      + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical interaction, no directional claim")
+      + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical, no directional claim");
+    var certainty = ""
+      + line("f-activates m-high d-direct", "pwArrowA", "<b>Solid, thick</b> — direct, high mechanistic confidence")
       + line("f-activates m-medium d-indirect", "pwArrowA", "<b>Long dash</b> — indirect: more than one molecular step")
-      + line("f-activates m-low d-unresolved", "pwArrowA", "<b>Dotted + thin</b> — unresolved mechanism, low confidence")
-      + '<div><svg width="46" height="16"><rect class="nb" x="2" y="3" width="30" height="11" fill="var(--paper)" stroke="var(--line-strong)"/></svg>Protein</div>'
+      + line("f-activates m-low d-unresolved", "pwArrowA", "<b>Dotted, thin</b> — unresolved mechanism, low confidence")
+      + '<div><svg width="46" height="16"><path d="M2,8 H34" stroke="var(--amber)" stroke-width="6" opacity=".25"/>'
+      + '<path d="M2,8 H34" stroke="var(--danger)" stroke-width="2"/></svg><b>Amber halo</b> — the field disagrees</div>';
+    var types = Object.keys(TYPE_TAG).map(function (t) {
+      var used = M.interactions.filter(function (e) { return e.type === t; }).length;
+      if (!used) return "";
+      return '<div><span class="pw-legtag">' + esc(TYPE_TAG[t]) + "</span>"
+        + "<span><b>" + esc(t) + "</b> — " + esc(VERB[t] || t) + " <i>(" + used + ")</i></span></div>";
+    }).join("");
+    var shapes = ""
+      + '<div><svg width="46" height="16"><rect x="2" y="3" width="30" height="11" fill="var(--paper)" stroke="var(--line-strong)"/></svg>Protein</div>'
       + '<div><svg width="46" height="16"><rect x="2" y="2" width="32" height="13" fill="var(--paper)" stroke="var(--line-strong)" stroke-width="1.8"/><rect x="5" y="5" width="26" height="7" fill="none" stroke="var(--line-strong)"/></svg><b>Complex</b> — double border</div>'
       + '<div><svg width="46" height="16"><rect x="2" y="3" width="30" height="11" fill="none" stroke="var(--line-strong)" stroke-dasharray="5 3"/></svg>Process</div>'
       + '<div><svg width="46" height="16"><rect x="2" y="3" width="30" height="11" fill="none" stroke="var(--line-strong)" stroke-dasharray="3 3"/></svg><i>Outcome / disease</i> — not a molecule</div>'
-      + '<div><svg width="46" height="16"><path d="M2,8 H34" stroke="var(--amber)" stroke-width="6" opacity=".25"/><path d="M2,8 H34" stroke="var(--danger)" stroke-width="2"/></svg><b>Amber halo</b> — the field disagrees</div>'
-      + '<div><svg width="46" height="16"><text x="16" y="12" font-family="IBM Plex Mono" font-size="9" fill="var(--ink-soft)">GAP</text></svg>Mid-line tag = mechanistic verb</div>';
+      + '<div><svg width="46" height="16"><rect x="2" y="2" width="30" height="13" fill="none" stroke="var(--ink)" stroke-width="2.6"/></svg><b>Thick border</b> — more curated evidence behind that molecule</div>';
+    return '<div class="pw-legsec"><h5>Net effect <span>colour + line terminus</span></h5>'
+      + '<div class="pw-legend-grid">' + effects + "</div></div>"
+      + '<div class="pw-legsec"><h5>How certain <span>line style + weight</span></h5>'
+      + '<div class="pw-legend-grid">' + certainty + "</div></div>"
+      + '<div class="pw-legsec"><h5>Mechanistic type <span>the tag on the line — zoom in to see it</span>'
+      + "</h5><p class=\"pw-tinynote\">Effect and mechanism are different claims. "
+      + "<em>Phosphorylates</em> is a mechanism; <em>inhibits</em> is its consequence — and phosphorylation "
+      + "can just as easily activate. Both are recorded separately for every interaction.</p>"
+      + '<div class="pw-legend-grid pw-legtypes">' + types + "</div></div>"
+      + '<div class="pw-legsec"><h5>What the boxes mean</h5>'
+      + '<div class="pw-legend-grid">' + shapes + "</div></div>";
   }
+
 
   /* ==== interaction wiring ============================================= */
   function wire() {
@@ -954,10 +1155,14 @@
     $("pwFit").addEventListener("click", function () { fitAll(); paint(); });
     $("pwReset").addEventListener("click", function () {
       S.focus = null; S.filters = { effect: null, evidence: null, physOnly: false };
-      S.detailSet = "core";
-      el.explorerUI.querySelectorAll("#pwDetail button").forEach(function (b) {
-        b.setAttribute("aria-pressed", String(b.dataset.dt === "core"));
+      S.view = "mechanism"; S.timeMax = "all"; S.loopsOnly = false; S.highlightLoop = null;
+      el.explorerUI.querySelectorAll("#pwView button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.vw === "mechanism"));
       });
+      el.explorerUI.querySelectorAll("#pwTime button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.tm === "all"));
+      });
+      $("pwLoops").setAttribute("aria-pressed", "false");
       el.focusBtn.setAttribute("aria-pressed", "false");
       el.explorerUI.querySelectorAll("#pwEffect button,#pwEvid2 button").forEach(function (b) {
         b.setAttribute("aria-pressed", String(!b.dataset.ef && !b.dataset.ev));
@@ -986,13 +1191,30 @@
       if (S.selKind === "node") inspectNode(S.sel); else if (S.selKind === "edge") inspectEdge(S.sel);
       say("Explanation level: " + S.level + ". The network is unchanged — only the words change.");
     });
-    seg($("pwDetail"), "dt", function (v) {
-      S.detailSet = v || "core";
-      var n = M.interactions.filter(function (e) { return S.detailSet === "full" || isCore(e); }).length;
-      say(S.detailSet === "core"
-        ? "Core view: " + n + " of " + M.interactions.length + " interactions — the direct, mechanistically "
-          + "well-understood steps. Switch to Full network to add compressed, indirect and contested links."
-        : "Full network: all " + n + " curated interactions, including indirect and contested ones.");
+    seg($("pwView"), "vw", function (v) {
+      S.view = v || "mechanism";
+      say(S.view === "mechanism"
+        ? "Mechanism view: molecular events only — binding, phosphorylation, GAP activity, recruitment, transport."
+        : "Pathway view: who talks to whom, including compressed multi-step links and organism-level outcomes.");
+      updateHint(); paint();
+    });
+    seg($("pwTime"), "tm", function (v) {
+      S.timeMax = v || "all";
+      say(S.timeMax === "all"
+        ? "Time filter off."
+        : "Showing everything that has happened by the " + S.timeMax + " timescale, cumulatively. "
+          + "Constitutive links are always present.");
+      updateHint(); paint();
+    });
+    $("pwLoops").addEventListener("click", function () {
+      S.loopsOnly = !S.loopsOnly; S.highlightLoop = null;
+      $("pwLoops").setAttribute("aria-pressed", S.loopsOnly ? "true" : "false");
+      if (S.loopsOnly) inspectLoops();
+      else inspectDefault();
+      say(S.loopsOnly
+        ? M.loops.length + " feedback loops highlighted. mTOR is full of them, and a loop behaves "
+          + "differently from an arrow: it has a set point."
+        : "Feedback highlight off.");
       updateHint(); paint();
     });
     seg($("pwEffect"), "ef", function (v) { S.filters.effect = v; paint(); });
@@ -1054,6 +1276,8 @@
     M.interactions.forEach(function (e) { M.edgeIx[e.id] = e; });
     M.compartments.forEach(function (c) { M.compIx[c.id] = c; });
     M.routes.forEach(function (r) { M.routeIx[r.id] = r; });
+    M.loopIx = {};
+    (M.loops || []).forEach(function (l) { M.loopIx[l.id] = l; });
   }
 
   function mount(host) {
