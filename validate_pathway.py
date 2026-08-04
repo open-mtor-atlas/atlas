@@ -248,6 +248,25 @@ def main():
         for ref in r.get("interactions", []) + r.get("spine", []):
             if ref not in seen:
                 E("route %s: references unknown interaction %s" % (r["id"], ref))
+        # Každá trasa musí být DOPSANÁ. Šest ze sedmi tras dlouho běželo na
+        # automaticky složených krocích — byly poctivé, ale generické, a
+        # recenzent by si toho všiml dřív než chybějícího tématu. Bez branky
+        # se osmá trasa nasadí zas jako šablona.
+        if len(r.get("steps", [])) != len(r.get("spine", [])):
+            E("route %s: %d of %d steps authored. A route running on assembled "
+              "template text is the failure mode this section keeps returning to."
+              % (r["id"], len(r.get("steps", [])), len(r.get("spine", []))))
+        for k, st in enumerate(r.get("steps", [])):
+            if st.get("interaction") != (r.get("spine") or [None] * (k + 1))[k]:
+                E("route %s step %d: authored step is out of order with the spine "
+                  "(%r vs %r) — the narrative would not match the camera"
+                  % (r["id"], k + 1, st.get("interaction"),
+                     (r.get("spine") or [None] * (k + 1))[k]))
+            if len((st.get("matters") or "")) < 80:
+                E("route %s step %s: 'why scientists care' is under 80 characters. "
+                  "That field is the payload; a stub there means the step teaches "
+                  "adjacency instead of understanding."
+                  % (r["id"], st.get("interaction")))
         for st in r.get("steps", []):
             if st.get("interaction") not in seen:
                 E("route %s: step references unknown interaction %s" % (r["id"], st.get("interaction")))

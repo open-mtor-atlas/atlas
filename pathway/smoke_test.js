@@ -700,6 +700,32 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(/The paper that broke it open/.test(D.getElementById("pwStep").innerHTML),
     "a single-breakthrough route names it as such");
 
+  console.log("— every route is authored, none assembled —");
+  model.routes.forEach((r) => {
+    ok(r.steps.length === r.spine.length,
+      `route ${r.id}: all ${r.spine.length} steps hand-authored`);
+    r.steps.forEach((st, k) => {
+      ok(st.interaction === r.spine[k],
+        `route ${r.id} step ${k + 1}: narrative matches the spine order`);
+      ok((st.matters || "").length > 80,
+        `route ${r.id} step ${k + 1}: 'why scientists care' carries real payload`);
+    });
+  });
+  // and the UI must stop claiming steps are assembled when they are not
+  w.PathwayApp.setMode("guided");
+  let assembledSeen = 0;
+  model.routes.forEach((r) => {
+    D.querySelector(`.pw-routebtn[data-r="${r.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    D.getElementById("pwStart").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    for (let i = 0; i < r.spine.length; i++) {
+      if (/assembled from curated fields/.test(D.getElementById("pwStep").innerHTML)) assembledSeen++;
+      const nx = D.getElementById("pwNext");
+      if (nx && !/Finish/.test(nx.textContent)) nx.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    }
+  });
+  ok(assembledSeen === 0,
+    `no step anywhere still labels itself assembled-from-template (${assembledSeen} found)`);
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 
