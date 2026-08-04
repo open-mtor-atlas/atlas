@@ -34,6 +34,7 @@ POUŽITÍ
 
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -183,6 +184,21 @@ def main():
         for k in ("name", "missing_step", "why"):
             if not (lp.get(k) or "").strip():
                 E("open loop %r: missing %s" % (lp.get("name"), k))
+        # Otevřená smyčka nesmí být ve skutečnosti uzavřená. Když se dokurátoruje
+        # chybějící krok, deklarace se musí odebrat — jinak model tvrdí, že neumí
+        # uzavřít smyčku, kterou už uzavřel. Přesně tohle se stalo u TFEB.
+        words = {w.strip().lower() for w in re.split(r"[^A-Za-z0-9α-ω/\-]+", lp.get("name", "")) if len(w.strip()) > 3}
+        for det in m.get("loops", []):
+            dwords = {w.strip().lower() for nm in det["nodes"]
+                      for w in re.split(r"[^A-Za-z0-9α-ω/\-]+", nm) if len(w.strip()) > 3}
+            if words and len(words & dwords) >= max(2, len(words) - 1):
+                E("open loop %r looks closed: detected loop %s covers %s. Remove the "
+                  "declaration once the missing step is curated."
+                  % (lp.get("name"), det["id"], sorted(words & dwords)))
+    for lp in m.get("open_localisations", []):
+        for k in ("name", "status", "why"):
+            if not (lp.get(k) or "").strip():
+                E("open localisation %r: missing %s" % (lp.get("name"), k))
 
     # --- trasy ------------------------------------------------------------
     for r in m.get("routes", []):

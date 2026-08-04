@@ -492,6 +492,60 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(/more curated evidence behind that molecule/.test(leg),
     "legend explains what node border weight means");
 
+  console.log("— organelle build-out (review pass 2) —");
+  // Lysosome centrality is a MEASURED claim, not decoration.
+  const lyso = model.compartments.find((c) => c.id === "lyso");
+  ok(lyso.direct_regulators_total > 0, "lysosome carries a direct-regulator census");
+  const directIn = model.interactions.filter((e) => e.target === "mTORC1" && e.directness === "direct");
+  ok(lyso.direct_regulators_total === directIn.length,
+    `census matches the model (${lyso.direct_regulators_total} direct inputs to mTORC1)`);
+  ok(lyso.direct_regulators_here === directIn.filter((e) => e.compartment === "lyso").length,
+    "count of direct regulators at the lysosome is computed, not asserted");
+  ok(lyso.direct_regulators_elsewhere.every((x) => x.type === "complex-assembly"),
+    "the only direct input to mTORC1 outside the lysosome is complex assembly — "
+    + "so every direct REGULATOR of activity is lysosomal");
+  ok(/switched on/.test(D.querySelector("#pwCanvas svg").innerHTML),
+    "the canvas states on the lysosomal band where mTORC1 is switched on");
+  model.compartments.filter((c) => c.interaction_count).forEach((c) => {
+    ok(typeof c.interaction_share === "number", `${c.id}: has an interaction share`);
+  });
+
+  // Mitochondria: bidirectional, and the ROS loop must be POSITIVE.
+  ["MITODYS-MTORC1", "MTORC1-OXPHOS", "MTORC1-ROS", "ROS-MTORC1", "MTORC2-MAM", "MTORC1-PGC1A"]
+    .forEach((id) => {
+      const e = model.interactions.find((x) => x.id === id);
+      ok(!!e, `${id} exists`);
+      if (e) ok(e.evidence.supporting.length > 0, `${id} cites at least one study`);
+    });
+  const posLoops = (model.loops || []).filter((l) => l.sign === "positive");
+  ok(posLoops.length >= 1,
+    "at least one POSITIVE feedback loop is now detected — positive loops amplify rather "
+    + "than stabilise, which is a different biological claim from every loop being negative");
+  ok(posLoops.some((l) => l.nodes.some((n) => /Reactive oxygen/.test(n))),
+    "the ROS <-> mTORC1 loop is the positive one");
+
+  // Nucleus: the arms the reviewer named.
+  ["HIF-1α", "FOXO1/3", "PGC-1α / YY1", "TFEB", "SREBP1 / SREBP2"].forEach((n) => {
+    ok(model.nodes.some((x) => x.id === n && x.compartment === "nucleus"),
+      `${n} is present in the nucleus band`);
+  });
+
+  // The TFEB loop must now CLOSE, and must no longer be declared open.
+  const tfebLoop = (model.loops || []).find((l) => l.nodes.includes("TFEB"));
+  ok(!!tfebLoop, "the TFEB -> lysosomal biogenesis -> lysosome -> mTORC1 loop now closes");
+  ok(!(model.open_loops || []).some((o) => /TFEB/.test(o.name)),
+    "and it is no longer listed as a loop this map cannot close");
+
+  // Golgi: declared as a gap, never asserted as an edge.
+  ok((model.open_localisations || []).some((o) => /Golgi/.test(o.name)),
+    "Golgi is declared as an unrepresented localisation");
+  ok(!model.interactions.some((e) => /Golgi/i.test(e.source) || /Golgi/i.test(e.target)),
+    "no Golgi interaction is asserted, because no corpus study supports one");
+  D.getElementById("pwLoops").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(/Golgi/.test(D.getElementById("pwInsp").innerHTML),
+    "the panel tells the reader that Golgi is missing for want of a paper");
+  D.getElementById("pwLoops").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 

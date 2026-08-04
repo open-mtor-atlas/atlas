@@ -293,7 +293,16 @@
         + '" width="' + W + '" height="' + b.h + '"/>';
       s += '<line class="' + (c.physical && i > 0 ? "pw-membrane" : "pw-bandline") + '" x1="0" y1="' + b.y
         + '" x2="' + W + '" y2="' + b.y + '"/>';
-      s += '<text class="pw-bandlab" x="16" y="' + (b.y + 16) + '">' + esc(c.name) + "</text>";
+      /* Band labels carry their share of curated interactions. The reviewer
+         asked for the lysosome to be "central"; the honest way to say that is
+         with the number, not with decoration. */
+      var lab = c.name + (c.interaction_count ? "  ·  " + c.interaction_count + " steps" : "");
+      s += '<text class="pw-bandlab" x="16" y="' + (b.y + 16) + '">' + esc(lab) + "</text>";
+      if (c.id === "lyso") {
+        s += '<text class="pw-bandhead" x="' + (16 + lab.length * 7.4) + '" y="' + (b.y + 16)
+          + '">' + esc("— where mTORC1 is switched on: " + c.direct_regulators_here + "/"
+            + c.direct_regulators_total + " of its direct inputs") + "</text>";
+      }
       if (!c.physical) {
         s += '<text class="pw-bandwarn" x="' + (16 + c.name.length * 8.2) + '" y="' + (b.y + 16)
           + '">— NOT A CELLULAR LOCATION</text>';
@@ -615,6 +624,13 @@
     });
     h += '<div class="pw-bound"><b>Sign is a parity, not a strength.</b> '
       + esc((M.loops[0] || {}).sign_caveat || "") + "</div>";
+    if (M.open_localisations && M.open_localisations.length) {
+      h += '<div class="k">Where mTOR signals — what this map does and does not represent</div>';
+      M.open_localisations.forEach(function (o) {
+        h += '<div class="pw-ctxnote"><b>' + esc(o.name) + "</b> — <i>" + esc(o.status)
+          + "</i><br>" + esc(o.why) + "</div>";
+      });
+    }
     if (M.open_loops && M.open_loops.length) {
       h += '<div class="k">Loops the literature describes that this map cannot close</div>';
       M.open_loops.forEach(function (o) {
@@ -712,6 +728,10 @@
                      : '<div class="k">Compartment</div><p style="font-size:12px;color:var(--ink-soft)">' + esc(c.blurb) + "</p>")
       /* Declared simplifications are shown, not buried. If a band compresses
          real cell biology, the reader is told so on every node in it. */
+      + (c.headline ? '<div class="pw-teach"><b>Why this compartment matters.</b> ' + esc(c.headline) + "</div>" : "")
+      + (c.interaction_count ? '<p class="pw-tinynote">' + c.interaction_count + " of "
+          + M.meta.counts.interactions + " curated interactions (" + c.interaction_share
+          + "%) happen here.</p>" : "")
       + (c.sensing_note ? '<div class="pw-bound"><b>Declared simplification.</b> ' + esc(c.sensing_note) + "</div>" : "")
       + '<div class="k">Inputs (' + ins.length + ")</div>" + list(ins, "in")
       + '<div class="k">Outputs (' + outs.length + ")</div>" + list(outs, "out")
