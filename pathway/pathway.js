@@ -25,7 +25,7 @@
   var el = {};                           // cached DOM
   var S = {                              // UI state
     mode: "overview",
-    level: "student",
+    level: (window.ATLAS_LEVEL || "student"),
     detail: "core",
     sel: null, selKind: null,
     focus: null, hops: 1,
@@ -58,6 +58,14 @@
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* Beginner text is authored separately only where it is most needed
+     (edge mechanism text); Student and Research keep reading the same
+     curated field. This is the shared fallback so a missing Beginner
+     string never renders blank. */
+  function forLevel(beginnerText, fallbackText) {
+    return (S.level === "beginner" && beginnerText) ? beginnerText : fallbackText;
   }
   function $(id) { return document.getElementById(id); }
   function nodeById(id) { return M.nodeIx[id]; }
@@ -669,7 +677,7 @@
       + '<span class="pw-chip"><b>model</b> ' + esc(e.species.join(", ") || "—") + "</span>"
       + (e.confidence.consensus === "contested" ? '<span class="pw-chip bad">contested</span>' : "")
       + "</div>"
-      + '<div class="k">Mechanism</div><p>' + esc(e.mechanism) + "</p>"
+      + '<div class="k">Mechanism</div><p>' + esc(forLevel(e.mechanism_beginner, e.mechanism)) + "</p>"
       + (e.teaching_note ? '<div class="pw-teach"><b>Why this distinction matters.</b> ' + esc(e.teaching_note) + "</div>" : "")
       + (e.directness === "indirect"
           ? '<div class="pw-bound"><b>Compressed.</b> This arrow spans more than one molecular event. '
@@ -846,7 +854,7 @@
     var base = {
       interaction: eid,
       what: A.label + " " + (VERB[e.type] || e.type) + " " + B.label + ".",
-      why: e.mechanism,
+      why: forLevel(e.mechanism_beginner, e.mechanism),
       changed: "The net effect on " + B.label + " is: " + e.effect
         + ". " + (e.type === "recruitment" || e.type === "localisation"
           ? "Note that this changes where " + B.label + " is, not whether it is switched on."
@@ -863,7 +871,7 @@
         + ". Best supporting study is tier " + e.evidence.best_tier + " (" + e.evidence.kind
         + ", " + (e.species.join(", ") || "model not stated") + ")."
         + (e.boundary ? " Boundary conditions: " + e.boundary : ""),
-      matters: e.teaching_note || B.explain.research
+      matters: e.teaching_note || B.explain[S.level] || B.explain.research
     };
     if (authored) {
       Object.keys(authored).forEach(function (k) { if (authored[k]) base[k] = authored[k]; });
@@ -1011,8 +1019,9 @@
       + '      <label class="pw-search"><span class="pw-lbl">FIND</span>'
       + '        <input id="pwFind" type="search" placeholder="protein, complex, drug…" aria-label="Find a molecule"></label>'
       + '      <span class="pw-lbl">LEVEL</span><div class="pw-seg" id="pwLevel" role="group" aria-label="Explanation level">'
-      + '        <button data-lv="beginner">Beginner</button><button data-lv="student" aria-pressed="true">Student</button>'
-      + '        <button data-lv="research">Research</button></div>'
+      + '        <button data-lv="beginner"' + (S.level === "beginner" ? ' aria-pressed="true"' : '') + '>Beginner</button>'
+      + '        <button data-lv="student"' + (S.level === "student" ? ' aria-pressed="true"' : '') + '>Student</button>'
+      + '        <button data-lv="research"' + (S.level === "research" ? ' aria-pressed="true"' : '') + '>Research</button></div>'
       + '      <span class="pw-lbl">VIEW</span><div class="pw-seg" id="pwView" role="group" aria-label="Level of abstraction">'
       + '        <button data-vw="mechanism" aria-pressed="true" title="Molecular events only: binding, phosphorylation, GAP activity, recruitment, transport">Mechanism</button>'
       + '        <button data-vw="pathway" title="Who talks to whom, including compressed multi-step links and organism-level outcomes">Pathway</button></div>'
@@ -1220,6 +1229,21 @@
       paint();
     });
 
+    // Site-wide Beginner/Student/Research level. Single place that applies
+    // a level change to this module's UI, whether it came from the pwLevel
+    // buttons in this toolbar or from the global topbar switcher.
+    function applyLevel(lv) {
+      S.level = lv || "student";
+      el.explorerUI.querySelectorAll("#pwLevel button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.lv === S.level));
+      });
+      if (S.selKind === "node") inspectNode(S.sel); else if (S.selKind === "edge") inspectEdge(S.sel);
+      say("Explanation level: " + S.level + ". The network is unchanged — only the words change.");
+    }
+    document.addEventListener("atlas-level-change", function (ev) {
+      if (ev && ev.detail && ev.detail.level && ev.detail.level !== S.level) applyLevel(ev.detail.level);
+    });
+
     // segmented controls
     function seg(container, attr, apply) {
       container.querySelectorAll("button").forEach(function (b) {
@@ -1231,9 +1255,12 @@
       });
     }
     seg($("pwLevel"), "lv", function (v) {
-      S.level = v || "student";
-      if (S.selKind === "node") inspectNode(S.sel); else if (S.selKind === "edge") inspectEdge(S.sel);
-      say("Explanation level: " + S.level + ". The network is unchanged — only the words change.");
+      var lv = v || "student";
+      /* Beginner/Student/Research is a site-wide control (topbar), not just a
+         Mechanism Explorer setting. Route the change through it so Studies,
+         Open Questions and Timeline stay in sync; applyLevel() below runs
+         either way, via the atlas-level-change listener registered in mount(). */
+      if (window.setAtlasLevel) window.setAtlasLevel(lv); else applyLevel(lv);
     });
     seg($("pwView"), "vw", function (v) {
       S.view = v || "mechanism";
