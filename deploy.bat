@@ -153,7 +153,7 @@ where node >nul 2>nul
 if errorlevel 1 (
   echo.
   echo ABORTED: Node.js not found on PATH, so the JS-only tabs cannot be prerendered.
-  echo Install Node (https://nodejs.org) and re-run, or deploy from the sandbox via deploy.sh.
+  echo Install Node from https://nodejs.org and re-run, or deploy from the sandbox via deploy.sh.
   exit /b 1
 )
 node prerender_tabs.js
