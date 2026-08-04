@@ -22,6 +22,7 @@
   "use strict";
 
   var M = null;                          // the model
+  var CTX = null;                        // context overlay (pathway/contexts.json), optional
   var el = {};                           // cached DOM
   var S = {                              // UI state
     mode: "overview",
@@ -48,11 +49,25 @@
     loopsOnly: false, highlightLoop: null,
     filters: { effect: null, evidence: null, physOnly: false },
     routeId: null, step: -1,
+    contextId: "all",
     cam: null, camTarget: null, anim: null, snap: null
   };
 
   var NH = 30, LANE = 13;
   var LEVELS = ["beginner", "student", "research"];
+  /* Context overlay (Fed/Fasting/Exercise/...) is a state layered ON TOP of
+     the fixed network -- nodes never move between contexts, only weighting
+     does. It must not collide with the two channels edges already own:
+     colour = effect (--pw-act/inh/req/bind) and dash+width = certainty
+     (directness x mechanistic confidence). So context state renders as a
+     separate neutral-ink underlay (own dash grammar) plus a small glyph
+     badge on nodes -- never a new colour, never the main edge's own dash. */
+  var CTX_EDGE_STYLE = {
+    active: { width: 5, dash: "none", opacity: 0.55 },
+    suppressed: { width: 3, dash: "3,4", opacity: 0.4 },
+    unclear: { width: 3, dash: "1,4", opacity: 0.4 }
+  };
+  var CTX_NODE_BADGE = { active: "\u25B2", suppressed: "\u25BD", unclear: "\u2013" };
 
   /* ---- helpers --------------------------------------------------------- */
   function esc(s) {
@@ -327,6 +342,7 @@
     M.interactions.forEach(function (e) {
       var g = geom(e); if (!g) return;
       e._g = g;
+      lines += '<path class="pw-ctxu" data-eid="' + esc(e.id) + '" d="' + g.d + '" fill="none"/>';
       var cls = "pw-e f-" + e.effect + " d-" + e.directness + " m-" + e.confidence.mechanistic;
       if (e.confidence.consensus === "contested") {
         lines += '<path class="pw-contest" data-eid="' + esc(e.id) + '" d="' + g.d + '"/>';
@@ -367,7 +383,9 @@
         s += '<rect class="nb2" x="' + (x + 3.2).toFixed(1) + '" y="' + (y + 3.2).toFixed(1)
           + '" width="' + (w - 6.4).toFixed(1) + '" height="' + (NH - 6.4) + '"/>';
       }
-      s += '<text x="' + n.x + '" y="' + (n.y + 0.5) + '">' + esc(n.label) + "</text></g>";
+      s += '<text x="' + n.x + '" y="' + (n.y + 0.5) + '">' + esc(n.label) + "</text>"
+        + '<text class="pw-ctxb" x="' + (x + w - 4).toFixed(1) + '" y="' + (y + 10).toFixed(1)
+        + '" text-anchor="end"></text></g>';
     });
     s += "</g></svg>";
     return s;
@@ -512,6 +530,46 @@
     if (e.timescale === "constitutive") return true;
     return TIME_ORDER.indexOf(e.timescale) <= TIME_ORDER.indexOf(S.timeMax);
   }
+  /* ==== context overlay (Fed / Fasting / Exercise / ...) ================ */
+  function activeCtx() { return (CTX && S.contextId) ? CTX.ix[S.contextId] : null; }
+  /* Stub contexts (Cancer, Aging, Muscle, Immune cell, Neuron) are visible in
+     the chip bar from day one -- signalling the roadmap -- but carry no data,
+     so they must never filter or dim the diagram. Only a curated, non-stub,
+     non-"all" context does. */
+  function ctxFiltering() {
+    var c = activeCtx();
+    return !!(c && !c.stub && c.id !== "all");
+  }
+  function ctxEdgeState(id) {
+    var c = activeCtx();
+    return (c && !c.stub) ? (c.edges[id] || null) : null;
+  }
+  function ctxNodeState(id) {
+    var c = activeCtx();
+    return (c && !c.stub) ? (c.nodes[id] || null) : null;
+  }
+  function paintContext() {
+    if (!el.svg) return;
+    var on = ctxFiltering();
+    var c = activeCtx();
+    el.svg.querySelectorAll(".pw-ctxu").forEach(function (u) {
+      var st = on ? (c.edges[u.dataset.eid] || null) : null;
+      if (!st) { u.style.opacity = 0; return; }
+      var sty = CTX_EDGE_STYLE[st];
+      u.setAttribute("stroke-width", sty.width);
+      u.setAttribute("stroke-dasharray", sty.dash);
+      u.style.opacity = sty.opacity;
+    });
+    el.svg.querySelectorAll(".pw-n").forEach(function (g) {
+      var b = g.querySelector(".pw-ctxb");
+      if (!b) return;
+      var st = on ? (c.nodes[g.dataset.nid] || null) : null;
+      b.textContent = st ? CTX_NODE_BADGE[st] : "";
+      b.classList.toggle("down", st === "suppressed");
+      b.classList.toggle("unclear", st === "unclear");
+    });
+  }
+
   function edgePasses(e) {
     var f = S.filters;
     /* Route mode always shows the route's own edges regardless of detail set:
@@ -520,6 +578,7 @@
       if (S.view === "mechanism" && !isMechanism(e)) return false;
       if (!withinTime(e)) return false;
       if (S.loopsOnly && !(e.loops && e.loops.length)) return false;
+      if (ctxFiltering() && !ctxEdgeState(e.id)) return false;
     }
     if (f.effect && e.effect !== f.effect) return false;
     if (f.evidence === "core" && !isCore(e)) return false;
@@ -553,9 +612,11 @@
     });
     el.svg.querySelectorAll(".pw-n").forEach(function (g) {
       var id = g.dataset.nid;
-      g.classList.toggle("dim", !shownNodes[id]);
+      var hasCtx = ctxFiltering() && !!ctxNodeState(id);
+      g.classList.toggle("dim", !shownNodes[id] && !hasCtx);
       g.classList.toggle("sel", S.selKind === "node" && S.sel === id);
     });
+    paintContext();
   }
 
   /* ==== inspector ====================================================== */
@@ -1041,7 +1102,9 @@
       + '      <button class="pw-btn" id="pwLoops" aria-pressed="false" title="Show only interactions that form a feedback loop">Feedback loops</button>'
       + '      <button class="pw-btn" id="pwFocus" aria-pressed="false">Focus mode</button>'
       + '      <button class="pw-btn" id="pwReset">Reset view</button>'
-      + "    </div></div>"
+      + "    </div>"
+      + ctxBarHTML()
+      + "</div>"
       + '  <div id="pwGuidedUI" class="pw-hide"><div class="pw-routes" id="pwRoutes"></div>'
       + '    <div class="pw-prog" id="pwProg"></div><div class="pw-step" id="pwStep"></div></div>'
       + '  <div class="pw-stage pw-hide" id="pwStageWrap">'
@@ -1054,6 +1117,51 @@
       + '  <details class="pw-legend"><summary>Visual language — what every line and box means</summary>'
       + '    <div class="pw-legend-grid">' + legend() + "</div></details>"
       + "</div></div>";
+  }
+
+  function ctxBarHTML() {
+    if (!CTX || !CTX.list || !CTX.list.length) return "";
+    var order = ["state", "disease", "tissue"];
+    var clusterLbl = { state: "State", disease: "Disease", tissue: "Cell type" };
+    var h = '<div class="pw-ctxbar" id="pwCtxBar" role="group" aria-label="Physiological, disease or cell-type context">';
+    order.forEach(function (cl) {
+      var items = CTX.list.filter(function (c) { return c.cluster === cl; });
+      if (!items.length) return;
+      h += '<div class="pw-ctx-cluster"><span class="pw-ctx-lbl">' + esc(clusterLbl[cl]) + '</span><div class="pw-ctx-chips">';
+      items.forEach(function (c) {
+        var label = c.label.replace(" (no filter)", "");
+        h += '<button class="pw-ctx-chip' + (c.stub ? " stub" : "") + '" data-ctx="' + esc(c.id)
+          + '" aria-pressed="' + (c.id === S.contextId) + '"'
+          + (c.stub ? ' title="Planned, not yet curated"' : "") + ">" + esc(label) + "</button>";
+      });
+      h += "</div></div>";
+    });
+    h += "</div>"
+      + '<div class="pw-ctxbrief" id="pwCtxBrief"></div>';
+    return h;
+  }
+
+  function renderCtxBrief() {
+    var box = $("pwCtxBrief"); if (!box) return;
+    var c = activeCtx();
+    if (!c) { box.innerHTML = ""; return; }
+    box.innerHTML = "<h5>" + esc(c.label) + "</h5><p>" + esc(c.brief) + "</p>"
+      + (c.note ? '<p class="pw-ctxnote2">' + esc(c.note) + "</p>" : "")
+      + '<p class="pw-tinynote">' + esc((CTX.meta && CTX.meta.caveat) || "") + "</p>";
+  }
+
+  function setContext(id) {
+    if (!CTX || !CTX.ix[id]) return;
+    S.contextId = id;
+    var c = activeCtx();
+    el.explorerUI.querySelectorAll(".pw-ctx-chip").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.ctx === id));
+    });
+    renderCtxBrief();
+    paint();
+    say(c.stub
+      ? "Context: " + c.label + " \u2014 not yet curated, shown as roadmap only."
+      : "Context: " + c.label + ". " + c.brief);
   }
 
   function legend() {
@@ -1220,6 +1328,13 @@
       el.explorerUI.querySelectorAll("#pwEffect button,#pwEvid2 button").forEach(function (b) {
         b.setAttribute("aria-pressed", String(!b.dataset.ef && !b.dataset.ev));
       });
+      if (CTX) {
+        S.contextId = "all";
+        el.explorerUI.querySelectorAll(".pw-ctx-chip").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.dataset.ctx === "all"));
+        });
+        renderCtxBrief();
+      }
       el.find.value = ""; inspectDefault(); updateHint(); frameCore(); paint();
     });
     el.focusBtn.addEventListener("click", function () {
@@ -1290,6 +1405,13 @@
     });
     seg($("pwEffect"), "ef", function (v) { S.filters.effect = v; paint(); });
     seg($("pwEvid2"), "ev", function (v) { S.filters.evidence = v; paint(); });
+
+    // context chips (Fed / Fasting / Exercise / ... overlay)
+    if (el.explorerUI) {
+      el.explorerUI.querySelectorAll(".pw-ctx-chip").forEach(function (b) {
+        b.addEventListener("click", function () { setContext(b.dataset.ctx); });
+      });
+    }
 
     // search
     el.find.addEventListener("input", function () {
@@ -1365,6 +1487,7 @@
     el.svg.__bandlabs = [].slice.call(el.svg.querySelectorAll(".pw-bandg"));
     renderOverview();
     wire();
+    renderCtxBrief();
     updateHint();
     frameCore();
     inspectDefault();
@@ -1372,14 +1495,36 @@
     setMode(S.mode);
   }
 
+  function indexContexts(doc) {
+    var ix = {};
+    (doc.contexts || []).forEach(function (c) { ix[c.id] = c; });
+    return { list: doc.contexts || [], ix: ix, meta: doc.meta || {} };
+  }
+
   var booted = false;
   window.PathwayApp = {
     boot: function (host, modelUrl) {
       if (booted) return Promise.resolve();
       booted = true;
+      /* contexts.json is an optional overlay (Fed/Fasting/Exercise/...), not
+         core biology. It shares the same cache-busted ?v= as model.json, so
+         the URL is derived rather than passed separately -- one fewer call
+         site to keep in sync in index.html. A missing or broken overlay must
+         never block the Explorer: catch and fall back to CTX = null. */
+      var contextsUrl = modelUrl.replace("model.json", "contexts.json");
       return fetch(modelUrl, { cache: "no-cache" })
         .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-        .then(function (json) { M = json; index(); mount(host); return M.meta; })
+        .then(function (json) {
+          M = json; index();
+          return fetch(contextsUrl, { cache: "no-cache" })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .catch(function () { return null; });
+        })
+        .then(function (ctxJson) {
+          CTX = (ctxJson && ctxJson.contexts) ? indexContexts(ctxJson) : null;
+          mount(host);
+          return M.meta;
+        })
         .catch(function (err) {
           booted = false;
           host.innerHTML = '<div class="pw"><div class="pw-step"><h4>Pathway model could not be loaded</h4>'

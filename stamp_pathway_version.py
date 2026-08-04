@@ -24,7 +24,7 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-ASSETS = ["pathway/pathway.js", "pathway/pathway.css", "pathway/model.json"]
+ASSETS = ["pathway/pathway.js", "pathway/pathway.css", "pathway/model.json", "pathway/contexts.json"]
 NEEDLE = 'var PW_ASSET_V = "'
 
 

@@ -250,7 +250,7 @@
      WCAG 2.2 SC 2.5.8 (24px AA) for a precise pointer, but a finger needs
      the AAA figure. This block is the enforcement, not a convention —
      pathway/smoke_test.js asserts these rules are present. */
-  .pw-btn,.pw-seg button,.pw-search,.pw-search input{height:44px;min-height:44px;}
+  .pw-btn,.pw-seg button,.pw-search,.pw-search input,.pw-ctx-chip{height:44px;min-height:44px;}
   .pw-zoom button{width:44px;height:44px;min-width:44px;}
   .pw-bar{gap:6px;}
   .pw-search{flex:1 1 100%;max-width:none;}
@@ -347,3 +347,49 @@
 /* Band sub-headline: the measured claim about a compartment, on the canvas. */
 .pw-bandhead{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;
   fill:var(--teal-deep);}
+/* =========================================================================
+   Context overlay (Fed / Fasting / Exercise / ...) -- see pathway/contexts.json
+   State is layered ON TOP of the fixed network: nodes never move between
+   contexts, only weighting does. It must not collide with the two channels
+   edges already own -- colour = effect, dash+width = certainty (see the
+   f-*/d-*/m-* rules above) -- so it renders as its own neutral-ink underlay
+   layer (own dash grammar) plus a small glyph badge on nodes. Never a new
+   hue; never the main edge line's own dash pattern.
+   ========================================================================= */
+.pw-ctxu{fill:none;stroke:var(--ink);pointer-events:none;opacity:0;stroke-linecap:round;}
+.pw-ctxb{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;fill:var(--ink);
+  pointer-events:none;text-anchor:end;}
+.pw-ctxb.down{fill:var(--ink-soft);}
+.pw-ctxb.unclear{fill:var(--ink-soft);font-weight:400;}
+
+.pw-ctxbar{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;padding:10px 0 4px;
+  border-bottom:1px solid var(--line);margin-top:2px;}
+.pw-ctx-cluster{display:flex;flex-direction:column;gap:5px;}
+.pw-ctx-lbl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.pw-ctx-chips{display:flex;border:1.5px solid var(--line-strong);}
+.pw-ctx-chip{position:relative;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;
+  text-transform:uppercase;padding:0 12px;height:38px;min-width:44px;background:var(--paper);color:var(--ink);
+  border:none;border-right:1px solid var(--line);cursor:pointer;}
+.pw-ctx-chip:last-child{border-right:none;}
+.pw-ctx-chip:hover{border-color:var(--teal);}
+.pw-ctx-chip[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);font-weight:700;}
+.pw-ctx-chip:focus-visible{outline:3px solid var(--teal);outline-offset:-3px;}
+/* Stub contexts (Cancer, Aging, Muscle, Immune cell, Neuron) are visible from
+   day one to signal the roadmap, but carry no curated data yet -- see the
+   "planned" corner mark rather than pretending they are live. */
+.pw-ctx-chip.stub::after{content:"planned";position:absolute;top:-8px;right:2px;font-size:9px;
+  letter-spacing:0;text-transform:none;color:var(--amber);background:var(--paper);padding:0 3px;}
+
+.pw-ctxbrief{border:1px solid var(--line);padding:11px 13px;margin:10px 0 4px;max-width:640px;}
+.pw-ctxbrief h5{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;margin:0 0 6px;color:var(--ink);}
+.pw-ctxbrief p{font-size:12.5px;line-height:1.55;margin:0 0 7px;color:var(--ink);}
+.pw-ctxbrief p:last-child{margin-bottom:0;}
+.pw-ctxnote2{border-left:2px solid var(--amber);padding:7px 0 7px 10px;color:var(--ink-soft);
+  font-size:12px;line-height:1.55;}
+
+@media (max-width:900px){
+  .pw-ctxbar{gap:10px;}
+  .pw-ctx-chips{flex-wrap:wrap;}
+}

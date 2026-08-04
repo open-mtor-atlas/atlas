@@ -25,6 +25,7 @@ const { JSDOM } = require(process.env.JSDOM_PATH || "jsdom");
 
 const ROOT = path.join(__dirname, "..");
 const model = JSON.parse(fs.readFileSync(path.join(ROOT, "pathway", "model.json"), "utf8"));
+const contextsDoc = JSON.parse(fs.readFileSync(path.join(ROOT, "pathway", "contexts.json"), "utf8"));
 const src = fs.readFileSync(path.join(ROOT, "pathway", "pathway.js"), "utf8");
 
 let fails = 0, checks = 0;
@@ -49,7 +50,12 @@ w.performance = w.performance || { now: () => Date.now() };
 w.requestAnimationFrame = (fn) => setTimeout(() => fn(w.performance.now()), 0);
 w.cancelAnimationFrame = (id) => clearTimeout(id);
 w.CSS = { escape: (s) => String(s).replace(/["\\]/g, "\\$&") };
-w.fetch = () => Promise.resolve({ ok: true, json: () => Promise.resolve(model) });
+// boot() derives the contexts.json URL from modelUrl by substring replace,
+// so the stub must be URL-aware to actually exercise that path.
+w.fetch = (url) => Promise.resolve({
+  ok: true,
+  json: () => Promise.resolve(String(url).indexOf("contexts.json") >= 0 ? contextsDoc : model)
+});
 w.matchMedia = () => ({ matches: false, addListener() {}, removeListener() {} });
 w.scrollTo = () => {};
 
@@ -391,6 +397,89 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
      && D.getElementById("pwLoops").getAttribute("aria-pressed") === "false",
     "reset leaves every control agreeing with what is drawn");
 
+  console.log("— context overlay (Fed / Fasting / Exercise) —");
+  ok(!!D.getElementById("pwCtxBar"), "context chip bar renders");
+  const ctxIds = contextsDoc.contexts.map((c) => c.id);
+  ["all", "fed", "fasting", "exercise", "cancer", "aging", "muscle", "immune", "neuron"].forEach((id) => {
+    ok(ctxIds.includes(id), `contexts.json defines "${id}"`);
+    ok(!!D.querySelector(`.pw-ctx-chip[data-ctx="${id}"]`), `chip for "${id}" renders`);
+  });
+  const stubIds = contextsDoc.contexts.filter((c) => c.stub).map((c) => c.id);
+  ok(stubIds.length === 5, `five contexts are marked stub (${stubIds.join(", ")})`);
+  stubIds.forEach((id) => {
+    ok(D.querySelector(`.pw-ctx-chip[data-ctx="${id}"]`).classList.contains("stub"),
+      `${id} chip carries the stub/"planned" marker`);
+  });
+
+  // every id a context references must be a real node/interaction -- guards
+  // contexts.json against drifting from model.json after either changes
+  const ctxEdgeIds = new Set(model.interactions.map((e) => e.id));
+  const ctxNodeIds = new Set(model.nodes.map((n) => n.id));
+  contextsDoc.contexts.forEach((c) => {
+    Object.keys(c.edges || {}).forEach((eid) =>
+      ok(ctxEdgeIds.has(eid), `context "${c.id}": edge id ${eid} exists in model.json`));
+    Object.keys(c.nodes || {}).forEach((nid) =>
+      ok(ctxNodeIds.has(nid), `context "${c.id}": node id ${nid} exists in model.json`));
+    Object.entries(c.edges || {}).forEach(([eid, st]) =>
+      ok(["active", "suppressed", "unclear"].includes(st),
+        `context "${c.id}": edge ${eid} has a valid state (${st})`));
+  });
+
+  // selecting a context is a weighting, never a re-layout
+  const xyBeforeCtx = new Map(model.nodes.map((n) => [n.id, `${n.x},${n.y}`]));
+  D.querySelector('.pw-ctx-chip[data-ctx="fed"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(model.nodes.every((n) => xyBeforeCtx.get(n.id) === `${n.x},${n.y}`),
+    "selecting a context never mutates node coordinates -- weighting only, never a re-layout");
+  ok(D.querySelector('.pw-ctx-chip[data-ctx="fed"]').getAttribute("aria-pressed") === "true",
+    "Fed chip becomes pressed on click");
+  ok(D.querySelector('.pw-ctx-chip[data-ctx="all"]').getAttribute("aria-pressed") === "false",
+    "All chip un-presses when Fed is selected");
+  ok(/Fed/.test(D.getElementById("pwCtxBrief").textContent), "context brief shows the Fed narrative");
+
+  const fedNodeIds = Object.keys(contextsDoc.contexts.find((c) => c.id === "fed").nodes);
+  let ctxBadgeCount = 0;
+  fedNodeIds.forEach((nid) => {
+    const g = D.querySelector(`.pw-n[data-nid="${w.CSS.escape(nid)}"]`);
+    const b = g && g.querySelector(".pw-ctxb");
+    if (b && b.textContent) ctxBadgeCount++;
+  });
+  ok(ctxBadgeCount === fedNodeIds.length,
+    `every Fed-annotated node carries a context badge (${ctxBadgeCount}/${fedNodeIds.length})`);
+
+  // MTORC2-AKT is deliberately unannotated for Fed and is a mechanistic
+  // (non-compressed) edge, so under Mechanism view it would normally NOT be
+  // dimmed -- only the context "na" rule dims it.
+  const naEdge = D.getElementById("pwe-MTORC2-AKT");
+  ok(naEdge && naEdge.classList.contains("dim"),
+    "Fed context dims an unannotated edge (MTORC2-AKT) rather than guessing its state");
+
+  // RAG-MTORC1 is annotated "active" for Fed and is mechanistic -> must stay visible
+  const activeEdge = D.getElementById("pwe-RAG-MTORC1");
+  ok(activeEdge && !activeEdge.classList.contains("dim"), "Fed-active edge RAG-MTORC1 stays visible");
+  const activeUnderlay = D.querySelector('.pw-ctxu[data-eid="RAG-MTORC1"]');
+  ok(activeUnderlay && parseFloat(activeUnderlay.style.opacity) > 0,
+    "Fed-active edge RAG-MTORC1 shows a context underlay");
+
+  // stub contexts must NEVER filter or dim the diagram -- only the brief changes
+  const baselineDim = model.interactions.filter((e) =>
+    D.getElementById("pwe-" + e.id).classList.contains("dim")).length;
+  D.querySelector('.pw-ctx-chip[data-ctx="cancer"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const cancerDim = model.interactions.filter((e) =>
+    D.getElementById("pwe-" + e.id).classList.contains("dim")).length;
+  ok(/not yet curated/i.test(D.getElementById("pwCtxBrief").textContent),
+    "stub context (Cancer) brief says it is not yet curated");
+  D.querySelector('.pw-ctx-chip[data-ctx="all"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const allDim = model.interactions.filter((e) =>
+    D.getElementById("pwe-" + e.id).classList.contains("dim")).length;
+  ok(cancerDim === allDim,
+    `a stub context dims exactly as much as no context at all (fed ${baselineDim}, cancer ${cancerDim}, all ${allDim})`);
+
+  // Reset view must also clear the context back to All
+  D.querySelector('.pw-ctx-chip[data-ctx="fasting"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(D.querySelector('.pw-ctx-chip[data-ctx="all"]').getAttribute("aria-pressed") === "true",
+    "Reset view returns the context filter to All");
+
   console.log("— search —");
   D.getElementById("pwFind").value = "Rheb";
   D.getElementById("pwFind").dispatchEvent(new w.Event("input", { bubbles: true }));
@@ -416,6 +505,8 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(mobileBlock.length > 200, "mobile media block found");
   ok(/\.pw-btn[^{]*\{[^}]*(min-)?height:44px/.test(mobileBlock),
     "toolbar buttons are raised to 44px on touch viewports");
+  ok(/\.pw-ctx-chip[^{]*\{[^}]*(min-)?height:44px/.test(mobileBlock),
+    "context chips are raised to 44px on touch viewports");
   ok(/\.pw-seg button[^{]*\{[^}]*(min-)?height:44px/.test(mobileBlock),
     "segmented controls are raised to 44px on touch viewports");
   ok(/\.pw-zoom button[^{]*\{[^}]*width:44px/.test(mobileBlock),
