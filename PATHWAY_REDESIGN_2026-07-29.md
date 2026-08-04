@@ -3,7 +3,7 @@
 **Open mTOR Atlas · 29 July 2026 · Phase 1 shipped, Phases 2–4 specified**
 
 Scope: the Pathway section of the Atlas, rebuilt from scratch rather than optimised.
-Corpus at time of writing: 283 studies, 100 curated interactions, 75 molecules, 7 guided routes.
+Corpus at time of writing: 283 studies, 111 curated interactions, 83 molecules, 7 guided routes.
 
 ---
 
@@ -40,7 +40,7 @@ That fourth point is the one everyone else omits, and it is where the Atlas can 
 | Learning levels | None | Three, switching text only |
 | Zoom / pan / search | None (a `min-width:940px` scroll box) | Full camera, search, focus mode, four filter axes |
 | Payload | Inside a 1.5 MB `index.html` | Lazy module, fetched on first open |
-| Tests | None | 1 404 assertions, mutation-verified, plus a live-page gate |
+| Tests | None | 1 547 assertions, mutation-verified, plus a live-page gate |
 
 ---
 
@@ -358,7 +358,7 @@ The layout engine, camera, inspector, evidence system, route engine and validato
 | C11 | Mobile bottom sheet, pinch, auto-framing, 44 px targets | ✅ |
 | C12 | Accessibility: keyboard graph, live region, shape-not-colour | ✅ 4 invariants tested |
 | C13 | Lazy-loaded module out of `index.html` | ✅ |
-| C14 | Automated validation gates | ✅ validator + 1 404 assertions, mutation-verified |
+| C14 | Automated validation gates | ✅ validator + 1 547 assertions, mutation-verified |
 | C15 | Detail control so the explorer never opens as a hairball | ✅ Core 51 / Full 100, withholding announced |
 | C16 | Content-hash cache-busting for the lazy assets | ✅ `stamp_pathway_version.py`, wired into deploy |
 | C17 | Camera reaches its target in a throttled tab | ✅ + a test that stubs rAF dead |
@@ -474,7 +474,7 @@ The right claim to make today is: *the framework is ready for review; the corpus
 | `validate_pathway.py` | Structural + scientific calibration gate. `--strict` blocks deploy |
 | `pathway/pathway.js` | The module: overview, explorer, camera, inspector, route engine |
 | `pathway/pathway.css` | Visual language; shape-and-weight encoding, mobile bottom sheet |
-| `pathway/smoke_test.js` | 1 404 assertions in jsdom, mutation-verified |
+| `pathway/smoke_test.js` | 1 547 assertions in jsdom, mutation-verified |
 | `stamp_pathway_version.py` | Hashes the three lazy assets into `PW_ASSET_V` so the CDN cannot serve a stale module |
 | `_inject_pathway2.py` | Makes `showView('map')` initialise the pathway mode; adds `?pw=` deep-links |
 | `_inject_pathway.py` | Idempotent wiring into `index.html` with write verification |
@@ -485,7 +485,7 @@ The right claim to make today is: *the framework is ready for review; the corpus
 ```bash
 py build_pathway_model.py      # regenerate model.json
 py validate_pathway.py --strict # scientific + structural gate
-node pathway/smoke_test.js      # 1 404 rendering / pedagogy assertions
+node pathway/smoke_test.js      # 1 547 rendering / pedagogy assertions
 py stamp_pathway_version.py     # cache-bust the lazy assets (deploy.sh does this)
 ```
 
@@ -543,3 +543,46 @@ New gate: `check_tier_palette.py --strict`, wired into `deploy.sh`. Mutation-ver
 Timescale was curated per interaction from Phase 1 but only shown as an inspector chip. Making it a *cumulative axis* turns it into the thing the reviewer identified: the map stops being a circuit diagram and starts being a sequence. It is also the cheapest route to the standout feature in §17 — a "what happens in the first 30 seconds versus the first six hours" reading of the same network, which no other pathway resource offers, because no other resource records timescale per interaction.
 
 The honest limit: six ordinal buckets are not kinetics. There are no rate constants here, and there should not be — the Atlas has no data to support them. The control answers *what has happened by now*, not *how fast*.
+
+---
+
+## 21. Third review pass — organelle build-out
+
+Request: make the lysosome central, add the Golgi, strengthen mitochondrial coupling, build out the nucleus. Result: **100 → 111 interactions, 75 → 83 nodes**, every new edge citing a study already in the corpus.
+
+### Lysosome centrality is now a measured claim
+
+The naive version of "the lysosome is central" is false in this model: the **cytosol** holds 44 of 111 interactions (39.6%) against the lysosome's 23 (20.7%). Saying otherwise would have been decoration dressed as biology.
+
+The true and sharper claim is computed at build time: **6 of the 7 direct inputs to mTORC1 act on the lysosomal membrane, and the seventh is Raptor complex assembly — which builds mTORC1 rather than regulating it.** So every direct regulator of mTORC1 *activity* in this model is lysosomal. That sentence is generated from the interaction set, appears on the lysosomal band itself, and cannot drift from the data.
+
+Band labels now carry their interaction count, so the spatial story is quantified everywhere rather than asserted once.
+
+### A loop closed, and a stale declaration caught
+
+Curating SET2011/SET2012/ROC2012 added **TFEB → lysosomal biogenesis → Lysosome → mTORC1** — which *closes* the loop §20 had declared unclosable. The stale `open_loops` entry was removed, and the validator now **rejects an open-loop declaration that the interaction set can already close**. Without that rule the model would have gone on claiming it could not close a loop it had just closed. Mutation-verified.
+
+### The first positive feedback loop
+
+mTORC1 → ROS (CHE2008: TSC1 deletion floods haematopoietic stem cells with ROS; antioxidant rescue makes it causal) plus ROS → mTORC1 (JIN2026: redox-sensitive PI3K–Akt–mTORC1–eIF4A) closes a **positive** loop — the model's first. Every previously detected loop was negative. Positive loops amplify rather than stabilise, which is a genuinely different claim about the system's behaviour, and it is now visible rather than implicit.
+
+### Golgi: declined, with reasons
+
+The reviewer asked for the Golgi as an alternative mTORC1 activation site. **The corpus does not support it.** `GOB2016` is a review arguing that intracellular transporters mark the activation site; `BOU2020` (the AIMTOR BRET biosensor) measures mTOR activity in cytosol, on the lysosomal surface, in the nucleus and near mitochondria — the Golgi is not among them. Drawing that edge would assert more than the citations carry.
+
+Instead: the peri-mitochondrial case is represented **concretely** (mTORC2 at ER–mitochondria contacts, BET2013), and the Golgi is declared in a new `open_localisations` block as a gap needing a primary paper — at which point the edge appears on its own. The validator rejects any uncited interaction, so the honest path is also the only available one.
+
+Same discipline applied to two other tempting arms:
+
+- **hypoxia → HIF-1α → REDD1** is real biology, but `BRU2004` demonstrates REDD1 and TSC1/2 without establishing the HIF step. Only **mTORC1 → HIF-1α** (MAJ2004) is drawn, and the node text says which arm is missing and why.
+- **TFE3** appears in the corpus only inside a TFEB paper, so it is noted as a paralog in the TFEB text rather than promoted to a node with edges it cannot support.
+
+### Three defects the build-out introduced
+
+Found by looking at the deployed page, not by the suite:
+
+1. **A hard-coded count went stale.** The default inspector said *"Core view: 51 of the 100 curated steps … the other 49"* — wrong on all three numbers once the model reached 111, and still saying "Core" after that control had been renamed. I had broken my own rule: numbers about the model must be computed from it. Now they are, with an assertion that fails if a literal count reappears.
+2. **Band labels scrolled off.** Drawn at a fixed canvas x, they clipped to *"NE · 7 STEPS"* on pan, which reads as a rendering fault. Now pinned to the current viewBox on every camera update, with a test that pans and checks they followed.
+3. *"Autophagy machinery · 1 steps."*
+
+**1 547 assertions.** The pattern holds from §19 and §20: the automated gates catch calibration and data integrity, and the live page catches everything about the shell, the cache, layout and prose.
