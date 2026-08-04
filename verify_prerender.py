@@ -27,6 +27,59 @@ def visible_text(path):
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body)).strip(), h
 
 
+def check_index_tabs():
+    """#questionsView a #eventsView se plní až za běhu (renderGaps/renderEvents).
+
+    Bez prerenderu je crawler v těch dvou tabech vidí prázdné. Ještě horší stav,
+    ve kterém Atlas nějakou dobu byl: v Open Questions zůstal ručně psaný fallback
+    Q1-Q7, který se s živým obsahem H1-H10 neshodoval -- crawler tedy indexoval
+    JINÉ otázky, než jaké četl člověk.
+
+    Tahle kontrola nepotřebuje Node. Neověřuje HTML znak po znaku (to umí
+    `node prerender_tabs.js --check`), ale to jediné, na čem záleží: že se každé
+    ID / název z dat opravdu objevuje v statickém HTML. Tím chytí i zastaralost --
+    přidaná hypotéza nebo konference, která se nikdy neprerenderovala.
+    """
+    p = os.path.join(HERE, "index.html")
+    if not os.path.exists(p):
+        print("CHYBA: index.html nenalezen"); return False
+    h = open(p, encoding="utf-8").read()
+    ok = True
+
+    for tab in ("questionsView", "eventsView"):
+        o, c = "<!--PRERENDER:%s-->" % tab, "<!--/PRERENDER:%s-->" % tab
+        i, j = h.find(o), h.find(c)
+        if i < 0 or j < 0:
+            print("CHYBA: v index.html chybí PRERENDER značky pro #%s" % tab); ok = False; continue
+        body = h[i + len(o):j]
+        print("%-22s %d znaků statického HTML" % ("#" + tab, len(body)))
+        if len(body) < 400:
+            print("CHYBA: #%s je prakticky prázdný -- spusť: node prerender_tabs.js" % tab)
+            ok = False
+
+    def arr(name):
+        m = re.search(r"const %s = (\[.*?\]);" % name, h, re.S)
+        return json.loads(m.group(1)) if m else []
+
+    qbody = h.split("<!--PRERENDER:questionsView-->")[-1].split("<!--/PRERENDER:questionsView-->")[0]
+    ebody = h.split("<!--PRERENDER:eventsView-->")[-1].split("<!--/PRERENDER:eventsView-->")[0]
+
+    missing = [g["id"] for g in arr("ATLAS_GAPS") if g.get("id") and g["id"] not in qbody]
+    if missing:
+        print("CHYBA: %d hypotéz z ATLAS_GAPS chybí v prerenderu: %s" % (len(missing), missing[:5]))
+        print("       prerender je zastaralý -- spusť: node prerender_tabs.js")
+        ok = False
+
+    emiss = [e["name"] for e in arr("ATLAS_EVENTS")
+             if e.get("name") and e["name"].replace("&", "&amp;") not in ebody]
+    if emiss:
+        print("CHYBA: %d akcí z ATLAS_EVENTS chybí v prerenderu: %s" % (len(emiss), emiss[:3]))
+        print("       prerender je zastaralý -- spusť: node prerender_tabs.js")
+        ok = False
+
+    return ok
+
+
 def main():
     pages = sorted(glob.glob(os.path.join(HERE, "study", "*", "index.html")))
     for d in ("gene", "complex", "drug", "process", "disease", "outcome",
@@ -105,6 +158,10 @@ def main():
         if missing:
             print("CHYBA: %d URL v sitemap bez souboru: %s" % (len(missing), missing[:5]))
             ok = False
+
+    print("\n--- index.html: taby plněné JavaScriptem ---")
+    if not check_index_tabs():
+        ok = False
 
     print("\n%s" % ("OK — crawler bez JS uvidí obsah na všech stránkách."
                     if ok else "NEPROŠLO — nenasazuj."))

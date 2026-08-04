@@ -139,6 +139,41 @@ py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
+echo === Prerender JS-only tabs so crawlers see what humans see ===
+REM  #questionsView and #eventsView are filled at runtime by renderGaps() and
+REM  renderEvents(). Bots that do not execute JS (GPTBot, ClaudeBot, PerplexityBot,
+REM  Common Crawl) would otherwise see those two tabs empty. Worse, Open Questions
+REM  used to carry a hand-written Q1-Q7 fallback that no longer matched the live
+REM  H1-H10 content, so a crawler read a DIFFERENT set of questions than a human.
+REM  prerender_tabs.js runs those same two functions in Node and bakes the result
+REM  into the HTML. It must run AFTER the Airtable refresh above, or it bakes stale
+REM  data. Missing Node is a hard stop, not a warning: shipping a stale prerender is
+REM  exactly the failure mode this step exists to prevent.
+where node >nul 2>nul
+if errorlevel 1 (
+  echo.
+  echo ABORTED: Node.js not found on PATH, so the JS-only tabs cannot be prerendered.
+  echo Install Node (https://nodejs.org) and re-run, or deploy from the sandbox via deploy.sh.
+  exit /b 1
+)
+node prerender_tabs.js
+if errorlevel 1 (
+  echo.
+  echo ABORTED: prerender_tabs.js failed - see the error above.
+  exit /b 1
+)
+echo.
+echo === Crawler-parity gate: every hypothesis and event must be in the HTML ===
+REM  Backstop for the step above. Asserts that every ATLAS_GAPS id and every
+REM  ATLAS_EVENTS name actually appears in the prerendered blocks - which is what
+REM  catches a stale prerender, e.g. a hypothesis added in Airtable but never baked.
+py verify_prerender.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: verify_prerender.py failed - crawlers would see different content than humans.
+  exit /b 1
+)
+echo.
 echo === Scientific claim calibration gate ===
 py validate_claims.py --strict --json atlas_data\claim_validation.json
 if errorlevel 1 (
@@ -325,7 +360,7 @@ REM  mobile-optimisation pass on 2026-07-29 rewrote build_pages.py to emit media
 REM  queries, and without this block the 311 regenerated pages would have shipped
 REM  while the generator that produced them stayed behind.
 echo    including pipeline scripts and repo config
-for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py finish_review_fixes.py .gitignore .gitattributes) do (
+for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py prerender_tabs.js finish_review_fixes.py .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
