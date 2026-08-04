@@ -296,13 +296,17 @@
       /* Band labels carry their share of curated interactions. The reviewer
          asked for the lysosome to be "central"; the honest way to say that is
          with the number, not with decoration. */
-      var lab = c.name + (c.interaction_count ? "  ·  " + c.interaction_count + " steps" : "");
-      s += '<text class="pw-bandlab" x="16" y="' + (b.y + 16) + '">' + esc(lab) + "</text>";
+      // BUG 3: "1 steps". Counts get singular/plural like anything else.
+      var nsteps = c.interaction_count;
+      var lab = c.name + (nsteps ? "  ·  " + nsteps + (nsteps === 1 ? " step" : " steps") : "");
+      s += '<g class="pw-bandg">'
+        + '<text class="pw-bandlab" x="16" y="' + (b.y + 16) + '">' + esc(lab) + "</text>";
       if (c.id === "lyso") {
         s += '<text class="pw-bandhead" x="' + (16 + lab.length * 7.4) + '" y="' + (b.y + 16)
           + '">' + esc("— where mTORC1 is switched on: " + c.direct_regulators_here + "/"
             + c.direct_regulators_total + " of its direct inputs") + "</text>";
       }
+      s += "</g>";
       if (!c.physical) {
         s += '<text class="pw-bandwarn" x="' + (16 + c.name.length * 8.2) + '" y="' + (b.y + 16)
           + '">— NOT A CELLULAR LOCATION</text>';
@@ -370,6 +374,15 @@
   function applyCam() {
     var c = S.cam;
     el.svg.setAttribute("viewBox", c.x.toFixed(1) + " " + c.y.toFixed(1) + " " + c.w.toFixed(1) + " " + c.h.toFixed(1));
+    /* Band labels are pinned to the left edge of the CURRENT view. Drawn at a
+       fixed canvas x they scrolled off as soon as the reader panned, and a
+       half-clipped label reads as a broken diagram rather than as a label. */
+    if (el.svg.__bandlabs) {
+      var x = c.x + c.w * 0.012;
+      el.svg.__bandlabs.forEach(function (g) {
+        g.setAttribute("transform", "translate(" + (x - 16).toFixed(1) + ",0)");
+      });
+    }
   }
   function updateHint() {
     var box = $("pwHintBox"); if (!box) return;
@@ -750,11 +763,13 @@
       + "Biological outcomes — are marked <em>not a cellular location</em>, because they are not.</p>"
       /* Say what is being withheld, and why. A subset the reader does not know
          about is a subset the reader will mistake for the whole pathway. */
-      + '<div class="k">You are seeing the Core view</div>'
-      + '<p class="pw-empty">51 of the ' + n.interactions + " curated steps: the ones that are single molecular "
-      + "events we understand mechanistically. The other 49 are compressed multi-step links, contested claims or "
-      + "organism-level outcomes — all real, all cited, all one click away under <b>DETAIL → Full network</b>. "
-      + "Nothing is withheld without saying so.</p>"
+      + '<div class="k">You are seeing the Mechanism view</div>'
+      + '<p class="pw-empty">' + M.interactions.filter(isMechanism).length + " of the " + n.interactions
+      + " curated steps: the ones that are single molecular events — binding, phosphorylation, GAP "
+      + "activity, recruitment, transport. The other "
+      + M.interactions.filter(function (e) { return !isMechanism(e); }).length
+      + " are compressed multi-step links, contested claims or organism-level outcomes — all real, "
+      + "all cited, all one click away under <b>VIEW → Pathway</b>. Nothing is withheld without saying so.</p>"
       + '<div class="k">The one thing to notice</div>'
       + '<p class="pw-empty">Nearly every arrow into mTORC1 lands on the lysosomal band. mTORC1 is only switched on '
       + "there. Nutrient sensing is not chemistry happening in free solution — it is a set of mechanisms for getting "
@@ -1320,6 +1335,7 @@
     assignLanes();
     el.canvas.insertAdjacentHTML("afterbegin", buildSVG());
     el.svg = el.canvas.querySelector("svg");
+    el.svg.__bandlabs = [].slice.call(el.svg.querySelectorAll(".pw-bandg"));
     renderOverview();
     wire();
     updateHint();

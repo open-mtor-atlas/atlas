@@ -546,6 +546,30 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "the panel tells the reader that Golgi is missing for want of a paper");
   D.getElementById("pwLoops").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
+  // Numbers about the model must be COMPUTED from it. The default inspector
+  // hard-coded "51 of the 100" and silently lied once the model grew to 111.
+  console.log("— no hard-coded model counts —");
+  w.PathwayApp.setMode("explorer");
+  const dtxt = D.getElementById("pwInsp").textContent;
+  const mechN = model.interactions.filter(isMech).length;
+  const restN = model.interactions.length - mechN;
+  ok(dtxt.includes(String(mechN)) && dtxt.includes(String(model.interactions.length)),
+    `default panel quotes live counts (${mechN} of ${model.interactions.length})`);
+  ok(dtxt.includes(String(restN)), `and the withheld count (${restN}) is computed too`);
+  const stale = dtxt.match(/\b(51|49|100)\b/g) || [];
+  ok(!stale.length || (mechN === 51 || restN === 49 || model.interactions.length === 100),
+    "no stale hard-coded count survives in the default panel");
+  // Band labels are pinned to the viewport, so panning cannot clip them.
+  ok(D.querySelectorAll("#pwCanvas .pw-bandg").length === model.compartments.length,
+    "every band label is in a translatable group");
+  const before = D.querySelector("#pwCanvas .pw-bandg").getAttribute("transform");
+  D.getElementById("pwOut").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(D.querySelector("#pwCanvas .pw-bandg").getAttribute("transform") !== before,
+    "band labels reposition when the camera moves, instead of scrolling off");
+  ok(!/1 steps/.test(D.querySelector("#pwCanvas svg").textContent),
+    "band label counts are pluralised correctly");
+  D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 
