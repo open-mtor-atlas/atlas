@@ -147,6 +147,16 @@ NODES = {
                                    "eIF2α-kinase-driven translational reprogramming that intersects mTORC1.",
                                    "ATF4 is the shared node: mTORC1 drives ATF4 translation, and ISR activation drives ATF4 independently, so the two systems are cross-wired rather than serial."),
 
+
+    # ---- second- and third-generation mTOR inhibitors --------------------
+    # Potřebné pro trasu "Cancer hijacks mTOR — and then escapes the drug":
+    # bez nich končí příběh u rapalogu a čtenář nedozví, co s tím pole udělalo.
+    "ATP-competitive mTOR inhibitors": ("input", "drug", "Drugs that block mTOR's engine instead of getting in its way.",
+        "Torin1, AZD8055 and relatives occupy the mTOR active site directly, inhibiting both complexes.",
+        "Designed as a research answer to rapamycin's incompleteness, then developed clinically. Because they compete with ATP at the catalytic site they do not need FKBP12, they suppress 4E-BP1 phosphorylation that rapalogs leave standing, and they hit mTORC2 as well — which is both their advantage and their toxicity problem."),
+    "Bi-steric mTORC1-selective inhibitors": ("input", "drug", "A newer design: deep inhibition of one complex only.",
+        "Bivalent compounds (e.g. RMC-5552) engaging both an FKBP12-dependent site and the active site, giving deeper mTORC1 inhibition with selectivity over mTORC2.",
+        "The attempt to have it both ways: the depth of an active-site inhibitor with the mTORC1 selectivity of a rapalog, so that 4E-BP1 is actually suppressed without incurring the mTORC2-dependent metabolic toxicity. RMC-5552 has completed a phase 1 trial in advanced solid tumours (SCH2025) — the newest clinical evidence anywhere in this Atlas."),
     # ---- plasma membrane --------------------------------------------------
     "PI3K": ("pm", "protein", "Makes the membrane signal that pulls Akt in.",
              "Class I PI3K phosphorylates PIP2 to PIP3 at the plasma membrane.",
@@ -977,6 +987,92 @@ ROUTE_STEPS = {
    "matters": "The route ends where the field currently is. Forty years of mechanism produced clear wins in rare diseases with known causal lesions, partial wins in cancer limited by feedback and incomplete inhibition, and a genuinely open question about whether intermittent low-dose inhibition can improve ageing physiology in people. No human lifespan data exists. That is not a disappointing ending — it is the accurate one, and it is where the next set of trials is aimed."},
  ],
 
+ "cancer": [
+  {"interaction": "PTEN-PI3K",
+   "what": "PTEN is lost, and nothing erases the growth signal any more.",
+   "why": "PTEN is a lipid phosphatase: it converts PIP3 back to PIP2. It does not inhibit the PI3K enzyme — it destroys PI3K's product. Delete PTEN and the product accumulates even at normal PI3K activity.",
+   "changed": "PIP3 builds up in the membrane. The signal is no longer being written faster than it is erased; it is simply not being erased.",
+   "consequence": "Everything that reads PIP3 is now permanently recruited to the membrane, with no upstream hormone required.",
+   "certainty": "Tier C mouse evidence in this corpus, with PTEN among the most frequently inactivated tumour suppressors in human cancer. Graded human-relevance plausible here because the cited studies are mouse, not because the human genetics is weak.",
+   "matters": "The first thing to understand about mTOR in cancer is that the lesion is usually not in mTOR. It is in the machinery that decides whether mTOR should be receiving a signal. That distinction is why inhibiting mTOR treats a symptom of the genotype rather than its cause."},
+  {"interaction": "PI3K-AKT",
+   "what": "Accumulated PIP3 recruits Akt continuously.",
+   "why": "Akt binds PIP3 and is then phosphorylated by PDK1 and mTORC2. With PIP3 permanently elevated, that recruitment stops being an event and becomes a state.",
+   "changed": "Akt is chronically at the membrane and chronically activated.",
+   "consequence": "The growth-permission signal is now generated inside the cell rather than arriving from outside it.",
+   "certainty": "High mechanistic confidence, cell-line evidence.",
+   "matters": "This is what oncogenic means in signalling terms: not a stronger signal, but a signal that no longer requires its input. The cell has stopped asking the organism for permission and started granting it to itself."},
+  {"interaction": "AKT-TSC",
+   "what": "Akt inhibits the TSC complex — permanently, now.",
+   "why": "Phosphorylation of TSC2 by Akt inhibits the complex and moves it away from where its target sits.",
+   "changed": "The pathway's master brake is held off continuously rather than transiently.",
+   "consequence": "Rheb stops being switched off.",
+   "certainty": "High mechanistic confidence, cell-line evidence; and TSC loss in people establishes that removing this brake causes disease.",
+   "matters": "Notice that the tumour is exploiting the pathway's own logic rather than breaking it. Every step from here on is the normal mechanism running correctly on a false input — which is precisely why the pathway is hard to drug selectively."},
+  {"interaction": "TSC-RHEB",
+   "what": "With TSC inhibited, Rheb stays GTP-loaded.",
+   "why": "TSC2 is the GAP that forces Rheb to hydrolyse GTP. Inhibit the GAP and Rheb accumulates in its active state.",
+   "changed": "The mTORC1 on-switch is held in the on position.",
+   "consequence": "mTORC1 will now fire whenever it is at the lysosome — which, given adequate nutrients, is most of the time.",
+   "certainty": "High mechanistic confidence, cell-line evidence.",
+   "matters": "The AND gate from the nutrient and growth-factor routes has been half-defeated. Nutrient sensing still controls location, but the permission input is stuck at yes. A coincidence detector with one input jammed is no longer a detector."},
+  {"interaction": "RHEB-MTORC1",
+   "what": "mTORC1 is constitutively active.",
+   "why": "GTP-Rheb allosterically activates mTORC1 whenever the two are co-located.",
+   "changed": "The kinase runs without regard to whether the organism wants this cell to grow.",
+   "consequence": "Its outputs run too: translation of growth and invasion programmes up, autophagy down.",
+   "certainty": "Structurally resolved, high mechanistic confidence, cell-line evidence.",
+   "matters": "This is the state the drug will be aimed at. Worth holding onto the fact that mTORC1 itself is entirely normal here — correct protein, correct regulation, wrong input. A drug that inhibits mTORC1 is therefore not correcting an error; it is imposing a second one in the opposite direction."},
+  {"interaction": "MTORC1-TUMOR",
+   "what": "The tumour grows on that output.",
+   "why": "Sustained selective translation, suppressed autophagy, and the biosynthetic arms together supply much of what a proliferating cell needs.",
+   "changed": "Proliferation and mass increase.",
+   "consequence": "mTORC1 becomes a rational drug target for this genotype.",
+   "certainty": "High mechanistic confidence but INDIRECT, and strongly genotype-dependent: a real dependency in TSC- and PI3K-pathway-mutant contexts, considerably weaker elsewhere.",
+   "matters": "The gap between this arrow and a treatment is where most of the last twenty years of clinical disappointment lives. 'mTORC1 supports tumour growth' is a statement about biology; 'inhibiting mTORC1 treats this tumour' is a statement about dependency — and dependency is contextual in a way the arrow cannot show."},
+  {"interaction": "EVE-MTORC1",
+   "what": "Give everolimus. mTORC1 is inhibited — partially.",
+   "why": "Like rapamycin, everolimus works as a complex with FKBP12 and obstructs the substrate channel rather than occupying the active site. Obstruction is partial by nature.",
+   "changed": "S6K1 phosphorylation collapses. 4E-BP1 phosphorylation substantially persists — and 4E-BP1 controls the translation arm that matters most for proliferation.",
+   "consequence": "The tumour loses one output and keeps a good part of the other, while the reader's assay says the drug is working.",
+   "certainty": "High confidence with tier-B human trial evidence across several indications, including BAS2012 in hormone-receptor-positive breast cancer.",
+   "matters": "Two failures compound here. The drug is incomplete, and the standard readout is blind to the part it misses — because S6K1 is rapamycin-sensitive and became the field's default assay. For years the pathway looked more inhibited than it was, in the exact output that mattered."},
+  {"interaction": "S6K1-IRS1",
+   "what": "And inhibiting mTORC1 releases a brake the tumour had been living under.",
+   "why": "Active S6K1 had been phosphorylating IRS-1 and marking it for degradation. Inhibit mTORC1, S6K1 goes quiet, and IRS-1 stops being destroyed.",
+   "changed": "IRS-1 protein accumulates. The adaptor that couples receptors to PI3K comes back.",
+   "consequence": "PI3K signalling recovers — driven by the drug, not despite it.",
+   "certainty": "High mechanistic confidence, multiple supporting studies, cell-line evidence. ROD2011 additionally showed mTOR kinase inhibition produces biphasic Akt regulation through exactly this kind of feedback.",
+   "matters": "This is the sentence that reframes the whole route. The drug does not merely fail to finish the job — it actively removes one of the tumour's own restraints. Any therapy that interrupts a negative feedback loop is partly self-defeating, and this loop was there all along in the growth-factor route."},
+  {"interaction": "IRS1-PI3K",
+   "what": "PI3K and Akt reactivate. The tumour has escaped.",
+   "why": "Restored IRS-1 recruits PI3K to receptors that are still present, regenerating PIP3 and reactivating Akt.",
+   "changed": "The upstream arm recovers while mTORC1 remains partly inhibited — the worst of both worlds, since Akt has many targets besides mTORC1.",
+   "consequence": "Progression resumes. Clinically, this is one mechanism behind rapalogs delaying progression without clearly extending survival.",
+   "certainty": "High mechanistic confidence, cell-line evidence; ORE2006 showed the parallel arm in which mTOR inhibition raises receptor tyrosine kinase signalling directly.",
+   "matters": "The escape route is not a mutation. It requires no new genetic event and no selection time — it is the pathway's normal homeostatic wiring responding correctly to the drug. That is why resistance appears fast and why combination strategies target the loop rather than the kinase."},
+  {"interaction": "MTORC1-MAPK",
+   "what": "There is a second escape, through MAPK.",
+   "why": "mTORC1 inhibition activates ERK in a PI3K-dependent manner — an independent arm from the IRS-1 route.",
+   "changed": "ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.",
+   "consequence": "Two independent reroutes now oppose the drug. Blocking one leaves the other.",
+   "certainty": "High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that the pathway's most clinically consequential feedback was missing from the graph.",
+   "matters": "Redundancy is the theme of this pathway and it cuts both ways. The same architecture that makes the cell robust makes the tumour robust. This is the mechanistic rationale for combining mTOR inhibition with MEK inhibition rather than escalating the mTOR dose."},
+  {"interaction": "TORIN-MTORC1",
+   "what": "So build a drug that occupies the site instead of obstructing it.",
+   "why": "ATP-competitive inhibitors compete with ATP at the mTOR active site. They do not need FKBP12 and they suppress the 4E-BP1 phosphorylation that rapalogs leave standing.",
+   "changed": "Inhibition becomes deep rather than partial — and extends to mTORC2, because both complexes share the same catalytic site.",
+   "consequence": "The 4E-BP1 escape closes. The mTORC2 toxicity opens.",
+   "certainty": "High mechanistic confidence from cell-line pharmacology (THO2009, FEL2009, CHR2009). Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition.",
+   "matters": "Selectivity in this pathway comes from accessory subunits, not from the catalytic site — so a drug aimed at the site inherits no selectivity. That is a structural fact rather than a design failure, and it sets up the problem the next generation had to solve."},
+  {"interaction": "BISTERIC-MTORC1",
+   "what": "The current attempt: deep inhibition of mTORC1 only.",
+   "why": "A bivalent molecule engages both an FKBP12-dependent site and the active site, achieving the depth of an active-site inhibitor with selectivity for mTORC1 over mTORC2.",
+   "changed": "In principle: 4E-BP1 actually suppressed, without the mTORC2-dependent metabolic toxicity.",
+   "consequence": "RMC-5552 has completed a phase 1 trial in advanced solid tumours — the newest clinical evidence anywhere in this Atlas.",
+   "certainty": "One phase 1 trial (SCH2025, 2025). Tier B, human — but phase 1 reports safety and pharmacodynamics, not efficacy. Consensus graded emerging, on a single study. Directness is indirect because, like rapalogs, the mechanism still requires FKBP12.",
+   "matters": "This is the honest answer to the route's question, and it is not a failure story. A weakness identified in cell culture in 2009 became a molecular design constraint, then a compound, then a trial in 2025. The pathway was not too complicated to drug — it was drugged with a molecule discovered before anyone knew what it did, and it has taken this long to build one aimed at what we now know. Whether closing the 4E-BP1 escape produces survival benefit is genuinely unanswered, and that is what the current trials are for."},
+ ],
  "aa": [
   {"interaction": "LEU-SESN2",
    "what": "Leucine binds Sestrin2 — and switches a brake off.",
@@ -1189,6 +1285,27 @@ OPEN_LOOPS = [
 #  evidence_kind, species, [sids], mechanism, teaching_note, boundary)
 # ---------------------------------------------------------------------------
 EXTRA_EDGES = [
+ ("TORIN-MTORC1", "ATP-competitive mTOR inhibitors", "mTORC1", "inhibits", "competitive-inhibition",
+  "lyso", "minutes", "direct", "high", "plausible", "established",
+  "Pharmacological", "mammalian cells", ["THO2009", "FEL2009", "CHR2009"],
+  "Occupies the mTOR active site in competition with ATP, so inhibition does not depend on obstructing substrate access and is not partial in the way rapalog inhibition is.",
+  "The comparison between this and rapamycin is what exposed rapamycin-resistant outputs. Torin was built as a ruler, and what it measured was how much of mTORC1 rapamycin had been leaving alone.",
+  "Cell-line pharmacology. Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition, which is precisely what the bi-steric design tries to avoid."),
+
+ ("TORIN-MTORC2", "ATP-competitive mTOR inhibitors", "mTORC2", "inhibits", "competitive-inhibition",
+  "pm", "minutes", "direct", "high", "plausible", "established",
+  "Pharmacological", "mammalian cells", ["THO2009", "FEL2009"],
+  "The same active site is present in both complexes, so an ATP-competitive inhibitor cannot distinguish them.",
+  "Selectivity in this pathway comes from accessory subunits, not from the catalytic site — so a drug aimed at the site inherits no selectivity. That is a structural fact, not a design oversight.",
+  "Explains the metabolic and immunological toxicity of this class relative to rapalogs; the magnitude in patients is not established from these cell-line studies."),
+
+ ("BISTERIC-MTORC1", "Bi-steric mTORC1-selective inhibitors", "mTORC1", "inhibits", "competitive-inhibition",
+  "lyso", "hours", "indirect", "medium", "established", "emerging",
+  "Pharmacological", "human", ["SCH2025"],
+  "A bivalent molecule engages an FKBP12-dependent site and the active site simultaneously, producing deeper mTORC1 inhibition than a rapalog while sparing mTORC2.",
+  "This is what forty years of mechanism bought: a drug designed against a specific known weakness of the previous drug. The 4E-BP1 escape identified in cells in 2009 is the thing this molecule exists to close.",
+  "Phase 1 in advanced solid tumours — a safety and pharmacodynamic result, not an efficacy verdict. Directness is graded indirect because, like rapalogs, the mechanism requires FKBP12. Consensus is emerging: one trial, newest evidence in the corpus."),
+
  ("TFEB-LYSOBIO", "TFEB", "Lysosomal biogenesis", "activates", "transcriptional",
   "nucleus", "hours", "direct", "high", "plausible", "established",
   "Genetic epistasis", "human cells; mouse cells", ["SET2011", "ROC2012"],
@@ -1309,6 +1426,14 @@ OPEN_LOCALISATIONS = [
 # kinase need two complexes?" je otázka.
 # ---------------------------------------------------------------------------
 ROUTE_JOURNEY = {
+ "cancer": {
+  "title": "Why does a pathway we understand this well only half work as a drug target?",
+  "question": "mTORC1 is one of the best-characterised growth pathways in biology, and there are licensed drugs that inhibit it. Yet outside a few genotypes the clinical results are modest: progression delayed, survival rarely extended. If the mechanism is right, why is the treatment only partly right?",
+  "breakthrough": {"synthesis": ["ORE2006", "CAR2008", "ROD2011", "THO2009"],
+    "why": "No single paper explains this, and the four that do are better read together because each found a different escape. ORE2006 showed mTOR inhibition raises receptor tyrosine kinase signalling; CAR2008 showed it activates MAPK PI3K-dependently; ROD2011 showed mTOR kinase inhibition produces biphasic Akt regulation through feedback. THO2009 supplied the fourth answer from the drug side — the inhibition was never complete to begin with. Together they say the pathway does not simply switch off when you inhibit it; it reroutes."},
+  "evidence": "Cell-line pharmacology and biochemistry for the escape mechanisms; tier-B randomised trials for the clinical outcomes; one phase 1 trial (SCH2025, 2025) for the newest drug class. Note the asymmetry that runs through this route: the mechanism is cell-line evidence, the disappointment is human evidence.",
+  "unknowns": "Which tumours depend on mTOR remains largely unpredictable from genotype — the single largest open problem here. Whether closing the 4E-BP1 escape translates into survival benefit is exactly what the bi-steric trials are testing and is not yet answered. And why rapalogs delay progression without clearly extending overall survival in several indications has no accepted explanation, with the feedback arms as leading suspects.",
+ },
  "aa": {
   "title": "How does a cell know it has enough raw material to grow?",
   "question": "A cell cannot start building unless the amino acids are actually present. But amino acids are small molecules with no receptor on the cell surface — so how does the cell measure something it cannot bind from outside?",
@@ -1367,6 +1492,35 @@ ROUTE_JOURNEY = {
   "unknowns": "Which tumours depend on mTOR remains largely unpredictable from genotype. There is no human lifespan data of any kind. And the pattern that rapalogs delay progression without clearly extending overall survival in several indications is unexplained — the feedback loops are the leading suspect.",
  },
 }
+
+
+
+# ---------------------------------------------------------------------------
+# 3g. Nové trasy (Fáze 5+).
+#
+# Trasy migrované z ATLAS_ROUTES pokrývají mechanismus. Tahle je první
+# postavená od začátku a odpovídá na otázku, kterou žádná z nich neřeší:
+# proč dráha, kterou umíme popsat do detailu, dává v klinice jen částečné
+# výsledky. Vede od genetické léze přes lék až k tomu, jak nádor uteče —
+# a končí molekulou, která je v korpusu nejnovější evidencí (SCH2025, 2025).
+#
+# Formát: {"id", "territory", "story", "interactions", "spine"}. Journey a
+# kroky se doplňují v ROUTE_JOURNEY / ROUTE_STEPS jako u ostatních, takže
+# nová trasa prochází týmiž branami.
+# ---------------------------------------------------------------------------
+NEW_ROUTES = [
+ {"id": "cancer",
+  "territory": "Oncogenic activation → rapalog → escape → next generation",
+  "story": "Follow one tumour genotype from the lesion that creates it, through the drug that was aimed at it, to the two feedback arms that undo the drug, and on to the molecules designed against that failure. This is the route where mechanism meets the clinic and the clinic answers back.",
+  "interactions": ["PTEN-PI3K", "PI3K-AKT", "AKT-TSC", "TSC-RHEB", "RHEB-MTORC1",
+                   "MTORC1-S6K1", "MTORC1-4EBP1", "4EBP1-EIF4E", "EIF4E-TRANSL",
+                   "MTORC1-TUMOR", "EVE-MTORC1", "EVE-BREAST", "MTORC1-PROSTATE",
+                   "S6K1-IRS1", "IRS1-PI3K", "MTORC1-MAPK", "ERK-TSC",
+                   "TORIN-MTORC1", "TORIN-MTORC2", "BISTERIC-MTORC1"],
+  "spine": ["PTEN-PI3K", "PI3K-AKT", "AKT-TSC", "TSC-RHEB", "RHEB-MTORC1",
+            "MTORC1-TUMOR", "EVE-MTORC1", "S6K1-IRS1", "IRS1-PI3K",
+            "MTORC1-MAPK", "TORIN-MTORC1", "BISTERIC-MTORC1"]},
+]
 
 
 def read_atlas_array(html, name):
@@ -1734,6 +1888,26 @@ def main():
             "spine": r.get("steps", []),
             "steps": ROUTE_STEPS.get(r["id"], []),
         })
+    # Nové trasy stejnou cestou jako migrované — jinak by šly obejít branky.
+    for nr in NEW_ROUTES:
+        j = ROUTE_JOURNEY.get(nr["id"])
+        if not j:
+            problems.append("new route %s has no Researcher's Journey header" % nr["id"])
+        for eid in nr["interactions"] + nr["spine"]:
+            if eid not in {e["id"] for e in interactions}:
+                problems.append("new route %s references unknown interaction %s" % (nr["id"], eid))
+        routes.append({
+            "id": nr["id"],
+            "name": (j or {}).get("title", nr["id"]),
+            "territory": nr["territory"],
+            "journey": j or {},
+            "summary": nr["story"],
+            "story": nr["story"],
+            "interactions": nr["interactions"],
+            "spine": nr["spine"],
+            "steps": ROUTE_STEPS.get(nr["id"], []),
+        })
+
     for rid, steps in ROUTE_STEPS.items():
         route = next((x for x in routes if x["id"] == rid), None)
         if not route:

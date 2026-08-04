@@ -56,7 +56,9 @@ w.fetch = (url) => Promise.resolve({
   ok: true,
   json: () => Promise.resolve(String(url).indexOf("contexts.json") >= 0 ? contextsDoc : model)
 });
-w.matchMedia = () => ({ matches: false, addListener() {}, removeListener() {} });
+let reduceMotion = false;
+w.matchMedia = (q) => ({ matches: reduceMotion && /reduced-motion/.test(String(q)),
+                         addListener() {}, removeListener() {} });
 w.scrollTo = () => {};
 
 const errors = [];
@@ -221,6 +223,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "level switch does NOT rebuild the graph");
 
   console.log("— guided routes —");
+  reduceMotion = true;   // instant camera: 60+ tweens would otherwise stall jsdom
   w.PathwayApp.setMode("guided");
   model.routes.forEach((r) => {
     D.querySelector(`.pw-routebtn[data-r="${r.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
@@ -297,6 +300,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(/Step \d+ \/ \d+ · /.test(D.querySelector(".pw-step-n").textContent),
     "the step badge names its position and compartment even after the Scenario Lab has rendered");
 
+  reduceMotion = false;  // the tween itself is what the next block tests
   console.log("— camera robustness —");
   const rafBackup = w.requestAnimationFrame;
   w.requestAnimationFrame = () => 0;                 // simulate a hidden tab
@@ -665,8 +669,11 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   // The schema is what makes this a teaching frame rather than seven
   // walkthroughs. Route SEVEN is the one that quietly ships without a header
   // if nothing enforces it.
-  ok(/how to think about it/i.test(D.getElementById("pwGuidedUI").innerHTML),
-    "the section states its own purpose: what is known vs how to think about it");
+  // The purpose banner was removed deliberately (it named competing databases).
+  // The framing must therefore be carried by the route headers instead — so
+  // assert THAT, not the banner.
+  ok(!/Reactome|KEGG|WikiPathways/.test(host.innerHTML),
+    "no competing database is named on the page");
   model.routes.forEach((r) => {
     ok(r.name.trim().endsWith("?"),
       `route ${r.id}: title is a question, not a territory ("${r.name}")`);
@@ -700,6 +707,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(/The paper that broke it open/.test(D.getElementById("pwStep").innerHTML),
     "a single-breakthrough route names it as such");
 
+  reduceMotion = true;
   console.log("— every route is authored, none assembled —");
   model.routes.forEach((r) => {
     ok(r.steps.length === r.spine.length,
@@ -726,6 +734,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(assembledSeen === 0,
     `no step anywhere still labels itself assembled-from-template (${assembledSeen} found)`);
 
+  reduceMotion = false;
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 

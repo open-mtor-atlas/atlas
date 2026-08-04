@@ -1122,10 +1122,13 @@
       + "    </div>"
       + ctxBarHTML()
       + "</div>"
+      /* The purpose statement that used to sit here named Reactome, KEGG and
+         WikiPathways. Removed: naming competitors on your own page is
+         defensive, and the framing is carried better by the routes themselves
+         — every one opens with its question, its breakthrough, what the answer
+         rests on and what is unresolved. Structure that explains itself does
+         not need a banner explaining it. */
       + '  <div id="pwGuidedUI" class="pw-hide">'
-      + '    <p class="pw-guidedpurpose">Reactome, KEGG and WikiPathways show you <b>what is known</b>. '
-      + 'These routes are for <b>how to think about it</b>. Each answers one question, names the work that '
-      + 'broke it open, states what kind of evidence the answer rests on, and says what is still unresolved.</p>'
       + '    <div class="pw-routes" id="pwRoutes"></div>'
       + '    <div class="pw-prog" id="pwProg"></div><div class="pw-step" id="pwStep"></div></div>'
       + '  <div class="pw-stage pw-hide" id="pwStageWrap">'
