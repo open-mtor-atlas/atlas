@@ -967,6 +967,90 @@ OPEN_LOCALISATIONS = [
 ]
 
 
+
+# ---------------------------------------------------------------------------
+# 3f. Researcher's Journey — společná šablona pro VŠECHNY guided routes.
+#
+# Recenzent: Reactome a KEGG ukazují, CO víme. Guided Routes mají učit, JAK
+# o mTOR přemýšlet — a to je místo, kde se Atlas skutečně odlišuje. Aby to
+# nebyl jen jiný výřez dráhy, musí každá trasa odpovídat na JEDNU otázku a
+# nést stejnou hlavičku:
+#
+#   question     — biologická otázka, na kterou trasa odpovídá
+#   breakthrough — práce, která ji zlomila (nebo přiznaná syntéza)
+#   evidence     — jaké experimenty odpověď unesou
+#   unknowns     — co zůstává nevyřešené
+#
+# POZOR na tlak k fabulaci: některé trasy JEDNU zlomovou práci nemají.
+# Kdyby schéma jednu vyžadovalo, někdo nakonec nominuje práci, která si to
+# nezaslouží. Proto existuje legitimní varianta {"synthesis": [...]}, kterou
+# validátor bere jako úplnou — stejná disciplína jako deklarovaná mezera
+# u Golgi místo nakreslené hrany.
+#
+# Titul je OTÁZKA, ne území. "The mTORC2 branch" je výřez; "Why does one
+# kinase need two complexes?" je otázka.
+# ---------------------------------------------------------------------------
+ROUTE_JOURNEY = {
+ "aa": {
+  "title": "How does a cell know it has enough raw material to grow?",
+  "question": "A cell cannot start building unless the amino acids are actually present. But amino acids are small molecules with no receptor on the cell surface — so how does the cell measure something it cannot bind from outside?",
+  "breakthrough": {"sid": "SAN2010",
+    "why": "Reframed nutrient sensing from a chemistry problem into a GEOGRAPHY problem. The Rag–Ragulator complex does not switch mTORC1 on; it moves mTORC1 to the lysosomal surface. Everything about amino-acid sensing turned out to be about location, which is why the answer had eluded people looking for a classical receptor. SAN2008 had already shown the Rags carry the amino-acid signal; this paper said where."},
+  "evidence": "Structural biology and genetic epistasis in human cell lines, plus imaging of mTORC1 translocation. Cell-line work throughout — this arm has no human genetic or clinical evidence in this corpus, which is why almost every step is graded human-relevance *plausible* rather than established.",
+  "unknowns": "How GATOR2 actually inhibits GATOR1 catalytically is still unresolved. Whether Sestrin2's ~20 µM leucine affinity is the operating setpoint in real tissue is untested. And the LARS and glutamine arms remain contested — reproduced in some labs, not others.",
+ },
+ "gf": {
+  "title": "How does a cell learn that it is allowed to grow?",
+  "question": "Raw material is not permission. A cell in a tissue must not grow just because food is available — it has to be told by the organism that growth is wanted. How does a hormone signal at the cell surface reach a kinase on the lysosome?",
+  "breakthrough": {"synthesis": ["INO2002", "INOK2003"],
+    "why": "No single paper answers this one, and pretending otherwise would misrepresent the history. INO2002 showed Akt phosphorylates and inhibits TSC2 — the permission signal arriving. INOK2003, a year later, showed Rheb is the direct target of TSC2's GAP activity — the switch being thrown. The question needed both halves, and neither is complete alone."},
+  "evidence": "Direct biochemistry and genetic epistasis in mammalian cells, with the TSC arm additionally supported by human disease genetics (tuberous sclerosis complex is the one place this pathway's causality is established in people).",
+  "unknowns": "How much of TSC regulation is phosphorylation changing its activity versus relocation changing its access to Rheb. Which endomembrane pool of Rheb supplies the activating signal. And the relative strength of the two feedback arms (S6K1→IRS-1, mTORC1→Grb10) in any given tissue.",
+ },
+ "rapa": {
+  "title": "Why doesn't rapamycin switch mTOR off completely?",
+  "question": "Rapamycin was the drug that discovered this pathway, and for a decade it was treated as *the* mTOR inhibitor. But cells treated with rapamycin keep doing some of the things mTORC1 drives. Why does a drug that clearly hits mTOR fail to stop all of its outputs?",
+  "breakthrough": {"sid": "THO2009",
+    "why": "Built an ATP-competitive inhibitor and used it as a ruler. Comparing it against rapamycin exposed a whole class of rapamycin-RESISTANT mTORC1 outputs — most importantly 4E-BP1 phosphorylation, which rapamycin barely touches while collapsing S6K1. That single comparison explained a decade of confusing results and launched the second-generation inhibitor programme that reached trials by 2025."},
+  "evidence": "Pharmacological comparison plus biochemistry in cell lines, with the structural basis (FKBP12–rapamycin occluding the substrate channel rather than the active site) resolved separately. The clinical consequence is supported by trial evidence; the mechanism is not human data.",
+  "unknowns": "Whether chronic rapamycin genuinely disrupts mTORC2 is contested and appears to be cell-type and duration dependent. How much the 4E-BP escape matters in any particular tumour is unresolved, which is precisely the question bi-steric inhibitors are being trialled to answer.",
+ },
+ "out": {
+  "title": "What does a cell actually do when mTORC1 fires?",
+  "question": "'Promotes growth' is not a mechanism. If mTORC1 switching on has consequences, those consequences are specific molecules being made and specific processes being stopped. Which ones — and does mTORC1 turn everything up equally?",
+  "breakthrough": {"sid": "HSI2012",
+    "why": "Answered the second half, which almost everyone had assumed away. Ribosome profiling showed mTORC1 does not raise translation uniformly — it selectively promotes a specific class of transcripts. 'mTORC1 increases protein synthesis' turned out to be a summary that hides the actual biology, which is transcript choice."},
+  "evidence": "Ribosome profiling and biochemistry in cancer cell lines for the selectivity; genetic knockouts in mice for the phenotypic arms (muscle, mitochondria, lipid). The output-to-phenotype steps are the weakest links in the route, and they are graded accordingly.",
+  "unknowns": "How much of the mTOR-responsive phosphoproteome is functionally relevant rather than incidental. Which outputs matter for which phenotype — the map draws mTORC1 to muscle growth and to longevity, but these are not the same kind of claim and the second has no human evidence at all.",
+ },
+ "energy": {
+  "title": "How does a cell decide it cannot afford to grow?",
+  "question": "Building is expensive. A cell that starts a growth programme it cannot fuel will damage itself. So there must be a way for energy status to override a growth instruction that has already been given — and it has to work even when the usual brake is broken.",
+  "breakthrough": {"sid": "GWI2008",
+    "why": "Found the arm nobody expected: AMPK phosphorylates Raptor directly, inhibiting mTORC1 without going through the TSC complex at all. That explained why TSC2-null cells still shut down under energy stress, and it established that this pathway has redundant brakes rather than one master switch."},
+  "evidence": "Direct biochemistry and genetic epistasis in mammalian cells, with the two AMPK arms separable using TSC-null lines. LKB1 dependence means cell lines lacking LKB1 cannot mount the response at all — a boundary condition that invalidates naive comparison across cell types.",
+  "unknowns": "The relative weight of the TSC2 arm versus the Raptor arm in intact tissue is not resolved, and it is cell-type dependent. The metformin route is genuinely contested: several mechanisms are proposed, and the concentrations used in vitro often exceed what clinical dosing achieves.",
+ },
+ "mtorc2": {
+  "title": "Why does one kinase need two complexes?",
+  "question": "mTOR is a single protein, yet it does two jobs that respond to different signals, sit in different places, and have different drug sensitivities. Why did evolution not simply use two kinases — and how do you study one of two jobs when your only tool inhibits the other?",
+  "breakthrough": {"sid": "SAR2004",
+    "why": "Identified Rictor and, with it, a second mTOR complex that is raptor-independent and — decisively — rapamycin-insensitive. That last property is what made mTORC2 studiable at all: it gave the field a way to separate the two jobs experimentally, using the very drug that had previously hidden one of them."},
+  "evidence": "Biochemistry and complex purification in mammalian cells, then genetic dissection in knockout mice (Rictor and mLST8 loss abolishes signalling to Akt and PKCα while sparing S6K1). The mouse genetics is the strongest evidence in this route.",
+  "unknowns": "Whether prolonged rapamycin disrupts mTORC2 assembly is contested. The mTORC2-to-insulin-resistance link rests on mouse data, and in humans the relative contributions of mTORC2 loss, S6K1–IRS-1 feedback and direct β-cell effects are unresolved.",
+ },
+ "clin": {
+  "title": "Does any of this actually help a patient?",
+  "question": "Forty years of mechanism is not a treatment. If mTORC1 drives growth and we have drugs that inhibit it, where does that convert into benefit for a person — and where does it conspicuously fail to?",
+  "breakthrough": {"synthesis": ["HUD2007", "MOT2008", "MCC2011", "LEE2024"],
+    "why": "There is no breakthrough paper here and claiming one would be dishonest — clinical translation is not a discovery, it is an accumulation. HUD2007 brought the first mTOR inhibitor approval in renal cancer; MOT2008 established everolimus in the same disease; MCC2011 showed sirolimus stabilises lung function in LAM, the cleanest mechanism-to-benefit case in the pathway; LEE2024 is the systematic review that assembles what human rapamycin data actually supports.",
+    },
+  "evidence": "Randomised controlled trials and one systematic review — the only route in this section built primarily on tier A/B human evidence. Note what that buys and what it does not: trials establish that the drug changes an outcome, not that the mechanism drawn upstream is the reason.",
+  "unknowns": "Which tumours depend on mTOR remains largely unpredictable from genotype. There is no human lifespan data of any kind. And the pattern that rapalogs delay progression without clearly extending overall survival in several indications is unexplained — the feedback loops are the leading suspect.",
+ },
+}
+
+
 def read_atlas_array(html, name):
     i = html.find("const %s = [" % name)
     if i < 0:
@@ -1316,8 +1400,17 @@ def main():
     # ---- trasy: migrace 7 stávajících ------------------------------------
     routes = []
     for r in old_routes:
+        j = ROUTE_JOURNEY.get(r["id"])
+        if not j:
+            problems.append("route %s has no Researcher's Journey header" % r["id"])
         routes.append({
-            "id": r["id"], "name": r["name"], "summary": r["sub"],
+            "id": r["id"],
+            # Titul je otázka. Staré jméno zůstává jako podtitul, aby se
+            # neztratila orientace v dráze.
+            "name": (j or {}).get("title", r["name"]),
+            "territory": r["name"],
+            "journey": j or {},
+            "summary": r["sub"],
             "story": r["story"],
             "interactions": r["edges"],
             "spine": r.get("steps", []),

@@ -948,8 +948,8 @@
     el.routes.innerHTML = M.routes.map(function (x) {
       var n = (x.steps && x.steps.length) ? x.steps.length : x.spine.length;
       return '<button class="pw-routebtn" data-r="' + esc(x.id) + '" aria-pressed="'
-        + (x.id === r.id) + '">' + esc(x.name) + "<small>" + n + " STEPS · "
-        + x.interactions.length + " CURATED LINKS</small></button>";
+        + (x.id === r.id) + '">' + esc(x.name)
+        + "<small>" + esc(x.territory || "") + " · " + n + " STEPS</small></button>";
     }).join("");
     el.routes.querySelectorAll("[data-r]").forEach(function (b) {
       b.addEventListener("click", function () { S.routeId = b.dataset.r; S.step = -1; renderGuided(); });
@@ -957,9 +957,26 @@
 
     if (S.step < 0) {
       el.prog.innerHTML = "";
+      /* Researcher's Journey header. This is the schema change that makes the
+         section a teaching frame rather than a set of walkthroughs: every
+         route answers ONE question, names the work that broke it open, says
+         what kind of evidence carries the answer, and says what is still
+         unresolved. Route-level, not step-level — a breakthrough paper
+         belongs to a story, not to a step. */
+      var j = r.journey || {}, b = j.breakthrough || {};
+      var bSids = b.sid ? [b.sid] : (b.synthesis || []);
+      var bHead = b.sid ? "The paper that broke it open"
+                        : "No single paper — a synthesis of " + bSids.length;
       el.step.innerHTML = '<div class="pw-step-hd"><h4>' + esc(r.name) + '</h4>'
-        + '<span class="pw-step-n">' + total + " steps</span></div>"
-        + "<p>" + r.story + "</p>"
+        + '<span class="pw-step-n">' + esc(r.territory || "") + " · " + total + " steps</span></div>"
+        + '<dl class="pw-q pw-jq"><dt>The question</dt><dd>' + esc(j.question || "") + "</dd></dl>"
+        + '<dl class="pw-q"><dt>' + bHead + '</dt><dd>' + esc(b.why || "")
+        + '<div class="pw-jsids">' + bSids.map(function (sid) {
+            return '<button class="pw-jsid" data-sid="' + esc(sid) + '" type="button">' + esc(sid) + "</button>";
+          }).join("") + "</div></dd></dl>"
+        + '<dl class="pw-q"><dt>What the answer rests on</dt><dd>' + esc(j.evidence || "") + "</dd></dl>"
+        + '<dl class="pw-q"><dt>What is still unresolved</dt><dd>' + esc(j.unknowns || "") + "</dd></dl>"
+        + '<div class="pw-jstory">' + r.story + "</div>"
         + '<div class="pw-nav"><button class="pw-btn" id="pwStart">Start the walkthrough →</button>'
         + '<span class="pw-where">' + r.interactions.length + " curated links · every step cites its papers</span></div>";
       $("pwStart").addEventListener("click", function () { S.step = 0; renderGuided(); });
@@ -1105,7 +1122,11 @@
       + "    </div>"
       + ctxBarHTML()
       + "</div>"
-      + '  <div id="pwGuidedUI" class="pw-hide"><div class="pw-routes" id="pwRoutes"></div>'
+      + '  <div id="pwGuidedUI" class="pw-hide">'
+      + '    <p class="pw-guidedpurpose">Reactome, KEGG and WikiPathways show you <b>what is known</b>. '
+      + 'These routes are for <b>how to think about it</b>. Each answers one question, names the work that '
+      + 'broke it open, states what kind of evidence the answer rests on, and says what is still unresolved.</p>'
+      + '    <div class="pw-routes" id="pwRoutes"></div>'
       + '    <div class="pw-prog" id="pwProg"></div><div class="pw-step" id="pwStep"></div></div>'
       + '  <div class="pw-stage pw-hide" id="pwStageWrap">'
       + '    <div class="pw-canvas" id="pwCanvas">'

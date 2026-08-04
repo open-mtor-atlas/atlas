@@ -661,6 +661,45 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "band label counts are pluralised correctly");
   D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
+  console.log("— Researcher's Journey schema —");
+  // The schema is what makes this a teaching frame rather than seven
+  // walkthroughs. Route SEVEN is the one that quietly ships without a header
+  // if nothing enforces it.
+  ok(/how to think about it/i.test(D.getElementById("pwGuidedUI").innerHTML),
+    "the section states its own purpose: what is known vs how to think about it");
+  model.routes.forEach((r) => {
+    ok(r.name.trim().endsWith("?"),
+      `route ${r.id}: title is a question, not a territory ("${r.name}")`);
+    ok((r.territory || "").length > 3, `route ${r.id}: keeps its territory as a subtitle`);
+    const j = r.journey || {};
+    ["question", "evidence", "unknowns"].forEach((k) => {
+      ok((j[k] || "").length > 40, `route ${r.id}: journey.${k} is substantive`);
+    });
+    const b = j.breakthrough || {};
+    ok((b.why || "").length > 40, `route ${r.id}: breakthrough says WHY it mattered`);
+    // Either one paper, or an honest declared synthesis — never neither, and
+    // never a nominated paper that does not deserve it.
+    const single = !!b.sid, syn = (b.synthesis || []).length >= 2;
+    ok(single !== syn, `route ${r.id}: breakthrough is exactly one of {paper, synthesis}`);
+    (b.sid ? [b.sid] : b.synthesis).forEach((sid) => {
+      ok(/^[A-Z]+\d{4}$/.test(sid), `route ${r.id}: breakthrough SID ${sid} is well formed`);
+    });
+  });
+  ok(model.routes.some((r) => (r.journey.breakthrough.synthesis || []).length >= 2),
+    "at least one route uses the honest synthesis escape rather than nominating a paper");
+  // the header renders
+  w.PathwayApp.setMode("guided");
+  D.querySelector('.pw-routebtn[data-r="clin"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  const intro = D.getElementById("pwStep").innerHTML;
+  ok(/The question/.test(intro) && /What the answer rests on/.test(intro)
+     && /What is still unresolved/.test(intro),
+    "the Journey header renders all four fields");
+  ok(/No single paper — a synthesis of 4/.test(intro),
+    "a synthesis route says so outright rather than implying a single breakthrough");
+  D.querySelector('.pw-routebtn[data-r="rapa"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  ok(/The paper that broke it open/.test(D.getElementById("pwStep").innerHTML),
+    "a single-breakthrough route names it as such");
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 

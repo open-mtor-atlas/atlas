@@ -201,6 +201,49 @@ def main():
                 E("open localisation %r: missing %s" % (lp.get("name"), k))
 
     # --- trasy ------------------------------------------------------------
+    # --- Researcher's Journey: společná hlavička každé trasy ---------------
+    #
+    # Reactome ukazuje, co víme. Guided Routes mají učit, JAK o mTOR myslet —
+    # a to vyžaduje, aby každá trasa odpovídala na jednu otázku, ne aby
+    # ukazovala jiný výřez. Bez branky se hlavička u sedmé trasy tiše vynechá
+    # a nikdo si toho půl roku nevšimne.
+    for r in m.get("routes", []):
+        j = r.get("journey") or {}
+        if not j:
+            E("route %s: missing the Researcher's Journey header" % r["id"])
+            continue
+        # Titul musí být OTÁZKA, jinak je to zase jen území.
+        if not (r.get("name") or "").strip().endswith("?"):
+            E("route %s: title %r is not a question. A route answers one question; "
+              "a title without a question mark is a territory."
+              % (r["id"], r.get("name")))
+        for k in ("question", "evidence", "unknowns"):
+            if len((j.get(k) or "").strip()) < 40:
+                E("route %s: journey.%s is missing or too short to be an answer" % (r["id"], k))
+        b = j.get("breakthrough") or {}
+        if not (b.get("why") or "").strip():
+            E("route %s: breakthrough needs a WHY — naming a paper without saying what it "
+              "broke open teaches nothing" % r["id"])
+        # Legitimní ústupová cesta. Některé trasy jednu zlomovou práci nemají a
+        # vyžadovat ji by tlačilo k nominaci práce, která si to nezaslouží.
+        # "synthesis" je proto plnohodnotná varianta, ne chybějící hodnota.
+        if b.get("sid"):
+            if b["sid"] not in sid_tier:
+                E("route %s: breakthrough cites %s, which is not in the corpus" % (r["id"], b["sid"]))
+            if b.get("synthesis"):
+                E("route %s: breakthrough declares both a single paper and a synthesis" % r["id"])
+        elif b.get("synthesis"):
+            syn = b["synthesis"]
+            if len(syn) < 2:
+                E("route %s: a synthesis needs at least two papers, otherwise name the one" % r["id"])
+            for sid in syn:
+                if sid not in sid_tier:
+                    E("route %s: synthesis cites %s, which is not in the corpus" % (r["id"], sid))
+        else:
+            E("route %s: breakthrough must name a paper OR declare a synthesis. If no single "
+              "study broke this open, say so explicitly — do not nominate one that did not."
+              % r["id"])
+
     for r in m.get("routes", []):
         for ref in r.get("interactions", []) + r.get("spine", []):
             if ref not in seen:
