@@ -75,19 +75,61 @@ def fetch_studies():
     return arr
 
 
-def gaps_js():
+def existing_gap_beginner_fields(h):
+    """Beginner-register basis/hyp (added 2026-08-04 for the site-wide reading
+    level switch) are hand-authored, not sourced from Airtable -- Airtable has
+    no Evidence_Basis_Beginner/Hypothesis_Beginner columns (yet). A plain
+    resync would silently wipe them, since gaps_js() below rebuilds ATLAS_GAPS
+    from scratch. This reads whatever is CURRENTLY baked into index.html
+    before the rewrite, keyed by Gap_ID, so a resync can carry them forward.
+    Returns {} (not a crash) if ATLAS_GAPS is missing/malformed -- a sync that
+    can't preserve beginner text should still be able to update the rest."""
+    try:
+        m = re.search(r"const ATLAS_GAPS = (\[.*?\]);", h, re.S)
+        if not m:
+            return {}
+        arr = json.loads(m.group(1))
+        return {
+            row["id"]: {
+                "basis_beginner": row.get("basis_beginner", ""),
+                "hyp_beginner": row.get("hyp_beginner", ""),
+            }
+            for row in arr if row.get("basis_beginner") or row.get("hyp_beginner")
+        }
+    except Exception as e:
+        print("  (could not read existing beginner-level gap text, continuing without it)", e)
+        return {}
+
+
+def gaps_js(existing_beginner=None):
+    existing_beginner = existing_beginner or {}
     try:
         rows = api("Knowledge_Gaps")
     except Exception as e:
         print("  (Knowledge_Gaps not found, leaving ATLAS_GAPS untouched)", e)
         return None
     arr = []
+    carried = 0
     for r in sorted(rows, key=lambda r: r["fields"].get("Gap_ID", "")):
         f = r["fields"]
         codes = re.findall(r"[A-Z]{2,}[0-9]{4}|NCT[0-9]+", f.get("Supporting_Studies", "") or "")
-        arr.append({"id": g(f, "Gap_ID"), "type": g(f, "Type"), "title": g(f, "Title"),
-                    "basis": g(f, "Evidence_Basis"), "hyp": g(f, "Hypothesis"),
-                    "exp": g(f, "Proposed_Experiment"), "studies": codes, "conf": f.get("Confidence", 0)})
+        gid = g(f, "Gap_ID")
+        # Prefer an Airtable-sourced beginner field if one is ever added there;
+        # otherwise carry forward whatever is already baked into the page.
+        prev = existing_beginner.get(gid, {})
+        basis_beginner = g(f, "Evidence_Basis_Beginner", "") or prev.get("basis_beginner", "")
+        hyp_beginner = g(f, "Hypothesis_Beginner", "") or prev.get("hyp_beginner", "")
+        if basis_beginner or hyp_beginner:
+            carried += 1
+        row = {"id": gid, "type": g(f, "Type"), "title": g(f, "Title"),
+               "basis": g(f, "Evidence_Basis"), "hyp": g(f, "Hypothesis"),
+               "exp": g(f, "Proposed_Experiment"), "studies": codes, "conf": f.get("Confidence", 0)}
+        if basis_beginner:
+            row["basis_beginner"] = basis_beginner
+        if hyp_beginner:
+            row["hyp_beginner"] = hyp_beginner
+        arr.append(row)
+    print("  ATLAS_GAPS: %d/%d records carrying forward Beginner-level text" % (carried, len(arr)))
     return "const ATLAS_GAPS = " + json.dumps(arr, ensure_ascii=False) + ";"
 
 
@@ -119,6 +161,7 @@ def main():
     if not TOKEN:
         sys.exit("Set AIRTABLE_TOKEN (read-only PAT scoped to this base).")
     h = open(HTML, encoding="utf-8").read()
+    existing_beginner = existing_gap_beginner_fields(h)
 
     studies = fetch_studies()
     n_pmid = sum(1 for s in studies if s.get("pmid"))
@@ -142,7 +185,7 @@ def main():
                  "nic jsem nezapsal, index.html je beze změny.")
     print("ATLAS_STUDIES: updated (%d records)" % len(studies))
 
-    gjs = gaps_js()
+    gjs = gaps_js(existing_beginner)
     if gjs:
         h, c2 = re.subn(r"const ATLAS_GAPS = \[.*?\];", lambda m: gjs, h, count=1, flags=re.S)
         print("ATLAS_GAPS:", "updated" if c2 else "NOT FOUND")
