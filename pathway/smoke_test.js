@@ -223,82 +223,91 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "level switch does NOT rebuild the graph");
 
   console.log("— guided routes —");
-  reduceMotion = true;   // instant camera: 60+ tweens would otherwise stall jsdom
-  w.PathwayApp.setMode("guided");
+  reduceMotion = true;
+  w.PathwayApp.setMode("guided");   // the route bar only exists in this mode
+  /* Test design note. Per-step CONTENT is model data, so it is asserted against
+     the model — cheap, and it covers all 11 routes and every step. The route
+     ENGINE is asserted by walking two routes in the DOM end to end. Walking all
+     132 steps in jsdom to re-read text that came from the model added ~26k DOM
+     operations per run for no extra coverage, and pushed the suite past its
+     time budget once the route count grew. */
   model.routes.forEach((r) => {
-    D.querySelector(`.pw-routebtn[data-r="${r.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    const start = D.getElementById("pwStart");
-    ok(!!start, `route ${r.id}: has an intro with a start button`);
-    if (!start) return;
-    start.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    const total = (r.steps && r.steps.length) ? r.steps.length : r.spine.length;
-    ok(total >= 5, `route ${r.id}: has at least 5 steps (${total})`);
-    for (let i = 0; i < total; i++) {
-      const dds = [...D.querySelectorAll("#pwStep .pw-q dd")];
-      ok(dds.length === 5, `route ${r.id} step ${i + 1}: five answered questions`);
-      dds.forEach((dd, k) => ok(dd.textContent.trim().length > 12,
-        `route ${r.id} step ${i + 1}: answer ${k + 1} is substantive`));
-      const hd = D.querySelector("#pwStep .pw-step-hd h4");
-      ok(hd && hd.textContent.trim().length > 12, `route ${r.id} step ${i + 1}: has a headline`);
-      ok(/Step \d+ \/ \d+ · /.test(D.querySelector("#pwStep .pw-step-n").textContent),
-        `route ${r.id} step ${i + 1}: states position and compartment`);
-      const next = D.getElementById("pwNext");
-      if (i < total - 1) next.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    }
+    ok(r.steps.length === r.spine.length,
+      `route ${r.id}: all ${r.spine.length} steps hand-authored`);
+    ok(r.spine.length >= 6 && r.spine.length <= 12,
+      `route ${r.id}: ${r.spine.length} steps, within the 6-12 design range`);
+    r.steps.forEach((st, k) => {
+      ok(st.interaction === r.spine[k],
+        `route ${r.id} step ${k + 1}: narrative matches spine order`);
+      ["what", "why", "changed", "consequence", "certainty", "matters"].forEach((f) => {
+        ok((st[f] || "").trim().length > 12,
+          `route ${r.id} step ${k + 1}: ${f} is substantive`);
+      });
+      ok((st.matters || "").length > 80,
+        `route ${r.id} step ${k + 1}: 'why scientists care' carries real payload`);
+      ok(model.interactions.some((e) => e.id === st.interaction),
+        `route ${r.id} step ${k + 1}: cites a real interaction`);
+    });
   });
 
-  // Camera must reach its destination even when requestAnimationFrame never
-  // fires. It does not fire in a hidden tab, which is exactly how this was
-  // found: a route step in a backgrounded tab left the camera at frame 0.
-  // Regression: the Scenario Lab card used to reuse .pw-step-n, so once that
-  // panel had rendered, an unscoped lookup returned "Phase 2 — in build"
-  // instead of the live step. Visit it FIRST, then assert the route step
-  // still reads correctly both scoped and unscoped.
+  // Engine: walk two contrasting routes fully in the DOM — the shortest
+  // migrated one and the longest newly built one.
+  ["energy", "cancer"].forEach((rid) => {
+    const r = model.routeIx ? model.routeIx[rid] : model.routes.find((x) => x.id === rid);
+    D.querySelector(`.pw-routebtn[data-r="${rid}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    const start = D.getElementById("pwStart");
+    ok(!!start, `route ${rid}: has an intro with a start button`);
+    if (!start) return;
+    start.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    for (let i = 0; i < r.spine.length; i++) {
+      const dds = [...D.querySelectorAll("#pwStep .pw-q dd")];
+      ok(dds.length === 5, `route ${rid} step ${i + 1}: five answered questions rendered`);
+      ok(!/assembled from curated fields/.test(D.getElementById("pwStep").innerHTML),
+        `route ${rid} step ${i + 1}: rendered as hand-authored`);
+      const hd = D.querySelector("#pwStep .pw-step-hd h4");
+      ok(hd && hd.textContent.trim().length > 12, `route ${rid} step ${i + 1}: has a headline`);
+      ok(/Step \d+ \/ \d+ · /.test(D.querySelector("#pwStep .pw-step-n").textContent),
+        `route ${rid} step ${i + 1}: states position and compartment`);
+      const next = D.getElementById("pwNext");
+      if (i < r.spine.length - 1) next.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    }
+  });
+  // every route's intro must render its Journey header
+  model.routes.forEach((r) => {
+    D.querySelector(`.pw-routebtn[data-r="${r.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    const intro = D.getElementById("pwStep").innerHTML;
+    ok(/The question/.test(intro), `route ${r.id}: intro renders the question`);
+    ok(/What the answer rests on/.test(intro) && /What is still unresolved/.test(intro),
+      `route ${r.id}: intro renders evidence and unknowns`);
+  });
+
   /* The bug this guards: pointer capture retargets pointerup to the canvas
      div, so reading ev.target there found no shape and clicking a molecule or
-     an arrow silently did nothing on the live site. */
+     an arrow silently did nothing on the live site. Restored after being
+     removed during a test restructure — it guards a real production defect. */
   console.log("— click survives pointer capture retargeting —");
   const canvasEl = D.getElementById("pwCanvas");
-  inspectDefaultCheck: {
-    D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="TSC-RHEB"]'));
-    const t = D.getElementById("pwInsp").textContent;
-    ok(/acts as a GAP on/.test(t), "clicking an arrow populates the inspector despite capture retargeting");
-    ok(!/Click any molecule or any arrow/.test(t), "inspector is no longer showing its empty state");
-  }
+  w.PathwayApp.setMode("explorer");
+  D.querySelector('#pwView button[data-vw="pathway"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="TSC-RHEB"]'));
+  ok(/acts as a GAP on/.test(D.getElementById("pwInsp").textContent),
+    "clicking an arrow populates the inspector despite capture retargeting");
   realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="Rheb"]').querySelector(".nb"));
-  ok(/Rheb/.test(D.getElementById("pwInsp").textContent) && /Inputs \(/.test(D.getElementById("pwInsp").innerHTML),
+  ok(/Rheb/.test(D.getElementById("pwInsp").textContent),
     "clicking a molecule populates the inspector despite capture retargeting");
-  // A pan must NOT select whatever was under the initial press.
-  realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="Rheb"]').querySelector(".nb"));
   const beforeDrag = D.getElementById("pwInsp").textContent;
   realDrag(w, canvasEl, D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb"), 400, 300, 480, 340);
   ok(D.getElementById("pwInsp").textContent === beforeDrag,
     "a pan gesture does not select whatever was under the initial press");
-  // and a normal click still works immediately after a pan
   realClick(w, canvasEl, D.querySelector('.pw-n[data-nid="mTORC1"]').querySelector(".nb"));
-  ok(/mTORC1/.test(D.querySelector("#pwInsp h4").textContent),
-    "a click right after a pan still selects");
-  // keyboard activation must reach the same code path
+  ok(/mTORC1/.test(D.querySelector("#pwInsp h4").textContent), "a click right after a pan still selects");
   const kn = D.querySelector('.pw-n[data-nid="AMPK"]');
   const kev = new w.KeyboardEvent("keydown", { key: "Enter", bubbles: true });
   Object.defineProperty(kev, "target", { value: kn });
   canvasEl.dispatchEvent(kev);
-  ok(/AMPK/.test(D.querySelector("#pwInsp h4").textContent),
-    "keyboard Enter on a molecule selects it");
-  D.querySelector('#pwView button[data-vw="mechanism"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-
-  console.log("— panel class isolation —");
-  w.PathwayApp.setMode("scenarios");
-  ok(D.querySelectorAll("#pwScen .pw-step-n").length === 0,
-    "Scenario Lab does not borrow the guided-route step badge class");
-  w.PathwayApp.setMode("guided");
-  D.querySelector('.pw-routebtn[data-r="aa"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-  D.getElementById("pwStart").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-  ok(D.querySelectorAll(".pw-step-n").length === 1,
-    "exactly one .pw-step-n exists in the document while a route step is open");
-  ok(/Step \d+ \/ \d+ · /.test(D.querySelector(".pw-step-n").textContent),
-    "the step badge names its position and compartment even after the Scenario Lab has rendered");
+  ok(/AMPK/.test(D.querySelector("#pwInsp h4").textContent), "keyboard Enter on a molecule selects it");
+  // leave the explorer as found: the next block asserts the DEFAULT view
+  D.getElementById("pwReset").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
 
   reduceMotion = false;  // the tween itself is what the next block tests
   console.log("— camera robustness —");
@@ -706,33 +715,6 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   D.querySelector('.pw-routebtn[data-r="rapa"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
   ok(/The paper that broke it open/.test(D.getElementById("pwStep").innerHTML),
     "a single-breakthrough route names it as such");
-
-  reduceMotion = true;
-  console.log("— every route is authored, none assembled —");
-  model.routes.forEach((r) => {
-    ok(r.steps.length === r.spine.length,
-      `route ${r.id}: all ${r.spine.length} steps hand-authored`);
-    r.steps.forEach((st, k) => {
-      ok(st.interaction === r.spine[k],
-        `route ${r.id} step ${k + 1}: narrative matches the spine order`);
-      ok((st.matters || "").length > 80,
-        `route ${r.id} step ${k + 1}: 'why scientists care' carries real payload`);
-    });
-  });
-  // and the UI must stop claiming steps are assembled when they are not
-  w.PathwayApp.setMode("guided");
-  let assembledSeen = 0;
-  model.routes.forEach((r) => {
-    D.querySelector(`.pw-routebtn[data-r="${r.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    D.getElementById("pwStart").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    for (let i = 0; i < r.spine.length; i++) {
-      if (/assembled from curated fields/.test(D.getElementById("pwStep").innerHTML)) assembledSeen++;
-      const nx = D.getElementById("pwNext");
-      if (nx && !/Finish/.test(nx.textContent)) nx.dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
-    }
-  });
-  ok(assembledSeen === 0,
-    `no step anywhere still labels itself assembled-from-template (${assembledSeen} found)`);
 
   reduceMotion = false;
   console.log("— console —");

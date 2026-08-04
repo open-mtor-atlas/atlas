@@ -945,6 +945,18 @@
     var r = M.routeIx[S.routeId] || M.routes[0];
     S.routeId = r.id;
     var total = (r.steps && r.steps.length) ? r.steps.length : r.spine.length;
+    /* Rebuild the route bar ONLY when the selected route changes. It used to be
+       rebuilt on every step advance, which destroyed and recreated 11 buttons
+       (and their listeners) for each of ~130 steps across the section — wasted
+       work in the browser, and enough to stall the headless suite once the
+       route count grew. The step panel below still re-renders every step,
+       which is the part that actually changes. */
+    if (el.routes.__forRoute === r.id && el.routes.childNodes.length) {
+      el.routes.querySelectorAll("[data-r]").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.r === r.id));
+      });
+    } else {
+    el.routes.__forRoute = r.id;
     el.routes.innerHTML = M.routes.map(function (x) {
       var n = (x.steps && x.steps.length) ? x.steps.length : x.spine.length;
       return '<button class="pw-routebtn" data-r="' + esc(x.id) + '" aria-pressed="'
@@ -954,6 +966,7 @@
     el.routes.querySelectorAll("[data-r]").forEach(function (b) {
       b.addEventListener("click", function () { S.routeId = b.dataset.r; S.step = -1; renderGuided(); });
     });
+    }
 
     if (S.step < 0) {
       el.prog.innerHTML = "";
