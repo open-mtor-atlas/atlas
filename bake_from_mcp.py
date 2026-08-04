@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-bake_from_mcp.py -- rewrite the ATLAS_STUDIES / ATLAS_GAPS / ATLAS_EVENTS constants
-in index.html from local JSON dumps (atlas_data/studies_baked.json,
-atlas_data/gaps_baked.json, atlas_data/events_baked.json).
+bake_from_mcp.py -- rewrite the ATLAS_STUDIES / ATLAS_GAPS / ATLAS_EVENTS / ATLAS_ENTITIES
+constants in index.html from local JSON dumps (atlas_data/studies_baked.json,
+atlas_data/gaps_baked.json, atlas_data/events_baked.json, atlas_data/entities_baked.json).
 
 Why this exists instead of sync_airtable.py: this sandbox's network policy blocks
 direct HTTPS calls to api.airtable.com (only a curated allowlist of hosts like
@@ -23,6 +23,7 @@ HTML = os.path.join(HERE, "index.html")
 STUDIES_JSON = os.path.join(HERE, "atlas_data", "studies_baked.json")
 GAPS_JSON = os.path.join(HERE, "atlas_data", "gaps_baked.json")
 EVENTS_JSON = os.path.join(HERE, "atlas_data", "events_baked.json")
+ENTITIES_JSON = os.path.join(HERE, "atlas_data", "entities_baked.json")
 
 
 def write_verified(path, content, expect_suffix="</html>", attempts=5):
@@ -134,6 +135,31 @@ def main():
             print("ATLAS_EVENTS: NOT FOUND in index.html (pattern mismatch)")
     else:
         print("ATLAS_EVENTS: no events_baked.json, leaving untouched")
+
+    if os.path.exists(ENTITIES_JSON):
+        entities = json.load(open(ENTITIES_JSON, encoding="utf-8"))
+        js = "const ATLAS_ENTITIES = " + json.dumps(entities, ensure_ascii=False) + ";"
+        # ANCHOR to the known next declaration (the "authors index" comment that
+        # immediately follows in the page's <script>), same defensive reasoning
+        # as ATLAS_STUDIES/ATLAS_EVENTS above -- a literal "];" inside a desc
+        # string must not be able to truncate the match early. Previously there
+        # was NO automated path that updated ATLAS_ENTITIES at all -- it was
+        # only ever referenced as a regex anchor by the other three blocks, so
+        # entity descriptions (and later, desc_beginner) had to be hand-edited.
+        new_h, c5 = re.subn(
+            r"const ATLAS_ENTITIES = \[.*?\];\n\n// ---------- authors index",
+            lambda m: js + "\n\n// ---------- authors index",
+            h, count=1, flags=re.S,
+        )
+        if c5:
+            if new_h != h:
+                changed = True
+            h = new_h
+            print("ATLAS_ENTITIES: updated (%d records)" % len(entities))
+        else:
+            print("ATLAS_ENTITIES: NOT FOUND in index.html (pattern mismatch)")
+    else:
+        print("ATLAS_ENTITIES: no entities_baked.json, leaving untouched")
 
     ts = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
     h, c3 = re.subn(r'const ATLAS_UPDATED = "[^"]*";', 'const ATLAS_UPDATED = "' + ts + '";', h, count=1)
