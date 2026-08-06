@@ -4594,8 +4594,9 @@ function renderAuthorsTable(){
     const studiesHtml = studies.map(s=>
       `<span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="event.stopPropagation();filterStudiesByTitle('${jsStr(s.title)}')" title="${s.title}">${s.title}</span> <span class="mono" style="font-size:10px;color:var(--ink-soft);">(${s.year||'—'})</span>`
     ).join('; ');
+    const bioIcon = AUTHOR_BIOS[a.name] ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;vertical-align:-2px;margin-left:6px;" onclick="event.stopPropagation();showAuthorBio('${jsStr(a.name)}')" title="View author profile"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>` : '';
     html += `<tr>
-      <td><span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="filterStudiesByAuthor('${jsStr(a.name)}')">${a.name}</span></td>
+      <td><span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="filterStudiesByAuthor('${jsStr(a.name)}')">${a.name}</span>${bioIcon}</td>
       <td class="mono">${a.studies.length}</td>
       <td class="study-meta">${studiesHtml}</td>
     </tr>`;
