@@ -393,6 +393,15 @@ NODES = {
     "Actin cytoskeleton": ("outcome", "process", "The cell's internal scaffolding.",
                            "mTORC2-dependent actin organisation and cell shape control.",
                            "The original TORC2 phenotype in yeast; in mammals mediated through PKCα and Rho GTPases and largely rapamycin-insensitive acutely."),
+
+    # ---- added 2026-08-06: entity-browser audit found this node missing
+    # from every graph in the Atlas despite having a real, well-cited
+    # mechanistic link into the existing model (LV2026). See EXTRA_EDGES
+    # below for the two interactions that connect it in.
+    "cGAS-STING pathway": ("cytosol", "complex",
+        "An immune alarm system that goes off when it detects DNA where it shouldn't be — floating loose in the cell, not tucked inside the nucleus.",
+        "Innate-immune DNA-sensing pathway (cGAS binds cytosolic DNA, signals through STING) driving an inflammatory secretory programme; normally kept in check by lysosomal mTORC1 signalling.",
+        "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages, decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling, and this loss of restraint is sufficient to trigger cGAS-mediated paracrine inflammatory senescence; restoring Lamtor5 reverses the phenotype (LV2026). Single mouse study — human relevance of the Lamtor5–cGAS/STING link is untested."),
 }
 
 # ---------------------------------------------------------------------------
@@ -1654,6 +1663,22 @@ EXTRA_EDGES = [
   "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
   "Note the direction. Hypoxia → HIF-1α is the arm everyone expects, but it is mTORC1 → HIF-1α that this corpus supports; the hypoxia arm is drawn here through REDD1 instead, because that is what the cited paper shows.",
   "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment."),
+
+ # ---- added 2026-08-06: entity-browser audit (cGAS-STING pathway had no
+ # node anywhere in the Atlas despite a real, citable mechanistic link).
+ ("RAGULATOR-CGASSTING", "Ragulator", "cGAS-STING pathway", "inhibits", "signal-relay",
+  "cytosol", "chronic", "indirect", "medium", "untested", "emerging",
+  "Genetic loss-of-function / rescue", "mouse", ["LV2026"],
+  "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
+  "The sign here is a brake being released, not a switch being thrown: Ragulator/Lamtor5 does not touch cGAS or STING directly, it maintains an mTORC1 signalling state that keeps the sensor pathway quiet. Ageing removes the brake.",
+  "One mouse study (LV2026), tier C. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link."),
+
+ ("CGASSTING-SENESCENCE", "cGAS-STING pathway", "Cellular senescence", "activates", "functional-consequence",
+  "outcome", "days", "indirect", "medium", "untested", "emerging",
+  "Genetic loss-of-function / rescue", "mouse", ["LV2026"],
+  "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
+  "'Paracrine' is the operative word: senescence signalling propagates outward from the affected macrophages to other cells rather than staying cell-autonomous — part of why restoring Lamtor5 in one compartment produced a systemic phenotype reversal.",
+  "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested."),
 ]
 
 
