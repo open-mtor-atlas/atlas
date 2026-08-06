@@ -85,6 +85,26 @@
   function $(id) { return document.getElementById(id); }
   function nodeById(id) { return M.nodeIx[id]; }
   function edgeById(id) { return M.edgeIx[id]; }
+  /* Cross-tab entity lookup (Entity Browser -> Mechanism Explorer). Entity
+     names arrive from the corpus (Airtable), not from this model, so they
+     do not always match a node id byte-for-byte ("FoxO" vs "FOXO1/3",
+     "IRS1 / IRS2" vs "IRS-1 / IRS-2"). Normalise to alnum-only before
+     comparing so those corpus/model naming drifts still resolve, instead
+     of silently reporting "no node" for an entity that is actually mapped. */
+  function normKey(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+  function findNodeByName(name) {
+    if (!M || !name) return null;
+    if (M.nodeIx[name]) return M.nodeIx[name];
+    var q = normKey(name);
+    if (!q) return null;
+    var byNorm = M.nodes.filter(function (n) { return normKey(n.id) === q || normKey(n.label) === q; });
+    if (byNorm.length) return byNorm[0];
+    var contains = M.nodes.filter(function (n) {
+      var nl = normKey(n.label);
+      return nl.indexOf(q) >= 0 || q.indexOf(nl) >= 0;
+    });
+    return contains[0] || null;
+  }
   function nw(label) { return Math.max(76, String(label).length * 7.4 + 24); }
   function reduced() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
@@ -1570,6 +1590,34 @@
           throw err;
         });
     },
-    setMode: function (m) { if (M) setMode(m); }
+    setMode: function (m) { if (M) setMode(m); },
+    /* Called from Entity Browser (index.html) when the user asks to see an
+       entity in the pathway map. Returns true if a node was found and
+       focused, false if this entity is tracked in the corpus but has no
+       curated mechanism node yet -- a real, honestly-reported state, not
+       a bug, for single-study drugs/outcomes the model deliberately hasn't
+       taken a mechanistic position on. */
+    focusNode: function (name) {
+      if (!M) return false;
+      var n = findNodeByName(name);
+      if (!n) {
+        if (S.mode !== "explorer") setMode("explorer");
+        setInsp('<h4>Not in the mechanism model yet</h4>'
+          + '<p class="pw-empty">&#8220;' + esc(name) + '&#8221; is tracked in the Atlas corpus '
+          + 'but does not yet have a curated node here — either the evidence for a specific '
+          + 'mechanistic link is too thin, or it has not been curated yet. See the Entity Browser '
+          + 'for what the corpus itself says about it.</p>');
+        say('“' + name + '” has no curated mechanism node yet.');
+        return false;
+      }
+      S.filters = { effect: null, evidence: null, physOnly: false };
+      S.timeMax = "all"; S.loopsOnly = false; S.highlightLoop = null; S.contextId = "all";
+      if (S.mode !== "explorer") setMode("explorer");
+      inspectNode(n.id);
+      frameNode(n.id);
+      paint();
+      say("Focused on " + n.label);
+      return true;
+    }
   };
 })();

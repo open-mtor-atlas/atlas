@@ -73,8 +73,64 @@ TYPE_DIR = {
     "Outcome": "outcome",
     "Organelle": "organelle",
     "Nutrient/Metabolite": "nutrient",
+    # Přidáno 2026-08-04: "Condition" v Airtable existuje (např. "Energy &
+    # cellular stress"), ale chybělo mapování -> padalo do fallbacku "entity/",
+    # což by při prvním buildu vytvořilo adresu, kterou už nejde tiše změnit.
+    # Tohle je PRVNÍ build s touto entitou, takže žádný LEGACY_SLUGS není potřeba.
+    "Condition": "condition",
 }
 LEGACY_SLUGS = {}           # {"stary-slug": "novy-slug"} -> vygeneruje redirect
+
+# 2026-08-04 -- SEO/GEO vylepšení, druhé kolo (schváleno Petrem).
+#
+# Wikidata Q-ID pro entity, kde jde jednoznačně přiřadit JEDNU konkrétní
+# položku (gen, sloučenina, nemoc, proces). Každé ID bylo ověřeno přes
+# wikidata.org search, ne odhadnuto z paměti -- špatné ID na vědeckém webu je
+# horší než žádné. Composite entity (např. "TSC1/TSC2" ale ne jako pár genů
+# dohromady, "IRS-1 / IRS-2", "Rag GTPases" jako rodina, "Energy & cellular
+# stress") jsou vynechané záměrně: nejde je napojit na jedinou Wikidata
+# položku, aniž by to bylo zavádějící.
+EXTERNAL_IDS = {
+    "mTOR": ["https://www.wikidata.org/wiki/Q14876086"],
+    "Akt/PKB": ["https://www.wikidata.org/wiki/Q17816452"],
+    "PI3K": ["https://www.wikidata.org/wiki/Q14887700"],
+    "Raptor": ["https://www.wikidata.org/wiki/Q18043110"],
+    "Rictor": ["https://www.wikidata.org/wiki/Q18053691"],
+    "Rheb": ["https://www.wikidata.org/wiki/Q18031127"],
+    "S6K1": ["https://www.wikidata.org/wiki/Q18031289"],
+    "4E-BP1": ["https://www.wikidata.org/wiki/Q17916086"],
+    "eIF4E": ["https://www.wikidata.org/wiki/Q5408696"],
+    "SLC38A9": ["https://www.wikidata.org/wiki/Q18052220"],
+    "ULK1": ["https://www.wikidata.org/wiki/Q18032908"],
+    "TFEB": ["https://www.wikidata.org/wiki/Q18032677"],
+    "AMPK": ["https://www.wikidata.org/wiki/Q295240"],
+    "TSC1/TSC2": ["https://www.wikidata.org/wiki/Q14908106"],
+    "mTORC1": ["https://www.wikidata.org/wiki/Q14876060"],
+    "mTORC2": ["https://www.wikidata.org/wiki/Q14876061"],
+    "Autophagy": ["https://www.wikidata.org/wiki/Q288322"],
+    "Rapamycin": ["https://www.wikidata.org/wiki/Q32089"],
+    "Everolimus": ["https://www.wikidata.org/wiki/Q421052"],
+    "Metformin": ["https://www.wikidata.org/wiki/Q19484"],
+    "Resveratrol": ["https://www.wikidata.org/wiki/Q407329"],
+    "Alzheimer's disease": ["https://www.wikidata.org/wiki/Q11081"],
+    "Breast cancer": ["https://www.wikidata.org/wiki/Q128581"],
+    "Renal cell carcinoma (RCC)": ["https://www.wikidata.org/wiki/Q1164529"],
+    "Tuberous sclerosis complex": ["https://www.wikidata.org/wiki/Q1362721"],
+    "Arginine": ["https://www.wikidata.org/wiki/Q173670"],
+    "Leucine": ["https://www.wikidata.org/wiki/Q483745"],
+    "Lysosome": ["https://www.wikidata.org/wiki/Q83330"],
+    "Longevity": ["https://www.wikidata.org/wiki/Q1066907"],
+    "Caloric restriction": ["https://www.wikidata.org/wiki/Q1332886"],
+    "Insulin resistance": ["https://www.wikidata.org/wiki/Q1053470"],
+    "Protein synthesis": ["https://www.wikidata.org/wiki/Q211935"],
+    "Actin cytoskeleton": ["https://www.wikidata.org/wiki/Q14860845"],
+    "Cellular senescence": ["https://www.wikidata.org/wiki/Q9075999"],
+    "Lipid synthesis": ["https://www.wikidata.org/wiki/Q21096257"],
+    "Nucleotide synthesis": ["https://www.wikidata.org/wiki/Q14819381"],
+    "Immune function": ["https://www.wikidata.org/wiki/Q1612119"],
+    "Tumor growth": ["https://www.wikidata.org/wiki/Q133212"],
+    "Muscle growth": ["https://www.wikidata.org/wiki/Q1955391"],
+}
 
 TIER_LABEL = {
     "A - Systematic review": ("A", "Systematic review of human data", "#2F7A52"),
@@ -109,9 +165,33 @@ def tier_bits(t):
     return TIER_LABEL.get((t or "").strip(), ("—", t or "ungraded", "#7C7569"))
 
 
+def breadcrumb_ld(items):
+    """BreadcrumbList schema z (name, url|None) dvojic -- doplněk 2026-08-04
+    k viditelné <nav class="crumb">, kterou stránky měly už od fáze 6.
+    Poslední položka (aktuální stránka) může mít url=None."""
+    els = []
+    for i, (name, url) in enumerate(items, 1):
+        el = {"@type": "ListItem", "position": i, "name": name}
+        if url:
+            el["item"] = url
+        els.append(el)
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": els}
+
+
 def shell(title, desc, canonical, jsonld, body, breadcrumb):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
-    celý bod. Styl je inline, aby stránka nezávisela na dalším requestu."""
+    celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
+
+    `jsonld` je buď jeden dict, nebo seznam dictů -- každý dostane vlastní
+    <script> blok. Google Rich Results podporuje víc bloků na stránce; jeden
+    blok s @graph by fungoval taky, ale oddělené bloky se snáz generují a
+    snáz se v nich hledá při debugování."""
+    blocks = jsonld if isinstance(jsonld, list) else [jsonld]
+    ld_html = "\n".join(
+        '<script type="application/ld+json">\n'
+        + json.dumps(b, ensure_ascii=False, indent=1) + "\n</script>"
+        for b in blocks)
     return f"""<!DOCTYPE html>
 <html lang="en">
 {GENERATED_MARKER}
@@ -138,9 +218,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb):
 <meta property="og:image" content="{SITE}/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
-<script type="application/ld+json">
-{json.dumps(jsonld, ensure_ascii=False, indent=1)}
-</script>
+{ld_html}
 <style>
 :root{{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}}
@@ -355,7 +433,10 @@ def study_page(s, ent_by_sid, haspage):
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › <a href="{SITE}/#studies">Studies</a> › {e(sid)}'
-    return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, ld,
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Studies", SITE + "/#studies"),
+                        (sid, None)])
+    return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
                       "\n".join(body), crumb)
 
 
@@ -389,6 +470,8 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
                                "name": "Oliver's mTOR Atlas", "url": SITE + "/"}}
     if syn:
         ld["alternateName"] = syn
+    if ent["name"] in EXTERNAL_IDS:
+        ld["sameAs"] = EXTERNAL_IDS[ent["name"]]
 
     body = [f"<h1>{e(ent['name'])}</h1>",
             f'<p class="meta">{e(ent["type"])} · {len(linked)} studies in the Atlas'
@@ -445,19 +528,168 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
     body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
              f'<a href="{SITE}/#entities">{e(ent["type"])}</a> › {e(ent["name"])}')
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        (ent["type"], SITE + "/#entities"),
+                        (ent["name"], None)])
     return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
-                               desc, url, ld, "\n".join(body), crumb)
+                               desc, url, [ld, bc], "\n".join(body), crumb)
+
+
+# ------------------------------------------------------- question/gap pages ---
+# Added 2026-08-04. The "Open Questions" tab (knowledge gaps + testable
+# hypotheses, atlas_data/gaps_baked.json) is the Atlas's most original
+# content -- not an aggregated abstract, but synthesis a crawler can't get
+# anywhere else. It lived only inside the JS SPA. FAQPage/Question schema is
+# exactly the shape AI answer engines lift straight into a response, so this
+# is the single highest-leverage GEO gap on the site.
+
+GAP_TYPE_LABEL = {
+    "Evidence desert": "No study yet tests this",
+    "Contradiction / tension": "Studies point in different directions",
+    "Mechanism-to-outcome gap": "Mechanism shown, outcome untested",
+    "Human-endpoint gap": "No human trial endpoint yet",
+}
+
+
+def gap_page(g, studies_by_sid):
+    slug = slugify(g["title"])
+    url = f"{SITE}/question/{slug}/"
+    kind = GAP_TYPE_LABEL.get(g.get("type"), g.get("type") or "Open question")
+    conf = g.get("conf")
+    desc = (g.get("basis_beginner") or g.get("basis") or g["title"])[:300]
+
+    qa = [
+        ("What's the evidence gap?", g.get("basis_beginner") or g.get("basis") or ""),
+        ("What's the testable hypothesis?", g.get("hyp_beginner") or g.get("hyp") or ""),
+        ("How could this be tested?", g.get("exp") or ""),
+    ]
+    ld = {"@context": "https://schema.org", "@type": "FAQPage",
+          "mainEntity": [
+              {"@type": "Question", "name": q,
+               "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a)}}
+              for q, a in qa if a]}
+
+    body = [f"<h1>{e(g['title'])}</h1>",
+            f'<p class="meta">{e(kind)}'
+            + (f' · confidence {e(round(conf*100))}%' if conf is not None else "")
+            + f' · Atlas ID <code>{e(g["id"])}</code></p>']
+    if g.get("basis_beginner"):
+        body.append(f'<h2>The gap</h2><p class="summary">{g["basis_beginner"]}</p>')
+        if g.get("basis") and g["basis"] != g["basis_beginner"]:
+            body.append(f'<p class="meta"><em>Technical framing:</em> {e(g["basis"])}</p>')
+    elif g.get("basis"):
+        body.append(f'<h2>The gap</h2><p class="summary">{e(g["basis"])}</p>')
+    if g.get("hyp_beginner"):
+        body.append(f'<h2>The hypothesis</h2><p>{g["hyp_beginner"]}</p>')
+        if g.get("hyp") and g["hyp"] != g["hyp_beginner"]:
+            body.append(f'<p class="meta"><em>Technical framing:</em> {e(g["hyp"])}</p>')
+    elif g.get("hyp"):
+        body.append(f'<h2>The hypothesis</h2><p>{e(g["hyp"])}</p>')
+    if g.get("exp"):
+        body.append(f'<h2>How it could be tested</h2><p>{e(g["exp"])}</p>')
+
+    links = [f'<a href="/study/{e(sid)}/">{e(sid)}</a>'
+             for sid in g.get("studies") or [] if sid in studies_by_sid]
+    if links:
+        body.append(f'<h2>Related studies</h2><p>{" · ".join(links)}</p>')
+    body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
+
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
+             f'<a href="{SITE}/#questions">Open Questions</a> › {e(g["title"])}')
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Open Questions", SITE + "/#questions"),
+                        (g["title"], None)])
+    return url, slug, shell(f"{g['title']} | Open Questions | Oliver's mTOR Atlas",
+                            desc, url, [ld, bc], "\n".join(body), crumb)
+
+
+# --------------------------------------------------------- author pages ---
+# Added 2026-08-04. The five scientist bio cards (AUTHOR_BIOS in index.html)
+# are hand-written narrative content -- exactly the kind of thing that signals
+# authorship/expertise (E-E-A-T) to Google and gives an AI answer engine a
+# citable source for "who discovered mTORC2" style questions. Until now they
+# only rendered inside a JS modal (showAuthorBio()), invisible to a
+# non-JS crawler. Source of truth stays index.html; this script reads a baked
+# export (atlas_data/author_bios_baked.json) so the Python build has no Node
+# dependency. If AUTHOR_BIOS in index.html changes, re-export it -- see the
+# comment at the top of that JSON file... actually there isn't one yet, so:
+# re-extract with a small Node snippet that assigns AUTHOR_BIOS and
+# JSON.stringifies it (same technique used to build this file originally).
+
+def build_author_index(studies):
+    """Replicates buildAuthorsIndex() from index.html in Python: split each
+    study's `authors` field on ';', strip trailing 'et al.'. Must stay in
+    sync with the JS version or a name matches in the SPA but not here."""
+    idx = {}
+    for s in studies:
+        for part in (s.get("authors") or "").split(";"):
+            name = re.sub(r"\s*et al\.?\s*$", "", part, flags=re.I).strip()
+            if name:
+                idx.setdefault(name, []).append(s)
+    return idx
+
+
+def author_page(key, bio, studies):
+    slug = slugify(bio["full"])
+    url = f"{SITE}/author/{slug}/"
+    desc = f"{bio['full']} ({bio['role']}) — publication timeline in Oliver's mTOR Atlas."[:300]
+
+    ld = {"@context": "https://schema.org", "@type": "Person",
+          "name": bio["full"], "description": bio["role"], "url": url}
+    if bio.get("photo"):
+        ld["image"] = bio["photo"]
+
+    ordered = sorted(studies, key=lambda s: (s.get("year") or 0))
+    body = [f"<h1>{e(bio['full'])}</h1>",
+            f'<p class="meta">{e(bio["role"])}'
+            + (f' · {bio["sub"]}' if bio.get("sub") else "") + "</p>"]
+    if bio.get("photo"):
+        cred = f'<div style="font-size:12px;color:var(--soft);margin:-12px 0 16px">{bio["credit"]}</div>' if bio.get("credit") else ""
+        body.append(f'<img src="{e(bio["photo"])}" alt="{e(bio["full"])}" loading="lazy" '
+                    f'style="max-width:220px;border-radius:4px;margin:0 0 6px" '
+                    f'onerror="this.style.display=\'none\'">' + cred)
+    for p in bio.get("story") or []:
+        body.append(f"<p>{p}</p>")
+
+    if ordered:
+        body.append("<h2>Milestones in the Atlas</h2><table class=\"st\">"
+                    "<tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>")
+        for s in ordered:
+            if not s.get("sid"):
+                continue
+            code, _, colour = tier_bits(s.get("tier"))
+            hl = (bio.get("highlights") or {}).get(s["sid"])
+            finding = hl if hl else (s.get("finding") or s.get("title") or "")
+            finding_html = finding if hl else e(finding[:220])
+            body.append(
+                f'<tr><td data-l="Study"><a href="/study/{e(s["sid"])}/">{e(s["sid"])}</a></td>'
+                f'<td data-l="Year">{e(s.get("year") or "")}</td>'
+                f'<td data-l="Tier"><span class="tier" style="background:{colour}">{code}</span></td>'
+                f'<td data-l="Finding">{finding_html}</td></tr>')
+        body.append("</table>")
+    body.append(f'<p><a class="cta" href="{SITE}/#authors">Open in the Atlas explorer</a></p>')
+
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
+             f'<a href="{SITE}/#authors">Researchers</a> › {e(bio["full"])}')
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Researchers", SITE + "/#authors"),
+                        (bio["full"], None)])
+    return url, slug, shell(f"{bio['full']} — {bio['role']} | Oliver's mTOR Atlas",
+                            desc, url, [ld, bc], "\n".join(body), crumb)
 
 
 # ------------------------------------------------------------------- main ---
 
-def browse_page(studies, entities, haspage):
+def browse_page(studies, entities, haspage, gaps=(), authors=()):
     """HTML rozcestník na všechny vygenerované stránky.
 
     Bez něj jsou nové stránky SIROTCI: sitemapa je jen pozvánka, ale hlavní
     signál, podle kterého se rozhoduje, co procházet a jakou tomu dát váhu, je
     interní prolinkování. A crawler bez JS na homepage nevidí žádný odkaz --
     SPA si je kreslí až za běhu, takže se k obsahu nemá kudy proklikat.
+
+    `gaps` a `authors` (přidáno 2026-08-04): [(title/name, url), ...] pro
+    stránky otázek a autorů -- stejný důvod, jen novější obsah.
     """
     url = f"{SITE}/browse/"
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
@@ -467,6 +699,16 @@ def browse_page(studies, entities, haspage):
             f'<p class="summary">Every study and every topic in the Atlas, as a '
             f'plain index. {len(studies)} studies, '
             f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics.</p>']
+
+    if gaps:
+        body.append("<h2>Open questions &amp; testable hypotheses</h2>"
+                    "<p>AI-identified knowledge gaps in the pathway, each with a proposed "
+                    "experiment.</p><p>" + " · ".join(
+                        f'<a href="{u}">{e(t)}</a>' for t, u in gaps) + "</p>")
+    if authors:
+        body.append("<h2>Researchers</h2><p>Scientist bios with a study-by-study "
+                    "timeline of their work in the Atlas.</p><p>" + " · ".join(
+                        f'<a href="{u}">{e(t)}</a>' for t, u in authors) + "</p>")
 
     by_type = {}
     for x in entities:
@@ -495,10 +737,11 @@ def browse_page(studies, entities, haspage):
             f'style="background:{colour}">{code}</span></span></p>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › Browse'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Browse", None)])
     return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
                       f"Index of all {len(studies)} curated mTOR studies and every "
                       f"pathway topic in the Atlas, each graded by strength of evidence.",
-                      url, ld, "\n".join(body), crumb)
+                      url, [ld, bc], "\n".join(body), crumb)
 
 
 HOME_MARKER = "<!-- browse-link-added-by-build-pages -->"
@@ -649,7 +892,7 @@ def purge_generated():
     """Smaže jen to, co tenhle skript vyrobil -- pozná se podle markeru.
     Ručně psané soubory zůstanou i kdyby ležely ve stejné složce."""
     n = 0
-    for d in ["study"] + sorted(set(TYPE_DIR.values())):
+    for d in ["study", "question", "author"] + sorted(set(TYPE_DIR.values())):
         p = os.path.join(HERE, d)
         if not os.path.isdir(p):
             continue
@@ -748,7 +991,42 @@ def main():
         urls.append(("entity", url))
         made += 1
 
-    burl, bpage = browse_page(studies, entities, haspage)
+    # Open Questions / hypotheses -- statické FAQPage stránky (2026-08-04).
+    gp = os.path.join(DATA, "gaps_baked.json")
+    gap_links = []
+    if os.path.exists(gp):
+        gaps = json.load(open(gp, encoding="utf-8"))
+        seen_gap_slugs = {}
+        for g in gaps:
+            gurl, gslug, gpage = gap_page(g, by_sid)
+            if gslug in seen_gap_slugs:
+                print("  ! kolize slugu question/%s: %s vs %s — přeskočeno"
+                      % (gslug, seen_gap_slugs[gslug], g["title"]))
+                continue
+            seen_gap_slugs[gslug] = g["title"]
+            write(os.path.join(HERE, "question", gslug, "index.html"), gpage)
+            urls.append(("question", gurl))
+            gap_links.append((g["title"], gurl))
+    else:
+        gaps = []
+        print("atlas_data/gaps_baked.json chybí -- Open Questions stránky přeskočeny")
+
+    # Author bio stránky (2026-08-04) -- zdroj pravdy je AUTHOR_BIOS v
+    # index.html, exportovaný do atlas_data/author_bios_baked.json.
+    abp = os.path.join(DATA, "author_bios_baked.json")
+    author_links = []
+    if os.path.exists(abp):
+        author_bios = json.load(open(abp, encoding="utf-8"))
+        author_idx = build_author_index(studies)
+        for key, bio in author_bios.items():
+            aurl, aslug, apage = author_page(key, bio, author_idx.get(key, []))
+            write(os.path.join(HERE, "author", aslug, "index.html"), apage)
+            urls.append(("author", aurl))
+            author_links.append((bio["full"], aurl))
+    else:
+        print("atlas_data/author_bios_baked.json chybí -- author stránky přeskočeny")
+
+    burl, bpage = browse_page(studies, entities, haspage, gap_links, author_links)
     write(os.path.join(HERE, "browse", "index.html"), bpage)
     urls.append(("entity", burl))
     print("rozcestník /browse/ :", patch_home(len(urls) + 1))
@@ -780,11 +1058,17 @@ def main():
           sitemap([u for k, u in urls if k == "study"], "0.6"))
     write(os.path.join(HERE, "sitemap-entities.xml"),
           sitemap([u for k, u in urls if k == "entity"], "0.8"))
+    write(os.path.join(HERE, "sitemap-questions.xml"),
+          sitemap([u for k, u in urls if k == "question"], "0.7"))
+    write(os.path.join(HERE, "sitemap-authors.xml"),
+          sitemap([u for k, u in urls if k == "author"], "0.5"))
     write(os.path.join(HERE, "sitemap.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           f'  <sitemap><loc>{SITE}/sitemap-entities.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-studies.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
+          f'  <sitemap><loc>{SITE}/sitemap-questions.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
+          f'  <sitemap><loc>{SITE}/sitemap-authors.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-home.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           '</sitemapindex>\n')
     write(os.path.join(HERE, "sitemap-home.xml"), sitemap([SITE + "/"], "1.0"))
@@ -803,14 +1087,63 @@ def main():
               "Applebot", "Applebot-Extended"])
           + f"Sitemap: {SITE}/sitemap.xml\n")
 
+    # llms.txt (2026-08-04): an emerging, informal convention (llmstxt.org),
+    # not yet universally read by AI crawlers, but cheap to provide -- a
+    # plain-text map straight to the most citable content, so an agent
+    # doesn't have to guess which of 343 URLs matter most.
+    core_entities = sorted(
+        [x for x in entities if len(x["studies"]) >= 8],
+        key=lambda x: -len(x["studies"]))
+    core_lines = "\n".join(
+        f'- [{x["name"]}](https://mtor-atlas.org/{TYPE_DIR.get(x["type"],"entity")}/'
+        f'{slugify(x["name"])}/): {x["type"]}, {len(x["studies"])} studies'
+        for x in core_entities)
+    gap_lines = "\n".join(f"- [{t}]({u})" for t, u in gap_links)
+    author_lines = "\n".join(f"- [{t}]({u})" for t, u in author_links)
+    write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
+
+> A curated, evidence-graded database of mTOR pathway research: {len(studies)} \
+peer-reviewed primary studies rated by evidence tier (A = systematic review, \
+B = human trial, C = animal model, D = mechanistic/in vitro/review), linked to \
+a knowledge graph of genes, drugs, diseases and outcomes, plus AI-identified \
+knowledge gaps and testable hypotheses. Content is CC BY 4.0 -- free to cite \
+and reuse with attribution to "Oliver's mTOR Atlas".
+
+## Start here
+- [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
+- [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
+
+## Open questions & testable hypotheses
+Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.
+{gap_lines}
+
+## Core pathway entities
+Every entity page lists its full evidence tier breakdown and every linked study; this is a subset with the deepest evidence base.
+{core_lines}
+
+## Researchers
+Publication timelines for the scientists most represented in the corpus.
+{author_lines}
+
+## Machine-readable
+- [Sitemap index](https://mtor-atlas.org/sitemap.xml)
+- [robots.txt](https://mtor-atlas.org/robots.txt)
+
+## License
+Creative Commons Attribution 4.0 International. Reuse and citation welcome with attribution.
+""")
+
     print("""
 %s
-  stránek studií : %d
-  stránek entit  : %d   (pod prahem %d studií přeskočeno: %d)
-  URL v sitemap  : %d   (bylo 1)
-  zapsáno        : %d   (beze změny, nezapisováno: %d)
+  stránek studií  : %d
+  stránek entit   : %d   (pod prahem %d studií přeskočeno: %d)
+  stránek otázek  : %d
+  stránek autorů  : %d
+  URL v sitemap   : %d   (bylo 1)
+  zapsáno         : %d   (beze změny, nezapisováno: %d)
 """ % ("DRY RUN — nic nezapsáno" if DRY else "Hotovo.",
        len([1 for k, _ in urls if k == "study"]), made, PAGE_THRESHOLD, skipped,
+       len(gap_links), len(author_links),
        len(urls) + 1, STATS["written"], STATS["unchanged"]))
     if not DRY:
         print("Kontrola, že crawler bez JS opravdu něco uvidí:")
