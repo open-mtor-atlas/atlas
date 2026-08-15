@@ -15,7 +15,20 @@ writes when a result is too large for context. Either way it's the same JSON
 shape. Fetch with no fieldIds filter (or all fields) so every column below is
 present.
 """
-import sys, os, json, datetime
+import sys, os, json, datetime, re
+
+# index.html colours each event row by parsing a "TIER 1|2|3" marker out of the
+# free-text mTOR_Relevance field (see item() in renderEvents: /TIER\s*([123])/i).
+# An event without that marker gets border-left:transparent and no wash -- it
+# renders colourless, and nothing anywhere complains. That happened silently to
+# 4 events before 2026-08-15. Since the marker lives in prose, every new event
+# added by hand or by the daily check can reintroduce it, so this guard aborts
+# the bake instead of shipping an invisible row. Fix by prefixing the Airtable
+# mTOR_Relevance with "TIER n — ", per the legend rendered on the Events tab:
+#   TIER 1  mTOR is a named subject of the programme, or the meeting's disease is mTOR
+#   TIER 2  a major recurring theme alongside adjacent biology
+#   TIER 3  relevance inferred from who attends, not what the programme says
+TIER_RE = re.compile(r'TIER\s*([123])', re.I)
 
 MAP = {
     'fld00aPAERi7S6vnq': 'name',
@@ -106,6 +119,20 @@ def main():
         out.append(ordered)
     # stable, chronological-ish order: by start date (blank dates sort last)
     out.sort(key=lambda e: e["start"] or "9999-99-99")
+
+    untiered = [e for e in out if not TIER_RE.search(e.get("mtor") or "")]
+    if untiered:
+        print("ABORT: %d event(s) have no 'TIER 1|2|3' marker in mTOR_Relevance."
+              % len(untiered))
+        print("These would render as colourless rows on the Events tab "
+              "(no left border, no wash).")
+        for e in untiered:
+            print("  - %s  [%s]" % (e["name"], e.get("start") or "no start date"))
+        print("Fix: prefix the Airtable mTOR_Relevance with 'TIER n — ' "
+              "(1 = mTOR named in the programme; 2 = major recurring theme; "
+              "3 = inferred from who attends). Then re-run this script.")
+        sys.exit("events_baked.json NOT written -- do not proceed to bake/deploy")
+
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False)

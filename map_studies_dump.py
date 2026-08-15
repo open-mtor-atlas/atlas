@@ -29,6 +29,13 @@ MAP = {
     'fldgxdypgVYKM0l1e': 'peer',
     'fldpLul0CsatnyUuo': 'doi',
     'fldJLD0FAgqKVp6tZ': 'abstract',
+    # PMID/PMCID must stay in this map. sync_airtable.py (the AIRTABLE_TOKEN
+    # path used by deploy.bat) has always emitted "pmid"/"pmcid", but this MCP
+    # path silently omitted them until 2026-08-15 -- so every bake driven by the
+    # scheduled daily check stripped all 291 PMIDs back out of ATLAS_STUDIES,
+    # undoing the Fáze 6 backfill. Keep the two mappings in sync.
+    'fldCP8agzjRmiw2Ra': 'pmid',
+    'fldKm43Y9TLaMxVld': 'pmcid',
     'fldDlRPeV8PbKxh7y': 'ai_intervention',
     'fldm6p7U6VWzSTcEY': 'ai_target',
     'fld9TFn1dlFKdEZD0': 'ai_species',
