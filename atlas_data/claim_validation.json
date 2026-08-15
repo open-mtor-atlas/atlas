@@ -1,6 +1,38 @@
 [
  {
   "severity": "WARN",
+  "rule": "R3b unscoped-causal-claim",
+  "where": "study:MIAO2026",
+  "excerpt": "Environmental pollutant EDPrB accumulates in kidneys and causes CKD via mTOR signaling hyperactivation leading to autophagy dysregulation, inflammation and fibrosis; rapamycin confirmed mTOR as the molecular initiating event.  mTOR hyperactivation causes autophagy dysregulation leading to CKD",
+  "message": "Causal verb in a non-human study with no species/system scope in the sentence.",
+  "suggested": "Name the model explicitly ('in mice', 'in these cells')."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R3b unscoped-causal-claim",
+  "where": "study:CAO2026",
+  "excerpt": "Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic 'global mTORC1 hyperactivation' model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation; haploinsufficiency alone is enough to cau",
+  "message": "Causal verb in a non-human study with no species/system scope in the sentence.",
+  "suggested": "Name the model explicitly ('in mice', 'in these cells')."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R3b unscoped-causal-claim",
+  "where": "study:ULL2026",
+  "excerpt": "FLCN loss in BHD-associated kidney cancer causes constitutive nuclear TFEB localization and mTORC1 hyperactivation, but leaves bulk autophagy flux and LC3 lipidation unaffected; however, the autophagy receptor SQSTM1/p62 accumulates in enlarged puncta, a finding replicated in a Norwegian cohort of B",
+  "message": "Causal verb in a non-human study with no species/system scope in the sentence.",
+  "suggested": "Name the model explicitly ('in mice', 'in these cells')."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R3 mechanistic-as-clinical",
+  "where": "study:LV2026S",
+  "excerpt": "USP7 deubiquitinates and stabilizes the histone demethylase KDM5B, which represses TSC1 transcription and thereby activates mTOR, promoting kidney fibrosis in two mouse injury models; USP7 is upregulated in human CKD kidneys and correlates with fibrosis severity. Genetic or pharmacological USP7 inhi",
+  "message": "Tier C - Animal (4 - Animal Study) but the text uses clinical language 'therapeutic target'.",
+  "suggested": "Scope to the model organism/system, or add 'no human data'."
+ },
+ {
+  "severity": "WARN",
   "rule": "R5 absolute-language",
   "where": "index.html:2100",
   "excerpt": "unlocked:\"The first hard human outcome for an mTOR inhibitor: median overall survival 10.9 months versus 7.3 on interferon. Also the first clean human safety picture — rash, oedema, hyperglycaemia, hyperlipidaemia.\", unlocked_beginner:\"The first solid proof in actual patients: a related drug h",
