@@ -4,6 +4,8 @@ The only mTOR resource that shows not just what a study found, but how strong th
 
 Live site: https://mtor-atlas.org (GitHub Pages) · Repo: https://github.com/open-mtor-atlas/atlas (branch `main`)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22059963.svg)](https://doi.org/10.5281/zenodo.22059963)
+
 This file is written for a fresh Claude instance (or a new machine) picking up this project with **no prior context**. Read this before touching anything, especially `index.html`.
 
 ## 1. What this project is
