@@ -24,6 +24,9 @@
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -105,7 +108,8 @@
    "propertyID": "PMID",
    "value": "42566506"
   }
- ]
+ ],
+ "abstract": "There is substantial interest in developing novel engineering strategies to promote the sustained metabolic fitness of therapeutic T cells. We previously showed that overexpression of RAS homologue enriched in brain (RHEB), a positive regulator of mammalian target of rapamycin complex 1 (mTORC1), promotes aerobic glycolysis and increases the anti-tumor functions of effector CD8+ T cells. To address whether these effects are conserved in CD4+ T cells, we have now examined how enforced activation of mTORC1 activity affects CD4+ T cell differentiation and function. Rheb overexpression induced a more balanced metabolic shift in CD4+ T cells than in CD8+ T cells, with increases in both oxidative phosphorylation and aerobic glycolysis. Although Rheb overexpression initially increased CD4+ T cell activation and proliferation in vitro, the underlying population architecture was complex, involving a shift to both more proliferative, cytotoxic-like cell states as well as more quiescent cell clusters characterised by counter-regulation of mTORC1 activity. Following adoptive transfer, tumor antigen-specific Rheb-transduced CD4+ T cells showed greater persistence but were less efficient than controls in eliminating tumor. This functional deficiency could be explained by a greater propensity of persisting Rheb-transduced CD4+ T cells to develop features of immune exhaustion, as evidenced by expression of multiple co-inhibitory receptors and impaired proliferation upon tumor rechallenge. Together, these data demonstrate the dynamic population response to tuning of T cell mTORC1 and the need to separately appraise cellular outputs of therapeutic CD4+ versus CD8+ T cells when metabolic pathways are manipulated by the same method."
 }
 </script>
 <script type="application/ld+json">
@@ -141,8 +145,27 @@ body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
-nav.crumb{font-size:13px;color:var(--soft);padding-bottom:14px;
-border-bottom:2px solid var(--ink);margin-bottom:22px}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{border-bottom:2px solid var(--ink)}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}
+.oma-wordmark:hover{opacity:.75}
+.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal)}
+nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
 nav.crumb a{color:var(--soft)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
@@ -161,8 +184,13 @@ ul{padding-left:19px} li{margin-bottom:6px}
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
 .cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
-footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
-font-size:13px;color:var(--soft)}
+footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}
+footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
+footer.oma-footer .oma-footer-links{margin-top:10px}
+footer.oma-footer .oma-footer-links a{margin:0 8px}
 .abstract{font-size:15px;color:#26241F}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -237,6 +265,14 @@ a{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
+<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#welcome">Welcome</a><a href="https://mtor-atlas.org/#ask">Ask Atlas</a><a href="https://mtor-atlas.org/#map">Pathway</a><a href="https://mtor-atlas.org/#studies" class="active">Studies</a><a href="https://mtor-atlas.org/#authors">Authors</a><a href="https://mtor-atlas.org/#questions">Open Questions</a><a href="https://mtor-atlas.org/#lineage">Timeline</a><a href="https://mtor-atlas.org/#about">About</a></nav>
+</div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/#studies">Studies</a> › SIL2026</nav>
 <h1>Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion</h1>
@@ -252,12 +288,15 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1093/jimmun/vkag206">DOI 10.1093/jimmun/vkag206</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/42566506/">PMID 42566506</a></td></tr>
 </table>
+<h2>Abstract</h2><p class="abstract">There is substantial interest in developing novel engineering strategies to promote the sustained metabolic fitness of therapeutic T cells. We previously showed that overexpression of RAS homologue enriched in brain (RHEB), a positive regulator of mammalian target of rapamycin complex 1 (mTORC1), promotes aerobic glycolysis and increases the anti-tumor functions of effector CD8+ T cells. To address whether these effects are conserved in CD4+ T cells, we have now examined how enforced activation of mTORC1 activity affects CD4+ T cell differentiation and function. Rheb overexpression induced a more balanced metabolic shift in CD4+ T cells than in CD8+ T cells, with increases in both oxidative phosphorylation and aerobic glycolysis. Although Rheb overexpression initially increased CD4+ T cell activation and proliferation in vitro, the underlying population architecture was complex, involving a shift to both more proliferative, cytotoxic-like cell states as well as more quiescent cell clusters characterised by counter-regulation of mTORC1 activity. Following adoptive transfer, tumor antigen-specific Rheb-transduced CD4+ T cells showed greater persistence but were less efficient than controls in eliminating tumor. This functional deficiency could be explained by a greater propensity of persisting Rheb-transduced CD4+ T cells to develop features of immune exhaustion, as evidenced by expression of multiple co-inhibitory receptors and impaired proliferation upon tumor rechallenge. Together, these data demonstrate the dynamic population response to tuning of T cell mTORC1 and the need to separately appraise cellular outputs of therapeutic CD4+ versus CD8+ T cells when metabolic pathways are manipulated by the same method.</p>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
-<footer>
+<footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
-<p><a href="https://mtor-atlas.org/">Full interactive Atlas</a></p>
+<div class="oma-footer-links">
+<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
 </footer>
 </div>
 </body>

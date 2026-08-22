@@ -179,19 +179,57 @@ def breadcrumb_ld(items):
             "itemListElement": els}
 
 
-def shell(title, desc, canonical, jsonld, body, breadcrumb):
+SITE_TABS = [
+    ("welcome", "Welcome"), ("ask", "Ask Atlas"), ("map", "Pathway"),
+    ("studies", "Studies"), ("authors", "Authors"), ("questions", "Open Questions"),
+    ("lineage", "Timeline"), ("about", "About"),
+]
+
+
+def topbar_html(active_tab=None):
+    """Site-wide header (logo + primary nav), added 2026-08-22 so every static
+    entry-point page (study/entity/question/author/browse, plus the hand-baked
+    /answers/ and /glossary/ pages) carries the same top-level branding and
+    navigation as the SPA (index.html), instead of just a bare breadcrumb.
+
+    Deliberately NOT a clone of the SPA topbar: no search box (nothing here to
+    search against without the SPA's JS + data) and no Level/Mode switches
+    (those are stateful reading-level/theme controls with nothing to act on
+    on a static page). Just the wordmark and the 8 tabs, as plain links into
+    the SPA's own hash-addressed views -- reuses the same {SITE}/#tab pattern
+    the breadcrumbs already relied on."""
+    tabs = "".join(
+        '<a href="{}/#{}"{}>{}</a>'.format(
+            SITE, tid, ' class="active"' if tid == active_tab else "", e(label))
+        for tid, label in SITE_TABS)
+    return f"""<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="{SITE}/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="{SITE}/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main">{tabs}</nav>
+</div></div>"""
+
+
+def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
     celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
 
     `jsonld` je buď jeden dict, nebo seznam dictů -- každý dostane vlastní
     <script> blok. Google Rich Results podporuje víc bloků na stránce; jeden
     blok s @graph by fungoval taky, ale oddělené bloky se snáz generují a
-    snáz se v nich hledá při debugování."""
+    snáz se v nich hledá při debugování.
+
+    `active_tab` (přidáno 2026-08-22): id z SITE_TABS, který se v horní
+    navigaci zvýrazní jako aktivní -- volitelné, viz volání v jednotlivých
+    *_page() funkcích níž."""
     blocks = jsonld if isinstance(jsonld, list) else [jsonld]
     ld_html = "\n".join(
         '<script type="application/ld+json">\n'
         + json.dumps(b, ensure_ascii=False, indent=1) + "\n</script>"
         for b in blocks)
+    topbar = topbar_html(active_tab)
     return f"""<!DOCTYPE html>
 <html lang="en">
 {GENERATED_MARKER}
@@ -218,6 +256,9 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb):
 <meta property="og:image" content="{SITE}/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 {ld_html}
 <style>
 :root{{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
@@ -227,8 +268,27 @@ body{{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}}
 .wrap{{max-width:760px;margin:0 auto;padding:26px 22px 70px}}
 a{{color:var(--teal)}}
-nav.crumb{{font-size:13px;color:var(--soft);padding-bottom:14px;
-border-bottom:2px solid var(--ink);margin-bottom:22px}}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{{border-bottom:2px solid var(--ink)}}
+.oma-topbar-inner{{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}}
+.oma-wordmark{{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}}
+.oma-wordmark:hover{{opacity:.75}}
+.oma-emblem{{width:24px;height:24px;object-fit:contain;align-self:center}}
+.oma-name{{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}}
+.oma-tag{{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}}
+.oma-tabs{{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}}
+.oma-tabs a{{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}}
+.oma-tabs a:hover{{background:rgba(163,31,52,.08);color:var(--teal)}}
+.oma-tabs a.active{{color:#fff;background:var(--teal)}}
+nav.crumb{{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}}
 nav.crumb a{{color:var(--soft)}}
 h1{{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}}
 h2{{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
@@ -247,8 +307,13 @@ ul{{padding-left:19px}} li{{margin-bottom:6px}}
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}}
 .cta{{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}}
-footer{{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
-font-size:13px;color:var(--soft)}}
+footer.oma-footer{{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}}
+footer.oma-footer p{{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}}
+footer.oma-footer .oma-footer-links{{margin-top:10px}}
+footer.oma-footer .oma-footer-links a{{margin:0 8px}}
 .abstract{{font-size:15px;color:#26241F}}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -323,14 +388,17 @@ a{{overflow-wrap:anywhere}}
 </style>
 </head>
 <body>
+{topbar}
 <div class="wrap">
 <nav class="crumb">{breadcrumb}</nav>
 {body}
-<footer>
+<footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
-<p><a href="{SITE}/">Full interactive Atlas</a></p>
+<div class="oma-footer-links">
+<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
 </footer>
 </div>
 </body>
@@ -437,7 +505,7 @@ def study_page(s, ent_by_sid, haspage):
                         ("Studies", SITE + "/#studies"),
                         (sid, None)])
     return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
-                      "\n".join(body), crumb)
+                      "\n".join(body), crumb, active_tab="studies")
 
 
 # ----------------------------------------------------------- entity pages ---
@@ -532,7 +600,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
                         (ent["type"], SITE + "/#entities"),
                         (ent["name"], None)])
     return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
-                               desc, url, [ld, bc], "\n".join(body), crumb)
+                               desc, url, [ld, bc], "\n".join(body), crumb, active_tab="map")
 
 
 # ------------------------------------------------------- question/gap pages ---
@@ -600,7 +668,7 @@ def gap_page(g, studies_by_sid):
                         ("Open Questions", SITE + "/#questions"),
                         (g["title"], None)])
     return url, slug, shell(f"{g['title']} | Open Questions | Oliver's mTOR Atlas",
-                            desc, url, [ld, bc], "\n".join(body), crumb)
+                            desc, url, [ld, bc], "\n".join(body), crumb, active_tab="questions")
 
 
 # --------------------------------------------------------- author pages ---
@@ -675,7 +743,7 @@ def author_page(key, bio, studies):
                         ("Researchers", SITE + "/#authors"),
                         (bio["full"], None)])
     return url, slug, shell(f"{bio['full']} — {bio['role']} | Oliver's mTOR Atlas",
-                            desc, url, [ld, bc], "\n".join(body), crumb)
+                            desc, url, [ld, bc], "\n".join(body), crumb, active_tab="authors")
 
 
 # ------------------------------------------------------------------- main ---
@@ -741,7 +809,7 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
     return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
                       f"Index of all {len(studies)} curated mTOR studies and every "
                       f"pathway topic in the Atlas, each graded by strength of evidence.",
-                      url, [ld, bc], "\n".join(body), crumb)
+                      url, [ld, bc], "\n".join(body), crumb, active_tab="studies")
 
 
 HOME_MARKER = "<!-- browse-link-added-by-build-pages -->"
@@ -1062,6 +1130,14 @@ def main():
           sitemap([u for k, u in urls if k == "question"], "0.7"))
     write(os.path.join(HERE, "sitemap-authors.xml"),
           sitemap([u for k, u in urls if k == "author"], "0.5"))
+    # sitemap-answers.xml (2026-08-22) is NOT generated by this script -- it's
+    # hand-baked by a separate generate.py alongside /answers/ and /glossary/,
+    # per Petr's explicit "static section" decision. This script still needs
+    # to reference it here, or every build_pages.py re-run would silently
+    # drop it from the sitemap index (it was hand-patched in once already;
+    # that patch does NOT survive a re-run without this line).
+    answers_line = (f'  <sitemap><loc>{SITE}/sitemap-answers.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
+                     if os.path.exists(os.path.join(HERE, "sitemap-answers.xml")) else "")
     write(os.path.join(HERE, "sitemap.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -1070,6 +1146,7 @@ def main():
           f'  <sitemap><loc>{SITE}/sitemap-questions.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-authors.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-home.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
+          + answers_line +
           '</sitemapindex>\n')
     write(os.path.join(HERE, "sitemap-home.xml"), sitemap([SITE + "/"], "1.0"))
 
@@ -1100,6 +1177,38 @@ def main():
         for x in core_entities)
     gap_lines = "\n".join(f"- [{t}]({u})" for t, u in gap_links)
     author_lines = "\n".join(f"- [{t}]({u})" for t, u in author_links)
+
+    # /answers/ + /glossary/ (2026-08-22): hand-baked by a separate generate.py,
+    # NOT written by this script -- same reasoning as the sitemap-answers.xml
+    # guard above. Templated here (not hardcoded) so the list stays a single
+    # source of truth if a page gets added or renamed later.
+    answers_titles = [
+        ("Does rapamycin extend lifespan in humans?", "rapamycin-lifespan-humans"),
+        ("mTORC1 vs mTORC2 -- what's the difference?", "mtorc1-vs-mtorc2"),
+        ("What are mTOR inhibitors? The full list", "mtor-inhibitors-list"),
+        ("What are rapamycin's side effects?", "rapamycin-side-effects"),
+        ("Is autophagy actually required for the lifespan benefit?", "autophagy-required-lifespan"),
+        ("How is rapamycin dosed in the longevity studies?", "rapamycin-dosing-longevity"),
+        ("What is mTOR?", "what-is-mtor"),
+        ("Rapamycin vs metformin -- how do they compare?", "rapamycin-vs-metformin"),
+        ("Are sirolimus and everolimus the same drug?", "sirolimus-everolimus-same-drug"),
+        ("How does mTOR connect to cancer?", "mtor-cancer-connection"),
+    ]
+    answers_section = ""
+    if os.path.exists(os.path.join(HERE, "answers", "index.html")):
+        answers_lines = "\n".join(
+            f"- [{t}](https://mtor-atlas.org/answers/{s}/)" for t, s in answers_titles)
+        answers_section = (
+            "\n## Direct answers & glossary\n"
+            "Plain-language answers to the questions people most often ask about mTOR, "
+            "rapamycin and longevity, each graded by the same evidence system used "
+            "throughout the Atlas.\n"
+            "- [Answers index](https://mtor-atlas.org/answers/): all "
+            f"{len(answers_titles)} answer pages\n"
+            f"{answers_lines}\n"
+            "- [Glossary of mTOR terms](https://mtor-atlas.org/glossary/): 25 core "
+            "terms, linked to the full Atlas entry for each\n")
+
     write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
 
 > A curated, evidence-graded database of mTOR pathway research: {len(studies)} \
@@ -1112,7 +1221,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 ## Start here
 - [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
-
+{answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.
 {gap_lines}

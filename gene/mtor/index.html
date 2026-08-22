@@ -24,6 +24,9 @@
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -82,8 +85,27 @@ body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
-nav.crumb{font-size:13px;color:var(--soft);padding-bottom:14px;
-border-bottom:2px solid var(--ink);margin-bottom:22px}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{border-bottom:2px solid var(--ink)}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}
+.oma-wordmark:hover{opacity:.75}
+.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal)}
+nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
 nav.crumb a{color:var(--soft)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
@@ -102,8 +124,13 @@ ul{padding-left:19px} li{margin-bottom:6px}
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
 .cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
-footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
-font-size:13px;color:var(--soft)}
+footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}
+footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
+footer.oma-footer .oma-footer-links{margin-top:10px}
+footer.oma-footer .oma-footer-links a{margin:0 8px}
 .abstract{font-size:15px;color:#26241F}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -178,6 +205,14 @@ a{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
+<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#welcome">Welcome</a><a href="https://mtor-atlas.org/#ask">Ask Atlas</a><a href="https://mtor-atlas.org/#map" class="active">Pathway</a><a href="https://mtor-atlas.org/#studies">Studies</a><a href="https://mtor-atlas.org/#authors">Authors</a><a href="https://mtor-atlas.org/#questions">Open Questions</a><a href="https://mtor-atlas.org/#lineage">Timeline</a><a href="https://mtor-atlas.org/#about">About</a></nav>
+</div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/#entities">Gene/Protein</a> › mTOR</nav>
 <h1>mTOR</h1>
@@ -185,13 +220,12 @@ a{overflow-wrap:anywhere}
 <p class="summary">Serine/threonine kinase; central regulator of cell growth and metabolism; direct target of rapamycin.</p>
 <h2>Evidence at a glance</h2><table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>
 <tr><td data-l="Tier"><span class="tier" style="background:#2F7A52">A</span></td><td data-l="Meaning">Systematic review of human data</td><td data-l="Studies">1</td></tr>
-<tr><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Meaning">Direct human evidence</td><td data-l="Studies">10</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Meaning">Direct human evidence</td><td data-l="Studies">9</td></tr>
 <tr><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Meaning">Animal in vivo</td><td data-l="Studies">23</td></tr>
-<tr><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Meaning">Mechanistic / in vitro / review</td><td data-l="Studies">28</td></tr>
+<tr><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Meaning">Mechanistic / in vitro / review</td><td data-l="Studies">29</td></tr>
 </table>
 <h2>Studies</h2><table class="st"><tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>
 <tr><td data-l="Study"><a href="/study/LEE2024/">LEE2024</a></td><td data-l="Year">2024</td><td data-l="Tier"><span class="tier" style="background:#2F7A52">A</span></td><td data-l="Finding">The first systematic review of rapamycin/rapalogs in humans for aging. Screened 18,400 articles, included 19 studies. Found improvements in immune, cardiovascular, and skin (integumentary) parameters;</td></tr>
-<tr><td data-l="Study"><a href="/study/GAO2026/">GAO2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">In a multicenter prospective cohort of 183 TSC-associated renal angiomyolipoma patients, everolimus reduced tumor volume by &gt;=50% in 44% of patients at 3 months and 83% at 6 months; fat-poor lesions r</td></tr>
 <tr><td data-l="Study"><a href="/study/MOE2025/">MOE2025</a></td><td data-l="Year">2025</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">First completed long-term RCT of rapamycin for healthy human aging (NCT04488601, 48 weeks, n=114). Primary endpoint (visceral fat by DXA) showed NO significant change (p=0.942) - a null result exactly</td></tr>
 <tr><td data-l="Study"><a href="/study/MAN2021/">MAN2021</a></td><td data-l="Year">2021</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">The crucial reality check. After the promising phase 2a, the large phase 3 trial (n=1024) FAILED its primary endpoint - RTB101 did not reduce clinically symptomatic respiratory illness (26% vs 25%, p=</td></tr>
 <tr><td data-l="Study"><a href="/study/WAG2014/">WAG2014</a></td><td data-l="Year">2014</td><td data-l="Tier"><span class="tier" style="background:#2F6FA8">B</span></td><td data-l="Finding">An activating MTOR mutation is implicated in an extraordinary clinical response to rapalog therapy. Single-patient observation: hypothesis-generating, not evidence of a general response predictor.
@@ -239,6 +273,7 @@ a{overflow-wrap:anywhere}
 </td></tr>
 <tr><td data-l="Study"><a href="/study/VEL2003/">VEL2003</a></td><td data-l="Year">2003</td><td data-l="Tier"><span class="tier" style="background:#A56827">C</span></td><td data-l="Finding">Silencing the single worm TOR gene roughly doubled C. elegans lifespan, showing the longevity role of TOR inhibition is conserved across an enormous evolutionary distance.
 </td></tr>
+<tr><td data-l="Study"><a href="/study/GAO2026/">GAO2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Astragaloside IV protects against tacrolimus-induced nephrotoxicity by inhibiting mTOR to activate TFEB and restore autophagy, nominating the mTOR-TFEB-GADD45alpha axis as a calcineurin-independent ca</td></tr>
 <tr><td data-l="Study"><a href="/study/BO2026/">BO2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Gambogic acid exerts anti-tumor activity in lung cancer cells primarily by targeting and inhibiting mTOR signaling, supported by computational docking and in vitro experiments in cell lines; no in viv</td></tr>
 <tr><td data-l="Study"><a href="/study/LI2026/">LI2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">GPR143 is a sensitive and specific immunohistochemical biomarker for renal tumors driven by FLCN/TSC/MTOR-TFE pathway alterations, offering a practical diagnostic tool beyond existing ancillary tests.</td></tr>
 <tr><td data-l="Study"><a href="/study/JIB2026/">JIB2026</a></td><td data-l="Year">2026</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Rapamycin fails to protect spermatogonial stem cells from cisplatin-induced damage in vitro, indicating sex-specific or context-specific limits to rapamycin&#x27;s cytoprotective role and suggesting male f</td></tr>
@@ -280,13 +315,15 @@ a{overflow-wrap:anywhere}
 <tr><td data-l="Study"><a href="/study/HEI1991/">HEI1991</a></td><td data-l="Year">1991</td><td data-l="Tier"><span class="tier" style="background:#7C7569">D</span></td><td data-l="Finding">Discovery of the TOR1 and TOR2 genes in yeast as the targets whose disruption causes rapamycin&#x27;s cell-cycle-arresting toxicity - the original genetic identification of the TOR pathway.
 </td></tr>
 </table>
-<h2>Related entities</h2><div class="tags"><a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">21</span></a><a href="/outcome/longevity/">Longevity <span style="color:#7C7569">18</span></a><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">18</span></a><a href="/drug/everolimus/">Everolimus <span style="color:#7C7569">5</span></a><a href="/process/autophagy/">Autophagy <span style="color:#7C7569">5</span></a><a href="/complex/mtorc2/">mTORC2 <span style="color:#7C7569">5</span></a><a href="/gene/raptor/">Raptor <span style="color:#7C7569">3</span></a><a href="/gene/ampk/">AMPK <span style="color:#7C7569">3</span></a><a href="/gene/tsc1-tsc2/">TSC1/TSC2 <span style="color:#7C7569">2</span></a><a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) <span style="color:#7C7569">2</span></a><a href="/outcome/immune-function/">Immune function <span style="color:#7C7569">2</span></a><span>FKBP12 <span style="color:#7C7569">2</span></span></div>
+<h2>Related entities</h2><div class="tags"><a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">21</span></a><a href="/outcome/longevity/">Longevity <span style="color:#7C7569">18</span></a><a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">18</span></a><a href="/process/autophagy/">Autophagy <span style="color:#7C7569">5</span></a><a href="/complex/mtorc2/">mTORC2 <span style="color:#7C7569">5</span></a><a href="/drug/everolimus/">Everolimus <span style="color:#7C7569">4</span></a><a href="/gene/raptor/">Raptor <span style="color:#7C7569">3</span></a><a href="/gene/ampk/">AMPK <span style="color:#7C7569">3</span></a><a href="/gene/tsc1-tsc2/">TSC1/TSC2 <span style="color:#7C7569">2</span></a><a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) <span style="color:#7C7569">2</span></a><a href="/outcome/immune-function/">Immune function <span style="color:#7C7569">2</span></a><span>FKBP12 <span style="color:#7C7569">2</span></span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#entities">Open in the Atlas explorer</a></p>
-<footer>
+<footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
-<p><a href="https://mtor-atlas.org/">Full interactive Atlas</a></p>
+<div class="oma-footer-links">
+<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
 </footer>
 </div>
 </body>

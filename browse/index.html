@@ -13,17 +13,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Browse all studies and topics | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="Index of all 311 curated mTOR studies and every pathway topic in the Atlas, each graded by strength of evidence.">
+<meta name="description" content="Index of all 322 curated mTOR studies and every pathway topic in the Atlas, each graded by strength of evidence.">
 <link rel="canonical" href="https://mtor-atlas.org/browse/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="Browse all studies and topics | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="Index of all 311 curated mTOR studies and every pathway topic in the Atlas, each graded by strength of evidence.">
+<meta property="og:description" content="Index of all 322 curated mTOR studies and every pathway topic in the Atlas, each graded by strength of evidence.">
 <meta property="og:url" content="https://mtor-atlas.org/browse/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -73,8 +76,27 @@ body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
-nav.crumb{font-size:13px;color:var(--soft);padding-bottom:14px;
-border-bottom:2px solid var(--ink);margin-bottom:22px}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{border-bottom:2px solid var(--ink)}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}
+.oma-wordmark:hover{opacity:.75}
+.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal)}
+nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
 nav.crumb a{color:var(--soft)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
@@ -93,8 +115,13 @@ ul{padding-left:19px} li{margin-bottom:6px}
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
 .cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
-footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);
-font-size:13px;color:var(--soft)}
+footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}
+footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
+footer.oma-footer .oma-footer-links{margin-top:10px}
+footer.oma-footer .oma-footer-links a{margin:0 8px}
 .abstract{font-size:15px;color:#26241F}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -169,10 +196,18 @@ a{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
+<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#welcome">Welcome</a><a href="https://mtor-atlas.org/#ask">Ask Atlas</a><a href="https://mtor-atlas.org/#map">Pathway</a><a href="https://mtor-atlas.org/#studies" class="active">Studies</a><a href="https://mtor-atlas.org/#authors">Authors</a><a href="https://mtor-atlas.org/#questions">Open Questions</a><a href="https://mtor-atlas.org/#lineage">Timeline</a><a href="https://mtor-atlas.org/#about">About</a></nav>
+</div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › Browse</nav>
 <h1>Browse the Atlas</h1>
-<p class="summary">Every study and every topic in the Atlas, as a plain index. 311 studies, 45 topics.</p>
+<p class="summary">Every study and every topic in the Atlas, as a plain index. 322 studies, 45 topics.</p>
 <h2>Open questions &amp; testable hypotheses</h2><p>AI-identified knowledge gaps in the pathway, each with a proposed experiment.</p><p><a href="https://mtor-atlas.org/question/sensor-selective-geroprotection-without-the-metabolic-penalty/">Sensor-selective geroprotection without the metabolic penalty</a> · <a href="https://mtor-atlas.org/question/suppression-of-senescence-sasp-geroconversion-not-just-autophagy-is-the-mediator-of-rapamycins-healthspan-benefit/">Suppression of senescence/SASP (geroconversion), not just autophagy, is the mediator of rapamycin&#x27;s healthspan benefit</a> · <a href="https://mtor-atlas.org/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance</a> · <a href="https://mtor-atlas.org/question/muscle-sparing-pulsed-mtorc1-inhibition/">Muscle-sparing, pulsed mTORC1 inhibition</a> · <a href="https://mtor-atlas.org/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/">Is autophagy actually REQUIRED for the mammalian lifespan benefit?</a> · <a href="https://mtor-atlas.org/question/a-sensor-autophagy-biomarker-panel-as-a-surrogate-endpoint-for-human-trials/">A sensor/autophagy biomarker panel as a surrogate endpoint for human trials</a> · <a href="https://mtor-atlas.org/question/sex-dimorphism-in-mtor-longevity-responses-is-pervasive-and-sometimes-direction-flipping/">Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</a> · <a href="https://mtor-atlas.org/question/low-dose-mtor-inhibition-rejuvenates-the-aging-immune-system-without-net-immunosuppression/">Low-dose mTOR inhibition rejuvenates the aging immune system without net immunosuppression</a> · <a href="https://mtor-atlas.org/question/brain-penetrant-mtor-inhibition-clears-neurodegenerative-aggregates-in-models-but-has-zero-human-cognitive-aging-endpoint-and-mtorc2-is-needed-for-memory/">Brain-penetrant mTOR inhibition clears neurodegenerative aggregates in models but has zero human cognitive-aging endpoint - and mTORC2 is needed for memory</a> · <a href="https://mtor-atlas.org/question/rapamycin-ampk-axis-drugs-acarbose-metformin-additive-via-distinct-pathways-and-untested-as-a-combination-in-humans/">Rapamycin + AMPK-axis drugs (acarbose / metformin): additive via distinct pathways, and untested as a combination in humans</a></p>
 <h2>Researchers</h2><p>Scientist bios with a study-by-study timeline of their work in the Atlas.</p><p><a href="https://mtor-atlas.org/author/david-m-sabatini/">David M. Sabatini</a> · <a href="https://mtor-atlas.org/author/michael-n-hall/">Michael N. Hall</a> · <a href="https://mtor-atlas.org/author/kun-liang-guan/">Kun-Liang Guan</a> · <a href="https://mtor-atlas.org/author/brendan-d-manning/">Brendan D. Manning</a> · <a href="https://mtor-atlas.org/author/john-blenis/">John Blenis</a></p>
 <h2>Topics</h2>
@@ -187,6 +222,7 @@ a{overflow-wrap:anywhere}
 <h3>Outcome</h3><p><a href="/outcome/longevity/">Longevity</a> <span style="color:#7C7569">(36)</span> · <a href="/outcome/immune-function/">Immune function</a> <span style="color:#7C7569">(5)</span> · <a href="/outcome/insulin-resistance/">Insulin resistance</a> <span style="color:#7C7569">(4)</span></p>
 <h3>Pathway/Complex</h3><p><a href="/complex/mtorc1/">mTORC1</a> <span style="color:#7C7569">(75)</span> · <a href="/complex/mtorc2/">mTORC2</a> <span style="color:#7C7569">(14)</span> · <a href="/complex/ragulator/">Ragulator</a> <span style="color:#7C7569">(3)</span></p>
 <h2>Studies</h2><p>Sorted by year, newest first. Each links to a page with the abstract, evidence tier, DOI and PMID.</p>
+<p style="margin:0 0 7px"><a href="/study/YU2026/">High-concentration hydrogen mitigates cognitive impairment in a murine model of Sepsis-associated encephalopathy by enhancing oligodendrocyte maturation and myelination in the mPFC</a><br><span style="color:#55524C;font-size:14px">2026 · Progress in Neuro-Psychopharmacology and Biological Psychiatry · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/LIS2026/">Notoginsenoside R1 Alleviates Acetaminophen-Induced Liver Injury via MAPK/mTOR-Mediated Autophagy.</a><br><span style="color:#55524C;font-size:14px">2026 · The American Journal of Chinese Medicine · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/DEOLIVEIRA2026/">Transcriptional modulation of the PI3K/AKT/mTOR signaling pathway mediated by HPV16 oncogene expression in breast cancer.</a><br><span style="color:#55524C;font-size:14px">2026 · Exploration of targeted anti-tumor therapy · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/SIL2026/">Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of Immunology · <span class="tier" style="background:#A56827">C</span></span></p>
@@ -203,36 +239,46 @@ a{overflow-wrap:anywhere}
 <p style="margin:0 0 7px"><a href="/study/ZHANG2026/">Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.</a><br><span style="color:#55524C;font-size:14px">2026 · The Journal of clinical investigation · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/BANERJEE2026/">Decoding the PI3K/Akt/mTOR-JAK/STAT signaling axis in multiple sclerosis: mechanistic crosstalk and therapeutic opportunities.</a><br><span style="color:#55524C;font-size:14px">2026 · Immunologic research · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/LV2026/">Age-associated decline of Lamtor5 drives immunosenescence and systemic aging via cGAS-mediated paracrine inflammation.</a><br><span style="color:#55524C;font-size:14px">2026 · Cell Death and Differentiation · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/CHEN2026B/">IGF2BP3-Mediated m6A Modification of OLR1 mRNA Promotes Immune Evasion in CRC via the PI3K/AKT/mTOR Pathway</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of Immunotherapy · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/DEMMINGS2026/">ATF4 activates a transcriptional program that chronically suppresses mTOR activity and promotes neurodegeneration in Parkinson disease models</a><br><span style="color:#55524C;font-size:14px">2026 · Cell Reports · <span class="tier" style="background:#7C7569">D</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/SU2026/">LncRNA DLX6-AS1 promotes necroptosis through PI3K/AKT/mTOR signaling pathway in myocardial ischemia/reperfusion injury mice</a><br><span style="color:#55524C;font-size:14px">2026 · Scientific Reports · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/NAT2026/">mTOR inhibition augments antitumor immune effector response by reprogramming the TP53-mutant, immune-cold HNSCC tumor microenvironment</a><br><span style="color:#55524C;font-size:14px">2026 · Neoplasia · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/KRISTIANSEN2026/">Aging preserves mTORC1 but attenuates JNK-SMAD2L signaling sensitivity to passive stretch-induced tension development in isolated mouse skeletal muscle.</a><br><span style="color:#55524C;font-size:14px">2026 · Experimental gerontology · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/HE2026/">An ANGPTL8-AKT2-mTOR Axis Drives Adipose Senescence and Aging-Related Functional Decline</a><br><span style="color:#55524C;font-size:14px">2026 · Aging Cell · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/GIL2026/">Association of rapamycin treatment with the modulation of purine metabolism, reduced microglial inflammatory responses, improved mitochondrial energy metabolism, and alleviation of fatigue symptoms in ME/CFS subjects: pilot findings from phase-II observational study</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of Translational Medicine · <span class="tier" style="background:#2F6FA8">B</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/WEN2026/">Role of Autophagy in Scleral Remodeling During Form-Deprivation Myopia</a><br><span style="color:#55524C;font-size:14px">2026 · FASEB Journal · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/GOR2026/">A Systems Pharmacology Model of Aging Identifies Optimal Combination Therapies With Secondary Benefits on Weight Loss and Metabolic Health</a><br><span style="color:#55524C;font-size:14px">2026 · CPT Pharmacometrics Syst Pharmacol · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/JIN2026/">Redox-sensitive mTOR-eIF4A signaling promotes selective P-glycoprotein translation.</a><br><span style="color:#55524C;font-size:14px">2026 · Free radical biology &amp; medicine · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/PIR2026/">Biological limits of lifespan extension: evidence for a shift from pathway leverage to system-level buffering across species</a><br><span style="color:#55524C;font-size:14px">2026 · Mechanisms of Ageing and Development · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/CAO2026/">Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome</a><br><span style="color:#55524C;font-size:14px">2026 · Frontiers in Oncology · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/HEN2026/">Survival and Homeostasis of Alveolar Macrophages in Vivo Depend on mTOR Signaling</a><br><span style="color:#55524C;font-size:14px">2026 · American Journal of Respiratory Cell and Molecular Biology · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/TAO2026/">Impaired mTOR/SREBP1-Mediated Lipogenesis as a Mechanism of Hepatic Glycogen Accumulation in a Carnivorous Fish Model, Largemouth Bass (Micropterus salmoides)</a><br><span style="color:#55524C;font-size:14px">2026 · FASEB Journal · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/LI2026/">GPR143, a novel immunohistochemical marker for renal tumors with FLCN/TSC/MTOR-TFE alterations.</a><br><span style="color:#55524C;font-size:14px">2026 · Virchows Archiv · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/MARCHANT2026/">Constitutive mTORC1 Activation in Skeletal Muscle Increases Inflammation but is not Sufficient to Impair Glucose Tolerance.</a><br><span style="color:#55524C;font-size:14px">2026 · Function (Oxford, England) · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/YANG2026/">Early-life exposure to polypropylene microplastics and DEHP induces ASD-relevant neurodevelopmental alterations involving mTOR-regulated autophagy impairment</a><br><span style="color:#55524C;font-size:14px">2026 · Ecotoxicology and Environmental Safety · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/HUANG2026/">Recurrent PIK3CA-E545K mutation promotes cervical cancer growth and invasion via AKT/mTOR signaling.</a><br><span style="color:#55524C;font-size:14px">2026 · Molecular genetics and genomics · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/MUT2026/">ER-Lysosome Cholesterol Exchange Regulates Lysosomal Motility Through mTOR-Dependent LAMTOR1 Phosphorylation</a><br><span style="color:#55524C;font-size:14px">2026 · bioRxiv (preprint) · <span class="tier" style="background:#8B5FBF">—</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/HAFEZ2026/">Melittin attenuates imiquimod-induced psoriatic dermatitis in mice: a role for autophagy activation via PI3K/Akt/mTOR pathway suppression.</a><br><span style="color:#55524C;font-size:14px">2026 · Saudi pharmaceutical journal · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/JAC2026/">Diet-dependent, beneficial and adverse effects of rapamycin on life span of Drosophila melanogaster</a><br><span style="color:#55524C;font-size:14px">2026 · GeroScience · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/SAX2026/">Everolimus for the treatment of neuropsychological deficits in tuberous sclerosis complex: findings from the TRON multicentre randomised controlled trial</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of medical genetics · <span class="tier" style="background:#2F6FA8">B</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/RAUCH2026/">Tankyrase-2 regulates adipocyte differentiation through AMPK/mTOR signaling.</a><br><span style="color:#55524C;font-size:14px">2026 · The FEBS journal · <span class="tier" style="background:#7C7569">D</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/DAB2026/">mTORC1 inhibition upregulates CD20 and enhances anti-CD20 antibody efficacy in B-cell precursor acute lymphoblastic leukemia</a><br><span style="color:#55524C;font-size:14px">2026 · Leukemia · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/ULL2026/">FLCN loss is characterized by SQSTM1/p62 accumulation despite functional autophagy flux in Birt-Hogg-Dubé syndrome-associated kidney cancer</a><br><span style="color:#55524C;font-size:14px">2026 · Autophagy Reports · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/YAN2026/">SLC15A3-mediated dipeptide metabolism confers antimetabolite resistance in lymphoma via mTORC1 activation.</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of Clinical Investigation · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/LV2026S/">Deubiquitinase USP7 stabilizes the histone demethylase KDM5B and promotes the progression of renal fibrosis through the TSC1/mTOR axis</a><br><span style="color:#55524C;font-size:14px">2026 · Molecular biomedicine · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/SONH2026/">Urolithin A activates mitophagy via the AMPK-mTOR axis and modulates the gut-ceramide axis to ameliorate cardiac remodeling in HFpEF</a><br><span style="color:#55524C;font-size:14px">2026 · Experimental and Molecular Medicine · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/TIW2026/">Firefox, a protein encoded by circular RNA circPVT1, is essential for MYC-driven oncogenesis</a><br><span style="color:#55524C;font-size:14px">2026 · Genes &amp; Development · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/MAR2026/">EVERolimus effectiveness after proGREssion on ENdocrine therapy plus CDK4/6 inhibitor for ER-positive/HER2-negative advanced breast cancer: EVERGREEN study</a><br><span style="color:#55524C;font-size:14px">2026 · Breast Cancer Research and Treatment · <span class="tier" style="background:#2F6FA8">B</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/BAB2025/">Restriction of individual branched-chain amino acids has distinct effects on the development and progression of Alzheimer&#x27;s disease in 3xTg mice</a><br><span style="color:#55524C;font-size:14px">2026 · Advanced Science · <span class="tier" style="background:#A56827">C</span></span></p>
-<p style="margin:0 0 7px"><a href="/study/NAKAMURA2026/">Cytoplasmic fluidity couples nutrient availability and enterocyte fate in vivo.</a><br><span style="color:#55524C;font-size:14px">2026 · Proceedings of the National Academy of Sciences of the United States of America · <span class="tier" style="background:#7C7569">D</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/GUIB2026/">Maternal Sirolimus Therapy for Fetal Extensive Lymphatic Cystic Malformation: Selection Criteria, Management, and Outcomes in a Series of Six Cases</a><br><span style="color:#55524C;font-size:14px">2026 · Prenatal Diagnosis · <span class="tier" style="background:#2F6FA8">B</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/FAN2026/">mTOR inactivation governs adaptive survival to ribosome biogenesis deficiency</a><br><span style="color:#55524C;font-size:14px">2026 · Genes &amp; Development · <span class="tier" style="background:#7C7569">D</span></span></p>
-<p style="margin:0 0 7px"><a href="/study/GAO2026/">Tumor fat composition predicts response to everolimus and supports low-dose therapy in TSC-associated renal angiomyolipomas: a multicenter prospective study</a><br><span style="color:#55524C;font-size:14px">2026 · Frontiers in oncology · <span class="tier" style="background:#2F6FA8">B</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/GAO2026B/">Tumor fat composition predicts response to everolimus and supports low-dose therapy in TSC-associated renal angiomyolipomas: a multicenter prospective study</a><br><span style="color:#55524C;font-size:14px">2026 · Frontiers in oncology · <span class="tier" style="background:#2F6FA8">B</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/FU2026/">tRNA-derived fragment tRF-17-8SPOL52 induces resistance to bortezomib in multiple myeloma via autophagy activation.</a><br><span style="color:#55524C;font-size:14px">2026 · Biochimica et biophysica acta. Molecular basis of disease · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/ZHU2026/">LKB1/AMPK deficiency aggravates mitochondrial DNA leakage via mTOR-dependent mitophagy damage in liver injury sensitized by trichloroethylene.</a><br><span style="color:#55524C;font-size:14px">2026 · Chemico-Biological Interactions · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/PLEDGER2026/">Translational repression of 5&#x27; TOP mRNAs in chronically activated CD8+ T cells.</a><br><span style="color:#55524C;font-size:14px">2026 · RNA biology · <span class="tier" style="background:#7C7569">D</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/LIANG2026/">LINP1 suppresses radiation-induced cellular senescence in keratinocytes by modulating the mTOR-p53 axis</a><br><span style="color:#55524C;font-size:14px">2026 · Molecular and Cellular Biochemistry · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/MA2026/">PIP4K2A Attenuates Cerebral Ischemia/Reperfusion Injury by Reducing the TRIB3-p62 Complex Burden and Modulating AKT/mTOR Signaling.</a><br><span style="color:#55524C;font-size:14px">2026 · Translational stroke research · <span class="tier" style="background:#A56827">C</span></span></p>
+<p style="margin:0 0 7px"><a href="/study/ZHANG2026B/">Dioscorea polystachya Turcz. attenuates male reproductive aging through modulation of mTOR-Beclin-1-mediated autophagy in Leydig and Sertoli cells</a><br><span style="color:#55524C;font-size:14px">2026 · Journal of Ethnopharmacology · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/REN2026/">Microbiota-associated kynurenic acid drives PD-1 blockade resistance through an ITGA2-mTOR-CTSV axis in gastric cancer.</a><br><span style="color:#55524C;font-size:14px">2026 · Journal for immunotherapy of cancer · <span class="tier" style="background:#A56827">C</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/JIB2026/">Rapamycin co-exposure fails to reduce cisplatin-induced damage in GC6-spg spermatogonial cell line.</a><br><span style="color:#55524C;font-size:14px">2026 · Reproduction &amp; Fertility · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/DEN2026/">Spalt-related is an inhibitor of mTORC1-mediated growth activated by the integrated stress response</a><br><span style="color:#55524C;font-size:14px">2026 · The EMBO Journal · <span class="tier" style="background:#A56827">C</span></span></p>
@@ -498,11 +544,13 @@ a{overflow-wrap:anywhere}
 <p style="margin:0 0 7px"><a href="/study/HEI1991/">Targets for cell cycle arrest by the immunosuppressant rapamycin in yeast</a><br><span style="color:#55524C;font-size:14px">1991 · Science · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/VEZ1975/">Rapamycin (AY-22,989), a new antifungal antibiotic. I. Taxonomy of the producing streptomycete and isolation of the active principle</a><br><span style="color:#55524C;font-size:14px">1975 · Journal of Antibiotics · <span class="tier" style="background:#7C7569">D</span></span></p>
 <p style="margin:0 0 7px"><a href="/study/NCT05835999/">Everolimus Aging Study (EVERLAST): Clinical Evaluation of mTORC1 Inhibition for Geroprotection</a><br><span style="color:#55524C;font-size:14px"> · ClinicalTrials.gov (registration) · <span class="tier" style="background:#5278A6">—</span></span></p>
-<footer>
+<footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
-<p><a href="https://mtor-atlas.org/">Full interactive Atlas</a></p>
+<div class="oma-footer-links">
+<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
 </footer>
 </div>
 </body>
