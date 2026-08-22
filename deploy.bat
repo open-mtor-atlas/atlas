@@ -329,11 +329,11 @@ REM  TYPE_DIR entry, add the resulting folder name to the %%D loop below too.
 REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
 REM  crawlers actually read, since they do not run the SPA's JavaScript.
 echo    including pre-rendered pages and sitemaps
-for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse) do (
+for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary) do (
   if exist "%%D" git add "%%D"
 )
 if exist "sitemap.xml" git add sitemap.xml
-for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml sitemap-authors.xml sitemap-questions.xml robots.txt llms.txt) do (
+for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml sitemap-authors.xml sitemap-questions.xml sitemap-answers.xml robots.txt llms.txt) do (
   if exist "%%F" git add "%%F"
 )
 if exist "lineage_1.html" git add lineage_1.html
