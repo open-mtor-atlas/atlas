@@ -48,7 +48,7 @@ DATASET_REF = {
     "name": "Oliver's mTOR Atlas",
     "url": SITE + "/",
     "description": (
-        "A curated, evidence-graded database of mTOR pathway research: about 275 "
+        "A curated, evidence-graded database of mTOR pathway research: over 320 "
         "studies, with every eligible peer-reviewed primary study rated by evidence "
         "tier (A = systematic review/meta-analysis, B = human trial, C = animal model, "
         "D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, "
