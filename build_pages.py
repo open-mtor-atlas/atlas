@@ -199,10 +199,20 @@ def topbar_html(active_tab=None):
     the SPA's own hash-addressed views -- the SPA reads {SITE}/#view=<tab>
     (URLSearchParams over location.hash, see applyHash() in index.html), NOT
     a bare {SITE}/#<tab> fragment. Fixed 2026-08-23 after the bare-fragment
-    version shipped broken (linked to "#questions" instead of "#view=questions")."""
+    version shipped broken (linked to "#questions" instead of "#view=questions").
+
+    EXCEPTION (2026-08-23): the "about" tab points at the static /about/ page
+    (STATIC_TAB_URLS below), not {SITE}/#view=about. That hash route is real
+    but only resolves once the SPA's JS has run -- exactly the audit finding
+    this fixes: a crawler or a skeptical reader landing on a /study/ or
+    /answers/ page had no *static* link explaining who curates the Atlas or
+    how it's graded. The other 7 tabs are left as hash links; they don't
+    (yet) have static equivalents worth linking to instead."""
+    static_urls = {"about": f"{SITE}/about/"}
     tabs = "".join(
-        '<a href="{}/#view={}"{}>{}</a>'.format(
-            SITE, tid, ' class="active"' if tid == active_tab else "", e(label))
+        '<a href="{}"{}>{}</a>'.format(
+            static_urls.get(tid, f"{SITE}/#view={tid}"),
+            ' class="active"' if tid == active_tab else "", e(label))
         for tid, label in SITE_TABS)
     return f"""<div class="oma-topbar"><div class="oma-topbar-inner">
 <a class="oma-wordmark" href="{SITE}/" title="Oliver's mTOR Atlas — home">
@@ -399,7 +409,7 @@ a{{overflow-wrap:anywhere}}
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
-<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
 </div>
 </footer>
 </div>
@@ -748,6 +758,170 @@ def author_page(key, bio, studies):
                             desc, url, [ld, bc], "\n".join(body), crumb, active_tab="authors")
 
 
+# --------------------------------------------------------------- about page ---
+
+def about_page(studies, entities):
+    """Statická /about/ stránka -- přidáno 2026-08-23 v reakci na audit finding
+    (SEO_GEO_AUDIT.md §14): AI systém nebo skeptický čtenář, co přistane na
+    /study/... nebo /answers/... ze search výsledků, neměl žádný STATICKÝ odkaz
+    vysvětlující kdo je Oliver, proč věřit hodnocení důkazů od středoškoláka,
+    jaká je politika oprav, ani jak projekt kontaktovat -- ta stránka existovala
+    jen jako SPA view ({SITE}/#view=about), neviditelná pro crawlery bez JS,
+    tedy přesně ty, kvůli kterým celá fáze 6 (build_pages.py) existuje.
+
+    Obsah je věcně převzatý z existujícího AUTHOR_BIOS / About tabu v index.html
+    (abProjectPane/abMethodologyPane/abAuthorPane) -- nic tu není nové ani
+    vymyšlené, jen zpřístupněné bez JS. Počty studií/entit se počítají ze
+    stejných dat jako zbytek buildu (`studies`, `entities`), NE napsané ručně --
+    přesně to, co se pokazilo u "about 275 studies" bugu, co tenhle audit
+    našel a opravil (viz DATASET_REF výše). Kontrolní poznámka: SPA text v
+    Methodology panelu ("corpus size currently 283") je STEJNÝ typ zastaralého
+    čísla -- žádané tady, ale mimo rozsah tohohle patche (je to v index.html,
+    ne v datech, které tenhle skript čte); stojí za samostatnou opravu."""
+    url = f"{SITE}/about/"
+    n_studies = len(studies)
+    n_entities = len(entities)
+    n_entity_pages = sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)
+
+    ld_about = {
+        "@context": "https://schema.org", "@type": "AboutPage",
+        "name": "About Oliver's mTOR Atlas", "url": url,
+        "mainEntity": dict(DATASET_REF),
+        "author": {
+            "@type": "Person", "name": "Oliver Barton",
+            "jobTitle": "Creator & Curator",
+            "description": "High school student in Prague, Czech Republic, "
+                            "curating an evidence-graded database of mTOR "
+                            "pathway research.",
+        },
+    }
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › About &amp; Methodology'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("About & Methodology", None)])
+
+    body = f"""<h1>About Oliver's mTOR Atlas</h1>
+<p class="summary">A curated, evidence-graded database of mTOR pathway
+research -- {n_studies} studies and {n_entities} cross-linked entities
+({n_entity_pages} with their own page), each claim traced to a primary
+source and rated by strength of evidence. This page explains who curates
+it, how a study earns a place, what the grading does and doesn't
+guarantee, and how to report an error.</p>
+
+<h2>What this is</h2>
+<p>Oliver's mTOR Atlas is a narrow, hand-curated corpus -- not an attempt
+to index all of PubMed's roughly sixty thousand mTOR-related records, but
+a smaller set small enough that every entry can be read, graded and
+defended by one person, then connected by hand into a knowledge graph of
+genes, drugs, diseases and outcomes. Every claim carries an explicit
+evidence tier (A = systematic review of human data, B = human trial,
+C = animal model, D = mechanistic/in-vitro/review), and the corpus
+deliberately keeps negative results -- studies where a popular longevity
+compound did <em>not</em> extend lifespan -- with the same visibility as
+positive findings.</p>
+
+<h2>Who curates it</h2>
+<p><strong>Oliver Barton</strong> -- Creator &amp; Curator, Prague, Czech
+Republic, age 15. A high school student with a self-directed research
+interest in mTOR signaling and evidence-based science curation, who built
+the Atlas to be the structured resource he wished existed when he started
+reading primary literature on the pathway: studies, mechanisms and honest
+evidence grades held side by side, rather than scattered across review
+articles.</p>
+<p>There is no editorial board and no second reviewer -- see "Who reviews
+the selection" below for what that does and doesn't mean for trust.</p>
+<p><strong>Contact:</strong> oliver.barton1113(at)gmail.com. Corrections,
+questions and error reports are welcome, and are logged in the project's
+<a href="https://github.com/open-mtor-atlas/atlas/commits/main">GitHub
+commit history</a>, which is public.</p>
+
+<h2>How a study gets in</h2>
+<p>Every study passes through the same four steps before it's added:</p>
+<ol>
+<li><strong>Source</strong> -- candidates are found via PubMed, prioritizing
+landmark discovery papers, systematic reviews and large human RCTs over
+secondary commentary; bioRxiv supplies preprints (always flagged as such,
+never treated as equivalent to peer-reviewed work), and ClinicalTrials.gov
+supplies ongoing human trials.</li>
+<li><strong>Verify</strong> -- each citation's PMID, DOI, year and journal
+are confirmed against PubMed's own metadata before the entry is written;
+no citation is added from memory alone.</li>
+<li><strong>Grade</strong> -- the study gets an A&ndash;D evidence tier
+based on the strength of the model system the claim actually rests on, not
+the size of the headline finding.</li>
+<li><strong>Link</strong> -- the genes, drugs and outcomes the study
+mentions are connected to it in the graph, so the same paper surfaces
+wherever any of its subjects is explored.</li>
+</ol>
+<p>Every DOI resolves to the publisher's own page (Nature, Cell, Science,
+NEJM, Lancet and others), so any claim traces back to the original paper
+in one click.</p>
+
+<h2>Inclusion &amp; exclusion criteria</h2>
+<p>A study earns a place if it does at least one of four things: establishes
+a landmark mechanism in mTOR biology; supplies the strongest available
+human evidence for a claim (a systematic review or a large RCT, not an
+isolated small trial); fills in representative animal or mechanistic work
+for a pathway node that would otherwise be uncovered; or reports a negative
+or null result that the rest of the literature tends to under-report --
+included deliberately, since a database that only shows what worked
+misrepresents the actual state of the science.</p>
+<p>A candidate is left out if it's a secondary commentary, editorial or
+news piece rather than a primary study or review; if it duplicates a
+pathway node already covered by a stronger study and adds no new claim; if
+its metadata can't be verified against PubMed (no PMID or DOI resolving to
+the publisher's own record); or if its connection to mTOR is incidental --
+mTOR measured as one readout among many in a paper about something else.
+Preprints and registered trials are admitted only when they're the best
+available evidence for a claim, and are then labelled ungraded rather than
+given an A&ndash;D tier.</p>
+
+<h2>What this doesn't guarantee</h2>
+<p>An honest limitation: the Atlas does not keep a screening log. Candidates
+that were considered and rejected leave no record, so no exclusion count
+can be quoted or inferred. That's a real weakness compared with a
+systematic review, where the screening flow is itself evidence that the
+search was unbiased -- here it isn't. Selection is a judgement call, made
+paper by paper, and it is not currently auditable from the outside. The
+Atlas should be read as a curated reading list with grades attached, not
+as a systematic review of the mTOR literature. Logging rejected candidates
+and the reason is a planned change.</p>
+<p><strong>Who reviews the selection:</strong> one person, the curator.
+There is no second reviewer or independent adjudication of borderline
+calls -- the usual safeguard against a single reader's blind spots is
+absent. The one external check to date was an unsolicited scientific
+review in July 2026, which raised sixteen points; all were addressed
+rather than quietly dropped, and one exposed a real inconsistency between
+the stated A&ndash;D tier definition and how it was actually being applied.
+An automated validator rule now blocks any deploy where a study's tier and
+its underlying evidence level disagree.</p>
+
+<h2>How often it updates</h2>
+<p>An automated job screens PubMed for new candidate mTOR studies and
+relevant conferences once daily, at 02:00; the decision to include and
+grade a flagged paper is made by hand, and publishing the updated site is
+a manual step. So the <em>screening</em> is daily, but the <em>corpus</em>
+changes only when a human accepts a candidate -- typically a handful of
+papers a month, sometimes none. The exact timestamp of the live corpus is
+printed in the footer of every page, and every count on this site,
+including the ones above, is computed from that snapshot rather than
+typed in by hand.</p>
+
+<h2>License &amp; reuse</h2>
+<p>Content is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
+4.0</a> -- free to cite and reuse with attribution to "Oliver's mTOR
+Atlas". The dataset is archived and citable via Zenodo, concept DOI
+<a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.</p>
+
+<p><a class="cta" href="{SITE}/#view=about">Open the interactive About tab</a></p>
+"""
+    return url, shell(
+        "About & Methodology | Oliver's mTOR Atlas",
+        f"Who curates Oliver's mTOR Atlas, how studies are selected and "
+        f"evidence-graded, what the grading doesn't guarantee, and how to "
+        f"report a correction.",
+        url, [ld_about, bc], body, crumb, active_tab="about")
+
+
 # ------------------------------------------------------------------- main ---
 
 def browse_page(studies, entities, haspage, gaps=(), authors=()):
@@ -845,7 +1019,9 @@ def patch_home(n_pages):
 
     link = (f'{HOME_MARKER} &middot; '
             f'<a href="/browse/" style="color:inherit">Browse the Atlas</a> '
-            f'<span class="mono" style="opacity:.65">{n_pages} pages</span>{HOME_END}')
+            f'<span class="mono" style="opacity:.65">{n_pages} pages</span>'
+            f' &middot; <a href="/about/" style="color:inherit">About &amp; Methodology</a>'
+            f'{HOME_END}')
 
     # Ukotveno na SPRÁVNOU patičku, ne na první </footer> v souboru.
     m = re.search(r'<footer class="site-footer">.*?</footer>', h, re.S)
@@ -1096,6 +1272,10 @@ def main():
     else:
         print("atlas_data/author_bios_baked.json chybí -- author stránky přeskočeny")
 
+    aurl, apage = about_page(studies, entities)
+    write(os.path.join(HERE, "about", "index.html"), apage)
+    urls.append(("about", aurl))
+
     burl, bpage = browse_page(studies, entities, haspage, gap_links, author_links)
     write(os.path.join(HERE, "browse", "index.html"), bpage)
     urls.append(("entity", burl))
@@ -1150,7 +1330,15 @@ def main():
           f'  <sitemap><loc>{SITE}/sitemap-home.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           + answers_line +
           '</sitemapindex>\n')
-    write(os.path.join(HERE, "sitemap-home.xml"), sitemap([SITE + "/"], "1.0"))
+    # /about/ (2026-08-23) rides in sitemap-home.xml alongside the homepage --
+    # it's a hand-authored, singular top-level page like home, not a
+    # per-record page like study/entity/question/author.
+    write(os.path.join(HERE, "sitemap-home.xml"),
+          '<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          f'  <url><loc>{SITE}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n'
+          f'  <url><loc>{aurl}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n'
+          '</urlset>\n')
 
     # robots.txt: povolení AI crawlerů explicitně. "Allow: /" je funkčně totéž,
     # ale pojmenovaný záznam je dokumentace záměru a chrání před budoucím omylem.
@@ -1222,6 +1410,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 
 ## Start here
 - [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
+- [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
 {answers_section}
 ## Open questions & testable hypotheses

@@ -26,7 +26,7 @@ One real, low-risk defect was found and fixed during this audit (see §17): a st
 - **A stale fact was replicated 324 times.** The Dataset JSON-LD description ("about 275 studies") had drifted behind the real count (322) and, because it's a shared literal, was baked into every study page's `isPartOf` block plus `/browse/` and the homepage — see §17 for the fix already applied.
 - **The homepage (`index.html`) is 3.5 MB.** It's a single self-contained SPA with the full studies/gaps/events/author-bio corpus embedded as JSON, which is why the static layer had to be built in the first place — but it also means any human visitor who lands on `/` directly (as opposed to a `/study/…` or `/answers/…` deep link from search) is downloading a multi-megabyte page. This has not been measured against Core Web Vitals thresholds (see §4).
 - **No visible "last updated" / freshness signal** on generated pages beyond the sitemap's `lastmod` — the page footer doesn't show `dateModified`, and `write()` in `build_pages.py` deliberately omits a build date to avoid diffing every page on every deploy (a good reason, but it means there's no freshness signal for a *human* reader either, only for crawlers reading the sitemap).
-- **Author coverage is 5 of ~488.** Static author pages exist only for the "Top 5" (Sabatini, Hall, Manning, Guan, Blenis); Zoncu, Brunet, Shaw and others named in your brief have no page yet despite being in Airtable.
+- **Author coverage: 5 of ~488 have a static page — but 46 already have a complete, ready-to-publish bio.** *(Corrected 2026-08-23 — see §21; the original wording here understated this.)* `index.html`'s `AUTHOR_BIOS` object — the same data that powers the Top-5 bio modal — actually holds full profiles (role, institution, narrative bio, study-milestone timeline, photo for 43 of them) for 46 researchers, confirmed by direct inspection, including Zoncu and Shaw from your brief's named list. Only Brunet, of the names you gave, is genuinely absent and needs new content written. The other 41 aren't a writing gap at all: `build_pages.py` builds static `/author/` pages from `atlas_data/author_bios_baked.json`, a manual snapshot of `AUTHOR_BIOS` that was taken once (2026-08-04, at 5 profiles) and never retaken as the other 41 were added straight into `index.html`. Re-exporting that snapshot and re-running `build_pages.py` would turn 41 already-written bios into 41 new static, crawlable pages with no new research or writing required.
 - **No topic-level synthesis pages.** Entity pages (`/gene/rheb/`, `/drug/rapamycin/`) and answer pages (`/answers/…`) exist, but nothing sits at the "aging," "autophagy," or "cancer" level to aggregate across entity types the way a topic hub would — this is a genuine content-architecture gap, not just a missing URL (see §6, §13).
 - **The site has not yet been benchmarked on PageSpeed Insights / Core Web Vitals** at all — not a known problem, an unknown.
 
@@ -83,7 +83,7 @@ Current URL scheme is already close to ideal and matches almost exactly what you
 /outcome/<slug>/                3 pages (longevity, insulin-resistance, immune-function)
 /intervention/<slug>/           2 pages
 /condition/<slug>/              2 pages
-/author/<slug>/                 5 pages (Top-5 only)
+/author/<slug>/                 5 pages (Top-5 only; 46 bios already exist in index.html — see §21)
 /question/<slug>/              10 pages (knowledge-gap hypotheses, long descriptive slugs)
 /answers/<slug>/                10 pages + index (FAQPage, answer-first)
 /glossary/                      1 page, 25 terms (DefinedTermSet)
@@ -115,7 +115,7 @@ Grounded in what the corpus actually supports (not generic volume-chasing), cros
 | mTOR drugs/inhibitors (list) | High-intent | `/answers/mtor-inhibitors-list/` | Strong answer-first page already targets this exact query pattern | — |
 | Specific drugs (everolimus, temsirolimus…) | Branded | `/drug/everolimus/`; **no `/drug/temsirolimus/`** despite being named throughout your brief and in Atlas data conventions | Verify study count; add if ≥3 | P2 |
 | Specific genes/proteins | Informational | 19 gene pages, strong coverage (Raptor, Rictor, Rheb, TSC1/2, S6K1, 4E-BP1, AMPK, PI3K, AKT, ULK1, TFEB, Rag GTPases, etc.) | Well covered | — |
-| Specific researchers | Branded/authority (GEO-relevant — AI systems cite named-entity pages) | 5 author pages | Biggest concrete gap vs. your brief's named list (Zoncu, Brunet, Shaw missing) | P1 |
+| Specific researchers | Branded/authority (GEO-relevant — AI systems cite named-entity pages) | 5 author pages published; 46 bios already written (§21) | Not a content gap, a publishing gap — re-export + rebuild adds 41 pages for free; only Brunet genuinely needs a new bio written | P1 (cheap) |
 | Specific papers | Informational, citation | 322 study pages | Well covered | — |
 | Clinical trials | Informational | Referenced inline (e.g. NCT numbers in study data) but no dedicated `/trial/` page type | Real gap only if corpus has enough registered-trial-linked studies to clear the 3-item quality gate | P3 |
 | Negative/null results | Differentiator (nobody else does this well) | Present within study pages' extracted findings, not surfaced as its own page/filter | High-uniqueness, low-effort opportunity — see §13 | P1 |
@@ -133,7 +133,7 @@ What would move the needle further, roughly in order of leverage:
 2. **A visible `dateModified`/"last verified" stamp** on answer and study pages would help AI systems trust freshness signals, which they weight for medical/health content specifically.
 3. **Testing actual citation behavior** — the 2026-08-22 notes correctly flag that nobody has yet checked whether Perplexity/ChatGPT search/Gemini currently surface the Atlas for test queries like "does rapamycin extend lifespan in humans." This is a fast, free, high-information check that wasn't re-run in this pass — recommended as a next action (§20).
 4. **The methodology article** (proposed 2026-08-22, not yet written) — a self-contained piece explaining evidence-tiering and gap-finding as a system, independent of mTOR content — is exactly the kind of content GEO-savvy audiences (r/slatestarcodex-adjacent, rationalist science communicators) cite and share on its own merits, which compounds both backlinks and AI-citation graph presence. Still P1, still not started.
-5. **Named-author pages are also a GEO asset**, not just an SEO one — AI systems increasingly resolve entities (researchers) and prefer sources that correctly attribute claims to real named people. The 5-of-488 author-page coverage gap in §3 has a GEO dimension, not just an SEO one.
+5. **Named-author pages are also a GEO asset**, not just an SEO one — AI systems increasingly resolve entities (researchers) and prefer sources that correctly attribute claims to real named people. The 5-of-488 author-page coverage gap in §3 has a GEO dimension, not just an SEO one — and per the §21 correction, closing 41 of those pages is a rebuild, not a research project, which makes it unusually cheap GEO leverage.
 
 ## 9. Knowledge graph strategy
 
@@ -141,7 +141,7 @@ The relationship types your brief specifies are largely already expressed, just 
 
 - **Study → targets/affects → Entity**: expressed via each study page's "Related topics"/"Related entities" links (built from the Airtable Entities relation) — real, but implicit in HTML links rather than an explicit `about`/`mentions` JSON-LD property.
 - **Study → provides → Evidence Tier**: explicit, both visually (tier badge) and in the "At a glance" table — not yet in structured data as a formal property (ScholarlyArticle has no standard "evidence tier" field in schema.org; this would need a custom `additionalProperty` or a `PropertyValue`, which is a reasonable P2 addition).
-- **Author → authored → Study**: expressed on author bio pages (5 of them) via the study-milestone timeline; not yet expressed as a reciprocal link/schema on the 317 studies whose authors don't have a bio page.
+- **Author → authored → Study**: expressed on author bio pages (5 published; 46 already written — §21) via the study-milestone timeline; not yet expressed as a reciprocal link/schema on the studies whose authors don't yet have a *published* bio page.
 - **Drug → inhibits → Complex, Complex → regulates → Process, Protein → activates/inhibits → Complex**: this is exactly what the "Mechanism Explorer" (Airtable Relations table, 43 signed evidence-graded edges, per project memory) already models — it currently powers an in-SPA tab, not the static pages. **Exposing a subset of these 43 signed relations as explicit `about`/`mentions` links or a lightweight `PropertyValue` block on the relevant entity pages is a concrete, scoped P1/P2 project** — the data exists, it just isn't surfaced outside the JS-only Mechanism tab yet.
 - **Disease → associated with → Pathway**: expressed via disease pages' related-entities links.
 
@@ -170,7 +170,7 @@ Also worth a scripted orphan-check (§4) rather than manual spot-checking, given
 
 Your brief is right to warn against thin/doorway pages, and the codebase already enforces this correctly: `PAGE_THRESHOLD = 3` studies minimum before an entity gets its own page, with 75 candidate entities currently and deliberately below that bar. That ceiling (~40-70 defensible entity pages, already noted in prior project analysis) has essentially been reached — **the remaining programmatic-SEO upside is not "more entity pages," it's deepening the pages that already exist**:
 
-- **Author pages beyond the Top 5** — real 3rd-party-verifiable content (institution, ORCID, publication list) exists in principle for major contributors; capped by how many can be done with real, non-invented data per author (§3, §7).
+- **Author pages beyond the Top 5** — not "in principle": for 46 researchers this content (institution, role, narrative bio, milestone timeline) has already been written and lives in `index.html`'s `AUTHOR_BIOS`, just never re-exported to the static-page pipeline (§3, §21). Publishing those 41 additional pages is close to zero new curation cost; only Brunet, among the researchers named in your brief, would need real new content.
 - **A "negative/null results" filtered view** — the data exists inside study pages already; a dedicated page/section surfacing "what didn't work" is close to zero new curation cost and directly matches "what's uncertain" — a section type your brief explicitly names in §5 and one almost no competing site does. High uniqueness, low build cost — good P1 candidate.
 - **Clinical-trial-linked study pages**, if enough NCT-registered studies exist in the corpus to clear a quality gate — not yet counted in this pass.
 
@@ -180,7 +180,7 @@ Explicitly **not** recommended: generating pages per intervention-dose combinati
 
 1. **Topic-level synthesis pages** (aging, autophagy-as-a-topic, cancer) — see §6. Real gap, needs editorial synthesis work, not a template change.
 2. **Methodology article** explaining evidence-tiering/gap-finding as a system — proposed 2026-08-22, not written. Doubles as GEO content (§8) and link-bait (§15).
-3. **Author pages for named researchers beyond Top 5** (Zoncu, Brunet, Shaw, others) — §3, §7.
+3. **Publish the 41 already-written author bios beyond Top 5** (Zoncu, Shaw, and 39 others already have full content in `index.html` — §3, §21); separately, write one new bio for Brunet, the only named researcher genuinely missing content.
 4. **A static `/pathway/` overview page** — the pathway map is currently JS-only inside the SPA; a static equivalent would close a real gap in your brief's §3 URL list.
 5. **Comparison pages** proposed 2026-08-22 ("rapamycin vs. everolimus") beyond the one that already shipped (`rapamycin-vs-metformin`) — good template already proven, straightforward to extend if corpus supports it.
 6. **A "what's uncertain" negative-results view** — see §12.
@@ -213,7 +213,7 @@ New targets not yet in any prior plan, worth prioritizing once the current backl
 - Continue the active backlink campaign (§15) — highest-leverage lever for the 255 "discovered, not indexed" pages; already in motion, just needs to keep moving.
 - Write the methodology article (proposed 2026-08-22) — doubles as GEO content and natural link-bait.
 - Build a static "About / Methodology / Curator" page with a real, honest framing of the project and its provenance (§14).
-- Add author pages for the researchers named in your brief who are missing (Zoncu, Brunet, Shaw, others with verifiable data) (§3, §7).
+- Publish the 41 author bios that already exist in `index.html` but were never re-exported to static pages (§3, §21) — cheap, high-leverage, mechanical; separately, write one new bio for Brunet.
 - Surface the 43 curated Mechanism-Explorer relations on relevant entity pages, with matching structured data (§9).
 - Cross-link overlapping `/answers/` and `/question/` pages (§11).
 - Run PageSpeed Insights on `/` and a representative static page; act on findings only if they show a real Core Web Vitals problem (§4).
@@ -247,7 +247,7 @@ What was done, in order, each step independently verified before moving to the n
 Per your own instruction ("bigger architecture changes: design and document first, don't just implement") and the project's documented history of this exact repository silently corrupting large files on write, this audit deliberately stopped short of:
 
 - **Any change to entity/question/answer page templates** (cross-linking, Mechanism-Explorer surfacing, new structured-data fields) — each touches `build_pages.py`'s page-generation logic for hundreds of files at once; each deserves its own scoped edit and full regeneration-and-diff review, not a bundle rushed through inside a 20-section audit.
-- **Any new page type** (topic hub pages, static `/pathway/` overview, negative-results view, additional author pages) — these require real content/data decisions (what goes on an "aging" topic page? which authors have enough verifiable data for a page?) that aren't Petr's or Oliver's to delegate to an audit; they need editorial input.
+- **Any new page type** (topic hub pages, static `/pathway/` overview, negative-results view) — these require real content/data decisions (what goes on an "aging" topic page?) that aren't Petr's or Oliver's to delegate to an audit; they need editorial input. **Exception found after this audit was written: the 41 additional author pages are NOT in this category** — the content already exists (§21) and publishing them is a mechanical re-export + rebuild, not an editorial decision. Still not implemented in this pass (per your instruction to design before touching `build_pages.py`), but it no longer belongs on the "needs editorial input" list.
 - **PageSpeed/Core Web Vitals fixes** — not implemented because the measurement itself wasn't run (§4); fixing an unmeasured problem risks solving the wrong thing.
 - **Any backlink/outreach action beyond what was already in flight** — §15's new targets (Lifespan.io, media outreach, competitions, Product Hunt) are proposals for Petr and Oliver to decide on, consistent with how every prior outreach step in this project has worked (drafted, then explicitly approved before sending).
 - **Any GSC action** (manual URL Inspection re-submission, etc.) — read-only verification was performed; no write actions were taken in Search Console during this audit, since that wasn't explicitly asked for this time and the 2026-08-22 audit already did a batch of manual indexing requests.
@@ -269,9 +269,23 @@ The P1 items with the best effort-to-impact ratio, in order: (1) finishing the b
 5. Write the methodology article (evidence-tiering + gap-finding as a system) — highest-leverage content piece not yet started (§8, §15).
 6. Build the static About/Methodology/Curator page (§14) — the single highest-leverage trust fix identified.
 7. Scope and build cross-links between overlapping `/answers/` and `/question/` pages (§11).
-8. Decide which of the missing named authors (Zoncu, Brunet, Shaw, others) have enough real, verifiable data for a page, and build those (§3, §7).
+8. Re-export `AUTHOR_BIOS` from `index.html` to `atlas_data/author_bios_baked.json` and re-run `build_pages.py` to publish the 41 already-written author bios as static pages (§3, §21) — no data decisions needed, they're already written. Separately, decide whether to write a new bio for Brunet, the one named researcher still genuinely missing content.
 9. Re-check the GSC Links report in 1-2 weeks to confirm internal-links-0 was a reporting lag, not a real gap, and to see whether any of the in-flight backlinks have started being counted (§5).
 10. Decide, as a Petr/Oliver call rather than a Claude one, whether to pursue the media-angle outreach (§15) — it's the highest-potential single link but also the one requiring the most judgment about how much public attention is wanted.
+
+## 21. Correction — 2026-08-23 (author coverage), addendum after initial publication
+
+The "Author coverage is 5 of ~488" framing used throughout §3, §6, §7, §8, §9, §12, §13, §16, §18 and §20 above understated what already exists, and is corrected here rather than silently rewritten, consistent with this project's own transparency posture (§14).
+
+**What triggered the correction:** Petr pointed out that clicking through the site's Authors tab surfaces bio write-ups ("medailonky") for far more than 5 researchers. Direct inspection of `index.html` confirmed this: the `AUTHOR_BIOS` JavaScript object — the same data structure that powers the Top-5 bio modal (`showAuthorBio()`) — contains **46 complete author profiles** (`full`, `role`, `sub`, `story` narrative paragraphs, `highlights` milestone captions; 43 of the 46 also have a `photo`), not 5. Any author name in the full Authors table that has a matching `AUTHOR_BIOS` entry already shows a small profile icon that opens the same bio modal (`renderAuthorsTable()`, confirmed in the source) — this is a live, working feature today, just not exposed to crawlers.
+
+**Why the static-page count still said 5:** `build_pages.py` doesn't read `AUTHOR_BIOS` out of `index.html` directly — by design (documented in its own comments, added 2026-08-04) it reads a separate baked snapshot, `atlas_data/author_bios_baked.json`, so the Python build has no Node/JS dependency. That snapshot was taken once, when only the original 5 profiles existed, and was never retaken as the other 41 were added directly to `index.html` over time. The generator code that turns a bio into a static page (`author_page()`) already handles all the fields correctly — it has simply never been given more than 5 records to work from.
+
+**Verified against your brief's named researchers:** Zoncu ✅ has a full profile already. Shaw ✅ has a full profile already. Brunet ❌ genuinely has no entry in `AUTHOR_BIOS` — this is the one name from your brief that still needs a real bio written from scratch.
+
+**Net effect on this audit's recommendations:** every place above that framed "add author pages beyond Top 5" as a research/writing task (needing verified institution, ORCID, publication history per researcher) should be read as a **publishing task** for 41 of the 46: re-export `AUTHOR_BIOS` to `atlas_data/author_bios_baked.json` (a small script, same technique used to build the file originally — see the comment at the top of `build_author_index`/`author_page` in `build_pages.py`), re-run `build_pages.py`, review the diff, deploy. This is meaningfully cheaper and lower-risk than the original P1 item implied, and moves the author-page item up in effort-to-impact terms even though its priority tier (P1) doesn't change. Writing a new bio for Brunet remains a real, separate editorial task.
+
+**Not done in this pass, per your standing instruction to design before touching `build_pages.py` output for hundreds of files:** the re-export script and the rebuild itself were not run. This section documents the finding and the corrected recommendation only.
 
 ## Recommended primary SEO/GEO landing pages
 
