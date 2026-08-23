@@ -196,10 +196,12 @@ def topbar_html(active_tab=None):
     search against without the SPA's JS + data) and no Level/Mode switches
     (those are stateful reading-level/theme controls with nothing to act on
     on a static page). Just the wordmark and the 8 tabs, as plain links into
-    the SPA's own hash-addressed views -- reuses the same {SITE}/#tab pattern
-    the breadcrumbs already relied on."""
+    the SPA's own hash-addressed views -- the SPA reads {SITE}/#view=<tab>
+    (URLSearchParams over location.hash, see applyHash() in index.html), NOT
+    a bare {SITE}/#<tab> fragment. Fixed 2026-08-23 after the bare-fragment
+    version shipped broken (linked to "#questions" instead of "#view=questions")."""
     tabs = "".join(
-        '<a href="{}/#{}"{}>{}</a>'.format(
+        '<a href="{}/#view={}"{}>{}</a>'.format(
             SITE, tid, ' class="active"' if tid == active_tab else "", e(label))
         for tid, label in SITE_TABS)
     return f"""<div class="oma-topbar"><div class="oma-topbar-inner">
