@@ -6,6 +6,8 @@ REM      index.html                       (the page: abstract RAG + gaps)
 REM      atlas_fulltext\chunk_index.json  (the Deep-search full-text index)
 REM
 REM  Steps:
+REM   0) merge in anything anyone else pushed since your last sync
+REM      -> reconcile_with_origin.py; stops only on a real conflict
 REM   1) (optional) refresh baked data from Airtable   -> if AIRTABLE_TOKEN is set
 REM   2) rebuild the Deep-search chunk index           -> best effort
 REM   3) gate on validate_claims.py - refuse to ship claims stronger than
@@ -71,6 +73,48 @@ del /f /q ".git\objects\maintenance.lock" 2>nul
 set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
+echo === Reconciling with anything pushed since your last sync ===
+REM  Added 2026-08-26. Before this, a push from another machine or another
+REM  Cowork session simply stopped the deploy dead further down with
+REM  "ABORTED: index.html on GitHub has changed since your last sync -- git pull,
+REM  reconcile or reapply your edits". That is not an instruction anyone can
+REM  follow: the local edit is a 670 KB machine-generated ATLAS_STUDIES line.
+REM
+REM  reconcile_with_origin.py does the reconciling instead: a per-file three-way
+REM  merge of base = merge-base, theirs = origin/main, ours = the working tree.
+REM  Untouched files take theirs; generated artifacts keep ours because ours is
+REM  the newer build; index.html gets a real textual merge with the machine
+REM  stamps neutralised first, so a re-baked timestamp can never collide with
+REM  somebody's prose edit on the adjacent line. It then moves HEAD to
+REM  origin/main with the same MIXED reset this script does further down, so the
+REM  commit below lands cleanly on top of what everyone else pushed.
+REM
+REM  It plans everything before writing anything: a genuine conflict leaves the
+REM  working tree byte-for-byte untouched and stops here, which is the ONLY case
+REM  that now needs a human.
+REM
+REM  This runs BEFORE the build steps on purpose. Whatever it pulls in is then
+REM  re-stamped and re-prerendered by stamp_updated.py / prerender_tabs.js below,
+REM  so the shipped file is internally consistent rather than a stitched-together
+REM  half of each side.
+py reconcile_with_origin.py
+if errorlevel 2 (
+  echo.
+  echo ABORTED: reconcile_with_origin.py hit a git problem - see above.
+  echo Nothing was committed or pushed.
+  pause
+  exit /b 1
+)
+if errorlevel 1 (
+  echo.
+  echo ABORTED: someone else's changes could not be merged automatically.
+  echo The conflicting files are listed above and NOTHING on disk was changed.
+  echo Resolve those by hand, then re-run deploy.bat.
+  pause
+  exit /b 1
+)
+
+echo.
 echo === Checking deploy.bat itself matches origin ===
 REM  ORIGINAL REASON (2026-07-27): this file is tracked, so the old
 REM  `git reset --hard origin/main` rewrote deploy.bat WHILE cmd.exe was
@@ -106,7 +150,13 @@ if not "%LOCAL_BAT%"=="%REMOTE_BAT%" (
   echo reach GitHub - every future deploy would keep running the origin version
   echo while your edit sat here unused.
   echo.
-  echo Commit and push deploy.bat first, then re-run:
+  echo Note: the reconcile step above deliberately skips .bat/.cmd/.ps1, because
+  echo cmd.exe is reading THIS file by byte offset right now and rewriting it
+  echo mid-run has already cost this project two deploys. So if the difference
+  echo came from someone else's push rather than your own edit, take theirs by
+  echo hand first:  git checkout origin/main -- deploy.bat
+  echo.
+  echo Otherwise commit and push your deploy.bat, then re-run:
   echo     git add deploy.bat
   echo     git commit -m "update deploy.bat"
   echo     git push
@@ -231,14 +281,16 @@ if not defined REMOTE_NOW_HTML (
 )
 if not "%LOCAL_BASE_HTML%"=="%REMOTE_NOW_HTML%" (
   echo.
-  echo ABORTED: index.html on GitHub has changed since your last sync.
-  echo Another machine or Cowork session already pushed a newer index.html than
-  echo the one your local edits are based on. This script restores index.html
-  echo wholesale from your local backup - it does not merge - so deploying now
-  echo would silently overwrite their changes.
+  echo ABORTED: somebody pushed a newer index.html WHILE this deploy was running.
+  echo The reconcile step at the top of this script already merged everything
+  echo origin had at that moment, so this can only mean a push landed in the
+  echo last minute or two - after that merge and before this final check.
+  echo This script restores index.html wholesale from your local backup, so
+  echo continuing would silently overwrite whatever just arrived.
   echo.
-  echo Fix: git pull origin main, reconcile or reapply your edits on top of the
-  echo current index.html, then re-run deploy.bat.
+  echo Fix: just re-run deploy.bat. The reconcile step will merge their change
+  echo in the same way. Nothing was committed or pushed, and your build is safe
+  echo in index_deploy_backup.html.
   pause
   exit /b 1
 )
@@ -368,7 +420,7 @@ REM  mobile-optimisation pass on 2026-07-29 rewrote build_pages.py to emit media
 REM  queries, and without this block the 311 regenerated pages would have shipped
 REM  while the generator that produced them stayed behind.
 echo    including pipeline scripts and repo config
-for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py prerender_tabs.js finish_review_fixes.py .gitignore .gitattributes) do (
+for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
