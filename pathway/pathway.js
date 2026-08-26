@@ -1172,7 +1172,7 @@
       + '    <div class="pw-insp" id="pwInsp" aria-live="polite"></div>'
       + "  </div>"
       + '  <details class="pw-legend"><summary>Visual language — what every line and box means</summary>'
-      + '    <div class="pw-legend-grid">' + legend() + "</div></details>"
+      + '    <div class="pw-legend-body">' + legend() + "</div></details>"
       + "</div></div>";
   }
 
