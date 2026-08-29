@@ -30,6 +30,8 @@ Built and maintained independently by Oliver, a high-school student, together wi
 
 If you use this dataset, please cite it via its Zenodo record: https://doi.org/10.5281/zenodo.22059963
 
+A single page with all identifiers, registrations (bio.tools, GitHub, ORCID) and a ready-to-use citation is at https://mtor-atlas.org/data/.
+
 ## License
 
 Content is licensed under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/

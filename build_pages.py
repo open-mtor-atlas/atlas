@@ -59,8 +59,11 @@ DATASET_REF = {
     "sameAs": [
         "https://doi.org/10.5281/zenodo.22059963",
         "https://github.com/open-mtor-atlas/atlas",
+        "https://bio.tools/olivers_mtor_atlas",
     ],
-    "creator": {"@type": "Person", "name": "Oliver Barton"},
+    "creator": {"@type": "Person", "name": "Oliver Barton",
+                "url": "https://orcid.org/0009-0008-2025-2148",
+                "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
     "publisher": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
                   "url": SITE + "/"},
     "distribution": {
@@ -421,7 +424,7 @@ a{{overflow-wrap:anywhere}}
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
-<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="{SITE}/data/">Data &amp; Citation</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
 </div>
 </footer>
 </div>
@@ -935,7 +938,9 @@ typed in by hand.</p>
 <p>Content is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 4.0</a> -- free to cite and reuse with attribution to "Oliver's mTOR
 Atlas". The dataset is archived and citable via Zenodo, concept DOI
-<a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.</p>
+<a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.
+Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>)
+and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
 
 <p><a class="cta" href="{SITE}/#view=about">Open the interactive About tab</a></p>
 """
@@ -945,6 +950,93 @@ Atlas". The dataset is archived and citable via Zenodo, concept DOI
         f"evidence-graded, what the grading doesn't guarantee, and how to "
         f"report a correction.",
         url, [ld_about, bc], body, crumb, active_tab="about")
+
+
+def data_page(studies, entities):
+    """Static /data/ page -- added 2026-08-29 at Petr's request: one page
+    that states, in plain HTML (no JS, no clicking through /about/,
+    CITATION.cff, README.md and the JSON-LD separately), the handful of
+    machine-checkable facts a registry reviewer, citation manager, or AI
+    agent needs about the Atlas AS A DATASET: that it is registered with
+    bio.tools, its dataset DOI, its GitHub repo, the curator's ORCID, its
+    license, and exactly how to cite it. None of this is new information --
+    it already lives in DATASET_REF's JSON-LD, /about/'s "License & reuse"
+    section, README.md and CITATION.cff -- this page is the single
+    human-readable place that puts it all together."""
+    url = f"{SITE}/data/"
+    n_studies = len(studies)
+    year = datetime.date.today().year
+
+    ld_dataset = dict(DATASET_REF)
+    ld_dataset["identifier"] = [
+        {"@type": "PropertyValue", "propertyID": "DOI",
+         "value": "10.5281/zenodo.22059963",
+         "url": "https://doi.org/10.5281/zenodo.22059963"},
+        {"@type": "PropertyValue", "propertyID": "bio.tools",
+         "value": "olivers_mtor_atlas",
+         "url": "https://bio.tools/olivers_mtor_atlas"},
+    ]
+    ld_page = {
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "name": "Data & Citation | Oliver's mTOR Atlas", "url": url,
+        "mainEntity": ld_dataset,
+    }
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u203a Data &amp; Citation'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Data & Citation", None)])
+
+    body = f"""<h1>Data &amp; Citation</h1>
+<p class="summary">Machine- and reviewer-facing facts about Oliver's mTOR
+Atlas as a dataset: where it is registered, how it is identified, and how
+to cite it. Everything below also appears in this repository's
+<code>CITATION.cff</code> and <code>LICENSE</code> files and in this
+page's own JSON-LD, in case a script needs it rather than a human.</p>
+
+<h2>Registered with</h2>
+<table class="kv">
+<tr><td>bio.tools</td><td>Oliver's mTOR Atlas is registered with
+<a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a> &mdash;
+ELIXIR's registry of bioinformatics tools and databases &mdash; listed as
+a Database portal under Genetics, Molecular biology and Systems
+biology.</td></tr>
+</table>
+
+<h2>Identifiers</h2>
+<table class="kv">
+<tr><td>Dataset DOI</td><td><a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>
+&mdash; concept DOI, always resolves to the latest archived version on
+Zenodo</td></tr>
+<tr><td>GitHub</td><td><a href="https://github.com/open-mtor-atlas/atlas">github.com/open-mtor-atlas/atlas</a>
+&mdash; source code, build pipeline, issue tracker</td></tr>
+<tr><td>Curator ORCID</td><td><a href="https://orcid.org/0009-0008-2025-2148">0009-0008-2025-2148</a>
+(Oliver Barton)</td></tr>
+<tr><td>License</td><td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+&mdash; free to share and adapt, including commercially, with
+attribution</td></tr>
+</table>
+
+<h2>Cite this resource</h2>
+<p>If you use this dataset, please cite it as:</p>
+<p style="font-family:'IBM Plex Mono',monospace;font-size:13px;
+background:rgba(0,0,0,.03);padding:12px 14px;border-radius:4px;line-height:1.6;">
+Barton, O. ({year}). <em>Oliver's mTOR Atlas</em> [Data set]. Zenodo.
+<a href="https://doi.org/10.5281/zenodo.22059963">https://doi.org/10.5281/zenodo.22059963</a></p>
+<p>A machine-readable citation file is also available:
+<a href="https://github.com/open-mtor-atlas/atlas/blob/main/CITATION.cff">CITATION.cff</a>.</p>
+
+<h2>What's in the corpus right now</h2>
+<p>{n_studies} hand-curated primary studies on the mTOR signaling pathway,
+each rated A&ndash;D by strength of evidence and linked back to its DOI or
+PubMed record. See <a href="{SITE}/about/">About &amp; Methodology</a>
+for how a study earns a place and how the grading works.</p>
+
+<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>
+"""
+    return url, shell(
+        "Data & Citation | Oliver's mTOR Atlas",
+        "Where Oliver's mTOR Atlas is registered (bio.tools), its dataset "
+        "DOI, GitHub repository, curator ORCID, license, and how to cite it.",
+        url, [ld_page, bc], body, crumb, active_tab=None)
 
 
 # ------------------------------------------------------------------- main ---
@@ -1301,6 +1393,10 @@ def main():
     write(os.path.join(HERE, "about", "index.html"), apage)
     urls.append(("about", aurl))
 
+    durl, dpage = data_page(studies, entities)
+    write(os.path.join(HERE, "data", "index.html"), dpage)
+    urls.append(("about", durl))
+
     burl, bpage = browse_page(studies, entities, haspage, gap_links, author_links)
     write(os.path.join(HERE, "browse", "index.html"), bpage)
     urls.append(("entity", burl))
@@ -1363,6 +1459,7 @@ def main():
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           f'  <url><loc>{SITE}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n'
           f'  <url><loc>{aurl}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n'
+          f'  <url><loc>{durl}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n'
           '</urlset>\n')
 
     # robots.txt: povolení AI crawlerů explicitně. "Allow: /" je funkčně totéž,
@@ -1437,6 +1534,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
+- [Data & Citation](https://mtor-atlas.org/data/): bio.tools registration, dataset DOI, GitHub, ORCID, license, how to cite
 {answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.
@@ -1451,6 +1549,7 @@ Publication timelines for the scientists most represented in the corpus.
 {author_lines}
 
 ## Machine-readable
+- [Data & Citation](https://mtor-atlas.org/data/): DOI, GitHub, ORCID, license, bio.tools registration, citation string
 - [Sitemap index](https://mtor-atlas.org/sitemap.xml)
 - [robots.txt](https://mtor-atlas.org/robots.txt)
 
