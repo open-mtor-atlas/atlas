@@ -444,6 +444,21 @@ echo.
 echo === Push to GitHub ===
 git push origin main
 
+REM  IndexNow ping (added 2026-08-29): tell Bing/Yandex/Seznam.cz/Naver that
+REM  sitemap URLs changed, right after a successful push. Google does not
+REM  participate in IndexNow -- this is on top of, not instead of, the normal
+REM  sitemap/URL-Inspection path for Google. Best-effort like
+REM  build_chunk_index.py above: a failure here (no network, API hiccup, etc.)
+REM  must never abort a deploy that already pushed successfully.
+if errorlevel 1 (
+  echo    skipping IndexNow ping - push above did not succeed
+) else (
+  echo.
+  echo === Pinging IndexNow (Bing/Yandex/Seznam.cz/Naver) ===
+  py indexnow_ping.py
+  if errorlevel 1 echo    indexnow_ping.py reported a problem - see above, deploy continues regardless
+)
+
 echo.
 echo === Cleaning up temp files ===
 del "index_deploy_backup.html" 2>nul
