@@ -383,7 +383,7 @@ REM  before it ever shipped -- added here in the same commit as the page itself.
 REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
 REM  crawlers actually read, since they do not run the SPA's JavaScript.
 echo    including pre-rendered pages and sitemaps
-for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary about) do (
+for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary about data) do (
   if exist "%%D" git add "%%D"
 )
 if exist "sitemap.xml" git add sitemap.xml
