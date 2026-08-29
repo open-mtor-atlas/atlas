@@ -48,15 +48,27 @@ DATASET_REF = {
     "name": "Oliver's mTOR Atlas",
     "url": SITE + "/",
     "description": (
-        "A curated, evidence-graded database of mTOR pathway research: over 320 "
+        "A curated, evidence-graded database of mTOR pathway research: over 350 "
         "studies, with every eligible peer-reviewed primary study rated by evidence "
         "tier (A = systematic review/meta-analysis, B = human trial, C = animal model, "
         "D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, "
         "diseases and interventions, plus AI-identified knowledge gaps and testable "
         "hypotheses."
     ),
-    "creator": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
-                "url": SITE + "/"},
+    "identifier": "https://doi.org/10.5281/zenodo.22059963",
+    "sameAs": [
+        "https://doi.org/10.5281/zenodo.22059963",
+        "https://github.com/open-mtor-atlas/atlas",
+    ],
+    "creator": {"@type": "Person", "name": "Oliver Barton"},
+    "publisher": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
+                  "url": SITE + "/"},
+    "distribution": {
+        "@type": "DataDownload",
+        "name": "Archived snapshot (Zenodo)",
+        "encodingFormat": "text/html",
+        "contentUrl": "https://doi.org/10.5281/zenodo.22059963",
+    },
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": True,
     "inLanguage": "en",
@@ -623,6 +635,18 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
 # exactly the shape AI answer engines lift straight into a response, so this
 # is the single highest-leverage GEO gap on the site.
 
+# 2026-08-29 -- cross-link narrow scope: jen dvojice, kde téma opravdu 1:1
+# odpovídá (ne automatické párování, ručně ověřeno). Přidává odkaz z
+# hypothesis/gap stránky zpátky na existující answers/ stránku se stejným
+# tématem -- opravuje jednosměrný cross-link zjištěný v Search Surface Audit
+# 2026-08-29 (forward link answers->question už existoval, tenhle je reverse).
+GAP_TO_ANSWER = {
+    "is-autophagy-actually-required-for-the-mammalian-lifespan-benefit": (
+        "autophagy-required-lifespan",
+        "Is autophagy actually required for the lifespan benefit?",
+    ),
+}
+
 GAP_TYPE_LABEL = {
     "Evidence desert": "No study yet tests this",
     "Contradiction / tension": "Studies point in different directions",
@@ -672,6 +696,10 @@ def gap_page(g, studies_by_sid):
              for sid in g.get("studies") or [] if sid in studies_by_sid]
     if links:
         body.append(f'<h2>Related studies</h2><p>{" · ".join(links)}</p>')
+    if slug in GAP_TO_ANSWER:
+        aslug, atitle = GAP_TO_ANSWER[slug]
+        body.append(f'<p class="meta">Direct plain-language answer: '
+                    f'<a href="{SITE}/answers/{e(aslug)}/">{e(atitle)}</a></p>')
     body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
