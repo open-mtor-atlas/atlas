@@ -243,6 +243,128 @@ def check_studies(findings):
     return len(d)
 
 
+
+# ---------------------------------------------------------------- R8-R12
+# Added 2026-08-30 after the external scientific audit. Root cause the audit
+# named for the Category-1/2 findings it caught (H1 "ZERO", H7 Araki 2009,
+# H8 Halloran 2012, 4EBP1-MITO/ZID2009): the pipeline verified a citation
+# EXISTS, never that it supports the DIRECTION or SCOPE assigned to it, and
+# an announced correction (Welcome page) was never re-asserted against the
+# card it corrected. These five rules are static/regex heuristics, not full
+# semantic checks -- they narrow where a human needs to look, same spirit
+# as R1-R7 above.
+
+ABSENCE_WORD = re.compile(r"\b(ZERO|ONLY|EVERY|NONE|ALL)\b")
+ABSENCE_PHRASE = re.compile(r"\b(no study|not a single|not one)\b", re.I)
+SCOPE_PHRASE = re.compile(r"in this (corpus|atlas|dataset|collection)", re.I)
+NUMERAL = re.compile(r"\b\d+(\.\d+)?\s*%|\bp\s*[<=]\s*0\.\d+|\bHR\s*[\d.]+|\bn\s*=\s*\d+|"
+                     r"\b\d+/\d+\b|\b\d+(\.\d+)?\s*(months?|weeks?|years?)\b", re.I)
+CODE = re.compile(r"\b[A-Z]{2,6}\d{4}[A-Za-z]?\b")
+
+DEAD_LAYERS = ["MAP_NODES", "MAP_CORE_EDGES", "MAP_PERIPH_EDGES", "MAP_BANDS",
+               "ATLAS_EDGES", "ATLAS_ROUTES"]
+DEAD_FUNCS = ["renderMechanism", "mxBuildSVG", "mxSetRoute"]
+
+
+def load_atlas_gaps(h):
+    m = re.search(r"const ATLAS_GAPS = (\[.*?\]);", h, re.S)
+    if not m:
+        return []
+    try:
+        return json.loads(m.group(1))
+    except Exception:
+        return []
+
+
+def check_gap_regression_rules(findings, h):
+    gaps = load_atlas_gaps(h)
+
+    # R8 -- absolute-claim regression: re-assert a specific claim class
+    # against the live pathway model each run, per the audit's own example
+    # ("assert no sensor -> aging edge would have failed the moment
+    # SESN2-AGING was added, catching 1.3 automatically").
+    try:
+        model = json.load(open(os.path.join(HERE, "pathway", "model.json"), encoding="utf-8"))
+        sensor_to_aging_edges = [e["id"] for e in model.get("interactions", [])
+                                  if e.get("target", "").lower() in ("aging", "longevity")
+                                  and any(s in e.get("source", "") for s in
+                                          ("Sestrin", "SAMTOR", "CASTOR", "sensor"))]
+    except Exception:
+        sensor_to_aging_edges = None
+
+    for g in gaps:
+        gid = g.get("id", "?")
+        basis = g.get("basis") or ""
+        hyp = g.get("hyp") or ""
+        blob = basis + " " + hyp
+
+        # R8, concretely: an amino-acid-sensor gap asserting a ZERO/NONE-style
+        # absence of any sensor->aging outcome, while the model already
+        # carries such an edge, is a live regression.
+        if sensor_to_aging_edges and gid == "H1":
+            for m in re.finditer(r"\bZERO\b.{0,40}(aging|longevity)", basis, re.I):
+                # Skip a match that is itself being quoted as the OLD, already-
+                # corrected wording (e.g. inside a "CORRECTION LOG ... previously
+                # read '...'" note) -- that is documentation of the fix, not a
+                # live regression of it.
+                pre = basis[max(0, m.start() - 200):m.start()]
+                if re.search(r"previously read|CORRECTION LOG|already false", pre, re.I):
+                    continue
+                add(findings, "ERROR", "R8 absolute-claim-regression", "gap:%s" % gid, basis,
+                    "H1 claims a ZERO sensor->aging/longevity link, but pathway/model.json "
+                    "already carries %s. Re-run the correction." % ", ".join(sensor_to_aging_edges),
+                    "Update Evidence_Basis to acknowledge the edge (see LEE2010/SESN2-AGING).")
+
+        # R9 -- every numeral in a gap's basis needs a nearby study code.
+        for sent in re.split(r"(?<=[.!?])\s+", basis):
+            if NUMERAL.search(sent) and not CODE.search(sent):
+                add(findings, "WARN", "R9 number-without-code", "gap:%s.basis" % gid, sent,
+                    "Sentence carries a number with no study code in the same sentence.",
+                    "Attach the supporting study code next to the figure.")
+
+        # R10 -- codes mentioned in the prose should be in the gap's own
+        # Supporting_Studies list (bidirectional citation integrity, the
+        # achievable half -- the full corpus-wide reachability check needs
+        # the Studies table cross-referenced and is left to a human pass).
+        mentioned = set(CODE.findall(blob)) - {"NCT" + m for m in []}
+        mentioned = {c for c in mentioned if not c.startswith("NCT")}
+        listed = set(g.get("studies") or [])
+        missing = mentioned - listed
+        if missing:
+            add(findings, "WARN", "R10 code-not-in-supporting-list", "gap:%s" % gid,
+                ", ".join(sorted(missing)),
+                "Study code(s) %s appear in the gap's text but not in its Supporting_Studies "
+                "list." % ", ".join(sorted(missing)),
+                "Add the code(s) to Supporting_Studies, or remove the in-text citation.")
+
+        # R12 -- scope guard: an absence claim not scoped to "in this
+        # corpus/Atlas" reads as a claim about the whole literature.
+        for m in list(ABSENCE_WORD.finditer(basis)) + list(ABSENCE_PHRASE.finditer(basis)):
+            window = basis[max(0, m.start() - 120):m.end() + 120]
+            if not SCOPE_PHRASE.search(window):
+                add(findings, "WARN", "R12 unscoped-absence-claim", "gap:%s.basis" % gid,
+                    window,
+                    "Absence/absolute word %r with no 'in this corpus/Atlas' scoping nearby." % m.group(0),
+                    "Add 'in this corpus' (or similar) next to the claim, or drop the absolute word.")
+
+
+def check_dead_layers(findings, h):
+    # R11 -- single pathway layer. WARN, not ERROR: the legacy ATLAS_EDGES /
+    # MAP_* arrays and renderMechanism()/mx*() helpers are known-dead (never
+    # called; the live explorer reads pathway/model.json) and were flagged
+    # for deletion by the 2026-07-29 review, but deleting ~1,100 lines from
+    # this file is deliberately left as a separate, reviewed change rather
+    # than folded into a content-correction pass. Flip to ERROR once they
+    # are actually removed, so a reintroduction fails the build.
+    present = [name for name in DEAD_LAYERS + DEAD_FUNCS
+               if re.search(r"\b" + re.escape(name) + r"\b", h)]
+    if present:
+        add(findings, "WARN", "R11 dead-pathway-layer", "index.html", ", ".join(present),
+            "Legacy pathway constants/functions still shipped (unrendered, but "
+            "machine-readable to crawlers): %s." % ", ".join(present),
+            "Delete per the 2026-07-29 review note; see pathway-model-single-source.")
+
+
 def check_index(findings):
     h = open(INDEX, encoding="utf-8").read()
 
@@ -300,6 +422,9 @@ def main():
     findings = []
     n = check_studies(findings)
     check_index(findings)
+    h = open(INDEX, encoding="utf-8").read()
+    check_gap_regression_rules(findings, h)
+    check_dead_layers(findings, h)
 
     errs = [f for f in findings if f["severity"] == "ERROR"]
     warns = [f for f in findings if f["severity"] == "WARN"]

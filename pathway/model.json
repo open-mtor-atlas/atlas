@@ -4515,7 +4515,7 @@
    "mechanism_beginner": "Freed ULK1 kicks off autophagy — the cell's recycling programme, and the leading idea for why blocking this pathway might be beneficial.",
    "teaching_note": "",
    "boundary": "",
-   "context_note": "",
+   "context_note": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
    "note": "",
    "evidence": {
     "kind": "Genetic epistasis",
@@ -4538,7 +4538,7 @@
    "review": {
     "reviewer": "Open mTOR Atlas curation team",
     "reviewed": "2026-07-29",
-    "updated": "2026-07-29"
+    "updated": "2026-08-30"
    },
    "loops": []
   },
@@ -5161,7 +5161,7 @@
    "mechanism_beginner": "Once inside the nucleus, TFEB switches on a whole set of genes for cleanup and for building new lysosomes.",
    "teaching_note": "",
    "boundary": "",
-   "context_note": "",
+   "context_note": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
    "note": "The transcriptional arm of autophagy, distinct from the fast ULK1 arm.",
    "evidence": {
     "kind": "Genetic epistasis",
@@ -5184,7 +5184,7 @@
    "review": {
     "reviewer": "Open mTOR Atlas curation team",
     "reviewed": "2026-07-29",
-    "updated": "2026-07-29"
+    "updated": "2026-08-30"
    },
    "loops": []
   },
@@ -5325,25 +5325,22 @@
    "directness": "indirect",
    "timescale": "hours",
    "species": [
-    "mammalian cells",
-    "fly"
+    "mammalian cells"
    ],
    "mechanism": "The 4E-BP arm is specifically the one that gates mitochondrial protein translation - which is why this branch survives rapamycin better than the S6K arm.",
    "mechanism_beginner": "The 4E-BP branch specifically controls how many mitochondrial proteins get built, which is why this branch survives the standard drug better than others.",
    "teaching_note": "",
    "boundary": "",
-   "context_note": "",
-   "note": "",
+   "context_note": "Scope: mammalian cells, MOR2013. The sign holds where 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (TFAM, mitochondrial ribosomal proteins), which is why this branch survives rapamycin better than the S6K arm. It does NOT hold universally across species and nutrient states: in Drosophila under dietary restriction, ZID2009 reports that 4E-BP ENHANCES mitochondrial activity, and that this is how it extends lifespan. Treat the mammalian-cell direction as scoped, not general.",
+   "note": "CORRECTION (2026-08-30): ZID2009 removed from supporting evidence. It had been cited for effect=inhibits, but its own title is '4E-BP extends lifespan upon dietary restriction by ENHANCING mitochondrial activity in Drosophila' - the opposite direction. Best_tier dropped C->D accordingly; the mammalian in-vivo evidence for this step is MOR2013 (cells) only.",
    "evidence": {
     "kind": "Genetic epistasis",
     "tiers": [
-     "C",
      "D"
     ],
-    "best_tier": "C",
+    "best_tier": "D",
     "supporting": [
-     "MOR2013",
-     "ZID2009"
+     "MOR2013"
     ],
     "conflicting": []
    },
@@ -5355,7 +5352,7 @@
    "review": {
     "reviewer": "Open mTOR Atlas curation team",
     "reviewed": "2026-07-29",
-    "updated": "2026-07-29"
+    "updated": "2026-08-30"
    },
    "loops": []
   },
@@ -5583,7 +5580,7 @@
    "mechanism_beginner": "When the cell's fuel runs low, AMPK switches on — it's the cell's low-battery alarm, and one of the first things it does is shut mTORC1 off.",
    "teaching_note": "",
    "boundary": "",
-   "context_note": "",
+   "context_note": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
    "note": "",
    "evidence": {
     "kind": "Direct biochemical",
@@ -5605,7 +5602,7 @@
    "review": {
     "reviewer": "Open mTOR Atlas curation team",
     "reviewed": "2026-07-29",
-    "updated": "2026-07-29"
+    "updated": "2026-08-30"
    },
    "loops": []
   },
@@ -6214,7 +6211,7 @@
    "mechanism_beginner": "PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway stuck \"on.\"",
    "teaching_note": "PTEN does not touch the PI3K protein. It removes PI3K's product. Drawn as an inhibition arrow for readability — the mechanism is enzymatic reversal.",
    "boundary": "",
-   "context_note": "",
+   "context_note": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically. It dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking PI3K's activity.",
    "note": "",
    "evidence": {
     "kind": "Genetic epistasis",
@@ -6236,7 +6233,7 @@
    "review": {
     "reviewer": "Open mTOR Atlas curation team",
     "reviewed": "2026-07-29",
-    "updated": "2026-07-29"
+    "updated": "2026-08-30"
    },
    "loops": []
   },

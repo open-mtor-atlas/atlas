@@ -1396,6 +1396,14 @@ ROUTE_STEPS = {
 # silně, se to říká přímo na hraně — ne jen v globálním disclaimeru.
 # ---------------------------------------------------------------------------
 CTX_EXTRA = {
+ "PTEN-PI3K": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically. It dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking PI3K's activity.",
+ "STRESS-AMPK": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
+ "ULK1-AUTOPHAGY": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
+ "TFEB-AUTOPHAGY": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
+ # -- External audit 2026-08-30 (items 16-18): boundary/context clauses added above for
+ # PTEN-PI3K, STRESS-AMPK, ULK1-AUTOPHAGY, TFEB-AUTOPHAGY. Mirrored directly into the live
+ # pathway/model.json context_note fields on 2026-08-30 as a one-off patch (this build script
+ # was not re-run for that release) -- keep these two in sync on the next full rebuild.
  "AMPK-TSC": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways — activating TSC2 and directly phosphorylating Raptor — and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
  "AMPK-MTORC1": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
  "MTORC1-S6K1": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
