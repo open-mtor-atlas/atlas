@@ -39,7 +39,15 @@ def main():
     ver = h.hexdigest()[:12]
 
     p = os.path.join(ROOT, "index.html")
-    html = io.open(p, encoding="utf-8").read()
+    # newline="" + an explicit \r\n -> \n normalize makes this robust no matter
+    # what line endings are currently on disk (this file has been flipped to CRLF
+    # before by a different script's naive text-mode write -- see sync_relations.py
+    # for the same fix and the fuller explanation). Internal processing and the
+    # write below always use plain \n, matching the repo's .gitattributes
+    # (*.html text eol=lf), so this script can never be the one that reintroduces
+    # CRLF, regardless of what it was handed.
+    with io.open(p, encoding="utf-8", newline="") as f:
+        html = f.read().replace("\r\n", "\n")
 
     if NEEDLE in html:
         i = html.find(NEEDLE) + len(NEEDLE)
@@ -58,12 +66,28 @@ def main():
         html = html.replace(anchor, 'var PW_ASSET_V = "%s";\n%s' % (ver, anchor), 1)
         print("pathway asset version set to %s" % ver)
 
-    with io.open(p, "w", encoding="utf-8") as f:
-        f.write(html)
-        f.flush()
-        os.fsync(f.fileno())
+    # Atomic write: temp file in the same directory + fsync + os.replace(), so a
+    # crash or kill mid-write leaves the old index.html untouched instead of a
+    # truncated one (same pattern as sync_relations.py).
+    blob = html.encode("utf-8")
+    tmp = p + ".tmp"
+    try:
+        with io.open(tmp, "w", encoding="utf-8", newline="") as f:
+            f.write(html)
+            f.flush()
+            os.fsync(f.fileno())
+        with io.open(tmp, "rb") as f:
+            back = f.read()
+        if back != blob:
+            print("FAIL: temp file did not match — not swapping it in")
+            return 1
+        os.replace(tmp, p)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
 
-    chk = io.open(p, encoding="utf-8").read()
+    with io.open(p, encoding="utf-8", newline="") as f:
+        chk = f.read()
     ok = ('var PW_ASSET_V = "%s"' % ver) in chk and chk.rstrip().endswith("</html>")
     print("verified:", ok)
     return 0 if ok else 1

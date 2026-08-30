@@ -660,8 +660,15 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   ok(dtxt.includes(String(mechN)) && dtxt.includes(String(model.interactions.length)),
     `default panel quotes live counts (${mechN} of ${model.interactions.length})`);
   ok(dtxt.includes(String(restN)), `and the withheld count (${restN}) is computed too`);
-  const stale = dtxt.match(/\b(51|49|100)\b/g) || [];
-  ok(!stale.length || (mechN === 51 || restN === 49 || model.interactions.length === 100),
+  // The old check allowlisted the exact fossil numbers (51/49/100) instead of
+  // comparing against what's actually live right now -- so once the model grew
+  // enough that restN legitimately passed through 51 again by coincidence, this
+  // assertion started failing on a perfectly correct, freshly-computed panel.
+  // Fix: a number is only "stale" if it doesn't match any of the values the
+  // panel is live-computing this run (mechN / restN / total).
+  const liveNums = new Set([String(mechN), String(restN), String(model.interactions.length)]);
+  const stale = (dtxt.match(/\b(51|49|100)\b/g) || []).filter((n) => !liveNums.has(n));
+  ok(stale.length === 0,
     "no stale hard-coded count survives in the default panel");
   // Band labels are pinned to the viewport, so panning cannot clip them.
   ok(D.querySelectorAll("#pwCanvas .pw-bandg").length === model.compartments.length,

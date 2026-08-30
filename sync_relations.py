@@ -281,7 +281,11 @@ def main():
         sys.exit("Set AIRTABLE_TOKEN (read-only PAT scoped to this base), "
                  "or pass --layout-only to just re-solve the geometry.")
 
-    h = open(HTML, encoding="utf-8").read()
+    # newline="" avoids translation on read; the explicit \r\n -> \n
+    # normalize below makes the regexes/JSON-parsing below robust even if
+    # something else wrote CRLF into this file before we got here (has
+    # happened: stamp_pathway_version.py used to do exactly that).
+    h = open(HTML, encoding="utf-8", newline="").read().replace("\r\n", "\n")
     old_edges, _ = extract(h, "ATLAS_EDGES")
     routes, _ = extract(h, "ATLAS_ROUTES")
 
@@ -327,14 +331,28 @@ def main():
                "const ATLAS_ROUTES = " + json.dumps(routes, ensure_ascii=False) + ";\n",
                h, count=1, flags=re.S)
 
+    # Atomic write: build the new content in a sibling temp file, verify it
+    # byte-for-byte, THEN swap it into place with os.replace() (atomic on the
+    # same filesystem, including Windows). A crash or kill mid-write now
+    # leaves the old index.html untouched instead of a truncated/corrupt one.
+    # newline="" on both this write and the read above avoids Python's text-mode
+    # newline translation, which would silently turn LF into CRLF (and vice
+    # versa) if this is ever run under a non-WSL/native Windows Python.
     blob = h.encode("utf-8")
-    with open(HTML, "w", encoding="utf-8") as fh:
-        fh.write(h)
-        fh.flush()
-        os.fsync(fh.fileno())
-    back = open(HTML, "rb").read()
-    if back != blob:
-        sys.exit("WRITE VERIFICATION FAILED -- index.html was truncated. Do not commit.")
+    tmp_path = HTML + ".tmp"
+    try:
+        with open(tmp_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(h)
+            fh.flush()
+            os.fsync(fh.fileno())
+        with open(tmp_path, "rb") as fh:
+            back = fh.read()
+        if back != blob:
+            sys.exit("WRITE VERIFICATION FAILED -- temp file did not match. Do not commit.")
+        os.replace(tmp_path, HTML)
+    finally:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
     print("index.html rewritten and verified (%d bytes)." % len(blob))
     if problems:
         sys.exit(1)
