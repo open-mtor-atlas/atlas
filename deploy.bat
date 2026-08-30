@@ -189,6 +189,24 @@ py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
+echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
+REM  This is what AI crawlers without JS actually read (build_pages.py's own
+REM  header comment explains why) -- and it is also now the only place that
+REM  stamps DATASET_REF's version (read from CITATION.cff) and dateModified
+REM  onto every one of those pages AND onto index.html's own Dataset JSON-LD
+REM  block (patch_dataset_meta()). Before this step existed, deploy.bat never
+REM  called build_pages.py at all: the pre-rendered pages only updated when
+REM  someone ran it by hand, so a routine deploy could silently ship
+REM  weeks-stale study/entity/data pages next to a freshly-synced index.html.
+py build_pages.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_pages.py failed - the pre-rendered pages crawlers read
+  echo would be missing or stale relative to the data just synced above.
+  exit /b 1
+)
+
+echo.
 echo === Prerender JS-only tabs so crawlers see what humans see ===
 REM  #questionsView and #eventsView are filled at runtime by renderGaps() and
 REM  renderEvents(). Bots that do not execute JS (GPTBot, ClaudeBot, PerplexityBot,

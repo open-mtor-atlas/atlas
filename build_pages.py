@@ -40,9 +40,29 @@ CLEAN = "--clean" in sys.argv
 PAGE_THRESHOLD = 3          # quality gate z plánu fáze 6
 GENERATED_MARKER = "<!-- generated-by-build-pages -->"
 
+def _read_citation_version():
+    """Single source of truth for the dataset's formal version: CITATION.cff's
+    own `version:` field, bumped by hand whenever a new Zenodo release is cut.
+    Read here instead of hardcoding the same string separately in DATASET_REF
+    and in index.html's own JSON-LD block -- exactly the kind of two-copies
+    drift this project has been bitten by before. No PyYAML dependency: the
+    `version:` line in CITATION.cff is a single simple scalar, so a narrow
+    regex is enough. Returns "unknown" (never invents a number) if the file
+    or field is missing -- a bake still succeeds either way."""
+    try:
+        text = open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read()
+    except OSError:
+        return "unknown"
+    m = re.search(r'^version:\s*"?([^"\n]+?)"?\s*$', text, re.M)
+    return m.group(1) if m else "unknown"
+
+
 # Google Rich Results validuje i VNOŘENÉ Dataset uzly (isPartOf). Holý stub
 # {name, url} = "chybí pole description / creator / license" v Search Console.
-# Musí sedět s hlavním Dataset blokem v index.html.
+# Musí sedět s hlavním Dataset blokem v index.html -- both read the SAME
+# version (CITATION.cff, via _read_citation_version()) and are re-stamped
+# with the same dateModified at build time; patch_dataset_meta() below is
+# what pushes these two values into index.html's separate hand-written block.
 DATASET_REF = {
     "@type": "Dataset",
     "name": "Oliver's mTOR Atlas",
@@ -75,6 +95,16 @@ DATASET_REF = {
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": True,
     "inLanguage": "en",
+    "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity",
+                 "aging biology", "TSC complex", "evidence-based research"],
+    # "version" is the last formally cut Zenodo release (tag v1.0.0, DOI
+    # 10.5281/zenodo.22059964) -- NOT the live corpus size, which changes
+    # far more often than a release should. dateModified tracks the living
+    # corpus itself (stamped at build time, same convention as the sitemap
+    # <lastmod>): a reader/crawler can see the page changed even between
+    # formal version bumps.
+    "version": _read_citation_version(),
+    "dateModified": datetime.date.today().isoformat(),
 }
 
 # Entity_Type -> URL prefix. Změna = rozbité odkazy, viz hlavička.
@@ -1306,6 +1336,44 @@ def write(path, content):
     STATS["written"] += 1
 
 
+def patch_dataset_meta(version, date_modified):
+    """Keeps index.html's own hand-written Dataset JSON-LD block (head of the
+    file -- separate from DATASET_REF, which every *_page() function below
+    uses) in sync with the same version/dateModified DATASET_REF just computed.
+    Same idempotent read-check-write pattern as patch_home()/patch_spa_links()
+    above; scoped to the FIRST <script type="application/ld+json"> block only,
+    so it can never touch anything else in a 3+MB file by accident."""
+    p = os.path.join(HERE, "index.html")
+    if not os.path.exists(p):
+        return "index.html nenalezen"
+    h = open(p, encoding="utf-8").read()
+    m = re.search(r'(<script type="application/ld\+json">\n)(.*?)(\n</script>)', h, re.S)
+    if not m:
+        return "POZOR: hlavni JSON-LD blok nenalezen, NEZAPSANO"
+    block = m.group(2)
+    new_block, n1 = re.subn(r'"version":\s*"[^"]*"', f'"version": "{version}"', block, count=1)
+    new_block, n2 = re.subn(r'"dateModified":\s*"[^"]*"', f'"dateModified": "{date_modified}"', new_block, count=1)
+    if not (n1 and n2):
+        return "POZOR: version/dateModified pole v JSON-LD nenalezena, NEZAPSANO"
+    json.loads(new_block)  # must still be valid JSON after the edit
+    if new_block == block:
+        return "verze uz sedi"
+    if DRY:
+        return "dry-run"
+    h2 = h[:m.start(2)] + new_block + h[m.end(2):]
+    tmp = p + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(h2)
+        f.flush()
+        os.fsync(f.fileno())
+    chk = open(tmp, encoding="utf-8").read()
+    if len(chk) != len(h2) or not chk.rstrip().endswith("</html>"):
+        os.remove(tmp)
+        return "POZOR: overeni zapisu index.html selhalo, NEZAPSANO"
+    os.replace(tmp, p)
+    return f"version={version}, dateModified={date_modified}"
+
+
 def main():
     sp = os.path.join(DATA, "studies_baked.json")
     ep = os.path.join(DATA, "entities_baked.json")
@@ -1402,6 +1470,7 @@ def main():
     urls.append(("entity", burl))
     print("rozcestník /browse/ :", patch_home(len(urls) + 1))
     print("odkazy uvnitř SPA  :", patch_spa_links())
+    print("dataset meta v SPA :", patch_dataset_meta(DATASET_REF["version"], DATASET_REF["dateModified"]))
 
     for old, new in LEGACY_SLUGS.items():
         write(os.path.join(HERE, old, "index.html"),
