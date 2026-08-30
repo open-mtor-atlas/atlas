@@ -189,6 +189,30 @@ py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
+echo === Build the Academy ^(/academy/^) ===
+REM  MUSI bezet PRED build_pages.py: zapisuje academy_data\_sid_to_lesson.json,
+REM  ze ktereho build_pages.py sklada blok "Learn the biology" na strankach studii.
+REM  Obracene poradi znamena, ze se novy/zmeneny odkaz projevi az pri PRISTIM deployi.
+py build_academy.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_academy.py failed - /academy/ by se nasadilo stale nebo rozbite.
+  exit /b 1
+)
+
+echo.
+echo === Academy integrity gate ===
+REM  Lekce odkazuji napric vsemi vrstvami najednou (studie, entity nad prahem,
+REM  open questions, guided routes). Tahle brana chyti odkaz do prazdna DRIV,
+REM  nez na nej nekdo klikne na zivem webu.
+py verify_academy.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: verify_academy.py found broken Academy references. NOT deploying.
+  exit /b 1
+)
+
+echo.
 echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
 REM  This is what AI crawlers without JS actually read (build_pages.py's own
 REM  header comment explains why) -- and it is also now the only place that
@@ -203,6 +227,21 @@ if errorlevel 1 (
   echo.
   echo ABORTED: build_pages.py failed - the pre-rendered pages crawlers read
   echo would be missing or stale relative to the data just synced above.
+  exit /b 1
+)
+
+echo.
+echo === Cache-bust the lazy-loaded pathway assets ===
+REM  pathway.js / pathway.css / model.json / contexts.json se stahuji az za behu
+REM  na pevnych URL, takze je CDN i prohlizec drzi v cache. stamp_pathway_version.py
+REM  zapise hash jejich obsahu do PW_ASSET_V v index.html a loader ho pripoji jako ?v=.
+REM  deploy.sh to delal odjakziva, deploy.bat NE - takze windowsi deploy mohl poslat
+REM  novy modul se starou ?v= a prohlizec by dal servirovat stary JS. Doplneno 2026-08-30
+REM  spolu s PathwayApp.openRoute(), coz je presne takova zmena.
+py stamp_pathway_version.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: stamp_pathway_version.py failed - pathway assets by se nasadily se stalou cache.
   exit /b 1
 )
 
@@ -401,11 +440,11 @@ REM  before it ever shipped -- added here in the same commit as the page itself.
 REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
 REM  crawlers actually read, since they do not run the SPA's JavaScript.
 echo    including pre-rendered pages and sitemaps
-for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary about data) do (
+for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary about data academy academy_data) do (
   if exist "%%D" git add "%%D"
 )
 if exist "sitemap.xml" git add sitemap.xml
-for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml sitemap-authors.xml sitemap-questions.xml sitemap-answers.xml robots.txt llms.txt) do (
+for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml sitemap-authors.xml sitemap-questions.xml sitemap-answers.xml sitemap-academy.xml robots.txt llms.txt) do (
   if exist "%%F" git add "%%F"
 )
 if exist "lineage_1.html" git add lineage_1.html
@@ -438,7 +477,7 @@ REM  mobile-optimisation pass on 2026-07-29 rewrote build_pages.py to emit media
 REM  queries, and without this block the 311 regenerated pages would have shipped
 REM  while the generator that produced them stayed behind.
 echo    including pipeline scripts and repo config
-for %%F in (build_pages.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
