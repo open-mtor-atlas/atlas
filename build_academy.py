@@ -247,11 +247,250 @@ def fig_rheb_spatial():
                 "lysosome under stress.")
 
 
+def fig_tsc_gap():
+    """Lekce 04. Jadro je jednoduche: TSC neni prepinac, ale GAP -- urcuje,
+    jak dlouho Rheb zustane v GTP stavu. Proto se kresli cyklus, ne sipka."""
+    g = []
+    ins = ["AKT (growth factors)", "ERK / RSK (mitogens)", "AMPK (low energy)",
+           "Hypoxia, DNA damage"]
+    for i, t in enumerate(ins):
+        y = 14 + i * 34
+        g.append('<rect class="ac-box" x="4" y="%d" width="176" height="26" rx="3"/>'
+                 '<text class="ac-t" x="92" y="%d">%s</text>'
+                 '<path class="ac-arrow ac-thin" d="M184 %d H226" marker-end="url(#acArrow)"/>'
+                 % (y, y + 17, t, y + 13))
+    g.append('<rect class="ac-box ac-accent" x="230" y="44" width="152" height="60" rx="3"/>'
+             '<text class="ac-t ac-lead" x="306" y="72">TSC complex</text>'
+             '<text class="ac-t ac-sub" x="306" y="91">TSC1 &middot; TSC2 &middot; TBC1D7</text>')
+    # TSC -> GAP aktivita na cyklu
+    g.append('<path class="ac-arrow" d="M386 74 H444" marker-end="url(#acArrow)"/>')
+    g.append('<text class="ac-t ac-sub" x="415" y="66">GAP</text>')
+    # cyklus Rheb-GTP <-> Rheb-GDP
+    g.append('<rect class="ac-box ac-accent" x="448" y="20" width="132" height="32" rx="3"/>'
+             '<text class="ac-t" x="514" y="41">Rheb-GTP (on)</text>')
+    g.append('<rect class="ac-box" x="448" y="98" width="132" height="32" rx="3"/>'
+             '<text class="ac-t" x="514" y="119">Rheb-GDP (off)</text>')
+    g.append('<path class="ac-arrow" d="M472 56 V94" marker-end="url(#acArrow)"/>')
+    g.append('<path class="ac-arrow ac-thin" d="M556 94 V56" marker-end="url(#acArrow)"/>')
+    g.append('<text class="ac-t ac-sub" x="588" y="79">reload</text>')
+    g.append('<path class="ac-arrow" d="M584 36 H628" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box ac-accent" x="632" y="20" width="98" height="32" rx="3"/>'
+             '<text class="ac-t" x="681" y="41">mTORC1</text>')
+    g.append('<text class="ac-t ac-sub" x="365" y="164">the complex acts as a '
+             '<tspan class="ac-em">GAP</tspan>: it speeds up the hydrolysis Rheb already '
+             'performs, so it sets a rate rather than flipping a switch</text>')
+    return _svg("0 0 740 176", "".join(g),
+                "Growth-factor, mitogen, energy and stress inputs converge on the TSC "
+                "complex, which acts as a GAP that pushes Rheb from its GTP-bound on-state "
+                "to its GDP-bound off-state; only Rheb-GTP activates mTORC1.")
+
+def fig_lysosome_hub():
+    """Lekce 05. Membrana jako platforma: kdo na ni sedi, kdo se na ni tahne
+    a kam odchazi signal ven (TFEB do jadra)."""
+    g = ['<rect class="ac-box ac-accent" x="196" y="10" width="164" height="32" rx="3"/>'
+         '<text class="ac-t" x="278" y="31">mTORC1 (cytosol)</text>',
+         '<path class="ac-arrow" d="M278 46 V96" marker-end="url(#acArrow)"/>',
+         '<rect class="ac-organelle" x="14" y="100" width="592" height="76" rx="14"/>',
+         '<text class="ac-t ac-sub" x="60" y="168">lysosome</text>']
+    parts = [("v-ATPase", 26, 96), ("Ragulator", 130, 96), ("Rag A/B &middot; C/D", 234, 112),
+             ("SLC38A9", 356, 96), ("Rheb", 462, 88)]
+    for label, x, w in parts:
+        cls = "ac-box ac-accent" if label == "Rheb" else "ac-box"
+        g.append('<rect class="%s" x="%d" y="112" width="%d" height="30" rx="3"/>'
+                 '<text class="ac-t" x="%d" y="132">%s</text>' % (cls, x, w, x + w // 2, label))
+    g.append('<text class="ac-t ac-sub" x="130" y="74">the signal starts in the lumen</text>')
+    g.append('<text class="ac-t ac-sub" x="452" y="74">amino acids decide '
+             '<tspan class="ac-em">where</tspan></text>')
+    # TFEB vetev -- vlastni box pod membranou, sipka ven do jadra
+    g.append('<rect class="ac-box" x="234" y="196" width="112" height="30" rx="3"/>'
+             '<text class="ac-t" x="290" y="216">TFEB</text>')
+    g.append('<path class="ac-inh" d="M290 148 V190"/><path class="ac-inh" d="M278 190 H302"/>')
+    g.append('<path class="ac-arrow" d="M350 211 H430" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box" x="434" y="196" width="152" height="30" rx="3"/>'
+             '<text class="ac-t" x="510" y="216">nucleus</text>')
+    g.append('<text class="ac-t ac-sub" x="392" y="190">when mTORC1 is off</text>')
+    g.append('<text class="ac-t ac-sub" x="300" y="248">docking is not activation: being here '
+             'is what lets Rheb switch mTORC1 on</text>')
+    return _svg("0 0 620 258", "".join(g),
+                "The lysosomal surface carries the v-ATPase, Ragulator, the Rag GTPases and "
+                "SLC38A9; amino acids recruit mTORC1 there, where Rheb can activate it, and "
+                "TFEB is held out of the nucleus by mTORC1 until its activity falls.")
+
+def fig_aa_sensors():
+    """Lekce 06. Dvojity zapor je cela pointa: senzor VAZE aminokyselinu a tim
+    PRESTANE inhibovat. Kresli se proto jako retez kolmicek, ne sipek."""
+    rows = [("Leucine", "Sestrin2"), ("Arginine", "CASTOR1"),
+            ("S-adenosyl-methionine", "SAMTOR")]
+    g = []
+    ys = []
+    for i, (aa, sensor) in enumerate(rows):
+        y = 14 + i * 46
+        ys.append(y + 15)
+        g.append('<rect class="ac-box" x="4" y="%d" width="150" height="30" rx="3"/>'
+                 '<text class="ac-t" x="79" y="%d">%s</text>' % (y, y + 20, aa))
+        g.append('<path class="ac-arrow ac-thin" d="M158 %d H186" marker-end="url(#acArrow)"/>'
+                 % (y + 15))
+        g.append('<rect class="ac-box" x="190" y="%d" width="118" height="30" rx="3"/>'
+                 '<text class="ac-t" x="249" y="%d">%s</text>' % (y, y + 20, sensor))
+        g.append('<path class="ac-inh" d="M312 %d H336"/>' % (y + 15))
+    # spolecna sbernice do GATOR2 -- tri kolmicky konci na jedne care
+    g.append('<path class="ac-inh" d="M336 %d V%d"/>' % (ys[0], ys[2]))
+    g.append('<path class="ac-inh" d="M336 %d H354"/>' % ys[1])
+    g.append('<rect class="ac-box" x="358" y="%d" width="112" height="46" rx="3"/>'
+             '<text class="ac-t" x="414" y="%d">GATOR2</text>'
+             '<text class="ac-t ac-sub" x="414" y="%d">bound = inhibited</text>'
+             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
+    g.append('<path class="ac-inh" d="M474 %d H498"/><path class="ac-inh" d="M498 %d V%d"/>'
+             % (ys[1], ys[1] - 9, ys[1] + 9))
+    g.append('<rect class="ac-box" x="506" y="%d" width="112" height="46" rx="3"/>'
+             '<text class="ac-t" x="562" y="%d">GATOR1</text>'
+             '<text class="ac-t ac-sub" x="562" y="%d">GAP for RagA/B</text>'
+             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
+    g.append('<path class="ac-inh" d="M622 %d H646"/><path class="ac-inh" d="M646 %d V%d"/>'
+             % (ys[1], ys[1] - 9, ys[1] + 9))
+    g.append('<rect class="ac-box ac-accent" x="654" y="%d" width="104" height="46" rx="3"/>'
+             '<text class="ac-t" x="706" y="%d">Rag</text>'
+             '<text class="ac-t ac-sub" x="706" y="%d">active state</text>'
+             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
+    g.append('<text class="ac-t ac-sub" x="380" y="172">count the blunt ends: an amino acid '
+             'present means one more inhibition released, not one more push</text>')
+    return _svg("0 0 768 184", "".join(g),
+                "Leucine binds Sestrin2, arginine binds CASTOR1 and S-adenosylmethionine "
+                "binds SAMTOR; each bound sensor stops inhibiting GATOR2, which inhibits "
+                "GATOR1, which is the GAP that switches the Rag GTPases off.")
+
+def fig_gf_axis():
+    g = []
+    chain = [("Insulin / IGF-1", 4, 140), ("Receptor (RTK)", 176, 128),
+             ("PI3K", 336, 84), ("PIP<tspan dy=\"3\" font-size=\"9\">3</tspan>", 452, 78),
+             ("AKT", 562, 84)]
+    for label, x, w in chain:
+        cls = "ac-box ac-accent" if label == "AKT" else "ac-box"
+        g.append('<rect class="%s" x="%d" y="34" width="%d" height="32" rx="3"/>'
+                 '<text class="ac-t" x="%d" y="55">%s</text>' % (cls, x, w, x + w // 2, label))
+        if label != "AKT":
+            g.append('<path class="ac-arrow" d="M%d 50 H%d" marker-end="url(#acArrow)"/>'
+                     % (x + w + 4, x + w + 28))
+    g.append('<rect class="ac-box" x="548" y="120" width="112" height="30" rx="3"/>'
+             '<text class="ac-t" x="604" y="140">mTORC2</text>')
+    g.append('<path class="ac-arrow ac-thin" d="M604 116 V72" marker-end="url(#acArrow)"/>')
+    g.append('<text class="ac-t ac-sub" x="646" y="98">Ser473</text>')
+    g.append('<path class="ac-inh" d="M650 50 H680"/><path class="ac-inh" d="M680 40 V60"/>')
+    g.append('<rect class="ac-box" x="688" y="34" width="118" height="32" rx="3"/>'
+             '<text class="ac-t" x="747" y="55">TSC complex</text>')
+    g.append('<path class="ac-inh" d="M810 50 H840"/><path class="ac-inh" d="M840 40 V60"/>')
+    g.append('<rect class="ac-box ac-accent" x="848" y="34" width="100" height="32" rx="3"/>'
+             '<text class="ac-t" x="898" y="55">mTORC1</text>')
+    g.append('<text class="ac-t ac-sub" x="474" y="18">the growth-factor branch reaches '
+             'mTORC1 by removing a brake, not by pushing a pedal</text>')
+    g.append('<text class="ac-t ac-sub" x="330" y="140">PRAS40, a second brake, sits inside '
+             'mTORC1 itself and is released by the same kinase</text>')
+    return _svg("0 0 958 158", "".join(g),
+                "Insulin and IGF-1 act through a receptor tyrosine kinase, PI3K and PIP3 to "
+                "activate AKT, with mTORC2 phosphorylating AKT at Ser473; AKT then inhibits "
+                "the TSC complex, which relieves inhibition of mTORC1.")
+
+def fig_feedback_loops():
+    g = ['<rect class="ac-box ac-accent" x="262" y="26" width="150" height="36" rx="3"/>'
+         '<text class="ac-t" x="337" y="49">mTORC1</text>']
+    g.append('<path class="ac-arrow" d="M337 66 V104" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box" x="252" y="108" width="170" height="34" rx="3"/>'
+             '<text class="ac-t" x="337" y="129">S6K1 &middot; Grb10</text>')
+    g.append('<path class="ac-inh" d="M248 125 H196"/><path class="ac-inh" d="M196 114 V136"/>')
+    g.append('<rect class="ac-box" x="70" y="108" width="118" height="34" rx="3"/>'
+             '<text class="ac-t" x="129" y="129">IRS-1</text>')
+    g.append('<path class="ac-arrow ac-thin" d="M129 104 V70" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box" x="70" y="34" width="118" height="34" rx="3"/>'
+             '<text class="ac-t" x="129" y="55">PI3K / AKT</text>')
+    g.append('<path class="ac-arrow ac-thin" d="M192 51 H256" marker-end="url(#acArrow)"/>')
+    g.append('<text class="ac-t ac-sub" x="224" y="26">activates</text>')
+    g.append('<text class="ac-t ac-sub" x="246" y="168">the loop is negative: mTORC1 output '
+             'weakens the very input that switched it on</text>')
+    g.append('<rect class="ac-box" x="470" y="26" width="160" height="36" rx="3"/>'
+             '<text class="ac-t" x="550" y="49">mTORC1 inhibitor</text>')
+    g.append('<path class="ac-inh" d="M466 44 H424"/><path class="ac-inh" d="M424 34 V54"/>')
+    g.append('<text class="ac-t ac-sub" x="546" y="84">remove mTORC1 output and</text>')
+    g.append('<text class="ac-t ac-sub" x="546" y="98">the brake goes with it</text>')
+    g.append('<path class="ac-dash" d="M546 106 C546 140 260 152 176 146"/>')
+    return _svg("0 0 680 180", "".join(g),
+                "mTORC1 drives S6K1 and Grb10, which inhibit IRS-1 and so weaken the "
+                "PI3K/AKT input that activated mTORC1; inhibiting mTORC1 releases that "
+                "brake and AKT signalling can rise.")
+
+def fig_autophagy_switch():
+    g = ['<rect class="ac-box ac-accent" x="20" y="14" width="146" height="46" rx="3"/>'
+         '<text class="ac-t" x="93" y="42">mTORC1</text>']
+    # rychla vetev: mTORC1 -| ULK1, AMPK -> ULK1
+    g.append('<path class="ac-inh" d="M170 37 H222"/><path class="ac-inh" d="M226 25 V49"/>')
+    g.append('<rect class="ac-box" x="234" y="14" width="186" height="50" rx="3"/>'
+             '<text class="ac-t" x="327" y="34">ULK1 complex</text>'
+             '<text class="ac-t ac-sub" x="327" y="52">ULK1 &middot; ATG13 &middot; FIP200</text>')
+    g.append('<path class="ac-arrow" d="M424 39 H466" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box" x="470" y="22" width="152" height="34" rx="3"/>'
+             '<text class="ac-t" x="546" y="43">Autophagosome</text>')
+    g.append('<rect class="ac-box" x="58" y="96" width="128" height="34" rx="3"/>'
+             '<text class="ac-t" x="122" y="117">AMPK</text>')
+    g.append('<path class="ac-arrow ac-thin" d="M190 113 H300 V70" marker-end="url(#acArrow)"/>')
+    g.append('<text class="ac-t ac-sub" x="252" y="106">activating site</text>')
+    # pomala vetev: mTORC1 -| TFEB -> jadro
+    g.append('<path class="ac-inh" d="M30 64 V186 H208"/>'
+             '<path class="ac-inh" d="M212 174 V198"/>')
+    g.append('<rect class="ac-box" x="234" y="168" width="186" height="36" rx="3"/>'
+             '<text class="ac-t" x="327" y="191">TFEB</text>')
+    g.append('<path class="ac-arrow" d="M424 186 H466" marker-end="url(#acArrow)"/>')
+    g.append('<rect class="ac-box" x="470" y="168" width="152" height="36" rx="3"/>'
+             '<text class="ac-t" x="546" y="191">nucleus</text>')
+    g.append('<text class="ac-t ac-sub" x="300" y="228">phosphorylated TFEB stays in the '
+             'cytosol</text>')
+    g.append('<text class="ac-t ac-sub" x="546" y="222">lysosomal &amp; autophagy genes</text>')
+    g.append('<text class="ac-t ac-sub" x="93" y="152">minutes above, hours below</text>')
+    return _svg("0 0 640 240", "".join(g),
+                "mTORC1 inhibits the ULK1 complex and keeps TFEB out of the nucleus, while "
+                "AMPK activates ULK1; when mTORC1 activity falls, autophagosome formation "
+                "and the TFEB transcriptional program are released.")
+
+def fig_claim_anatomy():
+    """Lekce 10. Neni to biologie, ale anatomie tvrzeni: co bylo skutecne
+    zmereno vs. co veta rika. Mezera mezi tim se kresli jako mezera."""
+    cols = [("Model system", "mouse, cell line,\nhuman cohort"),
+            ("Perturbation", "knockout, drug,\ndiet, dose"),
+            ("Readout", "what was actually\nmeasured"),
+            ("Claim", "the sentence in\nthe abstract")]
+    g = []
+    for i, (head, sub) in enumerate(cols):
+        x = 6 + i * 148
+        cls = "ac-box ac-accent" if head == "Claim" else "ac-box"
+        g.append('<rect class="%s" x="%d" y="26" width="130" height="62" rx="3"/>' % (cls, x))
+        g.append('<text class="ac-t" x="%d" y="50">%s</text>' % (x + 65, head))
+        for k, line in enumerate(sub.split("\n")):
+            g.append('<text class="ac-t ac-sub" x="%d" y="%d">%s</text>'
+                     % (x + 65, 68 + k * 13, line))
+        if i < 3:
+            g.append('<path class="ac-arrow ac-thin" d="M%d 57 H%d" marker-end="url(#acArrow)"/>'
+                     % (x + 134, x + 148))
+    g.append('<path class="ac-dash" d="M441 30 V104"/>')
+    g.append('<text class="ac-t ac-sub" x="300" y="130">the distance between the readout and '
+             'the claim is where most of the reading happens</text>')
+    g.append('<text class="ac-t ac-sub" x="300" y="14">every result you meet has these four '
+             'parts, whether or not the abstract names them</text>')
+    return _svg("0 0 600 140", "".join(g),
+                "Four parts of any result: the model system, the perturbation, the readout "
+                "that was actually measured, and the claim made from it; the gap between "
+                "readout and claim is what a reader has to judge.")
+
+
 FIGURES = {
     "mtor-integrator": fig_mtor_integrator,
     "two-complexes": fig_two_complexes,
     "rheb-axis": fig_rheb_axis,
     "rheb-spatial": fig_rheb_spatial,
+    "tsc-gap": fig_tsc_gap,
+    "lysosome-hub": fig_lysosome_hub,
+    "aa-sensors": fig_aa_sensors,
+    "gf-axis": fig_gf_axis,
+    "feedback-loops": fig_feedback_loops,
+    "autophagy-switch": fig_autophagy_switch,
+    "claim-anatomy": fig_claim_anatomy,
 }
 
 SVG_DEFS = ('<svg width="0" height="0" aria-hidden="true" focusable="false" '
@@ -396,6 +635,50 @@ nav.crumb{max-width:1060px}
 .ac-think details[open]>summary::after{content:""}
 .ac-think .ac-reveal{font-size:14.5px;line-height:1.6;margin:2px 0 0}
 
+/* quiz ------------------------------------------------------------------
+   Spec §2/§18 again: this is a comprehension check, not a game. Nothing is
+   stored, nothing is scored across lessons, there is no pass mark and no
+   streak. Feedback is per-question and immediate, and the reason the answer
+   is right is the point -- the tick is not.
+   Correctness is never carried by colour alone (a glyph and a word carry it
+   too), and the evidence-tier palette is deliberately NOT reused here: those
+   colours mean study type, not "good/bad". */
+.ac-quiz{margin:4px 0 0}
+.ac-qz{border:1px solid var(--line);border-radius:3px;padding:15px 18px 12px;margin:0 0 12px}
+.ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
+.ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzopts{list-style:none;padding:0;margin:0}
+.ac-qzopts li{margin:0 0 6px}
+.ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
+  min-height:44px;padding:9px 12px;font:inherit;font-size:15px;line-height:1.5;
+  color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:3px;
+  cursor:pointer}
+.ac-qzopt:hover{border-color:var(--teal)}
+.ac-qzopt:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ac-qzkey{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;
+  color:var(--soft);flex:0 0 auto;padding-top:1px}
+.ac-qz[data-done] .ac-qzopt{cursor:default}
+.ac-qz[data-done] .ac-qzopt:hover{border-color:var(--line)}
+.ac-qzopt[data-mark="right"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[data-mark="right"] .ac-qzkey{color:var(--teal)}
+.ac-qzopt[data-mark="wrong"]{border-color:var(--amber);box-shadow:inset 3px 0 0 var(--amber)}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey{color:var(--amber)}
+.ac-qzopt[data-mark] .ac-qzkey::after{content:" \\2713"}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey::after{content:" \\2715"}
+.ac-qzwhy{font-size:14.5px;line-height:1.6;margin:10px 0 2px;
+  border-left:3px solid var(--teal);padding:0 0 0 12px}
+.ac-qzverdict{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qz details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-qz details>summary::-webkit-details-marker{display:none}
+.ac-qz details>summary::after{content:" \2192"}
+.ac-qz details[open]>summary::after{content:""}
+.ac-qz details p{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+.ac-qztally{font-size:14px;color:var(--soft);margin:2px 0 0}
+
 .ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
 .ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
   border:1px solid var(--line);border-radius:3px;padding:5px 11px;text-decoration:none}
@@ -432,6 +715,53 @@ nav.crumb{max-width:1060px}
   .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
   .ac-list .ac-meta{width:100%}
 }
+"""
+
+
+QUIZ_JS = """
+<script>
+/* Academy mini-quiz. Same rules as the progress switch above: no storage, no
+   score kept anywhere, no network. Answering marks the option you picked and
+   the right one, and reveals WHY -- which is the part worth reading. Without
+   JS every question still works: the <details> fallback below each question
+   carries the answer and the same explanation, so the page is never a dead
+   list of options. */
+(function(){
+  var qs=document.querySelectorAll('.ac-qz');
+  if(!qs.length) return;
+  var total=qs.length, answered=0, right=0;
+  var tally=document.getElementById('acQzTally');
+  qs.forEach(function(qz){
+    var fall=qz.querySelector('.ac-qzfall');
+    if(fall) fall.hidden=true;               /* JS is on -> feedback is inline */
+    var why=qz.querySelector('.ac-qzwhy');
+    var correct=parseInt(qz.getAttribute('data-answer'),10);
+    var opts=qz.querySelectorAll('.ac-qzopt');
+    opts.forEach(function(b){
+      b.addEventListener('click',function(){
+        if(qz.hasAttribute('data-done')) return;
+        qz.setAttribute('data-done','1');
+        var picked=parseInt(b.getAttribute('data-i'),10);
+        var ok=picked===correct;
+        opts.forEach(function(o){
+          var i=parseInt(o.getAttribute('data-i'),10);
+          o.setAttribute('aria-disabled','true');
+          if(i===correct) o.setAttribute('data-mark','right');
+          else if(i===picked) o.setAttribute('data-mark','wrong');
+        });
+        var v=qz.querySelector('.ac-qzverdict');
+        if(v) v.textContent=ok?'Correct':'Not this one';
+        if(why){why.hidden=false;}
+        answered++; if(ok) right++;
+        if(tally&&answered===total){
+          tally.textContent=right+' of '+total+' first time. Nothing here is recorded '+
+            '\u2014 the explanations are the point.';
+        }
+      });
+    });
+  });
+})();
+</script>
 """
 
 PROGRESS_JS = """
@@ -495,12 +825,18 @@ def evidence_cards(sids, by_sid):
     return '<div class="ac-ev">%s</div>' % "".join(out)
 
 
+# Klice v lekci, ktere se resolvuji na stranky entit. Poradi urcuje poradi
+# chipu v "Go deeper" -- molekuly, pak kontext (latka, nemoc, vysledek).
+ENTITY_KEYS = ("proteins", "pathways", "processes", "organelles", "nutrients",
+               "drugs", "diseases", "outcomes")
+
+
 def deeper_links(les, ent_url, gaps):
     """Chipy "Go deeper". VZDY jen na entity, ktere maji vlastni stranku --
     jmeno bez stranky se tise preskoci a nahlasi do konzole, nikdy nevznikne
     mrtvy odkaz."""
     chips, missing = [], []
-    for key in ("proteins", "pathways", "processes", "organelles", "nutrients"):
+    for key in ENTITY_KEYS:
         for name in les.get(key) or []:
             hit = ent_url.get(name.lower())
             if not hit:
@@ -545,6 +881,44 @@ def chain_rail(module, lessons_by_slug, current):
 
 # ----------------------------------------------------------------- pages ---
 
+QZ_KEYS = "ABCD"
+QZ_LEVEL = {"easy": "Warm-up", "medium": "Step up", "hard": "Harder"}
+
+
+def quiz_block(les):
+    """Tri otazky, lehka -> tezka. Data se validuji uz ve verify_academy.py;
+    tady se jen kresli. Odpoved je v data-answer, protoze fallback <details>
+    ji stejne ukazuje -- tohle neni zkouska, ale kontrola porozumeni."""
+    qz = les.get("quiz") or []
+    if not qz:
+        return ""
+    out = ['<section class="ac-section"><h2 id="quiz">Check yourself</h2>',
+           "<p>Three questions, easiest first. Nothing is recorded and there is no "
+           "pass mark &mdash; the explanation after each answer is the part worth "
+           "reading.</p>", '<div class="ac-quiz">']
+    for i, q in enumerate(qz):
+        lvl = QZ_LEVEL.get(q.get("level"), "Question")
+        out.append('<div class="ac-qz" data-answer="%d">' % q["answer"])
+        out.append('<p class="ac-qzq"><span class="ac-qzn">Question %d &middot; %s</span>%s</p>'
+                   % (i + 1, e(lvl), prose(q["prompt"])))
+        out.append('<ul class="ac-qzopts" role="group" aria-label="Answer options">')
+        for j, opt in enumerate(q["options"]):
+            out.append('<li><button type="button" class="ac-qzopt" data-i="%d">'
+                       '<span class="ac-qzkey">%s</span><span>%s</span></button></li>'
+                       % (j, QZ_KEYS[j], prose(opt)))
+        out.append("</ul>")
+        out.append('<p class="ac-qzwhy" hidden><span class="ac-qzverdict"></span>%s</p>'
+                   % prose(q["explain"]))
+        # Fallback bez JS: stejna informace, jen na kliknuti do <details>.
+        out.append('<details class="ac-qzfall"><summary>Show the answer</summary>'
+                   '<p><strong>%s.</strong> %s</p></details>'
+                   % (e("%s \u2014 %s" % (QZ_KEYS[q["answer"]], TAG_RE.sub("", q["options"][q["answer"]]))),
+                      prose(q["explain"])))
+        out.append("</div>")
+    out.append('<p class="ac-qztally" id="acQzTally"></p></div></section>')
+    return "".join(out)
+
+
 def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     slug = les["slug"]
     url = "%s/academy/%s/%s/" % (SITE, module["slug"], slug)
@@ -555,8 +929,10 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     secs = [("question", "The question"), ("idea", "The core idea")]
     for i, s in enumerate(les["sections"]):
         secs.append(("s%d" % i, s["heading"]))
-    secs += [("evidence", "What does the evidence say?"), ("think", "Think"),
-             ("deeper", "Go deeper")]
+    secs += [("evidence", "What does the evidence say?"), ("think", "Think")]
+    if les.get("quiz"):
+        secs.append(("quiz", "Check yourself"))
+    secs.append(("deeper", "Go deeper"))
 
     body = [SVG_DEFS, '<div class="ac-lesson"><article class="ac-main">']
     body.append('<p class="ac-eyebrow">%s &middot; Lesson %s &middot; %s &middot; %d min</p>'
@@ -596,6 +972,8 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
         body.append('<details><summary>Think first, then reveal</summary>'
                     '<p class="ac-reveal">%s</p></details></div>' % prose(t["reveal"]))
     body.append("</section>")
+
+    body.append(quiz_block(les))
 
     chips, missing = deeper_links(les, ent_url, gaps)
     body.append('<section class="ac-section"><h2 id="deeper">Go deeper</h2>')
@@ -674,7 +1052,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
                  extra_css=ACADEMY_CSS + "\n.ac-vh{position:absolute;width:1px;height:1px;"
                                          "overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"
                                          "border:0;padding:0;margin:-1px}",
-                 extra_body=PROGRESS_JS)
+                 extra_body=PROGRESS_JS + (QUIZ_JS if les.get("quiz") else ""))
     page = page.replace("<body>", '<body data-ac-current="%s">' % e(slug), 1)
     return url, page, missing
 
@@ -702,9 +1080,13 @@ def curriculum_page(module, lessons_by_slug):
             '<h1>%s</h1><p class="ac-lede">%s</p></div>' % (e(module["title"]),
                                                             e(module["description"]))]
     body.append('<ul class="ac-list">%s</ul>' % "".join(rows))
-    body.append('<p class="ac-note">Lessons marked <em>in preparation</em> are listed so the '
-                'shape of the course is visible. They are not written yet, and this page will '
-                'not pretend otherwise.</p>')
+    # Poznamka o planovanych lekcich se ukaze, jen kdyz nejaka planovana je.
+    # Jinak by stranka varovala pred necim, co na ni neni (od 2026-08-30 je
+    # publikovanych vsech deset).
+    if any(r["status"] != "published" for r in module["lessons"]):
+        body.append('<p class="ac-note">Lessons marked <em>in preparation</em> are listed so '
+                    'the shape of the course is visible. They are not written yet, and this '
+                    'page will not pretend otherwise.</p>')
     body.append('<p><a class="ac-cta ac-quiet" href="%s/browse/">Explore the Atlas &rarr;</a></p>'
                 % SITE)
 

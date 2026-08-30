@@ -70,25 +70,30 @@ body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
-/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
-.oma-topbar{border-bottom:2px solid var(--ink)}
-.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
-display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+/* ---- Site-wide topbar (logo + primary nav) -- unified 2026-08-30 with the
+   SPA's own header so every static page (Academy, Browse, Study, Answers,
+   Glossary, About...) reads as the same site as the interactive Atlas
+   instead of a second, smaller-looking nav bolted on beside it. ---- */
+.oma-topbar{border-bottom:none}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px 12px;
+display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:center;gap:9px;text-decoration:none;
 color:var(--ink);flex-shrink:0}
 .oma-wordmark:hover{opacity:.75}
-.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-emblem{width:28px;height:28px;flex-shrink:0;align-self:center;color:var(--teal)}
 .oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
-font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+font-size:19px;letter-spacing:-.01em;white-space:nowrap}
 .oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
 text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
 padding-left:9px;white-space:nowrap}
-.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
-.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
-letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
-text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs-row{border-bottom:2px solid var(--ink)}
+.oma-tabs-inner{max-width:1100px;margin:0 auto;padding:0 22px}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:4px}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;
+letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
-.oma-tabs a.active{color:#fff;background:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
 nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
 padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
 nav.crumb a{color:var(--soft)}
@@ -130,6 +135,8 @@ img,svg{max-width:100%;height:auto}
 a{overflow-wrap:anywhere}
 
 @media (max-width:760px){
+  .oma-tabs-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .oma-tabs{flex-wrap:nowrap;min-width:max-content}
   .wrap{padding:20px 16px 56px;
     padding-left:max(16px,env(safe-area-inset-left));
     padding-right:max(16px,env(safe-area-inset-right))}
@@ -192,12 +199,12 @@ a{overflow-wrap:anywhere}
 <body>
 <div class="oma-topbar"><div class="oma-topbar-inner">
 <a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
-<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<svg class="oma-emblem" viewBox="0 0 64 64" role="img" aria-label="Oliver's mTOR Atlas emblem"><path d="M40.89 7.57 A26 26 0 1 1 23.11 7.57" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="15" r="9" fill="currentColor"/></svg>
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
 </a>
-<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors" class="active">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav>
 </div></div>
+<div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors" class="active">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/#authors">Researchers</a> › Matt Kaeberlein</nav>
 <h1>Matt Kaeberlein</h1>

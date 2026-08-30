@@ -437,13 +437,28 @@ def check_academy(findings):
             blobs += [("think%d.prompt" % j, t.get("prompt") or ""),
                       ("think%d.hint" % j, t.get("hint") or ""),
                       ("think%d.reveal" % j, t.get("reveal") or "")]
+        # Kviz (2026-08-30). Distraktory jsou taky proza a ctou se stejne jako
+        # zbytek lekce -- kdyby prosly nezkontrolovane, absolutni formulace by
+        # se do webu dostala prave tou vetou, kterou si student precte dvakrat.
+        for j, q in enumerate(l.get("quiz") or []):
+            blobs += [("quiz%d.prompt" % j, q.get("prompt") or ""),
+                      ("quiz%d.explain" % j, q.get("explain") or "")]
+            blobs += [("quiz%d.option%d" % (j, k), o)
+                      for k, o in enumerate(q.get("options") or [])]
         for field, raw in blobs:
             if not raw:
                 continue
             txt = html.unescape(re.sub(r"<[^>]+>", " ", raw))
             where = "academy:%s.%s" % (l["slug"], field)
             scan_absolute(findings, where, txt, sev="ERROR")
-            if CLINICAL_LANG.search(txt):
+            # R3 se testuje na textu BEZ uvozovkovanych pasazi. Lekce o cteni
+            # papiru cituje vetne tvary, pred kterymi varuje ("X is a
+            # therapeutic target for Y") -- to je pouziti - zminka, ne tvrzeni,
+            # a scanner ho jinak hlasi napored. R5 (absolutni jazyk) se naopak
+            # scanuje na plnem textu: absolutni slovo je problem i v citaci.
+            unquoted = re.sub(u"[\u2018\u201c'\"][^\u2019\u201d'\"]{0,400}"
+                              u"[\u2019\u201d'\"]", " ", txt)
+            if CLINICAL_LANG.search(unquoted):
                 add(findings, "WARN", "R3 mechanistic-as-clinical", where, txt,
                     "Lesson prose uses clinical/human language -- check the claim is scoped "
                     "to the species and design of the studies the lesson actually cites.",

@@ -28,6 +28,8 @@ Kontroluje se:
   9  redakcni minima: >=3 studie na lekci, >=1 think question, neprazdne
      uncertainty nebo openQuestions
  10  proza pouziva jen povolenou inline sadu znacek
+ 11  minikviz: presne 3 otazky easy/medium/hard, 3-4 moznosti, jedna platna
+     spravna odpoved, neprazdne vysvetleni
 
 Usage: python verify_academy.py     (exit 0 = OK, 1 = nalezy)
 """
@@ -100,8 +102,37 @@ def main():
         if not (l.get("uncertainty") or l.get("openQuestions")):
             bad(w, "nepojmenovava zadnou nejistotu ani open question (spec §17)")
 
+        # 11 minikviz -- 3 otazky, lehka -> tezka, prave jedna spravna odpoved.
+        # Poradi obtiznosti je soucast zadani, ne kosmetika: prvni otazka ma
+        # projit kazdemu, kdo lekci precetl, treti ma nutit spojit dve veci.
+        qz = l.get("quiz") or []
+        if len(qz) != 3:
+            bad(w, "kviz ma %d otazek, maji byt presne 3" % len(qz))
+        for i, q in enumerate(qz):
+            qw = "%s q%d" % (w, i + 1)
+            exp = ("easy", "medium", "hard")[i] if i < 3 else None
+            if exp and q.get("level") != exp:
+                bad(qw, "level=%r, podle poradi ma byt %r" % (q.get("level"), exp))
+            opts = q.get("options") or []
+            if not 3 <= len(opts) <= 4:
+                bad(qw, "ma %d moznosti, povoleny jsou 3 nebo 4" % len(opts))
+            if len({o.strip().lower() for o in opts}) != len(opts):
+                bad(qw, "dve moznosti jsou stejne")
+            a = q.get("answer")
+            if not isinstance(a, int) or not 0 <= a < len(opts):
+                bad(qw, "answer=%r neukazuje na zadnou moznost" % (a,))
+            if not (q.get("explain") or "").strip():
+                bad(qw, "chybi explain -- vysvetleni je smysl kvizu, ne znamka")
+            elif len(q["explain"].split()) < 12:
+                bad(qw, "explain ma jen %d slov, to neni vysvetleni"
+                    % len(q["explain"].split()))
+            for o in opts:
+                if len(o) > 180:
+                    bad(qw, "moznost je delsi nez 180 znaku: %r" % o[:60])
+
         # 2 entity
-        for key in ("proteins", "pathways", "processes", "organelles", "nutrients"):
+        for key in ("proteins", "pathways", "processes", "organelles", "nutrients",
+                    "drugs", "diseases", "outcomes"):
             for name in l.get(key) or []:
                 n = ents.get(name.lower())
                 if n is None:
@@ -128,6 +159,9 @@ def main():
             blobs += list(sec.get("body") or [])
         for t in l.get("thinkQuestions") or []:
             blobs += [t.get("prompt") or "", t.get("hint") or "", t.get("reveal") or ""]
+        for q in l.get("quiz") or []:
+            blobs += [q.get("prompt") or "", q.get("explain") or ""]
+            blobs += list(q.get("options") or [])
         for b in blobs:
             for m in TAG.finditer(b):
                 if not ALLOWED.fullmatch(m.group(0)):
@@ -180,6 +214,8 @@ def main():
         if "<h1>" not in h:
             bad(rel, "stranka nema <h1> primo v HTML")
         is_lesson = rel.count(os.sep) >= 3        # academy/<module>/<lesson>/index.html
+        if is_lesson and "Check yourself" in h and "ac-qzfall" not in h:
+            bad(rel, "kviz nema bez-JS fallback -- bez JS by to byl slepy seznam moznosti")
         if is_lesson and "What does the evidence say?" not in h:
             bad(rel, "lekce nema sekci Evidence primo v HTML (crawler bez JS by ji nevidel)")
         if "mtor-atlas.org" not in h:

@@ -1,265 +1,1449 @@
 {
-  "_comment": [
-    "Academy lesson content. DATA ONLY -- this file stores IDs, never copies of",
-    "Atlas records. Study titles, years, evidence tiers and one-line findings are",
-    "resolved at build time from atlas_data/studies_baked.json; entity links from",
-    "atlas_data/entities_baked.json (only entities that actually get a page, i.e.",
-    ">=3 studies); guided routes from pathway/model.json. Nothing here duplicates",
-    "the scientific database -- see spec §16, §19.",
-    "",
-    "Prose fields accept a narrow inline HTML subset only: <strong> <em> <code>",
-    "<sub> <sup> <a href>. verify_academy.py rejects anything else, and",
-    "validate_claims.py scans the same prose for absolute-language (R5) and",
-    "mechanistic-work-described-as-clinical-evidence (R3).",
-    "",
-    "Editorial invariants (spec §17), checked by verify_academy.py where machine-",
-    "checkable: every lesson has >=3 studies; every lesson names at least one open",
-    "question or uncertainty; simplifications are labelled as teaching models."
-  ],
-  "lessons": [
+ "_comment": [
+  "Academy lesson content. DATA ONLY -- this file stores IDs, never copies of",
+  "Atlas records. Study titles, years, evidence tiers and one-line findings are",
+  "resolved at build time from atlas_data/studies_baked.json; entity links from",
+  "atlas_data/entities_baked.json (only entities that actually get a page, i.e.",
+  ">=3 studies); guided routes from pathway/model.json. Nothing here duplicates",
+  "the scientific database -- see spec §16, §19.",
+  "",
+  "Prose fields accept a narrow inline HTML subset only: <strong> <em> <code>",
+  "<sub> <sup> <a href>. verify_academy.py rejects anything else, and",
+  "validate_claims.py scans the same prose for absolute-language (R5) and",
+  "mechanistic-work-described-as-clinical-evidence (R3).",
+  "",
+  "Editorial invariants (spec §17), checked by verify_academy.py where machine-",
+  "checkable: every lesson has >=3 studies; every lesson names at least one open",
+  "question or uncertainty; simplifications are labelled as teaching models."
+ ],
+ "lessons": [
+  {
+   "id": "L01",
+   "slug": "what-is-mtor",
+   "module": "core",
+   "title": "What is mTOR?",
+   "subtitle": "The kinase that decides whether a cell builds or recycles",
+   "level": "Foundation",
+   "estimatedTime": 15,
+   "question": "How does a cell decide when to grow?",
+   "coreIdea": [
+    "A cell is under constant pressure to answer one question: <em>is now a good time to build?</em> Building is expensive. Making protein consumes a large share of a cell's energy budget, and a cell that starts building without the raw materials, the energy, or the external permission to do so ends up worse off than one that waited.",
+    "Cells do not answer that question with a single switch. They answer it by pooling several streams of information at once — amino acids and other nutrients, the cellular energy state, growth-factor and hormone signals, and various forms of stress. <strong>mTOR is one of the main places where those streams meet.</strong> It is a protein kinase: an enzyme that attaches phosphate groups to other proteins, changing what they do.",
+    "When the signals arriving at mTOR say <em>conditions are good</em>, its downstream effects push the cell toward building — protein synthesis, lipid synthesis, nucleotide synthesis, growth. When they say <em>conditions are poor</em>, that pressure is lifted and recycling programs such as autophagy are released. That is the whole idea in one sentence: <strong>mTOR sits between what a cell can detect about its situation and what a cell does about it.</strong>"
+   ],
+   "sections": [
     {
-      "id": "L01",
-      "slug": "what-is-mtor",
-      "module": "core",
-      "title": "What is mTOR?",
-      "subtitle": "The kinase that decides whether a cell builds or recycles",
-      "level": "Foundation",
-      "estimatedTime": 15,
-      "question": "How does a cell decide when to grow?",
-
-      "coreIdea": [
-        "A cell is under constant pressure to answer one question: <em>is now a good time to build?</em> Building is expensive. Making protein consumes a large share of a cell's energy budget, and a cell that starts building without the raw materials, the energy, or the external permission to do so ends up worse off than one that waited.",
-        "Cells do not answer that question with a single switch. They answer it by pooling several streams of information at once — amino acids and other nutrients, the cellular energy state, growth-factor and hormone signals, and various forms of stress. <strong>mTOR is one of the main places where those streams meet.</strong> It is a protein kinase: an enzyme that attaches phosphate groups to other proteins, changing what they do.",
-        "When the signals arriving at mTOR say <em>conditions are good</em>, its downstream effects push the cell toward building — protein synthesis, lipid synthesis, nucleotide synthesis, growth. When they say <em>conditions are poor</em>, that pressure is lifted and recycling programs such as autophagy are released. That is the whole idea in one sentence: <strong>mTOR sits between what a cell can detect about its situation and what a cell does about it.</strong>"
-      ],
-
-      "sections": [
-        {
-          "kind": "mechanism",
-          "heading": "The mechanism, in outline",
-          "figure": "mtor-integrator",
-          "body": [
-            "Read the diagram left to right. On the left are the <strong>inputs</strong>: nutrients (amino acids especially), the energy state of the cell, growth factors such as insulin and IGF-1, and stress signals. In the middle is <strong>mTOR</strong>, working inside protein complexes rather than alone. On the right are the <strong>outputs</strong>: the cellular programs whose activity shifts when mTOR's activity shifts.",
-            "Two things about this picture are worth noticing straight away. First, the inputs are not interchangeable. Amino acids and growth factors reach mTOR by different molecular routes, and a cell can have plenty of one and none of the other — which is exactly the situation the pathway is built to distinguish. Second, mTOR does not simply switch outputs on and off; it shifts the balance between building and recycling. Autophagy is not merely 'mTOR off'. It is a program that mTOR activity restrains, and that becomes available when that restraint is lifted."
-          ]
-        },
-        {
-          "kind": "prose",
-          "heading": "Two complexes, as a first mental model",
-          "body": [
-            "mTOR is a single protein, but it does its work inside at least two different assemblies of proteins, called <strong>mTORC1</strong> and <strong>mTORC2</strong>. They share the mTOR kinase and differ in their partner proteins, in what activates them, and in what they act on.",
-            "For now, hold a deliberately rough version: mTORC1 is the complex most closely tied to nutrient sensing, protein synthesis and the restraint of autophagy; mTORC2 is more closely tied to signalling through AKT and to the cytoskeleton. <strong>This is a teaching model, not a full mechanistic account.</strong> The two complexes share components, they influence each other, and quite a lot of what a real cell does cannot be sorted cleanly into one box or the other. Lesson 02 takes the model apart and shows where it holds and where it leaks."
-          ]
-        },
-        {
-          "kind": "caution",
-          "heading": "What this lesson is not claiming",
-          "body": [
-            "'mTOR controls growth' is a useful summary and a poor literal statement. mTOR is one node in a network with many inputs and many parallel outputs, and almost everything in the outline above was worked out in cells and in laboratory animals rather than in people. When you meet a claim about mTOR and human health later in the Atlas, the evidence tier attached to it is doing real work — keep looking at it."
-          ]
-        }
-      ],
-
-      "concepts": [
-        "Kinase and phosphorylation",
-        "Signal integration",
-        "Anabolic vs catabolic programs",
-        "Protein complex"
-      ],
-      "proteins": ["mTOR", "Akt/PKB", "S6K1", "4E-BP1"],
-      "pathways": ["mTORC1", "mTORC2"],
-      "processes": ["Protein synthesis", "Autophagy"],
-      "studies": ["SAB1994", "SAR2004", "GUE2006"],
-      "authors": [],
-
-      "guidedRoutes": [
-        {"id": "out", "why": "Follow what actually changes inside a cell once mTORC1 fires."},
-        {"id": "aa", "why": "See how the nutrient input reaches mTORC1 in the first place."}
-      ],
-
-      "thinkQuestions": [
-        {
-          "prompt": "If nutrients are abundant but growth-factor signalling is low, what would you expect mTOR signalling to do? Explain your reasoning before revealing.",
-          "hint": "Ask yourself what each input is evidence <em>of</em>, from the cell's point of view.",
-          "reveal": "The usual expectation is that the two inputs are not additive but closer to a requirement pair: nutrient availability tells the cell it <em>could</em> build, growth-factor signalling tells it that the organism is asking it to. In the standard model, mTORC1 output stays low when either one is missing, because the growth-factor and amino-acid branches converge on different steps of the same activation mechanism — which is the subject of Lesson 03. If you predicted 'partly on', that is also a reasonable reading: the branches are not perfect AND-gates, and in real cells the result depends on cell type and on how low 'low' is."
-        }
-      ],
-
-      "openQuestions": [],
-      "uncertainty": "Almost every arrow in this lesson's diagram was drawn from work in cultured cells and in mice. The mapping from those arrows to human physiology is where the evidence is thinnest, and it is where the Atlas's evidence tiers matter most.",
-
-      "previousLesson": null,
-      "nextLesson": "mtorc1-vs-mtorc2"
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "mtor-integrator",
+     "body": [
+      "Read the diagram left to right. On the left are the <strong>inputs</strong>: nutrients (amino acids especially), the energy state of the cell, growth factors such as insulin and IGF-1, and stress signals. In the middle is <strong>mTOR</strong>, working inside protein complexes rather than alone. On the right are the <strong>outputs</strong>: the cellular programs whose activity shifts when mTOR's activity shifts.",
+      "Two things about this picture are worth noticing straight away. First, the inputs are not interchangeable. Amino acids and growth factors reach mTOR by different molecular routes, and a cell can have plenty of one and none of the other — which is exactly the situation the pathway is built to distinguish. Second, mTOR does not simply switch outputs on and off; it shifts the balance between building and recycling. Autophagy is not merely 'mTOR off'. It is a program that mTOR activity restrains, and that becomes available when that restraint is lifted."
+     ]
     },
-
     {
-      "id": "L02",
-      "slug": "mtorc1-vs-mtorc2",
-      "module": "core",
-      "title": "mTORC1 vs mTORC2",
-      "subtitle": "Why one kinase works inside two different machines",
-      "level": "Core",
-      "estimatedTime": 20,
-      "question": "Why does the cell use two mTOR complexes?",
-
-      "coreIdea": [
-        "The same mTOR kinase is found in at least two distinct complexes, built around different partner proteins. <strong>mTORC1</strong> contains RAPTOR; <strong>mTORC2</strong> contains RICTOR and SIN1. Both also contain mLST8.",
-        "The partner protein is not decoration. RAPTOR helps recruit the substrates mTORC1 acts on, which is a large part of why the two complexes phosphorylate different targets even though the catalytic machinery is the same. Changing the partner changes what the kinase can reach.",
-        "The distinction has an experimental origin worth knowing: mTORC2 was found because a part of mTOR signalling did not behave the way rapamycin said it should. Acute rapamycin treatment inhibits mTORC1 readily; the RICTOR-containing complex was described as insensitive to that acute inhibition. A drug's failure to explain everything is what split the field into two complexes.",
-        "Worth noting how the discoveries actually landed, because single-name stories are usually wrong: RAPTOR was reported in 2002 by Kim and colleagues and, independently and in the same issue of <em>Cell</em>, by Hara and colleagues. In the same year Loewith and colleagues described two distinct TOR complexes in yeast, only one of them rapamycin-sensitive — the TORC1/TORC2 paradigm arrives from yeast genetics before the mammalian RICTOR paper in 2004. The Atlas's Timeline records the same parallel attribution."
-      ],
-
-      "sections": [
-        {
-          "kind": "mechanism",
-          "heading": "The mechanism, in outline",
-          "figure": "two-complexes",
-          "body": [
-            "<strong>mTORC1</strong> — mTOR + RAPTOR + mLST8. Activated downstream of amino-acid availability and growth-factor signalling, positioned at the lysosome. Substrates include S6K1 and 4E-BP1, which is why its readouts are usually about translation, and ULK1, which is how it restrains autophagy.",
-            "<strong>mTORC2</strong> — mTOR + RICTOR + SIN1 + mLST8. Its best-known activity is phosphorylation of AKT at Ser473, alongside other AGC-family kinases such as SGK and PKC. Through those substrates it is linked to survival signalling, aspects of metabolism, and cytoskeletal organisation.",
-            "The genetic dissection is the cleanest way to see that these are separate functional units: in mice, removing the mTORC1-defining subunit and removing the mTORC2-defining subunit produce different phenotypes, and loss of the mTORC2 subunit affects signalling to AKT while leaving parts of mTORC1 output in place."
-          ]
-        },
-        {
-          "kind": "prose",
-          "heading": "Where the two-box model leaks",
-          "body": [
-            "Three leaks are worth carrying with you.",
-            "<strong>Rapamycin sensitivity is not a clean partition.</strong> Acute treatment mainly inhibits mTORC1, but prolonged treatment can reduce mTORC2 signalling in some cell types, apparently by interfering with assembly of new complexes. 'mTORC2 is rapamycin-insensitive' is shorthand for an acute experiment, not a permanent property.",
-            "<strong>The complexes are wired to each other.</strong> mTORC1 output feeds back onto upstream signalling — inhibiting mTORC1 can relieve that feedback and change AKT signalling, which is an mTORC2 readout. So a manipulation aimed at one complex can move the other without ever touching it directly.",
-            "<strong>Substrate lists are not sealed.</strong> They come from the experiments done so far, in the cell types studied so far. Treat them as the current state of a catalogue, not as a definition."
-          ]
-        },
-        {
-          "kind": "caution",
-          "heading": "Reading the tiers on this lesson's evidence",
-          "body": [
-            "Every study cited below sits at tier D or C — mechanistic, in-vitro or animal work. That is the honest state of the complex-level evidence: the architecture of mTORC1 and mTORC2 is described from biochemistry and mouse genetics, not from human trials. Nothing in this lesson is a claim about what happens in a person."
-          ]
-        }
-      ],
-
-      "concepts": [
-        "Protein complex composition",
-        "Substrate recruitment",
-        "Acute vs chronic drug effect",
-        "Genetic dissection (subunit knockout)"
-      ],
-      "proteins": ["mTOR", "Raptor", "Rictor", "S6K1", "4E-BP1", "Akt/PKB", "ULK1"],
-      "pathways": ["mTORC1", "mTORC2"],
-      "processes": ["Protein synthesis", "Autophagy"],
-      "studies": ["KIM2002", "LOE2002", "SAR2004", "JAC2006", "GUE2006"],
-      "authors": [],
-
-      "guidedRoutes": [
-        {"id": "mtorc2", "why": "The full route through why one kinase needs two complexes."},
-        {"id": "rapa", "why": "Why rapamycin does not switch mTOR off completely — the drug behind the distinction."}
-      ],
-
-      "thinkQuestions": [
-        {
-          "prompt": "If mTORC1 and mTORC2 are distinct complexes, why might manipulating one still change the other?",
-          "hint": "Look for something they share, and something one of them sends backwards.",
-          "reveal": "At least three routes. (1) They share subunits — mTOR itself and mLST8 — so a limited pool can be redistributed between complexes. (2) mTORC1 output feeds back onto upstream insulin/IGF-1 signalling; relieving mTORC1 activity relieves that feedback and raises signalling that mTORC2 reads out through AKT. (3) A drug is not a scalpel: prolonged rapamycin can affect assembly of new mTORC2. This is why 'mTORC1-selective' is a claim about a dose and a duration, not about a molecule."
-        },
-        {
-          "prompt": "You read a paper reporting that a compound is 'mTORC2-sparing'. What would you want to know before accepting that?",
-          "hint": "Think about what was measured, in what, for how long.",
-          "reveal": "At minimum: which readout was used for mTORC2 (usually AKT Ser473, which is one substrate among several), in which cell type or tissue, at what dose, and after how long. Sparing at 24 hours in one cell line is a different claim from sparing after weeks of dosing in an animal — and the second is what matters for anything longevity-related."
-        }
-      ],
-
-      "openQuestions": ["mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance"],
-      "uncertainty": "How cleanly mTORC1 can be inhibited without touching mTORC2 over long periods, in a whole animal, is an open question rather than a solved engineering problem — and it is the question standing between the mouse lifespan results and any human use.",
-
-      "previousLesson": "what-is-mtor",
-      "nextLesson": "rheb"
+     "kind": "prose",
+     "heading": "Two complexes, as a first mental model",
+     "body": [
+      "mTOR is a single protein, but it does its work inside at least two different assemblies of proteins, called <strong>mTORC1</strong> and <strong>mTORC2</strong>. They share the mTOR kinase and differ in their partner proteins, in what activates them, and in what they act on.",
+      "For now, hold a deliberately rough version: mTORC1 is the complex most closely tied to nutrient sensing, protein synthesis and the restraint of autophagy; mTORC2 is more closely tied to signalling through AKT and to the cytoskeleton. <strong>This is a teaching model, not a full mechanistic account.</strong> The two complexes share components, they influence each other, and quite a lot of what a real cell does cannot be sorted cleanly into one box or the other. Lesson 02 takes the model apart and shows where it holds and where it leaks."
+     ]
     },
-
     {
-      "id": "L03",
-      "slug": "rheb",
-      "module": "core",
-      "title": "Rheb — The Critical Regulator",
-      "subtitle": "A small GTPase, a brake, and a question about where things are",
-      "level": "Core",
-      "estimatedTime": 25,
-      "question": "How does a small GTPase help control mTORC1?",
-
-      "coreIdea": [
-        "<strong>Rheb</strong> is a small GTPase — a protein that cycles between a GTP-bound state and a GDP-bound state, and that behaves differently depending on which one it is in. In the standard model of mTORC1 activation, <strong>Rheb-GTP is the direct positive input to the kinase</strong>, and Rheb-GDP is not.",
-        "What controls that cycle is the <strong>TSC complex</strong> (TSC1, TSC2 and TBC1D7). TSC2 acts as a GAP — a GTPase-activating protein — for Rheb: it accelerates the conversion of Rheb-GTP to Rheb-GDP. A GAP for a positive regulator is a brake. Removing the brake raises Rheb-GTP and raises mTORC1 activity.",
-        "That is the mechanism in three moving parts, and it is also where growth-factor signalling enters the pathway: AKT, activated downstream of insulin and IGF-1, phosphorylates TSC2 and reduces the brake's effect on Rheb. Growth factors do not switch mTORC1 on. They release something that was holding it down."
-      ],
-
-      "sections": [
-        {
-          "kind": "mechanism",
-          "heading": "The mechanism, in outline",
-          "figure": "rheb-axis",
-          "body": [
-            "The chain runs: <strong>growth factors → AKT ⊣ TSC1/TSC2 ⊣ Rheb-GTP → mTORC1</strong>. Note the two inhibitory steps in a row. A double negative is easy to misread, so it is worth saying slowly: AKT inhibits the TSC complex; the TSC complex inhibits Rheb; therefore AKT activity raises Rheb-GTP.",
-            "The TSC complex is also where several other inputs converge. Energy stress acting through AMPK, and various other stress signals, act on the same brake — which makes TSC a genuine integration point rather than a simple growth-factor relay.",
-            "But nucleotide state is only half the story, and this is the part most summaries drop."
-          ]
-        },
-        {
-          "kind": "mechanism",
-          "heading": "Why location matters as much as state",
-          "figure": "rheb-spatial",
-          "body": [
-            "Rheb is associated with intracellular membranes, prominently the lysosome. mTORC1 is not permanently at the lysosome — it is recruited there, and the recruitment is controlled by a separate machine: the <strong>Rag GTPases</strong>, held in place by the Ragulator complex, responding to amino-acid availability.",
-            "So the two branches do different jobs. The amino-acid branch decides <strong>where mTORC1 is</strong>. The growth-factor branch, through TSC and Rheb, decides <strong>whether the activator it meets there is in its active state</strong>. Neither alone is enough, which is a tidier explanation of the AND-gate behaviour from Lesson 01 than 'two signals add up'.",
-            "The spatial picture also runs in the other direction. The TSC complex itself can be recruited to the lysosome in response to cellular stress — putting the brake where the activator is, rather than acting at a distance. Localisation is not a detail layered on top of the mechanism; in this pathway it is part of the mechanism."
-          ]
-        },
-        {
-          "kind": "prose",
-          "heading": "What is still uncertain",
-          "body": [
-            "How much of mTORC1 regulation is nucleotide state, how much is localisation, and how much is the amount of protein present is not fully resolved, and the answer may differ between cell types and between acute and chronic conditions. Several of the classic experiments used overexpression, which is informative about what a protein <em>can</em> do and weaker evidence about what it normally does at endogenous levels.",
-            "This matters beyond the diagram. The TSC–Rheb axis is the axis broken in tuberous sclerosis complex, and it is the axis every mTOR-directed drug is acting somewhere near. How faithfully the arrows above describe an untouched human cell is a live question, not a settled one."
-          ]
-        }
-      ],
-
-      "concepts": [
-        "Small GTPase and the GTP/GDP cycle",
-        "GAP (GTPase-activating protein)",
-        "Double-negative regulation",
-        "Subcellular localisation as regulation",
-        "Overexpression as an experimental caveat"
-      ],
-      "proteins": ["Rheb", "TSC1/TSC2", "Akt/PKB", "Rag GTPases", "Raptor", "AMPK"],
-      "pathways": ["mTORC1"],
-      "processes": [],
-      "organelles": ["Lysosome"],
-      "studies": ["INOK2003", "GAR2003", "SAU2003", "INO2002", "SAN2008", "DEM2016"],
-      "authors": [],
-
-      "guidedRoutes": [
-        {"id": "gf", "why": "The full growth-factor route: how a cell learns that it is allowed to grow."},
-        {"id": "aa", "why": "The amino-acid route, which decides where mTORC1 sits before Rheb ever meets it."}
-      ],
-
-      "thinkQuestions": [
-        {
-          "prompt": "What would you expect if Rheb were held predominantly in its GDP-bound state?",
-          "hint": "Work forwards from the arrow, then ask what else in the cell would notice.",
-          "reveal": "The direct expectation is low mTORC1 activity even when amino acids are plentiful — mTORC1 would be recruited to the lysosome and find no active activator waiting. Downstream, reduced S6K1 and 4E-BP1 phosphorylation, reduced cap-dependent translation, and released restraint on ULK1 and autophagy. The second-order expectation is more interesting: because mTORC1 output feeds back onto upstream insulin signalling, chronically low mTORC1 would also change AKT signalling — so the cell would not look like 'the same cell with one arrow deleted'."
-        },
-        {
-          "prompt": "What experiment could distinguish whether mTORC1 regulation here depends mainly on nucleotide state, on localisation, on protein abundance, or on a combination?",
-          "hint": "Each candidate implies a different thing you would have to hold constant.",
-          "reveal": "There is no single decisive experiment, which is itself the answer worth taking away. A serious attempt separates the variables: nucleotide-state mutants of Rheb locked toward GTP or GDP at endogenous expression levels (knock-in rather than overexpression, so abundance is held constant); forced targeting of mTORC1 to the lysosome independently of amino acids, to ask whether localisation alone is sufficient; and quantitative measurement of Rheb, TSC2 and mTOR protein amounts in the same cells, since a change in any of the three could produce the same readout. Combining them under matched conditions is what the field has actually done piecemeal over two decades — and the pieces were done in different cell types, which is part of why the question is still live."
-        }
-      ],
-
-      "openQuestions": ["sensor-selective-geroprotection-without-the-metabolic-penalty"],
-      "uncertainty": "The relative contribution of nucleotide state, localisation and protein abundance to mTORC1 activation is unresolved, and several foundational experiments relied on overexpression rather than endogenous levels.",
-
-      "previousLesson": "mtorc1-vs-mtorc2",
-      "nextLesson": null
+     "kind": "caution",
+     "heading": "What this lesson is not claiming",
+     "body": [
+      "'mTOR controls growth' is a useful summary and a poor literal statement. mTOR is one node in a network with many inputs and many parallel outputs, and almost everything in the outline above was worked out in cells and in laboratory animals rather than in people. When you meet a claim about mTOR and human health later in the Atlas, the evidence tier attached to it is doing real work — keep looking at it."
+     ]
     }
-  ]
+   ],
+   "concepts": [
+    "Kinase and phosphorylation",
+    "Signal integration",
+    "Anabolic vs catabolic programs",
+    "Protein complex"
+   ],
+   "proteins": [
+    "mTOR",
+    "Akt/PKB",
+    "S6K1",
+    "4E-BP1"
+   ],
+   "pathways": [
+    "mTORC1",
+    "mTORC2"
+   ],
+   "processes": [
+    "Protein synthesis",
+    "Autophagy"
+   ],
+   "studies": [
+    "SAB1994",
+    "SAR2004",
+    "GUE2006"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "out",
+     "why": "Follow what actually changes inside a cell once mTORC1 fires."
+    },
+    {
+     "id": "aa",
+     "why": "See how the nutrient input reaches mTORC1 in the first place."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "If nutrients are abundant but growth-factor signalling is low, what would you expect mTOR signalling to do? Explain your reasoning before revealing.",
+     "hint": "Ask yourself what each input is evidence <em>of</em>, from the cell's point of view.",
+     "reveal": "The usual expectation is that the two inputs are not additive but closer to a requirement pair: nutrient availability tells the cell it <em>could</em> build, growth-factor signalling tells it that the organism is asking it to. In the standard model, mTORC1 output stays low when either one is missing, because the growth-factor and amino-acid branches converge on different steps of the same activation mechanism — which is the subject of Lesson 03. If you predicted 'partly on', that is also a reasonable reading: the branches are not perfect AND-gates, and in real cells the result depends on cell type and on how low 'low' is."
+    }
+   ],
+   "openQuestions": [],
+   "uncertainty": "Almost every arrow in this lesson's diagram was drawn from work in cultured cells and in mice. The mapping from those arrows to human physiology is where the evidence is thinnest, and it is where the Atlas's evidence tiers matter most.",
+   "previousLesson": null,
+   "nextLesson": "mtorc1-vs-mtorc2",
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "What kind of molecule is mTOR?",
+     "options": [
+      "A hormone the body releases when food is plentiful",
+      "A protein kinase &mdash; an enzyme that attaches phosphate groups to other proteins",
+      "A transcription factor that binds DNA at growth genes",
+      "A structural protein that holds the lysosome together"
+     ],
+     "answer": 1,
+     "explain": "mTOR is an enzyme. It changes what other proteins do by phosphorylating them, and everything downstream in this course follows from that one activity."
+    },
+    {
+     "level": "medium",
+     "prompt": "A cell has abundant amino acids but almost no growth-factor signalling. In the standard model, what happens to mTORC1 output?",
+     "options": [
+      "It stays high &mdash; nutrients are the dominant input and override the rest",
+      "It stays low &mdash; the two branches reach mTORC1 by different routes and neither alone is sufficient",
+      "It is unchanged, because mTORC1 responds only to oxygen",
+      "It rises and then oscillates with a fixed period"
+     ],
+     "answer": 1,
+     "explain": "Nutrients tell the cell it <em>could</em> build; growth factors tell it the organism is asking it to. The two branches converge on different steps, which is why the pathway behaves more like a requirement pair than a sum."
+    },
+    {
+     "level": "hard",
+     "prompt": "A review states flatly that &lsquo;mTOR controls growth&rsquo;. What is the strongest reason to read that as a scoped summary rather than a literal fact?",
+     "options": [
+      "Growth cannot be measured in cultured cells, so the claim has no data behind it",
+      "mTOR is one node in a network with many parallel inputs and outputs, and most of the underlying work is in cells and laboratory animals",
+      "Kinases never control cellular programs; they only relay signals",
+      "The word growth has no agreed meaning in cell biology"
+     ],
+     "answer": 1,
+     "explain": "The sentence is a useful shorthand and a poor literal statement. Both halves matter: mTOR is not the only route to growth, and the arrows behind the summary were drawn mostly in cells and mice rather than people."
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "slug": "mtorc1-vs-mtorc2",
+   "module": "core",
+   "title": "mTORC1 vs mTORC2",
+   "subtitle": "Why one kinase works inside two different machines",
+   "level": "Core",
+   "estimatedTime": 20,
+   "question": "Why does the cell use two mTOR complexes?",
+   "coreIdea": [
+    "The same mTOR kinase is found in at least two distinct complexes, built around different partner proteins. <strong>mTORC1</strong> contains RAPTOR; <strong>mTORC2</strong> contains RICTOR and SIN1. Both also contain mLST8.",
+    "The partner protein is not decoration. RAPTOR helps recruit the substrates mTORC1 acts on, which is a large part of why the two complexes phosphorylate different targets even though the catalytic machinery is the same. Changing the partner changes what the kinase can reach.",
+    "The distinction has an experimental origin worth knowing: mTORC2 was found because a part of mTOR signalling did not behave the way rapamycin said it should. Acute rapamycin treatment inhibits mTORC1 readily; the RICTOR-containing complex was described as insensitive to that acute inhibition. A drug's failure to explain everything is what split the field into two complexes.",
+    "Worth noting how the discoveries actually landed, because single-name stories are usually wrong: RAPTOR was reported in 2002 by Kim and colleagues and, independently and in the same issue of <em>Cell</em>, by Hara and colleagues. In the same year Loewith and colleagues described two distinct TOR complexes in yeast, only one of them rapamycin-sensitive — the TORC1/TORC2 paradigm arrives from yeast genetics before the mammalian RICTOR paper in 2004. The Atlas's Timeline records the same parallel attribution."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "two-complexes",
+     "body": [
+      "<strong>mTORC1</strong> — mTOR + RAPTOR + mLST8. Activated downstream of amino-acid availability and growth-factor signalling, positioned at the lysosome. Substrates include S6K1 and 4E-BP1, which is why its readouts are usually about translation, and ULK1, which is how it restrains autophagy.",
+      "<strong>mTORC2</strong> — mTOR + RICTOR + SIN1 + mLST8. Its best-known activity is phosphorylation of AKT at Ser473, alongside other AGC-family kinases such as SGK and PKC. Through those substrates it is linked to survival signalling, aspects of metabolism, and cytoskeletal organisation.",
+      "The genetic dissection is the cleanest way to see that these are separate functional units: in mice, removing the mTORC1-defining subunit and removing the mTORC2-defining subunit produce different phenotypes, and loss of the mTORC2 subunit affects signalling to AKT while leaving parts of mTORC1 output in place."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Where the two-box model leaks",
+     "body": [
+      "Three leaks are worth carrying with you.",
+      "<strong>Rapamycin sensitivity is not a clean partition.</strong> Acute treatment mainly inhibits mTORC1, but prolonged treatment can reduce mTORC2 signalling in some cell types, apparently by interfering with assembly of new complexes. 'mTORC2 is rapamycin-insensitive' is shorthand for an acute experiment, not a permanent property.",
+      "<strong>The complexes are wired to each other.</strong> mTORC1 output feeds back onto upstream signalling — inhibiting mTORC1 can relieve that feedback and change AKT signalling, which is an mTORC2 readout. So a manipulation aimed at one complex can move the other without ever touching it directly.",
+      "<strong>Substrate lists are not sealed.</strong> They come from the experiments done so far, in the cell types studied so far. Treat them as the current state of a catalogue, not as a definition."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "Reading the tiers on this lesson's evidence",
+     "body": [
+      "Every study cited below sits at tier D or C — mechanistic, in-vitro or animal work. That is the honest state of the complex-level evidence: the architecture of mTORC1 and mTORC2 is described from biochemistry and mouse genetics, not from human trials. Nothing in this lesson is a claim about what happens in a person."
+     ]
+    }
+   ],
+   "concepts": [
+    "Protein complex composition",
+    "Substrate recruitment",
+    "Acute vs chronic drug effect",
+    "Genetic dissection (subunit knockout)"
+   ],
+   "proteins": [
+    "mTOR",
+    "Raptor",
+    "Rictor",
+    "S6K1",
+    "4E-BP1",
+    "Akt/PKB",
+    "ULK1"
+   ],
+   "pathways": [
+    "mTORC1",
+    "mTORC2"
+   ],
+   "processes": [
+    "Protein synthesis",
+    "Autophagy"
+   ],
+   "studies": [
+    "KIM2002",
+    "LOE2002",
+    "SAR2004",
+    "JAC2006",
+    "GUE2006"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "mtorc2",
+     "why": "The full route through why one kinase needs two complexes."
+    },
+    {
+     "id": "rapa",
+     "why": "Why rapamycin does not switch mTOR off completely — the drug behind the distinction."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "If mTORC1 and mTORC2 are distinct complexes, why might manipulating one still change the other?",
+     "hint": "Look for something they share, and something one of them sends backwards.",
+     "reveal": "At least three routes. (1) They share subunits — mTOR itself and mLST8 — so a limited pool can be redistributed between complexes. (2) mTORC1 output feeds back onto upstream insulin/IGF-1 signalling; relieving mTORC1 activity relieves that feedback and raises signalling that mTORC2 reads out through AKT. (3) A drug is not a scalpel: prolonged rapamycin can affect assembly of new mTORC2. This is why 'mTORC1-selective' is a claim about a dose and a duration, not about a molecule."
+    },
+    {
+     "prompt": "You read a paper reporting that a compound is 'mTORC2-sparing'. What would you want to know before accepting that?",
+     "hint": "Think about what was measured, in what, for how long.",
+     "reveal": "At minimum: which readout was used for mTORC2 (usually AKT Ser473, which is one substrate among several), in which cell type or tissue, at what dose, and after how long. Sparing at 24 hours in one cell line is a different claim from sparing after weeks of dosing in an animal — and the second is what matters for anything longevity-related."
+    }
+   ],
+   "openQuestions": [
+    "mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance"
+   ],
+   "uncertainty": "How cleanly mTORC1 can be inhibited without touching mTORC2 over long periods, in a whole animal, is an open question rather than a solved engineering problem — and it is the question standing between the mouse lifespan results and any human use.",
+   "previousLesson": "what-is-mtor",
+   "nextLesson": "rheb",
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "Which subunit is the one that defines mTORC1 rather than mTORC2?",
+     "options": [
+      "RICTOR",
+      "SIN1",
+      "RAPTOR",
+      "mLST8"
+     ],
+     "answer": 2,
+     "explain": "RAPTOR is the mTORC1-defining partner and RICTOR and SIN1 belong to mTORC2. mLST8 is the distractor worth remembering, because it sits in both complexes."
+    },
+    {
+     "level": "medium",
+     "prompt": "&lsquo;mTORC2 is rapamycin-insensitive.&rsquo; What is that sentence actually describing?",
+     "options": [
+      "A permanent chemical property of the complex",
+      "The result of acute treatment &mdash; prolonged rapamycin can still reduce mTORC2 signalling in some cell types by interfering with assembly of new complexes",
+      "That rapamycin cannot cross the plasma membrane",
+      "That mTORC2 does not contain the mTOR kinase"
+     ],
+     "answer": 1,
+     "explain": "It is shorthand for one experimental design: short exposure. Change the duration and the statement can stop holding, which is why selectivity claims always need a dose and a time attached."
+    },
+    {
+     "level": "hard",
+     "prompt": "You inhibit mTORC1 in a cell line and see AKT Ser473 phosphorylation <em>rise</em>. Which reading fits this lesson best?",
+     "options": [
+      "The inhibitor must be binding AKT directly",
+      "mTORC1 normally phosphorylates Ser473, so removing it should have lowered the signal &mdash; the result is an artefact",
+      "Removing mTORC1 output also removes the feedback it exerts on upstream insulin/IGF-1 signalling, and that upstream signalling is read out through AKT",
+      "mTORC2 must have been deleted in this cell line"
+     ],
+     "answer": 2,
+     "explain": "This is the practical consequence of the two complexes being wired together: a manipulation aimed at one of them can move a readout of the other without ever touching it. Ser473 is an mTORC2 site, not an mTORC1 site."
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "slug": "rheb",
+   "module": "core",
+   "title": "Rheb — The Critical Regulator",
+   "subtitle": "A small GTPase, a brake, and a question about where things are",
+   "level": "Core",
+   "estimatedTime": 25,
+   "question": "How does a small GTPase help control mTORC1?",
+   "coreIdea": [
+    "<strong>Rheb</strong> is a small GTPase — a protein that cycles between a GTP-bound state and a GDP-bound state, and that behaves differently depending on which one it is in. In the standard model of mTORC1 activation, <strong>Rheb-GTP is the direct positive input to the kinase</strong>, and Rheb-GDP is not.",
+    "What controls that cycle is the <strong>TSC complex</strong> (TSC1, TSC2 and TBC1D7). TSC2 acts as a GAP — a GTPase-activating protein — for Rheb: it accelerates the conversion of Rheb-GTP to Rheb-GDP. A GAP for a positive regulator is a brake. Removing the brake raises Rheb-GTP and raises mTORC1 activity.",
+    "That is the mechanism in three moving parts, and it is also where growth-factor signalling enters the pathway: AKT, activated downstream of insulin and IGF-1, phosphorylates TSC2 and reduces the brake's effect on Rheb. Growth factors do not switch mTORC1 on. They release something that was holding it down."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "rheb-axis",
+     "body": [
+      "The chain runs: <strong>growth factors → AKT ⊣ TSC1/TSC2 ⊣ Rheb-GTP → mTORC1</strong>. Note the two inhibitory steps in a row. A double negative is easy to misread, so it is worth saying slowly: AKT inhibits the TSC complex; the TSC complex inhibits Rheb; therefore AKT activity raises Rheb-GTP.",
+      "The TSC complex is also where several other inputs converge. Energy stress acting through AMPK, and various other stress signals, act on the same brake — which makes TSC a genuine integration point rather than a simple growth-factor relay.",
+      "But nucleotide state is only half the story, and this is the part most summaries drop."
+     ]
+    },
+    {
+     "kind": "mechanism",
+     "heading": "Why location matters as much as state",
+     "figure": "rheb-spatial",
+     "body": [
+      "Rheb is associated with intracellular membranes, prominently the lysosome. mTORC1 is not permanently at the lysosome — it is recruited there, and the recruitment is controlled by a separate machine: the <strong>Rag GTPases</strong>, held in place by the Ragulator complex, responding to amino-acid availability.",
+      "So the two branches do different jobs. The amino-acid branch decides <strong>where mTORC1 is</strong>. The growth-factor branch, through TSC and Rheb, decides <strong>whether the activator it meets there is in its active state</strong>. Neither alone is enough, which is a tidier explanation of the AND-gate behaviour from Lesson 01 than 'two signals add up'.",
+      "The spatial picture also runs in the other direction. The TSC complex itself can be recruited to the lysosome in response to cellular stress — putting the brake where the activator is, rather than acting at a distance. Localisation is not a detail layered on top of the mechanism; in this pathway it is part of the mechanism."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "What is still uncertain",
+     "body": [
+      "How much of mTORC1 regulation is nucleotide state, how much is localisation, and how much is the amount of protein present is not fully resolved, and the answer may differ between cell types and between acute and chronic conditions. Several of the classic experiments used overexpression, which is informative about what a protein <em>can</em> do and weaker evidence about what it normally does at endogenous levels.",
+      "This matters beyond the diagram. The TSC–Rheb axis is the axis broken in tuberous sclerosis complex, and it is the axis every mTOR-directed drug is acting somewhere near. How faithfully the arrows above describe an untouched human cell is a live question, not a settled one."
+     ]
+    }
+   ],
+   "concepts": [
+    "Small GTPase and the GTP/GDP cycle",
+    "GAP (GTPase-activating protein)",
+    "Double-negative regulation",
+    "Subcellular localisation as regulation",
+    "Overexpression as an experimental caveat"
+   ],
+   "proteins": [
+    "Rheb",
+    "TSC1/TSC2",
+    "Akt/PKB",
+    "Rag GTPases",
+    "Raptor",
+    "AMPK"
+   ],
+   "pathways": [
+    "mTORC1"
+   ],
+   "processes": [],
+   "organelles": [
+    "Lysosome"
+   ],
+   "studies": [
+    "INOK2003",
+    "GAR2003",
+    "SAU2003",
+    "INO2002",
+    "SAN2008",
+    "DEM2016"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "gf",
+     "why": "The full growth-factor route: how a cell learns that it is allowed to grow."
+    },
+    {
+     "id": "aa",
+     "why": "The amino-acid route, which decides where mTORC1 sits before Rheb ever meets it."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "What would you expect if Rheb were held predominantly in its GDP-bound state?",
+     "hint": "Work forwards from the arrow, then ask what else in the cell would notice.",
+     "reveal": "The direct expectation is low mTORC1 activity even when amino acids are plentiful — mTORC1 would be recruited to the lysosome and find no active activator waiting. Downstream, reduced S6K1 and 4E-BP1 phosphorylation, reduced cap-dependent translation, and released restraint on ULK1 and autophagy. The second-order expectation is more interesting: because mTORC1 output feeds back onto upstream insulin signalling, chronically low mTORC1 would also change AKT signalling — so the cell would not look like 'the same cell with one arrow deleted'."
+    },
+    {
+     "prompt": "What experiment could distinguish whether mTORC1 regulation here depends mainly on nucleotide state, on localisation, on protein abundance, or on a combination?",
+     "hint": "Each candidate implies a different thing you would have to hold constant.",
+     "reveal": "There is no single decisive experiment, which is itself the answer worth taking away. A serious attempt separates the variables: nucleotide-state mutants of Rheb locked toward GTP or GDP at endogenous expression levels (knock-in rather than overexpression, so abundance is held constant); forced targeting of mTORC1 to the lysosome independently of amino acids, to ask whether localisation alone is sufficient; and quantitative measurement of Rheb, TSC2 and mTOR protein amounts in the same cells, since a change in any of the three could produce the same readout. Combining them under matched conditions is what the field has actually done piecemeal over two decades — and the pieces were done in different cell types, which is part of why the question is still live."
+    }
+   ],
+   "openQuestions": [
+    "sensor-selective-geroprotection-without-the-metabolic-penalty"
+   ],
+   "uncertainty": "The relative contribution of nucleotide state, localisation and protein abundance to mTORC1 activation is unresolved, and several foundational experiments relied on overexpression rather than endogenous levels.",
+   "previousLesson": "mtorc1-vs-mtorc2",
+   "nextLesson": "tsc-and-rheb",
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "Which form of Rheb is the direct positive input to mTORC1 in the standard model?",
+     "options": [
+      "Rheb-GDP",
+      "Rheb-GTP",
+      "Both forms equally",
+      "Neither &mdash; Rheb acts only on mTORC2"
+     ],
+     "answer": 1,
+     "explain": "Rheb is a switch protein whose two nucleotide states behave differently, and it is the GTP-bound state that activates the kinase. Everything the TSC complex does is about how much Rheb-GTP there is."
+    },
+    {
+     "level": "medium",
+     "prompt": "TSC2 is a GAP for Rheb, and AKT inhibits the TSC complex. What is the net effect of AKT activity on mTORC1?",
+     "options": [
+      "Lower activity, because two inhibitory steps in series add up",
+      "Higher activity, because inhibiting the brake leaves more Rheb in its GTP-bound state",
+      "No effect, because the two inhibitions cancel exactly",
+      "Higher activity, because AKT phosphorylates Rheb itself"
+     ],
+     "answer": 1,
+     "explain": "A double negative is easy to misread, so it is worth saying slowly: AKT inhibits TSC, TSC inhibits Rheb, so AKT raises Rheb-GTP. Note also that AKT acts on TSC2, not on Rheb."
+    },
+    {
+     "level": "hard",
+     "prompt": "Which pairing matches the division of labour this lesson describes at the lysosome?",
+     "options": [
+      "Amino acids decide whether Rheb is GTP-loaded; growth factors decide where mTORC1 sits",
+      "Amino acids decide where mTORC1 sits; growth factors decide whether the activator it meets there is in its active state",
+      "Both inputs act only by changing how much mTOR protein the cell makes",
+      "Both inputs converge on AMPK before reaching mTORC1"
+     ],
+     "answer": 1,
+     "explain": "The amino-acid branch is about recruitment through the Rag GTPases; the growth-factor branch is about the nucleotide state of Rheb. That split is a tidier account of the AND-gate behaviour than saying the two signals simply add."
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "slug": "tsc-and-rheb",
+   "module": "core",
+   "title": "The TSC Complex — Where the Inputs Meet",
+   "subtitle": "One brake, four kinds of bad news, and a disease that shows what happens when it fails",
+   "level": "Core",
+   "estimatedTime": 25,
+   "question": "Why do so many unrelated signals converge on the same brake?",
+   "coreIdea": [
+    "Lesson 03 ended with an axis: AKT inhibits the TSC complex, the TSC complex inhibits Rheb, Rheb activates mTORC1. This lesson is about the middle box, because it is the one doing the interesting work. <strong>TSC1, TSC2 and TBC1D7 form the point where several unrelated kinds of information are converted into a single quantity: how much Rheb sits in its GTP-bound state.</strong>",
+    "The word to hold onto is <strong>GAP</strong>. A GTPase-activating protein does not flip Rheb off. It accelerates a reaction Rheb performs anyway &mdash; the hydrolysis of its own bound GTP. So the TSC complex sets a <em>rate</em>, and the amount of Rheb-GTP in a cell is the balance between that rate and the rate at which Rheb is reloaded. A brake described this way is graded and reversible, which is a better mental model than a switch and explains why the pathway can report degrees of 'conditions are good' rather than only yes and no.",
+    "Convergence has a price. Any signal that can reach TSC can change growth, so the complex behaves like a summing point for growth factors, mitogens, energy stress and other stresses at once. And when the complex itself is lost, every one of those inputs is disconnected in the same stroke &mdash; which is the situation in tuberous sclerosis complex, and the reason that disease has been unusually informative about the pathway."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "tsc-gap",
+     "body": [
+      "Read the diagram left to right and count what arrives at the same box. <strong>AKT</strong>, downstream of insulin and IGF-1, phosphorylates TSC2 and reduces the brake &mdash; the growth-factor input from Lesson 03. <strong>ERK and RSK</strong>, downstream of mitogen signalling through Ras, phosphorylate TSC2 at different sites with a similar consequence, which is how a second, largely independent growth-signalling system reaches mTORC1. <strong>AMPK</strong>, active when the energy charge of the cell falls, phosphorylates TSC2 in the opposite direction and strengthens the brake. Additional stresses reported to act on the same complex include hypoxia and DNA damage.",
+      "The complex has a third core subunit, <strong>TBC1D7</strong>, alongside TSC1 and TSC2. It is worth naming for a reason beyond completeness: TSC1 and TSC2 were found as disease genes, and TBC1D7 was found afterwards by asking what else is in the complex. A named component list is a snapshot of the experiments done so far, not a closed inventory.",
+      "The right-hand side of the figure is the GTPase cycle itself. TSC pushes Rheb toward Rheb-GDP; something else pushes it back. Notice what is <em>not</em> drawn: a well-characterised, dedicated exchange factor that reloads Rheb with GTP. That asymmetry is real &mdash; the deactivating side of this cycle is much better described than the reloading side.",
+      "Finally, the complex has an address as well as a substrate. The TSC complex can be recruited to the lysosomal membrane, where Rheb is, and that recruitment is itself regulated by insulin and by nutrient availability &mdash; so 'is the brake on?' and 'is the brake where the activator is?' are two different questions with two different answers."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Why a rate is not a switch",
+     "body": [
+      "If you model TSC as an on/off switch, two common observations look strange. First, mTORC1 output is graded: cells do not sit at either full activity or none, and the same stimulus can give different amounts of downstream phosphorylation in different conditions. Second, the effect of any one input is context-dependent &mdash; removing growth factors from a cell with heavy amino-acid supply is not the same experiment as removing them from a starved cell.",
+      "Both fall out of the GAP picture. The level of Rheb-GTP is a steady state between deactivation and reloading, and each input changes one of those rates by some amount rather than setting the answer. Several inputs pushing at once give a level, not a verdict. This is also why the pathway can be described as an integrator without any of the usual hand-waving: the integration is arithmetic on a rate, at one complex.",
+      "It has a practical consequence for reading papers. When a study reports that some treatment 'activates mTORC1', ask which rate it moved and by how much, and over what period. A treatment that changes the balance by a small amount for an hour and one that removes the brake permanently are different biology, even when the western blot looks similar."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "What happens when the brake is gone",
+     "body": [
+      "Tuberous sclerosis complex is caused by loss-of-function variants in <em>TSC1</em> or <em>TSC2</em>. Losing the complex disconnects all of the inputs above at once, and the result is a disorder with benign tumours in several organs, including the brain lesions called subependymal giant cell astrocytomas.",
+      "This is the one place in the lesson where human evidence exists, and it is worth looking at closely. In a phase 3 randomised trial of 117 people with tuberous sclerosis, everolimus &mdash; an mTORC1-directed drug &mdash; was associated with a tumour-volume reduction of at least 50% in 35% of the treated group, versus none on placebo. As a demonstration that this axis is operating in human tissue, that is about as direct as the corpus gets.",
+      "It is also narrower than it first appears, and the narrowness is the lesson. The trial tells you what happens when a drug is given to people whose brake is genetically broken. It does not tell you what mTORC1 inhibition does in someone whose brake works, and it says nothing about aging, metabolism or anything else the pathway is associated with. A strong result in a monogenic disease is strong evidence about that disease."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "Reading the tiers on this lesson",
+     "body": [
+      "Five of the six studies below sit at tier D: biochemistry and cell work, mostly in cell lines. One sits at tier B and is a randomised trial in a rare genetic disease. Those are not the same kind of statement, and the Atlas tiers mark study design rather than quality &mdash; a careful biochemistry paper is not a weak clinical trial, it is a different experiment answering a different question."
+     ]
+    }
+   ],
+   "concepts": [
+    "GAP and the GTPase cycle",
+    "Signal convergence",
+    "Rate versus switch",
+    "Loss-of-function evidence"
+   ],
+   "proteins": [
+    "TSC1/TSC2",
+    "Rheb",
+    "Akt/PKB",
+    "AMPK",
+    "S6K1"
+   ],
+   "pathways": [
+    "mTORC1"
+   ],
+   "processes": [],
+   "organelles": [
+    "Lysosome"
+   ],
+   "diseases": [
+    "Tuberous sclerosis complex"
+   ],
+   "drugs": [
+    "Everolimus"
+   ],
+   "studies": [
+    "TEE2003",
+    "INO2002",
+    "INO2003",
+    "MA2005",
+    "DIB2012",
+    "MEN2014",
+    "FRA2013"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "gf",
+     "why": "The growth-factor route, which reaches mTORC1 through this complex."
+    },
+    {
+     "id": "energy",
+     "why": "The energy-stress route, which reaches the same complex from the opposite direction."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "AMPK strengthens the TSC brake and AKT weakens it. What would you expect in a cell that has both plenty of insulin signalling and a falling energy charge &mdash; and why is the answer not simply &lsquo;the stronger signal wins&rsquo;?",
+     "hint": "Ask what each kinase actually changes, and where the two changes meet.",
+     "reveal": "Both kinases phosphorylate TSC2, at different sites, with opposite effects on its GAP activity. So the cell is not choosing between two commands; it is arriving at one GAP rate that reflects both. The expected outcome is intermediate mTORC1 output, with the balance depending on the relative strength and duration of the two inputs and on which sites are occupied. The reason 'stronger wins' is the wrong frame is that these inputs are not competing for a switch &mdash; they are both terms in the same rate. It is also a good place to notice a limit of the model: most of the site-mapping was done in cultured cells with strong stimuli, and how these inputs combine at physiological signal strengths in tissue is much less well described."
+    },
+    {
+     "prompt": "Tuberous sclerosis is caused by loss of the brake. Would you expect an mTORC1 inhibitor to be more or less informative about normal biology in that setting than in an unaffected cell?",
+     "hint": "Consider what the drug is being subtracted from.",
+     "reveal": "Less informative about normal regulation, and more informative about the pathway's output. In a cell without TSC, mTORC1 activity is high because upstream regulation has been removed, so a drug that lowers it is showing you what happens when you clamp down on an unregulated output &mdash; not how the regulated system behaves. This is the general shape of the problem with disease-model evidence: the model is chosen because something is broken in it, and that same break is what makes the result hard to generalise. It is also why the everolimus trial result, strong as it is, does not transfer to people whose TSC complex is intact."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "What does it mean that TSC2 acts as a GAP for Rheb?",
+     "options": [
+      "It binds Rheb and physically blocks its interaction with mTORC1",
+      "It accelerates Rheb's hydrolysis of its own bound GTP, pushing Rheb toward the GDP state",
+      "It loads Rheb with fresh GTP",
+      "It degrades Rheb protein"
+     ],
+     "answer": 1,
+     "explain": "A GTPase-activating protein speeds up a reaction the GTPase already performs. That is why the TSC complex sets a rate rather than flipping a switch, and why the amount of Rheb-GTP is a balance."
+    },
+    {
+     "level": "medium",
+     "prompt": "Which of these inputs makes the TSC brake <em>stronger</em> rather than weaker?",
+     "options": [
+      "AKT, downstream of insulin",
+      "ERK and RSK, downstream of mitogens",
+      "AMPK, when the energy charge falls",
+      "Amino acids arriving at the lysosome"
+     ],
+     "answer": 2,
+     "explain": "AKT and ERK both weaken the brake, which raises mTORC1 activity. AMPK acts in the opposite direction, which is how low energy lowers growth signalling through the same complex."
+    },
+    {
+     "level": "hard",
+     "prompt": "The everolimus trial in tuberous sclerosis is tier B human evidence. Which conclusion does it actually support?",
+     "options": [
+      "That mTORC1 inhibition shrinks tumours in people whose TSC complex is genetically disrupted",
+      "That mTORC1 inhibition is beneficial in people generally",
+      "That the TSC complex is the only brake on mTORC1",
+      "That everolimus acts on Rheb directly"
+     ],
+     "answer": 0,
+     "explain": "The trial was run in a population defined by a broken brake, so the result is about that population. Reading it as a general statement about mTORC1 inhibition is the most common way a strong, narrow result gets stretched too far."
+    }
+   ],
+   "openQuestions": [],
+   "uncertainty": "The deactivating side of the Rheb cycle is far better described than the reloading side, and most of the input mapping onto TSC2 comes from cultured cells given strong, acute stimuli. How these inputs combine at physiological signal strengths in intact tissue is not well characterised.",
+   "previousLesson": "rheb",
+   "nextLesson": "lysosome-platform"
+  },
+  {
+   "id": "L05",
+   "slug": "lysosome-platform",
+   "module": "core",
+   "title": "The Lysosome as a Signalling Platform",
+   "subtitle": "Why the cell's recycling compartment turned out to be where the growth decision is made",
+   "level": "Intermediate",
+   "estimatedTime": 25,
+   "question": "Why does it matter <em>where</em> mTORC1 is?",
+   "coreIdea": [
+    "For most of the pathway's history the lysosome was the cell's disposal system: an acidic compartment full of degradative enzymes, the place things go to be broken down. The finding that reorganised the field is that this compartment is also a <strong>signalling platform</strong> &mdash; a surface on which the machinery that decides whether the cell grows is assembled.",
+    "The logic is worth stating before the parts list. mTORC1's activator, Rheb, is associated with intracellular membranes including the lysosome. mTORC1 itself is largely cytosolic. So the kinase and its activator are not automatically in the same place, and <strong>bringing them together is itself a regulated step</strong>. Amino acids are the signal that performs the bringing-together, and the Rag GTPases, held on the membrane by the Ragulator complex, are the machine that does it.",
+    "That gives the pathway a property most signalling diagrams cannot express: two inputs that cannot substitute for one another, because they act on different physical requirements. One decides location, the other decides the state of the activator waiting at that location. <strong>Docking is not activation.</strong> Being at the lysosome is what makes activation possible."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "lysosome-hub",
+     "body": [
+      "The <strong>Rag GTPases</strong> work as heterodimers &mdash; RagA or RagB paired with RagC or RagD &mdash; and unlike Rheb they are not membrane-anchored themselves. They are held at the lysosomal surface by <strong>Ragulator</strong>, a multi-subunit complex that both tethers them and acts on their nucleotide state. When amino acids are available, the Rag dimer adopts the nucleotide configuration that binds RAPTOR, and mTORC1 is recruited from the cytosol to the membrane, where Rheb is.",
+      "The signal does not begin outside the lysosome. Amino acids accumulating in the <strong>lumen</strong> are read from the inside, and the vacuolar H<sup>+</sup>-ATPase &mdash; the proton pump that acidifies the compartment &mdash; is required to relay that information outward to Ragulator and the Rags. This 'inside-out' arrangement is genuinely odd on first meeting, and it is one of the better arguments that the lysosome is not merely a convenient surface but part of the sensing apparatus.",
+      "<strong>SLC38A9</strong>, a lysosomal membrane protein with an amino-acid transporter fold, sits in the same assembly and links lumenal amino-acid content &mdash; arginine in particular &mdash; to Rag activity. Structural work has since described how mTORC1 docks onto the Rag&ndash;Ragulator scaffold, which turns a cartoon arrow into a described interaction surface.",
+      "The traffic runs outward as well. <strong>TFEB</strong>, a transcription factor for lysosomal and autophagy genes, is phosphorylated in an mTORC1-dependent manner at the lysosomal surface; phosphorylated, it stays in the cytosol, and when mTORC1 activity falls it enters the nucleus. So the same platform that reports the cell's nutrient state also controls the transcriptional program that builds more lysosomes &mdash; a loop from the organelle to the genome and back."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Why this changed how the pathway is drawn",
+     "body": [
+      "Before this work, mTORC1 regulation was drawn as a chain of kinases: signal in, phosphorylation, output. The lysosomal picture adds a dimension that a kinase chain cannot represent &mdash; <em>compartment</em>. A component can be present, competent and still inactive because it is in the wrong place, and a regulator can act by moving something rather than by modifying it.",
+      "This also reframes what a 'sensor' is. Nothing here measures amino acids in the way a thermometer measures temperature. What the cell has is a set of protein interactions whose affinities change with amino-acid occupancy, arranged so that the net effect is recruitment. Calling the assembly a sensor is a useful compression; it should not be read as implying a dedicated measuring device.",
+      "One consequence worth carrying forward: a manipulation that changes lysosomal function &mdash; pH, position in the cell, membrane composition &mdash; can change mTORC1 signalling without touching any part of the pathway you would list on a diagram."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "What this lesson is not claiming",
+     "body": [
+      "That the lysosome is <em>the</em> site of mTORC1 signalling is a simplification, and one the field itself has been steadily complicating. mTORC1 activity has been described at other membranes and in other compartments, and how much of a cell's total mTORC1 output happens at the lysosome, in which cell types, is not resolved. Treat the lysosomal platform as the best-described site rather than the only one."
+     ]
+    }
+   ],
+   "concepts": [
+    "Compartmentalised signalling",
+    "Scaffold and recruitment",
+    "Inside-out sensing",
+    "Organelle-to-nucleus signalling"
+   ],
+   "proteins": [
+    "Rag GTPases",
+    "Raptor",
+    "Rheb",
+    "TFEB",
+    "SLC38A9"
+   ],
+   "pathways": [
+    "mTORC1",
+    "Ragulator"
+   ],
+   "processes": [
+    "Autophagy"
+   ],
+   "organelles": [
+    "Lysosome"
+   ],
+   "studies": [
+    "SAN2008",
+    "SAN2010",
+    "ZON2011",
+    "BAR2012",
+    "SET2012",
+    "ROG2019"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "aa",
+     "why": "The amino-acid route, which is this platform seen end to end."
+    },
+    {
+     "id": "out",
+     "why": "What changes downstream once mTORC1 is switched on here."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "Suppose you block the v-ATPase pharmacologically and mTORC1 signalling falls. What are at least two explanations for that result, and how would you tell them apart?",
+     "hint": "The pump does more than one job for the cell.",
+     "reveal": "The intended reading is that the pump is required to relay the lumenal amino-acid signal to Ragulator and the Rags. But the v-ATPase also acidifies the lysosome, and acidification is needed for degradation, for amino-acid efflux from the lumen and for lysosomal function in general &mdash; so blocking it could lower mTORC1 signalling simply by starving the compartment of the amino acids it is supposed to be reporting, or by degrading lysosomal function broadly. Distinguishing them needs experiments that separate the pump's transport role from its signalling role: acute versus chronic inhibition, measuring lumenal amino-acid content directly, reconstitution in cell-free systems, or separation-of-function mutants. This is a good example of why an inhibitor result rarely licenses a mechanistic claim on its own."
+    },
+    {
+     "prompt": "TFEB drives transcription of lysosomal genes and is held inactive by mTORC1 at the lysosome. What kind of loop is that, and what would you expect after a long period of nutrient starvation?",
+     "hint": "Trace the sign of each step, then ask what the cell has more of at the end.",
+     "reveal": "It is a negative feedback loop with a delay: low mTORC1 activity releases TFEB, TFEB drives production of more lysosomes and autophagy machinery, and more functional lysosomes eventually mean more degradation and more amino acids released into the cytosol &mdash; which raises mTORC1 activity again and re-inhibits TFEB. So a prolonged starvation would be expected to produce lysosomal biogenesis followed by partial restoration of mTORC1 signalling, rather than an indefinite off-state. That expectation comes largely from cell work with strong starvation protocols; what happens in tissue during ordinary fasting is much less well described."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "What holds the Rag GTPases at the lysosomal surface?",
+     "options": [
+      "Rheb",
+      "The Ragulator complex",
+      "RAPTOR",
+      "TFEB"
+     ],
+     "answer": 1,
+     "explain": "The Rags are not membrane-anchored on their own. Ragulator tethers them to the lysosome and acts on their nucleotide state, which is what makes the surface a platform rather than a passive membrane."
+    },
+    {
+     "level": "medium",
+     "prompt": "Amino acids recruit mTORC1 to the lysosome. Why is that recruitment not the same thing as activating it?",
+     "options": [
+      "Because recruitment is reversible and activation is not",
+      "Because the kinase still needs to meet Rheb in its GTP-bound state, which the growth-factor branch controls",
+      "Because mTORC1 is inactive at membranes and only works in the cytosol",
+      "Because RAPTOR has to be removed before the kinase can work"
+     ],
+     "answer": 1,
+     "explain": "Docking puts the kinase where its activator lives. Whether that activator is loaded is a separate question answered by a different branch &mdash; which is why neither input alone is sufficient."
+    },
+    {
+     "level": "hard",
+     "prompt": "A drug that raises lysosomal pH lowers mTORC1 signalling in a cell line. Which inference is best supported?",
+     "options": [
+      "Lysosomal pH is a direct input that the Rag GTPases read",
+      "The compound must bind mTOR",
+      "Something about lysosomal function is required for normal mTORC1 signalling &mdash; which of the compartment's several jobs is responsible is not yet distinguished",
+      "mTORC1 signalling does not occur at the lysosome after all"
+     ],
+     "answer": 2,
+     "explain": "Raising the pH disturbs degradation, amino-acid efflux and the v-ATPase-dependent relay at once. The observation is real and the mechanism is underdetermined until those roles are separated experimentally."
+    }
+   ],
+   "openQuestions": [],
+   "uncertainty": "How much of a cell's mTORC1 output happens at the lysosome rather than at other membranes, and how that balance differs between cell types, is unresolved. Most of the assembly was described in cultured cells under strong amino-acid withdrawal and re-addition, which is a much sharper stimulus than a cell normally experiences.",
+   "previousLesson": "tsc-and-rheb",
+   "nextLesson": "nutrient-sensing"
+  },
+  {
+   "id": "L06",
+   "slug": "nutrient-sensing",
+   "module": "core",
+   "title": "Nutrient Sensing",
+   "subtitle": "How a cell reads individual amino acids &mdash; and why the wiring is a chain of double negatives",
+   "level": "Intermediate",
+   "estimatedTime": 30,
+   "question": "How does a cell know which nutrients it has?",
+   "coreIdea": [
+    "The idea that amino acid availability reaches mTOR is old &mdash; work in the late 1990s showed that amino acid sufficiency signals through mTOR to S6K1 and 4E-BP1. What took another two decades was the answer to a harder question: <strong>which molecule actually touches the amino acid?</strong>",
+    "The answer that emerged is a set of dedicated binding proteins, one per nutrient, feeding into a shared relay. Sestrin2 binds leucine. CASTOR1 binds arginine. SAMTOR binds S-adenosylmethionine, the cell's methyl-donor currency, which links methionine and one-carbon metabolism to the same pathway. SLC38A9 reports arginine from inside the lysosomal lumen. These are separate proteins for separate molecules, which is why the pathway does not merely register 'protein is available' but can respond differently to different amino acids.",
+    "The wiring is the part worth slowing down for, because it is almost entirely inhibitory. <strong>A bound sensor stops inhibiting GATOR2; GATOR2 inhibits GATOR1; GATOR1 is the GAP that switches the Rag GTPases off.</strong> Read forward, that is three negatives in a row. The practical translation: an amino acid being present releases an inhibition rather than adding a push, and the resting state of this system is 'off, and actively held off'."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "aa-sensors",
+     "body": [
+      "Follow the leucine row of the diagram. In the absence of leucine, Sestrin2 binds GATOR2 and holds it inactive. Leucine binding to Sestrin2 releases GATOR2. Free GATOR2 inhibits <strong>GATOR1</strong>, and GATOR1 is a GAP for RagA/B &mdash; the activity that shuts amino-acid signalling down when supply is low. Net result: leucine present, GATOR1 restrained, Rag dimer in its mTORC1-recruiting state.",
+      "The arginine row is the same shape with CASTOR1 in place of Sestrin2, and the SAM row the same again with SAMTOR. Three chemically unrelated small molecules, three unrelated binding proteins, one shared relay. That architecture is what allows the pathway to be selective at the input and unified at the output.",
+      "<strong>SLC38A9</strong> is the exception worth remembering, because it reports from the wrong side of a membrane: it reads arginine in the lysosomal lumen rather than in the cytosol, and it participates in moving essential amino acids out of the lumen. A single nutrient can therefore be reported by more than one route, from more than one compartment.",
+      "Not everything routes through the Rags. Glutamine has been reported to activate mTORC1 through a Rag-independent, Arf1-dependent mechanism &mdash; a reminder that 'nutrient sensing' is a family of mechanisms, not one canonical path with details attached."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Why double negatives, and why it matters for reading data",
+     "body": [
+      "Inhibitory wiring is not a quirk of evolution's taste. A system whose default is 'held off' fails safe: lose a component and the pathway tends toward inactive rather than toward unrestrained growth. It also makes the response fast in the direction that matters &mdash; releasing an existing inhibition is quicker than assembling an activating signal.",
+      "For a reader, the consequence is that <em>signs are easy to get backwards</em>, and a surprising number of confusions in this literature are sign errors rather than disagreements about data. GATOR1 loss-of-function raises mTORC1 signalling; GATOR2 loss lowers it; Sestrin2 overexpression lowers it; leucine addition raises it. Each of those follows from the same diagram, but only if you count the blunt ends carefully.",
+      "GATOR1 subunit genes are also mutated in some cancers, which is the expected consequence of removing a brake: the same logic as TSC in Lesson 04, at a different point in the same input branch."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "What 'sensor' does and does not mean",
+     "body": [
+      "These proteins were identified largely through binding assays, structures and cell work using amino-acid withdrawal followed by re-addition &mdash; a stimulus far sharper than anything a fed animal experiences. Calling a protein a sensor says that its behaviour changes when the molecule binds it, in the systems tested. It does not establish how much of a tissue's response to a meal runs through that protein, and it does not tell you the concentration range over which the response is graded in a living animal. The Atlas has a standing open question about exactly this gap."
+     ]
+    }
+   ],
+   "concepts": [
+    "Direct sensing versus signalling",
+    "Double-negative logic",
+    "GAP and GEF activity",
+    "Compartment-specific reporting"
+   ],
+   "proteins": [
+    "Rag GTPases",
+    "SLC38A9",
+    "S6K1",
+    "4E-BP1"
+   ],
+   "pathways": [
+    "mTORC1"
+   ],
+   "processes": [
+    "Protein synthesis"
+   ],
+   "organelles": [
+    "Lysosome"
+   ],
+   "nutrients": [
+    "Leucine",
+    "Arginine"
+   ],
+   "studies": [
+    "HAR1998",
+    "BAR2013",
+    "WOL2015",
+    "CHA2016",
+    "GU2017",
+    "REB2015",
+    "JEW2015"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "aa",
+     "why": "The amino-acid route in full, from the lumen to the kinase."
+    },
+    {
+     "id": "fasting",
+     "why": "What happens to these inputs when food is withheld."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "Predict what happens to mTORC1 signalling if you delete Sestrin2, and then if you delete a GATOR1 subunit. Do the two predictions have the same sign?",
+     "hint": "Write the chain out with each arrow's sign, then remove one box at a time.",
+     "reveal": "They have opposite signs. Sestrin2 inhibits GATOR2, so deleting Sestrin2 leaves GATOR2 free &mdash; GATOR1 stays restrained, Rag signalling tends to stay on even without leucine. Deleting a GATOR1 subunit removes the GAP that shuts the Rags down, which also raises signalling, but for the opposite structural reason and with a different dependence on nutrients: the Sestrin2-null cell has lost a leucine-responsive step, while the GATOR1-null cell has lost the off-switch itself. That difference &mdash; loss of regulation versus loss of a specific input &mdash; is what an experiment measuring only phospho-S6K would miss, and it is why nutrient-response experiments are usually run as withdrawal and re-addition rather than at steady state."
+    },
+    {
+     "prompt": "Glutamine has been reported to reach mTORC1 by a route that does not require the Rag GTPases. What would that do to an experiment that used Rag-null cells to ask 'is this response amino-acid dependent'?",
+     "hint": "Think about what a negative result in that system would and would not tell you.",
+     "reveal": "It would make a negative result ambiguous. If a response survives in Rag-null cells, the standard reading is that it is not amino-acid dependent &mdash; but a Rag-independent route means the response could still be nutrient-driven while bypassing the machinery the experiment was designed around. The general point is that a knockout defines a pathway only as sharply as the field's map of alternative routes, and that map keeps changing. In practice this is an argument for testing more than one nutrient and more than one readout before concluding that a signal is nutrient-independent."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "Which amino acid does Sestrin2 bind?",
+     "options": [
+      "Arginine",
+      "Leucine",
+      "Glutamine",
+      "Methionine"
+     ],
+     "answer": 1,
+     "explain": "Sestrin2 is the leucine-binding protein of this set; CASTOR1 handles arginine and SAMTOR reads S-adenosylmethionine, the metabolite downstream of methionine."
+    },
+    {
+     "level": "medium",
+     "prompt": "Leucine binds Sestrin2. What happens next, in order?",
+     "options": [
+      "Sestrin2 releases GATOR2; GATOR2 inhibits GATOR1; the Rag GTPases stay in their active state",
+      "Sestrin2 binds GATOR2 more tightly; GATOR1 is released; the Rags are switched off",
+      "Sestrin2 phosphorylates the Rag GTPases directly",
+      "Sestrin2 recruits Rheb to the lysosome"
+     ],
+     "answer": 0,
+     "explain": "Three inhibitory steps in a row. Counting them carefully is the whole skill here, because getting the sign backwards is the most common error in reading this part of the pathway."
+    },
+    {
+     "level": "hard",
+     "prompt": "A study shows a protein binds leucine in vitro and that deleting it blunts the mTORC1 response to leucine re-addition in cultured cells. What is the honest limit of that evidence?",
+     "options": [
+      "It says nothing, because in-vitro binding is not biologically meaningful",
+      "It supports a sensing role in that system, but not how much of a tissue's response to a meal runs through the protein, nor over what physiological concentration range it is graded",
+      "It shows the protein is the only leucine sensor in the cell",
+      "It shows leucine is the pathway's dominant nutrient input"
+     ],
+     "answer": 1,
+     "explain": "Withdrawal-and-re-addition is a much sharper stimulus than eating, and one cell type is not a tissue. The experiment supports the mechanism it tested and leaves the quantitative physiology open."
+    }
+   ],
+   "openQuestions": [
+    "sensor-selective-geroprotection-without-the-metabolic-penalty"
+   ],
+   "uncertainty": "The sensors were characterised mostly by binding assays and by acute amino-acid withdrawal and re-addition in cell lines. How much of the response of an intact tissue to a meal runs through any individual sensor, and over what concentration range the response is graded in an animal, is largely uncharacterised.",
+   "previousLesson": "lysosome-platform",
+   "nextLesson": "growth-factor-signaling"
+  },
+  {
+   "id": "L07",
+   "slug": "growth-factor-signaling",
+   "module": "core",
+   "title": "Growth Factor Signalling",
+   "subtitle": "How a cell learns that the rest of the organism is asking it to grow",
+   "level": "Intermediate",
+   "estimatedTime": 25,
+   "question": "How does a signal from outside the cell reach mTORC1?",
+   "coreIdea": [
+    "Nutrients tell a cell what it has. Growth factors tell it what the organism wants. Insulin after a meal, IGF-1 during development, and a range of mitogens are all messages from elsewhere in the body, and a cell that grew purely on nutrient availability would be a cell that ignored them &mdash; which in a multicellular organism is roughly the definition of a tumour.",
+    "The route is one of the best-described in cell biology. A growth factor binds a receptor tyrosine kinase; the activated receptor recruits <strong>PI3K</strong>, which converts PIP<sub>2</sub> to <strong>PIP<sub>3</sub></strong> in the inner leaflet of the plasma membrane; PIP<sub>3</sub> recruits <strong>AKT</strong>, which is then phosphorylated at two sites by two different kinases &mdash; and one of them is mTORC2. The pathway loops through itself before it ever reaches mTORC1.",
+    "From AKT there are two ways into mTORC1, and both are releases rather than pushes. AKT phosphorylates <strong>TSC2</strong>, weakening the brake on Rheb (Lesson 04), and it phosphorylates <strong>PRAS40</strong>, an inhibitory subunit sitting inside mTORC1 itself. <strong>The growth-factor branch works by removing restraints, at two different points, one outside the complex and one inside it.</strong>"
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "gf-axis",
+     "body": [
+      "Left to right: ligand, receptor, PI3K, PIP<sub>3</sub>, AKT. The step worth pausing on is PIP<sub>3</sub>, because it is a lipid rather than a protein. Signal transduction here is not a relay of phosphorylations but a change in membrane composition that creates a docking site &mdash; the same logic as the lysosomal platform in Lesson 05, at a different membrane. It is also why the phosphatase PTEN, which removes that phosphate, is one of the most frequently disrupted tumour suppressors in human cancer.",
+      "AKT requires two phosphorylations for full activity: one in the activation loop, and one at <strong>Ser473</strong> in the hydrophobic motif, which is carried out by mTORC2. So mTOR appears twice in the same diagram, in two different complexes, doing two unrelated jobs &mdash; upstream as part of the machinery that activates AKT, and downstream as the target that AKT relieves. Any experiment that inhibits 'mTOR' without specifying which complex, at what dose, for how long, is cutting this diagram in more than one place.",
+      "The two exits from AKT are worth keeping separate in your head. The TSC route acts on the activator, Rheb, and therefore on how much stimulus mTORC1 receives. The <strong>PRAS40</strong> route acts on the complex itself: without insulin signalling PRAS40 restrains mTORC1 from within, and AKT-mediated phosphorylation lifts that restraint. Two brakes released by one kinase is a redundancy that also explains why partial disruption of either route often gives a partial rather than an absent response.",
+      "The whole arrangement is spatially organised as well. The TSC complex's recruitment to the lysosomal membrane is itself regulated by insulin as well as by nutrients, so the growth-factor branch does not simply modify a protein &mdash; it also changes where that protein acts."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "The same wiring, seen in an animal",
+     "body": [
+      "Most of the mechanism above comes from cell lines and biochemistry. The clearest whole-tissue demonstration in this corpus is skeletal muscle: in mice and in cultured myotubes, the AKT&ndash;mTOR axis was shown to be required for hypertrophy and sufficient to counteract atrophy, which connects the arrows above to a phenotype an animal actually has.",
+      "That study is tier C rather than tier D &mdash; animal rather than mechanistic &mdash; and the upgrade is not cosmetic. It moves the claim from 'these proteins interact this way in this cell type' to 'this axis is load-bearing for a tissue-level outcome in a living animal'. It is also where an important limit appears: the same axis in the same animal does different things in different tissues, so a muscle result is a muscle result."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "Why this branch is the one that goes wrong in cancer",
+     "body": [
+      "The PI3K&ndash;AKT axis is among the most frequently altered signalling routes in human tumours, whether through activating changes in PI3K itself or loss of PTEN. It is tempting to read that as 'mTORC1 activation causes cancer', and the corpus does not support the sentence in that form: mTORC1 sits downstream of these alterations, most of the mechanistic work is in cell lines, and drugs that inhibit mTORC1 have had a mixed record against tumours driven by upstream changes &mdash; partly for reasons that are the subject of Lesson 08."
+     ]
+    }
+   ],
+   "concepts": [
+    "Receptor tyrosine kinase signalling",
+    "Lipid second messengers",
+    "Inhibitory subunits",
+    "Necessity versus sufficiency"
+   ],
+   "proteins": [
+    "Akt/PKB",
+    "PI3K",
+    "TSC1/TSC2",
+    "Rheb",
+    "Rictor"
+   ],
+   "pathways": [
+    "mTORC1",
+    "mTORC2"
+   ],
+   "processes": [
+    "Muscle growth",
+    "Protein synthesis"
+   ],
+   "organelles": [
+    "Lysosome"
+   ],
+   "studies": [
+    "CAN2002",
+    "INO2002",
+    "SAR2005",
+    "SAN2007",
+    "MEN2014",
+    "BOD2001"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "gf",
+     "why": "This lesson as a route through the pathway map."
+    },
+    {
+     "id": "mtorc2",
+     "why": "The other complex, which appears inside this branch as an activator of AKT."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "mTORC2 phosphorylates AKT, and AKT relieves inhibition of mTORC1. Draw that as a circuit. What does it predict about an inhibitor that hits both complexes?",
+     "hint": "Ask what happens to the input when you remove the amplifier and the output at once.",
+     "reveal": "As a circuit, mTORC2 sits upstream of mTORC1 by way of AKT, so an inhibitor that reaches both should lower mTORC1 output by two routes at once: directly, and by weakening the AKT signal that would otherwise release TSC2 and PRAS40. That predicts a deeper and more sustained suppression than an mTORC1-only inhibitor &mdash; and a different side-effect profile, since AKT signalling does a great deal besides growth, including in glucose handling. Both predictions are broadly borne out in the corpus, and they are the reason 'mTORC1-selective' has been a design goal rather than a footnote. The catch is that selectivity claims depend on dose and duration, not on the molecule alone."
+    },
+    {
+     "prompt": "A paper reports that a compound &lsquo;activates mTORC1&rsquo; in muscle cells and concludes that it will promote muscle growth. What would you want before accepting the second half?",
+     "hint": "Separate the readout from the outcome.",
+     "reveal": "Activating mTORC1 is a signalling readout, usually a phosphorylation of S6K1 or 4E-BP1; muscle growth is a tissue outcome measured over weeks. Between them lie several things the experiment did not test: whether the activation persists rather than being an acute spike, whether protein synthesis actually rises and by how much, whether degradation changes in parallel, whether the effect happens in an intact animal with an intact endocrine system, and whether feedback (Lesson 08) blunts the signal over time. The Bodine work is a useful contrast precisely because it went after necessity and sufficiency for the phenotype rather than for the phospho-signal."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "Which lipid does PI3K produce to recruit AKT to the membrane?",
+     "options": [
+      "PIP<sub>3</sub>",
+      "Cholesterol",
+      "Phosphatidylserine",
+      "Ceramide"
+     ],
+     "answer": 0,
+     "explain": "PI3K phosphorylates PIP<sub>2</sub> to make PIP<sub>3</sub>, and PIP<sub>3</sub> is the docking site that brings AKT to the membrane. PTEN reverses that reaction, which is why losing PTEN raises signalling through this branch."
+    },
+    {
+     "level": "medium",
+     "prompt": "AKT reaches mTORC1 by two routes. Which pair is correct?",
+     "options": [
+      "It phosphorylates Rheb directly, and it phosphorylates RAPTOR",
+      "It weakens the TSC complex, and it relieves PRAS40 inside mTORC1",
+      "It activates the Rag GTPases, and it inhibits AMPK",
+      "It phosphorylates S6K1, and it phosphorylates 4E-BP1"
+     ],
+     "answer": 1,
+     "explain": "Both are releases of restraint, one outside the complex and one within it. S6K1 and 4E-BP1 are substrates of mTORC1, not routes into it &mdash; a distinction worth keeping sharp."
+    },
+    {
+     "level": "hard",
+     "prompt": "Why does mTOR appear twice in this lesson's diagram, and what does that imply for an experiment using an inhibitor that blocks the mTOR kinase site?",
+     "options": [
+      "It is a drawing error; mTOR acts only downstream of AKT",
+      "mTORC2 phosphorylates AKT upstream while mTORC1 is the downstream target, so a kinase-site inhibitor cuts the circuit in two places at once",
+      "The two appearances are the same complex shown twice for clarity",
+      "mTORC2 acts downstream of mTORC1 in this branch"
+     ],
+     "answer": 1,
+     "explain": "The same kinase sits on both sides of AKT in two different complexes. An inhibitor that does not distinguish them removes an activator of AKT and a target of AKT simultaneously, which is why such results are hard to attribute to one complex."
+    }
+   ],
+   "openQuestions": [],
+   "uncertainty": "Almost all of the wiring in this lesson was mapped in cultured cells using strong, acute stimulation with insulin or growth factors. How the same branch behaves at physiological hormone concentrations, in tissue, and across the daily feeding cycle is much less well described &mdash; and the muscle work shows that tissue context changes the outcome.",
+   "previousLesson": "nutrient-sensing",
+   "nextLesson": "feedback-regulation"
+  },
+  {
+   "id": "L08",
+   "slug": "feedback-regulation",
+   "module": "core",
+   "title": "Feedback Regulation",
+   "subtitle": "Why inhibiting mTORC1 can make signalling upstream of it go up",
+   "level": "Intermediate",
+   "estimatedTime": 25,
+   "question": "Why does a pathway push back on its own input?",
+   "coreIdea": [
+    "Everything so far has run in one direction: inputs converge, mTORC1 responds, outputs change. Real signalling networks are not one-directional, and this one has a well-described loop running backwards. <strong>mTORC1 output weakens the growth-factor input that activated it.</strong>",
+    "The best-characterised route runs through S6K1. Active mTORC1 activates S6K1; S6K1 phosphorylates <strong>IRS-1</strong>, the adaptor that couples the insulin receptor to PI3K, and reduces its function and its abundance. A second route was found later by phosphoproteomics: mTORC1 phosphorylates <strong>Grb10</strong>, stabilising it as an inhibitor of insulin and IGF-1 signalling. Two mechanisms, the same sign.",
+    "This changes what an inhibitor experiment means. If mTORC1 activity is what suppresses the upstream branch, then <strong>removing mTORC1 activity releases that suppression</strong>, and signalling through PI3K and AKT can rise rather than fall. That is not an oddity of one cell line; it is the expected behaviour of a negative feedback loop with the loop opened, and it is a large part of why the clinical story of mTOR-directed drugs has been more complicated than the pathway diagram suggests."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "feedback-loops",
+     "body": [
+      "Trace the loop on the left of the figure. PI3K and AKT activate mTORC1 (Lesson 07); mTORC1 activates S6K1; S6K1 acts on IRS-1; weakened IRS-1 means less signal from the insulin receptor into PI3K. Sustained mTORC1 activity therefore produces a cell that responds less well to insulin &mdash; cellular insulin resistance arising from the growth pathway itself rather than from anything wrong with the receptor.",
+      "Two companion papers established this in 2004 from opposite directions: one showing that loss of the TSC complex, which leaves mTORC1 and S6K1 constitutively active, disrupts insulin&ndash;PI3K signalling through IRS proteins; the other showing that inappropriate activation of the Rheb&ndash;mTOR&ndash;S6K cassette depletes IRS-1 and IRS-2 and produces cellular insulin resistance. Reading both is a good habit: independent groups, converging design, published within months.",
+      "The right of the figure is the same loop seen through a drug. Inhibiting mTORC1 in cancer cells relieves the feedback and activates upstream receptor-tyrosine-kinase and AKT signalling. A related route reaches the MAPK pathway: mTORC1 inhibition activates MAPK signalling through a PI3K-dependent feedback loop. Both are ways in which a drug aimed at a growth pathway can leave the cell with <em>more</em> proliferative signalling than before in some compartments.",
+      "There is also a whole-animal version of the problem with a different mechanism. In mice, chronic rapamycin disrupts mTORC2 as well and produces insulin resistance &mdash; and, importantly, that metabolic effect could be uncoupled from the lifespan extension. Feedback and off-target complex disruption are two distinct explanations for why the same drug produces both benefits and metabolic costs; distinguishing them matters for anyone trying to keep one and drop the other."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "How to think about loops without getting lost",
+     "body": [
+      "A practical rule: whenever you read a result of the form 'inhibiting X increased Y', ask whether Y is upstream of X. If it is, the first hypothesis should be a released feedback loop, not a paradox and not an off-target effect. The second question is the timescale &mdash; feedback release is often fast and transient, and a measurement at one hour and a measurement at one week can point in opposite directions. One study in this lesson found biphasic AKT regulation after mTOR kinase inhibition for exactly that reason.",
+      "The reverse rule is just as useful. If a paper reports that a treatment raises mTORC1 signalling over days, ask what happened to the upstream branch, because sustained mTORC1 activity should be eroding its own input. A result that shows both high mTORC1 output and undiminished insulin signalling over time is telling you something is unusual about the system, and that is worth understanding rather than skipping.",
+      "There is a design consequence too. Because the loop exists, an experiment that measures only one node of the pathway is measuring a moving target. This is one of the reasons phospho-S6 alone is a weak readout for 'mTOR activity' &mdash; it reports one substrate of one complex at one moment, in a network arranged to compensate."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "Scope of the evidence here",
+     "body": [
+      "The feedback mechanisms below were characterised in cultured cells, several of them cancer cell lines chosen because their signalling is strong and easy to read. The mouse study is tier C. None of this is a description of what happens in a person taking one of these drugs, and the corpus's human evidence on metabolic effects is a separate literature with its own tiers. Keep the mechanism and the clinical claim in separate boxes."
+     ]
+    }
+   ],
+   "concepts": [
+    "Negative feedback",
+    "Feedback release",
+    "Cellular insulin resistance",
+    "Timescale in signalling experiments"
+   ],
+   "proteins": [
+    "S6K1",
+    "IRS-1 / IRS-2",
+    "Akt/PKB",
+    "PI3K",
+    "TSC1/TSC2"
+   ],
+   "pathways": [
+    "mTORC1",
+    "mTORC2"
+   ],
+   "processes": [],
+   "outcomes": [
+    "Insulin resistance"
+   ],
+   "drugs": [
+    "Rapamycin"
+   ],
+   "studies": [
+    "HAR2004",
+    "SHA2004",
+    "ORE2006",
+    "CAR2008",
+    "YUX2011",
+    "LAM2012"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "rapa",
+     "why": "What the drug does to this loop, and what the loop does back."
+    },
+    {
+     "id": "clin",
+     "why": "Where these mechanisms meet actual trials."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "A tumour has an activating change in PI3K. On the diagram, mTORC1 is downstream, so an mTORC1 inhibitor looks like the obvious move. Using this lesson, give two reasons the result might disappoint.",
+     "hint": "One reason is about the loop; one is about what the drug does and does not block.",
+     "reveal": "First, releasing feedback: removing mTORC1 output removes S6K1-mediated suppression of IRS-1 and Grb10-mediated suppression of insulin/IGF-1 signalling, so AKT signalling can rise &mdash; in a cell already driven by an activating PI3K change, that is the branch you least wanted to strengthen. A related route raises MAPK signalling through a PI3K-dependent loop. Second, rapamycin does not block all mTORC1 outputs equally; substrates such as 4E-BP1 are less sensitive than S6K1, so 'mTORC1 inhibited' on a phospho-S6 blot can coexist with continued cap-dependent translation. Both reasons argue for measuring more than one substrate and more than one time point, and both are why combination approaches and active-site inhibitors were pursued."
+    },
+    {
+     "prompt": "Chronic rapamycin in mice produces insulin resistance, and the same work found that this could be uncoupled from lifespan extension. Why is &lsquo;uncoupled&rsquo; a stronger and more useful word here than &lsquo;unrelated&rsquo;?",
+     "hint": "Think about what an uncoupling result licenses you to try next.",
+     "reveal": "'Unrelated' would be a claim about mechanism &mdash; that the two outcomes share no causal machinery &mdash; which the experiment does not support. 'Uncoupled' is a claim about what was observed: conditions exist in which one appears without the other. That is weaker, and much more useful, because it converts a resignation ('the side effect is the price of the benefit') into a design problem ('find the conditions that separate them'). It is also directly testable, and the Atlas carries it as an open question rather than a settled result. Notice how much of the epistemic content of the finding sits in one word choice."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "Through which substrate does mTORC1 most classically weaken insulin signalling?",
+     "options": [
+      "4E-BP1",
+      "S6K1, which acts on IRS-1",
+      "ULK1",
+      "TFEB"
+     ],
+     "answer": 1,
+     "explain": "S6K1 phosphorylates IRS-1 and reduces its function and abundance, so the receptor couples less well to PI3K. Grb10 is the second, later-described route with the same sign."
+    },
+    {
+     "level": "medium",
+     "prompt": "In a cancer cell line, adding an mTORC1 inhibitor raises AKT phosphorylation. What is the first hypothesis a careful reader should reach for?",
+     "options": [
+      "The drug is contaminated with an AKT activator",
+      "AKT is upstream of mTORC1, so removing mTORC1 output released the negative feedback that was suppressing it",
+      "mTORC1 normally phosphorylates AKT",
+      "The cells have lost mTORC2"
+     ],
+     "answer": 1,
+     "explain": "Whenever inhibiting X raises Y, check whether Y is upstream of X. If it is, released feedback is the ordinary explanation and should be excluded before anything more exotic."
+    },
+    {
+     "level": "hard",
+     "prompt": "Why is phospho-S6 alone a weak readout for &lsquo;mTOR activity&rsquo; in an experiment that runs for days?",
+     "options": [
+      "The antibody is unreliable",
+      "S6 is not phosphorylated in living cells",
+      "It reports one substrate of one complex at one moment, in a network with feedback that shifts over time and with substrates that differ in drug sensitivity",
+      "Phosphorylation of S6 is unrelated to mTORC1"
+     ],
+     "answer": 2,
+     "explain": "The readout is real but narrow. Feedback release changes the upstream branch over time, and substrates such as 4E-BP1 respond differently from S6K1 to the same drug &mdash; so one band on one day can be consistent with several different states of the network."
+    }
+   ],
+   "openQuestions": [
+    "mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance"
+   ],
+   "uncertainty": "How much of the metabolic cost seen with long-term mTOR-directed drugs comes from released feedback and how much from disruption of mTORC2 is not resolved, and the two explanations imply different fixes. The mouse work that separated the metabolic effect from the lifespan effect is tier C and has no equivalent in people.",
+   "previousLesson": "growth-factor-signaling",
+   "nextLesson": "mtor-and-autophagy"
+  },
+  {
+   "id": "L09",
+   "slug": "mtor-and-autophagy",
+   "module": "core",
+   "title": "mTOR and Autophagy",
+   "subtitle": "The recycling program mTORC1 holds down, and what happens when it lets go",
+   "level": "Intermediate",
+   "estimatedTime": 25,
+   "question": "How does one kinase decide between building and recycling?",
+   "coreIdea": [
+    "Autophagy is the cell's bulk self-digestion program: material is enclosed in a double membrane, delivered to the lysosome, broken down, and the components returned to the cytosol. It is how a starving cell feeds itself from its own contents, and how a cell disposes of damaged organelles and aggregated protein.",
+    "Lesson 01 made a point that this lesson can now cash out: <strong>autophagy is not simply 'mTORC1 off'.</strong> It is a program that mTORC1 actively restrains, by at least two distinct mechanisms, and that becomes available when the restraint is lifted. The distinction matters because a restrained program can be released quickly and to a graded degree, which is not how absence behaves.",
+    "The two mechanisms operate on different timescales, which is the structural idea of the lesson. <strong>Fast:</strong> mTORC1 phosphorylates ULK1, the kinase that initiates autophagosome formation, keeping it inactive &mdash; a switch that can flip within minutes. <strong>Slow:</strong> mTORC1 phosphorylates the transcription factor TFEB and keeps it out of the nucleus, so releasing it turns on the genes for autophagy and lysosomal biogenesis over hours. One pathway, two clocks."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The mechanism, in outline",
+     "figure": "autophagy-switch",
+     "body": [
+      "When nutrients are plentiful, mTORC1 physically associates with the <strong>ULK1&ndash;ATG13&ndash;FIP200</strong> complex and phosphorylates ULK1 to keep it off. This is unusually direct as regulation goes: the growth kinase sits on the autophagy-initiating kinase. Withdraw nutrients, mTORC1 activity falls, the phosphorylation is lost and the complex becomes competent to initiate.",
+      "The same substrate receives an opposing input. <strong>AMPK</strong>, the energy sensor, phosphorylates ULK1 at activating sites when energy is low, while mTORC1 phosphorylates a different site to keep it inactive. ULK1 is therefore a small integration point of its own, reading growth signalling and energy state at once through separate phosphorylation sites &mdash; the same architecture seen at TSC2 in Lesson 04, one layer further down.",
+      "The <strong>TFEB</strong> arm runs through the lysosomal platform of Lesson 05. mTORC1-dependent phosphorylation at the lysosomal surface keeps TFEB in the cytosol; when mTORC1 activity falls, TFEB enters the nucleus and drives transcription of lysosomal and autophagy genes. The cell does not only start eating, it builds more of the apparatus for eating.",
+      "The program also has to end. Reactivation of mTOR terminates autophagy and drives <strong>autophagic lysosome reformation</strong>, in which new lysosomes are generated from the products of the process. So mTOR is not only the brake on the start of autophagy; it is also part of the mechanism that closes the cycle and restores the compartment."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Is the autophagy connected to the lifespan effect?",
+     "body": [
+      "This is where the lesson stops describing mechanism and starts describing an argument. Lowering mTOR signalling extends lifespan in several laboratory species; lowering it also releases autophagy; so the obvious hypothesis is that autophagy is how the lifespan effect works. Two lines of evidence in the corpus bear on it directly.",
+      "In <em>C. elegans</em>, animals lacking the autophagy gene <em>bec-1</em> lost the lifespan extension normally conferred by reduced insulin-like signalling &mdash; a necessity result, and a strong one for that organism. In mice, animals engineered to overexpress <em>Atg5</em> showed increased autophagy and lived about 17% longer, alongside being leaner and more insulin-sensitive &mdash; a sufficiency result of a kind, in a mammal.",
+      "Put together, they make the hypothesis serious without closing it. Neither study manipulated mTOR; both change autophagy by other means, so they support 'autophagy matters for lifespan in these models' rather than 'autophagy is the mechanism of the mTOR effect'. The Atlas carries the remaining question in its own words &mdash; whether autophagy is actually required for the mammalian lifespan benefit &mdash; and it is a good example of a hypothesis that is widely believed, well motivated, and not yet directly tested in the form in which it is usually stated."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "A measurement warning worth carrying",
+     "body": [
+      "Autophagy is a flux, not a quantity. Counting autophagosomes at one time point cannot distinguish 'more are being made' from 'they are not being cleared', and those are opposite conclusions. Papers that measure flux &mdash; usually by comparing conditions with and without a block on lysosomal degradation &mdash; are making a much stronger claim than papers that count structures or report a single marker. This is one of the most common places where a reader can be misled without anything in the paper being wrong."
+     ]
+    }
+   ],
+   "concepts": [
+    "Restraint versus absence",
+    "Flux versus steady-state measurement",
+    "Necessity and sufficiency",
+    "Fast and slow regulation"
+   ],
+   "proteins": [
+    "ULK1",
+    "AMPK",
+    "TFEB",
+    "S6K1"
+   ],
+   "pathways": [
+    "mTORC1"
+   ],
+   "processes": [
+    "Autophagy"
+   ],
+   "organelles": [
+    "Lysosome"
+   ],
+   "outcomes": [
+    "Longevity"
+   ],
+   "studies": [
+    "HOS2009",
+    "KIM2011",
+    "SET2012",
+    "YUX2010",
+    "MEL2003",
+    "PYO2013"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "out",
+     "why": "What else changes downstream when mTORC1 activity falls."
+    },
+    {
+     "id": "fasting",
+     "why": "The nutrient-withdrawal route that releases this program."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "mTORC1 restrains autophagy on a timescale of minutes through ULK1 and on a timescale of hours through TFEB. Why would a cell need both?",
+     "hint": "Ask what each one can do that the other cannot.",
+     "reveal": "The fast arm handles the immediate problem: a cell that has just run out of amino acids needs to start recycling now, and post-translational modification of an existing complex is the only mechanism quick enough. The slow arm handles capacity: sustained recycling needs more lysosomes and more of the machinery, which requires transcription and takes hours. A cell with only the fast arm would start well and run out of apparatus; a cell with only the slow arm would respond too late to survive an acute shortage. The pairing also predicts something testable &mdash; a brief nutrient dip and a prolonged one should produce qualitatively different cellular states, not simply different magnitudes of the same one."
+    },
+    {
+     "prompt": "A study reports more autophagosomes in treated cells and concludes that the treatment increased autophagy. What alternative explanation must be excluded, and how?",
+     "hint": "An autophagosome is made and then consumed.",
+     "reveal": "The alternative is blocked clearance: if autophagosomes are not being degraded by the lysosome, they accumulate, and a snapshot shows more of them while the process has actually slowed. Distinguishing the two requires a flux measurement &mdash; comparing the treated condition with and without an inhibitor of lysosomal degradation, so that the rate of production can be separated from the rate of consumption &mdash; or following a marker whose turnover reports degradation. This matters far beyond one paper: it is a systematic reason why the autophagy literature contains apparently contradictory results, and why the question of what autophagy contributes to mTOR-related lifespan effects is harder to answer than it first looks."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "How does mTORC1 keep autophagy initiation switched off when nutrients are plentiful?",
+     "options": [
+      "By degrading the autophagy machinery",
+      "By phosphorylating ULK1 in the ULK1&ndash;ATG13&ndash;FIP200 complex",
+      "By blocking lysosome formation entirely",
+      "By preventing AMPK from being expressed"
+     ],
+     "answer": 1,
+     "explain": "mTORC1 associates with the initiating complex and phosphorylates ULK1 at an inhibitory site. Release that phosphorylation and the complex becomes competent &mdash; restraint lifted, not machinery rebuilt."
+    },
+    {
+     "level": "medium",
+     "prompt": "ULK1 receives opposing phosphorylations from mTORC1 and AMPK. What does that arrangement let the cell do?",
+     "options": [
+      "Respond to growth signalling and energy state at the same node, through different sites",
+      "Switch autophagy on only when both signals agree",
+      "Bypass the lysosome when energy is low",
+      "Keep autophagy permanently on during growth"
+     ],
+     "answer": 0,
+     "explain": "It is the same integration architecture seen at TSC2, one layer further down: two inputs, two sites, one output. The cell arrives at a level of ULK1 activity rather than a verdict."
+    },
+    {
+     "level": "hard",
+     "prompt": "Worms lacking <em>bec-1</em> lose the lifespan extension from reduced insulin-like signalling, and mice overexpressing <em>Atg5</em> live about 17% longer. What do these two results together support?",
+     "options": [
+      "That autophagy is the mechanism by which mTOR inhibition extends lifespan",
+      "That autophagy matters for lifespan in these models &mdash; while leaving open whether it is the route by which reduced mTOR signalling acts, since neither study manipulated mTOR",
+      "That autophagy has no role in lifespan in mammals",
+      "That Atg5 is the mammalian equivalent of bec-1"
+     ],
+     "answer": 1,
+     "explain": "Both studies change autophagy by means other than mTOR. They make the hypothesis serious and they do not test it in the form it is usually stated &mdash; which is exactly why the Atlas still carries it as an open question."
+    }
+   ],
+   "openQuestions": [
+    "is-autophagy-actually-required-for-the-mammalian-lifespan-benefit"
+   ],
+   "uncertainty": "Whether autophagy is required for the lifespan effects associated with reduced mTOR signalling in mammals has not been tested directly in the form in which the claim is usually made. The supporting studies alter autophagy genetically rather than through mTOR, and in a worm and a mouse respectively.",
+   "previousLesson": "feedback-regulation",
+   "nextLesson": "how-to-read-an-mtor-paper"
+  },
+  {
+   "id": "L10",
+   "slug": "how-to-read-an-mtor-paper",
+   "module": "core",
+   "title": "How to Read an mTOR Paper",
+   "subtitle": "Six habits that survive contact with the literature",
+   "level": "Research",
+   "estimatedTime": 30,
+   "question": "What separates what a paper measured from what its abstract says?",
+   "coreIdea": [
+    "Nine lessons of mechanism are worth less than they should be without one more skill: the ability to read a paper and work out what it actually showed. This lesson has no new pathway in it. It has a set of habits, each attached to a study in this corpus that makes the habit concrete.",
+    "The organising idea is simple. <strong>Every result has four parts: a model system, a perturbation, a readout, and a claim.</strong> The first three are what happened in the laboratory. The fourth is a sentence written afterwards. Most of the work of reading is measuring the distance between the third and the fourth, and that distance is not usually marked.",
+    "None of what follows is a reason for cynicism about the literature. The studies used here as examples are good studies; several are landmarks. The point is the opposite of dismissal &mdash; a careful reader gets more out of a strong paper, not less, because they can see what it bought and what it left for someone else."
+   ],
+   "sections": [
+    {
+     "kind": "mechanism",
+     "heading": "The anatomy of a claim",
+     "figure": "claim-anatomy",
+     "body": [
+      "<strong>Model system.</strong> A cancer cell line, a primary cell, a fly, a worm, a mouse, a dog, a person. Each answers a different question and none is a small version of the next one. The Atlas's evidence tiers are a compressed statement of this: tier D is mechanistic or in-vitro work, tier C animal, tier B human, tier A systematic review. <em>Tier is study design, not quality.</em> A careful biochemistry paper is not a weak trial; it is a different experiment.",
+      "<strong>Perturbation.</strong> What was actually done &mdash; a knockout, a knockdown, an overexpression, a drug at some dose for some duration, a diet. Overexpression tells you what a protein <em>can</em> do; a knockout tells you what the system does without it, in the presence of whatever compensation occurred. Neither is the same as watching the endogenous protein work.",
+      "<strong>Readout.</strong> What was measured, when, and in what units. A phosphorylation on a blot, a lifespan curve, a tumour volume, a body-composition scan. The readout is the only quantitative fact in the paper; everything else is interpretation of it.",
+      "<strong>Claim.</strong> The sentence in the abstract. Read it last, deliberately, after you have the other three &mdash; and then ask what would have to be true for it to follow."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Six habits, each with a worked example",
+     "body": [
+      "<strong>1. The tool defines the result.</strong> For years 'mTORC1 inhibition' meant rapamycin, and rapamycin's effects were read as mTORC1's functions. An ATP-competitive inhibitor that blocks the kinase site directly revealed mTORC1 activities rapamycin leaves running &mdash; notably 4E-BP1 phosphorylation. Whenever a field's central concept is defined by one reagent, expect the concept to change when a second reagent arrives.",
+      "<strong>2. Dose and duration are part of the mechanism, not the methods section.</strong> Short rapamycin exposure principally affects mTORC1; prolonged treatment also reduces mTORC2 signalling in many cells by interfering with assembly of new complexes. 'Rapamycin inhibits mTORC1 and spares mTORC2' is therefore a statement about a protocol. Two papers can disagree while both being right, because they ran different experiments with the same molecule.",
+      "<strong>3. Ask which half of the animals it worked in.</strong> Deleting S6K1 extended median lifespan by about 19% in female mice, with no significant effect in males. Sex-specific results are common in this literature and are frequently lost in summary. When a lifespan figure is quoted without a sex, the number is incomplete rather than wrong.",
+      "<strong>4. Notice which species carried the claim.</strong> A short course of low-dose rapamycin was associated with improved measures of heart function in healthy pet dogs. Dogs are a genuinely informative model &mdash; outbred, sharing a human environment, ageing at a useful rate &mdash; and this is still tier C. It is stronger than a mouse result for extrapolation purposes and it is not a result in people.",
+      "<strong>5. Read the pre-registered primary endpoint, not the highlights.</strong> The first completed long-term randomised trial of rapamycin for healthy ageing reported no significant change in its primary endpoint, visceral fat by DXA. A null primary endpoint is a real result and it is the one the trial was designed to answer; secondary findings from the same trial are hypothesis-generating and should be read as such.",
+      "<strong>6. Prefer the systematic review for the state of a field &mdash; and read its limits.</strong> A systematic review of rapamycin and its derivatives for ageing screened more than 18,000 records and included 19 studies, reporting improvements in some parameters and no significant effect on others. That is the highest tier in the Atlas, and it is still a summary of a small and heterogeneous literature. Tier A means the method of aggregation was rigorous; it does not manufacture evidence that the underlying studies do not contain."
+     ]
+    },
+    {
+     "kind": "prose",
+     "heading": "Three sentence-shapes that should slow you down",
+     "body": [
+      "<strong>'X is a therapeutic target for Y.'</strong> Usually this means an inhibitor changed a readout in a model. It is a hypothesis about a target, stated in the grammar of a conclusion.",
+      "<strong>'Rapamycin extends lifespan.'</strong> In which species, at what dose, from what age, in which sex, on which diet, and by what measure &mdash; median or maximum? Each of those has been shown to matter somewhere in this corpus. The bare sentence is a compression of a set of results, several of which disagree with each other in detail.",
+      "<strong>'Our results show that A causes B.'</strong> Check whether the design supports a causal claim at all: was the perturbation randomised, was there a control for the perturbation itself, is there a dose-response, and is the effect reversible? Then check what the paper measured about B &mdash; often it is a marker of B rather than B."
+     ]
+    },
+    {
+     "kind": "caution",
+     "heading": "The same rules apply to this Atlas",
+     "body": [
+      "Everything above applies to what you are reading now. These lessons are written from a curated corpus, which means someone chose what to include; the evidence tiers are assigned by that same curation; and a teaching model is a simplification with the errors that simplification implies. Where a lesson names an uncertainty, that is not a disclaimer bolted on at the end &mdash; it is part of the content, and the most useful thing you can do with any lesson here is find the place where its account stops being supported."
+     ]
+    }
+   ],
+   "concepts": [
+    "Evidence tiers as design, not grade",
+    "Reagent-defined concepts",
+    "Primary versus secondary endpoints",
+    "Sex-specific effects",
+    "Extrapolation across species"
+   ],
+   "proteins": [
+    "S6K1",
+    "4E-BP1"
+   ],
+   "pathways": [
+    "mTORC1",
+    "mTORC2"
+   ],
+   "processes": [],
+   "outcomes": [
+    "Longevity"
+   ],
+   "drugs": [
+    "Rapamycin"
+   ],
+   "studies": [
+    "THO2009",
+    "SAR2006",
+    "SEL2009",
+    "URF2017",
+    "MOE2025",
+    "LEE2024"
+   ],
+   "authors": [],
+   "guidedRoutes": [
+    {
+     "id": "rapa",
+     "why": "The drug whose protocol details this lesson keeps returning to."
+    },
+    {
+     "id": "open",
+     "why": "Where the corpus itself says the evidence stops."
+    }
+   ],
+   "thinkQuestions": [
+    {
+     "prompt": "Two papers report opposite conclusions about whether rapamycin affects mTORC2. Before deciding that one is wrong, what three features of the experiments would you compare?",
+     "hint": "Everything in the methods that the abstract left out.",
+     "reveal": "Duration of exposure, first: acute treatment principally affects mTORC1, while prolonged treatment can reduce mTORC2 signalling by interfering with assembly of new complexes, so a six-hour and a six-day experiment can honestly disagree. Cell type second: the assembly effect is not uniform, and complex abundance and turnover differ between cells. Readout third: 'mTORC2 activity' is usually inferred from AKT Ser473, which is also affected by the feedback loop of Lesson 08, so the same blot can move for reasons that have nothing to do with mTORC2 itself. Only after those three match is a genuine contradiction on the table &mdash; and this is the ordinary situation in the literature rather than an unusual one."
+    },
+    {
+     "prompt": "You read that a trial of an mTOR-directed drug 'improved immune response in older adults' and that another 'showed no benefit'. What would you check first, and what would you refuse to conclude from either alone?",
+     "hint": "Start with what each trial was designed to answer.",
+     "reveal": "First check what the pre-registered primary endpoint was in each, since a positive secondary finding and a positive primary result are different objects; then the population, the dose and schedule, the duration, and the size. What neither can support alone is a general claim about mTOR inhibition and ageing: one trial is one dose, one schedule, one population and one endpoint. The corpus's own summary of this literature is a systematic review that found improvement in some parameters and not others across 19 studies &mdash; and even that is a summary of a small, heterogeneous field rather than a verdict on the strategy."
+    }
+   ],
+   "quiz": [
+    {
+     "level": "easy",
+     "prompt": "In the Atlas, what does an evidence tier describe?",
+     "options": [
+      "How good the study is",
+      "The design of the study &mdash; mechanistic, animal, human, or systematic review",
+      "How often the study has been cited",
+      "How recent the study is"
+     ],
+     "answer": 1,
+     "explain": "Tier is design, not grade. A tier D biochemistry paper and a tier B trial answer different questions, and calling one better than the other is a category error rather than a judgement."
+    },
+    {
+     "level": "medium",
+     "prompt": "Why is &lsquo;rapamycin inhibits mTORC1 and spares mTORC2&rsquo; a statement about a protocol rather than about the molecule?",
+     "options": [
+      "Because rapamycin is unstable in culture medium",
+      "Because prolonged treatment can also reduce mTORC2 signalling in many cells by interfering with assembly of new complexes",
+      "Because rapamycin does not enter cells efficiently",
+      "Because mTORC2 is not a real complex"
+     ],
+     "answer": 1,
+     "explain": "Selectivity here depends on dose and duration. Two studies using the same drug can reach opposite conclusions because they ran different protocols, and neither has to be wrong."
+    },
+    {
+     "level": "hard",
+     "prompt": "A trial reports a null result on its pre-registered primary endpoint and a promising change in a secondary measure. How should each be read?",
+     "options": [
+      "The secondary finding overrides the null, since it shows the drug does something",
+      "Both are equally strong, since both come from the same randomised trial",
+      "The primary endpoint is the question the trial was designed and powered to answer; the secondary finding is hypothesis-generating and needs its own test",
+      "The trial should be disregarded entirely"
+     ],
+     "answer": 2,
+     "explain": "Pre-registration is what protects a result from being selected after the fact. A null primary endpoint is a real answer to the stated question, and a secondary signal is a reason to design the next study rather than a conclusion."
+    }
+   ],
+   "openQuestions": [
+    "sex-dimorphism-in-mtor-longevity-responses-is-pervasive-and-sometimes-direction-flipping",
+    "a-sensor-autophagy-biomarker-panel-as-a-surrogate-endpoint-for-human-trials"
+   ],
+   "uncertainty": "This lesson teaches habits rather than findings, and the habits themselves are a curator's judgement about what has gone wrong most often in this particular literature. Someone reading the same corpus with a different background would emphasise different failure modes, and the studies used as examples were chosen to be illustrative rather than by any systematic procedure.",
+   "previousLesson": "mtor-and-autophagy",
+   "nextLesson": null
+  }
+ ]
 }

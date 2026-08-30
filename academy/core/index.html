@@ -59,6 +59,48 @@
    "courseMode": "online",
    "name": "Rheb — The Critical Regulator",
    "url": "https://mtor-atlas.org/academy/core/rheb/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "The TSC Complex — Where the Inputs Meet",
+   "url": "https://mtor-atlas.org/academy/core/tsc-and-rheb/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "The Lysosome as a Signalling Platform",
+   "url": "https://mtor-atlas.org/academy/core/lysosome-platform/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "Nutrient Sensing",
+   "url": "https://mtor-atlas.org/academy/core/nutrient-sensing/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "Growth Factor Signalling",
+   "url": "https://mtor-atlas.org/academy/core/growth-factor-signaling/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "Feedback Regulation",
+   "url": "https://mtor-atlas.org/academy/core/feedback-regulation/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "mTOR and Autophagy",
+   "url": "https://mtor-atlas.org/academy/core/mtor-and-autophagy/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "How to Read an mTOR Paper",
+   "url": "https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"
   }
  ]
 }
@@ -96,25 +138,30 @@ body{margin:0;background:var(--paper);color:var(--ink);
 font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
-/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
-.oma-topbar{border-bottom:2px solid var(--ink)}
-.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
-display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+/* ---- Site-wide topbar (logo + primary nav) -- unified 2026-08-30 with the
+   SPA's own header so every static page (Academy, Browse, Study, Answers,
+   Glossary, About...) reads as the same site as the interactive Atlas
+   instead of a second, smaller-looking nav bolted on beside it. ---- */
+.oma-topbar{border-bottom:none}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px 12px;
+display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:center;gap:9px;text-decoration:none;
 color:var(--ink);flex-shrink:0}
 .oma-wordmark:hover{opacity:.75}
-.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-emblem{width:28px;height:28px;flex-shrink:0;align-self:center;color:var(--teal)}
 .oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
-font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+font-size:19px;letter-spacing:-.01em;white-space:nowrap}
 .oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
 text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
 padding-left:9px;white-space:nowrap}
-.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
-.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
-letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
-text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs-row{border-bottom:2px solid var(--ink)}
+.oma-tabs-inner{max-width:1100px;margin:0 auto;padding:0 22px}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:4px}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;
+letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
-.oma-tabs a.active{color:#fff;background:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
 nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
 padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
 nav.crumb a{color:var(--soft)}
@@ -156,6 +203,8 @@ img,svg{max-width:100%;height:auto}
 a{overflow-wrap:anywhere}
 
 @media (max-width:760px){
+  .oma-tabs-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .oma-tabs{flex-wrap:nowrap;min-width:max-content}
   .wrap{padding:20px 16px 56px;
     padding-left:max(16px,env(safe-area-inset-left));
     padding-right:max(16px,env(safe-area-inset-right))}
@@ -346,6 +395,50 @@ nav.crumb{max-width:1060px}
 .ac-think details[open]>summary::after{content:""}
 .ac-think .ac-reveal{font-size:14.5px;line-height:1.6;margin:2px 0 0}
 
+/* quiz ------------------------------------------------------------------
+   Spec §2/§18 again: this is a comprehension check, not a game. Nothing is
+   stored, nothing is scored across lessons, there is no pass mark and no
+   streak. Feedback is per-question and immediate, and the reason the answer
+   is right is the point -- the tick is not.
+   Correctness is never carried by colour alone (a glyph and a word carry it
+   too), and the evidence-tier palette is deliberately NOT reused here: those
+   colours mean study type, not "good/bad". */
+.ac-quiz{margin:4px 0 0}
+.ac-qz{border:1px solid var(--line);border-radius:3px;padding:15px 18px 12px;margin:0 0 12px}
+.ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
+.ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzopts{list-style:none;padding:0;margin:0}
+.ac-qzopts li{margin:0 0 6px}
+.ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
+  min-height:44px;padding:9px 12px;font:inherit;font-size:15px;line-height:1.5;
+  color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:3px;
+  cursor:pointer}
+.ac-qzopt:hover{border-color:var(--teal)}
+.ac-qzopt:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ac-qzkey{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;
+  color:var(--soft);flex:0 0 auto;padding-top:1px}
+.ac-qz[data-done] .ac-qzopt{cursor:default}
+.ac-qz[data-done] .ac-qzopt:hover{border-color:var(--line)}
+.ac-qzopt[data-mark="right"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[data-mark="right"] .ac-qzkey{color:var(--teal)}
+.ac-qzopt[data-mark="wrong"]{border-color:var(--amber);box-shadow:inset 3px 0 0 var(--amber)}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey{color:var(--amber)}
+.ac-qzopt[data-mark] .ac-qzkey::after{content:" \2713"}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey::after{content:" \2715"}
+.ac-qzwhy{font-size:14.5px;line-height:1.6;margin:10px 0 2px;
+  border-left:3px solid var(--teal);padding:0 0 0 12px}
+.ac-qzverdict{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qz details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-qz details>summary::-webkit-details-marker{display:none}
+.ac-qz details>summary::after{content:" 92"}
+.ac-qz details[open]>summary::after{content:""}
+.ac-qz details p{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+.ac-qztally{font-size:14px;color:var(--soft);margin:2px 0 0}
+
 .ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
 .ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
   border:1px solid var(--line);border-radius:3px;padding:5px 11px;text-decoration:none}
@@ -388,15 +481,15 @@ nav.crumb{max-width:1060px}
 <body>
 <div class="oma-topbar"><div class="oma-topbar-inner">
 <a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
-<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<svg class="oma-emblem" viewBox="0 0 64 64" role="img" aria-label="Oliver's mTOR Atlas emblem"><path d="M40.89 7.57 A26 26 0 1 1 23.11 7.57" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="15" r="9" fill="currentColor"/></svg>
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
 </a>
-<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/" class="active">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav>
 </div></div>
+<div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/" class="active">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/academy/">Academy</a> › mTOR Core</nav>
-<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>mTOR Core</h1><p class="ac-lede">Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field&#x27;s own evidence stops.</p></div><ul class="ac-list"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span><span class="ac-n">01</span><span class="ac-ttl">What is mTOR?</span><span class="ac-meta">Foundation · 15 min</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span><span class="ac-n">02</span><span class="ac-ttl">mTORC1 vs mTORC2</span><span class="ac-meta">Core · 20 min</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span><span class="ac-n">03</span><span class="ac-ttl">Rheb — The Critical Regulator</span><span class="ac-meta">Core · 25 min</span></a></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">04</span><span class="ac-ttl">TSC and Rheb</span><span class="ac-meta">Core · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">05</span><span class="ac-ttl">The Lysosome as a Signaling Platform</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">06</span><span class="ac-ttl">Nutrient Sensing</span><span class="ac-meta">Intermediate · 30 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">07</span><span class="ac-ttl">Growth Factor Signaling</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">08</span><span class="ac-ttl">Feedback Regulation</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">09</span><span class="ac-ttl">mTOR and Autophagy</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">10</span><span class="ac-ttl">How to Read an mTOR Paper</span><span class="ac-meta">Research · 30 min · in preparation</span></span></li></ul><p class="ac-note">Lessons marked <em>in preparation</em> are listed so the shape of the course is visible. They are not written yet, and this page will not pretend otherwise.</p><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/browse/">Explore the Atlas &rarr;</a></p>
+<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>mTOR Core</h1><p class="ac-lede">Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field&#x27;s own evidence stops.</p></div><ul class="ac-list"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span><span class="ac-n">01</span><span class="ac-ttl">What is mTOR?</span><span class="ac-meta">Foundation · 15 min</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span><span class="ac-n">02</span><span class="ac-ttl">mTORC1 vs mTORC2</span><span class="ac-meta">Core · 20 min</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span><span class="ac-n">03</span><span class="ac-ttl">Rheb — The Critical Regulator</span><span class="ac-meta">Core · 25 min</span></a></li><li data-ac-lesson="tsc-and-rheb"><a href="https://mtor-atlas.org/academy/core/tsc-and-rheb/"><span class="ac-state">○</span><span class="ac-n">04</span><span class="ac-ttl">The TSC Complex — Where the Inputs Meet</span><span class="ac-meta">Core · 25 min</span></a></li><li data-ac-lesson="lysosome-platform"><a href="https://mtor-atlas.org/academy/core/lysosome-platform/"><span class="ac-state">○</span><span class="ac-n">05</span><span class="ac-ttl">The Lysosome as a Signalling Platform</span><span class="ac-meta">Intermediate · 25 min</span></a></li><li data-ac-lesson="nutrient-sensing"><a href="https://mtor-atlas.org/academy/core/nutrient-sensing/"><span class="ac-state">○</span><span class="ac-n">06</span><span class="ac-ttl">Nutrient Sensing</span><span class="ac-meta">Intermediate · 30 min</span></a></li><li data-ac-lesson="growth-factor-signaling"><a href="https://mtor-atlas.org/academy/core/growth-factor-signaling/"><span class="ac-state">○</span><span class="ac-n">07</span><span class="ac-ttl">Growth Factor Signalling</span><span class="ac-meta">Intermediate · 25 min</span></a></li><li data-ac-lesson="feedback-regulation"><a href="https://mtor-atlas.org/academy/core/feedback-regulation/"><span class="ac-state">○</span><span class="ac-n">08</span><span class="ac-ttl">Feedback Regulation</span><span class="ac-meta">Intermediate · 25 min</span></a></li><li data-ac-lesson="mtor-and-autophagy"><a href="https://mtor-atlas.org/academy/core/mtor-and-autophagy/"><span class="ac-state">○</span><span class="ac-n">09</span><span class="ac-ttl">mTOR and Autophagy</span><span class="ac-meta">Intermediate · 25 min</span></a></li><li data-ac-lesson="how-to-read-an-mtor-paper"><a href="https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"><span class="ac-state">○</span><span class="ac-n">10</span><span class="ac-ttl">How to Read an mTOR Paper</span><span class="ac-meta">Research · 30 min</span></a></li></ul><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/browse/">Explore the Atlas &rarr;</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.

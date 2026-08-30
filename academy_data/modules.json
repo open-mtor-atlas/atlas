@@ -1,48 +1,101 @@
 {
-  "_comment": [
-    "Curriculum structure for the Academy. Data only -- no HTML, no prose beyond",
-    "the module blurb. build_academy.py renders it; verify_academy.py checks that",
-    "every `lesson` id here exists in lessons.json and that ordering is consistent",
-    "with each lesson's previousLesson/nextLesson.",
-    "",
-    "`status` is the honest state of a lesson, not a gamification lock:",
-    "  published  -- the page exists and is generated",
-    "  planned    -- listed in the curriculum so the shape of the course is visible,",
-    "                no page generated, no dead link emitted",
-    "Spec §6 lists all ten Core lessons; three are published in this MVP."
-  ],
-  "modules": [
+ "_comment": [
+  "Curriculum structure for the Academy. Data only -- no HTML, no prose beyond",
+  "the module blurb. build_academy.py renders it; verify_academy.py checks that",
+  "every `lesson` id here exists in lessons.json and that ordering is consistent",
+  "with each lesson's previousLesson/nextLesson.",
+  "",
+  "`status` is the honest state of a lesson, not a gamification lock:",
+  "  published  -- the page exists and is generated",
+  "  planned    -- listed in the curriculum so the shape of the course is visible,",
+  "                no page generated, no dead link emitted",
+  "Spec §6 lists all ten Core lessons; all ten are published (2026-08-30)."
+ ],
+ "modules": [
+  {
+   "id": "core",
+   "slug": "core",
+   "title": "mTOR Core",
+   "subtitle": "Understand the core architecture of mTOR biology.",
+   "description": "Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field's own evidence stops.",
+   "lessons": [
     {
-      "id": "core",
-      "slug": "core",
-      "title": "mTOR Core",
-      "subtitle": "Understand the core architecture of mTOR biology.",
-      "description": "Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field's own evidence stops.",
-      "lessons": [
-        {"n": "01", "lesson": "what-is-mtor",      "level": "Foundation",   "minutes": 15, "status": "published"},
-        {"n": "02", "lesson": "mtorc1-vs-mtorc2",  "level": "Core",         "minutes": 20, "status": "published"},
-        {"n": "03", "lesson": "rheb",              "level": "Core",         "minutes": 25, "status": "published"},
-        {"n": "04", "lesson": "tsc-and-rheb",      "level": "Core",         "minutes": 25, "status": "planned",
-         "title": "TSC and Rheb"},
-        {"n": "05", "lesson": "lysosome-platform", "level": "Intermediate", "minutes": 25, "status": "planned",
-         "title": "The Lysosome as a Signaling Platform"},
-        {"n": "06", "lesson": "nutrient-sensing",  "level": "Intermediate", "minutes": 30, "status": "planned",
-         "title": "Nutrient Sensing"},
-        {"n": "07", "lesson": "growth-factor-signaling", "level": "Intermediate", "minutes": 25, "status": "planned",
-         "title": "Growth Factor Signaling"},
-        {"n": "08", "lesson": "feedback-regulation", "level": "Intermediate", "minutes": 25, "status": "planned",
-         "title": "Feedback Regulation"},
-        {"n": "09", "lesson": "mtor-and-autophagy", "level": "Intermediate", "minutes": 25, "status": "planned",
-         "title": "mTOR and Autophagy"},
-        {"n": "10", "lesson": "how-to-read-an-mtor-paper", "level": "Research", "minutes": 30, "status": "planned",
-         "title": "How to Read an mTOR Paper"}
-      ]
-    }
-  ],
-  "comingSoon": [
+     "n": "01",
+     "lesson": "what-is-mtor",
+     "level": "Foundation",
+     "minutes": 15,
+     "status": "published"
+    },
     {
-      "title": "Research Challenges",
-      "blurb": "Take an open question from the Atlas, design an experiment that could move it, and compare your reasoning with the curator's. Not built yet."
+     "n": "02",
+     "lesson": "mtorc1-vs-mtorc2",
+     "level": "Core",
+     "minutes": 20,
+     "status": "published"
+    },
+    {
+     "n": "03",
+     "lesson": "rheb",
+     "level": "Core",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "04",
+     "lesson": "tsc-and-rheb",
+     "level": "Core",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "05",
+     "lesson": "lysosome-platform",
+     "level": "Intermediate",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "06",
+     "lesson": "nutrient-sensing",
+     "level": "Intermediate",
+     "minutes": 30,
+     "status": "published"
+    },
+    {
+     "n": "07",
+     "lesson": "growth-factor-signaling",
+     "level": "Intermediate",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "08",
+     "lesson": "feedback-regulation",
+     "level": "Intermediate",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "09",
+     "lesson": "mtor-and-autophagy",
+     "level": "Intermediate",
+     "minutes": 25,
+     "status": "published"
+    },
+    {
+     "n": "10",
+     "lesson": "how-to-read-an-mtor-paper",
+     "level": "Research",
+     "minutes": 30,
+     "status": "published"
     }
-  ]
+   ]
+  }
+ ],
+ "comingSoon": [
+  {
+   "title": "Research Challenges",
+   "blurb": "Take an open question from the Atlas, design an experiment that could move it, and compare your reasoning with the curator's. Not built yet."
+  }
+ ]
 }
