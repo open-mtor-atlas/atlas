@@ -416,6 +416,42 @@ def check_index(findings):
                 "Say 'every eligible peer-reviewed primary study'.")
 
 
+def check_academy(findings):
+    """Academy prose (2026-08-30). Lekce jsou jedina rucne psana veda na webu,
+    ktera NENI v index.html -- bez teto funkce by prosly branou nezkontrolovane.
+    Stejne skenery jako vsude jinde: R5 (absolutni jazyk) nad kazdym kusem prozy
+    a R3 (mechanisticka prace popsana jako klinicky dukaz) nad temi kusy, ktere
+    zaroven mluvi klinickym jazykem. ERROR, ne WARN: v lekci je prehnana
+    formulace horsi nez v poznamce -- uci se z ni."""
+    p = os.path.join(HERE, "academy_data", "lessons.json")
+    if not os.path.exists(p):
+        return 0
+    lessons = json.load(open(p, encoding="utf-8"))["lessons"]
+    for l in lessons:
+        blobs = [("coreIdea", x) for x in l.get("coreIdea") or []]
+        blobs += [("uncertainty", l.get("uncertainty") or "")]
+        blobs += [("subtitle", l.get("subtitle") or ""), ("question", l.get("question") or "")]
+        for i, sec in enumerate(l.get("sections") or []):
+            blobs += [("section%d" % i, x) for x in sec.get("body") or []]
+        for j, t in enumerate(l.get("thinkQuestions") or []):
+            blobs += [("think%d.prompt" % j, t.get("prompt") or ""),
+                      ("think%d.hint" % j, t.get("hint") or ""),
+                      ("think%d.reveal" % j, t.get("reveal") or "")]
+        for field, raw in blobs:
+            if not raw:
+                continue
+            txt = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+            where = "academy:%s.%s" % (l["slug"], field)
+            scan_absolute(findings, where, txt, sev="ERROR")
+            if CLINICAL_LANG.search(txt):
+                add(findings, "WARN", "R3 mechanistic-as-clinical", where, txt,
+                    "Lesson prose uses clinical/human language -- check the claim is scoped "
+                    "to the species and design of the studies the lesson actually cites.",
+                    "Name the model system in the sentence, or move the claim to a "
+                    "human-evidence lesson.")
+    return len(lessons)
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -425,12 +461,13 @@ def main():
     h = open(INDEX, encoding="utf-8").read()
     check_gap_regression_rules(findings, h)
     check_dead_layers(findings, h)
+    n_les = check_academy(findings)
 
     errs = [f for f in findings if f["severity"] == "ERROR"]
     warns = [f for f in findings if f["severity"] == "WARN"]
 
     print("=" * 78)
-    print("Atlas claim calibration -- %d studies scanned" % n)
+    print("Atlas claim calibration -- %d studies, %d Academy lessons scanned" % (n, n_les))
     print("  %d ERROR   %d WARN" % (len(errs), len(warns)))
     print("=" * 78)
     for group, label in ((errs, "ERROR"), (warns, "WARN")):

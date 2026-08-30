@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- generated-by-build-pages -->
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-420TPC8J46"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-420TPC8J46');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rheb — The Critical Regulator | mTOR Academy | Oliver&#x27;s mTOR Atlas</title>
+<meta name="description" content="How does a small GTPase help control mTORC1? Rheb is a small GTPase — a protein that cycles between a GTP-bound state and a GDP-bound state, and that behaves differently depending on which one it is in. In the standard model of mTORC1 activation, Rheb-GTP is the direct positive input to the kinase, ">
+<link rel="canonical" href="https://mtor-atlas.org/academy/core/rheb/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver's mTOR Atlas">
+<meta property="og:title" content="Rheb — The Critical Regulator | mTOR Academy | Oliver&#x27;s mTOR Atlas">
+<meta property="og:description" content="How does a small GTPase help control mTORC1? Rheb is a small GTPase — a protein that cycles between a GTP-bound state and a GDP-bound state, and that behaves differently depending on which one it is in. In the standard model of mTORC1 activation, Rheb-GTP is the direct positive input to the kinase, ">
+<meta property="og:url" content="https://mtor-atlas.org/academy/core/rheb/">
+<meta property="og:image" content="https://mtor-atlas.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "LearningResource",
+ "name": "Rheb — The Critical Regulator",
+ "headline": "Rheb — The Critical Regulator",
+ "url": "https://mtor-atlas.org/academy/core/rheb/",
+ "inLanguage": "en",
+ "educationalLevel": "Core",
+ "learningResourceType": "lesson",
+ "timeRequired": "PT25M",
+ "teaches": [
+  "Small GTPase and the GTP/GDP cycle",
+  "GAP (GTPase-activating protein)",
+  "Double-negative regulation",
+  "Subcellular localisation as regulation",
+  "Overexpression as an experimental caveat"
+ ],
+ "isPartOf": {
+  "@type": "Course",
+  "name": "mTOR Core — mTOR Academy",
+  "url": "https://mtor-atlas.org/academy/core/"
+ },
+ "about": {
+  "@type": "Dataset",
+  "name": "Oliver's mTOR Atlas",
+  "url": "https://mtor-atlas.org/",
+  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "identifier": "https://doi.org/10.5281/zenodo.22059963",
+  "sameAs": [
+   "https://doi.org/10.5281/zenodo.22059963",
+   "https://github.com/open-mtor-atlas/atlas",
+   "https://bio.tools/olivers_mtor_atlas"
+  ],
+  "creator": {
+   "@type": "Person",
+   "name": "Oliver Barton",
+   "url": "https://orcid.org/0009-0008-2025-2148",
+   "sameAs": [
+    "https://orcid.org/0009-0008-2025-2148"
+   ]
+  },
+  "publisher": {
+   "@type": "Organization",
+   "name": "Oliver's mTOR Atlas",
+   "url": "https://mtor-atlas.org/"
+  },
+  "distribution": {
+   "@type": "DataDownload",
+   "name": "Archived snapshot (Zenodo)",
+   "encodingFormat": "text/html",
+   "contentUrl": "https://doi.org/10.5281/zenodo.22059963"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "keywords": [
+   "mTOR",
+   "mTORC1",
+   "mTORC2",
+   "autophagy",
+   "rapamycin",
+   "longevity",
+   "aging biology",
+   "TSC complex",
+   "evidence-based research"
+  ],
+  "version": "1.0.0",
+  "dateModified": "2026-08-30"
+ },
+ "author": {
+  "@type": "Person",
+  "name": "Oliver Barton"
+ },
+ "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What would you expect if Rheb were held predominantly in its GDP-bound state?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The direct expectation is low mTORC1 activity even when amino acids are plentiful — mTORC1 would be recruited to the lysosome and find no active activator waiting. Downstream, reduced S6K1 and 4E-BP1 phosphorylation, reduced cap-dependent translation, and released restraint on ULK1 and autophagy. The second-order expectation is more interesting: because mTORC1 output feeds back onto upstream insulin signalling, chronically low mTORC1 would also change AKT signalling — so the cell would not look like 'the same cell with one arrow deleted'."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What experiment could distinguish whether mTORC1 regulation here depends mainly on nucleotide state, on localisation, on protein abundance, or on a combination?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "There is no single decisive experiment, which is itself the answer worth taking away. A serious attempt separates the variables: nucleotide-state mutants of Rheb locked toward GTP or GDP at endogenous expression levels (knock-in rather than overexpression, so abundance is held constant); forced targeting of mTORC1 to the lysosome independently of amino acids, to ask whether localisation alone is sufficient; and quantitative measurement of Rheb, TSC2 and mTOR protein amounts in the same cells, since a change in any of the three could produce the same readout. Combining them under matched conditions is what the field has actually done piecemeal over two decades — and the pieces were done in different cell types, which is part of why the question is still live."
+   }
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Oliver's mTOR Atlas",
+   "item": "https://mtor-atlas.org/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Academy",
+   "item": "https://mtor-atlas.org/academy/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "mTOR Core",
+   "item": "https://mtor-atlas.org/academy/core/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "name": "Rheb — The Critical Regulator"
+  }
+ ]
+}
+</script>
+<style>
+:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
+--teal:#A31F34;--amber:#A56827}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
+a{color:var(--teal)}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{border-bottom:2px solid var(--ink)}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}
+.oma-wordmark:hover{opacity:.75}
+.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal)}
+nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+nav.crumb a{color:var(--soft)}
+h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
+border-bottom:1px solid var(--line)}
+.meta{color:var(--soft);font-size:14px;margin:0 0 18px}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
+font-size:12px;font-weight:600;letter-spacing:.03em}
+.summary{font-size:17px;line-height:1.55;border-left:3px solid var(--teal);
+padding:2px 0 2px 15px;margin:0 0 20px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 18px}
+th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+color:var(--soft);border-bottom:1.5px solid var(--ink);padding:5px 10px 5px 0}
+td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+ul{padding-left:19px} li{margin-bottom:6px}
+.tags a{display:inline-block;font-size:13px;border:1px solid var(--line);
+border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
+.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
+footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}
+footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
+footer.oma-footer .oma-footer-links{margin-top:10px}
+footer.oma-footer .oma-footer-links a{margin:0 8px}
+.abstract{font-size:15px;color:#26241F}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+/* ---- Academy (build_academy.py) -------------------------------------
+   Appended to shell()'s stylesheet, so it may override anything above it.
+   Scoped by document: only Academy pages carry this block, which is why
+   widening .wrap here cannot affect /study/ or /answers/ pages. Tokens are
+   the ones shell() already defines -- no new palette, no new type scale.
+   Card radius stays 3px to match every other static page (spec §8 defers
+   to the existing Atlas design system).                                */
+.wrap{max-width:1060px}
+nav.crumb{max-width:1060px}
+.ac-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 10px}
+.ac-hero{max-width:780px;margin:0 0 34px}
+.ac-hero h1{font-size:clamp(26px,3.4vw,34px);line-height:1.18;margin:0 0 12px}
+.ac-hero .ac-lede{font-size:17px;line-height:1.62;color:var(--soft);margin:0 0 20px}
+.ac-cta{display:inline-flex;align-items:center;min-height:44px;background:var(--ink);
+  color:#fff;text-decoration:none;padding:11px 20px;border-radius:3px;font-size:15px;
+  font-weight:600}
+.ac-cta:hover{background:var(--teal)}
+.ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
+.ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
+
+/* entry cards + curriculum -------------------------------------------- */
+.ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
+  margin:0 0 34px}
+.ac-card{border:1px solid var(--line);border-radius:3px;padding:20px 22px;
+  display:flex;flex-direction:column;gap:8px}
+.ac-card h3{margin:0;font-size:16px}
+.ac-card p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-card .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.04em;text-decoration:none}
+.ac-card.ac-soon{opacity:.62}
+.ac-card.ac-soon .ac-go{color:var(--soft)}
+
+.ac-list{list-style:none;padding:0;margin:0 0 8px;border-top:1px solid var(--line)}
+.ac-list li{border-bottom:1px solid var(--line)}
+.ac-list a,.ac-list .ac-row{display:flex;align-items:baseline;gap:12px;padding:13px 4px;
+  text-decoration:none;color:var(--ink);min-height:44px}
+.ac-list a:hover{background:rgba(163,31,52,.05)}
+.ac-list .ac-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+  width:22px;flex:none}
+.ac-list .ac-state{font-family:'IBM Plex Mono',monospace;font-size:13px;width:16px;flex:none;
+  color:var(--soft)}
+.ac-list .ac-state[data-done="1"]{color:var(--teal)}
+.ac-list .ac-ttl{flex:1;font-size:15px;font-weight:600}
+.ac-list .ac-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  letter-spacing:.03em;white-space:nowrap}
+.ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
+
+/* "Your path" strip -- a map of the course, not a score. */
+.ac-path{list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)}
+.ac-path::-webkit-scrollbar{display:none}
+.ac-path li{flex:0 0 auto;border-right:1px solid var(--line)}
+.ac-path li:last-child{border-right:none}
+.ac-path a,.ac-path .ac-row{display:flex;align-items:center;gap:7px;padding:11px 16px;
+  min-height:44px;text-decoration:none;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.03em}
+.ac-path a:hover{background:rgba(163,31,52,.05);color:var(--teal)}
+.ac-path .ac-pathttl{font-family:'DM Sans',-apple-system,sans-serif;font-size:13px;
+  letter-spacing:0;white-space:nowrap}
+.ac-path li.ac-planned .ac-pathttl,.ac-path li.ac-planned .ac-row{color:var(--soft)}
+
+/* lesson layout -------------------------------------------------------- */
+.ac-lesson{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:44px;align-items:start}
+.ac-main{min-width:0;max-width:760px}
+.ac-rail{position:sticky;top:18px;font-size:13px}
+.ac-rail h4{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 9px;font-weight:600}
+.ac-rail ol{list-style:none;padding:0;margin:0 0 24px;border-left:1px solid var(--line)}
+.ac-rail ol li{margin:0}
+.ac-rail ol a{display:block;padding:5px 0 5px 12px;color:var(--soft);text-decoration:none;
+  line-height:1.4;border-left:2px solid transparent;margin-left:-1px}
+.ac-rail ol a:hover{color:var(--teal);border-left-color:var(--teal)}
+.ac-ctx{border-top:1px solid var(--line);padding-top:14px}
+.ac-chain{list-style:none;padding:0;margin:0}
+.ac-chain li{padding:4px 0 4px 12px;border-left:1px solid var(--line);color:var(--soft);
+  line-height:1.4}
+.ac-chain li.ac-here{border-left:2px solid var(--teal);color:var(--ink);font-weight:600}
+.ac-chain a{color:inherit;text-decoration:none}
+.ac-chain a:hover{color:var(--teal)}
+.ac-conceptlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--soft);margin:18px 0 3px}
+.ac-concepts{font-size:14px;color:var(--soft);margin:0}
+
+.ac-q{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(21px,2.6vw,26px);
+  line-height:1.3;color:var(--teal);margin:0 0 22px;font-weight:500}
+.ac-section{margin:0 0 34px}
+.ac-section>h2{font-size:17px;margin:34px 0 12px}
+.ac-note{border-left:3px solid var(--line);padding:2px 0 2px 16px;color:var(--soft);
+  font-size:15px}
+.ac-idea p{font-size:17px;line-height:1.62}
+
+/* figures -------------------------------------------------------------- */
+.ac-fig{margin:18px 0 22px;padding:0}
+.ac-svg{width:100%;height:auto;color:var(--ink);overflow:visible}
+.ac-box{fill:none;stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-box.ac-accent{stroke:var(--teal);stroke-width:1.5}
+.ac-organelle{fill:rgba(163,31,52,.05);stroke:var(--line);stroke-width:1}
+.ac-t{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-t.ac-lead{font-size:17px;font-weight:700}
+.ac-t.ac-sub{font-size:11px;fill:var(--soft)}
+.ac-t .ac-em{font-style:italic;fill:var(--teal)}
+.ac-arrow{stroke:var(--ink);stroke-width:1.2;fill:none;color:var(--ink)}
+.ac-arrow.ac-thin{stroke-width:1}
+.ac-inh{stroke:var(--teal);stroke-width:1.6;fill:none}
+.ac-dash{stroke:var(--soft);stroke-width:1;stroke-dasharray:3 3;fill:none}
+
+/* evidence ------------------------------------------------------------- */
+.ac-ev{display:grid;gap:10px;margin:6px 0 10px}
+.ac-evcard{border:1px solid var(--line);border-radius:3px;padding:13px 15px}
+.ac-evcard .ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.ac-evcard .ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+.ac-evcard .ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.ac-evcard .ac-evtitle:hover{color:var(--teal)}
+.ac-evcard .ac-evfind{font-size:14px;color:var(--soft);line-height:1.55;margin:0}
+.ac-evcard .ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  display:inline-flex;align-items:center;min-height:32px}
+
+/* think ---------------------------------------------------------------- */
+.ac-think{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:16px 18px;margin:0 0 12px}
+.ac-think .ac-prompt{font-size:16px;line-height:1.55;margin:0 0 8px}
+.ac-think .ac-hint{font-size:13.5px;color:var(--soft);margin:0 0 10px}
+.ac-think details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-think details>summary::-webkit-details-marker{display:none}
+.ac-think details>summary::after{content:" \2192"}
+.ac-think details[open]>summary::after{content:""}
+.ac-think .ac-reveal{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+
+.ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
+  border:1px solid var(--line);border-radius:3px;padding:5px 11px;text-decoration:none}
+.ac-deeper a:hover{border-color:var(--teal)}
+.ac-routes{list-style:none;padding:0;margin:6px 0 16px}
+.ac-routes li{margin:0 0 9px}
+.ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
+.ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
+
+@media (max-width:1000px){
+  /* Spec §10: the right rail collapses into horizontal navigation above the
+     text (order:-1 on a grid item), and the page must not overflow sideways --
+     so the strip itself scrolls, the page does not. The "where this fits"
+     block is dropped here rather than stacked: the same information is carried
+     by the prev/next bar and the curriculum link, so nothing lives only in the
+     rail. No JS, no <details> quirks. */
+  .ac-lesson{grid-template-columns:minmax(0,1fr);gap:0}
+  .ac-main{max-width:none}
+  .ac-rail{position:static;order:-1;margin:0 0 26px;padding:0 0 4px;
+    border-bottom:1px solid var(--line)}
+  .ac-rail h4{margin:0 0 6px}
+  .ac-rail ol{display:flex;gap:0;margin:0;border-left:none;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ac-rail ol::-webkit-scrollbar{display:none}
+  .ac-rail ol li{flex:0 0 auto}
+  .ac-rail ol a{white-space:nowrap;padding:8px 14px 8px 0;border-left:none;margin-left:0;
+    min-height:40px;display:flex;align-items:center}
+  .ac-ctx{display:none}
+}
+@media (max-width:560px){
+  .ac-hero .ac-lede{font-size:16px}
+  .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
+  .ac-list .ac-meta{width:100%}
+}
+
+.ac-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;padding:0;margin:-1px}
+</style>
+</head>
+<body data-ac-current="rheb">
+<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/" class="active">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav>
+</div></div>
+<div class="wrap">
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/academy/">Academy</a> › <a href="https://mtor-atlas.org/academy/core/">mTOR Core</a> › Rheb — The Critical Regulator</nav>
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute"><defs><marker id="acArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker></defs></svg><div class="ac-lesson"><article class="ac-main"><p class="ac-eyebrow">mTOR Core &middot; Lesson 03 &middot; Core &middot; 25 min</p><h1>Rheb — The Critical Regulator</h1><p class="meta">A small GTPase, a brake, and a question about where things are</p><h2 id="question" class="ac-vh">The question</h2><p class="ac-q">How does a small GTPase help control mTORC1?</p><section class="ac-section ac-idea"><h2 id="idea">The core idea</h2><p><strong>Rheb</strong> is a small GTPase — a protein that cycles between a GTP-bound state and a GDP-bound state, and that behaves differently depending on which one it is in. In the standard model of mTORC1 activation, <strong>Rheb-GTP is the direct positive input to the kinase</strong>, and Rheb-GDP is not.</p><p>What controls that cycle is the <strong>TSC complex</strong> (TSC1, TSC2 and TBC1D7). TSC2 acts as a GAP — a GTPase-activating protein — for Rheb: it accelerates the conversion of Rheb-GTP to Rheb-GDP. A GAP for a positive regulator is a brake. Removing the brake raises Rheb-GTP and raises mTORC1 activity.</p><p>That is the mechanism in three moving parts, and it is also where growth-factor signalling enters the pathway: AKT, activated downstream of insulin and IGF-1, phosphorylates TSC2 and reduces the brake's effect on Rheb. Growth factors do not switch mTORC1 on. They release something that was holding it down.</p></section><section class="ac-section"><h2 id="s0">The mechanism, in outline</h2><figure class="ac-fig"><svg viewBox="0 0 716 96" role="img" aria-label="Growth factors activate AKT, which inhibits the TSC complex, which inhibits Rheb-GTP, which activates mTORC1. Two inhibitory steps in series." class="ac-svg"><rect class="ac-box" x="6" y="30" width="150" height="34" rx="3"/><text class="ac-t" x="81" y="52">Growth factors</text><rect class="ac-box" x="176" y="30" width="90" height="34" rx="3"/><text class="ac-t" x="221" y="52">AKT</text><rect class="ac-box" x="296" y="30" width="120" height="34" rx="3"/><text class="ac-t" x="356" y="52">TSC1/TSC2</text><rect class="ac-box ac-accent" x="446" y="30" width="120" height="34" rx="3"/><text class="ac-t" x="506" y="52">Rheb-GTP</text><rect class="ac-box ac-accent" x="596" y="30" width="110" height="34" rx="3"/><text class="ac-t" x="651" y="52">mTORC1</text><path class="ac-arrow" d="M160 47 H172" marker-end="url(#acArrow)"/><path class="ac-inh" d="M268 47 H290"/><path class="ac-inh" d="M290 38 V56"/><path class="ac-inh" d="M418 47 H440"/><path class="ac-inh" d="M440 38 V56"/><path class="ac-arrow" d="M568 47 H592" marker-end="url(#acArrow)"/><text class="ac-t ac-sub" x="279" y="24">inhibits</text><text class="ac-t ac-sub" x="429" y="24">inhibits</text><text class="ac-t ac-sub" x="353" y="86">AMPK and other stress inputs act on the same brake</text><path class="ac-arrow ac-thin" d="M353 76 V68" marker-end="url(#acArrow)"/></svg></figure><p>The chain runs: <strong>growth factors → AKT ⊣ TSC1/TSC2 ⊣ Rheb-GTP → mTORC1</strong>. Note the two inhibitory steps in a row. A double negative is easy to misread, so it is worth saying slowly: AKT inhibits the TSC complex; the TSC complex inhibits Rheb; therefore AKT activity raises Rheb-GTP.</p><p>The TSC complex is also where several other inputs converge. Energy stress acting through AMPK, and various other stress signals, act on the same brake — which makes TSC a genuine integration point rather than a simple growth-factor relay.</p><p>But nucleotide state is only half the story, and this is the part most summaries drop.</p></section><section class="ac-section"><h2 id="s1">Why location matters as much as state</h2><figure class="ac-fig"><svg viewBox="0 0 560 236" role="img" aria-label="mTORC1 is recruited to the lysosome by the Rag GTPases in response to amino acids, where it meets Rheb; the TSC complex can also be recruited to the lysosome under stress." class="ac-svg"><rect class="ac-box" x="228" y="10" width="150" height="30" rx="3"/><text class="ac-t" x="303" y="30">mTORC1 (cytosol)</text><path class="ac-arrow" d="M303 44 V78" marker-end="url(#acArrow)"/><rect class="ac-organelle" x="20" y="82" width="520" height="86" rx="12"/><text class="ac-t ac-sub" x="74" y="160">lysosome</text><rect class="ac-box" x="44" y="104" width="164" height="32" rx="3"/><text class="ac-t" x="126" y="125">Ragulator · Rag</text><rect class="ac-box ac-accent" x="248" y="104" width="120" height="32" rx="3"/><text class="ac-t" x="308" y="125">mTORC1</text><rect class="ac-box ac-accent" x="408" y="104" width="112" height="32" rx="3"/><text class="ac-t" x="464" y="125">Rheb-GTP</text><path class="ac-arrow" d="M212 120 H242" marker-end="url(#acArrow)"/><text class="ac-t ac-sub" x="126" y="74">amino acids decide <tspan class="ac-em">where</tspan></text><path class="ac-arrow" d="M404 120 H376" marker-end="url(#acArrow)"/><text class="ac-t ac-sub" x="464" y="74">growth factors decide <tspan class="ac-em">whether</tspan></text><rect class="ac-box" x="408" y="196" width="112" height="30" rx="3"/><text class="ac-t" x="464" y="216">TSC complex</text><path class="ac-dash" d="M464 192 V142"/><text class="ac-t ac-sub" x="196" y="215">under stress the brake is recruited here too</text></svg></figure><p>Rheb is associated with intracellular membranes, prominently the lysosome. mTORC1 is not permanently at the lysosome — it is recruited there, and the recruitment is controlled by a separate machine: the <strong>Rag GTPases</strong>, held in place by the Ragulator complex, responding to amino-acid availability.</p><p>So the two branches do different jobs. The amino-acid branch decides <strong>where mTORC1 is</strong>. The growth-factor branch, through TSC and Rheb, decides <strong>whether the activator it meets there is in its active state</strong>. Neither alone is enough, which is a tidier explanation of the AND-gate behaviour from Lesson 01 than 'two signals add up'.</p><p>The spatial picture also runs in the other direction. The TSC complex itself can be recruited to the lysosome in response to cellular stress — putting the brake where the activator is, rather than acting at a distance. Localisation is not a detail layered on top of the mechanism; in this pathway it is part of the mechanism.</p></section><section class="ac-section"><h2 id="s2">What is still uncertain</h2><p>How much of mTORC1 regulation is nucleotide state, how much is localisation, and how much is the amount of protein present is not fully resolved, and the answer may differ between cell types and between acute and chronic conditions. Several of the classic experiments used overexpression, which is informative about what a protein <em>can</em> do and weaker evidence about what it normally does at endogenous levels.</p><p>This matters beyond the diagram. The TSC–Rheb axis is the axis broken in tuberous sclerosis complex, and it is the axis every mTOR-directed drug is acting somewhere near. How faithfully the arrows above describe an untouched human cell is a live question, not a settled one.</p></section><section class="ac-section"><h2 id="evidence">What does the evidence say?</h2><p>These are Atlas studies, with the Atlas's own evidence tier. Each card links to the full record — nothing here restates it.</p><div class="ac-ev"><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/INOK2003/">Rheb GTPase is a direct target of TSC2 GAP activity and regulates mTOR signaling</a><span class="ac-evyear">2003</span></div><p class="ac-evfind">TSC2 is a GAP for Rheb; loss of TSC2 raises Rheb-GTP and constitutively activates mTOR.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/INOK2003/">Study page &rarr;</a></div><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/GAR2003/">Insulin activation of Rheb, a mediator of mTOR/S6K/4E-BP signaling, is inhibited by TSC1 and 2</a><span class="ac-evyear">2003</span></div><p class="ac-evfind">Insulin activates Rheb-GTP, inhibited by TSC1/2, positioning Rheb as the direct upstream activator of TOR.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/GAR2003/">Study page &rarr;</a></div><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/SAU2003/">Rheb promotes cell growth as a component of the insulin/TOR signalling network</a><span class="ac-evyear">2003</span></div><p class="ac-evfind">Rheb promotes cell growth as a component of the insulin/TOR network in Drosophila.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/SAU2003/">Study page &rarr;</a></div><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/INO2002/">TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling</a><span class="ac-evyear">2002</span></div><p class="ac-evfind">Akt directly phosphorylates and inactivates TSC2, disrupting the TSC1-TSC2 complex and releasing its inhibition of mTOR - the link between growth-factor/insulin signaling and mTORC1 activation.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/INO2002/">Study page &rarr;</a></div><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/SAN2008/">The Rag GTPases bind raptor and mediate amino acid signaling to mTORC1</a><span class="ac-evyear">2008</span></div><p class="ac-evfind">Identifies the Rag GTPase family as the missing link that lets mTORC1 sense amino acids by controlling whether mTOR is positioned near its activator Rheb.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/SAN2008/">Study page &rarr;</a></div><div class="ac-evcard"><div class="ac-evhead"><span class="tier" style="background:#7C7569">D</span><a class="ac-evtitle" href="https://mtor-atlas.org/study/DEM2016/">Lysosomal recruitment of TSC2 is a universal response to cellular stress</a><span class="ac-evyear">2016</span></div><p class="ac-evfind">Lysosomal recruitment of TSC2 is a universal response to cellular stress that inhibits mTORC1.</p><a class="ac-evlink" href="https://mtor-atlas.org/study/DEM2016/">Study page &rarr;</a></div></div><p class="ac-note">The relative contribution of nucleotide state, localisation and protein abundance to mTORC1 activation is unresolved, and several foundational experiments relied on overexpression rather than endogenous levels.</p></section><section class="ac-section"><h2 id="think">Think</h2><div class="ac-think"><p class="ac-prompt">What would you expect if Rheb were held predominantly in its GDP-bound state?</p><p class="ac-hint">Work forwards from the arrow, then ask what else in the cell would notice.</p><details><summary>Think first, then reveal</summary><p class="ac-reveal">The direct expectation is low mTORC1 activity even when amino acids are plentiful — mTORC1 would be recruited to the lysosome and find no active activator waiting. Downstream, reduced S6K1 and 4E-BP1 phosphorylation, reduced cap-dependent translation, and released restraint on ULK1 and autophagy. The second-order expectation is more interesting: because mTORC1 output feeds back onto upstream insulin signalling, chronically low mTORC1 would also change AKT signalling — so the cell would not look like 'the same cell with one arrow deleted'.</p></details></div><div class="ac-think"><p class="ac-prompt">What experiment could distinguish whether mTORC1 regulation here depends mainly on nucleotide state, on localisation, on protein abundance, or on a combination?</p><p class="ac-hint">Each candidate implies a different thing you would have to hold constant.</p><details><summary>Think first, then reveal</summary><p class="ac-reveal">There is no single decisive experiment, which is itself the answer worth taking away. A serious attempt separates the variables: nucleotide-state mutants of Rheb locked toward GTP or GDP at endogenous expression levels (knock-in rather than overexpression, so abundance is held constant); forced targeting of mTORC1 to the lysosome independently of amino acids, to ask whether localisation alone is sufficient; and quantitative measurement of Rheb, TSC2 and mTOR protein amounts in the same cells, since a change in any of the three could produce the same readout. Combining them under matched conditions is what the field has actually done piecemeal over two decades — and the pieces were done in different cell types, which is part of why the question is still live.</p></details></div></section><section class="ac-section"><h2 id="deeper">Go deeper</h2><div class="ac-deeper"><a href="https://mtor-atlas.org/gene/rheb/">Rheb</a><a href="https://mtor-atlas.org/gene/tsc1-tsc2/">TSC1/TSC2</a><a href="https://mtor-atlas.org/gene/akt-pkb/">Akt/PKB</a><a href="https://mtor-atlas.org/gene/rag-gtpases/">Rag GTPases</a><a href="https://mtor-atlas.org/gene/raptor/">Raptor</a><a href="https://mtor-atlas.org/gene/ampk/">AMPK</a><a href="https://mtor-atlas.org/complex/mtorc1/">mTORC1</a><a href="https://mtor-atlas.org/organelle/lysosome/">Lysosome</a><a href="https://mtor-atlas.org/question/sensor-selective-geroprotection-without-the-metabolic-penalty/">Open question: Sensor-selective geroprotection without the metabolic penalty</a></div><p><strong>Follow a guided route through the mechanism:</strong></p><ul class="ac-routes"><li><a href="https://mtor-atlas.org/#view=map&amp;pw=guided&amp;route=gf">How does a cell learn that it is allowed to grow?</a><span>The full growth-factor route: how a cell learns that it is allowed to grow.</span></li><li><a href="https://mtor-atlas.org/#view=map&amp;pw=guided&amp;route=aa">How does a cell know it has enough raw material to grow?</a><span>The amino-acid route, which decides where mTORC1 sits before Rheb ever meets it.</span></li></ul><p class="ac-conceptlbl">Concepts introduced in this lesson</p><p class="ac-concepts">Small GTPase and the GTP/GDP cycle &middot; GAP (GTPase-activating protein) &middot; Double-negative regulation &middot; Subcellular localisation as regulation &middot; Overexpression as an experimental caveat</p></section><div class="ac-nextbar"><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/">&larr; mTORC1 vs mTORC2</a><button type="button" class="ac-cta ac-quiet" id="acDone">Mark as read</button><a class="ac-cta" href="https://mtor-atlas.org/academy/core/">Back to the curriculum &rarr;</a></div></article><aside class="ac-rail"><nav class="ac-toc" aria-label="In this lesson"><h4>In this lesson</h4><ol><li><a href="#question">The question</a></li><li><a href="#idea">The core idea</a></li><li><a href="#s0">The mechanism, in outline</a></li><li><a href="#s1">Why location matters as much as state</a></li><li><a href="#s2">What is still uncertain</a></li><li><a href="#evidence">What does the evidence say?</a></li><li><a href="#think">Think</a></li><li><a href="#deeper">Go deeper</a></li></ol></nav><div class="ac-ctx"><h4>Where this fits</h4><ul class="ac-chain"><li>01&nbsp;<a href="https://mtor-atlas.org/academy/core/what-is-mtor/">What is mTOR?</a></li><li>02&nbsp;<a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/">mTORC1 vs mTORC2</a></li><li class="ac-here">03&nbsp;<a href="https://mtor-atlas.org/academy/core/rheb/">Rheb — The Critical Regulator</a></li><li>04&nbsp;TSC and Rheb</li><li>05&nbsp;The Lysosome as a Signaling Platform</li><li>06&nbsp;Nutrient Sensing</li><li>07&nbsp;Growth Factor Signaling</li><li>08&nbsp;Feedback Regulation</li><li>09&nbsp;mTOR and Autophagy</li><li>10&nbsp;How to Read an mTOR Paper</li></ul></div></aside></div>
+<footer class="oma-footer">
+<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
+pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+Curated by Oliver Barton, Prague.</p>
+<div class="oma-footer-links">
+<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
+</footer>
+<script>
+/* Academy progress. One localStorage key, same defensive pattern as the SPA's
+   atlas-theme / atlas-level switches: every read and write is wrapped, and the
+   page renders correctly when storage is unavailable or empty. No accounts, no
+   XP, no streaks -- a tick next to what you have read (spec §2, §18). */
+(function(){
+  var KEY='atlas-academy-progress';
+  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return {};}}
+  function save(o){try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+  var p=read();
+  document.querySelectorAll('[data-ac-lesson]').forEach(function(el){
+    if(p[el.getAttribute('data-ac-lesson')]==='done'){
+      var g=el.querySelector('.ac-state'); if(g){g.textContent='\u2713';g.setAttribute('data-done','1');}
+    }
+  });
+  var here=document.body.getAttribute('data-ac-current');
+  var btn=document.getElementById('acDone');
+  if(here&&btn){
+    function paint(){
+      var d=read()[here]==='done';
+      btn.textContent=d?'\u2713 Marked as read':'Mark as read';
+      btn.setAttribute('aria-pressed',String(d));
+    }
+    btn.addEventListener('click',function(){
+      var o=read(); if(o[here]==='done'){delete o[here];}else{o[here]='done';} save(o); paint();
+    });
+    paint();
+  }
+})();
+</script>
+
+</div>
+</body>
+</html>

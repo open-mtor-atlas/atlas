@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- generated-by-build-pages -->
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-420TPC8J46"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-420TPC8J46');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mTOR Core | mTOR Academy | Oliver&#x27;s mTOR Atlas</title>
+<meta name="description" content="Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field&#x27;s own evidence stops.">
+<link rel="canonical" href="https://mtor-atlas.org/academy/core/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Oliver's mTOR Atlas">
+<meta property="og:title" content="mTOR Core | mTOR Academy | Oliver&#x27;s mTOR Atlas">
+<meta property="og:description" content="Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field&#x27;s own evidence stops.">
+<meta property="og:url" content="https://mtor-atlas.org/academy/core/">
+<meta property="og:image" content="https://mtor-atlas.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Course",
+ "name": "mTOR Core — mTOR Academy",
+ "url": "https://mtor-atlas.org/academy/core/",
+ "description": "Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field's own evidence stops.",
+ "inLanguage": "en",
+ "provider": {
+  "@type": "Organization",
+  "name": "Oliver's mTOR Atlas",
+  "url": "https://mtor-atlas.org/"
+ },
+ "isAccessibleForFree": true,
+ "hasCourseInstance": [
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "What is mTOR?",
+   "url": "https://mtor-atlas.org/academy/core/what-is-mtor/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "mTORC1 vs mTORC2",
+   "url": "https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "Rheb — The Critical Regulator",
+   "url": "https://mtor-atlas.org/academy/core/rheb/"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Oliver's mTOR Atlas",
+   "item": "https://mtor-atlas.org/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Academy",
+   "item": "https://mtor-atlas.org/academy/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "mTOR Core"
+  }
+ ]
+}
+</script>
+<style>
+:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
+--teal:#A31F34;--amber:#A56827}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
+a{color:var(--teal)}
+/* ---- Site-wide topbar (logo + primary nav), added 2026-08-22 ---- */
+.oma-topbar{border-bottom:2px solid var(--ink)}
+.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:14px 22px;
+display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.oma-wordmark{display:flex;align-items:baseline;gap:9px;text-decoration:none;
+color:var(--ink);flex-shrink:0}
+.oma-wordmark:hover{opacity:.75}
+.oma-emblem{width:24px;height:24px;object-fit:contain;align-self:center}
+.oma-name{font-family:'DM Sans',-apple-system,sans-serif;font-weight:700;
+font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.oma-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);
+padding-left:9px;white-space:nowrap}
+.oma-tabs{display:flex;flex-wrap:wrap;gap:2px;margin-left:auto}
+.oma-tabs a{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;
+letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;color:var(--ink);
+text-decoration:none;border-bottom:3px solid transparent}
+.oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
+.oma-tabs a.active{color:#fff;background:var(--teal)}
+nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
+padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+nav.crumb a{color:var(--soft)}
+h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
+border-bottom:1px solid var(--line)}
+.meta{color:var(--soft);font-size:14px;margin:0 0 18px}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
+font-size:12px;font-weight:600;letter-spacing:.03em}
+.summary{font-size:17px;line-height:1.55;border-left:3px solid var(--teal);
+padding:2px 0 2px 15px;margin:0 0 20px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 18px}
+th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+color:var(--soft);border-bottom:1.5px solid var(--ink);padding:5px 10px 5px 0}
+td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+ul{padding-left:19px} li{margin-bottom:6px}
+.tags a{display:inline-block;font-size:13px;border:1px solid var(--line);
+border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
+.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
+footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+text-align:center}
+footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
+BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
+footer.oma-footer .oma-footer-links{margin-top:10px}
+footer.oma-footer .oma-footer-links a{margin:0 8px}
+.abstract{font-size:15px;color:#26241F}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LAYER (added 2026-07-29)
+   These pages previously had no media queries at all: a fixed 760px wrap
+   and a four-column Studies table, which on a 360px phone meant a
+   permanently horizontally-scrolled page with ~90px columns.
+   ───────────────────────────────────────────────────────────────────── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg{max-width:100%;height:auto}
+.wrap{overflow-wrap:break-word}
+a{overflow-wrap:anywhere}
+
+@media (max-width:760px){
+  .wrap{padding:20px 16px 56px;
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))}
+  h1{font-size:clamp(21px,5.4vw,25px);line-height:1.22}
+  h2{font-size:16px;margin:26px 0 8px}
+  .summary{font-size:16px;padding-left:13px}
+  body{font-size:16px}
+  nav.crumb{font-size:12.5px;line-height:1.9}
+  /* breadcrumb + tag links need finger-sized targets */
+  nav.crumb a,footer a{display:inline-flex;align-items:center;
+    padding:6px 0;min-height:44px}
+  .tags a{padding:9px 12px;margin:0 6px 8px 0;font-size:14px;min-height:44px;
+    display:inline-flex;align-items:center}
+  .cta{padding:13px 20px;font-size:15px;min-height:44px;
+    display:inline-flex;align-items:center}
+  /* study-id and entity links inside tables were 21px tall */
+  table a,.wrap li>a,.wrap p>a{display:inline-flex;align-items:center;min-height:44px}
+  table{font-size:15px}
+}
+
+@media (max-width:560px){
+  /* two-column key/value tables stay tabular but tighten up */
+  table.kv td{padding:7px 8px 7px 0}
+  table.kv td:first-child{width:38%}
+
+  /* the Studies and Evidence tables become cards */
+  table.st,table.ev{display:block}
+  table.st tr:first-child,table.ev tr:first-child{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  table.st tbody,table.ev tbody,
+  table.st tr,table.ev tr,
+  table.st td,table.ev td{display:block;width:100%}
+  table.st tr,table.ev tr{
+    border:1px solid var(--line);padding:11px 13px;margin:0 0 10px}
+  table.st td,table.ev td{border:none;padding:3px 0}
+  table.st td[data-l]::before,table.ev td[data-l]::before{
+    content:attr(data-l);display:block;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--soft);margin-bottom:2px}
+  /* Study id, Year and Tier read as one compact header line */
+  table.st td[data-l="Study"]{font-weight:600;font-size:16px}
+  table.st td[data-l="Year"],table.st td[data-l="Tier"]{
+    display:inline-block;width:auto;margin-right:20px}
+  table.st td[data-l="Finding"]{padding-top:7px;line-height:1.55}
+  table.ev td[data-l="Tier"],table.ev td[data-l="Studies"]{
+    display:inline-block;width:auto;margin-right:22px}
+}
+
+@media (max-width:380px){
+  .wrap{padding:16px 13px 48px}
+  h1{font-size:20px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+/* ---- Academy (build_academy.py) -------------------------------------
+   Appended to shell()'s stylesheet, so it may override anything above it.
+   Scoped by document: only Academy pages carry this block, which is why
+   widening .wrap here cannot affect /study/ or /answers/ pages. Tokens are
+   the ones shell() already defines -- no new palette, no new type scale.
+   Card radius stays 3px to match every other static page (spec §8 defers
+   to the existing Atlas design system).                                */
+.wrap{max-width:1060px}
+nav.crumb{max-width:1060px}
+.ac-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 10px}
+.ac-hero{max-width:780px;margin:0 0 34px}
+.ac-hero h1{font-size:clamp(26px,3.4vw,34px);line-height:1.18;margin:0 0 12px}
+.ac-hero .ac-lede{font-size:17px;line-height:1.62;color:var(--soft);margin:0 0 20px}
+.ac-cta{display:inline-flex;align-items:center;min-height:44px;background:var(--ink);
+  color:#fff;text-decoration:none;padding:11px 20px;border-radius:3px;font-size:15px;
+  font-weight:600}
+.ac-cta:hover{background:var(--teal)}
+.ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
+.ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
+
+/* entry cards + curriculum -------------------------------------------- */
+.ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
+  margin:0 0 34px}
+.ac-card{border:1px solid var(--line);border-radius:3px;padding:20px 22px;
+  display:flex;flex-direction:column;gap:8px}
+.ac-card h3{margin:0;font-size:16px}
+.ac-card p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-card .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.04em;text-decoration:none}
+.ac-card.ac-soon{opacity:.62}
+.ac-card.ac-soon .ac-go{color:var(--soft)}
+
+.ac-list{list-style:none;padding:0;margin:0 0 8px;border-top:1px solid var(--line)}
+.ac-list li{border-bottom:1px solid var(--line)}
+.ac-list a,.ac-list .ac-row{display:flex;align-items:baseline;gap:12px;padding:13px 4px;
+  text-decoration:none;color:var(--ink);min-height:44px}
+.ac-list a:hover{background:rgba(163,31,52,.05)}
+.ac-list .ac-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+  width:22px;flex:none}
+.ac-list .ac-state{font-family:'IBM Plex Mono',monospace;font-size:13px;width:16px;flex:none;
+  color:var(--soft)}
+.ac-list .ac-state[data-done="1"]{color:var(--teal)}
+.ac-list .ac-ttl{flex:1;font-size:15px;font-weight:600}
+.ac-list .ac-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  letter-spacing:.03em;white-space:nowrap}
+.ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
+
+/* "Your path" strip -- a map of the course, not a score. */
+.ac-path{list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)}
+.ac-path::-webkit-scrollbar{display:none}
+.ac-path li{flex:0 0 auto;border-right:1px solid var(--line)}
+.ac-path li:last-child{border-right:none}
+.ac-path a,.ac-path .ac-row{display:flex;align-items:center;gap:7px;padding:11px 16px;
+  min-height:44px;text-decoration:none;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.03em}
+.ac-path a:hover{background:rgba(163,31,52,.05);color:var(--teal)}
+.ac-path .ac-pathttl{font-family:'DM Sans',-apple-system,sans-serif;font-size:13px;
+  letter-spacing:0;white-space:nowrap}
+.ac-path li.ac-planned .ac-pathttl,.ac-path li.ac-planned .ac-row{color:var(--soft)}
+
+/* lesson layout -------------------------------------------------------- */
+.ac-lesson{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:44px;align-items:start}
+.ac-main{min-width:0;max-width:760px}
+.ac-rail{position:sticky;top:18px;font-size:13px}
+.ac-rail h4{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 9px;font-weight:600}
+.ac-rail ol{list-style:none;padding:0;margin:0 0 24px;border-left:1px solid var(--line)}
+.ac-rail ol li{margin:0}
+.ac-rail ol a{display:block;padding:5px 0 5px 12px;color:var(--soft);text-decoration:none;
+  line-height:1.4;border-left:2px solid transparent;margin-left:-1px}
+.ac-rail ol a:hover{color:var(--teal);border-left-color:var(--teal)}
+.ac-ctx{border-top:1px solid var(--line);padding-top:14px}
+.ac-chain{list-style:none;padding:0;margin:0}
+.ac-chain li{padding:4px 0 4px 12px;border-left:1px solid var(--line);color:var(--soft);
+  line-height:1.4}
+.ac-chain li.ac-here{border-left:2px solid var(--teal);color:var(--ink);font-weight:600}
+.ac-chain a{color:inherit;text-decoration:none}
+.ac-chain a:hover{color:var(--teal)}
+.ac-conceptlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--soft);margin:18px 0 3px}
+.ac-concepts{font-size:14px;color:var(--soft);margin:0}
+
+.ac-q{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(21px,2.6vw,26px);
+  line-height:1.3;color:var(--teal);margin:0 0 22px;font-weight:500}
+.ac-section{margin:0 0 34px}
+.ac-section>h2{font-size:17px;margin:34px 0 12px}
+.ac-note{border-left:3px solid var(--line);padding:2px 0 2px 16px;color:var(--soft);
+  font-size:15px}
+.ac-idea p{font-size:17px;line-height:1.62}
+
+/* figures -------------------------------------------------------------- */
+.ac-fig{margin:18px 0 22px;padding:0}
+.ac-svg{width:100%;height:auto;color:var(--ink);overflow:visible}
+.ac-box{fill:none;stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-box.ac-accent{stroke:var(--teal);stroke-width:1.5}
+.ac-organelle{fill:rgba(163,31,52,.05);stroke:var(--line);stroke-width:1}
+.ac-t{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-t.ac-lead{font-size:17px;font-weight:700}
+.ac-t.ac-sub{font-size:11px;fill:var(--soft)}
+.ac-t .ac-em{font-style:italic;fill:var(--teal)}
+.ac-arrow{stroke:var(--ink);stroke-width:1.2;fill:none;color:var(--ink)}
+.ac-arrow.ac-thin{stroke-width:1}
+.ac-inh{stroke:var(--teal);stroke-width:1.6;fill:none}
+.ac-dash{stroke:var(--soft);stroke-width:1;stroke-dasharray:3 3;fill:none}
+
+/* evidence ------------------------------------------------------------- */
+.ac-ev{display:grid;gap:10px;margin:6px 0 10px}
+.ac-evcard{border:1px solid var(--line);border-radius:3px;padding:13px 15px}
+.ac-evcard .ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.ac-evcard .ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+.ac-evcard .ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.ac-evcard .ac-evtitle:hover{color:var(--teal)}
+.ac-evcard .ac-evfind{font-size:14px;color:var(--soft);line-height:1.55;margin:0}
+.ac-evcard .ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  display:inline-flex;align-items:center;min-height:32px}
+
+/* think ---------------------------------------------------------------- */
+.ac-think{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:16px 18px;margin:0 0 12px}
+.ac-think .ac-prompt{font-size:16px;line-height:1.55;margin:0 0 8px}
+.ac-think .ac-hint{font-size:13.5px;color:var(--soft);margin:0 0 10px}
+.ac-think details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-think details>summary::-webkit-details-marker{display:none}
+.ac-think details>summary::after{content:" \2192"}
+.ac-think details[open]>summary::after{content:""}
+.ac-think .ac-reveal{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+
+.ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
+  border:1px solid var(--line);border-radius:3px;padding:5px 11px;text-decoration:none}
+.ac-deeper a:hover{border-color:var(--teal)}
+.ac-routes{list-style:none;padding:0;margin:6px 0 16px}
+.ac-routes li{margin:0 0 9px}
+.ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
+.ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
+
+@media (max-width:1000px){
+  /* Spec §10: the right rail collapses into horizontal navigation above the
+     text (order:-1 on a grid item), and the page must not overflow sideways --
+     so the strip itself scrolls, the page does not. The "where this fits"
+     block is dropped here rather than stacked: the same information is carried
+     by the prev/next bar and the curriculum link, so nothing lives only in the
+     rail. No JS, no <details> quirks. */
+  .ac-lesson{grid-template-columns:minmax(0,1fr);gap:0}
+  .ac-main{max-width:none}
+  .ac-rail{position:static;order:-1;margin:0 0 26px;padding:0 0 4px;
+    border-bottom:1px solid var(--line)}
+  .ac-rail h4{margin:0 0 6px}
+  .ac-rail ol{display:flex;gap:0;margin:0;border-left:none;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ac-rail ol::-webkit-scrollbar{display:none}
+  .ac-rail ol li{flex:0 0 auto}
+  .ac-rail ol a{white-space:nowrap;padding:8px 14px 8px 0;border-left:none;margin-left:0;
+    min-height:40px;display:flex;align-items:center}
+  .ac-ctx{display:none}
+}
+@media (max-width:560px){
+  .ac-hero .ac-lede{font-size:16px}
+  .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
+  .ac-list .ac-meta{width:100%}
+}
+
+</style>
+</head>
+<body>
+<div class="oma-topbar"><div class="oma-topbar-inner">
+<a class="oma-wordmark" href="https://mtor-atlas.org/" title="Oliver's mTOR Atlas — home">
+<img class="oma-emblem" src="https://mtor-atlas.org/apple-touch-icon.png" alt="">
+<span class="oma-name">Oliver's mTOR Atlas</span>
+<span class="oma-tag">Evidence Platform</span>
+</a>
+<nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/" class="active">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav>
+</div></div>
+<div class="wrap">
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/academy/">Academy</a> › mTOR Core</nav>
+<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>mTOR Core</h1><p class="ac-lede">Ten lessons that build the mental model most mTOR papers assume you already have: what the kinase integrates, why it works as two different complexes, how a small GTPase and its brake decide when it fires, and where the field&#x27;s own evidence stops.</p></div><ul class="ac-list"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span><span class="ac-n">01</span><span class="ac-ttl">What is mTOR?</span><span class="ac-meta">Foundation · 15 min</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span><span class="ac-n">02</span><span class="ac-ttl">mTORC1 vs mTORC2</span><span class="ac-meta">Core · 20 min</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span><span class="ac-n">03</span><span class="ac-ttl">Rheb — The Critical Regulator</span><span class="ac-meta">Core · 25 min</span></a></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">04</span><span class="ac-ttl">TSC and Rheb</span><span class="ac-meta">Core · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">05</span><span class="ac-ttl">The Lysosome as a Signaling Platform</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">06</span><span class="ac-ttl">Nutrient Sensing</span><span class="ac-meta">Intermediate · 30 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">07</span><span class="ac-ttl">Growth Factor Signaling</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">08</span><span class="ac-ttl">Feedback Regulation</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">09</span><span class="ac-ttl">mTOR and Autophagy</span><span class="ac-meta">Intermediate · 25 min · in preparation</span></span></li><li class="ac-planned"><span class="ac-row"><span class="ac-state">·</span><span class="ac-n">10</span><span class="ac-ttl">How to Read an mTOR Paper</span><span class="ac-meta">Research · 30 min · in preparation</span></span></li></ul><p class="ac-note">Lessons marked <em>in preparation</em> are listed so the shape of the course is visible. They are not written yet, and this page will not pretend otherwise.</p><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/browse/">Explore the Atlas &rarr;</a></p>
+<footer class="oma-footer">
+<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
+pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+Curated by Oliver Barton, Prague.</p>
+<div class="oma-footer-links">
+<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+</div>
+</footer>
+<script>
+/* Academy progress. One localStorage key, same defensive pattern as the SPA's
+   atlas-theme / atlas-level switches: every read and write is wrapped, and the
+   page renders correctly when storage is unavailable or empty. No accounts, no
+   XP, no streaks -- a tick next to what you have read (spec §2, §18). */
+(function(){
+  var KEY='atlas-academy-progress';
+  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return {};}}
+  function save(o){try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+  var p=read();
+  document.querySelectorAll('[data-ac-lesson]').forEach(function(el){
+    if(p[el.getAttribute('data-ac-lesson')]==='done'){
+      var g=el.querySelector('.ac-state'); if(g){g.textContent='\u2713';g.setAttribute('data-done','1');}
+    }
+  });
+  var here=document.body.getAttribute('data-ac-current');
+  var btn=document.getElementById('acDone');
+  if(here&&btn){
+    function paint(){
+      var d=read()[here]==='done';
+      btn.textContent=d?'\u2713 Marked as read':'Mark as read';
+      btn.setAttribute('aria-pressed',String(d));
+    }
+    btn.addEventListener('click',function(){
+      var o=read(); if(o[here]==='done'){delete o[here];}else{o[here]='done';} save(o); paint();
+    });
+    paint();
+  }
+})();
+</script>
+
+</div>
+</body>
+</html>

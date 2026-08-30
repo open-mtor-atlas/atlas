@@ -94,6 +94,7 @@ GENERATED_WHOLESALE_PREFIXES = (
     "atlas_fulltext/chunks.jsonl",
     "atlas_fulltext/raw/",
     "atlas_rag/index/",
+    "academy_data/_sid_to_lesson.json",
 )
 GENERATED_WHOLESALE_NAMES = (
     "sitemap.xml",
@@ -103,6 +104,7 @@ GENERATED_WHOLESALE_NAMES = (
     "sitemap-authors.xml",
     "sitemap-questions.xml",
     "sitemap-answers.xml",
+    "sitemap-academy.xml",
     "llms.txt",
 )
 # Pre-rendered page trees written by build_pages.py. Same argument: generated,
@@ -110,7 +112,7 @@ GENERATED_WHOLESALE_NAMES = (
 GENERATED_PAGE_DIRS = (
     "study", "gene", "complex", "drug", "disease", "outcome", "process",
     "intervention", "nutrient", "organelle", "condition", "author",
-    "question", "browse", "answers", "glossary", "about",
+    "question", "browse", "answers", "glossary", "about", "academy",
 )
 
 # Lines inside index.html that are stamped by a script rather than written by a

@@ -1591,6 +1591,18 @@
         });
     },
     setMode: function (m) { if (M) setMode(m); },
+    /* Called from index.html when the URL carries #view=map&pw=guided&route=<id>
+       (added 2026-08-30 so Academy lessons can link ONE guided route instead of
+       "open Guided Routes and find it yourself"). Same shape and same honesty
+       contract as focusNode() below: returns false for an id this model does
+       not contain, leaving whatever route was already selected on screen rather
+       than blanking the panel. Existing URLs without `route` are untouched. */
+    openRoute: function (id) {
+      if (!M || !id || !M.routeIx[id]) return false;
+      S.routeId = id; S.step = -1;
+      if (S.mode !== "guided") setMode("guided"); else renderGuided();
+      return true;
+    },
     /* Called from Entity Browser (index.html) when the user asks to see an
        entity in the pathway map. Returns true if a node was found and
        focused, false if this entity is tracked in the corpus but has no

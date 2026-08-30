@@ -76,6 +76,19 @@ else
 fi
 
 echo
+echo "=== build the Academy (/academy/) ==="
+# Musí běžet PŘED build_pages.py -- zapisuje academy_data/_sid_to_lesson.json,
+# ze kterého build_pages.py skládá blok "Learn the biology" na stránkách studií.
+if ! python3 build_academy.py; then
+    echo "ABORTED: build_academy.py failed."
+    exit 1
+fi
+if ! python3 verify_academy.py; then
+    echo "ABORTED: verify_academy.py found broken Academy references."
+    exit 1
+fi
+
+echo
 echo "=== evidence tier palette gate ==="
 # Hlídá, aby se paleta tierů nevrátila do rampy kvality (recenze bod 9) a aby
 # barvy hran v dráze znovu nezačaly sdílet proměnné s tiery.
@@ -98,7 +111,9 @@ echo
 echo "=== commit + push ==="
 rm -f .git/index.lock 2>/dev/null || true
 
-if git add index.html atlas_fulltext/chunk_index.json prerender_tabs.js verify_prerender.py deploy.sh 2>/tmp/gitadd.err && \
+if git add index.html atlas_fulltext/chunk_index.json prerender_tabs.js verify_prerender.py deploy.sh \
+       academy academy_data sitemap-academy.xml build_academy.py verify_academy.py \
+       pathway/pathway.js pathway/pathway.css 2>/tmp/gitadd.err && \
    git commit -m "Atlas update $(date -u +'%Y-%m-%d %H:%M:%S UTC') (automated)" 2>/tmp/gitcommit.err; then
     echo "committed via normal git add/commit"
 else

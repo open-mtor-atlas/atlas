@@ -192,10 +192,21 @@ HEAD_TMPL = """<!DOCTYPE html>
 SITE = "https://mtor-atlas.org"
 
 SITE_TABS = [
-    ("welcome", "Welcome"), ("ask", "Ask Atlas"), ("map", "Pathway"),
+    ("welcome", "Welcome"), ("learn", "Learn"), ("ask", "Ask Atlas"), ("map", "Pathway"),
     ("studies", "Studies"), ("authors", "Authors"), ("questions", "Open Questions"),
     ("lineage", "Timeline"), ("about", "About"),
 ]
+
+# Tabs with a real static page. Mirrors STATIC_TAB_URLS in build_pages.py --
+# kept as a literal copy for the same reason SITE_TABS is (this script ships
+# independently of the live repo checkout). 2026-08-30: "about" was previously
+# missing here, so /answers/ and /glossary/ linked the JS-only #view=about hash
+# while every build_pages.py page linked /about/; fixed in the same pass that
+# added "learn" -> /academy/.
+STATIC_TAB_URLS = {
+    "about": "https://mtor-atlas.org/about/",
+    "learn": "https://mtor-atlas.org/academy/",
+}
 
 
 def topbar_html(active_tab="ask"):
@@ -208,8 +219,9 @@ def topbar_html(active_tab="ask"):
     URLSearchParams (applyHash() in index.html expects a `view` param), not
     a bare #<tab> fragment. Fixed 2026-08-23."""
     tabs = "".join(
-        '<a href="{}/#view={}"{}>{}</a>'.format(
-            SITE, tid, ' class="active"' if tid == active_tab else "", esc(label))
+        '<a href="{}"{}>{}</a>'.format(
+            STATIC_TAB_URLS.get(tid, "{}/#view={}".format(SITE, tid)),
+            ' class="active"' if tid == active_tab else "", esc(label))
         for tid, label in SITE_TABS)
     return f"""<div class="oma-topbar"><div class="oma-topbar-inner">
 <a class="oma-wordmark" href="{SITE}/" title="Oliver's mTOR Atlas — home">
@@ -331,6 +343,7 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
         '<div class="oma-footer-links">\n'
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
+        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
         '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
         '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
         '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
@@ -1166,6 +1179,7 @@ def glossary_page():
         '<div class="oma-footer-links">\n'
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
+        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
         '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
         '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
         '</div>\n</footer>'
@@ -1240,6 +1254,7 @@ def hub_page():
         '<div class="oma-footer-links">\n'
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
+        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
         '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
         '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
         '</div>\n</footer>'

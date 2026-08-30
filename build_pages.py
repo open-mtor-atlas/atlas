@@ -225,10 +225,19 @@ def breadcrumb_ld(items):
 
 
 SITE_TABS = [
-    ("welcome", "Welcome"), ("ask", "Ask Atlas"), ("map", "Pathway"),
+    ("welcome", "Welcome"), ("learn", "Learn"), ("ask", "Ask Atlas"), ("map", "Pathway"),
     ("studies", "Studies"), ("authors", "Authors"), ("questions", "Open Questions"),
     ("lineage", "Timeline"), ("about", "About"),
 ]
+
+# Taby, které mají SKUTEČNOU statickou stránku, a odkazují se tedy na ni místo
+# na hash-route do SPA. "about" tu je od 2026-08-23, "learn" od 2026-08-30
+# (Academy -- generuje build_academy.py, ne tenhle skript; odkaz sem patří,
+# aby ho měly i všechny pre-renderované stránky, a crawler bez JS ho viděl).
+STATIC_TAB_URLS = {
+    "about": f"{SITE}/about/",
+    "learn": f"{SITE}/academy/",
+}
 
 
 def topbar_html(active_tab=None):
@@ -240,20 +249,22 @@ def topbar_html(active_tab=None):
     Deliberately NOT a clone of the SPA topbar: no search box (nothing here to
     search against without the SPA's JS + data) and no Level/Mode switches
     (those are stateful reading-level/theme controls with nothing to act on
-    on a static page). Just the wordmark and the 8 tabs, as plain links into
+    on a static page). Just the wordmark and the 9 tabs, as plain links into
     the SPA's own hash-addressed views -- the SPA reads {SITE}/#view=<tab>
     (URLSearchParams over location.hash, see applyHash() in index.html), NOT
     a bare {SITE}/#<tab> fragment. Fixed 2026-08-23 after the bare-fragment
     version shipped broken (linked to "#questions" instead of "#view=questions").
 
     EXCEPTION (2026-08-23): the "about" tab points at the static /about/ page
-    (STATIC_TAB_URLS below), not {SITE}/#view=about. That hash route is real
+    (STATIC_TAB_URLS above), not {SITE}/#view=about. That hash route is real
     but only resolves once the SPA's JS has run -- exactly the audit finding
     this fixes: a crawler or a skeptical reader landing on a /study/ or
     /answers/ page had no *static* link explaining who curates the Atlas or
-    how it's graded. The other 7 tabs are left as hash links; they don't
-    (yet) have static equivalents worth linking to instead."""
-    static_urls = {"about": f"{SITE}/about/"}
+    how it's graded. Same for "learn" -> /academy/ (2026-08-30), which has no
+    hash route at all: the Academy is a static section, not an SPA view. The
+    remaining 7 tabs are left as hash links; they don't (yet) have static
+    equivalents worth linking to instead."""
+    static_urls = STATIC_TAB_URLS
     tabs = "".join(
         '<a href="{}"{}>{}</a>'.format(
             static_urls.get(tid, f"{SITE}/#view={tid}"),
@@ -269,9 +280,19 @@ def topbar_html(active_tab=None):
 </div></div>"""
 
 
-def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None):
+def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
+          extra_css="", extra_body=""):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
     celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
+
+    `extra_css` (přidáno 2026-08-30 kvůli build_academy.py): volitelný blok
+    CSS připojený NA KONEC <style>, takže smí přepsat cokoli výš (Academy si
+    tak rozšíří .wrap na dva sloupce, aniž by to ovlivnilo ostatní stránky --
+    každá stránka je samostatný dokument). Prázdný řetězec = beze změny, takže
+    všech ~390 dosavadních stránek se generuje bajt po bajtu stejně jako dřív.
+
+    `extra_body`: volitelný HTML/JS blok vložený za patičku, uvnitř <body>.
+    Academy tudy posílá svůj progress skript; nic jiného ho zatím nepoužívá.
 
     `jsonld` je buď jeden dict, nebo seznam dictů -- každý dostane vlastní
     <script> blok. Google Rich Results podporuje víc bloků na stránce; jeden
@@ -441,7 +462,7 @@ a{{overflow-wrap:anywhere}}
 
 @media (prefers-reduced-motion:reduce){{
   *{{animation:none!important;transition:none!important}}
-}}
+}}{extra_css}
 </style>
 </head>
 <body>
@@ -454,9 +475,9 @@ a{{overflow-wrap:anywhere}}
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
 Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
-<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="{SITE}/data/">Data &amp; Citation</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
+<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/academy/">Academy</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="{SITE}/data/">Data &amp; Citation</a> · <a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>
 </div>
-</footer>
+</footer>{extra_body}
 </div>
 </body>
 </html>
@@ -478,6 +499,24 @@ def ent_ref(x, haspage):
     if (d, slug) in haspage:
         return f'<a href="/{d}/{slug}/">{e(x["name"])}</a>'
     return f'<span>{e(x["name"])}</span>'
+
+
+def _load_academy_index():
+    """Reverzní index {SID: [{title, url}]}, který zapisuje build_academy.py.
+    Chybí-li (první běh, nebo Academy zatím nevygenerovaná), vrátí prázdno a
+    blok "Learn the biology" se prostě nevykreslí -- žádný mrtvý odkaz, žádná
+    tvrdá závislost jedním směrem. build_academy.py se proto spouští PŘED
+    tímhle skriptem, viz deploy.bat / deploy.sh."""
+    p = os.path.join(HERE, "academy_data", "_sid_to_lesson.json")
+    if not os.path.exists(p):
+        return {}
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+ACADEMY_BY_SID = _load_academy_index()
 
 
 def study_page(s, ent_by_sid, haspage):
@@ -555,6 +594,15 @@ def study_page(s, ent_by_sid, haspage):
         body.append("</table>")
     if tag_html:
         body.append(f'<h2>Related topics</h2><div class="tags">{tag_html}</div>')
+
+    # Aditivní můstek do Academy (2026-08-30). Vykreslí se JEN u studií, které
+    # nějaká lekce opravdu cituje -- stránka studie se jinak nemění.
+    for les in ACADEMY_BY_SID.get(sid, []):
+        body.append('<h2>Learn the biology</h2>'
+                    '<p>Want to understand the biology behind this study? &rarr; '
+                    f'<a href="{e(les["url"])}">{e(les["title"])}</a></p>')
+        break
+
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › <a href="{SITE}/#studies">Studies</a> › {e(sid)}'
@@ -1510,6 +1558,11 @@ def main():
     # that patch does NOT survive a re-run without this line).
     answers_line = (f'  <sitemap><loc>{SITE}/sitemap-answers.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
                      if os.path.exists(os.path.join(HERE, "sitemap-answers.xml")) else "")
+    # sitemap-academy.xml (2026-08-30) -- stejny pripad jako answers vys: pise
+    # ho build_academy.py, ne tenhle skript, ale bez teto radky by ho kazdy
+    # dalsi beh build_pages.py z indexu sitemap tise vyhodil.
+    academy_line = (f'  <sitemap><loc>{SITE}/sitemap-academy.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
+                    if os.path.exists(os.path.join(HERE, "sitemap-academy.xml")) else "")
     write(os.path.join(HERE, "sitemap.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -1518,7 +1571,7 @@ def main():
           f'  <sitemap><loc>{SITE}/sitemap-questions.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-authors.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
           f'  <sitemap><loc>{SITE}/sitemap-home.xml</loc><lastmod>{today}</lastmod></sitemap>\n'
-          + answers_line +
+          + answers_line + academy_line +
           '</sitemapindex>\n')
     # /about/ (2026-08-23) rides in sitemap-home.xml alongside the homepage --
     # it's a hand-authored, singular top-level page like home, not a
@@ -1590,6 +1643,42 @@ def main():
             "- [Glossary of mTOR terms](https://mtor-atlas.org/glossary/): 25 core "
             "terms, linked to the full Atlas entry for each\n")
 
+    # /academy/ (2026-08-30): same guard-and-template pattern as answers above.
+    # The list is READ from academy_data, never retyped here -- a lesson renamed
+    # in lessons.json must not be able to leave a stale title in llms.txt.
+    academy_section = ""
+    if os.path.exists(os.path.join(HERE, "academy", "index.html")):
+        try:
+            _les = {l["slug"]: l for l in json.load(
+                open(os.path.join(HERE, "academy_data", "lessons.json"),
+                     encoding="utf-8"))["lessons"]}
+            _mods = json.load(open(os.path.join(HERE, "academy_data", "modules.json"),
+                                   encoding="utf-8"))["modules"]
+            _lines = []
+            for _m in _mods:
+                _lines.append(f'- [{_m["title"]} curriculum]'
+                              f'(https://mtor-atlas.org/academy/{_m["slug"]}/): '
+                              f'{len(_m["lessons"])}-lesson sequence')
+                for _r in _m["lessons"]:
+                    if _r["status"] != "published":
+                        continue
+                    _l = _les[_r["lesson"]]
+                    _lines.append(
+                        f'- [{_r["n"]} - {_l["title"]}]'
+                        f'(https://mtor-atlas.org/academy/{_m["slug"]}/{_l["slug"]}/): '
+                        f'{_l["subtitle"]}')
+            academy_section = (
+                "\n## Learn the mechanisms (mTOR Academy)\n"
+                "Short, question-led lessons that build the mental model most mTOR papers "
+                "assume. Every mechanistic claim links to the Atlas study behind it, with "
+                "that study's A-D evidence tier attached, and every lesson names what is "
+                "still uncertain.\n"
+                "- [mTOR Academy](https://mtor-atlas.org/academy/): course overview and "
+                "entry points\n"
+                + "\n".join(_lines) + "\n")
+        except Exception as exc:
+            print("  ! llms.txt: sekce Academy přeskočena (%s)" % exc)
+
     write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
 
 > A curated, evidence-graded database of mTOR pathway research: {len(studies)} \
@@ -1604,7 +1693,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
 - [Data & Citation](https://mtor-atlas.org/data/): bio.tools registration, dataset DOI, GitHub, ORCID, license, how to cite
-{answers_section}
+{academy_section}{answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.
 {gap_lines}
