@@ -508,9 +508,12 @@ ACADEMY_CSS = """
    widening .wrap here cannot affect /study/ or /answers/ pages. Tokens are
    the ones shell() already defines -- no new palette, no new type scale.
    Card radius stays 3px to match every other static page (spec §8 defers
-   to the existing Atlas design system).                                */
-.wrap{max-width:1060px}
-nav.crumb{max-width:1060px}
+   to the existing Atlas design system).
+
+   Faze 3 (2026-08-31): .wrap/nav.crumb no longer overridden here -- both
+   now default to --measure-wide (1100px) in shell()'s own CSS, the same
+   value this override used to hardcode as 1060px. Learn widens by 40px
+   to line up with .oma-topbar-inner, per the typography plan §7 Faze 3. */
 .ac-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 10px}
 .ac-hero{max-width:780px;margin:0 0 34px}

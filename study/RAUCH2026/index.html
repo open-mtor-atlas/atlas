@@ -152,8 +152,9 @@
 --teal:#A31F34;--amber:#A56827}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);
-font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:26px 22px 70px}
+font:var(--fs-body,16px)/var(--lh-body,1.62) var(--font-text,
+-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif)}
+.wrap{max-width:var(--measure-wide,1100px);margin:0 auto;padding:26px 22px 70px}
 a{color:var(--teal)}
 /* ---- Site-wide topbar (logo + primary nav) -- unified 2026-08-30 with the
    SPA's own header so every static page (Academy, Browse, Study, Answers,
@@ -179,20 +180,23 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
 .oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
-nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
+nav.crumb{max-width:var(--measure-wide,1100px);margin:0 auto;padding:14px 22px 0;
 font-family:var(--font-mono,'IBM Plex Mono',monospace);
 font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
 color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}
 nav.crumb a{color:inherit;text-decoration:none}
 nav.crumb a:hover{color:var(--teal)}
-h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
-h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
+h1{font-size:var(--fs-h1,clamp(26px,3.4vw,34px));line-height:1.2;
+margin:0 0 10px;letter-spacing:-.01em;max-width:var(--measure,68ch)}
+.wrap ul{max-width:var(--measure,68ch)}
+h2{font-size:var(--fs-h2,21px);margin:var(--sp-6,34px) 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
 .tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
 font-size:12px;font-weight:600;letter-spacing:.03em}
-.summary{font-size:17px;line-height:1.55;border-left:3px solid var(--teal);
-padding:2px 0 2px 15px;margin:0 0 20px}
+.summary{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
+border-left:3px solid var(--teal);padding:2px 0 2px 15px;margin:0 0 20px;
+max-width:var(--measure,68ch)}
 table{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 18px}
 th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
 color:var(--soft);border-bottom:1.5px solid var(--ink);padding:5px 10px 5px 0}
@@ -210,7 +214,8 @@ BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
-.abstract{font-size:15px;color:#26241F}
+.abstract{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
+color:#26241F;max-width:var(--measure,68ch)}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -344,7 +349,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:34 UTC</div>
 </footer>
 </div>
 </body>
