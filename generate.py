@@ -349,8 +349,7 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
         '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
-        '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
+        '<a href="https://mtor-atlas.org/glossary/">Glossary</a>\n'
         '</div>\n</footer>'
     )
     body.append("</div>\n</body>\n</html>\n")
@@ -1184,8 +1183,7 @@ def glossary_page():
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
+        '<a href="https://mtor-atlas.org/answers/">Answers</a>\n'
         '</div>\n</footer>'
     )
     out.append("</div>\n</body>\n</html>\n")
@@ -1259,8 +1257,7 @@ def hub_page():
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
-        '<a href="https://github.com/open-mtor-atlas/atlas">GitHub</a>\n'
+        '<a href="https://mtor-atlas.org/glossary/">Glossary</a>\n'
         '</div>\n</footer>'
     )
     out.append("</div>\n</body>\n</html>\n")
