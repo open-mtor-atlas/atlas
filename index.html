@@ -558,7 +558,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 #lineageView{--serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif;--mono:'IBM Plex Mono',monospace;}
 #lineageView .lineage-history{padding:8px 2px 4px;border-top:1px solid var(--line-strong);margin-top:6px;}
 
-  /* Tokens taken from the live Atlas (open-mtor-atlas.github.io/atlas) */
+  /* Tokens taken from the live Atlas (mtor-atlas.org) */
   #lineageView a {color:var(--teal-deep);text-decoration:none;border-bottom:1px solid rgba(108,168,178,.25)}
   #lineageView a:hover {border-bottom-color:var(--teal)}
   #lineageView :focus-visible {outline:2px solid var(--teal);outline-offset:3px}
@@ -5526,7 +5526,7 @@ function initAsk(){
   inp.addEventListener('keydown',function(e){if(e.key==="Enter")doAsk(inp.value);});
   if(location.protocol==='file:'){
     var dn=document.getElementById('askDeepNote');
-    if(dn){ dn.style.display='block'; dn.innerHTML='Opened as a local file &mdash; Deep search can\u2019t fetch its index here. It works on the <a href="https://open-mtor-atlas.github.io/atlas/" target="_blank" rel="noopener">live site</a>.'; }
+    if(dn){ dn.style.display='block'; dn.innerHTML='Opened as a local file &mdash; Deep search can\u2019t fetch its index here. It works on the <a href="https://mtor-atlas.org/" target="_blank" rel="noopener">live site</a>.'; }
   }
 }
 function goStudy(code){
@@ -5733,7 +5733,7 @@ function deepSearch(q){
      .then(function(j){_CIDX=j;_cidxLoading=false;deepSearch(q);})
      .catch(function(e){_cidxLoading=false;
        if(location.protocol==='file:'){
-         box.innerHTML='<div class="ask-count">Deep search needs to load a ~3\u00a0MB index file, and browsers block that when a page is opened directly from disk (no server). This works normally on the live site &mdash; open <a href="https://open-mtor-atlas.github.io/atlas/" target="_blank" rel="noopener">open-mtor-atlas.github.io/atlas</a> and try Deep search there, or serve this folder locally over http instead of double-clicking the file.</div>';
+         box.innerHTML='<div class="ask-count">Deep search needs to load a ~3\u00a0MB index file, and browsers block that when a page is opened directly from disk (no server). This works normally on the live site &mdash; open <a href="https://mtor-atlas.org/" target="_blank" rel="noopener">mtor-atlas.org</a> and try Deep search there, or serve this folder locally over http instead of double-clicking the file.</div>';
        } else {
          box.innerHTML='<div class="ask-count">Full-text index failed to load ('+e+'). It should be deployed at atlas_fulltext/chunk_index.json alongside this page &mdash; check the deployment, or regenerate it with atlas_fulltext/build_chunk_index.py.</div>';
        }
