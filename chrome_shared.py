@@ -192,6 +192,9 @@ LEVEL_SWITCH_CSS = """
 [data-level="research"] .lv-research{display:block}
 [data-level="research"] .lv-student{display:none}
 [data-level="beginner"] .lv-hide-beginner{display:none}
+@media (max-width:768px){
+  .lvsw-btns button{min-height:44px;padding:0 12px;}
+}
 """
 
 
@@ -275,6 +278,9 @@ MODE_TOGGLE_CSS = """
   stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 @media (max-width:760px){
   .topbar-controls{margin-left:0}
+}
+@media (max-width:768px){
+  .theme-toggle{min-height:44px;padding:0 14px;}
 }
 """
 
