@@ -28,11 +28,31 @@ odvozuje z Entity_Name; když se entita v Airtable přejmenuje, PŘIDEJ starý s
 do LEGACY_SLUGS níž, nikdy negeneruj jinou adresu potichu.
 """
 
-import os, sys, json, re, html, shutil, unicodedata, datetime
+import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "atlas_data")
 SITE = "https://mtor-atlas.org"
+
+def _type_css_version():
+    """Hash assets/type.css at build time and use it as the cache-busting
+    ?v= for every generated static page's <link>. Unlike index.html (hand-
+    maintained, needs stamp_type_version.py), static pages are regenerated
+    from this template on every build, so there is nothing to stamp
+    separately -- the hash is always current by construction."""
+    try:
+        with io.open(os.path.join(HERE, "assets", "type.css"), "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()[:12]
+    except OSError:
+        return "missing"
+
+
+TYPE_CSS_VERSION = _type_css_version()
+
+# UTC timestamp for the static footer's "last updated" line -- computed once
+# per build run, same convention as stamp_updated.py uses for the SPA footer
+# (which is stamped by a separate script since index.html isn't a template).
+BUILD_TIMESTAMP = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
 
 DRY = "--dry-run" in sys.argv
 CLEAN = "--clean" in sys.argv
@@ -337,6 +357,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 {ld_html}
+<link rel="stylesheet" href="/assets/type.css?v={TYPE_CSS_VERSION}">
 <style>
 :root{{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}}
@@ -369,9 +390,12 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}}
 .oma-tabs a:hover{{background:rgba(163,31,52,.08);color:var(--teal)}}
 .oma-tabs a.active{{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}}
-nav.crumb{{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
-padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}}
-nav.crumb a{{color:var(--soft)}}
+nav.crumb{{max-width:760px;margin:0 auto;padding:14px 22px 0;
+font-family:var(--font-mono,'IBM Plex Mono',monospace);
+font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
+color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}}
+nav.crumb a{{color:inherit;text-decoration:none}}
+nav.crumb a:hover{{color:var(--teal)}}
 h1{{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}}
 h2{{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}}
@@ -396,6 +420,7 @@ footer.oma-footer p{{max-width:640px;margin:0 auto 8px;font-family:-apple-system
 BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}}
 footer.oma-footer .oma-footer-links{{margin-top:10px}}
 footer.oma-footer .oma-footer-links a{{margin:0 8px}}
+footer.oma-footer .oma-footer-meta{{margin-top:10px;opacity:.7}}
 .abstract{{font-size:15px;color:#26241F}}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -419,7 +444,7 @@ a{{overflow-wrap:anywhere}}
   h2{{font-size:16px;margin:26px 0 8px}}
   .summary{{font-size:16px;padding-left:13px}}
   body{{font-size:16px}}
-  nav.crumb{{font-size:12.5px;line-height:1.9}}
+  nav.crumb{{font-size:10.5px;line-height:1.9}}
   /* breadcrumb + tag links need finger-sized targets */
   nav.crumb a,footer a{{display:inline-flex;align-items:center;
     padding:6px 0;min-height:44px}}
@@ -483,6 +508,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/academy/">Academy</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="{SITE}/data/">Data &amp; Citation</a>
 </div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated {BUILD_TIMESTAMP}</div>
 </footer>{extra_body}
 </div>
 </body>
@@ -611,7 +637,7 @@ def study_page(s, ent_by_sid, haspage):
 
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › <a href="{SITE}/#studies">Studies</a> › {e(sid)}'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · <a href="{SITE}/#studies">Studies</a> · {e(sid)}'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Studies", SITE + "/#studies"),
                         (sid, None)])
@@ -705,8 +731,8 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
                     + "".join(chips) + "</div>")
 
     body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
-    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
-             f'<a href="{SITE}/#entities">{e(ent["type"])}</a> › {e(ent["name"])}')
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
+             f'<a href="{SITE}/#entities">{e(ent["type"])}</a> · {e(ent["name"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         (ent["type"], SITE + "/#entities"),
                         (ent["name"], None)])
@@ -789,8 +815,8 @@ def gap_page(g, studies_by_sid):
                     f'<a href="{SITE}/answers/{e(aslug)}/">{e(atitle)}</a></p>')
     body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
 
-    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
-             f'<a href="{SITE}/#questions">Open Questions</a> › {e(g["title"])}')
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
+             f'<a href="{SITE}/#questions">Open Questions</a> · {e(g["title"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Open Questions", SITE + "/#questions"),
                         (g["title"], None)])
@@ -864,8 +890,8 @@ def author_page(key, bio, studies):
         body.append("</table>")
     body.append(f'<p><a class="cta" href="{SITE}/#authors">Open in the Atlas explorer</a></p>')
 
-    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › '
-             f'<a href="{SITE}/#authors">Researchers</a> › {e(bio["full"])}')
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
+             f'<a href="{SITE}/#authors">Researchers</a> · {e(bio["full"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Researchers", SITE + "/#authors"),
                         (bio["full"], None)])
@@ -910,7 +936,7 @@ def about_page(studies, entities):
                             "pathway research.",
         },
     }
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › About &amp; Methodology'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · About &amp; Methodology'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("About & Methodology", None)])
 
@@ -1179,7 +1205,7 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
             f'{e(s.get("journal") or "")} · <span class="tier" '
             f'style="background:{colour}">{code}</span></span></p>')
 
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> › Browse'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · Browse'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Browse", None)])
     return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
                       f"Index of all {len(studies)} curated mTOR studies and every "
@@ -1209,7 +1235,7 @@ def patch_home(n_pages):
     # k PRVNÍ koncové -- a protože starší vložení koncovou značku nemá, druhý
     # běh smazal celý blok dokumentu mezi nimi, včetně patičky webu. Omezená
     # délka zaručí, že se v nejhorším případě nesmaže nic.
-    h = re.sub(re.escape(HOME_MARKER) + r".{0,400}?" + re.escape(HOME_END),
+    h = re.sub(re.escape(HOME_MARKER) + r".{0,900}?" + re.escape(HOME_END),
                "", h, flags=re.S)
     # starší formát bez koncové značky (vložení před 2026-07-27)
     h = re.sub(re.escape(HOME_MARKER)
@@ -1217,9 +1243,14 @@ def patch_home(n_pages):
                  r"(?:\s*<span[^>]*>[^<]*</span>)?", "", h)
 
     link = (f'{HOME_MARKER} &middot; '
+            f'<a href="/" style="color:inherit">Full interactive Atlas</a> &middot; '
             f'<a href="/browse/" style="color:inherit">Browse the Atlas</a> '
-            f'<span class="mono" style="opacity:.65">{n_pages} pages</span>'
-            f' &middot; <a href="/about/" style="color:inherit">About &amp; Methodology</a>'
+            f'<span class="mono" style="opacity:.65">{n_pages} pages</span> &middot; '
+            f'<a href="/academy/" style="color:inherit">Academy</a> &middot; '
+            f'<a href="/answers/" style="color:inherit">Answers</a> &middot; '
+            f'<a href="/glossary/" style="color:inherit">Glossary</a> &middot; '
+            f'<a href="/about/" style="color:inherit">About &amp; Methodology</a> &middot; '
+            f'<a href="/data/" style="color:inherit">Data &amp; Citation</a>'
             f'{HOME_END}')
 
     # Ukotveno na SPRÁVNOU patičku, ne na první </footer> v souboru.

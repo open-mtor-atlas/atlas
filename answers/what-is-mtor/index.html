@@ -27,6 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/type.css?v=0f9a7bb34079">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -97,9 +98,12 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
 .oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
-nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
-padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
-nav.crumb a{color:var(--soft)}
+nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
+font-family:var(--font-mono,'IBM Plex Mono',monospace);
+font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
+color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}
+nav.crumb a{color:inherit;text-decoration:none}
+nav.crumb a:hover{color:var(--teal)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
@@ -124,6 +128,7 @@ footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
 BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
+footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:15px;color:#26241F}
 .gloss dt{font-weight:600;font-size:16px;margin-top:20px}
 .gloss dd{margin:4px 0 0;color:#26241F}
@@ -150,7 +155,7 @@ a{overflow-wrap:anywhere}
   h2{font-size:16px;margin:26px 0 8px}
   .summary{font-size:16px;padding-left:13px}
   body{font-size:16px}
-  nav.crumb{font-size:12.5px;line-height:1.9}
+  nav.crumb{font-size:10.5px;line-height:1.9}
   nav.crumb a,footer.oma-footer .oma-footer-links a{display:inline-flex;align-items:center;
     padding:6px 0;min-height:44px}
   .oma-tabs a{padding:9px 10px;font-size:10.5px;min-height:38px;
@@ -208,7 +213,7 @@ a{overflow-wrap:anywhere}
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask" class="active">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
-<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/answers/">Answers</a> › What is mTOR?</nav>
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · What is mTOR?</nav>
 <h1>What is mTOR?</h1>
 <p class="summary">mTOR (mechanistic target of rapamycin, also written FRAP1 in older literature) is a serine/threonine protein kinase — an enzyme that turns other proteins on or off by adding phosphate groups to them. It sits at the center of how a cell decides whether to grow: when nutrients, growth factors, and energy are abundant, mTOR is active and pushes the cell to build proteins and grow; when any of those are scarce, mTOR switches off and the cell shifts to conserving and recycling resources instead.</p>
 <h2>Named after the drug that found it, not the other way around</h2><p>mTOR wasn't discovered by studying growth signaling directly — it was found because of a drug.</p><ul><li><a href="/study/VEZ1975/">VEZ1975</a> <span class="tier" style="background:#7C7569">D</span> — rapamycin was first isolated in 1975 from <i>Streptomyces hygroscopicus</i>, a bacterium in a soil sample from Rapa Nui (Easter Island) — originally studied as an antifungal antibiotic, years before anyone knew what it did to cells.</li><li><a href="/study/HEI1991/">HEI1991</a> <span class="tier" style="background:#7C7569">D</span> — geneticists studying why yeast cells resist growth-arrest by the immunosuppressant rapamycin found the genes responsible — TOR1 and TOR2 ("target of rapamycin") — giving the pathway its name before the human version was even known.</li><li><a href="/study/PRI1992/">PRI1992</a> <span class="tier" style="background:#7C7569">D</span> — showed rapamycin inhibits the 70-kilodalton S6 kinase, identifying one of the first known downstream targets of the then-unnamed pathway in mammalian cells.</li></ul><p>The mammalian version of TOR — what we now call mTOR — was cloned by three independent labs in 1994, using rapamycin itself as the molecular hook to fish it out.</p>
@@ -223,6 +228,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 09:44 UTC</div>
 </footer>
 </div>
 </body>

@@ -100,6 +100,7 @@
  ]
 }
 </script>
+<link rel="stylesheet" href="/assets/type.css?v=0f9a7bb34079">
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}
@@ -132,9 +133,12 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
 .oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
-nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
-padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
-nav.crumb a{color:var(--soft)}
+nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
+font-family:var(--font-mono,'IBM Plex Mono',monospace);
+font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
+color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}
+nav.crumb a{color:inherit;text-decoration:none}
+nav.crumb a:hover{color:var(--teal)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
@@ -159,6 +163,7 @@ footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
 BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
+footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:15px;color:#26241F}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -182,7 +187,7 @@ a{overflow-wrap:anywhere}
   h2{font-size:16px;margin:26px 0 8px}
   .summary{font-size:16px;padding-left:13px}
   body{font-size:16px}
-  nav.crumb{font-size:12.5px;line-height:1.9}
+  nav.crumb{font-size:10.5px;line-height:1.9}
   /* breadcrumb + tag links need finger-sized targets */
   nav.crumb a,footer a{display:inline-flex;align-items:center;
     padding:6px 0;min-height:44px}
@@ -244,7 +249,7 @@ a{overflow-wrap:anywhere}
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
-<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › Browse</nav>
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · Browse</nav>
 <h1>Browse the Atlas</h1>
 <p class="summary">Every study and every topic in the Atlas, as a plain index. 352 studies, 45 topics.</p>
 <h2>Open questions &amp; testable hypotheses</h2><p>AI-identified knowledge gaps in the pathway, each with a proposed experiment.</p><p><a href="https://mtor-atlas.org/question/sensor-selective-geroprotection-without-the-metabolic-penalty/">Sensor-selective geroprotection without the metabolic penalty</a> · <a href="https://mtor-atlas.org/question/suppression-of-senescence-sasp-geroconversion-not-just-autophagy-is-the-mediator-of-rapamycins-healthspan-benefit/">Suppression of senescence/SASP (geroconversion), not just autophagy, is the mediator of rapamycin&#x27;s healthspan benefit</a> · <a href="https://mtor-atlas.org/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance</a> · <a href="https://mtor-atlas.org/question/muscle-sparing-pulsed-mtorc1-inhibition/">Muscle-sparing, pulsed mTORC1 inhibition</a> · <a href="https://mtor-atlas.org/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/">Is autophagy actually REQUIRED for the mammalian lifespan benefit?</a> · <a href="https://mtor-atlas.org/question/a-sensor-autophagy-biomarker-panel-as-a-surrogate-endpoint-for-human-trials/">A sensor/autophagy biomarker panel as a surrogate endpoint for human trials</a> · <a href="https://mtor-atlas.org/question/sex-dimorphism-in-mtor-longevity-responses-is-pervasive-and-sometimes-direction-flipping/">Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</a> · <a href="https://mtor-atlas.org/question/low-dose-mtor-inhibition-rejuvenates-the-aging-immune-system-without-net-immunosuppression/">Low-dose mTOR inhibition rejuvenates the aging immune system without net immunosuppression</a> · <a href="https://mtor-atlas.org/question/brain-penetrant-mtor-inhibition-clears-neurodegenerative-aggregates-in-models-but-has-zero-human-cognitive-aging-endpoint-and-mtorc2-is-needed-for-memory/">Brain-penetrant mTOR inhibition clears neurodegenerative aggregates in models but has zero human cognitive-aging endpoint - and mTORC2 is needed for memory</a> · <a href="https://mtor-atlas.org/question/rapamycin-ampk-axis-drugs-acarbose-metformin-additive-via-distinct-pathways-and-untested-as-a-combination-in-humans/">Rapamycin + AMPK-axis drugs (acarbose / metformin): additive via distinct pathways, and untested as a combination in humans</a></p>
@@ -620,6 +625,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 09:56 UTC</div>
 </footer>
 </div>
 </body>

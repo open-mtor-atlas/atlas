@@ -13,6 +13,24 @@ import os
 import html
 import re
 import json
+import hashlib
+import datetime
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+def _type_css_version():
+    """Same cache-busting approach as build_pages.py -- see that file's
+    _type_css_version() for the rationale."""
+    try:
+        with open(os.path.join(HERE, "assets", "type.css"), "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()[:12]
+    except OSError:
+        return "missing"
+
+
+TYPE_CSS_VERSION = _type_css_version()
+
+BUILD_TIMESTAMP = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
 
 OUT = os.path.join(os.path.dirname(__file__), "out")
 
@@ -57,9 +75,12 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
 .oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
-nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
-padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
-nav.crumb a{color:var(--soft)}
+nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
+font-family:var(--font-mono,'IBM Plex Mono',monospace);
+font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
+color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}
+nav.crumb a{color:inherit;text-decoration:none}
+nav.crumb a:hover{color:var(--teal)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
@@ -84,6 +105,7 @@ footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
 BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
+footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:15px;color:#26241F}
 .gloss dt{font-weight:600;font-size:16px;margin-top:20px}
 .gloss dd{margin:4px 0 0;color:#26241F}
@@ -110,7 +132,7 @@ a{overflow-wrap:anywhere}
   h2{font-size:16px;margin:26px 0 8px}
   .summary{font-size:16px;padding-left:13px}
   body{font-size:16px}
-  nav.crumb{font-size:12.5px;line-height:1.9}
+  nav.crumb{font-size:10.5px;line-height:1.9}
   nav.crumb a,footer.oma-footer .oma-footer-links a{display:inline-flex;align-items:center;
     padding:6px 0;min-height:44px}
   .oma-tabs a{padding:9px 10px;font-size:10.5px;min-height:38px;
@@ -187,6 +209,7 @@ HEAD_TMPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/type.css?v={type_css_v}">
 {jsonld}
 <style>
 {style}</style>
@@ -322,12 +345,12 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
     jsonld += breadcrumb_jsonld(h1)
     head = HEAD_TMPL.format(
         title=esc(title), description=esc(description), canonical=canonical,
-        jsonld=jsonld, style=STYLE,
+        jsonld=jsonld, style=STYLE, type_css_v=TYPE_CSS_VERSION,
     )
     body = ["<body>\n" + topbar_html(active_tab) + '\n<div class="wrap">']
     body.append(
         '<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver\'s mTOR Atlas</a> '
-        '› <a href="https://mtor-atlas.org/answers/">Answers</a> › {}</nav>'.format(esc(h1))
+        '· <a href="https://mtor-atlas.org/answers/">Answers</a> · {}</nav>'.format(esc(h1))
     )
     body.append("<h1>{}</h1>".format(esc(h1)))
     body.append('<p class="summary">{}</p>'.format(tldr))
@@ -349,7 +372,11 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
         '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a>\n'
+        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
+        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
+        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
+        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
+        + BUILD_TIMESTAMP +
         '</div>\n</footer>'
     )
     body.append("</div>\n</body>\n</html>\n")
@@ -1166,11 +1193,11 @@ def glossary_page():
             '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=1) + '\n</script>',
             bc,
         ]),
-        style=STYLE,
+        style=STYLE, type_css_v=TYPE_CSS_VERSION,
     )
     out = [head, "<body>\n" + topbar_html("ask") + '\n<div class="wrap">']
     out.append('<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver\'s mTOR Atlas</a> '
-               '› Glossary</nav>')
+               '· Glossary</nav>')
     out.append("<h1>Glossary of mTOR terms</h1>")
     out.append(body_html)
     out.append('<p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>')
@@ -1183,7 +1210,12 @@ def glossary_page():
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/answers/">Answers</a>\n'
+        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
+        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
+        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
+        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
+        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
+        + BUILD_TIMESTAMP +
         '</div>\n</footer>'
     )
     out.append("</div>\n</body>\n</html>\n")
@@ -1240,11 +1272,11 @@ def hub_page():
             '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=1) + '\n</script>',
             bc,
         ]),
-        style=STYLE,
+        style=STYLE, type_css_v=TYPE_CSS_VERSION,
     )
     out = [head, "<body>\n" + topbar_html("ask") + '\n<div class="wrap">']
     out.append('<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver\'s mTOR Atlas</a> '
-               '› Answers</nav>')
+               '· Answers</nav>')
     out.append("<h1>Answers</h1>")
     out.append(body_html)
     out.append('<p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>')
@@ -1257,7 +1289,12 @@ def hub_page():
         '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
         '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
         '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a>\n'
+        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
+        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
+        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
+        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
+        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
+        + BUILD_TIMESTAMP +
         '</div>\n</footer>'
     )
     out.append("</div>\n</body>\n</html>\n")

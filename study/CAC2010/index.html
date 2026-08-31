@@ -149,6 +149,7 @@
  ]
 }
 </script>
+<link rel="stylesheet" href="/assets/type.css?v=0f9a7bb34079">
 <style>
 :root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}
@@ -181,9 +182,12 @@ letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink)
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
 .oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
-nav.crumb{max-width:760px;margin:0 auto;font-size:13px;color:var(--soft);
-padding:14px 22px 14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
-nav.crumb a{color:var(--soft)}
+nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
+font-family:var(--font-mono,'IBM Plex Mono',monospace);
+font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
+color:var(--soft);border:0;margin-bottom:var(--sp-3,12px)}
+nav.crumb a{color:inherit;text-decoration:none}
+nav.crumb a:hover{color:var(--teal)}
 h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
@@ -208,6 +212,7 @@ footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:-apple-system,
 BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
+footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:15px;color:#26241F}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -231,7 +236,7 @@ a{overflow-wrap:anywhere}
   h2{font-size:16px;margin:26px 0 8px}
   .summary{font-size:16px;padding-left:13px}
   body{font-size:16px}
-  nav.crumb{font-size:12.5px;line-height:1.9}
+  nav.crumb{font-size:10.5px;line-height:1.9}
   /* breadcrumb + tag links need finger-sized targets */
   nav.crumb a,footer a{display:inline-flex;align-items:center;
     padding:6px 0;min-height:44px}
@@ -293,7 +298,7 @@ a{overflow-wrap:anywhere}
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
-<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> › <a href="https://mtor-atlas.org/#studies">Studies</a> › CAC2010</nav>
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · CAC2010</nav>
 <h1>Molecular interplay between mTOR, amyloid-beta, and Tau: effects on cognitive impairments</h1>
 <p class="meta">Caccamo A; Majumder S; Richardson A; Strong R; Oddo S · 2010 · <em>Journal of Biological Chemistry</em> · Atlas ID <code>CAC2010</code></p>
 <p class="summary">Revealed a vicious cycle: amyloid-beta RAISES mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau - so the disease feeds itself. Rapamycin broke the loop in 3xTg-AD mice, rescuing memory and lowering BOTH amyloid and tau, with autophagy shown to be required for the effect.
@@ -323,6 +328,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 09:56 UTC</div>
 </footer>
 </div>
 </body>

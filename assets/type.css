@@ -1,0 +1,55 @@
+/* ============================================================
+   assets/type.css — jediný zdroj typografie a layoutu pro celý
+   Oliver's mTOR Atlas (SPA + statické stránky + Academy).
+
+   Viz claude/typography-unification-plan-2026-08-31.md (Fáze 1-8).
+
+   STAV (Fáze 1, 2026-08-31): tento soubor je zalinkovaný z
+   index.html i z build_pages.py/build_academy.py shell(), ale
+   ŽÁDNÉ stávající pravidlo v SPA ani ve shellu na tyhle proměnné
+   ještě neukazuje -- to je záměr. Fáze 1 ověřuje jen to, že se
+   soubor správně linkuje, cachuje a nasazuje, BEZE ZMĚNY jediného
+   pixelu. Component-by-component přechod na tyhle tokeny přijde
+   ve Fázích 3-5, vždy se screenshot-diffem proti _ui-baseline/.
+
+   Nesahej na barvy evidence tierů (--tier-a/b/c/d apod.) -- ty
+   hlídá check_tier_palette.py a žijí jinde (pravidlo 6 v tom
+   skriptu: nepůjčovat tier proměnné napříč významy).
+   ============================================================ */
+
+:root{
+  /* ---- rodiny písma ---- */
+  --font-text: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-ui:   'DM Sans',var(--font-text);
+  --font-mono: 'IBM Plex Mono',ui-monospace,monospace;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+
+  /* ---- velikosti — 8 stupňů místo desítek náhodných hodnot ---- */
+  --fs-micro:  11px;   /* jen mono uppercase labely, eyebrow, badge, drobečky */
+  --fs-caption:13px;   /* meta řádky, popisky pod figurou, hlavičky tabulek */
+  --fs-small:  15px;   /* husté tabulky, sekundární UI */
+  --fs-body:   16px;   /* výchozí text */
+  --fs-lead:   17px;   /* lede, summary, klíčové odstavce */
+  --fs-h3:     18px;
+  --fs-h2:     21px;
+  --fs-h1:     clamp(26px,3.4vw,34px);
+  --fs-display:clamp(30px,4.2vw,42px);
+
+  /* ---- řádkování ---- */
+  --lh-tight:1.2;  --lh-snug:1.4;  --lh-body:1.62;  --lh-loose:1.7;
+
+  /* ---- layout: šířka je vlastnost kontejneru, ne prvku ---- */
+  --measure:68ch;         /* ~760px — odstavcový text */
+  --measure-wide:1100px;  /* stránkový kontejner — lícuje s .oma-topbar-inner */
+  --frame:1440px;         /* vnější rám, jen pro vědomě plnošířkové plochy */
+
+  /* ---- odstupy ---- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:18px;
+  --sp-5:26px; --sp-6:34px; --sp-7:48px;
+}
+
+/* Kontejnerové utility -- viz §4 plánu. Zatím je nepoužívá žádná
+   stránka; přechod komponent na ně je práce Fáze 3/4. */
+.oma-page  {max-width:var(--measure-wide); margin:0 auto;}
+.oma-prose {max-width:var(--measure);}
+.oma-bleed {max-width:var(--frame); margin:0 auto;}
