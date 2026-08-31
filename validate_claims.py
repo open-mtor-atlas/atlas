@@ -437,6 +437,34 @@ def check_academy(findings):
             blobs += [("think%d.prompt" % j, t.get("prompt") or ""),
                       ("think%d.hint" % j, t.get("hint") or ""),
                       ("think%d.reveal" % j, t.get("reveal") or "")]
+        # Interaktivni cviceni (Faze 2, 2026-08-31). Stejny duvod jako u kvizu:
+        # zpetna vazba k navrhu experimentu a "what this does not show" jsou
+        # proza, kterou si student precte pozorneji nez hlavni text.
+        for j, x in enumerate(l.get("exercises") or []):
+            w2 = "ex%d.%s" % (j, x.get("kind"))
+            for f in ("prompt", "explain", "why", "bothSupport", "differ",
+                      "nextExperiment", "question", "wouldResolve"):
+                blobs.append(("%s.%s" % (w2, f), x.get(f) or ""))
+            for f in ("options", "shows", "doesNotShow", "limitations",
+                      "whatWeKnow", "whatWeDont", "competing"):
+                v = x.get(f)
+                if isinstance(v, list):
+                    blobs += [("%s.%s%d" % (w2, f, k), str(i)) for k, i in enumerate(v)]
+            for sk, st in (x.get("states") or {}).items():
+                blobs.append(("%s.state[%s]" % (w2, sk), st.get("note") or ""))
+            for d in x.get("dimensions") or []:
+                blobs += [("%s.%s.%s" % (w2, d.get("id"), o.get("label")), o.get("note") or "")
+                          for o in d.get("options") or []]
+            for side in ("a", "b"):
+                if isinstance(x.get(side), dict):
+                    blobs += [("%s.%s.perturbation" % (w2, side), x[side].get("perturbation") or ""),
+                              ("%s.%s.readout" % (w2, side), x[side].get("readout") or "")]
+            if isinstance(x.get("observe"), dict):
+                blobs += [("%s.observe.method" % w2, x["observe"].get("method") or ""),
+                          ("%s.observe.readout" % w2, x["observe"].get("readout") or "")]
+        blobs += [("objective%d" % k, o)
+                  for k, o in enumerate(l.get("learningObjectives") or [])]
+
         # Kviz (2026-08-30). Distraktory jsou taky proza a ctou se stejne jako
         # zbytek lekce -- kdyby prosly nezkontrolovane, absolutni formulace by
         # se do webu dostala prave tou vetou, kterou si student precte dvakrat.

@@ -308,7 +308,8 @@
       "The chain runs: <strong>growth factors → AKT ⊣ TSC1/TSC2 ⊣ Rheb-GTP → mTORC1</strong>. Note the two inhibitory steps in a row. A double negative is easy to misread, so it is worth saying slowly: AKT inhibits the TSC complex; the TSC complex inhibits Rheb; therefore AKT activity raises Rheb-GTP.",
       "The TSC complex is also where several other inputs converge. Energy stress acting through AMPK, and various other stress signals, act on the same brake — which makes TSC a genuine integration point rather than a simple growth-factor relay.",
       "But nucleotide state is only half the story, and this is the part most summaries drop."
-     ]
+     ],
+     "interactive": "rheb-switchboard"
     },
     {
      "kind": "mechanism",
@@ -424,6 +425,333 @@
      ],
      "answer": 1,
      "explain": "The amino-acid branch is about recruitment through the Rag GTPases; the growth-factor branch is about the nucleotide state of Rheb. That split is a tidier account of the AND-gate behaviour than saying the two signals simply add."
+    }
+   ],
+   "learningObjectives": [
+    "Trace the growth-factor branch from AKT to mTORC1 and state the sign of every step.",
+    "Predict what mTORC1 output does when Rheb is held in its GDP-bound state, and justify the prediction from the mechanism rather than from memory.",
+    "Distinguish what the amino-acid branch decides (where mTORC1 is) from what the growth-factor branch decides (whether the activator it meets is loaded).",
+    "Evaluate what an overexpression experiment can and cannot establish about a protein at its normal level.",
+    "Propose an experiment that would separate nucleotide state from localisation as explanations of the same result."
+   ],
+   "researchSkill": "Causal reasoning",
+   "ladder": "predict",
+   "exercises": [
+    {
+     "id": "rheb-switchboard",
+     "kind": "model",
+     "title": "The switchboard: three controls, one output",
+     "caption": "A simplified model of the growth-factor branch: AKT, the TSC complex, Rheb and mTORC1, with S6K1 and 4E-BP1 as the readouts. The Atlas model also carries an indirect TSC-to-mTORC1 link, which is left out here because it runs through the very step this lesson is about.",
+     "layout": [
+      [
+       "Akt/PKB"
+      ],
+      [
+       "TSC1/TSC2"
+      ],
+      [
+       "Rheb"
+      ],
+      [
+       "mTORC1"
+      ],
+      [
+       "S6K1",
+       "4E-BP1"
+      ]
+     ],
+     "edges": [
+      "AKT-TSC",
+      "TSC-RHEB",
+      "RHEB-MTORC1",
+      "MTORC1-S6K1",
+      "MTORC1-4EBP1"
+     ],
+     "controls": [
+      {
+       "id": "gf",
+       "label": "Growth factors",
+       "options": [
+        "ON",
+        "OFF"
+       ]
+      },
+      {
+       "id": "tsc",
+       "label": "TSC complex",
+       "options": [
+        "active",
+        "inhibited"
+       ]
+      },
+      {
+       "id": "rheb",
+       "label": "Rheb",
+       "options": [
+        "GTP",
+        "GDP"
+       ]
+      }
+     ],
+     "start": {
+      "gf": "ON",
+      "tsc": "inhibited",
+      "rheb": "GTP"
+     },
+     "states": {
+      "ON|inhibited|GTP": {
+       "flow": [
+        "Akt/PKB",
+        "Rheb",
+        "mTORC1",
+        "S6K1",
+        "4E-BP1"
+       ],
+       "cut": [
+        "TSC-RHEB"
+       ],
+       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
+       "note": "The coherent fed state. Growth factors activate AKT, AKT weakens the TSC brake, Rheb stays GTP-loaded and mTORC1 is active &mdash; so S6K1 is phosphorylated and 4E-BP1 releases its grip on eIF4E."
+      },
+      "ON|inhibited|GDP": {
+       "flow": [
+        "Akt/PKB"
+       ],
+       "cut": [
+        "RHEB-MTORC1"
+       ],
+       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
+       "note": "This is the combination worth sitting with. The hormone is present, the brake is off &mdash; and output is still low, because the thing mTORC1 actually reads is the nucleotide state of Rheb. Everything upstream matters only through this step."
+      },
+      "ON|active|GTP": {
+       "flow": [
+        "Akt/PKB",
+        "TSC1/TSC2",
+        "Rheb",
+        "mTORC1",
+        "S6K1",
+        "4E-BP1"
+       ],
+       "cut": [],
+       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
+       "note": "A brake that is engaged while Rheb stays loaded. A cell does not hold this for long, and that is the point: the TSC complex is a GAP, so it sets the <em>rate</em> at which Rheb unloads rather than switching it off instantly."
+      },
+      "ON|active|GDP": {
+       "flow": [
+        "Akt/PKB",
+        "TSC1/TSC2"
+       ],
+       "cut": [
+        "RHEB-MTORC1"
+       ],
+       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
+       "note": "Growth-factor signalling arrives, the brake holds anyway, Rheb unloads and output stops. In an intact cell this is the transient you would see on the way down after AKT signalling falls."
+      },
+      "OFF|inhibited|GTP": {
+       "flow": [
+        "Rheb",
+        "mTORC1",
+        "S6K1",
+        "4E-BP1"
+       ],
+       "cut": [
+        "TSC-RHEB"
+       ],
+       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
+       "note": "No hormone, no brake, full output. This is close to what a cell lacking a working TSC complex looks like &mdash; mTORC1 active without the permission signal that normally licenses it, which is the situation in tuberous sclerosis (Lesson 04)."
+      },
+      "OFF|inhibited|GDP": {
+       "flow": [],
+       "cut": [
+        "RHEB-MTORC1"
+       ],
+       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
+       "note": "Nothing arriving and nothing loaded. Removing the brake changes nothing here, which is another way of seeing that the brake acts on Rheb, not on mTORC1."
+      },
+      "OFF|active|GTP": {
+       "flow": [
+        "TSC1/TSC2",
+        "Rheb",
+        "mTORC1",
+        "S6K1",
+        "4E-BP1"
+       ],
+       "cut": [],
+       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
+       "note": "Loaded Rheb overrides an engaged brake for as long as it stays loaded. Read this together with the state above it: the brake and the hormone are both upstream of the same single question."
+      },
+      "OFF|active|GDP": {
+       "flow": [
+        "TSC1/TSC2"
+       ],
+       "cut": [
+        "RHEB-MTORC1"
+       ],
+       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
+       "note": "The resting or starved state: no permission signal, brake engaged, Rheb unloaded, mTORC1 quiet and autophagy no longer restrained."
+      }
+     }
+    },
+    {
+     "id": "rheb-gdp-predict",
+     "kind": "predict",
+     "title": "Rheb is held in its GDP-bound state. What happens downstream?",
+     "prompt": "Amino acids are plentiful, so mTORC1 is recruited to the lysosome as usual. But Rheb is held predominantly in its GDP-bound state. Commit to a prediction for S6K1 and 4E-BP1 phosphorylation before you look.",
+     "options": [
+      "Output stays high &mdash; amino acids are the dominant input and recruitment is what matters",
+      "Output falls &mdash; mTORC1 arrives at the lysosome but the activator waiting there is in its off state",
+      "Output rises &mdash; GDP-bound Rheb is the active form",
+      "Output is unchanged &mdash; Rheb acts on mTORC2, not mTORC1"
+     ],
+     "answer": 1,
+     "observe": {
+      "sid": "INOK2003",
+      "method": "Biochemistry in mammalian cells: TSC2's GAP activity assayed directly on Rheb, with the mTOR pathway read out through the phosphorylation of its substrates.",
+      "readout": "Raising TSC2 GAP activity shifts Rheb toward its GDP-bound state and lowers mTOR signalling; Rheb is the direct target of that GAP activity rather than a bystander."
+     },
+     "explain": "Recruitment and activation are two different requirements. The amino-acid branch delivers mTORC1 to the membrane where Rheb lives; the nucleotide state of Rheb decides whether the kinase it meets there is switched on. Hold Rheb in the GDP state and the first requirement is still satisfied while the second is not &mdash; so phosphorylation of S6K1 and 4E-BP1 falls even though nothing about the nutrient supply changed.",
+     "shows": [
+      "That Rheb-GTP is the proximal input to mTORC1 in these systems, and that TSC2 acts on Rheb directly rather than on mTORC1",
+      "That being in the right place is not sufficient for mTORC1 activity"
+     ],
+     "doesNotShow": [
+      "How much of mTORC1 regulation in an intact tissue runs through nucleotide state rather than localisation or protein abundance",
+      "That the relationship is quantitatively the same in every cell type, or over a chronic rather than an acute timescale"
+     ]
+    },
+    {
+     "id": "rheb-caution",
+     "kind": "caution",
+     "title": "What this lesson's evidence supports, and what it does not",
+     "shows": [
+      "Rheb contributes to mTORC1 activation, and its GTP-bound state is the form that does it",
+      "The TSC complex acts as a GAP for Rheb, which is how growth-factor and stress signals reach the pathway",
+      "Localisation is part of the mechanism rather than a detail drawn on top of it"
+     ],
+     "doesNotShow": [
+      "That Rheb is the only determinant of mTORC1 activity",
+      "That the mechanism has the same weight in every cell type, or at every stage of the cell cycle",
+      "That what was measured after overexpression describes what the endogenous protein normally does"
+     ],
+     "why": "Several of the foundational experiments in this lesson raised the amount of a protein far above its normal level in order to see its effect. That design is informative about what a protein <em>can</em> do and much weaker evidence about what it normally does &mdash; and the studies below sit at tier D and C, which marks the design, not the quality."
+    },
+    {
+     "id": "rheb-openq",
+     "kind": "openq",
+     "title": "Where this stops being settled",
+     "slug": "sensor-selective-geroprotection-without-the-metabolic-penalty",
+     "whatWeKnow": [
+      "The inputs reaching mTORC1 are separable at the molecular level: the amino-acid branch acts through the Rag GTPases and recruitment, the growth-factor branch through the TSC complex and the nucleotide state of Rheb.",
+      "Lowering mTORC1 signalling pharmacologically extends lifespan in several laboratory species, and the same treatment carries metabolic costs."
+     ],
+     "whatWeDont": [
+      "Whether the geroprotective part of that effect can be obtained by acting on one input branch rather than on the kinase itself.",
+      "How much of mTORC1 regulation in an intact mammalian tissue is nucleotide state, how much is localisation, and how much is the amount of protein present &mdash; the three are hard to separate in a living animal."
+     ],
+     "competing": [
+      "One reading: the branches are genuinely separable, so a sensor-directed intervention could reproduce the benefit without the metabolic penalty, which is the hypothesis the Atlas carries.",
+      "The other: the branches converge on one output, and anything that lowers that output enough to matter for ageing will carry the same costs, whichever door it comes through."
+     ],
+     "wouldResolve": "A mammalian experiment that lowers signalling through one input branch alone &mdash; genetically rather than with a drug, to avoid changing several things at once &mdash; and then measures both a lifespan or healthspan endpoint and the metabolic readouts in the same animals, in both sexes.",
+     "sids": [
+      "INOK2003",
+      "DEM2016",
+      "SAN2008"
+     ]
+    },
+    {
+     "id": "rheb-design",
+     "kind": "design",
+     "title": "Design an experiment: does Rheb localisation influence mTORC1 activation?",
+     "question": "The question is whether where Rheb is matters on top of what nucleotide it carries. Choose one option in each row, then submit. There is no single right design &mdash; the feedback tells you what each choice buys you and what it costs.",
+     "dimensions": [
+      {
+       "id": "Model",
+       "label": "Model system",
+       "options": [
+        {
+         "label": "Cultured cell line",
+         "note": "Fast, cheap and easy to perturb, which is why most of this lesson's evidence comes from one. The cost is that a line has been selected for growth in a dish, its signalling often runs harder than a primary cell's, and nothing you measure is automatically a statement about tissue."
+        },
+        {
+         "label": "Primary cells",
+         "note": "Closer to normal physiology and still tractable. Expect more variability between preparations, so plan for more replicates; and be explicit about the donor or animal, because primary cells from different sources are not interchangeable."
+        },
+        {
+         "label": "Animal model",
+         "note": "The only option that lets a tissue-level answer emerge, and the only one where the endocrine context is real. It is also the slowest, and a whole-animal manipulation of Rheb changes many cells at once &mdash; so pair it with a tissue-specific approach if you want to attribute the effect."
+        }
+       ]
+      },
+      {
+       "id": "Perturbation",
+       "label": "Perturbation",
+       "options": [
+        {
+         "label": "Rheb-GDP (GAP-insensitive off state)",
+         "note": "Directly tests the nucleotide arm of the question. Its weakness is that it answers the state question, not the location question &mdash; a GDP-locked Rheb sitting in the right place still tells you nothing about whether the place mattered."
+        },
+        {
+         "label": "Rheb-GTP (constitutively loaded)",
+         "note": "Useful as the mirror image, and the classic way the field showed sufficiency. Watch the level: if the loaded protein is also overexpressed, you are testing two things at once and the result speaks to what Rheb can do rather than what it does."
+        },
+        {
+         "label": "Lysosomal targeting of Rheb",
+         "note": "This is the perturbation that actually addresses the question you asked, because it changes location while leaving the nucleotide cycle intact. Add the reciprocal version &mdash; targeting Rheb away from the lysosome &mdash; or a positive result stays ambiguous between 'location matters' and 'more Rheb near mTORC1 matters'."
+        },
+        {
+         "label": "No perturbation (observation only)",
+         "note": "Correlational by construction. You can describe where Rheb is and how active mTORC1 is, and you cannot separate cause from consequence &mdash; useful as a first description, not as an answer."
+        }
+       ]
+      },
+      {
+       "id": "Readout",
+       "label": "Readout",
+       "options": [
+        {
+         "label": "p-S6K1",
+         "note": "The standard readout and the one most easily over-read. It reports one substrate of one complex at one moment, and it is the substrate that responds most readily to partial inhibition &mdash; so it can move while other mTORC1 outputs do not."
+        },
+        {
+         "label": "p-4E-BP1",
+         "note": "A more demanding readout, and a better one if you want to claim the complex as a whole changed: 4E-BP1 phosphorylation is less sensitive to partial inhibition than S6K1. Reading both is better than choosing between them."
+        },
+        {
+         "label": "mTOR localisation by imaging",
+         "note": "The right readout if the claim is about place, and the one that catches a result the blots would miss. It measures where the kinase is, not whether it is working &mdash; so pair it with a phospho-readout or the design proves location without output."
+        }
+       ]
+      },
+      {
+       "id": "Control",
+       "label": "Control",
+       "options": [
+        {
+         "label": "Wild-type Rheb, same expression level",
+         "note": "The strongest control here, because it holds the amount of protein constant and varies only the thing you meant to vary. Say how you matched the level &mdash; a claim about equal expression needs a measurement."
+        },
+        {
+         "label": "Untreated cells",
+         "note": "Necessary but not sufficient: it controls for the baseline and not for the manipulation itself, so any effect of the tag, the vector or the handling lands in your result."
+        },
+        {
+         "label": "Vehicle only",
+         "note": "The right control when the perturbation is a compound, and beside the point when it is genetic. Matching the control to the kind of perturbation is half of what a reviewer checks."
+        }
+       ]
+      }
+     ],
+     "limitations": [
+      "No version of this design separates the amount of Rheb from its location unless expression level is measured and matched",
+      "A phosphorylation readout at a single time point cannot distinguish a lower steady state from a delayed one &mdash; a time course can",
+      "None of these versions establishes what the same manipulation would do in an intact tissue with an intact endocrine system"
+     ],
+     "sids": [
+      "INOK2003",
+      "SAN2008",
+      "DEM2016"
+     ]
     }
    ]
   },

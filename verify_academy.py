@@ -30,6 +30,11 @@ Kontroluje se:
  10  proza pouziva jen povolenou inline sadu znacek
  11  minikviz: presne 3 otazky easy/medium/hard, 3-4 moznosti, jedna platna
      spravna odpoved, neprazdne vysvetleni
+ 12  interaktivni cviceni (Faze 2): learning objectives aktivnimi slovesy,
+     research skill ze slovniku, kazdy uzel/hrana modelu existuje
+     v pathway/model.json, kazda kombinace prepinacu ma vyjmenovany stav,
+     kazde Predict cviceni ma skutecnou studii jako Observe
+ 13  kazde interaktivni cviceni ma na vygenerovane strance bez-JS ekvivalent
 
 Usage: python verify_academy.py     (exit 0 = OK, 1 = nalezy)
 """
@@ -49,6 +54,27 @@ ACADEMY = os.path.join(HERE, "academy")
 
 ALLOWED = re.compile(r"</?(?:strong|em|code|sub|sup)>|<a href=\"[^\"<>]*\">|</a>")
 TAG = re.compile(r"<[^>]+>")
+
+# Faze 2. Aktivni slovesa, ktera jde zkontrolovat i naucit (spec §12).
+# "Understand" a "know" nejsou vysledky, jsou to pocity -- proto ban-list.
+OBJ_VERBS = {
+    "explain", "distinguish", "predict", "interpret", "evaluate", "compare",
+    "propose", "identify", "trace", "justify", "design", "critique", "apply",
+    "relate", "recognise", "recognize", "read", "state", "name", "derive",
+    "rank", "place", "separate", "choose", "decide", "spot", "tell", "work",
+    "describe", "translate", "estimate", "reconstruct", "defend",
+}
+OBJ_BANNED = {"understand", "know", "learn", "appreciate", "grasp", "be", "have",
+              "get", "realise", "realize", "feel"}
+# Jedna primarni dovednost na lekci, slovnik z §13 spec Faze 2.
+RESEARCH_SKILLS = {
+    "Building a biological model", "Comparing mechanisms", "Causal reasoning",
+    "Signal integration", "Spatial reasoning", "Competing hypotheses",
+    "Pathway reasoning", "Systems thinking", "Mechanistic interpretation",
+    "Evidence evaluation",
+}
+LADDER = ("recall", "explain", "predict", "interpret", "critique", "synthesize", "design")
+EX_KINDS = ("model", "predict", "compare", "caution", "openq", "design")
 
 problems = []
 
@@ -80,6 +106,12 @@ def main():
     mp = os.path.join(HERE, "pathway", "model.json")
     if os.path.exists(mp):
         routes = {r["id"] for r in json.load(open(mp, encoding="utf-8")).get("routes", [])}
+    pw_nodes, pw_edges = set(), set()
+    if os.path.exists(mp):
+        _doc = json.load(open(mp, encoding="utf-8"))
+        pw_nodes = {n["id"] for n in _doc.get("nodes", [])}
+        pw_edges = {i["id"] for i in _doc.get("interactions", [])}
+
     gaps = set()
     gp = os.path.join(DATA, "gaps_baked.json")
     if os.path.exists(gp):
@@ -130,6 +162,149 @@ def main():
                 if len(o) > 180:
                     bad(qw, "moznost je delsi nez 180 znaku: %r" % o[:60])
 
+        # 12 Faze 2 -- metadata lekce
+        objs = l.get("learningObjectives") or []
+        if objs and not 3 <= len(objs) <= 5:
+            bad(w, "ma %d learning objectives, spec §12 chce 3-5" % len(objs))
+        for o in objs:
+            first = re.sub(r"[^a-z]", "", (o.split() or [""])[0].lower())
+            if first in OBJ_BANNED:
+                bad(w, "objective zacina slovesem %r -- to nejde zkontrolovat (§12): %r"
+                    % (first, o[:70]))
+            elif first not in OBJ_VERBS:
+                bad(w, "objective nezacina znamym aktivnim slovesem (%r): %r"
+                    % (first, o[:70]))
+        if l.get("researchSkill") and l["researchSkill"] not in RESEARCH_SKILLS:
+            bad(w, "neznama research skill %r (slovnik §13)" % l["researchSkill"])
+        if l.get("ladder") and l["ladder"] not in LADDER:
+            bad(w, "neznama ladder uroven %r" % l["ladder"])
+
+        ex_ids = set()
+        for x in l.get("exercises") or []:
+            xw = "%s ex:%s" % (w, x.get("id"))
+            if not x.get("id"):
+                bad(w, "cviceni bez id")
+                continue
+            if x["id"] in ex_ids:
+                bad(xw, "duplicitni id cviceni")
+            ex_ids.add(x["id"])
+            if x.get("kind") not in EX_KINDS:
+                bad(xw, "neznamy kind %r" % x.get("kind"))
+                continue
+            if not (x.get("title") or "").strip():
+                bad(xw, "cviceni nema title")
+            k = x["kind"]
+
+            if k == "model":
+                ids = [n for col in x.get("layout") or [] for n in col]
+                if not ids:
+                    bad(xw, "model nema layout")
+                for nid in ids:
+                    if nid not in pw_nodes:
+                        bad(xw, "uzel %r neni v pathway/model.json -- vyukovy model by "
+                                "se rozesel s vedeckym" % nid)
+                for eid in x.get("edges") or []:
+                    if eid not in pw_edges:
+                        bad(xw, "hrana %r neni v pathway/model.json" % eid)
+                ctrls = x.get("controls") or []
+                if not ctrls:
+                    bad(xw, "model nema zadny ovladac -- pak to neni interaktivni model")
+                combos = [[]]
+                for c in ctrls:
+                    if len(c.get("options") or []) < 2:
+                        bad(xw, "ovladac %r ma min nez dve moznosti" % c.get("id"))
+                    combos = [p + [v] for p in combos for v in (c.get("options") or [])]
+                start = x.get("start") or {}
+                for c in ctrls:
+                    if start.get(c["id"]) not in (c.get("options") or []):
+                        bad(xw, "start[%r]=%r neni mezi moznostmi" % (c["id"], start.get(c["id"])))
+                states = x.get("states") or {}
+                need = {"|".join(p) for p in combos}
+                for miss in sorted(need - set(states)):
+                    bad(xw, "chybi vyjmenovany stav %r (zadny simulator = vsechny "
+                            "kombinace musi byt napsane)" % miss)
+                for extra in sorted(set(states) - need):
+                    bad(xw, "stav %r neodpovida zadne kombinaci prepinacu" % extra)
+                for sk, st in states.items():
+                    if not (st.get("readout") or "").strip():
+                        bad(xw, "stav %r nema readout" % sk)
+                    if not (st.get("note") or "").strip():
+                        bad(xw, "stav %r nema note" % sk)
+                    for nid in st.get("flow") or []:
+                        if nid not in ids:
+                            bad(xw, "stav %r zmiňuje uzel %r, ktery v modelu neni" % (sk, nid))
+                    for eid in st.get("cut") or []:
+                        if eid not in pw_edges:
+                            bad(xw, "stav %r zmiňuje neznamou hranu %r" % (sk, eid))
+
+            elif k == "predict":
+                opts = x.get("options") or []
+                if not 3 <= len(opts) <= 4:
+                    bad(xw, "ma %d moznosti, povoleny jsou 3 nebo 4" % len(opts))
+                if not isinstance(x.get("answer"), int) or not 0 <= x["answer"] < len(opts):
+                    bad(xw, "answer=%r neukazuje na zadnou moznost" % (x.get("answer"),))
+                obs = x.get("observe") or {}
+                if obs.get("sid") not in studies:
+                    bad(xw, "Observe odkazuje na SID %r, ktery v korpusu neni -- vysledek "
+                            "se nesmi vymyslet (§5)" % obs.get("sid"))
+                for f in ("method", "readout"):
+                    if not (obs.get(f) or "").strip():
+                        bad(xw, "Observe nema %s" % f)
+                if not (x.get("explain") or "").strip():
+                    bad(xw, "chybi Explain")
+                if not (x.get("shows") and x.get("doesNotShow")):
+                    bad(xw, "chybi shows/doesNotShow -- §7 je povinna cast tohohle cviceni")
+
+            elif k == "compare":
+                for side in ("a", "b"):
+                    d = x.get(side) or {}
+                    if d.get("sid") not in studies:
+                        bad(xw, "strana %s odkazuje na neznamy SID %r" % (side, d.get("sid")))
+                    for f in ("perturbation", "readout"):
+                        if not (d.get(f) or "").strip():
+                            bad(xw, "strana %s nema %s" % (side, f))
+                for f in ("bothSupport", "differ", "nextExperiment"):
+                    if not (x.get(f) or "").strip():
+                        bad(xw, "chybi %s" % f)
+
+            elif k == "caution":
+                if not (x.get("shows") and x.get("doesNotShow")):
+                    bad(xw, "Scientific Caution potrebuje obe strany (§7)")
+
+            elif k == "openq":
+                if x.get("slug") not in gaps:
+                    bad(xw, "neznamy open-question slug %r" % x.get("slug"))
+                have = [f for f in ("whatWeKnow", "whatWeDont", "competing", "wouldResolve")
+                        if x.get(f)]
+                if len(have) < 3:
+                    bad(xw, "ma jen %d ze ctyr casti explorer (§8)" % len(have))
+                for sid in x.get("sids") or []:
+                    if sid not in studies:
+                        bad(xw, "neznamy SID %r" % sid)
+
+            elif k == "design":
+                dims = x.get("dimensions") or []
+                if len(dims) < 3:
+                    bad(xw, "ma %d dimenzi, §9 chce aspon model/perturbation/readout/control"
+                        % len(dims))
+                for d in dims:
+                    if len(d.get("options") or []) < 2:
+                        bad(xw, "dimenze %r ma min nez dve moznosti" % d.get("id"))
+                    for o in d.get("options") or []:
+                        if not (o.get("note") or "").strip():
+                            bad(xw, "moznost %r nema napsanou zpetnou vazbu -- staticky web "
+                                    "ji nemuze vygenerovat" % o.get("label"))
+                if not x.get("limitations"):
+                    bad(xw, "chybi limitations -- §9 chce rict, co navrh NEMUZE ukazat")
+                for sid in x.get("sids") or []:
+                    if sid not in studies:
+                        bad(xw, "neznamy SID %r" % sid)
+
+        for sec in l.get("sections") or []:
+            iid = sec.get("interactive")
+            if iid and iid not in ex_ids:
+                bad(w, "sekce odkazuje na neexistujici cviceni %r" % iid)
+
         # 2 entity
         for key in ("proteins", "pathways", "processes", "organelles", "nutrients",
                     "drugs", "diseases", "outcomes"):
@@ -162,6 +337,25 @@ def main():
         for q in l.get("quiz") or []:
             blobs += [q.get("prompt") or "", q.get("explain") or ""]
             blobs += list(q.get("options") or [])
+        blobs += list(l.get("learningObjectives") or [])
+        for x in l.get("exercises") or []:
+            for f in ("prompt", "explain", "why", "bothSupport", "differ",
+                      "nextExperiment", "question", "wouldResolve"):
+                blobs.append(x.get(f) or "")
+            for f in ("options", "shows", "doesNotShow", "limitations",
+                      "whatWeKnow", "whatWeDont", "competing"):
+                v = x.get(f)
+                if isinstance(v, list):
+                    blobs += [str(i) for i in v]
+            for st in (x.get("states") or {}).values():
+                blobs.append(st.get("note") or "")
+            for d in x.get("dimensions") or []:
+                blobs += [o.get("note") or "" for o in d.get("options") or []]
+            for side in ("a", "b"):
+                if isinstance(x.get(side), dict):
+                    blobs += [x[side].get("perturbation") or "", x[side].get("readout") or ""]
+            if isinstance(x.get("observe"), dict):
+                blobs += [x["observe"].get("method") or "", x["observe"].get("readout") or ""]
         for b in blobs:
             for m in TAG.finditer(b):
                 if not ALLOWED.fullmatch(m.group(0)):
@@ -214,6 +408,13 @@ def main():
         if "<h1>" not in h:
             bad(rel, "stranka nema <h1> primo v HTML")
         is_lesson = rel.count(os.sep) >= 3        # academy/<module>/<lesson>/index.html
+        # Hleda se markup, ne jmeno tridy: ".ac-model{" je i ve stylopisu na
+        # KAZDE strance, takze holy retezec "ac-model" by hlasil vsude.
+        for cls, fallback, what in (('class="ac-model"', "ac-mdfall", "interaktivni model"),
+                                    ('class="ac-pd"', "ac-pdfall", "Predict cviceni"),
+                                    ('class="ac-design"', "ac-dsfall", "Experiment Builder")):
+            if is_lesson and cls in h and fallback not in h:
+                bad(rel, "%s nema bez-JS ekvivalent (%s chybi)" % (what, fallback))
         if is_lesson and "Check yourself" in h and "ac-qzfall" not in h:
             bad(rel, "kviz nema bez-JS fallback -- bez JS by to byl slepy seznam moznosti")
         if is_lesson and "What does the evidence say?" not in h:

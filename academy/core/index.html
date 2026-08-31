@@ -388,12 +388,12 @@ a{overflow-wrap:anywhere}
 /* evidence ------------------------------------------------------------- */
 .ac-ev{display:grid;gap:10px;margin:6px 0 10px}
 .ac-evcard{border:1px solid var(--line);border-radius:3px;padding:13px 15px}
-.ac-evcard .ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
-.ac-evcard .ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
-.ac-evcard .ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
-.ac-evcard .ac-evtitle:hover{color:var(--teal)}
+.ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+.ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.ac-evtitle:hover{color:var(--teal)}
 .ac-evcard .ac-evfind{font-size:14px;color:var(--soft);line-height:1.55;margin:0}
-.ac-evcard .ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+.ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
   display:inline-flex;align-items:center;min-height:32px}
 
 /* think ---------------------------------------------------------------- */
@@ -448,10 +448,123 @@ a{overflow-wrap:anywhere}
   font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
   list-style:none;display:inline-flex;align-items:center;min-height:44px}
 .ac-qz details>summary::-webkit-details-marker{display:none}
-.ac-qz details>summary::after{content:" 92"}
+.ac-qz details>summary::after{content:" \2192"}
 .ac-qz details[open]>summary::after{content:""}
 .ac-qz details p{font-size:14.5px;line-height:1.6;margin:2px 0 0}
 .ac-qztally{font-size:14px;color:var(--soft);margin:2px 0 0}
+
+/* learning objectives + research skill (Phase 2 §12/§13) ------------------ */
+.ac-objlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.ac-objlist{margin:0 0 10px;padding-left:20px}
+.ac-objlist li{font-size:15.5px;line-height:1.6;margin:0 0 5px}
+.ac-skill{font-size:14px;color:var(--soft);margin:0}
+.ac-skill span{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;margin-right:8px}
+
+/* interactive exercises (Phase 2) ---------------------------------------
+   Tri vrstvy, stejne jako kviz: obsah je v HTML, <details> ho slozi pro
+   ctenare bez JS, JS ho jen sekvencuje. Nic vedeckeho nezije jen v JS --
+   verify_prerender.py a pravidlo 13 ve verify_academy.py to hlidaji.
+   Barva nikdy nenese vyznam sama: stav uzlu je barva + tloustka + slovo,
+   spravnost je glyf + slovo. Paleta evidence tieru se tu NEPUJCUJE. */
+.ac-ex{border:1px solid var(--line);border-radius:3px;padding:16px 18px 14px;margin:0 0 16px}
+.ac-exkind{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 6px}
+.ac-ex h3{font-size:17px;line-height:1.35;margin:0 0 8px}
+.ac-ex p{font-size:15.5px;line-height:1.6;margin:0 0 10px}
+.ac-ex details{margin:0 0 4px}
+.ac-ex details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-ex details>summary::-webkit-details-marker{display:none}
+.ac-ex details>summary::after{content:" \2192"}
+.ac-ex details[open]>summary::after{content:""}
+.ac-ex details p,.ac-ex details li{font-size:14.5px;line-height:1.6}
+
+/* what this shows / does not show */
+.ac-shows{list-style:none;padding:0;margin:0 0 10px}
+.ac-shows li{position:relative;padding-left:26px;font-size:15px;line-height:1.55;margin:0 0 6px}
+.ac-shows li::before{position:absolute;left:0;top:0;font-family:'IBM Plex Mono',monospace;
+  font-weight:600}
+.ac-shows li.ac-yes::before{content:"\2713";color:var(--teal)}
+.ac-shows li.ac-no::before{content:"\2715";color:var(--amber)}
+.ac-showslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:0 0 6px}
+
+/* interactive model */
+.ac-model{margin:0}
+/* Na uzkem displeji by se schema zmenslo tak, ze by popisky uzlu byly
+   necitelne. Misto toho dostane vlastni vodorovny scroll -- stranka sama
+   se nikdy neposouva do strany (stejny vzor jako .ac-cmpwrap a pravy rail). */
+.ac-mdscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0 10px}
+.ac-mdsvg{width:100%;min-width:560px;height:auto;color:var(--ink);overflow:visible;display:block}
+.ac-mdnode rect{fill:var(--paper);stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-mdnode text{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-mdnode[data-flow="on"] rect{stroke:var(--teal);stroke-width:2}
+.ac-mdnode[data-flow="off"] rect{stroke-dasharray:3 3}
+.ac-mdnode[data-flow="off"] text{fill:var(--soft)}
+.ac-mdnode{cursor:pointer}
+.ac-mdnode:focus-visible rect{outline:2px solid var(--teal);outline-offset:2px}
+.ac-mdedge{fill:none;stroke:var(--ink);stroke-width:1.2;pointer-events:none}  /* hrana nikdy nesmi prekryt klikaci uzel */
+.ac-mdedge[data-eff="inhibits"]{stroke:var(--teal);stroke-width:1.6}
+.ac-mdedge[data-flow="off"]{stroke:var(--soft);stroke-dasharray:4 4;stroke-width:1}
+.ac-mdstate{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:var(--soft);
+  text-anchor:middle}
+.ac-mdctl{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 12px}
+.ac-mdgrp{display:flex;flex-direction:column;gap:4px}
+.ac-mdgrp>span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft)}
+.ac-mdbtns{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.ac-mdbtns button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:0 14px;min-height:44px;cursor:pointer;color:var(--ink)}
+.ac-mdbtns button:last-child{border-right:none}
+.ac-mdbtns button:hover{color:var(--teal)}
+.ac-mdbtns button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink,#fff);font-weight:600}
+.ac-mdout{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px}
+.ac-mdreadout{font-family:'IBM Plex Mono',monospace;font-size:13px;margin:0 0 4px}
+.ac-mdnote{font-size:14.5px;line-height:1.6;margin:0}
+.ac-mdkey{margin:8px 0 6px;padding:0}
+.ac-mdkey div{border-top:1px solid var(--line);padding:8px 0}
+.ac-mdkey dt{font-weight:600;font-size:14.5px;margin:0 0 2px}
+.ac-mdkey dd{margin:0;font-size:14px;line-height:1.55;color:var(--soft)}
+.ac-mdkey div[data-hi="1"]{background:rgba(163,31,52,.06)}
+.ac-mdreset{background:none;border:none;padding:0;font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  cursor:pointer;min-height:44px}
+.ac-mdcap{font-size:13.5px;color:var(--soft);line-height:1.55;margin:-4px 0 12px}
+.ac-mdteach{font-size:13px;color:var(--soft);line-height:1.5;margin:6px 0 0}
+
+/* predict -> observe -> explain */
+.ac-pdstep{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:12px 0 6px}
+.ac-pdobs{border:1px solid var(--line);border-radius:3px;padding:12px 14px;margin:0 0 10px}
+.ac-pdmethod{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 6px}
+.ac-pdreadout{font-size:15.5px;line-height:1.55;margin:0 0 8px}
+
+/* evidence comparison */
+.ac-cmp{width:100%;border-collapse:collapse;margin:2px 0 12px;font-size:14.5px}
+.ac-cmp th,.ac-cmp td{border-bottom:1px solid var(--line);padding:8px 10px 8px 0;
+  text-align:left;vertical-align:top;line-height:1.5}
+.ac-cmp th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-cmpwrap{overflow-x:auto}
+
+/* experiment builder */
+.ac-dsgrid{display:grid;gap:14px;margin:0 0 12px}
+@media (min-width:620px){.ac-dsgrid{grid-template-columns:1fr 1fr}}
+.ac-dsgrp{border:1px solid var(--line);border-radius:3px;padding:10px 12px}
+.ac-dsgrp>legend,.ac-dsgrp>.ac-dslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:0;margin:0 0 6px}
+.ac-dsopt{display:flex;gap:9px;align-items:flex-start;min-height:44px;padding:4px 0;
+  font-size:14.5px;line-height:1.5;cursor:pointer}
+.ac-dsopt input{margin-top:5px;flex:0 0 auto;accent-color:var(--teal)}
+.ac-dsfb{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:10px 0 0}
+.ac-dsfb h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 6px;font-weight:600}
+.ac-dsfb p{font-size:14.5px;line-height:1.6;margin:0 0 8px}
 
 .ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
 .ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
@@ -552,7 +665,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 16:23 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 20:54 UTC</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's

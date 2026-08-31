@@ -116,11 +116,22 @@ def load():
         d = TYPE_DIR.get(x["type"], "entity")
         ent_url[x["name"].lower()] = ("%s/%s/%s/" % (SITE, d, slugify(x["name"])), x["name"])
 
+    # Pathway model. Fáze 2 z nej nebere jen routes, ale i uzly a interakce:
+    # interaktivni model v lekci se KRESLI z nich, takze vyukovy diagram nemuze
+    # odejit od vedeckeho modelu. Projektove pravidlo "biologie drahy zije jen
+    # v pathway/model.json" tim plati i pro Academy.
     routes = {}
+    pw = {"nodes": {}, "edges": {}, "pairs": {}}
     mp = os.path.join(HERE, "pathway", "model.json")
     if os.path.exists(mp):
-        for r in json.load(open(mp, encoding="utf-8")).get("routes", []):
+        doc = json.load(open(mp, encoding="utf-8"))
+        for r in doc.get("routes", []):
             routes[r["id"]] = r
+        for n in doc.get("nodes", []):
+            pw["nodes"][n["id"]] = n
+        for it in doc.get("interactions", []):
+            pw["edges"][it["id"]] = it
+            pw["pairs"].setdefault((it["source"], it["target"]), it)
 
     gaps = {}
     gp = os.path.join(DATA, "gaps_baked.json")
@@ -128,7 +139,7 @@ def load():
         for g in json.load(open(gp, encoding="utf-8")):
             gaps[slugify(g["title"])] = g["title"]
 
-    return lessons, modules, by_sid, ent_url, routes, gaps
+    return lessons, modules, by_sid, ent_url, routes, gaps, pw
 
 
 # ---------------------------------------------------------------- figures ---
@@ -617,12 +628,12 @@ ACADEMY_CSS = """
 /* evidence ------------------------------------------------------------- */
 .ac-ev{display:grid;gap:10px;margin:6px 0 10px}
 .ac-evcard{border:1px solid var(--line);border-radius:3px;padding:13px 15px}
-.ac-evcard .ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
-.ac-evcard .ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
-.ac-evcard .ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
-.ac-evcard .ac-evtitle:hover{color:var(--teal)}
+.ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+.ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.ac-evtitle:hover{color:var(--teal)}
 .ac-evcard .ac-evfind{font-size:14px;color:var(--soft);line-height:1.55;margin:0}
-.ac-evcard .ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+.ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
   display:inline-flex;align-items:center;min-height:32px}
 
 /* think ---------------------------------------------------------------- */
@@ -677,10 +688,123 @@ ACADEMY_CSS = """
   font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
   list-style:none;display:inline-flex;align-items:center;min-height:44px}
 .ac-qz details>summary::-webkit-details-marker{display:none}
-.ac-qz details>summary::after{content:" \2192"}
+.ac-qz details>summary::after{content:" \\2192"}
 .ac-qz details[open]>summary::after{content:""}
 .ac-qz details p{font-size:14.5px;line-height:1.6;margin:2px 0 0}
 .ac-qztally{font-size:14px;color:var(--soft);margin:2px 0 0}
+
+/* learning objectives + research skill (Phase 2 §12/§13) ------------------ */
+.ac-objlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.ac-objlist{margin:0 0 10px;padding-left:20px}
+.ac-objlist li{font-size:15.5px;line-height:1.6;margin:0 0 5px}
+.ac-skill{font-size:14px;color:var(--soft);margin:0}
+.ac-skill span{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;margin-right:8px}
+
+/* interactive exercises (Phase 2) ---------------------------------------
+   Tri vrstvy, stejne jako kviz: obsah je v HTML, <details> ho slozi pro
+   ctenare bez JS, JS ho jen sekvencuje. Nic vedeckeho nezije jen v JS --
+   verify_prerender.py a pravidlo 13 ve verify_academy.py to hlidaji.
+   Barva nikdy nenese vyznam sama: stav uzlu je barva + tloustka + slovo,
+   spravnost je glyf + slovo. Paleta evidence tieru se tu NEPUJCUJE. */
+.ac-ex{border:1px solid var(--line);border-radius:3px;padding:16px 18px 14px;margin:0 0 16px}
+.ac-exkind{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 6px}
+.ac-ex h3{font-size:17px;line-height:1.35;margin:0 0 8px}
+.ac-ex p{font-size:15.5px;line-height:1.6;margin:0 0 10px}
+.ac-ex details{margin:0 0 4px}
+.ac-ex details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-ex details>summary::-webkit-details-marker{display:none}
+.ac-ex details>summary::after{content:" \\2192"}
+.ac-ex details[open]>summary::after{content:""}
+.ac-ex details p,.ac-ex details li{font-size:14.5px;line-height:1.6}
+
+/* what this shows / does not show */
+.ac-shows{list-style:none;padding:0;margin:0 0 10px}
+.ac-shows li{position:relative;padding-left:26px;font-size:15px;line-height:1.55;margin:0 0 6px}
+.ac-shows li::before{position:absolute;left:0;top:0;font-family:'IBM Plex Mono',monospace;
+  font-weight:600}
+.ac-shows li.ac-yes::before{content:"\\2713";color:var(--teal)}
+.ac-shows li.ac-no::before{content:"\\2715";color:var(--amber)}
+.ac-showslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:0 0 6px}
+
+/* interactive model */
+.ac-model{margin:0}
+/* Na uzkem displeji by se schema zmenslo tak, ze by popisky uzlu byly
+   necitelne. Misto toho dostane vlastni vodorovny scroll -- stranka sama
+   se nikdy neposouva do strany (stejny vzor jako .ac-cmpwrap a pravy rail). */
+.ac-mdscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0 10px}
+.ac-mdsvg{width:100%;min-width:560px;height:auto;color:var(--ink);overflow:visible;display:block}
+.ac-mdnode rect{fill:var(--paper);stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-mdnode text{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-mdnode[data-flow="on"] rect{stroke:var(--teal);stroke-width:2}
+.ac-mdnode[data-flow="off"] rect{stroke-dasharray:3 3}
+.ac-mdnode[data-flow="off"] text{fill:var(--soft)}
+.ac-mdnode{cursor:pointer}
+.ac-mdnode:focus-visible rect{outline:2px solid var(--teal);outline-offset:2px}
+.ac-mdedge{fill:none;stroke:var(--ink);stroke-width:1.2;pointer-events:none}  /* hrana nikdy nesmi prekryt klikaci uzel */
+.ac-mdedge[data-eff="inhibits"]{stroke:var(--teal);stroke-width:1.6}
+.ac-mdedge[data-flow="off"]{stroke:var(--soft);stroke-dasharray:4 4;stroke-width:1}
+.ac-mdstate{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:var(--soft);
+  text-anchor:middle}
+.ac-mdctl{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 12px}
+.ac-mdgrp{display:flex;flex-direction:column;gap:4px}
+.ac-mdgrp>span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft)}
+.ac-mdbtns{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.ac-mdbtns button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:0 14px;min-height:44px;cursor:pointer;color:var(--ink)}
+.ac-mdbtns button:last-child{border-right:none}
+.ac-mdbtns button:hover{color:var(--teal)}
+.ac-mdbtns button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink,#fff);font-weight:600}
+.ac-mdout{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px}
+.ac-mdreadout{font-family:'IBM Plex Mono',monospace;font-size:13px;margin:0 0 4px}
+.ac-mdnote{font-size:14.5px;line-height:1.6;margin:0}
+.ac-mdkey{margin:8px 0 6px;padding:0}
+.ac-mdkey div{border-top:1px solid var(--line);padding:8px 0}
+.ac-mdkey dt{font-weight:600;font-size:14.5px;margin:0 0 2px}
+.ac-mdkey dd{margin:0;font-size:14px;line-height:1.55;color:var(--soft)}
+.ac-mdkey div[data-hi="1"]{background:rgba(163,31,52,.06)}
+.ac-mdreset{background:none;border:none;padding:0;font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  cursor:pointer;min-height:44px}
+.ac-mdcap{font-size:13.5px;color:var(--soft);line-height:1.55;margin:-4px 0 12px}
+.ac-mdteach{font-size:13px;color:var(--soft);line-height:1.5;margin:6px 0 0}
+
+/* predict -> observe -> explain */
+.ac-pdstep{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:12px 0 6px}
+.ac-pdobs{border:1px solid var(--line);border-radius:3px;padding:12px 14px;margin:0 0 10px}
+.ac-pdmethod{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 6px}
+.ac-pdreadout{font-size:15.5px;line-height:1.55;margin:0 0 8px}
+
+/* evidence comparison */
+.ac-cmp{width:100%;border-collapse:collapse;margin:2px 0 12px;font-size:14.5px}
+.ac-cmp th,.ac-cmp td{border-bottom:1px solid var(--line);padding:8px 10px 8px 0;
+  text-align:left;vertical-align:top;line-height:1.5}
+.ac-cmp th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-cmpwrap{overflow-x:auto}
+
+/* experiment builder */
+.ac-dsgrid{display:grid;gap:14px;margin:0 0 12px}
+@media (min-width:620px){.ac-dsgrid{grid-template-columns:1fr 1fr}}
+.ac-dsgrp{border:1px solid var(--line);border-radius:3px;padding:10px 12px}
+.ac-dsgrp>legend,.ac-dsgrp>.ac-dslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:0;margin:0 0 6px}
+.ac-dsopt{display:flex;gap:9px;align-items:flex-start;min-height:44px;padding:4px 0;
+  font-size:14.5px;line-height:1.5;cursor:pointer}
+.ac-dsopt input{margin-top:5px;flex:0 0 auto;accent-color:var(--teal)}
+.ac-dsfb{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:10px 0 0}
+.ac-dsfb h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 6px;font-weight:600}
+.ac-dsfb p{font-size:14.5px;line-height:1.6;margin:0 0 8px}
 
 .ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
 .ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
@@ -761,6 +885,120 @@ QUIZ_JS = """
             '\u2014 the explanations are the point.';
         }
       });
+    });
+  });
+})();
+</script>
+"""
+
+EXERCISE_JS = """
+<script>
+/* Interaktivni cviceni (Faze 2). Stejny kontrakt jako kviz vys: stranka je
+   uplna i bez tohohle skriptu. JS tady jen (a) prepina stav vyukoveho modelu,
+   (b) sekvencuje Predict -> Observe -> Explain a (c) po odeslani navrhu
+   experimentu ukaze jen relevantni zpetnou vazbu. Vsechny tri veci maji
+   v HTML <details> ekvivalent, ktery se tady schova prave proto, ze uz je
+   nahrazeny necim lepsim. Zadny fetch, zadne localStorage, zadne skore. */
+(function(){
+  /* ---------- interaktivni model ---------- */
+  document.querySelectorAll('.ac-model').forEach(function(md){
+    var dataEl=md.querySelector('script.ac-mddata'); if(!dataEl) return;
+    var D; try{D=JSON.parse(dataEl.textContent);}catch(e){return;}
+    var fall=md.querySelector('.ac-mdfall'); if(fall) fall.hidden=true;
+    var pick={}, order=D.order||[];
+    order.forEach(function(c){pick[c]=D.start[c];});
+    var out=md.querySelector('.ac-mdreadout'), note=md.querySelector('.ac-mdnote');
+    function key(){return order.map(function(c){return pick[c];}).join('|');}
+    function paint(){
+      var st=D.states[key()];
+      md.querySelectorAll('.ac-mdbtns button').forEach(function(b){
+        b.setAttribute('aria-pressed',String(pick[b.dataset.ctl]===b.dataset.val));
+      });
+      if(!st) return;
+      var on={}; (st.flow||[]).forEach(function(n){on[n]=1;});
+      md.querySelectorAll('.ac-mdnode').forEach(function(n){
+        n.setAttribute('data-flow', on[n.dataset.node]?'on':'off');
+      });
+      var cut={}; (st.cut||[]).forEach(function(e){cut[e]=1;});
+      md.querySelectorAll('.ac-mdedge').forEach(function(e){
+        e.setAttribute('data-flow', cut[e.dataset.edge]?'off':'on');
+      });
+      if(out) out.textContent=st.readout||'';
+      if(note) note.innerHTML=st.note||'';
+    }
+    md.querySelectorAll('.ac-mdbtns button').forEach(function(b){
+      b.addEventListener('click',function(){pick[b.dataset.ctl]=b.dataset.val;paint();});
+    });
+    var rst=md.querySelector('.ac-mdreset');
+    if(rst) rst.addEventListener('click',function(){
+      order.forEach(function(c){pick[c]=D.start[c];}); paint();
+    });
+    /* uzel -> zvyrazni jeho radek v legende (legenda je vzdy videt, nic se
+       neschovava -- zvyrazneni je navigace, ne odhaleni) */
+    /* Pozor: uzel je SVG <g>, ktere NEMA .click() -- volat ho z klavesnice
+       tise spadne (stejna past uz jednou byla v Entity Browseru). Proto je
+       zvyrazneni funkce a klavesnice i mys volaji ji, ne se navzajem. */
+    function highlight(id){
+      md.querySelectorAll('.ac-mdkey div').forEach(function(r){
+        r.setAttribute('data-hi', r.dataset.node===id?'1':'0');
+      });
+    }
+    md.querySelectorAll('.ac-mdnode').forEach(function(n){
+      n.addEventListener('click',function(){highlight(n.dataset.node);});
+      n.addEventListener('keydown',function(ev){
+        if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();highlight(n.dataset.node);}
+      });
+    });
+    paint();
+  });
+
+  /* ---------- Predict -> Observe -> Explain ---------- */
+  document.querySelectorAll('.ac-pd').forEach(function(pd){
+    var fall=pd.querySelector('.ac-pdfall'); if(fall) fall.hidden=true;
+    var after=pd.querySelectorAll('[data-ac-after]');
+    after.forEach(function(x){x.hidden=true;});
+    var correct=parseInt(pd.getAttribute('data-answer'),10);
+    var opts=pd.querySelectorAll('.ac-qzopt');
+    opts.forEach(function(b){
+      b.addEventListener('click',function(){
+        if(pd.hasAttribute('data-done')) return;
+        pd.setAttribute('data-done','1');
+        var picked=parseInt(b.getAttribute('data-i'),10);
+        opts.forEach(function(o){
+          var i=parseInt(o.getAttribute('data-i'),10);
+          o.setAttribute('aria-disabled','true');
+          if(i===correct) o.setAttribute('data-mark','right');
+          else if(i===picked) o.setAttribute('data-mark','wrong');
+        });
+        var v=pd.querySelector('.ac-qzverdict');
+        if(v) v.textContent=(picked===correct)?'That is the expected result':'Not the expected result';
+        after.forEach(function(x){x.hidden=false;});
+      });
+    });
+  });
+
+  /* ---------- experiment builder ---------- */
+  document.querySelectorAll('.ac-design').forEach(function(ds){
+    var fall=ds.querySelector('.ac-dsfall'); if(fall) fall.hidden=true;
+    var box=ds.querySelector('.ac-dsfb'); if(box) box.hidden=true;
+    var btn=ds.querySelector('.ac-dssubmit');
+    if(!btn||!box) return;
+    var notes; try{notes=JSON.parse(ds.querySelector('script.ac-dsdata').textContent);}
+    catch(e){return;}
+    btn.addEventListener('click',function(){
+      var chosen=[];
+      ds.querySelectorAll('input[type=radio]:checked').forEach(function(r){
+        chosen.push([r.name,r.value]);
+      });
+      if(!chosen.length) return;
+      var html='';
+      chosen.forEach(function(p){
+        var t=notes[p[0]]&&notes[p[0]][p[1]];
+        if(t) html+='<p><strong>'+p[1]+'.</strong> '+t+'</p>';
+      });
+      box.querySelector('.ac-dsout').innerHTML=html;
+      box.hidden=false;
+      box.querySelector('h4').focus&&box.querySelector('h4').focus();
     });
   });
 })();
@@ -922,9 +1160,345 @@ def quiz_block(les):
     return "".join(out)
 
 
-def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
+# ------------------------------------------------------------- exercises ---
+#
+# Sest typu interaktivnich cviceni (Faze 2 spec §3). Spolecny kontrakt:
+#   1. cely vedecky obsah je v HTML, i kdyz ho ctenar hned nevidi
+#   2. bez JS to funguje pres <details> -- pravidlo 13 ve verify_academy.py
+#   3. data drzi jen ID (SID studie, id uzlu/hrany v pathway/model.json,
+#      slug open question); nazvy, znamenka a evidence se resolvuji tady
+#
+# Zadny simulator: stavy interaktivniho modelu jsou VYJMENOVANE v datech.
+# Tri binarni prepinace = nejvys osm stavu, ktere jde precist a zrevidovat.
+
+EX_LABEL = {
+    "model": "Interactive model",
+    "predict": "Predict &rarr; observe &rarr; explain",
+    "compare": "Compare the evidence",
+    "caution": "Scientific caution",
+    "openq": "Open question",
+    "design": "Design an experiment",
+}
+
+
+def _pw_node(pw, nid):
+    n = pw["nodes"].get(nid)
+    if not n:
+        raise SystemExit("build_academy: uzel %r neni v pathway/model.json "
+                         "-- vyukovy model se nesmi rozejit s vedeckym" % nid)
+    return n
+
+
+def _levels(explain):
+    """Tri urovne vysvetleni z model.json -> tri bloky, prepina je CSS
+    (data-level na <html>), ne JS. Student je kanonicky a jediny viditelny
+    bez prepnuti -- viz chrome_shared.LEVEL_SWITCH_CSS."""
+    out = []
+    for cls, key in (("lv-student", "student"), ("lv-beginner", "beginner"),
+                     ("lv-research", "research")):
+        txt = (explain or {}).get(key) or (explain or {}).get("student") or ""
+        if txt:
+            out.append('<span class="%s">%s</span>' % (cls, e(txt)))
+    return "".join(out)
+
+
+def model_block(ex, pw, ent_url):
+    """Interaktivni schema. `layout` je seznam sloupcu s ID uzlu z model.json;
+    souradnice pocita generator, data zadne pixely nedrzi."""
+    cols = ex["layout"]
+    COLW, GAP, NH, NGAP, TOP = 132, 46, 34, 16, 30
+    step = COLW + GAP
+    heights = [len(c) * NH + (len(c) - 1) * NGAP for c in cols]
+    tallest = max(heights)
+    pos = {}
+    g = []
+    for i, col in enumerate(cols):
+        x = 4 + i * step
+        y0 = TOP + (tallest - heights[i]) / 2.0
+        for j, nid in enumerate(col):
+            y = y0 + j * (NH + NGAP)
+            pos[nid] = (x, y, COLW, NH)
+            node = _pw_node(pw, nid)
+            label = ex.get("labels", {}).get(nid) or node.get("label") or nid
+            g.append('<g class="ac-mdnode" data-node="%s" tabindex="0" role="button" '
+                     'aria-label="%s"><rect x="%d" y="%.0f" width="%d" height="%d" rx="3"/>'
+                     '<text x="%.0f" y="%.0f">%s</text></g>'
+                     % (e(nid), e("%s — show explanation" % label), x, y, COLW, NH,
+                        x + COLW / 2.0, y + NH / 2.0 + 4, e(label)))
+    # hrany: jen ty, ktere v modelu SKUTECNE existuji
+    edges = []
+    listed = ex.get("edges")
+    if listed:
+        for eid in listed:
+            it = pw["edges"].get(eid)
+            if not it:
+                raise SystemExit("build_academy: hrana %r neni v pathway/model.json" % eid)
+            edges.append(it)
+    else:
+        # Bez vyjmenovanych hran kresli jen mezi SOUSEDNIMI sloupci. Model zna
+        # i korektni zkratky (TSC1/TSC2 -> mTORC1 je v nem jako indirect), ale
+        # ve vyukovem schematu by vedly pres uzel, ktery prave vysvetlujeme.
+        # Vynechana hrana je zjednoduseni, ne oprava modelu -- proto se dá
+        # kdykoli doplnit vyctem `edges`.
+        for i in range(len(cols) - 1):
+            for a in cols[i]:
+                for b in cols[i + 1]:
+                    it = pw["pairs"].get((a, b))
+                    if it:
+                        edges.append(it)
+    for it in edges:
+        a, b = pos.get(it["source"]), pos.get(it["target"])
+        if not a or not b:
+            continue
+        x1, y1 = a[0] + a[2], a[1] + a[3] / 2.0
+        x2, y2 = b[0], b[1] + b[3] / 2.0
+        mid = (x1 + x2) / 2.0
+        d = ("M%.0f %.0f H%.0f" % (x1, y1, x2 - 10)) if abs(y1 - y2) < 1 else \
+            ("M%.0f %.0f H%.0f V%.0f H%.0f" % (x1, y1, mid, y2, x2 - 10))
+        inhib = it.get("effect") == "inhibits"
+        g.append('<path class="ac-mdedge" data-edge="%s" data-eff="%s" d="%s"%s/>'
+                 % (e(it["id"]), e(it.get("effect") or ""), d,
+                    "" if inhib else ' marker-end="url(#acArrow)"'))
+        if inhib:
+            g.append('<path class="ac-mdedge" data-edge="%s" data-eff="inhibits" '
+                     'd="M%.0f %.0f V%.0f"/>' % (e(it["id"]), x2 - 10, y2 - 9, y2 + 9))
+    height = TOP + tallest + 26
+    width = 4 + len(cols) * step
+    svg = ('<div class="ac-mdscroll"><svg viewBox="0 0 %d %.0f" class="ac-mdsvg" '
+           'role="img" aria-label="%s">%s</svg></div>'
+           % (width, height, e(ex["caption"]), "".join(g)))
+
+    # ovladace
+    ctl = []
+    for c in ex["controls"]:
+        btns = "".join('<button type="button" data-ctl="%s" data-val="%s">%s</button>'
+                       % (e(c["id"]), e(v), e(v)) for v in c["options"])
+        ctl.append('<div class="ac-mdgrp"><span id="acmd-%s">%s</span>'
+                   '<div class="ac-mdbtns" role="group" aria-labelledby="acmd-%s">%s</div></div>'
+                   % (e(c["id"]), e(c["label"]), e(c["id"]), btns))
+
+    order = [c["id"] for c in ex["controls"]]
+    start = ex["start"]
+    start_key = "|".join(start[c] for c in order)
+    st0 = ex["states"][start_key]
+
+    # legenda: vzdy viditelna, tri urovne pres CSS, odkaz do Atlasu kde existuje
+    rows = []
+    for nid in [n for col in cols for n in col]:
+        node = _pw_node(pw, nid)
+        label = ex.get("labels", {}).get(nid) or node.get("label") or nid
+        hit = ent_url.get(nid.lower())
+        head = ('<a href="%s">%s</a>' % (hit[0], e(label))) if hit else e(label)
+        rows.append('<div data-node="%s"><dt>%s</dt><dd>%s</dd></div>'
+                    % (e(nid), head, _levels(node.get("explain"))))
+
+    # bez-JS ekvivalent: tabulka vsech stavu
+    fall = ['<details class="ac-mdfall"><summary>Every state of this model</summary>'
+            '<div class="ac-cmpwrap"><table class="ac-cmp"><tr>']
+    for c in ex["controls"]:
+        fall.append("<th>%s</th>" % e(c["label"]))
+    fall.append("<th>Readout</th><th>What it means</th></tr>")
+    for k, st in ex["states"].items():
+        fall.append("<tr>")
+        for v in k.split("|"):
+            fall.append("<td>%s</td>" % e(v))
+        fall.append("<td>%s</td><td>%s</td></tr>"
+                    % (e(st.get("readout") or ""), prose(st.get("note") or "")))
+    fall.append("</table></div></details>")
+
+    data = {"order": order, "start": start,
+            "states": {k: {"flow": v.get("flow") or [], "cut": v.get("cut") or [],
+                           "readout": v.get("readout") or "",
+                           # note jde do stranky jako HTML (entity + povolena
+                           # inline sada) -- proto prose(), ktera whitelist
+                           # vynuti uz pri buildu, a v JS innerHTML.
+                           "note": prose(v.get("note") or "")}
+                       for k, v in ex["states"].items()}}
+
+    return ('<div class="ac-model">%s<div class="ac-mdctl">%s</div>%s'
+            '<p class="ac-mdcap">%s</p>'
+            '<div class="ac-mdout"><p class="ac-mdreadout">%s</p>'
+            '<p class="ac-mdnote">%s</p></div>'
+            '<button type="button" class="ac-mdreset">Reset the model</button>'
+            '<dl class="ac-mdkey">%s</dl>'
+            '<p class="ac-mdteach">%s</p>%s'
+            '<script type="application/json" class="ac-mddata">%s</script></div>'
+            % (SVG_DEFS, "".join(ctl), svg, prose(ex["caption"]),
+               e(st0.get("readout") or ""), prose(st0.get("note") or ""),
+               "".join(rows),
+               "This is a simplified teaching model with a fixed set of states, not a "
+               "simulation. It shows the direction each control pushes the pathway, not "
+               "how much, how fast, or what any particular cell would do.",
+               "".join(fall),
+               json.dumps(data, ensure_ascii=False).replace("</", "<\\/")))
+
+
+def shows_list(shows, nots):
+    out = []
+    if shows:
+        out.append('<p class="ac-showslbl">What this evidence supports</p><ul class="ac-shows">')
+        out += ['<li class="ac-yes">%s</li>' % prose(x) for x in shows]
+        out.append("</ul>")
+    if nots:
+        out.append('<p class="ac-showslbl">What it does not establish</p><ul class="ac-shows">')
+        out += ['<li class="ac-no">%s</li>' % prose(x) for x in nots]
+        out.append("</ul>")
+    return "".join(out)
+
+
+def predict_block(ex, by_sid):
+    sid = ex["observe"]["sid"]
+    st = by_sid.get(sid)
+    if not st:
+        raise SystemExit("build_academy: predict cviceni odkazuje na neznamy SID %r" % sid)
+    code, _lab, colour = tier_bits(st.get("tier"))
+    opts = "".join(
+        '<li><button type="button" class="ac-qzopt" data-i="%d">'
+        '<span class="ac-qzkey">%s</span><span>%s</span></button></li>'
+        % (i, QZ_KEYS[i], prose(o)) for i, o in enumerate(ex["options"]))
+    observe = (
+        '<span class="ac-pdstep">Observe &mdash; what was actually measured</span>'
+        '<div class="ac-pdobs"><div class="ac-evhead">'
+        '<span class="tier" style="background:%s">%s</span>'
+        '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
+        '<span class="ac-evyear">%s</span></div>'
+        '<p class="ac-pdmethod">%s</p><p class="ac-pdreadout">%s</p>'
+        '<a class="ac-evlink" href="%s/study/%s/">Study page &rarr;</a></div>'
+        % (colour, e(code), SITE, e(sid), e(st.get("title") or sid), e(st.get("year") or ""),
+           prose(ex["observe"]["method"]), prose(ex["observe"]["readout"]),
+           SITE, e(sid)))
+    explain = ('<span class="ac-pdstep">Explain</span><p>%s</p>%s'
+               % (prose(ex["explain"]), shows_list(ex.get("shows"), ex.get("doesNotShow"))))
+    fall = ('<details class="ac-pdfall"><summary>Show the expected answer</summary>'
+            '<p><strong>%s.</strong> %s</p>%s%s</details>'
+            % (e(QZ_KEYS[ex["answer"]]), prose(ex["options"][ex["answer"]]), observe, explain))
+    return ('<div class="ac-pd" data-answer="%d">'
+            '<span class="ac-pdstep">Predict &mdash; commit before you look</span>'
+            '<p>%s</p><ul class="ac-qzopts" role="group" aria-label="Predictions">%s</ul>'
+            '<p class="ac-qzwhy" hidden><span class="ac-qzverdict"></span></p>'
+            '<div data-ac-after>%s%s</div>%s</div>'
+            % (ex["answer"], prose(ex["prompt"]), opts, observe, explain, fall))
+
+
+def compare_block(ex, by_sid):
+    cells = []
+    for side in ("a", "b"):
+        sid = ex[side]["sid"]
+        st = by_sid.get(sid)
+        if not st:
+            raise SystemExit("build_academy: compare cviceni odkazuje na neznamy SID %r" % sid)
+        code, _l, colour = tier_bits(st.get("tier"))
+        cells.append({
+            "head": '<span class="tier" style="background:%s">%s</span> '
+                    '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
+                    % (colour, e(code), SITE, e(sid), e(st.get("title") or sid)),
+            "model": e(st.get("model") or "—"),
+            "pert": prose(ex[side]["perturbation"]),
+            "read": prose(ex[side]["readout"])})
+    rows = [("", cells[0]["head"], cells[1]["head"]),
+            ("Model system", cells[0]["model"], cells[1]["model"]),
+            ("Perturbation", cells[0]["pert"], cells[1]["pert"]),
+            ("Readout", cells[0]["read"], cells[1]["read"])]
+    tbl = "".join('<tr><th>%s</th><td>%s</td><td>%s</td></tr>' % r for r in rows)
+    return ('<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div>'
+            '<details><summary>What do both studies support?</summary><p>%s</p></details>'
+            '<details><summary>Where do they differ?</summary><p>%s</p></details>'
+            '<details><summary>What experiment would help next?</summary><p>%s</p></details>'
+            % (tbl, prose(ex["bothSupport"]), prose(ex["differ"]),
+               prose(ex["nextExperiment"])))
+
+
+def caution_block(ex):
+    why = ('<details><summary>Why?</summary><p>%s</p></details>' % prose(ex["why"])) \
+        if ex.get("why") else ""
+    return shows_list(ex.get("shows"), ex.get("doesNotShow")) + why
+
+
+def openq_block(ex, gaps, by_sid):
+    slug = ex["slug"]
+    if slug not in gaps:
+        raise SystemExit("build_academy: openq cviceni ma neznamy slug %r" % slug)
+    parts = [('<p><a href="%s/question/%s/">%s</a></p>' % (SITE, slug, e(gaps[slug])))]
+    for label, key in (("What we know", "whatWeKnow"),
+                       ("What we don't know", "whatWeDont"),
+                       ("Competing interpretations", "competing"),
+                       ("What would resolve this?", "wouldResolve")):
+        v = ex.get(key)
+        if not v:
+            continue
+        body = ("".join("<p>%s</p>" % prose(x) for x in v) if isinstance(v, list)
+                else "<p>%s</p>" % prose(v))
+        parts.append('<details><summary>%s</summary>%s</details>' % (e(label), body))
+    if ex.get("sids"):
+        parts.append('<details><summary>Supporting studies</summary>%s</details>'
+                     % evidence_cards(ex["sids"], by_sid))
+    return "".join(parts)
+
+
+def design_block(ex, by_sid):
+    groups, notes = [], {}
+    for dim in ex["dimensions"]:
+        opts = []
+        notes[dim["id"]] = {}
+        for o in dim["options"]:
+            opts.append('<label class="ac-dsopt"><input type="radio" name="%s" value="%s">'
+                        '<span>%s</span></label>'
+                        % (e(dim["id"]), e(o["label"]), e(o["label"])))
+            notes[dim["id"]][o["label"]] = TAG_RE.sub("", o["note"])
+        groups.append('<fieldset class="ac-dsgrp"><legend>%s</legend>%s</fieldset>'
+                      % (e(dim["label"]), "".join(opts)))
+    fall = ['<details class="ac-dsfall"><summary>See the feedback on every choice</summary>']
+    for dim in ex["dimensions"]:
+        fall.append('<p class="ac-showslbl">%s</p>' % e(dim["label"]))
+        for o in dim["options"]:
+            fall.append("<p><strong>%s.</strong> %s</p>" % (e(o["label"]), prose(o["note"])))
+    fall.append("</details>")
+    lim = ('<p class="ac-showslbl">What no version of this design can establish</p>'
+           '<ul class="ac-shows">%s</ul>'
+           % "".join('<li class="ac-no">%s</li>' % prose(x) for x in ex["limitations"]))
+    studies = evidence_cards(ex["sids"], by_sid) if ex.get("sids") else ""
+    return ('<div class="ac-design"><p>%s</p><div class="ac-dsgrid">%s</div>'
+            '<button type="button" class="ac-cta ac-quiet ac-dssubmit">Submit design</button>'
+            '<div class="ac-dsfb" hidden><h4 tabindex="-1">Feedback on your design</h4>'
+            '<div class="ac-dsout"></div></div>%s%s%s'
+            '<script type="application/json" class="ac-dsdata">%s</script></div>'
+            % (prose(ex["question"]), "".join(groups), "".join(fall), lim, studies,
+               json.dumps(notes, ensure_ascii=False).replace("</", "<\\/")))
+
+
+def exercise_html(ex, ctx):
+    kind = ex["kind"]
+    if kind == "model":
+        return model_block(ex, ctx["pw"], ctx["ent_url"])
+    if kind == "predict":
+        return predict_block(ex, ctx["by_sid"])
+    if kind == "compare":
+        return compare_block(ex, ctx["by_sid"])
+    if kind == "caution":
+        return caution_block(ex)
+    if kind == "openq":
+        return openq_block(ex, ctx["gaps"], ctx["by_sid"])
+    if kind == "design":
+        return design_block(ex, ctx["by_sid"])
+    raise SystemExit("build_academy: neznamy typ cviceni %r" % kind)
+
+
+def exercise_card(ex, ctx):
+    return ('<div class="ac-ex" id="ex-%s"><span class="ac-exkind">%s</span>'
+            '<h3>%s</h3>%s</div>'
+            % (e(ex["id"]), EX_LABEL[ex["kind"]], e(ex["title"]), exercise_html(ex, ctx)))
+
+
+def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw):
     slug = les["slug"]
     url = "%s/academy/%s/%s/" % (SITE, module["slug"], slug)
+    ctx = {"by_sid": by_sid, "ent_url": ent_url, "gaps": gaps, "pw": pw}
+    ex_by_id = {x["id"]: x for x in les.get("exercises") or []}
+    # Cviceni citovane ze sekce (`"interactive": "<id>"`) se vykresli PRIMO
+    # v te sekci -- model patri k mechanismu, ne za nej. Zbytek jde do bloku
+    # "Work through it" mezi Evidence a Think, v poradi, v jakem je v datech.
+    inline_ids = {sec["interactive"] for sec in les["sections"] if sec.get("interactive")}
+    work = [x for x in les.get("exercises") or [] if x["id"] not in inline_ids]
     title = les["title"]
     desc = ("%s %s" % (les["question"], TAG_RE.sub("", les["coreIdea"][0])))[:300]
 
@@ -932,7 +1506,10 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     secs = [("question", "The question"), ("idea", "The core idea")]
     for i, s in enumerate(les["sections"]):
         secs.append(("s%d" % i, s["heading"]))
-    secs += [("evidence", "What does the evidence say?"), ("think", "Think")]
+    secs.append(("evidence", "What does the evidence say?"))
+    if work:
+        secs.append(("work", "Work through it"))
+    secs.append(("think", "Think"))
     if les.get("quiz"):
         secs.append(("quiz", "Check yourself"))
     secs.append(("deeper", "Go deeper"))
@@ -945,6 +1522,19 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     body.append('<h2 id="question" class="ac-vh">The question</h2>'
                 '<p class="ac-q">%s</p>' % e(les["question"]))
 
+    if les.get("learningObjectives"):
+        # Spec Faze 2 §12: konkretni vysledky, aktivnimi slovesy. Neni to
+        # dekorace -- verify_academy.py kontroluje, ze zadny nezacina slovesem
+        # typu "understand"/"know", ktere nejde zkontrolovat ani ucit.
+        body.append('<section class="ac-section ac-obj"><h2 id="objectives" class="ac-vh">'
+                    'What you should be able to do</h2>'
+                    '<p class="ac-objlbl">After this lesson you should be able to</p>'
+                    '<ul class="ac-objlist">%s</ul>%s</section>'
+                    % ("".join("<li>%s</li>" % prose(x) for x in les["learningObjectives"]),
+                       ('<p class="ac-skill"><span>Research skill</span> %s</p>'
+                        % e(les["researchSkill"])) if les.get("researchSkill") else ""))
+        secs.insert(1, ("objectives", "What you should be able to do"))
+
     body.append('<section class="ac-section ac-idea"><h2 id="idea">The core idea</h2>%s</section>'
                 % paras(les["coreIdea"]))
 
@@ -956,6 +1546,11 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
                 raise SystemExit("build_academy: neznamy figure %r" % s["figure"])
             inner += FIGURES[s["figure"]]()
         inner += paras(s["body"], "ac-note" if s["kind"] == "caution" else None)
+        if s.get("interactive"):
+            if s["interactive"] not in ex_by_id:
+                raise SystemExit("build_academy: sekce odkazuje na neexistujici cviceni %r"
+                                 % s["interactive"])
+            inner += exercise_card(ex_by_id[s["interactive"]], ctx)
         body.append('<section class="%s"><h2 id="s%d">%s</h2>%s</section>'
                     % (cls, i, e(s["heading"]), inner))
 
@@ -966,6 +1561,16 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     if les.get("uncertainty"):
         body.append('<p class="ac-note">%s</p>' % prose(les["uncertainty"]))
     body.append("</section>")
+
+    if work:
+        body.append('<section class="ac-section"><h2 id="work">Work through it</h2>')
+        body.append("<p>Each of these asks you to commit to something &mdash; a prediction, "
+                    "a reading of two studies, a design &mdash; before it answers. "
+                    "Everything here is in the page, so nothing is lost if you would "
+                    "rather just read it.</p>")
+        for x in work:
+            body.append(exercise_card(x, ctx))
+        body.append("</section>")
 
     body.append('<section class="ac-section"><h2 id="think">Think</h2>')
     for j, t in enumerate(les["thinkQuestions"]):
@@ -1055,7 +1660,9 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
                  extra_css=ACADEMY_CSS + "\n.ac-vh{position:absolute;width:1px;height:1px;"
                                          "overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"
                                          "border:0;padding:0;margin:-1px}",
-                 extra_body=PROGRESS_JS + (QUIZ_JS if les.get("quiz") else ""))
+                 extra_body=PROGRESS_JS + (QUIZ_JS if les.get("quiz") else "")
+                            + (EXERCISE_JS if les.get("exercises") else ""),
+                 level_switch=bool(les.get("exercises")))
     page = page.replace("<body>", '<body data-ac-current="%s">' % e(slug), 1)
     return url, page, missing
 
@@ -1222,7 +1829,7 @@ def purge():
 
 
 def main():
-    lessons, modules, by_sid, ent_url, routes, gaps = load()
+    lessons, modules, by_sid, ent_url, routes, gaps, pw = load()
     lessons_by_slug = {l["slug"]: l for l in lessons}
 
     if CLEAN and not DRY:
@@ -1246,7 +1853,7 @@ def main():
                 continue
             les = lessons_by_slug[row["lesson"]]
             url, page, missing = lesson_page(les, mod, lessons_by_slug, by_sid,
-                                             ent_url, routes, gaps)
+                                             ent_url, routes, gaps, pw)
             write(os.path.join(ACADEMY_DIR, mod["slug"], les["slug"], "index.html"), page)
             urls.append((url, "0.8"))
             all_missing += [(les["slug"], m) for m in missing]
