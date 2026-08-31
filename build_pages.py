@@ -31,7 +31,8 @@ do LEGACY_SLUGS níž, nikdy negeneruj jinou adresu potichu.
 import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
 
 from chrome_shared import (FOOTER_LINKS, static_footer_html,
-                            spa_footer_link_html, assert_crumb_matches_ld)
+                            spa_footer_link_html, assert_crumb_matches_ld,
+                            entity_explain_for, LEVEL_SWITCH_CSS, level_switch_html)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "atlas_data")
@@ -303,7 +304,7 @@ def topbar_html(active_tab=None):
 
 
 def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
-          extra_css="", extra_body=""):
+          extra_css="", extra_body="", level_switch=False):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
     celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
 
@@ -503,12 +504,13 @@ a{{overflow-wrap:anywhere}}
 @media (prefers-reduced-motion:reduce){{
   *{{animation:none!important;transition:none!important}}
 }}{extra_css}
-</style>
+{LEVEL_SWITCH_CSS}</style>
 </head>
 <body>
 {topbar}
 <div class="wrap">
 <nav class="crumb">{breadcrumb}</nav>
+{level_switch_html() if level_switch else ""}
 {body}
 {static_footer_html(SITE, BUILD_TIMESTAMP)}{extra_body}
 </div>
@@ -614,9 +616,13 @@ def study_page(s, ent_by_sid, haspage):
     for k, v in rows:
         body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{v}</td></tr>")
     body.append("</table>")
+    lv_needed = False
     if s.get("abstract"):
-        body.append(f'<h2>Abstract</h2><p class="abstract">{e(s["abstract"])}</p>')
+        body.append(f'<div class="lv-hide-beginner"><h2>Abstract</h2>'
+                    f'<p class="abstract">{e(s["abstract"])}</p></div>')
+        lv_needed = True
     if s.get("ai_effect") or s.get("ai_intervention"):
+        body.append('<div class="lv-hide-beginner">')
         body.append("<h2>Extracted findings</h2><table class=\"kv\">")
         for k, f in (("Intervention", "ai_intervention"), ("Target", "ai_target"),
                      ("Model", "ai_species"), ("Effect", "ai_effect"),
@@ -624,7 +630,8 @@ def study_page(s, ent_by_sid, haspage):
                      ("Effect size", "ai_effectsize"), ("Limitations", "ai_limitations")):
             if s.get(f):
                 body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{e(s[f])}</td></tr>")
-        body.append("</table>")
+        body.append("</table></div>")
+        lv_needed = True
     if tag_html:
         body.append(f'<h2>Related topics</h2><div class="tags">{tag_html}</div>')
 
@@ -643,7 +650,8 @@ def study_page(s, ent_by_sid, haspage):
                         ("Studies", SITE + "/#studies"),
                         (sid, None)])
     return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
-                      "\n".join(body), crumb, active_tab="studies")
+                      "\n".join(body), crumb, active_tab="studies",
+                      level_switch=lv_needed)
 
 
 # ----------------------------------------------------------- entity pages ---
@@ -682,7 +690,12 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
     body = [f"<h1>{e(ent['name'])}</h1>",
             f'<p class="meta">{e(ent["type"])} · {len(linked)} studies in the Atlas'
             + (f' · also known as {e(", ".join(syn[:6]))}' if syn else "") + "</p>"]
-    if ent.get("desc"):
+    explain = entity_explain_for(ent["name"])
+    if explain and ent.get("desc"):
+        body.append(f'<p class="summary lv-student">{e(ent["desc"])}</p>')
+        body.append(f'<p class="summary lv-beginner">{e(explain["beginner"])}</p>')
+        body.append(f'<p class="summary lv-research">{e(explain["research"])}</p>')
+    elif ent.get("desc"):
         body.append(f'<p class="summary">{e(ent["desc"])}</p>')
 
     body.append("<h2>Evidence at a glance</h2><table class=\"ev\">"
@@ -738,7 +751,8 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
                         (ent["type"], SITE + "/#entities"),
                         (ent["name"], None)])
     return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
-                               desc, url, [ld, bc], "\n".join(body), crumb, active_tab="map")
+                               desc, url, [ld, bc], "\n".join(body), crumb, active_tab="map",
+                               level_switch=bool(explain and ent.get("desc")))
 
 
 # ------------------------------------------------------- question/gap pages ---
@@ -791,16 +805,19 @@ def gap_page(g, studies_by_sid):
             f'<p class="meta">{e(kind)}'
             + (f' · confidence {e(round(conf*100))}%' if conf is not None else "")
             + f' · Atlas ID <code>{e(g["id"])}</code></p>']
+    lv_needed = False
     if g.get("basis_beginner"):
         body.append(f'<h2>The gap</h2><p class="summary">{g["basis_beginner"]}</p>')
         if g.get("basis") and g["basis"] != g["basis_beginner"]:
-            body.append(f'<p class="meta"><em>Technical framing:</em> {e(g["basis"])}</p>')
+            body.append(f'<p class="meta lv-hide-beginner"><em>Technical framing:</em> {e(g["basis"])}</p>')
+            lv_needed = True
     elif g.get("basis"):
         body.append(f'<h2>The gap</h2><p class="summary">{e(g["basis"])}</p>')
     if g.get("hyp_beginner"):
         body.append(f'<h2>The hypothesis</h2><p>{g["hyp_beginner"]}</p>')
         if g.get("hyp") and g["hyp"] != g["hyp_beginner"]:
-            body.append(f'<p class="meta"><em>Technical framing:</em> {e(g["hyp"])}</p>')
+            body.append(f'<p class="meta lv-hide-beginner"><em>Technical framing:</em> {e(g["hyp"])}</p>')
+            lv_needed = True
     elif g.get("hyp"):
         body.append(f'<h2>The hypothesis</h2><p>{e(g["hyp"])}</p>')
     if g.get("exp"):
@@ -822,7 +839,8 @@ def gap_page(g, studies_by_sid):
                         ("Open Questions", SITE + "/#questions"),
                         (g["title"], None)])
     return url, slug, shell(f"{g['title']} | Open Questions | Oliver's mTOR Atlas",
-                            desc, url, [ld, bc], "\n".join(body), crumb, active_tab="questions")
+                            desc, url, [ld, bc], "\n".join(body), crumb, active_tab="questions",
+                            level_switch=lv_needed)
 
 
 # --------------------------------------------------------- author pages ---

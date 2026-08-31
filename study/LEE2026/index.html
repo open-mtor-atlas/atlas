@@ -314,6 +314,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -327,6 +344,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · LEE2026</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Aberrant excitatory neuronal ERBB4 promotes Alzheimer&#x27;s disease pathology</h1>
 <p class="meta">Lee SY; Park E; Lee HE; Kim S; Yeo Y; Park J; Choi YJ; Lee K; Yoon KJ; Park S; Kim E; Kim JI; Chung WS · 2026 · <em>Nature</em> · Atlas ID <code>LEE2026</code></p>
 <p class="summary">Ectopic ERBB4 in excitatory neurons is one of the earliest changes in AD mouse models and is both necessary and sufficient for synapse loss, reactive gliosis, amyloid deposition and cognitive deficits — and these effects require mTOR signalling downstream of ERBB4. Places mTOR as a required mediator in an early neuronal driver of AD pathology, upstream of the glial and amyloid phenotypes.
@@ -340,13 +358,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/s41586-026-10964-z">DOI 10.1038/s41586-026-10964-z</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/42649291/">PMID 42649291</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Neuroinflammation and synapse loss are associated with cognitive decline in Alzheimer&#x27;s disease (AD). Although microglial hyperphagocytic activity has been implicated in synapse loss, the mechanisms underlying these pathologies remain obscure. Here we demonstrate that, during AD progression in mice, astrocytes and microglia increase phagocytic elimination of excitatory synapses while reducing elimination of inhibitory synapses, suggesting that neuroinflammation alone may be dispensable for early AD synapse loss. Instead, single-nucleus RNA-sequencing analysis identified the emergence of early-responsive excitatory neurons (EREN), characterized by expression of ectopic Erb-B2 receptor tyrosine kinase 4 (Erbb4), as one of the earliest major alterations in AD mouse models. Selective Erbb4 deletion in AD excitatory neurons abrogated abnormal neuronal network activities and synapse loss, as well as reactive gliosis, amyloid plaque deposition and cognitive deficits. Conversely, Erbb4 overexpression in wild-type excitatory neurons recapitulated these core AD-like phenotypes without amyloid plaques. Mechanistically, these effects required mammalian target of rapamycin (mTOR) signalling downstream of ERBB4. Subsequent transcriptomic analyses showed that excitatory neuronal Erbb4 is both necessary and sufficient to induce EREN and reactive gliosis. Directed mediation analysis of human AD transcriptomic data further support a model in which excitatory neuronal ERBB4 contributes to a pathogenic cascade that links amyloid pathology to tau propagation and cognitive decline. These findings identify aberrant Erbb4 expression in excitatory neurons as an early driver of AD pathophysiology and a potential therapeutic target across neurodegenerative diseases.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Neuroinflammation and synapse loss are associated with cognitive decline in Alzheimer&#x27;s disease (AD). Although microglial hyperphagocytic activity has been implicated in synapse loss, the mechanisms underlying these pathologies remain obscure. Here we demonstrate that, during AD progression in mice, astrocytes and microglia increase phagocytic elimination of excitatory synapses while reducing elimination of inhibitory synapses, suggesting that neuroinflammation alone may be dispensable for early AD synapse loss. Instead, single-nucleus RNA-sequencing analysis identified the emergence of early-responsive excitatory neurons (EREN), characterized by expression of ectopic Erb-B2 receptor tyrosine kinase 4 (Erbb4), as one of the earliest major alterations in AD mouse models. Selective Erbb4 deletion in AD excitatory neurons abrogated abnormal neuronal network activities and synapse loss, as well as reactive gliosis, amyloid plaque deposition and cognitive deficits. Conversely, Erbb4 overexpression in wild-type excitatory neurons recapitulated these core AD-like phenotypes without amyloid plaques. Mechanistically, these effects required mammalian target of rapamycin (mTOR) signalling downstream of ERBB4. Subsequent transcriptomic analyses showed that excitatory neuronal Erbb4 is both necessary and sufficient to induce EREN and reactive gliosis. Directed mediation analysis of human AD transcriptomic data further support a model in which excitatory neuronal ERBB4 contributes to a pathogenic cascade that links amyloid pathology to tau propagation and cognitive decline. These findings identify aberrant Erbb4 expression in excitatory neurons as an early driver of AD pathophysiology and a potential therapeutic target across neurodegenerative diseases.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Excitatory-neuron-specific Erbb4 deletion and Erbb4 overexpression; mTOR pathway inhibition</td></tr>
 <tr><td><strong>Target</strong></td><td>ERBB4 -&gt; mTOR signalling in excitatory neurons</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse; human transcriptomic data</td></tr>
 <tr><td><strong>Effect</strong></td><td>Erbb4 deletion rescued synapse loss, gliosis, amyloid deposition and cognitive deficits; Erbb4 overexpression recapitulated AD-like phenotypes — both requiring mTOR signalling downstream</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -355,7 +374,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

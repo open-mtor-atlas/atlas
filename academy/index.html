@@ -454,6 +454,23 @@ nav.crumb{max-width:1060px}
   .ac-list .ac-meta{width:100%}
 }
 
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -467,6 +484,7 @@ nav.crumb{max-width:1060px}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/" class="active">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · Academy</nav>
+
 <div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>From understanding mTOR to thinking like a researcher.</h1><p class="ac-lede">Learn the mechanisms. Explore the evidence. Follow the questions that drive mTOR research.</p><a class="ac-cta" href="https://mtor-atlas.org/academy/core/what-is-mtor/">Start learning &rarr;</a></div><h2>Your path</h2><ol class="ac-path"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span>01<span class="ac-pathttl">What is mTOR?</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span>02<span class="ac-pathttl">mTORC1 vs mTORC2</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span>03<span class="ac-pathttl">Rheb — The Critical Regulator</span></a></li><li data-ac-lesson="tsc-and-rheb"><a href="https://mtor-atlas.org/academy/core/tsc-and-rheb/"><span class="ac-state">○</span>04<span class="ac-pathttl">The TSC Complex — Where the Inputs Meet</span></a></li><li data-ac-lesson="lysosome-platform"><a href="https://mtor-atlas.org/academy/core/lysosome-platform/"><span class="ac-state">○</span>05<span class="ac-pathttl">The Lysosome as a Signalling Platform</span></a></li><li data-ac-lesson="nutrient-sensing"><a href="https://mtor-atlas.org/academy/core/nutrient-sensing/"><span class="ac-state">○</span>06<span class="ac-pathttl">Nutrient Sensing</span></a></li><li data-ac-lesson="growth-factor-signaling"><a href="https://mtor-atlas.org/academy/core/growth-factor-signaling/"><span class="ac-state">○</span>07<span class="ac-pathttl">Growth Factor Signalling</span></a></li><li data-ac-lesson="feedback-regulation"><a href="https://mtor-atlas.org/academy/core/feedback-regulation/"><span class="ac-state">○</span>08<span class="ac-pathttl">Feedback Regulation</span></a></li><li data-ac-lesson="mtor-and-autophagy"><a href="https://mtor-atlas.org/academy/core/mtor-and-autophagy/"><span class="ac-state">○</span>09<span class="ac-pathttl">mTOR and Autophagy</span></a></li><li data-ac-lesson="how-to-read-an-mtor-paper"><a href="https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"><span class="ac-state">○</span>10<span class="ac-pathttl">How to Read an mTOR Paper</span></a></li></ol><h2>Start here</h2><div class="ac-cards"><div class="ac-card"><h3>Learn</h3><p>Build your understanding one mechanism at a time, from what mTOR integrates to why the field still argues about it.</p><a class="ac-go" href="https://mtor-atlas.org/academy/core/">Start &rarr;</a></div><div class="ac-card"><h3>Guided Routes</h3><p>Follow one question all the way through the pathway map, step by step, in the interactive Atlas.</p><a class="ac-go" href="https://mtor-atlas.org/#view=map&amp;pw=guided">Explore &rarr;</a></div><div class="ac-card ac-soon"><h3>Research Challenges</h3><p>Take an open question from the Atlas, design an experiment that could move it, and compare your reasoning with the curator&#x27;s. Not built yet.</p><span class="ac-go">Coming soon</span></div></div><h2>mTOR Core</h2><p>Understand the core architecture of mTOR biology.</p><ul class="ac-list"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span><span class="ac-n">01</span><span class="ac-ttl">What is mTOR?</span><span class="ac-meta">Foundation · 15 min</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span><span class="ac-n">02</span><span class="ac-ttl">mTORC1 vs mTORC2</span><span class="ac-meta">Core · 20 min</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span><span class="ac-n">03</span><span class="ac-ttl">Rheb — The Critical Regulator</span><span class="ac-meta">Core · 25 min</span></a></li></ul><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/core/">View all lessons &rarr;</a></p><h2>Explore the Atlas</h2><p>Every lesson points back into the database it was written from.</p><div class="ac-deeper"><a href="https://mtor-atlas.org/browse/">Studies</a><a href="https://mtor-atlas.org/complex/mtorc1/">Pathways</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/gene/mtor/">Proteins</a><a href="https://mtor-atlas.org/#view=questions">Open questions</a></div>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -475,7 +493,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's

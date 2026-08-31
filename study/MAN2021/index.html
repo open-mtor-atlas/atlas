@@ -298,6 +298,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -311,6 +328,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · MAN2021</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials</h1>
 <p class="meta">Mannick JB; Teo G; Bernardo P; Quinn D; Russell K; Klickstein L; Marshall W; Shergill S · 2021 · <em>Lancet Healthy Longevity</em> · Atlas ID <code>MAN2021</code></p>
 <p class="summary">The crucial reality check. After the promising phase 2a, the large phase 3 trial (n=1024) FAILED its primary endpoint - RTB101 did not reduce clinically symptomatic respiratory illness (26% vs 25%, p=0.65). It still reliably switched on antiviral genes, so the biomarker moved but the clinical outcome did not. A textbook lesson that a promising biomarker is not a proven benefit.
@@ -324,7 +342,7 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/S2666-7568(21)00062-3">DOI 10.1016/S2666-7568(21)00062-3</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/33977284/">PMID 33977284</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8102040/">Free full text (PMC8102040)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The COVID-19 pandemic highlights the need for therapies that improve immune function in older adults, including interferon (IFN)-induced antiviral immunity that declines with age. In a previous phase 2a trial, RTB101 (previously known as BEZ235), an oral mechanistic target of rapamycin (mTOR) inhibitor, was observed to increase IFN-induced antiviral gene expression and decrease the incidence of respiratory tract infections (RTIs) in older adults. Therefore, we aimed to investigate whether oral RTB101 upregulated IFN-induced antiviral responses and decreased the incidence of viral RTIs when given once daily for 16 weeks during winter cold and flu season.
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The COVID-19 pandemic highlights the need for therapies that improve immune function in older adults, including interferon (IFN)-induced antiviral immunity that declines with age. In a previous phase 2a trial, RTB101 (previously known as BEZ235), an oral mechanistic target of rapamycin (mTOR) inhibitor, was observed to increase IFN-induced antiviral gene expression and decrease the incidence of respiratory tract infections (RTIs) in older adults. Therefore, we aimed to investigate whether oral RTB101 upregulated IFN-induced antiviral responses and decreased the incidence of viral RTIs when given once daily for 16 weeks during winter cold and flu season.
 
 We did a phase 2b and a phase 3 double-blind, randomised, placebo-controlled trial in adults aged at least 65 years enrolled in New Zealand, Australia, and the USA at 54 sites. In the phase 2b trial, patients were aged 65-85 years, with asthma, type 2 diabetes, chronic obstructive pulmonary disease (COPD), congestive heart failure, were current smokers, or had an emergency room or hospitalisation for an RTI within the past 12 months. In the phase 3 trial, patients were aged at least 65 years, did not have COPD, and were not current smokers. In the phase 2b trial, patients were randomly assigned to using a validated automated randomisation system to oral RTB101 5 mg, RTB101 10 mg once daily, or placebo in part 1 and RTB101 10 mg once daily, RTB101 10 mg twice daily, RTB101 10 mg plus everolimus once daily, or matching placebo in part 2. In the phase 3 trial, patients were randomly assigned to RTB101 10mg once daily or matching placebo. The phase 2b primary outcome was the incidence of laboratory-confirmed RTIs during 16 weeks of winter cold and influenza season and the phase 3 primary outcome was the incidence of clinically symptomatic respiratory illness defined as symptoms consistent with an RTI, irrespective of whether an infection was laboratory-confirmed. Patients, investigators, and sponsor were masked to treatment assignments. All patients who received at least part of one dose of study drug were included in the primary and safety analyses. The phase 2b trial was registered with ANZCTR, ACTRN12617000468325, ClinicalTrials.gov, NCT03373903, and the phase 3 trial was registered with ANZCTR, ACTRN12619000628145.
 
@@ -332,13 +350,14 @@ In the phase 2b trial, we recruited 652 participants in total between May 16, 20
 
 The combined results indicate that low doses of the mTOR inhibitor RTB101 are well tolerated and upregulate IFN-induced antiviral responses in older adults. Further refinement of clinical trial endpoints and patient populations might be required to identify whether upregulation of IFN responses by mTOR inhibitors consistently decreases the incidence or severity of viral infections in older adults.
 
-resTORbio and the National Institute on Aging.</p>
+resTORbio and the National Institute on Aging.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>RTB101 (BEZ235), oral mTOR inhibitor; ± everolimus</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR (TORC1/2)</td></tr>
 <tr><td><strong>Model</strong></td><td>Human – phase 2b + phase 3 RCT (n=1024)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Phase 3 FAILED its primary endpoint (no reduction in symptomatic respiratory infections, 26 vs 25%); antiviral genes still upregulated</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/gene/mtor/">mTOR</a><a href="/outcome/immune-function/">Immune function</a><a href="/complex/mtorc1/">mTORC1</a><span>RTB101</span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -348,7 +367,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

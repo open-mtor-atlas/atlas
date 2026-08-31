@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · POW2006</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Extension of chronological life span in yeast by decreased TOR pathway signaling</h1>
 <p class="meta">Powers RW; Fields S et al. · 2006 · <em>Genes &amp; development</em> · Atlas ID <code>POW2006</code></p>
 <p class="summary">Decreased TOR pathway signalling extends chronological lifespan in yeast.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1101/gad.1381406">DOI 10.1101/gad.1381406</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/16418483/">PMID 16418483</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1356109/">Free full text (PMC1356109)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Chronological life span (CLS) in Saccharomyces cerevisiae, defined as the time cells in a stationary phase culture remain viable, has been proposed as a model for the aging of post-mitotic tissues in mammals. We developed a high-throughput assay to determine CLS for approximately 4800 single-gene deletion strains of yeast, and identified long-lived strains carrying mutations in the conserved TOR pathway. TOR signaling regulates multiple cellular processes in response to nutrients, especially amino acids, raising the possibility that decreased TOR signaling mediates life span extension by calorie restriction. In support of this possibility, removal of either asparagine or glutamate from the media significantly increased stationary phase survival. Pharmacological inhibition of TOR signaling by methionine sulfoximine or rapamycin also increased CLS. Decreased TOR activity also promoted increased accumulation of storage carbohydrates and enhanced stress resistance and nuclear relocalization of the stress-related transcription factor Msn2. We propose that up-regulation of a highly conserved response to starvation-induced stress is important for life span extension by decreased TOR signaling in yeast and higher eukaryotes.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Chronological life span (CLS) in Saccharomyces cerevisiae, defined as the time cells in a stationary phase culture remain viable, has been proposed as a model for the aging of post-mitotic tissues in mammals. We developed a high-throughput assay to determine CLS for approximately 4800 single-gene deletion strains of yeast, and identified long-lived strains carrying mutations in the conserved TOR pathway. TOR signaling regulates multiple cellular processes in response to nutrients, especially amino acids, raising the possibility that decreased TOR signaling mediates life span extension by calorie restriction. In support of this possibility, removal of either asparagine or glutamate from the media significantly increased stationary phase survival. Pharmacological inhibition of TOR signaling by methionine sulfoximine or rapamycin also increased CLS. Decreased TOR activity also promoted increased accumulation of storage carbohydrates and enhanced stress resistance and nuclear relocalization of the stress-related transcription factor Msn2. We propose that up-regulation of a highly conserved response to starvation-induced stress is important for life span extension by decreased TOR signaling in yeast and higher eukaryotes.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic (TOR pathway deletions)</td></tr>
 <tr><td><strong>Target</strong></td><td>TOR / Sch9</td></tr>
 <tr><td><strong>Model</strong></td><td>Yeast (S. cerevisiae)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Decreased TOR pathway signaling extends yeast chronological lifespan</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

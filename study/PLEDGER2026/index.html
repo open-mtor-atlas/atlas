@@ -279,6 +279,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -292,6 +309,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · PLEDGER2026</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Translational repression of 5&#x27; TOP mRNAs in chronically activated CD8+ T cells.</h1>
 <p class="meta">Pledger ES; Ambavaram N; Ferguson L; Cate JHD · 2026 · <em>RNA biology</em> · Atlas ID <code>PLEDGER2026</code></p>
 <p class="summary">Ribosome profiling of exhausted human CD8+ T cells reveals marked repression of 5&#x27;TOP mRNAs despite elevated mTOR activity, uncovering an mTOR-independent translational control mechanism in T cell exhaustion.
@@ -305,13 +323,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1080/15476286.2026.2715355">DOI 10.1080/15476286.2026.2715355</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">T cell exhaustion is a dysfunctional state that arises during chronic infections and cancer, characterized by impaired effector functions and sustained expression of inhibitory receptors. We performed ribosome profiling and RNA sequencing on chronically activated human CD8+ T cells to globally assess translational control during a model of T cell exhaustion. Our analyses reveal a marked repression of 5&#x27; terminal oligopyrimidine (TOP) mRNAs during chronic activation. Unexpectedly, we demonstrate that this translational repression occurs despite evidence of elevated mTOR activity. These findings uncover a previously unknown layer of translational control in exhausted T cells.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">T cell exhaustion is a dysfunctional state that arises during chronic infections and cancer, characterized by impaired effector functions and sustained expression of inhibitory receptors. We performed ribosome profiling and RNA sequencing on chronically activated human CD8+ T cells to globally assess translational control during a model of T cell exhaustion. Our analyses reveal a marked repression of 5&#x27; terminal oligopyrimidine (TOP) mRNAs during chronic activation. Unexpectedly, we demonstrate that this translational repression occurs despite evidence of elevated mTOR activity. These findings uncover a previously unknown layer of translational control in exhausted T cells.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Chronic T cell activation</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR / 5&#x27;TOP mRNA translation</td></tr>
 <tr><td><strong>Model</strong></td><td>Human</td></tr>
 <tr><td><strong>Effect</strong></td><td>5&#x27;TOP mRNAs repressed despite elevated mTOR activity in exhausted CD8+ T cells</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><span>5&#x27;TOP mRNA</span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -321,7 +340,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

@@ -267,6 +267,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -280,6 +297,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · HUD2007</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Temsirolimus, interferon alfa, or both for advanced renal-cell carcinoma</h1>
 <p class="meta">Hudes G et al. · 2007 · <em>New England Journal of Medicine</em> · Atlas ID <code>HUD2007</code></p>
 <p class="summary">Temsirolimus alone extended median overall survival to 10.9 months versus 7.3 months with interferon alfa in poor-prognosis metastatic kidney cancer; rash, hyperglycemia, and hyperlipidemia were more common with temsirolimus.
@@ -293,19 +311,20 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1056/NEJMoa066838">DOI 10.1056/NEJMoa066838</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/17538086/">PMID 17538086</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Interferon alfa is widely used for metastatic renal-cell carcinoma but has limited efficacy and tolerability. Temsirolimus, a specific inhibitor of the mammalian target of rapamycin kinase, may benefit patients with this disease.
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Interferon alfa is widely used for metastatic renal-cell carcinoma but has limited efficacy and tolerability. Temsirolimus, a specific inhibitor of the mammalian target of rapamycin kinase, may benefit patients with this disease.
 
 In this multicenter, phase 3 trial, we randomly assigned 626 patients with previously untreated, poor-prognosis metastatic renal-cell carcinoma to receive 25 mg of intravenous temsirolimus weekly, 3 million U of interferon alfa (with an increase to 18 million U) subcutaneously three times weekly, or combination therapy with 15 mg of temsirolimus weekly plus 6 million U of interferon alfa three times weekly. The primary end point was overall survival in comparisons of the temsirolimus group and the combination-therapy group with the interferon group.
 
 Patients who received temsirolimus alone had longer overall survival (hazard ratio for death, 0.73; 95% confidence interval [CI], 0.58 to 0.92; P=0.008) and progression-free survival (P&lt;0.001) than did patients who received interferon alone. Overall survival in the combination-therapy group did not differ significantly from that in the interferon group (hazard ratio, 0.96; 95% CI, 0.76 to 1.20; P=0.70). Median overall survival times in the interferon group, the temsirolimus group, and the combination-therapy group were 7.3, 10.9, and 8.4 months, respectively. Rash, peripheral edema, hyperglycemia, and hyperlipidemia were more common in the temsirolimus group, whereas asthenia was more common in the interferon group. There were fewer patients with serious adverse events in the temsirolimus group than in the interferon group (P=0.02).
 
-As compared with interferon alfa, temsirolimus improved overall survival among patients with metastatic renal-cell carcinoma and a poor prognosis. The addition of temsirolimus to interferon did not improve survival. (ClinicalTrials.gov number, NCT00065468 [ClinicalTrials.gov].).</p>
+As compared with interferon alfa, temsirolimus improved overall survival among patients with metastatic renal-cell carcinoma and a poor prognosis. The addition of temsirolimus to interferon did not improve survival. (ClinicalTrials.gov number, NCT00065468 [ClinicalTrials.gov].).</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Temsirolimus (± interferon alfa)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Human – phase III RCT (n=626, poor-prognosis RCC)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Temsirolimus improved overall survival vs interferon alfa in poor-prognosis metastatic renal-cell carcinoma</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC)</a><a href="/gene/mtor/">mTOR</a><span>Temsirolimus</span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -315,7 +334,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

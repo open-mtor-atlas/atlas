@@ -290,6 +290,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -303,6 +320,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · FRA2013</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Efficacy and safety of everolimus for subependymal giant cell astrocytomas associated with tuberous sclerosis complex (EXIST-1): a multicentre, randomised, placebo-controlled phase 3 trial</h1>
 <p class="meta">Franz DN; Belousova E; Sparagana S; Bebin EM; Frost M; et al.; Jozwiak S · 2013 · <em>Lancet</em> · Atlas ID <code>FRA2013</code></p>
 <p class="summary">Phase 3 RCT (n=117) in tuberous sclerosis, the disease where mTOR is stuck ON by a genetic fault. Everolimus shrank brain tumors (SEGA) by &gt;=50% in 35% of patients versus 0% on placebo. Because the underlying cause here is direct mTOR overactivation, this is arguably the cleanest randomised human evidence that blocking mTOR works in a genetically defined mTORopathy -- which does not extend to mTOR inhibition in people without such a mutation.
@@ -316,7 +334,7 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/S0140-6736(12)61134-9">DOI 10.1016/S0140-6736(12)61134-9</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/23158522/">PMID 23158522</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Tuberous sclerosis complex is a genetic disorder leading to constitutive activation of mammalian target of rapamycin (mTOR) and growth of benign tumours in several organs. In the brain, growth of subependymal giant cell astrocytomas can cause life-threatening symptoms--eg, hydrocephalus, requiring surgery. In an open-label, phase 1/2 study, the mTOR inhibitor everolimus substantially and significantly reduced the volume of subependymal giant cell astrocytomas. We assessed the efficacy and safety of everolimus in patients with subependymal giant cell astrocytomas associated with tuberous sclerosis complex.
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Tuberous sclerosis complex is a genetic disorder leading to constitutive activation of mammalian target of rapamycin (mTOR) and growth of benign tumours in several organs. In the brain, growth of subependymal giant cell astrocytomas can cause life-threatening symptoms--eg, hydrocephalus, requiring surgery. In an open-label, phase 1/2 study, the mTOR inhibitor everolimus substantially and significantly reduced the volume of subependymal giant cell astrocytomas. We assessed the efficacy and safety of everolimus in patients with subependymal giant cell astrocytomas associated with tuberous sclerosis complex.
 
 In this double-blind, placebo-controlled, phase 3 trial, patients (aged 0-65 years) in 24 centres in Australia, Belgium, Canada, Germany, the UK, Italy, the Netherlands, Poland, Russian Federation, and the USA were randomly assigned, with an interactive internet-response system, in a 2:1 ratio to oral everolimus 4·5 mg/m(2) per day (titrated to achieve blood trough concentrations of 5-15 ng/mL) or placebo. Eligible patients had a definite diagnosis of tuberous sclerosis complex and at least one lesion with a diameter of 1 cm or greater, and either serial growth of a subependymal giant cell astrocytoma, a new lesion of 1 cm or greater, or new or worsening hydrocephalus. The primary endpoint was the proportion of patients with confirmed response--ie, reduction in target volume of 50% or greater relative to baseline in subependymal giant cell astrocytomas. Analysis was by intention to treat. This study is registered with ClinicalTrials.gov, number NCT00789828.
 
@@ -324,13 +342,14 @@ In this double-blind, placebo-controlled, phase 3 trial, patients (aged 0-65 yea
 
 These results support the use of everolimus for subependymal giant cell astrocytomas associated with tuberous sclerosis. Additionally, everolimus might represent a disease-modifying treatment for other aspects of tuberous sclerosis.
 
-Novartis Pharmaceuticals.</p>
+Novartis Pharmaceuticals.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Everolimus</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Human – phase 3 RCT (EXIST-1, n=117, TSC)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Everolimus reduced subependymal giant cell astrocytoma (SEGA) volume vs placebo in tuberous sclerosis</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/gene/mtor/">mTOR</a><a href="/drug/everolimus/">Everolimus</a><a href="/complex/mtorc1/">mTORC1</a><a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex</a></div>
 <h2>Learn the biology</h2><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/tsc-and-rheb/">The TSC Complex — Where the Inputs Meet</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
@@ -341,7 +360,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

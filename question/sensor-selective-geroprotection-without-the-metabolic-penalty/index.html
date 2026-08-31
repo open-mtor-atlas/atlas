@@ -221,6 +221,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -234,12 +251,13 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions" class="active">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#questions">Open Questions</a> · Sensor-selective geroprotection without the metabolic penalty</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Sensor-selective geroprotection without the metabolic penalty</h1>
 <p class="meta">No study yet tests this · confidence 75% · Atlas ID <code>H1</code></p>
 <h2>The gap</h2><p class="summary">The amino-acid sensors in this pathway (Sestrin2, CASTOR1, SAMTOR, the lysosome's acid pump) are the most precise, most drug-friendly parts of it — and almost the least tested for whether changing them actually changes health or lifespan. There is one exception: in fruit flies, losing Sestrin caused fat build-up, mitochondrial problems, muscle degeneration and heart trouble, all preventable by turning TOR down. But nothing equivalent has been shown in a mammal, and no human study has tested it at all. So the question is not 'is there any evidence' — it is whether targeting one single sensor can reproduce what the broader drugs do.</p>
-<p class="meta"><em>Technical framing:</em> The amino-acid sensors are the most pharmacologically specific nodes in the pathway and among the least phenotype-tested. One exception exists and is held in this corpus: LEE2010 (Science 2010) showed that loss of Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. That is an organismal age-related-pathology phenotype (tier C), though not a lifespan endpoint, and it is carried in the pathway model as the SESN2-AGING edge. Beyond that single fly result, the sensors (Sestrin2, CASTOR1, SAMTOR, v-ATPase) rest on tier-D mechanistic work only, and no mammalian lifespan and no human ageing endpoint shows that manipulating ONE sensor arm reproduces the benefit of broader mTORC1 inhibition. CORRECTION LOG (2026-08-30): this block previously read ‘supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes’. That was already false when displayed — LEE2010 was added to the corpus after an external review in July 2026 and the Welcome page announced the correction, but this card was never updated with it. Logged rather than silently overwritten.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> The amino-acid sensors are the most pharmacologically specific nodes in the pathway and among the least phenotype-tested. One exception exists and is held in this corpus: LEE2010 (Science 2010) showed that loss of Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. That is an organismal age-related-pathology phenotype (tier C), though not a lifespan endpoint, and it is carried in the pathway model as the SESN2-AGING edge. Beyond that single fly result, the sensors (Sestrin2, CASTOR1, SAMTOR, v-ATPase) rest on tier-D mechanistic work only, and no mammalian lifespan and no human ageing endpoint shows that manipulating ONE sensor arm reproduces the benefit of broader mTORC1 inhibition. CORRECTION LOG (2026-08-30): this block previously read ‘supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes’. That was already false when displayed — LEE2010 was added to the corpus after an external review in July 2026 and the Welcome page announced the correction, but this card was never updated with it. Logged rather than silently overwritten.</p>
 <h2>The hypothesis</h2><p>Educated guess, not yet tested: turning down mTORC1 through just one nutrient sensor — say, restricting methionine, which acts through SAMTOR — might give the same longevity benefit as rapamycin while sparing mTORC2, and therefore without rapamycin's insulin-resistance side effect.</p>
-<p class="meta"><em>Technical framing:</em> Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR-&gt;GATOR1, or leucine via Sestrin2) reproduces rapamycin&#x27;s healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR-&gt;GATOR1, or leucine via Sestrin2) reproduces rapamycin&#x27;s healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.</p>
 <h2>How it could be tested</h2><p>Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.</p>
 <h2>Related studies</h2><p><a href="/study/GU2017/">GU2017</a> · <a href="/study/SAX2015/">SAX2015</a> · <a href="/study/LEE2010/">LEE2010</a> · <a href="/study/LAM2012/">LAM2012</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#questions">Open in the Atlas explorer</a></p>
@@ -250,7 +268,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

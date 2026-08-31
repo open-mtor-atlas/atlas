@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · GIN1999</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Regulation of 4E-BP1 phosphorylation: a novel two-step mechanism</h1>
 <p class="meta">Gingras AC; Sonenberg N et al. · 1999 · <em>Genes &amp; development</em> · Atlas ID <code>GIN1999</code></p>
 <p class="summary">4E-BP1 is phosphorylated by an ordered, priming two-step mechanism that controls its release of eIF4E.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1101/gad.13.11.1422">DOI 10.1101/gad.13.11.1422</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/10364159/">PMID 10364159</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC316780/">Free full text (PMC316780)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The multisubunit eukaryotic translation initiation factor (eIF) 4F recruits 40S ribosomal subunits to the 5&#x27; end of mRNA. The eIF4F subunit eIF4E interacts directly with the mRNA 5&#x27; cap structure. Assembly of the eIF4F complex is inhibited by a family of repressor polypeptides, the eIF4E-binding proteins (4E-BPs). Binding of the 4E-BPs to eIF4E is regulated by phosphorylation: Hypophosphorylated 4E-BP isoforms interact strongly with eIF4E, whereas hyperphosphorylated isoforms do not. 4E-BP1 is hypophosphorylated in quiescent cells, but is hyperphosphorylated on multiple sites following exposure to a variety of extracellular stimuli. The PI3-kinase/Akt pathway and the kinase FRAP/mTOR signal to 4E-BP1. FRAP/mTOR has been reported to phosphorylate 4E-BP1 directly in vitro. However, it is not known if FRAP/mTOR is responsible for the phosphorylation of all 4E-BP1 sites, nor which sites must be phosphorylated to release 4E-BP1 from eIF4E. To address these questions, a recombinant FRAP/mTOR protein and a FRAP/mTOR immunoprecipitate were utilized in in vitro kinase assays to phosphorylate 4E-BP1. Phosphopeptide mapping of the in vitro-labeled protein yielded two 4E-BP1 phosphopeptides that comigrated with phosphopeptides produced in vivo. Mass spectrometry analysis indicated that these peptides contain phosphorylated Thr-37 and Thr-46. Thr-37 and Thr-46 are efficiently phosphorylated in vitro by FRAP/mTOR when 4E-BP1 is bound to eIF4E. However, phosphorylation at these sites was not associated with a loss of eIF4E binding. Phosphorylated Thr-37 and Thr-46 are detected in all phosphorylated in vivo 4E-BP1 isoforms, including those that interact with eIF4E. Finally, mutational analysis demonstrated that phosphorylation of Thr-37/Thr-46 is required for subsequent phosphorylation of several carboxy-terminal serum-sensitive sites. Taken together, our results suggest that 4E-BP1 phosphorylation by FRAP/mTOR on Thr-37 and Thr-46 is a priming event for subsequent phosphorylation of the carboxy-terminal serum-sensitive sites.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The multisubunit eukaryotic translation initiation factor (eIF) 4F recruits 40S ribosomal subunits to the 5&#x27; end of mRNA. The eIF4F subunit eIF4E interacts directly with the mRNA 5&#x27; cap structure. Assembly of the eIF4F complex is inhibited by a family of repressor polypeptides, the eIF4E-binding proteins (4E-BPs). Binding of the 4E-BPs to eIF4E is regulated by phosphorylation: Hypophosphorylated 4E-BP isoforms interact strongly with eIF4E, whereas hyperphosphorylated isoforms do not. 4E-BP1 is hypophosphorylated in quiescent cells, but is hyperphosphorylated on multiple sites following exposure to a variety of extracellular stimuli. The PI3-kinase/Akt pathway and the kinase FRAP/mTOR signal to 4E-BP1. FRAP/mTOR has been reported to phosphorylate 4E-BP1 directly in vitro. However, it is not known if FRAP/mTOR is responsible for the phosphorylation of all 4E-BP1 sites, nor which sites must be phosphorylated to release 4E-BP1 from eIF4E. To address these questions, a recombinant FRAP/mTOR protein and a FRAP/mTOR immunoprecipitate were utilized in in vitro kinase assays to phosphorylate 4E-BP1. Phosphopeptide mapping of the in vitro-labeled protein yielded two 4E-BP1 phosphopeptides that comigrated with phosphopeptides produced in vivo. Mass spectrometry analysis indicated that these peptides contain phosphorylated Thr-37 and Thr-46. Thr-37 and Thr-46 are efficiently phosphorylated in vitro by FRAP/mTOR when 4E-BP1 is bound to eIF4E. However, phosphorylation at these sites was not associated with a loss of eIF4E binding. Phosphorylated Thr-37 and Thr-46 are detected in all phosphorylated in vivo 4E-BP1 isoforms, including those that interact with eIF4E. Finally, mutational analysis demonstrated that phosphorylation of Thr-37/Thr-46 is required for subsequent phosphorylation of several carboxy-terminal serum-sensitive sites. Taken together, our results suggest that 4E-BP1 phosphorylation by FRAP/mTOR on Thr-37 and Thr-46 is a priming event for subsequent phosphorylation of the carboxy-terminal serum-sensitive sites.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical (mTOR / 4E-BP1)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR / 4E-BP1 / eIF4E</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells; in vitro</td></tr>
 <tr><td><strong>Effect</strong></td><td>4E-BP1 phosphorylation follows a two-step mechanism that regulates its binding to eIF4E</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

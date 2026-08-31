@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · HAR2014</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Acarbose, 17-alpha-estradiol, and nordihydroguaiaretic acid extend mouse lifespan preferentially in males</h1>
 <p class="meta">Harrison DE; Miller RA et al. · 2014 · <em>Aging Cell</em> · Atlas ID <code>HAR2014</code></p>
 <p class="summary">Beyond rapamycin, the same ITP program found acarbose extended male median lifespan by 22% - evidence that the registry surfaces real positive hits too, not only negative results.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1111/acel.12170">DOI 10.1111/acel.12170</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/24245565/">PMID 24245565</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3954939/">Free full text (PMC3954939)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Four agents--acarbose (ACA), 17-α-estradiol (EST), nordihydroguaiaretic acid (NDGA), and methylene blue (MB)--were evaluated for lifespan effects in genetically heterogeneous mice tested at three sites. Acarbose increased male median lifespan by 22% (P &lt; 0.0001), but increased female median lifespan by only 5% (P = 0.01). This sexual dimorphism in ACA lifespan effect could not be explained by differences in effects on weight. Maximum lifespan (90th percentile) increased 11% (P &lt; 0.001) in males and 9% (P = 0.001) in females. EST increased male median lifespan by 12% (P = 0.002), but did not lead to a significant effect on maximum lifespan. The benefits of EST were much stronger at one test site than at the other two and were not explained by effects on body weight. EST did not alter female lifespan. NDGA increased male median lifespan by 8-10% at three different doses, with P-values ranging from 0.04 to 0.005. Females did not show a lifespan benefit from NDGA, even at a dose that produced blood levels similar to those in males, which did show a strong lifespan benefit. MB did not alter median lifespan of males or females, but did produce a small, statistically significant (6%, P = 0.004) increase in female maximum lifespan. These results provide new pharmacological models for exploring processes that regulate the timing of aging and late-life diseases, and in particular for testing hypotheses about sexual dimorphism in aging and health.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Four agents--acarbose (ACA), 17-α-estradiol (EST), nordihydroguaiaretic acid (NDGA), and methylene blue (MB)--were evaluated for lifespan effects in genetically heterogeneous mice tested at three sites. Acarbose increased male median lifespan by 22% (P &lt; 0.0001), but increased female median lifespan by only 5% (P = 0.01). This sexual dimorphism in ACA lifespan effect could not be explained by differences in effects on weight. Maximum lifespan (90th percentile) increased 11% (P &lt; 0.001) in males and 9% (P = 0.001) in females. EST increased male median lifespan by 12% (P = 0.002), but did not lead to a significant effect on maximum lifespan. The benefits of EST were much stronger at one test site than at the other two and were not explained by effects on body weight. EST did not alter female lifespan. NDGA increased male median lifespan by 8-10% at three different doses, with P-values ranging from 0.04 to 0.005. Females did not show a lifespan benefit from NDGA, even at a dose that produced blood levels similar to those in males, which did show a strong lifespan benefit. MB did not alter median lifespan of males or females, but did produce a small, statistically significant (6%, P = 0.004) increase in female maximum lifespan. These results provide new pharmacological models for exploring processes that regulate the timing of aging and late-life diseases, and in particular for testing hypotheses about sexual dimorphism in aging and health.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Acarbose, 17-α-estradiol, NDGA, methylene blue (dietary/pharmacologic)</td></tr>
 <tr><td><strong>Target</strong></td><td>Metabolic/aging pathways</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (genetically heterogeneous, NIA ITP, 3 sites)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Acarbose extended male median lifespan by 22% (female 5%); EST and NDGA extended lifespan preferentially in males</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/outcome/longevity/">Longevity</a><span>Acarbose</span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -314,7 +333,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

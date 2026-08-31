@@ -100,3 +100,127 @@ def assert_crumb_matches_ld(crumb_html, ld, context=""):
             f"Drobeček != BreadcrumbList JSON-LD ({context}): "
             f"viditelné {visible_parts!r} != JSON-LD {ld_names!r}"
         )
+
+
+# ---------------------------------------------------------------------------
+# Level switch (Beginner/Student/Research) -- Fáze 2b, §5.5 plánu
+# typografické unifikace. Stejný mechanismus jako patička/drobečky výš:
+# jeden zdroj (tady: model.json + tenhle modul), volající stránky si řeknou
+# jen o výstup.
+#
+# Návrh (viz §5.5): Student je KANONICKÁ, výchozí úroveň -- viditelná i bez
+# JS a beze změny `data-level` atributu na <html>. To je záměrně shodné
+# s tím, co stránka zobrazovala PŘED zavedením přepínače, takže žádná
+# stránka bez level_switch=True se ani o pixel nezmění a stránky
+# S přepínačem se ve výchozím (student) stavu taky nezmění -- jen přibude
+# widget a možnost přepnout.
+#
+# Dva nezávislé mechanismy, obě řízené stejným `data-level` atributem:
+#   .lv-beginner / .lv-student / .lv-research
+#       tři alternativní verze TÉHOŽ obsahu (entity stránky: krátký
+#       plain-language popis vs. dnešní kurátorský popis vs. technická
+#       poznámka z model.json). Bez JS/na studentu vidět jen .lv-student.
+#   .lv-hide-beginner
+#       jeden blok obsahu, který beginner úroveň schová (question stránky:
+#       technická poznámka; study stránky: Abstract + Extracted findings).
+#       Bez JS/na studentu i na researchi viditelné -- výchozí chování se
+#       tímhle NEMĚNÍ, jen beginner dostane kratší stránku.
+# ---------------------------------------------------------------------------
+
+import json as _json
+import os as _os
+
+_MODEL_PATH = _os.path.join(_os.path.dirname(__file__), "pathway", "model.json")
+_explain_cache = None
+
+# Entity v Atlasu se jmenují jinak než uzly v pathway/model.json jen ve
+# čtyřech případech (ověřeno 2026-08-31 skriptem, který spároval 45
+# entit-se-stránkou proti 88 uzlům modelu jménem case-insensitive): tři
+# entity (p62/SQSTM1, Alzheimer's disease, Resveratrol) v modelu vůbec
+# nemají uzel -- pro ty žádný mapping není a přepínač se na jejich
+# stránkách nezobrazí (nic k přepínání). Jen "Caloric restriction" má
+# v modelu uzel pod jiným jménem.
+ENTITY_NAME_TO_NODE_ID = {
+    "Caloric restriction": "Fasting / caloric restriction",
+}
+
+
+def _load_explain():
+    global _explain_cache
+    if _explain_cache is not None:
+        return _explain_cache
+    try:
+        with open(_MODEL_PATH, encoding="utf-8") as f:
+            model = _json.load(f)
+        _explain_cache = {n["id"]: n.get("explain") for n in model.get("nodes", [])
+                          if n.get("explain")}
+    except (OSError, ValueError):
+        _explain_cache = {}
+    return _explain_cache
+
+
+def entity_explain_for(name):
+    """Vrátí {"beginner":..,"student":..,"research":..} pro entitu podle
+    jejího jména v Atlasu, nebo None, když pathway/model.json pro ni nemá
+    uzel (žádný přepínač na té stránce -- nic k přepnutí)."""
+    explain = _load_explain()
+    node_id = ENTITY_NAME_TO_NODE_ID.get(name, name)
+    exact = explain.get(node_id)
+    if exact:
+        return exact
+    lower = node_id.lower()
+    for nid, exp in explain.items():
+        if nid.lower() == lower:
+            return exp
+    return None
+
+
+LEVEL_SWITCH_CSS = """
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
+"""
+
+
+def level_switch_html():
+    """Widget + skript. Vkládá se hned za drobeček, jen na stránkách, které
+    volají shell(level_switch=True). Bez JS / na studentu se nezmění vůbec
+    nic -- data-level atribut na <html> se nastaví jen tehdy, když si
+    čtenář zvolí jinou úroveň (a persistuje přes localStorage['atlas-level'],
+    stejný klíč jako SPA)."""
+    return (
+        '<div class="lvsw" role="group" aria-label="Reading level">'
+        '<span class="lvsw-label">Reading level</span>'
+        '<div class="lvsw-btns" id="lvsw">'
+        '<button type="button" data-lv="beginner">Beginner</button>'
+        '<button type="button" data-lv="student" aria-pressed="true">Student</button>'
+        '<button type="button" data-lv="research">Research</button>'
+        '</div></div>'
+        '<script>(function(){'
+        "var KEY='atlas-level',LEVELS=['beginner','student','research'];"
+        "function saved(){try{var v=localStorage.getItem(KEY);"
+        "return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}"
+        "function apply(l){"
+        "if(l==='student')document.documentElement.removeAttribute('data-level');"
+        "else document.documentElement.setAttribute('data-level',l);"
+        "document.querySelectorAll('#lvsw button').forEach(function(b){"
+        "b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}"
+        "var lv=saved();apply(lv);"
+        "document.querySelectorAll('#lvsw button').forEach(function(b){"
+        "b.addEventListener('click',function(){lv=b.dataset.lv;"
+        "try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});"
+        '})();</script>'
+    )

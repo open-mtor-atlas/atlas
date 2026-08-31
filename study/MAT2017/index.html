@@ -267,6 +267,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -280,6 +297,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · MAT2017</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Caloric restriction improves health and survival of rhesus monkeys</h1>
 <p class="meta">Mattison JA et al. · 2017 · <em>Nature Communications</em> · Atlas ID <code>MAT2017</code></p>
 <p class="summary">Direct comparison of two long-term primate CR studies (NIA, Wisconsin) supports consistent health benefits; the survival effect depended on study design and control-diet composition.
@@ -293,13 +311,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/ncomms14063">DOI 10.1038/ncomms14063</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/28094793/">PMID 28094793</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5247583/">Free full text (PMC5247583)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Caloric restriction (CR) without malnutrition extends lifespan and delays the onset of age-related disorders in most species but its impact in nonhuman primates has been controversial. In the late 1980s two parallel studies were initiated to determine the effect of CR in rhesus monkeys. The University of Wisconsin study reported a significant positive impact of CR on survival, but the National Institute on Aging study detected no significant survival effect. Here we present a direct comparison of longitudinal data from both studies including survival, bodyweight, food intake, fasting glucose levels and age-related morbidity. We describe differences in study design that could contribute to differences in outcomes, and we report species specificity in the impact of CR in terms of optimal onset and diet. Taken together these data confirm that health benefits of CR are conserved in monkeys and suggest that CR mechanisms are likely translatable to human health.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Caloric restriction (CR) without malnutrition extends lifespan and delays the onset of age-related disorders in most species but its impact in nonhuman primates has been controversial. In the late 1980s two parallel studies were initiated to determine the effect of CR in rhesus monkeys. The University of Wisconsin study reported a significant positive impact of CR on survival, but the National Institute on Aging study detected no significant survival effect. Here we present a direct comparison of longitudinal data from both studies including survival, bodyweight, food intake, fasting glucose levels and age-related morbidity. We describe differences in study design that could contribute to differences in outcomes, and we report species specificity in the impact of CR in terms of optimal onset and diet. Taken together these data confirm that health benefits of CR are conserved in monkeys and suggest that CR mechanisms are likely translatable to human health.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Caloric restriction</td></tr>
 <tr><td><strong>Target</strong></td><td>Nutrient-sensing / mTOR (indirect)</td></tr>
 <tr><td><strong>Model</strong></td><td>Rhesus macaque (2 independent cohorts)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Caloric restriction improved health and (in the Wisconsin cohort) survival in rhesus monkeys</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/outcome/longevity/">Longevity</a><a href="/intervention/caloric-restriction/">Caloric restriction</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -309,7 +328,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

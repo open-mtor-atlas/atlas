@@ -221,6 +221,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -234,12 +251,13 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions" class="active">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#questions">Open Questions</a> · Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</h1>
 <p class="meta">Studies point in different directions · confidence 80% · Atlas ID <code>H6</code></p>
 <h2>The gap</h2><p class="summary">Male and female animals often respond differently to these drugs — sometimes just by how much, but sometimes the effect flips direction entirely. Rapamycin tends to help females somewhat more; a different drug, acarbose, helps males more. Females also build up higher drug levels in their blood after the same dose, which may explain part of it.</p>
-<p class="meta"><em>Technical framing:</em> Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response. BIT2016 QUALIFIED (2026-08-30): its male-benefit / female-harm result holds only for the high-dose 8 mg/kg/day injection arm. In the same paper&#x27;s 126 ppm dietary arm, post-treatment survival rose significantly in both sexes and a Cox model found no evidence that sex modified the treatment effect (p=0.904). BIT2016 therefore supports DOSE-dependent dimorphism, not intrinsic dimorphism, and is as much a boundary case for this hypothesis as evidence for it. The thesis stands on SEL2009, MIL2014, HAR2009, FOK2014, WUX2013 and HAR2014.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response. BIT2016 QUALIFIED (2026-08-30): its male-benefit / female-harm result holds only for the high-dose 8 mg/kg/day injection arm. In the same paper&#x27;s 126 ppm dietary arm, post-treatment survival rose significantly in both sexes and a Cox model found no evidence that sex modified the treatment effect (p=0.904). BIT2016 therefore supports DOSE-dependent dimorphism, not intrinsic dimorphism, and is as much a boundary case for this hypothesis as evidence for it. The thesis stands on SEL2009, MIL2014, HAR2009, FOK2014, WUX2013 and HAR2014.</p>
 <h2>The hypothesis</h2><p>Educated guess: some of the sex difference is simply because females end up with more drug in their blood after the same dose — matching the dose to blood levels instead of body weight might close that gap for rapamycin, though probably not for acarbose, where the male/female difference looks more like a real biological difference in how the drug acts.</p>
-<p class="meta"><em>Technical framing:</em> Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.</p>
 <h2>How it could be tested</h2><p>Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.</p>
 <h2>Related studies</h2><p><a href="/study/SEL2009/">SEL2009</a> · <a href="/study/MIL2014/">MIL2014</a> · <a href="/study/HAR2009/">HAR2009</a> · <a href="/study/FOK2014/">FOK2014</a> · <a href="/study/WUX2013/">WUX2013</a> · <a href="/study/BIT2016/">BIT2016</a> · <a href="/study/HAR2014/">HAR2014</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#questions">Open in the Atlas explorer</a></p>
@@ -250,7 +268,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

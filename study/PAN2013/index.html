@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · PAN2013</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Amino acid deprivation inhibits TORC1 through a GTPase-activating protein complex for the Rag family GTPase Gtr1</h1>
 <p class="meta">Panchaud N; De Virgilio C et al. · 2013 · <em>Science signaling</em> · Atlas ID <code>PAN2013</code></p>
 <p class="summary">The SEACIT complex is a GAP for the Rag/Gtr GTPases mediating amino-acid inhibition of TORC1.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1126/scisignal.2004112">DOI 10.1126/scisignal.2004112</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/23716719/">PMID 23716719</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The Rag family of guanosine triphosphatases (GTPases) regulates eukaryotic cell growth in response to amino acids by activating the target of rapamycin complex 1 (TORC1). In humans, this pathway is often deregulated in cancer. In yeast, amino acids promote binding of GTP (guanosine 5&#x27;-triphosphate) to the Rag family GTPase Gtr1, which, in combination with a GDP (guanosine diphosphate)-bound Gtr2, forms the active, TORC1-stimulating GTPase heterodimer. We identified Iml1, which functioned in a complex with Npr2 and Npr3, as a GAP (GTPase-activating protein) for Gtr1. Upon amino acid deprivation, Iml1 transiently interacted with Gtr1 at the vacuolar membrane to stimulate its intrinsic GTPase activity and consequently decrease the activity of TORC1. Our results delineate a potentially conserved mechanism by which the Iml1, Npr2, and Npr3 orthologous proteins in humans may suppress tumor formation.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The Rag family of guanosine triphosphatases (GTPases) regulates eukaryotic cell growth in response to amino acids by activating the target of rapamycin complex 1 (TORC1). In humans, this pathway is often deregulated in cancer. In yeast, amino acids promote binding of GTP (guanosine 5&#x27;-triphosphate) to the Rag family GTPase Gtr1, which, in combination with a GDP (guanosine diphosphate)-bound Gtr2, forms the active, TORC1-stimulating GTPase heterodimer. We identified Iml1, which functioned in a complex with Npr2 and Npr3, as a GAP (GTPase-activating protein) for Gtr1. Upon amino acid deprivation, Iml1 transiently interacted with Gtr1 at the vacuolar membrane to stimulate its intrinsic GTPase activity and consequently decrease the activity of TORC1. Our results delineate a potentially conserved mechanism by which the Iml1, Npr2, and Npr3 orthologous proteins in humans may suppress tumor formation.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical/genetic (SEACIT/GAP for Gtr1)</td></tr>
 <tr><td><strong>Target</strong></td><td>TORC1 / Gtr1 (Rag) / SEACIT</td></tr>
 <tr><td><strong>Model</strong></td><td>Yeast</td></tr>
 <tr><td><strong>Effect</strong></td><td>Amino-acid deprivation inhibits TORC1 through a GAP complex (SEACIT) for the Rag-family GTPase Gtr1</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

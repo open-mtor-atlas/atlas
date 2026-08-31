@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · GAR2008</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>mTOR complex 2 (mTORC2) controls hydrophobic motif phosphorylation and activation of serum- and glucocorticoid-induced protein kinase 1 (SGK1)</h1>
 <p class="meta">Garcia-Martinez JM; Alessi DR et al. · 2008 · <em>The Biochemical journal</em> · Atlas ID <code>GAR2008</code></p>
 <p class="summary">mTORC2 controls hydrophobic-motif phosphorylation and activity of SGK1 in addition to Akt.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1042/BJ20081668">DOI 10.1042/BJ20081668</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/18925875/">PMID 18925875</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">SGK1 (serum- and glucocorticoid-induced protein kinase 1) is a member of the AGC (protein kinase A/protein kinase G/protein kinase C) family of protein kinases and is activated by agonists including growth factors. SGK1 regulates diverse effects of extracellular agonists by phosphorylating regulatory proteins that control cellular processes such as ion transport and growth. Like other AGC family kinases, activation of SGK1 is triggered by phosphorylation of a threonine residue within the T-loop of the kinase domain and a serine residue lying within the C-terminal hydrophobic motif (Ser(422) in SGK1). PDK1 phosphorylates the T-loop of SGK1. The identity of the hydrophobic motif kinase is unclear. Recent work has established that mTORC1 phosphorylates the hydrophobic motif of S6K, whereas mTORC2 phosphorylates the hydrophobic motif of Akt. In the present study we demonstrate that SGK1 hydrophobic motif phosphorylation and activity is ablated in knockout fibroblasts possessing mTORC1 activity, but lacking the mTORC2 subunits rictor, Sin1 or mLST8. Furthermore, phosphorylation of NDRG1, a physiological substrate of SGK1, was also abolished in rictor-, Sin1- or mLST8-deficient fibroblasts. mTORC2 immunoprecipitated from wild-type, but not from mLST8- or rictor-knockout cells, phosphorylated SGK1 at Ser(422). Consistent with mTORC1 not regulating SGK1, immunoprecipitated mTORC1 failed to phosphorylate SGK1 at Ser(422). Moreover, rapamycin treatment of HEK-293, MCF-7 or HeLa cells suppressed phosphorylation of S6K, without affecting SGK1 phosphorylation or activation. The findings indicate that mTORC2, but not mTORC1, plays a vital role in controlling the hydrophobic motif phosphorylation and activity of SGK1, and that NDRG1 phosphorylation represents an excellent biomarker for mTORC2 activity.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">SGK1 (serum- and glucocorticoid-induced protein kinase 1) is a member of the AGC (protein kinase A/protein kinase G/protein kinase C) family of protein kinases and is activated by agonists including growth factors. SGK1 regulates diverse effects of extracellular agonists by phosphorylating regulatory proteins that control cellular processes such as ion transport and growth. Like other AGC family kinases, activation of SGK1 is triggered by phosphorylation of a threonine residue within the T-loop of the kinase domain and a serine residue lying within the C-terminal hydrophobic motif (Ser(422) in SGK1). PDK1 phosphorylates the T-loop of SGK1. The identity of the hydrophobic motif kinase is unclear. Recent work has established that mTORC1 phosphorylates the hydrophobic motif of S6K, whereas mTORC2 phosphorylates the hydrophobic motif of Akt. In the present study we demonstrate that SGK1 hydrophobic motif phosphorylation and activity is ablated in knockout fibroblasts possessing mTORC1 activity, but lacking the mTORC2 subunits rictor, Sin1 or mLST8. Furthermore, phosphorylation of NDRG1, a physiological substrate of SGK1, was also abolished in rictor-, Sin1- or mLST8-deficient fibroblasts. mTORC2 immunoprecipitated from wild-type, but not from mLST8- or rictor-knockout cells, phosphorylated SGK1 at Ser(422). Consistent with mTORC1 not regulating SGK1, immunoprecipitated mTORC1 failed to phosphorylate SGK1 at Ser(422). Moreover, rapamycin treatment of HEK-293, MCF-7 or HeLa cells suppressed phosphorylation of S6K, without affecting SGK1 phosphorylation or activation. The findings indicate that mTORC2, but not mTORC1, plays a vital role in controlling the hydrophobic motif phosphorylation and activity of SGK1, and that NDRG1 phosphorylation represents an excellent biomarker for mTORC2 activity.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic/biochemical (mTORC2/SGK1)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC2 / SGK1</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>mTORC2 controls the hydrophobic-motif phosphorylation and activation of SGK1</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

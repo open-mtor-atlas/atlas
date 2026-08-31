@@ -282,6 +282,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -295,6 +312,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · LU2026</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Mathematical Modeling of Dietary Timing- and Protein Quality-Responsive Liver Circadian Clock and its Function on Ribosome Biogenesis</h1>
 <p class="meta">Lu L; Levy JL; Anthony TG; Androulakis IP · 2026 · <em>Physiological Genomics</em> · Atlas ID <code>LU2026</code></p>
 <p class="summary">Builds a semi-mechanistic model in which liver mTORC1 and GCN2-ISR signalling are driven by RHYTHMS in dietary essential amino acid availability rather than by a fixed nutrient level. Simulations show the two pathways jointly set metabolic entrainability and are required to keep the peripheral clock and ribosome biogenesis synchronised under nutrient stress, and predict individualised recovery trajectories after a transient dietary disruption. A worked example of treating mTORC1 activity as a time-varying pattern whose shape — not just its average — determines the downstream growth output.
@@ -308,13 +326,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1152/physiolgenomics.00152.2026">DOI 10.1152/physiolgenomics.00152.2026</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/42647400/">PMID 42647400</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Independent of the suprachiasmatic nucleus, peripheral clocks can be strongly entrained by dietary signals. Although feeding time has been widely studied, the effects of food quality-particularly nutrient availability and stress-on peripheral circadian entrainment and metabolic regulation remain less understood. We developed a semi-mechanistic mathematical model of peripheral clock synchronization and clock-controlled ribosome biogenesis (RiBi) in response to feeding/fasting cycles and rhythms in dietary essential amino acid (EAA) availability. The model integrates EAA-sensitive signaling through mammalian target of rapamycin complex 1 (mTORC1) and the general control nonderepressible 2 (GCN2)-mediated integrated stress response (ISR), together with ribosomal protein expression as a metabolic endpoint. We used the model to examine circadian entrainment under nutrient stress, adaptation during transitions between feeding schedules with EAA insufficiency, and stress-related mechanisms that may restore circadian and metabolic function. Simulations showed that mTORC1 and GCN2-ISR signaling jointly regulate metabolic entrainability and stress adaptation and are required to maintain circadian synchronization and RiBi dynamics during nutrient stress. The model also predicted that differences in homeostatic adaptation can produce individualized recovery trajectories after transient dietary disruption. Finally, appropriate modulation of GCN2-ISR signaling mitigated disruption-associated RiBi hyperactivation by leveraging dietary EAA rhythms to restore clock function. These findings identify dietary EAA stress and its regulatory pathways as important determinants of peripheral circadian entrainment and metabolic adaptation, supporting the development of personalized nutrition-based strategies.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Independent of the suprachiasmatic nucleus, peripheral clocks can be strongly entrained by dietary signals. Although feeding time has been widely studied, the effects of food quality-particularly nutrient availability and stress-on peripheral circadian entrainment and metabolic regulation remain less understood. We developed a semi-mechanistic mathematical model of peripheral clock synchronization and clock-controlled ribosome biogenesis (RiBi) in response to feeding/fasting cycles and rhythms in dietary essential amino acid (EAA) availability. The model integrates EAA-sensitive signaling through mammalian target of rapamycin complex 1 (mTORC1) and the general control nonderepressible 2 (GCN2)-mediated integrated stress response (ISR), together with ribosomal protein expression as a metabolic endpoint. We used the model to examine circadian entrainment under nutrient stress, adaptation during transitions between feeding schedules with EAA insufficiency, and stress-related mechanisms that may restore circadian and metabolic function. Simulations showed that mTORC1 and GCN2-ISR signaling jointly regulate metabolic entrainability and stress adaptation and are required to maintain circadian synchronization and RiBi dynamics during nutrient stress. The model also predicted that differences in homeostatic adaptation can produce individualized recovery trajectories after transient dietary disruption. Finally, appropriate modulation of GCN2-ISR signaling mitigated disruption-associated RiBi hyperactivation by leveraging dietary EAA rhythms to restore clock function. These findings identify dietary EAA stress and its regulatory pathways as important determinants of peripheral circadian entrainment and metabolic adaptation, supporting the development of personalized nutrition-based strategies.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>In silico feeding/fasting schedules and dietary essential amino acid rhythms; simulated GCN2-ISR modulation</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 and GCN2-ISR; clock-controlled ribosome biogenesis</td></tr>
 <tr><td><strong>Model</strong></td><td>Computational model (mammalian liver)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Timing and quality of amino acid intake, not average level, set circadian entrainment and ribosome biogenesis dynamics</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -323,7 +342,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

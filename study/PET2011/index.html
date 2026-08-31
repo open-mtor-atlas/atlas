@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · PET2011</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>mTOR complex 1 regulates lipin 1 localization to control the SREBP pathway</h1>
 <p class="meta">Peterson TR; Sabatini DM et al. · 2011 · <em>Cell</em> · Atlas ID <code>PET2011</code></p>
 <p class="summary">mTORC1 controls lipin-1 nuclear localization to regulate SREBP and lipid synthesis.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/j.cell.2011.06.034">DOI 10.1016/j.cell.2011.06.034</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/21816276/">PMID 21816276</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3336367/">Free full text (PMC3336367)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The nutrient- and growth factor-responsive kinase mTOR complex 1 (mTORC1) regulates many processes that control growth, including protein synthesis, autophagy, and lipogenesis. Through unknown mechanisms, mTORC1 promotes the function of SREBP, a master regulator of lipo- and sterolgenic gene transcription. Here, we demonstrate that mTORC1 regulates SREBP by controlling the nuclear entry of lipin 1, a phosphatidic acid phosphatase. Dephosphorylated, nuclear, catalytically active lipin 1 promotes nuclear remodeling and mediates the effects of mTORC1 on SREBP target gene, SREBP promoter activity, and nuclear SREBP protein abundance. Inhibition of mTORC1 in the liver significantly impairs SREBP function and makes mice resistant, in a lipin 1-dependent fashion, to the hepatic steatosis and hypercholesterolemia induced by a high-fat and -cholesterol diet. These findings establish lipin 1 as a key component of the mTORC1-SREBP pathway.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The nutrient- and growth factor-responsive kinase mTOR complex 1 (mTORC1) regulates many processes that control growth, including protein synthesis, autophagy, and lipogenesis. Through unknown mechanisms, mTORC1 promotes the function of SREBP, a master regulator of lipo- and sterolgenic gene transcription. Here, we demonstrate that mTORC1 regulates SREBP by controlling the nuclear entry of lipin 1, a phosphatidic acid phosphatase. Dephosphorylated, nuclear, catalytically active lipin 1 promotes nuclear remodeling and mediates the effects of mTORC1 on SREBP target gene, SREBP promoter activity, and nuclear SREBP protein abundance. Inhibition of mTORC1 in the liver significantly impairs SREBP function and makes mice resistant, in a lipin 1-dependent fashion, to the hepatic steatosis and hypercholesterolemia induced by a high-fat and -cholesterol diet. These findings establish lipin 1 as a key component of the mTORC1-SREBP pathway.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic/pharmacologic (mTORC1/lipin1)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 / lipin1 / SREBP</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>mTORC1 controls lipin1 nuclear entry to regulate the SREBP lipogenic transcription program</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/process/lipid-synthesis/">Lipid synthesis</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -314,7 +333,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

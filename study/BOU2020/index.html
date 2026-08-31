@@ -270,6 +270,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -283,6 +300,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · BOU2020</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>AIMTOR, a BRET biosensor for live imaging, reveals subcellular mTOR signaling and dysfunctions</h1>
 <p class="meta">Bouquier N; Ollendorff V et al. · 2020 · <em>BMC Biology</em> · Atlas ID <code>BOU2020</code></p>
 <p class="summary">AIMTOR is a genetically encoded BRET biosensor that reads out mTOR activity live in single cells and in specific subcellular compartments (cytosol, lysosome surface, nucleus, near mitochondria) -- the enabling technology that makes pulsatile/oscillatory mTOR hypotheses experimentally testable rather than purely theoretical.
@@ -296,13 +314,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1186/s12915-020-00790-8">DOI 10.1186/s12915-020-00790-8</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/32620110/">PMID 32620110</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7334845/">Free full text (PMC7334845)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">mTOR signaling is an essential nutrient and energetic sensing pathway. Here we describe AIMTOR, a sensitive genetically encoded BRET (Bioluminescent Resonance Energy Transfer) biosensor to study mTOR activity in living cells. As a proof of principle, we show in both cell lines and primary cell cultures that AIMTOR BRET intensities are modified by mTOR activity changes induced by specific inhibitors and activators of mTORC1 including amino acids and insulin. We further engineered several versions of AIMTOR enabling subcellular-specific assessment of mTOR activities. We then used AIMTOR to decipher mTOR signaling in physio-pathological conditions. First, we show that mTORC1 activity increases during muscle cell differentiation and in response to leucine stimulation in different subcellular compartments such as the cytosol and at the surface of the lysosome, the nucleus, and near the mitochondria. Second, in hippocampal neurons, we found that the enhancement of neuronal activity increases mTOR signaling. AIMTOR further reveals mTOR-signaling dysfunctions in neurons from mouse models of autism spectrum disorder. Altogether, our results demonstrate that AIMTOR is a sensitive and specific tool to investigate mTOR-signaling dynamics in living cells and phenotype mTORopathies.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">mTOR signaling is an essential nutrient and energetic sensing pathway. Here we describe AIMTOR, a sensitive genetically encoded BRET (Bioluminescent Resonance Energy Transfer) biosensor to study mTOR activity in living cells. As a proof of principle, we show in both cell lines and primary cell cultures that AIMTOR BRET intensities are modified by mTOR activity changes induced by specific inhibitors and activators of mTORC1 including amino acids and insulin. We further engineered several versions of AIMTOR enabling subcellular-specific assessment of mTOR activities. We then used AIMTOR to decipher mTOR signaling in physio-pathological conditions. First, we show that mTORC1 activity increases during muscle cell differentiation and in response to leucine stimulation in different subcellular compartments such as the cytosol and at the surface of the lysosome, the nucleus, and near the mitochondria. Second, in hippocampal neurons, we found that the enhancement of neuronal activity increases mTOR signaling. AIMTOR further reveals mTOR-signaling dysfunctions in neurons from mouse models of autism spectrum disorder. Altogether, our results demonstrate that AIMTOR is a sensitive and specific tool to investigate mTOR-signaling dynamics in living cells and phenotype mTORopathies.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetically encoded BRET biosensor (AIMTOR) -- tool, not a drug intervention</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR activity (live, subcellular)</td></tr>
 <tr><td><strong>Model</strong></td><td>Human (HEK293); mouse (neurons, muscle)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Enables real-time single-cell/subcellular measurement of mTOR activity dynamics</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/gene/mtor/">mTOR</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -312,7 +331,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

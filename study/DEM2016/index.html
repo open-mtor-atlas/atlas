@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · DEM2016</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Lysosomal recruitment of TSC2 is a universal response to cellular stress</h1>
 <p class="meta">Demetriades C; Teleman AA et al. · 2016 · <em>Nature communications</em> · Atlas ID <code>DEM2016</code></p>
 <p class="summary">Lysosomal recruitment of TSC2 is a universal response to cellular stress that inhibits mTORC1.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/ncomms10662">DOI 10.1038/ncomms10662</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/26868506/">PMID 26868506</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4754342/">Free full text (PMC4754342)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">mTORC1 promotes cell growth and is therefore inactivated upon unfavourable growth conditions. Signalling pathways downstream of most cellular stresses converge on TSC1/2, which serves as an integration point that inhibits mTORC1. The TSC1/2 complex was shown to translocate to lysosomes to inactivate mTORC1 in response to two stresses: amino-acid starvation and growth factor removal. Whether other stresses also regulate TSC2 localization is not known. How TSC2 localization responds to combinations of stresses and other stimuli is also unknown. We show that both amino acids and growth factors are required simultaneously to maintain TSC2 cytoplasmic; when one of the two is missing, TSC2 relocalizes to lysosomes. Furthermore, multiple different stresses that inhibit mTORC1 also drive TSC2 lysosomal accumulation. Our findings indicate that lysosomal recruitment of TSC2 is a universal response to stimuli that inactivate mTORC1, and that the presence of any single stress is sufficient to cause TSC2 lysosomal localization.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">mTORC1 promotes cell growth and is therefore inactivated upon unfavourable growth conditions. Signalling pathways downstream of most cellular stresses converge on TSC1/2, which serves as an integration point that inhibits mTORC1. The TSC1/2 complex was shown to translocate to lysosomes to inactivate mTORC1 in response to two stresses: amino-acid starvation and growth factor removal. Whether other stresses also regulate TSC2 localization is not known. How TSC2 localization responds to combinations of stresses and other stimuli is also unknown. We show that both amino acids and growth factors are required simultaneously to maintain TSC2 cytoplasmic; when one of the two is missing, TSC2 relocalizes to lysosomes. Furthermore, multiple different stresses that inhibit mTORC1 also drive TSC2 lysosomal accumulation. Our findings indicate that lysosomal recruitment of TSC2 is a universal response to stimuli that inactivate mTORC1, and that the presence of any single stress is sufficient to cause TSC2 lysosomal localization.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Various cellular stresses (amino-acid/growth-factor withdrawal, etc.) – mechanistic</td></tr>
 <tr><td><strong>Target</strong></td><td>TSC2 / mTORC1</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>Diverse stresses relocate TSC2 to the lysosome → inhibit mTORC1 (a universal response)</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/organelle/lysosome/">Lysosome</a><a href="/condition/energy-cellular-stress/">Energy &amp; cellular stress</a></div>
 <h2>Learn the biology</h2><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/rheb/">Rheb — The Critical Regulator</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
@@ -315,7 +334,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

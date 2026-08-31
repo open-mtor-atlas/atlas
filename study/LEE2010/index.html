@@ -282,6 +282,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -295,6 +312,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · LEE2010</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Sestrin as a feedback inhibitor of TOR that prevents age-related pathologies</h1>
 <p class="meta">Lee JH; Budanov AV; Bodmer R; Bier E; Karin M et al. · 2010 · <em>Science</em> · Atlas ID <code>LEE2010</code></p>
 <p class="summary">The one study that connects an amino-acid sensor to an organismal ageing phenotype. Loss of Drosophila Sestrin produced triglyceride accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction - all prevented by inhibiting TOR or activating AMPK. Sestrin sits in a negative feedback loop: TOR activity drives Sestrin expression, and Sestrin inhibits TOR back.
@@ -308,13 +326,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1126/science.1182228">DOI 10.1126/science.1182228</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/20203043/">PMID 20203043</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Sestrins are conserved proteins that accumulate in cells exposed to stress, potentiate adenosine monophosphate-activated protein kinase (AMPK), and inhibit activation of target of rapamycin (TOR). We show that the abundance of Drosophila sestrin (dSesn) is increased upon chronic TOR activation through accumulation of reactive oxygen species that cause activation of c-Jun amino-terminal kinase and transcription factor Forkhead box O (FoxO). Loss of dSesn resulted in age-associated pathologies including triglyceride accumulation, mitochondrial dysfunction, muscle degeneration, and cardiac malfunction, which were prevented by pharmacological activation of AMPK or inhibition of TOR. Hence, dSesn appears to be a negative feedback regulator of TOR that integrates metabolic and stress inputs and prevents pathologies caused by chronic TOR activation that may result from diminished autophagic clearance of damaged mitochondria, protein aggregates, or lipids.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Sestrins are conserved proteins that accumulate in cells exposed to stress, potentiate adenosine monophosphate-activated protein kinase (AMPK), and inhibit activation of target of rapamycin (TOR). We show that the abundance of Drosophila sestrin (dSesn) is increased upon chronic TOR activation through accumulation of reactive oxygen species that cause activation of c-Jun amino-terminal kinase and transcription factor Forkhead box O (FoxO). Loss of dSesn resulted in age-associated pathologies including triglyceride accumulation, mitochondrial dysfunction, muscle degeneration, and cardiac malfunction, which were prevented by pharmacological activation of AMPK or inhibition of TOR. Hence, dSesn appears to be a negative feedback regulator of TOR that integrates metabolic and stress inputs and prevents pathologies caused by chronic TOR activation that may result from diminished autophagic clearance of damaged mitochondria, protein aggregates, or lipids.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>dSesn loss of function; rapamycin; AMPK activation</td></tr>
 <tr><td><strong>Target</strong></td><td>Sestrin -&gt; AMPK/TOR feedback loop</td></tr>
 <tr><td><strong>Model</strong></td><td>Drosophila</td></tr>
 <tr><td><strong>Effect</strong></td><td>Sestrin loss causes age-related muscle, cardiac and metabolic pathology in flies; rescued by TOR inhibition or AMPK activation</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><span>Sestrin2</span></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -324,7 +343,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

@@ -270,6 +270,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -283,6 +300,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · SCH2025</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>The Bi-steric, mTORC1-Selective Inhibitor, RMC-5552, in Advanced Solid Tumors: A Phase 1 Trial</h1>
 <p class="meta">Schram AM; Meyerowitz JG et al. · 2025 · <em>Clinical Cancer Research</em> · Atlas ID <code>SCH2025</code></p>
 <p class="summary">First-in-human, open-label dose-escalation trial (n=57, advanced solid tumors, no comparator arm) of a bi-steric mTORC1-selective inhibitor. Treatment-related hyperglycemia was low (4%) and not dose-limiting, alongside a 64% disease control rate. Because the trial was uncontrolled and made no head-to-head comparison against rapamycin or an ATP-site inhibitor, this is encouraging early clinical evidence consistent with the hypothesis that sparing mTORC2 reduces metabolic toxicity -- it does not establish mTORC2 sparing as the cause.
@@ -296,13 +314,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1158/1078-0432.CCR-25-2112">DOI 10.1158/1078-0432.CCR-25-2112</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/41056387/">PMID 41056387</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12666311/">Free full text (PMC12666311)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">PI3K/mTOR pathway activation drives oncogenesis and progression of many cancers. RMC-5552 is a bi-steric, mTOR complex 1 (mTORC1)-selective inhibitor that potently inhibits phosphorylation of key mTORC1 substrates eukaryotic initiation factor 4E-binding protein-1 and S6 kinase and exhibits selectivity for mTORC1 over mTORC2. In this study, we report results from a first-in-human, dose-escalation study of RMC-5552 in patients with advanced solid tumors (NCT04774952). The safety, tolerability, pharmacokinetics, and preliminary activity of RMC-5552 (1.6-16 mg intravenous infusion weekly) were evaluated in 57 patients. The most common treatment-related adverse events were mucositis (49%), nausea (44%), and fatigue (42%). Consistent with mTORC1 selectivity, treatment-related hyperglycemia incidence was generally low (4%) and not dose limiting. Additionally, we tested potential prophylaxis with tacrolimus mouthwash (TM), which was predicted to block the mechanism of action of RMC-5552 locally and alleviate treatment-related oral mucositis. Between 8- and 12-mg dosing, mucositis was 65% without TM versus 31% with TM. In this study, the disease control rate was 64%, and one patient with PTEN- and PIK3CA-altered endometrial cancer had a complete response and treatment was ongoing for &gt;6 months as of the June 2024 data cut. Clearance of PI3K/mTOR pathway variants among ctDNA was observed. The success of TM-mediated prophylaxis and the clearance of selected variants in ctDNA are concordant with selective, on-mechanism, antitumor activity following RMC-5552 treatment. These data show that RMC-5552, the first bi-steric mTORC1-selective inhibitor in the clinic, is active at tolerable doses and that selective inhibition of mTORC1 alleviates mTORC2-mediated hyperglycemia, overcoming a key limitation of prior mTOR inhibitors.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">PI3K/mTOR pathway activation drives oncogenesis and progression of many cancers. RMC-5552 is a bi-steric, mTOR complex 1 (mTORC1)-selective inhibitor that potently inhibits phosphorylation of key mTORC1 substrates eukaryotic initiation factor 4E-binding protein-1 and S6 kinase and exhibits selectivity for mTORC1 over mTORC2. In this study, we report results from a first-in-human, dose-escalation study of RMC-5552 in patients with advanced solid tumors (NCT04774952). The safety, tolerability, pharmacokinetics, and preliminary activity of RMC-5552 (1.6-16 mg intravenous infusion weekly) were evaluated in 57 patients. The most common treatment-related adverse events were mucositis (49%), nausea (44%), and fatigue (42%). Consistent with mTORC1 selectivity, treatment-related hyperglycemia incidence was generally low (4%) and not dose limiting. Additionally, we tested potential prophylaxis with tacrolimus mouthwash (TM), which was predicted to block the mechanism of action of RMC-5552 locally and alleviate treatment-related oral mucositis. Between 8- and 12-mg dosing, mucositis was 65% without TM versus 31% with TM. In this study, the disease control rate was 64%, and one patient with PTEN- and PIK3CA-altered endometrial cancer had a complete response and treatment was ongoing for &gt;6 months as of the June 2024 data cut. Clearance of PI3K/mTOR pathway variants among ctDNA was observed. The success of TM-mediated prophylaxis and the clearance of selected variants in ctDNA are concordant with selective, on-mechanism, antitumor activity following RMC-5552 treatment. These data show that RMC-5552, the first bi-steric mTORC1-selective inhibitor in the clinic, is active at tolerable doses and that selective inhibition of mTORC1 alleviates mTORC2-mediated hyperglycemia, overcoming a key limitation of prior mTOR inhibitors.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>RMC-5552 (bi-steric mTORC1-selective inhibitor), 1.6-16mg IV weekly</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 (4E-BP1, S6K1), sparing mTORC2</td></tr>
 <tr><td><strong>Model</strong></td><td>Human</td></tr>
 <tr><td><strong>Effect</strong></td><td>64% disease control rate (uncontrolled); low (4%) treatment-related hyperglycemia, consistent with mTORC2 sparing</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/complex/mtorc1/">mTORC1</a><a href="/complex/mtorc2/">mTORC2</a><a href="/gene/s6k1/">S6K1</a><a href="/gene/4e-bp1/">4E-BP1</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -312,7 +331,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

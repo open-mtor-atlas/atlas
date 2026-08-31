@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · EFE2012</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Regulation of mTORC1 by the Rag GTPases is necessary for neonatal autophagy and survival</h1>
 <p class="meta">Efeyan A; Sabatini DM et al. · 2012 · <em>Nature</em> · Atlas ID <code>EFE2012</code></p>
 <p class="summary">Rag-GTPase control of mTORC1 is essential for neonatal autophagy and survival to fasting.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/nature11745">DOI 10.1038/nature11745</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/23263183/">PMID 23263183</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4000705/">Free full text (PMC4000705)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The mechanistic target of rapamycin complex 1 (mTORC1) pathway regulates organismal growth in response to many environmental cues, including nutrients and growth factors. Cell-based studies showed that mTORC1 senses amino acids through the RagA-D family of GTPases (also known as RRAGA, B, C and D), but their importance in mammalian physiology is unknown. Here we generate knock-in mice that express a constitutively active form of RagA (RagA(GTP)) from its endogenous promoter. RagA(GTP/GTP) mice develop normally, but fail to survive postnatal day 1. When delivered by Caesarean section, fasted RagA(GTP/GTP) neonates die almost twice as rapidly as wild-type littermates. Within an hour of birth, wild-type neonates strongly inhibit mTORC1, which coincides with profound hypoglycaemia and a decrease in plasma amino-acid concentrations. In contrast, mTORC1 inhibition does not occur in RagA(GTP/GTP) neonates, despite identical reductions in blood nutrient amounts. With prolonged fasting, wild-type neonates recover their plasma glucose concentrations, but RagA(GTP/GTP) mice remain hypoglycaemic until death, despite using glycogen at a faster rate. The glucose homeostasis defect correlates with the inability of fasted RagA(GTP/GTP) neonates to trigger autophagy and produce amino acids for de novo glucose production. Because profound hypoglycaemia does not inhibit mTORC1 in RagA(GTP/GTP) neonates, we considered the possibility that the Rag pathway signals glucose as well as amino-acid sufficiency to mTORC1. Indeed, mTORC1 is resistant to glucose deprivation in RagA(GTP/GTP) fibroblasts, and glucose, like amino acids, controls its recruitment to the lysosomal surface, the site of mTORC1 activation. Thus, the Rag GTPases signal glucose and amino-acid concentrations to mTORC1, and have an unexpectedly key role in neonates in autophagy induction and thus nutrient homeostasis and viability.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The mechanistic target of rapamycin complex 1 (mTORC1) pathway regulates organismal growth in response to many environmental cues, including nutrients and growth factors. Cell-based studies showed that mTORC1 senses amino acids through the RagA-D family of GTPases (also known as RRAGA, B, C and D), but their importance in mammalian physiology is unknown. Here we generate knock-in mice that express a constitutively active form of RagA (RagA(GTP)) from its endogenous promoter. RagA(GTP/GTP) mice develop normally, but fail to survive postnatal day 1. When delivered by Caesarean section, fasted RagA(GTP/GTP) neonates die almost twice as rapidly as wild-type littermates. Within an hour of birth, wild-type neonates strongly inhibit mTORC1, which coincides with profound hypoglycaemia and a decrease in plasma amino-acid concentrations. In contrast, mTORC1 inhibition does not occur in RagA(GTP/GTP) neonates, despite identical reductions in blood nutrient amounts. With prolonged fasting, wild-type neonates recover their plasma glucose concentrations, but RagA(GTP/GTP) mice remain hypoglycaemic until death, despite using glycogen at a faster rate. The glucose homeostasis defect correlates with the inability of fasted RagA(GTP/GTP) neonates to trigger autophagy and produce amino acids for de novo glucose production. Because profound hypoglycaemia does not inhibit mTORC1 in RagA(GTP/GTP) neonates, we considered the possibility that the Rag pathway signals glucose as well as amino-acid sufficiency to mTORC1. Indeed, mTORC1 is resistant to glucose deprivation in RagA(GTP/GTP) fibroblasts, and glucose, like amino acids, controls its recruitment to the lysosomal surface, the site of mTORC1 activation. Thus, the Rag GTPases signal glucose and amino-acid concentrations to mTORC1, and have an unexpectedly key role in neonates in autophagy induction and thus nutrient homeostasis and viability.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic – constitutively active RagA(GTP) knock-in</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 / Rag GTPases</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (RagA GTP knock-in)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Constitutive RagA→mTORC1 blocks fasting-induced autophagy in neonates → death on postnatal day 1 when fasted</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

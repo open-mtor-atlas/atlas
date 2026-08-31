@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · JEW2015</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Metabolism. Differential regulation of mTORC1 by leucine and glutamine</h1>
 <p class="meta">Jewell JL; Guan KL et al. · 2015 · <em>Science</em> · Atlas ID <code>JEW2015</code></p>
 <p class="summary">Glutamine activates mTORC1 via a Rag-independent, Arf1-dependent route distinct from leucine.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1126/science.1259472">DOI 10.1126/science.1259472</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/25567907/">PMID 25567907</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4384888/">Free full text (PMC4384888)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">The mechanistic target of rapamycin (mTOR) complex 1 (mTORC1) integrates environmental and intracellular signals to regulate cell growth. Amino acids stimulate mTORC1 activation at the lysosome in a manner thought to be dependent on the Rag small guanosine triphosphatases (GTPases), the Ragulator complex, and the vacuolar H(+)-adenosine triphosphatase (v-ATPase). We report that leucine and glutamine stimulate mTORC1 by Rag GTPase-dependent and -independent mechanisms, respectively. Glutamine promoted mTORC1 translocation to the lysosome in RagA and RagB knockout cells and required the v-ATPase but not the Ragulator. Furthermore, we identified the adenosine diphosphate ribosylation factor-1 GTPase to be required for mTORC1 activation and lysosomal localization by glutamine. Our results uncover a signaling cascade to mTORC1 activation independent of the Rag GTPases and suggest that mTORC1 is differentially regulated by specific amino acids.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The mechanistic target of rapamycin (mTOR) complex 1 (mTORC1) integrates environmental and intracellular signals to regulate cell growth. Amino acids stimulate mTORC1 activation at the lysosome in a manner thought to be dependent on the Rag small guanosine triphosphatases (GTPases), the Ragulator complex, and the vacuolar H(+)-adenosine triphosphatase (v-ATPase). We report that leucine and glutamine stimulate mTORC1 by Rag GTPase-dependent and -independent mechanisms, respectively. Glutamine promoted mTORC1 translocation to the lysosome in RagA and RagB knockout cells and required the v-ATPase but not the Ragulator. Furthermore, we identified the adenosine diphosphate ribosylation factor-1 GTPase to be required for mTORC1 activation and lysosomal localization by glutamine. Our results uncover a signaling cascade to mTORC1 activation independent of the Rag GTPases and suggest that mTORC1 is differentially regulated by specific amino acids.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical/genetic</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 / Rag GTPases</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>Leucine activates mTORC1 via the Rags; glutamine activates it Rag-independently – differential regulation</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><span>Glutamine</span><a href="/nutrient/leucine/">Leucine</a></div>
 <h2>Learn the biology</h2><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/nutrient-sensing/">Nutrient Sensing</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
@@ -315,7 +334,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

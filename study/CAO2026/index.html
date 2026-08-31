@@ -310,6 +310,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -323,6 +340,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · CAO2026</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome</h1>
 <p class="meta">Cao ZL; Zhao SC; Lin F; Liu YH; Hong XT; Hong LY; Xu LQ; Li FP; Yu HY; Yao WG; Chen WY · 2026 · <em>Frontiers in Oncology</em> · Atlas ID <code>CAO2026</code></p>
 <p class="summary">Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic &#x27;global mTORC1 hyperactivation&#x27; model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation, while haploinsufficiency alone is sufficient for lung and skin lesions -- resolving the &#x27;mTORC1 paradox&#x27; via gene dosage and signaling timing. Narrative synthesis of human genetics and mouse mechanistic data.
@@ -336,7 +354,7 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.3389/fonc.2026.1848740">DOI 10.3389/fonc.2026.1848740</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/42558438/">PMID 42558438</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13437482/">Free full text (PMC13437482)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Birt-Hogg-Dube (BHD) syndrome, caused by mutations in the tumor suppressor gene, has traditionally been classified as a classic &#x27;mTORopathy&#x27; characterized by global mTORC1 activation. Recent structural and multi-omic studies have fundamentally challenged this view, revealing that FLCN functions as a GAP for RagC/D to govern substrate-selective mTORC1 regulation. Synthesizing emerging evidence, we describe an integrated pathogenic framework: biallelic inactivation drives renal tumorigenesis via constitutive MiT/TFE nuclear accumulation and metabolic reprogramming, whereas haploinsufficiency suffices to disrupt structural integrity in the lung and skin. By reconciling the &#x27;mTORC1 paradox&#x27; through the lens of gene dosage and temporal signaling dynamics, we highlight novel therapeutic vulnerabilities targeting MiT/TFE factors and kinase rewiring, providing a rationale for organ-specific precision medicine in BHD.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Birt-Hogg-Dube (BHD) syndrome, caused by mutations in the tumor suppressor gene, has traditionally been classified as a classic &#x27;mTORopathy&#x27; characterized by global mTORC1 activation. Recent structural and multi-omic studies have fundamentally challenged this view, revealing that FLCN functions as a GAP for RagC/D to govern substrate-selective mTORC1 regulation. Synthesizing emerging evidence, we describe an integrated pathogenic framework: biallelic inactivation drives renal tumorigenesis via constitutive MiT/TFE nuclear accumulation and metabolic reprogramming, whereas haploinsufficiency suffices to disrupt structural integrity in the lung and skin. By reconciling the &#x27;mTORC1 paradox&#x27; through the lens of gene dosage and temporal signaling dynamics, we highlight novel therapeutic vulnerabilities targeting MiT/TFE factors and kinase rewiring, providing a rationale for organ-specific precision medicine in BHD.</p></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -345,7 +363,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

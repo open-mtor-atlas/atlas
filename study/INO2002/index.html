@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · INO2002</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling</h1>
 <p class="meta">Inoki K; Guan KL et al. · 2002 · <em>Nature Cell Biology</em> · Atlas ID <code>INO2002</code></p>
 <p class="summary">Akt directly phosphorylates and inactivates TSC2, disrupting the TSC1-TSC2 complex and releasing its inhibition of mTOR - the link between growth-factor/insulin signaling and mTORC1 activation.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/ncb839">DOI 10.1038/ncb839</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/12172553/">PMID 12172553</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Tuberous sclerosis (TSC) is an autosomal dominant disorder characterized by the formation of hamartomas in a wide range of human tissues. Mutation in either the TSC1 or TSC2 tumour suppressor gene is responsible for both the familial and sporadic forms of this disease. TSC1 and TSC2 proteins form a physical and functional complex in vivo. Here, we show that TSC1-TSC2 inhibits the p70 ribosomal protein S6 kinase 1 (an activator of translation) and activates the eukaryotic initiation factor 4E binding protein 1 (4E-BP1, an inhibitor of translational initiation). These functions of TSC1-TSC2 are mediated by inhibition of the mammalian target of rapamycin (mTOR). Furthermore, TSC2 is directly phosphorylated by Akt, which is involved in stimulating cell growth and is activated by growth stimulating signals, such as insulin. TSC2 is inactivated by Akt-dependent phosphorylation, which destabilizes TSC2 and disrupts its interaction with TSC1. Our data indicate a molecular mechanism for TSC2 in insulin signalling, tumour suppressor functions and in the inhibition of cell growth.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Tuberous sclerosis (TSC) is an autosomal dominant disorder characterized by the formation of hamartomas in a wide range of human tissues. Mutation in either the TSC1 or TSC2 tumour suppressor gene is responsible for both the familial and sporadic forms of this disease. TSC1 and TSC2 proteins form a physical and functional complex in vivo. Here, we show that TSC1-TSC2 inhibits the p70 ribosomal protein S6 kinase 1 (an activator of translation) and activates the eukaryotic initiation factor 4E binding protein 1 (4E-BP1, an inhibitor of translational initiation). These functions of TSC1-TSC2 are mediated by inhibition of the mammalian target of rapamycin (mTOR). Furthermore, TSC2 is directly phosphorylated by Akt, which is involved in stimulating cell growth and is activated by growth stimulating signals, such as insulin. TSC2 is inactivated by Akt-dependent phosphorylation, which destabilizes TSC2 and disrupts its interaction with TSC1. Our data indicate a molecular mechanism for TSC2 in insulin signalling, tumour suppressor functions and in the inhibition of cell growth.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Biochemical/genetic (Akt phosphorylation of TSC2)</td></tr>
 <tr><td><strong>Target</strong></td><td>TSC2 / Akt / mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Human cell lines</td></tr>
 <tr><td><strong>Effect</strong></td><td>Akt phosphorylates and inactivates TSC2 → relieves mTOR inhibition (links insulin/growth factors to mTORC1)</td></tr>
-</table>
+</table></div>
 <h2>Related topics</h2><div class="tags"><a href="/gene/tsc1-tsc2/">TSC1/TSC2</a><a href="/gene/akt-pkb/">Akt/PKB</a><a href="/gene/pi3k/">PI3K</a><a href="/complex/mtorc1/">mTORC1</a></div>
 <h2>Learn the biology</h2><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/rheb/">Rheb — The Critical Regulator</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
@@ -315,7 +334,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

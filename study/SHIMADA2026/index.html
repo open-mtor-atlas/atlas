@@ -271,6 +271,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -284,6 +301,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · SHIMADA2026</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Sexual Dimorphism in Placental mTORC1 Signaling, Amino Acid Transport, and Mitochondrial Respiration at Term.</h1>
 <p class="meta">Shimada H; Sakuragi T; Zaegel V et al. · 2026 · <em>Antioxidants</em> · Atlas ID <code>SHIMADA2026</code></p>
 <p class="summary">In 46 term placentas, male placentas showed higher mTORC1 signalling (increased S6RP phosphorylation, reduced 4E-BP1), greater System A amino acid transport and higher mitochondrial respiratory capacity than female placentas, correlating with a higher birth-weight-to-placental-weight ratio.
@@ -297,13 +315,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.3390/antiox15080977">DOI 10.3390/antiox15080977</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">Male fetuses generally grow faster in utero and are heavier at birth than females, whereas perinatal mortality and morbidity are often higher in boys. Placentas were collected from 46 women with uncomplicated pregnancies delivering appropriate-for-gestational-age infants (23 female, 23 male). In homogenates of male placentas, phosphorylation of S6RP (Ser235/236) was increased and total 4E-BP1 protein expression reduced compared with female placentas, indicating enhanced mTORC1 signalling. In vitro System A amino acid transport activity was greater in microvillous plasma membranes from male placentas. Male placentas exhibited greater maximal oxidative phosphorylation capacity, enhanced complex II-linked respiration and higher maximal electron transport system capacity under both carbohydrate- and lipid-supported conditions. Although placental weight did not differ between sexes, the birth weight-to-placental weight ratio was significantly higher in male pregnancies.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Male fetuses generally grow faster in utero and are heavier at birth than females, whereas perinatal mortality and morbidity are often higher in boys. Placentas were collected from 46 women with uncomplicated pregnancies delivering appropriate-for-gestational-age infants (23 female, 23 male). In homogenates of male placentas, phosphorylation of S6RP (Ser235/236) was increased and total 4E-BP1 protein expression reduced compared with female placentas, indicating enhanced mTORC1 signalling. In vitro System A amino acid transport activity was greater in microvillous plasma membranes from male placentas. Male placentas exhibited greater maximal oxidative phosphorylation capacity, enhanced complex II-linked respiration and higher maximal electron transport system capacity under both carbohydrate- and lipid-supported conditions. Although placental weight did not differ between sexes, the birth weight-to-placental weight ratio was significantly higher in male pregnancies.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>None (observational comparison by fetal sex)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1; S6RP; 4E-BP1; System A amino acid transport</td></tr>
 <tr><td><strong>Model</strong></td><td>Human</td></tr>
 <tr><td><strong>Effect</strong></td><td>Higher mTORC1 activity, amino acid transport and mitochondrial respiratory capacity in male placentas; higher birth-weight-to-placental-weight ratio</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -312,7 +331,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

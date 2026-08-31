@@ -272,6 +272,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -285,6 +302,7 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies" class="active">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#studies">Studies</a> · CON2021</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Genome-wide CRISPR screens reveal multitiered mechanisms through which mTORC1 senses mitochondrial dysfunction</h1>
 <p class="meta">Condon KJ; Sabatini DM et al. · 2021 · <em>Proceedings of the National Academy of Sciences of the United States of America</em> · Atlas ID <code>CON2021</code></p>
 <p class="summary">Genome-wide CRISPR screens reveal AMPK and HRI relay mitochondrial dysfunction to mTORC1.
@@ -298,13 +316,14 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1073/pnas.2022120118">DOI 10.1073/pnas.2022120118</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/33483422/">PMID 33483422</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7848693/">Free full text (PMC7848693)</a></td></tr>
 </table>
-<h2>Abstract</h2><p class="abstract">In mammalian cells, nutrients and growth factors signal through an array of upstream proteins to regulate the mTORC1 growth control pathway. Because the full complement of these proteins has not been systematically identified, we developed a FACS-based CRISPR-Cas9 genetic screening strategy to pinpoint genes that regulate mTORC1 activity. Along with almost all known positive components of the mTORC1 pathway, we identified many genes that impact mTORC1 activity. Using the genome-wide screening data, we generated a focused sublibrary targeting hundreds of genes and carried out epistasis screens in cells lacking nutrient- and stress-responsive mTORC1 modulators, including GATOR1, AMPK, GCN2, and ATF4. From these data, we pinpointed mitochondrial function as a particularly important input into mTORC1 signaling. We find that the kinases AMPK and HRI signal, with varying kinetics, mitochondrial distress to mTORC1, and that HRI acts through the ATF4-dependent up-regulation of both Sestrin2 and Redd1. Loss of both AMPK and HRI is sufficient to render mTORC1 signaling largely resistant to mitochondrial dysfunction induced by the ATP synthase inhibitor oligomycin as well as the electron transport chain inhibitors piericidin and antimycin. Taken together, our data reveal a catalog of genes that impact the mTORC1 pathway and clarify the multifaceted ways in which mTORC1 senses mitochondrial dysfunction.</p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">In mammalian cells, nutrients and growth factors signal through an array of upstream proteins to regulate the mTORC1 growth control pathway. Because the full complement of these proteins has not been systematically identified, we developed a FACS-based CRISPR-Cas9 genetic screening strategy to pinpoint genes that regulate mTORC1 activity. Along with almost all known positive components of the mTORC1 pathway, we identified many genes that impact mTORC1 activity. Using the genome-wide screening data, we generated a focused sublibrary targeting hundreds of genes and carried out epistasis screens in cells lacking nutrient- and stress-responsive mTORC1 modulators, including GATOR1, AMPK, GCN2, and ATF4. From these data, we pinpointed mitochondrial function as a particularly important input into mTORC1 signaling. We find that the kinases AMPK and HRI signal, with varying kinetics, mitochondrial distress to mTORC1, and that HRI acts through the ATF4-dependent up-regulation of both Sestrin2 and Redd1. Loss of both AMPK and HRI is sufficient to render mTORC1 signaling largely resistant to mitochondrial dysfunction induced by the ATP synthase inhibitor oligomycin as well as the electron transport chain inhibitors piericidin and antimycin. Taken together, our data reveal a catalog of genes that impact the mTORC1 pathway and clarify the multifaceted ways in which mTORC1 senses mitochondrial dysfunction.</p></div>
+<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genome-wide CRISPR-Cas9 screen</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 (mitochondrial-dysfunction sensing)</td></tr>
 <tr><td><strong>Model</strong></td><td>CRISPR screen; cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>CRISPR screens reveal multitiered mechanisms through which mTORC1 senses mitochondrial dysfunction</td></tr>
-</table>
+</table></div>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -313,7 +332,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>

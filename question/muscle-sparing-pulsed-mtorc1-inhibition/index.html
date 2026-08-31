@@ -221,6 +221,23 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
+.lvsw-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.lvsw-btns{display:flex;border:1px solid var(--line)}
+.lvsw-btns button{font-family:inherit;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:6px 11px;cursor:pointer;color:var(--soft)}
+.lvsw-btns button:last-child{border-right:none}
+.lvsw-btns button:hover{color:var(--teal)}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lv-beginner,.lv-research{display:none}
+[data-level="beginner"] .lv-beginner{display:block}
+[data-level="beginner"] .lv-student{display:none}
+[data-level="research"] .lv-research{display:block}
+[data-level="research"] .lv-student{display:none}
+[data-level="beginner"] .lv-hide-beginner{display:none}
 </style>
 </head>
 <body>
@@ -234,12 +251,13 @@ a{overflow-wrap:anywhere}
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions" class="active">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/#questions">Open Questions</a> · Muscle-sparing, pulsed mTORC1 inhibition</nav>
+<div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Muscle-sparing, pulsed mTORC1 inhibition</h1>
 <p class="meta">Studies point in different directions · confidence 70% · Atlas ID <code>H3</code></p>
 <h2>The gap</h2><p class="summary">mTORC1 is needed to build muscle, yet turning it down is also the best-known way to extend lifespan - a real tension. In one mouse study, a short course of rapamycin extended male life expectancy by 60%. At the high injected dose it did nothing for females and caused more aggressive blood cancers in them - but the same study also tested a lower dose given in food, and that one helped both sexes equally. So pulsed dosing is not automatically a problem for females; the dose and the route matter. It is still just one experiment.</p>
-<p class="meta"><em>Technical framing:</em> mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016, HIGH-DOSE ARM (8 mg/kg/day i.p. x 90 days from 20-21 months) -&gt; males +60% post-treatment life expectancy (p=0.02); females NO survival benefit (p=0.261) with a shift toward aggressive haematopoietic cancers (round-cell tumours 16/16 vs 6/12 controls, p=0.002) and away from non-haematopoietic neoplasia. DOSE QUALIFIER (added 2026-08-30, from the full text): the SAME paper&#x27;s second arm - 126 ppm encapsulated rapamycin in diet, same 90 days, same starting age - significantly increased post-treatment survival in BOTH sexes independently, and a Cox model with robust standard errors found no evidence that sex modified the treatment effect (p=0.904). So &#x27;transient dosing captures the benefit&#x27; is supported, and the female harm signal is specific to the high-dose injection regimen rather than a property of pulsed dosing as such. A pulsed / muscle-sparing design must therefore control for dose and route, not only for sex. This is still one experiment in one strain: whether the principle generalises across strain, species, treatment window and endpoint is untested.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016, HIGH-DOSE ARM (8 mg/kg/day i.p. x 90 days from 20-21 months) -&gt; males +60% post-treatment life expectancy (p=0.02); females NO survival benefit (p=0.261) with a shift toward aggressive haematopoietic cancers (round-cell tumours 16/16 vs 6/12 controls, p=0.002) and away from non-haematopoietic neoplasia. DOSE QUALIFIER (added 2026-08-30, from the full text): the SAME paper&#x27;s second arm - 126 ppm encapsulated rapamycin in diet, same 90 days, same starting age - significantly increased post-treatment survival in BOTH sexes independently, and a Cox model with robust standard errors found no evidence that sex modified the treatment effect (p=0.904). So &#x27;transient dosing captures the benefit&#x27; is supported, and the female harm signal is specific to the high-dose injection regimen rather than a property of pulsed dosing as such. A pulsed / muscle-sparing design must therefore control for dose and route, not only for sex. This is still one experiment in one strain: whether the principle generalises across strain, species, treatment window and endpoint is untested.</p>
 <h2>The hypothesis</h2><p>Educated guess: giving mTOR-blocking drugs in short pulses — timed so the drug clears the body right after exercise — might preserve muscle while still giving most of the longevity benefit.</p>
-<p class="meta"><em>Technical framing:</em> Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.</p>
 <h2>How it could be tested</h2><p>Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.</p>
 <h2>Related studies</h2><p><a href="/study/DRU2009/">DRU2009</a> · <a href="/study/ROM2001/">ROM2001</a> · <a href="/study/MOE2025/">MOE2025</a> · <a href="/study/BIT2016/">BIT2016</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#questions">Open in the Atlas explorer</a></p>
@@ -250,7 +268,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:10 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 12:06 UTC</div>
 </footer>
 </div>
 </body>
