@@ -185,7 +185,7 @@ LEVEL_SWITCH_CSS = """
   padding:6px 11px;cursor:pointer;color:var(--soft)}
 .lvsw-btns button:last-child{border-right:none}
 .lvsw-btns button:hover{color:var(--teal)}
-.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:600}
+.lvsw-btns button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink,#fff);font-weight:600}
 .lv-beginner,.lv-research{display:none}
 [data-level="beginner"] .lv-beginner{display:block}
 [data-level="beginner"] .lv-student{display:none}
@@ -222,5 +222,94 @@ def level_switch_html():
         "document.querySelectorAll('#lvsw button').forEach(function(b){"
         "b.addEventListener('click',function(){lv=b.dataset.lv;"
         "try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});"
+        '})();</script>'
+    )
+
+
+# ---------------------------------------------------------------------------
+# Mode toggle (dark/light) -- Faze 6, S7 planu typograficke unifikace.
+# Univerzalni na rozdil od LEVEL: kazda stranka ma viditelnou barvu, takze
+# na rozdil od level_switch_html() tu neni "jen kde to ma smysl" vetev --
+# mode_toggle_html() se vklada bez podminky do KAZDE stranky pres
+# topbar_html() (build_pages.py i generate.py, obe maji vlastni kopii
+# topbar_html() ze stejneho duvodu jako u FOOTER_LINKS vys -- generate.py
+# se distribuuje nezavisle na zivem checkoutu repa).
+#
+# Stejny localStorage['atlas-theme'] klic + data-theme atribut + hodnoty
+# ('light'/'dark') jako index.html's vlastni toggleTheme() (viz tam,
+# ~radek 5882-5934) -- jeden sdileny stav tematu napric SPA i statickymi
+# strankami, ne druha nezavisla implementace. Ikony (slunce/mesic SVG) jsou
+# bajt-pro-bajt kopie tech ze index.html, ze stejneho duvodu.
+#
+# THEME_FOUC_SCRIPT je oddeleny, minimalni blokujici <script>, ktery patri
+# jako UPLNE PRVNI vec v <head> -- PRED <link rel="stylesheet"> na type.css
+# i pred inline <style> blok. Nastavi data-theme na <html> drive, nez
+# prohlizec cokoli vykresli, takze stranka s ulozenou tmavou preferenci
+# neblikne pri nacteni bile (FOUC). To je rozdil oproti tomu, jak to dnes
+# dela SPA (index.html): tam toggleTheme() skript sedi az bl blizko konce
+# <body> (po vetsine obsahu), takze SPA samo o sobe FOUC prevenci nema --
+# staticke stranky jsou jednodussi (male <head>, zadny velky JS aplikacni
+# strom pred nim) a tenhle spravny vzor si tu muzeme dovolit. Neni to
+# druha nezavisla logika: cte/pise STEJNY klic/atribut, jen driv.
+# ---------------------------------------------------------------------------
+
+THEME_FOUC_SCRIPT = (
+    '<script>(function(){'
+    "try{if(localStorage.getItem('atlas-theme')==='dark')"
+    "document.documentElement.setAttribute('data-theme','dark');"
+    "}catch(e){}"
+    '})();</script>'
+)
+
+MODE_TOGGLE_CSS = """
+.topbar-controls{margin-left:auto;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.topbar-switch-group{display:flex;align-items:center;gap:7px}
+.topbar-switch-label{font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.theme-toggle{background:none;border:1px solid var(--line-strong);padding:5px 12px;
+  cursor:pointer;color:var(--soft);font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;
+  flex-shrink:0;border-radius:0;line-height:1.4;transition:all .15s}
+.theme-toggle:hover{border-color:var(--teal);color:var(--teal)}
+.theme-toggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+@media (max-width:760px){
+  .topbar-controls{margin-left:0}
+}
+"""
+
+
+def mode_toggle_html():
+    """Tlacitko + skript pro topbar_html(). Shodny mechanismus jako
+    index.html's theme-toggle (stejne SVG ikony, stejny localStorage klic
+    'atlas-theme', stejne hodnoty 'light'/'dark'). Na rozdil od
+    level_switch_html() nema podminku (viz komentar vys) -- kazda stranka,
+    ktera zavola topbar_html(), ho dostane."""
+    return (
+        '<div class="topbar-switch-group">'
+        '<span class="topbar-switch-label">Mode</span>'
+        '<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" '
+        'type="button" title="Switch theme">'
+        '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        '<span id="themeLabel">Dark</span>'
+        '</button></div>'
+        '<script>(function(){'
+        "function updateBtn(theme){"
+        "var btn=document.getElementById('themeToggle'),lbl=document.getElementById('themeLabel');"
+        "if(!btn||!lbl)return;"
+        "if(theme==='dark'){"
+        "btn.querySelector('svg').innerHTML='<circle cx=\"12\" cy=\"12\" r=\"4\"/>"
+        "<path d=\"M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"
+        "M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41\"/>';lbl.textContent='Light';"
+        "}else{"
+        "btn.querySelector('svg').innerHTML='<path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\"/>';"
+        "lbl.textContent='Dark';}}"
+        "window.toggleTheme=function(){"
+        "var cur=document.documentElement.getAttribute('data-theme')||'light';"
+        "var next=cur==='dark'?'light':'dark';"
+        "document.documentElement.setAttribute('data-theme',next);"
+        "try{localStorage.setItem('atlas-theme',next);}catch(e){}"
+        "updateBtn(next);};"
+        "updateBtn(document.documentElement.getAttribute('data-theme')||'light');"
         '})();</script>'
     )

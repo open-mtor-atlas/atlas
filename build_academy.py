@@ -520,7 +520,7 @@ ACADEMY_CSS = """
 .ac-hero h1{font-size:clamp(26px,3.4vw,34px);line-height:1.18;margin:0 0 12px}
 .ac-hero .ac-lede{font-size:17px;line-height:1.62;color:var(--soft);margin:0 0 20px}
 .ac-cta{display:inline-flex;align-items:center;min-height:44px;background:var(--ink);
-  color:#fff;text-decoration:none;padding:11px 20px;border-radius:3px;font-size:15px;
+  color:var(--on-ink,#fff);text-decoration:none;padding:11px 20px;border-radius:3px;font-size:15px;
   font-weight:600}
 .ac-cta:hover{background:var(--teal)}
 .ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}

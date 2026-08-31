@@ -16,7 +16,8 @@ import json
 import hashlib
 import datetime
 
-from chrome_shared import static_footer_html
+from chrome_shared import (static_footer_html, MODE_TOGGLE_CSS, mode_toggle_html,
+                            THEME_FOUC_SCRIPT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -76,7 +77,7 @@ padding-left:9px;white-space:nowrap}
 letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink);
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
-.oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
+.oma-tabs a.active{color:var(--on-teal,#fff);background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
 nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
 font-family:var(--font-mono,'IBM Plex Mono',monospace);
 font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
@@ -98,7 +99,7 @@ td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top
 ul{padding-left:19px} li{margin-bottom:6px}
 .tags a{display:inline-block;font-size:13px;border:1px solid var(--line);
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
-.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+.cta{display:inline-block;background:var(--ink);color:var(--on-ink,#fff);text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
 footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
 font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
@@ -108,9 +109,9 @@ BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
-.abstract{font-size:15px;color:#26241F}
+.abstract{font-size:15px;color:var(--prose-ink,#26241F)}
 .gloss dt{font-weight:600;font-size:16px;margin-top:20px}
-.gloss dd{margin:4px 0 0;color:#26241F}
+.gloss dd{margin:4px 0 0;color:var(--prose-ink,#26241F)}
 .gloss .cnt{color:var(--soft);font-weight:400;font-size:13px}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -180,12 +181,13 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
-"""
+""" + MODE_TOGGLE_CSS
 
 HEAD_TMPL = """<!DOCTYPE html>
 <html lang="en">
 <!-- generated-by-generate-answers-2026-08-22 -->
 <head>
+{theme_fouc}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-420TPC8J46"></script>
 <script>
@@ -258,6 +260,7 @@ def topbar_html(active_tab="ask"):
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
 </a>
+<div class="topbar-controls">{mode_toggle_html()}</div>
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main">{tabs}</nav></div></div>"""
 
@@ -348,6 +351,7 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
     head = HEAD_TMPL.format(
         title=esc(title), description=esc(description), canonical=canonical,
         jsonld=jsonld, style=STYLE, type_css_v=TYPE_CSS_VERSION,
+        theme_fouc=THEME_FOUC_SCRIPT,
     )
     body = ["<body>\n" + topbar_html(active_tab) + '\n<div class="wrap">']
     body.append(
@@ -431,7 +435,7 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "the full open question</a>.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
                   '<a href="/outcome/longevity/">Longevity</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
@@ -485,9 +489,9 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "the full open question</a>.</p>"),
     ],
-    related_links='<a href="/gene/mtor/">mTOR <span style="color:#7C7569">62</span></a>'
-                  '<a href="/complex/mtorc1/">mTORC1 <span style="color:#7C7569">75</span></a>'
-                  '<a href="/complex/mtorc2/">mTORC2 <span style="color:#7C7569">14</span></a>'
+    related_links='<a href="/gene/mtor/">mTOR <span style="color:var(--muted-count,#7C7569)">62</span></a>'
+                  '<a href="/complex/mtorc1/">mTORC1 <span style="color:var(--muted-count,#7C7569)">75</span></a>'
+                  '<a href="/complex/mtorc2/">mTORC2 <span style="color:var(--muted-count,#7C7569)">14</span></a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
     faq_a=(
         "mTORC1 regulates protein synthesis, autophagy, and growth, and is rapamycin's "
@@ -554,8 +558,8 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "mTORC1-selective, mTORC2-sparing dosing</a>.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
-                  '<a href="/drug/everolimus/">Everolimus <span style="color:#7C7569">14</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+                  '<a href="/drug/everolimus/">Everolimus <span style="color:var(--muted-count,#7C7569)">14</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
@@ -628,7 +632,7 @@ add(
          '<a href="/question/muscle-sparing-pulsed-mtorc1-inhibition/">pulsed dosing</a> '
          "track directly.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
@@ -686,7 +690,7 @@ add(
          "longevity benefit rapamycin does — an assumption a lot of \"autophagy-boosting\" "
          "supplement marketing quietly skips over.</p>"),
     ],
-    related_links='<a href="/process/autophagy/">Autophagy <span style="color:#7C7569">18</span></a>'
+    related_links='<a href="/process/autophagy/">Autophagy <span style="color:var(--muted-count,#7C7569)">18</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
     faq_a=(
@@ -749,7 +753,7 @@ add(
                  "and its primary metabolic endpoint showed no significant change."),
         ]) + "</ul>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
@@ -814,7 +818,7 @@ add(
          "rapamycin is the single most consistent way known to extend lifespan in "
          "laboratory animals across species.</p>"),
     ],
-    related_links='<a href="/gene/mtor/">mTOR <span style="color:#7C7569">62</span></a>'
+    related_links='<a href="/gene/mtor/">mTOR <span style="color:var(--muted-count,#7C7569)">62</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
@@ -876,8 +880,8 @@ add(
          "covered on the "
          '<a href="/answers/rapamycin-side-effects/">side-effects answer page</a>.</p>'),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
-                  '<a href="/drug/metformin/">Metformin <span style="color:#7C7569">3</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+                  '<a href="/drug/metformin/">Metformin <span style="color:var(--muted-count,#7C7569)">3</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
         "Rapamycin directly and potently inhibits mTORC1 (38 studies in the Atlas, "
@@ -939,8 +943,8 @@ add(
          "complex, where its more predictable pharmacokinetics matter for precise dosing "
          "against tumors.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a>'
-                  '<a href="/drug/everolimus/">Everolimus <span style="color:#7C7569">14</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+                  '<a href="/drug/everolimus/">Everolimus <span style="color:var(--muted-count,#7C7569)">14</span></a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
         "No — sirolimus is rapamycin itself, while everolimus is a semi-synthetic "
@@ -1004,9 +1008,9 @@ add(
          "aging needs to reckon with a drug class whose clearest, best-proven human "
          "benefit so far is in treating cancers that mTOR hyperactivation helps drive.</p>"),
     ],
-    related_links='<a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex <span style="color:#7C7569">5</span></a>'
-                  '<a href="/disease/breast-cancer/">Breast cancer <span style="color:#7C7569">3</span></a>'
-                  '<a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) <span style="color:#7C7569">3</span></a>'
+    related_links='<a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex <span style="color:var(--muted-count,#7C7569)">5</span></a>'
+                  '<a href="/disease/breast-cancer/">Breast cancer <span style="color:var(--muted-count,#7C7569)">3</span></a>'
+                  '<a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) <span style="color:var(--muted-count,#7C7569)">3</span></a>'
                   '<a href="/drug/everolimus/">Everolimus</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
@@ -1181,7 +1185,7 @@ def glossary_page():
             '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=1) + '\n</script>',
             bc,
         ]),
-        style=STYLE, type_css_v=TYPE_CSS_VERSION,
+        style=STYLE, type_css_v=TYPE_CSS_VERSION, theme_fouc=THEME_FOUC_SCRIPT,
     )
     out = [head, "<body>\n" + topbar_html("ask") + '\n<div class="wrap">']
     out.append('<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver\'s mTOR Atlas</a> '
@@ -1225,7 +1229,7 @@ def hub_page():
     bc = breadcrumb_jsonld_flat("Answers", "https://mtor-atlas.org/answers/")
     items = "".join(
         '<p style="margin:0 0 10px"><a href="/answers/{slug}/"><strong>{h1}</strong></a><br>'
-        '<span style="color:#55524C;font-size:14px">{desc}</span></p>'.format(
+        '<span style="color:var(--soft);font-size:14px">{desc}</span></p>'.format(
             slug=p["slug"], h1=esc(p["h1"]), desc=esc(p["description"]))
         for p in PAGES
     )
@@ -1246,7 +1250,7 @@ def hub_page():
             '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=1) + '\n</script>',
             bc,
         ]),
-        style=STYLE, type_css_v=TYPE_CSS_VERSION,
+        style=STYLE, type_css_v=TYPE_CSS_VERSION, theme_fouc=THEME_FOUC_SCRIPT,
     )
     out = [head, "<body>\n" + topbar_html("ask") + '\n<div class="wrap">']
     out.append('<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver\'s mTOR Atlas</a> '

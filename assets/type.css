@@ -46,6 +46,18 @@
   /* ---- odstupy ---- */
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:18px;
   --sp-5:26px; --sp-6:34px; --sp-7:48px;
+
+  /* ---- barvy (Faze 6) -- svetle vychozi hodnoty pro role, ktere
+     shell()/generate.py's vlastni :root nezna (ten definuje jen
+     --paper/--ink/--soft/--line/--teal/--amber -- viz jejich vlastni
+     inline :root, beze zmeny). html[data-theme="dark"] nize prebije
+     VSECHNY tyhle tokeny -- [data-theme="dark"] ma vyssi specificitu
+     nez cisty :root, takze vyhraje bez ohledu na poradi v <head>. ---- */
+  --line-strong: rgba(0,0,0,0.34);
+  --on-ink:      #ffffff;
+  --on-teal:     #ffffff;
+  --muted-count: #7C7569;  /* pocty studii vedle related-link odkazu */
+  --prose-ink:   #26241F;  /* .abstract / .gloss dd */
 }
 
 /* Kontejnerové utility -- viz §4 plánu. Zatím je nepoužívá žádná
@@ -53,3 +65,34 @@
 .oma-page  {max-width:var(--measure-wide); margin:0 auto;}
 .oma-prose {max-width:var(--measure);}
 .oma-bleed {max-width:var(--frame); margin:0 auto;}
+
+/* ============================================================
+   DARK MODE (Faze 6, S7 planu). Zrcadli index.html's
+   html[data-theme="dark"] paletu (~radek 688) 1:1 pro role, ktere
+   SPA uz ma -- --paper/--ink/--line/--line-strong/--teal/--amber --
+   tak SPA i staticke stranky v tmavem rezimu vypadaji jako jeden web,
+   ne dve nezavisle vymyslene palety. --soft je static-only jmeno pro
+   tu samou roli jako SPA's --ink-soft (#94adc0 tam i tady).
+
+   Dve role nemaji SPA ekvivalent (jen staticke stranky je pouzivaji):
+   --muted-count (pocty studii vedle related-link odkazu, drive natvrdo
+   #7C7569 -- shodou okolnosti stejna hodnota jako tier D barva, to je
+   koincidence dat pri autorstvi teto konkretni hex hodnoty, ne sdilena
+   promenna -- tier paleta v check_tier_palette.py zustava nedotcena)
+   a --prose-ink (.abstract/.gloss dd, drive natvrdo #26241F). Obe v
+   tmavem rezimu prebiraji hodnotu --soft/--ink dark: v tmavem textu ta
+   jemna odlisnost od cisteho ink/soft nehraje takovou roli jako ve
+   svetlem rezimu, citelnost ma prednost. WCAG AA (4.5:1) overeno proti
+   --paper dark -- viz kontrastni tabulka ve Faze 6 zapisu v
+   claude/typography-unification-plan-2026-08-31.md (project memory).
+
+   Nesahej na barvy evidence tieru (--tier-a/b/c/d apod.) -- viz
+   poznamka nahore u :root, hlida check_tier_palette.py.
+   ============================================================ */
+html[data-theme="dark"]{
+  --paper:#0e1219; --ink:#d4dfe8; --soft:#94adc0;
+  --line:rgba(108,168,178,0.1); --line-strong:rgba(108,168,178,0.2);
+  --teal:#6ca8b2; --amber:#c4955e;
+  --on-ink:#0e1219; --on-teal:#0e1219;
+  --muted-count:#94adc0; --prose-ink:#d4dfe8;
+}

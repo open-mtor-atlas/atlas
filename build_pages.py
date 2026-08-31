@@ -32,7 +32,8 @@ import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
 
 from chrome_shared import (FOOTER_LINKS, static_footer_html,
                             spa_footer_link_html, assert_crumb_matches_ld,
-                            entity_explain_for, LEVEL_SWITCH_CSS, level_switch_html)
+                            entity_explain_for, LEVEL_SWITCH_CSS, level_switch_html,
+                            MODE_TOGGLE_CSS, mode_toggle_html, THEME_FOUC_SCRIPT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "atlas_data")
@@ -270,9 +271,17 @@ def topbar_html(active_tab=None):
     navigation as the SPA (index.html), instead of just a bare breadcrumb.
 
     Deliberately NOT a clone of the SPA topbar: no search box (nothing here to
-    search against without the SPA's JS + data) and no Level/Mode switches
-    (those are stateful reading-level/theme controls with nothing to act on
-    on a static page). Just the wordmark and the 9 tabs, as plain links into
+    search against without the SPA's JS + data) and no Level switch (that's a
+    stateful reading-level control that only some page types have anything to
+    act on -- see shell(level_switch=...) instead, which renders it separately
+    below the breadcrumb, only on entity/study/question pages, per Faze 2b/
+    Faze 6's decision not to relocate it). Mode IS included here (Faze 6,
+    2026-08-31): every page has visible color, so unlike Level there is no
+    'only where it applies' branch -- mode_toggle_html() renders
+    unconditionally inside .topbar-controls, mirroring the SPA's own
+    .topbar-controls > .topbar-switch-group markup/class names (index.html)
+    so the two chrome layers read as the same site in both themes. Just the
+    wordmark, Mode toggle, and the 9 tabs, as plain links into
     the SPA's own hash-addressed views -- the SPA reads {SITE}/#view=<tab>
     (URLSearchParams over location.hash, see applyHash() in index.html), NOT
     a bare {SITE}/#<tab> fragment. Fixed 2026-08-23 after the bare-fragment
@@ -299,6 +308,7 @@ def topbar_html(active_tab=None):
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
 </a>
+<div class="topbar-controls">{mode_toggle_html()}</div>
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main">{tabs}</nav></div></div>"""
 
@@ -341,6 +351,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
 <html lang="en">
 {GENERATED_MARKER}
 <head>
+{THEME_FOUC_SCRIPT}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-420TPC8J46"></script>
 <script>
@@ -400,7 +411,7 @@ padding-left:9px;white-space:nowrap}}
 letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink);
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}}
 .oma-tabs a:hover{{background:rgba(163,31,52,.08);color:var(--teal)}}
-.oma-tabs a.active{{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}}
+.oma-tabs a.active{{color:var(--on-teal,#fff);background:var(--teal);border-bottom-color:var(--teal);font-weight:700}}
 nav.crumb{{max-width:var(--measure-wide,1100px);margin:0 auto;padding:14px 22px 0;
 font-family:var(--font-mono,'IBM Plex Mono',monospace);
 font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
@@ -425,7 +436,7 @@ td{{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:to
 ul{{padding-left:19px}} li{{margin-bottom:6px}}
 .tags a{{display:inline-block;font-size:13px;border:1px solid var(--line);
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}}
-.cta{{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+.cta{{display:inline-block;background:var(--ink);color:var(--on-ink,#fff);text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}}
 footer.oma-footer{{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
 font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
@@ -436,7 +447,7 @@ footer.oma-footer .oma-footer-links{{margin-top:10px}}
 footer.oma-footer .oma-footer-links a{{margin:0 8px}}
 footer.oma-footer .oma-footer-meta{{margin-top:10px;opacity:.7}}
 .abstract{{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
-color:#26241F;max-width:var(--measure,68ch)}}
+color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -509,7 +520,8 @@ a{{overflow-wrap:anywhere}}
 @media (prefers-reduced-motion:reduce){{
   *{{animation:none!important;transition:none!important}}
 }}{extra_css}
-{LEVEL_SWITCH_CSS}</style>
+{LEVEL_SWITCH_CSS}
+{MODE_TOGGLE_CSS}</style>
 </head>
 <body>
 {topbar}
@@ -741,7 +753,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
         chips = []
         for n, o in top:
             d2, s2 = TYPE_DIR.get(o["type"], "entity"), slugify(o["name"])
-            count = f' <span style="color:#7C7569">{n}</span>'
+            count = f' <span style="color:var(--muted-count,#7C7569)">{n}</span>'
             if (d2, s2) in haspage:
                 chips.append(f'<a href="/{d2}/{s2}/">{e(o["name"])}{count}</a>')
             else:
@@ -1213,7 +1225,7 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
         items = sorted(by_type[t], key=lambda x: -len(x["studies"]))
         body.append(f"<h3>{e(t)}</h3><p>" + " · ".join(
             f'<a href="/{TYPE_DIR.get(t,"entity")}/{slugify(x["name"])}/">'
-            f'{e(x["name"])}</a> <span style="color:#7C7569">({len(x["studies"])})</span>'
+            f'{e(x["name"])}</a> <span style="color:var(--muted-count,#7C7569)">({len(x["studies"])})</span>'
             for x in items) + "</p>")
 
     body.append(f"<h2>Studies</h2><p>Sorted by year, newest first. "
@@ -1225,7 +1237,7 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
         body.append(
             f'<p style="margin:0 0 7px"><a href="/study/{e(s["sid"])}/">'
             f'{e(s.get("title") or s["sid"])}</a><br>'
-            f'<span style="color:#55524C;font-size:14px">{e(s.get("year") or "")} · '
+            f'<span style="color:var(--soft);font-size:14px">{e(s.get("year") or "")} · '
             f'{e(s.get("journal") or "")} · <span class="tier" '
             f'style="background:{colour}">{code}</span></span></p>')
 

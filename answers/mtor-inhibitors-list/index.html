@@ -2,6 +2,7 @@
 <html lang="en">
 <!-- generated-by-generate-answers-2026-08-22 -->
 <head>
+<script>(function(){try{if(localStorage.getItem('atlas-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-420TPC8J46"></script>
 <script>
@@ -27,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/type.css?v=0f9a7bb34079">
+<link rel="stylesheet" href="/assets/type.css?v=d82d44cb8c32">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -97,7 +98,7 @@ padding-left:9px;white-space:nowrap}
 letter-spacing:.05em;text-transform:uppercase;padding:11px 18px;color:var(--ink);
 text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
 .oma-tabs a:hover{background:rgba(163,31,52,.08);color:var(--teal)}
-.oma-tabs a.active{color:#fff;background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
+.oma-tabs a.active{color:var(--on-teal,#fff);background:var(--teal);border-bottom-color:var(--teal);font-weight:700}
 nav.crumb{max-width:760px;margin:0 auto;padding:14px 22px 0;
 font-family:var(--font-mono,'IBM Plex Mono',monospace);
 font-size:var(--fs-micro,11px);letter-spacing:.14em;text-transform:uppercase;
@@ -119,7 +120,7 @@ td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top
 ul{padding-left:19px} li{margin-bottom:6px}
 .tags a{display:inline-block;font-size:13px;border:1px solid var(--line);
 border-radius:3px;padding:3px 9px;margin:0 5px 6px 0;text-decoration:none}
-.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+.cta{display:inline-block;background:var(--ink);color:var(--on-ink,#fff);text-decoration:none;
 padding:10px 17px;border-radius:3px;font-size:14px;margin:6px 0 0}
 footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);
 font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
@@ -129,9 +130,9 @@ BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:13px;line-height:1.55}
 footer.oma-footer .oma-footer-links{margin-top:10px}
 footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
-.abstract{font-size:15px;color:#26241F}
+.abstract{font-size:15px;color:var(--prose-ink,#26241F)}
 .gloss dt{font-weight:600;font-size:16px;margin-top:20px}
-.gloss dd{margin:4px 0 0;color:#26241F}
+.gloss dd{margin:4px 0 0;color:var(--prose-ink,#26241F)}
 .gloss .cnt{color:var(--soft);font-weight:400;font-size:13px}
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -201,6 +202,21 @@ a{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+
+.topbar-controls{margin-left:auto;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.topbar-switch-group{display:flex;align-items:center;gap:7px}
+.topbar-switch-label{font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.theme-toggle{background:none;border:1px solid var(--line-strong);padding:5px 12px;
+  cursor:pointer;color:var(--soft);font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;
+  flex-shrink:0;border-radius:0;line-height:1.4;transition:all .15s}
+.theme-toggle:hover{border-color:var(--teal);color:var(--teal)}
+.theme-toggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+@media (max-width:760px){
+  .topbar-controls{margin-left:0}
+}
 </style>
 </head>
 <body>
@@ -210,6 +226,7 @@ a{overflow-wrap:anywhere}
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
 </a>
+<div class="topbar-controls"><div class="topbar-switch-group"><span class="topbar-switch-label">Mode</span><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" type="button" title="Switch theme"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span id="themeLabel">Dark</span></button></div><script>(function(){function updateBtn(theme){var btn=document.getElementById('themeToggle'),lbl=document.getElementById('themeLabel');if(!btn||!lbl)return;if(theme==='dark'){btn.querySelector('svg').innerHTML='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';lbl.textContent='Light';}else{btn.querySelector('svg').innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';lbl.textContent='Dark';}}window.toggleTheme=function(){var cur=document.documentElement.getAttribute('data-theme')||'light';var next=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);try{localStorage.setItem('atlas-theme',next);}catch(e){}updateBtn(next);};updateBtn(document.documentElement.getAttribute('data-theme')||'light');})();</script></div>
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/#view=welcome">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask" class="active">Ask Atlas</a><a href="https://mtor-atlas.org/#view=map">Pathway</a><a href="https://mtor-atlas.org/#view=studies">Studies</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/#view=questions">Open Questions</a><a href="https://mtor-atlas.org/#view=lineage">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
@@ -220,7 +237,7 @@ a{overflow-wrap:anywhere}
 <h2>ATP-competitive inhibitors (&quot;TORKinibs&quot;) — hit both complexes</h2><ul><li><a href="/study/THO2009/">THO2009</a> <span class="tier" style="background:#7C7569">D</span> — using Torin1, a true ATP-competitive inhibitor, this study showed rapamycin actually leaves some mTORC1 jobs running (notably 4E-BP1 phosphorylation) — the discovery that motivated building TORKinibs in the first place, for more complete mTORC1 blockade.</li></ul><p>TORKinibs block the shared catalytic site both complexes use, so they inhibit mTORC1 and mTORC2 together — more complete, but harder to dose without hitting mTORC2-dependent side effects.</p>
 <h2>Bi-steric inhibitors — the newest, most mTORC1-selective class</h2><ul><li><a href="/study/MEN2023/">MEN2023</a> <span class="tier" style="background:#A56827">C</span> — RMC-6272, a bi-steric molecule with >25-fold selectivity for mTORC1 over mTORC2, completely suppresses mTORC1 — including 4E-BP1, the substrate rapamycin itself can't fully block — while largely sparing mTORC2.</li><li><a href="/study/SCH2025/">SCH2025</a> <span class="tier" style="background:#2F6FA8">B</span> — the first human trial (n=57, advanced solid tumors) of a bi-steric mTORC1-selective inhibitor; treatment-related hyperglycemia was reported, showing even this more selective class isn't side-effect-free.</li></ul>
 <h2>Where this connects to the Atlas&#x27;s open questions</h2><p>Whether higher mTORC1 selectivity actually delivers rapamycin's longevity benefit without its metabolic cost is untested in humans at aging-relevant doses — see the open question on <a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">mTORC1-selective, mTORC2-sparing dosing</a>.</p>
-<h2>Related entities</h2><div class="tags"><a href="/drug/rapamycin/">Rapamycin <span style="color:#7C7569">38</span></a><a href="/drug/everolimus/">Everolimus <span style="color:#7C7569">14</span></a><a href="/complex/mtorc1/">mTORC1</a><a href="/complex/mtorc2/">mTORC2</a></div>
+<h2>Related entities</h2><div class="tags"><a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a><a href="/drug/everolimus/">Everolimus <span style="color:var(--muted-count,#7C7569)">14</span></a><a href="/complex/mtorc1/">mTORC1</a><a href="/complex/mtorc2/">mTORC2</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -229,7 +246,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 11:11 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-08-31 15:04 UTC</div>
 </footer>
 </div>
 </body>
