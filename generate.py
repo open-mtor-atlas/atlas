@@ -16,6 +16,8 @@ import json
 import hashlib
 import datetime
 
+from chrome_shared import static_footer_html
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 def _type_css_version():
@@ -363,21 +365,7 @@ def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None
         body.append('<h2>Related entities</h2><div class="tags">{}</div>'.format(related_links))
     body.append('<p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>')
     body.append(
-        '<footer class="oma-footer">\n'
-        "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
-        "pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.\n"
-        "Curated by Oliver Barton, Prague.</p>\n"
-        '<div class="oma-footer-links">\n'
-        '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
-        '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
-        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
-        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
-        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
-        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
-        + BUILD_TIMESTAMP +
-        '</div>\n</footer>'
+        static_footer_html(SITE, BUILD_TIMESTAMP)
     )
     body.append("</div>\n</body>\n</html>\n")
     return head + "\n".join(body)
@@ -1202,21 +1190,7 @@ def glossary_page():
     out.append(body_html)
     out.append('<p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>')
     out.append(
-        '<footer class="oma-footer">\n'
-        "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
-        "pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.\n"
-        "Curated by Oliver Barton, Prague.</p>\n"
-        '<div class="oma-footer-links">\n'
-        '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
-        '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
-        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
-        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
-        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
-        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
-        + BUILD_TIMESTAMP +
-        '</div>\n</footer>'
+        static_footer_html(SITE, BUILD_TIMESTAMP)
     )
     out.append("</div>\n</body>\n</html>\n")
     return "\n".join(out)
@@ -1281,21 +1255,7 @@ def hub_page():
     out.append(body_html)
     out.append('<p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>')
     out.append(
-        '<footer class="oma-footer">\n'
-        "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
-        "pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.\n"
-        "Curated by Oliver Barton, Prague.</p>\n"
-        '<div class="oma-footer-links">\n'
-        '<a href="https://mtor-atlas.org/">Full interactive Atlas</a> · '
-        '<a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · '
-        '<a href="https://mtor-atlas.org/academy/">Academy</a> · '
-        '<a href="https://mtor-atlas.org/answers/">Answers</a> · '
-        '<a href="https://mtor-atlas.org/glossary/">Glossary</a> · '
-        '<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · '
-        '<a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>\n'
-        '</div>\n<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
-        + BUILD_TIMESTAMP +
-        '</div>\n</footer>'
+        static_footer_html(SITE, BUILD_TIMESTAMP)
     )
     out.append("</div>\n</body>\n</html>\n")
     return "\n".join(out)

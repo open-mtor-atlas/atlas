@@ -1020,8 +1020,8 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps):
     body.append('<aside class="ac-rail">%s</aside>' % "".join(rail))
     body.append("</div>")
 
-    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> › <a href="%s/academy/">Academy</a> › '
-             '<a href="%s/academy/%s/">%s</a> › %s'
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> · '
+             '<a href="%s/academy/%s/">%s</a> · %s'
              % (SITE, SITE, SITE, module["slug"], e(module["title"]), e(title)))
 
     ld = {
@@ -1105,7 +1105,7 @@ def curriculum_page(module, lessons_by_slug):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Academy", SITE + "/academy/"),
                         (module["title"], None)])
-    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> › <a href="%s/academy/">Academy</a> › %s'
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> · %s'
              % (SITE, SITE, e(module["title"])))
     return url, shell("%s | mTOR Academy | Oliver's mTOR Atlas" % module["title"],
                       module["description"][:300], url, [ld, bc], "".join(body), crumb,
@@ -1188,7 +1188,7 @@ def academy_home(modules, lessons_by_slug):
           "isPartOf": dict(DATASET_REF),
           "license": "https://creativecommons.org/licenses/by/4.0/"}
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Academy", None)])
-    crumb = '<a href="%s/">Oliver\'s mTOR Atlas</a> › Academy' % SITE
+    crumb = '<a href="%s/">Oliver\'s mTOR Atlas</a> · Academy' % SITE
     return url, shell("mTOR Academy | Oliver's mTOR Atlas",
                       "Learn the mechanisms of mTOR biology from the Atlas's own "
                       "evidence-graded studies: what mTOR integrates, why there are two "

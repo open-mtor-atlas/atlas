@@ -30,6 +30,9 @@ do LEGACY_SLUGS níž, nikdy negeneruj jinou adresu potichu.
 
 import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
 
+from chrome_shared import (FOOTER_LINKS, static_footer_html,
+                            spa_footer_link_html, assert_crumb_matches_ld)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "atlas_data")
 SITE = "https://mtor-atlas.org"
@@ -326,6 +329,12 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
         '<script type="application/ld+json">\n'
         + json.dumps(b, ensure_ascii=False, indent=1) + "\n</script>"
         for b in blocks)
+    # Bezpecnostni sit (plan SS11.3): viditelny drobecek MUSI sedet s
+    # BreadcrumbList JSON-LD, jinak build spadne. Kontrola je tu jednou,
+    # centralne pro vsech ~460 stranek, misto rucniho volani v kazde
+    # *_page() funkci -- shell() uz oba kusy (breadcrumb, jsonld) dostava.
+    for b in blocks:
+        assert_crumb_matches_ld(breadcrumb, b, context=title)
     topbar = topbar_html(active_tab)
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -501,15 +510,7 @@ a{{overflow-wrap:anywhere}}
 <div class="wrap">
 <nav class="crumb">{breadcrumb}</nav>
 {body}
-<footer class="oma-footer">
-<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
-pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
-Curated by Oliver Barton, Prague.</p>
-<div class="oma-footer-links">
-<a href="{SITE}/">Full interactive Atlas</a> · <a href="{SITE}/browse/">Browse the Atlas</a> · <a href="{SITE}/academy/">Academy</a> · <a href="{SITE}/answers/">Answers</a> · <a href="{SITE}/glossary/">Glossary</a> · <a href="{SITE}/about/">About &amp; Methodology</a> · <a href="{SITE}/data/">Data &amp; Citation</a>
-</div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated {BUILD_TIMESTAMP}</div>
-</footer>{extra_body}
+{static_footer_html(SITE, BUILD_TIMESTAMP)}{extra_body}
 </div>
 </body>
 </html>
@@ -1091,7 +1092,7 @@ def data_page(studies, entities):
         "name": "Data & Citation | Oliver's mTOR Atlas", "url": url,
         "mainEntity": ld_dataset,
     }
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u203a Data &amp; Citation'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · Data &amp; Citation'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Data & Citation", None)])
 
@@ -1243,14 +1244,7 @@ def patch_home(n_pages):
                  r"(?:\s*<span[^>]*>[^<]*</span>)?", "", h)
 
     link = (f'{HOME_MARKER} &middot; '
-            f'<a href="/" style="color:inherit">Full interactive Atlas</a> &middot; '
-            f'<a href="/browse/" style="color:inherit">Browse the Atlas</a> '
-            f'<span class="mono" style="opacity:.65">{n_pages} pages</span> &middot; '
-            f'<a href="/academy/" style="color:inherit">Academy</a> &middot; '
-            f'<a href="/answers/" style="color:inherit">Answers</a> &middot; '
-            f'<a href="/glossary/" style="color:inherit">Glossary</a> &middot; '
-            f'<a href="/about/" style="color:inherit">About &amp; Methodology</a> &middot; '
-            f'<a href="/data/" style="color:inherit">Data &amp; Citation</a>'
+            f'{spa_footer_link_html(n_pages)}'
             f'{HOME_END}')
 
     # Ukotveno na SPRÁVNOU patičku, ne na první </footer> v souboru.
