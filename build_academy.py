@@ -738,7 +738,7 @@ ACADEMY_CSS = """
    necitelne. Misto toho dostane vlastni vodorovny scroll -- stranka sama
    se nikdy neposouva do strany (stejny vzor jako .ac-cmpwrap a pravy rail). */
 .ac-mdscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0 10px}
-.ac-mdsvg{width:100%;min-width:560px;height:auto;color:var(--ink);overflow:visible;display:block}
+.ac-mdsvg{width:100%;height:auto;color:var(--ink);overflow:visible;display:block;margin:0 auto}
 .ac-mdnode rect{fill:var(--paper);stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
 .ac-mdnode text{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
   text-anchor:middle}
@@ -1264,9 +1264,15 @@ def model_block(ex, pw, ent_url):
                      'd="M%.0f %.0f V%.0f"/>' % (e(it["id"]), x2 - 10, y2 - 9, y2 + 9))
     height = TOP + tallest + 26
     width = 4 + len(cols) * step
+    # Sirku resi dve cisla odvozena z viewBoxu, ne pevne CSS: maly model
+    # (dva sloupce) by se jinak roztahl pres cely sloupec textu a uzly by
+    # byly dvakrat vetsi nez v sousednim schematu; a min-width pro vodorovny
+    # scroll na mobilu nesmi byt vetsi nez model sam, jinak by scrolloval
+    # neco, co se veslo.
     svg = ('<div class="ac-mdscroll"><svg viewBox="0 0 %d %.0f" class="ac-mdsvg" '
-           'role="img" aria-label="%s">%s</svg></div>'
-           % (width, height, e(ex["caption"]), "".join(g)))
+           'style="max-width:%dpx;min-width:%dpx" role="img" aria-label="%s">%s</svg></div>'
+           % (width, height, int(width * 1.4), min(560, width),
+              e(ex["caption"]), "".join(g)))
 
     # ovladace
     ctl = []
