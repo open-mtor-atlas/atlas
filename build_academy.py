@@ -148,13 +148,21 @@ def load():
             pw["edges"][it["id"]] = it
             pw["pairs"].setdefault((it["source"], it["target"]), it)
 
+    # Research Challenges. Volitelny soubor -- kdyz neexistuje, Academy se
+    # vygeneruje presne jako pred timhle krokem a homepage nechá kartu jako
+    # "coming soon". Zadny dalsi CMS, stejny vzorec jako lessons.json.
+    challenges = []
+    cp = os.path.join(ADATA, "challenges.json")
+    if os.path.exists(cp):
+        challenges = json.load(open(cp, encoding="utf-8"))["challenges"]
+
     gaps = {}
     gp = os.path.join(DATA, "gaps_baked.json")
     if os.path.exists(gp):
         for g in json.load(open(gp, encoding="utf-8")):
             gaps[slugify(g["title"])] = g["title"]
 
-    return lessons, modules, by_sid, ent_url, routes, gaps, pw
+    return lessons, modules, by_sid, ent_url, routes, gaps, pw, challenges
 
 
 # ---------------------------------------------------------------- figures ---
@@ -857,6 +865,225 @@ ACADEMY_CSS = """
   .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
   .ac-list .ac-meta{width:100%}
 }
+"""
+
+
+CHALLENGE_CSS = """
+/* ---- Research Challenges (build_academy.py) --------------------------
+   Appended AFTER ACADEMY_CSS, so it inherits every Academy token and only
+   adds what a decision environment needs that a lesson does not: numbered
+   steps, a budget meter, experiment cards and a qualitative result chart.
+   No new palette, no new type scale, radius stays 3px. Spec §32: slightly
+   more immersive than a lesson, unmistakably the same site. */
+.ac-rcframe{font-size:14.5px;line-height:1.6;color:var(--soft);border-left:3px solid var(--line);
+  padding:2px 0 2px 12px;margin:0 0 26px}
+.ac-rcstep{border-top:1px solid var(--line);padding-top:20px;margin:0 0 34px}
+.ac-rcnum{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-rcstep>h2{margin:0 0 10px}
+.ac-rcknow{list-style:none;padding:0;margin:4px 0 18px}
+.ac-rcknow li{border-top:1px solid var(--line);padding:9px 0;font-size:15px;line-height:1.6}
+.ac-rcsid{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+  border:1px solid var(--line);border-radius:3px;padding:1px 5px;text-decoration:none;
+  white-space:nowrap}
+.ac-rcsid:hover{border-color:var(--teal)}
+
+/* budget meter -- a constraint, not a score. No countdown, no colour alarm. */
+.ac-rcbudget{border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin:0 0 18px}
+.ac-rcblabel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rcbleft{font-size:15px;margin:0 0 8px}
+.ac-rcbleft strong{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal)}
+.ac-rcbartrack{display:block;background:var(--line);border-radius:2px;height:6px;overflow:hidden}
+.ac-rcbarfill{display:block;background:var(--teal);height:100%}
+.ac-rcbudgetbar{margin:0 0 8px}
+
+/* experiment card */
+.ac-rcexp{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 16px}
+.ac-rcexphead{display:flex;gap:12px;align-items:baseline;justify-content:space-between;
+  flex-wrap:wrap;margin:0 0 8px}
+.ac-rcexphead h3{margin:0;font-size:16.5px}
+.ac-rccost{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--soft);white-space:nowrap}
+.ac-rcexp[data-rc-spent="1"]{border-color:var(--teal)}
+.ac-rcrun[hidden]{display:none}
+.ac-rcrun[disabled]{opacity:.45;cursor:not-allowed}
+.ac-rcrun[disabled]:hover{background:none;color:var(--ink)}
+.ac-rcdenied{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 0}
+.ac-rcexp .ac-cmp tr:last-child th,.ac-rcexp .ac-cmp tr:last-child td{border-bottom:none}
+.ac-rcexp .ac-cmpwrap{margin-bottom:2px}
+.ac-rcout{border-top:1px solid var(--line);margin:12px 0 0;padding-top:12px}
+.ac-rcsrc,.ac-rchypo{font-size:14px;line-height:1.6;margin:0 0 10px}
+.ac-rclbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:600;
+  display:block;margin:0 0 3px}
+.ac-rchypo{border-left:3px solid var(--soft);padding:2px 0 2px 12px;color:var(--soft)}
+.ac-rchypo .ac-rclbl{color:var(--ink)}
+
+/* qualitative result chart -- levels, never invented numbers */
+.ac-rcchart{margin:0 0 8px}
+.ac-rcunit{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.ac-rcbarrow{display:grid;grid-template-columns:minmax(0,1fr) 42% auto;gap:10px;
+  align-items:center;padding:4px 0;font-size:14px}
+.ac-rcbarlbl{line-height:1.4}
+.ac-rcbarval{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  white-space:nowrap}
+@media (max-width:560px){
+  .ac-rcbarrow{grid-template-columns:minmax(0,1fr);gap:3px}
+  .ac-rcbarval{text-align:right}
+}
+.ac-rcinfo{font-size:14px;line-height:1.6;color:var(--soft);margin:10px 0 0}
+.ac-rcnotes{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:8px 0 12px}
+.ac-rcnotes p{font-size:14.5px;line-height:1.6;margin:0 0 8px}
+.ac-rcnotes p:last-child{margin-bottom:0}
+.ac-rcnew{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:12px 14px;margin:0 0 14px}
+.ac-rcnewlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-rcnew p:last-child{margin:0;font-size:15px;line-height:1.62}
+.ac-rccmp{border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.ac-rcrefl{margin:0 0 18px}
+.ac-rccommit{font-size:14px;color:var(--teal);margin:6px 0 0;
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.03em}
+.ac-rcnextlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:14px 0 5px}
+.ac-rc .ac-list .ac-n{width:26px}
+"""
+
+CHALLENGE_JS = """
+<script>
+/* Research Challenges. Same contract as every other interactive block on this
+   site: the page is complete without this script. Here it only (a) keeps the
+   research budget, (b) reveals the written feedback for the option a reader
+   picked instead of showing all of them at once, and (c) reports six events to
+   the analytics that shell() already loads. No fetch, no storage, no score.
+
+   Nothing scientific exists only in JS: every result, every note and every
+   limitation is in the HTML above, which is why the no-JS view is the same
+   page with more of it visible at once. */
+(function(){
+  var root=document.body.getAttribute('data-rc-challenge');
+  if(!root) return;
+  function track(name,extra){
+    try{ if(typeof gtag==='function'){
+      var p={challenge:root}; if(extra) for(var k in extra) p[k]=extra[k];
+      gtag('event',name,p);
+    } }catch(e){}
+  }
+  track('challenge_started');
+
+  /* ---------- option groups with written feedback ---------- */
+  document.querySelectorAll('[data-rc-notes]').forEach(function(box){
+    var notes=box.querySelectorAll('[data-rc-note]');
+    notes.forEach(function(p){p.hidden=true;});
+    /* cely kontejner, ne jen odstavce: jinak zbyde 3px pahyl leveho ramecku */
+    box.hidden=true;
+    var group=box.previousElementSibling;
+    if(!group||!group.querySelectorAll) return;
+    var step=box.closest('[data-rc-step]');
+    var kind=step?step.getAttribute('data-rc-step'):'';
+    group.querySelectorAll('[data-rc-opt]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var i=b.getAttribute('data-rc-opt');
+        group.querySelectorAll('[data-rc-opt]').forEach(function(o){
+          o.setAttribute('aria-pressed',String(o===b));
+        });
+        notes.forEach(function(p){p.hidden=p.getAttribute('data-rc-note')!==i;});
+        box.hidden=false;
+        var tag=b.textContent.trim().slice(0,60);
+        if(kind==='hypothesis'){
+          track('hypothesis_committed',{choice:tag});
+          var c=step.querySelector('[data-rc-committed]');
+          if(c){c.textContent='Committed. You can revise this later \\u2014 that is the point.';c.hidden=false;}
+        }
+        else if(kind==='revise') track('hypothesis_revised',{choice:tag});
+        else if(kind==='confounder') track('confounder_answered',{choice:tag});
+        else if(kind==='experiments') track('experiment_interpreted',{choice:tag});
+        else if(kind==='reflect') track('challenge_completed',{choice:tag});
+      });
+    });
+  });
+
+  /* ---------- break-the-model predictions ---------- */
+  document.querySelectorAll('.ac-rcpd').forEach(function(pd){
+    var fall=pd.querySelector('.ac-rcfall'); if(fall) fall.hidden=true;
+    var after=pd.querySelectorAll('[data-ac-after]');
+    after.forEach(function(x){x.hidden=true;});
+    var correct=parseInt(pd.getAttribute('data-answer'),10);
+    var opts=pd.querySelectorAll('.ac-qzopt');
+    opts.forEach(function(b){
+      b.addEventListener('click',function(){
+        if(pd.hasAttribute('data-done')) return;
+        pd.setAttribute('data-done','1');
+        var picked=parseInt(b.getAttribute('data-i'),10);
+        opts.forEach(function(o){
+          var i=parseInt(o.getAttribute('data-i'),10);
+          o.setAttribute('aria-disabled','true');
+          if(i===correct) o.setAttribute('data-mark','right');
+          else if(i===picked) o.setAttribute('data-mark','wrong');
+        });
+        var v=pd.querySelector('.ac-qzverdict');
+        if(v) v.textContent=(picked===correct)?'That is what the model does':'Not what the model does';
+        after.forEach(function(x){x.hidden=false;});
+      });
+    });
+  });
+
+  /* ---------- research budget ---------- */
+  var bx=document.querySelector('[data-rc-budget]');
+  if(!bx) return;
+  var total=parseInt(bx.getAttribute('data-rc-budget'),10)||0;
+  var left=total;
+  var leftEl=bx.querySelector('[data-rc-left]'), fill=bx.querySelector('[data-rc-fill]');
+  var exps=[].slice.call(document.querySelectorAll('[data-rc-exp]'));
+  var fall=bx.parentNode.querySelector('.ac-rcfall'); if(fall) fall.hidden=true;
+
+  function paintBudget(){
+    if(leftEl) leftEl.textContent=String(left);
+    if(fill) fill.style.width=(total?Math.max(0,left)/total*100:0)+'%';
+    exps.forEach(function(x){
+      if(x.getAttribute('data-rc-spent')==='1') return;
+      var cost=parseInt(x.getAttribute('data-cost'),10)||0;
+      var btn=x.querySelector('.ac-rcrun'), no=x.querySelector('.ac-rcdenied');
+      var ok=cost<=left;
+      if(btn){btn.disabled=!ok;btn.setAttribute('aria-disabled',String(!ok));}
+      if(no) no.hidden=ok;
+    });
+  }
+  function reset(){
+    left=total;
+    exps.forEach(function(x){
+      x.removeAttribute('data-rc-spent');
+      var out=x.querySelector('[data-rc-out]'); if(out) out.hidden=true;
+      var btn=x.querySelector('.ac-rcrun');
+      if(btn){btn.hidden=false;btn.disabled=false;}
+    });
+    paintBudget();
+  }
+  exps.forEach(function(x){
+    var out=x.querySelector('[data-rc-out]'); if(out) out.hidden=true;
+    var btn=x.querySelector('.ac-rcrun');
+    if(!btn) return;
+    btn.addEventListener('click',function(){
+      var cost=parseInt(x.getAttribute('data-cost'),10)||0;
+      if(cost>left||x.getAttribute('data-rc-spent')==='1') return;
+      left-=cost;
+      x.setAttribute('data-rc-spent','1');
+      btn.hidden=true;
+      if(out){out.hidden=false;}
+      paintBudget();
+      track('experiment_run',{experiment:x.getAttribute('data-rc-exp'),cost:cost,
+                              remaining:left});
+      if(out){var h=out.querySelector('.ac-rcsrc a');if(h) track('evidence_opened',
+        {experiment:x.getAttribute('data-rc-exp')});}
+    });
+  });
+  var rb=bx.querySelector('[data-rc-reset]');
+  if(rb) rb.addEventListener('click',reset);
+  paintBudget();
+})();
+</script>
 """
 
 
@@ -1767,7 +1994,7 @@ def curriculum_page(module, lessons_by_slug):
                       active_tab="learn", extra_css=ACADEMY_CSS, extra_body=PROGRESS_JS)
 
 
-def academy_home(modules, lessons_by_slug):
+def academy_home(modules, lessons_by_slug, challenges):
     url = SITE + "/academy/"
     mod = modules["modules"][0]
     first = mod["lessons"][0]["lesson"]
@@ -1806,6 +2033,17 @@ def academy_home(modules, lessons_by_slug):
                 'way through the pathway map, step by step, in the interactive Atlas.</p>'
                 '<a class="ac-go" href="%s/#view=map&amp;pw=guided">Explore &rarr;</a></div>'
                 % SITE)
+    # Spec Research Challenges §2: existujici polozka na homepage prestava byt
+    # "coming soon" a dostane skutecny cil. Karta se ridi daty -- kdyz
+    # challenges.json zmizi, vrati se puvodni chovani.
+    pub_ch = [c for c in challenges if c["status"] == "published"]
+    if pub_ch:
+        body.append('<div class="ac-card"><h3>Research Challenges</h3><p>Take a question '
+                    'the field has not closed, commit to a hypothesis, spend a limited '
+                    'research budget on experiments, and compare your reasoning with what '
+                    'was actually published.</p>'
+                    '<a class="ac-go" href="%s/academy/research-challenges/">Investigate '
+                    '&rarr;</a></div>' % SITE)
     for cs in modules.get("comingSoon", []):
         body.append('<div class="ac-card ac-soon"><h3>%s</h3><p>%s</p>'
                     '<span class="ac-go">Coming soon</span></div>'
@@ -1852,6 +2090,447 @@ def academy_home(modules, lessons_by_slug):
                       extra_css=ACADEMY_CSS, extra_body=PROGRESS_JS)
 
 
+# --------------------------------------------------- research challenges ---
+#
+# Treti pilir Academy (spec Research Challenges v2). Learn odpovida "co vime",
+# Guided Routes "jak to spolu souvisi", Research Challenges "co bys udelal dal".
+#
+# ENGINE, NE STRANKA. Vsechno na strance vyzvy se vykresluje z challenges.json;
+# dalsi vyzva = dalsi zaznam v datech, zadny novy kod. Proto jsou kroky
+# generovane ze seznamu, ne psane rucne za sebou.
+#
+# Tri veci, ktere tenhle modul dela jinak nez zbytek Academy:
+#   1. ROZPOCET. Soucet nakladu experimentu MUSI prevysit rozpocet (brana 15),
+#      takze student nemuze spustit vsechno a musi vybirat. Neni to skore --
+#      zadny leaderboard, zadne XP, resetovat jde kdykoli.
+#   2. ZADNA VYMYSLENA DATA. Vysledek experimentu je bud odvozeny ze skutecne
+#      studie v korpusu (evidence.sids), nebo je oznaceny jako hypoteticky
+#      (evidence.hypothetical) a stranka to rekne nahlas. Treti moznost brana
+#      nepusti. Sloupce nesou kvalitativni uroven, nikdy vymyslene cislo.
+#   3. ZADNE ZNAMKOVANI. U interpretaci a hypotez neni spravna odpoved; ke
+#      kazde volbe je napsany komentar, co si tou volbou clovek bere s sebou.
+#
+# Parita bez JS plati stejne jako u cviceni: cely vedecky obsah je v HTML.
+# JS jen (a) hlida rozpocet, (b) odkryva to, co uz na strance je, ve chvili,
+# kdy se student rozhodl. Fallbacky nesou tridu ac-rcfall (brana 16).
+
+# Sloupce vysledku. Kvalitativni uroven, ne cislo: presna cisla by byla
+# vymyslena a spec §29 je zakazuje. Sirky jsou v procentech.
+RC_BAR = {"none": 4, "low": 26, "mid": 58, "high": 100}
+RC_BARLABEL = {"none": "none", "low": "low", "mid": "intermediate", "high": "high"}
+
+
+def rc_optnotes(opts, label):
+    """Seznam voleb + napsany komentar ke kazde. Bez JS je videt vsechno
+    (proto ta hlavicka), s JS se odkryje jen zvolena -- stejny kontrakt jako
+    Experiment Builder ve Fazi 2."""
+    btns = "".join(
+        '<li><button type="button" class="ac-qzopt" data-rc-opt="%d">'
+        '<span class="ac-qzkey">%s</span><span>%s</span></button></li>'
+        % (i, QZ_KEYS[i] if i < len(QZ_KEYS) else str(i + 1), prose(o["label"]))
+        for i, o in enumerate(opts))
+    notes = "".join('<p data-rc-note="%d"><strong>%s.</strong> %s</p>'
+                    % (i, e(o["label"]), prose(o.get("note") or ""))
+                    for i, o in enumerate(opts))
+    return ('<ul class="ac-qzopts" role="group" aria-label="%s">%s</ul>'
+            '<div class="ac-rcnotes" data-rc-notes>'
+            '<p class="ac-showslbl">What each choice commits you to</p>%s</div>'
+            % (e(label), btns, notes))
+
+
+def rc_predict(b):
+    """Break-the-model: predikce s ocekavanou odpovedi. Neni to mereni --
+    je to predpoved o VYUKOVEM modelu, a text to rika nahlas."""
+    opts = "".join(
+        '<li><button type="button" class="ac-qzopt" data-i="%d">'
+        '<span class="ac-qzkey">%s</span><span>%s</span></button></li>'
+        % (i, QZ_KEYS[i], prose(o)) for i, o in enumerate(b["options"]))
+    fall = ('<details class="ac-rcfall"><summary>Show the expected answer</summary>'
+            '<p><strong>%s.</strong> %s</p><p>%s</p></details>'
+            % (e(QZ_KEYS[b["answer"]]), prose(b["options"][b["answer"]]),
+               prose(b["explain"])))
+    return ('<div class="ac-rcpd" data-answer="%d"><p>%s</p>'
+            '<ul class="ac-qzopts" role="group" aria-label="Prediction">%s</ul>'
+            '<p class="ac-qzwhy" hidden><span class="ac-qzverdict"></span></p>'
+            '<div data-ac-after><p>%s</p></div>%s</div>'
+            % (b["answer"], prose(b["prompt"]), opts, prose(b["explain"]), fall))
+
+
+def rc_result(ex, by_sid):
+    """Vysledek experimentu. Bud skutecna studie, nebo oznacena predpoved --
+    treti moznost neexistuje (brana 15)."""
+    ev = ex["evidence"]
+    if ev.get("hypothetical"):
+        head = ('<p class="ac-rchypo"><span class="ac-rclbl">Expected, not observed'
+                '</span> %s</p>'
+                % prose(ev["basis"]))
+    else:
+        cards = []
+        for sid in ev["sids"]:
+            st = by_sid.get(sid)
+            if not st:
+                raise SystemExit("build_academy: experiment %r odkazuje na neznamy "
+                                 "SID %r" % (ex["id"], sid))
+            code, _l, colour = tier_bits(st.get("tier"))
+            cards.append('<span class="tier" style="background:%s">%s</span> '
+                         '<a href="%s/study/%s/">%s</a> <span class="ac-evyear">%s</span>'
+                         % (colour, e(code), SITE, e(sid), e(st.get("title") or sid),
+                            e(st.get("year") or "")))
+        head = ('<p class="ac-rcsrc"><span class="ac-rclbl">Derived from</span> %s</p>'
+                % " &middot; ".join(cards))
+
+    res = ex["result"]
+    bars = []
+    for b in res["bars"]:
+        lvl = b["level"]
+        bars.append('<div class="ac-rcbarrow"><span class="ac-rcbarlbl">%s</span>'
+                    '<span class="ac-rcbartrack"><span class="ac-rcbarfill" '
+                    'style="width:%d%%"></span></span>'
+                    '<span class="ac-rcbarval">%s</span></div>'
+                    % (e(b["label"]), RC_BAR[lvl], e(RC_BARLABEL[lvl])))
+    chart = ('<div class="ac-rcchart" role="img" aria-label="%s: %s">'
+             '<p class="ac-rcunit">%s</p>%s</div>'
+             % (e(res["unit"]),
+                e("; ".join("%s %s" % (b["label"], RC_BARLABEL[b["level"]])
+                            for b in res["bars"])),
+                e(res["unit"]), "".join(bars)))
+
+    lists = shows_list(ex.get("conclude"), ex.get("cannotConclude"))
+    interp = ('<p class="ac-pdstep">Interpret &mdash; what does this let you say?</p>'
+              '%s' % rc_optnotes(ex["interpret"], "Interpretation"))
+    info = ('<p class="ac-rcinfo"><span class="ac-rclbl">Information value</span> %s</p>'
+            % prose(ex["informative"]))
+    return ('<div class="ac-rcout" data-rc-out>%s%s<p class="ac-mdcap">%s</p>%s%s%s</div>'
+            % (head, chart, prose(res["caption"]), interp, lists, info))
+
+
+def rc_experiment(ex, by_sid):
+    d = ex["design"]
+    rows = "".join("<tr><th>%s</th><td>%s</td></tr>" % (e(k.title()), prose(d[k]))
+                   for k in ("model", "perturbation", "readout", "control") if d.get(k))
+    return ('<div class="ac-rcexp" data-rc-exp="%s" data-cost="%d">'
+            '<div class="ac-rcexphead"><h3>%s</h3>'
+            '<span class="ac-rccost">%d units</span></div>'
+            '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div>'
+            '<button type="button" class="ac-cta ac-quiet ac-rcrun">Run this experiment '
+            '&middot; %d units</button>'
+            '<p class="ac-rcdenied" hidden>Not enough budget left for this one. That is '
+            'the constraint working, not a mistake &mdash; reset the budget if you want '
+            'to try a different order.</p>%s</div>'
+            % (e(ex["id"]), ex["cost"], e(ex["label"]), ex["cost"], rows, ex["cost"],
+               rc_result(ex, by_sid)))
+
+
+def rc_step(n, key, title, inner, lead=""):
+    return ('<section class="ac-rcstep" id="step-%d" data-rc-step="%s">'
+            '<p class="ac-rcnum">Step %d</p><h2>%s</h2>%s%s</section>'
+            % (n, e(key), n, e(title), ("<p>%s</p>" % prose(lead)) if lead else "", inner))
+
+
+def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
+    slug = ch["slug"]
+    url = "%s/academy/research-challenges/%s/" % (SITE, slug)
+    steps, secs, n = [], [], 0
+
+    # 1 brief -------------------------------------------------------------
+    n += 1
+    know = "".join(
+        "<li>%s %s</li>" % (prose(k["claim"]),
+                            " ".join('<a class="ac-rcsid" href="%s/study/%s/">%s</a>'
+                                     % (SITE, e(s), e(s)) for s in k["sids"]))
+        for k in ch["whatWeKnow"])
+    inner = ('<p class="ac-showslbl">What the Atlas already supports</p>'
+             '<ul class="ac-rcknow">%s</ul>'
+             '<p class="ac-showslbl">Where that stops</p>'
+             '<ul class="ac-shows">%s</ul>' % (know, "".join(
+                 "<li class=\"ac-no\">%s</li>" % prose(x) for x in ch["uncertainty"])))
+    steps.append(rc_step(n, "know", "What we know", inner,
+                         "Every line here is carried by a study in the Atlas, linked "
+                         "beside it. Read the second list as carefully as the first: it "
+                         "is where your own decisions start."))
+    secs.append(("step-%d" % n, "What we know"))
+
+    # 2 model + break -----------------------------------------------------
+    n += 1
+    md = dict(ch["model"])
+    brk = "".join('<div class="ac-ex"><span class="ac-exkind">Break the model</span>'
+                  '<h3>%s</h3>%s</div>' % (e("Prediction %d" % (i + 1)), rc_predict(b))
+                  for i, b in enumerate(ch["break"]))
+    inner = model_block(md, pw, ent_url) + brk
+    steps.append(rc_step(n, "model", "Build and break the model", inner,
+                         "Switch the controls and watch which combinations produce output. "
+                         "Then break it on purpose: each prediction below asks you to commit "
+                         "before it answers. These are predictions about a simplified "
+                         "teaching model, not measurements."))
+    secs.append(("step-%d" % n, "Build and break the model"))
+
+    # 3 hypothesis --------------------------------------------------------
+    n += 1
+    h = ch["hypotheses"]
+    inner = ('<div class="ac-rchyp" data-rc-hyp="working">%s'
+             '<p class="ac-rccommit" hidden data-rc-committed></p></div>'
+             % rc_optnotes(h["options"], "Working hypothesis"))
+    steps.append(rc_step(n, "hypothesis", "Commit to a working hypothesis", inner,
+                         h["prompt"]))
+    secs.append(("step-%d" % n, "Commit to a working hypothesis"))
+
+    # 4 experiments -------------------------------------------------------
+    n += 1
+    b = ch["budget"]
+    costs = "".join("<tr><td>%s</td><td>%d</td></tr>" % (e(x["label"]), x["cost"])
+                    for x in ch["experiments"])
+    budget = ('<div class="ac-rcbudget" data-rc-budget="%d"><p class="ac-rcblabel">'
+              'Research budget</p><p class="ac-rcbleft"><strong data-rc-left>%d</strong> '
+              'of %d %s remaining</p>'
+              '<div class="ac-rcbartrack ac-rcbudgetbar"><span class="ac-rcbarfill" '
+              'data-rc-fill style="width:100%%"></span></div>'
+              '<p class="ac-mdcap">%s</p>'
+              '<button type="button" class="ac-mdreset" data-rc-reset>Reset the budget'
+              '</button></div>'
+              % (b["total"], b["total"], b["total"], e(b["unit"]), prose(b["note"])))
+    fall = ('<details class="ac-rcfall"><summary>The budget, without JavaScript</summary>'
+            '<p>%s of %s. Every experiment below is written out in full on this page, '
+            'including its result and what it does and does not support &mdash; the '
+            'budget decides the order you meet them in, not whether you can read them.'
+            '</p><div class="ac-cmpwrap"><table class="ac-cmp">'
+            '<tr><th>Experiment</th><th>Cost</th></tr>%s</table></div></details>'
+            % (b["total"], e(b["unit"]), costs))
+    inner = budget + fall + "".join(rc_experiment(x, by_sid) for x in ch["experiments"])
+    steps.append(rc_step(n, "experiments", "Spend the budget", inner,
+                         "Each experiment costs research units and returns what the "
+                         "literature actually reports &mdash; or, where the literature is "
+                         "silent, a prediction labelled as one. Choose the ones that "
+                         "separate your hypotheses, not the ones that agree with them."))
+    secs.append(("step-%d" % n, "Spend the budget"))
+
+    # 5 confounder --------------------------------------------------------
+    cf = ch.get("confounder")
+    if cf:
+        n += 1
+        src = " ".join('<a class="ac-rcsid" href="%s/study/%s/">%s</a>'
+                       % (SITE, e(s), e(s)) for s in cf.get("sids") or [])
+        inner = ('<div class="ac-rcnew"><p class="ac-rcnewlbl">%s</p><p>%s %s</p></div>'
+                 '<p class="ac-pdstep">%s</p>%s'
+                 '<p>%s</p><p class="ac-rcinfo"><span class="ac-rclbl">The control that '
+                 'would help</span> '
+                 '%s</p>'
+                 % (e(cf["title"]), prose(cf["info"]), src, e(cf["prompt"]),
+                    rc_optnotes(cf["options"], "Effect on your conclusion"),
+                    prose(cf["explain"]), prose(cf["control"])))
+        steps.append(rc_step(n, "confounder", "A complication", inner))
+        secs.append(("step-%d" % n, "A complication"))
+
+    # 6 revise ------------------------------------------------------------
+    rv = ch.get("revise")
+    if rv:
+        n += 1
+        opts = [{"label": o["label"], "note": rv["feedback"].get(o["id"]) or o["note"]}
+                for o in ch["hypotheses"]["options"]]
+        inner = ('<p class="ac-note">%s</p>%s'
+                 % (prose(rv["note"]), rc_optnotes(opts, "Revised hypothesis")))
+        steps.append(rc_step(n, "revise", "Revise the hypothesis", inner, rv["prompt"]))
+        secs.append(("step-%d" % n, "Revise the hypothesis"))
+
+    # 7 compare -----------------------------------------------------------
+    cp = ch["compare"]
+    st = by_sid.get(cp["sid"])
+    if not st:
+        raise SystemExit("build_academy: compare odkazuje na neznamy SID %r" % cp["sid"])
+    code, _l, colour = tier_bits(st.get("tier"))
+    n += 1
+    inner = ('<div class="ac-rccmp"><div class="ac-evhead">'
+             '<span class="tier" style="background:%s">%s</span>'
+             '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
+             '<span class="ac-evyear">%s</span></div>'
+             '<p class="ac-pdstep">What the researchers actually tested</p><p>%s</p>'
+             '<p class="ac-showslbl">What it answered</p><ul class="ac-shows">%s</ul>'
+             '<p class="ac-showslbl">What it did not answer</p><ul class="ac-shows">%s</ul>'
+             '<p>%s</p>'
+             '<a class="ac-evlink" href="%s/study/%s/">Study page &rarr;</a></div>'
+             % (colour, e(code), SITE, e(cp["sid"]), e(st.get("title") or cp["sid"]),
+                e(st.get("year") or ""), prose(cp["whatTheyTested"]),
+                "".join('<li class="ac-yes">%s</li>' % prose(x) for x in cp["whatItAnswered"]),
+                "".join('<li class="ac-no">%s</li>' % prose(x) for x in cp["whatItDidNot"]),
+                prose(cp["howToRead"]), SITE, e(cp["sid"])))
+    steps.append(rc_step(n, "compare", "Compare with published research", inner,
+                         "Now, and not before, here is what someone actually did."))
+    secs.append(("step-%d" % n, "Compare with published research"))
+
+    # 8 reflection + next question ----------------------------------------
+    n += 1
+    refl = "".join('<div class="ac-rcrefl"><p class="ac-pdstep">%s</p>'
+                   '<ul class="ac-qzopts" role="group" aria-label="%s">%s</ul></div>'
+                   % (prose(r["prompt"]), e(TAG_RE.sub("", r["prompt"])),
+                      "".join('<li><button type="button" class="ac-qzopt" '
+                              'data-rc-refl="%d">%s</button></li>' % (i, prose(o))
+                              for i, o in enumerate(r["options"])))
+                   for r in ch["reflection"])
+    nq = ch["nextQuestion"]
+    inner = (refl + '<div class="ac-rcnew"><p class="ac-rcnewlbl">Open question</p>'
+             '<p>%s</p></div><p class="ac-pdstep">%s</p>%s'
+             % (prose(nq["text"]), e(nq["prompt"]),
+                rc_optnotes(nq["options"], "What would you do next?")))
+    steps.append(rc_step(n, "reflect", "What would you do next?", inner))
+    secs.append(("step-%d" % n, "What would you do next?"))
+
+    # 9 complete ----------------------------------------------------------
+    n += 1
+    lessons = "".join('<a href="%s/academy/core/%s/">%s</a>'
+                      % (SITE, e(s), e(lessons_by_slug[s]["title"]))
+                      for s in ch["relatedLessons"] if s in lessons_by_slug)
+    rts = "".join('<li><a href="%s/#view=map&amp;pw=guided&amp;route=%s">%s</a>'
+                  '<span>%s</span></li>'
+                  % (SITE, e(r["id"]), e(routes[r["id"]]["name"]
+                                         if r["id"] in routes else r["id"]), e(r["why"]))
+                  for r in ch.get("relatedRoutes") or [])
+    ents = []
+    for key in ("proteins", "pathways", "processes", "organelles", "nutrients"):
+        for name in (ch.get("relatedEntities") or {}).get(key) or []:
+            hit = ent_url.get(name.lower())
+            if hit:
+                ents.append('<a href="%s">%s</a>' % (hit[0], e(hit[1])))
+    inner = ('<p class="ac-showslbl">Research skills this challenge practised</p>'
+             '<ul class="ac-shows">%s</ul>'
+             '<p class="ac-showslbl">Where to go next</p>'
+             '<p class="ac-rcnextlbl">Academy lessons</p><div class="ac-deeper">%s</div>'
+             '%s<p class="ac-rcnextlbl">In the Atlas</p><div class="ac-deeper">%s'
+             '<a href="%s/browse/">All studies</a></div>'
+             % ("".join('<li class="ac-yes">%s</li>' % e(s) for s in ch["skillsPractised"]),
+                lessons,
+                ('<p class="ac-rcnextlbl">Guided routes</p><ul class="ac-routes">%s</ul>'
+                 % rts) if rts else "",
+                "".join(ents), SITE))
+    steps.append(rc_step(n, "complete", "Challenge complete", inner,
+                         "No score, and nothing unlocked. What you take away is a shorter "
+                         "list of things you would need to find out, and a clearer sense "
+                         "of which experiment would tell you."))
+    secs.append(("step-%d" % n, "Challenge complete"))
+
+    # --- page ------------------------------------------------------------
+    prereq = "".join('<li><a href="%s/academy/core/%s/">%s</a><span>%s</span></li>'
+                     % (SITE, e(p["lesson"]), e(lessons_by_slug[p["lesson"]]["title"]),
+                        prose(p["why"]))
+                     for p in ch.get("prerequisites") or [] if p["lesson"] in lessons_by_slug)
+    body = [SVG_DEFS, '<div class="ac-lesson"><article class="ac-main ac-rc">']
+    body.append('<p class="ac-eyebrow">Research Challenge %s &middot; %s &middot; %s '
+                '&middot; %d min</p>'
+                % (e(ch["n"]), e(ch["type"]), e(ch["level"]), ch["estimatedTime"]))
+    body.append("<h1>%s</h1>" % e(ch["title"]))
+    body.append('<p class="meta">%s</p>' % prose(ch["subtitle"]))
+    body.append('<p class="ac-q">%s</p>' % prose(ch["researchQuestion"]))
+    body.append('<p class="ac-rcframe">This is a decision environment, not a quiz. Several '
+                'of the choices below are scientifically defensible, and the feedback tells '
+                'you what each one buys and what it costs rather than marking it right or '
+                'wrong.</p>')
+    if ch.get("learningObjectives"):
+        body.append('<section class="ac-section ac-obj"><h2 id="objectives">What you should '
+                    'be able to do</h2><p class="ac-objlbl">By the end of this challenge you '
+                    'should be able to</p><ul class="ac-objlist">%s</ul>'
+                    '<p class="ac-skill"><span>Research skills</span> %s</p></section>'
+                    % ("".join("<li>%s</li>" % prose(x) for x in ch["learningObjectives"]),
+                       " &middot; ".join(e(x) for x in ch["researchSkills"])))
+        secs.insert(0, ("objectives", "What you should be able to do"))
+    if prereq:
+        body.append('<section class="ac-section"><h2 id="prep">Recommended preparation</h2>'
+                    '<ul class="ac-routes">%s</ul></section>' % prereq)
+        secs.insert(1 if ch.get("learningObjectives") else 0, ("prep", "Recommended preparation"))
+    body += steps
+    body.append("</article>")
+
+    rail = ['<nav class="ac-toc" aria-label="In this challenge"><h4>In this challenge</h4><ol>']
+    for aid, label in secs:
+        rail.append('<li><a href="#%s">%s</a></li>' % (aid, e(label)))
+    rail.append("</ol></nav>")
+    body.append('<aside class="ac-rail">%s</aside>' % "".join(rail))
+    body.append("</div>")
+
+    desc = ("%s %s" % (TAG_RE.sub("", ch["researchQuestion"]),
+                       TAG_RE.sub("", ch["subtitle"])))[:300]
+    ld = {"@context": "https://schema.org", "@type": "LearningResource",
+          "name": ch["title"], "headline": ch["title"], "url": url, "inLanguage": "en",
+          "educationalLevel": ch["level"], "learningResourceType": "activity",
+          "timeRequired": "PT%dM" % ch["estimatedTime"],
+          "teaches": ch["researchSkills"],
+          "isPartOf": {"@type": "Course", "name": "Research Challenges — mTOR Academy",
+                       "url": "%s/academy/research-challenges/" % SITE},
+          "about": dict(DATASET_REF),
+          "author": {"@type": "Person", "name": "Oliver Barton"},
+          "license": "https://creativecommons.org/licenses/by/4.0/"}
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Academy", SITE + "/academy/"),
+                        ("Research Challenges", "%s/academy/research-challenges/" % SITE),
+                        (ch["title"], None)])
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> · '
+             '<a href="%s/academy/research-challenges/">Research Challenges</a> · %s'
+             % (SITE, SITE, SITE, e(ch["title"])))
+    page = shell("%s | Research Challenges | Oliver's mTOR Atlas" % ch["title"], desc, url,
+                 [ld, bc], "".join(body), crumb, active_tab="learn",
+                 extra_css=ACADEMY_CSS + CHALLENGE_CSS,
+                 extra_body=EXERCISE_JS + CHALLENGE_JS, level_switch=True)
+    page = page.replace("<body>", '<body data-rc-challenge="%s">' % e(slug), 1)
+    return url, page
+
+
+def challenges_index(challenges, lessons_by_slug):
+    url = "%s/academy/research-challenges/" % SITE
+    pub = [c for c in challenges if c["status"] == "published"]
+    rows = []
+    for c in challenges:
+        meta = "%s · %s · %d min" % (c["type"], c["level"], c["estimatedTime"])
+        if c["status"] == "published":
+            rows.append('<li><a href="%s/academy/research-challenges/%s/">'
+                        '<span class="ac-n">%s</span><span class="ac-ttl">%s</span>'
+                        '<span class="ac-meta">%s</span></a></li>'
+                        % (SITE, e(c["slug"]), e(c["n"]), e(c["title"]), e(meta)))
+        else:
+            rows.append('<li class="ac-planned"><span class="ac-row">'
+                        '<span class="ac-n">%s</span><span class="ac-ttl">%s</span>'
+                        '<span class="ac-meta">%s · in preparation</span></span></li>'
+                        % (e(c["n"]), e(c["title"]), e(meta)))
+    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
+            '<h1>Research Challenges</h1>'
+            '<p class="ac-lede">Learn answers &ldquo;what do we know?&rdquo;. Guided Routes '
+            'answer &ldquo;how are these ideas connected?&rdquo;. Research Challenges ask '
+            'the third question: given what we know, what would you do next?</p></div>']
+    body.append('<p>Each challenge starts from a question the field has not closed. You '
+                'build a model of it, commit to a hypothesis, spend a limited research '
+                'budget on experiments, read what they do and do not support, meet a '
+                'complication, revise, and only then see what someone actually published. '
+                'There is no score and nothing to unlock.</p>')
+    body.append('<ul class="ac-list">%s</ul>' % "".join(rows))
+    if any(c["status"] != "published" for c in challenges):
+        body.append('<p class="ac-note">Challenges marked <em>in preparation</em> are listed '
+                    'so the shape of this pillar is visible. They are not written yet, and '
+                    'this page will not pretend otherwise.</p>')
+    body.append('<p><a class="ac-cta ac-quiet" href="%s/academy/core/">Back to the lessons '
+                '&rarr;</a></p>' % SITE)
+    ld = {"@context": "https://schema.org", "@type": "Course",
+          "name": "Research Challenges — mTOR Academy", "url": url,
+          "description": "Interactive research challenges built on the Atlas's own "
+                         "evidence-graded studies: design experiments under a limited "
+                         "budget, interpret what they support, and compare your reasoning "
+                         "with published work.",
+          "inLanguage": "en",
+          "provider": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
+                       "url": SITE + "/"},
+          "isAccessibleForFree": True,
+          "hasCourseInstance": [{"@type": "CourseInstance", "courseMode": "online",
+                                 "name": c["title"],
+                                 "url": "%s/academy/research-challenges/%s/"
+                                        % (SITE, c["slug"])} for c in pub]}
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Academy", SITE + "/academy/"),
+                        ("Research Challenges", None)])
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> '
+             '· Research Challenges' % (SITE, SITE))
+    return url, shell("Research Challenges | mTOR Academy | Oliver's mTOR Atlas",
+                      "Given what we know about mTOR, what would you do next? Design "
+                      "experiments under a limited research budget and compare your "
+                      "reasoning with published studies from the Atlas.",
+                      url, [ld, bc], "".join(body), crumb, active_tab="learn",
+                      extra_css=ACADEMY_CSS + CHALLENGE_CSS)
+
+
 # ------------------------------------------------------------------ main ---
 
 def purge():
@@ -1874,7 +2553,7 @@ def purge():
 
 
 def main():
-    lessons, modules, by_sid, ent_url, routes, gaps, pw = load()
+    lessons, modules, by_sid, ent_url, routes, gaps, pw, challenges = load()
     lessons_by_slug = {l["slug"]: l for l in lessons}
 
     if CLEAN and not DRY:
@@ -1883,7 +2562,7 @@ def main():
     urls = []
     all_missing = []
 
-    url, page = academy_home(modules, lessons_by_slug)
+    url, page = academy_home(modules, lessons_by_slug, challenges)
     write(os.path.join(ACADEMY_DIR, "index.html"), page)
     urls.append((url, "1.0"))
 
@@ -1906,6 +2585,24 @@ def main():
                 sid_to_lesson.setdefault(sid, []).append(
                     {"title": les["title"],
                      "url": "/academy/%s/%s/" % (mod["slug"], les["slug"])})
+
+    # Research Challenges (treti pilir). Generuje se jen kdyz jsou data --
+    # jinak zustane /academy/ presne takove, jake bylo.
+    pub_ch = [c for c in challenges if c["status"] == "published"]
+    if pub_ch:
+        url, page = challenges_index(challenges, lessons_by_slug)
+        write(os.path.join(ACADEMY_DIR, "research-challenges", "index.html"), page)
+        urls.append((url, "0.9"))
+        for ch in pub_ch:
+            url, page = challenge_page(ch, by_sid, ent_url, routes, gaps, pw,
+                                       lessons_by_slug)
+            write(os.path.join(ACADEMY_DIR, "research-challenges", ch["slug"],
+                               "index.html"), page)
+            urls.append((url, "0.8"))
+            for sid in ch["studies"]:
+                sid_to_lesson.setdefault(sid, []).append(
+                    {"title": "Challenge %s: %s" % (ch["n"], ch["title"]),
+                     "url": "/academy/research-challenges/%s/" % ch["slug"]})
 
     write(os.path.join(ADATA, "_sid_to_lesson.json"),
           json.dumps(sid_to_lesson, ensure_ascii=False, indent=1, sort_keys=True) + "\n")

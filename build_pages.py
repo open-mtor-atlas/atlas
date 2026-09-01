@@ -104,6 +104,7 @@ DATASET_REF = {
     "sameAs": [
         "https://doi.org/10.5281/zenodo.22059963",
         "https://bio.tools/olivers_mtor_atlas",
+        "https://fairsharing.org/8905",
     ],
     "creator": {"@type": "Person", "name": "Oliver Barton",
                 "url": "https://orcid.org/0009-0008-2025-2148",
@@ -1091,7 +1092,8 @@ typed in by hand.</p>
 4.0</a> -- free to cite and reuse with attribution to "Oliver's mTOR
 Atlas". The dataset is archived and citable via Zenodo, concept DOI
 <a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.
-Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>)
+Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>
+and <a href="https://fairsharing.org/8905">FAIRsharing</a>)
 and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
 
 <p><a class="cta" href="{SITE}/#view=about">Open the interactive About tab</a></p>
@@ -1127,6 +1129,9 @@ def data_page(studies, entities):
         {"@type": "PropertyValue", "propertyID": "bio.tools",
          "value": "olivers_mtor_atlas",
          "url": "https://bio.tools/olivers_mtor_atlas"},
+        {"@type": "PropertyValue", "propertyID": "FAIRsharing",
+         "value": "FAIRsharing.org8905",
+         "url": "https://fairsharing.org/8905"},
     ]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -1151,6 +1156,11 @@ page's own JSON-LD, in case a script needs it rather than a human.</p>
 ELIXIR's registry of bioinformatics tools and databases &mdash; listed as
 a Database portal under Genetics, Molecular biology and Systems
 biology.</td></tr>
+<tr><td>FAIRsharing</td><td>Oliver's mTOR Atlas is registered with
+<a href="https://fairsharing.org/8905">FAIRsharing.org</a> (record
+FAIRsharing.org8905) &mdash; a curated registry of databases, standards and
+policies for the life sciences &mdash; listed as a Database resource under
+Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 </table>
 
 <h2>Identifiers</h2>
@@ -1184,8 +1194,8 @@ for how a study earns a place and how the grading works.</p>
 """
     return url, shell(
         "Data & Citation | Oliver's mTOR Atlas",
-        "Where Oliver's mTOR Atlas is registered (bio.tools), its dataset "
-        "DOI, curator ORCID, license, and how to cite it.",
+        "Where Oliver's mTOR Atlas is registered (bio.tools, FAIRsharing), its "
+        "dataset DOI, curator ORCID, license, and how to cite it.",
         url, [ld_page, bc], body, crumb, active_tab=None)
 
 
@@ -1762,7 +1772,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
-- [Data & Citation](https://mtor-atlas.org/data/): bio.tools registration, dataset DOI, ORCID, license, how to cite
+- [Data & Citation](https://mtor-atlas.org/data/): bio.tools/FAIRsharing registration, dataset DOI, ORCID, license, how to cite
 {academy_section}{answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.
@@ -1777,7 +1787,7 @@ Publication timelines for the scientists most represented in the corpus.
 {author_lines}
 
 ## Machine-readable
-- [Data & Citation](https://mtor-atlas.org/data/): DOI, ORCID, license, bio.tools registration, citation string
+- [Data & Citation](https://mtor-atlas.org/data/): DOI, ORCID, license, bio.tools/FAIRsharing registration, citation string
 - [Sitemap index](https://mtor-atlas.org/sitemap.xml)
 - [robots.txt](https://mtor-atlas.org/robots.txt)
 

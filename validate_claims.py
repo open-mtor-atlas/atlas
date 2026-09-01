@@ -497,6 +497,99 @@ def check_academy(findings):
     return len(lessons)
 
 
+
+def check_challenges(findings):
+    """Research Challenges (2026-09-01). Stejny duvod jako u lekci, jen ostrejsi:
+    vyzva je psana jako rozhodovaci prostredi, takze skoro kazdy retezec v ni je
+    komentar k volbe -- a komentar k volbe si student precte pozorneji nez hlavni
+    text. Prehnana formulace v nem uci spatne cist evidenci, coz je presne to, co
+    ma vyzva odnaucovat."""
+    p = os.path.join(HERE, "academy_data", "challenges.json")
+    if not os.path.exists(p):
+        return 0
+    chs = json.load(open(p, encoding="utf-8"))["challenges"]
+    for c in chs:
+        if c.get("status") != "published":
+            continue
+        blobs = [("subtitle", c.get("subtitle") or ""),
+                 ("researchQuestion", c.get("researchQuestion") or "")]
+        blobs += [("objective%d" % i, x) for i, x in enumerate(c.get("learningObjectives") or [])]
+        blobs += [("know%d" % i, k.get("claim") or "")
+                  for i, k in enumerate(c.get("whatWeKnow") or [])]
+        blobs += [("uncertainty%d" % i, x) for i, x in enumerate(c.get("uncertainty") or [])]
+        blobs += [("budget.note", (c.get("budget") or {}).get("note") or "")]
+        md = c.get("model") or {}
+        blobs.append(("model.caption", md.get("caption") or ""))
+        for sk, st in (md.get("states") or {}).items():
+            blobs.append(("model.state[%s]" % sk, st.get("note") or ""))
+        for b in c.get("break") or []:
+            blobs += [("break.%s.prompt" % b.get("id"), b.get("prompt") or ""),
+                      ("break.%s.explain" % b.get("id"), b.get("explain") or "")]
+            blobs += [("break.%s.option%d" % (b.get("id"), i), x)
+                      for i, x in enumerate(b.get("options") or [])]
+        h = c.get("hypotheses") or {}
+        blobs.append(("hypotheses.prompt", h.get("prompt") or ""))
+        for op in h.get("options") or []:
+            blobs += [("hypothesis.%s.label" % op.get("id"), op.get("label") or ""),
+                      ("hypothesis.%s.note" % op.get("id"), op.get("note") or "")]
+        rv = c.get("revise") or {}
+        blobs += [("revise.prompt", rv.get("prompt") or ""),
+                  ("revise.note", rv.get("note") or "")]
+        blobs += [("revise.feedback.%s" % k, v)
+                  for k, v in (rv.get("feedback") or {}).items()]
+        for x in c.get("experiments") or []:
+            xw = "exp.%s" % x.get("id")
+            blobs.append(("%s.label" % xw, x.get("label") or ""))
+            blobs.append(("%s.informative" % xw, x.get("informative") or ""))
+            for f in ("model", "perturbation", "readout", "control"):
+                blobs.append(("%s.design.%s" % (xw, f), (x.get("design") or {}).get(f) or ""))
+            blobs.append(("%s.evidence.basis" % xw,
+                          (x.get("evidence") or {}).get("basis") or ""))
+            blobs.append(("%s.result.caption" % xw, (x.get("result") or {}).get("caption") or ""))
+            for f in ("conclude", "cannotConclude"):
+                blobs += [("%s.%s%d" % (xw, f, i), v) for i, v in enumerate(x.get(f) or [])]
+            for i, op in enumerate(x.get("interpret") or []):
+                blobs += [("%s.interpret%d.label" % (xw, i), op.get("label") or ""),
+                          ("%s.interpret%d.note" % (xw, i), op.get("note") or "")]
+        cf = c.get("confounder") or {}
+        for f in ("info", "prompt", "explain", "control"):
+            blobs.append(("confounder.%s" % f, cf.get(f) or ""))
+        for i, op in enumerate(cf.get("options") or []):
+            blobs += [("confounder.option%d.label" % i, op.get("label") or ""),
+                      ("confounder.option%d.note" % i, op.get("note") or "")]
+        cp = c.get("compare") or {}
+        blobs += [("compare.whatTheyTested", cp.get("whatTheyTested") or ""),
+                  ("compare.howToRead", cp.get("howToRead") or "")]
+        for f in ("whatItAnswered", "whatItDidNot"):
+            blobs += [("compare.%s%d" % (f, i), v) for i, v in enumerate(cp.get(f) or [])]
+        for r in c.get("reflection") or []:
+            blobs.append(("reflect.%s.prompt" % r.get("id"), r.get("prompt") or ""))
+            blobs += [("reflect.%s.option%d" % (r.get("id"), i), v)
+                      for i, v in enumerate(r.get("options") or [])]
+        nq = c.get("nextQuestion") or {}
+        blobs += [("next.text", nq.get("text") or ""), ("next.prompt", nq.get("prompt") or "")]
+        for i, op in enumerate(nq.get("options") or []):
+            blobs += [("next.option%d.label" % i, op.get("label") or ""),
+                      ("next.option%d.note" % i, op.get("note") or "")]
+        blobs += [("prereq%d.why" % i, pr.get("why") or "")
+                  for i, pr in enumerate(c.get("prerequisites") or [])]
+
+        for field, raw in blobs:
+            if not raw:
+                continue
+            txt = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+            where = "challenge:%s.%s" % (c["slug"], field)
+            scan_absolute(findings, where, txt, sev="ERROR")
+            unquoted = re.sub(u"[\u2018\u201c'\"][^\u2019\u201d'\"]{0,400}"
+                              u"[\u2019\u201d'\"]", " ", txt)
+            if CLINICAL_LANG.search(unquoted):
+                add(findings, "WARN", "R3 mechanistic-as-clinical", where, txt,
+                    "Challenge prose uses clinical/human language -- check the claim is "
+                    "scoped to the species and design of the studies it cites.",
+                    "Name the model system in the sentence, or drop the clinical framing.")
+    return len([c for c in chs if c.get("status") == "published"])
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -507,12 +600,14 @@ def main():
     check_gap_regression_rules(findings, h)
     check_dead_layers(findings, h)
     n_les = check_academy(findings)
+    n_ch = check_challenges(findings)
 
     errs = [f for f in findings if f["severity"] == "ERROR"]
     warns = [f for f in findings if f["severity"] == "WARN"]
 
     print("=" * 78)
-    print("Atlas claim calibration -- %d studies, %d Academy lessons scanned" % (n, n_les))
+    print("Atlas claim calibration -- %d studies, %d Academy lessons, "
+          "%d research challenges scanned" % (n, n_les, n_ch))
     print("  %d ERROR   %d WARN" % (len(errs), len(warns)))
     print("=" * 78)
     for group, label in ((errs, "ERROR"), (warns, "WARN")):

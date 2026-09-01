@@ -35,6 +35,11 @@ Kontroluje se:
      v pathway/model.json, kazda kombinace prepinacu ma vyjmenovany stav,
      kazde Predict cviceni ma skutecnou studii jako Observe
  13  kazde interaktivni cviceni ma na vygenerovane strance bez-JS ekvivalent
+ 15  Research Challenges (challenges.json): kazdy SID/uzel/hrana/lekce/route
+     existuje, model ma vyjmenovany kazdy stav, soucet nakladu experimentu
+     PREVYSUJE rozpocet (jinak by student spustil vsechno) a kazdy vysledek
+     je bud odvozeny ze skutecne studie, nebo oznaceny jako hypoteticky
+ 16  stranka vyzvy ma bez-JS ekvivalent rozpoctu i modelu
  14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
      i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
      misto sekce prazdno; caution sekce beginner verzi mit NESMI
@@ -76,6 +81,16 @@ RESEARCH_SKILLS = {
     "Pathway reasoning", "Systems thinking", "Mechanistic interpretation",
     "Evidence evaluation",
 }
+# Research Challenges. Dovednosti ze spec §26 -- sirsi seznam nez u lekci,
+# protoze vyzva jich zamerne trenuje vic najednou.
+RC_SKILLS = {
+    "Causal reasoning", "Experimental design", "Evidence evaluation",
+    "Hypothesis formation", "Alternative explanations", "Control selection",
+    "Mechanistic reasoning", "Systems thinking", "Spatial reasoning",
+    "Scientific uncertainty",
+}
+# Sloupce vysledku nesou uroven, nikdy cislo -- presne cislo by bylo vymyslene.
+RC_LEVELS = {"none", "low", "mid", "high"}
 LADDER = ("recall", "explain", "predict", "interpret", "critique", "synthesize", "design")
 EX_KINDS = ("model", "predict", "compare", "caution", "openq", "design")
 
@@ -97,6 +112,315 @@ def entity_pages():
                 st = [t.strip(" '\"") for t in st.strip("[]").split(",") if t.strip()]
         out[x["name"].lower()] = len(st or [])
     return out
+
+
+def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slugs):
+    """15 -- Research Challenges (2026-09-01).
+
+    Vyzva je jedina cast webu, kde student utraci rozpocet a cte "vysledek".
+    Dve veci se proto hlidaji tvrdeji nez u lekci:
+
+      * ROZPOCET MUSI SKRTIT. Kdyby soucet nakladu byl <= rozpoctu, student
+        spusti vsechno a cela pointa (§4: prioritizace) tise zmizi -- a nikdo
+        by si toho nevsiml, protoze stranka by vypadala uplne stejne.
+      * VYSLEDEK NENI NIKDY VYMYSLENY. Bud odkazuje na skutecnou studii
+        v korpusu, nebo je oznaceny jako hypoteticky a nese vysvetleni proc.
+        Treti moznost tahle brana nepusti (§29).
+    """
+    p = os.path.join(ADATA, "challenges.json")
+    if not os.path.exists(p):
+        return 0
+    doc = json.load(open(p, encoding="utf-8"))
+    chs = doc["challenges"]
+    seen = set()
+    prose_blobs = []
+
+    for c in chs:
+        w = "challenge:" + (c.get("slug") or "?")
+        for f in ("id", "n", "slug", "title", "subtitle", "type", "level",
+                  "researchQuestion", "status"):
+            if not (c.get(f) or "").strip():
+                bad(w, "chybi povinne pole %r" % f)
+        if c.get("slug") in seen:
+            bad(w, "duplicitni slug")
+        seen.add(c.get("slug"))
+        if c.get("status") not in ("published", "planned"):
+            bad(w, "status=%r, povoleno published/planned" % c.get("status"))
+        if c.get("status") != "published":
+            continue
+        if not isinstance(c.get("estimatedTime"), int) or c["estimatedTime"] <= 0:
+            bad(w, "estimatedTime musi byt kladne cislo")
+
+        objs = c.get("learningObjectives") or []
+        if not 3 <= len(objs) <= 5:
+            bad(w, "ma %d learning objectives, chce se 3-5" % len(objs))
+        for o in objs:
+            first = re.sub(r"[^a-z]", "", (o.split() or [""])[0].lower())
+            if first in OBJ_BANNED:
+                bad(w, "objective zacina slovesem %r -- to nejde zkontrolovat: %r"
+                    % (first, o[:70]))
+            elif first not in OBJ_VERBS:
+                bad(w, "objective nezacina znamym aktivnim slovesem (%r): %r"
+                    % (first, o[:70]))
+        for s in c.get("researchSkills") or []:
+            if s not in RC_SKILLS:
+                bad(w, "neznama research skill %r (slovnik spec §26)" % s)
+        if not c.get("researchSkills"):
+            bad(w, "nepojmenovava zadnou research skill (§26)")
+
+        for pr in c.get("prerequisites") or []:
+            if pr.get("lesson") not in lesson_slugs:
+                bad(w, "prerequisite ukazuje na neexistujici lekci %r" % pr.get("lesson"))
+            if not (pr.get("why") or "").strip():
+                bad(w, "prerequisite %r nerika proc" % pr.get("lesson"))
+
+        # -- what we know / uncertainty
+        if len(c.get("whatWeKnow") or []) < 3:
+            bad(w, "whatWeKnow ma min nez tri polozky -- vyzva zacina tim, co uz plati")
+        for k in c.get("whatWeKnow") or []:
+            if not (k.get("claim") or "").strip():
+                bad(w, "whatWeKnow polozka bez claim")
+            if not k.get("sids"):
+                bad(w, "whatWeKnow polozka bez studie: %r" % (k.get("claim") or "")[:60])
+            for sid in k.get("sids") or []:
+                if sid not in studies:
+                    bad(w, "whatWeKnow odkazuje na neznamy SID %r" % sid)
+            prose_blobs.append(k.get("claim") or "")
+        if not c.get("uncertainty"):
+            bad(w, "nepojmenovava zadnou nejistotu (§29)")
+        prose_blobs += list(c.get("uncertainty") or [])
+        for sid in c.get("studies") or []:
+            if sid not in studies:
+                bad(w, "studies obsahuje neznamy SID %r" % sid)
+
+        # -- model: stejny kontrakt jako u cviceni typu model v lekci
+        md = c.get("model") or {}
+        ids = [n for col in md.get("layout") or [] for n in col]
+        if not ids:
+            bad(w, "model nema layout")
+        for nid in ids:
+            if nid not in pw_nodes:
+                bad(w, "uzel %r neni v pathway/model.json -- vyukovy model by se "
+                       "rozesel s vedeckym" % nid)
+        for eid in md.get("edges") or []:
+            if eid not in pw_edges:
+                bad(w, "hrana %r neni v pathway/model.json" % eid)
+        ctrls = md.get("controls") or []
+        if len(ctrls) < 2:
+            bad(w, "model ma min nez dva ovladace -- pak neni s cim experimentovat")
+        combos = [[]]
+        for ct in ctrls:
+            if len(ct.get("options") or []) < 2:
+                bad(w, "ovladac %r ma min nez dve moznosti" % ct.get("id"))
+            combos = [q + [v] for q in combos for v in (ct.get("options") or [])]
+            if (md.get("start") or {}).get(ct["id"]) not in (ct.get("options") or []):
+                bad(w, "start[%r] neni mezi moznostmi ovladace" % ct.get("id"))
+        states = md.get("states") or {}
+        need = {"|".join(q) for q in combos}
+        for miss in sorted(need - set(states)):
+            bad(w, "chybi vyjmenovany stav %r (zadny simulator = vsechny kombinace "
+                   "musi byt napsane)" % miss)
+        for extra in sorted(set(states) - need):
+            bad(w, "stav %r neodpovida zadne kombinaci prepinacu" % extra)
+        for sk, st in states.items():
+            if not (st.get("readout") or "").strip():
+                bad(w, "stav %r nema readout" % sk)
+            if not (st.get("note") or "").strip():
+                bad(w, "stav %r nema note" % sk)
+            for nid in st.get("flow") or []:
+                if nid not in ids:
+                    bad(w, "stav %r sviti uzel %r, ktery v modelu neni" % (sk, nid))
+            for eid in st.get("cut") or []:
+                if eid not in pw_edges:
+                    bad(w, "stav %r pretina neznamou hranu %r" % (sk, eid))
+            prose_blobs.append(st.get("note") or "")
+        prose_blobs.append(md.get("caption") or "")
+
+        # -- break the model
+        for b in c.get("break") or []:
+            bw = "%s break:%s" % (w, b.get("id"))
+            opts = b.get("options") or []
+            if not 3 <= len(opts) <= 4:
+                bad(bw, "ma %d moznosti, povoleny jsou 3 nebo 4" % len(opts))
+            if not isinstance(b.get("answer"), int) or not 0 <= b["answer"] < len(opts):
+                bad(bw, "answer=%r neukazuje na zadnou moznost" % (b.get("answer"),))
+            if len((b.get("explain") or "").split()) < 12:
+                bad(bw, "explain je kratsi nez 12 slov -- to neni vysvetleni")
+            prose_blobs += [b.get("prompt") or "", b.get("explain") or ""] + list(opts)
+
+        # -- hypotezy + revize
+        hyp = (c.get("hypotheses") or {}).get("options") or []
+        if len(hyp) < 3:
+            bad(w, "ma %d hypotez, chce se aspon tri konkurencni (§9)" % len(hyp))
+        hyp_ids = set()
+        for o in hyp:
+            if not o.get("id") or not (o.get("label") or "").strip():
+                bad(w, "hypoteza bez id/label")
+            if not (o.get("note") or "").strip():
+                bad(w, "hypoteza %r nema napsany komentar -- staticky web ho nevygeneruje"
+                    % o.get("id"))
+            hyp_ids.add(o.get("id"))
+            prose_blobs += [o.get("label") or "", o.get("note") or ""]
+        prose_blobs.append((c.get("hypotheses") or {}).get("prompt") or "")
+        rv = c.get("revise")
+        if not rv:
+            bad(w, "chybi krok revize hypotezy -- §16 ho zada jako povinny")
+        else:
+            for hid in sorted(hyp_ids):
+                if not (rv.get("feedback") or {}).get(hid):
+                    bad(w, "revize nema zpetnou vazbu pro hypotezu %r" % hid)
+            prose_blobs += [rv.get("prompt") or "", rv.get("note") or ""]
+            prose_blobs += list((rv.get("feedback") or {}).values())
+
+        # -- rozpocet a experimenty
+        exps = c.get("experiments") or []
+        if len(exps) < 3:
+            bad(w, "ma %d experimentu, na volbu je to malo" % len(exps))
+        budget = (c.get("budget") or {}).get("total")
+        if not isinstance(budget, int) or budget <= 0:
+            bad(w, "budget.total musi byt kladne cislo")
+        else:
+            tot = sum(x.get("cost") or 0 for x in exps)
+            if tot <= budget:
+                bad(w, "soucet nakladu (%d) neprevysuje rozpocet (%d) -- student by "
+                       "spustil vsechno a §4 (prioritizace) by tise zmizela" % (tot, budget))
+            if min([x.get("cost") or 0 for x in exps] or [0]) > budget:
+                bad(w, "ani nejlevnejsi experiment se do rozpoctu nevejde")
+        prose_blobs.append((c.get("budget") or {}).get("note") or "")
+
+        exp_ids = set()
+        for x in exps:
+            xw = "%s exp:%s" % (w, x.get("id"))
+            if not x.get("id") or x["id"] in exp_ids:
+                bad(xw, "experiment bez id nebo s duplicitnim id")
+            exp_ids.add(x.get("id"))
+            if not isinstance(x.get("cost"), int) or x["cost"] <= 0:
+                bad(xw, "cost=%r musi byt kladne cislo" % (x.get("cost"),))
+            d = x.get("design") or {}
+            for f in ("model", "perturbation", "readout", "control"):
+                if not (d.get(f) or "").strip():
+                    bad(xw, "design nema %s -- §10 chce vsechny ctyri dimenze" % f)
+                prose_blobs.append(d.get(f) or "")
+            ev = x.get("evidence") or {}
+            if ev.get("hypothetical"):
+                if not (ev.get("basis") or "").strip():
+                    bad(xw, "hypoteticky vysledek nerika, proc je hypoteticky (§29)")
+                prose_blobs.append(ev.get("basis") or "")
+            elif ev.get("sids"):
+                for sid in ev["sids"]:
+                    if sid not in studies:
+                        bad(xw, "vysledek odkazuje na neznamy SID %r" % sid)
+            else:
+                bad(xw, "vysledek neni ani odvozeny ze studie, ani oznaceny jako "
+                        "hypoteticky -- vymyslet data se nesmi (§29)")
+            res = x.get("result") or {}
+            if not (res.get("unit") or "").strip():
+                bad(xw, "vysledek nema unit")
+            if not (res.get("caption") or "").strip():
+                bad(xw, "vysledek nema popisek -- zjednodusena vizualizace se musi "
+                        "oznacit (§13)")
+            if len(res.get("bars") or []) < 2:
+                bad(xw, "vysledek ma min nez dva sloupce, neni co porovnat")
+            for bar in res.get("bars") or []:
+                if bar.get("level") not in RC_LEVELS:
+                    bad(xw, "sloupec %r ma uroven %r mimo slovnik %s -- presna cisla "
+                            "by byla vymyslena" % (bar.get("label"), bar.get("level"),
+                                                   sorted(RC_LEVELS)))
+                if not (bar.get("label") or "").strip():
+                    bad(xw, "sloupec bez popisku")
+            prose_blobs.append(res.get("caption") or "")
+            if not x.get("conclude"):
+                bad(xw, "chybi conclude -- §14 se pta, co vysledek dovoluje uzavrit")
+            if not x.get("cannotConclude"):
+                bad(xw, "chybi cannotConclude -- druha polovina §14 je povinna")
+            if not (x.get("informative") or "").strip():
+                bad(xw, "chybi informative -- §17 chce rict, jestli experiment rozlisuje")
+            interp = x.get("interpret") or []
+            if not 3 <= len(interp) <= 4:
+                bad(xw, "ma %d interpretaci, povoleny jsou 3 nebo 4" % len(interp))
+            for o in interp:
+                if not (o.get("note") or "").strip():
+                    bad(xw, "interpretace %r nema napsany komentar" % o.get("label"))
+                prose_blobs += [o.get("label") or "", o.get("note") or ""]
+            prose_blobs += [x.get("label") or "", x.get("informative") or ""]
+            prose_blobs += list(x.get("conclude") or []) + list(x.get("cannotConclude") or [])
+
+        # -- confounder
+        cf = c.get("confounder")
+        if cf:
+            if cf.get("after") and cf["after"] not in exp_ids:
+                bad(w, "confounder.after=%r neni id zadneho experimentu" % cf["after"])
+            for sid in cf.get("sids") or []:
+                if sid not in studies:
+                    bad(w, "confounder odkazuje na neznamy SID %r" % sid)
+            for f in ("info", "prompt", "explain", "control"):
+                if not (cf.get(f) or "").strip():
+                    bad(w, "confounder nema %s" % f)
+                prose_blobs.append(cf.get(f) or "")
+            if len(cf.get("options") or []) < 3:
+                bad(w, "confounder ma min nez tri moznosti (§15)")
+            for o in cf.get("options") or []:
+                if not (o.get("note") or "").strip():
+                    bad(w, "moznost %r confounderu nema komentar" % o.get("label"))
+                prose_blobs += [o.get("label") or "", o.get("note") or ""]
+
+        # -- srovnani s publikovanou praci
+        cp = c.get("compare") or {}
+        if cp.get("sid") not in studies:
+            bad(w, "compare odkazuje na neznamy SID %r" % cp.get("sid"))
+        if not cp.get("whatItAnswered") or not cp.get("whatItDidNot"):
+            bad(w, "compare musi rict, co studie odpovedela I co neodpovedela (§18)")
+        for f in ("whatTheyTested", "howToRead"):
+            if not (cp.get(f) or "").strip():
+                bad(w, "compare nema %s" % f)
+            prose_blobs.append(cp.get(f) or "")
+        prose_blobs += list(cp.get("whatItAnswered") or []) + list(cp.get("whatItDidNot") or [])
+
+        # -- reflexe a dalsi otazka
+        if not c.get("reflection"):
+            bad(w, "chybi zaverecna reflexe (§19)")
+        for r in c.get("reflection") or []:
+            if len(r.get("options") or []) < 2:
+                bad(w, "reflexe %r ma min nez dve moznosti" % r.get("id"))
+            prose_blobs += [r.get("prompt") or ""] + list(r.get("options") or [])
+        nq = c.get("nextQuestion") or {}
+        for f in ("text", "prompt"):
+            if not (nq.get(f) or "").strip():
+                bad(w, "nextQuestion nema %s -- §5 konci otazkou 'co dal'" % f)
+            prose_blobs.append(nq.get(f) or "")
+        if len(nq.get("options") or []) < 3:
+            bad(w, "nextQuestion ma min nez tri moznosti")
+        for o in nq.get("options") or []:
+            if not (o.get("note") or "").strip():
+                bad(w, "moznost %r v nextQuestion nema komentar" % o.get("label"))
+            prose_blobs += [o.get("label") or "", o.get("note") or ""]
+
+        # -- odkazy ven (§27, §28): nikdy do prazdna
+        for s in c.get("relatedLessons") or []:
+            if s not in lesson_slugs:
+                bad(w, "relatedLessons ukazuje na neexistujici lekci %r" % s)
+        for r in c.get("relatedRoutes") or []:
+            if r.get("id") not in routes:
+                bad(w, "neznama guided route %r" % r.get("id"))
+        for key, names in (c.get("relatedEntities") or {}).items():
+            for name in names:
+                n = ents.get(name.lower())
+                if n is None:
+                    bad(w, "entita %r neni v entities_baked.json" % name)
+                elif n < BP.PAGE_THRESHOLD:
+                    bad(w, "entita %r ma jen %d studii -> nema stranku, odkaz by byl 404"
+                        % (name, n))
+        for s in c.get("openQuestions") or []:
+            if s not in gaps:
+                bad(w, "neznamy open-question slug %r" % s)
+        prose_blobs += [c.get("subtitle") or "", c.get("researchQuestion") or ""]
+
+    # 10 -- stejny whitelist inline znacek jako u lekci
+    for b in prose_blobs:
+        for m in TAG.finditer(b or ""):
+            if not ALLOWED.fullmatch(m.group(0)):
+                bad("challenges.json", "nepovolena znacka %r v proze" % m.group(0))
+    return len([c for c in chs if c["status"] == "published"])
 
 
 def main():
@@ -384,6 +708,10 @@ def main():
                 if not ALLOWED.fullmatch(m.group(0)):
                     bad(w, "nepovolena znacka %r v proze" % m.group(0))
 
+    # 15 Research Challenges
+    n_ch = check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents,
+                            set(by_slug))
+
     # 5b poradi v modules.json vs prev/next
     for mod in modules["modules"]:
         pub = [r["lesson"] for r in mod["lessons"] if r["status"] == "published"]
@@ -430,7 +758,11 @@ def main():
         h = open(p, encoding="utf-8").read()
         if "<h1>" not in h:
             bad(rel, "stranka nema <h1> primo v HTML")
-        is_lesson = rel.count(os.sep) >= 3        # academy/<module>/<lesson>/index.html
+        parts = rel.split(os.sep)
+        # academy/<module>/<lesson>/index.html -- ale NE academy/research-challenges/*,
+        # ktere ma stejnou hloubku a jinou stavbu (zadna sekce Evidence, zadny kviz).
+        is_challenge = len(parts) >= 3 and parts[1] == "research-challenges"
+        is_lesson = len(parts) >= 4 and not is_challenge
         # Hleda se markup, ne jmeno tridy: ".ac-model{" je i ve stylopisu na
         # KAZDE strance, takze holy retezec "ac-model" by hlasil vsude.
         for cls, fallback, what in (('class="ac-model"', "ac-mdfall", "interaktivni model"),
@@ -438,6 +770,16 @@ def main():
                                     ('class="ac-design"', "ac-dsfall", "Experiment Builder")):
             if is_lesson and cls in h and fallback not in h:
                 bad(rel, "%s nema bez-JS ekvivalent (%s chybi)" % (what, fallback))
+        # 16 parita na strance vyzvy: rozpocet i model musi byt citelne bez JS
+        if is_challenge:
+            for cls, fallback, what in (('class="ac-rcexp"', "ac-rcfall", "rozpocet"),
+                                        ('class="ac-model"', "ac-mdfall", "interaktivni model"),
+                                        ('class="ac-rcpd"', "ac-rcfall", "break-the-model")):
+                if cls in h and fallback not in h:
+                    bad(rel, "%s nema bez-JS ekvivalent (%s chybi)" % (what, fallback))
+            if 'data-rc-notes' in h and 'data-rc-note="0"' not in h:
+                bad(rel, "napsana zpetna vazba k volbam neni v HTML -- bez JS by "
+                         "stranka byla prazdny seznam tlacitek")
         if is_lesson and "Check yourself" in h and "ac-qzfall" not in h:
             bad(rel, "kviz nema bez-JS fallback -- bez JS by to byl slepy seznam moznosti")
         if is_lesson and "What does the evidence say?" not in h:
@@ -462,8 +804,8 @@ def main():
         for x in problems:
             print("  " + x)
         return 1
-    print("verify_academy: OK -- %d lekci, %d stranek, vsechny odkazy sedi"
-          % (len(lessons), len(pages)))
+    print("verify_academy: OK -- %d lekci, %d vyzev, %d stranek, vsechny odkazy sedi"
+          % (len(lessons), n_ch, len(pages)))
     return 0
 
 
