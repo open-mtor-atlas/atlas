@@ -14,6 +14,21 @@
   "  * the research budget is an educational constraint: sum(experiment costs) must",
   "    exceed budget.total, so the student has to prioritise. Not a score.",
   "",
+  "2026-09-01, druhe kolo -- spending musel byt citelny a vyzva musela na svou",
+  "otazku odpovedet:",
+  "  * experiments[].addresses  -- co experiment adresuje, VIDITELNE PRED spustenim.",
+  "    Bez toho neni vyber rozhodnuti, ale loterie: badatel nevi, jak to dopadne,",
+  "    ale vi, na kterou otazku miri.",
+  "  * experiments[].discriminates -- id hypotez, jejichz predpovedi se u tohohle",
+  "    vysledku ROZCHAZEJI. Dve a vic = rozlisujici experiment. Prazdne pole je",
+  "    legitimni a poucne (vsechny hypotezy cekaji totez).",
+  "  * debrief -- co sada dohromady koupila. Skládá se za behu z toho, co student",
+  "    opravdu spustil: pravidla (ran/notRan), obecna veta podle poctu rozlisujicich",
+  "    a nejlevnejsi dostacujici sada. Neni to znamka, je to srovnani s alternativou.",
+  "  * answer -- kam otazka dneska dosla, ve trech oddelenych vrstvach podle §29",
+  "    (observation / interpretation / stillOpen) plus verdikt ke KAZDE hypoteze.",
+  "    Vyzva bez tohohle kroku se studenta na neco zepta a nikdy mu neodpovi.",
+  "",
   "status: published | planned  -- same honest meaning as in modules.json."
  ],
  "challenges": [
@@ -29,9 +44,18 @@
    "estimatedTime": 30,
    "researchQuestion": "Is Rheb-mediated regulation of mTORC1 determined mainly by nucleotide state, by localisation, or by both?",
    "prerequisites": [
-    {"lesson": "what-is-mtor", "why": "What the kinase integrates, and what its readouts are."},
-    {"lesson": "mtorc1-vs-mtorc2", "why": "Why a claim about &lsquo;mTOR&rsquo; is usually a claim about one of two complexes."},
-    {"lesson": "rheb", "why": "The GTP/GDP cycle, the TSC complex as a GAP, and the uncertainty this challenge starts from."}
+    {
+     "lesson": "what-is-mtor",
+     "why": "What the kinase integrates, and what its readouts are."
+    },
+    {
+     "lesson": "mtorc1-vs-mtorc2",
+     "why": "Why a claim about &lsquo;mTOR&rsquo; is usually a claim about one of two complexes."
+    },
+    {
+     "lesson": "rheb",
+     "why": "The GTP/GDP cycle, the TSC complex as a GAP, and the uncertainty this challenge starts from."
+    }
    ],
    "learningObjectives": [
     "Distinguish a claim about a protein's activation state from a claim about where that protein is",
@@ -40,22 +64,59 @@
     "Propose the control that would make a spatial claim interpretable"
    ],
    "researchSkills": [
-    "Causal reasoning", "Experimental design", "Control selection",
-    "Evidence evaluation", "Spatial reasoning", "Scientific uncertainty"
+    "Causal reasoning",
+    "Experimental design",
+    "Control selection",
+    "Evidence evaluation",
+    "Spatial reasoning",
+    "Scientific uncertainty"
    ],
    "whatWeKnow": [
-    {"claim": "TSC2 acts directly on Rheb's nucleotide cycle: it accelerates the conversion of Rheb-GTP to Rheb-GDP, and cells without a working TSC complex hold more Rheb-GTP and more mTOR signalling.", "sids": ["INOK2003"]},
-    {"claim": "The loading step is under physiological control. Insulin raises Rheb-GTP in a PI3K-dependent way, and TSC1/TSC2 blocks that increase.", "sids": ["GAR2003"]},
-    {"claim": "Raising Rheb is sufficient to raise mTORC1 output and cell growth in the systems where it was tested.", "sids": ["SAU2003", "INOK2003"]},
-    {"claim": "The amino-acid input works on position rather than on loading: the Rag GTPases bind raptor and move mTOR to a compartment that also holds Rheb, and a GTP-locked Rag mutant makes signalling resistant to amino-acid withdrawal.", "sids": ["SAN2008"]},
-    {"claim": "The brake moves too. TSC2 accumulates on lysosomes whenever amino acids or growth factors are missing, so &lsquo;state&rsquo; and &lsquo;place&rsquo; are not two separate compartments of the problem.", "sids": ["DEM2016"]}
+    {
+     "claim": "TSC2 acts directly on Rheb's nucleotide cycle: it accelerates the conversion of Rheb-GTP to Rheb-GDP, and cells without a working TSC complex hold more Rheb-GTP and more mTOR signalling.",
+     "sids": [
+      "INOK2003"
+     ]
+    },
+    {
+     "claim": "The loading step is under physiological control. Insulin raises Rheb-GTP in a PI3K-dependent way, and TSC1/TSC2 blocks that increase.",
+     "sids": [
+      "GAR2003"
+     ]
+    },
+    {
+     "claim": "Raising Rheb is sufficient to raise mTORC1 output and cell growth in the systems where it was tested.",
+     "sids": [
+      "SAU2003",
+      "INOK2003"
+     ]
+    },
+    {
+     "claim": "The amino-acid input works on position rather than on loading: the Rag GTPases bind raptor and move mTOR to a compartment that also holds Rheb, and a GTP-locked Rag mutant makes signalling resistant to amino-acid withdrawal.",
+     "sids": [
+      "SAN2008"
+     ]
+    },
+    {
+     "claim": "The brake moves too. TSC2 accumulates on lysosomes whenever amino acids or growth factors are missing, so &lsquo;state&rsquo; and &lsquo;place&rsquo; are not two separate compartments of the problem.",
+     "sids": [
+      "DEM2016"
+     ]
+    }
    ],
    "uncertainty": [
     "Several of the foundational nucleotide-state experiments used overexpressed protein. They report what Rheb can do when there is more of it, which is a different statement from what endogenous Rheb does.",
     "The two arms were largely measured in separate experiments, often in different cell types. Their relative contribution in one cell at one moment is not something the studies in this Atlas resolve.",
     "No study in this corpus moves Rheb itself between compartments at endogenous levels while leaving its nucleotide cycle intact &mdash; which is the experiment the question is really asking for."
    ],
-   "studies": ["INOK2003", "GAR2003", "SAU2003", "SAN2008", "DEM2016", "INO2002"],
+   "studies": [
+    "INOK2003",
+    "GAR2003",
+    "SAU2003",
+    "SAN2008",
+    "DEM2016",
+    "INO2002"
+   ],
    "budget": {
     "total": 100,
     "unit": "research units",
@@ -66,66 +127,170 @@
     "title": "The model you are arguing with",
     "caption": "Two lanes converge on the same kinase. The upper lane is the growth-factor arm that sets Rheb's nucleotide state; the lower lane is the nutrient arm that decides whether mTORC1 is recruited to the lysosomal surface at all. The location control stands for that lower lane being engaged or not. Nodes and arrows are taken from the Atlas pathway model, so this teaching diagram cannot drift away from the scientific one.",
     "layout": [
-     ["Akt/PKB", "v-ATPase"],
-     ["TSC1/TSC2", "Ragulator"],
-     ["Rheb", "Rag GTPases"],
-     ["mTORC1"],
-     ["S6K1", "4E-BP1"]
+     [
+      "Akt/PKB",
+      "v-ATPase"
+     ],
+     [
+      "TSC1/TSC2",
+      "Ragulator"
+     ],
+     [
+      "Rheb",
+      "Rag GTPases"
+     ],
+     [
+      "mTORC1"
+     ],
+     [
+      "S6K1",
+      "4E-BP1"
+     ]
     ],
-    "edges": ["AKT-TSC", "VATPASE-RAGULATOR", "TSC-RHEB", "RAGULATOR-RAG",
-              "RHEB-MTORC1", "RAG-MTORC1", "MTORC1-S6K1", "MTORC1-4EBP1"],
+    "edges": [
+     "AKT-TSC",
+     "VATPASE-RAGULATOR",
+     "TSC-RHEB",
+     "RAGULATOR-RAG",
+     "RHEB-MTORC1",
+     "RAG-MTORC1",
+     "MTORC1-S6K1",
+     "MTORC1-4EBP1"
+    ],
     "controls": [
-     {"id": "gf", "label": "Growth factors", "options": ["ON", "OFF"]},
-     {"id": "rheb", "label": "Rheb nucleotide state", "options": ["GTP", "GDP"]},
-     {"id": "place", "label": "mTORC1 location", "options": ["lysosome", "cytosol"]}
+     {
+      "id": "gf",
+      "label": "Growth factors",
+      "options": [
+       "ON",
+       "OFF"
+      ]
+     },
+     {
+      "id": "rheb",
+      "label": "Rheb nucleotide state",
+      "options": [
+       "GTP",
+       "GDP"
+      ]
+     },
+     {
+      "id": "place",
+      "label": "mTORC1 location",
+      "options": [
+       "lysosome",
+       "cytosol"
+      ]
+     }
     ],
-    "start": {"gf": "ON", "rheb": "GTP", "place": "lysosome"},
+    "start": {
+     "gf": "ON",
+     "rheb": "GTP",
+     "place": "lysosome"
+    },
     "states": {
      "ON|GTP|lysosome": {
-      "flow": ["Akt/PKB", "v-ATPase", "Ragulator", "Rag GTPases", "Rheb", "mTORC1", "S6K1", "4E-BP1"],
-      "cut": ["TSC-RHEB"],
+      "flow": [
+       "Akt/PKB",
+       "v-ATPase",
+       "Ragulator",
+       "Rag GTPases",
+       "Rheb",
+       "mTORC1",
+       "S6K1",
+       "4E-BP1"
+      ],
+      "cut": [
+       "TSC-RHEB"
+      ],
       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
       "note": "Both conditions are met at once: the activator is loaded and the kinase is where the activator is. This is the state every hypothesis on your list predicts, which is exactly why it cannot tell them apart."
      },
      "ON|GTP|cytosol": {
-      "flow": ["Akt/PKB", "Rheb"],
-      "cut": ["TSC-RHEB", "RAG-MTORC1"],
+      "flow": [
+       "Akt/PKB",
+       "Rheb"
+      ],
+      "cut": [
+       "TSC-RHEB",
+       "RAG-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "Sit with this one. The hormone is present, the brake is released, Rheb is loaded &mdash; and the output is still low, because the kinase is not at the place where the activating step happens. If you hold that nucleotide state alone determines the output, this state is the one you have to explain away."
      },
      "ON|GDP|lysosome": {
-      "flow": ["Akt/PKB", "v-ATPase", "Ragulator", "Rag GTPases"],
-      "cut": ["TSC-RHEB", "RHEB-MTORC1"],
+      "flow": [
+       "Akt/PKB",
+       "v-ATPase",
+       "Ragulator",
+       "Rag GTPases"
+      ],
+      "cut": [
+       "TSC-RHEB",
+       "RHEB-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "The mirror image, and the reason recruitment is not the same thing as activation: mTORC1 arrives at the surface, finds an unloaded activator, and does nothing. Docking is a precondition, not the switch."
      },
      "ON|GDP|cytosol": {
-      "flow": ["Akt/PKB"],
-      "cut": ["TSC-RHEB", "RHEB-MTORC1", "RAG-MTORC1"],
+      "flow": [
+       "Akt/PKB"
+      ],
+      "cut": [
+       "TSC-RHEB",
+       "RHEB-MTORC1",
+       "RAG-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "Neither condition is met. Note that the readout is identical to the two states above it &mdash; one blot cannot tell you which of the two requirements was the one that failed."
      },
      "OFF|GTP|lysosome": {
-      "flow": ["TSC1/TSC2", "v-ATPase", "Ragulator", "Rag GTPases", "Rheb", "mTORC1", "S6K1", "4E-BP1"],
+      "flow": [
+       "TSC1/TSC2",
+       "v-ATPase",
+       "Ragulator",
+       "Rag GTPases",
+       "Rheb",
+       "mTORC1",
+       "S6K1",
+       "4E-BP1"
+      ],
       "cut": [],
       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
       "note": "Loaded Rheb with the brake engaged and no hormone. In the model this is a held state; in a cell it is what a TSC-null background looks like &mdash; mTORC1 active without the permission signal that normally licenses it."
      },
      "OFF|GTP|cytosol": {
-      "flow": ["TSC1/TSC2", "Rheb"],
-      "cut": ["RAG-MTORC1"],
+      "flow": [
+       "TSC1/TSC2",
+       "Rheb"
+      ],
+      "cut": [
+       "RAG-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "The same loaded Rheb as the state above, and no output, because the kinase is elsewhere. Read the two together: they are the cleanest statement this model can make that position is doing work of its own."
      },
      "OFF|GDP|lysosome": {
-      "flow": ["TSC1/TSC2", "v-ATPase", "Ragulator", "Rag GTPases"],
-      "cut": ["RHEB-MTORC1"],
+      "flow": [
+       "TSC1/TSC2",
+       "v-ATPase",
+       "Ragulator",
+       "Rag GTPases"
+      ],
+      "cut": [
+       "RHEB-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "Nutrients are there, the hormone is not, the brake is engaged and Rheb has unloaded. mTORC1 sits on the surface waiting for an input that is not coming."
      },
      "OFF|GDP|cytosol": {
-      "flow": ["TSC1/TSC2"],
-      "cut": ["RHEB-MTORC1", "RAG-MTORC1"],
+      "flow": [
+       "TSC1/TSC2"
+      ],
+      "cut": [
+       "RHEB-MTORC1",
+       "RAG-MTORC1"
+      ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",
       "note": "The resting or starved state: no permission signal, brake engaged, activator unloaded, kinase not recruited, autophagy no longer restrained."
      }
@@ -199,18 +364,30 @@
      "id": "gap-assay",
      "label": "In vitro GAP assay: does TSC2 unload Rheb directly?",
      "cost": 15,
+     "addresses": "The nucleotide arm, and only its biochemistry",
+     "discriminates": [],
      "design": {
       "model": "Purified proteins, in vitro",
       "perturbation": "Add the TSC2 GAP domain to Rheb preloaded with GTP",
       "readout": "Which nucleotide is bound to Rheb",
       "control": "Rheb without TSC2; a GAP-dead TSC2 mutant"
      },
-     "evidence": {"sids": ["INOK2003"]},
+     "evidence": {
+      "sids": [
+       "INOK2003"
+      ]
+     },
      "result": {
       "unit": "Rheb-GTP remaining",
       "bars": [
-       {"label": "Rheb alone", "level": "high"},
-       {"label": "Rheb + TSC2", "level": "low"}
+       {
+        "label": "Rheb alone",
+        "level": "high"
+       },
+       {
+        "label": "Rheb + TSC2",
+        "level": "low"
+       }
       ],
       "caption": "Direction and rank order as reported in the source study. The bars are a schematic of that direction, not measured values."
      },
@@ -224,29 +401,58 @@
      ],
      "informative": "High for the mechanism of the brake, and zero for the question you actually asked: all four hypotheses predict this same result, so it cannot separate them. Spending 15 units here buys confidence in a step you were not doubting.",
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "Be careful about what it supports. A result that every candidate explanation predicts does not favour any of them &mdash; it confirms shared background, which feels like progress and is not."},
-      {"label": "It weakens my hypothesis", "note": "It is hard to see how. No hypothesis on your list denies that TSC2 unloads Rheb; they differ about whether loading is what decides the output in a cell."},
-      {"label": "It is inconclusive for my question", "note": "That is the reading this result deserves. It is a clean, interpretable biochemical experiment about a step none of your hypotheses disputed."},
-      {"label": "It introduces an alternative explanation", "note": "Not really an alternative &mdash; more a reminder that the brake acts on the activator rather than on the kinase, which is worth keeping straight when you read the spatial experiments."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "Be careful about what it supports. A result that every candidate explanation predicts does not favour any of them &mdash; it confirms shared background, which feels like progress and is not."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "It is hard to see how. No hypothesis on your list denies that TSC2 unloads Rheb; they differ about whether loading is what decides the output in a cell."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "That is the reading this result deserves. It is a clean, interpretable biochemical experiment about a step none of your hypotheses disputed."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "Not really an alternative &mdash; more a reminder that the brake acts on the activator rather than on the kinase, which is worth keeping straight when you read the spatial experiments."
+      }
      ]
     },
     {
      "id": "insulin-loading",
      "label": "Does a physiological input change Rheb loading in cells?",
      "cost": 20,
+     "addresses": "Whether the nucleotide arm is regulated at all",
+     "discriminates": [
+      "localisation"
+     ],
      "design": {
       "model": "Cultured mammalian cells and Drosophila",
       "perturbation": "Stimulate serum-starved cells with insulin, with and without TSC1/TSC2",
       "readout": "Fraction of Rheb in the GTP state, alongside p-S6K1",
       "control": "Serum-starved, unstimulated cells; PI3K inhibition"
      },
-     "evidence": {"sids": ["GAR2003"]},
+     "evidence": {
+      "sids": [
+       "GAR2003"
+      ]
+     },
      "result": {
       "unit": "Rheb-GTP loading",
       "bars": [
-       {"label": "Starved", "level": "low"},
-       {"label": "+ insulin", "level": "high"},
-       {"label": "+ insulin, TSC1/TSC2 present", "level": "low"}
+       {
+        "label": "Starved",
+        "level": "low"
+       },
+       {
+        "label": "+ insulin",
+        "level": "high"
+       },
+       {
+        "label": "+ insulin, TSC1/TSC2 present",
+        "level": "low"
+       }
       ],
       "caption": "Direction and rank order as reported in the source study, which also places the insulin effect downstream of PI3K. Schematic, not measured values."
      },
@@ -260,29 +466,59 @@
      ],
      "informative": "Moderate. It separates &lsquo;loading is regulated&rsquo; from &lsquo;loading is constitutive&rsquo;, which matters if you hold the localisation hypothesis in its strongest form. It is silent on the location arm.",
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "If your hypothesis is nucleotide-dominant, this is real support for the premise &mdash; the arm is regulated. It is not yet support for the claim that this arm is the one that decides the output."},
-      {"label": "It weakens my hypothesis", "note": "Only for the strongest form of the localisation hypothesis, the one that treats loading as fixed background. The moderate form survives this result untouched."},
-      {"label": "It is inconclusive for my question", "note": "Defensible. Two things move together here, and the design does not break that pairing apart."},
-      {"label": "It introduces an alternative explanation", "note": "It does raise one: if insulin changes loading and output at once, some of the output change may come from elsewhere in the insulin arm rather than through Rheb."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "If your hypothesis is nucleotide-dominant, this is real support for the premise &mdash; the arm is regulated. It is not yet support for the claim that this arm is the one that decides the output."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "Only for the strongest form of the localisation hypothesis, the one that treats loading as fixed background. The moderate form survives this result untouched."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "Defensible. Two things move together here, and the design does not break that pairing apart."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "It does raise one: if insulin changes loading and output at once, some of the output change may come from elsewhere in the insulin arm rather than through Rheb."
+      }
      ]
     },
     {
      "id": "rheb-overexpression",
      "label": "Raise Rheb and see whether output follows",
      "cost": 20,
+     "addresses": "Whether the nucleotide arm can drive the output on its own",
+     "discriminates": [
+      "nucleotide"
+     ],
      "design": {
       "model": "Cultured mammalian cells; Drosophila tissues",
       "perturbation": "Overexpress Rheb, or a form biased toward the GTP state",
       "readout": "p-S6K1 and p-4E-BP1; cell and tissue growth",
       "control": "Empty vector; rapamycin to test whether the effect runs through mTOR"
      },
-     "evidence": {"sids": ["INOK2003", "SAU2003"]},
+     "evidence": {
+      "sids": [
+       "INOK2003",
+       "SAU2003"
+      ]
+     },
      "result": {
       "unit": "mTORC1 output (p-S6K1 / p-4E-BP1)",
       "bars": [
-       {"label": "Control", "level": "mid"},
-       {"label": "Rheb raised", "level": "high"},
-       {"label": "Rheb raised + rapamycin", "level": "low"}
+       {
+        "label": "Control",
+        "level": "mid"
+       },
+       {
+        "label": "Rheb raised",
+        "level": "high"
+       },
+       {
+        "label": "Rheb raised + rapamycin",
+        "level": "low"
+       }
       ],
       "caption": "Direction and rank order as reported across the two source studies, which also report increased growth in Drosophila tissue. Schematic, not measured values."
      },
@@ -298,30 +534,63 @@
      "informative": "Historically decisive for placing Rheb on the map, and weak for the question in front of you: two variables move together, and neither of them is position.",
      "triggersConfounder": true,
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "It supports the nucleotide arm being able to drive output. Notice what you have to add silently to get from there to &lsquo;nucleotide state is what decides&rsquo;: that the extra protein went where it was needed."},
-      {"label": "It weakens my hypothesis", "note": "For a strong localisation hypothesis, an output rise without any spatial manipulation is uncomfortable &mdash; unless the extra Rheb is also reaching the compartment, which nothing here measures."},
-      {"label": "It is inconclusive for my question", "note": "A fair reading, and the reason is worth naming: an overexpression experiment changes abundance, and abundance is a third candidate explanation you have not been tracking."},
-      {"label": "It introduces an alternative explanation", "note": "It does, and the next panel makes it concrete. Raising Rheb does not leave the rest of the network where it was."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "It supports the nucleotide arm being able to drive output. Notice what you have to add silently to get from there to &lsquo;nucleotide state is what decides&rsquo;: that the extra protein went where it was needed."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "For a strong localisation hypothesis, an output rise without any spatial manipulation is uncomfortable &mdash; unless the extra Rheb is also reaching the compartment, which nothing here measures."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "A fair reading, and the reason is worth naming: an overexpression experiment changes abundance, and abundance is a third candidate explanation you have not been tracking."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "It does, and the next panel makes it concrete. Raising Rheb does not leave the rest of the network where it was."
+      }
      ]
     },
     {
      "id": "force-location",
      "label": "Force mTORC1 to the lysosomal surface and remove the nutrient signal",
      "cost": 30,
+     "addresses": "Position and nucleotide state against each other",
+     "discriminates": [
+      "nucleotide",
+      "localisation"
+     ],
      "design": {
       "model": "Human cell lines",
       "perturbation": "Express a GTP-locked Rag mutant that keeps mTORC1 at the lysosomal surface regardless of amino acids",
       "readout": "p-S6K1 with and without amino acids; mTOR localisation by imaging",
       "control": "Wild-type Rag at a matched expression level; a GDP-bound Rag mutant"
      },
-     "evidence": {"sids": ["SAN2008"]},
+     "evidence": {
+      "sids": [
+       "SAN2008"
+      ]
+     },
      "result": {
       "unit": "mTORC1 output (p-S6K1)",
       "bars": [
-       {"label": "Wild-type Rag, amino acids present", "level": "high"},
-       {"label": "Wild-type Rag, amino acids withdrawn", "level": "low"},
-       {"label": "GTP-locked Rag, amino acids present", "level": "high"},
-       {"label": "GTP-locked Rag, amino acids withdrawn", "level": "high"}
+       {
+        "label": "Wild-type Rag, amino acids present",
+        "level": "high"
+       },
+       {
+        "label": "Wild-type Rag, amino acids withdrawn",
+        "level": "low"
+       },
+       {
+        "label": "GTP-locked Rag, amino acids present",
+        "level": "high"
+       },
+       {
+        "label": "GTP-locked Rag, amino acids withdrawn",
+        "level": "high"
+       }
       ],
       "caption": "Direction and rank order as reported in the source study: locking the Rag mutant in its GTP-bound form made mTORC1 signalling resistant to amino-acid withdrawal. Schematic, not measured values."
      },
@@ -336,16 +605,30 @@
      ],
      "informative": "The most discriminating experiment on this menu, because the hypotheses predict different things here. A nucleotide-dominant view expects the amino-acid withdrawal to matter little either way; a localisation-dominant view expects exactly the pattern reported.",
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "If you committed to localisation, this is the strongest support available in the corpus. Keep the qualifier in view: it shows the position requirement can be satisfied artificially, not that the loading requirement went away."},
-      {"label": "It weakens my hypothesis", "note": "For a strict nucleotide-dominant view it is awkward: withdrawing amino acids should not have mattered much, and in wild-type cells it did."},
-      {"label": "It is inconclusive for my question", "note": "Too cautious, but for a good reason: the experiment separates the amino-acid input from the output, and leaves the two requirements bundled together in the growth-factor-replete condition."},
-      {"label": "It introduces an alternative explanation", "note": "It reframes the question more than it answers it: position may be a gate that has to be open rather than a dial that sets the level."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "If you committed to localisation, this is the strongest support available in the corpus. Keep the qualifier in view: it shows the position requirement can be satisfied artificially, not that the loading requirement went away."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "For a strict nucleotide-dominant view it is awkward: withdrawing amino acids should not have mattered much, and in wild-type cells it did."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "Too cautious, but for a good reason: the experiment separates the amino-acid input from the output, and leaves the two requirements bundled together in the growth-factor-replete condition."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "It reframes the question more than it answers it: position may be a gate that has to be open rather than a dial that sets the level."
+      }
      ]
     },
     {
      "id": "retarget-rheb",
      "label": "Move Rheb itself, at endogenous levels, both ways",
      "cost": 40,
+     "addresses": "Position alone at endogenous abundance &mdash; an experiment nobody has published",
+     "discriminates": [],
      "design": {
       "model": "Cultured cells with a knock-in, so abundance is held at the endogenous level",
       "perturbation": "Tether Rheb to a defined membrane, and separately remove it from that membrane, leaving the nucleotide cycle intact",
@@ -359,9 +642,18 @@
      "result": {
       "unit": "mTORC1 output (predicted)",
       "bars": [
-       {"label": "Rheb at the surface, loaded", "level": "high"},
-       {"label": "Rheb removed from the surface, still loaded", "level": "low"},
-       {"label": "Rheb at the surface, unloaded", "level": "low"}
+       {
+        "label": "Rheb at the surface, loaded",
+        "level": "high"
+       },
+       {
+        "label": "Rheb removed from the surface, still loaded",
+        "level": "low"
+       },
+       {
+        "label": "Rheb at the surface, unloaded",
+        "level": "low"
+       }
       ],
       "caption": "Expected, not observed. These bars are what the teaching model predicts if position and loading are two requirements that both have to be met. Nothing in the Atlas corpus reports this measurement."
      },
@@ -375,30 +667,64 @@
      ],
      "informative": "The highest in principle and the most expensive, and it is the gap in the literature rather than a line in it. Choosing it costs 40 units and returns a prediction &mdash; which is a fair picture of what committing to an unpublished experiment actually feels like.",
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "A prediction cannot support a hypothesis; it is generated by one. If this felt like support while you were reading it, that is the reflex the labelling is here to interrupt."},
-      {"label": "It weakens my hypothesis", "note": "Also not something a prediction can do. What it can do is tell you which hypothesis you would abandon if the experiment came out the other way."},
-      {"label": "It is inconclusive for my question", "note": "Correct, and the useful follow-up is: what would you have to see here to change your mind? Naming that in advance is most of what makes an experiment worth running."},
-      {"label": "It introduces an alternative explanation", "note": "It introduces a design problem rather than an explanation: the tether adds variables, so even the real version of this experiment would need its own controls."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "A prediction cannot support a hypothesis; it is generated by one. If this felt like support while you were reading it, that is the reflex the labelling is here to interrupt."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "Also not something a prediction can do. What it can do is tell you which hypothesis you would abandon if the experiment came out the other way."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "Correct, and the useful follow-up is: what would you have to see here to change your mind? Naming that in advance is most of what makes an experiment worth running."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "It introduces a design problem rather than an explanation: the tether adds variables, so even the real version of this experiment would need its own controls."
+      }
      ]
     },
     {
      "id": "brake-localisation",
      "label": "Watch where the brake goes when the inputs are withdrawn",
      "cost": 25,
+     "addresses": "Whether the two arms are separate variables at all",
+     "discriminates": [
+      "nucleotide",
+      "localisation",
+      "both"
+     ],
      "design": {
       "model": "Cultured mammalian cells",
       "perturbation": "Withdraw amino acids, or growth factors, or apply other stresses",
       "readout": "TSC2 localisation by imaging, alongside mTORC1 output",
       "control": "Full medium; cells with the inputs restored"
      },
-     "evidence": {"sids": ["DEM2016"]},
+     "evidence": {
+      "sids": [
+       "DEM2016"
+      ]
+     },
      "result": {
       "unit": "TSC2 on lysosomes",
       "bars": [
-       {"label": "Full medium", "level": "low"},
-       {"label": "Amino acids withdrawn", "level": "high"},
-       {"label": "Growth factors withdrawn", "level": "high"},
-       {"label": "Other stresses", "level": "high"}
+       {
+        "label": "Full medium",
+        "level": "low"
+       },
+       {
+        "label": "Amino acids withdrawn",
+        "level": "high"
+       },
+       {
+        "label": "Growth factors withdrawn",
+        "level": "high"
+       },
+       {
+        "label": "Other stresses",
+        "level": "high"
+       }
       ],
       "caption": "Direction and rank order as reported in the source study, which finds that both inputs have to be present for TSC2 to stay cytoplasmic. Schematic, not measured values."
      },
@@ -412,10 +738,22 @@
      ],
      "informative": "It reframes rather than answers. Run late, it turns a two-way question into a better-posed one; run first, it spends a quarter of the budget on a complication you cannot yet use.",
      "interpret": [
-      {"label": "It supports my hypothesis", "note": "It supports the &lsquo;both, and not independent&rsquo; reading more than either single-arm hypothesis, because it shows the arms sharing a mechanism."},
-      {"label": "It weakens my hypothesis", "note": "It weakens both strong forms at once: neither arm is the clean, isolable variable that a dominance claim needs."},
-      {"label": "It is inconclusive for my question", "note": "In the narrow sense, yes &mdash; it measures neither loading nor mTORC1 position. In the wider sense it tells you the question may be badly posed, which is worth knowing."},
-      {"label": "It introduces an alternative explanation", "note": "It does, and it is the most interesting one available: what looks like two competing mechanisms may be one mechanism with a spatial and a biochemical face."}
+      {
+       "label": "It supports my hypothesis",
+       "note": "It supports the &lsquo;both, and not independent&rsquo; reading more than either single-arm hypothesis, because it shows the arms sharing a mechanism."
+      },
+      {
+       "label": "It weakens my hypothesis",
+       "note": "It weakens both strong forms at once: neither arm is the clean, isolable variable that a dominance claim needs."
+      },
+      {
+       "label": "It is inconclusive for my question",
+       "note": "In the narrow sense, yes &mdash; it measures neither loading nor mTORC1 position. In the wider sense it tells you the question may be badly posed, which is worth knowing."
+      },
+      {
+       "label": "It introduces an alternative explanation",
+       "note": "It does, and it is the most interesting one available: what looks like two competing mechanisms may be one mechanism with a spatial and a biochemical face."
+      }
      ]
     }
    ],
@@ -423,13 +761,27 @@
     "title": "New information",
     "after": "rheb-overexpression",
     "info": "Raising Rheb does not only raise mTORC1 output. In the same work that placed Rheb downstream of TSC1/TSC2, Rheb overexpression also lowered PKB/AKT phosphorylation &mdash; the arm that was supposed to be the input.",
-    "sids": ["GAR2003"],
+    "sids": [
+     "GAR2003"
+    ],
     "prompt": "Does this affect your conclusion?",
     "options": [
-     {"label": "Yes, substantially", "note": "This is the reading the design supports. The experiment did not change one arrow; it changed a network that contains a feedback loop, and the readout you measured sits downstream of both the change and the loop."},
-     {"label": "Possibly", "note": "Reasonable if you think the feedback is slow relative to the measurement. Say what would make you sure &mdash; a time course, or measuring p-AKT in the same lysate, turns &lsquo;possibly&rsquo; into something checkable."},
-     {"label": "No", "note": "Hard to hold once the feedback is on the table: the input arm moved, so &lsquo;more Rheb-GTP acting on mTORC1&rsquo; is one of at least two routes from the manipulation to the readout."},
-     {"label": "Not enough information", "note": "Also defensible, and it points at the missing measurement rather than at the missing knowledge: the experiment as run does not report the state of the insulin arm."}
+     {
+      "label": "Yes, substantially",
+      "note": "This is the reading the design supports. The experiment did not change one arrow; it changed a network that contains a feedback loop, and the readout you measured sits downstream of both the change and the loop."
+     },
+     {
+      "label": "Possibly",
+      "note": "Reasonable if you think the feedback is slow relative to the measurement. Say what would make you sure &mdash; a time course, or measuring p-AKT in the same lysate, turns &lsquo;possibly&rsquo; into something checkable."
+     },
+     {
+      "label": "No",
+      "note": "Hard to hold once the feedback is on the table: the input arm moved, so &lsquo;more Rheb-GTP acting on mTORC1&rsquo; is one of at least two routes from the manipulation to the readout."
+     },
+     {
+      "label": "Not enough information",
+      "note": "Also defensible, and it points at the missing measurement rather than at the missing knowledge: the experiment as run does not report the state of the insulin arm."
+     }
     ],
     "explain": "mTORC1 output feeds back on upstream insulin signalling, so a cell with more Rheb is not the same cell with one arrow strengthened. The rise in p-S6K1 is a real observation either way. What needs care is the interpretation: attributing it specifically to more Rheb-GTP acting on mTORC1 requires the feedback arm to be held constant, or at least measured.",
     "control": "Measure p-AKT in the same lysate; use an acute, inducible increase rather than a stable line, so the network has less time to re-equilibrate; or use an endogenous knock-in so that abundance is not the variable at all."
@@ -482,30 +834,206 @@
     }
    ],
    "nextQuestion": {
-    "text": "One unresolved question sits underneath everything above: nothing in this corpus moves Rheb itself between compartments at endogenous levels while leaving its nucleotide cycle intact. Until that is done, &lsquo;state versus place&rsquo; stays a comparison between experiments that were not designed to be compared.",
+    "text": "The list above is where a next experiment would go. Pick the one you would actually defend in front of someone holding the budget &mdash; not the most interesting one, the one that would change what the field can claim.",
     "prompt": "You have one more opportunity and a limited budget. What would you do next?",
     "options": [
-     {"label": "Build the reciprocal targeting experiment for Rheb at endogenous levels", "note": "The direct attack on the gap. Expensive, slow, and the only option that turns the spatial claim into something with its own controls. Budget the reciprocal arm from the start &mdash; a one-directional tether leaves the result ambiguous."},
-     {"label": "Measure loading and localisation in the same cells, under one set of conditions", "note": "Cheaper and often underrated. Much of the difficulty here comes from arms measured in different cells on different days; a single matched dataset would not settle the question but would tell you how far apart the arms really are."},
-     {"label": "Repeat the forced-location experiment with growth factors withdrawn", "note": "The missing cell of the existing design. If fixed position still gives output without a growth-factor signal, position is doing more work than the current reading allows; if it does not, the two-requirement model gains real support."},
-     {"label": "Test whether the brake's relocation is required for the output change", "note": "Follows the most interesting complication rather than the original question. Blocking TSC2's move while leaving its activity intact is hard to do cleanly, which is worth knowing before you commit the budget."}
+     {
+      "label": "Build the reciprocal targeting experiment for Rheb at endogenous levels",
+      "note": "The direct attack on the gap. Expensive, slow, and the only option that turns the spatial claim into something with its own controls. Budget the reciprocal arm from the start &mdash; a one-directional tether leaves the result ambiguous."
+     },
+     {
+      "label": "Measure loading and localisation in the same cells, under one set of conditions",
+      "note": "Cheaper and often underrated. Much of the difficulty here comes from arms measured in different cells on different days; a single matched dataset would not settle the question but would tell you how far apart the arms really are."
+     },
+     {
+      "label": "Repeat the forced-location experiment with growth factors withdrawn",
+      "note": "The missing cell of the existing design. If fixed position still gives output without a growth-factor signal, position is doing more work than the current reading allows; if it does not, the two-requirement model gains real support."
+     },
+     {
+      "label": "Test whether the brake's relocation is required for the output change",
+      "note": "Follows the most interesting complication rather than the original question. Blocking TSC2's move while leaving its activity intact is hard to do cleanly, which is worth knowing before you commit the budget."
+     }
     ]
    },
    "skillsPractised": [
-    "Causal reasoning", "Experimental design", "Control selection",
-    "Evidence evaluation", "Spatial reasoning", "Scientific uncertainty"
+    "Causal reasoning",
+    "Experimental design",
+    "Control selection",
+    "Evidence evaluation",
+    "Spatial reasoning",
+    "Scientific uncertainty"
    ],
-   "relatedLessons": ["rheb", "tsc-and-rheb", "lysosome-platform", "how-to-read-an-mtor-paper"],
+   "relatedLessons": [
+    "rheb",
+    "tsc-and-rheb",
+    "lysosome-platform",
+    "how-to-read-an-mtor-paper"
+   ],
    "relatedRoutes": [
-    {"id": "gf", "why": "The growth-factor route, which is the nucleotide arm drawn end to end."},
-    {"id": "aa", "why": "The amino-acid route, which is the spatial arm drawn end to end."}
+    {
+     "id": "gf",
+     "why": "The growth-factor route, which is the nucleotide arm drawn end to end."
+    },
+    {
+     "id": "aa",
+     "why": "The amino-acid route, which is the spatial arm drawn end to end."
+    }
    ],
    "relatedEntities": {
-    "proteins": ["Rheb", "TSC1/TSC2", "Rag GTPases", "Akt/PKB"],
-    "pathways": ["mTORC1"],
-    "organelles": ["Lysosome"]
+    "proteins": [
+     "Rheb",
+     "TSC1/TSC2",
+     "Rag GTPases",
+     "Akt/PKB"
+    ],
+    "pathways": [
+     "mTORC1"
+    ],
+    "organelles": [
+     "Lysosome"
+    ]
    },
-   "openQuestions": []
+   "openQuestions": [],
+   "debrief": {
+    "minimalPortfolio": {
+     "experiments": [
+      "force-location"
+     ],
+     "why": "One experiment on this menu makes your hypotheses predict different things, and it costs 30 of your 100 units. A set that skips it leaves state and place bundled together no matter how much it cost."
+    },
+    "fullerPortfolio": {
+     "experiments": [
+      "force-location",
+      "brake-localisation"
+     ],
+     "why": "Twenty-five units more takes you as far as this corpus goes: the position requirement is real, and the two arms turn out to share a mechanism rather than being independent. Everything beyond that is context, not resolution."
+    },
+    "coverage": {
+     "none": "Nothing you ran separates your hypotheses. Every result you bought is one that all four candidate explanations predict, so your position at the end of the budget is the position you started with &mdash; better supported in its background, no better decided.",
+     "one": "One of the experiments you ran distinguishes between your hypotheses. That is enough to move your position, and it is worth being explicit about which of them did the work and which was context around it.",
+     "many": "More than one of the experiments you ran distinguishes between your hypotheses, which is the expensive and useful way to spend a budget. Where two discriminating results agree, your conclusion rests on more than one design."
+    },
+    "rules": [
+     {
+      "ran": [],
+      "notRan": [
+       "gap-assay",
+       "insulin-loading",
+       "rheb-overexpression",
+       "force-location",
+       "retarget-rheb",
+       "brake-localisation"
+      ],
+      "note": "You closed the investigation without spending anything. That is a legitimate move only if you had already decided the menu could not settle the question &mdash; and if so, the reasoning for that belongs in the last step."
+     },
+     {
+      "ran": [
+       "force-location"
+      ],
+      "notRan": [],
+      "note": "The forced-location experiment is what did the work. It is the one place where a nucleotide-dominant reading and a location-dominant reading expect different things, and the result went against the first."
+     },
+     {
+      "ran": [],
+      "notRan": [
+       "force-location"
+      ],
+      "note": "You never bought an experiment that varied position while the nucleotide arm stayed where it was. Without one, every result you have is compatible with either arm doing the work &mdash; which is why the question can still feel open at the end."
+     },
+     {
+      "ran": [
+       "force-location",
+       "brake-localisation"
+      ],
+      "notRan": [],
+      "note": "Running both spatial experiments is the fullest picture available here: one shows position is a control point, the other shows the brake is positioned too. Together they say the original question was posed as a dichotomy that the mechanism does not respect."
+     },
+     {
+      "ran": [
+       "gap-assay"
+      ],
+      "notRan": [],
+      "note": "Fifteen units went on the GAP assay. It is a clean experiment about a step none of your hypotheses disputed, so it bought confidence in shared background rather than a decision &mdash; the cheapest way to feel like you are making progress."
+     },
+     {
+      "ran": [
+       "rheb-overexpression"
+      ],
+      "notRan": [],
+      "note": "Your set includes the overexpression result, so it also includes its confounder: the same manipulation moves the input arm. Anything you conclude from it needs the feedback held constant or at least measured."
+     },
+     {
+      "ran": [
+       "retarget-rheb"
+      ],
+      "notRan": [],
+      "note": "Forty units &mdash; the largest single item on the menu &mdash; bought a prediction rather than a result, and the page said so before you paid. That is what committing to an unpublished experiment costs in a real programme, except there you find out at the end of the year."
+     },
+     {
+      "ran": [
+       "insulin-loading",
+       "rheb-overexpression"
+      ],
+      "notRan": [
+       "force-location",
+       "brake-localisation"
+      ],
+      "note": "Both of your experiments sit on the nucleotide arm. They are consistent with each other, and consistency between two experiments that test the same thing is not the same as evidence against the alternative."
+     }
+    ]
+   },
+   "answer": {
+    "short": "On the evidence in this Atlas: no, not on its own. Rheb behaves as one of two requirements that have to be met at the same time &mdash; the kinase has to be at the compartment, and the activator it meets there has to be loaded.",
+    "observation": [
+     {
+      "text": "TSC2 accelerates the conversion of Rheb-GTP to Rheb-GDP, and cells without a working TSC complex hold more Rheb-GTP and more mTOR signalling.",
+      "sids": [
+       "INOK2003"
+      ]
+     },
+     {
+      "text": "Insulin raises Rheb-GTP loading in cells in a PI3K-dependent way, and TSC1/TSC2 blocks that rise.",
+      "sids": [
+       "GAR2003"
+      ]
+     },
+     {
+      "text": "Raising Rheb raises S6K1 and 4E-BP1 phosphorylation and drives growth in the systems where it was tested.",
+      "sids": [
+       "SAU2003",
+       "INOK2003"
+      ]
+     },
+     {
+      "text": "A GTP-locked Rag mutant holds mTORC1 at the lysosomal surface and makes its signalling resistant to amino-acid withdrawal.",
+      "sids": [
+       "SAN2008"
+      ]
+     },
+     {
+      "text": "TSC2 itself accumulates on lysosomes whenever amino acids or growth factors are missing.",
+      "sids": [
+       "DEM2016"
+      ]
+     }
+    ],
+    "interpretation": [
+     "Read together, these support a two-requirement model rather than a single switch. Nutrients decide where the kinase is; growth factors decide whether the activator waiting there is loaded. Neither arm produces output without the other, which is why the model in step 2 has two states with an identical readout and completely different causes.",
+     "Rheb is still the step the kinase reads directly, which is why the ON/OFF language stuck to it. What the evidence does not support is the stronger version: that the nucleotide state by itself sets the output regardless of where the kinase is.",
+     "The two arms are not independent either, because the enzyme that sets the nucleotide state is itself positioned &mdash; TSC2 moves to the same compartment when an input is withdrawn. So &lsquo;state versus place&rsquo; is a useful way to design an experiment and a poor way to describe the mechanism."
+    ],
+    "stillOpen": [
+     "No study in this corpus moves Rheb itself between compartments at endogenous levels while leaving its nucleotide cycle intact. That is the reciprocal experiment the question actually asks for, and it is the 40-unit item on your menu that returns a prediction instead of a result.",
+     "The relative contribution of the two arms in one cell at one moment is measured nowhere: the arms were established in separate experiments, often in different cell types, and comparing across them is comparing designs as much as biology.",
+     "Several of the foundational nucleotide-state results used overexpressed protein, so how much of the effect survives at endogenous abundance is an open question rather than a settled detail."
+    ],
+    "hypothesisVerdicts": {
+     "nucleotide": "Survives only with a qualifier: Rheb-GTP determines the output <em>given</em> that mTORC1 is at the compartment. The forced-location experiment is what forces the qualifier, and the qualified version is the more testable claim &mdash; so this is a hypothesis that got sharper rather than one that failed.",
+     "localisation": "Half-right in a way worth naming. Position is a genuine control point, but the experiment that shows it was run in growth-factor-replete cells, so the loading requirement was quietly satisfied the whole time. Nothing here shows position is sufficient on its own.",
+     "both": "The reading the current evidence best supports, and the one that inherits the hardest job: making &lsquo;both&rsquo; specific enough to test. The brake-localisation result is what saves it from being a hedge &mdash; it names a shared mechanism rather than just declining to choose.",
+     "insufficient": "Defensible for the narrow question of relative contribution, which really is unmeasured. Harder to hold for the broad question, because the forced-location result does decide something: it rules out the version where position is a housekeeping detail."
+    }
+   }
   }
  ]
 }

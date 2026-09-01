@@ -540,6 +540,7 @@ def check_challenges(findings):
         for x in c.get("experiments") or []:
             xw = "exp.%s" % x.get("id")
             blobs.append(("%s.label" % xw, x.get("label") or ""))
+            blobs.append(("%s.addresses" % xw, x.get("addresses") or ""))
             blobs.append(("%s.informative" % xw, x.get("informative") or ""))
             for f in ("model", "perturbation", "readout", "control"):
                 blobs.append(("%s.design.%s" % (xw, f), (x.get("design") or {}).get(f) or ""))
@@ -551,6 +552,26 @@ def check_challenges(findings):
             for i, op in enumerate(x.get("interpret") or []):
                 blobs += [("%s.interpret%d.label" % (xw, i), op.get("label") or ""),
                           ("%s.interpret%d.note" % (xw, i), op.get("note") or "")]
+        # Debrief a answer (2026-09-01). Debrief je jediny text, ktery student
+        # cte jako hodnoceni sve vlastni prace, a answer je jediny text, ktery
+        # cte jako "takhle to dneska je" -- v obou je prehnana formulace
+        # nejdrazsi, protoze si ji odnese jako zaver.
+        db = c.get("debrief") or {}
+        for key in ("minimalPortfolio", "fullerPortfolio"):
+            blobs.append(("debrief.%s.why" % key, (db.get(key) or {}).get("why") or ""))
+        for k, v in (db.get("coverage") or {}).items():
+            blobs.append(("debrief.coverage.%s" % k, v or ""))
+        for i, r in enumerate(db.get("rules") or []):
+            blobs.append(("debrief.rule%d" % i, r.get("note") or ""))
+        ans = c.get("answer") or {}
+        blobs.append(("answer.short", ans.get("short") or ""))
+        for i, row in enumerate(ans.get("observation") or []):
+            blobs.append(("answer.observation%d" % i, row.get("text") or ""))
+        for f in ("interpretation", "stillOpen"):
+            blobs += [("answer.%s%d" % (f, i), v) for i, v in enumerate(ans.get(f) or [])]
+        for k, v in (ans.get("hypothesisVerdicts") or {}).items():
+            blobs.append(("answer.verdict.%s" % k, v or ""))
+
         cf = c.get("confounder") or {}
         for f in ("info", "prompt", "explain", "control"):
             blobs.append(("confounder.%s" % f, cf.get(f) or ""))

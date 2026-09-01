@@ -898,7 +898,48 @@ CHALLENGE_CSS = """
 .ac-rcbarfill{display:block;background:var(--teal);height:100%}
 .ac-rcbudgetbar{margin:0 0 8px}
 
+.ac-rcafford{font-size:14px;color:var(--soft);margin:0 0 10px}
+.ac-rcafford strong{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.ac-rcran{margin:0 0 10px}
+.ac-rcran ul{list-style:none;padding:0;margin:0}
+.ac-rcran li{display:flex;justify-content:space-between;gap:12px;font-size:14px;
+  border-top:1px solid var(--line);padding:6px 0}
+.ac-rcran li span:last-child{font-family:'IBM Plex Mono',monospace;font-size:12px;
+  color:var(--soft);white-space:nowrap}
+.ac-rcbtns{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 0}
+
+/* debrief -- co ta sada dohromady koupila */
+.ac-rcdebrief{border:1px solid var(--teal);border-radius:3px;padding:16px 18px;margin:0 0 18px}
+.ac-rcdebrief h3{margin:0 0 8px;font-size:17px;display:inline-block}
+.ac-rcdebrief h3:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.ac-rcdebrief p{font-size:14.5px;line-height:1.62}
+.ac-rcshort{font-size:16px;line-height:1.6;margin:0 0 10px}
+.ac-rcrules{list-style:none;padding:0;margin:0 0 14px}
+.ac-rcrules li{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px;
+  font-size:14.5px;line-height:1.62}
+.ac-rcport{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:10px 0;margin:0 0 14px}
+.ac-rcportnames{font-weight:600;margin:0 0 4px}
+.ac-rcskip{list-style:none;padding:0;margin:0}
+.ac-rcskip li{border-top:1px solid var(--line);padding:8px 0;display:grid;
+  grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;font-size:14px;line-height:1.5}
+.ac-rcskipn{font-weight:600}
+.ac-rcskipc{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+  white-space:nowrap;text-align:right}
+.ac-rcskipa{grid-column:1/-1;color:var(--soft)}
+
+/* krok "Where the question stands" */
+.ac-rcanswer{border-left:3px solid var(--teal);padding:2px 0 2px 14px;margin:0 0 20px}
+.ac-rcshort strong{font-family:'IBM Plex Mono',monospace}
+.ac-rcanswer .ac-rcshort{font-size:17.5px;line-height:1.58;margin:0}
+.ac-rcinterp p{font-size:15.5px;line-height:1.65;margin:0 0 12px}
+.ac-rcverdicts dt{font-size:15px}
+.ac-rcverdicts dd{color:var(--ink)}
+
 /* experiment card */
+.ac-rcaddr{font-size:14px;line-height:1.55;margin:0 0 10px}
+.ac-rcspent{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0}
 .ac-rcexp{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 16px}
 .ac-rcexphead{display:flex;gap:12px;align-items:baseline;justify-content:space-between;
   flex-wrap:wrap;margin:0 0 8px}
@@ -1030,58 +1071,135 @@ CHALLENGE_JS = """
     });
   });
 
-  /* ---------- research budget ---------- */
+  /* ---------- research budget + debrief ---------- */
+  /* Rozpocet je vzdelavaci omezeni, ne skore. Proto: zadny countdown, zadna
+     cervena, resetovat jde kdykoli -- a hlavne se na konci ptame, co ta sada
+     koupila, ne kolik bodu ma. "Utratil jsem to spravne?" nema odpoved ve
+     forme znamky; ma ji ve forme srovnani s nejlevnejsi dostacujici sadou,
+     ktera je napsana v datech. */
   var bx=document.querySelector('[data-rc-budget]');
   if(!bx) return;
+  var D=null, dEl=document.querySelector('script.ac-rcdata');
+  if(dEl){try{D=JSON.parse(dEl.textContent);}catch(e){}}
   var total=parseInt(bx.getAttribute('data-rc-budget'),10)||0;
-  var left=total;
+  var left=total, ran=[], closed=false;
   var leftEl=bx.querySelector('[data-rc-left]'), fill=bx.querySelector('[data-rc-fill]');
+  var affEl=bx.querySelector('[data-rc-afford]'), ranBox=bx.querySelector('[data-rc-ran]');
+  var closeBtn=bx.querySelector('[data-rc-close]'), deb=document.querySelector('[data-rc-debrief]');
   var exps=[].slice.call(document.querySelectorAll('[data-rc-exp]'));
-  var fall=bx.parentNode.querySelector('.ac-rcfall'); if(fall) fall.hidden=true;
+  /* oba fallbacky tohohle kroku (rozpocet + debrief); predikce v kroku 2 maji
+     svoje vlastni a schovava je smycka vys */
+  [].forEach.call(bx.parentNode.querySelectorAll('.ac-rcfall'),function(f){f.hidden=true;});
 
-  function paintBudget(){
+  function paint(){
     if(leftEl) leftEl.textContent=String(left);
     if(fill) fill.style.width=(total?Math.max(0,left)/total*100:0)+'%';
+    var aff=0;
     exps.forEach(function(x){
-      if(x.getAttribute('data-rc-spent')==='1') return;
-      var cost=parseInt(x.getAttribute('data-cost'),10)||0;
       var btn=x.querySelector('.ac-rcrun'), no=x.querySelector('.ac-rcdenied');
-      var ok=cost<=left;
-      if(btn){btn.disabled=!ok;btn.setAttribute('aria-disabled',String(!ok));}
-      if(no) no.hidden=ok;
+      if(x.getAttribute('data-rc-spent')==='1'){ if(no) no.hidden=true; return; }
+      var cost=parseInt(x.getAttribute('data-cost'),10)||0;
+      var ok=(cost<=left)&&!closed;
+      if(ok) aff++;
+      if(btn){btn.disabled=!ok;btn.setAttribute('aria-disabled',String(!ok));btn.hidden=closed;}
+      if(no) no.hidden=ok||closed;
     });
+    if(affEl){affEl.textContent=String(aff);
+      var affRow=affEl.parentNode; if(affRow) affRow.hidden=closed;}
+    if(ranBox){
+      var ul=ranBox.querySelector('ul');
+      if(ul) ul.innerHTML=ran.map(function(id){
+        var x=D&&D.exps[id];
+        return '<li><span>'+(x?x.label:id)+'</span><span>'+(x?x.cost:'?')+'</span></li>';
+      }).join('');
+      ranBox.hidden=!ran.length;
+    }
   }
+
+  function uniq(a){var seen={},out=[];a.forEach(function(t){if(!seen[t]){seen[t]=1;out.push(t);}});return out;}
+
+  function portfolio(p,label){
+    if(!p) return '';
+    return '<p class="ac-showslbl">'+label+' &middot; '+p.cost+' '+D.unit+'</p>'+
+           '<p class="ac-rcportnames">'+p.names.join(' &middot; ')+'</p><p>'+p.why+'</p>';
+  }
+
+  function debrief(){
+    if(!D||!deb) return;
+    var spent=total-left;
+    var disc=ran.filter(function(id){return D.exps[id]&&D.exps[id].disc>=2;});
+    var h='<h3 tabindex="-1">What your investigation bought</h3>';
+    h+='<p class="ac-rcshort">You spent <strong>'+spent+'</strong> of '+total+' '+D.unit+
+       ' on '+(ran.length===0?'nothing':(ran.length===1?'one experiment':ran.length+' experiments'))+'.</p>';
+    h+='<p>'+D.coverage[disc.length===0?'none':(disc.length===1?'one':'many')]+'</p>';
+    var hit=D.rules.filter(function(r){
+      return r.ran.every(function(i){return ran.indexOf(i)>=0;}) &&
+             r['not'].every(function(i){return ran.indexOf(i)<0;});
+    }).slice(0,4);
+    if(hit.length) h+='<ul class="ac-rcrules">'+hit.map(function(r){return '<li>'+r.note+'</li>';}).join('')+'</ul>';
+    h+='<div class="ac-rcport">'+portfolio(D.minimal,'The cheapest sufficient set')+
+       portfolio(D.fuller,'The fuller set')+'</div>';
+    var sup=[],non=[];
+    ran.forEach(function(id){var x=D.exps[id]; if(!x) return;
+      sup=sup.concat(x.conclude); non=non.concat(x.cannot);});
+    if(sup.length) h+='<p class="ac-showslbl">What your set supports</p><ul class="ac-shows">'+
+      uniq(sup).map(function(t){return '<li class="ac-yes">'+t+'</li>';}).join('')+'</ul>';
+    if(non.length) h+='<p class="ac-showslbl">What it still leaves open</p><ul class="ac-shows">'+
+      uniq(non).map(function(t){return '<li class="ac-no">'+t+'</li>';}).join('')+'</ul>';
+    var skipped=[];
+    exps.forEach(function(x){var id=x.getAttribute('data-rc-exp');
+      if(ran.indexOf(id)<0&&D.exps[id]) skipped.push(id);});
+    if(skipped.length) h+='<p class="ac-showslbl">What you did not buy</p><ul class="ac-rcskip">'+
+      skipped.map(function(id){var x=D.exps[id];
+        return '<li><span class="ac-rcskipn">'+x.label+'</span>'+
+               '<span class="ac-rcskipc">'+x.cost+' '+D.unit+'</span>'+
+               '<span class="ac-rcskipa">'+x.addresses+'</span></li>';}).join('')+'</ul>';
+    deb.innerHTML=h; deb.hidden=false;
+    var hh=deb.querySelector('h3'); if(hh&&hh.focus) hh.focus();
+  }
+
   function reset(){
-    left=total;
+    left=total; ran=[]; closed=false;
     exps.forEach(function(x){
       x.removeAttribute('data-rc-spent');
       var out=x.querySelector('[data-rc-out]'); if(out) out.hidden=true;
+      var sp=x.querySelector('.ac-rcspent'); if(sp) sp.hidden=true;
       var btn=x.querySelector('.ac-rcrun');
       if(btn){btn.hidden=false;btn.disabled=false;}
     });
-    paintBudget();
+    if(deb){deb.hidden=true;deb.innerHTML='';}
+    if(closeBtn) closeBtn.disabled=false;
+    paint();
   }
+
   exps.forEach(function(x){
     var out=x.querySelector('[data-rc-out]'); if(out) out.hidden=true;
+    var sp=x.querySelector('.ac-rcspent'); if(sp) sp.hidden=true;
     var btn=x.querySelector('.ac-rcrun');
     if(!btn) return;
     btn.addEventListener('click',function(){
       var cost=parseInt(x.getAttribute('data-cost'),10)||0;
-      if(cost>left||x.getAttribute('data-rc-spent')==='1') return;
+      if(closed||cost>left||x.getAttribute('data-rc-spent')==='1') return;
       left-=cost;
       x.setAttribute('data-rc-spent','1');
+      ran.push(x.getAttribute('data-rc-exp'));
       btn.hidden=true;
-      if(out){out.hidden=false;}
-      paintBudget();
+      if(sp) sp.hidden=false;
+      if(out) out.hidden=false;
+      paint();
       track('experiment_run',{experiment:x.getAttribute('data-rc-exp'),cost:cost,
                               remaining:left});
-      if(out){var h=out.querySelector('.ac-rcsrc a');if(h) track('evidence_opened',
-        {experiment:x.getAttribute('data-rc-exp')});}
+      if(out&&out.querySelector('.ac-rcsrc a'))
+        track('evidence_opened',{experiment:x.getAttribute('data-rc-exp')});
     });
+  });
+  if(closeBtn) closeBtn.addEventListener('click',function(){
+    closed=true; closeBtn.disabled=true; paint(); debrief();
+    track('investigation_closed',{spent:total-left,experiments:ran.length});
   });
   var rb=bx.querySelector('[data-rc-reset]');
   if(rb) rb.addEventListener('click',reset);
-  paintBudget();
+  paint();
 })();
 </script>
 """
@@ -2205,20 +2323,123 @@ def rc_result(ex, by_sid):
 
 
 def rc_experiment(ex, by_sid):
+    """Karta experimentu. `addresses` je videt PRED spustenim zamerne: badatel
+    nevi, jak experiment dopadne, ale vi, na kterou otazku miri. Bez toho neni
+    vyber rozhodnuti, ale loterie -- a §17 (informativnost) se neda naucit,
+    protoze se o ni student dozvi az po zaplaceni."""
     d = ex["design"]
     rows = "".join("<tr><th>%s</th><td>%s</td></tr>" % (e(k.title()), prose(d[k]))
                    for k in ("model", "perturbation", "readout", "control") if d.get(k))
     return ('<div class="ac-rcexp" data-rc-exp="%s" data-cost="%d">'
             '<div class="ac-rcexphead"><h3>%s</h3>'
             '<span class="ac-rccost">%d units</span></div>'
+            '<p class="ac-rcaddr"><span class="ac-rclbl">What it addresses</span> %s</p>'
             '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div>'
             '<button type="button" class="ac-cta ac-quiet ac-rcrun">Run this experiment '
             '&middot; %d units</button>'
+            '<p class="ac-rcspent" hidden>Run &middot; %d units spent</p>'
             '<p class="ac-rcdenied" hidden>Not enough budget left for this one. That is '
-            'the constraint working, not a mistake &mdash; reset the budget if you want '
-            'to try a different order.</p>%s</div>'
-            % (e(ex["id"]), ex["cost"], e(ex["label"]), ex["cost"], rows, ex["cost"],
+            'the constraint working, not a mistake &mdash; you can start over with a full '
+            'budget if you want to try a different order.</p>%s</div>'
+            % (e(ex["id"]), ex["cost"], e(ex["label"]), ex["cost"],
+               prose(ex["addresses"]), rows, ex["cost"], ex["cost"],
                rc_result(ex, by_sid)))
+
+
+def rc_debrief_fallback(ch):
+    """Bez-JS podoba debriefu. S JS se z tohohle vybere jen to, co na spustenou
+    sadu sedi; bez JS je videt cely material, protoze schovavat vedecky obsah
+    za interakci se na tomhle webu nedela."""
+    d = ch["debrief"]
+    by_id = {x["id"]: x for x in ch["experiments"]}
+
+    def portfolio(key, label):
+        p = d.get(key)
+        if not p:
+            return ""
+        ids = p["experiments"]
+        cost = sum(by_id[i]["cost"] for i in ids)
+        names = ", ".join(e(by_id[i]["label"]) for i in ids)
+        return ('<p class="ac-showslbl">%s &mdash; %d %s</p><p>%s</p><p>%s</p>'
+                % (e(label), cost, e(ch["budget"]["unit"]), names, prose(p["why"])))
+
+    rules = "".join("<li>%s</li>" % prose(r["note"]) for r in d["rules"])
+    cov = "".join("<li>%s</li>" % prose(d["coverage"][k])
+                  for k in ("none", "one", "many") if d["coverage"].get(k))
+    return ('<details class="ac-rcfall"><summary>The debrief, without JavaScript</summary>'
+            '<p>With scripting on, this page assembles the notes below into a debrief of '
+            'the set you actually ran. Without it, here is the whole material.</p>'
+            '%s%s<p class="ac-showslbl">Notes on particular combinations</p><ul>%s</ul>'
+            '<p class="ac-showslbl">How much your set decides</p><ul>%s</ul></details>'
+            % (portfolio("minimalPortfolio", "The cheapest sufficient set"),
+               portfolio("fullerPortfolio", "The fuller set"), rules, cov))
+
+
+def rc_debrief_data(ch):
+    """Payload pro debrief. Vsechna proza projde prose() uz tady, protoze JS ji
+    sazi pres innerHTML -- whitelist inline znacek se tim vynuti pri buildu,
+    ne za behu."""
+    d = ch["debrief"]
+    by_id = {x["id"]: x for x in ch["experiments"]}
+    exps = {}
+    for x in ch["experiments"]:
+        exps[x["id"]] = {"label": e(x["label"]), "cost": x["cost"],
+                         "addresses": prose(x["addresses"]),
+                         "disc": len(x.get("discriminates") or []),
+                         "conclude": [prose(t) for t in x["conclude"]],
+                         "cannot": [prose(t) for t in x["cannotConclude"]]}
+
+    def portfolio(key):
+        p = d.get(key)
+        if not p:
+            return None
+        return {"ids": p["experiments"],
+                "cost": sum(by_id[i]["cost"] for i in p["experiments"]),
+                "names": [e(by_id[i]["label"]) for i in p["experiments"]],
+                "why": prose(p["why"])}
+
+    return {"unit": e(ch["budget"]["unit"]), "total": ch["budget"]["total"],
+            "exps": exps,
+            "minimal": portfolio("minimalPortfolio"),
+            "fuller": portfolio("fullerPortfolio"),
+            "rules": [{"ran": r.get("ran") or [], "not": r.get("notRan") or [],
+                       "note": prose(r["note"])} for r in d["rules"]],
+            "coverage": {k: prose(v) for k, v in d["coverage"].items()}}
+
+
+def rc_answer(ans, by_sid, hyp_options):
+    """Krok, kde vyzva odpovi na svou vlastni otazku. Tri vrstvy oddelene
+    NAHLAS (§29): co bylo zmereno, jak to obor cte, a co nikdo neudelal.
+    Neznamkuje studenta -- mluvi o vede a pak rekne, jak z ni vychazi kazda
+    z nabidnutych hypotez, vcetne te, kterou si nevybral."""
+    obs = []
+    for row in ans["observation"]:
+        sids = " ".join('<a class="ac-rcsid" href="%s/study/%s/">%s</a>'
+                        % (SITE, e(x), e(x)) for x in row["sids"])
+        for x in row["sids"]:
+            if x not in by_sid:
+                raise SystemExit("build_academy: answer.observation ma neznamy SID %r" % x)
+        obs.append("<li>%s %s</li>" % (prose(row["text"]), sids))
+    interp = "".join("<p>%s</p>" % prose(x) for x in ans["interpretation"])
+    open_ = "".join('<li class="ac-no">%s</li>' % prose(x) for x in ans["stillOpen"])
+    verdicts = []
+    for op in hyp_options:
+        v = ans["hypothesisVerdicts"].get(op["id"])
+        if not v:
+            raise SystemExit("build_academy: chybi verdikt k hypoteze %r" % op["id"])
+        verdicts.append("<div><dt>%s</dt><dd>%s</dd></div>"
+                        % (e(op["label"]), prose(v)))
+    return ('<div class="ac-rcanswer"><p class="ac-rclbl">The short answer</p>'
+            '<p class="ac-rcshort">%s</p></div>'
+            '<p class="ac-pdstep">Observation &mdash; what has actually been measured</p>'
+            '<ul class="ac-rcknow">%s</ul>'
+            '<p class="ac-pdstep">Interpretation &mdash; how the field reads it</p>'
+            '<div class="ac-rcinterp">%s</div>'
+            '<p class="ac-pdstep">Still open &mdash; what nobody has done</p>'
+            '<ul class="ac-shows">%s</ul>'
+            '<p class="ac-pdstep">How each hypothesis comes out</p>'
+            '<dl class="ac-mdkey ac-rcverdicts">%s</dl>'
+            % (prose(ans["short"]), "".join(obs), interp, open_, "".join(verdicts)))
 
 
 def rc_step(n, key, title, inner, lead=""):
@@ -2284,10 +2505,19 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
               'of %d %s remaining</p>'
               '<div class="ac-rcbartrack ac-rcbudgetbar"><span class="ac-rcbarfill" '
               'data-rc-fill style="width:100%%"></span></div>'
+              '<p class="ac-rcafford"><strong data-rc-afford>%d</strong> of %d experiments '
+              'still within budget</p>'
+              '<div class="ac-rcran" data-rc-ran hidden>'
+              '<p class="ac-rclbl">Your investigation so far</p><ul></ul></div>'
               '<p class="ac-mdcap">%s</p>'
-              '<button type="button" class="ac-mdreset" data-rc-reset>Reset the budget'
-              '</button></div>'
-              % (b["total"], b["total"], b["total"], e(b["unit"]), prose(b["note"])))
+              '<div class="ac-rcbtns">'
+              '<button type="button" class="ac-cta ac-quiet" data-rc-close>Close the '
+              'investigation &rarr;</button>'
+              '<button type="button" class="ac-mdreset" data-rc-reset>Start over with a '
+              'full budget</button></div></div>'
+              '<div class="ac-rcdebrief" data-rc-debrief hidden></div>'
+              % (b["total"], b["total"], b["total"], e(b["unit"]),
+                 len(ch["experiments"]), len(ch["experiments"]), prose(b["note"])))
     fall = ('<details class="ac-rcfall"><summary>The budget, without JavaScript</summary>'
             '<p>%s of %s. Every experiment below is written out in full on this page, '
             'including its result and what it does and does not support &mdash; the '
@@ -2295,12 +2525,17 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
             '</p><div class="ac-cmpwrap"><table class="ac-cmp">'
             '<tr><th>Experiment</th><th>Cost</th></tr>%s</table></div></details>'
             % (b["total"], e(b["unit"]), costs))
-    inner = budget + fall + "".join(rc_experiment(x, by_sid) for x in ch["experiments"])
+    inner = (budget + fall + rc_debrief_fallback(ch)
+             + "".join(rc_experiment(x, by_sid) for x in ch["experiments"])
+             + ('<script type="application/json" class="ac-rcdata">%s</script>'
+                % json.dumps(rc_debrief_data(ch), ensure_ascii=False).replace("</", "<\\/")))
     steps.append(rc_step(n, "experiments", "Spend the budget", inner,
                          "Each experiment costs research units and returns what the "
                          "literature actually reports &mdash; or, where the literature is "
-                         "silent, a prediction labelled as one. Choose the ones that "
-                         "separate your hypotheses, not the ones that agree with them."))
+                         "silent, a prediction labelled as one. Each one says what question "
+                         "it addresses before you pay for it; none of them says how it will "
+                         "come out. Close the investigation when you are done and the page "
+                         "will tell you what the set you bought can and cannot support."))
     secs.append(("step-%d" % n, "Spend the budget"))
 
     # 5 confounder --------------------------------------------------------
@@ -2356,7 +2591,17 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
                          "Now, and not before, here is what someone actually did."))
     secs.append(("step-%d" % n, "Compare with published research"))
 
-    # 8 reflection + next question ----------------------------------------
+    # 8 kam otazka dosla ---------------------------------------------------
+    n += 1
+    inner = rc_answer(ch["answer"], by_sid, ch["hypotheses"]["options"])
+    steps.append(rc_step(n, "answer", "Where the question stands", inner,
+                         "You have committed, spent, revised and compared. Here is what "
+                         "the evidence in this Atlas actually supports today &mdash; "
+                         "separated into what was measured, how it is read, and what is "
+                         "still nobody's answer."))
+    secs.append(("step-%d" % n, "Where the question stands"))
+
+    # 9 reflection + next question ----------------------------------------
     n += 1
     refl = "".join('<div class="ac-rcrefl"><p class="ac-pdstep">%s</p>'
                    '<ul class="ac-qzopts" role="group" aria-label="%s">%s</ul></div>'
@@ -2366,8 +2611,7 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
                               for i, o in enumerate(r["options"])))
                    for r in ch["reflection"])
     nq = ch["nextQuestion"]
-    inner = (refl + '<div class="ac-rcnew"><p class="ac-rcnewlbl">Open question</p>'
-             '<p>%s</p></div><p class="ac-pdstep">%s</p>%s'
+    inner = (refl + '<p>%s</p><p class="ac-pdstep">%s</p>%s'
              % (prose(nq["text"]), e(nq["prompt"]),
                 rc_optnotes(nq["options"], "What would you do next?")))
     steps.append(rc_step(n, "reflect", "What would you do next?", inner))

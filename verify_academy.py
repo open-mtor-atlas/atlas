@@ -288,7 +288,9 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
                 bad(w, "ani nejlevnejsi experiment se do rozpoctu nevejde")
         prose_blobs.append((c.get("budget") or {}).get("note") or "")
 
-        exp_ids = set()
+        exp_ids, exp_by_id = set(), {}
+        for x in exps:
+            exp_by_id[x.get("id")] = x
         for x in exps:
             xw = "%s exp:%s" % (w, x.get("id"))
             if not x.get("id") or x["id"] in exp_ids:
@@ -296,6 +298,20 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
             exp_ids.add(x.get("id"))
             if not isinstance(x.get("cost"), int) or x["cost"] <= 0:
                 bad(xw, "cost=%r musi byt kladne cislo" % (x.get("cost"),))
+            if not (x.get("addresses") or "").strip():
+                bad(xw, "chybi addresses -- bez toho student pred zaplacenim nevi, na "
+                        "kterou otazku experiment miri, a vyber neni rozhodnuti")
+            prose_blobs.append(x.get("addresses") or "")
+            disc = x.get("discriminates")
+            if disc is None:
+                bad(xw, "chybi discriminates (klidne prazdne pole -- to je legitimni "
+                        "a poucne, znamena 'vsechny hypotezy cekaji totez')")
+            else:
+                for hid in disc:
+                    if hid not in hyp_ids:
+                        bad(xw, "discriminates jmenuje neexistujici hypotezu %r" % hid)
+                if len(set(disc)) != len(disc):
+                    bad(xw, "discriminates ma duplicity")
             d = x.get("design") or {}
             for f in ("model", "perturbation", "readout", "control"):
                 if not (d.get(f) or "").strip():
@@ -344,6 +360,104 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
                 prose_blobs += [o.get("label") or "", o.get("note") or ""]
             prose_blobs += [x.get("label") or "", x.get("informative") or ""]
             prose_blobs += list(x.get("conclude") or []) + list(x.get("cannotConclude") or [])
+
+        # -- debrief: co ta sada dohromady koupila
+        #
+        # Bez tohohle bloku vyzva nikdy neodpovi na otazku "utratil jsem to
+        # spravne?" -- student utrati rozpocet, uvidi sest samostatnych
+        # vysledku a nema jak zjistit, jestli ta KOMBINACE k necemu byla.
+        db = c.get("debrief") or {}
+        if not db:
+            bad(w, "chybi debrief -- bez nej se student nedozvi, co jeho sada koupila")
+        else:
+            for key, need in (("minimalPortfolio", True), ("fullerPortfolio", False)):
+                p = db.get(key)
+                if not p:
+                    if need:
+                        bad(w, "debrief nema %s -- 'utratil jsem to spravne' pak nema "
+                               "s cim se porovnat" % key)
+                    continue
+                ids = p.get("experiments") or []
+                if not ids:
+                    bad(w, "%s je prazdne" % key)
+                for i in ids:
+                    if i not in exp_ids:
+                        bad(w, "%s odkazuje na neznamy experiment %r" % (key, i))
+                cost = sum((exp_by_id.get(i) or {}).get("cost") or 0 for i in ids)
+                if isinstance(budget, int) and cost > budget:
+                    bad(w, "%s stoji %d, coz se do rozpoctu %d nevejde -- referencni "
+                           "sada musi byt dosazitelna" % (key, cost, budget))
+                if key == "minimalPortfolio" and not any(
+                        len((exp_by_id.get(i) or {}).get("discriminates") or []) >= 2
+                        for i in ids):
+                    bad(w, "minimalPortfolio neobsahuje ani jeden rozlisujici experiment "
+                           "-- pak to neni dostacujici sada")
+                if not (p.get("why") or "").strip():
+                    bad(w, "%s nerika proc" % key)
+                prose_blobs.append(p.get("why") or "")
+            for k in ("none", "one", "many"):
+                if not ((db.get("coverage") or {}).get(k) or "").strip():
+                    bad(w, "debrief.coverage nema variantu %r" % k)
+                prose_blobs.append((db.get("coverage") or {}).get(k) or "")
+            if not db.get("rules"):
+                bad(w, "debrief nema zadne pravidlo pro kombinace")
+            for j, r in enumerate(db.get("rules") or []):
+                rw = "%s debrief.rule[%d]" % (w, j)
+                for key in ("ran", "notRan"):
+                    for i in r.get(key) or []:
+                        if i not in exp_ids:
+                            bad(rw, "%s odkazuje na neznamy experiment %r" % (key, i))
+                both = set(r.get("ran") or []) & set(r.get("notRan") or [])
+                if both:
+                    bad(rw, "experiment je v ran i notRan zaroven: %s" % sorted(both))
+                if not (r.get("note") or "").strip():
+                    bad(rw, "pravidlo bez textu")
+                prose_blobs.append(r.get("note") or "")
+
+        # -- answer: vyzva musi na svou vlastni otazku odpovedet
+        #
+        # Ne znamkou studenta (§3 to zakazuje), ale vedou: co bylo zmereno,
+        # jak se to cte a co nikdo neudelal -- tri vrstvy §29 oddelene nahlas.
+        ans = c.get("answer") or {}
+        if not ans:
+            bad(w, "chybi answer -- vyzva se studenta zepta a nikdy mu neodpovi")
+        else:
+            if not (ans.get("short") or "").strip():
+                bad(w, "answer nema kratkou primou odpoved")
+            if len(ans.get("observation") or []) < 3:
+                bad(w, "answer.observation ma min nez tri zmerene veci")
+            for row in ans.get("observation") or []:
+                if not (row.get("text") or "").strip():
+                    bad(w, "answer.observation polozka bez textu")
+                if not row.get("sids"):
+                    bad(w, "answer.observation polozka bez studie -- vrstva Observation "
+                           "musi ukazovat na mereni")
+                for sid in row.get("sids") or []:
+                    if sid not in studies:
+                        bad(w, "answer.observation ma neznamy SID %r" % sid)
+                prose_blobs.append(row.get("text") or "")
+            for key in ("interpretation", "stillOpen"):
+                if not ans.get(key):
+                    bad(w, "answer nema vrstvu %r (§29 chce vsechny tri)" % key)
+                prose_blobs += list(ans.get(key) or [])
+            verd = ans.get("hypothesisVerdicts") or {}
+            for hid in sorted(hyp_ids):
+                if not (verd.get(hid) or "").strip():
+                    bad(w, "answer nerika, jak vychazi hypoteza %r -- student, ktery si ji "
+                           "vybral, by odpoved nedostal" % hid)
+            for hid in sorted(set(verd) - hyp_ids):
+                bad(w, "answer ma verdikt k neexistujici hypoteze %r" % hid)
+            prose_blobs += [ans.get("short") or ""] + list(verd.values())
+
+        # Aspon jeden rozlisujici experiment se MUSI vejit do rozpoctu -- jinak
+        # je vyzva nereseitelna a debrief by studentovi vycital neco, co si
+        # koupit nemohl.
+        afford = [x for x in exps
+                  if len(x.get("discriminates") or []) >= 2
+                  and isinstance(budget, int) and (x.get("cost") or 0) <= budget]
+        if not afford:
+            bad(w, "zadny rozlisujici experiment (discriminates >= 2) se nevejde do "
+                   "rozpoctu -- otazku by neslo posunout za zadnou cenu")
 
         # -- confounder
         cf = c.get("confounder")
@@ -777,6 +891,11 @@ def main():
                                         ('class="ac-rcpd"', "ac-rcfall", "break-the-model")):
                 if cls in h and fallback not in h:
                     bad(rel, "%s nema bez-JS ekvivalent (%s chybi)" % (what, fallback))
+            if 'data-rc-budget' in h and 'data-rc-step="answer"' not in h:
+                bad(rel, "stranka vyzvy nema krok s odpovedi -- vyzva by se zeptala "
+                         "a neodpovedela")
+            if 'data-rc-budget' in h and 'class="ac-rcdata"' not in h:
+                bad(rel, "chybi payload debriefu -- rozpocet by se utratil bez zaveru")
             if 'data-rc-notes' in h and 'data-rc-note="0"' not in h:
                 bad(rel, "napsana zpetna vazba k volbam neni v HTML -- bez JS by "
                          "stranka byla prazdny seznam tlacitek")
