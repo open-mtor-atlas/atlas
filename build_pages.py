@@ -227,7 +227,13 @@ def slugify(s):
 
 
 def e(s):
-    return html.escape(str(s or ""), quote=True)
+    # html.unescape() nejdriv rozbali pripadne uz-zakodovane entity
+    # (&mdash; &lsquo; &rsquo; &ndash; ...), ktere kuratori pisou rucne
+    # primo do dat (funguje pro SPA, kde se vklada přes innerHTML) --
+    # bez tohohle by html.escape() zakodoval i to & v nich znovu a
+    # vysledek by se na strance zobrazil doslova jako "&amp;mdash;".
+    # unescape+escape je bezpecne idempotentni i pro text bez entit.
+    return html.escape(html.unescape(str(s or "")), quote=True)
 
 
 def tier_bits(t):

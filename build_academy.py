@@ -1306,7 +1306,7 @@ def model_block(ex, pw, ent_url):
     svg = ('<div class="ac-mdscroll"><svg viewBox="0 0 %d %.0f" class="ac-mdsvg" '
            'style="max-width:%dpx;min-width:%dpx" role="img" aria-label="%s">%s</svg></div>'
            % (width, height, int(width * 1.4), min(560, width),
-              e(ex["caption"]), "".join(g)))
+              e(TAG_RE.sub("", ex["caption"])), "".join(g)))
 
     # ovladace
     ctl = []
@@ -1540,7 +1540,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     inline_ids = {sec["interactive"] for sec in les["sections"] if sec.get("interactive")}
     work = [x for x in les.get("exercises") or [] if x["id"] not in inline_ids]
     title = les["title"]
-    desc = ("%s %s" % (les["question"], TAG_RE.sub("", les["coreIdea"][0])))[:300]
+    desc = ("%s %s" % (TAG_RE.sub("", les["question"]), TAG_RE.sub("", les["coreIdea"][0])))[:300]
 
     # --- section anchors for the rail
     secs = [("question", "The question"), ("idea", "The core idea")]
@@ -1560,7 +1560,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     body.append("<h1>%s</h1>" % e(title))
     body.append('<p class="meta">%s</p>' % e(les["subtitle"]))
     body.append('<h2 id="question" class="ac-vh">The question</h2>'
-                '<p class="ac-q">%s</p>' % e(les["question"]))
+                '<p class="ac-q">%s</p>' % prose(les["question"]))
 
     if les.get("learningObjectives"):
         # Spec Faze 2 §12: konkretni vysledky, aktivnimi slovesy. Neni to
