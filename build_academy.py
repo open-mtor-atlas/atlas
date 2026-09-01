@@ -942,12 +942,11 @@ CHALLENGE_CSS = """
 .ac-labopenbox>summary{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
   letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
   min-height:44px;display:flex;align-items:center}
-.ac-labequip,.ac-labopens{font-size:14px;line-height:1.55;color:var(--soft);margin:0 0 10px}
-.ac-labpred{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;
-  color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:6px 10px;
-  margin:0 0 10px;line-height:1.5}
-.ac-labback{margin:0 0 4px}
-[data-lab-here]>.ac-labnode{border-color:var(--teal)}
+.ac-labopens{font-size:14px;line-height:1.55;color:var(--soft);margin:14px 0 10px}
+.ac-labpred{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);
+  border-radius:3px;padding:3px 7px;margin:0 0 10px;line-height:1.4}
+.ac-labfull>[data-rc-out]{border-top:none;margin-top:0}
 
 /* debrief -- co ta sada dohromady koupila */
 .ac-rcdebrief{border:1px solid var(--teal);border-radius:3px;padding:16px 18px;margin:0 0 18px}
@@ -978,16 +977,37 @@ CHALLENGE_CSS = """
 .ac-rcverdicts dd{color:var(--ink)}
 
 /* experiment card */
-.ac-rcaddr{font-size:14px;line-height:1.55;margin:0 0 10px}
 .ac-rcspent{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--teal);font-weight:600;margin:0}
 .ac-rcexp{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 16px}
-.ac-rcexphead{display:flex;gap:12px;align-items:baseline;justify-content:space-between;
-  flex-wrap:wrap;margin:0 0 8px}
-.ac-rcexphead h3{margin:0;font-size:16.5px}
-.ac-rccost{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
-  text-transform:uppercase;color:var(--soft);white-space:nowrap}
-.ac-rcexp[data-rc-spent="1"]{border-color:var(--teal)}
+
+/* volba kroku ------------------------------------------------------------
+   Moznosti musi jit POROVNAT, jinak to neni volba. Proto grid vedle sebe a
+   kompaktni hlava: cena velkym cislem (to je ten kompromis), nazev, na co
+   miri, co si zada, a navrh sbaleny do <details>. Vysledek se rozbaluje az
+   u kroku, na kterem clovek stoji -- pred zaplacenim by to stejne byla
+   odpoved na otazku, kterou si jeste nekoupil. */
+[data-lab-next],[data-lab-open]>div{display:grid;gap:14px;align-items:stretch;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.ac-labnode[data-view="choice"]{margin:0;display:flex;flex-direction:column}
+.ac-labnode[data-view="choice"] .ac-labfull{display:none}
+.ac-labnode[data-view="choice"] .ac-labchoice{flex:1;display:flex;flex-direction:column}
+.ac-labnode[data-view="choice"] .ac-labact{margin-top:auto;padding-top:10px}
+.ac-labnode[data-view="choice"] .ac-rcrun{width:100%;justify-content:center}
+.ac-labnode[data-view="result"]{border-color:var(--teal)}
+.ac-labcost{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 4px}
+.ac-labcost strong{font-size:26px;line-height:1;color:var(--teal);letter-spacing:0;
+  margin-right:4px}
+.ac-labchoice h3{margin:0 0 10px;font-size:16.5px;line-height:1.3}
+.ac-labfield{font-size:13.5px;line-height:1.5;color:var(--soft);margin:0 0 8px}
+.ac-labfield .ac-rclbl{margin:0 0 1px}
+.ac-labdesign{margin:2px 0 0}
+.ac-labdesign>summary{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
+  min-height:36px;display:flex;align-items:center}
+.ac-labdesign .ac-cmp{font-size:13.5px}
+.ac-labact{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .ac-cta[hidden],.ac-rcrun[hidden]{display:none}
 .ac-rcrun[disabled]{opacity:.45;cursor:not-allowed}
 .ac-rcrun[disabled]:hover{background:none;color:var(--ink)}
@@ -1144,6 +1164,10 @@ CHALLENGE_JS = """
   [].forEach.call(step.querySelectorAll('[data-rc-exp]'),function(c){
     cards[c.getAttribute('data-rc-exp')]=c;});
   [].forEach.call(step.querySelectorAll('.ac-rcfall'),function(f){f.hidden=true;});
+  /* zasobnik karet: bez JS je to cely rozpis vyzkumu shora dolu, s JS z nej
+     karty jen berem a schovavame ho -- jinak by pod volbou visely vsechny
+     kroky naraz a nebylo by poznat, mezi cim se vybira */
+  if(pool) pool.hidden=true;
 
   var total=D.total, left=total, cursor=null, ran=[], closed=false;
 
@@ -1182,6 +1206,9 @@ CHALLENGE_JS = """
       else if(inKids[id]&&(u[id]||isRun(id))) box=nextBox;
       else if(u[id]&&!isRun(id)) box=openInner;
       place(cards[id],box);
+      /* volba vs. vysledek: dokud krok jen zvazujes, vidis kompaktni kartu,
+         kterou jde porovnat s tou vedle. Rozbali se, az na nem stojis. */
+      cards[id].setAttribute('data-view',box===hereBox?'result':'choice');
 
       var c=cards[id], run=c.querySelector('.ac-rcrun'), back=c.querySelector('.ac-labback');
       var sp=c.querySelector('.ac-rcspent'), no=c.querySelector('.ac-rcdenied');
@@ -1206,7 +1233,8 @@ CHALLENGE_JS = """
     var runnable=kids.length>0;
     if(nextLbl){
       nextLbl.hidden=closed||!runnable;
-      nextLbl.textContent=(cursor===null)?'Where to start':'What this step opened up';
+      nextLbl.textContent=((cursor===null)?'Where to start':'What this step opened up')+
+                          (kids.length>1?' — pick one':'');
     }
     if(nextBox) nextBox.hidden=closed;
     if(openBox){
@@ -2457,24 +2485,29 @@ def rc_result(ex, by_sid):
 
 
 def rc_node(n, by_sid, unit):
-    """Karta jednoho kroku vyzkumu.
+    """Karta jednoho kroku vyzkumu ve DVOU podobach v jednom kusu markupu.
 
-    Cena je videt spolu s TIM, CO SI ZADA ZA VYBAVENI -- rekombinantni protein
-    v tube proti knock-in linii s live imagingem. Cislo tim prestava byt herni
-    cena a stava se z nej vlastnost toho experimentu.
+    Puvodne to byla jedna dlouha rozbalena karta a moznosti stály pod sebou --
+    coz neni volba, ale schody: prvni karta zabrala obrazovku a clovek na ni
+    proste klikl, aniz vedel, mezi cim vybira. Karta se proto deli na:
 
-    `addresses` a `opensNote` jsou videt PRED zaplacenim: badatel nevi, jak to
-    dopadne, ale vi, na kterou otazku to miri a co mu to otevre. Vysledek,
-    interpretace i pripadna komplikace jsou v HTML od zacatku a JS je jen
-    schova, dokud se krok nespusti."""
+      .ac-labchoice     kompaktni hlava, ktera staci k ROZHODNUTI -- cena
+                        velkym cislem, nazev, na co miri, co si zada za
+                        vybaveni, a sbaleny detail navrhu
+      .ac-labfull       vsechno ostatni (co to otevre, vysledek, interpretace,
+                        pripadna komplikace) -- to uz je ODPOVED, ne volba
+
+    JS nastavi na karte data-view="choice" nebo "result" a CSS podle toho
+    schova druhou pulku. Bez JS zadny data-view neni, takze se vykresli obe --
+    stranka zustava kompletni ctenim shora dolu."""
     d = n["design"]
     rows = "".join("<tr><th>%s</th><td>%s</td></tr>" % (e(k.title()), prose(d[k]))
                    for k in ("model", "perturbation", "readout", "control") if d.get(k))
-    pred = ('<p class="ac-labpred">Returns a prediction, not a result &mdash; no study in '
-            'this corpus reports it.</p>') if n.get("returns") == "prediction" else ""
+    pred = ('<p class="ac-labpred">Returns a prediction, not a result</p>') \
+        if n.get("returns") == "prediction" else ""
     opens = ""
     if n.get("opensNote"):
-        opens = ('<p class="ac-labopens"><span class="ac-rclbl">What it opens up</span> %s</p>'
+        opens = ('<p class="ac-labopens"><span class="ac-rclbl">What it opened up</span> %s</p>'
                  % prose(n["opensNote"]))
     ev = ""
     if n.get("event"):
@@ -2488,23 +2521,26 @@ def rc_node(n, by_sid, unit):
               % (e(v["title"]), prose(v["info"]), src, e(v["prompt"]),
                  rc_optnotes(v["options"], "Effect on your conclusion"),
                  prose(v["explain"]), prose(v["control"])))
-    return ('<div class="ac-rcexp ac-labnode" data-rc-exp="%s" data-cost="%d">'
-            '<div class="ac-rcexphead"><h3>%s</h3>'
-            '<span class="ac-rccost">%d %s</span></div>'
-            '<p class="ac-rcaddr"><span class="ac-rclbl">What it addresses</span> %s</p>'
-            '<p class="ac-labequip"><span class="ac-rclbl">What it takes</span> %s</p>%s'
-            '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div>%s'
-            '<button type="button" class="ac-cta ac-quiet ac-rcrun">Run this step '
-            '&middot; %d %s</button>'
-            '<button type="button" class="ac-cta ac-quiet ac-labback" hidden>Go back to '
-            'this step</button>'
-            '<p class="ac-rcspent" hidden>Run &middot; %d %s spent</p>'
-            '<p class="ac-rcdenied" hidden>Not enough budget left for this one. That is the '
-            'constraint working, not a mistake &mdash; the credits you have already spent '
-            'stay spent, which is exactly how a real programme feels.</p>%s%s</div>'
-            % (e(n["id"]), n["cost"], e(n["label"]), n["cost"], e(unit),
-               prose(n["addresses"]), prose(n["equipment"]), pred, rows, opens,
-               n["cost"], e(unit), n["cost"], e(unit), rc_result(n, by_sid), ev))
+    choice = ('<div class="ac-labchoice">'
+              '<p class="ac-labcost"><strong>%d</strong> %s</p>'
+              '<h3>%s</h3>%s'
+              '<p class="ac-labfield"><span class="ac-rclbl">Addresses</span> %s</p>'
+              '<p class="ac-labfield"><span class="ac-rclbl">Needs</span> %s</p>'
+              '<details class="ac-labdesign"><summary>The design</summary>'
+              '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div></details>'
+              '<div class="ac-labact">'
+              '<button type="button" class="ac-cta ac-quiet ac-rcrun">Run &middot; %d %s'
+              '</button>'
+              '<button type="button" class="ac-cta ac-quiet ac-labback" hidden>Go back to '
+              'this step</button>'
+              '<p class="ac-rcspent" hidden>Run &middot; %d %s spent</p></div>'
+              '<p class="ac-rcdenied" hidden>Not enough budget left for this one. What you '
+              'have already spent stays spent.</p></div>'
+              % (n["cost"], e(unit), e(n["label"]), pred, prose(n["addresses"]),
+                 prose(n["equipment"]), rows, n["cost"], e(unit), n["cost"], e(unit)))
+    return ('<div class="ac-rcexp ac-labnode" data-rc-exp="%s" data-cost="%d">%s'
+            '<div class="ac-labfull">%s%s%s</div></div>'
+            % (e(n["id"]), n["cost"], choice, opens, rc_result(n, by_sid), ev))
 
 
 def rc_lab_solve(lab):
