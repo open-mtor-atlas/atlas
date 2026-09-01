@@ -35,6 +35,9 @@ Kontroluje se:
      v pathway/model.json, kazda kombinace prepinacu ma vyjmenovany stav,
      kazde Predict cviceni ma skutecnou studii jako Observe
  13  kazde interaktivni cviceni ma na vygenerovane strance bez-JS ekvivalent
+ 14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
+     i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
+     misto sekce prazdno; caution sekce beginner verzi mit NESMI
 
 Usage: python verify_academy.py     (exit 0 = OK, 1 = nalezy)
 """
@@ -305,6 +308,23 @@ def main():
             if iid and iid not in ex_ids:
                 bad(w, "sekce odkazuje na neexistujici cviceni %r" % iid)
 
+        # 14 beginner uroven
+        if l.get("coreIdeaBeginner"):
+            for i, sec in enumerate(l.get("sections") or []):
+                if sec["kind"] == "caution":
+                    if sec.get("bodyBeginner"):
+                        bad(w, "caution sekce %d ma beginner verzi -- vyhrady se "
+                               "zadne urovni nezkracuji" % i)
+                elif not sec.get("bodyBeginner"):
+                    bad(w, "sekce %d (%r) nema beginner verzi, ale lekce beginner "
+                           "uroven ma -- na te urovni by byla prazdna"
+                        % (i, sec.get("heading")))
+        else:
+            for i, sec in enumerate(l.get("sections") or []):
+                if sec.get("bodyBeginner"):
+                    bad(w, "sekce %d ma beginner verzi, ale lekce nema "
+                           "coreIdeaBeginner -- prepinac se nezapne" % i)
+
         # 2 entity
         for key in ("proteins", "pathways", "processes", "organelles", "nutrients",
                     "drugs", "diseases", "outcomes"):
@@ -338,6 +358,9 @@ def main():
             blobs += [q.get("prompt") or "", q.get("explain") or ""]
             blobs += list(q.get("options") or [])
         blobs += list(l.get("learningObjectives") or [])
+        blobs += list(l.get("coreIdeaBeginner") or [])
+        for sec in l.get("sections") or []:
+            blobs += list(sec.get("bodyBeginner") or [])
         for x in l.get("exercises") or []:
             for f in ("prompt", "explain", "why", "bothSupport", "differ",
                       "nextExperiment", "question", "wouldResolve"):

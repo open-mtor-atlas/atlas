@@ -433,6 +433,8 @@ def check_academy(findings):
         blobs += [("subtitle", l.get("subtitle") or ""), ("question", l.get("question") or "")]
         for i, sec in enumerate(l.get("sections") or []):
             blobs += [("section%d" % i, x) for x in sec.get("body") or []]
+            blobs += [("section%d.beginner" % i, x) for x in sec.get("bodyBeginner") or []]
+        blobs += [("coreIdeaBeginner", x) for x in l.get("coreIdeaBeginner") or []]
         for j, t in enumerate(l.get("thinkQuestions") or []):
             blobs += [("think%d.prompt" % j, t.get("prompt") or ""),
                       ("think%d.hint" % j, t.get("hint") or ""),

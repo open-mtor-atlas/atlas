@@ -90,6 +90,21 @@ def paras(items, cls=None):
     return "".join("<p%s>%s</p>" % (c, prose(x)) for x in items)
 
 
+def levelled(full, beginner, cls=None):
+    """Dve verze teze prozy. Prepina je CSS na <html data-level>, ne JS:
+    `lv-hide-beginner` schova plnou verzi jen na urovni beginner (student
+    i research ji vidi beze zmeny), `lv-beginner` ukaze kratkou verzi jen
+    tam. Zadna treti kopie pro research -- ta by byla jen duplikat student
+    verze, ktera by se pak musela udrzovat dvakrat.
+
+    Bez beginner varianty se nic neobalu je: stranka pak vypada na vsech
+    urovnich stejne, coz je spravne chovani, ne chyba."""
+    if not beginner:
+        return paras(full, cls)
+    return ('<div class="lv-hide-beginner">%s</div><div class="lv-beginner">%s</div>'
+            % (paras(full, cls), paras(beginner, cls)))
+
+
 # ------------------------------------------------------------------- data ---
 
 def load():
@@ -1233,6 +1248,8 @@ def model_block(ex, pw, ent_url):
             it = pw["edges"].get(eid)
             if not it:
                 raise SystemExit("build_academy: hrana %r neni v pathway/model.json" % eid)
+            if it["source"] not in pos or it["target"] not in pos:
+                raise SystemExit("build_academy: hrana %r vede mimo uzly modelu" % eid)
             edges.append(it)
     else:
         # Bez vyjmenovanych hran kresli jen mezi SOUSEDNIMI sloupci. Model zna
@@ -1246,23 +1263,40 @@ def model_block(ex, pw, ent_url):
                     it = pw["pairs"].get((a, b))
                     if it:
                         edges.append(it)
+    # Zpetna hrana (cil je vlevo od zdroje) se vede POD schematem a vraci se
+    # nahoru do spodni hrany cile. Bez toho by smycka -- v lekci 08 cela pointa
+    # -- vypadala jako sipka kreslena pozpatku pres pul obrazku.
+    back = 0
     for it in edges:
         a, b = pos.get(it["source"]), pos.get(it["target"])
         if not a or not b:
+            continue
+        inhib = it.get("effect") == "inhibits"
+        if b[0] < a[0]:
+            back += 1
+            lane = TOP + tallest + 14 + (back - 1) * 14
+            xa, ya = a[0] + a[2] / 2.0, a[1] + a[3]
+            xb, yb = b[0] + b[2] / 2.0, b[1] + b[3]
+            d = "M%.0f %.0f V%.0f H%.0f V%.0f" % (xa, ya, lane, xb, yb + 12)
+            g.append('<path class="ac-mdedge ac-mdback" data-edge="%s" data-eff="%s" d="%s"%s/>'
+                     % (e(it["id"]), e(it.get("effect") or ""), d,
+                        "" if inhib else ' marker-end="url(#acArrow)"'))
+            if inhib:
+                g.append('<path class="ac-mdedge" data-edge="%s" data-eff="inhibits" '
+                         'd="M%.0f %.0f H%.0f"/>' % (e(it["id"]), xb - 9, yb + 12, xb + 9))
             continue
         x1, y1 = a[0] + a[2], a[1] + a[3] / 2.0
         x2, y2 = b[0], b[1] + b[3] / 2.0
         mid = (x1 + x2) / 2.0
         d = ("M%.0f %.0f H%.0f" % (x1, y1, x2 - 10)) if abs(y1 - y2) < 1 else \
             ("M%.0f %.0f H%.0f V%.0f H%.0f" % (x1, y1, mid, y2, x2 - 10))
-        inhib = it.get("effect") == "inhibits"
         g.append('<path class="ac-mdedge" data-edge="%s" data-eff="%s" d="%s"%s/>'
                  % (e(it["id"]), e(it.get("effect") or ""), d,
                     "" if inhib else ' marker-end="url(#acArrow)"'))
         if inhib:
             g.append('<path class="ac-mdedge" data-edge="%s" data-eff="inhibits" '
                      'd="M%.0f %.0f V%.0f"/>' % (e(it["id"]), x2 - 10, y2 - 9, y2 + 9))
-    height = TOP + tallest + 26
+    height = TOP + tallest + 26 + back * 14
     width = 4 + len(cols) * step
     # Sirku resi dve cisla odvozena z viewBoxu, ne pevne CSS: maly model
     # (dva sloupce) by se jinak roztahl pres cely sloupec textu a uzly by
@@ -1542,7 +1576,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
         secs.insert(1, ("objectives", "What you should be able to do"))
 
     body.append('<section class="ac-section ac-idea"><h2 id="idea">The core idea</h2>%s</section>'
-                % paras(les["coreIdea"]))
+                % levelled(les["coreIdea"], les.get("coreIdeaBeginner")))
 
     for i, s in enumerate(les["sections"]):
         cls = "ac-section" + (" ac-cautionsec" if s["kind"] == "caution" else "")
@@ -1551,7 +1585,12 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
             if s["figure"] not in FIGURES:
                 raise SystemExit("build_academy: neznamy figure %r" % s["figure"])
             inner += FIGURES[s["figure"]]()
-        inner += paras(s["body"], "ac-note" if s["kind"] == "caution" else None)
+        if s["kind"] == "caution":
+            # Vedoma vyjimka: co evidence NEUKAZUJE, vidi kazda uroven stejne.
+            # Zkratit zacatecnikovi text je v poradku; zkratit mu vyhrady ne.
+            inner += paras(s["body"], "ac-note")
+        else:
+            inner += levelled(s["body"], s.get("bodyBeginner"))
         if s.get("interactive"):
             if s["interactive"] not in ex_by_id:
                 raise SystemExit("build_academy: sekce odkazuje na neexistujici cviceni %r"
@@ -1668,7 +1707,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
                                          "border:0;padding:0;margin:-1px}",
                  extra_body=PROGRESS_JS + (QUIZ_JS if les.get("quiz") else "")
                             + (EXERCISE_JS if les.get("exercises") else ""),
-                 level_switch=bool(les.get("exercises")))
+                 level_switch=bool(les.get("exercises") or les.get("coreIdeaBeginner")))
     page = page.replace("<body>", '<body data-ac-current="%s">' % e(slug), 1)
     return url, page, missing
 
