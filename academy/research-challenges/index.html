@@ -578,15 +578,56 @@ a{overflow-wrap:anywhere}
 .ac-rcbarfill{display:block;background:var(--teal);height:100%}
 .ac-rcbudgetbar{margin:0 0 8px}
 
-.ac-rcafford{font-size:14px;color:var(--soft);margin:0 0 10px}
-.ac-rcafford strong{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
-.ac-rcran{margin:0 0 10px}
-.ac-rcran ul{list-style:none;padding:0;margin:0}
-.ac-rcran li{display:flex;justify-content:space-between;gap:12px;font-size:14px;
-  border-top:1px solid var(--line);padding:6px 0}
-.ac-rcran li span:last-child{font-family:'IBM Plex Mono',monospace;font-size:12px;
-  color:var(--soft);white-space:nowrap}
-.ac-rcbtns{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 0}
+.ac-rcbtns{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:16px 0 18px}
+
+/* laborator: panel dilcich otazek + rozpocet vedle sebe -------------------
+   Panel je videt od zacatku zamerne: cil "dostat maximum odpovedi za minimum
+   kreditu" se neda sledovat, kdyz clovek nevi, z ceho se ta puvodni otazka
+   sklada. Neni to skore -- je to mapa otazky. */
+.ac-labtop{display:grid;gap:16px;margin:0 0 18px}
+@media (min-width:760px){.ac-labtop{grid-template-columns:1.25fr 1fr;align-items:start}}
+.ac-labgoals{border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.ac-labcount{float:right;font-family:'IBM Plex Mono',monospace;letter-spacing:0;
+  text-transform:none}
+.ac-labcount strong{font-size:16px;color:var(--teal)}
+.ac-labgoallist{list-style:none;padding:0;margin:8px 0 0;counter-reset:g}
+.ac-labgoallist li{display:flex;gap:9px;align-items:flex-start;padding:7px 0;
+  border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--soft)}
+.ac-labgoallist li[data-done="1"]{color:var(--ink)}
+.ac-labtick{font-family:'IBM Plex Mono',monospace;flex:0 0 auto;width:14px}
+.ac-labgoallist li[data-done="1"] .ac-labtick{color:var(--teal);font-weight:600}
+.ac-labgoallist li.ac-labopenq{border-left:2px solid var(--line);padding-left:9px}
+.ac-labgnote{display:block;font-size:13px;line-height:1.5;margin:3px 0 0;opacity:.85}
+.ac-labtop .ac-rcbudget{margin:0}
+
+/* trasa -- klikatelna, navrat kredity nevraci */
+.ac-labpath{margin:0 0 16px}
+.ac-labpath ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:6px 0 0}
+.ac-labpath li{display:flex;align-items:center}
+.ac-labpath li+li::before{content:"→";color:var(--soft);margin-right:6px;
+  font-family:'IBM Plex Mono',monospace}
+.ac-labpath button{font-size:13px;line-height:1.3;background:none;cursor:pointer;
+  border:1px solid var(--line);border-radius:3px;padding:6px 10px;min-height:36px;
+  color:var(--ink);text-align:left}
+.ac-labpath button:hover{border-color:var(--teal);color:var(--teal)}
+.ac-labpath button span{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--soft);margin-left:5px}
+.ac-labpath li[data-here="1"] button{background:var(--ink);color:var(--on-ink,#fff);
+  border-color:var(--ink);font-weight:600}
+.ac-labpath li[data-here="1"] button span{color:var(--on-ink,#fff);opacity:.7}
+
+.ac-labnextlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:18px 0 8px}
+.ac-labopenbox{margin:0 0 18px}
+.ac-labopenbox>summary{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
+  min-height:44px;display:flex;align-items:center}
+.ac-labequip,.ac-labopens{font-size:14px;line-height:1.55;color:var(--soft);margin:0 0 10px}
+.ac-labpred{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;
+  color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:6px 10px;
+  margin:0 0 10px;line-height:1.5}
+.ac-labback{margin:0 0 4px}
+[data-lab-here]>.ac-labnode{border-color:var(--teal)}
 
 /* debrief -- co ta sada dohromady koupila */
 .ac-rcdebrief{border:1px solid var(--teal);border-radius:3px;padding:16px 18px;margin:0 0 18px}
@@ -627,7 +668,7 @@ a{overflow-wrap:anywhere}
 .ac-rccost{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
   text-transform:uppercase;color:var(--soft);white-space:nowrap}
 .ac-rcexp[data-rc-spent="1"]{border-color:var(--teal)}
-.ac-rcrun[hidden]{display:none}
+.ac-cta[hidden],.ac-rcrun[hidden]{display:none}
 .ac-rcrun[disabled]{opacity:.45;cursor:not-allowed}
 .ac-rcrun[disabled]:hover{background:none;color:var(--ink)}
 .ac-rcdenied{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 0}
@@ -733,7 +774,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-01 13:24 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-01 14:38 UTC</div>
 </footer>
 </div>
 </body>

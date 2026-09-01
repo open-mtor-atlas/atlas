@@ -537,11 +537,16 @@ def check_challenges(findings):
                   ("revise.note", rv.get("note") or "")]
         blobs += [("revise.feedback.%s" % k, v)
                   for k, v in (rv.get("feedback") or {}).items()]
-        for x in c.get("experiments") or []:
-            xw = "exp.%s" % x.get("id")
-            blobs.append(("%s.label" % xw, x.get("label") or ""))
-            blobs.append(("%s.addresses" % xw, x.get("addresses") or ""))
-            blobs.append(("%s.informative" % xw, x.get("informative") or ""))
+        lab = c.get("lab") or {}
+        blobs.append(("lab.budget.note", (lab.get("budget") or {}).get("note") or ""))
+        blobs.append(("lab.startNote", lab.get("startNote") or ""))
+        for g in lab.get("goals") or []:
+            blobs += [("lab.goal.%s.q" % g.get("id"), g.get("question") or ""),
+                      ("lab.goal.%s.note" % g.get("id"), g.get("note") or "")]
+        for x in lab.get("nodes") or []:
+            xw = "lab.%s" % x.get("id")
+            for f in ("label", "addresses", "equipment", "opensNote", "informative"):
+                blobs.append(("%s.%s" % (xw, f), x.get(f) or ""))
             for f in ("model", "perturbation", "readout", "control"):
                 blobs.append(("%s.design.%s" % (xw, f), (x.get("design") or {}).get(f) or ""))
             blobs.append(("%s.evidence.basis" % xw,
@@ -552,17 +557,18 @@ def check_challenges(findings):
             for i, op in enumerate(x.get("interpret") or []):
                 blobs += [("%s.interpret%d.label" % (xw, i), op.get("label") or ""),
                           ("%s.interpret%d.note" % (xw, i), op.get("note") or "")]
-        # Debrief a answer (2026-09-01). Debrief je jediny text, ktery student
-        # cte jako hodnoceni sve vlastni prace, a answer je jediny text, ktery
-        # cte jako "takhle to dneska je" -- v obou je prehnana formulace
-        # nejdrazsi, protoze si ji odnese jako zaver.
-        db = c.get("debrief") or {}
-        for key in ("minimalPortfolio", "fullerPortfolio"):
-            blobs.append(("debrief.%s.why" % key, (db.get(key) or {}).get("why") or ""))
-        for k, v in (db.get("coverage") or {}).items():
-            blobs.append(("debrief.coverage.%s" % k, v or ""))
-        for i, r in enumerate(db.get("rules") or []):
-            blobs.append(("debrief.rule%d" % i, r.get("note") or ""))
+            ev = x.get("event") or {}
+            for f in ("info", "prompt", "explain", "control"):
+                blobs.append(("%s.event.%s" % (xw, f), ev.get(f) or ""))
+            for i, op in enumerate(ev.get("options") or []):
+                blobs += [("%s.event.option%d.label" % (xw, i), op.get("label") or ""),
+                          ("%s.event.option%d.note" % (xw, i), op.get("note") or "")]
+        for i, r in enumerate((lab.get("debrief") or {}).get("rules") or []):
+            blobs.append(("lab.debrief.rule%d" % i, r.get("note") or ""))
+
+        # Answer (2026-09-01). Jediny text, ktery student cte jako "takhle to
+        # dneska je" -- prehnana formulace je tu nejdrazsi, protoze si ji odnese
+        # jako zaver cele vyzvy.
         ans = c.get("answer") or {}
         blobs.append(("answer.short", ans.get("short") or ""))
         for i, row in enumerate(ans.get("observation") or []):
@@ -572,12 +578,6 @@ def check_challenges(findings):
         for k, v in (ans.get("hypothesisVerdicts") or {}).items():
             blobs.append(("answer.verdict.%s" % k, v or ""))
 
-        cf = c.get("confounder") or {}
-        for f in ("info", "prompt", "explain", "control"):
-            blobs.append(("confounder.%s" % f, cf.get(f) or ""))
-        for i, op in enumerate(cf.get("options") or []):
-            blobs += [("confounder.option%d.label" % i, op.get("label") or ""),
-                      ("confounder.option%d.note" % i, op.get("note") or "")]
         cp = c.get("compare") or {}
         blobs += [("compare.whatTheyTested", cp.get("whatTheyTested") or ""),
                   ("compare.howToRead", cp.get("howToRead") or "")]

@@ -36,10 +36,13 @@ Kontroluje se:
      kazde Predict cviceni ma skutecnou studii jako Observe
  13  kazde interaktivni cviceni ma na vygenerovane strance bez-JS ekvivalent
  15  Research Challenges (challenges.json): kazdy SID/uzel/hrana/lekce/route
-     existuje, model ma vyjmenovany kazdy stav, soucet nakladu experimentu
-     PREVYSUJE rozpocet (jinak by student spustil vsechno) a kazdy vysledek
-     je bud odvozeny ze skutecne studie, nebo oznaceny jako hypoteticky
- 16  stranka vyzvy ma bez-JS ekvivalent rozpoctu i modelu
+     existuje, model ma vyjmenovany kazdy stav, kazdy vysledek je bud odvozeny
+     ze skutecne studie, nebo oznaceny jako hypoteticky. Vyzkumny graf navic:
+     kazdy krok je ze `start` dosazitelny, soucet nakladu PREVYSUJE rozpocet
+     (jinak by student spustil vsechno), kazdy poznatek nekterou dilci otazku
+     odemyka, otazka bez dosazitelneho poznatku MUSI byt oznacena jako
+     otevrena, a hypoteticky krok nesmi vydavat zadny poznatek
+ 16  stranka vyzvy ma bez-JS ekvivalent laboratore, modelu i odpovedi
  14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
      i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
      misto sekce prazdno; caution sekce beginner verzi mit NESMI
@@ -272,46 +275,51 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
             prose_blobs += [rv.get("prompt") or "", rv.get("note") or ""]
             prose_blobs += list((rv.get("feedback") or {}).values())
 
-        # -- rozpocet a experimenty
-        exps = c.get("experiments") or []
-        if len(exps) < 3:
-            bad(w, "ma %d experimentu, na volbu je to malo" % len(exps))
-        budget = (c.get("budget") or {}).get("total")
-        if not isinstance(budget, int) or budget <= 0:
-            bad(w, "budget.total musi byt kladne cislo")
+        # -- laborator: vyzkumny graf
+        #
+        # Tady se hlida ctvery druh chyby, ktere by na strance nebyly videt:
+        #   1. graf, do jehoz casti se ze startu neda dojit (mrtve kroky)
+        #   2. poznatek, ktery nikdo nepouziva, nebo dilci otazka, kterou nikdo
+        #      nevydava a ktera pritom neni oznacena jako otevrena
+        #   3. hypoteticky krok, ktery neco "uci" -- predpoved neni vysledek
+        #   4. rozpocet, ktery bud na nic nestaci, nebo naopak neskrti
+        lab = c.get("lab") or {}
+        if not lab:
+            bad(w, "chybi lab -- vyzva nema vyzkumnou cast")
+            nodes, goals, budget = [], [], None
         else:
-            tot = sum(x.get("cost") or 0 for x in exps)
-            if tot <= budget:
-                bad(w, "soucet nakladu (%d) neprevysuje rozpocet (%d) -- student by "
-                       "spustil vsechno a §4 (prioritizace) by tise zmizela" % (tot, budget))
-            if min([x.get("cost") or 0 for x in exps] or [0]) > budget:
-                bad(w, "ani nejlevnejsi experiment se do rozpoctu nevejde")
-        prose_blobs.append((c.get("budget") or {}).get("note") or "")
+            nodes = lab.get("nodes") or []
+            goals = lab.get("goals") or []
+            budget = (lab.get("budget") or {}).get("total")
+        by_node = {}
+        exp_ids = set()
+        prose_blobs.append((lab.get("budget") or {}).get("note") or "")
+        prose_blobs.append(lab.get("startNote") or "")
 
-        exp_ids, exp_by_id = set(), {}
-        for x in exps:
-            exp_by_id[x.get("id")] = x
-        for x in exps:
-            xw = "%s exp:%s" % (w, x.get("id"))
+        if not isinstance(budget, int) or budget <= 0:
+            bad(w, "lab.budget.total musi byt kladne cislo")
+        if len(nodes) < 4:
+            bad(w, "graf ma %d kroku, na vetveni je to malo" % len(nodes))
+        for x in nodes:
+            xw = "%s node:%s" % (w, x.get("id"))
             if not x.get("id") or x["id"] in exp_ids:
-                bad(xw, "experiment bez id nebo s duplicitnim id")
+                bad(xw, "krok bez id nebo s duplicitnim id")
             exp_ids.add(x.get("id"))
+            by_node[x.get("id")] = x
             if not isinstance(x.get("cost"), int) or x["cost"] <= 0:
                 bad(xw, "cost=%r musi byt kladne cislo" % (x.get("cost"),))
-            if not (x.get("addresses") or "").strip():
-                bad(xw, "chybi addresses -- bez toho student pred zaplacenim nevi, na "
-                        "kterou otazku experiment miri, a vyber neni rozhodnuti")
-            prose_blobs.append(x.get("addresses") or "")
+            for f in ("equipment", "addresses", "label"):
+                if not (x.get(f) or "").strip():
+                    bad(xw, "chybi %s -- cena bez vybaveni je herni cislo, a bez "
+                            "'na co miri' neni vyber rozhodnuti" % f)
+                prose_blobs.append(x.get(f) or "")
             disc = x.get("discriminates")
             if disc is None:
-                bad(xw, "chybi discriminates (klidne prazdne pole -- to je legitimni "
-                        "a poucne, znamena 'vsechny hypotezy cekaji totez')")
+                bad(xw, "chybi discriminates (prazdne pole je legitimni)")
             else:
                 for hid in disc:
                     if hid not in hyp_ids:
                         bad(xw, "discriminates jmenuje neexistujici hypotezu %r" % hid)
-                if len(set(disc)) != len(disc):
-                    bad(xw, "discriminates ma duplicity")
             d = x.get("design") or {}
             for f in ("model", "perturbation", "readout", "control"):
                 if not (d.get(f) or "").strip():
@@ -321,6 +329,9 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
             if ev.get("hypothetical"):
                 if not (ev.get("basis") or "").strip():
                     bad(xw, "hypoteticky vysledek nerika, proc je hypoteticky (§29)")
+                if x.get("yields"):
+                    bad(xw, "hypoteticky krok neco vydava jako poznatek -- predpoved "
+                            "neni vysledek a nesmi odemykat odpoved (§29)")
                 prose_blobs.append(ev.get("basis") or "")
             elif ev.get("sids"):
                 for sid in ev["sids"]:
@@ -350,7 +361,7 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
             if not x.get("cannotConclude"):
                 bad(xw, "chybi cannotConclude -- druha polovina §14 je povinna")
             if not (x.get("informative") or "").strip():
-                bad(xw, "chybi informative -- §17 chce rict, jestli experiment rozlisuje")
+                bad(xw, "chybi informative -- §17 chce rict, jestli krok rozlisuje")
             interp = x.get("interpret") or []
             if not 3 <= len(interp) <= 4:
                 bad(xw, "ma %d interpretaci, povoleny jsou 3 nebo 4" % len(interp))
@@ -358,61 +369,114 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
                 if not (o.get("note") or "").strip():
                     bad(xw, "interpretace %r nema napsany komentar" % o.get("label"))
                 prose_blobs += [o.get("label") or "", o.get("note") or ""]
-            prose_blobs += [x.get("label") or "", x.get("informative") or ""]
+            prose_blobs += [x.get("informative") or "", x.get("opensNote") or ""]
             prose_blobs += list(x.get("conclude") or []) + list(x.get("cannotConclude") or [])
+            ev2 = x.get("event")
+            if ev2:
+                for f in ("title", "info", "prompt", "explain", "control"):
+                    if not (ev2.get(f) or "").strip():
+                        bad(xw, "event nema %s" % f)
+                    prose_blobs.append(ev2.get(f) or "")
+                for sid in ev2.get("sids") or []:
+                    if sid not in studies:
+                        bad(xw, "event odkazuje na neznamy SID %r" % sid)
+                if len(ev2.get("options") or []) < 3:
+                    bad(xw, "event ma min nez tri moznosti (§15)")
+                for o in ev2.get("options") or []:
+                    if not (o.get("note") or "").strip():
+                        bad(xw, "moznost %r v eventu nema komentar" % o.get("label"))
+                    prose_blobs += [o.get("label") or "", o.get("note") or ""]
 
-        # -- debrief: co ta sada dohromady koupila
-        #
-        # Bez tohohle bloku vyzva nikdy neodpovi na otazku "utratil jsem to
-        # spravne?" -- student utrati rozpocet, uvidi sest samostatnych
-        # vysledku a nema jak zjistit, jestli ta KOMBINACE k necemu byla.
-        db = c.get("debrief") or {}
-        if not db:
-            bad(w, "chybi debrief -- bez nej se student nedozvi, co jeho sada koupila")
-        else:
-            for key, need in (("minimalPortfolio", True), ("fullerPortfolio", False)):
-                p = db.get(key)
-                if not p:
-                    if need:
-                        bad(w, "debrief nema %s -- 'utratil jsem to spravne' pak nema "
-                               "s cim se porovnat" % key)
-                    continue
-                ids = p.get("experiments") or []
-                if not ids:
-                    bad(w, "%s je prazdne" % key)
-                for i in ids:
+        # hrany a dosazitelnost
+        for x in nodes:
+            for i in x.get("next") or []:
+                if i not in exp_ids:
+                    bad(w, "krok %r otevira neznamy krok %r" % (x.get("id"), i))
+                if i == x.get("id"):
+                    bad(w, "krok %r otevira sam sebe" % x.get("id"))
+        start = lab.get("start") or []
+        if not start:
+            bad(w, "lab.start je prazdny -- neni cim zacit")
+        for i in start:
+            if i not in exp_ids:
+                bad(w, "lab.start jmenuje neznamy krok %r" % i)
+        reach = {i for i in start if i in exp_ids}
+        while True:
+            add = {j for i in reach for j in (by_node[i].get("next") or [])
+                   if j in exp_ids and j not in reach}
+            if not add:
+                break
+            reach |= add
+        for i in sorted(exp_ids - reach):
+            bad(w, "krok %r neni ze startu dosazitelny -- na stranku by se nikdy "
+                   "nedostal" % i)
+
+        # poznatky a dilci otazky
+        produced = set()
+        for x in nodes:
+            produced |= set(x.get("yields") or [])
+        if len(goals) < 3:
+            bad(w, "lab ma %d dilcich otazek, na 'maximum odpovedi' je to malo" % len(goals))
+        goal_ids, used = set(), set()
+        for g in goals:
+            gw = "%s goal:%s" % (w, g.get("id"))
+            if not g.get("id") or g["id"] in goal_ids:
+                bad(gw, "dilci otazka bez id nebo s duplicitnim id")
+            goal_ids.add(g.get("id"))
+            if not (g.get("question") or "").strip():
+                bad(gw, "dilci otazka bez textu")
+            if not g.get("answeredBy"):
+                bad(gw, "dilci otazka nerika, cim se odemyka")
+            used |= set(g.get("answeredBy") or [])
+            attainable = set(g.get("answeredBy") or []) <= produced
+            if g.get("open") and attainable:
+                bad(gw, "otazka je oznacena jako otevrena, ale nejaky krok ji vydava")
+            if not g.get("open") and not attainable:
+                bad(gw, "na otazku nevede zadny krok, a pritom neni oznacena jako "
+                        "otevrena -- student by hledal neco, co koupit nejde")
+            prose_blobs += [g.get("question") or "", g.get("note") or ""]
+        for y in sorted(produced - used):
+            bad(w, "poznatek %r nikdo nepouziva -- zadna dilci otazka se jim neodemyka" % y)
+        if not [g for g in goals if g.get("open")]:
+            bad(w, "zadna dilci otazka neni oznacena jako otevrena -- vyzva by tvrdila, "
+                   "ze se cela otazka da koupit")
+
+        # rozpocet MUSI skrtit a zaroven na neco stacit
+        if isinstance(budget, int) and budget > 0 and nodes:
+            tot = sum(x.get("cost") or 0 for x in nodes)
+            if tot <= budget:
+                bad(w, "soucet nakladu (%d) neprevysuje rozpocet (%d) -- student by "
+                       "spustil vsechno a prioritizace by tise zmizela" % (tot, budget))
+            if min(x.get("cost") or 0 for x in nodes) > budget:
+                bad(w, "ani nejlevnejsi krok se do rozpoctu nevejde")
+            cheapest_start = min([by_node[i]["cost"] for i in start if i in by_node] or [0])
+            if cheapest_start > budget:
+                bad(w, "ani nejlevnejsi zacatek se do rozpoctu nevejde")
+
+        # aspon jeden rozlisujici krok musi byt dosazitelny a zaplatitelny
+        afford = [x for x in nodes
+                  if len(x.get("discriminates") or []) >= 2
+                  and isinstance(budget, int) and (x.get("cost") or 0) <= budget]
+        if not afford:
+            bad(w, "zadny rozlisujici krok (discriminates >= 2) se nevejde do rozpoctu "
+                   "-- otazku by neslo posunout za zadnou cenu")
+
+        # debrief: uz jen napsana pravidla, cisla pocita generator
+        db = lab.get("debrief") or {}
+        if not db.get("rules"):
+            bad(w, "lab.debrief nema zadne pravidlo pro kombinace")
+        for j, r in enumerate(db.get("rules") or []):
+            rw = "%s debrief.rule[%d]" % (w, j)
+            for key in ("ran", "notRan"):
+                for i in r.get(key) or []:
                     if i not in exp_ids:
-                        bad(w, "%s odkazuje na neznamy experiment %r" % (key, i))
-                cost = sum((exp_by_id.get(i) or {}).get("cost") or 0 for i in ids)
-                if isinstance(budget, int) and cost > budget:
-                    bad(w, "%s stoji %d, coz se do rozpoctu %d nevejde -- referencni "
-                           "sada musi byt dosazitelna" % (key, cost, budget))
-                if key == "minimalPortfolio" and not any(
-                        len((exp_by_id.get(i) or {}).get("discriminates") or []) >= 2
-                        for i in ids):
-                    bad(w, "minimalPortfolio neobsahuje ani jeden rozlisujici experiment "
-                           "-- pak to neni dostacujici sada")
-                if not (p.get("why") or "").strip():
-                    bad(w, "%s nerika proc" % key)
-                prose_blobs.append(p.get("why") or "")
-            for k in ("none", "one", "many"):
-                if not ((db.get("coverage") or {}).get(k) or "").strip():
-                    bad(w, "debrief.coverage nema variantu %r" % k)
-                prose_blobs.append((db.get("coverage") or {}).get(k) or "")
-            if not db.get("rules"):
-                bad(w, "debrief nema zadne pravidlo pro kombinace")
-            for j, r in enumerate(db.get("rules") or []):
-                rw = "%s debrief.rule[%d]" % (w, j)
-                for key in ("ran", "notRan"):
-                    for i in r.get(key) or []:
-                        if i not in exp_ids:
-                            bad(rw, "%s odkazuje na neznamy experiment %r" % (key, i))
-                both = set(r.get("ran") or []) & set(r.get("notRan") or [])
-                if both:
-                    bad(rw, "experiment je v ran i notRan zaroven: %s" % sorted(both))
-                if not (r.get("note") or "").strip():
-                    bad(rw, "pravidlo bez textu")
-                prose_blobs.append(r.get("note") or "")
+                        bad(rw, "%s odkazuje na neznamy krok %r" % (key, i))
+            both = set(r.get("ran") or []) & set(r.get("notRan") or [])
+            if both:
+                bad(rw, "krok je v ran i notRan zaroven: %s" % sorted(both))
+            if not (r.get("note") or "").strip():
+                bad(rw, "pravidlo bez textu")
+            prose_blobs.append(r.get("note") or "")
 
         # -- answer: vyzva musi na svou vlastni otazku odpovedet
         #
@@ -448,35 +512,6 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
             for hid in sorted(set(verd) - hyp_ids):
                 bad(w, "answer ma verdikt k neexistujici hypoteze %r" % hid)
             prose_blobs += [ans.get("short") or ""] + list(verd.values())
-
-        # Aspon jeden rozlisujici experiment se MUSI vejit do rozpoctu -- jinak
-        # je vyzva nereseitelna a debrief by studentovi vycital neco, co si
-        # koupit nemohl.
-        afford = [x for x in exps
-                  if len(x.get("discriminates") or []) >= 2
-                  and isinstance(budget, int) and (x.get("cost") or 0) <= budget]
-        if not afford:
-            bad(w, "zadny rozlisujici experiment (discriminates >= 2) se nevejde do "
-                   "rozpoctu -- otazku by neslo posunout za zadnou cenu")
-
-        # -- confounder
-        cf = c.get("confounder")
-        if cf:
-            if cf.get("after") and cf["after"] not in exp_ids:
-                bad(w, "confounder.after=%r neni id zadneho experimentu" % cf["after"])
-            for sid in cf.get("sids") or []:
-                if sid not in studies:
-                    bad(w, "confounder odkazuje na neznamy SID %r" % sid)
-            for f in ("info", "prompt", "explain", "control"):
-                if not (cf.get(f) or "").strip():
-                    bad(w, "confounder nema %s" % f)
-                prose_blobs.append(cf.get(f) or "")
-            if len(cf.get("options") or []) < 3:
-                bad(w, "confounder ma min nez tri moznosti (§15)")
-            for o in cf.get("options") or []:
-                if not (o.get("note") or "").strip():
-                    bad(w, "moznost %r confounderu nema komentar" % o.get("label"))
-                prose_blobs += [o.get("label") or "", o.get("note") or ""]
 
         # -- srovnani s publikovanou praci
         cp = c.get("compare") or {}
@@ -891,6 +926,11 @@ def main():
                                         ('class="ac-rcpd"', "ac-rcfall", "break-the-model")):
                 if cls in h and fallback not in h:
                     bad(rel, "%s nema bez-JS ekvivalent (%s chybi)" % (what, fallback))
+            if 'data-rc-budget' in h and 'data-lab-pool' not in h:
+                bad(rel, "kroky vyzkumu nejsou v HTML -- bez JS by laborator byla prazdna")
+            if 'data-rc-budget' in h and 'data-goal="' not in h:
+                bad(rel, "panel dilcich otazek neni v HTML -- cil 'maximum odpovedi' by "
+                         "bez JS nebyl videt")
             if 'data-rc-budget' in h and 'data-rc-step="answer"' not in h:
                 bad(rel, "stranka vyzvy nema krok s odpovedi -- vyzva by se zeptala "
                          "a neodpovedela")
