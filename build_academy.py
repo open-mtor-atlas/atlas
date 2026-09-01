@@ -988,7 +988,7 @@ CHALLENGE_CSS = """
    u kroku, na kterem clovek stoji -- pred zaplacenim by to stejne byla
    odpoved na otazku, kterou si jeste nekoupil. */
 [data-lab-next],[data-lab-open]>div{display:grid;gap:14px;align-items:stretch;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,224px),1fr))}
 .ac-labnode[data-view="choice"]{margin:0;display:flex;flex-direction:column}
 .ac-labnode[data-view="choice"] .ac-labfull{display:none}
 .ac-labnode[data-view="choice"] .ac-labchoice{flex:1;display:flex;flex-direction:column}
