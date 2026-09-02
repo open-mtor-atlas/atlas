@@ -2203,17 +2203,23 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
              '<a href="%s/academy/%s/">%s</a> · %s'
              % (SITE, SITE, SITE, module["slug"], e(module["title"]), e(title)))
 
+    # --- SEO P0 Ukol 6.1 (2026-09-02): Bioschemas TrainingMaterial ---
     ld = {
-        "@context": "https://schema.org", "@type": "LearningResource",
+        "@context": "https://schema.org",
+        "@type": ["LearningResource", "TrainingMaterial"],
         "name": title, "headline": title, "url": url, "inLanguage": "en",
         "educationalLevel": les["level"],
-        "learningResourceType": "lesson",
+        "learningResourceType": "e-learning",
         "timeRequired": "PT%dM" % les["estimatedTime"],
         "teaches": les.get("concepts") or [],
+        "keywords": les.get("concepts") or [],
+        "audience": {"@type": "Audience",
+                     "audienceType": "students and self-directed learners with a "
+                                     "basic biology background"},
         "isPartOf": {"@type": "Course", "name": "%s — mTOR Academy" % module["title"],
                      "url": "%s/academy/%s/" % (SITE, module["slug"])},
         "about": dict(DATASET_REF),
-        "author": {"@type": "Person", "name": "Oliver Barton"},
+        "author": {"@type": "Person", "name": "Oliver Barton", "url": "https://orcid.org/0009-0008-2025-2148", "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
         "license": "https://creativecommons.org/licenses/by/4.0/",
     }
     faq = {"@context": "https://schema.org", "@type": "FAQPage",
@@ -2963,15 +2969,21 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
 
     desc = ("%s %s" % (TAG_RE.sub("", ch["researchQuestion"]),
                        TAG_RE.sub("", ch["subtitle"])))[:300]
-    ld = {"@context": "https://schema.org", "@type": "LearningResource",
+    # --- SEO P0 Ukol 6.1 (2026-09-02): Bioschemas TrainingMaterial (challenge pages) ---
+    ld = {"@context": "https://schema.org",
+          "@type": ["LearningResource", "TrainingMaterial"],
           "name": ch["title"], "headline": ch["title"], "url": url, "inLanguage": "en",
-          "educationalLevel": ch["level"], "learningResourceType": "activity",
+          "educationalLevel": ch["level"], "learningResourceType": "e-learning",
           "timeRequired": "PT%dM" % ch["estimatedTime"],
           "teaches": ch["researchSkills"],
+          "keywords": ch["researchSkills"],
+          "audience": {"@type": "Audience",
+                       "audienceType": "students and self-directed learners with a "
+                                       "basic biology background"},
           "isPartOf": {"@type": "Course", "name": "Research Challenges — mTOR Academy",
                        "url": "%s/academy/research-challenges/" % SITE},
           "about": dict(DATASET_REF),
-          "author": {"@type": "Person", "name": "Oliver Barton"},
+          "author": {"@type": "Person", "name": "Oliver Barton", "url": "https://orcid.org/0009-0008-2025-2148", "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
           "license": "https://creativecommons.org/licenses/by/4.0/"}
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Academy", SITE + "/academy/"),
