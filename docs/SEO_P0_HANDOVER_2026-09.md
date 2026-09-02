@@ -245,4 +245,78 @@ section). Everything else in Úkol 3 needed no external action.
 
 ---
 
-*(Úkol 4–11 sections to follow as each completes.)*
+## Úkol 11 — Small technical items (DONE except item 1's pathway/mechanism/events links)
+
+Commit `238ca6ed` on `seo-p0-2026-09`.
+
+**1. `llms.txt` numbers — no action needed, already live.** Read the
+generator before touching anything: `llms.txt`'s study/entity counts are
+computed from the corpus at build time (`f"{len(studies)}"` etc.), not
+hardcoded, so there was nothing stale to update. Added `/data/exports/`
+and `/changelog/` to its "Machine-readable" section. **Not added:**
+`/pathway/`, `/mechanism/`, `/events/` — the brief asks for these, but
+they don't exist as static HTML pages yet (that's Úkol 4/5, not started
+this session — see below). Linking to non-existent pages would create
+dead links in a file specifically meant to be a reliable map for AI
+crawlers, so this is deferred until those pages exist, not silently
+dropped.
+
+**2. GitHub topics** — you set these in the GitHub repo UI (Settings →
+general → Topics), not something this session can or should do (repo
+settings, not repo content). Suggested list from the brief:
+`mtor`, `pathway-database`, `knowledge-graph`, `biocuration`,
+`evidence-synthesis`, `aging-biology`.
+
+**3. Corrections log — done.** New `/changelog/` page
+(`changelog_page()` in `build_pages.py`) lists every correction from
+`AUDIT_changelog_studies.json` + `REVIEW_changelog_studies.json`: date
+(audit-round approximation — same caveat as Úkol 2's "Record last
+updated"), study SID, field changed, one-sentence reason. Currently 46
+corrections across 35 study records. `/about/` gained a "Corrections
+log" paragraph linking to it — turns the existing "all were addressed
+rather than quietly dropped" claim into something a reader can actually
+check.
+
+**4. Answers↔question cross-link audit — done, and a real gap was
+found and fixed.** Ran the audit myself rather than trusting the
+existing fix: the 2026-08-29 patch (`GAP_TO_ANSWER`) added exactly one
+hand-picked reverse link. My own scan found the actual state was worse
+than one gap — **2 more `/question/` pages were cited by 5 different
+`/answers/` pages combined**, a many-to-one relationship a single
+hardcoded pair can't represent. Replaced it with a general reverse
+index (`ANSWER_GAP_BACKLINKS`, built the same way as Úkol 2's
+`ANSWERS_BY_SID`) that renders every matching answer, not just one.
+Re-verified after the fix: **zero one-directional answers↔question
+links remain** across all 10 answer pages and 10 question pages (was 7
+one-directional gaps before this fix).
+
+**Manual next steps:** set the GitHub topics (item 2) whenever
+convenient — no urgency, no dependency on anything else.
+
+---
+
+*(Úkol 4–10 sections to follow — see status note below.)*
+
+## Status of remaining tasks (Úkol 4, 5, 6, 7, 8, 9, 10)
+
+Not yet started as of this handover update. In priority order per the
+brief, these are the largest remaining items:
+
+- **Úkol 4** (static homepage, SPA moved to `/app/`) and **Úkol 5**
+  (static `/pathway/`, `/mechanism/`, `/events/` pages) are structural
+  changes to how the live site is served — not template edits like
+  Úkol 2/3/11, but changes to what lives at the root URL and how the
+  SPA is reached. These deserve dedicated review time and careful
+  before/after verification rather than being squeezed in alongside
+  everything else; continuing to them next.
+- **Úkol 6–9** (Academy Bioschemas markup + TeSS/MERLOT/OERCommons
+  drafts, NCBI LinkOut package, Bioregistry/Database Commons/NAR/
+  Wikidata drafts, Research Square manuscript) are outreach-drafting
+  tasks similar in shape to Úkol 3's HF/Kaggle drafts — lower risk,
+  planned next after 4/5.
+- **Úkol 10** (AI citation baseline via browser) depends on browser
+  tool availability in this session, not yet checked.
+
+This handover will be updated again as each completes, or with an
+explicit "skipped — why" note if session time runs out before all are
+reached.
