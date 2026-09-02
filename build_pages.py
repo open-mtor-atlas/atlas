@@ -677,6 +677,48 @@ def _load_answer_citations():
 ANSWERS_BY_SID = _load_answer_citations()
 
 
+# --- SEO P0 Ukol 11.4 (2026-09-02): answers->question backlinks ---
+
+
+def _load_answer_gap_backlinks():
+    """Reverse index {question-slug: [(answer_title, answer_url), ...]} --
+    which /answers/ pages link to a given /question/ page. Same source-of-
+    truth approach as _load_answer_citations() (grep the published /answers/
+    HTML, since it has no separate machine-readable source) but matching
+    /question/ links instead of /study/ links.
+
+    Supersedes the old hand-picked GAP_TO_ANSWER dict (2026-08-29, exactly
+    one pair): that fix assumed every gap<->answer relationship is a clean
+    1:1 pair, but this session's audit (Ukol 11.4) found questions cited by
+    MULTIPLE different answer pages -- a many-to-one relationship a single
+    hardcoded pair can't express. This index handles both cases uniformly
+    and never goes stale when a new /answers/ page is added, unlike the
+    hardcoded dict."""
+    out = {}
+    base = os.path.join(HERE, "answers")
+    if not os.path.isdir(base):
+        return out
+    for slug in sorted(os.listdir(base)):
+        fp = os.path.join(base, slug, "index.html")
+        if not os.path.isfile(fp):
+            continue
+        try:
+            text = open(fp, encoding="utf-8").read()
+        except OSError:
+            continue
+        m = re.search(r"<h1>(.*?)</h1>", text, re.S)
+        title = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else slug
+        url = f"{SITE}/answers/{slug}/"
+        for qslug in set(re.findall(r"/question/([a-z0-9-]+)/", text)):
+            out.setdefault(qslug, []).append((title, url))
+    return out
+
+
+ANSWER_GAP_BACKLINKS = _load_answer_gap_backlinks()
+
+
+
+
 def _load_record_dates():
     """SID -> ISO date for the "Record last updated" row + JSON-LD
     dateModified (Ukol 2 item 7). CAVEAT (checked 2026-09-02): neither
@@ -1093,17 +1135,9 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
 # exactly the shape AI answer engines lift straight into a response, so this
 # is the single highest-leverage GEO gap on the site.
 
-# 2026-08-29 -- cross-link narrow scope: jen dvojice, kde téma opravdu 1:1
-# odpovídá (ne automatické párování, ručně ověřeno). Přidává odkaz z
-# hypothesis/gap stránky zpátky na existující answers/ stránku se stejným
-# tématem -- opravuje jednosměrný cross-link zjištěný v Search Surface Audit
-# 2026-08-29 (forward link answers->question už existoval, tenhle je reverse).
-GAP_TO_ANSWER = {
-    "is-autophagy-actually-required-for-the-mammalian-lifespan-benefit": (
-        "autophagy-required-lifespan",
-        "Is autophagy actually required for the lifespan benefit?",
-    ),
-}
+# --- SEO P0 Ukol 11.4 (2026-09-02): answers->question backlinks (removal): the hand-picked pair above (2026-08-29) is now
+# handled generally by ANSWER_GAP_BACKLINKS, defined earlier in this file
+# alongside ANSWERS_BY_SID -- see gap_page() below. ---
 
 GAP_TYPE_LABEL = {
     "Evidence desert": "No study yet tests this",
@@ -1157,10 +1191,12 @@ def gap_page(g, studies_by_sid):
              for sid in g.get("studies") or [] if sid in studies_by_sid]
     if links:
         body.append(f'<h2>Related studies</h2><p>{" · ".join(links)}</p>')
-    if slug in GAP_TO_ANSWER:
-        aslug, atitle = GAP_TO_ANSWER[slug]
-        body.append(f'<p class="meta">Direct plain-language answer: '
-                    f'<a href="{SITE}/answers/{e(aslug)}/">{e(atitle)}</a></p>')
+    backlinks = ANSWER_GAP_BACKLINKS.get(slug, [])
+    if backlinks:
+        label = "Discussed in the plain-language answer" if len(backlinks) == 1 \
+            else "Discussed in these plain-language answers"
+        items = " · ".join(f'<a href="{e(u)}">{e(t)}</a>' for t, u in backlinks)
+        body.append(f'<p class="meta">{label}: {items}</p>')
     body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
@@ -1249,6 +1285,87 @@ def author_page(key, bio, studies):
 
 
 # --------------------------------------------------------------- about page ---
+
+# --- SEO P0 Ukol 11.3 (2026-09-02): /changelog/ ---
+def changelog_page(studies):
+    """Static /changelog/ page -- Ukol 11.3 (SEO P0 brief 2026-09-02): a
+    public corrections log, requested by the 2026-08-23 audit as a missing
+    E-E-A-T signal (a site that grades OTHER people's evidence should be
+    checkable itself). Built from the same two changelog JSON files
+    _load_record_dates() already reads for "Record last updated" -- one
+    entry per correction: SID, which field changed, and the curator's own
+    one-sentence reason (the `why` field), never the full old/new diff
+    text (some of those run to several paragraphs and belong in the
+    underlying audit docs, not a public list).
+
+    Same date caveat as _load_record_dates(): neither changelog file
+    carries a true per-entry date, only the audit-round association
+    (2026-07-29 for both rounds currently on file) -- shown here as-is,
+    flagged, not invented as a fake precise timestamp."""
+    url = f"{SITE}/changelog/"
+    AUDIT_ROUND_DATE = "2026-07-29"
+
+    entries = []  # (date, sid, field, why)
+    for fn in ("AUDIT_changelog_studies.json", "REVIEW_changelog_studies.json"):
+        p = os.path.join(DATA, fn)
+        if not os.path.exists(p):
+            continue
+        try:
+            rows = json.load(open(p, encoding="utf-8"))
+        except Exception:
+            continue
+        for row in rows:
+            sid = row.get("sid")
+            why = row.get("why")
+            if sid and why:
+                entries.append((AUDIT_ROUND_DATE, sid, row.get("field") or "—", why))
+    # novejsi datum prvni; pri stejnem datu podle SID pro stabilni poradi
+    entries.sort(key=lambda t: (t[0], t[1]), reverse=True)
+
+    if entries:
+        rows_html = "".join(
+            f'<tr><td data-l="Date">{e(d)}</td>'
+            f'<td data-l="Study"><a href="{SITE}/study/{e(sid)}/">{e(sid)}</a></td>'
+            f'<td data-l="Field">{e(field)}</td>'
+            f'<td data-l="What changed and why">{e(why)}</td></tr>'
+            for d, sid, field, why in entries)
+        table_html = (f'<table class="st"><tr><th>Date</th><th>Study</th>'
+                      f'<th>Field</th><th>What changed and why</th></tr>'
+                      f'{rows_html}</table>')
+        count_line = (f"<p>{len(entries)} corrections on record, from "
+                      f"{len(set(e2[1] for e2 in entries))} distinct study records.</p>")
+    else:
+        table_html = "<p><em>No corrections on record yet.</em></p>"
+        count_line = ""
+
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage",
+          "name": "Corrections log | Oliver's mTOR Atlas", "url": url,
+          "isPartOf": dict(DATASET_REF)}
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · Corrections log'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Corrections log", None)])
+
+    body = f"""<h1>Corrections log</h1>
+<p class="summary">Every recorded correction to a study record's finding or
+supporting fields, with the curator's own reason for the change. This is
+the log referenced from <a href="{SITE}/about/">About &amp; Methodology</a>'s
+correction policy.</p>
+{count_line}
+<p><em>Dates below mark the audit round in which each correction was made,
+not the individual edit's own timestamp -- neither source file this page
+reads carries a true per-entry date. See
+<a href="{SITE}/about/">About &amp; Methodology</a> for how the review
+process itself works.</em></p>
+{table_html}
+<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>
+"""
+    return url, shell(
+        "Corrections log | Oliver's mTOR Atlas",
+        "Every recorded correction to an Oliver's mTOR Atlas study record, "
+        "with the field changed and the curator's reason -- a public "
+        "accountability log.",
+        url, [ld, bc], body, crumb, active_tab=None)
+
 
 def about_page(studies, entities):
     """Statická /about/ stránka -- přidáno 2026-08-23 v reakci na audit finding
@@ -1392,6 +1509,9 @@ papers a month, sometimes none. The exact timestamp of the live corpus is
 printed in the footer of every page, and every count on this site,
 including the ones above, is computed from that snapshot rather than
 typed in by hand.</p>
+
+<h2>Corrections log</h2>
+<p>Every recorded correction to a study record -- what changed and why, going back to the first external review -- is public at <a href="{SITE}/changelog/">/changelog/</a>. This is what "all were addressed rather than quietly dropped" above actually means: a checkable list, not a claim to take on faith.</p>
 
 <h2>License &amp; reuse</h2>
 <p>Content is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
@@ -1930,6 +2050,10 @@ def main():
     write(os.path.join(HERE, "data", "index.html"), dpage)
     urls.append(("about", durl))
 
+    changelog_url, changelog_page_html = changelog_page(studies)
+    write(os.path.join(HERE, "changelog", "index.html"), changelog_page_html)
+    urls.append(("about", changelog_url))
+
     burl, bpage = browse_page(studies, entities, haspage, gap_links, author_links)
     write(os.path.join(HERE, "browse", "index.html"), bpage)
     urls.append(("entity", burl))
@@ -2004,6 +2128,7 @@ def main():
           f'  <url><loc>{SITE}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n'
           f'  <url><loc>{aurl}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n'
           f'  <url><loc>{durl}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n'
+          f'  <url><loc>{changelog_url}</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>\n'
           '</urlset>\n')
 
     # robots.txt: povolení AI crawlerů explicitně. "Allow: /" je funkčně totéž,
@@ -2130,6 +2255,8 @@ Publication timelines for the scientists most represented in the corpus.
 
 ## Machine-readable
 - [Data & Citation](https://mtor-atlas.org/data/): DOI, ORCID, license, bio.tools/FAIRsharing registration, citation string
+- [Data exports (CSV/JSON)](https://mtor-atlas.org/data/exports/): the full corpus as flat files, regenerated on every deploy
+- [Corrections log](https://mtor-atlas.org/changelog/): every recorded correction to a study record, with reason
 - [Sitemap index](https://mtor-atlas.org/sitemap.xml)
 - [robots.txt](https://mtor-atlas.org/robots.txt)
 
