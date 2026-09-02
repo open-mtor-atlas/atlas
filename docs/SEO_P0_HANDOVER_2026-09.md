@@ -192,15 +192,57 @@ site. No `citation_*` Google Scholar meta tags were added.
 
 ## Manual next steps for Petr (cumulative — updated as tasks complete)
 
-None yet from Úkol 1–2 specifically — no external actions were needed
-for either task (both are pure site-content changes on the working
-branch). This section will grow as Úkol 3 onward produce outreach
-drafts, registration forms, and other items that need a human to send/
-submit/approve them. **Nothing has been merged to `main` or deployed.**
-When you're ready: review the diff on `seo-p0-2026-09`, merge to `main`
-yourself, then run `deploy_with_pathway_refresh.bat` on Windows (cannot
-be run from this session).
+1. **Hugging Face Datasets** — review `outreach/huggingface_dataset_card.md`,
+   create/use a HF account, create a new public dataset, upload the four
+   files in `data/exports/` (re-run `tools/seo/build_data_exports.py`
+   first if the corpus has grown since this branch), paste the card
+   content as the repo's README. ~15 minutes, no review queue.
+2. **Kaggle** — review `outreach/kaggle_dataset_draft.md`, create/use a
+   Kaggle account, "New Dataset", upload the same four files, paste the
+   form-field copy. ~10 minutes, no review queue.
+
+Nothing else needed manual action from Úkol 1–2 (pure site-content
+changes). **Nothing has been merged to `main` or deployed.** When you're
+ready: review the diff on `seo-p0-2026-09`, merge to `main` yourself,
+then run `deploy_with_pathway_refresh.bat` on Windows (cannot be run
+from this session).
 
 ---
 
-*(Úkol 3–11 sections to follow as each completes.)*
+## Úkol 3 — Real downloadable data exports (DONE, committed)
+
+Commits `1541d125` (exports + Dataset distribution) and `e341a022`
+(outreach drafts) on `seo-p0-2026-09`.
+
+**What was built:** `tools/seo/build_data_exports.py` generates
+`data/exports/{studies,entities}.{csv,json}` (354 studies, 146
+entities) plus a `README.md` and a `manifest.json` (name, format, byte
+size, sha256 per file) directly from `atlas_data/studies_baked.json` /
+`entities_baked.json`. These are **data files, not new HTML pages** —
+not in any sitemap, no title/H1 of their own — so this doesn't touch
+the "never increase page count" rule; page count is unchanged from
+after Úkol 2 (354/46/10/47 study/entity/question/author pages).
+
+The Dataset JSON-LD (`DATASET_REF.distribution`, previously a single
+Zenodo entry) now also lists each live export file, read from
+`manifest.json` at build time — so this can never silently drift from
+what's actually on disk the way a hand-maintained second list would.
+The `/data/` page gained a matching "Download the data" section from
+the same manifest. Both are wired to regenerate automatically on every
+build; if `data/exports/` doesn't exist yet (e.g. a build that skips
+the export step), both fall back gracefully to just the Zenodo entry —
+no broken links, no crash.
+
+**Why this matters for discoverability:** Google Dataset Search and
+similar crawlers weight a `Dataset`'s `distribution` field — a
+JSON-LD-only claim to be "a dataset" is weaker evidence than one with
+real, checksummed, directly-downloadable files. This also gives
+Hugging Face / Kaggle something concrete to point to instead of asking
+someone to scrape the live site's HTML.
+
+**Manual next steps:** the two outreach items above (Manual next steps
+section). Everything else in Úkol 3 needed no external action.
+
+---
+
+*(Úkol 4–11 sections to follow as each completes.)*
