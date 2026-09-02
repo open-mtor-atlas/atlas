@@ -477,7 +477,12 @@ REM  mobile-optimisation pass on 2026-07-29 rewrote build_pages.py to emit media
 REM  queries, and without this block the 311 regenerated pages would have shipped
 REM  while the generator that produced them stayed behind.
 echo    including pipeline scripts and repo config
-for %%F in (build_pages.py build_academy.py verify_academy.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+REM  2026-09-02: map_studies_dump.py / map_events_dump.py were tracked but were
+REM  never in this list, and map_entities_dump.py did not exist at all -- which
+REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
+REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
+REM  are listed now; same lesson as the 2026-08-15 note above.
+for %%F in (build_pages.py build_academy.py verify_academy.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 

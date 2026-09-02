@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """
-sync_airtable.py -- regenerate the ATLAS_STUDIES and ATLAS_GAPS constants inside
-index.html straight from the Airtable base (Tier-0 static bake). No secret ships
-in the page. Also stamps the "last updated" timestamp.
+sync_airtable.py -- regenerate the ATLAS_STUDIES, ATLAS_ENTITIES and ATLAS_GAPS
+constants inside index.html straight from the Airtable base (Tier-0 static bake).
+No secret ships in the page. Also stamps the "last updated" timestamp.
 
     set AIRTABLE_TOKEN=patXXXX         # Windows;  export ... on Linux/macOS
     py sync_airtable.py
 Standard library only.
+
+Changes 2026-09-02:
+  * ATLAS_ENTITIES se nově bere z Airtable (fetch_entities). Do teď to nedělal
+    NIKDO -- entities_baked.json zamrzl 2026-08-17 na 120 entitách proti 146
+    v Airtable a každý bake ta stará čísla znovu orazítkoval do počtů, které
+    čtou crawleři, i do Entity Browseru. Viz i map_entities_dump.py pro MCP
+    cestu (sandbox bez tokenu a bez sítě na api.airtable.com).
 
 Changes 2026-07-27 (Fáze 6, krok 1):
   * PMID a PMCID se nyní čtou z Airtable a bakují do stránky. Bez toho by každý
@@ -27,6 +34,7 @@ TOKEN = os.environ.get("AIRTABLE_TOKEN")
 HERE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(HERE, "index.html")
 STUDIES_JSON = os.path.join(HERE, "atlas_data", "studies_baked.json")
+ENTITIES_JSON = os.path.join(HERE, "atlas_data", "entities_baked.json")
 
 # Ověřený atomický zápis sdílený s bake_from_mcp.py (ten modul má main()
 # schovaný za __main__, takže import nic nespustí).
@@ -73,6 +81,82 @@ def fetch_studies():
             "ai_species": g(f, "AI_Species"), "ai_effect": g(f, "AI_Effect"),
         })
     return arr
+
+
+def fetch_entities():
+    """Vrátí entity v ploché podobě, kterou drží ATLAS_ENTITIES.
+
+    Přidáno 2026-09-02. Do té doby tuhle cestu NIKDO neměl: sync_airtable.py
+    uměl jen Studies + Knowledge_Gaps, bake_from_mcp.py entities_baked.json
+    pouze ČETL, a map_*_dump.py existovaly pro Studies a Events, ale ne pro
+    Entities. Výsledek: entities_baked.json zamrzl 2026-08-17 na 120 entitách,
+    zatímco Airtable jich měl 146, a každý bake znovu orazítkoval těch 120 do
+    počtů viditelných pro crawlery i do Entity Browseru.
+
+    desc_beginner je ručně psaný register-rewrite. Airtable ho sice má
+    (Description_Beginner), ale kdyby tam u některé entity chyběl, přeneseme
+    hodnotu z existujícího entities_baked.json místo vymazání -- stejný postup
+    jako existing_gap_beginner_fields() u ATLAS_GAPS.
+    """
+    prev = {}
+    if os.path.exists(ENTITIES_JSON):
+        try:
+            prev = {e["id"]: e for e in json.load(open(ENTITIES_JSON, encoding="utf-8"))}
+        except Exception as e:
+            print("  (existing entities_baked.json unreadable, no carry-forward)", e)
+
+    arr, carried = [], 0
+    for r in api("Entities"):
+        f = r["fields"]
+        row = {
+            "id": r["id"],
+            "name": g(f, "Entity_Name"),
+            "type": g(f, "Entity_Type"),
+            "desc": g(f, "Description"),
+            "synonyms": g(f, "Synonyms"),
+            # Linked records vrací record IDs; stránka chce Study_ID kódy.
+            # Doplní se níž, až budou studie načtené.
+            "studies": f.get("Studies", []) or [],
+            "desc_beginner": g(f, "Description_Beginner"),
+        }
+        old = prev.get(row["id"])
+        if old:
+            for k in ("desc", "desc_beginner"):
+                if not row[k] and old.get(k):
+                    row[k] = old[k]
+                    carried += 1
+        if not row["name"]:
+            sys.exit("ABORT: entita %s nemá Entity_Name." % row["id"])
+        arr.append(row)
+    arr.sort(key=lambda r: r["id"])
+    print("  ATLAS_ENTITIES: %d entit (%d polí přeneseno z předchozího bake)"
+          % (len(arr), carried))
+    return arr
+
+
+def resolve_entity_studies(entities, studies):
+    """Přepíše entity[*]['studies'] z Airtable record IDs na Study_ID kódy.
+
+    Kód, který v korpusu není, se zahodí a nahlásí -- do stránky se nikdy
+    nesmí dostat odkaz na studii, která tam není."""
+    sid_by_rec = {s["id"]: s["sid"] for s in studies}
+    dropped = 0
+    for e in entities:
+        out = []
+        for rec in e["studies"]:
+            sid = sid_by_rec.get(rec)
+            if sid:
+                out.append(sid)
+            else:
+                dropped += 1
+        e["studies"] = out
+    if dropped:
+        print("  (%d odkazů na studie mimo korpus zahozeno)" % dropped)
+    return entities
+
+
+def write_entities_json(entities):
+    return write_json_verified(ENTITIES_JSON, entities)
 
 
 def existing_gap_beginner_fields(h):
@@ -133,28 +217,35 @@ def gaps_js(existing_beginner=None):
     return "const ATLAS_GAPS = " + json.dumps(arr, ensure_ascii=False) + ";"
 
 
-def write_studies_json(studies):
-    """Zapíše atlas_data/studies_baked.json, aby ostatní skripty
-    (backfill_pmids.py, gap analýza, build_chunk_index) viděly totéž co stránka."""
-    os.makedirs(os.path.dirname(STUDIES_JSON), exist_ok=True)
-    content = json.dumps(studies, ensure_ascii=False)
+def write_json_verified(path, obj):
+    """Atomický zápis baked JSONu + ověření délky. Tahle složka je
+    OneDrive-synced a velké zápisy se tu opakovaně tiše ořízly."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    content = json.dumps(obj, ensure_ascii=False)
     expected = len(content.encode("utf-8"))
     for attempt in range(1, 6):
-        tmp = STUDIES_JSON + ".tmp%d" % os.getpid()
+        tmp = path + ".tmp%d" % os.getpid()
         try:
             with open(tmp, "w", encoding="utf-8") as f:
                 f.write(content)
                 f.flush()
                 os.fsync(f.fileno())
-            os.replace(tmp, STUDIES_JSON)
-            with open(STUDIES_JSON, encoding="utf-8") as f:
+            os.replace(tmp, path)
+            with open(path, encoding="utf-8") as f:
                 if len(f.read().encode("utf-8")) != expected:
                     raise RuntimeError("write verification failed")
             return True
         except Exception as e:
-            print("  studies_baked.json attempt %d/5 failed: %s" % (attempt, e))
+            print("  %s attempt %d/5 failed: %s"
+                  % (os.path.basename(path), attempt, e))
             time.sleep(1)
     return False
+
+
+def write_studies_json(studies):
+    """Zapíše atlas_data/studies_baked.json, aby ostatní skripty
+    (backfill_pmids.py, gap analýza, build_chunk_index) viděly totéž co stránka."""
+    return write_json_verified(STUDIES_JSON, studies)
 
 
 def main():
@@ -184,6 +275,27 @@ def main():
         sys.exit("ABORT: ATLAS_STUDIES nenalezen v index.html (pattern mismatch) -- "
                  "nic jsem nezapsal, index.html je beze změny.")
     print("ATLAS_STUDIES: updated (%d records)" % len(studies))
+
+    # Entities MUSÍ jít až po ATLAS_STUDIES: ta náhrada je ukotvená na literál
+    # "\n\nconst ATLAS_ENTITIES", takže se o něj opírá a nesmí být přepsaný dřív.
+    try:
+        entities = resolve_entity_studies(fetch_entities(), studies)
+    except Exception as e:
+        print("  (Entities se nepodařilo načíst, ATLAS_ENTITIES nechávám být)", e)
+        entities = None
+    if entities:
+        if not write_json_verified(ENTITIES_JSON, entities):
+            sys.exit("ABORT: nepodařilo se zapsat entities_baked.json.")
+        ejs = "const ATLAS_ENTITIES = " + json.dumps(entities, ensure_ascii=False) + ";"
+        h, ce = re.subn(
+            r"const ATLAS_ENTITIES = \[.*?\];\n\n// ---------- authors index",
+            lambda m: ejs + "\n\n// ---------- authors index",
+            h, count=1, flags=re.S,
+        )
+        if not ce:
+            sys.exit("ABORT: ATLAS_ENTITIES nenalezen v index.html (pattern mismatch) -- "
+                     "index.html nechávám v původním stavu.")
+        print("ATLAS_ENTITIES: updated (%d records)" % len(entities))
 
     gjs = gaps_js(existing_beginner)
     if gjs:
