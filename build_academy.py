@@ -936,8 +936,16 @@ CHALLENGE_CSS = """
   border-color:var(--ink);font-weight:600}
 .ac-labpath li[data-here="1"] button span{color:var(--on-ink,#fff);opacity:.7}
 
+.ac-labnexthead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  justify-content:space-between;margin:18px 0 8px;border-bottom:1px solid var(--line);
+  padding-bottom:7px}
 .ac-labnextlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
-  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:18px 0 8px}
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:0}
+.ac-labremain{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--soft);margin:0;white-space:nowrap}
+.ac-labremain strong{font-size:15px;color:var(--teal);letter-spacing:0}
+.ac-labafter{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--soft);margin:0;text-align:center;width:100%}
 .ac-labopenbox{margin:0 0 18px}
 .ac-labopenbox>summary{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
   letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
@@ -1153,6 +1161,8 @@ CHALLENGE_JS = """
   var hereBox=step.querySelector('[data-lab-here]');
   var nextBox=step.querySelector('[data-lab-next]');
   var nextLbl=step.querySelector('[data-lab-nextlbl]');
+  var nextHead=step.querySelector('[data-lab-nexthead]');
+  var remainEl=step.querySelector('[data-lab-remain]');
   var openBox=step.querySelector('[data-lab-open]');
   var openInner=openBox?openBox.querySelector('div'):null;
   var pathBox=step.querySelector('[data-lab-path]');
@@ -1217,22 +1227,31 @@ CHALLENGE_JS = """
       [].forEach.call(outs,function(x){x.hidden=!done;});
       if(sp) sp.hidden=!done;
       c.setAttribute('data-rc-spent',done?'1':'0');
+      var after=c.querySelector('[data-lab-after]');
       if(done){
         if(run) run.hidden=true;
         if(no) no.hidden=true;
+        if(after) after.hidden=true;
         if(back) back.hidden=(id===cursor);
       }else{
         if(back) back.hidden=true;
         var ok=(D.nodes[id].cost<=left)&&!closed;
         if(run){run.hidden=closed;run.disabled=!ok;run.setAttribute('aria-disabled',String(!ok));}
         if(no) no.hidden=ok||closed;
+        /* co ti po tomhle kroku zbyde -- pri porovnavani dvou moznosti je to
+           uzitecnejsi cislo nez jejich cena */
+        if(after){
+          after.hidden=!ok;
+          after.textContent='leaves '+(left-D.nodes[id].cost);
+        }
       }
     });
 
     /* nadpis nad moznostmi */
     var runnable=kids.length>0;
+    if(remainEl) remainEl.textContent=String(left);
+    if(nextHead) nextHead.hidden=closed||!runnable;
     if(nextLbl){
-      nextLbl.hidden=closed||!runnable;
       nextLbl.textContent=((cursor===null)?'Where to start':'What this step opened up')+
                           (kids.length>1?' — pick one':'');
     }
@@ -1246,7 +1265,7 @@ CHALLENGE_JS = """
         ' already open to you';
     }
     if(cursor!==null&&!runnable&&!closed&&nextLbl){
-      nextLbl.hidden=false;
+      if(nextHead) nextHead.hidden=false;
       nextLbl.textContent='This line is finished — go back to an earlier step to take another branch.';
     }
 
@@ -2533,7 +2552,8 @@ def rc_node(n, by_sid, unit):
               '</button>'
               '<button type="button" class="ac-cta ac-quiet ac-labback" hidden>Go back to '
               'this step</button>'
-              '<p class="ac-rcspent" hidden>Run &middot; %d %s spent</p></div>'
+              '<p class="ac-rcspent" hidden>Run &middot; %d %s spent</p>'
+              '<p class="ac-labafter" data-lab-after hidden></p></div>'
               '<p class="ac-rcdenied" hidden>Not enough budget left for this one. What you '
               'have already spent stays spent.</p></div>'
               % (n["cost"], e(unit), e(n["label"]), pred, prose(n["addresses"]),
@@ -2688,7 +2708,10 @@ def rc_lab(ch, by_sid):
             '<p class="ac-rclbl">Your route &mdash; go back to any step to take a '
             'different branch. Credits already spent stay spent.</p><ol></ol></nav>'
             '<div data-lab-here></div>'
-            '<p class="ac-labnextlbl" data-lab-nextlbl hidden></p>'
+            '<div class="ac-labnexthead" data-lab-nexthead hidden>'
+            '<p class="ac-labnextlbl" data-lab-nextlbl></p>'
+            '<p class="ac-labremain"><strong data-lab-remain>%d</strong> of %d %s left</p>'
+            '</div>'
             '<div data-lab-next></div>'
             '<details class="ac-labopenbox" data-lab-open hidden>'
             '<summary>Everything else currently open to you</summary><div></div></details>'
@@ -2700,7 +2723,8 @@ def rc_lab(ch, by_sid):
             '<div class="ac-rcdebrief" data-rc-debrief hidden></div>%s'
             '<div data-lab-pool>%s</div>'
             '<script type="application/json" class="ac-rcdata">%s</script>'
-            % (panel, budget, rc_lab_fallback(lab, solved), cards,
+            % (panel, budget, b["total"], b["total"], e(b["unit"]),
+               rc_lab_fallback(lab, solved), cards,
                json.dumps(rc_lab_data(lab, solved), ensure_ascii=False).replace("</", "<\\/")))
 
 
