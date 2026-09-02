@@ -86,6 +86,7 @@
   "version": "1.0.0",
   "dateModified": "2026-09-02"
  },
+ "dateModified": "2026-07-29",
  "publication": {
   "@type": "Periodical",
   "name": "Cancer discovery"
@@ -207,6 +208,12 @@ footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}
+.tier-why{color:var(--soft);font-size:14px;margin:-10px 0 20px;max-width:var(--measure,68ch)}
+pre.cite{background:var(--code-bg,rgba(0,0,0,.04));border:1px solid var(--line);
+border-radius:4px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
+font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+max-width:var(--measure,68ch)}
+h3{font-size:var(--fs-h3,16px);margin:18px 0 8px}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -335,8 +342,10 @@ a{overflow-wrap:anywhere}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Activating mTOR mutations in a patient with an extraordinary response on a phase I trial of everolimus and pazopanib</h1>
 <p class="meta">Wagle N; Rosenberg JE et al. · 2014 · <em>Cancer discovery</em> · Atlas ID <code>WAG2014</code></p>
+<h2>What this study shows</h2>
 <p class="summary">An activating MTOR mutation is implicated in an extraordinary clinical response to rapalog therapy. Single-patient observation: hypothesis-generating, not evidence of a general response predictor.
 </p>
+<p class="tier-why">Tier B because it is direct evidence from a human clinical trial or human cohort; tier describes study design, not quality -- a small, well-run trial is still tier B.</p>
 <h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#2F6FA8">B</span> Direct human evidence</td></tr>
 <tr><td><strong>Study type</strong></td><td>3 - Human Observational</td></tr>
@@ -344,17 +353,32 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Journal</strong></td><td>Cancer discovery</td></tr>
 <tr><td><strong>Year</strong></td><td>2014</td></tr>
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
+<tr><td><strong>Record last updated</strong></td><td>2026-07-29</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1158/2159-8290.CD-13-0353">DOI 10.1158/2159-8290.CD-13-0353</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/24625776/">PMID 24625776</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4122326/">Free full text (PMC4122326)</a></td></tr>
 </table>
-<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Understanding the genetic mechanisms of sensitivity to targeted anticancer therapies may improve patient selection, response to therapy, and rational treatment designs. One approach to increase this understanding involves detailed studies of exceptional responders: rare patients with unexpected exquisite sensitivity or durable responses to therapy. We identified an exceptional responder in a phase I study of pazopanib and everolimus in advanced solid tumors. Whole-exome sequencing of a patient with a 14-month complete response on this trial revealed two concurrent mutations in mTOR, the target of everolimus. In vitro experiments demonstrate that both mutations are activating, suggesting a biologic mechanism for exquisite sensitivity to everolimus in this patient. The use of precision (or personalized) medicine approaches to screen patients with cancer for alterations in the mTOR pathway may help to identify subsets of patients who may benefit from targeted therapies directed against mTOR.</p></div>
-<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Everolimus + pazopanib (mTOR inhibition)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR (activating mutations)</td></tr>
 <tr><td><strong>Model</strong></td><td>Human (patient, phase I)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Activating mTOR mutations underlie an extraordinary response to everolimus in a phase I patient</td></tr>
-</table></div>
-<h2>Related topics</h2><div class="tags"><a href="/gene/mtor/">mTOR</a></div>
+<tr><td><strong>Dose</strong></td><td>Pazopanib 400 mg daily + everolimus 5 mg daily (MTD; 600 mg + 5 mg gave dose-limiting toxicities); phase I.</td></tr>
+<tr><td><strong>Sample size</strong></td><td>9 patients enrolled (5 urothelial, others lung/carcinoid); an exceptional responder analyzed by sequencing.</td></tr>
+<tr><td><strong>Effect size</strong></td><td>Activating mTOR mutations underlie the extraordinary response to everolimus+pazopanib. 5/9 patients had grade &gt;=3 toxicity (56%, 95% CI 21.2-86.3%); everolimus AUC 41% higher when combined with pazopanib.</td></tr>
+<tr><td><strong>Limitations</strong></td><td>Inference from a single exceptional responder; basis of mTOR-inhibitor sensitivity incompletely understood; short drug exposure in some.</td></tr>
+</table>
+<h2>In the Atlas</h2>
+<h3>Related topics</h3><div class="tags"><a href="/gene/mtor/">mTOR</a></div>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Understanding the genetic mechanisms of sensitivity to targeted anticancer therapies may improve patient selection, response to therapy, and rational treatment designs. One approach to increase this understanding involves detailed studies of exceptional responders: rare patients with unexpected exquisite sensitivity or durable responses to therapy. We identified an exceptional responder in a phase I study of pazopanib and everolimus in advanced solid tumors. <a href="https://pubmed.ncbi.nlm.nih.gov/24625776/">Read the full abstract on PubMed &rarr;</a></p></div>
+<h2>Cite this record</h2><pre class="cite">Barton, O. (2026). Activating mTOR mutations in a patient with an extraordinary response on a phase I trial of everolimus and pazopanib — evidence-graded record WAG2014. In Oliver&#x27;s mTOR Atlas. https://mtor-atlas.org/study/WAG2014/ · Dataset DOI 10.5281/zenodo.22059963
+
+@misc{atlas_WAG2014,
+  author       = {Barton, Oliver},
+  title        = {{Activating mTOR mutations in a patient with an extraordinary response on a phase I trial of everolimus and pazopanib} --- evidence-graded record WAG2014},
+  howpublished = {Oliver&#x27;s mTOR Atlas},
+  year         = {2026},
+  url          = {https://mtor-atlas.org/study/WAG2014/},
+  note         = {Dataset DOI: 10.5281/zenodo.22059963}
+}</pre>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -363,7 +387,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 12:58 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 14:11 UTC</div>
 </footer>
 </div>
 </body>

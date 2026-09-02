@@ -39,10 +39,40 @@ def visible_text_len(fragment_html):
     return len(t), t
 
 
-def extract_section(body, h2_label):
-    """Vrati HTML mezi <h2>h2_label</h2> a dalsim <h2> (nebo koncem body)."""
+# Both extractors below stop at <footer -- BUG FOUND 2026-09-02: the original
+# boundary was only "next h2/h3, or </div> right before </body>". A section
+# that happens to be the LAST heading on the page (no following h2/h3, which
+# is most study pages before Ukol 2 -- most have no "Learn the biology" cross-
+# link) has nothing between it and the closing </div></body> EXCEPT the CTA
+# paragraph and the entire <footer> (7 nav links + attribution text). Without
+# a <footer> stop, extract_section silently swallowed all of that into
+# whatever section happened to be last, inflating its char/link count. This
+# is why the very first "before" run of this script (Ukol 1 commit) showed
+# n_entity_links as high as 9 on pages whose actual <div class="tags"> has a
+# single link -- 1 real entity tag + 1 CTA link + 7 footer links = 9. Fixed
+# here retroactively; both audits in this comparison use the fixed version.
+def extract_section(body, label):
+    """Vrati HTML mezi <h2|h3>label</h2|h3> a dalsim <h2>, <h3> nebo
+    <footer> (nebo koncem body). Zamerne h2 NEBO h3 (oprava po Ukolu 2):
+    sekce "Related topics" byla pred Ukolem 2 <h2>, po nem je <h3> vnorene
+    pod <h2>In the Atlas</h2> -- flexibilni match drzi pred/po srovnani
+    korektni."""
     pat = re.compile(
-        r"<h2[^>]*>\s*" + re.escape(h2_label) + r"\s*</h2>(.*?)(?=<h2\b|</div>\s*</body|\Z)",
+        r"<h[23][^>]*>\s*" + re.escape(label) + r"\s*</h[23]>(.*?)"
+        r"(?=<h[23]\b|<footer\b|<a class=\"cta\"|</div>\s*</body|\Z)",
+        re.S | re.I)
+    m = pat.search(body)
+    return m.group(1) if m else ""
+
+
+def extract_h2_section(body, label):
+    """Vrati HTML mezi <h2>label</h2> a DALSIM <h2> nebo <footer> (h3 uvnitr
+    NEjsou hranice -- na rozdil od extract_section vyse). Pouzito jen pro
+    "In the Atlas", ktera po Ukolu 2 obaluje vnorene <h3> podsekce (Related
+    topics/Open questions/Answers/Learn the biology)."""
+    pat = re.compile(
+        r"<h2[^>]*>\s*" + re.escape(label) + r"\s*</h2>(.*?)"
+        r"(?=<h2\b|<footer\b|<a class=\"cta\"|</div>\s*</body|\Z)",
         re.S | re.I)
     m = pat.search(body)
     return m.group(1) if m else ""
@@ -76,10 +106,23 @@ def measure_one(path):
         abstract_html = am.group(1)
     chars_abstract, _ = visible_text_len(abstract_html)
 
-    # Entity tags ("Related topics")
+    # Entity tags ("Related topics") -- unchanged definition pre/post Ukol 2
+    # so ratio_unique / n_entity_links stay apples-to-apples across the two
+    # audits (see extract_section's h2-or-h3 fix above).
     tags_html = extract_section(body, "Related topics")
     n_entity_links = len(re.findall(r"<a\b", tags_html))
     tags_text_len, _ = visible_text_len(tags_html)
+
+    # tier-why line (new in Ukol 2; absent pre-rebuild -> 0 for the "before" run)
+    tw_m = re.search(r'<p class="tier-why">(.*?)</p>', body, re.S)
+    tier_why_len, _ = visible_text_len(tw_m.group(1)) if tw_m else (0, "")
+
+    # Whole "In the Atlas" block (new in Ukol 2: entities + open-question +
+    # answers + academy cross-links together) -- reported separately so the
+    # core 3 columns above stay comparable, and this shows the fuller picture.
+    atlas_html = extract_h2_section(body, "In the Atlas")
+    n_atlas_links = len(re.findall(r"<a\b", atlas_html))
+    atlas_text_len, _ = visible_text_len(atlas_html)
 
     # Academy cross-link presence
     has_academy_link = 1 if "Learn the biology" in body else 0
@@ -101,6 +144,9 @@ def measure_one(path):
         "n_entity_links": n_entity_links,
         "has_extracted": has_extracted,
         "has_academy_link": has_academy_link,
+        "chars_tier_why": tier_why_len,
+        "chars_atlas_block": atlas_text_len,
+        "n_atlas_links": n_atlas_links,
     }
 
 
@@ -145,7 +191,8 @@ def main():
 
     rows = [measure_one(p) for p in paths]
     fieldnames = ["sid", "tier", "chars_total", "chars_abstract", "chars_unique",
-                  "ratio_unique", "n_entity_links", "has_extracted", "has_academy_link"]
+                  "ratio_unique", "n_entity_links", "has_extracted", "has_academy_link",
+                  "chars_tier_why", "chars_atlas_block", "n_atlas_links"]
     n = write_verified(args.out, rows, fieldnames)
 
     ratios = sorted(r["ratio_unique"] for r in rows)
@@ -158,10 +205,12 @@ def main():
         b = band(r["chars_unique"])
         bands[b] = bands.get(b, 0) + 1
 
+    zero_atlas = sum(1 for r in rows if r["n_atlas_links"] == 0)
     print(f"Zapsáno {n} řádků do {args.out}")
     print(f"Medián ratio_unique: {median:.3f}")
     print(f"Stránek s chars_unique < 400: {thin} / {len(rows)}")
-    print(f"Stránek s 0 odkazy na entity: {zero_links} / {len(rows)}")
+    print(f"Stránek s 0 odkazy na entity (Related topics): {zero_links} / {len(rows)}")
+    print(f"Stránek s 0 odkazy v celé sekci In the Atlas: {zero_atlas} / {len(rows)}")
     print("Pásma unikátního obsahu:")
     for b in ["<200", "200-400", "400-800", ">800"]:
         print(f"  {b:>8} znaků: {bands.get(b, 0)}")

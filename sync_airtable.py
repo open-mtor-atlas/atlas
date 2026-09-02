@@ -79,6 +79,15 @@ def fetch_studies():
             "pmid": g(f, "PMID"), "pmcid": g(f, "PMCID"),
             "ai_intervention": g(f, "AI_Intervention"), "ai_target": g(f, "AI_Target"),
             "ai_species": g(f, "AI_Species"), "ai_effect": g(f, "AI_Effect"),
+            # Fáze 4 deep extraction (dávka/n/effect size/limitations z plného textu,
+            # atlas_gaps/extract_facts.py) -- doplněno 2026-09-02 (SEO P0 Úkol 2).
+            # Do tohoto dne se tahle 4 pole zapisovala jen do Airtable a sync_airtable.py
+            # je nikdy nestahoval zpět, takže studies_baked.json na ně byl navždy
+            # prázdný, přestože build_pages.py/study_page() je uměl vykreslit už dřív.
+            # Stejná třída chyby jako entities_baked.json zamrzlé na 120/146 (viz
+            # projektová paměť entities-bake-path) -- chybějící cesta, ne špatný běh.
+            "ai_dose": g(f, "AI_Dose"), "ai_samplesize": g(f, "AI_SampleSize"),
+            "ai_effectsize": g(f, "AI_EffectSize"), "ai_limitations": g(f, "AI_Limitations"),
         })
     return arr
 

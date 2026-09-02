@@ -86,6 +86,7 @@
   "version": "1.0.0",
   "dateModified": "2026-09-02"
  },
+ "dateModified": "2026-08-22",
  "publication": {
   "@type": "Periodical",
   "name": "The EMBO journal"
@@ -207,6 +208,12 @@ footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}
+.tier-why{color:var(--soft);font-size:14px;margin:-10px 0 20px;max-width:var(--measure,68ch)}
+pre.cite{background:var(--code-bg,rgba(0,0,0,.04));border:1px solid var(--line);
+border-radius:4px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
+font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+max-width:var(--measure,68ch)}
+h3{font-size:var(--fs-h3,16px);margin:18px 0 8px}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -335,8 +342,10 @@ a{overflow-wrap:anywhere}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB</h1>
 <p class="meta">Settembre C; Ballabio A et al. · 2012 · <em>The EMBO journal</em> · Atlas ID <code>SET2012</code></p>
+<h2>What this study shows</h2>
 <p class="summary">A lysosome-to-nucleus mechanism uses mTOR-dependent TFEB phosphorylation to sense lysosomal state.
 </p>
+<p class="tier-why">Tier D because it is mechanistic or in-vitro work (model: Mammalian cells), not a whole-organism health-outcome study; tier describes study design, not quality -- this is often exactly where causal biology gets established.</p>
 <h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td></tr>
 <tr><td><strong>Study type</strong></td><td>5 - Mechanistic / In Vitro</td></tr>
@@ -344,17 +353,28 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Journal</strong></td><td>The EMBO journal</td></tr>
 <tr><td><strong>Year</strong></td><td>2012</td></tr>
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
+<tr><td><strong>Record last updated</strong></td><td>2026-08-22</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/emboj.2012.32">DOI 10.1038/emboj.2012.32</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/22343943/">PMID 22343943</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3298007/">Free full text (PMC3298007)</a></td></tr>
 </table>
-<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The lysosome plays a key role in cellular homeostasis by controlling both cellular clearance and energy production to respond to environmental cues. However, the mechanisms mediating lysosomal adaptation are largely unknown. Here, we show that the Transcription Factor EB (TFEB), a master regulator of lysosomal biogenesis, colocalizes with master growth regulator mTOR complex 1 (mTORC1) on the lysosomal membrane. When nutrients are present, phosphorylation of TFEB by mTORC1 inhibits TFEB activity. Conversely, pharmacological inhibition of mTORC1, as well as starvation and lysosomal disruption, activates TFEB by promoting its nuclear translocation. In addition, the transcriptional response of lysosomal and autophagic genes to either lysosomal dysfunction or pharmacological inhibition of mTORC1 is suppressed in TFEB-/- cells. Interestingly, the Rag GTPase complex, which senses lysosomal amino acids and activates mTORC1, is both necessary and sufficient to regulate starvation- and stress-induced nuclear translocation of TFEB. These data indicate that the lysosome senses its content and regulates its own biogenesis by a lysosome-to-nucleus signalling mechanism that involves TFEB and mTOR.</p></div>
-<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic/pharmacologic (mTORC1/TFEB)</td></tr>
 <tr><td><strong>Target</strong></td><td>mTORC1 / TFEB</td></tr>
 <tr><td><strong>Model</strong></td><td>Mammalian cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>A lysosome-to-nucleus signalling mechanism via mTORC1-TFEB senses and regulates the lysosome</td></tr>
-</table></div>
-<h2>Learn the biology</h2><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/lysosome-platform/">The Lysosome as a Signalling Platform</a></p>
+</table>
+<h2>In the Atlas</h2>
+<h3>Learn the biology</h3><p>Want to understand the biology behind this study? &rarr; <a href="/academy/core/lysosome-platform/">The Lysosome as a Signalling Platform</a></p>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">The lysosome plays a key role in cellular homeostasis by controlling both cellular clearance and energy production to respond to environmental cues. However, the mechanisms mediating lysosomal adaptation are largely unknown. Here, we show that the Transcription Factor EB (TFEB), a master regulator of lysosomal biogenesis, colocalizes with master growth regulator mTOR complex 1 (mTORC1) on the lysosomal membrane. When nutrients are present, phosphorylation of TFEB by mTORC1 inhibits TFEB activity. <a href="https://pubmed.ncbi.nlm.nih.gov/22343943/">Read the full abstract on PubMed &rarr;</a></p></div>
+<h2>Cite this record</h2><pre class="cite">Barton, O. (2026). A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB — evidence-graded record SET2012. In Oliver&#x27;s mTOR Atlas. https://mtor-atlas.org/study/SET2012/ · Dataset DOI 10.5281/zenodo.22059963
+
+@misc{atlas_SET2012,
+  author       = {Barton, Oliver},
+  title        = {{A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB} --- evidence-graded record SET2012},
+  howpublished = {Oliver&#x27;s mTOR Atlas},
+  year         = {2026},
+  url          = {https://mtor-atlas.org/study/SET2012/},
+  note         = {Dataset DOI: 10.5281/zenodo.22059963}
+}</pre>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -363,7 +383,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 12:58 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 14:11 UTC</div>
 </footer>
 </div>
 </body>

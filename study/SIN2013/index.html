@@ -86,6 +86,7 @@
   "version": "1.0.0",
   "dateModified": "2026-09-02"
  },
+ "dateModified": "2026-08-22",
  "publication": {
   "@type": "Periodical",
   "name": "Nature immunology"
@@ -207,6 +208,12 @@ footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}
+.tier-why{color:var(--soft);font-size:14px;margin:-10px 0 20px;max-width:var(--measure,68ch)}
+pre.cite{background:var(--code-bg,rgba(0,0,0,.04));border:1px solid var(--line);
+border-radius:4px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
+font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+max-width:var(--measure,68ch)}
+h3{font-size:var(--fs-h3,16px);margin:18px 0 8px}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -335,8 +342,10 @@ a{overflow-wrap:anywhere}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation</h1>
 <p class="meta">Sinclair LV; Cantrell DA et al. · 2013 · <em>Nature immunology</em> · Atlas ID <code>SIN2013</code></p>
+<h2>What this study shows</h2>
 <p class="summary">Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.
 </p>
+<p class="tier-why">Tier C because it is an animal intervention or observation study measuring an organismal outcome (model: Mouse T cells); tier describes study design, not quality -- animal evidence can be rigorous and still sit below direct human data.</p>
 <h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
@@ -344,16 +353,30 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Journal</strong></td><td>Nature immunology</td></tr>
 <tr><td><strong>Year</strong></td><td>2013</td></tr>
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
+<tr><td><strong>Record last updated</strong></td><td>2026-08-22</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1038/ni.2556">DOI 10.1038/ni.2556</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/23525088/">PMID 23525088</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3672957/">Free full text (PMC3672957)</a></td></tr>
 </table>
-<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">T lymphocytes must regulate nutrient uptake to meet the metabolic demands of an immune response. Here we show that the intracellular supply of large neutral amino acids (LNAAs) in T cells was regulated by pathogens and the T cell antigen receptor (TCR). T cells responded to antigen by upregulating expression of many amino-acid transporters, but a single System L (&#x27;leucine-preferring system&#x27;) transporter, Slc7a5, mediated uptake of LNAAs in activated T cells. Slc7a5-null T cells were unable to metabolically reprogram in response to antigen and did not undergo clonal expansion or effector differentiation. The metabolic catastrophe caused by loss of Slc7a5 reflected the requirement for sustained uptake of the LNAA leucine for activation of the serine-threonine kinase complex mTORC1 and for expression of the transcription factor c-Myc. Control of expression of the System L transporter by pathogens is thus a critical metabolic checkpoint for T cells.</p></div>
-<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Genetic (Slc7a5, T-cell receptor)</td></tr>
 <tr><td><strong>Target</strong></td><td>Slc7a5 (System L) / leucine / mTORC1</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse T cells</td></tr>
 <tr><td><strong>Effect</strong></td><td>Antigen-receptor-driven Slc7a5 amino-acid transport coordinates the metabolic reprogramming essential for T-cell differentiation</td></tr>
-</table></div>
+<tr><td><strong>Dose</strong></td><td>TCR triggering with cognate peptide for 4h or 20h; IL-2 at 20 ng/ml or 1.25 ng/ml for 20h; BCH at 10 mM or 50 mM; rapamycin at 20 nM; CsA at 100 nM; glutamine at 2 mM; leucine at 0.4 mM.</td></tr>
+<tr><td><strong>Sample size</strong></td><td>minimum of 3 experiments done in triplicates (Fig. 1a,c,d); 6 mice (Fig. 1b); 3 experiments (Fig. 2); 3 mice per group (Fig. 3a); 2 collated experiments (Fig. 3d-f).</td></tr>
+<tr><td><strong>Effect size</strong></td><td>TCR triggering increased phenylalanine transport (p=0.0147 at 4h, p&lt;0.0001 at 20h); CsA abrogated TCR-induced system L activity (p=0.0242) and Slc7a5 mRNA expression (p=0.0070); Slc7a5 haplo-insufficient T cells showed a 50% reduction in System L transporter activity.</td></tr>
+<tr><td><strong>Limitations</strong></td><td>Systemic deletion of Slc7a5 causes embryonic lethality, necessitating the use of haplo-insufficient mice.</td></tr>
+</table>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">T lymphocytes must regulate nutrient uptake to meet the metabolic demands of an immune response. Here we show that the intracellular supply of large neutral amino acids (LNAAs) in T cells was regulated by pathogens and the T cell antigen receptor (TCR). T cells responded to antigen by upregulating expression of many amino-acid transporters, but a single System L (&#x27;leucine-preferring system&#x27;) transporter, Slc7a5, mediated uptake of LNAAs in activated T cells. <a href="https://pubmed.ncbi.nlm.nih.gov/23525088/">Read the full abstract on PubMed &rarr;</a></p></div>
+<h2>Cite this record</h2><pre class="cite">Barton, O. (2026). Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation — evidence-graded record SIN2013. In Oliver&#x27;s mTOR Atlas. https://mtor-atlas.org/study/SIN2013/ · Dataset DOI 10.5281/zenodo.22059963
+
+@misc{atlas_SIN2013,
+  author       = {Barton, Oliver},
+  title        = {{Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation} --- evidence-graded record SIN2013},
+  howpublished = {Oliver&#x27;s mTOR Atlas},
+  year         = {2026},
+  url          = {https://mtor-atlas.org/study/SIN2013/},
+  note         = {Dataset DOI: 10.5281/zenodo.22059963}
+}</pre>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -362,7 +385,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 12:58 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 14:11 UTC</div>
 </footer>
 </div>
 </body>

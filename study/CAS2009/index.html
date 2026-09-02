@@ -86,6 +86,7 @@
   "version": "1.0.0",
   "dateModified": "2026-09-02"
  },
+ "dateModified": "2026-08-22",
  "publication": {
   "@type": "Periodical",
   "name": "Cell stem cell"
@@ -207,6 +208,12 @@ footer.oma-footer .oma-footer-links a{margin:0 8px}
 footer.oma-footer .oma-footer-meta{margin-top:10px;opacity:.7}
 .abstract{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}
+.tier-why{color:var(--soft);font-size:14px;margin:-10px 0 20px;max-width:var(--measure,68ch)}
+pre.cite{background:var(--code-bg,rgba(0,0,0,.04));border:1px solid var(--line);
+border-radius:4px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
+font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+max-width:var(--measure,68ch)}
+h3{font-size:var(--fs-h3,16px);margin:18px 0 8px}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -335,8 +342,10 @@ a{overflow-wrap:anywhere}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>mTOR mediates Wnt-induced epidermal stem cell exhaustion and aging</h1>
 <p class="meta">Castilho RM; Gutkind JS et al. · 2009 · <em>Cell stem cell</em> · Atlas ID <code>CAS2009</code></p>
+<h2>What this study shows</h2>
 <p class="summary">Wnt-induced mTOR activation drives epidermal stem-cell senescence; rapamycin rescues it.
 </p>
+<p class="tier-why">Tier C because it is an animal intervention or observation study measuring an organismal outcome (model: Mouse); tier describes study design, not quality -- animal evidence can be rigorous and still sit below direct human data.</p>
 <h2>At a glance</h2><table class="kv">
 <tr><td><strong>Evidence tier</strong></td><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td></tr>
 <tr><td><strong>Study type</strong></td><td>4 - Animal Study</td></tr>
@@ -344,17 +353,32 @@ a{overflow-wrap:anywhere}
 <tr><td><strong>Journal</strong></td><td>Cell stem cell</td></tr>
 <tr><td><strong>Year</strong></td><td>2009</td></tr>
 <tr><td><strong>Peer reviewed</strong></td><td>Yes</td></tr>
+<tr><td><strong>Record last updated</strong></td><td>2026-08-22</td></tr>
 <tr><td><strong>Source</strong></td><td><a href="https://doi.org/10.1016/j.stem.2009.06.017">DOI 10.1016/j.stem.2009.06.017</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19733540/">PMID 19733540</a> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2939833/">Free full text (PMC2939833)</a></td></tr>
 </table>
-<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Epidermal integrity is a complex process established during embryogenesis and maintained throughout the organism lifespan by epithelial stem cells. Although Wnt regulates normal epithelial stem cell renewal, aberrant Wnt signaling can contribute to cancerous growth. Here, we explored the consequences of persistent expressing Wnt1 in an epidermal compartment that includes the epithelial stem cells. Surprisingly, Wnt caused the rapid growth of the hair follicles, but this was followed by epithelial cell senescence, disappearance of the epidermal stem cell compartment, and progressive hair loss. Although Wnt1 induced the activation of beta-catenin and the mTOR pathway, both hair follicle hyperproliferation and stem cell exhaustion were strictly dependent on mTOR function. These findings suggest that whereas activation of beta-catenin contributes to tumor growth, epithelial stem cells may be endowed with a protective mechanism that results in cell senescence upon the persistent stimulation of proliferative pathways that activate mTOR, ultimately suppressing tumor formation.</p></div>
-<div class="lv-hide-beginner">
 <h2>Extracted findings</h2><table class="kv">
 <tr><td><strong>Intervention</strong></td><td>Wnt1 overexpression; rapamycin rescue</td></tr>
 <tr><td><strong>Target</strong></td><td>mTOR</td></tr>
 <tr><td><strong>Model</strong></td><td>Mouse (epidermal stem cells)</td></tr>
 <tr><td><strong>Effect</strong></td><td>Wnt→mTOR drives stem-cell senescence/exhaustion and hair loss; rapamycin reverses it</td></tr>
-</table></div>
-<h2>Related topics</h2><div class="tags"><a href="/gene/mtor/">mTOR</a></div>
+<tr><td><strong>Sample size</strong></td><td>n=25 mutant and wild-type littermates</td></tr>
+<tr><td><strong>Effect size</strong></td><td>Wnt1 expression caused terminal differentiation of HF after 90 days, leading to progressive hair loss.</td></tr>
+<tr><td><strong>Limitations</strong></td><td>No nuclear β-catenin staining could be observed, possibly due to strong membrane signal or limited nuclear β-catenin; further investigation is warranted on the contribution of particular Wnt1 receptors.</td></tr>
+</table>
+<h2>In the Atlas</h2>
+<h3>Related topics</h3><div class="tags"><a href="/gene/mtor/">mTOR</a></div>
+<h3>Open questions that cite this study</h3><ul><li>Cited as supporting evidence for the open question <a href="https://mtor-atlas.org/question/suppression-of-senescence-sasp-geroconversion-not-just-autophagy-is-the-mediator-of-rapamycins-healthspan-benefit/">Suppression of senescence/SASP (geroconversion), not just autophagy, is the mediator of rapamycin&#x27;s healthspan benefit</a>.</li></ul>
+<div class="lv-hide-beginner"><h2>Abstract</h2><p class="abstract">Epidermal integrity is a complex process established during embryogenesis and maintained throughout the organism lifespan by epithelial stem cells. Although Wnt regulates normal epithelial stem cell renewal, aberrant Wnt signaling can contribute to cancerous growth. Here, we explored the consequences of persistent expressing Wnt1 in an epidermal compartment that includes the epithelial stem cells. Surprisingly, Wnt caused the rapid growth of the hair follicles, but this was followed by epithelial cell senescence, disappearance of the epidermal stem cell compartment, and progressive hair loss. <a href="https://pubmed.ncbi.nlm.nih.gov/19733540/">Read the full abstract on PubMed &rarr;</a></p></div>
+<h2>Cite this record</h2><pre class="cite">Barton, O. (2026). mTOR mediates Wnt-induced epidermal stem cell exhaustion and aging — evidence-graded record CAS2009. In Oliver&#x27;s mTOR Atlas. https://mtor-atlas.org/study/CAS2009/ · Dataset DOI 10.5281/zenodo.22059963
+
+@misc{atlas_CAS2009,
+  author       = {Barton, Oliver},
+  title        = {{mTOR mediates Wnt-induced epidermal stem cell exhaustion and aging} --- evidence-graded record CAS2009},
+  howpublished = {Oliver&#x27;s mTOR Atlas},
+  year         = {2026},
+  url          = {https://mtor-atlas.org/study/CAS2009/},
+  note         = {Dataset DOI: 10.5281/zenodo.22059963}
+}</pre>
 <p><a class="cta" href="https://mtor-atlas.org/#studies">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
@@ -363,7 +387,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 12:58 UTC</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-02 14:11 UTC</div>
 </footer>
 </div>
 </body>

@@ -321,7 +321,7 @@ def topbar_html(active_tab=None):
 
 
 def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
-          extra_css="", extra_body="", level_switch=False):
+          extra_css="", extra_body="", level_switch=False, robots="index, follow"):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
     celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
 
@@ -372,7 +372,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{e(canonical)}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="{robots}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="{e(title)}">
@@ -455,6 +455,12 @@ footer.oma-footer .oma-footer-links a{{margin:0 8px}}
 footer.oma-footer .oma-footer-meta{{margin-top:10px;opacity:.7}}
 .abstract{{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 color:var(--prose-ink,#26241F);max-width:var(--measure,68ch)}}
+.tier-why{{color:var(--soft);font-size:14px;margin:-10px 0 20px;max-width:var(--measure,68ch)}}
+pre.cite{{background:var(--code-bg,rgba(0,0,0,.04));border:1px solid var(--line);
+border-radius:4px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
+font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+max-width:var(--measure,68ch)}}
+h3{{font-size:var(--fs-h3,16px);margin:18px 0 8px}}
 
 /* ─────────────────────────────────────────────────────────────────────
    MOBILE LAYER (added 2026-07-29)
@@ -578,12 +584,228 @@ def _load_academy_index():
 ACADEMY_BY_SID = _load_academy_index()
 
 
+# --- SEO P0 Ukol 2 (2026-09-02): study_page rebuild -- new helpers ---
+
+
+def _load_gap_citations():
+    """Reverse index {SID: [(title, url)]} for Open Questions/hypotheses that
+    cite this study -- Ukol 2, "In the Atlas" section. Empty if gaps_baked.json
+    is missing (mirrors _load_academy_index's no-hard-dependency pattern).
+    URL construction mirrors gap_page()'s own slug -- if that ever changes,
+    change it there and here together or the two will silently disagree."""
+    p = os.path.join(DATA, "gaps_baked.json")
+    if not os.path.exists(p):
+        return {}
+    try:
+        gaps = json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for g in gaps:
+        url = f"{SITE}/question/{slugify(g['title'])}/"
+        for sid in g.get("studies") or []:
+            out.setdefault(sid, []).append((g["title"], url))
+    return out
+
+
+GAPS_BY_SID = _load_gap_citations()
+
+
+def _load_answer_citations():
+    """Reverse index {SID: [(title, url)]} for /answers/ pages that cite this
+    study. /answers/ is hand-baked by generate.py (Petr's explicit static-
+    section decision, 2026-08-22) with no separate machine-readable source,
+    so the already-published HTML *is* the source here -- grep, not a data
+    file. Re-run after any /answers/ content change or this index goes
+    stale (same caveat as ACADEMY_BY_SID: no hard dependency, just silently
+    empty until the next build)."""
+    out = {}
+    base = os.path.join(HERE, "answers")
+    if not os.path.isdir(base):
+        return out
+    for slug in sorted(os.listdir(base)):
+        fp = os.path.join(base, slug, "index.html")
+        if not os.path.isfile(fp):
+            continue
+        try:
+            text = open(fp, encoding="utf-8").read()
+        except OSError:
+            continue
+        m = re.search(r"<h1>(.*?)</h1>", text, re.S)
+        title = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else slug
+        url = f"{SITE}/answers/{slug}/"
+        for sid in set(re.findall(r"/study/([A-Za-z0-9]+)/", text)):
+            out.setdefault(sid, []).append((title, url))
+    return out
+
+
+ANSWERS_BY_SID = _load_answer_citations()
+
+
+def _load_record_dates():
+    """SID -> ISO date for the "Record last updated" row + JSON-LD
+    dateModified (Ukol 2 item 7). CAVEAT (checked 2026-09-02): neither
+    AUDIT_changelog_studies.json nor REVIEW_changelog_studies.json carries a
+    per-entry date -- their keys are only sid/field/old/new/why. Both files
+    correspond to the audit round documented alongside AUDIT_scientific_
+    calibration_2026-07-29.md / REVIEW_external_scientific_2026-07-29.md, so
+    a SID appearing in either gets that round's date; everything else falls
+    back to CITATION.cff's date-released. This is coarser than a real
+    per-field timestamp -- flagged in the handover, not silently assumed."""
+    AUDIT_ROUND_DATE = "2026-07-29"
+    fallback = "unknown"
+    try:
+        cff = open(os.path.join(HERE, "CITATION.cff"), encoding="utf-8").read()
+        m = re.search(r'^date-released:\s*"?([\d-]+)"?\s*$', cff, re.M)
+        if m:
+            fallback = m.group(1)
+    except OSError:
+        pass
+    dates = {}
+    for fn in ("AUDIT_changelog_studies.json", "REVIEW_changelog_studies.json"):
+        p = os.path.join(DATA, fn)
+        if not os.path.exists(p):
+            continue
+        try:
+            rows = json.load(open(p, encoding="utf-8"))
+        except Exception:
+            continue
+        for row in rows:
+            sid = row.get("sid")
+            if sid:
+                dates[sid] = AUDIT_ROUND_DATE
+    return dates, fallback
+
+
+RECORD_DATE_BY_SID, RECORD_DATE_FALLBACK = _load_record_dates()
+
+
+def _load_noindex_studies():
+    """SIDs to serve noindex,follow -- decided by tools/seo/decide_noindex.py
+    from a post-rebuild seo_study_audit.csv and stored here so the decision
+    is reversible/auditable (a plain JSON list) instead of baked silently
+    into a one-off script run. Empty (not an error) on first run, before
+    that file exists -- every study indexes normally until a human/curator
+    decision produces the list."""
+    p = os.path.join(DATA, "seo_noindex_studies.json")
+    if not os.path.exists(p):
+        return set()
+    try:
+        return set(json.load(open(p, encoding="utf-8")))
+    except Exception:
+        return set()
+
+
+NOINDEX_STUDIES = _load_noindex_studies()
+
+
+def tier_reason(s):
+    """One sentence on WHY this record has this tier -- Ukol 2 item 2: a
+    beginner reads "D" as "D-minus" without this. 8 templates keyed by
+    (tier, category), not one generic sentence, so the reader can tell which
+    kind of C or D this is (a null result is not a weak result; mechanistic
+    work is not lesser work -- it is often where causal biology actually
+    gets established)."""
+    tier = (s.get("tier") or "").strip()
+    category = (s.get("category") or "").strip()
+    model = s.get("model") or s.get("ai_species") or "the studied system"
+    if tier == "A - Systematic review":
+        return ("Tier A because it systematically synthesizes multiple human "
+                "studies (a systematic review or meta-analysis); tier describes "
+                "study design, not the quality of any single included study.")
+    if tier == "B - Human":
+        return ("Tier B because it is direct evidence from a human clinical "
+                "trial or human cohort; tier describes study design, not "
+                "quality -- a small, well-run trial is still tier B.")
+    if tier == "C - Animal":
+        if category == "Negative_result":
+            return (f"Tier C because it is an animal study reporting a "
+                    f"negative or null result (model: {e(model)}); a "
+                    f"well-designed null result is still evidence, and tier "
+                    f"reflects design, not importance.")
+        return (f"Tier C because it is an animal intervention or observation "
+                f"study measuring an organismal outcome (model: {e(model)}); "
+                f"tier describes study design, not quality -- animal evidence "
+                f"can be rigorous and still sit below direct human data.")
+    if tier == "D - Mechanistic/Review":
+        if category == "Review":
+            return ("Tier D because it is a review or synthesis of existing "
+                    "evidence rather than a new primary result; tier "
+                    "describes study design (secondary synthesis), not "
+                    "quality.")
+        if category == "Side effect":
+            return (f"Tier D because it reports a mechanistic or side-effect "
+                    f"finding (model: {e(model)}) rather than a primary "
+                    f"organismal health outcome; tier describes study design, "
+                    f"not quality.")
+        return (f"Tier D because it is mechanistic or in-vitro work (model: "
+                f"{e(model)}), not a whole-organism health-outcome study; "
+                f"tier describes study design, not quality -- this is often "
+                f"exactly where causal biology gets established.")
+    if tier == "Preprint":
+        return ("This is a preprint, not yet peer-reviewed -- treat its "
+                "findings as provisional until formal publication. Preprints "
+                "sit outside the A-D tier ladder for that reason, not "
+                "because the work is weak.")
+    if tier == "Registered trial":
+        return ("This is a registered clinical trial with no results "
+                "reported yet. There is no tier grade until results are "
+                "published -- registration alone is not evidence of an "
+                "effect.")
+    return f"Tier {e(tier or '—')}; tier describes study design, not quality."
+
+
+def _truncate_at_sentence(text, limit=600):
+    """First ~limit chars of text, cut at the end of the last full sentence
+    at-or-before the limit. Falls back to a word-boundary cut (+ ellipsis)
+    only when there is no sentence boundary at all before the limit -- never
+    a mid-word cut. Returns (snippet, was_truncated)."""
+    text = text.strip()
+    if len(text) <= limit:
+        return text, False
+    window = text[:limit]
+    cut = max(window.rfind(". "), window.rfind(".\n"),
+              window.rfind("? "), window.rfind("! "))
+    if cut == -1:
+        cut = window.rfind(" ")
+        if cut == -1:
+            cut = limit
+        return text[:cut].rstrip() + "…", True
+    return text[:cut + 1], True
+
+
+def _cite_block(sid, title, url):
+    """APA-style line + BibTeX for the ATLAS RECORD (not the original paper
+    -- Ukol 2 item 6). Built with plain concatenation, not nested f-string
+    braces, on purpose: BibTeX's own {...} syntax and an f-string's {{
+    escaping are an easy way to silently produce the wrong literal braces."""
+    year = (RECORD_DATE_BY_SID.get(sid) or RECORD_DATE_FALLBACK or "2026")[:4]
+    if not year.isdigit():
+        year = "2026"
+    apa = (f"Barton, O. ({year}). {title} — evidence-graded record {sid}. "
+           f"In Oliver's mTOR Atlas. {url} · Dataset DOI 10.5281/zenodo.22059963")
+    bibtex_lines = [
+        "@misc{atlas_" + sid + ",",
+        "  author       = {Barton, Oliver},",
+        "  title        = {{" + title + "} --- evidence-graded record " + sid + "},",
+        "  howpublished = {Oliver's mTOR Atlas},",
+        "  year         = {" + year + "},",
+        "  url          = {" + url + "},",
+        "  note         = {Dataset DOI: 10.5281/zenodo.22059963}",
+        "}",
+    ]
+    return apa, "\n".join(bibtex_lines)
+
+
+
 def study_page(s, ent_by_sid, haspage):
     sid = s["sid"]
     code, label, colour = tier_bits(s.get("tier"))
     url = f"{SITE}/study/{sid}/"
     title = s.get("title") or sid
     desc = (s.get("finding") or s.get("abstract") or title)[:300]
+    record_date = RECORD_DATE_BY_SID.get(sid, RECORD_DATE_FALLBACK)
+    noindex = sid in NOINDEX_STUDIES
 
     ld = {
         "@context": "https://schema.org", "@type": "ScholarlyArticle",
@@ -592,6 +814,8 @@ def study_page(s, ent_by_sid, haspage):
         "url": url, "inLanguage": "en",
         "isPartOf": dict(DATASET_REF),
     }
+    if record_date and record_date != "unknown":
+        ld["dateModified"] = record_date
     if s.get("journal"):
         ld["publication"] = {"@type": "Periodical", "name": s["journal"]}
     if s.get("authors"):
@@ -607,6 +831,9 @@ def study_page(s, ent_by_sid, haspage):
     if ids:
         ld["identifier"] = ids
     if s.get("abstract"):
+        # Full text stays in JSON-LD for machines even though the visible
+        # <p class="abstract"> below is truncated (Ukol 2 item 5) -- Google
+        # does not count a JSON-LD-only field as visible duplicate content.
         ld["abstract"] = s["abstract"]
 
     rows = [("Evidence tier", f'<span class="tier" style="background:{colour}">'
@@ -615,7 +842,8 @@ def study_page(s, ent_by_sid, haspage):
             ("Model system", e(s.get("model") or s.get("ai_species") or "—")),
             ("Journal", e(s.get("journal") or "—")),
             ("Year", e(s.get("year") or "—")),
-            ("Peer reviewed", e(s.get("peer") or "—"))]
+            ("Peer reviewed", e(s.get("peer") or "—")),
+            ("Record last updated", e(record_date if record_date != "unknown" else "—"))]
     links = []
     if s.get("doi"):
         links.append(f'<a href="https://doi.org/{e(s["doi"])}">DOI {e(s["doi"])}</a>')
@@ -634,38 +862,80 @@ def study_page(s, ent_by_sid, haspage):
     body = [f"<h1>{e(title)}</h1>",
             f'<p class="meta">{e(s.get("authors") or "")} · {e(s.get("year") or "")} · '
             f'<em>{e(s.get("journal") or "")}</em> · Atlas ID <code>{e(sid)}</code></p>']
+
+    # 1) What this study shows -- finding + one sentence on why this tier
+    # (Ukol 2 item 2).
+    body.append("<h2>What this study shows</h2>")
     if s.get("finding"):
         body.append(f'<p class="summary">{e(s["finding"])}</p>')
+    body.append(f'<p class="tier-why">{tier_reason(s)}</p>')
+
     body.append("<h2>At a glance</h2><table class=\"kv\">")
     for k, v in rows:
         body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{v}</td></tr>")
     body.append("</table>")
-    lv_needed = False
-    if s.get("abstract"):
-        body.append(f'<div class="lv-hide-beginner"><h2>Abstract</h2>'
-                    f'<p class="abstract">{e(s["abstract"])}</p></div>')
-        lv_needed = True
-    if s.get("ai_effect") or s.get("ai_intervention"):
-        body.append('<div class="lv-hide-beginner">')
+
+    # 2) Extracted findings -- ALWAYS visible (no lv-hide-beginner: this is
+    # the most valuable curatorial content on the page) whenever ANY field
+    # is present, now including the four Phase-4 deep-extraction fields
+    # (dose/n/effect size/limitations) that sync_airtable.py started pulling
+    # down in this same commit -- see fetch_studies() and projektova pamet
+    # entities-bake-path for the same class of bug on the entities side.
+    ef_fields = [("Intervention", "ai_intervention"), ("Target", "ai_target"),
+                 ("Model", "ai_species"), ("Effect", "ai_effect"),
+                 ("Dose", "ai_dose"), ("Sample size", "ai_samplesize"),
+                 ("Effect size", "ai_effectsize"), ("Limitations", "ai_limitations")]
+    if any(s.get(f) for _, f in ef_fields):
         body.append("<h2>Extracted findings</h2><table class=\"kv\">")
-        for k, f in (("Intervention", "ai_intervention"), ("Target", "ai_target"),
-                     ("Model", "ai_species"), ("Effect", "ai_effect"),
-                     ("Dose", "ai_dose"), ("Sample size", "ai_samplesize"),
-                     ("Effect size", "ai_effectsize"), ("Limitations", "ai_limitations")):
+        for k, f in ef_fields:
             if s.get(f):
                 body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{e(s[f])}</td></tr>")
-        body.append("</table></div>")
-        lv_needed = True
-    if tag_html:
-        body.append(f'<h2>Related topics</h2><div class="tags">{tag_html}</div>')
+        body.append("</table>")
 
-    # Aditivní můstek do Academy (2026-08-30). Vykreslí se JEN u studií, které
-    # nějaká lekce opravdu cituje -- stránka studie se jinak nemění.
+    # 3) In the Atlas -- every internal cross-link this record has, each
+    # with a sentence of context instead of a bare list (Ukol 2 item 4).
+    atlas_blocks = []
+    if tag_html:
+        atlas_blocks.append(f'<h3>Related topics</h3><div class="tags">{tag_html}</div>')
+    gap_hits = GAPS_BY_SID.get(sid, [])
+    if gap_hits:
+        items = "".join(f'<li>Cited as supporting evidence for the open question '
+                        f'<a href="{e(u)}">{e(t)}</a>.</li>' for t, u in gap_hits)
+        atlas_blocks.append(f"<h3>Open questions that cite this study</h3><ul>{items}</ul>")
+    answer_hits = ANSWERS_BY_SID.get(sid, [])
+    if answer_hits:
+        items = "".join(f'<li>Discussed in the plain-language answer '
+                        f'<a href="{e(u)}">{e(t)}</a>.</li>' for t, u in answer_hits)
+        atlas_blocks.append(f"<h3>Answers that reference this study</h3><ul>{items}</ul>")
     for les in ACADEMY_BY_SID.get(sid, []):
-        body.append('<h2>Learn the biology</h2>'
-                    '<p>Want to understand the biology behind this study? &rarr; '
-                    f'<a href="{e(les["url"])}">{e(les["title"])}</a></p>')
+        atlas_blocks.append('<h3>Learn the biology</h3>'
+                            '<p>Want to understand the biology behind this study? '
+                            '&rarr; ' + f'<a href="{e(les["url"])}">{e(les["title"])}</a></p>')
         break
+    if atlas_blocks:
+        body.append("<h2>In the Atlas</h2>")
+        body.extend(atlas_blocks)
+
+    # 4) Abstract -- truncated, moved below "In the Atlas" (Ukol 2 item 5):
+    # the full PubMed abstract is exactly the text Google was reading as
+    # thin/duplicate content.
+    if s.get("abstract"):
+        snippet, truncated = _truncate_at_sentence(s["abstract"], 600)
+        more = ""
+        if truncated:
+            if s.get("pmid"):
+                more = (f' <a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
+                       f'Read the full abstract on PubMed &rarr;</a>')
+            elif s.get("doi"):
+                more = f' <a href="https://doi.org/{e(s["doi"])}">Read the full abstract &rarr;</a>'
+        body.append(f'<div class="lv-hide-beginner"><h2>Abstract</h2>'
+                    f'<p class="abstract">{e(snippet)}{more}</p></div>')
+
+    # 5) Cite this record -- the ATLAS RECORD, not the original paper
+    # (Ukol 2 item 6).
+    apa, bibtex = _cite_block(sid, title, url)
+    body.append('<h2>Cite this record</h2><pre class="cite">'
+               + e(apa) + "\n\n" + e(bibtex) + "</pre>")
 
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
@@ -673,9 +943,10 @@ def study_page(s, ent_by_sid, haspage):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Studies", SITE + "/#studies"),
                         (sid, None)])
+    robots = "noindex, follow" if noindex else "index, follow"
     return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
                       "\n".join(body), crumb, active_tab="studies",
-                      level_switch=lv_needed)
+                      level_switch=True, robots=robots)
 
 
 # ----------------------------------------------------------- entity pages ---
@@ -1622,8 +1893,13 @@ def main():
         out.append("</urlset>")
         return "\n".join(out) + "\n"
 
+    def _study_sid_from_url(u):
+        m = re.search(r"/study/([^/]+)/$", u)
+        return m.group(1) if m else None
+
     write(os.path.join(HERE, "sitemap-studies.xml"),
-          sitemap([u for k, u in urls if k == "study"], "0.6"))
+          sitemap([u for k, u in urls if k == "study"
+                   and _study_sid_from_url(u) not in NOINDEX_STUDIES], "0.6"))
     write(os.path.join(HERE, "sitemap-entities.xml"),
           sitemap([u for k, u in urls if k == "entity"], "0.8"))
     write(os.path.join(HERE, "sitemap-questions.xml"),
