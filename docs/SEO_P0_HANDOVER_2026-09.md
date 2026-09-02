@@ -295,25 +295,86 @@ convenient — no urgency, no dependency on anything else.
 
 ---
 
-*(Úkol 4–10 sections to follow — see status note below.)*
+## Úkol 6 — Academy Bioschemas TrainingMaterial + TeSS/MERLOT/OERCommons drafts (DONE, committed)
 
-## Status of remaining tasks (Úkol 4, 5, 6, 7, 8, 9, 10)
+**What changed.** All 14 published Academy pages (10 lessons + 1
+Research Challenge) now carry the Bioschemas `TrainingMaterial`
+profile on top of the existing `LearningResource` JSON-LD
+(`lesson_page()` / the challenge-page block in `build_academy.py`):
 
-Not yet started as of this handover update. In priority order per the
-brief, these are the largest remaining items:
+- `"@type"` widened from `"LearningResource"` to
+  `["LearningResource", "TrainingMaterial"]`
+- `"learningResourceType"` changed from `"lesson"`/`"activity"` to
+  `"e-learning"` — the value Bioschemas/TeSS actually recognize
+- new `"keywords"` (same list as the existing `"teaches"`/
+  `researchSkills`, so it can't drift out of sync)
+- new `"audience"`: `{"@type": "Audience", "audienceType": "students
+  and self-directed learners with a basic biology background"}`
+- `"author"` now includes the curator's ORCID (`url` + `sameAs`),
+  previously name-only
+
+**Course/CourseInstance markup needed no changes.** `curriculum_page()`
+already emits `Course` + `hasCourseInstance` with `courseMode`, which
+is what Google's Course rich-result eligibility actually requires —
+that part pre-dates this session and was already correct.
+
+**Outreach drafts (all unsent, per the brief's hard rule — no
+accounts created, no forms submitted from this session):**
+
+- `tools/seo/build_tess_dump.py` → `outreach/tess/atlas-academy.json`
+  — 1 Course entry + 10 Material entries, generated directly from
+  `academy_data/lessons.json` + `modules.json` (not hand-typed), so it
+  mirrors exactly what the live lesson pages say and can't silently
+  drift from them the way a hand-maintained list could.
+- `outreach/merlot/merlot-fields.md` — copy-paste values for MERLOT's
+  "Contribute a Material" form.
+- `outreach/oercommons/fields.md` — copy-paste values for OER
+  Commons' "Add Material" form.
+
+**NEVEROVERENO (unverified):** this VM has no network egress to
+tess.elixir-europe.org, merlot.org, or oercommons.org, so the exact
+current field names / submission schema on those live forms could not
+be checked. The field names used follow each platform's
+well-documented, long-stable conventions (Bioschemas TrainingMaterial
+for TeSS; MERLOT's and OER Commons' standard contribute-a-resource
+fields) — treat these as strong starting drafts, not guaranteed-exact
+submission payloads. Sanity-check field labels against the live form
+before submitting.
+
+**Manual next steps:**
+1. TeSS: submit `outreach/tess/atlas-academy.json`'s 11 entries via
+   TeSS's own submission flow (community-curated training registry —
+   check whether that's a web form or a content-provider API
+   registration at https://tess.elixir-europe.org/).
+2. MERLOT: create/use an account, "Contribute Material", paste the
+   fields from `outreach/merlot/merlot-fields.md`. Goes through
+   editorial review — expect a delay before it's live.
+3. OER Commons: create/use an account, "Add Material", paste the
+   fields from `outreach/oercommons/fields.md`.
+
+---
+
+*(Úkol 4, 5, 7, 8, 9, 10 sections to follow — see status note below.)*
+
+## Status of remaining tasks (Úkol 4, 5, 7, 8, 9, 10)
+
+**Úkol 6 is now done** (see section above) — done ahead of 4/5 in
+practice, since it was lower-risk and more tractable than a
+structural SPA/homepage change given this session's inability to
+visually verify rendering. Remaining, in priority order per the
+brief:
 
 - **Úkol 4** (static homepage, SPA moved to `/app/`) and **Úkol 5**
   (static `/pathway/`, `/mechanism/`, `/events/` pages) are structural
   changes to how the live site is served — not template edits like
-  Úkol 2/3/11, but changes to what lives at the root URL and how the
+  Úkol 2/3/6/11, but changes to what lives at the root URL and how the
   SPA is reached. These deserve dedicated review time and careful
   before/after verification rather than being squeezed in alongside
-  everything else; continuing to them next.
-- **Úkol 6–9** (Academy Bioschemas markup + TeSS/MERLOT/OERCommons
-  drafts, NCBI LinkOut package, Bioregistry/Database Commons/NAR/
-  Wikidata drafts, Research Square manuscript) are outreach-drafting
-  tasks similar in shape to Úkol 3's HF/Kaggle drafts — lower risk,
-  planned next after 4/5.
+  everything else.
+- **Úkol 7–9** (NCBI LinkOut package, Bioregistry/Database
+  Commons/NAR/Wikidata drafts, Research Square manuscript) are
+  outreach-drafting tasks similar in shape to Úkol 3's HF/Kaggle
+  drafts and Úkol 6 above — lower risk, continuing to these next.
 - **Úkol 10** (AI citation baseline via browser) depends on browser
   tool availability in this session, not yet checked.
 
