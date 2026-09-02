@@ -82,6 +82,39 @@ def _read_citation_version():
     return m.group(1) if m else "unknown"
 
 
+# --- SEO P0 Ukol 3 (2026-09-02): data exports -- DATASET_REF.distribution ---
+
+
+def _load_export_distribution():
+    """DataDownload entries for the live CSV/JSON exports in data/exports/,
+    read from that directory's own manifest.json (written by
+    tools/seo/build_data_exports.py, which must run before this module --
+    same ordering convention as build_academy.py before build_pages.py).
+    Returns [] (never fails the build) if the exports haven't been
+    generated yet -- the Zenodo entry in DATASET_REF stays the one
+    unconditional distribution. Reading contentUrl/contentSize/sha256 from
+    the manifest instead of hand-listing file names here means this list
+    can never silently drift from what's actually on disk."""
+    p = os.path.join(HERE, "data", "exports", "manifest.json")
+    if not os.path.exists(p):
+        return []
+    try:
+        manifest = json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return []
+    out = []
+    for m in manifest:
+        out.append({
+            "@type": "DataDownload",
+            "name": m["name"],
+            "encodingFormat": m["encodingFormat"],
+            "contentUrl": m["contentUrl"],
+            "contentSize": str(m["contentSize"]),
+        })
+    return out
+
+
+
 # Google Rich Results validuje i VNOŘENÉ Dataset uzly (isPartOf). Holý stub
 # {name, url} = "chybí pole description / creator / license" v Search Console.
 # Musí sedět s hlavním Dataset blokem v index.html -- both read the SAME
@@ -111,12 +144,14 @@ DATASET_REF = {
                 "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
     "publisher": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
                   "url": SITE + "/"},
-    "distribution": {
-        "@type": "DataDownload",
-        "name": "Archived snapshot (Zenodo)",
-        "encodingFormat": "text/html",
-        "contentUrl": "https://doi.org/10.5281/zenodo.22059963",
-    },
+    "distribution": [
+        {
+            "@type": "DataDownload",
+            "name": "Archived snapshot (Zenodo)",
+            "encodingFormat": "text/html",
+            "contentUrl": "https://doi.org/10.5281/zenodo.22059963",
+        },
+    ] + _load_export_distribution(),
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": True,
     "inLanguage": "en",
@@ -1377,6 +1412,28 @@ and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citatio
         url, [ld_about, bc], body, crumb, active_tab="about")
 
 
+# --- SEO P0 Ukol 3 (2026-09-02): /data/ download section -- html fragment ---
+def _export_files_html():
+    """<ul> of data/exports/*.csv|json from manifest.json (same file
+    _load_export_distribution() reads for DATASET_REF) -- human-readable
+    counterpart to that machine-readable JSON-LD list, one source of
+    truth for both."""
+    p = os.path.join(HERE, "data", "exports", "manifest.json")
+    if not os.path.exists(p):
+        return ("<p><em>Exports are generated at build time and were not "
+                "present in this build.</em></p>\n")
+    try:
+        manifest = json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return ""
+    items = []
+    for m in manifest:
+        kb = m["contentSize"] / 1024
+        items.append(f'<li><a href="{m["contentUrl"]}">{m["name"]}</a> '
+                     f'({m["encodingFormat"]}, {kb:.0f} KB)</li>')
+    return "<ul>" + "".join(items) + "</ul>\n"
+
+
 def data_page(studies, entities):
     """Static /data/ page -- added 2026-08-29 at Petr's request: one page
     that states, in plain HTML (no JS, no clicking through /about/,
@@ -1413,6 +1470,7 @@ def data_page(studies, entities):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Data & Citation", None)])
 
+    export_files_html = _export_files_html()
     body = f"""<h1>Data &amp; Citation</h1>
 <p class="summary">Machine- and reviewer-facing facts about Oliver's mTOR
 Atlas as a dataset: where it is registered, how it is identified, and how
@@ -1454,6 +1512,14 @@ Barton, O. ({year}). <em>Oliver's mTOR Atlas</em> [Data set]. Zenodo.
 <a href="https://doi.org/10.5281/zenodo.22059963">https://doi.org/10.5281/zenodo.22059963</a></p>
 <p>A machine-readable citation file is also available:
 <a href="{SITE}/CITATION.cff">CITATION.cff</a>.</p>
+
+# --- SEO P0 Ukol 3 (2026-09-02): /data/ download section ---
+<h2>Download the data</h2>
+<p>The full corpus as flat CSV/JSON files -- the same data behind every
+page on this site, without scraping HTML. Regenerated on every deploy,
+so file sizes below reflect the current corpus, not a stale snapshot.</p>
+{export_files_html}<p>These exports are living data, not a permanent citable snapshot -- for a
+DOI-versioned copy, use the Zenodo archive above.</p>
 
 <h2>What's in the corpus right now</h2>
 <p>{n_studies} hand-curated primary studies on the mTOR signaling pathway,
