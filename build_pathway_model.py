@@ -474,7 +474,7 @@ CUR = {
  "EIF4E-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","established","established"),
  # Reviewer point 6: the *outcome* of this phosphorylation is destruction of a
  # repressor, which is a different biological claim from "adds a phosphate".
- "S6K1-PDCD4":       ("degradation","cytosol","minutes","direct","high","plausible","established"),
+ "S6K1-PDCD4":       ("degradation","cytosol","minutes","direct","high","plausible","emerging"),
  "PDCD4-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","plausible","established"),
  "TRANSL-MUSCLE":    ("functional-consequence","outcome","days","indirect","high","established","established"),
  "MTORC1-TFEB":      ("phosphorylation","lyso","minutes","direct","high","established","established"),
@@ -493,7 +493,7 @@ CUR = {
  "METFORMIN-AMPK":   ("signal-relay","cytosol","minutes","indirect","low","plausible","contested"),
  "AMPK-ULK1":        ("phosphorylation","cytosol","minutes","direct","high","established","established"),
  "ULK1-AMPK":        ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
- "HYPOXIA-REDD1":    ("transcriptional","nucleus","hours","indirect","high","established","established"),
+ "HYPOXIA-REDD1":    ("transcriptional","nucleus","hours","indirect","high","established","emerging"),
  "REDD1-TSC":        ("binding","cytosol","hours","direct","medium","plausible","emerging"),
  "STRESS-TSC":       ("translocation","lyso","minutes","direct","medium","plausible","emerging"),
  "ISR-SALR":         ("transcriptional","nucleus","hours","indirect","medium","untested","emerging"),
@@ -504,7 +504,7 @@ CUR = {
  "MLST8-MTORC2":     ("complex-assembly","cytosol","constitutive","direct","high","plausible","established"),
  "PI3K-MTORC2":      ("signal-relay","pm","seconds","indirect","medium","plausible","emerging"),
  "PTEN-PI3K":        ("dephosphorylation","pm","seconds","direct","high","established","established"),
- "MTORC2-SGK1":      ("phosphorylation","cytosol","minutes","direct","high","established","established"),
+ "MTORC2-SGK1":      ("phosphorylation","cytosol","minutes","direct","high","established","emerging"),
  "MTORC2-ACTIN":     ("functional-consequence","cytosol","minutes","indirect","high","plausible","established"),
  "MTORC2-LIPID":     ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
  "MTORC2-PROSTATE":  ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
@@ -523,7 +523,7 @@ CUR = {
  "MTORC1-PROSTATE":  ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
  "S6K1-IRS1":        ("degradation","cytosol","hours","direct","high","established","established"),
  "IRS1-PI3K":        ("recruitment","pm","seconds","direct","high","established","established"),
- "ERK-TSC":          ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
+ "ERK-TSC":          ("phosphorylation","cytosol","minutes","direct","high","plausible","emerging"),
  "MTORC1-MAPK":      ("signal-relay","cytosol","hours","indirect","high","established","established"),
  "METFORMIN-MTORC1": ("signal-relay","cytosol","hours","indirect","low","plausible","contested"),
  "SESN2-AGING":      ("functional-consequence","outcome","chronic","indirect","medium","untested","emerging"),
@@ -1552,6 +1552,20 @@ OPEN_LOOPS = [
 # ("id", src, tgt, effect, type, comp, ts, direct, mc, hr, cons,
 #  evidence_kind, species, [sids], mechanism, teaching_note, boundary)
 # ---------------------------------------------------------------------------
+# ---- audit 2026-09-04: conflicting evidence is now carried, not discarded.
+# evidence.conflicting was hardcoded to [] for all 119 interactions, which
+# silently deleted the one thing this Atlas claims to model that others do not.
+# Seeded from the two cases found by external audit; extend as they are found,
+# or wire to a Conflicting_Studies field on the Relations table.
+CONFLICTING = {
+    # MAN2021 is the negative phase 3 (no reduction in clinically symptomatic
+    # respiratory illness: 26% vs 25%, OR 1.07, p=0.65) on an "activates" edge.
+    "EVE-IMMUNE": ["MAN2021"],
+    # ZID2009: 4E-BP ENHANCES mitochondrial activity in fly under dietary
+    # restriction - opposite direction to this edge's mammalian-cell sign.
+    "4EBP1-MITO": ["ZID2009"],
+}
+
 EXTRA_EDGES = [
  ("LOAD-MTORC1", "Resistance exercise / mechanical load", "mTORC1", "activates", "signal-relay",
   "lyso", "hours", "indirect", "high", "established", "established",
@@ -1621,7 +1635,7 @@ EXTRA_EDGES = [
   "Genetic epistasis", "mammalian cells; mouse", ["CUN2007", "MOR2013", "POL2008"],
   "mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.",
   "One of the few places mTORC1 acts mainly through transcription. Adipose Raptor knockout raising respiration (POL2008) is the genetic confirmation that this is not a rapamycin artefact.",
-  "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo."),
+  "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo. OVERLAP (audit 2026-09-04): this edge and MTORC1-MITO assert overlapping biology from overlapping citations (CUN2007, MOR2013) at different tiers and different consensus levels. Read them together; they are not independent support."),
 
  ("MTORC1-PGC1A", "mTORC1", "PGC-1α / YY1", "activates", "binding",
   "nucleus", "hours", "direct", "high", "plausible", "emerging",
@@ -2029,7 +2043,7 @@ def main():
                 "tiers": e["tiers"],
                 "best_tier": e["tier"],
                 "supporting": e["st"],
-                "conflicting": [],
+                "conflicting": CONFLICTING.get(e["id"], []),
             },
             "confidence": {
                 "mechanistic": mc,
@@ -2070,7 +2084,7 @@ def main():
             "context_note": CTX_EXTRA.get(eid, ""),
             "evidence": {"kind": kind, "tiers": sorted(tiers_here),
                          "best_tier": sorted(tiers_here, key=lambda t: "ABCD".find(t) if t in "ABCD" else 9)[0],
-                         "supporting": list(sids), "conflicting": []},
+                         "supporting": list(sids), "conflicting": CONFLICTING.get(eid, [])},
             "confidence": {"mechanistic": mc, "human_relevance": hr, "consensus": cons},
             "review": {"reviewer": CURATOR, "reviewed": REVIEW_DATE, "updated": REVIEW_DATE},
         })
