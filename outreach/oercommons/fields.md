@@ -1,18 +1,29 @@
 <!--
 outreach/oercommons/fields.md -- UNSENT DRAFT (SEO P0 Ukol 6.2)
+VERIFIED LIVE 2026-09-03.
 
-WHAT THIS IS: copy-paste field values for OER Commons' "Add Material"
-submission (https://oercommons.org/member/contribute). Nothing submitted
--- no accounts created, no forms submitted from this session.
-NEVEROVERENO: no network egress to oercommons.org from this VM, so exact
-current field labels/options couldn't be checked -- these are OER
-Commons' well-documented, stable field categories.
+WHAT THIS IS: copy-paste field values for OER Commons' "Add" flow. The
+old /member/contribute URL is dead; the current entry point is
+https://oercommons.org/courses/add ("Add Link" in the site nav), which
+redirects to https://oercommons.org/login?next=/courses/add if not
+signed in. Nothing has been submitted -- account creation is outside
+this session's remit.
 
-HOW TO ACTUALLY DO THIS (manual, ~10 minutes):
-1. Create an OER Commons / ISKME account (or use an existing one) at
-   https://oercommons.org -- outside this session's remit.
-2. "Add Material" -> "Web Page" or "Course" type -> paste the fields
-   below.
+BLOCKED ON: OER Commons account creation
+(https://oercommons.org/login -> "Create an account / Register", or
+"Sign In through your Institution" if Oliver/Petr has an institutional
+login).
+
+VERIFIED LIVE 2026-09-03 (registration form, https://oercommons.org/registration):
+just 5 fields -- First name*, Last name*, Email*, Password* (min 5
+chars, case sensitive), Confirm password*. No profile/affiliation/
+discipline fields like MERLOT requires -- genuinely lighter-weight,
+confirmed past the login screen this time.
+
+HOW TO ACTUALLY DO THIS (manual, ~10 minutes once registered):
+1. Register/log in at https://oercommons.org/login.
+2. Go to https://oercommons.org/courses/add (or the "Add Material" flow
+   from the nav) and paste the fields below.
 3. Submit -- OER Commons materials typically go live faster than
    MERLOT's editorial queue, but confirm current behavior at submission
    time.

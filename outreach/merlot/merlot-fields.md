@@ -1,21 +1,34 @@
 <!--
 outreach/merlot/merlot-fields.md -- UNSENT DRAFT (SEO P0 Ukol 6.2)
+VERIFIED LIVE 2026-09-03.
 
-WHAT THIS IS: copy-paste field values for MERLOT's "Contribute a Material"
-submission form (https://www.merlot.org/merlot/contribute.htm). Nothing
-submitted -- per the brief's hard rule, no accounts created, no forms
-submitted from this session. NEVEROVERENO: this VM has no network egress
-to merlot.org, so the exact current field labels/options on their live
-form could not be checked -- these are MERLOT's well-documented,
-long-stable field categories, but Petr/Oliver should confirm the form
-still asks for the same fields before submitting.
+WHAT THIS IS: copy-paste field values for MERLOT's "Add a Material"
+submission form. The old /merlot/contribute.htm URL is dead (site was
+upgraded); the current link is
+https://www.merlot.org/merlot/addMaterial.htm, which redirects to
+login if not signed in. Nothing has been submitted -- account creation
+is outside this session's remit.
 
-HOW TO ACTUALLY DO THIS (manual, ~10 minutes):
-1. Create a MERLOT account (or use an existing one) at
-   https://www.merlot.org -- outside this session's remit.
-2. Go to "Contribute Material" and paste the fields below.
+BLOCKED ON: MERLOT account creation (https://www.merlot.org/merlot/join.htm).
+This is a full registration form, not a quick OAuth sign-in -- required
+fields confirmed live: First Name, Last Name, Member Type (choose from:
+Faculty, Staff, Student, Administrator, Librarian, Health Care
+Professional, Consultant, Teacher K-12, Content Developer/Instructional
+Designer, Researcher, Arts and Museums Staff, Industry
+trainer/HR Specialist, Independent Learner, Home Educator, Non-Profit
+Organization Staff, Technologist -- "Researcher" or "Independent
+Learner" both fit Oliver), Disciplines (pick from 10 top-level
+categories -- "Science and Technology" fits), Primary Affiliation +
+Affiliation Category, Email, Password (8-32 chars, upper+lower+digit+
+special), and agreeing to the Acceptable Use Policy.
+
+HOW TO ACTUALLY DO THIS (manual, ~10 minutes once registered):
+1. Register at https://www.merlot.org/merlot/join.htm (see fields
+   above).
+2. Go to https://www.merlot.org/merlot/addMaterial.htm and paste the
+   fields below.
 3. Submit -- MERLOT materials go through an editorial review queue
-   (unlike HF/Kaggle/TeSS, this one is NOT instant), so expect a delay
+   (unlike HF/Kaggle, this one is NOT instant), so expect a delay
    before it's live.
 -->
 

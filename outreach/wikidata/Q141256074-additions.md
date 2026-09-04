@@ -1,36 +1,25 @@
 <!--
-outreach/wikidata/Q141256074-additions.md -- UNSENT DRAFT (SEO P0 Ukol 8.4)
-WHAT THIS IS: exact statements to add to the Wikidata item for Oliver's
-mTOR Atlas (Q141256074) via the normal "Add statement" UI. Nothing
-edited on wikidata.org from this session, per the brief's hard rule.
+outreach/wikidata/Q141256074-additions.md -- CLOSED, not actionable (SEO P0 Ukol 8.4)
 -->
 
-# Wikidata additions for Q141256074 (Oliver's mTOR Atlas)
+# Wikidata additions for Q141256074 (Oliver's mTOR Atlas) -- CLOSED
 
-Two statements to add:
+Originally planned: add "bio.tools ID" and "FAIRsharing ID" statements
+to the Wikidata item for Oliver's mTOR Atlas.
 
-1. **bio.tools ID** = `olivers_mtor_atlas`
-2. **FAIRsharing ID** = `8905`
+**2026-09-03: verified live, in the actual "add statement" property
+search box (logged in as OliverPrague) -- neither property exists on
+Wikidata.** Searched "bio.tools ID", "bio.tools", "biotools",
+"FAIRsharing", "FAIRsharing ID", "FAIR": no match for either identifier
+(search itself works fine -- "tool" correctly surfaces "Toolhub ID",
+"FAIR" correctly surfaces the unrelated "FAIR Epigraphic Vocabularies
+ID"). The original draft's caution not to guess a Pxxx number from
+memory turned out to be warranted: there was no property to find.
 
-**Property IDs: ověřit property ID.** This VM has no network egress to
-wikidata.org, so the exact property IDs for "bio.tools ID" and
-"FAIRsharing ID" could not be looked up and confirmed against the live
-Wikidata property registry. Do not guess a Pxxx number from memory here
--- before adding either statement, search
-https://www.wikidata.org/wiki/Special:AllPages?namespace=120 (or simply
-type "bio.tools ID" / "FAIRsharing ID" into Wikidata's own property
-search box while adding a statement) to find the current, correct
-property.
+Decision (Petr, 2026-09-03): leave this closed rather than filing a
+Wikidata property-proposal request (a multi-week community process for
+uncertain payoff). No further action.
 
-## Manual next steps for Petr/Oliver
-
-1. Go to https://www.wikidata.org/wiki/Q141256074 (log in with a
-   Wikidata account).
-2. Click "Add statement".
-3. Search for the property "bio.tools ID" in the property search box,
-   select it, and enter the value `olivers_mtor_atlas`.
-4. Repeat for "FAIRsharing ID" with the value `8905`.
-5. Add a reference to each statement (e.g. "stated in" ->
-   https://mtor-atlas.org/, or the bio.tools/FAIRsharing record URL
-   itself) if the edit form prompts for one -- Wikidata's guidelines
-   prefer referenced statements.
+The item's existing statements (instance of, inception, main subject,
+official website, copyright license, DOI) are unaffected and remain
+correct.
