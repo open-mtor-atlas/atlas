@@ -275,6 +275,63 @@ DEAD_FUNCS = ["renderMechanism", "mxBuildSVG", "mxSetRoute"]
 BUILD_INPUT_ARRAYS = ["ATLAS_EDGES", "ATLAS_ROUTES"]
 
 
+# ---------------------------------------------------------------------------
+# Correction-log awareness (added 2026-09-04).
+#
+# This Atlas logs its own corrections in place, quoting the wording it replaced:
+#   "CORRECTION LOG (2026-08-30): this block previously read '... ZERO ...'"
+# A rule that greps for the superseded phrasing will therefore fire on the audit
+# trail itself. R8 had a private look-back for this; R9 and R12 did not, which
+# produced 14 of 17 WARNs on a correct build. Shared here so the next rule that
+# needs it does not have to reinvent it.
+CORRECTION_MARKER = re.compile(
+    r"CORRECTION LOG|WORDING CORRECTION|BENEFIT-SIDE CORRECTION|CORRECTION \(|"
+    r"WITHDRAWN CLAIM|SCOPE \(|previously read|previously cited|"
+    r"previously carried|previously asserted|already false",
+    re.I)
+
+
+# A correction log quotes the wording it replaced, in single quotes:
+#   CORRECTION LOG (...): this block previously read '... ZERO ...'.
+# Suppression is therefore scoped to the QUOTED SPAN, not to a distance from the
+# marker. A distance window is wrong: H10's live claim "Missing: no study tests
+# whether BLOCKING senescence suppression..." sits 665 characters after its
+# WITHDRAWN CLAIM marker and a 700-char look-back silenced it, which is exactly
+# the kind of false negative that makes a validator worse than none.
+# The opening quote must not be a possessive apostrophe: in "rapamycin's
+# mammalian lifespan extension ... previously read 'No study tests whether...'"
+# a naive pairing joins the apostrophe in "rapamycin's" to the real opening
+# quote and swallows the whole correction, so nothing gets suppressed.
+_QUOTED = re.compile(r"(?<![A-Za-z])'[^']{10,400}'(?![A-Za-z])")
+
+
+def in_correction_log(text, pos, back=350):
+    """True if pos falls inside a quotation that a correction marker introduces,
+    i.e. the match is superseded wording being logged, not a live claim."""
+    for q in _QUOTED.finditer(text):
+        if q.start() < pos < q.end():
+            if CORRECTION_MARKER.search(text[max(0, q.start() - back):q.start()]):
+                return True
+    return False
+
+
+# Abbreviations that must not end a sentence when splitting prose. Without this,
+# "8 mg/kg/day i.p. x 90 days" splits after "i.p." and orphans the figures from
+# the study code that introduced them.
+_ABBREV = re.compile(r"\b(i\.p|i\.v|e\.g|i\.e|vs|cf|approx|etc|Fig|no|ca)\.",
+                     re.I)
+
+
+def split_sentences(text):
+    """Sentence split that survives common scientific abbreviations. Returns
+    (sentence, start_offset) pairs so callers can look at surrounding context."""
+    guarded = _ABBREV.sub(lambda m: m.group(0).replace(".", "\x00"), text)
+    out, pos = [], 0
+    for part in re.split(r"(?<=[.!?])\s+", guarded):
+        out.append((part.replace("\x00", "."), pos))
+        pos += len(part) + 1
+    return out
+
 def load_atlas_gaps(h):
     m = re.search(r"const ATLAS_GAPS = (\[.*?\]);", h, re.S)
     if not m:
@@ -316,20 +373,31 @@ def check_gap_regression_rules(findings, h):
                 # corrected wording (e.g. inside a "CORRECTION LOG ... previously
                 # read '...'" note) -- that is documentation of the fix, not a
                 # live regression of it.
-                pre = basis[max(0, m.start() - 200):m.start()]
-                if re.search(r"previously read|CORRECTION LOG|already false", pre, re.I):
+                if in_correction_log(basis, m.start()):
                     continue
                 add(findings, "ERROR", "R8 absolute-claim-regression", "gap:%s" % gid, basis,
                     "H1 claims a ZERO sensor->aging/longevity link, but pathway/model.json "
                     "already carries %s. Re-run the correction." % ", ".join(sensor_to_aging_edges),
                     "Update Evidence_Basis to acknowledge the edge (see LEE2010/SESN2-AGING).")
 
-        # R9 -- every numeral in a gap's basis needs a nearby study code.
-        for sent in re.split(r"(?<=[.!?])\s+", basis):
-            if NUMERAL.search(sent) and not CODE.search(sent):
-                add(findings, "WARN", "R9 number-without-code", "gap:%s.basis" % gid, sent,
-                    "Sentence carries a number with no study code in the same sentence.",
-                    "Attach the supporting study code next to the figure.")
+        # R9 -- every numeral in a gap's basis needs a NEARBY study code.
+        # "Nearby" is deliberately not "in the same sentence": a code is
+        # normally attached once and then carried by the clauses that follow
+        # ("QUANTIFIED: BIT2016 ... males +60% ... females p=0.261"). Requiring
+        # it per sentence flagged ordinary prose. The window is the sentence
+        # plus the preceding 400 characters of the same basis.
+        for sent, off in split_sentences(basis):
+            if not NUMERAL.search(sent):
+                continue
+            window = basis[max(0, off - 400):off + len(sent)]
+            if CODE.search(window):
+                continue
+            if in_correction_log(basis, off):
+                continue
+            add(findings, "WARN", "R9 number-without-code", "gap:%s.basis" % gid, sent,
+                "Figure with no study code anywhere near it: nothing in this "
+                "sentence or the preceding context says which study it comes from.",
+                "Attach the supporting study code next to the figure.")
 
         # R10 -- codes mentioned in the prose should be in the gap's own
         # Supporting_Studies list (bidirectional citation integrity, the
@@ -350,6 +418,10 @@ def check_gap_regression_rules(findings, h):
         # corpus/Atlas" reads as a claim about the whole literature.
         for m in list(ABSENCE_WORD.finditer(basis)) + list(ABSENCE_PHRASE.finditer(basis)):
             window = basis[max(0, m.start() - 120):m.end() + 120]
+            # A superseded absolute quoted inside a correction log is the audit
+            # trail, not a live claim.
+            if in_correction_log(basis, m.start()):
+                continue
             if not SCOPE_PHRASE.search(window):
                 add(findings, "WARN", "R12 unscoped-absence-claim", "gap:%s.basis" % gid,
                     window,
