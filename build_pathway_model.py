@@ -2043,7 +2043,7 @@ def main():
                 "tiers": e["tiers"],
                 "best_tier": e["tier"],
                 "supporting": e["st"],
-                "conflicting": CONFLICTING.get(e["id"], []),
+                "conflicting": (e.get("cf") or CONFLICTING.get(e["id"], [])),  # cf comes from ATLAS_EDGES; dict is the fallback
             },
             "confidence": {
                 "mechanistic": mc,
