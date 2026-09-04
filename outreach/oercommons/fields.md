@@ -1,6 +1,7 @@
 <!--
-outreach/oercommons/fields.md -- UNSENT DRAFT (SEO P0 Ukol 6.2)
-VERIFIED LIVE 2026-09-03.
+outreach/oercommons/fields.md -- DONE, LIVE 2026-09-04
+Submitted and published: https://oercommons.org/courses/mtor-academy-oliver-s-mtor-atlas
+(SEO P0 Ukol 6.2)
 
 WHAT THIS IS: copy-paste field values for OER Commons' "Add" flow. The
 old /member/contribute URL is dead; the current entry point is
@@ -9,16 +10,14 @@ redirects to https://oercommons.org/login?next=/courses/add if not
 signed in. Nothing has been submitted -- account creation is outside
 this session's remit.
 
-BLOCKED ON: OER Commons account creation
-(https://oercommons.org/login -> "Create an account / Register", or
-"Sign In through your Institution" if Oliver/Petr has an institutional
-login).
-
-VERIFIED LIVE 2026-09-03 (registration form, https://oercommons.org/registration):
-just 5 fields -- First name*, Last name*, Email*, Password* (min 5
-chars, case sensitive), Confirm password*. No profile/affiliation/
-discipline fields like MERLOT requires -- genuinely lighter-weight,
-confirmed past the login screen this time.
+DONE 2026-09-04: account registered + logged in by Petr, submitted by
+Claude via browser automation through OER Commons' 3-step "Submit a
+Resource" wizard (URL -> describe -> preview/submit), final "Submit for
+review" click done by Petr. Published immediately, no editorial queue --
+live at https://oercommons.org/courses/mtor-academy-oliver-s-mtor-atlas
+with 11 tags, Subject: Life Science, Levels: Community College/Lower
+Division + College/Upper Division + Career/Technical, Material Types:
+Full Course + Lesson, License: CC BY, Language: English.
 
 HOW TO ACTUALLY DO THIS (manual, ~10 minutes once registered):
 1. Register/log in at https://oercommons.org/login.

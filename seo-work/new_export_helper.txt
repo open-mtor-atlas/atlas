@@ -1,0 +1,31 @@
+# --- SEO P0 Ukol 3 (2026-09-02): data exports -- DATASET_REF.distribution ---
+
+
+def _load_export_distribution():
+    """DataDownload entries for the live CSV/JSON exports in data/exports/,
+    read from that directory's own manifest.json (written by
+    tools/seo/build_data_exports.py, which must run before this module --
+    same ordering convention as build_academy.py before build_pages.py).
+    Returns [] (never fails the build) if the exports haven't been
+    generated yet -- the Zenodo entry in DATASET_REF stays the one
+    unconditional distribution. Reading contentUrl/contentSize/sha256 from
+    the manifest instead of hand-listing file names here means this list
+    can never silently drift from what's actually on disk."""
+    p = os.path.join(HERE, "data", "exports", "manifest.json")
+    if not os.path.exists(p):
+        return []
+    try:
+        manifest = json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return []
+    out = []
+    for m in manifest:
+        out.append({
+            "@type": "DataDownload",
+            "name": m["name"],
+            "encodingFormat": m["encodingFormat"],
+            "contentUrl": m["contentUrl"],
+            "contentSize": str(m["contentSize"]),
+        })
+    return out
+

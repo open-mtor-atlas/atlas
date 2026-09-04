@@ -15,6 +15,7 @@ import re
 import json
 import hashlib
 import datetime
+from zoneinfo import ZoneInfo
 
 from chrome_shared import (static_footer_html, MODE_TOGGLE_CSS, mode_toggle_html,
                             THEME_FOUC_SCRIPT)
@@ -33,7 +34,8 @@ def _type_css_version():
 
 TYPE_CSS_VERSION = _type_css_version()
 
-BUILD_TIMESTAMP = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+# Prague time, to match build_pages.py and the SPA homepage footer --
+BUILD_TIMESTAMP = datetime.datetime.now(ZoneInfo("Europe/Prague")).strftime("%Y-%m-%d %H:%M") + " Prague time"
 
 OUT = os.path.join(os.path.dirname(__file__), "out")
 

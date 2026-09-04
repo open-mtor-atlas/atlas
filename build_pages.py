@@ -29,6 +29,7 @@ do LEGACY_SLUGS níž, nikdy negeneruj jinou adresu potichu.
 """
 
 import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
+from zoneinfo import ZoneInfo
 
 from chrome_shared import (FOOTER_LINKS, static_footer_html,
                             spa_footer_link_html, assert_crumb_matches_ld,
@@ -54,10 +55,14 @@ def _type_css_version():
 
 TYPE_CSS_VERSION = _type_css_version()
 
-# UTC timestamp for the static footer's "last updated" line -- computed once
-# per build run, same convention as stamp_updated.py uses for the SPA footer
-# (which is stamped by a separate script since index.html isn't a template).
-BUILD_TIMESTAMP = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+# Prague-time timestamp for the static footer's "last updated" line --
+# computed once per build run. Matches the SPA homepage's own footer, which
+# converts ATLAS_UPDATED (UTC) to Europe/Prague via Intl.DateTimeFormat at
+# view time (see index.html's #lastUpdated script) -- static pages have no
+# such live JS conversion, so the same "YYYY-MM-DD HH:MM Prague time" text
+# is baked in directly at build time instead, using the real wall-clock
+# time in Prague (DST-aware) rather than a fixed UTC offset.
+BUILD_TIMESTAMP = datetime.datetime.now(ZoneInfo("Europe/Prague")).strftime("%Y-%m-%d %H:%M") + " Prague time"
 
 DRY = "--dry-run" in sys.argv
 CLEAN = "--clean" in sys.argv
@@ -1436,7 +1441,7 @@ evidence grades held side by side, rather than scattered across review
 articles.</p>
 <p>There is no editorial board and no second reviewer -- see "Who reviews
 the selection" below for what that does and doesn't mean for trust.</p>
-<p><strong>Contact:</strong> oliver.barton1113(at)gmail.com.</p>
+<p><strong>Contact:</strong> oliver.barton1113(at)gmail.com &middot; Bluesky: <a href="https://bsky.app/profile/oliver-barton.bsky.social">@oliver-barton.bsky.social</a>.</p>
 
 <h2>How a study gets in</h2>
 <p>Every study passes through the same four steps before it's added:</p>

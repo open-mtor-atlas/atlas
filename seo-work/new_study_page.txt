@@ -1,0 +1,149 @@
+def study_page(s, ent_by_sid, haspage):
+    sid = s["sid"]
+    code, label, colour = tier_bits(s.get("tier"))
+    url = f"{SITE}/study/{sid}/"
+    title = s.get("title") or sid
+    desc = (s.get("finding") or s.get("abstract") or title)[:300]
+    record_date = RECORD_DATE_BY_SID.get(sid, RECORD_DATE_FALLBACK)
+    noindex = sid in NOINDEX_STUDIES
+
+    ld = {
+        "@context": "https://schema.org", "@type": "ScholarlyArticle",
+        "headline": title, "name": title,
+        "datePublished": str(s.get("year") or ""),
+        "url": url, "inLanguage": "en",
+        "isPartOf": dict(DATASET_REF),
+    }
+    if record_date and record_date != "unknown":
+        ld["dateModified"] = record_date
+    if s.get("journal"):
+        ld["publication"] = {"@type": "Periodical", "name": s["journal"]}
+    if s.get("authors"):
+        ld["author"] = [{"@type": "Person", "name": a.strip()}
+                        for a in re.split(r";|,(?![^(]*\))", s["authors"])
+                        if a.strip() and "et al" not in a.lower()][:12]
+    ids = []
+    if s.get("doi"):
+        ids.append({"@type": "PropertyValue", "propertyID": "DOI", "value": s["doi"]})
+        ld["sameAs"] = "https://doi.org/" + s["doi"]
+    if s.get("pmid"):
+        ids.append({"@type": "PropertyValue", "propertyID": "PMID", "value": s["pmid"]})
+    if ids:
+        ld["identifier"] = ids
+    if s.get("abstract"):
+        # Full text stays in JSON-LD for machines even though the visible
+        # <p class="abstract"> below is truncated (Ukol 2 item 5) -- Google
+        # does not count a JSON-LD-only field as visible duplicate content.
+        ld["abstract"] = s["abstract"]
+
+    rows = [("Evidence tier", f'<span class="tier" style="background:{colour}">'
+                              f'{e(code)}</span> {e(label)}'),
+            ("Study type", e(s.get("pyramid") or s.get("category") or "—")),
+            ("Model system", e(s.get("model") or s.get("ai_species") or "—")),
+            ("Journal", e(s.get("journal") or "—")),
+            ("Year", e(s.get("year") or "—")),
+            ("Peer reviewed", e(s.get("peer") or "—")),
+            ("Record last updated", e(record_date if record_date != "unknown" else "—"))]
+    links = []
+    if s.get("doi"):
+        links.append(f'<a href="https://doi.org/{e(s["doi"])}">DOI {e(s["doi"])}</a>')
+    if s.get("pmid"):
+        links.append(f'<a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
+                     f'PMID {e(s["pmid"])}</a>')
+    if s.get("pmcid"):
+        links.append(f'<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/'
+                     f'{e(s["pmcid"])}/">Free full text ({e(s["pmcid"])})</a>')
+    if links:
+        rows.append(("Source", " · ".join(links)))
+
+    ents = ent_by_sid.get(sid, [])
+    tag_html = "".join(ent_ref(x, haspage) for x in ents)
+
+    body = [f"<h1>{e(title)}</h1>",
+            f'<p class="meta">{e(s.get("authors") or "")} · {e(s.get("year") or "")} · '
+            f'<em>{e(s.get("journal") or "")}</em> · Atlas ID <code>{e(sid)}</code></p>']
+
+    # 1) What this study shows -- finding + one sentence on why this tier
+    # (Ukol 2 item 2).
+    body.append("<h2>What this study shows</h2>")
+    if s.get("finding"):
+        body.append(f'<p class="summary">{e(s["finding"])}</p>')
+    body.append(f'<p class="tier-why">{tier_reason(s)}</p>')
+
+    body.append("<h2>At a glance</h2><table class=\"kv\">")
+    for k, v in rows:
+        body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{v}</td></tr>")
+    body.append("</table>")
+
+    # 2) Extracted findings -- ALWAYS visible (no lv-hide-beginner: this is
+    # the most valuable curatorial content on the page) whenever ANY field
+    # is present, now including the four Phase-4 deep-extraction fields
+    # (dose/n/effect size/limitations) that sync_airtable.py started pulling
+    # down in this same commit -- see fetch_studies() and projektova pamet
+    # entities-bake-path for the same class of bug on the entities side.
+    ef_fields = [("Intervention", "ai_intervention"), ("Target", "ai_target"),
+                 ("Model", "ai_species"), ("Effect", "ai_effect"),
+                 ("Dose", "ai_dose"), ("Sample size", "ai_samplesize"),
+                 ("Effect size", "ai_effectsize"), ("Limitations", "ai_limitations")]
+    if any(s.get(f) for _, f in ef_fields):
+        body.append("<h2>Extracted findings</h2><table class=\"kv\">")
+        for k, f in ef_fields:
+            if s.get(f):
+                body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{e(s[f])}</td></tr>")
+        body.append("</table>")
+
+    # 3) In the Atlas -- every internal cross-link this record has, each
+    # with a sentence of context instead of a bare list (Ukol 2 item 4).
+    atlas_blocks = []
+    if tag_html:
+        atlas_blocks.append(f'<h3>Related topics</h3><div class="tags">{tag_html}</div>')
+    gap_hits = GAPS_BY_SID.get(sid, [])
+    if gap_hits:
+        items = "".join(f'<li>Cited as supporting evidence for the open question '
+                        f'<a href="{e(u)}">{e(t)}</a>.</li>' for t, u in gap_hits)
+        atlas_blocks.append(f"<h3>Open questions that cite this study</h3><ul>{items}</ul>")
+    answer_hits = ANSWERS_BY_SID.get(sid, [])
+    if answer_hits:
+        items = "".join(f'<li>Discussed in the plain-language answer '
+                        f'<a href="{e(u)}">{e(t)}</a>.</li>' for t, u in answer_hits)
+        atlas_blocks.append(f"<h3>Answers that reference this study</h3><ul>{items}</ul>")
+    for les in ACADEMY_BY_SID.get(sid, []):
+        atlas_blocks.append('<h3>Learn the biology</h3>'
+                            '<p>Want to understand the biology behind this study? '
+                            '&rarr; ' + f'<a href="{e(les["url"])}">{e(les["title"])}</a></p>')
+        break
+    if atlas_blocks:
+        body.append("<h2>In the Atlas</h2>")
+        body.extend(atlas_blocks)
+
+    # 4) Abstract -- truncated, moved below "In the Atlas" (Ukol 2 item 5):
+    # the full PubMed abstract is exactly the text Google was reading as
+    # thin/duplicate content.
+    if s.get("abstract"):
+        snippet, truncated = _truncate_at_sentence(s["abstract"], 600)
+        more = ""
+        if truncated:
+            if s.get("pmid"):
+                more = (f' <a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
+                       f'Read the full abstract on PubMed &rarr;</a>')
+            elif s.get("doi"):
+                more = f' <a href="https://doi.org/{e(s["doi"])}">Read the full abstract &rarr;</a>'
+        body.append(f'<div class="lv-hide-beginner"><h2>Abstract</h2>'
+                    f'<p class="abstract">{e(snippet)}{more}</p></div>')
+
+    # 5) Cite this record -- the ATLAS RECORD, not the original paper
+    # (Ukol 2 item 6).
+    apa, bibtex = _cite_block(sid, title, url)
+    body.append('<h2>Cite this record</h2><pre class="cite">'
+               + e(apa) + "\n\n" + e(bibtex) + "</pre>")
+
+    body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
+
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · <a href="{SITE}/#studies">Studies</a> · {e(sid)}'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Studies", SITE + "/#studies"),
+                        (sid, None)])
+    robots = "noindex, follow" if noindex else "index, follow"
+    return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
+                      "\n".join(body), crumb, active_tab="studies",
+                      level_switch=True, robots=robots)
