@@ -70,6 +70,22 @@ def check_index_tabs():
         print("       prerender je zastaralý -- spusť: node prerender_tabs.js")
         ok = False
 
+    # Text, ne jen ID. Puvodni kontrola porovnava seznam id -- blok, ktery ma
+    # spravne nadpisy H1..H10, ale dva dny stary obsah, ji projde. Presne to se
+    # stalo 5. 9. 2026: prerender a ATLAS_GAPS se shodovaly na id, zatimco H4,
+    # H5, H9 a H10 nesly prekonany text, a nic to nezachytilo. Porovnava se
+    # zacatek Evidence_Basis, protoze ten se pri kazde vecne oprave meni.
+    stale = []
+    for g in arr("ATLAS_GAPS"):
+        head = (g.get("basis") or "")[:60]
+        if head and head not in qbody:
+            stale.append(g.get("id"))
+    if stale:
+        print("CHYBA: %d hypotez ma v prerenderu ZASTARALY text (id sedi, obsah ne): %s"
+              % (len(stale), stale))
+        print("       spust: node prerender_tabs.js  (nebo fix_findings_and_prerender.py)")
+        ok = False
+
     emiss = [e["name"] for e in arr("ATLAS_EVENTS")
              if e.get("name") and e["name"].replace("&", "&amp;") not in ebody]
     if emiss:
