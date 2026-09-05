@@ -2342,7 +2342,7 @@ def academy_home(modules, lessons_by_slug, challenges):
     # "coming soon" a dostane skutecny cil. Karta se ridi daty -- kdyz
     # challenges.json zmizi, vrati se puvodni chovani.
     if os.path.exists(os.path.join(ADATA, "practice.json")):
-        body.append('<div class="ac-card"><h3>Practice</h3><p>Short games built on the same '
+        body.append('<div class="ac-card"><h3>Practice Arena</h3><p>Short games built on the same '
                     'pathway model the lessons draw from: predict a perturbation, rebuild a '
                     'route, name what a result does not show. Your answers colour in a map of '
                     'the pathway.</p>'
