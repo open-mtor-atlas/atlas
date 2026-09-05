@@ -1116,7 +1116,7 @@ PRACTICE_JS = """
     }
     bar.innerHTML =
       '<div><p class="pa-rk">Rank ' + r.n + '</p><p class="pa-rkname">' + esc(r.name) + '</p></div>' +
-      '<span class="pa-xp"><b>' + S.xp + '</b> Insight</span>' +
+      '<span class="pa-xp"><b>' + S.xp + '</b> XP</span>' +
       '<span class="pa-meter"><i style="width:' + pct + '%"></i></span>' +
       '<span class="pa-to">' + esc(to) + '</span>' +
       (PA.rankReady() ? '<button class="pa-cbtn" id="paExam" type="button">Take the rank-up board</button>' : '');
@@ -1234,7 +1234,7 @@ PRACTICE_JS = """
     document.getElementById('paFb').innerHTML =
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + esc2(item.explain) +
       (item.sid ? ' <span class="pa-sub">' + esc(item.sid) + '</span>' : '') +
-      '<span class="pa-xpgain">+' + res.xp + ' Insight' + badgeLine(res.badges) + '</span></div>' +
+      '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
       '<div class="pa-tools" style="margin-top:16px"><button id="paNext" type="button">Next &rarr;</button></div>';
     document.getElementById('paNext').addEventListener('click', after);
     document.getElementById('paNext').focus();
@@ -1264,7 +1264,7 @@ PRACTICE_JS = """
     }
     if(mode === 'daily'){ S.day.done = 1; PA.save(); }
     show(head(title, '') + '<div class="pa-body">' +
-      '<p class="pa-q">' + session.ok + ' of ' + session.n + ' &middot; +' + session.xp + ' Insight</p>' +
+      '<p class="pa-q">' + session.ok + ' of ' + session.n + ' &middot; +' + session.xp + ' XP</p>' +
       (pass === null ? '' :
         '<p class="pa-fb">' + (pass ?
           '<b>Promoted.</b> You are now ' + esc(PA.rankDef(S.rank).name) + '. ' + esc(PA.rankDef(S.rank).blurb) :
@@ -1402,7 +1402,7 @@ PRACTICE_JS = """
           var res = PA.record(it, good, null);
           done++; if(good) ok++;
           document.getElementById('paFlash').innerHTML = good
-            ? 'correct &middot; +' + res.xp
+            ? 'correct &middot; +' + res.xp + ' XP'
             : 'no &mdash; ' + esc(it.options[it.answer]);
           k++; draw(); paintRank();
         });
@@ -1523,7 +1523,7 @@ PRACTICE_JS = """
                 (w.st.dir === 'indirect' ? ' <em>(indirect &mdash; it runs through a step not drawn here)</em>' : '') +
                 (w.st.why ? ' &mdash; ' + esc2(w.st.why) : '');
       });
-      html += '<span class="pa-xpgain">+' + res.xp + ' Insight' + badgeLine(res.badges) + '</span></div>' +
+      html += '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
               '<div class="pa-tools" style="margin-top:14px"><button id="paAgain" type="button">Another route</button>' +
               '<button id="paBack2" type="button">Back to the games</button></div>';
       document.getElementById('paFb').innerHTML = html;
@@ -1849,7 +1849,7 @@ PROGRESS_JS = """
     var el = document.getElementById('paRank2'); if(!el) return;
     var r = PA.rankDef(S.rank);
     el.innerHTML = '<span class="pa-rk">Rank ' + r.n + '</span> <b>' + esc(r.name) + '</b> &middot; ' +
-      S.xp + ' Insight &middot; ' + S.met.answered + ' judgements';
+      S.xp + ' XP &middot; ' + S.met.answered + ' judgements';
   }
 
   wireTools(); redraw();
@@ -2034,7 +2034,7 @@ def practice_page(bank):
 
     body.append('<div class="pa-rankbar pa-tint" id="paRank">'
                 '<div><p class="pa-rk">Rank 1</p><p class="pa-rkname">Curious</p></div>'
-                '<span class="pa-xp"><b>0</b> Insight</span>'
+                '<span class="pa-xp"><b>0</b> XP</span>'
                 '<span class="pa-meter"><i style="width:0%"></i></span>'
                 '<span class="pa-to">Progress is kept in this browser</span></div>')
 
@@ -2052,7 +2052,10 @@ def practice_page(bank):
                 % (e(cfg["copy"]["storageNote"]), SITE))
 
     body.append('<h2>How the points work</h2>'
-                '<p class="pa-note">Every question asks how sure you are <em>before</em> the answer '
+                '<p class="pa-note">Points are called <strong>XP</strong>. Every number you see with a '
+                'plus sign &mdash; +8 XP, +30 XP &mdash; is XP added to the total in the bar above; the '
+                'ranks are XP thresholds. '
+                'Every question asks how sure you are <em>before</em> the answer '
                 'appears. Being right while sure is worth the most; being right while unsure is worth '
                 'less; being <strong>wrong while sure</strong> is worth nothing at all. There are no '
                 'points for opening a page, no daily-login bonus and no streak to lose &mdash; the only '
