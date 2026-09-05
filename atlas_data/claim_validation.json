@@ -1,18 +1,10 @@
 [
  {
   "severity": "WARN",
-  "rule": "R9 number-without-code",
-  "where": "gap:H9.basis",
-  "excerpt": "QUANTIFIED (ITP; SOURCING GAP flagged 2026-08-30 - the ITP combination publication is not yet entered in this corpus under a study code, so this figure is currently uncheckable from the supporting list): rapamycin + acarbose from 9 months extended MALE lifespan MORE than either drug alone, while in",
-  "message": "Figure with no study code anywhere near it: nothing in this sentence or the preceding context says which study it comes from.",
-  "suggested": "Attach the supporting study code next to the figure."
- },
- {
-  "severity": "WARN",
   "rule": "R11 dead-pathway-layer",
   "where": "index.html",
-  "excerpt": "MAP_NODES, MAP_CORE_EDGES, MAP_PERIPH_EDGES, MAP_BANDS, renderMechanism, mxBuildSVG, mxSetRoute",
-  "message": "Unreachable render-layer constants/functions still shipped (never called, but machine-readable to crawlers): MAP_NODES, MAP_CORE_EDGES, MAP_PERIPH_EDGES, MAP_BANDS, renderMechanism, mxBuildSVG, mxSetRoute. MAP_CORE_EDGES also carries three wrong signs.",
+  "excerpt": "MAP_NODES",
+  "message": "Unreachable render-layer constants/functions still shipped (never called, but machine-readable to crawlers): MAP_NODES. MAP_CORE_EDGES also carries three wrong signs.",
   "suggested": "Safe to delete: nothing reads these. Do NOT also remove ATLAS_EDGES or ATLAS_ROUTES -- build_pathway_model.py needs them."
  }
 ]
