@@ -50,3 +50,12 @@ node_modules/
 package.json
 package-lock.json
 index.html.pre_pathway2
+
+# --- Cowork agent output (2026-09-05) ---
+# The desktop Cowork session writes files it hands to the user into
+# "Claude outputs/" INSIDE the working copy. It is scratch by definition -- the
+# same content exists in the chat and, once applied, in a commit. Left untracked
+# it sat one `git add -A` away from shipping, and deploy.bat legitimately does
+# directory-wide adds. Anchored with a leading slash: only the copy in the repo
+# root, not a same-named directory somewhere deeper.
+/Claude outputs/
