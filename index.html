@@ -4337,15 +4337,6 @@ function trimLine(x1,y1,x2,y2,r1,r2){
   return {x1:x1+ux*r1, y1:y1+uy*r1, x2:x2-ux*r2, y2:y2-uy*r2};
 }
 
-function edgeLine(a,b){
-  const na = mapNodeById(a), nb = mapNodeById(b);
-  if(!na||!nb) return null;
-  const A = nodeShape(na), B = nodeShape(nb);
-  const dx=B.x-A.x, dy=B.y-A.y;
-  const r1 = borderDist(A.kind,A.hw,A.hh,dx,dy)+4;
-  const r2 = borderDist(B.kind,B.hw,B.hh,-dx,-dy)+4;
-  return trimLine(A.x,A.y,B.x,B.y,r1,r2);
-}
 
 // simple deterministic hash used to alternate curve direction so edges don't all bow the same way
 function hashStr(s){
@@ -4354,25 +4345,7 @@ function hashStr(s){
   return h;
 }
 
-function drawCoreEdge(a,b,kind){
-  const L = edgeLine(a,b); if(!L) return "";
-  const dx = L.x2-L.x1, dy = L.y2-L.y1;
-  const len = Math.sqrt(dx*dx+dy*dy)||1;
-  const mx = (L.x1+L.x2)/2, my = (L.y1+L.y2)/2;
-  const bow = Math.min(16, len*0.12) * (hashStr(a+b)%2===0 ? 1 : -1);
-  const px = -dy/len, py = dx/len;
-  const cx = mx + px*bow, cy = my + py*bow;
-  const marker = kind==="inhibit" ? "url(#mapInhibit)" : "url(#mapActivate)";
-  const stroke = kind==="inhibit" ? "#B4442E" : "#3A3F3B";
-  const op = kind==="inhibit" ? 0.85 : 0.62;
-  return '<path d="M' + L.x1.toFixed(1) + ',' + L.y1.toFixed(1) + ' Q' + cx.toFixed(1) + ',' + cy.toFixed(1) + ' ' + L.x2.toFixed(1) + ',' + L.y2.toFixed(1) + '" fill="none" stroke="' + stroke + '" stroke-width="1.5" stroke-linecap="round" opacity="' + op + '" marker-end="' + marker + '"/>';
-}
 
-function drawPeriphEdge(a,b,shared){
-  const L = edgeLine(a,b); if(!L) return "";
-  const op = Math.min(0.13+shared*0.08, 0.5);
-  return '<line x1="' + L.x1.toFixed(1) + '" y1="' + L.y1.toFixed(1) + '" x2="' + L.x2.toFixed(1) + '" y2="' + L.y2.toFixed(1) + '" stroke="#8B8579" stroke-width="1" stroke-dasharray="2,3" opacity="' + op + '"><title>' + shared + ' shared ' + (shared===1?'study':'studies') + '</title></line>';
-}
 
 function drawMapNode(n, selected){
   const e = entityByName(n.entity);
@@ -5145,149 +5118,13 @@ const MX_TIERW = {A:4.2,B:3.6,C:2.9,D:1.9};
 const MX_NH = 34;
 let mxRouteId = "aa", mxSel = null, mxPlaying = false;
 
-function mxEsc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function mxEdgeById(id){ return ATLAS_EDGES.find(e=>e.id===id); }
-function mxCurRoute(){ return ATLAS_ROUTES.find(r=>r.id===mxRouteId) || ATLAS_ROUTES[0]; }
-function mxNodeW(l){ return Math.max(74, String(l).length*7.6 + 26); }
 
-function mxAnchor(n, ox, oy){
-  const w = mxNodeW(n.l)/2, h = MX_NH/2;
-  const dx = ox-n.x, dy = oy-n.y;
-  if(dx===0 && dy===0) return {x:n.x, y:n.y};
-  const sx = dx===0 ? Infinity : w/Math.abs(dx);
-  const sy = dy===0 ? Infinity : h/Math.abs(dy);
-  const s = Math.min(sx, sy);
-  return {x:n.x + dx*s, y:n.y + dy*s};
-}
 
-function mxMarkers(){
-  let d = "";
-  const seen = {};
-  Object.keys(MX_SIGN).forEach(k=>{
-    const v = MX_SIGN[k];
-    if(seen[v.m]) return; seen[v.m] = 1;
-    const head = 'markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" viewBox="0 0 10 10" orient="auto"';
-    if(v.m==="mxBarInh")      d += `<marker id="${v.m}" ${head} refX="5.5" refY="5"><path d="M5.5,0.6 L5.5,9.4" stroke="${v.c}" stroke-width="2.6" fill="none"/></marker>`;
-    else if(v.m==="mxDotBind")d += `<marker id="${v.m}" ${head} refX="5" refY="5"><circle cx="5" cy="5" r="3.6" fill="${v.c}"/></marker>`;
-    else                      d += `<marker id="${v.m}" ${head} refX="9" refY="5"><path d="M0.5,1 L9.5,5 L0.5,9 Z" fill="${v.c}"/></marker>`;
-  });
-  return d;
-}
 
-function mxBuildSVG(r){
-  const nodes = {}; r.nodes.forEach(n=>nodes[n.k]=n);
-  let hits="", paths="", badges="", nodeEls="";
-  r.edges.forEach(id=>{
-    const e = mxEdgeById(id); if(!e) return;
-    const A = nodes[e.s], B = nodes[e.t]; if(!A||!B) return;
-    const sg = MX_SIGN[e.sign] || MX_SIGN["activates"];
-    /* Layout hints (route.bows / route.ctrl) are precomputed by solve.py so no
-       arrow crosses an unrelated box. Regenerate them if you move a node. */
-    const cub = r.ctrl && r.ctrl[id];
-    let d, a, b, mid;
-    if(cub){
-      const c1 = {x:cub[0][0], y:cub[0][1]}, c2 = {x:cub[1][0], y:cub[1][1]};
-      a = mxAnchor(A,c1.x,c1.y); b = mxAnchor(B,c2.x,c2.y);
-      d = "M"+a.x.toFixed(1)+","+a.y.toFixed(1)+" C"+c1.x+","+c1.y+" "+c2.x+","+c2.y+" "+b.x.toFixed(1)+","+b.y.toFixed(1);
-      mid = {x:(a.x+3*c1.x+3*c2.x+b.x)/8, y:(a.y+3*c1.y+3*c2.y+b.y)/8};
-    } else {
-      const dx = B.x-A.x, dy = B.y-A.y, len = Math.hypot(dx,dy)||1;
-      let bow = Math.abs(dx)<30 ? 0 : Math.min(58, len*0.11);
-      if(dx<0) bow = -bow;
-      bow *= (r.bows && r.bows[id] != null) ? r.bows[id] : 1;
-      const cx = (A.x+B.x)/2 + (-dy/len)*bow, cy = (A.y+B.y)/2 + (dx/len)*bow;
-      a = mxAnchor(A,cx,cy); b = mxAnchor(B,cx,cy);
-      d = "M"+a.x.toFixed(1)+","+a.y.toFixed(1)+" Q"+cx.toFixed(1)+","+cy.toFixed(1)+" "+b.x.toFixed(1)+","+b.y.toFixed(1);
-      mid = {x:(a.x+2*cx+b.x)/4, y:(a.y+2*cy+b.y)/4};
-    }
-    const w = (MX_TIERW[e.tier]||2) + Math.min(1.2,(e.st.length-1)*0.35);
-    const dash = e.status==="Contested" ? ' stroke-dasharray="7 5"' : "";
-    const tip = mxEsc(A.l+"  "+sg.label+"  "+B.l+"   [tier "+e.tier+"]");
-    hits  += `<path class="mx-hit" data-eid="${mxEsc(id)}" d="${d}"><title>${tip}</title></path>`;
-    paths += `<path id="mxp-${mxEsc(id)}" class="mx-edge" data-eid="${mxEsc(id)}" d="${d}" stroke="${sg.c}" stroke-width="${w.toFixed(2)}"${dash} marker-end="url(#${sg.m})"><title>${tip}</title></path>`;
-    const bx = mid.x, by = mid.y;
-    badges += `<g id="mxb-${mxEsc(id)}" class="mx-badge${e.status==="Contested"?" b-contested":""}" data-eid="${mxEsc(id)}">`
-           +  `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="9" fill="${MX_TIERC[e.tier]||"var(--tier-d)"}"/>`
-           +  `<text x="${bx.toFixed(1)}" y="${(by+0.5).toFixed(1)}">${e.tier}</text><title>${tip}</title></g>`;
-  });
-  r.nodes.forEach(n=>{
-    const w = mxNodeW(n.l);
-    nodeEls += `<g class="mx-node k-${mxEsc(n.kind||"p")}" data-k="${mxEsc(n.k)}" data-ent="${mxEsc(n.e)}">`
-      + `<rect x="${(n.x-w/2).toFixed(1)}" y="${(n.y-MX_NH/2).toFixed(1)}" width="${w.toFixed(1)}" height="${MX_NH}" rx="3"/>`
-      + `<text x="${n.x}" y="${(n.y+0.5)}">${mxEsc(n.l)}</text><title>${mxEsc(n.e)} — open in Pathway map</title></g>`;
-  });
-  return `<svg viewBox="${r.vb}" role="img" aria-label="${mxEsc(r.name)}"><defs>${mxMarkers()}</defs>`
-       + hits + paths + badges + nodeEls + `</svg>`;
-}
 
-function mxPanelDefault(){
-  const r = mxCurRoute();
-  const tiers = {}; const sids = {};
-  r.edges.forEach(id=>{ const e=mxEdgeById(id); if(!e) return; tiers[e.tier]=(tiers[e.tier]||0)+1; e.st.forEach(s=>sids[s]=1); });
-  const bars = ["A","B","C","D"].filter(t=>tiers[t]).map(t=>
-    `<span class="mx-pill"><span class="mx-tierdot" style="background:${MX_TIERC[t]}">${t}</span>&nbsp;${tiers[t]} steps</span>`).join("");
-  const contested = r.edges.map(mxEdgeById).filter(e=>e&&e.status==="Contested").length;
-  return `<h4>${mxEsc(r.name)}</h4>`
-    + `<div class="mx-eq">${r.edges.length} curated steps · ${Object.keys(sids).length} studies cited</div>`
-    + `<p>${r.story}</p>`
-    + `<div class="mx-meta">${bars}${contested?`<span class="mx-pill warn">${contested} contested</span>`:""}</div>`
-    + `<div class="mx-note">Click any arrow or its tier badge to see the papers behind that one step. Click a box to open that molecule in the Pathway map.</div>`;
-}
 
-function mxPanelEdge(e){
-  const r = mxCurRoute(); const nm = {}; r.nodes.forEach(n=>nm[n.k]=n);
-  const sg = MX_SIGN[e.sign] || MX_SIGN["activates"];
-  const S = (nm[e.s]||{l:e.s}).l, T = (nm[e.t]||{l:e.t}).l;
-  const studies = e.st.map(sid=>{
-    const s = studyBySid(sid);
-    if(!s) return `<div class="mx-ev-m">${mxEsc(sid)} — not in corpus</div>`;
-    const tm = tierMeta(s.tier);
-    const first = s.authors ? String(s.authors).split(";")[0].trim() : "";
-    return `<button class="mx-ev" data-sid="${mxEsc(sid)}" type="button"><span class="mx-ev-t">${mxEsc(s.title)}</span>`
-      + `<span class="mx-ev-m"><span class="mx-tierdot" style="background:${tm.color}" title="${tierTitle(tm.letter)}">${tm.letter}</span>`
-      + `${mxEsc(first)}${first?" · ":""}${mxEsc(s.year||"")} · ${mxEsc(sid)}</span></button>`;
-  }).join("");
-  return `<h4>${mxEsc(S)} <span style="color:${sg.c}">${mxEsc(sg.label)}</span> ${mxEsc(T)}</h4>`
-    + `<div class="mx-eq">${mxEsc(e.id)}</div>`
-    + `<p>${mxEsc(e.mech)}</p>`
-    + `<div class="mx-meta">`
-      + `<span class="mx-pill"><span class="mx-tierdot" style="background:${MX_TIERC[e.tier]||"var(--tier-d)"}">${e.tier}</span>&nbsp;best tier</span>`
-      + `<span class="mx-pill">${mxEsc(e.dir)}</span>`
-      + `<span class="mx-pill">${mxEsc(e.sp)}</span>`
-      + `<span class="mx-pill${e.status==="Contested"?" warn":""}">${mxEsc(e.status)}</span>`
-    + `</div>`
-    + (e.ctx ? `<div class="mx-ctx"><b>Boundary conditions.</b> ${mxEsc(e.ctx)}</div>` : "")
-    + (e.note ? `<div class="mx-note">${mxEsc(e.note)}</div>` : "")
-    + `<div class="mx-evh">Evidence for this step (${e.st.length})</div>${studies}`;
-}
 
-function mxSelect(id){
-  mxSel = (mxSel===id) ? null : id;
-  mxPaint();
-}
-function mxPaint(){
-  const panel = document.getElementById("mxPanel");
-  document.querySelectorAll("#mxCanvas .mx-edge").forEach(p=>{ p.classList.remove("sel","dim"); });
-  document.querySelectorAll("#mxCanvas .mx-badge").forEach(g=>g.classList.remove("dim"));
-  const e = mxSel ? mxEdgeById(mxSel) : null;
-  if(e){
-    document.querySelectorAll("#mxCanvas .mx-edge").forEach(p=>{ if(p.dataset.eid!==mxSel) p.classList.add("dim"); });
-    document.querySelectorAll("#mxCanvas .mx-badge").forEach(g=>{ if(g.dataset.eid!==mxSel) g.classList.add("dim"); });
-    const sp = document.getElementById("mxp-"+mxSel); if(sp) sp.classList.add("sel");
-  }
-  if(panel) panel.innerHTML = e ? mxPanelEdge(e) : mxPanelDefault();
-  if(panel) panel.querySelectorAll(".mx-ev").forEach(b=>{
-    b.addEventListener("click", ()=>{ const s = studyBySid(b.dataset.sid); if(s) filterStudiesByTitle(s.title); });
-  });
-}
 
-function mxNodeOpen(ent){
-  if(typeof entityByName !== "function" || !entityByName(ent)) return;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  const tb = document.querySelector('.tab[data-tab="map"]'); if(tb) tb.classList.add("active");
-  showView("map"); setPathwayMode("entities"); selectEntity(ent);
-  window.scrollTo({top:0, behavior:"smooth"});
-}
 
 var PW_ASSET_V = "c8f556101248";
 function pwLoadAsset(tag, attrs){
@@ -5338,71 +5175,11 @@ function openEntityInMechanism(name){
   }).catch(function(e){ console.error(e); });
 }
 
-function mxSetRoute(id){ mxRouteId = id; mxSel = null; /* deprecated by Pathway 2.0 — see build_pathway_model.py: renderMechanism(); */ }
 
-function mxPlayRoute(){
-  if(mxPlaying) return;
-  const r = mxCurRoute();
-  const svg = document.querySelector("#mxCanvas svg");
-  const btn = document.getElementById("mxPlay");
-  if(!svg || !r.steps || !r.steps.length) return;
-  mxPlaying = true; mxSel = null; mxPaint();
-  if(btn){ btn.disabled = true; btn.textContent = "▶ Playing…"; }
-  document.querySelectorAll("#mxCanvas .mx-edge").forEach(p=>p.classList.add("dim"));
-  document.querySelectorAll("#mxCanvas .mx-badge").forEach(g=>g.classList.add("dim"));
-  const dot = document.createElementNS("http://www.w3.org/2000/svg","circle");
-  dot.setAttribute("r","6.5"); dot.setAttribute("class","mx-dot"); dot.setAttribute("cx","-99"); dot.setAttribute("cy","-99");
-  svg.appendChild(dot);
-  let i = 0;
-  function finish(){
-    if(dot.parentNode) dot.parentNode.removeChild(dot);
-    document.querySelectorAll("#mxCanvas .mx-edge").forEach(p=>p.classList.remove("dim","playing"));
-    document.querySelectorAll("#mxCanvas .mx-badge").forEach(g=>g.classList.remove("dim"));
-    if(btn){ btn.disabled = false; btn.textContent = "▶ Play the route"; }
-    mxPlaying = false;
-  }
-  function step(){
-    if(i>0){ const prev = document.getElementById("mxp-"+r.steps[i-1]); if(prev) prev.classList.remove("playing"); }
-    if(i >= r.steps.length){ finish(); return; }
-    const id = r.steps[i], e = mxEdgeById(id), p = document.getElementById("mxp-"+id);
-    if(!p || !e){ i++; step(); return; }
-    p.classList.remove("dim"); p.classList.add("playing");
-    const bg = document.getElementById("mxb-"+id); if(bg) bg.classList.remove("dim");
-    const nEl = svg.querySelector('.mx-node[data-k="'+e.t+'"]');
-    let L = 1; try { L = p.getTotalLength(); } catch(err){ L = 1; }
-    const t0 = performance.now(), DUR = 820;
-    function frame(now){
-      const k = Math.min(1,(now-t0)/DUR);
-      try { const pt = p.getPointAtLength(L*k); dot.setAttribute("cx",pt.x); dot.setAttribute("cy",pt.y); } catch(err){}
-      if(k<1){ requestAnimationFrame(frame); }
-      else {
-        if(nEl){ nEl.classList.add("mx-pop"); setTimeout(()=>nEl.classList.remove("mx-pop"),620); }
-        i++; setTimeout(step,200);
-      }
-    }
-    requestAnimationFrame(frame);
-  }
-  step();
-}
 
-function renderMechanism(){
-  const bar = document.getElementById("mxRouteBar");
-  const cv  = document.getElementById("mxCanvas");
-  const sub = document.getElementById("mxSub");
-  if(!bar || !cv) return;
-  bar.innerHTML = ATLAS_ROUTES.map(r=>
-    `<button type="button" class="mx-routebtn${r.id===mxRouteId?" active":""}" data-rid="${mxEsc(r.id)}">${mxEsc(r.name)}</button>`).join("");
-  bar.querySelectorAll(".mx-routebtn").forEach(b=>b.addEventListener("click",()=>mxSetRoute(b.dataset.rid)));
-  const r = mxCurRoute();
-  if(sub) sub.innerHTML = r.sub;
-  cv.innerHTML = mxBuildSVG(r);
-  cv.querySelectorAll("[data-eid]").forEach(el=>el.addEventListener("click",()=>mxSelect(el.dataset.eid)));
-  cv.querySelectorAll(".mx-node").forEach(el=>el.addEventListener("click",()=>mxNodeOpen(el.dataset.ent)));
-  mxPaint();
-}
 
 function renderAll(){
-  renderTree(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable(); /* renderGraph()/renderFullMap() retired 2026-08-06 -- Entity Browser detail pane now owns the mechanism link + related-entities chips; deprecated by Pathway 2.0 — see build_pathway_model.py: renderMechanism(); */
+  renderTree(); renderDetail(); renderTierLegend(); renderStats(); renderStudiesTable(); renderBarChart(); renderTierPyramidMatrix(); renderWelcome(); renderAuthorsTable(); /* renderGraph()/renderFullMap() retired 2026-08-06 -- Entity Browser detail pane now owns the mechanism link + related-entities chips. The Pathway 1.0 renderer and its mx* helpers were deleted on 2026-09-05; the live explorer is pathway/pathway.js reading pathway/model.json. */
 }
 
 let currentView = 'welcome';
