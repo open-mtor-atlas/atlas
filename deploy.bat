@@ -243,6 +243,43 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Build /answers/ + /glossary/ ===
+REM  generate.py byl v deploy.bat uveden JEN v seznamu pro `git add` a nikdy se
+REM  nespoustel -- stejna chyba, jakou popisuje komentar u build_pages.py o kus
+REM  vys, jen o adresar vedle. Navic zapisuje do vlastniho out\, ne do korene:
+REM  5. 9. 2026 se opravilo heslo Rheb v glossary, generate.py se spustil, vypsal
+REM  "wrote glossary/index.html" -- a nasazena stranka se dvakrat po sobe
+REM  nezmenila, protoze novy soubor lezel v out\glossary\. Proto se tu po buildu
+REM  kopiruje do korene, odkud uz ho stavajici staging smycka
+REM  (for %%D in (... answers glossary ...)) sebere.
+py generate.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: generate.py failed - /answers/ a /glossary/ by zustaly stale.
+  exit /b 1
+)
+
+if not exist "out\glossary\index.html" (
+  echo.
+  echo ABORTED: generate.py probehl, ale out\glossary\index.html neexistuje -
+  echo zmenil se OUT v generate.py? Bez kopie by se nasadila stara stranka.
+  exit /b 1
+)
+
+xcopy /E /Y /I /Q "out\answers" "answers" >nul
+xcopy /E /Y /I /Q "out\glossary" "glossary" >nul
+if exist "out\sitemap-answers.xml" copy /Y "out\sitemap-answers.xml" "sitemap-answers.xml" >nul
+
+REM  Brana: kdyz se kopie nepovedla, radeji spadnout nez nasadit stranku, ktera
+REM  se tise rozchazi se svym zdrojem. Presne tohle se 5. 9. stalo bez vsimnuti.
+fc /B "out\glossary\index.html" "glossary\index.html" >nul
+if errorlevel 1 (
+  echo.
+  echo ABORTED: glossary\index.html se po kopii neshoduje s out\glossary\index.html.
+  exit /b 1
+)
+
+echo.
 echo === Cache-bust the lazy-loaded pathway assets ===
 REM  pathway.js / pathway.css / model.json / contexts.json se stahuji az za behu
 REM  na pevnych URL, takze je CDN i prohlizec drzi v cache. stamp_pathway_version.py
