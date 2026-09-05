@@ -757,7 +757,7 @@ def load_atlas_studies(h):
 
 def check_edge_direction(findings, h):
     """R13 -- a study on the SUPPORTING side that does not support the direction.
-    See add_r13_validator_2026-09-05.py for why the match is this narrow."""
+    The match is deliberately narrow (see commit history for R13)."""
     edges = load_atlas_edges(h)
     by_sid = {s.get("sid"): s for s in load_atlas_studies(h) if s.get("sid")}
     for e in edges:

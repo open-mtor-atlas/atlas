@@ -61,7 +61,7 @@ def main():
     else:
         anchor = "function pwLoadAsset(tag, attrs){"
         if anchor not in html:
-            print("FAIL: pwLoadAsset not found — run _inject_pathway.py first")
+            print("FAIL: pwLoadAsset not found — pathway asset loader is missing from index.html")
             return 1
         html = html.replace(anchor, 'var PW_ASSET_V = "%s";\n%s' % (ver, anchor), 1)
         print("pathway asset version set to %s" % ver)

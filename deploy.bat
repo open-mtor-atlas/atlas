@@ -309,7 +309,7 @@ where node >nul 2>nul
 if errorlevel 1 (
   echo.
   echo ABORTED: Node.js not found on PATH, so the JS-only tabs cannot be prerendered.
-  echo Install Node from https://nodejs.org and re-run, or deploy from the sandbox via deploy.sh.
+  echo Install Node from https://nodejs.org and re-run.
   exit /b 1
 )
 node prerender_tabs.js
@@ -496,7 +496,6 @@ if exist "sitemap.xml" git add sitemap.xml
 for %%F in (sitemap-home.xml sitemap-studies.xml sitemap-entities.xml sitemap-authors.xml sitemap-questions.xml sitemap-answers.xml sitemap-academy.xml robots.txt llms.txt) do (
   if exist "%%F" git add "%%F"
 )
-if exist "lineage_1.html" git add lineage_1.html
 
 REM  Claim-calibration report from the gate that ran at the top of this script.
 if exist "atlas_data\claim_validation.json" git add atlas_data\claim_validation.json
