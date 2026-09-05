@@ -417,6 +417,24 @@
   }
 
   /* ==== camera ========================================================= */
+
+  /* Viewport aspect ratio, safe to call before layout. clientWidth is 0 while
+     the pathway panel is display:none -- which is the normal state on narrow
+     layouts until the tab is opened -- and the old inline expression divided by
+     it, producing h = Infinity and a viewBox of "112.0 -Infinity 1376.0 ...".
+     The browser rejects that attribute outright, so the diagram never framed
+     itself. Falling back to the model's own canvas proportions keeps the camera
+     finite; the resize path re-frames once the panel has real dimensions. */
+  function aspect() {
+    var cw = el.canvas ? el.canvas.clientWidth : 0;
+    var ch = el.canvas ? el.canvas.clientHeight : 0;
+    if (!cw || !ch) {
+      return (M && M.meta && M.meta.canvas)
+        ? M.meta.canvas.w / Math.max(1, M.meta.canvas.h)
+        : 1;
+    }
+    return Math.min(8, Math.max(0.125, cw / Math.max(1, ch)));
+  }
   function applyCam() {
     var c = S.cam;
     el.svg.setAttribute("viewBox", c.x.toFixed(1) + " " + c.y.toFixed(1) + " " + c.w.toFixed(1) + " " + c.h.toFixed(1));
@@ -453,7 +471,7 @@
     if (!band.length) return fitAll();
     var y1 = Math.min.apply(null, band.map(function (b) { return b.y; }));
     var y2 = Math.max.apply(null, band.map(function (b) { return b.y + b.h; }));
-    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var r = aspect();
     var h = (y2 - y1) + 40, w = h * r;
     if (w < M.meta.canvas.w * 0.86) { w = M.meta.canvas.w * 0.86; h = w / r; }
     S.cam = { x: (M.meta.canvas.w - w) / 2, y: y1 - (h - (y2 - y1)) / 2, w: w, h: h };
@@ -462,7 +480,7 @@
 
   function fitAll() {
     var W = M.meta.canvas.w, H = M.meta.canvas.h;
-    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var r = aspect();
     var w = W, h = W / r;
     if (h < H) { h = H; w = H * r; }
     S.cam = { x: (W - w) / 2, y: (H - h) / 2, w: w, h: h };
@@ -470,7 +488,7 @@
   }
   function frameBox(bx, by, bw, bh, pad) {
     pad = pad == null ? 190 : pad;
-    var r = el.canvas.clientWidth / Math.max(1, el.canvas.clientHeight);
+    var r = aspect();
     var w = Math.max(bw + pad * 2, 420), h = w / r;
     if (h < bh + pad * 2) { h = bh + pad * 2; w = h * r; }
     animCam({ x: bx + bw / 2 - w / 2, y: by + bh / 2 - h / 2, w: w, h: h });
