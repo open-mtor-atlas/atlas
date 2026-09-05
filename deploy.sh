@@ -113,7 +113,7 @@ rm -f .git/index.lock 2>/dev/null || true
 
 if git add index.html atlas_fulltext/chunk_index.json prerender_tabs.js verify_prerender.py deploy.sh \
        academy academy_data sitemap-academy.xml build_academy.py verify_academy.py \
-       pathway/pathway.js pathway/pathway.css 2>/tmp/gitadd.err && \
+       pathway/pathway.js pathway/pathway.css img 2>/tmp/gitadd.err && \
    git commit -m "Atlas update $(date -u +'%Y-%m-%d %H:%M:%S UTC') (automated)" 2>/tmp/gitcommit.err; then
     echo "committed via normal git add/commit"
 else

@@ -1253,7 +1253,11 @@ def author_page(key, bio, studies):
     ld = {"@context": "https://schema.org", "@type": "Person",
           "name": bio["full"], "description": bio["role"], "url": url}
     if bio.get("photo"):
-        ld["image"] = bio["photo"]
+        # JSON-LD image musi byt absolutni URL -- konzumenti schema.org
+        # relativni cestu nerozresi, protoze strukturovana data ctou mimo
+        # kontext stranky. <img src> nize relativni zustava. Doplneno
+        # 2026-09-05 spolu s vytazenim base64 fotek do /img/people/.
+        ld["image"] = (SITE + bio["photo"]) if bio["photo"].startswith("/") else bio["photo"]
 
     ordered = sorted(studies, key=lambda s: (s.get("year") or 0))
     body = [f"<h1>{e(bio['full'])}</h1>",
