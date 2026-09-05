@@ -88,7 +88,26 @@ def refresh_counts(h):
         (r'(<span id="ipyStudyCount">)\d+(</span>)', r"\g<1>%d\g<2>" % n_studies),
         (r'(<span id="atlasStatStudies">)\d+(</span>)', r"\g<1>%d\g<2>" % n_studies),
         (r'(<span id="atlasStatEntities">)\d+(</span>)', r"\g<1>%d\g<2>" % n_entities),
+        (r'(<span id="shStudyCount">)\d+(</span>)', r"\g<1>%d\g<2>" % n_studies),
     ]
+    # The static SEO hero (2026-09-05) states pathway figures as bare prose. It
+    # exists so that crawlers and AI readers see real content without JS, which
+    # is precisely where a stale number travels furthest -- it said 356 against a
+    # corpus of 357 within a day of being written. Read from the model itself.
+    try:
+        _pm = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                          "pathway", "model.json"), encoding="utf-8"))
+        subs += [
+            (r'(<span id="shNodeCount">)\d+(</span>)',
+             r"\g<1>%d\g<2>" % len(_pm["nodes"])),
+            (r'(<span id="shEdgeCount">)\d+(</span>)',
+             r"\g<1>%d\g<2>" % len(_pm["interactions"])),
+            (r'(<span id="shRouteCount">)\d+(</span>)',
+             r"\g<1>%d\g<2>" % len(_pm["routes"])),
+        ]
+    except Exception as _e:
+        print("  refresh_counts: pathway/model.json unreadable (%s) - hero pathway "
+              "figures left alone" % _e)
     # Same reasoning for the footer date: JS rewrites #lastUpdated from
     # ATLAS_UPDATED (and converts it to Prague time) on load, but a crawler sees
     # only this literal. Stamp the raw UTC string -- no timezone maths here, and

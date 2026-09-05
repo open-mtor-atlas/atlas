@@ -1114,9 +1114,10 @@ GLOSSARY = [
      "Rapamycin-insensitive companion of mTOR — the defining scaffold subunit of mTORC2, "
      "and the reason mTORC2 isn't directly blocked by rapamycin the way mTORC1 is."),
     ("Rheb", "/gene/rheb/", None,
-     "A small GTPase that directly activates mTORC1 at the lysosomal membrane once "
-     "TSC1/TSC2's inhibitory brake is released. The final switch mTORC1's upstream "
-     "signals converge on."),
+     "A small GTPase that directly activates mTORC1 once TSC1/TSC2's inhibitory "
+     "brake is released — the step the growth-factor inputs converge on. "
+     "Which membrane the activating pool sits on is not settled; the Atlas "
+     "records that as an open question rather than asserting the lysosome."),
     ("Rag GTPases", "/gene/rag-gtpases/", None,
      "A family of GTPases that recruit mTORC1 to the lysosomal surface in response to "
      "amino acid availability — the mechanism by which mTORC1 senses nutrients, "

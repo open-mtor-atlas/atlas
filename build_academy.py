@@ -352,9 +352,14 @@ def fig_lysosome_hub():
 
 def fig_aa_sensors():
     """Lekce 06. Dvojity zapor je cela pointa: senzor VAZE aminokyselinu a tim
-    PRESTANE inhibovat. Kresli se proto jako retez kolmicek, ne sipek."""
-    rows = [("Leucine", "Sestrin2"), ("Arginine", "CASTOR1"),
-            ("S-adenosyl-methionine", "SAMTOR")]
+    PRESTANE inhibovat. Kresli se proto jako retez kolmicek, ne sipek.
+
+    SAMTOR enters at GATOR1, not at GATOR2 (opraveno 2026-09-05). Gu 2017:
+    SAMTOR inhibuje mTORC1 vazbou na GATOR1/KICSTOR, ne na GATOR2 jako Sestrin2
+    a CASTOR1. Drivejsi verze kreslila vsechny tri senzory do jedne sbernice do
+    GATOR2, coz odporovalo i vlastnimu pathway modelu Atlasu (SAMTOR-GATOR1).
+    Asymetrie je tady poucka, ne vada obrazku."""
+    rows = [("Leucine", "Sestrin2"), ("Arginine", "CASTOR1")]
     g = []
     ys = []
     for i, (aa, sensor) in enumerate(rows):
@@ -367,31 +372,47 @@ def fig_aa_sensors():
         g.append('<rect class="ac-box" x="190" y="%d" width="118" height="30" rx="3"/>'
                  '<text class="ac-t" x="249" y="%d">%s</text>' % (y, y + 20, sensor))
         g.append('<path class="ac-inh" d="M312 %d H336"/>' % (y + 15))
-    # spolecna sbernice do GATOR2 -- tri kolmicky konci na jedne care
-    g.append('<path class="ac-inh" d="M336 %d V%d"/>' % (ys[0], ys[2]))
-    g.append('<path class="ac-inh" d="M336 %d H354"/>' % ys[1])
+    mid = (ys[0] + ys[1]) // 2
+    # spolecna sbernice do GATOR2 -- jen leucin a arginin
+    g.append('<path class="ac-inh" d="M336 %d V%d"/>' % (ys[0], ys[1]))
+    g.append('<path class="ac-inh" d="M336 %d H354"/>' % mid)
     g.append('<rect class="ac-box" x="358" y="%d" width="112" height="46" rx="3"/>'
              '<text class="ac-t" x="414" y="%d">GATOR2</text>'
              '<text class="ac-t ac-sub" x="414" y="%d">bound = inhibited</text>'
-             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
+             % (mid - 23, mid - 3, mid + 13))
     g.append('<path class="ac-inh" d="M474 %d H498"/><path class="ac-inh" d="M498 %d V%d"/>'
-             % (ys[1], ys[1] - 9, ys[1] + 9))
+             % (mid, mid - 9, mid + 9))
     g.append('<rect class="ac-box" x="506" y="%d" width="112" height="46" rx="3"/>'
              '<text class="ac-t" x="562" y="%d">GATOR1</text>'
              '<text class="ac-t ac-sub" x="562" y="%d">GAP for RagA/B</text>'
-             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
+             % (mid - 23, mid - 3, mid + 13))
     g.append('<path class="ac-inh" d="M622 %d H646"/><path class="ac-inh" d="M646 %d V%d"/>'
-             % (ys[1], ys[1] - 9, ys[1] + 9))
+             % (mid, mid - 9, mid + 9))
     g.append('<rect class="ac-box ac-accent" x="654" y="%d" width="104" height="46" rx="3"/>'
              '<text class="ac-t" x="706" y="%d">Rag</text>'
              '<text class="ac-t ac-sub" x="706" y="%d">active state</text>'
-             % (ys[1] - 23, ys[1] - 3, ys[1] + 13))
-    g.append('<text class="ac-t ac-sub" x="380" y="172">count the blunt ends: an amino acid '
-             'present means one more inhibition released, not one more push</text>')
-    return _svg("0 0 768 184", "".join(g),
-                "Leucine binds Sestrin2, arginine binds CASTOR1 and S-adenosylmethionine "
-                "binds SAMTOR; each bound sensor stops inhibiting GATOR2, which inhibits "
-                "GATOR1, which is the GAP that switches the Rag GTPases off.")
+             % (mid - 23, mid - 3, mid + 13))
+    # SAM radek vstupuje o uzel niz -- primo na GATOR1
+    sy = 14 + 2 * 46 + 15
+    g.append('<rect class="ac-box" x="4" y="%d" width="150" height="30" rx="3"/>'
+             '<text class="ac-t" x="79" y="%d">S-adenosyl-methionine</text>'
+             % (sy - 15, sy + 5))
+    g.append('<path class="ac-inh" d="M158 %d H186"/>' % sy)
+    g.append('<rect class="ac-box" x="190" y="%d" width="118" height="30" rx="3"/>'
+             '<text class="ac-t" x="249" y="%d">SAMTOR</text>' % (sy - 15, sy + 5))
+    g.append('<path class="ac-arrow" d="M312 %d H562 V%d" marker-end="url(#acArrow)"/>'
+             % (sy, mid + 27))
+    g.append('<text class="ac-t ac-sub" x="330" y="%d">no SAM: SAMTOR helps GATOR1 '
+             'keep mTORC1 off</text>' % (sy + 18))
+    g.append('<text class="ac-t ac-sub" x="4" y="200">count the blunt ends: an amino acid '
+             'present means one more inhibition released, not one more push. '
+             'Methionine enters one node further down.</text>')
+    return _svg("0 0 768 212", "".join(g),
+                "Leucine binds Sestrin2 and arginine binds CASTOR1; each bound sensor "
+                "stops inhibiting GATOR2, which inhibits GATOR1, the GAP that switches "
+                "the Rag GTPases off. S-adenosylmethionine acts on a different node: "
+                "without it SAMTOR binds GATOR1 and helps keep mTORC1 off, and SAM "
+                "binding to SAMTOR breaks that interaction.")
 
 def fig_gf_axis():
     g = []
