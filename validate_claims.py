@@ -332,6 +332,33 @@ def split_sentences(text):
         pos += len(part) + 1
     return out
 
+# --- R13 support: does a cited study actually back the edge's direction? -----
+# Generic nouns are stripped from the target name before matching, or "growth"
+# and "function" would pair with any verb in any title.
+R13_STOP = {"function", "growth", "signaling", "signalling", "response",
+            "activity", "cells", "cell", "human", "mouse", "factor",
+            "pathway", "complex", "protein", "synthesis", "disease"}
+R13_UP = r"enhanc\w*|increas\w*|promot\w*|elevat\w*|upregulat\w*|augment\w*"
+# "inhibit" and "suppress" are deliberately absent: they describe the
+# intervention more often than the outcome ("mTOR inhibition improves ...").
+R13_DOWN = r"reduc\w*|decreas\w*|impair\w*|abolish\w*|blunt\w*"
+
+
+def r13_target_tokens(name):
+    return [w for w in re.findall(r"[A-Za-z][A-Za-z0-9-]{4,}", name or "")
+            if w.lower() not in R13_STOP]
+
+
+def r13_title_contradicts(title, sign, target):
+    """Opposite-direction verb within two words of the target entity."""
+    opp = R13_UP if sign == "inhibits" else R13_DOWN
+    for t in r13_target_tokens(target):
+        m = re.search(r"(?:%s)\W+(?:\w+\W+){0,2}%s" % (opp, re.escape(t)),
+                      title or "", re.I)
+        if m:
+            return m.group(0)
+    return None
+
 def load_atlas_gaps(h):
     m = re.search(r"const ATLAS_GAPS = (\[.*?\]);", h, re.S)
     if not m:
@@ -714,6 +741,51 @@ def check_challenges(findings):
 
 # ---------------------------------------------------------------- main
 
+def load_atlas_edges(h):
+    i = h.find("const ATLAS_EDGES = [")
+    if i < 0:
+        return []
+    head = "const ATLAS_EDGES = "
+    seg = h[i + len(head):]
+    return json.loads(seg[:seg.find("];") + 1])
+
+
+def load_atlas_studies(h):
+    m = re.search(r"const ATLAS_STUDIES = (\[.*?\]);\n", h, re.S)
+    return json.loads(m.group(1)) if m else []
+
+
+def check_edge_direction(findings, h):
+    """R13 -- a study on the SUPPORTING side that does not support the direction.
+    See add_r13_validator_2026-09-05.py for why the match is this narrow."""
+    edges = load_atlas_edges(h)
+    by_sid = {s.get("sid"): s for s in load_atlas_studies(h) if s.get("sid")}
+    for e in edges:
+        sign = e.get("sign")
+        if sign not in ("activates", "inhibits"):
+            continue
+        conflicting = set(e.get("cf") or [])
+        for sid in e.get("st") or []:
+            if sid in conflicting:
+                continue          # already declared as cutting both ways
+            s = by_sid.get(sid)
+            if not s:
+                continue
+            where = "edge:%s" % e.get("id")
+            if s.get("category") == "Negative_result":
+                add(findings, "WARN", "R13 null-result-as-support", where, sid,
+                    "%s is filed as Negative_result but is cited as SUPPORTING "
+                    "%s (sign: %s)." % (sid, e.get("id"), sign),
+                    "If one arm supports the edge and another contradicts it, add "
+                    "%s to Conflicting_Studies as well." % sid)
+            hit = r13_title_contradicts(s.get("title"), sign, e.get("t"))
+            if hit:
+                add(findings, "WARN", "R13 title-contradicts-sign", where, sid,
+                    "%s supports %s (sign: %s) but its title says %r about the "
+                    "target." % (sid, e.get("id"), sign, hit),
+                    "Check the direction. If the study points the other way, move it "
+                    "to Conflicting_Studies or scope the edge by species/context.")
+
 def main():
     findings = []
     n = check_studies(findings)
@@ -721,6 +793,7 @@ def main():
     h = open(INDEX, encoding="utf-8").read()
     check_gap_regression_rules(findings, h)
     check_dead_layers(findings, h)
+    check_edge_direction(findings, h)
     n_les = check_academy(findings)
     n_ch = check_challenges(findings)
 
