@@ -1,0 +1,160 @@
+{
+ "_comment": [
+  "Practice Arena — konfigurace herni vrstvy Academy (Faze A).",
+  "",
+  "DATA ONLY. Zadny HTML, zadna biologie. Vsechny polozky se GENERUJI z",
+  "pathway/model.json a academy_data/lessons.json — tenhle soubor drzi jen",
+  "pravidla hry: prahy hodnosti, XP vzorec, decay mastery, kriteria odznaku",
+  "a kratke UI texty. build_practice.py to zapece do stranky, verify_practice.py",
+  "kontroluje, ze kazde kriterium odznaku ma metriku, kterou engine skutecne",
+  "pocita (odznak bez merene metriky by se nedal nikdy ziskat).",
+  "",
+  "Prahy nize jsou NAVRH, ne mereni — po pilotu se prenastavuji tady, ne v kodu."
+ ],
+ "version": 1,
+ "storageKey": "atlas-practice-v1",
+
+ "ranks": [
+  {"n": 1, "id": "curious", "name": "Curious", "xp": 0, "masteredNodes": 0,
+   "level": "Foundation", "phase": "A",
+   "blurb": "Recall: what the parts are and which way the arrows point.",
+   "unlocks": ["sprint", "wire", "daily"]},
+  {"n": 2, "id": "student", "name": "Student", "xp": 300, "masteredNodes": 6, "masteredAt": 2,
+   "level": "Foundation — Core", "phase": "A",
+   "blurb": "Mechanism: why the pathway is built the way it is.",
+   "unlocks": ["pert", "limits"]},
+  {"n": 3, "id": "rotation", "name": "Rotation Student", "xp": 900, "masteredNodes": 12, "masteredAt": 3,
+   "level": "Core", "phase": "A",
+   "blurb": "Prediction: what happens when you change something.",
+   "unlocks": ["slider", "routepool", "wirehard"]},
+  {"n": 4, "id": "graduate", "name": "Graduate", "xp": 2000, "masteredNodes": 20, "masteredAt": 3,
+   "level": "Intermediate", "phase": "B", "brier": 0.20,
+   "blurb": "Reading data: what a result does and does not support.",
+   "unlocks": ["autopsy", "sources"]},
+  {"n": 5, "id": "postdoc", "name": "Postdoc", "xp": 4000, "masteredNodes": 30, "masteredAt": 3,
+   "level": "Intermediate — Research", "phase": "B", "brier": 0.16,
+   "blurb": "Judgement: how strong is this evidence, really.",
+   "unlocks": ["frontier", "calibration-curve"]},
+  {"n": 6, "id": "pi", "name": "Principal Investigator", "xp": 7000, "masteredNodes": 40, "masteredAt": 4,
+   "level": "Research", "phase": "B", "brier": 0.13,
+   "blurb": "Design: what would you measure first, and why that.",
+   "unlocks": ["challenges"]}
+ ],
+
+ "rankup": {"size": 8, "passRatio": 0.75,
+            "note": "Rank-up is a short mixed board, not an automatic threshold."},
+
+ "xp": {
+  "base": {"sprint": 3, "quiz": 20, "pert": 30, "predict": 30, "limits": 22, "wire": 25},
+  "difficulty": {"1": 1.0, "2": 1.5, "3": 2.5},
+  "calibration": {"sureRight": 1.5, "unsureRight": 1.0, "unsureWrong": 0.25, "sureWrong": 0.0},
+  "novelty": {"first": 1.0, "review": 0.35, "sameDayCap": 2},
+  "firstTryBonus": 5,
+  "wirePerBond": 6
+ },
+
+ "confidence": {
+  "buttons": [
+   {"id": "low",  "label": "Not sure",    "p": 0.60},
+   {"id": "mid",  "label": "Fairly sure", "p": 0.80},
+   {"id": "high", "label": "Certain",     "p": 0.95}
+  ],
+  "sliderFromRank": 3,
+  "sureThreshold": 0.80,
+  "window": 50,
+  "showScoreFromRank": 3,
+  "hint": "Say how sure you are before you see the answer. Being right while unsure is worth less than being right while sure — and being sure while wrong is worth nothing."
+ },
+
+ "mastery": {
+  "max": 5, "goldFrom": 4, "masteredFrom": 3,
+  "halfLifeDays": 21, "decayFrom": 3,
+  "gainRight": 1, "gainRightSure": 1, "loseWrong": 1, "loseWrongSure": 1,
+  "note": "Mastery is what you can do now; XP is what you have done. Only mastery decays."
+ },
+
+ "daily": {"size": 5, "review": 2, "fresh": 2, "stretch": 1,
+           "streakFreezeDays": 3},
+
+ "sprint": {"seconds": 60, "cards": 24},
+ "snapshotEveryDays": 7,
+ "snapshotKeep": 8,
+
+ "badges": [
+  {"id": "predictor", "name": "Predictor", "phase": "A", "metric": "predictOk",
+   "tiers": [8, 25, 60], "spread": {"key": "predictLessons", "min": 4},
+   "criterion": "8 / 25 / 60 correct predictions made before the reveal, across at least 4 lessons",
+   "why": "Prediction is the first step that cannot be faked by recognition."},
+
+  {"id": "architect", "name": "Pathway Architect", "phase": "A", "metric": "wirePerfectHard",
+   "tiers": [1],
+   "criterion": "Wire a full route correctly at the hard level — direct and indirect steps distinguished, no hints",
+   "why": "Knowing the parts is not knowing the wiring."},
+
+  {"id": "calibrated", "name": "Calibrated", "phase": "A", "metric": "brier",
+   "tiers": [0.18, 0.13, 0.10], "lowerIsBetter": true, "minSamples": 50,
+   "criterion": "Brier score 0.18 / 0.13 / 0.10 or better over your last 50 judgements",
+   "why": "The one measurable habit that separates a scientist from a well-read reader."},
+
+  {"id": "core", "name": "Core Architecture", "phase": "A", "metric": "coreMastered",
+   "tiers": [1],
+   "criterion": "Mastery 3 or better on every node the Core lessons cover",
+   "why": "Coverage, not streaks: the map has no dark patch left in the core."},
+
+  {"id": "limits", "name": "Confounder Spotter", "phase": "A", "metric": "limitsOk",
+   "tiers": [5, 15],
+   "criterion": "Name what a result does NOT show, 5 / 15 times",
+   "why": "Most over-claiming is one unnoticed second explanation."},
+
+  {"id": "methods", "name": "Methods Reader", "phase": "B", "metric": "autopsyOk",
+   "tiers": [8, 20], "spread": {"key": "autopsyKinds", "min": 5},
+   "criterion": "8 / 20 findings in Paper Autopsy across at least 5 kinds of weakness",
+   "why": "The methods section is where a paper is actually decided."},
+
+  {"id": "smalln", "name": "n = 3 Skeptic", "phase": "B", "metric": "sampleOk",
+   "tiers": [10], "guard": {"key": "sampleFalseReject", "max": 0},
+   "criterion": "Reject 10 conclusions on sample size — and never reject a well-supported one for small n",
+   "why": "Scepticism that fires at everything is not scepticism."},
+
+  {"id": "unknown", "name": "Honest Unknown", "phase": "B", "metric": "openOk",
+   "tiers": [10], "guard": {"key": "openFalse", "max": 0},
+   "criterion": "10 correct \"insufficient evidence\" calls, with no settled claim wrongly marked open",
+   "why": "Knowing where the field stops is knowledge, not a gap in it."},
+
+  {"id": "sources", "name": "Source Hunter", "phase": "B", "metric": "sourceOk",
+   "tiers": [20], "spread": {"key": "sourceWeakening", "min": 3},
+   "criterion": "20 correct study IDs, at least 3 of them weakening the claim",
+   "why": "A claim you cannot trace is a claim you are repeating."},
+
+  {"id": "falsifier", "name": "Falsifier", "phase": "B", "metric": "discriminating",
+   "tiers": [3],
+   "criterion": "Pick the discriminating experiment before the confirming one, in 3 challenges",
+   "why": "The experiment worth paying for is the one that can come out either way."}
+ ],
+
+ "games": [
+  {"id": "daily", "name": "Daily 5", "rank": 1,
+   "blurb": "Two you have seen, two new, one a level up. Three minutes.",
+   "skill": "mixed"},
+  {"id": "sprint", "name": "Signal Sprint", "rank": 1,
+   "blurb": "Sixty seconds of arrows: does this one activate or inhibit?",
+   "skill": "Recall"},
+  {"id": "wire", "name": "Wire the Pathway", "rank": 1,
+   "blurb": "Rebuild a route from loose parts — and get the direct steps right.",
+   "skill": "Structure"},
+  {"id": "pert", "name": "Perturbation Lab", "rank": 2,
+   "blurb": "Set the controls, predict the readout before it is revealed.",
+   "skill": "Prediction"},
+  {"id": "limits", "name": "What It Doesn't Show", "rank": 2,
+   "blurb": "One result, four readings. Which one the evidence will not carry?",
+   "skill": "Limits of evidence"}
+ ],
+
+ "copy": {
+  "hubLede": "Five games built on the Atlas's own pathway model. Points reward calibration, not speed — and nothing here rewards simply showing up.",
+  "progressLede": "Your progress is the pathway itself. Grey nodes are the ones you have not been tested on yet; hatched ones are questions the field has not closed, so they never fill in.",
+  "noJs": "This page needs JavaScript for scoring and for saving progress in this browser. The practice questions themselves are below in full, with answers — the page is readable and usable without it.",
+  "storageNote": "Progress lives in this browser only. No account, nothing sent anywhere. Export it if you want to move it.",
+  "openNote": "Open questions never reach full mastery. That is not a bug in the game — the field has not closed them."
+ }
+}

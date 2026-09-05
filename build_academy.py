@@ -2341,6 +2341,14 @@ def academy_home(modules, lessons_by_slug, challenges):
     # Spec Research Challenges §2: existujici polozka na homepage prestava byt
     # "coming soon" a dostane skutecny cil. Karta se ridi daty -- kdyz
     # challenges.json zmizi, vrati se puvodni chovani.
+    if os.path.exists(os.path.join(ADATA, "practice.json")):
+        body.append('<div class="ac-card"><h3>Practice</h3><p>Short games built on the same '
+                    'pathway model the lessons draw from: predict a perturbation, rebuild a '
+                    'route, name what a result does not show. Your answers colour in a map of '
+                    'the pathway.</p>'
+                    '<a class="ac-go" href="%s/academy/practice/">Practise &rarr;</a></div>'
+                    % SITE)
+
     pub_ch = [c for c in challenges if c["status"] == "published"]
     if pub_ch:
         body.append('<div class="ac-card"><h3>Research Challenges</h3><p>Take a question '
@@ -2375,8 +2383,9 @@ def academy_home(modules, lessons_by_slug, challenges):
                 '<a href="%s/complex/mtorc1/">Pathways</a>'
                 '<a href="%s/#view=authors">Authors</a>'
                 '<a href="%s/gene/mtor/">Proteins</a>'
-                '<a href="%s/#view=questions">Open questions</a></div>'
-                % (SITE, SITE, SITE, SITE, SITE))
+                '<a href="%s/#view=questions">Open questions</a>'
+                '<a href="%s/academy/progress/">Your pathway</a></div>'
+                % (SITE, SITE, SITE, SITE, SITE, SITE))
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "mTOR Academy", "url": url, "inLanguage": "en",
@@ -3132,6 +3141,14 @@ def main():
                 sid_to_lesson.setdefault(sid, []).append(
                     {"title": "Challenge %s: %s" % (ch["n"], ch["title"]),
                      "url": "/academy/research-challenges/%s/" % ch["slug"]})
+
+    # Practice Arena (ctvrty pilir, Faze A). Vlastni modul, protoze je to
+    # aplikace, ne stranka -- ale generuje se odtud, aby deploy.bat nemusel znat
+    # dalsi krok. Ridi se daty jako challenges: kdyz academy_data/practice.json
+    # neexistuje, /academy/ zustane presne takove, jake bylo.
+    if os.path.exists(os.path.join(ADATA, "practice.json")):
+        import build_practice
+        urls += build_practice.build()[0]
 
     write(os.path.join(ADATA, "_sid_to_lesson.json"),
           json.dumps(sid_to_lesson, ensure_ascii=False, indent=1, sort_keys=True) + "\n")

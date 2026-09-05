@@ -213,6 +213,18 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Practice Arena integrity gate ===
+REM  Practice Arena generuje polozky z pathway\model.json a z lekci. Tahle
+REM  brana kontroluje, ze zadna polozka netvrdi nic, co v modelu neni, ze
+REM  zadna nelezi mimo pokryti lekci a ze obe stranky maji ekvivalent bez JS.
+py verify_practice.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: verify_practice.py found invented or out-of-syllabus practice items.
+  exit /b 1
+)
+
+echo.
 echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
 REM  This is what AI crawlers without JS actually read (build_pages.py's own
 REM  header comment explains why) -- and it is also now the only place that
@@ -482,7 +494,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
