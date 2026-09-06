@@ -2149,7 +2149,7 @@ def practice_page(bank):
     body.append('<div class="pa-world pa-tint" id="paWorld">'
                 '<div class="pa-wleft">'
                 '<div class="pa-wpct"><span class="pa-wnum">%d</span>'
-                '<span class="pa-wlab">nodes in the Academy map &middot; %d in the Atlas</span></div>'
+                '<span class="pa-wlab"> nodes in the Academy map &middot; %d in the Atlas</span></div>'
                 '<p class="pa-note">The pathway is the board you are playing on. Every question you '
                 'answer colours in a piece of it &mdash; and two of its questions are ones the field '
                 'itself has not closed, so they never fill in.</p>'
