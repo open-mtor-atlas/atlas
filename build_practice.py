@@ -458,7 +458,7 @@ PRACTICE_CSS = """
 html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
 
 .pa-rankbar{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;
-  border:1px solid var(--line);border-radius:3px;padding:14px 18px;margin:0 0 26px}
+  border:1px solid var(--line);border-radius:3px;padding:14px 18px;margin:0 0 12px}
 .pa-rankbar .pa-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600}
 .pa-rankbar .pa-rkname{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:0}
@@ -704,7 +704,7 @@ html[data-theme="dark"] .pa-opt:hover{background:rgba(108,168,178,.08)}
   var(--line-strong,rgba(0,0,0,.3)) 2px,var(--line-strong,rgba(0,0,0,.3)) 3.5px);
   outline:1px dashed var(--soft);outline-offset:-1px}
 .pa-world .pa-wmini{flex:0 0 auto}
-.pa-wmini svg{display:block;width:230px;height:auto}
+.pa-wmini svg{display:block;width:196px;height:auto}
 .pa-wmini .m-rest{fill:var(--soft);opacity:.18}
 .pa-wmini .m-n{fill:none;stroke:var(--line-strong,rgba(0,0,0,.3));stroke-width:1}
 .pa-wmini .m-n[data-m="1"],.pa-wmini .m-n[data-m="2"]{fill:var(--pa-tint,rgba(163,31,52,.09));
@@ -714,7 +714,7 @@ html[data-theme="dark"] .pa-opt:hover{background:rgba(108,168,178,.08)}
 .pa-wmini .m-open{fill:none;stroke:var(--soft);stroke-dasharray:2 2}
 .pa-world .pa-wgo{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
   text-decoration:none;display:inline-block;margin-top:12px}
-@media (max-width:620px){ .pa-wmini svg{width:170px} }
+@media (max-width:620px){ .pa-wmini svg{width:150px} }
 
 /* misc ---------------------------------------------------------------- */
 .pa-tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}
@@ -2138,12 +2138,6 @@ def practice_page(bank):
             '<h1>Practice Arena</h1>'
             '<p class="ac-lede">%s</p></div>' % e(cfg["copy"]["hubLede"])]
 
-    body.append('<div class="pa-rankbar pa-tint" id="paRank">'
-                '<div><p class="pa-rk">Rank 1</p><p class="pa-rkname">Curious</p></div>'
-                '<span class="pa-xp"><b>0</b> XP</span>'
-                '<span class="pa-meter"><i style="width:0%"></i></span>'
-                '<span class="pa-to">Progress is kept in this browser</span></div>')
-
     # Kolik "herniho sveta" uz je objeveno. Bez JS zustane veta s cisly, ktera
     # plati pro kazdeho (velikost mapy), s JS se doplni osobni procenta a minimapa.
     body.append('<div class="pa-world pa-tint" id="paWorld">'
@@ -2156,6 +2150,12 @@ def practice_page(bank):
                 '<a class="pa-wgo" href="%s/academy/progress/">Your pathway and badges &rarr;</a>'
                 '</div></div>'
                 % (len(bank["nodes"]), bank["counts"]["atlas"], SITE))
+
+    body.append('<div class="pa-rankbar pa-tint" id="paRank">'
+                '<div><p class="pa-rk">Rank 1</p><p class="pa-rkname">Curious</p></div>'
+                '<span class="pa-xp"><b>0</b> XP</span>'
+                '<span class="pa-meter"><i style="width:0%"></i></span>'
+                '<span class="pa-to">Progress is kept in this browser</span></div>')
 
     # Dlazdice se bez JS vykresli jako popis her (ne tlacitka) -- porad rikaji,
     # co Practice Arena je a co v ni na sebe navazuje.
