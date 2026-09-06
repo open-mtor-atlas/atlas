@@ -65,6 +65,7 @@ BP.DRY = BP.DRY or DRY
 
 ACADEMY_DIR = os.path.join(HERE, "academy")
 ADATA = os.path.join(HERE, "academy_data")
+DATA = os.path.join(HERE, "atlas_data")
 PW_PATH = os.path.join(HERE, "pathway", "model.json")
 
 # Deterministicky mix: banka se nesmi menit mezi buildy, jinak by se studentovi
@@ -78,7 +79,16 @@ def load():
     cfg = json.load(open(os.path.join(ADATA, "practice.json"), encoding="utf-8"))
     les = json.load(open(os.path.join(ADATA, "lessons.json"), encoding="utf-8"))["lessons"]
     pw = json.load(open(PW_PATH, encoding="utf-8"))
-    return cfg, les, pw
+    # Faze B pracuje s tim, co uz je zkuratorovane v Atlasu: studie (vcetne
+    # ai_limitations a ai_samplesize u hloubkove zpracovanych), a gapy.
+    studies = json.load(open(os.path.join(DATA, "studies_baked.json"), encoding="utf-8"))
+    if isinstance(studies, dict):
+        studies = studies.get("studies") or list(studies.values())
+    try:
+        gaps = json.load(open(os.path.join(DATA, "gaps_baked.json"), encoding="utf-8"))
+    except Exception:
+        gaps = []
+    return cfg, les, pw, studies, gaps
 
 
 def coverage(les, pw):
@@ -413,15 +423,332 @@ def _distractor(seq, meta, core):
     return cands[RNG.randrange(len(cands))] if cands else None
 
 
+
+# ------------------------------------------------------- generatory faze B ---
+#
+# Faze B se pta na SOUD, ne na vybaveni: co vysledek neukazuje, o kterou studii
+# se tvrzeni opira a jak usazene to v oboru je. Vsechny tri hry cerpaji z uz
+# zkuratorovanych poli, ktera Atlas nese: `ai_limitations` a `ai_samplesize`
+# u hloubkove zpracovanych studii, `boundary` a `evidence` u interakci,
+# `confidence` (mechanistic / human_relevance / consensus) a gapy.
+# Nic z toho se tady nedomyslí -- generator jen prehazi to, co uz nekdo napsal
+# a co prochazi branami Atlasu.
+
+WEAK_KINDS = [
+    ("sample", ("sample", "n =", "n=", "subjects", "per group", "underpowered", "small ")),
+    ("species", ("mouse", "mice", "fly", "drosophila", "yeast", "worm", "rat", "cell line",
+                 "in vitro", "cells only", "mammalian cells")),
+    ("duration", ("short", "duration", "acute", "chronic", "lifespan", "endpoint", "long-term",
+                  "follow-up")),
+    ("dose", ("dose", "concentration", "mg", "nm ", "um ", "pharmacolog")),
+    ("design", ("not tested", "inferred", "feasibility", "observational", "correlat",
+                "no control", "single", "review")),
+]
+
+
+def weakness_kind(text):
+    """Do jake rodiny slabin patri tahle veta. Slouzi jen k tomu, aby odznak
+    Methods Reader mohl vyzadovat SIRI zaber (>= 5 druhu), ne jeden druh
+    dvacetkrat. Klicova slova, zadny model -- kdyz to nesedi, je to "other"."""
+    t = (text or "").lower()
+    for kind, keys in WEAK_KINDS:
+        for k in keys:
+            if k in t:
+                return kind
+    return "other"
+
+
+def _short(txt, n=210):
+    txt = re.sub(r"\s+", " ", (txt or "").strip())
+    if len(txt) <= n:
+        return txt
+    cut = txt[:n].rsplit(" ", 1)[0]
+    return cut + "&hellip;"
+
+
+def gen_autopsy(pw, meta, studies, sid_scope):
+    """Paper Autopsy: ke kteremu vysledku patri KTERE omezeni.
+
+    Dve rodiny polozek:
+      * studie -- stem je nalez + model + vzorek, spravna odpoved je
+        `ai_limitations` te studie, rozptylovace jsou omezeni JINYCH studii
+      * hrana modelu -- stem je mechanismus, spravna odpoved je `boundary`
+        te hrany (kurátorem napsany rozsah platnosti)
+    Rozptylovace jsou tedy vzdy stejneho tvaru jako spravna odpoved: nejde je
+    poznat podle formy, jen podle toho, co ve stemu opravdu stoji.
+    """
+    out = []
+    by_sid = {st["sid"]: st for st in (studies or [])}
+
+    # "not stated" a spol. jsou v korpusu legitimni hodnoty, ale jako ODPOVED
+    # jsou k nicemu -- polozka by mela spravnou moznost bez obsahu. Vyhazuji se.
+    EMPTYISH = ("not stated", "none", "n/a", "na", "-", "unknown", "not reported",
+                "not applicable", "not specified")
+
+    def usable(txt):
+        t = re.sub(r"[^a-z ]", "", (txt or "").strip().lower()).strip()
+        return len(t) > 12 and t not in EMPTYISH
+
+    lim = [st for st in (studies or [])
+           if usable(st.get("ai_limitations")) and (st.get("finding") or "").strip()]
+    lim.sort(key=lambda x: x["sid"])
+    for i, st in enumerate(lim):
+        pool = [x for x in lim if x["sid"] != st["sid"]]
+        if len(pool) < 3:
+            continue
+        kind = weakness_kind(st["ai_limitations"])
+        # rozptylovace radeji z jinych rodin slabin, at se nedaji trefit stylem
+        others = [x for x in pool if weakness_kind(x["ai_limitations"]) != kind] or pool
+        # Ruzne studie mivaji doslova stejnou vetu o omezeni ("Small sample.").
+        # Rozptylovac se stejnym TEXTEM by udelal otazku bez jedine spravne
+        # odpovedi -- proto se deduplikuje podle vysledneho retezce, ne podle SID.
+        right_txt = _short(st["ai_limitations"])
+        dis, seen_txt = [], {right_txt}
+        for src in (others, pool):
+            for k in range(len(src)):
+                x = src[(i * 7 + k * 13) % len(src)]
+                t = _short(x["ai_limitations"])
+                if t in seen_txt:
+                    continue
+                seen_txt.add(t)
+                dis.append(x)
+                if len(dis) >= 3:
+                    break
+            if len(dis) >= 3:
+                break
+        if len(dis) < 3:
+            continue
+        opts = [right_txt] + [_short(x["ai_limitations"]) for x in dis[:3]]
+        kinds = [kind] + [weakness_kind(x["ai_limitations"]) for x in dis[:3]]
+        idx = list(range(4))
+        RNG.shuffle(idx)
+        stem = ("<strong>%s</strong> (%s, %s)<br>%s"
+                % (e(st.get("title", "")), e(str(st.get("year", ""))),
+                   e(st.get("model") or st.get("ai_species") or "&mdash;"),
+                   _short(st.get("finding"), 260)))
+        if (st.get("ai_samplesize") or "").strip():
+            stem += "<br><span class=\"pa-sub\">Sample: %s</span>" % _short(st["ai_samplesize"], 150)
+        out.append({
+            "id": "ap:%s" % st["sid"], "game": "autopsy", "diff": 3,
+            "nodes": [], "pool": "core", "kind": kind,
+            "optKinds": [kinds[k] for k in idx],
+            "prompt": "Which limitation is the one this study states about itself?",
+            "sub": "Read the design, not the wording.",
+            "stem": stem,
+            "options": [opts[k] for k in idx],
+            "answer": idx.index(0),
+            "explain": "Its own limitation, as recorded in the Atlas: %s" % _short(st["ai_limitations"], 300),
+            "sid": st["sid"], "lesson": "",
+        })
+
+    edges = [i for i in pw["interactions"]
+             if usable(i.get("boundary")) and i["source"] in meta and i["target"] in meta]
+    edges.sort(key=lambda x: x["id"])
+    for i, it in enumerate(edges):
+        pool = [x for x in edges if x["id"] != it["id"]]
+        if len(pool) < 3:
+            continue
+        right_txt = _short(it["boundary"])
+        picks, seen_txt = [], {right_txt}
+        for k in range(len(pool)):
+            x = pool[(i * 5 + k * 11) % len(pool)]
+            t = _short(x["boundary"])
+            if t in seen_txt:
+                continue
+            seen_txt.add(t)
+            picks.append(x)
+            if len(picks) >= 3:
+                break
+        if len(picks) < 3:
+            continue
+        opts = [right_txt] + [_short(x["boundary"]) for x in picks[:3]]
+        kinds = [weakness_kind(it["boundary"])] + [weakness_kind(x["boundary"]) for x in picks[:3]]
+        idx = list(range(4))
+        RNG.shuffle(idx)
+        out.append({
+            "id": "ab:%s" % it["id"], "game": "autopsy", "diff": 3,
+            "nodes": [it["source"], it["target"]],
+            "pool": "core" if meta[it["source"]]["pool"] == "core" and meta[it["target"]]["pool"] == "core" else "route",
+            "kind": kinds[0], "optKinds": [kinds[k] for k in idx],
+            "prompt": "Where does this step stop holding?",
+            "sub": "Every arrow on the map has a scope. This one's is written down.",
+            "stem": "<strong>%s %s %s</strong><br>%s"
+                    % (e(meta[it["source"]]["label"]),
+                       "&#8867;" if it["effect"] == "inhibits" else "&rarr;",
+                       e(meta[it["target"]]["label"]), _short(it.get("mechanism"), 240)),
+            "options": [opts[k] for k in idx],
+            "answer": idx.index(0),
+            "explain": "The Atlas records the scope of this edge as: %s" % _short(it["boundary"], 300),
+            "lesson": "",
+        })
+    return out
+
+
+def gen_sources(pw, meta, studies):
+    """Find the Evidence: o kterou studii se tvrzeni na mape opira.
+
+    Rozptylovace jsou studie, ktere v Atlasu skutecne existuji a podpiraji JINE
+    hrany -- vyber se tedy nedа udelat od stolu, musis vedet, ktera prace je
+    o cem. Varianta `weaken` pouziva `evidence.conflicting`, kterych je v modelu
+    jen par: prave proto je "aspon 3 oslabujici" v odznaku splnitelne a tezke.
+    """
+    out = []
+    by_sid = {st["sid"]: st for st in (studies or [])}
+
+    def label(sid):
+        st = by_sid.get(sid)
+        if not st:
+            return sid
+        return "%s &mdash; %s (%s)" % (sid, e(_short(st.get("title"), 90)), st.get("year", ""))
+
+    edges = [i for i in pw["interactions"]
+             if i["source"] in meta and i["target"] in meta
+             and (i.get("evidence") or {}).get("supporting")]
+    edges.sort(key=lambda x: x["id"])
+    all_sup = []
+    for it in edges:
+        for sid in it["evidence"]["supporting"]:
+            if sid in by_sid and sid not in all_sup:
+                all_sup.append(sid)
+
+    for i, it in enumerate(edges):
+        right = [x for x in it["evidence"]["supporting"] if x in by_sid]
+        if not right:
+            continue
+        mine = set(it["evidence"]["supporting"]) | set((it["evidence"].get("conflicting") or []))
+        pool = [x for x in all_sup if x not in mine]
+        if len(pool) < 3:
+            continue
+        dis = [pool[(i * 17 + k * 29) % len(pool)] for k in range(3)]
+        if len(set(dis)) < 3:
+            dis = pool[:3]
+        opts = [right[0]] + dis
+        idx = list(range(4))
+        RNG.shuffle(idx)
+        out.append({
+            "id": "sr:%s" % it["id"], "game": "sources", "diff": 3, "variant": "support",
+            "nodes": [it["source"], it["target"]],
+            "pool": "core" if meta[it["source"]]["pool"] == "core" and meta[it["target"]]["pool"] == "core" else "route",
+            "prompt": "Which study in the Atlas is this claim standing on?",
+            "sub": "%s %s %s" % (meta[it["source"]]["label"],
+                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 meta[it["target"]]["label"]),
+            "stem": _short(it.get("mechanism"), 260),
+            "options": [label(opts[k]) for k in idx],
+            "answer": idx.index(0),
+            "explain": "The Atlas records %s as evidence for this step." % ", ".join(right[:3]),
+            "sid": right[0], "lesson": "",
+        })
+
+    for it in [x for x in pw["interactions"]
+               if (x.get("evidence") or {}).get("conflicting")
+               and x["source"] in meta and x["target"] in meta]:
+        conf = [x for x in it["evidence"]["conflicting"] if x in by_sid]
+        sup = [x for x in it["evidence"]["supporting"] if x in by_sid]
+        if not conf or len(sup) < 2:
+            continue
+        opts = [conf[0]] + sup[:3]
+        idx = list(range(len(opts)))
+        RNG.shuffle(idx)
+        out.append({
+            "id": "sw:%s" % it["id"], "game": "sources", "diff": 3, "variant": "weaken",
+            "nodes": [it["source"], it["target"]], "pool": "core",
+            "prompt": "One of these does not agree with the others. Which study conflicts with this step?",
+            "sub": "%s %s %s" % (meta[it["source"]]["label"],
+                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 meta[it["target"]]["label"]),
+            "stem": _short(it.get("mechanism"), 240),
+            "options": [label(opts[k]) for k in idx],
+            "answer": idx.index(0),
+            "explain": "The Atlas holds %s as conflicting evidence here &mdash; the map keeps both sides."
+                       % ", ".join(conf[:2]),
+            "sid": conf[0], "lesson": "",
+        })
+    return out
+
+
+FRONTIER_LABELS = ["Established", "Emerging", "Contested", "Open &mdash; no answer either way"]
+FRONTIER_HELP = ("<strong>Established</strong>: the field agrees. <strong>Emerging</strong>: real "
+                 "evidence, not yet settled. <strong>Contested</strong>: published work points both "
+                 "ways. <strong>Open</strong>: nobody has the answer yet.")
+
+
+def gen_frontier(pw, meta, gaps):
+    """Frontier: jak usazene tvrzeni v oboru je.
+
+    Stitek se NEHADA -- bere se z `confidence.consensus`, ktery je u kazde
+    interakce zkuratorovany, a otevrene polozky pochazeji z gapu a z
+    open_loops / open_localisations. Poradi moznosti je vzdy stejne, aby to
+    byl soud, ne hledani prehozene odpovedi.
+    """
+    out = []
+    CON = {"established": 0, "emerging": 1, "contested": 2}
+    edges = [i for i in pw["interactions"]
+             if i["source"] in meta and i["target"] in meta
+             and (i.get("confidence") or {}).get("consensus") in CON]
+    edges.sort(key=lambda x: x["id"])
+    for it in edges:
+        c = it["confidence"]
+        out.append({
+            "id": "fr:%s" % it["id"], "game": "frontier", "diff": 3, "label": c["consensus"],
+            "nodes": [it["source"], it["target"]],
+            "pool": "core" if meta[it["source"]]["pool"] == "core" and meta[it["target"]]["pool"] == "core" else "route",
+            "prompt": "How settled is this, as the field stands?",
+            "sub": "%s %s %s" % (meta[it["source"]]["label"],
+                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 meta[it["target"]]["label"]),
+            "stem": _short(it.get("mechanism"), 240),
+            "options": list(FRONTIER_LABELS),
+            "answer": CON[c["consensus"]],
+            "explain": ("Curated in the Atlas as consensus <strong>%s</strong>, mechanistic evidence "
+                        "%s, human relevance %s.%s"
+                        % (c["consensus"], c.get("mechanistic", "?"), c.get("human_relevance", "?"),
+                           (" Scope: " + _short(it["boundary"], 200)) if (it.get("boundary") or "").strip() else "")),
+            "lesson": "",
+        })
+
+    for g in (gaps or []):
+        out.append({
+            "id": "fg:%s" % g.get("id", ""), "game": "frontier", "diff": 3, "label": "open",
+            "nodes": [], "pool": "core",
+            "prompt": "How settled is this, as the field stands?",
+            "sub": e(g.get("title", "")),
+            "stem": _short(g.get("basis"), 300),
+            "options": list(FRONTIER_LABELS), "answer": 3,
+            "explain": ("The Atlas holds this as a %s: %s"
+                        % (e(str(g.get("type", "gap")).lower()), _short(g.get("hyp"), 240))),
+            "lesson": "",
+        })
+
+    for o in (pw.get("open_localisations") or []) + (pw.get("open_loops") or []):
+        out.append({
+            "id": "fo:%s" % slug_id(o.get("name", "")), "game": "frontier", "diff": 3, "label": "open",
+            "nodes": [], "pool": "core",
+            "prompt": "How settled is this, as the field stands?",
+            "sub": e(o.get("name", "")),
+            "stem": _short(o.get("why"), 300),
+            "options": list(FRONTIER_LABELS), "answer": 3,
+            "explain": "The model itself carries this as unresolved &mdash; it is drawn hatched on your map.",
+            "lesson": "",
+        })
+    return out
+
+
+def slug_id(name):
+    return re.sub(r"[^a-z0-9]+", "-", (name or "").lower()).strip("-")[:40]
+
 # ------------------------------------------------------------------- bank ---
 
-def build_bank(cfg, les, pw):
+def build_bank(cfg, les, pw, studies=None, gaps=None):
     core, route, meta = coverage(les, pw)
     fit_labels(meta)
     _, oedges = open_ids(pw)
     models, pert = gen_pert(les, pw, meta)
     items = (gen_sprint(pw, meta) + gen_quiz(les, meta) + gen_predict(les, meta)
-             + gen_limits(les) + pert)
+             + gen_limits(les) + pert
+             + gen_autopsy(pw, meta, studies, None)
+             + gen_sources(pw, meta, studies)
+             + gen_frontier(pw, meta, gaps))
     wire = gen_wire(pw, meta, core)
 
     bands = pw.get("bands") or []
@@ -442,7 +769,10 @@ def build_bank(cfg, les, pw):
                 "openLoc": [{"name": o.get("name", ""), "why": o.get("why", "")}
                             for o in (pw.get("open_localisations") or [])][:1]},
         "counts": {"core": len(core), "route": len(route),
-                   "atlas": len(pw["nodes"]), "items": len(items), "wire": len(wire)},
+                   "atlas": len(pw["nodes"]), "items": len(items), "wire": len(wire),
+                   "byGame": {g: sum(1 for i in items if i["game"] == g)
+                              for g in sorted({i["game"] for i in items})}},
+        "frontierHelp": FRONTIER_HELP,
     }
 
 
@@ -491,7 +821,7 @@ html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
   text-transform:uppercase;font-weight:600}
 .pa-bhead .pa-prog{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
 .pa-body{padding:20px 18px 22px}
-.pa-q{font-size:17px;line-height:1.5;margin:0 0 4px;font-weight:600}
+.pa-q{font-size:17px;line-height:1.5;margin:0 0 4px;font-weight:600}\n.pa-stem{border-left:3px solid var(--line);padding:2px 0 2px 15px;margin:0 0 16px;\n  font-size:15px;line-height:1.6;color:var(--soft)}\n.pa-stem strong{color:var(--ink)}
 .pa-sub{font-size:13px;color:var(--soft);margin:0 0 16px;font-family:'IBM Plex Mono',monospace;
   letter-spacing:.03em}
 .pa-opts{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
@@ -767,7 +1097,9 @@ window.PA = (function(){
   function blank(){
     return {v:1, xp:0, rank:1, m:{}, seen:{}, br:[],
             met:{predictOk:0, predictLessons:[], wirePerfect:0, wirePerfectHard:0,
-                 limitsOk:0, sprintOk:0, answered:0},
+                 limitsOk:0, sprintOk:0, answered:0,
+                 autopsyOk:0, autopsyKinds:[], sampleOk:0, sampleFalseReject:0,
+                 openOk:0, openFalse:0, sourceOk:0, sourceWeakening:[], discriminating:0},
             bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
   }
   function read(){
@@ -858,7 +1190,8 @@ window.PA = (function(){
   }
 
   /* ---------------- answering ---------------- */
-  function record(item, ok, p){
+  function record(item, ok, p, chosen){
+    if(chosen !== undefined) item.chosen = chosen;
     var sure = (p !== null && p >= D.cfg.confidence.sureThreshold);
     var xp = scoreItem(item, ok, p);
     var seen = S.seen[item.id];
@@ -875,6 +1208,28 @@ window.PA = (function(){
       }
       if(item.game === 'limits') S.met.limitsOk++;
       if(item.game === 'sprint') S.met.sprintOk++;
+      if(item.game === 'autopsy'){
+        S.met.autopsyOk++;
+        /* Odznak Methods Reader chce SIRI zaber: kazdy druh slabiny se zapocita
+           jednou, aby dvacet nalezu jednoho druhu nestacilo. */
+        if(item.kind && S.met.autopsyKinds.indexOf(item.kind) < 0) S.met.autopsyKinds.push(item.kind);
+        if(item.kind === 'sample') S.met.sampleOk++;
+      }
+      if(item.game === 'sources'){
+        S.met.sourceOk++;
+        if(item.variant === 'weaken' && S.met.sourceWeakening.indexOf(item.id) < 0)
+          S.met.sourceWeakening.push(item.id);
+      }
+      if(item.game === 'frontier' && item.label === 'open') S.met.openOk++;
+    } else {
+      /* Chybne odpovedi, ktere maji vlastni vahu: obvinit z maleho vzorku neco,
+         co ma uplne jinou slabinu, a oznacit usazeny mechanismus za otevrenou
+         otazku. Obe jsou "skepse, ktera pali na vsechno" -- odznaky je hlidaji. */
+      if(item.game === 'autopsy' && item.optKinds && item.chosen !== undefined
+         && item.optKinds[item.chosen] === 'sample' && item.kind !== 'sample')
+        S.met.sampleFalseReject++;
+      if(item.game === 'frontier' && item.chosen === 3 && item.label === 'established')
+        S.met.openFalse++;
     }
     touchStreak();
     snapshot();
@@ -971,7 +1326,6 @@ window.PA = (function(){
     var gained = [], i, b, p;
     for(i=0;i<D.cfg.badges.length;i++){
       b = D.cfg.badges[i];
-      if(b.phase !== 'A') continue;
       p = badgeProgress(b);
       if(p.tier > (S.bg[b.id]||0)){
         S.bg[b.id] = p.tier;
@@ -989,13 +1343,13 @@ window.PA = (function(){
   function nextRank(){ return rankDef(S.rank + 1); }
   function rankReady(){
     var r = nextRank();
-    if(!r || r.n === S.rank || r.phase !== 'A') return false;
+    if(!r || r.n === S.rank) return false;
     if(S.xp < r.xp) return false;
     if(masteredCount(r.masteredAt || 3) < (r.masteredNodes||0)) return false;
     if(r.brier){ var br = brier(); if(!br || br.v > r.brier) return false; }
     return true;
   }
-  function promote(){ S.rank = Math.min(S.rank+1, 3); save(); }
+  function promote(){ S.rank = Math.min(S.rank+1, D.cfg.ranks.length); save(); }
   function unlocked(what){
     var i, r;
     for(i=0;i<D.cfg.ranks.length;i++){
@@ -1011,6 +1365,9 @@ window.PA = (function(){
     if(item.pool === 'route' && !unlocked('routepool')) return false;
     if(item.game === 'pert' && !unlocked('pert')) return false;
     if(item.game === 'limits' && !unlocked('limits')) return false;
+    if(item.game === 'autopsy' && !unlocked('autopsy')) return false;
+    if(item.game === 'sources' && !unlocked('sources')) return false;
+    if(item.game === 'frontier' && !unlocked('frontier')) return false;
     if((item.diff||1) > S.rank + 1) return false;
     return true;
   }
@@ -1234,9 +1591,11 @@ PRACTICE_JS = """
               '<span class="pa-k">' + letters[i] + '</span><span>' + item.options[i] + '</span></button>';
     }
     show(head(title, prog) + '<div class="pa-body">' +
+         (item.stem ? '<div class="pa-stem">' + item.stem + '</div>' : '') +
          '<p class="pa-q">' + item.prompt + '</p>' +
          (item.sub ? '<p class="pa-sub">' + esc(item.sub) + '</p>' : '') +
          '<div class="pa-opts">' + opts + '</div>' +
+         (item.game === 'frontier' ? '<p class="pa-note">' + D.frontierHelp + '</p>' : '') +
          '<div id="paConf"></div><div id="paFb"></div></div>');
 
     var chosen = -1;
@@ -1255,7 +1614,7 @@ PRACTICE_JS = """
 
   function grade(item, chosen, p, after){
     var ok = (chosen === item.answer);
-    var res = PA.record(item, ok, p);
+    var res = PA.record(item, ok, p, chosen);
     session.n++; session.xp += res.xp; if(ok) session.ok++;
     board.querySelectorAll('.pa-opt').forEach(function(b){
       var i = parseInt(b.getAttribute('data-i'),10);
@@ -1900,11 +2259,56 @@ PROGRESS_JS = """
     }
     if(!br){ el.innerHTML = '<p class="pa-note">Answer a few more questions with a confidence level ' +
       'and the score appears here.</p>'; return; }
+    var curve = PA.unlocked('calibration-curve') ? calCurve() : '';
     el.innerHTML = '<p class="pa-q" style="font-size:17px;margin:0 0 6px">Brier ' + br.v.toFixed(3) +
       ' <span class="pa-sub" style="margin-left:10px">over your last ' + br.n + ' judgements</span></p>' +
       '<p class="pa-note">Random guessing scores 0.25. &ldquo;Always 80% sure and right 80% of the time&rdquo; ' +
       'scores 0.16. A good expert sits near 0.10. Lower is better, and being wrong while certain is what ' +
-      'moves it most.</p>';
+      'moves it most.</p>' + curve;
+  }
+
+  /* ---------------- calibration curve (rank 5+) ---------------- */
+  /* Cara na uhloprice = rikas 80 % a mas pravdu v 80 %. Bod nad ni znamena, ze
+     si veris min, nez bys mel; pod ni, ze si veris vic. Zadne vyhlazovani --
+     kdyz je v kosi peti odpovedi, vidis peti odpovedi. */
+  function calCurve(){
+    var bins = [[50,60],[60,70],[70,80],[80,90],[90,100]], i, j, out = [];
+    for(i=0;i<bins.length;i++){
+      var lo = bins[i][0]/100, hi = bins[i][1]/100, n = 0, ok = 0;
+      for(j=0;j<S.br.length;j++){
+        var p = S.br[j][0];
+        if(p >= lo && (p < hi || (i === bins.length-1 && p <= hi))){ n++; ok += S.br[j][1]; }
+      }
+      out.push({lo:lo, hi:hi, n:n, acc: n ? ok/n : null});
+    }
+    var W = 340, H = 200, PAD = 34, x, y, s2 = '';
+    s2 += '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
+          '" role="img" aria-label="Calibration: stated confidence against how often you were right">';
+    s2 += '<line x1="' + PAD + '" y1="' + (H-PAD) + '" x2="' + (W-8) + '" y2="' + (H-PAD) +
+          '" stroke="var(--line)"/>';
+    s2 += '<line x1="' + PAD + '" y1="8" x2="' + PAD + '" y2="' + (H-PAD) + '" stroke="var(--line)"/>';
+    s2 += '<line x1="' + PAD + '" y1="' + (H-PAD) + '" x2="' + (W-8) + '" y2="8" ' +
+          'stroke="var(--soft)" stroke-dasharray="4 4" opacity=".6"/>';
+    var px = function(v){ return PAD + (v - 0.5) / 0.5 * (W - 8 - PAD); };
+    var py = function(v){ return (H-PAD) - v * (H - PAD - 8); };
+    var pts = [];
+    for(i=0;i<out.length;i++){
+      if(out[i].acc === null) continue;
+      x = px((out[i].lo + out[i].hi)/2); y = py(out[i].acc);
+      pts.push(x.toFixed(1) + ',' + y.toFixed(1));
+      s2 += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' +
+            Math.min(7, 3 + out[i].n/8).toFixed(1) + '" fill="var(--teal)"/>';
+    }
+    if(pts.length > 1)
+      s2 += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="var(--teal)" stroke-width="2"/>';
+    s2 += '<text x="' + PAD + '" y="' + (H-10) + '" class="pa-bandsub">50%</text>' +
+          '<text x="' + (W-30) + '" y="' + (H-10) + '" class="pa-bandsub">100%</text>' +
+          '<text x="4" y="14" class="pa-bandsub">right</text>';
+    s2 += '</svg>';
+    return '<div style="margin-top:14px">' + s2 +
+           '<p class="pa-note">Stated confidence across the bottom, how often you were actually right ' +
+           'up the side. On the dashed line you are calibrated; above it you are underrating yourself, ' +
+           'below it you are overconfident. Dot size is how many judgements sit in that bin.</p></div>';
   }
 
   /* ---------------- tools ---------------- */
@@ -1988,12 +2392,16 @@ def fallback_sheet(bank, n_quiz=6, n_lim=3, n_sp=4):
     out = ['<div class="pa-fallback" id="paFallback">',
            '<h2>Practice questions</h2>',
            '<p class="pa-note">%s</p>' % e(bank["cfg"]["copy"]["noJs"])]
-    for it in take("quiz", n_quiz, key=1) + take("limits", n_lim, key=1) + take("sprint", n_sp):
+    for it in (take("quiz", n_quiz, key=1) + take("limits", n_lim, key=1)
+               + take("autopsy", 2) + take("frontier", 2) + take("sources", 1)
+               + take("sprint", n_sp)):
         opts = "".join('<li>%s</li>' % o for o in it["options"])
-        out.append('<details><summary>%s</summary>'
+        out.append('<details><summary>%s</summary>%s'
                    '<ol class="pa-note" type="A">%s</ol>'
                    '<p class="pa-ans"><b>Answer: %s.</b> %s</p></details>'
-                   % (it["prompt"], opts, "ABCDEFGH"[it["answer"]], it.get("explain") or ""))
+                   % (it["prompt"] if not it.get("sub") else "%s &mdash; %s" % (it["prompt"], it["sub"]),
+                      ('<p class="pa-note">%s</p>' % it["stem"]) if it.get("stem") else "",
+                      opts, "ABCDEFGH"[it["answer"]], it.get("explain") or ""))
     out.append("</div>")
     return "".join(out)
 
@@ -2279,8 +2687,8 @@ def progress_page(bank):
 # ------------------------------------------------------------------- main ---
 
 def build(verbose=True):
-    cfg, les, pw = load()
-    bank = build_bank(cfg, les, pw)
+    cfg, les, pw, studies, gaps = load()
+    bank = build_bank(cfg, les, pw, studies, gaps)
     urls = []
     for fn, sub in ((practice_page, "practice"), (progress_page, "progress")):
         url, page = fn(bank)

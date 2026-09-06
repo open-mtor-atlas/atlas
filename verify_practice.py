@@ -26,6 +26,11 @@ PRAVIDLA
   P8  Zapecena data neobsahuji ukoncovaci </script> a daji se naparsovat.
   P9  Otevrene otazky se nedaji "vyresit": zadna polozka netvrdi nic o hrane,
       kterou model vede jako open_loop.
+  P10 Frontier stitek (established/emerging/contested/open) pochazi z
+      confidence.consensus nebo z gaps -- nikdy se nehada.
+  P11 Find the Evidence nabizi jen SID, ktere v korpusu existuji, a spravna
+      odpoved je opravdu v supporting (resp. conflicting) te hrany.
+  P12 Paper Autopsy ma ctyri ruzne moznosti a otagovany druh slabiny.
 
     py verify_practice.py          # 0 = cisto, 1 = nalezy
 """
@@ -48,8 +53,9 @@ def bad(where, msg):
 def main():
     import build_practice as BPR
 
-    cfg, les, pw = BPR.load()
-    bank = BPR.build_bank(cfg, les, pw)
+    cfg, les, pw, studies, gaps = BPR.load()
+    bank = BPR.build_bank(cfg, les, pw, studies, gaps)
+    by_sid = {st["sid"]: st for st in studies}
     nodes = bank["nodes"]
     inter = {i["id"]: i for i in pw["interactions"]}
     pw_ids = {n["id"] for n in pw["nodes"]}
@@ -180,6 +186,68 @@ def main():
         if it["id"].startswith("sp:") and it["id"][3:] in open_edges:
             bad("item %s" % it["id"], "polozka tvrdi neco o hrane, kterou model vede jako otevrenou")
 
+    # ---- P10: Frontier stitek se nesmi hadat -------------------------------
+    # Kazda polozka Frontier musi mit stitek z kurátorovanych dat: bud
+    # confidence.consensus u interakce, nebo zaznam v gaps / open_*. Kdyby si
+    # generator stitek domyslel, hra by tvrdila neco o stavu oboru za obor.
+    con = {i["id"]: (i.get("confidence") or {}).get("consensus") for i in pw["interactions"]}
+    gap_ids = {("fg:%s" % g.get("id")) for g in (gaps or [])}
+    LAB = ["established", "emerging", "contested", "open"]
+    for it in bank["items"]:
+        if it["game"] != "frontier":
+            continue
+        w = "frontier %s" % it["id"]
+        if it["label"] not in LAB:
+            bad(w, "neznamy stitek %r" % it["label"])
+        if it["id"].startswith("fr:"):
+            want = con.get(it["id"][3:])
+            if want != it["label"]:
+                bad(w, "stitek %r neodpovida modelu (%r)" % (it["label"], want))
+        elif it["id"].startswith("fg:"):
+            if it["id"] not in gap_ids:
+                bad(w, "polozka se odkazuje na gap, ktery v gaps_baked.json neni")
+            if it["label"] != "open":
+                bad(w, "gap musi byt otevrena otazka")
+        elif not it["id"].startswith("fo:"):
+            bad(w, "neznamy puvod polozky")
+        if LAB.index(it["label"]) != it["answer"]:
+            bad(w, "index spravne odpovedi neodpovida stitku")
+
+    # ---- P11: Find the Evidence smi nabizet jen SID, ktere v korpusu jsou ---
+    for it in bank["items"]:
+        if it["game"] != "sources":
+            continue
+        w = "sources %s" % it["id"]
+        if it.get("sid") not in by_sid:
+            bad(w, "spravna odpoved %r neni v korpusu studii" % it.get("sid"))
+        eid = it["id"].split(":", 1)[1]
+        ev = None
+        for i in pw["interactions"]:
+            if i["id"] == eid:
+                ev = i.get("evidence") or {}
+                break
+        if ev is None:
+            bad(w, "hrana %r neexistuje" % eid)
+        elif it.get("variant") == "weaken":
+            if it["sid"] not in (ev.get("conflicting") or []):
+                bad(w, "studie neni v konfliktnich dukazech te hrany")
+        elif it["sid"] not in (ev.get("supporting") or []):
+            bad(w, "studie nepodpira tu hranu podle modelu")
+
+    # ---- P12: Paper Autopsy musi mit ctyri RUZNE moznosti a otagovany druh --
+    for it in bank["items"]:
+        if it["game"] != "autopsy":
+            continue
+        w = "autopsy %s" % it["id"]
+        if len(set(it["options"])) != len(it["options"]):
+            bad(w, "dve moznosti jsou stejny text -- otazka nema jedinou odpoved")
+        if not it.get("kind"):
+            bad(w, "chybi druh slabiny (odznak Methods Reader ho pocita)")
+        if len(it.get("optKinds") or []) != len(it["options"]):
+            bad(w, "optKinds neodpovida poctu moznosti")
+        if it["id"].startswith("ap:") and it.get("sid") not in by_sid:
+            bad(w, "studie %r neni v korpusu" % it.get("sid"))
+
     # ---- vysledek ----------------------------------------------------------
     c = bank["counts"]
     print("Practice Arena: %d polozek, %d wire puzzlu, %d uzlu (core %d, route %d) z %d"
@@ -189,7 +257,7 @@ def main():
         for p in PROBLEMS:
             print("  ! " + p)
         return 1
-    print("Cisto -- vsech devet pravidel prosslo.")
+    print("Cisto -- vsech dvanact pravidel prosslo.")
     return 0
 
 

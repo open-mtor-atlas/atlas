@@ -1312,12 +1312,30 @@ CHALLENGE_JS = """
     if(box&&box.scrollIntoView) box.scrollIntoView({block:'nearest'});
   }
 
+  /* Practice Arena, odznak Falsifier: kdyz PRVNI zaplaceny experiment v teto
+     vyzve umi rozhodnout mezi hypotezami (discriminates >= 2), zapise se to do
+     stejneho uloziste jako zbytek herni vrstvy. Kazda vyzva se pocita jednou a
+     jen kdyz uz nejaky postup existuje -- z teto stranky se stav nezaklada. */
+  function paFalsifier(id){
+    try{
+      var nd=D.nodes[id]; if(!nd || (nd.disc||0) < 2) return;
+      var KEY='atlas-practice-v1', st=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(!st || !st.met) return;
+      st.met.discSeen = st.met.discSeen || [];
+      if(st.met.discSeen.indexOf(location.pathname) >= 0) return;
+      st.met.discSeen.push(location.pathname);
+      st.met.discriminating = (st.met.discriminating || 0) + 1;
+      localStorage.setItem(KEY, JSON.stringify(st));
+    }catch(err){}
+  }
+
   function run(id){
     if(closed||isRun(id)) return;
     var n=D.nodes[id];
     if(n.cost>left) return;
     var u=unlocked(); if(!u[id]) return;
     left-=n.cost; ran.push(id); cursor=id;
+    if(ran.length===1) paFalsifier(id);
     paint();
     track('experiment_run',{experiment:id,cost:n.cost,remaining:left,
                             answers:answered().length});
@@ -2659,6 +2677,9 @@ def rc_lab_data(lab, solved):
     nodes = {}
     for n in lab["nodes"]:
         nodes[n["id"]] = {"label": e(n["label"]), "cost": n["cost"],
+                          # kolik hypotez ten krok rozlisi -- cte to Practice
+                          # Arena (odznak Falsifier), viz build_practice.py
+                          "disc": len(n.get("discriminates") or []),
                           "addresses": prose(n["addresses"]),
                           "yields": n["yields"], "next": n["next"],
                           "prediction": n.get("returns") == "prediction",
