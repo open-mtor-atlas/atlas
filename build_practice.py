@@ -678,6 +678,44 @@ html[data-theme="dark"] .pa-opt:hover{background:rgba(108,168,178,.08)}
 .pa-crit .pa-cv{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);
   font-weight:600;white-space:nowrap}
 
+/* "world map" meter -- kolik draha uz je objevena ------------------------ */
+.pa-world{display:flex;gap:26px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);
+  border-radius:3px;padding:18px 20px;margin:0 0 26px}
+.pa-world .pa-wleft{flex:1 1 320px;min-width:min(100%,300px)}
+.pa-world .pa-wpct{display:flex;align-items:baseline;gap:10px;margin:0 0 10px}
+.pa-world .pa-wnum{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.pa-world .pa-wlab{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft)}
+.pa-wbar{display:flex;height:12px;background:var(--line);border-radius:0;overflow:hidden;margin:0 0 10px}
+.pa-wbar i{display:block;height:100%}
+.pa-wbar .w-gold{background:var(--amber)}
+.pa-wbar .w-mast{background:var(--teal)}
+.pa-wbar .w-seen{background:var(--pa-tint,rgba(163,31,52,.09));box-shadow:inset 0 0 0 1px var(--teal)}
+.pa-wkeys{display:flex;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--soft)}
+.pa-wkeys b{color:var(--ink);font-weight:600}
+.pa-wkeys span{display:flex;align-items:center;gap:6px}
+.pa-wkeys i{width:10px;height:10px;flex:none;display:block}
+.pa-wkeys i.w-gold{background:var(--amber)}
+.pa-wkeys i.w-mast{background:var(--teal)}
+.pa-wkeys i.w-seen{background:var(--pa-tint,rgba(163,31,52,.09));box-shadow:inset 0 0 0 1px var(--teal)}
+.pa-wkeys i.w-none{background:var(--line)}
+.pa-wkeys i.w-open{background:repeating-linear-gradient(45deg,transparent,transparent 2px,
+  var(--line-strong,rgba(0,0,0,.3)) 2px,var(--line-strong,rgba(0,0,0,.3)) 3.5px);
+  outline:1px dashed var(--soft);outline-offset:-1px}
+.pa-world .pa-wmini{flex:0 0 auto}
+.pa-wmini svg{display:block;width:230px;height:auto}
+.pa-wmini .m-rest{fill:var(--soft);opacity:.18}
+.pa-wmini .m-n{fill:none;stroke:var(--line-strong,rgba(0,0,0,.3));stroke-width:1}
+.pa-wmini .m-n[data-m="1"],.pa-wmini .m-n[data-m="2"]{fill:var(--pa-tint,rgba(163,31,52,.09));
+  stroke:var(--teal)}
+.pa-wmini .m-n[data-m="3"]{fill:var(--teal);stroke:var(--teal)}
+.pa-wmini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
+.pa-wmini .m-open{fill:none;stroke:var(--soft);stroke-dasharray:2 2}
+.pa-world .pa-wgo{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  text-decoration:none;display:inline-block;margin-top:12px}
+@media (max-width:620px){ .pa-wmini svg{width:170px} }
+
 /* misc ---------------------------------------------------------------- */
 .pa-tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}
 .pa-tools button{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;
@@ -1238,7 +1276,7 @@ PRACTICE_JS = """
       '<div class="pa-tools" style="margin-top:16px"><button id="paNext" type="button">Next &rarr;</button></div>';
     document.getElementById('paNext').addEventListener('click', after);
     document.getElementById('paNext').focus();
-    paintRank();
+    paintRank(); paintWorld();
   }
   function esc2(s){ return s == null ? '' : String(s); }
   function badgeLine(bs){
@@ -1560,7 +1598,75 @@ PRACTICE_JS = """
     startQueue(ids, game === 'pert' ? 'Perturbation Lab' : "What It Doesn't Show");
   }
 
-  paintRank(); paintTiles();
+  /* ---------------- how much of the world is uncovered ---------------- */
+  /* Procenta se pocitaji z uzlu, ktere JDOU zvladnout. Otevrene otazky do
+     jmenovatele nepatri: kdyby patrily, hra by slibovala 100 % tam, kde obor
+     zadnou odpoved nema. */
+  function paintWorld(){
+    var box = document.getElementById('paWorld'); if(!box) return;
+    var ids = Object.keys(D.nodes), tot = ids.length;
+    var seen = 0, mast = 0, gold = 0, i, v;
+    for(i=0;i<ids.length;i++){
+      v = PA.mastery(ids[i]);
+      if(v >= CFG.mastery.goldFrom) gold++;
+      else if(v >= CFG.mastery.masteredFrom) mast++;
+      else if(v >= 1) seen++;
+    }
+    var touched = seen + mast + gold;
+    var pct = Math.round(touched / tot * 100);
+    var pctM = Math.round((mast + gold) / tot * 100);
+    var w = function(x){ return (x / tot * 100).toFixed(2) + '%'; };
+
+    box.innerHTML =
+      '<div class="pa-wleft">' +
+        '<div class="pa-wpct"><span class="pa-wnum">' + pct + '%</span>' +
+        '<span class="pa-wlab">of the pathway explored &middot; ' + pctM + '% mastered</span></div>' +
+        '<div class="pa-wbar">' +
+          '<i class="w-gold" style="width:' + w(gold) + '"></i>' +
+          '<i class="w-mast" style="width:' + w(mast) + '"></i>' +
+          '<i class="w-seen" style="width:' + w(seen) + '"></i>' +
+        '</div>' +
+        '<div class="pa-wkeys">' +
+          '<span><i class="w-gold"></i><b>' + gold + '</b> can predict</span>' +
+          '<span><i class="w-mast"></i><b>' + mast + '</b> mastered</span>' +
+          '<span><i class="w-seen"></i><b>' + seen + '</b> learning</span>' +
+          '<span><i class="w-none"></i><b>' + (tot - touched) + '</b> untouched</span>' +
+          '<span><i class="w-open"></i><b>2</b> open &mdash; never fill</span>' +
+        '</div>' +
+        '<a class="pa-wgo" href="/academy/progress/">Open the full map &rarr;</a>' +
+      '</div>' +
+      '<div class="pa-wmini">' + minimap() + '</div>';
+  }
+  function minimap(){
+    /* Minimapa je tataz mapa jako na /academy/progress/, jen bez popisku:
+       stejne souradnice z pathway/model.json, stejne barvy. */
+    var W = 460, H = 460, X0 = 60, Y0 = 50, XS = 1400, YS = 1370;
+    var sx = function(x){ return (x - X0) / XS * W; };
+    var sy = function(y){ return (y - Y0) / YS * H; };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
+            'aria-label="Miniature map of the pathway, coloured by what you have practised">';
+    var i, r = D.map.rest;
+    for(i=0;i<r.length;i++)
+      s += '<circle class="m-rest" cx="' + sx(r[i][0]).toFixed(1) + '" cy="' +
+           sy(r[i][1]).toFixed(1) + '" r="3"/>';
+    var ids = Object.keys(D.nodes), id, nd, v, m;
+    for(i=0;i<ids.length;i++){
+      id = ids[i]; nd = D.nodes[id]; v = PA.mastery(id);
+      m = v >= CFG.mastery.goldFrom ? 4 : (v >= CFG.mastery.masteredFrom ? 3 : (v >= 1 ? 1 : 0));
+      s += '<rect class="m-n" data-m="' + m + '" x="' + (sx(nd.x) - 9).toFixed(1) + '" y="' +
+           (sy(nd.y) - 4).toFixed(1) + '" width="18" height="8" rx="1"/>';
+    }
+    /* dve veci, ktere se nikdy nezaplni */
+    s += '<rect class="m-open" x="' + (sx(1307) - 9).toFixed(1) + '" y="' + (sy(690) - 4).toFixed(1) +
+         '" width="18" height="8" rx="1"/>';
+    s += '<path class="m-open" d="M ' + sx(880).toFixed(1) + ' ' + sy(1148).toFixed(1) +
+         ' C ' + sx(1430).toFixed(1) + ' ' + sy(1120).toFixed(1) + ', ' +
+         sx(1440).toFixed(1) + ' ' + sy(300).toFixed(1) + ', ' +
+         sx(1120).toFixed(1) + ' ' + sy(186).toFixed(1) + '" fill="none"/>';
+    return s + '</svg>';
+  }
+
+  paintRank(); paintTiles(); paintWorld();
   var note = document.getElementById('paStorage');
   if(note) note.hidden = false;
 })();
@@ -2038,6 +2144,19 @@ def practice_page(bank):
                 '<span class="pa-meter"><i style="width:0%"></i></span>'
                 '<span class="pa-to">Progress is kept in this browser</span></div>')
 
+    # Kolik "herniho sveta" uz je objeveno. Bez JS zustane veta s cisly, ktera
+    # plati pro kazdeho (velikost mapy), s JS se doplni osobni procenta a minimapa.
+    body.append('<div class="pa-world pa-tint" id="paWorld">'
+                '<div class="pa-wleft">'
+                '<div class="pa-wpct"><span class="pa-wnum">%d</span>'
+                '<span class="pa-wlab">nodes in the Academy map &middot; %d in the Atlas</span></div>'
+                '<p class="pa-note">The pathway is the board you are playing on. Every question you '
+                'answer colours in a piece of it &mdash; and two of its questions are ones the field '
+                'itself has not closed, so they never fill in.</p>'
+                '<a class="pa-wgo" href="%s/academy/progress/">Your pathway and badges &rarr;</a>'
+                '</div></div>'
+                % (len(bank["nodes"]), bank["counts"]["atlas"], SITE))
+
     # Dlazdice se bez JS vykresli jako popis her (ne tlacitka) -- porad rikaji,
     # co Practice Arena je a co v ni na sebe navazuje.
     tiles = []
@@ -2047,9 +2166,8 @@ def practice_page(bank):
     body.append('<div class="pa-tiles" id="paTiles">%s</div>' % "".join(tiles))
     body.append('<div class="pa-board" id="paBoard" hidden></div>')
 
-    body.append('<p class="pa-note" id="paStorage" hidden>%s '
-                '<a href="%s/academy/progress/">Your pathway and badges &rarr;</a></p>'
-                % (e(cfg["copy"]["storageNote"]), SITE))
+    body.append('<p class="pa-note" id="paStorage" hidden>%s</p>'
+                % e(cfg["copy"]["storageNote"]))
 
     body.append('<h2>How the points work</h2>'
                 '<p class="pa-note">Points are called <strong>XP</strong>. Every number you see with a '
