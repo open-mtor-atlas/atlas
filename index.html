@@ -237,28 +237,26 @@ interactions across <span id="shRouteCount">11</span> guided routes.</p>
 
   <div class="tabs-row">
     <div class="tabs">
-      <!-- 2026-09-07 (SEO P0 Ukol 1b, homepage's own nav): every tab below
-           that has a static equivalent (same STATIC_TAB_URLS mapping build_pages.py
-           already uses for the other ~500 pages' topbar) is now a real <a href>
-           -- crawlable, and gives a correct address on hover / copy-link /
-           ctrl-click-open-in-new-tab. A plain left click still switches the
-           view in place via the SPA (see the click listener below, which
-           preventDefault()s first) -- the resulting address bar URL is now
-           the clean static path instead of "/#view=X" (see VIEW_PATHS in
-           syncURL()). "Ask Atlas" stays a plain <div>, unchanged: it has no
-           static equivalent to link to. -->
+      <!-- 2026-09-07 (SEO P0 Ukol 1b + nav IA unification): every tab with a
+           static equivalent is a real <a href> (same STATIC_TAB_URLS mapping
+           build_pages.py uses for the other ~500 pages' topbar) and, since the
+           unification, actually NAVIGATES there on a plain click too -- so one
+           menu item means one page, whichever page you click it from. Only
+           "Welcome" and "Ask Atlas" stay in-page: both are states of "/"
+           itself, so their address stays truthful. See the click listener
+           below (IN_PAGE_TABS). -->
       <a class="tab tab-link active" data-tab="welcome" href="/">Welcome</a>
       <!-- LEARN je jediná položka navigace, která NENÍ pohled SPA: Academy je
            statická sekce (/academy/, generuje build_academy.py), takže je to
            obyčejný <a>, ne <div data-tab>. Díky tomu se showView()/applyHash()
            /syncURL() nemusely vůbec měnit -- a crawler bez JS ten odkaz vidí. -->
-      <a class="tab tab-link" href="/academy/">Learn</a>
+      <a class="tab tab-link" href="/academy/">Academy</a>
       <div class="tab" data-tab="ask">Ask Atlas</div>
       <a class="tab tab-link" data-tab="map" href="/pathway/">Pathway</a>
       <a class="tab tab-link" data-tab="studies" href="/browse/">Studies</a>
-      <a class="tab tab-link" data-tab="authors" href="/authors/">Authors</a>
+      <a class="tab tab-link" data-tab="authors" href="/authors/">Researchers</a>
       <a class="tab tab-link" data-tab="questions" href="/questions/">Open Questions</a>
-      <a class="tab tab-link" data-tab="lineage" href="/events/">Timeline</a>
+      <a class="tab tab-link" href="/events/">Events</a>
       <a class="tab tab-link" data-tab="about" href="/about/">About</a>
     </div>
   </div>
@@ -269,7 +267,7 @@ interactions across <span id="shRouteCount">11</span> guided routes.</p>
     <div class="intro-lede">
       <p style="margin:0 0 14px;">The mTOR Atlas is an <strong>evidence-first map</strong> of the mTOR research landscape — bringing together the key studies, mechanisms, interventions, diseases, outcomes and researchers that shape our understanding of mTOR.</p>
       <p style="margin:0 0 14px;">Explore the biology in the <a href="#map" onclick="document.querySelector('.tab[data-tab=map]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Pathway</a>, where molecular components and mechanisms are connected into a navigable view of the mTOR system. Dive into <a href="#studies" onclick="document.querySelector('.tab[data-tab=studies]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Studies</a> to explore the underlying evidence, compare findings and follow results back to the original research. Meet the <a href="#authors" onclick="document.querySelector('.tab[data-tab=authors]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Authors</a> behind the field and discover how different researchers and groups have contributed to our understanding of mTOR.</p>
-      <p style="margin:0 0 14px;"><a href="#ask" onclick="document.querySelector('.tab[data-tab=ask]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Ask Atlas</a> lets you explore the literature through natural-language questions, with answers grounded in the studies within the Atlas. And <a href="#questions" onclick="document.querySelector('.tab[data-tab=questions]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Open Questions</a> focuses on what the evidence does not yet resolve — highlighting gaps, conflicting findings and promising questions for future research.</p>
+      <p style="margin:0 0 14px;"><a href="#ask" onclick="document.querySelector('.tab[data-tab=ask]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Ask Atlas</a> lets you explore the literature through natural-language questions, with answers grounded in the studies within the Atlas. And <a href="#questions" onclick="document.querySelector('.tab[data-tab=questions]').click();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">Open Questions</a> focuses on what the evidence does not yet resolve — highlighting gaps, conflicting findings and promising questions for future research. And if you would rather see how the field itself developed, <a href="/#view=lineage" onclick="showView('lineage');renderAll();pushNav();return false;" style="color:var(--teal-deep);font-weight:600;border-bottom:1px solid rgba(0,0,0,.25);text-decoration:none;cursor:pointer;">how mTOR biology grew</a> traces which landmark result made the next one possible.</p>
       <p style="margin:0;">The Atlas is designed to make the mTOR literature easier to navigate while keeping an important distinction: <strong>what has been demonstrated</strong>, <strong>what is an interpretation</strong>, and <strong>what remains a hypothesis</strong>.</p>
     </div>
 
@@ -3428,6 +3426,22 @@ function toggleTopAuthors(){
   renderTopAuthors();
 }
 
+/* 2026-09-07 (nav IA unification, dead-end fix): mirrors build_pages.py's
+   slugify() for author_page(), which builds /author/<slug>/ from bio["full"].
+   Verified against the generated directories: 53 of 53 match. An author has a
+   page exactly when AUTHOR_BIOS has an entry, which is the same condition
+   build_pages.py loops over (author_bios_baked.json). */
+function authorPageUrl(name){
+  const bio = AUTHOR_BIOS[name];
+  if(!bio || !bio.full) return null;
+  const slug = bio.full.normalize('NFKD')
+    .replace(/[\u2019'`\u02bc]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return slug ? ('/author/' + slug + '/') : null;
+}
 function renderAuthorsTable(){
   const q = (state.authorQuery||"").toLowerCase();
   let rows = AUTHORS_INDEX.filter(a=> !q || a.name.toLowerCase().includes(q));
@@ -3453,7 +3467,12 @@ function renderAuthorsTable(){
     const studiesHtml = studies.map(s=>
       `<span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="event.stopPropagation();filterStudiesByTitle('${jsStr(s.title)}')" title="${s.title}">${s.title}</span> <span class="mono" style="font-size:10px;color:var(--ink-soft);">(${s.year||'—'})</span>`
     ).join('; ');
-    const bioIcon = AUTHOR_BIOS[a.name] ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;vertical-align:-2px;margin-left:6px;" onclick="event.stopPropagation();showAuthorBio('${jsStr(a.name)}')" title="View author profile"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>` : '';
+    /* The icon used to open an in-page modal, which left this view with zero
+       links to the 53 /author/ pages -- a dead end on the one route the
+       homepage sent every visitor down. It is a real link now; the modal
+       itself stays in use from the About > Author focus table. */
+    const bioUrl = authorPageUrl(a.name);
+    const bioIcon = bioUrl ? `<a href="${bioUrl}" title="Open ${a.name}'s full profile" aria-label="Open ${a.name}'s full profile" onclick="event.stopPropagation()" style="display:inline-block;line-height:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A5650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;vertical-align:-2px;margin-left:6px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></a>` : '';
     html += `<tr>
       <td><span class="study-title" style="cursor:pointer;text-decoration:underline;" onclick="filterStudiesByAuthor('${jsStr(a.name)}')">${a.name}</span>${bioIcon}</td>
       <td class="mono">${a.studies.length}</td>
@@ -3797,13 +3816,18 @@ function showView(which){
   }
 }
 /* ===== URL <-> state sync so browser back/forward works ===== */
-// 2026-09-07 (SEO P0 Ukol 1b): mirrors STATIC_TAB_URLS in build_pages.py --
-// the same mapping the other ~500 pages' topbar already uses. Every view
-// with a real static page now gets that page's clean path as the visible
-// URL; 'ask' has no static equivalent (see tabs-row comment above) and
-// stays on '/', exactly like 'welcome' did before this change -- the hash
-// (unchanged below) still carries 'view=ask' so the two stay distinguishable.
-const VIEW_PATHS = {welcome:'/', map:'/pathway/', studies:'/browse/', authors:'/authors/', questions:'/questions/', lineage:'/events/', about:'/about/', ask:'/'};
+// 2026-09-07 (nav IA unification): back to a hash-only address, on purpose.
+// Between 2026-09-07 morning and this change syncURL() wrote the matching
+// STATIC page's path into the address bar (VIEW_PATHS, now removed) while the
+// screen kept showing the SPA view. That made the URL stop identifying the
+// content: "/authors/" showed "The people behind the papers." but served the
+// static "Researchers" page on reload, so a copied link gave the recipient
+// something different from what the sender saw (measured: 4 of 4 tabs). It
+// also minted addresses nothing could restore -- arriving at /#view=map and
+// typing in the search box produced "/pathway/#view=map&q=rapamycin", whose
+// reload serves the static pathway page, which has no JS to read that hash.
+// A hash-only URL keeps pathname and content in agreement: on "/" it stays
+// on "/", and every SPA state remains restorable by its own address.
 function syncURL(push){
   const p = new URLSearchParams();
   p.set('view', currentView);
@@ -3812,10 +3836,8 @@ function syncURL(push){
   if(state.tierFilter) p.set('tier', state.tierFilter);
   if(state.studiesPage>1) p.set('page', state.studiesPage);
   const hash = '#'+p.toString();
-  const path = VIEW_PATHS[currentView] || '/';
-  const url = path + hash;
-  if(location.pathname + location.hash === url) return;
-  if(push) history.pushState(null,'',url); else history.replaceState(null,'',url);
+  if(location.hash === hash) return;
+  if(push) history.pushState(null,'',hash); else history.replaceState(null,'',hash);
 }
 function pushNav(){ syncURL(true); }
 function applyHash(){
@@ -3881,22 +3903,28 @@ document.querySelectorAll('#authorsTable th[data-sort]').forEach(th=>{
   });
 });
 
+// 2026-09-07 (nav IA unification): the main menu NAVIGATES, on the homepage
+// exactly as it does on the other ~500 static pages. Until now a click here
+// swallowed the navigation and switched an in-page view instead, so the same
+// menu item led to two different pages depending on which page you clicked it
+// from -- "Authors" was a studies-by-author ranking here and a list of 53
+// researcher profiles everywhere else, under one label and one URL.
+// Only 'welcome' and 'ask' stay in-page, because both genuinely ARE states of
+// "/" and so the address stays honest. Every other tab is a plain link to the
+// page that owns that content. The SPA's own views are still reachable by
+// their hash route (/#view=map, /#view=studies, /#view=lineage), which is what
+// the "open the interactive ..." links on the static pages use -- those are
+// deliberately labelled as tools, not as the section itself.
+const IN_PAGE_TABS = new Set(['welcome', 'ask']);
 document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click', (ev)=>{
-    // 2026-09-07 (SEO P0 Ukol 1b): tabs with a static equivalent are now
-    // real <a href> elements (see tabs-row markup above). A modifier-clicked
-    // (ctrl/cmd/shift) link is left alone so the browser opens it normally,
-    // in a new tab, at the real static page -- same as any other link on the
-    // site. A plain left click still switches the view in place, exactly as
-    // before; preventDefault() just stops the browser from ALSO navigating.
-    if(tab.tagName === 'A'){
-      if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
-      ev.preventDefault();
-    }
+    const tid = tab.dataset.tab;
+    if(!tid || !IN_PAGE_TABS.has(tid)) return;   // a real link -- let it navigate
+    ev.preventDefault();
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
     state.query=''; const si=document.getElementById('searchInput'); if(si) si.value='';
-    showView(tab.dataset.tab);
+    showView(tid);
     renderAll();
     pushNav();
   });

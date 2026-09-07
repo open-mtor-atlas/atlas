@@ -226,9 +226,9 @@ HEAD_TMPL = """<!DOCTYPE html>
 SITE = "https://mtor-atlas.org"
 
 SITE_TABS = [
-    ("welcome", "Welcome"), ("learn", "Learn"), ("ask", "Ask Atlas"), ("map", "Pathway"),
-    ("studies", "Studies"), ("authors", "Authors"), ("questions", "Open Questions"),
-    ("lineage", "Timeline"), ("about", "About"),
+    ("welcome", "Welcome"), ("learn", "Academy"), ("ask", "Ask Atlas"), ("map", "Pathway"),
+    ("studies", "Studies"), ("authors", "Researchers"), ("questions", "Open Questions"),
+    ("lineage", "Events"), ("about", "About"),
 ]
 
 # Tabs with a real static page. Mirrors STATIC_TAB_URLS in build_pages.py --
@@ -237,9 +237,24 @@ SITE_TABS = [
 # missing here, so /answers/ and /glossary/ linked the JS-only #view=about hash
 # while every build_pages.py page linked /about/; fixed in the same pass that
 # added "learn" -> /academy/.
+#
+# 2026-09-07 (nav IA unification): the copy had gone stale again and this time
+# it was the whole menu. build_pages.py moved welcome/map/studies/authors/
+# questions/lineage onto static URLs on 2026-09-07; this file did not, so the
+# 12 pages it generates (/answers/*, /glossary/) shipped a topbar where 6 of 9
+# tabs still pointed at "/#view=..." while the identical topbar on every
+# /study/ and /gene/ page pointed at the real pages. Same menu, same site,
+# different destinations depending on which generator wrote the page.
+# Only "ask" stays a hash link, here as everywhere: it has no static page.
 STATIC_TAB_URLS = {
+    "welcome": "https://mtor-atlas.org/",
     "about": "https://mtor-atlas.org/about/",
     "learn": "https://mtor-atlas.org/academy/",
+    "map": "https://mtor-atlas.org/pathway/",
+    "studies": "https://mtor-atlas.org/browse/",
+    "authors": "https://mtor-atlas.org/authors/",
+    "questions": "https://mtor-atlas.org/questions/",
+    "lineage": "https://mtor-atlas.org/events/",
 }
 
 

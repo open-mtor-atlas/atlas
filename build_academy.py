@@ -2645,9 +2645,9 @@ def academy_home(modules, lessons_by_slug, challenges):
                 '<div class="ac-deeper">'
                 '<a href="%s/browse/">Studies</a>'
                 '<a href="%s/complex/mtorc1/">Pathways</a>'
-                '<a href="%s/#view=authors">Authors</a>'
+                '<a href="%s/authors/">Researchers</a>'
                 '<a href="%s/gene/mtor/">Proteins</a>'
-                '<a href="%s/#view=questions">Open questions</a>'
+                '<a href="%s/questions/">Open questions</a>'
                 '%s</div>'
                 % (SITE, SITE, SITE, SITE, SITE,
                    ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))

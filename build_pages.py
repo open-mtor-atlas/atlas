@@ -305,10 +305,29 @@ def breadcrumb_ld(items):
             "itemListElement": els}
 
 
+# 2026-09-07 (nav IA unification): three labels changed so that a menu item
+# names the page it actually opens.
+#   "Learn"    -> "Academy"      the destination, the footer and the section's
+#                                own branding all say Academy; only this tab
+#                                said Learn.
+#   "Authors"  -> "Researchers"  /authors/ calls itself Researchers in its H1,
+#                                <title>, breadcrumb, JSON-LD *and* the footer
+#                                (chrome_shared.FOOTER_LINKS) -- the topbar was
+#                                the lone dissenter.
+#   "Timeline" -> "Events"       this one was not a wording nit but a genuine
+#                                ambiguity: the label described the SPA's
+#                                lineage graph ("How mTOR biology actually
+#                                grew") while the link opened /events/, a
+#                                calendar of 41 conferences. One label, two
+#                                unrelated subjects. The lineage graph keeps
+#                                its own entry point from the welcome view.
+# "Studies" -> /browse/ is deliberately left as is: the word is worth more as
+# anchor text on ~500 pages than a slug match would be, and the destination
+# says "Browse all studies and topics" in its <title>, so the connection reads.
 SITE_TABS = [
-    ("welcome", "Welcome"), ("learn", "Learn"), ("ask", "Ask Atlas"), ("map", "Pathway"),
-    ("studies", "Studies"), ("authors", "Authors"), ("questions", "Open Questions"),
-    ("lineage", "Timeline"), ("about", "About"),
+    ("welcome", "Welcome"), ("learn", "Academy"), ("ask", "Ask Atlas"), ("map", "Pathway"),
+    ("studies", "Studies"), ("authors", "Researchers"), ("questions", "Open Questions"),
+    ("lineage", "Events"), ("about", "About"),
 ]
 
 # Taby, které mají SKUTEČNOU statickou stránku, a odkazují se tedy na ni místo
@@ -2298,7 +2317,11 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
     body = ["<h1>Browse the Atlas</h1>",
             f'<p class="summary">Every study and every topic in the Atlas, as a '
             f'plain index. {len(studies)} studies, '
-            f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics.</p>']
+            f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics. '
+            f'To sort and filter the same studies by evidence type, year or '
+            f'author instead, open the '
+            f'<a href="{SITE}/#view=studies">interactive study table</a> '
+            f'(requires JavaScript).</p>']
 
     if gaps:
         body.append("<h2>Open questions &amp; testable hypotheses</h2>"
