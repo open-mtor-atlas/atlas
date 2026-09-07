@@ -14,7 +14,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oliver's mTOR Atlas | Evidence-Graded mTOR Research Database</title>
-<meta name="description" content="Oliver's mTOR Atlas grades every eligible peer-reviewed primary study among 360+ curated mTOR studies on an A-D evidence tier, surfaces knowledge gaps and testable hypotheses, and answers research questions through a citation-backed AI assistant.">
+<meta name="description" content="360+ curated mTOR studies. Every eligible peer-reviewed primary study is labelled by the kind of study behind it — synthesis of human data, human, animal or molecular — plus knowledge gaps, testable hypotheses and a citation-backed AI research assistant.">
 <meta name="keywords" content="mTOR, mTORC1, mTORC2, autophagy, rapamycin, longevity research, aging biology, evidence-based research, knowledge graph, TSC complex">
 <meta name="author" content="Oliver's mTOR Atlas">
 <meta name="robots" content="index, follow">
@@ -43,7 +43,7 @@
   "@context": "https://schema.org",
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
-  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
   "url": "https://mtor-atlas.org/",
   "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity", "aging biology", "TSC complex", "evidence-based research"],
   "identifier": "https://doi.org/10.5281/zenodo.22059963",
@@ -532,7 +532,7 @@ interactions across <span id="shRouteCount">11</span> guided routes.</p>
   <div class="legend" id="lineageLegend"></div>
 
   <footer>
-    Study metadata retrieved and verified via PubMed; evidence tiers follow the Atlas's own A–D scheme. Lineage edges are an <b>editorial reconstruction</b> — they encode enablement, extension, convergence, contradiction and open questions as judged by the curator, and are <b>not</b> derived from citation counts, co-citation, or any other bibliometric signal. They are a claim about influence, offered to be challenged. Node positions, edges, counts and the translation gap are computed at runtime from the <code>LINEAGE</code> array; nothing is hardcoded. Add a study and the tree grows.
+    Study metadata retrieved and verified via PubMed; evidence codes follow the Atlas's own S/H/A/M/R scheme, which names the kind of study behind a finding rather than ranking it. Lineage edges are an <b>editorial reconstruction</b> — they encode enablement, extension, convergence, contradiction and open questions as judged by the curator, and are <b>not</b> derived from citation counts, co-citation, or any other bibliometric signal. They are a claim about influence, offered to be challenged. Node positions, edges, counts and the translation gap are computed at runtime from the <code>LINEAGE</code> array; nothing is hardcoded. Add a study and the tree grows.
   </footer>
     </div>
 
@@ -1328,7 +1328,7 @@ if (canvasEl){
         <p>Pathway databases like Reactome or KEGG map the biochemistry. PubMed lets you search papers one at a time. General AI research tools read across the whole of PubMed, but in our testing they rarely make the weight of a mouse study versus a human trial explicit in the answer. To our knowledge, few resources combine these three things — though the Atlas has not surveyed every tool in the field, and if one already does, it should be used instead:</p>
         <ul style="font-size:13.5px;line-height:1.65;margin:0 0 10px;padding-left:20px;">
           <li style="margin-bottom:6px;"><b>Narrow, hand-curated corpus</b> — landmark mTOR studies, deep and low-noise rather than broad and shallow</li>
-          <li style="margin-bottom:6px;"><b>Explicit evidence grade on every claim</b> — an A&ndash;D tier for every eligible peer-reviewed primary study, and an explicit out-of-hierarchy label (preprint, narrative review, registered trial) for the rest, so an answer visibly separates what rests on a human RCT from what rests on a cell-culture experiment or an ungraded preprint</li>
+          <li style="margin-bottom:6px;"><b>Explicit evidence code on every claim</b> — an S/H/A/M/R code naming the kind of study behind every eligible peer-reviewed primary study, and an explicit out-of-hierarchy label (preprint, narrative review, registered trial) for the rest, so an answer visibly separates what rests on a human RCT from what rests on a cell-culture experiment or an ungraded preprint</li>
           <li><b>An Open Questions layer</b> — points to where the evidence is thin, contradictory, or missing entirely, and reframes those gaps as testable hypotheses, with every block labelled <i>established</i>, <i>interpretation</i> or <i>editorial hypothesis</i> so a proposal is never read as a result</li>
         </ul>
         <p>So you can ask <b>"what's the actual evidence, and from which kind of study, that rapamycin extends lifespan in humans and not just mice?"</b> and get a direct answer with the receipts attached — and, just as important, an explicit map of what the Atlas's corpus does not establish.</p>
@@ -1399,7 +1399,7 @@ if (canvasEl){
         against PubMed (no PMID or DOI resolvable to the publisher's own record); or if its connection to mTOR
         is incidental — mTOR measured as one readout among many in a paper about something else. Preprints and
         registered trials are admitted only when they are the <i>best available</i> evidence for a claim, and
-        are then labelled as ungraded rather than given an A–D tier.</p>
+        are then labelled as ungraded rather than given a study-type code.</p>
 
         <p style="margin-top:12px;"><b>How many were excluded — an honest gap.</b> The Atlas does not currently
         keep a screening log. Candidates that were considered and rejected leave no record, so <b>no exclusion
@@ -1413,8 +1413,8 @@ if (canvasEl){
         second reviewer, no editorial board, and no independent adjudication of borderline calls — the usual
         safeguard against a single reader's blind spots is absent. The one external check to date was an
         unsolicited scientific review in July 2026, which produced sixteen findings; these were addressed
-        rather than quietly dropped, and one of them exposed a real inconsistency between the stated A–D
-        definition and the applied one (documented above, with a validator rule now blocking the class of
+        rather than quietly dropped, and one of them exposed a real inconsistency between the stated tier
+        definition and the applied one (the codes were still the letters A–D at that point; it is documented above, and a validator rule now blocks the class of
         error).</p>
 
         <p style="margin-top:12px;"><b>How often it updates.</b> An automated job screens PubMed for new

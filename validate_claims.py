@@ -29,6 +29,8 @@ PRAVIDLA (viz RULES nize)
   R5  absolutni jazyk kdekoli (proves / definitive / settles / avoids ...)
   R6  A-D tier prirazen praci, ktera stoji mimo hierarchii (konzistence
       Pyramid_Level <-> Evidence_Tier)
+  R7  verejny text porad popisuje kody jako zebricek A-D, ackoli od
+      2026-09-07 jsou to S/H/A/M/R a znaci TYP studie, ne znamku
 """
 
 import os, re, sys, json, html
@@ -532,16 +534,54 @@ def check_index(findings):
             continue
         scan_absolute(findings, "index.html:%d" % i, txt, sev="WARN")
 
-    # -- R6: does the homepage still claim blanket A-D grading?
-    plain = html.unescape(re.sub(r"<[^>]+>", " ", h))
+    # -- R6: does the homepage still claim blanket grading?
+    # Strip <script>/<style> BODIES first, not just their tags: without this,
+    # every JS comment and string literal counts as reader-facing prose. R7
+    # below tripped on index.html's own comment explaining why A-D was dropped.
+    prose_only = re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", h,
+                        flags=re.S | re.I)
+    plain = html.unescape(re.sub(r"<[^>]+>", " ", prose_only))
     for bad in [r"grades every one by evidence tier",
-                r"[Ee]very study receives an? (A-D |A–D )?evidence tier",
+                r"[Ee]very study receives an? (A-D |A–D |S/H/A/M/R )?evidence tier",
+                r"[Ee]very study is (labelled|graded|coded)",
                 r"evidence tier on every study"]:
         if re.search(bad, plain):
             add(findings, "ERROR", "R6 tier-scope-overclaim", "index.html", bad,
-                "Copy claims every study is A-D graded, but preprints / narrative reviews / "
+                "Copy claims every study is graded, but preprints / narrative reviews / "
                 "registered trials sit outside the hierarchy.",
                 "Say 'every eligible peer-reviewed primary study'.")
+
+    # -- R7: does the copy still describe the codes as the old A-D ladder?
+    #
+    # Added 2026-09-07, after the S/H/A/M/R switch (commit 9f025468) left five
+    # public sentences behind -- including <meta name="description">, i.e. the
+    # line Google prints under the title, and the hand-written Dataset JSON-LD
+    # that still spelled out "A = systematic review ... D = mechanistic". R6
+    # could not catch any of it: R6 is about SCOPE (every study vs. every
+    # eligible one), not about what the codes are called. Six weeks of the
+    # Atlas describing a grading ladder it had already abandoned, on a site
+    # whose whole point is that the label matches the evidence.
+    #
+    # The letters are still legitimate in two places, so both are exempt:
+    #   - prose that dates them ("Until September 2026 these codes ran A-D"),
+    #     which is the honest way to explain the rename;
+    #   - internal ids -- the STORED tier value really is "A - Systematic
+    #     review" etc., and code comments say so. Only reader-facing text is
+    #     scanned here, so those never reach this rule.
+    HISTORICAL = re.compile(
+        r"(until september 2026|were renamed|used to (run|be)|at that point|"
+        r"was a mistake|stopped being|previously)", re.I)
+    for m in re.finditer(r"A\s*[–-]\s*D\b", plain):
+        window = plain[max(0, m.start() - 240):m.end() + 240]
+        if HISTORICAL.search(window):
+            continue
+        add(findings, "ERROR", "R7 stale-tier-vocabulary", "index.html",
+            window.strip()[:300],
+            "Reader-facing copy still calls the evidence codes an A-D tier. Since "
+            "2026-09-07 they are S/H/A/M/R, and they name the KIND of study rather "
+            "than ranking it -- R is split out because a review is not a new result.",
+            "Name the codes S/H/A/M/R and describe them as study types, or date the "
+            "old letters explicitly ('until September 2026 these codes ran A-D').")
 
 
 def check_academy(findings):
