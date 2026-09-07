@@ -1914,7 +1914,11 @@ Full identifiers, registrations (including <a href="https://bio.tools/olivers_mt
 and <a href="https://fairsharing.org/8905">FAIRsharing</a>)
 and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
 
-<p><a class="cta" href="{SITE}/#view=about">Open the interactive About tab</a></p>
+<h2>More about the project</h2>
+<p>The curator's own page -- background, current research focus and the studies
+behind it -- is at <a href="{SITE}/author/oliver-barton/">Oliver Barton</a>.
+Conferences and meetings where mTOR work is presented are listed at
+<a href="{SITE}/events/">mTOR conferences &amp; meetings</a>.</p>
 """
     return url, shell(
         "About & Methodology | Oliver's mTOR Atlas",
