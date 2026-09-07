@@ -3889,6 +3889,14 @@ document.querySelectorAll('.tab').forEach(tab=>{
     // in a new tab, at the real static page -- same as any other link on the
     // site. A plain left click still switches the view in place, exactly as
     // before; preventDefault() just stops the browser from ALSO navigating.
+    // 2026-09-07 (fix): a .tab anchor WITHOUT data-tab is a plain link to a
+    // real page that has no SPA view at all -- "Learn" -> /academy/. It must
+    // navigate. Before this guard the branch below called preventDefault()
+    // (killing the navigation) and then showView(undefined), which matches no
+    // key in `views` and therefore hid every view: clicking Learn on the
+    // homepage left a blank screen. Regression from ca18c351 (SEO P0 Ukol 1b),
+    // where the tabs became <a> elements.
+    if(tab.tagName === 'A' && !tab.dataset.tab) return;
     if(tab.tagName === 'A'){
       if(ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
       ev.preventDefault();
