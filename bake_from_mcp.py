@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-bake_from_mcp.py -- rewrite the ATLAS_STUDIES / ATLAS_GAPS / ATLAS_EVENTS / ATLAS_ENTITIES
-constants in index.html from local JSON dumps (atlas_data/studies_baked.json,
-atlas_data/gaps_baked.json, atlas_data/events_baked.json, atlas_data/entities_baked.json).
+bake_from_mcp.py -- rewrite the ATLAS_GAPS / ATLAS_EVENTS / ATLAS_ENTITIES
+constants in index.html from local JSON dumps (atlas_data/gaps_baked.json,
+atlas_data/events_baked.json, atlas_data/entities_baked.json). ATLAS_STUDIES is
+no longer one of them (2026-09-07): the homepage fetches
+atlas_data/studies_baked.json at runtime instead of carrying it inline, so
+this script's only remaining job regarding studies is confirming that file
+exists.
 
 Why this exists instead of sync_airtable.py: this sandbox's network policy blocks
 direct HTTPS calls to api.airtable.com (only a curated allowlist of hosts like
@@ -70,30 +74,20 @@ def main():
     h = open(HTML, encoding="utf-8").read()
     changed = False
 
+    # 2026-09-07 (SEO P0 Ukol 3b): ATLAS_STUDIES is no longer inlined in
+    # index.html -- the homepage fetches it at runtime straight from
+    # STUDIES_JSON (atlas_data/studies_baked.json) instead, so there is
+    # nothing left for this script to patch into the page for studies. This
+    # block used to do that; it's gone, not merely disabled, because the
+    # target pattern ("const ATLAS_STUDIES = [...]") no longer exists in
+    # index.html at all (it's "let ATLAS_STUDIES = [];" now, stable and never
+    # written to from here).
     if os.path.exists(STUDIES_JSON):
-        studies = json.load(open(STUDIES_JSON, encoding="utf-8"))
-        js = "const ATLAS_STUDIES = " + json.dumps(studies, ensure_ascii=False) + ";"
-        # IMPORTANT: pass a lambda, not the raw string, as the replacement. re.sub
-        # treats a plain string replacement as a template and decodes backslash
-        # escapes like \n into real control characters, corrupting embedded JSON
-        # newlines. A callable replacement is used verbatim -- no escape processing.
-        # ANCHOR to the known next declaration (not a bare non-greedy \];) so a
-        # literal "];" inside some study's abstract/finding text can't truncate
-        # the match early and strand the rest of the old array as orphaned text.
-        new_h, c1 = re.subn(
-            r"const ATLAS_STUDIES = \[.*?\];\n\nconst ATLAS_ENTITIES",
-            lambda m: js + "\n\nconst ATLAS_ENTITIES",
-            h, count=1, flags=re.S,
-        )
-        if c1:
-            if new_h != h:
-                changed = True
-            h = new_h
-            print("ATLAS_STUDIES: updated (%d records)" % len(studies))
-        else:
-            print("ATLAS_STUDIES: NOT FOUND in index.html (pattern mismatch)")
+        print("ATLAS_STUDIES: studies_baked.json present -- homepage reads it "
+              "directly at runtime, nothing to patch into index.html")
     else:
-        print("ATLAS_STUDIES: no studies_baked.json, leaving untouched")
+        print("ATLAS_STUDIES: no studies_baked.json -- the homepage's runtime "
+              "fetch will fail until one is written")
 
     if os.path.exists(GAPS_JSON):
         gaps = json.load(open(GAPS_JSON, encoding="utf-8"))

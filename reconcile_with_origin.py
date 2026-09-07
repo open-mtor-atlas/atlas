@@ -95,6 +95,11 @@ GENERATED_WHOLESALE_PREFIXES = (
     "atlas_fulltext/raw/",
     "atlas_rag/index/",
     "academy_data/_sid_to_lesson.json",
+    # 2026-09-07: tools/seo/build_data_exports.py now actually runs in the
+    # deploy pipeline (it used to be written but never called), so these are
+    # regenerated on every deploy same as everything else here -- newer wins,
+    # not a real merge target.
+    "data/exports/",
 )
 GENERATED_WHOLESALE_NAMES = (
     "sitemap.xml",
@@ -121,7 +126,7 @@ GENERATED_PAGE_DIRS = (
 # (the newer bake) wins and deploy.bat's stamp_updated.py / prerender_tabs.js
 # re-derive them a few steps later anyway.
 MACHINE_LINE = (
-    re.compile(r"^\s*const ATLAS_(STUDIES|ENTITIES|EVENTS|GAPS|UPDATED)\s*="),
+    re.compile(r"^\s*(?:const|let) ATLAS_(STUDIES|ENTITIES|EVENTS|GAPS|UPDATED)\s*="),
     re.compile(r"<!--/?PRERENDER:"),
     re.compile(r'id="lastUpdated"'),
     re.compile(r'id="ipyStudyCount"'),
@@ -170,7 +175,13 @@ def is_machine_line(line):
 # Whole-line constants: unique anchors, one line each (the arrays are single
 # lines, up to ~670 KB of them).
 LINE_ANCHORS = (
-    re.compile(rb"^const ATLAS_STUDIES = "),
+    # 2026-09-07: ATLAS_STUDIES is "let ATLAS_STUDIES = [];" now (fetched at
+    # runtime from atlas_data/studies_baked.json, itself already covered by
+    # the atlas_data/ prefix above) -- tiny and stable, so it no longer needs
+    # this whole-line-replacement treatment, but matching both keywords costs
+    # nothing and means a future revert of that change doesn't silently lose
+    # this protection.
+    re.compile(rb"^(?:const|let) ATLAS_STUDIES\s*="),
     re.compile(rb"^const ATLAS_ENTITIES = "),
     re.compile(rb"^const ATLAS_EVENTS = "),
     re.compile(rb"^const ATLAS_GAPS = "),

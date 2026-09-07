@@ -751,8 +751,18 @@ def load_atlas_edges(h):
 
 
 def load_atlas_studies(h):
-    m = re.search(r"const ATLAS_STUDIES = (\[.*?\]);\n", h, re.S)
-    return json.loads(m.group(1)) if m else []
+    # 2026-09-07 (SEO P0 Ukol 3b, lazy-load ATLAS_STUDIES): index.html no
+    # longer carries a `const ATLAS_STUDIES = [...]` literal -- the homepage
+    # now fetches it at runtime from atlas_data/studies_baked.json, which
+    # was already this repo's independent source of truth (sync_airtable.py
+    # writes it separately from what it used to also inline into index.html)
+    # and is verified byte-identical to the old inline copy. Read it from
+    # there instead of regexing it out of h. `h` is kept as a parameter for
+    # call-site compatibility even though it's unused now.
+    try:
+        return json.load(open(STUDIES, encoding="utf-8"))
+    except Exception:
+        return []
 
 
 def check_edge_direction(findings, h):

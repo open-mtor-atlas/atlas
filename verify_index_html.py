@@ -20,16 +20,34 @@ problems = []
 if not h.rstrip().endswith("</html>"):
     problems.append("file does not end with </html> (tail: %r)" % h[-100:])
 
-m = re.search(r"const ATLAS_STUDIES = (\[.*?\]);\n\nconst ATLAS_ENTITIES", h, re.S)
-if not m:
-    problems.append("ATLAS_STUDIES block not found / not properly closed")
+# 2026-09-07 (SEO P0 Ukol 3b): ATLAS_STUDIES is no longer inlined here -- the
+# homepage fetches it at runtime from atlas_data/studies_baked.json instead
+# (795 KB removed from every page load; the file was already this repo's
+# independent source of truth, byte-verified identical to the old inline
+# copy before the switch). Two checks replace the old single one: (a) the
+# async-fetch scaffolding itself wasn't corrupted/reverted -- `let
+# ATLAS_STUDIES = []` plus a fetch() of the right file must both still be
+# present; (b) the actual data file is intact and has a plausible record
+# count, since that's the real integrity question now, not anything inside
+# this HTML file.
+if "let ATLAS_STUDIES = []" not in h and "let ATLAS_STUDIES=[]" not in h:
+    problems.append("ATLAS_STUDIES no longer declared as `let ATLAS_STUDIES = []` "
+                     "(async-fetch scaffolding missing or reverted)")
+if "atlas_data/studies_baked.json" not in h:
+    problems.append("no fetch() of atlas_data/studies_baked.json found -- "
+                     "ATLAS_STUDIES would never get populated in a browser")
+sbp = os.path.join(os.path.dirname(os.path.abspath(path)), "atlas_data", "studies_baked.json")
+if not os.path.exists(sbp):
+    problems.append("atlas_data/studies_baked.json missing -- the homepage's "
+                     "runtime fetch would fail")
 else:
     try:
-        studies = json.loads(m.group(1))
+        studies = json.load(open(sbp, encoding="utf-8"))
         if len(studies) < 50:
-            problems.append("ATLAS_STUDIES parsed but only has %d records (expected 200+)" % len(studies))
+            problems.append("atlas_data/studies_baked.json parsed but only has %d "
+                             "records (expected 200+)" % len(studies))
     except Exception as e:
-        problems.append("ATLAS_STUDIES did not parse as JSON: %s" % e)
+        problems.append("atlas_data/studies_baked.json did not parse as JSON: %s" % e)
 
 m2 = re.search(r"const ATLAS_EVENTS = (\[.*?\]);\n\nfunction goAuthor", h, re.S)
 if not m2:
@@ -74,7 +92,13 @@ if os.path.basename(path) == "index.html":
         except Exception:
             return None
 
-    n_st = _len_of("ATLAS_STUDIES")
+    def _studies_baked_len():
+        try:
+            return len(json.load(open(sbp, encoding="utf-8")))
+        except Exception:
+            return None
+
+    n_st = _studies_baked_len()
     expected = {"ipyStudyCount": n_st, "atlasStatStudies": n_st,
                 "shStudyCount": n_st, "atlasStatEntities": _len_of("ATLAS_ENTITIES")}
     if os.path.exists(mp):

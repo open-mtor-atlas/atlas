@@ -60,6 +60,20 @@ def _const_len(h, name):
         return None
 
 
+def _studies_baked_len():
+    """2026-09-07 (SEO P0 Ukol 3b): ATLAS_STUDIES is no longer inlined in
+    index.html (it's fetched at runtime from atlas_data/studies_baked.json),
+    so _const_len(h, "ATLAS_STUDIES") can never match any more. This is the
+    replacement study count source for refresh_counts() below -- same file
+    the homepage itself now fetches, so the crawler-visible fallback counts
+    and the real runtime count can never drift apart."""
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "atlas_data", "studies_baked.json")
+    try:
+        return len(json.load(open(p, encoding="utf-8")))
+    except Exception:
+        return None
+
+
 def refresh_counts(h):
     """Re-derive the study/entity counts that are written into the markup.
 
@@ -76,7 +90,7 @@ def refresh_counts(h):
     Baking them here means they cannot go stale again: every deploy stamps them
     from the data actually in the file.
     """
-    n_studies = _const_len(h, "ATLAS_STUDIES")
+    n_studies = _studies_baked_len()
     n_entities = _const_len(h, "ATLAS_ENTITIES")
     if not n_studies or not n_entities:
         print("  refresh_counts: could not read ATLAS_STUDIES/ATLAS_ENTITIES - counts left alone")

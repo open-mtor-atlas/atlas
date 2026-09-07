@@ -272,21 +272,12 @@ def main():
         sys.exit("ABORT: nepodařilo se zapsat studies_baked.json -- nepokračuji na bake.")
     print("atlas_data/studies_baked.json zapsán")
 
-    js = "const ATLAS_STUDIES = " + json.dumps(studies, ensure_ascii=False) + ";"
-    # Ukotveno na následující deklaraci. Callable replacement -- re.sub jinak
-    # v řetězci dekóduje zpětná lomítka a rozbije JSON uvnitř abstraktů.
-    h, c1 = re.subn(
-        r"const ATLAS_STUDIES = \[.*?\];\n\nconst ATLAS_ENTITIES",
-        lambda m: js + "\n\nconst ATLAS_ENTITIES",
-        h, count=1, flags=re.S,
-    )
-    if not c1:
-        sys.exit("ABORT: ATLAS_STUDIES nenalezen v index.html (pattern mismatch) -- "
-                 "nic jsem nezapsal, index.html je beze změny.")
-    print("ATLAS_STUDIES: updated (%d records)" % len(studies))
-
-    # Entities MUSÍ jít až po ATLAS_STUDIES: ta náhrada je ukotvená na literál
-    # "\n\nconst ATLAS_ENTITIES", takže se o něj opírá a nesmí být přepsaný dřív.
+    # 2026-09-07 (SEO P0 Ukol 3b): ATLAS_STUDIES se uz NEPISE do index.html --
+    # homepage si ho tahá za běhu z atlas_data/studies_baked.json (zapsáno o pár
+    # řádků výš, write_studies_json()), takže tenhle krok je od teď zbytečný a
+    # byl by navíc rozbitý: regex níž cekal na "const ATLAS_STUDIES = [...]",
+    # coz uz v index.html neni (je tam jen "let ATLAS_STUDIES = [];", stabilni
+    # a nikdy neplneny odsud).
     try:
         entities = resolve_entity_studies(fetch_entities(), studies)
     except Exception as e:

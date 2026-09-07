@@ -225,6 +225,26 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Refresh data/exports/ (CSV/JSON downloads + manifest.json) ===
+REM  tools\seo\build_data_exports.py existed since 2026-09-02 but was never
+REM  actually called from here -- an orphan script, same class of bug as
+REM  stamp_type_version.py above. Consequence: data/exports/studies.json sat
+REM  frozen at 354 studies while the corpus grew to 360, and manifest.json's
+REM  sha256/contentSize stopped matching the files on disk. Two things now
+REM  depend on this running BEFORE build_pages.py: build_pages.py's own
+REM  DATASET_REF.distribution reads manifest.json at import time
+REM  (_load_export_distribution(), 2026-09-02) to list these files in the
+REM  Dataset JSON-LD on every generated page and on index.html itself
+REM  (patch_dataset_distribution(), 2026-09-07); and the homepage's own
+REM  ATLAS_STUDIES is fetched at runtime from atlas_data/studies_baked.json
+REM  directly (2026-09-07, SEO P0 Ukol 3b) -- NOT from this export -- so this
+REM  step is not load-bearing for the live page, only for the public
+REM  downloads and their JSON-LD listing. Best effort: a failure here means
+REM  stale exports, not a broken site, so it does not abort the deploy.
+py tools\seo\build_data_exports.py
+if errorlevel 1 echo    build_data_exports.py failed - data/exports/ may be stale, deploy continues
+
+echo.
 echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
 REM  This is what AI crawlers without JS actually read (build_pages.py's own
 REM  header comment explains why) -- and it is also now the only place that
