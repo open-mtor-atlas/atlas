@@ -581,6 +581,47 @@ ACADEMY_CSS = """
 .ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
 .ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
 
+/* Homepage prestavba (2026-09-06): "kde jsi" pruh + ctyri rovnocenne vstupy.
+   Duvod: stranka mela jedno primarni tlacitko na lekci 01 a tri z peti bloku
+   o jednom pilíri, takze Practice Arena i Challenges vypadaly jako prilohy.
+   Tokeny jsou porad ty, ktere definuje shell() -- zadna nova paleta. */
+.ac-resume{--ac-tint:rgba(163,31,52,.09);border:1px solid var(--line);border-radius:3px;
+  padding:18px 20px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:0 0 30px}
+html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
+.ac-resume .ac-rl{flex:1 1 320px;min-width:min(100%,280px)}
+.ac-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rbig{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.ac-rmeta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin:0}
+.ac-rmeta b{color:var(--ink)}
+.ac-rbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ac-mini{flex:0 0 auto}
+.ac-mini svg{display:block;width:150px;height:auto}
+.ac-mini .m-r{fill:var(--soft);opacity:.2}
+.ac-mini .m-n{fill:none;stroke:var(--line);stroke-width:1}
+.ac-mini .m-n[data-m="1"]{fill:var(--ac-tint);stroke:var(--teal)}
+.ac-mini .m-n[data-m="3"]{fill:var(--teal);stroke:var(--teal)}
+.ac-mini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
+.ac-mini .m-c{font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--soft)}
+
+.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:14px;margin:0 0 8px}
+.ac-way{border:1px solid var(--line);border-radius:3px;padding:18px 20px 16px;display:flex;
+  flex-direction:column;gap:7px}
+.ac-way .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.ac-way p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
+  border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+.ac-way .ac-state i{font-style:normal;color:var(--soft)}
+.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0}
+.ac-way .ac-bar i{display:block;height:100%;background:var(--teal)}
+.ac-way .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.03em;text-decoration:none}
+.ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
   margin:0 0 34px}
@@ -609,7 +650,12 @@ ACADEMY_CSS = """
 .ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
 
 /* "Your path" strip -- a map of the course, not a score. */
-.ac-path{list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+.ac-sechead-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ac-sechead-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+.ac-sechead-row a:hover{border-bottom-color:currentColor}
+.ac-path{-webkit-mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
   border-bottom:1px solid var(--line)}
 .ac-path::-webkit-scrollbar{display:none}
@@ -1619,6 +1665,113 @@ PROGRESS_JS = """
 """
 
 
+
+# Homepage Academy: pruh "kde jsi" + stavy na ctyrech kartach. Stejny defenzivni
+# vzorec jako PROGRESS_JS -- cte DVA klice (lekce a Practice Arena), oba obalene,
+# a kdyz uloziste neni nebo je prazdne, stranka zustane presne v te podobe, ve
+# ktere ji vygeneroval build: varianta "poprvé" se statickymi cisly.
+HOME_JS = """
+<script>
+(function(){
+  var el = document.getElementById('acHome'); if(!el) return;
+  var D; try{ D = JSON.parse(el.textContent); }catch(err){ return; }
+
+  function read(key){
+    try{ return JSON.parse(localStorage.getItem(key)||'null'); }catch(err){ return null; }
+  }
+  var lessons = read('atlas-academy-progress') || {};
+  var pa = read(D.key);
+
+  /* --- kolik lekci je precteno ------------------------------------------ */
+  var done = 0, next = null, i;
+  for(i=0;i<D.lessons.length;i++){
+    if(lessons[D.lessons[i].slug] === 'done') done++;
+    else if(!next) next = D.lessons[i];
+  }
+  if(!next) next = D.lessons[D.lessons.length-1];
+
+  /* --- mastery s decay, stejny vzorec jako v Practice Arene -------------- */
+  function mastery(rec){
+    if(!rec) return 0;
+    var lvl = rec[0], age = Math.floor(Date.now()/86400000) - rec[1];
+    if(lvl >= D.decayFrom && D.half > 0) lvl = Math.max(D.decayFrom-1, lvl - Math.floor(age/D.half));
+    return lvl < 0 ? 0 : lvl;
+  }
+  var seen = 0, mast = 0, gold = 0;
+  if(pa && pa.m){
+    for(i=0;i<D.nodes.length;i++){
+      var v = mastery(pa.m[D.nodes[i][0]]);
+      if(v >= D.gold) gold++; else if(v >= D.mastered) mast++; else if(v >= 1) seen++;
+    }
+  }
+  var touched = seen + mast + gold;
+  var pct = Math.round(touched / D.nodes.length * 100);
+  var rank = null;
+  if(pa){
+    for(i=0;i<D.ranks.length;i++){ if(D.ranks[i].n === (pa.rank||1)) rank = D.ranks[i]; }
+  }
+  var started = (done > 0) || (pa && pa.xp > 0);
+
+  /* --- minimapa ---------------------------------------------------------- */
+  if(pa && pa.m){
+    var svg = document.getElementById('acMiniSvg');
+    if(svg){
+      svg.querySelectorAll('.m-n').forEach(function(r){
+        var v = mastery(pa.m[r.getAttribute('data-id')]);
+        r.setAttribute('data-m', v >= D.gold ? 4 : (v >= D.mastered ? 3 : (v >= 1 ? 1 : 0)));
+      });
+      var cap = document.getElementById('acMiniCap');
+      if(cap) cap.textContent = pct + '% explored';
+    }
+  }
+
+  /* --- pruh "kde jsi" ---------------------------------------------------- */
+  /* Primarni tlacitko se meni podle toho, co ma clovek rozecteno. Dokud neni
+     petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
+     Pak se poradi obraci a Daily 5 jde dopredu. */
+  var box = document.getElementById('acResumeText');
+  if(box && started){
+    var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
+                    next.n + ' &rarr;</a>';
+    var dailyBtn  = '<a class="ac-cta ac-quiet" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var lessonPri = '<a class="ac-cta" href="' + next.url + '">Continue lesson ' +
+                    next.n + ' &middot; ' + next.min + ' min &rarr;</a>';
+    var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var first = (done >= 5 && pa) ? (dailyPri + lessonBtn) : (lessonPri + (pa ? dailyBtn : ''));
+    var meta = [];
+    if(pa && pa.xp) meta.push('<b>' + pa.xp + '</b> XP');
+    meta.push('<b>' + done + '</b> of ' + D.lessons.length + ' lessons read');
+    if(pa && pa.m) meta.push('<b>' + pct + '%</b> of the pathway explored');
+    box.innerHTML =
+      '<p class="ac-rk">Where you are</p>' +
+      '<p class="ac-rbig">' + (rank ? ('Rank ' + rank.n + ' &middot; ' + rank.name) : 'Reading the course') + '</p>' +
+      '<p class="ac-rmeta">' + meta.join(' &middot; ') + '</p>' +
+      '<div class="ac-rbtns">' + first +
+      (pa ? '<a class="ac-cta ac-quiet" href="' + D.progress + '">Your map &rarr;</a>' : '') +
+      '</div>';
+  }
+
+  /* --- stavy na kartach --------------------------------------------------- */
+  function setWay(id, state, cta){
+    var w = document.querySelector('.ac-way[data-way="' + id + '"]'); if(!w) return;
+    var st = w.querySelector('.ac-state'); if(st && state) st.innerHTML = state;
+    var go = w.querySelector('.ac-go'); if(go && cta) go.innerHTML = cta;
+  }
+  if(done > 0)
+    setWay('learn', done + ' / ' + D.lessons.length + ' read<span class="ac-bar"><i style="width:' +
+           Math.round(done / D.lessons.length * 100) + '%"></i></span>',
+           'Continue lesson ' + next.n + ' &rarr;');
+  if(pa && (pa.xp || pa.m))
+    setWay('practice', (rank ? 'Rank ' + rank.n + ' &middot; ' : '') + pct +
+           '% of the map<span class="ac-bar"><i style="width:' + pct + '%"></i></span>',
+           'Play Daily 5 &rarr;');
+  if(pa && pa.met && pa.met.discSeen && pa.met.discSeen.length)
+    setWay('challenge', pa.met.discSeen.length + ' started <i>&middot; pick up where you stopped</i>');
+})();
+</script>
+"""
+
+
 # ------------------------------------------------------------ components ---
 
 def evidence_cards(sids, by_sid):
@@ -2339,21 +2492,124 @@ def curriculum_page(module, lessons_by_slug):
 
 
 def academy_home(modules, lessons_by_slug, challenges):
+    """Homepage Academy: rozcestnik, ne prvni kapitola.
+
+    PRESTAVBA 2026-09-06. Predchozi verze mela jedno primarni tlacitko (na lekci
+    01) a z peti bloku byly TRI o pilíri Learn -- hero, "Your path" a jeste
+    seznam "mTOR Core". Practice Arena a Research Challenges pritom mely po jedne
+    karte ze ctyr. Stranka tim tvrdila, ze Academy je kurz a zbytek jsou prilohy.
+
+    Ted: jeden pruh "kde jsi" (jedno rozhodnuti, co ted) a ctyri ROVNOCENNE
+    vstupy, ktere se od sebe lisi druhem (Course / Practice / Investigation /
+    The map) i slovesem (Read / Play / Investigate / Explore). Deset lekci je
+    az pod kartami jako detail jednoho pilíre. Duplicitni blok "mTOR Core"
+    zmizel -- ta stranka existuje na /academy/<modul>/.
+
+    Bez JS se vykresli varianta "poprvé" se statickymi cisly; HOME_JS ji jen
+    prepise podle localStorage. Zadny blok bez JS nezmizi.
+    """
     url = SITE + "/academy/"
     mod = modules["modules"][0]
-    first = mod["lessons"][0]["lesson"]
     published = [r for r in mod["lessons"] if r["status"] == "published"]
+    first = published[0]
+    first_les = lessons_by_slug[first["lesson"]]
+    pub_ch = [c for c in challenges if c["status"] == "published"]
+    has_practice = os.path.exists(os.path.join(ADATA, "practice.json"))
+
+    routes_n = 0
+    try:
+        routes_n = len(json.load(open(os.path.join(HERE, "pathway", "model.json"),
+                                     encoding="utf-8")).get("routes") or [])
+    except Exception:
+        pass
 
     body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
-            '<h1>From understanding mTOR to thinking like a researcher.</h1>'
-            '<p class="ac-lede">Learn the mechanisms. Explore the evidence. Follow the '
-            'questions that drive mTOR research.</p>'
-            '<a class="ac-cta" href="%s/academy/%s/%s/">Start learning &rarr;</a></div>'
-            % (SITE, mod["slug"], first)]
+            '<h1>Four ways into mTOR biology.</h1>'
+            '<p class="ac-lede">Read the mechanism, practise it until you can predict it, follow one '
+            'question all the way through the map, or run an investigation of your own. All four are '
+            'built on the same evidence-graded studies as the rest of the Atlas.</p></div>']
 
-    # "Your path" -- the spec's §9 progress strip. It is a map of the course,
-    # not a score: numbers, titles, and a tick for what this browser has marked
-    # as read. Nothing is locked, nothing is counted.
+    # ---- pruh "kde jsi" (bez JS: varianta pro noveho navstevnika) ----------
+    mini = ""
+    payload = ""
+    if has_practice:
+        import build_practice
+        cfg, les, pw, _st, _g = build_practice.load()
+        pay = build_practice.home_payload(cfg, les, pw)
+        W, H, X0, Y0, XS, YS = 150.0, 150.0, 60.0, 50.0, 1400.0, 1370.0
+        sx = lambda x: (x - X0) / XS * W
+        sy = lambda y: (y - Y0) / YS * H
+        dots = "".join('<circle class="m-r" cx="%.1f" cy="%.1f" r="1.8"/>' % (sx(x), sy(y))
+                       for x, y in pay["rest"])
+        rects = "".join('<rect class="m-n" data-id="%s" data-m="0" x="%.1f" y="%.1f" width="9" '
+                        'height="4" rx="1"/>' % (e(nid), sx(x) - 4.5, sy(y) - 2)
+                        for nid, x, y in pay["nodes"])
+        mini = ('<div class="ac-mini"><svg id="acMiniSvg" viewBox="0 0 150 158" '
+                'role="img" aria-label="Miniature map of the pathway">%s%s'
+                '<text class="m-c" id="acMiniCap" x="0" y="156">%d nodes to uncover</text>'
+                '</svg></div>' % (dots, rects, len(pay["nodes"])))
+        pay["lessons"] = [{"slug": r["lesson"], "n": r["n"], "min": r["minutes"],
+                           "url": "%s/academy/%s/%s/" % (SITE, mod["slug"], r["lesson"])}
+                          for r in published]
+        pay["practice"] = SITE + "/academy/practice/"
+        pay["progress"] = SITE + "/academy/progress/"
+        payload = ('<script type="application/json" id="acHome">%s</script>'
+                   % json.dumps(pay, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"))
+
+    body.append('<div class="ac-resume" id="acResume">'
+                '<div class="ac-rl" id="acResumeText">'
+                '<p class="ac-rk">New here</p>'
+                '<p class="ac-rbig">Start with the mechanism.</p>'
+                '<p class="ac-rmeta">The lessons are the way in &mdash; the other three all point '
+                'back at them.</p>'
+                '<div class="ac-rbtns">'
+                '<a class="ac-cta" href="%s/academy/%s/%s/">Lesson %s &middot; %s &middot; %d min</a>'
+                '%s</div></div>%s</div>'
+                % (SITE, mod["slug"], e(first["lesson"]), first["n"], e(first_les["title"]),
+                   first["minutes"],
+                   ('<a class="ac-cta ac-quiet" href="%s/academy/practice/">Or try one game &rarr;</a>'
+                    % SITE) if has_practice else "",
+                   mini))
+
+    # ---- ctyri vstupy -----------------------------------------------------
+    body.append('<p class="ac-sechead">Four ways in</p><div class="ac-ways">')
+    body.append('<div class="ac-way" data-way="learn"><span class="ac-kind">Course &middot; %d lessons</span>'
+                '<h3>Learn</h3><p>The mental model most mTOR papers assume you already have &mdash; '
+                'one mechanism at a time, with the evidence attached.</p>'
+                '<span class="ac-state">%d&ndash;%d min each <i>&middot; start anywhere</i></span>'
+                '<a class="ac-go" href="%s/academy/%s/%s/">Read lesson %s &rarr;</a></div>'
+                % (len(published), min(r["minutes"] for r in published),
+                   max(r["minutes"] for r in published), SITE, mod["slug"], e(first["lesson"]),
+                   first["n"]))
+    if has_practice:
+        body.append('<div class="ac-way" data-way="practice"><span class="ac-kind">Practice &middot; %d games</span>'
+                    '<h3>Practice Arena</h3><p>Predict a perturbation, rebuild a route, name what a '
+                    'result does not show. Points reward calibration, not speed.</p>'
+                    '<span class="ac-state">%d questions <i>&middot; 3 min a round</i></span>'
+                    '<a class="ac-go" href="%s/academy/practice/">Play &rarr;</a></div>'
+                    % (pay["games"], _practice_item_count(), SITE))
+    if pub_ch:
+        body.append('<div class="ac-way" data-way="challenge">'
+                    '<span class="ac-kind">Investigation &middot; %d challenge%s</span>'
+                    '<h3>Research Challenges</h3><p>Take a question the field has not closed, commit '
+                    'to a hypothesis, spend a limited research budget, and compare your reasoning '
+                    'with what was published.</p>'
+                    '<span class="ac-state">~30 min <i>&middot; needs the basics first</i></span>'
+                    '<a class="ac-go" href="%s/academy/research-challenges/">Investigate &rarr;</a></div>'
+                    % (len(pub_ch), "" if len(pub_ch) == 1 else "s", SITE))
+    body.append('<div class="ac-way" data-way="routes"><span class="ac-kind">The map &middot; %d routes</span>'
+                '<h3>Guided Routes</h3><p>Follow one question all the way through the pathway map, '
+                'step by step, in the interactive Atlas.</p>'
+                '<span class="ac-state">No score <i>&middot; just reading</i></span>'
+                '<a class="ac-go" href="%s/#view=map&amp;pw=guided">Explore &rarr;</a></div>'
+                % (routes_n, SITE))
+    for cs in modules.get("comingSoon", []):
+        body.append('<div class="ac-way ac-soon"><span class="ac-kind">Planned</span><h3>%s</h3>'
+                    '<p>%s</p><span class="ac-state"><i>Coming soon</i></span></div>'
+                    % (e(cs["title"]), e(cs["blurb"])))
+    body.append("</div>")
+
+    # ---- deset lekci jako detail pilíre Learn, ne pater stranky ------------
     steps = []
     for row in mod["lessons"]:
         pub = row["status"] == "published"
@@ -2365,82 +2621,51 @@ def academy_home(modules, lessons_by_slug, challenges):
             '<span class="ac-pathttl">%s</span></span>' % (row["n"], e(ttl)))
         steps.append('<li%s data-ac-lesson="%s">%s</li>'
                      % ("" if pub else ' class="ac-planned"', e(row["lesson"]), inner))
-    body.append('<h2>Your path</h2><ol class="ac-path">%s</ol>' % "".join(steps))
+    body.append('<div class="ac-sechead ac-sechead-row"><span>The %s lessons</span>'
+                '<a href="%s/academy/%s/">All lessons &amp; overview &rarr;</a></div>'
+                '<ol class="ac-path">%s</ol>'
+                % ("ten" if len(published) == 10 else str(len(published)),
+                   SITE, mod["slug"], "".join(steps)))
 
-    body.append('<h2>Start here</h2><div class="ac-cards">')
-    body.append('<div class="ac-card"><h3>Learn</h3><p>Build your understanding one '
-                'mechanism at a time, from what mTOR integrates to why the field still '
-                'argues about it.</p>'
-                '<a class="ac-go" href="%s/academy/%s/">Start &rarr;</a></div>'
-                % (SITE, mod["slug"]))
-    body.append('<div class="ac-card"><h3>Guided Routes</h3><p>Follow one question all the '
-                'way through the pathway map, step by step, in the interactive Atlas.</p>'
-                '<a class="ac-go" href="%s/#view=map&amp;pw=guided">Explore &rarr;</a></div>'
-                % SITE)
-    # Spec Research Challenges §2: existujici polozka na homepage prestava byt
-    # "coming soon" a dostane skutecny cil. Karta se ridi daty -- kdyz
-    # challenges.json zmizi, vrati se puvodni chovani.
-    if os.path.exists(os.path.join(ADATA, "practice.json")):
-        body.append('<div class="ac-card"><h3>Practice Arena</h3><p>Short games built on the same '
-                    'pathway model the lessons draw from: predict a perturbation, rebuild a '
-                    'route, name what a result does not show. Your answers colour in a map of '
-                    'the pathway.</p>'
-                    '<a class="ac-go" href="%s/academy/practice/">Practise &rarr;</a></div>'
-                    % SITE)
-
-    pub_ch = [c for c in challenges if c["status"] == "published"]
-    if pub_ch:
-        body.append('<div class="ac-card"><h3>Research Challenges</h3><p>Take a question '
-                    'the field has not closed, commit to a hypothesis, spend a limited '
-                    'research budget on experiments, and compare your reasoning with what '
-                    'was actually published.</p>'
-                    '<a class="ac-go" href="%s/academy/research-challenges/">Investigate '
-                    '&rarr;</a></div>' % SITE)
-    for cs in modules.get("comingSoon", []):
-        body.append('<div class="ac-card ac-soon"><h3>%s</h3><p>%s</p>'
-                    '<span class="ac-go">Coming soon</span></div>'
-                    % (e(cs["title"]), e(cs["blurb"])))
-    body.append("</div>")
-
-    body.append('<h2>%s</h2><p>%s</p>' % (e(mod["title"]), e(mod["subtitle"])))
-    rows = []
-    for row in published[:3]:
-        les = lessons_by_slug[row["lesson"]]
-        rows.append('<li data-ac-lesson="%s"><a href="%s/academy/%s/%s/">'
-                    '<span class="ac-state">○</span><span class="ac-n">%s</span>'
-                    '<span class="ac-ttl">%s</span><span class="ac-meta">%s · %d min</span>'
-                    '</a></li>' % (e(row["lesson"]), SITE, mod["slug"], e(row["lesson"]),
-                                   row["n"], e(les["title"]), e(row["level"]), row["minutes"]))
-    body.append('<ul class="ac-list">%s</ul>' % "".join(rows))
-    body.append('<p><a class="ac-cta ac-quiet" href="%s/academy/%s/">View all lessons &rarr;</a></p>'
-                % (SITE, mod["slug"]))
-
-    body.append('<h2>Explore the Atlas</h2>'
-                '<p>Every lesson points back into the database it was written from.</p>'
+    body.append('<p class="ac-sechead">Explore the Atlas</p>'
+                '<p>Every lesson, game and challenge points back into the database it was written from.</p>'
                 '<div class="ac-deeper">'
                 '<a href="%s/browse/">Studies</a>'
                 '<a href="%s/complex/mtorc1/">Pathways</a>'
                 '<a href="%s/#view=authors">Authors</a>'
                 '<a href="%s/gene/mtor/">Proteins</a>'
                 '<a href="%s/#view=questions">Open questions</a>'
-                '<a href="%s/academy/progress/">Your pathway</a></div>'
-                % (SITE, SITE, SITE, SITE, SITE, SITE))
+                '%s</div>'
+                % (SITE, SITE, SITE, SITE, SITE,
+                   ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "mTOR Academy", "url": url, "inLanguage": "en",
-          "description": "A short course in mTOR biology built on the Atlas's own "
-                         "evidence-graded literature: mechanisms first, evidence attached, "
-                         "open questions kept visible.",
+          "description": "Four ways into mTOR biology: ten lessons on the mechanisms, practice games "
+                         "built on the Atlas's pathway model, guided routes through the map, and "
+                         "research challenges where you spend a budget to close a question.",
           "isPartOf": dict(DATASET_REF),
           "license": "https://creativecommons.org/licenses/by/4.0/"}
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Academy", None)])
     crumb = '<a href="%s/">Oliver\'s mTOR Atlas</a> · Academy' % SITE
     return url, shell("mTOR Academy | Oliver's mTOR Atlas",
-                      "Learn the mechanisms of mTOR biology from the Atlas's own "
-                      "evidence-graded studies: what mTOR integrates, why there are two "
-                      "complexes, and how Rheb and the TSC complex control mTORC1.",
+                      "Four ways into mTOR biology: lessons on the mechanisms, practice games that "
+                      "score calibration rather than speed, guided routes through the pathway map, "
+                      "and research challenges built on the Atlas's own evidence-graded studies.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
-                      extra_css=ACADEMY_CSS, extra_body=PROGRESS_JS)
+                      extra_css=ACADEMY_CSS,
+                      extra_body=PROGRESS_JS + payload + (HOME_JS if has_practice else ""))
+
+
+def _practice_item_count():
+    """Pocet polozek Practice Areny pro kartu na homepage. Cte se z banky, ne
+    z natvrdo napsaneho cisla -- jinak by se to rozeslo pri prvnim rozsireni."""
+    try:
+        import build_practice
+        cfg, les, pw, st, g = build_practice.load()
+        return build_practice.build_bank(cfg, les, pw, st, g)["counts"]["items"]
+    except Exception:
+        return 0
 
 
 # --------------------------------------------------- research challenges ---

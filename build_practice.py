@@ -2525,6 +2525,24 @@ def badge_table(cfg):
     return '<ul class="pa-crit" id="paCrit">%s</ul>' % "".join(rows)
 
 
+
+# ------------------------------------------------------- payload pro /academy/ ---
+
+def home_payload(cfg, les, pw):
+    """Minimum, ktere potrebuje prestavena homepage Academy: souradnice uzlu pro
+    minimapu, prahy hodnosti a par konstant mastery. Zamerne to NENI cela banka
+    -- homepage nepotrebuje polozky, jen stav."""
+    core, route, meta = coverage(les, pw)
+    return {
+        "key": cfg["storageKey"],
+        "nodes": [[nid, round(m["x"]), round(m["y"])] for nid, m in sorted(meta.items())],
+        "rest": [[round(n["x"]), round(n["y"])] for n in pw["nodes"] if n["id"] not in meta],
+        "ranks": [{"n": r["n"], "name": r["name"], "xp": r["xp"]} for r in cfg["ranks"]],
+        "mastered": cfg["mastery"]["masteredFrom"], "gold": cfg["mastery"]["goldFrom"],
+        "half": cfg["mastery"]["halfLifeDays"], "decayFrom": cfg["mastery"]["decayFrom"],
+        "games": len(cfg["games"]),
+    }
+
 # ----------------------------------------------------------------- stranky ---
 
 def payload(bank):

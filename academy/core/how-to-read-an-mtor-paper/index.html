@@ -140,7 +140,7 @@
    "evidence-based research"
   ],
   "version": "1.0.0",
-  "dateModified": "2026-09-05"
+  "dateModified": "2026-09-07"
  },
  "author": {
   "@type": "Person",
@@ -380,6 +380,47 @@ a{overflow-wrap:anywhere}
 .ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
 .ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
 
+/* Homepage prestavba (2026-09-06): "kde jsi" pruh + ctyri rovnocenne vstupy.
+   Duvod: stranka mela jedno primarni tlacitko na lekci 01 a tri z peti bloku
+   o jednom pilíri, takze Practice Arena i Challenges vypadaly jako prilohy.
+   Tokeny jsou porad ty, ktere definuje shell() -- zadna nova paleta. */
+.ac-resume{--ac-tint:rgba(163,31,52,.09);border:1px solid var(--line);border-radius:3px;
+  padding:18px 20px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:0 0 30px}
+html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
+.ac-resume .ac-rl{flex:1 1 320px;min-width:min(100%,280px)}
+.ac-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rbig{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.ac-rmeta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin:0}
+.ac-rmeta b{color:var(--ink)}
+.ac-rbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ac-mini{flex:0 0 auto}
+.ac-mini svg{display:block;width:150px;height:auto}
+.ac-mini .m-r{fill:var(--soft);opacity:.2}
+.ac-mini .m-n{fill:none;stroke:var(--line);stroke-width:1}
+.ac-mini .m-n[data-m="1"]{fill:var(--ac-tint);stroke:var(--teal)}
+.ac-mini .m-n[data-m="3"]{fill:var(--teal);stroke:var(--teal)}
+.ac-mini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
+.ac-mini .m-c{font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--soft)}
+
+.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:14px;margin:0 0 8px}
+.ac-way{border:1px solid var(--line);border-radius:3px;padding:18px 20px 16px;display:flex;
+  flex-direction:column;gap:7px}
+.ac-way .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.ac-way p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
+  border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+.ac-way .ac-state i{font-style:normal;color:var(--soft)}
+.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0}
+.ac-way .ac-bar i{display:block;height:100%;background:var(--teal)}
+.ac-way .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.03em;text-decoration:none}
+.ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
   margin:0 0 34px}
@@ -408,7 +449,12 @@ a{overflow-wrap:anywhere}
 .ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
 
 /* "Your path" strip -- a map of the course, not a score. */
-.ac-path{list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+.ac-sechead-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ac-sechead-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+.ac-sechead-row a:hover{border-bottom-color:currentColor}
+.ac-path{-webkit-mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
   border-bottom:1px solid var(--line)}
 .ac-path::-webkit-scrollbar{display:none}
@@ -749,7 +795,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-05 23:05 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 11:05 Prague time</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's

@@ -14,13 +14,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mTOR Academy | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="Learn the mechanisms of mTOR biology from the Atlas&#x27;s own evidence-graded studies: what mTOR integrates, why there are two complexes, and how Rheb and the TSC complex control mTORC1.">
+<meta name="description" content="Four ways into mTOR biology: lessons on the mechanisms, practice games that score calibration rather than speed, guided routes through the pathway map, and research challenges built on the Atlas&#x27;s own evidence-graded studies.">
 <link rel="canonical" href="https://mtor-atlas.org/academy/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="mTOR Academy | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="Learn the mechanisms of mTOR biology from the Atlas&#x27;s own evidence-graded studies: what mTOR integrates, why there are two complexes, and how Rheb and the TSC complex control mTORC1.">
+<meta property="og:description" content="Four ways into mTOR biology: lessons on the mechanisms, practice games that score calibration rather than speed, guided routes through the pathway map, and research challenges built on the Atlas&#x27;s own evidence-graded studies.">
 <meta property="og:url" content="https://mtor-atlas.org/academy/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
  "name": "mTOR Academy",
  "url": "https://mtor-atlas.org/academy/",
  "inLanguage": "en",
- "description": "A short course in mTOR biology built on the Atlas's own evidence-graded literature: mechanisms first, evidence attached, open questions kept visible.",
+ "description": "Four ways into mTOR biology: ten lessons on the mechanisms, practice games built on the Atlas's pathway model, guided routes through the map, and research challenges where you spend a budget to close a question.",
  "isPartOf": {
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
@@ -111,7 +111,7 @@
    "evidence-based research"
   ],
   "version": "1.0.0",
-  "dateModified": "2026-09-05"
+  "dateModified": "2026-09-07"
  },
  "license": "https://creativecommons.org/licenses/by/4.0/"
 }
@@ -307,6 +307,47 @@ a{overflow-wrap:anywhere}
 .ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
 .ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
 
+/* Homepage prestavba (2026-09-06): "kde jsi" pruh + ctyri rovnocenne vstupy.
+   Duvod: stranka mela jedno primarni tlacitko na lekci 01 a tri z peti bloku
+   o jednom pilíri, takze Practice Arena i Challenges vypadaly jako prilohy.
+   Tokeny jsou porad ty, ktere definuje shell() -- zadna nova paleta. */
+.ac-resume{--ac-tint:rgba(163,31,52,.09);border:1px solid var(--line);border-radius:3px;
+  padding:18px 20px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:0 0 30px}
+html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
+.ac-resume .ac-rl{flex:1 1 320px;min-width:min(100%,280px)}
+.ac-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rbig{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.ac-rmeta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin:0}
+.ac-rmeta b{color:var(--ink)}
+.ac-rbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ac-mini{flex:0 0 auto}
+.ac-mini svg{display:block;width:150px;height:auto}
+.ac-mini .m-r{fill:var(--soft);opacity:.2}
+.ac-mini .m-n{fill:none;stroke:var(--line);stroke-width:1}
+.ac-mini .m-n[data-m="1"]{fill:var(--ac-tint);stroke:var(--teal)}
+.ac-mini .m-n[data-m="3"]{fill:var(--teal);stroke:var(--teal)}
+.ac-mini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
+.ac-mini .m-c{font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--soft)}
+
+.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:14px;margin:0 0 8px}
+.ac-way{border:1px solid var(--line);border-radius:3px;padding:18px 20px 16px;display:flex;
+  flex-direction:column;gap:7px}
+.ac-way .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.ac-way p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
+  border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+.ac-way .ac-state i{font-style:normal;color:var(--soft)}
+.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0}
+.ac-way .ac-bar i{display:block;height:100%;background:var(--teal)}
+.ac-way .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.03em;text-decoration:none}
+.ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
   margin:0 0 34px}
@@ -335,7 +376,12 @@ a{overflow-wrap:anywhere}
 .ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
 
 /* "Your path" strip -- a map of the course, not a score. */
-.ac-path{list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+.ac-sechead-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ac-sechead-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+.ac-sechead-row a:hover{border-bottom-color:currentColor}
+.ac-path{-webkit-mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
   border-bottom:1px solid var(--line)}
 .ac-path::-webkit-scrollbar{display:none}
@@ -667,7 +713,7 @@ a{overflow-wrap:anywhere}
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · Academy</nav>
 
-<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>From understanding mTOR to thinking like a researcher.</h1><p class="ac-lede">Learn the mechanisms. Explore the evidence. Follow the questions that drive mTOR research.</p><a class="ac-cta" href="https://mtor-atlas.org/academy/core/what-is-mtor/">Start learning &rarr;</a></div><h2>Your path</h2><ol class="ac-path"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span>01<span class="ac-pathttl">What is mTOR?</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span>02<span class="ac-pathttl">mTORC1 vs mTORC2</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span>03<span class="ac-pathttl">Rheb — The Critical Regulator</span></a></li><li data-ac-lesson="tsc-and-rheb"><a href="https://mtor-atlas.org/academy/core/tsc-and-rheb/"><span class="ac-state">○</span>04<span class="ac-pathttl">The TSC Complex — Where the Inputs Meet</span></a></li><li data-ac-lesson="lysosome-platform"><a href="https://mtor-atlas.org/academy/core/lysosome-platform/"><span class="ac-state">○</span>05<span class="ac-pathttl">The Lysosome as a Signalling Platform</span></a></li><li data-ac-lesson="nutrient-sensing"><a href="https://mtor-atlas.org/academy/core/nutrient-sensing/"><span class="ac-state">○</span>06<span class="ac-pathttl">Nutrient Sensing</span></a></li><li data-ac-lesson="growth-factor-signaling"><a href="https://mtor-atlas.org/academy/core/growth-factor-signaling/"><span class="ac-state">○</span>07<span class="ac-pathttl">Growth Factor Signalling</span></a></li><li data-ac-lesson="feedback-regulation"><a href="https://mtor-atlas.org/academy/core/feedback-regulation/"><span class="ac-state">○</span>08<span class="ac-pathttl">Feedback Regulation</span></a></li><li data-ac-lesson="mtor-and-autophagy"><a href="https://mtor-atlas.org/academy/core/mtor-and-autophagy/"><span class="ac-state">○</span>09<span class="ac-pathttl">mTOR and Autophagy</span></a></li><li data-ac-lesson="how-to-read-an-mtor-paper"><a href="https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"><span class="ac-state">○</span>10<span class="ac-pathttl">How to Read an mTOR Paper</span></a></li></ol><h2>Start here</h2><div class="ac-cards"><div class="ac-card"><h3>Learn</h3><p>Build your understanding one mechanism at a time, from what mTOR integrates to why the field still argues about it.</p><a class="ac-go" href="https://mtor-atlas.org/academy/core/">Start &rarr;</a></div><div class="ac-card"><h3>Guided Routes</h3><p>Follow one question all the way through the pathway map, step by step, in the interactive Atlas.</p><a class="ac-go" href="https://mtor-atlas.org/#view=map&amp;pw=guided">Explore &rarr;</a></div><div class="ac-card"><h3>Practice Arena</h3><p>Short games built on the same pathway model the lessons draw from: predict a perturbation, rebuild a route, name what a result does not show. Your answers colour in a map of the pathway.</p><a class="ac-go" href="https://mtor-atlas.org/academy/practice/">Practise &rarr;</a></div><div class="ac-card"><h3>Research Challenges</h3><p>Take a question the field has not closed, commit to a hypothesis, spend a limited research budget on experiments, and compare your reasoning with what was actually published.</p><a class="ac-go" href="https://mtor-atlas.org/academy/research-challenges/">Investigate &rarr;</a></div></div><h2>mTOR Core</h2><p>Understand the core architecture of mTOR biology.</p><ul class="ac-list"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span><span class="ac-n">01</span><span class="ac-ttl">What is mTOR?</span><span class="ac-meta">Foundation · 15 min</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span><span class="ac-n">02</span><span class="ac-ttl">mTORC1 vs mTORC2</span><span class="ac-meta">Core · 20 min</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span><span class="ac-n">03</span><span class="ac-ttl">Rheb — The Critical Regulator</span><span class="ac-meta">Core · 25 min</span></a></li></ul><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/core/">View all lessons &rarr;</a></p><h2>Explore the Atlas</h2><p>Every lesson points back into the database it was written from.</p><div class="ac-deeper"><a href="https://mtor-atlas.org/browse/">Studies</a><a href="https://mtor-atlas.org/complex/mtorc1/">Pathways</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/gene/mtor/">Proteins</a><a href="https://mtor-atlas.org/#view=questions">Open questions</a><a href="https://mtor-atlas.org/academy/progress/">Your pathway</a></div>
+<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>Four ways into mTOR biology.</h1><p class="ac-lede">Read the mechanism, practise it until you can predict it, follow one question all the way through the map, or run an investigation of your own. All four are built on the same evidence-graded studies as the rest of the Atlas.</p></div><div class="ac-resume" id="acResume"><div class="ac-rl" id="acResumeText"><p class="ac-rk">New here</p><p class="ac-rbig">Start with the mechanism.</p><p class="ac-rmeta">The lessons are the way in &mdash; the other three all point back at them.</p><div class="ac-rbtns"><a class="ac-cta" href="https://mtor-atlas.org/academy/core/what-is-mtor/">Lesson 01 &middot; What is mTOR? &middot; 15 min</a><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/practice/">Or try one game &rarr;</a></div></div><div class="ac-mini"><svg id="acMiniSvg" viewBox="0 0 150 158" role="img" aria-label="Miniature map of the pathway"><circle class="m-r" cx="20.1" cy="6.4" r="1.8"/><circle class="m-r" cx="37.1" cy="134.7" r="1.8"/><circle class="m-r" cx="70.8" cy="6.4" r="1.8"/><circle class="m-r" cx="53.9" cy="134.7" r="1.8"/><circle class="m-r" cx="140.1" cy="48.8" r="1.8"/><circle class="m-r" cx="104.7" cy="141.5" r="1.8"/><circle class="m-r" cx="18.4" cy="42.0" r="1.8"/><circle class="m-r" cx="18.4" cy="48.8" r="1.8"/><circle class="m-r" cx="25.0" cy="70.1" r="1.8"/><circle class="m-r" cx="130.0" cy="91.3" r="1.8"/><circle class="m-r" cx="124.9" cy="42.0" r="1.8"/><circle class="m-r" cx="79.3" cy="91.3" r="1.8"/><circle class="m-r" cx="138.4" cy="13.1" r="1.8"/><circle class="m-r" cx="70.8" cy="13.1" r="1.8"/><circle class="m-r" cx="68.5" cy="70.1" r="1.8"/><circle class="m-r" cx="124.9" cy="55.6" r="1.8"/><circle class="m-r" cx="20.1" cy="134.7" r="1.8"/><circle class="m-r" cx="25.0" cy="105.8" r="1.8"/><circle class="m-r" cx="111.9" cy="105.8" r="1.8"/><circle class="m-r" cx="46.7" cy="105.8" r="1.8"/><circle class="m-r" cx="87.8" cy="141.5" r="1.8"/><circle class="m-r" cx="68.5" cy="105.8" r="1.8"/><circle class="m-r" cx="79.3" cy="55.6" r="1.8"/><circle class="m-r" cx="104.7" cy="91.3" r="1.8"/><circle class="m-r" cx="140.1" cy="42.0" r="1.8"/><circle class="m-r" cx="28.6" cy="27.6" r="1.8"/><circle class="m-r" cx="104.7" cy="134.7" r="1.8"/><circle class="m-r" cx="138.4" cy="134.7" r="1.8"/><circle class="m-r" cx="94.5" cy="55.6" r="1.8"/><circle class="m-r" cx="90.1" cy="105.8" r="1.8"/><circle class="m-r" cx="87.8" cy="6.4" r="1.8"/><circle class="m-r" cx="121.5" cy="13.1" r="1.8"/><circle class="m-r" cx="64.1" cy="55.6" r="1.8"/><circle class="m-r" cx="48.9" cy="42.0" r="1.8"/><circle class="m-r" cx="53.9" cy="91.3" r="1.8"/><circle class="m-r" cx="124.9" cy="48.8" r="1.8"/><circle class="m-r" cx="140.1" cy="55.6" r="1.8"/><circle class="m-r" cx="48.9" cy="55.6" r="1.8"/><circle class="m-r" cx="79.3" cy="42.0" r="1.8"/><circle class="m-r" cx="133.6" cy="70.1" r="1.8"/><rect class="m-n" data-id="4E-BP1" data-m="0" x="59.6" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="AMPK" data-m="0" x="90.0" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="Akt/PKB" data-m="0" x="100.2" y="25.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="Arginine" data-m="0" x="83.2" y="11.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Autophagy" data-m="0" x="74.8" y="118.2" width="9" height="4" rx="1"/><rect class="m-n" data-id="Energy &amp; cellular stress" data-m="0" x="49.4" y="11.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Everolimus" data-m="0" x="49.4" y="4.4" width="9" height="4" rx="1"/><rect class="m-n" data-id="FKBP12" data-m="0" x="74.8" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="Fasting / caloric restriction" data-m="0" x="133.9" y="4.4" width="9" height="4" rx="1"/><rect class="m-n" data-id="GATOR1" data-m="0" x="129.1" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="GATOR2" data-m="0" x="85.6" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="Glutamine" data-m="0" x="117.0" y="4.4" width="9" height="4" rx="1"/><rect class="m-n" data-id="Growth hormone / IGF-1 axis" data-m="0" x="32.6" y="4.4" width="9" height="4" rx="1"/><rect class="m-n" data-id="IRS-1 / IRS-2" data-m="0" x="125.5" y="25.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="Immune function" data-m="0" x="66.3" y="132.7" width="9" height="4" rx="1"/><rect class="m-n" data-id="Insulin resistance" data-m="0" x="83.2" y="132.7" width="9" height="4" rx="1"/><rect class="m-n" data-id="LARS (leucyl-tRNA synthetase)" data-m="0" x="13.9" y="53.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="Leucine" data-m="0" x="100.2" y="11.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Longevity" data-m="0" x="66.3" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="Lymphangioleiomyomatosis" data-m="0" x="32.6" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="Lysosomal biogenesis" data-m="0" x="42.2" y="68.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Lysosome" data-m="0" x="85.6" y="68.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Metformin" data-m="0" x="32.6" y="11.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Mitophagy" data-m="0" x="129.1" y="103.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="Muscle growth" data-m="0" x="117.0" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="PI3K" data-m="0" x="49.4" y="25.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="Protein synthesis" data-m="0" x="133.9" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="Rag GTPases" data-m="0" x="64.0" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="Ragulator" data-m="0" x="107.4" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="Rapamycin" data-m="0" x="15.6" y="11.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Raptor" data-m="0" x="29.1" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="Renal cell carcinoma (RCC)" data-m="0" x="15.6" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="Rheb" data-m="0" x="42.2" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="Rictor" data-m="0" x="29.1" y="40.0" width="9" height="4" rx="1"/><rect class="m-n" data-id="S6K1" data-m="0" x="105.2" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="SIN1 / MAPKAP1" data-m="0" x="59.6" y="40.0" width="9" height="4" rx="1"/><rect class="m-n" data-id="SLC38A9" data-m="0" x="107.4" y="68.1" width="9" height="4" rx="1"/><rect class="m-n" data-id="Sestrin2" data-m="0" x="29.1" y="53.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="TFEB" data-m="0" x="24.1" y="89.3" width="9" height="4" rx="1"/><rect class="m-n" data-id="TSC1/TSC2" data-m="0" x="44.4" y="46.8" width="9" height="4" rx="1"/><rect class="m-n" data-id="Temsirolimus" data-m="0" x="100.2" y="4.4" width="9" height="4" rx="1"/><rect class="m-n" data-id="Tuberous sclerosis complex" data-m="0" x="117.0" y="132.7" width="9" height="4" rx="1"/><rect class="m-n" data-id="Tumor growth" data-m="0" x="49.4" y="139.5" width="9" height="4" rx="1"/><rect class="m-n" data-id="ULK1" data-m="0" x="105.2" y="40.0" width="9" height="4" rx="1"/><rect class="m-n" data-id="eIF4E" data-m="0" x="105.2" y="53.6" width="9" height="4" rx="1"/><rect class="m-n" data-id="mTOR" data-m="0" x="90.0" y="40.0" width="9" height="4" rx="1"/><rect class="m-n" data-id="mTORC1" data-m="0" x="20.5" y="74.9" width="9" height="4" rx="1"/><rect class="m-n" data-id="mTORC2" data-m="0" x="74.8" y="25.6" width="9" height="4" rx="1"/><text class="m-c" id="acMiniCap" x="0" y="156">48 nodes to uncover</text></svg></div></div><p class="ac-sechead">Four ways in</p><div class="ac-ways"><div class="ac-way" data-way="learn"><span class="ac-kind">Course &middot; 10 lessons</span><h3>Learn</h3><p>The mental model most mTOR papers assume you already have &mdash; one mechanism at a time, with the evidence attached.</p><span class="ac-state">15&ndash;30 min each <i>&middot; start anywhere</i></span><a class="ac-go" href="https://mtor-atlas.org/academy/core/what-is-mtor/">Read lesson 01 &rarr;</a></div><div class="ac-way" data-way="practice"><span class="ac-kind">Practice &middot; 8 games</span><h3>Practice Arena</h3><p>Predict a perturbation, rebuild a route, name what a result does not show. Points reward calibration, not speed.</p><span class="ac-state">411 questions <i>&middot; 3 min a round</i></span><a class="ac-go" href="https://mtor-atlas.org/academy/practice/">Play &rarr;</a></div><div class="ac-way" data-way="challenge"><span class="ac-kind">Investigation &middot; 1 challenge</span><h3>Research Challenges</h3><p>Take a question the field has not closed, commit to a hypothesis, spend a limited research budget, and compare your reasoning with what was published.</p><span class="ac-state">~30 min <i>&middot; needs the basics first</i></span><a class="ac-go" href="https://mtor-atlas.org/academy/research-challenges/">Investigate &rarr;</a></div><div class="ac-way" data-way="routes"><span class="ac-kind">The map &middot; 11 routes</span><h3>Guided Routes</h3><p>Follow one question all the way through the pathway map, step by step, in the interactive Atlas.</p><span class="ac-state">No score <i>&middot; just reading</i></span><a class="ac-go" href="https://mtor-atlas.org/#view=map&amp;pw=guided">Explore &rarr;</a></div></div><div class="ac-sechead ac-sechead-row"><span>The ten lessons</span><a href="https://mtor-atlas.org/academy/core/">All lessons &amp; overview &rarr;</a></div><ol class="ac-path"><li data-ac-lesson="what-is-mtor"><a href="https://mtor-atlas.org/academy/core/what-is-mtor/"><span class="ac-state">○</span>01<span class="ac-pathttl">What is mTOR?</span></a></li><li data-ac-lesson="mtorc1-vs-mtorc2"><a href="https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"><span class="ac-state">○</span>02<span class="ac-pathttl">mTORC1 vs mTORC2</span></a></li><li data-ac-lesson="rheb"><a href="https://mtor-atlas.org/academy/core/rheb/"><span class="ac-state">○</span>03<span class="ac-pathttl">Rheb — The Critical Regulator</span></a></li><li data-ac-lesson="tsc-and-rheb"><a href="https://mtor-atlas.org/academy/core/tsc-and-rheb/"><span class="ac-state">○</span>04<span class="ac-pathttl">The TSC Complex — Where the Inputs Meet</span></a></li><li data-ac-lesson="lysosome-platform"><a href="https://mtor-atlas.org/academy/core/lysosome-platform/"><span class="ac-state">○</span>05<span class="ac-pathttl">The Lysosome as a Signalling Platform</span></a></li><li data-ac-lesson="nutrient-sensing"><a href="https://mtor-atlas.org/academy/core/nutrient-sensing/"><span class="ac-state">○</span>06<span class="ac-pathttl">Nutrient Sensing</span></a></li><li data-ac-lesson="growth-factor-signaling"><a href="https://mtor-atlas.org/academy/core/growth-factor-signaling/"><span class="ac-state">○</span>07<span class="ac-pathttl">Growth Factor Signalling</span></a></li><li data-ac-lesson="feedback-regulation"><a href="https://mtor-atlas.org/academy/core/feedback-regulation/"><span class="ac-state">○</span>08<span class="ac-pathttl">Feedback Regulation</span></a></li><li data-ac-lesson="mtor-and-autophagy"><a href="https://mtor-atlas.org/academy/core/mtor-and-autophagy/"><span class="ac-state">○</span>09<span class="ac-pathttl">mTOR and Autophagy</span></a></li><li data-ac-lesson="how-to-read-an-mtor-paper"><a href="https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"><span class="ac-state">○</span>10<span class="ac-pathttl">How to Read an mTOR Paper</span></a></li></ol><p class="ac-sechead">Explore the Atlas</p><p>Every lesson, game and challenge points back into the database it was written from.</p><div class="ac-deeper"><a href="https://mtor-atlas.org/browse/">Studies</a><a href="https://mtor-atlas.org/complex/mtorc1/">Pathways</a><a href="https://mtor-atlas.org/#view=authors">Authors</a><a href="https://mtor-atlas.org/gene/mtor/">Proteins</a><a href="https://mtor-atlas.org/#view=questions">Open questions</a><a href="https://mtor-atlas.org/academy/progress/">Your pathway</a></div>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
@@ -675,7 +721,7 @@ Curated by Oliver Barton, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-05 23:05 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 11:05 Prague time</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's
@@ -705,6 +751,105 @@ Curated by Oliver Barton, Prague.</p>
     });
     paint();
   }
+})();
+</script>
+<script type="application/json" id="acHome">{"key":"atlas-practice-v1","nodes":[["4E-BP1",658,496],["AMPK",942,496],["Akt/PKB",1037,302],["Arginine",879,170],["Autophagy",800,1148],["Energy & cellular stress",563,170],["Everolimus",563,108],["FKBP12",800,496],["Fasting / caloric restriction",1352,108],["GATOR1",1307,752],["GATOR2",901,752],["Glutamine",1194,108],["Growth hormone / IGF-1 axis",406,108],["IRS-1 / IRS-2",1273,302],["Immune function",721,1280],["Insulin resistance",879,1280],["LARS (leucyl-tRNA synthetase)",232,558],["Leucine",1037,170],["Longevity",721,1342],["Lymphangioleiomyomatosis",406,1342],["Lysosomal biogenesis",496,690],["Lysosome",901,690],["Metformin",406,170],["Mitophagy",1307,1016],["Muscle growth",1194,1342],["PI3K",563,302],["Protein synthesis",1352,1342],["Rag GTPases",699,752],["Ragulator",1104,752],["Rapamycin",248,170],["Raptor",374,496],["Renal cell carcinoma (RCC)",248,1342],["Rheb",496,752],["Rictor",374,434],["S6K1",1084,496],["SIN1 / MAPKAP1",658,434],["SLC38A9",1104,690],["Sestrin2",374,558],["TFEB",327,884],["TSC1/TSC2",516,496],["Temsirolimus",1037,108],["Tuberous sclerosis complex",1194,1280],["Tumor growth",563,1342],["ULK1",1084,434],["eIF4E",1084,558],["mTOR",942,434],["mTORC1",293,752],["mTORC2",800,302]],"rest":[[248,108],[406,1280],[721,108],[563,1280],[1368,496],[1037,1342],[232,434],[232,496],[293,690],[1273,884],[1226,434],[800,884],[1352,170],[721,170],[699,690],[1226,558],[248,1280],[293,1016],[1104,1016],[496,1016],[879,1342],[699,1016],[800,558],[1037,884],[1368,434],[327,302],[1037,1280],[1352,1280],[942,558],[901,1016],[879,108],[1194,170],[658,558],[516,434],[563,884],[1226,496],[1368,558],[516,558],[800,434],[1307,690]],"ranks":[{"n":1,"name":"Curious","xp":0},{"n":2,"name":"Student","xp":300},{"n":3,"name":"Rotation Student","xp":900},{"n":4,"name":"Graduate","xp":2000},{"n":5,"name":"Postdoc","xp":4000},{"n":6,"name":"Principal Investigator","xp":7000}],"mastered":3,"gold":4,"half":21,"decayFrom":3,"games":8,"lessons":[{"slug":"what-is-mtor","n":"01","min":15,"url":"https://mtor-atlas.org/academy/core/what-is-mtor/"},{"slug":"mtorc1-vs-mtorc2","n":"02","min":20,"url":"https://mtor-atlas.org/academy/core/mtorc1-vs-mtorc2/"},{"slug":"rheb","n":"03","min":25,"url":"https://mtor-atlas.org/academy/core/rheb/"},{"slug":"tsc-and-rheb","n":"04","min":25,"url":"https://mtor-atlas.org/academy/core/tsc-and-rheb/"},{"slug":"lysosome-platform","n":"05","min":25,"url":"https://mtor-atlas.org/academy/core/lysosome-platform/"},{"slug":"nutrient-sensing","n":"06","min":30,"url":"https://mtor-atlas.org/academy/core/nutrient-sensing/"},{"slug":"growth-factor-signaling","n":"07","min":25,"url":"https://mtor-atlas.org/academy/core/growth-factor-signaling/"},{"slug":"feedback-regulation","n":"08","min":25,"url":"https://mtor-atlas.org/academy/core/feedback-regulation/"},{"slug":"mtor-and-autophagy","n":"09","min":25,"url":"https://mtor-atlas.org/academy/core/mtor-and-autophagy/"},{"slug":"how-to-read-an-mtor-paper","n":"10","min":30,"url":"https://mtor-atlas.org/academy/core/how-to-read-an-mtor-paper/"}],"practice":"https://mtor-atlas.org/academy/practice/","progress":"https://mtor-atlas.org/academy/progress/"}</script>
+<script>
+(function(){
+  var el = document.getElementById('acHome'); if(!el) return;
+  var D; try{ D = JSON.parse(el.textContent); }catch(err){ return; }
+
+  function read(key){
+    try{ return JSON.parse(localStorage.getItem(key)||'null'); }catch(err){ return null; }
+  }
+  var lessons = read('atlas-academy-progress') || {};
+  var pa = read(D.key);
+
+  /* --- kolik lekci je precteno ------------------------------------------ */
+  var done = 0, next = null, i;
+  for(i=0;i<D.lessons.length;i++){
+    if(lessons[D.lessons[i].slug] === 'done') done++;
+    else if(!next) next = D.lessons[i];
+  }
+  if(!next) next = D.lessons[D.lessons.length-1];
+
+  /* --- mastery s decay, stejny vzorec jako v Practice Arene -------------- */
+  function mastery(rec){
+    if(!rec) return 0;
+    var lvl = rec[0], age = Math.floor(Date.now()/86400000) - rec[1];
+    if(lvl >= D.decayFrom && D.half > 0) lvl = Math.max(D.decayFrom-1, lvl - Math.floor(age/D.half));
+    return lvl < 0 ? 0 : lvl;
+  }
+  var seen = 0, mast = 0, gold = 0;
+  if(pa && pa.m){
+    for(i=0;i<D.nodes.length;i++){
+      var v = mastery(pa.m[D.nodes[i][0]]);
+      if(v >= D.gold) gold++; else if(v >= D.mastered) mast++; else if(v >= 1) seen++;
+    }
+  }
+  var touched = seen + mast + gold;
+  var pct = Math.round(touched / D.nodes.length * 100);
+  var rank = null;
+  if(pa){
+    for(i=0;i<D.ranks.length;i++){ if(D.ranks[i].n === (pa.rank||1)) rank = D.ranks[i]; }
+  }
+  var started = (done > 0) || (pa && pa.xp > 0);
+
+  /* --- minimapa ---------------------------------------------------------- */
+  if(pa && pa.m){
+    var svg = document.getElementById('acMiniSvg');
+    if(svg){
+      svg.querySelectorAll('.m-n').forEach(function(r){
+        var v = mastery(pa.m[r.getAttribute('data-id')]);
+        r.setAttribute('data-m', v >= D.gold ? 4 : (v >= D.mastered ? 3 : (v >= 1 ? 1 : 0)));
+      });
+      var cap = document.getElementById('acMiniCap');
+      if(cap) cap.textContent = pct + '% explored';
+    }
+  }
+
+  /* --- pruh "kde jsi" ---------------------------------------------------- */
+  /* Primarni tlacitko se meni podle toho, co ma clovek rozecteno. Dokud neni
+     petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
+     Pak se poradi obraci a Daily 5 jde dopredu. */
+  var box = document.getElementById('acResumeText');
+  if(box && started){
+    var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
+                    next.n + ' &rarr;</a>';
+    var dailyBtn  = '<a class="ac-cta ac-quiet" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var lessonPri = '<a class="ac-cta" href="' + next.url + '">Continue lesson ' +
+                    next.n + ' &middot; ' + next.min + ' min &rarr;</a>';
+    var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var first = (done >= 5 && pa) ? (dailyPri + lessonBtn) : (lessonPri + (pa ? dailyBtn : ''));
+    var meta = [];
+    if(pa && pa.xp) meta.push('<b>' + pa.xp + '</b> XP');
+    meta.push('<b>' + done + '</b> of ' + D.lessons.length + ' lessons read');
+    if(pa && pa.m) meta.push('<b>' + pct + '%</b> of the pathway explored');
+    box.innerHTML =
+      '<p class="ac-rk">Where you are</p>' +
+      '<p class="ac-rbig">' + (rank ? ('Rank ' + rank.n + ' &middot; ' + rank.name) : 'Reading the course') + '</p>' +
+      '<p class="ac-rmeta">' + meta.join(' &middot; ') + '</p>' +
+      '<div class="ac-rbtns">' + first +
+      (pa ? '<a class="ac-cta ac-quiet" href="' + D.progress + '">Your map &rarr;</a>' : '') +
+      '</div>';
+  }
+
+  /* --- stavy na kartach --------------------------------------------------- */
+  function setWay(id, state, cta){
+    var w = document.querySelector('.ac-way[data-way="' + id + '"]'); if(!w) return;
+    var st = w.querySelector('.ac-state'); if(st && state) st.innerHTML = state;
+    var go = w.querySelector('.ac-go'); if(go && cta) go.innerHTML = cta;
+  }
+  if(done > 0)
+    setWay('learn', done + ' / ' + D.lessons.length + ' read<span class="ac-bar"><i style="width:' +
+           Math.round(done / D.lessons.length * 100) + '%"></i></span>',
+           'Continue lesson ' + next.n + ' &rarr;');
+  if(pa && (pa.xp || pa.m))
+    setWay('practice', (rank ? 'Rank ' + rank.n + ' &middot; ' : '') + pct +
+           '% of the map<span class="ac-bar"><i style="width:' + pct + '%"></i></span>',
+           'Play Daily 5 &rarr;');
+  if(pa && pa.met && pa.met.discSeen && pa.met.discSeen.length)
+    setWay('challenge', pa.met.discSeen.length + ' started <i>&middot; pick up where you stopped</i>');
 })();
 </script>
 
