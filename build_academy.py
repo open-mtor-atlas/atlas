@@ -615,8 +615,9 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
   border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
 .ac-way .ac-state i{font-style:normal;color:var(--soft)}
-.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0}
-.ac-way .ac-bar i{display:block;height:100%;background:var(--teal)}
+.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0;position:relative}
+.ac-way .ac-bar i,.ac-way .ac-bar u{position:absolute;left:0;top:0;height:100%;background:var(--teal)}
+.ac-way .ac-bar u{opacity:.28}
 .ac-way .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
   letter-spacing:.03em;text-decoration:none}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
@@ -1706,6 +1707,10 @@ HOME_JS = """
   }
   var touched = seen + mast + gold;
   var pct = Math.round(touched / D.nodes.length * 100);
+  /* Hlavni cislo je ZVLADNUTO, ne "videno". Prohlednout si uzel je levne;
+     mit ho na urovni 3+ znamena, ze na nej clovek odpovedel spravne a jeste to
+     neprovalo decayem. Explored zustava jako druhe cislo. */
+  var pctM = Math.round((mast + gold) / D.nodes.length * 100);
   var rank = null;
   if(pa){
     for(i=0;i<D.ranks.length;i++){ if(D.ranks[i].n === (pa.rank||1)) rank = D.ranks[i]; }
@@ -1721,27 +1726,31 @@ HOME_JS = """
         r.setAttribute('data-m', v >= D.gold ? 4 : (v >= D.mastered ? 3 : (v >= 1 ? 1 : 0)));
       });
       var cap = document.getElementById('acMiniCap');
-      if(cap) cap.textContent = pct + '% explored';
+      if(cap) cap.textContent = pctM + '% mastered';
     }
   }
 
   /* --- pruh "kde jsi" ---------------------------------------------------- */
   /* Primarni tlacitko se meni podle toho, co ma clovek rozecteno. Dokud neni
      petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
-     Pak se poradi obraci a Daily 5 jde dopredu. */
+     Pak se poradi obraci a Practice Arena jde dopredu. */
   var box = document.getElementById('acResumeText');
   if(box && started){
     var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
                     next.n + ' &rarr;</a>';
-    var dailyBtn  = '<a class="ac-cta ac-quiet" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var dailyBtn  = '<a class="ac-cta ac-quiet" href="' + D.practice + '">Practice Arena &rarr;</a>';
     var lessonPri = '<a class="ac-cta" href="' + next.url + '">Continue lesson ' +
                     next.n + ' &middot; ' + next.min + ' min &rarr;</a>';
-    var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Daily 5 &middot; 3 min</a>';
+    var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Practice Arena &middot; ' +
+                    D.games + ' games</a>';
     var first = (done >= 5 && pa) ? (dailyPri + lessonBtn) : (lessonPri + (pa ? dailyBtn : ''));
     var meta = [];
     if(pa && pa.xp) meta.push('<b>' + pa.xp + '</b> XP');
     meta.push('<b>' + done + '</b> of ' + D.lessons.length + ' lessons read');
-    if(pa && pa.m) meta.push('<b>' + pct + '%</b> of the pathway explored');
+    if(pa && pa.m){
+      meta.push('<b>' + pctM + '%</b> of the pathway mastered');
+      meta.push(pct + '% explored');
+    }
     box.innerHTML =
       '<p class="ac-rk">Where you are</p>' +
       '<p class="ac-rbig">' + (rank ? ('Rank ' + rank.n + ' &middot; ' + rank.name) : 'Reading the course') + '</p>' +
@@ -1762,9 +1771,11 @@ HOME_JS = """
            Math.round(done / D.lessons.length * 100) + '%"></i></span>',
            'Continue lesson ' + next.n + ' &rarr;');
   if(pa && (pa.xp || pa.m))
-    setWay('practice', (rank ? 'Rank ' + rank.n + ' &middot; ' : '') + pct +
-           '% of the map<span class="ac-bar"><i style="width:' + pct + '%"></i></span>',
-           'Play Daily 5 &rarr;');
+    setWay('practice', (rank ? 'Rank ' + rank.n + ' &middot; ' : '') + pctM +
+           '% mastered <i>&middot; ' + pct + '% explored</i>' +
+           '<span class="ac-bar"><u style="width:' + pct + '%"></u>' +
+           '<i style="width:' + pctM + '%"></i></span>',
+           'Play &rarr;');
   if(pa && pa.met && pa.met.discSeen && pa.met.discSeen.length)
     setWay('challenge', pa.met.discSeen.length + ' started <i>&middot; pick up where you stopped</i>');
 })();

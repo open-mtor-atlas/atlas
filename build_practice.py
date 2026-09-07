@@ -1978,8 +1978,8 @@ PRACTICE_JS = """
 
     box.innerHTML =
       '<div class="pa-wleft">' +
-        '<div class="pa-wpct"><span class="pa-wnum">' + pct + '%</span>' +
-        '<span class="pa-wlab">of the pathway explored &middot; ' + pctM + '% mastered</span></div>' +
+        '<div class="pa-wpct"><span class="pa-wnum">' + pctM + '%</span>' +
+        '<span class="pa-wlab">of the pathway mastered &middot; ' + pct + '% explored</span></div>' +
         '<div class="pa-wbar">' +
           '<i class="w-gold" style="width:' + w(gold) + '"></i>' +
           '<i class="w-mast" style="width:' + w(mast) + '"></i>' +
