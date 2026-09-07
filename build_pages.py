@@ -282,6 +282,21 @@ def tier_bits(t):
     return TIER_LABEL.get((t or "").strip(), ("—", t or "ungraded", "#7C7569"))
 
 
+def _short_title(title, limit=70):
+    """Trims a study title for the <title> tag, breaking at a word boundary --
+    SEO P1 Ukol 4: study <title> tags were the literal paper title (median
+    121 chars, max 293 across the corpus), which both got truncated in the
+    SERP and put every page in direct competition with PubMed/the publisher
+    for a query almost nobody actually searches. <h1> and the
+    ScholarlyArticle JSON-LD headline/name keep the FULL real title --
+    only the <title> tag changes shape, to lead with what the Atlas adds
+    (year + evidence tier) that a PubMed listing doesn't show."""
+    if len(title) <= limit:
+        return title
+    cut = title[:limit].rsplit(" ", 1)[0]
+    return cut.rstrip(",;:.- ") + "…"
+
+
 def breadcrumb_ld(items):
     """BreadcrumbList schema z (name, url|None) dvojic -- doplněk 2026-08-04
     k viditelné <nav class="crumb">, kterou stránky měly už od fáze 6.
@@ -307,12 +322,24 @@ SITE_TABS = [
 # (Academy -- generuje build_academy.py, ne tenhle skript; odkaz sem patří,
 # aby ho měly i všechny pre-renderované stránky, a crawler bez JS ho viděl).
 STATIC_TAB_URLS = {
+    "welcome": f"{SITE}/",
     "about": f"{SITE}/about/",
     "learn": f"{SITE}/academy/",
     # "map" -- 2026-09-05 (SEO P0 Ukol 5): the pathway map is a canvas
     # diagram with zero indexable text; /pathway/ is the static, crawlable
     # form of the same pathway/model.json (see pathway_page()).
     "map": f"{SITE}/pathway/",
+    # "studies"/"authors"/"questions"/"lineage" -- 2026-09-07 (SEO P0 Ukol 1):
+    # these four tabs used to link to {SITE}/#view=<tab>, a JS-only hash
+    # route invisible to a non-JS crawler -- across ~500 pages that was
+    # roughly 3,000 internal links pointing at a SINGLE url ("/") and zero
+    # at the static hub each of these already has. "ask" stays a hash link
+    # on purpose: Ask Atlas is genuinely an app feature with no static
+    # equivalent to send a crawler to.
+    "studies": f"{SITE}/browse/",
+    "authors": f"{SITE}/authors/",
+    "questions": f"{SITE}/questions/",
+    "lineage": f"{SITE}/events/",
 }
 
 
@@ -346,8 +373,10 @@ def topbar_html(active_tab=None):
     /answers/ page had no *static* link explaining who curates the Atlas or
     how it's graded. Same for "learn" -> /academy/ (2026-08-30), which has no
     hash route at all: the Academy is a static section, not an SPA view. The
-    remaining 7 tabs are left as hash links; they don't (yet) have static
-    equivalents worth linking to instead."""
+    remaining 7 tabs were left as hash links at the time. 2026-09-07 (SEO P0
+    Ukol 1): welcome/studies/authors/questions/lineage joined the static
+    list too (see STATIC_TAB_URLS) -- only "ask" is still a hash link now,
+    since Ask Atlas has no static equivalent to link to."""
     static_urls = STATIC_TAB_URLS
     tabs = "".join(
         '<a href="{}"{}>{}</a>'.format(
@@ -727,6 +756,46 @@ def _load_answer_gap_backlinks():
 ANSWER_GAP_BACKLINKS = _load_answer_gap_backlinks()
 
 
+def _load_related_studies(max_related=4, max_entity_size=60):
+    """Reverse index {SID: [SID, ...]} of the studies most likely to interest
+    someone reading this one -- SEO P1 Ukol 8 (median 3 inbound internal
+    links per study page was thin for a 360-page corpus). Weighted by
+    shared entities, each entity weighted by 1/|its studies| so sharing a
+    rare entity (e.g. GATOR2, 2 studies) counts far more than sharing a
+    ubiquitous one (mTORC1, 80 studies) -- otherwise every study would end
+    up "related" to every other one through the same handful of hub
+    entities. `max_entity_size` excludes those hubs from scoring outright
+    (they add noise, not signal, once an entity is in dozens of studies)."""
+    ep = os.path.join(DATA, "entities_baked.json")
+    if not os.path.exists(ep):
+        return {}
+    try:
+        entities = json.load(open(ep, encoding="utf-8"))
+    except Exception:
+        return {}
+    scores = {}
+    for x in entities:
+        sids = [s for s in (x.get("studies") or []) if s]
+        n = len(sids)
+        if n < 2 or n > max_entity_size:
+            continue
+        w = 1.0 / n
+        for i, a in enumerate(sids):
+            for b in sids[i + 1:]:
+                scores.setdefault(a, {}).setdefault(b, 0.0)
+                scores[a][b] += w
+                scores.setdefault(b, {}).setdefault(a, 0.0)
+                scores[b][a] += w
+    out = {}
+    for sid, others in scores.items():
+        ranked = sorted(others.items(), key=lambda kv: (-kv[1], kv[0]))[:max_related]
+        out[sid] = [sid2 for sid2, _ in ranked]
+    return out
+
+
+RELATED_BY_SID = _load_related_studies()
+
+
 
 
 def _load_record_dates():
@@ -885,7 +954,7 @@ def _cite_block(sid, title, url):
 
 
 
-def study_page(s, ent_by_sid, haspage):
+def study_page(s, ent_by_sid, haspage, by_sid):
     sid = s["sid"]
     code, label, colour = tier_bits(s.get("tier"))
     url = f"{SITE}/study/{sid}/"
@@ -994,6 +1063,17 @@ def study_page(s, ent_by_sid, haspage):
         items = "".join(f'<li>Discussed in the plain-language answer '
                         f'<a href="{e(u)}">{e(t)}</a>.</li>' for t, u in answer_hits)
         atlas_blocks.append(f"<h3>Answers that reference this study</h3><ul>{items}</ul>")
+    # SEO P1 Ukol 8: related-by-shared-entity studies, see RELATED_BY_SID
+    # above -- median inbound internal links per study page was 3 across a
+    # 360-page corpus; this adds up to 4 more, chosen by topical overlap
+    # rather than just chronological/alphabetical order.
+    related_sids = [r for r in RELATED_BY_SID.get(sid, []) if r in by_sid and r != sid]
+    if related_sids:
+        items = "".join(
+            f'<li><a href="/study/{e(r)}/">{e(by_sid[r].get("title") or r)}</a>'
+            f' <span class="tier-why" style="display:inline;margin:0">'
+            f'({e(by_sid[r].get("year") or "")})</span></li>' for r in related_sids)
+        atlas_blocks.append(f"<h3>More studies on this topic</h3><ul>{items}</ul>")
     for les in ACADEMY_BY_SID.get(sid, []):
         atlas_blocks.append('<h3>Learn the biology</h3>'
                             '<p>Want to understand the biology behind this study? '
@@ -1026,12 +1106,19 @@ def study_page(s, ent_by_sid, haspage):
 
     body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
 
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · <a href="{SITE}/#studies">Studies</a> · {e(sid)}'
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · <a href="{SITE}/browse/">Studies</a> · {e(sid)}'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
-                        ("Studies", SITE + "/#studies"),
+                        ("Studies", SITE + "/browse/"),
                         (sid, None)])
     robots = "noindex, follow" if noindex else "index, follow"
-    return url, shell(f"{title} | Oliver's mTOR Atlas", desc, url, [ld, bc],
+    # SEO P1 Ukol 4 -- see _short_title() docstring: <title> leads with
+    # year + evidence tier instead of repeating the bare paper title.
+    title_bits = [_short_title(title)]
+    if s.get("year"):
+        title_bits.append(f"({s['year']})")
+    title_bits.append(f"— evidence tier {code}")
+    page_title = " ".join(title_bits) + " | Oliver's mTOR Atlas"
+    return url, shell(page_title, desc, url, [ld, bc],
                       "\n".join(body), crumb, active_tab="studies",
                       level_switch=True, robots=robots)
 
@@ -1128,9 +1215,9 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
 
     body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
-             f'<a href="{SITE}/#entities">{e(ent["type"])}</a> · {e(ent["name"])}')
+             f'<a href="{SITE}/browse/">{e(ent["type"])}</a> · {e(ent["name"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
-                        (ent["type"], SITE + "/#entities"),
+                        (ent["type"], SITE + "/browse/"),
                         (ent["name"], None)])
     return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
                                desc, url, [ld, bc], "\n".join(body), crumb, active_tab="map",
@@ -1210,9 +1297,9 @@ def gap_page(g, studies_by_sid):
     body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
-             f'<a href="{SITE}/#questions">Open Questions</a> · {e(g["title"])}')
+             f'<a href="{SITE}/questions/">Open Questions</a> · {e(g["title"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
-                        ("Open Questions", SITE + "/#questions"),
+                        ("Open Questions", SITE + "/questions/"),
                         (g["title"], None)])
     return url, slug, shell(f"{g['title']} | Open Questions | Oliver's mTOR Atlas",
                             desc, url, [ld, bc], "\n".join(body), crumb, active_tab="questions",
@@ -1290,9 +1377,9 @@ def author_page(key, bio, studies):
     body.append(f'<p><a class="cta" href="{SITE}/#authors">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
-             f'<a href="{SITE}/#authors">Researchers</a> · {e(bio["full"])}')
+             f'<a href="{SITE}/authors/">Researchers</a> · {e(bio["full"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
-                        ("Researchers", SITE + "/#authors"),
+                        ("Researchers", SITE + "/authors/"),
                         (bio["full"], None)])
     return url, slug, shell(f"{bio['full']} — {bio['role']} | Oliver's mTOR Atlas",
                             desc, url, [ld, bc], "\n".join(body), crumb, active_tab="authors")
@@ -1890,6 +1977,245 @@ for how a study earns a place and how the grading works.</p>
         url, [ld_page, bc], body, crumb, active_tab=None)
 
 
+
+# --------------------------------------------------------- authors index ---
+# Added 2026-09-07 (SEO P0 Ukol 2). Each of the 53 /author/ pages had
+# exactly ONE inbound internal link (from /browse/'s combined list) --
+# this gives them a second, topic-matched home page, and is what the
+# "Authors" nav tab now points at instead of the JS-only #view=authors
+# route (see STATIC_TAB_URLS).
+def authors_page(author_bios, author_idx):
+    url = f"{SITE}/authors/"
+    rows = []
+    for key, bio in author_bios.items():
+        studies = author_idx.get(key, [])
+        if not studies:
+            continue
+        slug = slugify(bio["full"])
+        tiers = [s.get("tier") for s in studies if s.get("tier")]
+        best_tier = min(tiers) if tiers else None
+        rows.append((bio, slug, len(studies), best_tier))
+    rows.sort(key=lambda r: (-r[2], r[0]["full"]))
+
+    ld_list = {"@context": "https://schema.org", "@type": "ItemList",
+               "name": "Researchers in Oliver's mTOR Atlas", "url": url,
+               "itemListElement": [
+                   {"@type": "ListItem", "position": i,
+                    "url": f"{SITE}/author/{slug}/", "name": bio["full"]}
+                   for i, (bio, slug, n, t) in enumerate(rows, 1)]}
+    ld_page = {"@context": "https://schema.org", "@type": "CollectionPage",
+               "name": "Researchers", "url": url, "isPartOf": dict(DATASET_REF)}
+
+    body = ["<h1>Researchers</h1>",
+            f'<p class="summary">{len(rows)} scientists whose published work is curated '
+            f'in the Atlas, each with a study-by-study timeline and a short account of '
+            f'why their work matters to the mTOR pathway.</p>']
+    for bio, slug, n, t in rows:
+        sub = f' \u00b7 {e(bio["sub"])}' if bio.get("sub") else ""
+        tier_bit = ""
+        if t:
+            code, label, colour = tier_bits(t)
+            tier_bit = (f' \u00b7 top tier <span class="tier" '
+                       f'style="background:{colour}">{e(code)}</span>')
+        body.append(
+            f'<p style="margin:0 0 10px"><a href="/author/{slug}/">{e(bio["full"])}</a> '
+            f'<span class="meta" style="display:inline">\u2014 {e(bio["role"])}{sub} \u00b7 '
+            f'{n} {"study" if n == 1 else "studies"}{tier_bit}</span></p>')
+
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Researchers'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Researchers", None)])
+    return url, shell("Researchers | Oliver's mTOR Atlas",
+                      f"The {len(rows)} scientists behind the studies curated in Oliver's "
+                      f"mTOR Atlas, each with a publication timeline and evidence tiers.",
+                      url, [ld_page, ld_list, bc], "\n".join(body), crumb,
+                      active_tab="authors")
+
+
+# -------------------------------------------------------- questions index ---
+# Added 2026-09-07 (SEO P0 Ukol 2). Same reasoning as authors_page(): the
+# 10 Open Questions pages had exactly ONE inbound link each. Content
+# mirrors the SPA's questionsView (31k chars of prose that lived ONLY on
+# "/", invisible to a non-JS crawler) as short teasers into each
+# question's own FAQPage.
+def questions_page(gaps):
+    url = f"{SITE}/questions/"
+    items = [(g, slugify(g["title"])) for g in gaps]
+    items.sort(key=lambda gi: -(gi[0].get("conf") or 0))
+
+    ld_list = {"@context": "https://schema.org", "@type": "ItemList",
+               "name": "Open questions in the mTOR Atlas", "url": url,
+               "itemListElement": [
+                   {"@type": "ListItem", "position": i,
+                    "url": f"{SITE}/question/{slug}/", "name": g["title"]}
+                   for i, (g, slug) in enumerate(items, 1)]}
+    ld_page = {"@context": "https://schema.org", "@type": "CollectionPage",
+               "name": "Open Questions", "url": url, "isPartOf": dict(DATASET_REF)}
+
+    body = ["<h1>Open Questions</h1>",
+            f'<p class="summary">{len(items)} evidence gaps and testable hypotheses the '
+            f'Atlas has identified in the mTOR pathway literature \u2014 each computed '
+            f'against this curated corpus, not the whole literature, and each with a '
+            f'proposed way to test it.</p>']
+    for g, slug in items:
+        kind = GAP_TYPE_LABEL.get(g.get("type"), g.get("type") or "Open question")
+        conf = g.get("conf")
+        conf_html = f' \u00b7 confidence {e(round(conf * 100))}%' if conf is not None else ""
+        synopsis = (g.get("basis_beginner") or g.get("basis") or "")[:220]
+        body.append(
+            f'<div style="margin:0 0 20px"><h3 style="margin:0 0 4px">'
+            f'<a href="/question/{slug}/">{e(g["title"])}</a></h3>'
+            f'<p class="meta" style="margin:0 0 6px">{e(kind)}{conf_html}</p>'
+            f'<p style="margin:0;color:var(--soft)">{e(synopsis)}</p></div>')
+
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Open Questions'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Open Questions", None)])
+    return url, shell("Open Questions | Oliver's mTOR Atlas",
+                      f"{len(items)} evidence gaps and testable hypotheses identified in "
+                      f"the mTOR pathway, each with a proposed experiment.",
+                      url, [ld_page, ld_list, bc], "\n".join(body), crumb,
+                      active_tab="questions")
+
+
+# ------------------------------------------------------------ Oliver's own page ---
+# Added 2026-09-07, requested explicitly for E-E-A-T / "who is behind this"
+# findability. Source content is AUTHOR-WRITTEN prose lifted verbatim from
+# the SPA's About > Author panel (index.html #abAuthorPane, exported to
+# atlas_data/oliver_bio_baked.json) -- nothing here is generated or
+# invented, only made crawlable. Lives in /author/ (not /about/) so it
+# sits in the same URL family and sitemap as every other researcher page,
+# and "who is Oliver Barton" resolves to a Person page, not a methodology
+# page.
+def oliver_page(bio):
+    slug = "oliver-barton"
+    url = f"{SITE}/author/{slug}/"
+    # 2026-09-07 (SEO P0 Ukol 4, child-safety pass): bio["role"] carries an
+    # age clause ("... -- Age 15") that is already public on the homepage
+    # body text, so it stays in the visible <p class="meta"> below unchanged
+    # -- but this new page's whole point is to be MORE indexable, and title
+    # tags / meta description / JSON-LD Person.description are exactly the
+    # fields Google lifts into search snippets and knowledge-panel data. A
+    # minor's exact age has no business being amplified into those specific
+    # channels, so those three use role_public (age clause stripped) while
+    # the on-page text keeps matching what's already elsewhere on the site.
+    role_public = re.sub(r"\s*\u2014\s*Age\s+\d+\s*$", "", bio["role"]).strip()
+    desc = f"{bio['full']} \u2014 {role_public} of Oliver's mTOR Atlas."[:300]
+
+    ld = {"@context": "https://schema.org", "@type": "Person",
+          "name": bio["full"], "url": url, "description": role_public,
+          "image": SITE + bio["photo"],
+          "sameAs": [bio["orcid"], bio["bluesky"]],
+          "affiliation": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
+                          "url": SITE + "/"}}
+
+    body = [f"<h1>{e(bio['full'])}</h1>",
+            f'<p class="meta">{e(bio["role"])}</p>',
+            f'<img src="{e(bio["photo"])}" alt="{e(bio["full"])}" loading="lazy" '
+            f'style="max-width:220px;border-radius:4px;margin:0 0 16px">']
+    for p in bio["bio_paragraphs"]:
+        body.append(f"<p>{p}</p>")
+    orcid_id = bio["orcid"].replace("https://orcid.org/", "")
+    body.append(
+        f'<p class="meta"><span class="mono">Contact \u2014</span> '
+        f'<span class="mono">{e(bio["email_obfuscated"])} &middot; ORCID: '
+        f'<a href="{e(bio["orcid"])}">{e(orcid_id)}</a> '
+        f'&middot; Bluesky: <a href="{e(bio["bluesky"])}">{e(bio["bluesky_handle"])}</a>'
+        f'</span></p>')
+
+    if bio.get("focus_studies"):
+        body.append("<h2>Related studies \u2014 current research focus</h2>")
+        body.append(f'<p class="meta">{e(bio["focus_table_intro"])}</p>')
+        body.append('<table class="st"><tr><th>Study</th><th>Authors</th>'
+                    '<th>Why it matters</th><th>Tier</th></tr>')
+        for r in bio["focus_studies"]:
+            code, label, colour = tier_bits(r.get("tier"))
+            authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
+            body.append(
+                f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
+                f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">'
+                f'{e(r["sid"])} &middot; {e(r["year"] or "")}</span></td>'
+                f'<td data-l="Authors">{authors_html}</td>'
+                f'<td data-l="Why it matters">{e(r["why"])}</td>'
+                f'<td data-l="Tier"><span class="tier" style="background:{colour}">'
+                f'{e(code)}</span></td></tr>')
+        body.append("</table>")
+
+    body.append(f'<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>')
+
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 '
+             f'<a href="{SITE}/about/">About &amp; Methodology</a> \u00b7 {e(bio["full"])}')
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("About & Methodology", SITE + "/about/"),
+                        (bio["full"], None)])
+    return url, slug, shell(f"{bio['full']} \u2014 {role_public} | Oliver's mTOR Atlas",
+                            desc, url, [ld, bc], "\n".join(body), crumb,
+                            active_tab="about")
+
+
+# --------------------------------------------------------- evidence page ---
+# Added 2026-09-07 (SEO P1 Ukol 6). The tier breakdown lived only inside
+# evidenceView on "/" (1,211 chars of pre-rendered text, one of six views
+# mixed into a single URL). A dedicated page targets "how is this graded"
+# / "evidence tier" queries directly, and its per-tier counts are short,
+# exact, citable facts -- good GEO bait.
+def evidence_page(studies):
+    url = f"{SITE}/evidence/"
+    tier_order = sorted(
+        {v for v in TIER_LABEL.values() if v[0] in ("A", "B", "C", "D")},
+        key=lambda v: v[0])
+    counts = {code: 0 for code, _, _ in tier_order}
+    for s in studies:
+        code, _, _ = tier_bits(s.get("tier"))
+        if code in counts:
+            counts[code] += 1
+    total = sum(counts.values())
+
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage",
+          "name": "Evidence tiers | Oliver's mTOR Atlas", "url": url,
+          "isPartOf": dict(DATASET_REF)}
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Evidence tiers'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Evidence tiers", None)])
+
+    rows = "".join(
+        f'<tr><td><span class="tier" style="background:{colour}">{code}</span> '
+        f'{e(label)}</td><td>{counts[code]}</td>'
+        f'<td>{round(100 * counts[code] / total) if total else 0}%</td></tr>'
+        for code, label, colour in tier_order)
+
+    body = f"""<h1>Evidence tiers in the Atlas</h1>
+<p class="summary">Every study in the Atlas is graded A&ndash;D by the KIND of
+study it is, not by how convincing the finding sounds \u2014 a tier D
+mechanistic paper can matter more to the field than a tier B human trial
+with a small, underpowered sample. The tier describes study design, and
+nothing else.</p>
+<table class="kv">
+<tr><th>Tier</th><th>Studies</th><th>Share of corpus</th></tr>
+{rows}
+</table>
+<h2>What each tier means</h2>
+<ul>
+<li><strong>A \u2014 systematic review / meta-analysis:</strong> a formal
+synthesis of multiple independent studies.</li>
+<li><strong>B \u2014 human trial:</strong> a controlled or observational
+study in living humans.</li>
+<li><strong>C \u2014 animal model:</strong> a whole-organism study in a
+non-human species (mouse, fly, worm, etc.).</li>
+<li><strong>D \u2014 mechanistic / in vitro / review:</strong> cell-culture,
+biochemical, or narrative-review work \u2014 often where causal biology
+gets established first, well before it reaches a human trial.</li>
+</ul>
+<p>Tier is independent of confidence: a D-tier mechanistic finding can be
+extremely well-established (e.g. rapamycin directly inhibiting mTORC1),
+while a B-tier human trial can still leave open questions about dose,
+duration or generalisability. Full grading criteria are on the
+<a href="{SITE}/about/">About &amp; Methodology</a> page.</p>
+<p><a class="cta" href="{SITE}/browse/">Browse all {total} studies</a></p>"""
+
+    return url, shell("Evidence tiers | Oliver's mTOR Atlas",
+                      f"How Oliver's mTOR Atlas grades {total} curated mTOR studies on an "
+                      f"A-D evidence tier, and what each tier does and doesn't mean.",
+                      url, [ld, bc], body, crumb, active_tab="studies")
+
+
 # ------------------------------------------------------------------- main ---
 
 def browse_page(studies, entities, haspage, gaps=(), authors=()):
@@ -2193,6 +2519,50 @@ def patch_dataset_meta(version, date_modified):
     return f"version={version}, dateModified={date_modified}"
 
 
+def patch_dataset_distribution(distribution):
+    """Keeps index.html's own hand-written Dataset JSON-LD block's
+    "distribution" field in sync with DATASET_REF's (Zenodo snapshot, plus
+    the live CSV/JSON exports in data/exports/ once
+    tools/seo/build_data_exports.py has run) -- SEO P1 Ukol 7: the
+    homepage's own copy of this schema had fallen behind every
+    *_page()-generated static page, which all read DATASET_REF directly and
+    already listed the exports; homepage still only listed the Zenodo
+    snapshot. Same idempotent, scoped-to-first-JSON-LD-block pattern as
+    patch_dataset_meta(); replaces just the "distribution" field's raw
+    value text, leaving every other field's formatting untouched."""
+    p = os.path.join(HERE, "index.html")
+    if not os.path.exists(p):
+        return "index.html nenalezen"
+    h = open(p, encoding="utf-8").read()
+    m = re.search(r'(<script type="application/ld\+json">\n)(.*?)(\n</script>)', h, re.S)
+    if not m:
+        return "POZOR: hlavni JSON-LD blok nenalezen, NEZAPSANO"
+    block = m.group(2)
+    dm = re.search(r'("distribution":\s*)(.*?)(?=,\n  "license")', block, re.S)
+    if not dm:
+        return "POZOR: pole distribution v JSON-LD nenalezeno, NEZAPSANO"
+    old_value = dm.group(2)
+    new_value = json.dumps(distribution, ensure_ascii=False, indent=2).replace("\n", "\n  ")
+    if old_value == new_value:
+        return "distribution uz sedi"
+    new_block = block[:dm.start(2)] + new_value + block[dm.end(2):]
+    json.loads(new_block)  # must still be valid JSON after the edit
+    if DRY:
+        return "dry-run"
+    h2 = h[:m.start(2)] + new_block + h[m.end(2):]
+    tmp = p + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(h2)
+        f.flush()
+        os.fsync(f.fileno())
+    chk = open(tmp, encoding="utf-8").read()
+    if len(chk) != len(h2) or not chk.rstrip().endswith("</html>"):
+        os.remove(tmp)
+        return "POZOR: overeni zapisu index.html selhalo, NEZAPSANO"
+    os.replace(tmp, p)
+    return f"distribution aktualizovana ({len(distribution)} polozek)"
+
+
 def main():
     sp = os.path.join(DATA, "studies_baked.json")
     ep = os.path.join(DATA, "entities_baked.json")
@@ -2222,7 +2592,7 @@ def main():
     for s in studies:
         if not s.get("sid"):
             continue
-        url, page = study_page(s, ent_by_sid, haspage)
+        url, page = study_page(s, ent_by_sid, haspage, by_sid)
         write(os.path.join(HERE, "study", s["sid"], "index.html"), page)
         urls.append(("study", url))
 
@@ -2274,7 +2644,39 @@ def main():
             urls.append(("author", aurl))
             author_links.append((bio["full"], aurl))
     else:
+        author_bios, author_idx = {}, {}
         print("atlas_data/author_bios_baked.json chybí -- author stránky přeskočeny")
+
+    # /authors/ + /questions/ index huby (2026-09-07, SEO P0 Ukol 2) -- see
+    # authors_page()/questions_page() docstrings above.
+    authors_url = None
+    if author_bios:
+        authors_url, authors_page_html = authors_page(author_bios, author_idx)
+        write(os.path.join(HERE, "authors", "index.html"), authors_page_html)
+        urls.append(("about", authors_url))
+
+    questions_url = None
+    if gaps:
+        questions_url, questions_page_html = questions_page(gaps)
+        write(os.path.join(HERE, "questions", "index.html"), questions_page_html)
+        urls.append(("about", questions_url))
+
+    # Oliver's own /author/oliver-barton/ page (2026-09-07) -- see
+    # oliver_page() docstring above. Rides sitemap-authors.xml (category
+    # "author") alongside every other researcher page.
+    oliver_bio_path = os.path.join(DATA, "oliver_bio_baked.json")
+    if os.path.exists(oliver_bio_path):
+        oliver_bio = json.load(open(oliver_bio_path, encoding="utf-8"))
+        ourl, oslug, opage = oliver_page(oliver_bio)
+        write(os.path.join(HERE, "author", oslug, "index.html"), opage)
+        urls.append(("author", ourl))
+    else:
+        print("atlas_data/oliver_bio_baked.json chybí -- /author/oliver-barton/ přeskočeno")
+
+    # /evidence/ (2026-09-07, SEO P1 Ukol 6) -- see evidence_page() docstring.
+    evidence_url, evidence_page_html = evidence_page(studies)
+    write(os.path.join(HERE, "evidence", "index.html"), evidence_page_html)
+    urls.append(("about", evidence_url))
 
     aurl, apage = about_page(studies, entities)
     write(os.path.join(HERE, "about", "index.html"), apage)
@@ -2317,6 +2719,7 @@ def main():
     print("rozcestník /browse/ :", patch_home(len(urls) + 1))
     print("odkazy uvnitř SPA  :", patch_spa_links())
     print("dataset meta v SPA :", patch_dataset_meta(DATASET_REF["version"], DATASET_REF["dateModified"]))
+    print("dataset distribution:", patch_dataset_distribution(DATASET_REF["distribution"]))
 
     for old, new in LEGACY_SLUGS.items():
         write(os.path.join(HERE, old, "index.html"),
@@ -2386,6 +2789,17 @@ def main():
     if eurl:
         pathway_events_lines += (
             f'  <url><loc>{eurl}</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n')
+    # /authors/, /questions/, /evidence/ (2026-09-07, SEO P0/P1) -- same
+    # singular-hub treatment as pathway/events above.
+    if authors_url:
+        pathway_events_lines += (
+            f'  <url><loc>{authors_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
+    if questions_url:
+        pathway_events_lines += (
+            f'  <url><loc>{questions_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
+    if evidence_url:
+        pathway_events_lines += (
+            f'  <url><loc>{evidence_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
     write(os.path.join(HERE, "sitemap-home.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

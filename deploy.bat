@@ -295,6 +295,32 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Cache-bust extracted CSS assets (type.css / atlas.css) ===
+REM  Same class of bug as the pathway assets above, same fix. assets\type.css
+REM  existed already but stamp_type_version.py was written 2026-08-?? and never
+REM  actually called from here - an orphan script nobody was running, so
+REM  type.css could ship stale forever. assets\atlas.css is new (2026-09-07,
+REM  SEO P0 Ukol 3): the homepage's 96 KB inline <style> block was extracted
+REM  to it so browsers/CDN can cache it across pages instead of re-downloading
+REM  it inline on every visit; stamp_atlas_version.py is its mirror-image
+REM  stamper. Both must run AFTER build_pages.py only if a page generator ever
+REM  touches these assets (it does not today), so ordering here is not load-
+REM  bearing - kept next to stamp_pathway_version.py because it is the same
+REM  category of step.
+py stamp_type_version.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: stamp_type_version.py failed - assets\type.css by se nasadil se stalou cache.
+  exit /b 1
+)
+py stamp_atlas_version.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: stamp_atlas_version.py failed - assets\atlas.css by se nasadil se stalou cache.
+  exit /b 1
+)
+
+echo.
 echo === Prerender JS-only tabs so crawlers see what humans see ===
 REM  #questionsView and #eventsView are filled at runtime by renderGaps() and
 REM  renderEvents(). Bots that do not execute JS (GPTBot, ClaudeBot, PerplexityBot,
@@ -489,7 +515,7 @@ REM  before it ever shipped -- added here in the same commit as the page itself.
 REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
 REM  crawlers actually read, since they do not run the SPA's JavaScript.
 echo    including pre-rendered pages and sitemaps
-for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author question browse answers glossary about data academy academy_data changelog events pathway img) do (
+for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author authors question questions evidence browse answers glossary about data academy academy_data changelog events pathway img assets) do (
   if exist "%%D" git add "%%D"
 )
 if exist "sitemap.xml" git add sitemap.xml
@@ -511,7 +537,7 @@ REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
 REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
 REM  one that this particular run did not touch costs nothing.
 echo    including pipeline data and reports
-for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json) do (
+for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json) do (
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
@@ -530,7 +556,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 

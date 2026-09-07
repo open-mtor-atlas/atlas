@@ -27,6 +27,8 @@ FOOTER_LINKS.
 FOOTER_LINKS = [
     ("Full interactive Atlas", "/"),
     ("Browse the Atlas", "/browse/"),
+    ("Researchers", "/authors/"),
+    ("Open Questions", "/questions/"),
     ("Academy", "/academy/"),
     ("Answers", "/answers/"),
     ("Glossary", "/glossary/"),
@@ -56,7 +58,7 @@ def static_footer_html(site, build_timestamp):
         '<footer class="oma-footer">\n'
         "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
         "pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.\n"
-        "Curated by Oliver Barton, Prague.</p>\n"
+        f'Curated by <a href="{site}/author/oliver-barton/">Oliver Barton</a>, Prague.</p>\n'
         f'<div class="oma-footer-links">\n{links}\n</div>\n'
         f'<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
         f'{build_timestamp}</div>\n</footer>'
