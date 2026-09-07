@@ -1833,7 +1833,7 @@ wherever any of its subjects is explored.</li>
 NEJM, Lancet and others), so any claim traces back to the original paper
 in one click.</p>
 
-<h2>Inclusion &amp; exclusion criteria</h2>
+<h2 id="inclusion-criteria">Inclusion &amp; exclusion criteria</h2>
 <p>A study earns a place if it does at least one of four things: establishes
 a landmark mechanism in mTOR biology; supplies the strongest available
 human evidence for a claim (a systematic review or a large RCT, not an
