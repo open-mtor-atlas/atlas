@@ -243,10 +243,10 @@ interactions across <span id="shRouteCount">11</span> guided routes.</p>
            -- crawlable, and gives a correct address on hover / copy-link /
            ctrl-click-open-in-new-tab. A plain left click still switches the
            view in place via the SPA (see the click listener below, which
-           preventDefault()s first) -- the resulting address bar URL is now
-           the clean static path instead of "/#view=X" (see VIEW_PATHS in
-           syncURL()). "Ask Atlas" stays a plain <div>, unchanged: it has no
-           static equivalent to link to. -->
+           preventDefault()s first) and the address bar then shows "/#view=X",
+           which is what the SPA can actually restore (see syncURL()).
+           "Ask Atlas" stays a plain <div>, unchanged: it has no static
+           equivalent to link to. -->
       <a class="tab tab-link active" data-tab="welcome" href="/">Welcome</a>
       <!-- LEARN je jediná položka navigace, která NENÍ pohled SPA: Academy je
            statická sekce (/academy/, generuje build_academy.py), takže je to
@@ -3763,8 +3763,15 @@ function setActiveTab(view){
   const el = document.querySelector('.tab[data-tab="'+view+'"]');
   if(el) el.classList.add('active');
 }
+// 2026-09-07: lifted out of showView() so applyHash() can check a view name
+// against it before switching. It is the single list of what a "view" IS.
+const VIEWS = {welcome:'welcomeView',map:'mapView',studies:'studiesView',authors:'authorsView',questions:'questionsView',ask:'askView',lineage:'lineageView',about:'aboutView'};
 function showView(which){
-  const views = {welcome:'welcomeView',map:'mapView',studies:'studiesView',authors:'authorsView',questions:'questionsView',ask:'askView',lineage:'lineageView',about:'aboutView'};
+  // Defensive: an unknown name used to match no key here, so the loop below hid
+  // every view and left a blank page. That was the "Learn" bug this morning
+  // (showView(undefined)); a stale deep link could reach it the same way.
+  if(!(which in VIEWS)) which = 'welcome';
+  const views = VIEWS;
   Object.entries(views).forEach(([key,id])=>{
     const el = document.getElementById(id);
     if(el) el.style.display = (key===which) ? '' : 'none';
@@ -3797,13 +3804,19 @@ function showView(which){
   }
 }
 /* ===== URL <-> state sync so browser back/forward works ===== */
-// 2026-09-07 (SEO P0 Ukol 1b): mirrors STATIC_TAB_URLS in build_pages.py --
-// the same mapping the other ~500 pages' topbar already uses. Every view
-// with a real static page now gets that page's clean path as the visible
-// URL; 'ask' has no static equivalent (see tabs-row comment above) and
-// stays on '/', exactly like 'welcome' did before this change -- the hash
-// (unchanged below) still carries 'view=ask' so the two stay distinguishable.
-const VIEW_PATHS = {welcome:'/', map:'/pathway/', studies:'/browse/', authors:'/authors/', questions:'/questions/', lineage:'/events/', about:'/about/', ask:'/'};
+// 2026-09-07 (SEO P0 Ukol 1b) added a VIEW_PATHS map here so that switching
+// view on the homepage rewrote the address bar to the matching static page's
+// clean path (/pathway/, /browse/, ...). REVERTED 2026-09-07 (evening),
+// deliberately, because that address was a picture of a URL rather than a URL:
+// pushState changes the address bar WITHOUT a request, so the document stayed
+// index.html while the bar claimed /pathway/. Loading, sharing, bookmarking or
+// reloading that same address served the STATIC page instead -- a different
+// document with a different H1 -- and /pathway/index.html contains no code that
+// reads location.hash, so the '&entity=...' state was silently dropped too.
+// A URL that only works as long as nobody actually visits it is worse than an
+// honest hash. The tabs stay real <a href> elements (crawlable, correct on
+// hover / copy-link / ctrl-click); only what the SPA WRITES back is honest
+// again. Unifying the two layers for real is the v2 IA work, not this.
 function syncURL(push){
   const p = new URLSearchParams();
   p.set('view', currentView);
@@ -3812,14 +3825,25 @@ function syncURL(push){
   if(state.tierFilter) p.set('tier', state.tierFilter);
   if(state.studiesPage>1) p.set('page', state.studiesPage);
   const hash = '#'+p.toString();
-  const path = VIEW_PATHS[currentView] || '/';
+  const path = '/';   // the SPA lives at '/' -- say so (see the note above)
   const url = path + hash;
   if(location.pathname + location.hash === url) return;
   if(push) history.pushState(null,'',url); else history.replaceState(null,'',url);
 }
 function pushNav(){ syncURL(true); }
 function applyHash(){
-  const p = new URLSearchParams(location.hash.slice(1));
+  // 2026-09-07: accept the bare pre-'view=' hash forms too. build_pages.py has
+  // been emitting <a class="cta" href="/#studies">Open in the Atlas explorer</a>
+  // (and /#entities, /#questions, /#authors) on 469 generated pages -- 360 study
+  // pages, 53 author pages, 46 entity pages, 10 question pages. None of them
+  // ever worked: URLSearchParams('studies') yields a parameter NAMED 'studies'
+  // with an empty value, so p.get('view') was null and every one of those links
+  // silently landed on the welcome screen instead of the view it named. The
+  // generator is fixed in the same commit, but links already shipped -- shared,
+  // bookmarked, crawled -- keep working because of this line.
+  let raw = location.hash.slice(1);
+  if(raw && raw.indexOf('=') < 0) raw = 'view=' + raw;
+  const p = new URLSearchParams(raw);
   let view = p.get('view') || 'welcome';
   state.query = p.get('q') || '';
   if(p.get('entity')) state.entity = p.get('entity');
@@ -3831,6 +3855,12 @@ function applyHash(){
   if(view === 'mechanism'){ view = 'map'; pendingMode = () => setPathwayMode('mechanism'); }
   if(view === 'evidence'){ view = 'studies'; pendingMode = () => setStudiesMode('evidence'); }
   if(view === 'events'){ view = 'about'; pendingMode = () => setAboutMode('events'); }
+  if(view === 'entities'){ view = 'map'; pendingMode = () => setPathwayMode('entities'); }
+  // Anything else is not a view. Without this guard showView() walks a map that
+  // has no such key and hides EVERY view -- a blank page. That is exactly how
+  // "Learn" broke earlier today, one layer up; a stray or stale fragment
+  // (#route-aa, a typo, an old deep link) could do the same here.
+  if(!(view in VIEWS)) view = 'welcome';
   showView(view);
   if(pendingMode) pendingMode();
   renderAll();

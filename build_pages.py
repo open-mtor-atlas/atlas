@@ -1101,7 +1101,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
     body.append('<h2>Cite this record</h2><pre class="cite">'
                + e(apa) + "\n\n" + e(bibtex) + "</pre>")
 
-    body.append(f'<p><a class="cta" href="{SITE}/#studies">Open in the Atlas explorer</a></p>')
+    body.append(f'<p><a class="cta" href="{SITE}/#view=studies">Open in the Atlas explorer</a></p>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · <a href="{SITE}/browse/">Studies</a> · {e(sid)}'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
@@ -1212,7 +1212,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
         body.append('<h2>Related entities</h2><div class="tags">'
                     + "".join(chips) + "</div>")
 
-    body.append(f'<p><a class="cta" href="{SITE}/#entities">Open in the Atlas explorer</a></p>')
+    body.append(f'<p><a class="cta" href="{SITE}/#view=map">Open in the Atlas explorer</a></p>')
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
              f'<a href="{SITE}/browse/">{e(ent["type"])}</a> · {e(ent["name"])}')
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
@@ -1293,7 +1293,7 @@ def gap_page(g, studies_by_sid):
             else "Discussed in these plain-language answers"
         items = " · ".join(f'<a href="{e(u)}">{e(t)}</a>' for t, u in backlinks)
         body.append(f'<p class="meta">{label}: {items}</p>')
-    body.append(f'<p><a class="cta" href="{SITE}/#questions">Open in the Atlas explorer</a></p>')
+    body.append(f'<p><a class="cta" href="{SITE}/#view=questions">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
              f'<a href="{SITE}/questions/">Open Questions</a> · {e(g["title"])}')
@@ -1372,7 +1372,7 @@ def author_page(key, bio, studies):
                 f'<td data-l="Evidence">{tier_badge(s.get("tier"), s.get("pyramid"))}</td>'
                 f'<td data-l="Finding">{finding_html}</td></tr>')
         body.append("</table>")
-    body.append(f'<p><a class="cta" href="{SITE}/#authors">Open in the Atlas explorer</a></p>')
+    body.append(f'<p><a class="cta" href="{SITE}/#view=authors">Open in the Atlas explorer</a></p>')
 
     crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · '
              f'<a href="{SITE}/authors/">Researchers</a> · {e(bio["full"])}')
@@ -1633,9 +1633,9 @@ def pathway_page(model, entities, haspage):
 pathway map ({counts["nodes"]} nodes, {counts["interactions"]} interactions,
 {counts["routes"]} guided routes, {counts["loops"]} feedback loops), written
 out as text: eleven guided walks through the network, each followed by the
-full interaction reference table below. For the drag-and-explore diagram
-itself, see the <a href="{SITE}/#view=map">interactive pathway map</a>
-(requires JavaScript).</p>
+full interaction reference table below.</p>
+<p><a class="cta" href="{SITE}/#view=map">Open the interactive pathway map
+&rarr;</a></p>
 <p><strong>Guided routes:</strong></p>
 <ol>{"".join(toc_items)}</ol>
 {"".join(route_html)}
@@ -2061,7 +2061,10 @@ def authors_page(author_bios, author_idx):
     body = ["<h1>Researchers</h1>",
             f'<p class="summary">{len(rows)} scientists whose published work is curated '
             f'in the Atlas, each with a study-by-study timeline and a short account of '
-            f'why their work matters to the mTOR pathway.</p>']
+            f'why their work matters to the mTOR pathway.</p>',
+            # 2026-09-07: bridge to the interactive counterpart (see browse_page).
+            f'<p><a class="cta" href="{SITE}/#view=authors">Open the sortable '
+            f'researcher ranking \u2192</a></p>']
     for bio, slug, n, t in rows:
         sub = f' \u00b7 {e(bio["sub"])}' if bio.get("sub") else ""
         tier_bit = ""
@@ -2106,7 +2109,10 @@ def questions_page(gaps):
             f'<p class="summary">{len(items)} evidence gaps and testable hypotheses the '
             f'Atlas has identified in the mTOR pathway literature \u2014 each computed '
             f'against this curated corpus, not the whole literature, and each with a '
-            f'proposed way to test it.</p>']
+            f'proposed way to test it.</p>',
+            # 2026-09-07: bridge to the interactive counterpart (see browse_page).
+            f'<p><a class="cta" href="{SITE}/#view=questions">Open all {len(items)} '
+            f'questions on one page \u2192</a></p>']
     for g, slug in items:
         kind = GAP_TYPE_LABEL.get(g.get("type"), g.get("type") or "Open question")
         conf = g.get("conf")
@@ -2298,7 +2304,13 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
     body = ["<h1>Browse the Atlas</h1>",
             f'<p class="summary">Every study and every topic in the Atlas, as a '
             f'plain index. {len(studies)} studies, '
-            f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics.</p>']
+            f'{sum(1 for x in entities if len(x["studies"]) >= PAGE_THRESHOLD)} topics.</p>',
+            # 2026-09-07: bridge to the interactive counterpart. The main menu
+            # sends every visitor here, and until the v2 IA work merges the two
+            # layers this page was a dead end: no way to reach the sortable,
+            # filterable table of the same studies without knowing it exists.
+            f'<p><a class="cta" href="{SITE}/#view=studies">Open the sortable, '
+            f'filterable table \u2192</a></p>']
 
     if gaps:
         body.append("<h2>Open questions &amp; testable hypotheses</h2>"
