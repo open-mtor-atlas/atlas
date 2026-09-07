@@ -13,14 +13,14 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evidence tiers | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="How Oliver&#x27;s mTOR Atlas grades 357 curated mTOR studies on an A-D evidence tier, and what each tier does and doesn&#x27;t mean.">
+<title>Evidence codes | Oliver&#x27;s mTOR Atlas</title>
+<meta name="description" content="How Oliver&#x27;s mTOR Atlas grades 357 curated mTOR studies on an S/H/A/M/R evidence code, and what each code does and doesn&#x27;t mean.">
 <link rel="canonical" href="https://mtor-atlas.org/evidence/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
-<meta property="og:title" content="Evidence tiers | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="How Oliver&#x27;s mTOR Atlas grades 357 curated mTOR studies on an A-D evidence tier, and what each tier does and doesn&#x27;t mean.">
+<meta property="og:title" content="Evidence codes | Oliver&#x27;s mTOR Atlas">
+<meta property="og:description" content="How Oliver&#x27;s mTOR Atlas grades 357 curated mTOR studies on an S/H/A/M/R evidence code, and what each code does and doesn&#x27;t mean.">
 <meta property="og:url" content="https://mtor-atlas.org/evidence/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -32,13 +32,13 @@
 {
  "@context": "https://schema.org",
  "@type": "CollectionPage",
- "name": "Evidence tiers | Oliver's mTOR Atlas",
+ "name": "Evidence codes | Oliver's mTOR Atlas",
  "url": "https://mtor-atlas.org/evidence/",
  "isPartOf": {
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
   "url": "https://mtor-atlas.org/",
-  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
   "identifier": "https://doi.org/10.5281/zenodo.22059963",
   "sameAs": [
    "https://doi.org/10.5281/zenodo.22059963",
@@ -127,7 +127,7 @@
   {
    "@type": "ListItem",
    "position": 2,
-   "name": "Evidence tiers"
+   "name": "Evidence codes"
   }
  ]
 }
@@ -178,8 +178,9 @@ margin:0 0 10px;letter-spacing:-.01em;max-width:var(--measure,68ch)}
 h2{font-size:var(--fs-h2,21px);margin:var(--sp-6,34px) 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
-.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}
+:root{--t-s:#4951C8; --t-h:#226870; --t-a:#3B6A20; --t-m:#9632A6; --t-pp:#484E57; --t-rt:#6B5413; --t-r:#9632A6;}html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}.tier.out{background:transparent;border:1.5px solid currentColor}.tier.t-S{background:var(--t-s)}.tier.t-H{background:var(--t-h)}.tier.t-A{background:var(--t-a)}.tier.t-M{background:var(--t-m)}.tier.out.t-R{color:var(--t-r)}.tier.out.t-PP{color:var(--t-pp)}.tier.out.t-RT{color:var(--t-rt)}
 .summary{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 border-left:3px solid var(--teal);padding:2px 0 2px 15px;margin:0 0 20px;
 max-width:var(--measure,68ch)}
@@ -332,44 +333,50 @@ a{overflow-wrap:anywhere}
 </div></div>
 <div class="oma-tabs-row"><div class="oma-tabs-inner"><nav class="oma-tabs" aria-label="Main"><a href="https://mtor-atlas.org/">Welcome</a><a href="https://mtor-atlas.org/academy/">Learn</a><a href="https://mtor-atlas.org/#view=ask">Ask Atlas</a><a href="https://mtor-atlas.org/pathway/">Pathway</a><a href="https://mtor-atlas.org/browse/" class="active">Studies</a><a href="https://mtor-atlas.org/authors/">Authors</a><a href="https://mtor-atlas.org/questions/">Open Questions</a><a href="https://mtor-atlas.org/events/">Timeline</a><a href="https://mtor-atlas.org/about/">About</a></nav></div></div>
 <div class="wrap">
-<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · Evidence tiers</nav>
+<nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · Evidence codes</nav>
 
-<h1>Evidence tiers in the Atlas</h1>
-<p class="summary">Every study in the Atlas is graded A&ndash;D by the KIND of
-study it is, not by how convincing the finding sounds — a tier D
-mechanistic paper can matter more to the field than a tier B human trial
-with a small, underpowered sample. The tier describes study design, and
-nothing else.</p>
+<h1>Evidence codes in the Atlas</h1>
+<p class="summary">Every study in the Atlas carries a code for the KIND of
+study it is, never a mark for how convincing it sounds — an M
+molecular paper can matter more to the field than an underpowered H human
+trial. The code describes what was studied, and nothing else. Until
+September 2026 these codes were the letters A&ndash;D; they were renamed
+because a lettered ladder reads as a school report no matter what the
+caption says. <a href="https://mtor-atlas.org/changelog/">What changed and why</a>.</p>
 <table class="kv">
-<tr><th>Tier</th><th>Studies</th><th>Share of corpus</th></tr>
-<tr><td><span class="tier" style="background:#2F7A52">A</span> Systematic review of human data</td><td>2</td><td>1%</td></tr><tr><td><span class="tier" style="background:#2F6FA8">B</span> Direct human evidence</td><td>35</td><td>10%</td></tr><tr><td><span class="tier" style="background:#A56827">C</span> Animal in vivo</td><td>101</td><td>28%</td></tr><tr><td><span class="tier" style="background:#7C7569">D</span> Mechanistic / in vitro / review</td><td>219</td><td>61%</td></tr>
+<tr><th>Evidence</th><th>Studies</th><th>Share of corpus</th></tr>
+<tr><td><span class="tier t-S" title="Synthesis of human data — this describes the kind of study, not its quality" aria-label="Evidence type S: Synthesis of human data — this describes the kind of study, not its quality">S</span> Synthesis of human data</td><td>2</td><td>1%</td></tr><tr><td><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span> Human study</td><td>35</td><td>10%</td></tr><tr><td><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span> Animal model</td><td>101</td><td>28%</td></tr><tr><td><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span> Molecular — cells, biochemistry, structure</td><td>181</td><td>51%</td></tr><tr><td><span class="tier out t-R" title="Review — secondary literature, not a new result — this describes the kind of study, not its quality" aria-label="Evidence type R: Review — secondary literature, not a new result — this describes the kind of study, not its quality">R</span> Review — secondary literature, not a new result</td><td>38</td><td>11%</td></tr>
 </table>
-<h2>What each tier means</h2>
+<h2>What each code means</h2>
 <ul>
-<li><strong>A — systematic review / meta-analysis:</strong> a formal
-synthesis of multiple independent studies.</li>
-<li><strong>B — human trial:</strong> a controlled or observational
+<li><strong>S — synthesis of human data:</strong> a formal synthesis of
+multiple independent human studies (systematic review, meta-analysis).</li>
+<li><strong>H — human study:</strong> a controlled or observational
 study in living humans.</li>
-<li><strong>C — animal model:</strong> a whole-organism study in a
+<li><strong>A — animal model:</strong> a whole-organism study in a
 non-human species (mouse, fly, worm, etc.).</li>
-<li><strong>D — mechanistic / in vitro / review:</strong> cell-culture,
-biochemical, or narrative-review work — often where causal biology
-gets established first, well before it reaches a human trial.</li>
+<li><strong>M — molecular:</strong> cell-culture, biochemical or
+structural work — usually where causal biology gets established
+first, well before anything reaches a human trial.</li>
+<li><strong>R — review:</strong> secondary literature summarising
+other people's results rather than reporting a new one. Split out of the
+molecular bucket in September 2026, because a narrative review and a
+primary structural paper are not the same kind of document.</li>
 </ul>
-<p>Tier is independent of confidence: a D-tier mechanistic finding can be
+<p>The code is independent of confidence: an M molecular finding can be
 extremely well-established (e.g. rapamycin directly inhibiting mTORC1),
-while a B-tier human trial can still leave open questions about dose,
-duration or generalisability. Full grading criteria are on the
+while an H human trial can still leave open questions about dose,
+duration or generalisability. Full criteria are on the
 <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> page.</p>
-<p><a class="cta" href="https://mtor-atlas.org/browse/">Browse all 357 studies</a></p>
+<p><a class="cta" href="https://mtor-atlas.org/browse/">Browse all 360 studies</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
-pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.
 Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton</a>, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 15:51 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 18:08 Prague time</div>
 </footer>
 </div>
 </body>

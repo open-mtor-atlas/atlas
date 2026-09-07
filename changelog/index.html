@@ -38,7 +38,7 @@
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
   "url": "https://mtor-atlas.org/",
-  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
   "identifier": "https://doi.org/10.5281/zenodo.22059963",
   "sameAs": [
    "https://doi.org/10.5281/zenodo.22059963",
@@ -178,8 +178,9 @@ margin:0 0 10px;letter-spacing:-.01em;max-width:var(--measure,68ch)}
 h2{font-size:var(--fs-h2,21px);margin:var(--sp-6,34px) 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
-.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}
+:root{--t-s:#4951C8; --t-h:#226870; --t-a:#3B6A20; --t-m:#9632A6; --t-pp:#484E57; --t-rt:#6B5413; --t-r:#9632A6;}html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}.tier.out{background:transparent;border:1.5px solid currentColor}.tier.t-S{background:var(--t-s)}.tier.t-H{background:var(--t-h)}.tier.t-A{background:var(--t-a)}.tier.t-M{background:var(--t-m)}.tier.out.t-R{color:var(--t-r)}.tier.out.t-PP{color:var(--t-pp)}.tier.out.t-RT{color:var(--t-rt)}
 .summary{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 border-left:3px solid var(--teal);padding:2px 0 2px 15px;margin:0 0 20px;
 max-width:var(--measure,68ch)}
@@ -336,9 +337,17 @@ a{overflow-wrap:anywhere}
 
 <h1>Corrections log</h1>
 <p class="summary">Every recorded correction to a study record's finding or
-supporting fields, with the curator's own reason for the change. This is
-the log referenced from <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a>'s
-correction policy.</p>
+supporting fields, with the curator's own reason for the change, plus any
+change to the method itself. This is the log referenced from
+<a href="https://mtor-atlas.org/about/">About &amp; Methodology</a>'s correction policy.</p>
+
+<h2>Changes to the method</h2>
+<p>Changes affecting how every record is read, rather than a fix to one
+study.</p>
+<table class="st"><tr><th>Date</th><th>Change</th><th>Why</th></tr>
+<tr><td data-l="Date">2026-09-07</td><td data-l="Change"><strong>Evidence codes renamed from A–D to S / H / A / M / R, and reviews split out</strong></td><td data-l="Why">The old codes ran A, B, C, D. However carefully the caption said “a tier is not a grade”, a lettered ladder is read as a school report — and 61% of the corpus sat at the bottom letter, including the experiments that established the pathway. The codes now name the system a finding was established in and carry no order: S = synthesis of human data, H = human study, A = animal model, M = molecular. Narrative reviews, previously grouped with primary molecular work under the same letter, now carry their own R and are drawn outlined, like preprints and registered trials, because a review is a different form of document rather than a weaker one. Nothing in the underlying data changed and no study was re-graded: the stored values are untouched, only what a reader sees. The change was prompted by a public comment from Prof. Brendan Manning (Harvard T.H. Chan School of Public Health), who pointed out that rigorous mechanistic work should not be weighted down merely for not yet having been shown in humans.</td></tr><tr><td data-l="Date">2026-09-07</td><td data-l="Change"><strong>Static pages were painting a retired palette</strong></td><td data-l="Why">The evidence-marker colours were flattened to equal brightness in August 2026, precisely so no marker could look duller than another. That fix reached the interactive Atlas but not the 471 static pages, which kept the old green-to-grey ramp, and their badges carried no explanatory tooltip at all. Both are fixed, and the automated palette check now covers the static generators as well.</td></tr></table>
+
+<h2>Corrections to individual records</h2>
 <p>46 corrections on record, from 35 distinct study records.</p>
 <p><em>Dates below mark the audit round in which each correction was made,
 not the individual edit's own timestamp -- neither source file this page
@@ -350,12 +359,12 @@ process itself works.</em></p>
 
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
-pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.
 Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton</a>, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 15:51 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 18:08 Prague time</div>
 </footer>
 </div>
 </body>

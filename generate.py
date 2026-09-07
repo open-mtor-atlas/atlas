@@ -18,6 +18,7 @@ import datetime
 from zoneinfo import ZoneInfo
 
 from chrome_shared import (static_footer_html, MODE_TOGGLE_CSS, mode_toggle_html,
+                            tier_badge_by_code, tier_css,
                             THEME_FOUC_SCRIPT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -39,18 +40,17 @@ BUILD_TIMESTAMP = datetime.datetime.now(ZoneInfo("Europe/Prague")).strftime("%Y-
 
 OUT = os.path.join(os.path.dirname(__file__), "out")
 
-TIER_COLOR = {
-    "A": "#2F7A52",
-    "B": "#2F6FA8",
-    "C": "#A56827",
-    "D": "#7C7569",
-}
-TIER_MEANING = {
-    "A": "Systematic review of human data",
-    "B": "Direct human evidence",
-    "C": "Animal in vivo",
-    "D": "Mechanistic / in vitro / review",
-}
+# The answer pages below cite studies by evidence code in hand-written prose.
+# LEGACY_CODE translates the letters those call sites were written with; the
+# codes, colours and badge markup themselves come from chrome_shared, which is
+# the single source for all three generators (see the note there). Before
+# 2026-09-07 this file kept its own copy of the palette and never got the
+# equal-luminance fix -- exactly the drift that table now prevents.
+LEGACY_CODE = {"A": "S", "B": "H", "C": "A", "D": "M", "R": "R"}
+TIER_MEANING = {"S": "Synthesis of human data", "H": "Human study",
+                "A": "Animal model",
+                "M": "Molecular \u2014 cells, biochemistry, structure",
+                "R": "Review \u2014 secondary literature"}
 
 STYLE = """:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}
@@ -90,8 +90,9 @@ h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
-.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}
+""" + tier_css() + """
 .summary{font-size:17px;line-height:1.55;border-left:3px solid var(--teal);
 padding:2px 0 2px 15px;margin:0 0 20px}
 table{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 18px}
@@ -324,12 +325,14 @@ def jstr(s):
 
 
 def ev_table(rows):
-    out = ['<table class="ev"><tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>']
+    out = ['<table class="ev"><tr><th>Evidence</th><th>What it means</th>'
+           '<th>Studies</th></tr>']
     for tier, n in rows:
+        code = LEGACY_CODE.get(tier, tier)
         out.append(
-            '<tr><td data-l="Tier"><span class="tier" style="background:{c}">{t}</span></td>'
+            '<tr><td data-l="Evidence">{b}</td>'
             '<td data-l="Meaning">{m}</td><td data-l="Studies">{n}</td></tr>'.format(
-                c=TIER_COLOR[tier], t=tier, m=TIER_MEANING[tier], n=n
+                b=tier_badge_by_code(code), m=TIER_MEANING[code], n=n
             )
         )
     out.append("</table>")
@@ -338,9 +341,8 @@ def ev_table(rows):
 
 def cite(code, tier, text):
     return (
-        '<li><a href="/study/{code}/">{code}</a> '
-        '<span class="tier" style="background:{c}">{t}</span> — {text}</li>'
-    ).format(code=code, c=TIER_COLOR[tier], t=tier, text=text)
+        '<li><a href="/study/{code}/">{code}</a> {b} — {text}</li>'
+    ).format(code=code, b=tier_badge_by_code(LEGACY_CODE.get(tier, tier)), text=text)
 
 
 def page(slug, title, description, h1, tldr, sections, related_links, faq_q=None, faq_a=None,
@@ -393,21 +395,21 @@ def add(slug, title, description, h1, tldr, sections, related_links, faq_a):
 add(
     slug="rapamycin-lifespan-humans",
     title="Does Rapamycin Extend Lifespan in Humans? | Oliver's mTOR Atlas",
-    description="38 rapamycin studies rated A–D by evidence strength — what's proven in mice, what's only measured as biomarkers in humans, and what's still an open question.",
+    description="38 rapamycin studies labelled by the kind of study behind each — what's proven in mice, what's only measured as biomarkers in humans, and what's still an open question.",
     h1="Does rapamycin extend lifespan in humans?",
     tldr=(
         "Short answer: we don't know yet, and no study has directly tested it. What's well "
-        "established is that rapamycin extends lifespan in mice (Tier C, animal evidence). "
+        "established is that rapamycin extends lifespan in mice (animal evidence). "
         "In humans, the evidence so far covers biomarkers and short-term safety, not actual "
         "lifespan — a human lifespan trial would take decades. The strongest human evidence "
-        "to date is a systematic review (Tier A) reporting improvements in immune, "
+        "to date is a systematic review of human data reporting improvements in immune, "
         "cardiovascular, and skin parameters, not a mortality outcome."
     ),
     sections=[
-        ("The evidence, by tier", ev_table([("A", 1), ("B", 7), ("C", 14), ("D", 15)]) +
+        ("The evidence, by study type", ev_table([("A", 1), ("B", 7), ("C", 14), ("D", 15)]) +
          "<p>Rapamycin is the most-studied intervention in this Atlas for its effect on the "
          "mTOR pathway (38 studies total).</p>"),
-        ("What each tier actually shows", "<ul>" + "".join([
+        ("What each kind of study actually shows", "<ul>" + "".join([
             cite("LEE2024", "A", "the first systematic review of rapamycin/rapalogs in "
                  "humans specifically for aging; found improvements in immune, "
                  "cardiovascular, and skin parameters — biomarkers and safety, not a "
@@ -443,9 +445,9 @@ add(
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
         "No study has directly tested this — a human lifespan trial would take decades. "
-        "Rapamycin reliably extends lifespan in mice (Tier C evidence, e.g. a 9-14% median "
+        "Rapamycin reliably extends lifespan in mice (animal evidence, e.g. a 9-14% median "
         "lifespan increase in HAR2009). In humans, the evidence so far covers biomarkers, "
-        "immune/cardiovascular/skin parameters, and short-term safety (Tier A-B), not "
+        "immune/cardiovascular/skin parameters, and short-term safety (human evidence), not "
         "an actual mortality outcome."
     ),
 )
@@ -847,7 +849,7 @@ add(
         "They're often mentioned together as geroprotector candidates, but they work "
         "differently and have very different evidence behind them in this Atlas. Rapamycin "
         "directly and potently inhibits mTORC1 (its designed mechanism) and has 38 "
-        "evidence-graded studies here, including a Tier A systematic review. Metformin "
+        "evidence-labelled studies here, including a systematic review of human data. Metformin "
         "inhibits mTORC1 only indirectly — mainly by activating AMPK, though it also acts "
         "on mTORC1 through AMPK-independent routes — and has just 3 studies in the Atlas, "
         "none of them a randomized trial for a longevity endpoint."
@@ -887,7 +889,7 @@ add(
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
         "Rapamycin directly and potently inhibits mTORC1 (38 studies in the Atlas, "
-        "including one Tier A systematic review). Metformin inhibits mTORC1 mostly "
+        "including one systematic review of human data). Metformin inhibits mTORC1 mostly "
         "indirectly, via AMPK activation (though some of its action is AMPK-independent), "
         "and has only 3 studies in the Atlas — the human evidence (BAN2014) is a "
         "retrospective observational study of diabetic patients, not a randomized trial "
@@ -1139,11 +1141,13 @@ GLOSSARY = [
      "A reduced cellular response to insulin. Relevant to mTOR biology as rapamycin's "
      "best-documented metabolic side effect, mechanistically linked to chronic "
      "suppression of mTORC2 rather than mTORC1, its intended target."),
-    ("Evidence tier (A–D)", None, None,
-     "This Atlas's own grading system for how directly a study supports a claim: "
-     "A = systematic review/meta-analysis, B = human trial, C = animal model, "
-     "D = mechanistic, in vitro, or review. Every study and every claim in the Atlas "
-     "carries one of these tiers, visible as a colored badge next to its citation."),
+    ("Evidence code (S/H/A/M/R)", None, None,
+     "This Atlas's label for WHICH SYSTEM a finding was established in \u2014 never a "
+     "mark for how good the work is: S = synthesis of human data, H = human study, "
+     "A = animal model, M = molecular (cells, biochemistry, structure), R = review. "
+     "Every study and claim carries one, visible as a badge next to its citation. "
+     "Until September 2026 these codes ran A\u2013D; they were renamed because a "
+     "lettered ladder reads as a school grade whatever the caption says."),
 ]
 
 
@@ -1238,8 +1242,8 @@ def hub_page():
     )
     body_html = (
         '<p class="summary">Ten direct answers to the questions people most often ask '
-        "about mTOR, rapamycin, and longevity — each graded by the same A–D evidence "
-        "system used throughout the Atlas, and each linking back to the primary studies "
+        "about mTOR, rapamycin, and longevity — each labelled with the same evidence "
+        "codes used throughout the Atlas, and each linking back to the primary studies "
         "behind it.</p><h2>All 10 answers</h2>" + items +
         '<h2>Also see</h2><p><a href="/glossary/">Glossary of mTOR terms</a> · '
         '<a href="/browse/">Browse all studies and topics</a></p>'

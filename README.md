@@ -8,7 +8,7 @@ A curated, evidence-graded database of mTOR pathway research. Every study is rat
 
 ## What's inside
 
-- 300+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each graded A-D by strength of evidence and linked back to its DOI/PubMed record.
+- 300+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in vitro, R = review) and linked back to its DOI/PubMed record. These codes ran A-D until September 2026; they were renamed because a lettered ladder reads as a quality grade, which it never was.
 - A knowledge-graph view connecting genes, diseases, and interventions.
 - An "open questions" layer - evidence gaps identified across the corpus, each paired with a proposed testable experiment.
 - A citation-grounded research assistant that answers pathway questions using only the indexed corpus, with links back to source studies.

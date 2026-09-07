@@ -57,7 +57,7 @@ def static_footer_html(site, build_timestamp):
     return (
         '<footer class="oma-footer">\n'
         "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
-        "pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.\n"
+        "pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.\n"
         f'Curated by <a href="{site}/author/oliver-barton/">Oliver Barton</a>, Prague.</p>\n'
         f'<div class="oma-footer-links">\n{links}\n</div>\n'
         f'<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated '
@@ -321,3 +321,111 @@ def mode_toggle_html():
         "updateBtn(document.documentElement.getAttribute('data-theme')||'light');"
         '})();</script>'
     )
+
+
+# ---------------------------------------------------------------------------
+# EVIDENCE CODES -- one table, three generators.
+#
+# This lived in build_pages.py and, separately, in generate.py, each with its
+# own hard-coded palette. When the equal-luminance palette landed in the SPA
+# on 2026-08-27 neither copy was updated, so every static page kept painting
+# the old green -> blue -> amber -> GREY ramp for another six weeks: the exact
+# "vivid to dull" gradient that had been removed for reading as a quality
+# ranking. One table now, imported by both generators and parsed by
+# check_tier_palette.py.
+#
+# 2026-09-07 the reader-facing codes stopped being the letters A-D. A lettered
+# ladder is read as a school grade however it is captioned, and 61% of the
+# corpus sat at "D" -- including the experiments that established the pathway.
+# The codes now name the system studied and carry no order. The keys below are
+# the stored Airtable values; those are internal ids and never reach a reader.
+#
+#   S  synthesis of human data      H  human study        A  animal model
+#   M  molecular (cells, biochem)   R  review (outlined)
+#   PP preprint (outlined)          RT registered trial (outlined)
+#
+# "Outlined" = the form of the claim rather than the system studied.
+TIER_LABEL = {
+    "A - Systematic review": ("S", "Synthesis of human data", "#4951C8", False),
+    "B - Human": ("H", "Human study", "#226870", False),
+    "C - Animal": ("A", "Animal model", "#3B6A20", False),
+    "D - Mechanistic/Review": ("M", "Molecular \u2014 cells, biochemistry, structure",
+                               "#9632A6", False),
+    "Preprint": ("PP", "Preprint, not peer-reviewed", "#484E57", True),
+    "Registered trial": ("RT", "Registered trial, no results yet", "#6B5413", True),
+}
+TIER_REVIEW = ("R", "Review \u2014 secondary literature, not a new result",
+               "#9632A6", True)
+
+# Static pages carry a dark theme too (assets/type.css flips --paper to
+# #0e1219 on html[data-theme="dark"]). An OUTLINED badge draws its colour as
+# text, so a light-theme hex would sit at ~3:1 on the dark ground -- below AA.
+# Same values as the SPA's dark palette in assets/atlas.css.
+TIER_COLOUR_DARK = {"S": "#AEB1E0", "H": "#74C0C9", "A": "#8AC469",
+                    "M": "#D4A4DC", "R": "#D4A4DC",
+                    "PP": "#A7AEBA", "RT": "#D3AD43"}
+
+TIER_CODES = ("S", "H", "A", "M", "R", "PP", "RT")
+
+# Rule 5 of the palette contract: a code never appears on its own. It says
+# WHAT KIND of study produced a finding; alone it reads as a mark out of five.
+TIER_NOTE = "this describes the kind of study, not its quality"
+
+
+def tier_bits(t, pyramid=None):
+    """(code, label, colour, outlined) for a stored tier value.
+
+    `pyramid` splits narrative reviews out of the molecular bucket -- that
+    distinction already existed in the data, it was simply never surfaced."""
+    key = (t or "").strip()
+    if key == "D - Mechanistic/Review" and pyramid and \
+            "narrative review" in str(pyramid).lower():
+        return TIER_REVIEW
+    return TIER_LABEL.get(key, ("\u2014", t or "ungraded", "#55524C", True))
+
+
+def _esc_attr(x):
+    import html as _html
+    return _html.escape(_html.unescape(str(x or "")), quote=True)
+
+
+def tier_badge_by_bits(code, label, colour, outlined):
+    """Colour comes from a class, never an inline hex: an inline colour cannot
+    follow the dark theme, and these badges are on 471 pages."""
+    title = f"{label} \u2014 {TIER_NOTE}"
+    cls = ("tier out t-" + code) if outlined else ("tier t-" + code)
+    return (f'<span class="{cls}" title="{_esc_attr(title)}" '
+            f'aria-label="Evidence type {_esc_attr(code)}: {_esc_attr(title)}">'
+            f'{_esc_attr(code)}</span>')
+
+
+def tier_badge(t, pyramid=None):
+    return tier_badge_by_bits(*tier_bits(t, pyramid))
+
+
+def tier_badge_by_code(code):
+    """Badge for a display code written by hand in prose (generate.py's
+    answer pages cite studies by code, not by stored tier value)."""
+    for bits in list(TIER_LABEL.values()) + [TIER_REVIEW]:
+        if bits[0] == code:
+            return tier_badge_by_bits(*bits)
+    return f'<span class="tier out">{_esc_attr(code)}</span>'
+
+
+def tier_css():
+    """Both palettes as custom properties, generated from the tables above so
+    badge colours cannot drift from tier_bits()."""
+    light = {v[0]: v[2] for v in list(TIER_LABEL.values()) + [TIER_REVIEW]}
+    lo = " ".join(f"--t-{c.lower()}:{h};" for c, h in light.items())
+    da = " ".join(f"--t-{c.lower()}:{h};" for c, h in TIER_COLOUR_DARK.items())
+    # A filled code gets a background; an outlined one gets a text colour and
+    # NOTHING else -- emitting both made .tier.t-R paint a solid box whose
+    # letter was the same violet as the fill, i.e. an invisible R.
+    outlined = {b[0] for b in list(TIER_LABEL.values()) + [TIER_REVIEW] if b[3]}
+    codes = "".join(
+        (f".tier.out.t-{c}{{color:var(--t-{c.lower()})}}" if c in outlined
+         else f".tier.t-{c}{{background:var(--t-{c.lower()})}}")
+        for c in TIER_CODES)
+    return (f':root{{{lo}}}html[data-theme="dark"]{{{da}}}'
+            f".tier.out{{background:transparent;border:1.5px solid currentColor}}"
+            f"{codes}")

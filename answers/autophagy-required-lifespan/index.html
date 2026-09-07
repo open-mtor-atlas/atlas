@@ -109,8 +109,9 @@ h1{font-size:27px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
 h2{font-size:17px;margin:30px 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
-.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}
+:root{--t-s:#4951C8; --t-h:#226870; --t-a:#3B6A20; --t-m:#9632A6; --t-pp:#484E57; --t-rt:#6B5413; --t-r:#9632A6;}html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}.tier.out{background:transparent;border:1.5px solid currentColor}.tier.t-S{background:var(--t-s)}.tier.t-H{background:var(--t-h)}.tier.t-A{background:var(--t-a)}.tier.t-M{background:var(--t-m)}.tier.out.t-R{color:var(--t-r)}.tier.out.t-PP{color:var(--t-pp)}.tier.out.t-RT{color:var(--t-rt)}
 .summary{font-size:17px;line-height:1.55;border-left:3px solid var(--teal);
 padding:2px 0 2px 15px;margin:0 0 20px}
 table{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 18px}
@@ -236,19 +237,19 @@ a{overflow-wrap:anywhere}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · Is autophagy actually required for the lifespan benefit of mTOR inhibition?</nav>
 <h1>Is autophagy actually required for the lifespan benefit of mTOR inhibition?</h1>
 <p class="summary">Autophagy — the cell's recycling process, suppressed by active mTORC1 and switched on when mTORC1 is inhibited — is the textbook explanation for how rapamycin extends lifespan. But "autophagy goes up when you give rapamycin, and rapamycin extends lifespan" is a correlation, not proof that autophagy is the mechanism. This is one of the Atlas's ten flagged open questions: an evidence gap, not a settled fact.</p>
-<h2>What&#x27;s actually established</h2><ul><li><a href="/study/SPI2010/">SPI2010</a> <span class="tier" style="background:#A56827">C</span> — long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer's mouse model — one of several disease-model studies where an autophagy-linked benefit tracks with mTORC1 inhibition.</li><li><a href="/study/CAC2010/">CAC2010</a> <span class="tier" style="background:#A56827">C</span> — revealed a vicious cycle: amyloid-beta raises mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau — so the disease feeds itself, and rapamycin breaks the loop at the mTOR step.</li></ul><p>18 studies in the Atlas touch autophagy directly (9 animal, 9 mechanistic/in vitro) — a substantial mechanistic case that autophagy <em>changes</em> when mTORC1 is inhibited.</p>
+<h2>What&#x27;s actually established</h2><ul><li><a href="/study/SPI2010/">SPI2010</a> <span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span> — long-term rapamycin prevented memory deficits and lowered toxic amyloid-beta in an Alzheimer's mouse model — one of several disease-model studies where an autophagy-linked benefit tracks with mTORC1 inhibition.</li><li><a href="/study/CAC2010/">CAC2010</a> <span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span> — revealed a vicious cycle: amyloid-beta raises mTOR activity, and high mTOR in turn blocks the autophagy needed to clear amyloid and tau — so the disease feeds itself, and rapamycin breaks the loop at the mTOR step.</li></ul><p>18 studies in the Atlas touch autophagy directly (9 animal, 9 mechanistic/in vitro) — a substantial mechanistic case that autophagy <em>changes</em> when mTORC1 is inhibited.</p>
 <h2>What&#x27;s actually missing</h2><p>What's missing is the causal experiment: block autophagy genetically (e.g. knock out an ATG gene) in an animal also given rapamycin, and see whether the lifespan benefit disappears. If it does, autophagy is required. If lifespan extends anyway, something else in the mTORC1 pathway is doing the work and autophagy is a correlated side effect, not the mechanism. This exact experiment is the Atlas's flagged evidence gap — read the full breakdown, including the proposed test, on the open question page: <a href="/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/">Is autophagy actually required for the mammalian lifespan benefit?</a></p>
 <h2>Why this matters beyond biology trivia</h2><p>If autophagy isn't strictly required, then drugs or lifestyle interventions that boost autophagy through a completely different pathway (independent of mTOR) might not deliver the same longevity benefit rapamycin does — an assumption a lot of "autophagy-boosting" supplement marketing quietly skips over.</p>
 <h2>Related entities</h2><div class="tags"><a href="/process/autophagy/">Autophagy <span style="color:var(--muted-count,#7C7569)">18</span></a><a href="/complex/mtorc1/">mTORC1</a><a href="/drug/rapamycin/">Rapamycin</a></div>
 <p><a class="cta" href="https://mtor-atlas.org/">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
-pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.
 Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton</a>, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 14:27 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 18:07 Prague time</div>
 </footer>
 </div>
 </body>

@@ -10,14 +10,30 @@
   --paper:#FFFFFF; --paper-raised:#FFFFFF; --ink:#0A0A0A; --ink-soft:#55524C;
   --line:rgba(0,0,0,0.13); --line-strong:rgba(0,0,0,0.34);
   --teal:#A31F34; --teal-deep:#7A1626; --amber:#C17A2E; --ep-hyp:#6B4E9E;
-  /* Evidence tiers describe WHAT KIND OF STUDY produced a finding, not how
-     good it is. The previous palette ran green -> blue -> amber -> grey,
-     which reads as a quality ramp and made tier D look like bad science.
-     These four are at EQUAL RELATIVE LUMINANCE (spread 0.002 vs 0.107
-     before), so no tier can look brighter or duller than another; only
-     hue differs, and hue encodes the system studied: blue = human
-     evidence, teal = human primary, green = animal, violet = molecular.
-     Contrast verified >=4.5:1 for white badge text in both themes. */
+  /* Evidence markers describe WHAT KIND OF STUDY produced a finding, not
+     how good it is. The previous palette ran green -> blue -> amber ->
+     grey, which reads as a quality ramp and made the molecular marker
+     look like bad science. These four are at EQUAL RELATIVE LUMINANCE
+     (spread 0.002 vs 0.107 before), so none can look brighter or duller
+     than another; only hue differs, and hue encodes the system studied:
+     indigo = synthesis of human data, teal = human primary, green =
+     animal, violet = molecular.
+     Contrast verified >=4.5:1 for white badge text in both themes.
+
+     TOKEN NAMES ARE HISTORICAL, THE DISPLAY CODES ARE NOT.
+     2026-09-07 the user-facing codes stopped being the letters A-D,
+     because a lettered ladder is read as a school grade no matter what
+     the caption says (see /changelog/). The variable names below kept
+     their old spelling to avoid a site-wide rename of unrelated rules;
+     the mapping is fixed and is the ONLY one anything should use:
+         --tier-a  ->  S   synthesis of human data
+         --tier-b  ->  H   human study
+         --tier-c  ->  A   animal model
+         --tier-d  ->  M   molecular / cell   (filled)
+         --tier-d  ->  R   review, secondary  (OUTLINED, see rule 4)
+     R deliberately shares the molecular hue: a narrative review of
+     mechanistic work sits on the same layer of biology, and outline-vs-
+     fill is already the vocabulary for "different form of claim". */
   --tier-a:#4951C8; --tier-b:#226870; --tier-c:#3B6A20; --tier-d:#9632A6;
   --tier-pp:#484E57; --tier-rt:#6B5413;
   --pp:#8B5FBF; --rt:#5278A6; --danger:#B4442E;
@@ -399,7 +415,9 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .ask-hit .h-meta{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);color:var(--ink-soft);margin:4px 0 6px;}
 .ask-hit .h-find{font-size:var(--fs-caption,13px);line-height:1.5;color:var(--ink);}
 .tier-badge{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;color:var(--paper);white-space:nowrap;}
-.tier-A{background:var(--tier-a);} .tier-B{background:var(--tier-b);} .tier-C{background:var(--tier-c);} .tier-D{background:var(--tier-d);}
+.tier-S{background:var(--tier-a);} .tier-H{background:var(--tier-b);} .tier-A{background:var(--tier-c);} .tier-M{background:var(--tier-d);}
+/* R = review: secondary literature, so it is outlined rather than filled -- same rule as PP/RT (form of the claim, not the system studied). */
+.tier-R{background:transparent;color:var(--tier-d);border:1.5px solid var(--tier-d);}
 .tier-badge{cursor:help;}
 .tier-badge.st,.tier-pill.st{background:transparent !important;}
 .ask-answer{border:1px solid var(--teal-deep);border-left:4px solid var(--teal-deep);background:var(--paper-raised);padding:15px 17px;margin-bottom:16px;}

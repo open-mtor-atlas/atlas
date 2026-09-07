@@ -156,11 +156,15 @@
   /* Reviewer point 9: a bare letter reads as a grade. The Atlas already has
      descriptive labels site-wide (TIER_LABELS); the pathway panel just never
      showed them. Never render a tier letter without its meaning next to it. */
+  /* model.json's best_tier is the STORED letter (A-D), an internal id.
+     Readers see the display codes S/H/A/M -- renamed 2026-09-07 because a
+     lettered ladder is read as a school grade whatever the caption says. */
+  var TIER_CODE = { A: "S", B: "H", C: "A", D: "M", PP: "PP", RT: "RT" };
   var TIER_MEANING = {
-    A: "systematic review / meta-analysis",
-    B: "human trial or cohort",
+    A: "synthesis of human data — systematic review / meta-analysis",
+    B: "human study — trial or cohort",
     C: "animal or invertebrate model",
-    D: "mechanistic — cell culture, structure or review",
+    D: "molecular — cells, biochemistry, structure",
     PP: "preprint, not yet peer-reviewed",
     RT: "registered trial, results pending"
   };
@@ -661,6 +665,10 @@
   function tierDot(t) {
     var map = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)",
                 PP: "var(--tier-pp)", RT: "var(--tier-rt)" };
+    /* callers pass either a single stored letter or PP/RT; a full stored
+       value ("A - Systematic review") collapses to its first letter. */
+    t = (t || "").toString().trim().toUpperCase();
+    if (t.length > 2) { t = /^(PP|RT)/.test(t) ? t.slice(0, 2) : t.slice(0, 1); }
     var c = map[t] || "var(--tier-d)";
     var meaning = TIER_MEANING[t] || "study type not recorded";
     /* PP and RT are completeness STATUS, not a kind of study, so they render
@@ -702,10 +710,10 @@
       + '<div class="pw-confrow"><span>How it was shown</span><span>' + esc(e.evidence.kind) + "</span></div></div>"
       + '<p style="font-size:11.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55;">'
       + "A step can be mechanistically certain and still untested in humans. "
-      + "<b>Tiers describe the kind of study, not its quality</b> — A/B are human evidence, C is animal, "
-      + "D is mechanistic work in cells, structures and reviews. A tier-D structural paper can settle a "
+      + "<b>These codes describe the kind of study, not its quality</b> — S/H are human evidence, "
+      + "A is animal, M is molecular work in cells and structures. An M structural paper can settle a "
       + "mechanism outright; it simply is not human evidence. Mechanism confidence grades the "
-      + "<em>biology</em>, tier grades the <em>study design</em>.</p>";
+      + "<em>biology</em>, the code names the <em>system studied</em>.</p>";
   }
   function meter(label, val, w, c) {
     return '<div class="pw-confrow"><span>' + label + '</span><span class="pw-meter ' + c
@@ -967,7 +975,7 @@
         : (B.explain[S.level] || ""),
       certainty: "Mechanistic confidence " + e.confidence.mechanistic + "; human relevance "
         + e.confidence.human_relevance + "; field consensus " + e.confidence.consensus
-        + ". Best supporting study is tier " + e.evidence.best_tier + " (" + e.evidence.kind
+        + ". Closest-to-human supporting study is " + (TIER_CODE[e.evidence.best_tier] || e.evidence.best_tier) + " (" + e.evidence.kind
         + ", " + (e.species.join(", ") || "model not stated") + ")."
         + (e.boundary ? " Boundary conditions: " + e.boundary : ""),
       matters: e.teaching_note || B.explain[S.level] || B.explain.research

@@ -35,7 +35,9 @@ from chrome_shared import (FOOTER_LINKS, static_footer_html,
                             spa_footer_link_html, assert_crumb_matches_ld,
                             entity_explain_for, ENTITY_NAME_TO_NODE_ID,
                             LEVEL_SWITCH_CSS, level_switch_html,
-                            MODE_TOGGLE_CSS, mode_toggle_html, THEME_FOUC_SCRIPT)
+                            MODE_TOGGLE_CSS, mode_toggle_html, THEME_FOUC_SCRIPT,
+                            TIER_LABEL, TIER_REVIEW, TIER_NOTE,
+                            tier_bits, tier_badge, tier_badge_by_bits, tier_css)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "atlas_data")
@@ -133,9 +135,9 @@ DATASET_REF = {
     "url": SITE + "/",
     "description": (
         "A curated, evidence-graded database of mTOR pathway research: over 350 "
-        "studies, with every eligible peer-reviewed primary study rated by evidence "
-        "tier (A = systematic review/meta-analysis, B = human trial, C = animal model, "
-        "D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, "
+        "studies, with every eligible peer-reviewed primary study labelled by the kind "
+        "of study behind it (S = synthesis of human data, H = human study, A = animal "
+        "model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, "
         "diseases and interventions, plus AI-identified knowledge gaps and testable "
         "hypotheses."
     ),
@@ -243,25 +245,21 @@ EXTERNAL_IDS = {
     "Muscle growth": ["https://www.wikidata.org/wiki/Q1955391"],
 }
 
-TIER_LABEL = {
-    "A - Systematic review": ("A", "Systematic review of human data", "#2F7A52"),
-    "B - Human": ("B", "Direct human evidence", "#2F6FA8"),
-    "C - Animal": ("C", "Animal in vivo", "#A56827"),
-    "D - Mechanistic/Review": ("D", "Mechanistic / in vitro / review", "#7C7569"),
-    "Preprint": ("—", "Preprint, not peer-reviewed", "#8B5FBF"),
-    "Registered trial": ("—", "Registered trial, no results yet", "#5278A6"),
-}
+# The evidence-code vocabulary, palette and badge builder live in
+# chrome_shared.py so this generator and generate.py cannot drift apart --
+# they did, for six weeks, which is why every static page kept the old
+# quality-ramp palette. See the long note there.
 
 
 # ---------------------------------------------------------------- helpers ---
 
 def slugify(s):
     s = unicodedata.normalize("NFKD", s)
-    s = s.replace("α", "alpha").replace("β", "beta").replace("γ", "gamma")
-    # Apostrof se ZAHAZUJE, nenahrazuje pomlčkou. Jinak z "Alzheimer's disease"
-    # vznikne /disease/alzheimer-s-disease/ -- adresa, kterou nikdo nenapíše ani
-    # neodhadne, a po zveřejnění se už měnit nesmí.
-    s = re.sub(r"['’ʼ`]", "", s)
+    s = s.replace("\u03b1", "alpha").replace("\u03b2", "beta").replace("\u03b3", "gamma")
+    # Apostrof se ZAHAZUJE, nenahrazuje pomlckou. Jinak z "Alzheimer's disease"
+    # vznikne /disease/alzheimer-s-disease/ -- adresa, kterou nikdo nenapise ani
+    # neodhadne, a po zverejneni se uz menit nesmi.
+    s = re.sub(r"['\u2019\u02bc`]", "", s)
     s = s.encode("ascii", "ignore").decode()
     s = s.lower()
     s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
@@ -271,15 +269,11 @@ def slugify(s):
 def e(s):
     # html.unescape() nejdriv rozbali pripadne uz-zakodovane entity
     # (&mdash; &lsquo; &rsquo; &ndash; ...), ktere kuratori pisou rucne
-    # primo do dat (funguje pro SPA, kde se vklada přes innerHTML) --
+    # primo do dat (funguje pro SPA, kde se vklada pres innerHTML) --
     # bez tohohle by html.escape() zakodoval i to & v nich znovu a
     # vysledek by se na strance zobrazil doslova jako "&amp;mdash;".
     # unescape+escape je bezpecne idempotentni i pro text bez entit.
     return html.escape(html.unescape(str(s or "")), quote=True)
-
-
-def tier_bits(t):
-    return TIER_LABEL.get((t or "").strip(), ("—", t or "ungraded", "#7C7569"))
 
 
 def _short_title(title, limit=70):
@@ -505,8 +499,9 @@ margin:0 0 10px;letter-spacing:-.01em;max-width:var(--measure,68ch)}}
 h2{{font-size:var(--fs-h2,21px);margin:var(--sp-6,34px) 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}}
 .meta{{color:var(--soft);font-size:14px;margin:0 0 18px}}
-.tier{{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}}
+.tier{{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}}
+{tier_css()}
 .summary{{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 border-left:3px solid var(--teal);padding:2px 0 2px 15px;margin:0 0 20px;
 max-width:var(--measure,68ch)}}
@@ -856,60 +851,63 @@ NOINDEX_STUDIES = _load_noindex_studies()
 
 
 def tier_reason(s):
-    """One sentence on WHY this record has this tier -- Ukol 2 item 2: a
-    beginner reads "D" as "D-minus" without this. 8 templates keyed by
-    (tier, category), not one generic sentence, so the reader can tell which
-    kind of C or D this is (a null result is not a weak result; mechanistic
-    work is not lesser work -- it is often where causal biology actually
-    gets established)."""
+    """One sentence on WHY this record carries this evidence code.
+
+    Eight templates keyed by (tier, category), not one generic sentence, so
+    the reader can tell which kind of animal or molecular record this is (a
+    null result is not a weak result; molecular work is not lesser work --
+    it is often where causal biology actually gets established). Since
+    2026-09-07 the codes name the system studied (S/H/A/M/R) instead of
+    running A-D, so none of these sentences has to talk a reader out of a
+    grade the label itself implied."""
     tier = (s.get("tier") or "").strip()
     category = (s.get("category") or "").strip()
+    pyramid = (s.get("pyramid") or "").strip()
     model = s.get("model") or s.get("ai_species") or "the studied system"
     if tier == "A - Systematic review":
-        return ("Tier A because it systematically synthesizes multiple human "
-                "studies (a systematic review or meta-analysis); tier describes "
-                "study design, not the quality of any single included study.")
+        return ("Marked S because it synthesizes multiple human studies (a "
+                "systematic review or meta-analysis); the code names the kind "
+                "of study, not the quality of any single included study.")
     if tier == "B - Human":
-        return ("Tier B because it is direct evidence from a human clinical "
-                "trial or human cohort; tier describes study design, not "
-                "quality -- a small, well-run trial is still tier B.")
+        return ("Marked H because it is direct evidence from a human clinical "
+                "trial or human cohort; the code names the kind of study, not "
+                "its quality -- a small, well-run trial is still H.")
     if tier == "C - Animal":
         if category == "Negative_result":
-            return (f"Tier C because it is an animal study reporting a "
+            return (f"Marked A because it is an animal study reporting a "
                     f"negative or null result (model: {e(model)}); a "
-                    f"well-designed null result is still evidence, and tier "
-                    f"reflects design, not importance.")
-        return (f"Tier C because it is an animal intervention or observation "
+                    f"well-designed null result is still evidence, and the "
+                    f"code names the system studied, not the importance.")
+        return (f"Marked A because it is an animal intervention or observation "
                 f"study measuring an organismal outcome (model: {e(model)}); "
-                f"tier describes study design, not quality -- animal evidence "
-                f"can be rigorous and still sit below direct human data.")
+                f"the code names the system studied -- animal work can be "
+                f"rigorous and still not be human data.")
     if tier == "D - Mechanistic/Review":
-        if category == "Review":
-            return ("Tier D because it is a review or synthesis of existing "
-                    "evidence rather than a new primary result; tier "
-                    "describes study design (secondary synthesis), not "
-                    "quality.")
+        if category == "Review" or "narrative review" in pyramid.lower():
+            return ("Marked R because it is a review or synthesis of existing "
+                    "evidence rather than a new primary result; that is a "
+                    "different form of writing, not a weaker one.")
         if category == "Side effect":
-            return (f"Tier D because it reports a mechanistic or side-effect "
-                    f"finding (model: {e(model)}) rather than a primary "
-                    f"organismal health outcome; tier describes study design, "
-                    f"not quality.")
-        return (f"Tier D because it is mechanistic or in-vitro work (model: "
-                f"{e(model)}), not a whole-organism health-outcome study; "
-                f"tier describes study design, not quality -- this is often "
-                f"exactly where causal biology gets established.")
+            return (f"Marked M because it reports a mechanistic or side-effect "
+                    f"finding (model: {e(model)}) rather than a whole-organism "
+                    f"health outcome; the code names the system studied.")
+        return (f"Marked M because it is molecular or in-vitro work (model: "
+                f"{e(model)}) rather than a whole-organism health-outcome "
+                f"study. That is often exactly where causal biology gets "
+                f"established -- the code says which system the finding was "
+                f"shown in, and nothing about how good the work is.")
     if tier == "Preprint":
         return ("This is a preprint, not yet peer-reviewed -- treat its "
                 "findings as provisional until formal publication. Preprints "
-                "sit outside the A-D tier ladder for that reason, not "
-                "because the work is weak.")
+                "carry their own marker because peer-review status is a "
+                "different question from which system was studied.")
     if tier == "Registered trial":
         return ("This is a registered clinical trial with no results "
-                "reported yet. There is no tier grade until results are "
+                "reported yet. There is no evidence code until results are "
                 "published -- registration alone is not evidence of an "
                 "effect.")
-    return f"Tier {e(tier or '—')}; tier describes study design, not quality."
-
+    return ("Evidence code " + e(tier or "\u2014") + "; the code names the kind "
+            "of study, not its quality.")
 
 def _truncate_at_sentence(text, limit=600):
     """First ~limit chars of text, cut at the end of the last full sentence
@@ -956,7 +954,7 @@ def _cite_block(sid, title, url):
 
 def study_page(s, ent_by_sid, haspage, by_sid):
     sid = s["sid"]
-    code, label, colour = tier_bits(s.get("tier"))
+    code, label, colour, _outlined = tier_bits(s.get("tier"), s.get("pyramid"))
     url = f"{SITE}/study/{sid}/"
     title = s.get("title") or sid
     desc = (s.get("finding") or s.get("abstract") or title)[:300]
@@ -992,8 +990,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
         # does not count a JSON-LD-only field as visible duplicate content.
         ld["abstract"] = s["abstract"]
 
-    rows = [("Evidence tier", f'<span class="tier" style="background:{colour}">'
-                              f'{e(code)}</span> {e(label)}'),
+    rows = [("Evidence type", f'{tier_badge(s.get("tier"), s.get("pyramid"))} {e(label)}'),
             ("Study type", e(s.get("pyramid") or s.get("category") or "—")),
             ("Model system", e(s.get("model") or s.get("ai_species") or "—")),
             ("Journal", e(s.get("journal") or "—")),
@@ -1116,7 +1113,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
     title_bits = [_short_title(title)]
     if s.get("year"):
         title_bits.append(f"({s['year']})")
-    title_bits.append(f"— evidence tier {code}")
+    title_bits.append(f"— evidence {code}")
     page_title = " ".join(title_bits) + " | Oliver's mTOR Atlas"
     return url, shell(page_title, desc, url, [ld, bc],
                       "\n".join(body), crumb, active_tab="studies",
@@ -1139,13 +1136,14 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
 
     counts = {}
     for s in linked:
-        counts[tier_bits(s.get("tier"))[0]] = counts.get(tier_bits(s.get("tier"))[0], 0) + 1
+        _c = tier_bits(s.get("tier"), s.get("pyramid"))[0]
+        counts[_c] = counts.get(_c, 0) + 1
 
     syn = [x.strip() for x in re.split(r"[;\n]", ent.get("synonyms") or "")
            if x.strip() and not x.lower().startswith("pozn")]
     desc = (ent.get("desc") or
             f"{ent['name']} in the mTOR pathway: {len(linked)} curated studies, "
-            f"graded by strength of evidence.")[:300]
+            f"labelled by the kind of study behind each finding.")[:300]
 
     ld = {"@context": "https://schema.org", "@type": "DefinedTerm",
           "name": ent["name"], "description": desc, "url": url,
@@ -1168,26 +1166,27 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
         body.append(f'<p class="summary">{e(ent["desc"])}</p>')
 
     body.append("<h2>Evidence at a glance</h2><table class=\"ev\">"
-                "<tr><th>Tier</th><th>What it means</th><th>Studies</th></tr>")
-    for key, (code, label, colour) in TIER_LABEL.items():
+                "<tr><th>Evidence</th><th>What it means</th><th>Studies</th></tr>")
+    for key, (code, label, colour, outlined) in (list(TIER_LABEL.items())
+                                                 + [("Review", TIER_REVIEW)]):
         n = counts.get(code, 0)
         if code == "—" or n == 0:
             continue
-        body.append(f'<tr><td data-l="Tier"><span class="tier" style="background:{colour}">{code}'
-                    f'</span></td><td data-l="Meaning">{e(label)}</td><td data-l="Studies">{n}</td></tr>')
+        badge = tier_badge_by_bits(code, label, colour, outlined)
+        body.append(f'<tr><td data-l="Evidence">{badge}'
+                    f'</td><td data-l="Meaning">{e(label)}</td><td data-l="Studies">{n}</td></tr>')
     body.append("</table>")
     if not counts.get("A") and not counts.get("B"):
         body.append("<p><em>No direct human evidence in the Atlas for this entity yet — "
                     "everything below rests on animal or mechanistic work.</em></p>")
 
     body.append("<h2>Studies</h2><table class=\"st\">"
-                "<tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>")
+                "<tr><th>Study</th><th>Year</th><th>Evidence</th><th>Finding</th></tr>")
     for s in linked:
-        code, _, colour = tier_bits(s.get("tier"))
         body.append(
             f'<tr><td data-l="Study"><a href="/study/{e(s["sid"])}/">{e(s["sid"])}</a></td>'
             f'<td data-l="Year">{e(s.get("year") or "")}</td>'
-            f'<td data-l="Tier"><span class="tier" style="background:{colour}">{code}</span></td>'
+            f'<td data-l="Evidence">{tier_badge(s.get("tier"), s.get("pyramid"))}</td>'
             f'<td data-l="Finding">{e((s.get("finding") or s.get("title") or "")[:200])}</td></tr>')
     body.append("</table>")
 
@@ -1360,18 +1359,17 @@ def author_page(key, bio, studies):
 
     if ordered:
         body.append("<h2>Milestones in the Atlas</h2><table class=\"st\">"
-                    "<tr><th>Study</th><th>Year</th><th>Tier</th><th>Finding</th></tr>")
+                    "<tr><th>Study</th><th>Year</th><th>Evidence</th><th>Finding</th></tr>")
         for s in ordered:
             if not s.get("sid"):
                 continue
-            code, _, colour = tier_bits(s.get("tier"))
             hl = (bio.get("highlights") or {}).get(s["sid"])
             finding = hl if hl else (s.get("finding") or s.get("title") or "")
             finding_html = finding if hl else e(finding[:220])
             body.append(
                 f'<tr><td data-l="Study"><a href="/study/{e(s["sid"])}/">{e(s["sid"])}</a></td>'
                 f'<td data-l="Year">{e(s.get("year") or "")}</td>'
-                f'<td data-l="Tier"><span class="tier" style="background:{colour}">{code}</span></td>'
+                f'<td data-l="Evidence">{tier_badge(s.get("tier"), s.get("pyramid"))}</td>'
                 f'<td data-l="Finding">{finding_html}</td></tr>')
         body.append("</table>")
     body.append(f'<p><a class="cta" href="{SITE}/#authors">Open in the Atlas explorer</a></p>')
@@ -1446,11 +1444,57 @@ def changelog_page(studies):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Corrections log", None)])
 
+    # Methodology changes are a different kind of entry from a per-study
+    # correction -- they change how EVERY record is read, so they are listed
+    # first and by hand. Added 2026-09-07 with the evidence-code rename.
+    method_changes = [
+        ("2026-09-07",
+         "Evidence codes renamed from A\u2013D to S / H / A / M / R, and "
+         "reviews split out",
+         "The old codes ran A, B, C, D. However carefully the caption said "
+         "\u201ca tier is not a grade\u201d, a lettered ladder is read as a "
+         "school report \u2014 and 61% of the corpus sat at the bottom letter, "
+         "including the experiments that established the pathway. The codes now "
+         "name the system a finding was established in and carry no order: "
+         "S = synthesis of human data, H = human study, A = animal model, "
+         "M = molecular. Narrative reviews, previously grouped with primary "
+         "molecular work under the same letter, now carry their own R and are "
+         "drawn outlined, like preprints and registered trials, because a "
+         "review is a different form of document rather than a weaker one. "
+         "Nothing in the underlying data changed and no study was re-graded: "
+         "the stored values are untouched, only what a reader sees. The change "
+         "was prompted by a public comment from Prof. Brendan Manning "
+         "(Harvard T.H. Chan School of Public Health), who pointed out that "
+         "rigorous mechanistic work should not be weighted down merely for not "
+         "yet having been shown in humans."),
+        ("2026-09-07",
+         "Static pages were painting a retired palette",
+         "The evidence-marker colours were flattened to equal brightness in "
+         "August 2026, precisely so no marker could look duller than another. "
+         "That fix reached the interactive Atlas but not the 471 static pages, "
+         "which kept the old green-to-grey ramp, and their badges carried no "
+         "explanatory tooltip at all. Both are fixed, and the automated palette "
+         "check now covers the static generators as well."),
+    ]
+    method_html = "".join(
+        f'<tr><td data-l="Date">{e(d)}</td>'
+        f'<td data-l="Change"><strong>{e(t)}</strong></td>'
+        f'<td data-l="Why">{e(w)}</td></tr>'
+        for d, t, w in method_changes)
+
     body = f"""<h1>Corrections log</h1>
 <p class="summary">Every recorded correction to a study record's finding or
-supporting fields, with the curator's own reason for the change. This is
-the log referenced from <a href="{SITE}/about/">About &amp; Methodology</a>'s
-correction policy.</p>
+supporting fields, with the curator's own reason for the change, plus any
+change to the method itself. This is the log referenced from
+<a href="{SITE}/about/">About &amp; Methodology</a>'s correction policy.</p>
+
+<h2>Changes to the method</h2>
+<p>Changes affecting how every record is read, rather than a fix to one
+study.</p>
+<table class="st"><tr><th>Date</th><th>Change</th><th>Why</th></tr>
+{method_html}</table>
+
+<h2>Corrections to individual records</h2>
 {count_line}
 <p><em>Dates below mark the audit round in which each correction was made,
 not the individual edit's own timestamp -- neither source file this page
@@ -1491,7 +1535,9 @@ def pathway_page(model, entities, haspage):
     url = f"{SITE}/pathway/"
     entities_by_name = {x["name"]: x for x in entities}
     node_id_to_entity = {v: k for k, v in ENTITY_NAME_TO_NODE_ID.items()}
-    tier_color = {t[0]: t[2] for t in TIER_LABEL.values()}
+    # model.json's best_tier is the stored INTERNAL letter (A-D), not a
+    # display code -- translate before it reaches a reader.
+    tier_display = {k.strip()[0]: v for k, v in TIER_LABEL.items()}
 
     def node_link(node_id):
         name = node_id_to_entity.get(node_id, node_id)
@@ -1547,8 +1593,10 @@ def pathway_page(model, entities, haspage):
     rows = []
     for i in model["interactions"]:
         ev = i.get("evidence", {}) or {}
-        best = ev.get("best_tier", "—")
-        color = tier_color.get(best, "#7C7569")
+        best_raw = ev.get("best_tier", "\u2014")
+        best_bits = tier_display.get(str(best_raw).strip()[:1])
+        best_badge = (tier_badge_by_bits(*best_bits) if best_bits
+                      else f'<span class="tier out">{e(best_raw)}</span>')
         supporting = ev.get("supporting", []) or []
         study_links = ", ".join(
             f'<a href="{SITE}/study/{e(sid)}/">{e(sid)}</a>' for sid in supporting) or "—"
@@ -1566,12 +1614,12 @@ def pathway_page(model, entities, haspage):
 <td data-l="Mechanism"><span class="lv-beginner">{e(mech_beginner)}</span>\
 <span class="lv-student">{e(mech)}</span>\
 <span class="lv-research">{e(mech)}</span></td>
-<td data-l="Tier"><span class="tier" style="background:{color}">{e(best)}</span></td>
+<td data-l="Evidence">{best_badge}</td>
 <td data-l="Studies">{study_links}{conflict_note}</td>
 </tr>""")
 
     table_html = ("""<table class="st int-table"><tr><th>Source</th><th>Effect</th>
-<th>Target</th><th>Type</th><th>Mechanism</th><th>Tier</th><th>Studies</th></tr>"""
+<th>Target</th><th>Type</th><th>Mechanism</th><th>Evidence</th><th>Studies</th></tr>"""
                   + "".join(rows) + "</table>")
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
@@ -1593,7 +1641,7 @@ itself, see the <a href="{SITE}/#view=map">interactive pathway map</a>
 {"".join(route_html)}
 <h2 id="interactions">All {counts["interactions"]} interactions</h2>
 <p class="summary">Every modelled interaction in the network: source,
-direction of effect, target, mechanism, the strongest evidence tier behind
+direction of effect, target, mechanism, the closest-to-human evidence behind
 it, and the studies that support it. Rows are the same interactions the
 eleven routes above walk through, cross-referenced by each step's
 &quot;mechanism&quot; link.</p>
@@ -1731,8 +1779,8 @@ def about_page(studies, entities):
 <p class="summary">A curated, evidence-graded database of mTOR pathway
 research -- {n_studies} studies and {n_entities} cross-linked entities
 ({n_entity_pages} with their own page), each claim traced to a primary
-source and rated by strength of evidence. This page explains who curates
-it, how a study earns a place, what the grading does and doesn't
+source and labelled by the kind of study behind it. This page explains who
+curates it, how a study earns a place, what those labels do and don't
 guarantee, and how to report an error.</p>
 
 <h2>What this is</h2>
@@ -1741,8 +1789,9 @@ to index all of PubMed's roughly sixty thousand mTOR-related records, but
 a smaller set small enough that every entry can be read, graded and
 defended by one person, then connected by hand into a knowledge graph of
 genes, drugs, diseases and outcomes. Every claim carries an explicit
-evidence tier (A = systematic review of human data, B = human trial,
-C = animal model, D = mechanistic/in-vitro/review), and the corpus
+evidence label naming the system it was established in (S = synthesis of
+human data, H = human study, A = animal model, M = molecular/in-vitro,
+R = review), and the corpus
 deliberately keeps negative results -- studies where a popular longevity
 compound did <em>not</em> extend lifespan -- with the same visibility as
 positive findings.</p>
@@ -1770,9 +1819,12 @@ supplies ongoing human trials.</li>
 <li><strong>Verify</strong> -- each citation's PMID, DOI, year and journal
 are confirmed against PubMed's own metadata before the entry is written;
 no citation is added from memory alone.</li>
-<li><strong>Grade</strong> -- the study gets an A&ndash;D evidence tier
-based on the strength of the model system the claim actually rests on, not
-the size of the headline finding.</li>
+<li><strong>Label</strong> -- the study gets an evidence code naming the
+system the claim actually rests on (S/H/A/M/R), not a mark for how good it
+is. Until September 2026 these codes ran A&ndash;D; they were renamed
+because a lettered ladder is read as a school grade however it is
+captioned, and that quietly devalued molecular work that the pathway was
+built on. See the <a href="{SITE}/changelog/">changelog</a>.</li>
 <li><strong>Link</strong> -- the genes, drugs and outcomes the study
 mentions are connected to it in the graph, so the same paper surfaces
 wherever any of its subjects is explored.</li>
@@ -1797,8 +1849,8 @@ its metadata can't be verified against PubMed (no PMID or DOI resolving to
 the publisher's own record); or if its connection to mTOR is incidental --
 mTOR measured as one readout among many in a paper about something else.
 Preprints and registered trials are admitted only when they're the best
-available evidence for a claim, and are then labelled ungraded rather than
-given an A&ndash;D tier.</p>
+available evidence for a claim, and then carry their own PP/RT marker
+rather than an S/H/A/M/R evidence code.</p>
 
 <h2>What this doesn't guarantee</h2>
 <p>An honest limitation: the Atlas does not keep a screening log. Candidates
@@ -1816,7 +1868,7 @@ calls -- the usual safeguard against a single reader's blind spots is
 absent. The one external check to date was an unsolicited scientific
 review in July 2026, which raised sixteen points; all were addressed
 rather than quietly dropped, and one exposed a real inconsistency between
-the stated A&ndash;D tier definition and how it was actually being applied.
+the stated evidence-code definition and how it was actually being applied.
 An automated validator rule now blocks any deploy where a study's tier and
 its underlying evidence level disagree.</p>
 
@@ -1964,7 +2016,7 @@ DOI-versioned copy, use the Zenodo archive above.</p>
 
 <h2>What's in the corpus right now</h2>
 <p>{n_studies} hand-curated primary studies on the mTOR signaling pathway,
-each rated A&ndash;D by strength of evidence and linked back to its DOI or
+each labelled by the kind of study behind it and linked back to its DOI or
 PubMed record. See <a href="{SITE}/about/">About &amp; Methodology</a>
 for how a study earns a place and how the grading works.</p>
 
@@ -2014,9 +2066,8 @@ def authors_page(author_bios, author_idx):
         sub = f' \u00b7 {e(bio["sub"])}' if bio.get("sub") else ""
         tier_bit = ""
         if t:
-            code, label, colour = tier_bits(t)
-            tier_bit = (f' \u00b7 top tier <span class="tier" '
-                       f'style="background:{colour}">{e(code)}</span>')
+            tier_bit = (' \u00b7 closest to human: '
+                        + tier_badge_by_bits(*tier_bits(t)))
         body.append(
             f'<p style="margin:0 0 10px"><a href="/author/{slug}/">{e(bio["full"])}</a> '
             f'<span class="meta" style="display:inline">\u2014 {e(bio["role"])}{sub} \u00b7 '
@@ -2026,7 +2077,7 @@ def authors_page(author_bios, author_idx):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Researchers", None)])
     return url, shell("Researchers | Oliver's mTOR Atlas",
                       f"The {len(rows)} scientists behind the studies curated in Oliver's "
-                      f"mTOR Atlas, each with a publication timeline and evidence tiers.",
+                      f"mTOR Atlas, each with a publication timeline and evidence codes.",
                       url, [ld_page, ld_list, bc], "\n".join(body), crumb,
                       active_tab="authors")
 
@@ -2130,9 +2181,9 @@ def oliver_page(bio):
         body.append("<h2>Related studies \u2014 current research focus</h2>")
         body.append(f'<p class="meta">{e(bio["focus_table_intro"])}</p>')
         body.append('<table class="st"><tr><th>Study</th><th>Authors</th>'
-                    '<th>Why it matters</th><th>Tier</th></tr>')
+                    '<th>Why it matters</th><th>Evidence</th></tr>')
         for r in bio["focus_studies"]:
-            code, label, colour = tier_bits(r.get("tier"))
+            code, label, colour, _o = tier_bits(r.get("tier"), r.get("pyramid"))
             authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
             body.append(
                 f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
@@ -2140,7 +2191,7 @@ def oliver_page(bio):
                 f'{e(r["sid"])} &middot; {e(r["year"] or "")}</span></td>'
                 f'<td data-l="Authors">{authors_html}</td>'
                 f'<td data-l="Why it matters">{e(r["why"])}</td>'
-                f'<td data-l="Tier"><span class="tier" style="background:{colour}">'
+                f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}'
                 f'{e(code)}</span></td></tr>')
         body.append("</table>")
 
@@ -2164,60 +2215,66 @@ def oliver_page(bio):
 # exact, citable facts -- good GEO bait.
 def evidence_page(studies):
     url = f"{SITE}/evidence/"
-    tier_order = sorted(
-        {v for v in TIER_LABEL.values() if v[0] in ("A", "B", "C", "D")},
-        key=lambda v: v[0])
-    counts = {code: 0 for code, _, _ in tier_order}
+    ORDER = ["S", "H", "A", "M", "R"]
+    by_code = {v[0]: v for v in list(TIER_LABEL.values()) + [TIER_REVIEW]}
+    tier_order = [by_code[c] for c in ORDER if c in by_code]
+    counts = {code: 0 for code, _, _, _ in tier_order}
     for s in studies:
-        code, _, _ = tier_bits(s.get("tier"))
+        code, _, _, _ = tier_bits(s.get("tier"), s.get("pyramid"))
         if code in counts:
             counts[code] += 1
     total = sum(counts.values())
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
-          "name": "Evidence tiers | Oliver's mTOR Atlas", "url": url,
+          "name": "Evidence codes | Oliver's mTOR Atlas", "url": url,
           "isPartOf": dict(DATASET_REF)}
-    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Evidence tiers'
-    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Evidence tiers", None)])
+    crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Evidence codes'
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Evidence codes", None)])
 
     rows = "".join(
-        f'<tr><td><span class="tier" style="background:{colour}">{code}</span> '
+        f'<tr><td>{tier_badge_by_bits(code, label, colour, outlined)} '
         f'{e(label)}</td><td>{counts[code]}</td>'
         f'<td>{round(100 * counts[code] / total) if total else 0}%</td></tr>'
-        for code, label, colour in tier_order)
+        for code, label, colour, outlined in tier_order)
 
-    body = f"""<h1>Evidence tiers in the Atlas</h1>
-<p class="summary">Every study in the Atlas is graded A&ndash;D by the KIND of
-study it is, not by how convincing the finding sounds \u2014 a tier D
-mechanistic paper can matter more to the field than a tier B human trial
-with a small, underpowered sample. The tier describes study design, and
-nothing else.</p>
+    body = f"""<h1>Evidence codes in the Atlas</h1>
+<p class="summary">Every study in the Atlas carries a code for the KIND of
+study it is, never a mark for how convincing it sounds \u2014 an M
+molecular paper can matter more to the field than an underpowered H human
+trial. The code describes what was studied, and nothing else. Until
+September 2026 these codes were the letters A&ndash;D; they were renamed
+because a lettered ladder reads as a school report no matter what the
+caption says. <a href="{SITE}/changelog/">What changed and why</a>.</p>
 <table class="kv">
-<tr><th>Tier</th><th>Studies</th><th>Share of corpus</th></tr>
+<tr><th>Evidence</th><th>Studies</th><th>Share of corpus</th></tr>
 {rows}
 </table>
-<h2>What each tier means</h2>
+<h2>What each code means</h2>
 <ul>
-<li><strong>A \u2014 systematic review / meta-analysis:</strong> a formal
-synthesis of multiple independent studies.</li>
-<li><strong>B \u2014 human trial:</strong> a controlled or observational
+<li><strong>S \u2014 synthesis of human data:</strong> a formal synthesis of
+multiple independent human studies (systematic review, meta-analysis).</li>
+<li><strong>H \u2014 human study:</strong> a controlled or observational
 study in living humans.</li>
-<li><strong>C \u2014 animal model:</strong> a whole-organism study in a
+<li><strong>A \u2014 animal model:</strong> a whole-organism study in a
 non-human species (mouse, fly, worm, etc.).</li>
-<li><strong>D \u2014 mechanistic / in vitro / review:</strong> cell-culture,
-biochemical, or narrative-review work \u2014 often where causal biology
-gets established first, well before it reaches a human trial.</li>
+<li><strong>M \u2014 molecular:</strong> cell-culture, biochemical or
+structural work \u2014 usually where causal biology gets established
+first, well before anything reaches a human trial.</li>
+<li><strong>R \u2014 review:</strong> secondary literature summarising
+other people's results rather than reporting a new one. Split out of the
+molecular bucket in September 2026, because a narrative review and a
+primary structural paper are not the same kind of document.</li>
 </ul>
-<p>Tier is independent of confidence: a D-tier mechanistic finding can be
+<p>The code is independent of confidence: an M molecular finding can be
 extremely well-established (e.g. rapamycin directly inhibiting mTORC1),
-while a B-tier human trial can still leave open questions about dose,
-duration or generalisability. Full grading criteria are on the
+while an H human trial can still leave open questions about dose,
+duration or generalisability. Full criteria are on the
 <a href="{SITE}/about/">About &amp; Methodology</a> page.</p>
-<p><a class="cta" href="{SITE}/browse/">Browse all {total} studies</a></p>"""
+<p><a class="cta" href="{SITE}/browse/">Browse all {len(studies)} studies</a></p>"""
 
-    return url, shell("Evidence tiers | Oliver's mTOR Atlas",
+    return url, shell("Evidence codes | Oliver's mTOR Atlas",
                       f"How Oliver's mTOR Atlas grades {total} curated mTOR studies on an "
-                      f"A-D evidence tier, and what each tier does and doesn't mean.",
+                      f"S/H/A/M/R evidence code, and what each code does and doesn't mean.",
                       url, [ld, bc], body, crumb, active_tab="studies")
 
 
@@ -2267,23 +2324,22 @@ def browse_page(studies, entities, haspage, gaps=(), authors=()):
             for x in items) + "</p>")
 
     body.append(f"<h2>Studies</h2><p>Sorted by year, newest first. "
-                f"Each links to a page with the abstract, evidence tier, DOI and PMID.</p>")
+                f"Each links to a page with the abstract, evidence code, DOI and PMID.</p>")
     for s in sorted(studies, key=lambda s: -(s.get("year") or 0)):
         if not s.get("sid"):
             continue
-        code, _, colour = tier_bits(s.get("tier"))
         body.append(
             f'<p style="margin:0 0 7px"><a href="/study/{e(s["sid"])}/">'
             f'{e(s.get("title") or s["sid"])}</a><br>'
             f'<span style="color:var(--soft);font-size:14px">{e(s.get("year") or "")} · '
-            f'{e(s.get("journal") or "")} · <span class="tier" '
-            f'style="background:{colour}">{code}</span></span></p>')
+            f'{e(s.get("journal") or "")} · {tier_badge(s.get("tier"), s.get("pyramid"))}'
+            f'</span></p>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> · Browse'
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Browse", None)])
     return url, shell("Browse all studies and topics | Oliver's mTOR Atlas",
                       f"Index of all {len(studies)} curated mTOR studies and every "
-                      f"pathway topic in the Atlas, each graded by strength of evidence.",
+                      f"pathway topic in the Atlas, each labelled by study type.",
                       url, [ld, bc], "\n".join(body), crumb, active_tab="studies")
 
 
@@ -2902,7 +2958,7 @@ def main():
                 "\n## Learn the mechanisms (mTOR Academy)\n"
                 "Short, question-led lessons that build the mental model most mTOR papers "
                 "assume. Every mechanistic claim links to the Atlas study behind it, with "
-                "that study's A-D evidence tier attached, and every lesson names what is "
+                "that study's evidence code attached, and every lesson names what is "
                 "still uncertain.\n"
                 "- [mTOR Academy](https://mtor-atlas.org/academy/): course overview and "
                 "entry points\n"
@@ -2913,8 +2969,8 @@ def main():
     write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
 
 > A curated, evidence-graded database of mTOR pathway research: {len(studies)} \
-peer-reviewed primary studies rated by evidence tier (A = systematic review, \
-B = human trial, C = animal model, D = mechanistic/in vitro/review), linked to \
+peer-reviewed primary studies labelled by study type (S = synthesis of human data, \
+H = human study, A = animal model, M = molecular/in vitro, R = review), linked to \
 a knowledge graph of genes, drugs, diseases and outcomes, plus AI-identified \
 knowledge gaps and testable hypotheses. Content is CC BY 4.0 -- free to cite \
 and reuse with attribution to "Oliver's mTOR Atlas".
@@ -2932,7 +2988,7 @@ Original synthesis, not aggregated abstracts -- each page states an evidence gap
 {gap_lines}
 
 ## Core pathway entities
-Every entity page lists its full evidence tier breakdown and every linked study; this is a subset with the deepest evidence base.
+Every entity page lists its full evidence-code breakdown and every linked study; this is a subset with the deepest evidence base.
 {core_lines}
 
 ## Researchers

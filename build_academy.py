@@ -52,7 +52,8 @@ sys.path.insert(0, HERE)
 # vizualne odejit od zbytku statickych stranek.
 import build_pages as BP
 from build_pages import (SITE, GENERATED_MARKER, shell, breadcrumb_ld,
-                         slugify, e, tier_bits, TYPE_DIR, DATASET_REF, write)
+                         slugify, e, tier_bits, tier_badge, TYPE_DIR,
+                         DATASET_REF, write)
 
 DRY = "--dry-run" in sys.argv
 CLEAN = "--clean" in sys.argv
@@ -1791,7 +1792,8 @@ def evidence_cards(sids, by_sid):
         s = by_sid.get(sid)
         if not s:
             raise SystemExit("build_academy: lekce odkazuje na neexistujici SID %r" % sid)
-        code, label, colour = tier_bits(s.get("tier"))
+        code, label, colour, _o = tier_bits(s.get("tier"), s.get("pyramid"))
+        badge = tier_badge(s.get("tier"), s.get("pyramid"))
         finding = (s.get("finding") or "").strip()
         # Jedna veta, ne cely finding -- karta ma pozvat ke kliknuti, ne
         # nahradit stranku studie (spec §11: "Do not duplicate study records").
@@ -1800,12 +1802,12 @@ def evidence_cards(sids, by_sid):
             first = first[:237].rstrip() + "…"
         out.append(
             '<div class="ac-evcard"><div class="ac-evhead">'
-            '<span class="tier" style="background:%s">%s</span>'
+            '%s'
             '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
             '<span class="ac-evyear">%s</span></div>'
             '<p class="ac-evfind">%s</p>'
             '<a class="ac-evlink" href="%s/study/%s/">Study page &rarr;</a></div>'
-            % (colour, e(code), SITE, e(sid), e(s.get("title") or sid),
+            % (badge, SITE, e(sid), e(s.get("title") or sid),
                e(s.get("year") or ""), e(first), SITE, e(sid)))
     return '<div class="ac-ev">%s</div>' % "".join(out)
 
@@ -2120,7 +2122,7 @@ def predict_block(ex, by_sid):
     st = by_sid.get(sid)
     if not st:
         raise SystemExit("build_academy: predict cviceni odkazuje na neznamy SID %r" % sid)
-    code, _lab, colour = tier_bits(st.get("tier"))
+    code, _lab, colour, _o = tier_bits(st.get("tier"), st.get("pyramid"))
     opts = "".join(
         '<li><button type="button" class="ac-qzopt" data-i="%d">'
         '<span class="ac-qzkey">%s</span><span>%s</span></button></li>'
@@ -2128,12 +2130,12 @@ def predict_block(ex, by_sid):
     observe = (
         '<span class="ac-pdstep">Observe &mdash; what was actually measured</span>'
         '<div class="ac-pdobs"><div class="ac-evhead">'
-        '<span class="tier" style="background:%s">%s</span>'
+        '%s'
         '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
         '<span class="ac-evyear">%s</span></div>'
         '<p class="ac-pdmethod">%s</p><p class="ac-pdreadout">%s</p>'
         '<a class="ac-evlink" href="%s/study/%s/">Study page &rarr;</a></div>'
-        % (colour, e(code), SITE, e(sid), e(st.get("title") or sid), e(st.get("year") or ""),
+        % (tier_badge(st.get("tier"), st.get("pyramid")), SITE, e(sid), e(st.get("title") or sid), e(st.get("year") or ""),
            prose(ex["observe"]["method"]), prose(ex["observe"]["readout"]),
            SITE, e(sid)))
     explain = ('<span class="ac-pdstep">Explain</span><p>%s</p>%s'
@@ -2156,11 +2158,11 @@ def compare_block(ex, by_sid):
         st = by_sid.get(sid)
         if not st:
             raise SystemExit("build_academy: compare cviceni odkazuje na neznamy SID %r" % sid)
-        code, _l, colour = tier_bits(st.get("tier"))
+        code, _l, colour, _o = tier_bits(st.get("tier"), st.get("pyramid"))
         cells.append({
-            "head": '<span class="tier" style="background:%s">%s</span> '
-                    '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
-                    % (colour, e(code), SITE, e(sid), e(st.get("title") or sid)),
+            "head": '%s <a class="ac-evtitle" href="%s/study/%s/">%s</a>'
+                    % (tier_badge(st.get("tier"), st.get("pyramid")), SITE, e(sid),
+                       e(st.get("title") or sid)),
             "model": e(st.get("model") or "—"),
             "pert": prose(ex[side]["perturbation"]),
             "read": prose(ex[side]["readout"])})
@@ -2760,10 +2762,10 @@ def rc_result(ex, by_sid):
             if not st:
                 raise SystemExit("build_academy: experiment %r odkazuje na neznamy "
                                  "SID %r" % (ex["id"], sid))
-            code, _l, colour = tier_bits(st.get("tier"))
-            cards.append('<span class="tier" style="background:%s">%s</span> '
-                         '<a href="%s/study/%s/">%s</a> <span class="ac-evyear">%s</span>'
-                         % (colour, e(code), SITE, e(sid), e(st.get("title") or sid),
+            cards.append('%s <a href="%s/study/%s/">%s</a> '
+                         '<span class="ac-evyear">%s</span>'
+                         % (tier_badge(st.get("tier"), st.get("pyramid")), SITE, e(sid),
+                            e(st.get("title") or sid),
                             e(st.get("year") or "")))
         head = ('<p class="ac-rcsrc"><span class="ac-rclbl">Derived from</span> %s</p>'
                 % " &middot; ".join(cards))
@@ -3137,10 +3139,9 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
     st = by_sid.get(cp["sid"])
     if not st:
         raise SystemExit("build_academy: compare odkazuje na neznamy SID %r" % cp["sid"])
-    code, _l, colour = tier_bits(st.get("tier"))
     n += 1
     inner = ('<div class="ac-rccmp"><div class="ac-evhead">'
-             '<span class="tier" style="background:%s">%s</span>'
+             '%s'
              '<a class="ac-evtitle" href="%s/study/%s/">%s</a>'
              '<span class="ac-evyear">%s</span></div>'
              '<p class="ac-pdstep">What the researchers actually tested</p><p>%s</p>'
@@ -3148,7 +3149,8 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
              '<p class="ac-showslbl">What it did not answer</p><ul class="ac-shows">%s</ul>'
              '<p>%s</p>'
              '<a class="ac-evlink" href="%s/study/%s/">Study page &rarr;</a></div>'
-             % (colour, e(code), SITE, e(cp["sid"]), e(st.get("title") or cp["sid"]),
+             % (tier_badge(st.get("tier"), st.get("pyramid")), SITE, e(cp["sid"]),
+                e(st.get("title") or cp["sid"]),
                 e(st.get("year") or ""), prose(cp["whatTheyTested"]),
                 "".join('<li class="ac-yes">%s</li>' % prose(x) for x in cp["whatItAnswered"]),
                 "".join('<li class="ac-no">%s</li>' % prose(x) for x in cp["whatItDidNot"]),

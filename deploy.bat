@@ -376,6 +376,21 @@ if errorlevel 1 (
   exit /b 1
 )
 echo.
+echo.
+echo === Evidence-code palette gate ===
+REM Added 2026-09-07. This gate existed since 2026-08-27 but was never called
+REM from here, and it was reading index.html after the tokens had moved to
+REM assets/atlas.css -- so the static generators kept the old quality ramp on
+REM 471 pages for six weeks with nothing complaining. It now compares the
+REM stylesheet against chrome_shared.py and refuses inline badges.
+py check_tier_palette.py --strict
+if errorlevel 1 (
+  echo.
+  echo ABORTED: the evidence-code palette would reintroduce a quality ramp, or
+  echo the static pages and the SPA disagree about a colour. NOT deploying.
+  exit /b 1
+)
+
 echo === Scientific claim calibration gate ===
 py validate_claims.py --strict --json atlas_data\claim_validation.json
 if errorlevel 1 (

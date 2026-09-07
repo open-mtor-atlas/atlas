@@ -38,7 +38,7 @@
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
   "url": "https://mtor-atlas.org/",
-  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study rated by evidence tier (A = systematic review/meta-analysis, B = human trial, C = animal model, D = mechanistic/in-vitro/review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
+  "description": "A curated, evidence-graded database of mTOR pathway research: over 350 studies, with every eligible peer-reviewed primary study labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus AI-identified knowledge gaps and testable hypotheses.",
   "identifier": "https://doi.org/10.5281/zenodo.22059963",
   "sameAs": [
    "https://doi.org/10.5281/zenodo.22059963",
@@ -184,8 +184,9 @@ margin:0 0 10px;letter-spacing:-.01em;max-width:var(--measure,68ch)}
 h2{font-size:var(--fs-h2,21px);margin:var(--sp-6,34px) 0 9px;padding-bottom:5px;
 border-bottom:1px solid var(--line)}
 .meta{color:var(--soft);font-size:14px;margin:0 0 18px}
-.tier{display:inline-block;padding:2px 9px;border-radius:3px;color:#fff;
-font-size:12px;font-weight:600;letter-spacing:.03em}
+.tier{display:inline-block;padding:2px 9px;border-radius:3px;
+color:var(--paper);font-size:12px;font-weight:600;letter-spacing:.03em}
+:root{--t-s:#4951C8; --t-h:#226870; --t-a:#3B6A20; --t-m:#9632A6; --t-pp:#484E57; --t-rt:#6B5413; --t-r:#9632A6;}html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}.tier.out{background:transparent;border:1.5px solid currentColor}.tier.t-S{background:var(--t-s)}.tier.t-H{background:var(--t-h)}.tier.t-A{background:var(--t-a)}.tier.t-M{background:var(--t-m)}.tier.out.t-R{color:var(--t-r)}.tier.out.t-PP{color:var(--t-pp)}.tier.out.t-RT{color:var(--t-rt)}
 .summary{font-size:var(--fs-lead,17px);line-height:var(--lh-body,1.62);
 border-left:3px solid var(--teal);padding:2px 0 2px 15px;margin:0 0 20px;
 max-width:var(--measure,68ch)}
@@ -344,8 +345,8 @@ a{overflow-wrap:anywhere}
 <p class="summary">A curated, evidence-graded database of mTOR pathway
 research -- 360 studies and 146 cross-linked entities
 (46 with their own page), each claim traced to a primary
-source and rated by strength of evidence. This page explains who curates
-it, how a study earns a place, what the grading does and doesn't
+source and labelled by the kind of study behind it. This page explains who
+curates it, how a study earns a place, what those labels do and don't
 guarantee, and how to report an error.</p>
 
 <h2>What this is</h2>
@@ -354,8 +355,9 @@ to index all of PubMed's roughly sixty thousand mTOR-related records, but
 a smaller set small enough that every entry can be read, graded and
 defended by one person, then connected by hand into a knowledge graph of
 genes, drugs, diseases and outcomes. Every claim carries an explicit
-evidence tier (A = systematic review of human data, B = human trial,
-C = animal model, D = mechanistic/in-vitro/review), and the corpus
+evidence label naming the system it was established in (S = synthesis of
+human data, H = human study, A = animal model, M = molecular/in-vitro,
+R = review), and the corpus
 deliberately keeps negative results -- studies where a popular longevity
 compound did <em>not</em> extend lifespan -- with the same visibility as
 positive findings.</p>
@@ -383,9 +385,12 @@ supplies ongoing human trials.</li>
 <li><strong>Verify</strong> -- each citation's PMID, DOI, year and journal
 are confirmed against PubMed's own metadata before the entry is written;
 no citation is added from memory alone.</li>
-<li><strong>Grade</strong> -- the study gets an A&ndash;D evidence tier
-based on the strength of the model system the claim actually rests on, not
-the size of the headline finding.</li>
+<li><strong>Label</strong> -- the study gets an evidence code naming the
+system the claim actually rests on (S/H/A/M/R), not a mark for how good it
+is. Until September 2026 these codes ran A&ndash;D; they were renamed
+because a lettered ladder is read as a school grade however it is
+captioned, and that quietly devalued molecular work that the pathway was
+built on. See the <a href="https://mtor-atlas.org/changelog/">changelog</a>.</li>
 <li><strong>Link</strong> -- the genes, drugs and outcomes the study
 mentions are connected to it in the graph, so the same paper surfaces
 wherever any of its subjects is explored.</li>
@@ -410,8 +415,8 @@ its metadata can't be verified against PubMed (no PMID or DOI resolving to
 the publisher's own record); or if its connection to mTOR is incidental --
 mTOR measured as one readout among many in a paper about something else.
 Preprints and registered trials are admitted only when they're the best
-available evidence for a claim, and are then labelled ungraded rather than
-given an A&ndash;D tier.</p>
+available evidence for a claim, and then carry their own PP/RT marker
+rather than an S/H/A/M/R evidence code.</p>
 
 <h2>What this doesn't guarantee</h2>
 <p>An honest limitation: the Atlas does not keep a screening log. Candidates
@@ -429,7 +434,7 @@ calls -- the usual safeguard against a single reader's blind spots is
 absent. The one external check to date was an unsolicited scientific
 review in July 2026, which raised sixteen points; all were addressed
 rather than quietly dropped, and one exposed a real inconsistency between
-the stated A&ndash;D tier definition and how it was actually being applied.
+the stated evidence-code definition and how it was actually being applied.
 An automated validator rule now blocks any deploy where a study's tier and
 its underlying evidence level disagree.</p>
 
@@ -460,12 +465,12 @@ and a ready-to-use citation are on the <a href="https://mtor-atlas.org/data/">Da
 
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
-pathway. Every entry traces to a primary paper, graded A–D by strength of evidence.
+pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.
 Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton</a>, Prague.</p>
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 15:51 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-07 18:08 Prague time</div>
 </footer>
 </div>
 </body>

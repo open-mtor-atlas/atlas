@@ -66,7 +66,14 @@ def grab(block, name):
 
 def main():
     strict = "--strict" in sys.argv
-    html = io.open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+    # The tokens moved out of index.html into assets/atlas.css when the CSS
+    # was extracted; this gate kept reading index.html and therefore reported
+    # "--tier-a missing" for every token while returning success without
+    # --strict, and deploy.bat never called it at all. Both fixed 2026-09-07 --
+    # the palette regression it exists to prevent had already happened in the
+    # static generators by then. Read the file the browser actually loads.
+    html = io.open(os.path.join(ROOT, "assets", "atlas.css"), encoding="utf-8").read()
+    spa = io.open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     errs, warns = [], []
 
     # Read the EFFECTIVE value, not the first one.
@@ -156,14 +163,14 @@ def main():
     if 'title="Evidence strength"' in html:
         errs.append('a tier badge is still labelled "Evidence strength". A tier records the '
                     "KIND of study, not its strength; that title is the misreading itself.")
-    if "function tierTitle(" not in html:
+    if "function tierTitle(" not in spa:
         errs.append("tierTitle() is gone — tier letters would render without their meaning")
-    if html.count("tierTitle(") < 4:
+    if spa.count("tierTitle(") < 4:
         errs.append("tierTitle() has only %d call sites; every badge emitter must use it, "
-                    "or some letters stand alone again" % html.count("tierTitle("))
+                    "or some letters stand alone again" % spa.count("tierTitle("))
 
     # 5. status tiers must render outlined, not filled
-    if "status:true" not in html:
+    if "status:true" not in spa:
         errs.append("tierMeta no longer marks PP/RT as status — they would render as if "
                     "they were a kind of study rather than a completeness state")
     css = io.open(os.path.join(ROOT, "pathway", "pathway.css"), encoding="utf-8").read()
@@ -179,6 +186,47 @@ def main():
     for tok in ["--pw-act", "--pw-inh", "--pw-req", "--pw-bind"]:
         if tok not in css:
             errs.append("pathway.css is missing the dedicated edge token %s" % tok)
+
+    # ---- the static generators must paint the SAME palette ----------------
+    #
+    # This is the check that was missing on 2026-08-27, and its absence is why
+    # 471 static pages kept the old green->blue->amber->GREY ramp for six
+    # weeks after it was removed from the SPA: build_pages.py and generate.py
+    # each carried their own hard-coded copy, and nothing compared them.
+    shared = io.open(os.path.join(ROOT, "chrome_shared.py"), encoding="utf-8").read()
+    code_for = {"a": "S", "b": "H", "c": "A", "d": "M", "pp": "PP", "rt": "RT"}
+    for tok, code in code_for.items():
+        want = light.get(tok)
+        if not want:
+            continue
+        m = re.search(r'\("%s",\s*"[^"]*",\s*"(#[0-9A-Fa-f]{6})"' % re.escape(code),
+                      shared, re.S)
+        if not m:
+            errs.append("chrome_shared.TIER_LABEL has no entry emitting code %s -- the "
+                        "static pages cannot be painting the same palette as the SPA."
+                        % code)
+        elif m.group(1).upper() != want.upper():
+            errs.append("code %s is %s in chrome_shared.py but --tier-%s is %s in "
+                        "atlas.css. The static pages and the SPA would show different "
+                        "colours for the same study."
+                        % (code, m.group(1), tok, want))
+        d_want = dark.get(tok)
+        m2 = re.search(r'"%s":\s*"(#[0-9A-Fa-f]{6})"' % re.escape(code), shared)
+        if d_want and m2 and m2.group(1).upper() != d_want.upper():
+            errs.append("dark value for code %s is %s in chrome_shared.py but %s in "
+                        "atlas.css." % (code, m2.group(1), d_want))
+
+    # Rule 5: a code never ships as a bare letter. Every generator must go
+    # through chrome_shared.tier_badge*, which attaches the tooltip and the
+    # accessible name -- an inline background: is the shape of the old
+    # hand-rolled badge that shipped 439 grey "D"s with neither.
+    for gen in ("build_pages.py", "generate.py", "build_academy.py"):
+        src = io.open(os.path.join(ROOT, gen), encoding="utf-8").read()
+        if 'class="tier" style="background:' in src:
+            errs.append("%s builds a tier badge inline instead of calling "
+                        "chrome_shared.tier_badge(); inline badges carry no title and "
+                        "no aria-label, which is how a bare letter reaches a reader."
+                        % gen)
 
     print("evidence tier palette")
     for k in TIERS:
