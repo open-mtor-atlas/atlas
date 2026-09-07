@@ -551,37 +551,73 @@ def check_index(findings):
                 "registered trials sit outside the hierarchy.",
                 "Say 'every eligible peer-reviewed primary study'.")
 
-    # -- R7: does the copy still describe the codes as the old A-D ladder?
+    # -- R7: does anything the reader sees still use the old tier vocabulary?
     #
-    # Added 2026-09-07, after the S/H/A/M/R switch (commit 9f025468) left five
-    # public sentences behind -- including <meta name="description">, i.e. the
-    # line Google prints under the title, and the hand-written Dataset JSON-LD
-    # that still spelled out "A = systematic review ... D = mechanistic". R6
-    # could not catch any of it: R6 is about SCOPE (every study vs. every
-    # eligible one), not about what the codes are called. Six weeks of the
-    # Atlas describing a grading ladder it had already abandoned, on a site
-    # whose whole point is that the label matches the evidence.
+    # Added 2026-09-07 after the S/H/A/M/R switch (9f025468). The first version
+    # of this rule only looked for "A-D" in index.html and that was not enough:
+    # the same day, a reader found "evidence tier (A>B>C>D)" in the Open
+    # Questions intro, and a full sweep then turned up 133 occurrences across 22
+    # files -- 39 of them inside Academy lessons ("That study is tier C rather
+    # than tier D"), plus CITATION.cff, the pathway model and the Dataset
+    # JSON-LD. One spelling of one pattern in one file is not a gate.
     #
-    # The letters are still legitimate in two places, so both are exempt:
-    #   - prose that dates them ("Until September 2026 these codes ran A-D"),
-    #     which is the honest way to explain the rename;
-    #   - internal ids -- the STORED tier value really is "A - Systematic
-    #     review" etc., and code comments say so. Only reader-facing text is
-    #     scanned here, so those never reach this rule.
-    HISTORICAL = re.compile(
-        r"(until september 2026|were renamed|used to (run|be)|at that point|"
-        r"was a mistake|stopped being|previously)", re.I)
-    for m in re.finditer(r"A\s*[–-]\s*D\b", plain):
-        window = plain[max(0, m.start() - 240):m.end() + 240]
-        if HISTORICAL.search(window):
+    # So this scans every reader-facing source, for every spelling:
+    #   the ladder itself (A>B>C>D), the range (A-D, A&ndash;D),
+    #   "tier A/B/C/D", and the old glosses (A = systematic, B = human,
+    #   C = animal, D = mechanistic). NOTE "A = animal" is the NEW meaning and
+    #   must not be flagged; only the old pairings are.
+    #
+    # Two exemptions, both real:
+    #   - text that dates the old letters ("until September 2026 these codes
+    #     ran A-D") -- that is how the rename is honestly explained, and the
+    #     changelog entry recording it must keep saying so;
+    #   - "RagA-D", the Rag GTPase family (RagA/B/C/D). A PubMed abstract in
+    #     study/EFE2012 says it, it has nothing to do with evidence codes, and
+    #     a gate that cries wolf gets switched off.
+    SCAN = ["index.html", "CITATION.cff", "llms.txt",
+            os.path.join("academy_data", "lessons.json"),
+            os.path.join("atlas_data", "gaps_baked.json"),
+            os.path.join("pathway", "model.json")]
+    OLD_TIER = re.compile(
+        r"A\s*>\s*B\s*>\s*C\s*>\s*D"          # the ladder, spelled out
+        r"|A\s*[\u2013\u2014-]\s*D\b"            # the range: A-D / A-D
+        r"|\b[Tt]iers?\s+[ABCD]\b"                # "tier C"
+        r"|\bA\s*=\s*systematic"                  # the old glosses
+        r"|\bB\s*=\s*human"
+        r"|\bC\s*=\s*animal"
+        r"|\bD\s*=\s*mechanistic"
+        r"|evidence tier \([ABCD]")
+    DATED = re.compile(
+        r"until september 2026|were renamed|renamed from|used to (run|be)|"
+        r"at that point|was a mistake|stopped being|previously|no longer|"
+        r"the letters used|old codes ran", re.I)
+    RAG = re.compile(r"Rag\s*A\s*[\u2013\u2014-]\s*D|RRAGA", re.I)
+
+    for rel in SCAN:
+        fp = os.path.join(HERE, rel)
+        if not os.path.exists(fp):
             continue
-        add(findings, "ERROR", "R7 stale-tier-vocabulary", "index.html",
-            window.strip()[:300],
-            "Reader-facing copy still calls the evidence codes an A-D tier. Since "
-            "2026-09-07 they are S/H/A/M/R, and they name the KIND of study rather "
-            "than ranking it -- R is split out because a review is not a new result.",
-            "Name the codes S/H/A/M/R and describe them as study types, or date the "
-            "old letters explicitly ('until September 2026 these codes ran A-D').")
+        raw = open(fp, encoding="utf-8", errors="ignore").read()
+        if rel.endswith(".html"):
+            # <script>/<style> BODIES, not just their tags: otherwise every JS
+            # comment counts as copy. R7's first run tripped on index.html's own
+            # comment explaining why A-D was dropped.
+            raw = re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", raw,
+                         flags=re.S | re.I)
+            raw = re.sub(r"<[^>]+>", " ", raw)
+        text = html.unescape(raw)
+        for m in OLD_TIER.finditer(text):
+            window = text[max(0, m.start() - 240):m.end() + 240]
+            if DATED.search(window) or RAG.search(window):
+                continue
+            add(findings, "ERROR", "R7 stale-tier-vocabulary", rel,
+                window.strip()[:300],
+                "Reader-facing copy still uses the old tier vocabulary (%r). Since "
+                "2026-09-07 the codes are S/H/A/M/R and they name the KIND of study "
+                "rather than ranking it -- R is split out because a review is not a "
+                "new result." % m.group(0).strip(),
+                "Say S / H / A / M / R and describe them as study types, or date the "
+                "old letters explicitly ('until September 2026 these codes ran A-D').")
 
 
 def check_academy(findings):

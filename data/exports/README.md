@@ -10,10 +10,13 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 
 - **studies.csv / studies.json** -- 360 hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
-  (`sid`), title, authors, year, journal, evidence tier (A = systematic
+  (`sid`), title, authors, year, journal, `tier` -- the stored study-type
+  value, still recorded with its original letters (A = systematic
   review/meta-analysis, B = human trial, C = animal model, D =
-  mechanistic/in-vitro/review -- tier describes study design, not
-  quality), study category and model system, DOI/PMID/PMCID, the
+  mechanistic/in-vitro/review). The site displays these as S / H / A / M
+  respectively, with R split out of D for narrative reviews (see the
+  `pyramid` column); the codes name the KIND of study, not its quality.
+  Then study category and model system, DOI/PMID/PMCID, the
   curated one-line finding, the PubMed abstract, and (where extracted)
   AI-assisted deep-extraction fields: intervention, target, species,
   effect, dose, sample size, effect size, and limitations. `atlas_url`
