@@ -2078,13 +2078,18 @@ def questions_page(gaps):
 
 # ------------------------------------------------------------ Oliver's own page ---
 # Added 2026-09-07, requested explicitly for E-E-A-T / "who is behind this"
-# findability. Source content is AUTHOR-WRITTEN prose lifted verbatim from
-# the SPA's About > Author panel (index.html #abAuthorPane, exported to
-# atlas_data/oliver_bio_baked.json) -- nothing here is generated or
-# invented, only made crawlable. Lives in /author/ (not /about/) so it
-# sits in the same URL family and sitemap as every other researcher page,
-# and "who is Oliver Barton" resolves to a Person page, not a methodology
-# page.
+# findability. Source content is AUTHOR-WRITTEN prose -- originally lifted
+# verbatim from the SPA's About > Author panel and exported here once. As of
+# 2026-09-07 (Author-bio dedup fix), the direction flipped: this JSON file is
+# now the single source of truth, and index.html's #abAuthorPane is itself a
+# runtime consumer of it (fetched + rendered by ensureOliverBio(), same
+# pattern as ATLAS_STUDIES/pwEnsure) rather than the other way around. Edit
+# Oliver's bio ONLY in atlas_data/oliver_bio_baked.json; both this static
+# page and the SPA panel pick up the change automatically (the SPA panel on
+# its next load, this page on the next full pipeline run). Lives in /author/
+# (not /about/) so it sits in the same URL family and sitemap as every other
+# researcher page, and "who is Oliver Barton" resolves to a Person page, not
+# a methodology page.
 def oliver_page(bio):
     slug = "oliver-barton"
     url = f"{SITE}/author/{slug}/"
