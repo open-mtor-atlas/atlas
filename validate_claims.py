@@ -27,10 +27,23 @@ PRAVIDLA (viz RULES nize)
   R3  mechanisticka / in vitro / zvireci prace popsana jako klinicky dukaz
   R4  preprint / registered trial / narrative review s A-D tierem
   R5  absolutni jazyk kdekoli (proves / definitive / settles / avoids ...)
-  R6  A-D tier prirazen praci, ktera stoji mimo hierarchii (konzistence
-      Pyramid_Level <-> Evidence_Tier)
-  R7  verejny text porad popisuje kody jako zebricek A-D, ackoli od
+  R6  homepage tvrdi plosne hodnoceni ("every study receives ...") pritom
+      preprinty / narativni review / registrovane studie stoji mimo
+  R7  Evidence_Tier nesouhlasi s Pyramid_Level (dve osy si odporuji)
+  R8  navrat absolutniho tvrzeni, ktere uz jednou bylo opraveno
+  R9  cislo bez kodu studie, ze ktere pochazi
+  R10 kod studie, ktery neni v seznamu podpurnych studii
+  R11 mrtva render-vrstva porad v HTML
+  R12 tvrzeni o absenci bez omezeni na tento korpus
+  R13 nulovy vysledek citovany jako podpora / titulek odporuje znamenku
+  R14 verejny text porad popisuje kody jako zebricek A-D, ackoli od
       2026-09-07 jsou to S/H/A/M/R a znaci TYP studie, ne znamku
+
+  POZOR pri pridavani pravidla: cislo se bere z identifikatoru predavaneho
+  do add(), ne z tohoto seznamu -- ten byl do 2026-09-07 utnuty u R6, takze
+  se R7 omylem obsadilo podruhe. Pred pridanim spust:
+      grep -o '"R[0-9]* [a-z-]*"' validate_claims.py | sort -u
+  (R13 nese dve ruzna pravidla uz z drivejska -- neresi se tady.)
 """
 
 import os, re, sys, json, html
@@ -551,7 +564,7 @@ def check_index(findings):
                 "registered trials sit outside the hierarchy.",
                 "Say 'every eligible peer-reviewed primary study'.")
 
-    # -- R7: does anything the reader sees still use the old tier vocabulary?
+    # -- R14: does anything the reader sees still use the old tier vocabulary?
     #
     # Added 2026-09-07 after the S/H/A/M/R switch (9f025468). The first version
     # of this rule only looked for "A-D" in index.html and that was not enough:
@@ -610,7 +623,7 @@ def check_index(findings):
             window = text[max(0, m.start() - 240):m.end() + 240]
             if DATED.search(window) or RAG.search(window):
                 continue
-            add(findings, "ERROR", "R7 stale-tier-vocabulary", rel,
+            add(findings, "ERROR", "R14 stale-tier-vocabulary", rel,
                 window.strip()[:300],
                 "Reader-facing copy still uses the old tier vocabulary (%r). Since "
                 "2026-09-07 the codes are S/H/A/M/R and they name the KIND of study "
