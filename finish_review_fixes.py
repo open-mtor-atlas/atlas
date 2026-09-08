@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
 """
+!!! ZASTARALY -- NESPOUSTET (oznaceno 2026-09-07) !!!
+
+Tenhle skript uz nemuze nic opravit a pri spusteni by SKODIL:
+  * vklada do About sekci "How the A-D tier is actually decided" se starym
+    slovnikem (C = animal, D = mechanistic). Od 2026-09-07 jsou zobrazovane
+    kody S/H/A/M/R a stejny text uz v index.html je, prepsany spravne;
+  * jeho ANCHOR ani hlavicka v index.html neexistuji, takze skonci ve fail();
+  * krok 2 hleda "const ATLAS_STUDIES = [", ale ten seznam se od 2026-09-07
+    nacita az za behu (`let ATLAS_STUDIES = [];`), takze by spadl.
+
+Ponechano jen jako zaznam o tom, co se v cervenci 2026 opravovalo. Kdyby se
+nekdy hodilo neco z nej, prepis to proti aktualnimu index.html a proti
+chrome_shared.py -- necopiruj odsud texty.
+
 finish_review_fixes.py -- posledni krok oprav z externiho vedeckeho review
 (F1-F16, 2026-07-29).
 

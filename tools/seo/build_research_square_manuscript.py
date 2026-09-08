@@ -83,11 +83,12 @@ def compute_stats():
 def tier_line(stats):
     t = stats["tiers"]
     return (
-        f"Tier A (systematic review/meta-analysis): {t.get('A - Systematic review', 0)}; "
-        f"Tier B (human trial): {t.get('B - Human', 0)}; "
-        f"Tier C (animal model): {t.get('C - Animal', 0)}; "
-        f"Tier D (mechanistic/in-vitro/narrative review): {t.get('D - Mechanistic/Review', 0)}; "
-        f"outside the A-D hierarchy: {t.get('Preprint', 0)} preprint(s), "
+        f"S, synthesis of human data (systematic review/meta-analysis): "
+        f"{t.get('A - Systematic review', 0)}; "
+        f"H, human study: {t.get('B - Human', 0)}; "
+        f"A, animal model: {t.get('C - Animal', 0)}; "
+        f"M/R, molecular or review: {t.get('D - Mechanistic/Review', 0)}; "
+        f"outside the hierarchy: {t.get('Preprint', 0)} preprint(s), "
         f"{t.get('Registered trial', 0)} registered trial(s) not yet reported."
     )
 
@@ -187,23 +188,33 @@ structured key finding, and the metadata described below.
 
 ### 2.2 Evidence tiering
 
-Every study is assigned exactly one of four tiers, or is marked as
-sitting outside the A-D hierarchy entirely if it is a preprint or a
-registered trial with no results yet reported (grading either would
-invent a strength that does not exist):
+Every study carries exactly one code naming the kind of study behind
+it, or is marked as sitting outside the hierarchy if it is a preprint or
+a registered trial with no results yet reported (coding either would
+invent a claim that does not exist):
 
-- **Tier A** -- systematic review or meta-analysis.
-- **Tier B** -- a controlled or observational study in humans.
-- **Tier C** -- an animal model study (in this corpus, overwhelmingly mouse).
-- **Tier D** -- mechanistic, in-vitro, or narrative-review evidence not captured by A-C.
+- **S** -- synthesis of human data: systematic review or meta-analysis.
+- **H** -- a controlled or observational study in humans.
+- **A** -- an animal model study (in this corpus, overwhelmingly mouse).
+- **M** -- molecular: cells, biochemistry or structure.
+- **R** -- a narrative review: secondary literature, not a new result.
 
 This is a simplification of frameworks such as GRADE (Guyatt et al.,
 2008), which additionally weighs risk of bias, consistency, directness,
 precision, and publication-bias risk within each study-design category.
-The four-tier scheme trades some of that granularity for a single,
-unambiguous label a reader can act on immediately when scanning a list
-of citations. Tier is a property of study design, not of the paper's
-conclusion or perceived quality.
+The scheme trades some of that granularity for a single, unambiguous
+label a reader can act on immediately when scanning a list of citations.
+The code is a property of study design, not of the paper's conclusion or
+perceived quality.
+
+Until September 2026 these codes were the letters A-D, ordered from
+systematic review down to mechanistic work. They were renamed because a
+lettered ladder is read as a grade however it is captioned, which
+systematically undervalued the molecular studies that establish
+mechanism. The stored data still carries the original letters; only what
+a reader sees changed. R was split out of the old D at the same time,
+because a review summarising other work is a different form of claim
+from a new molecular result.
 
 ### 2.3 Knowledge graph and gap-finding
 

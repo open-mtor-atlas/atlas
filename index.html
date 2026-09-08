@@ -3852,7 +3852,22 @@ function applyHash(){
   let view = p.get('view') || 'welcome';
   state.query = p.get('q') || '';
   if(p.get('entity')) state.entity = p.get('entity');
-  state.tierFilter = p.get('tier') || null;
+  // back-compat for tier= deep links. ebe65efa added it for bare hashes and
+  // for the old view names, but not here -- and state.tierFilter is compared
+  // against the NEW code (tierMeta().letter), so a bookmarked
+  // #view=studies&tier=D returned an empty list rather than the molecular
+  // studies it asked for.
+  //
+  // Only B, C and D are translated. They exist ONLY in the old set, so a link
+  // carrying one is unambiguously old. "A" is deliberately left alone: it
+  // means systematic review in the old set and animal in the new one, and the
+  // new one is what the SPA writes today, so translating it would break
+  // today's links to fix yesterday's. A stale tier=A therefore shows animal
+  // studies -- the one case this cannot silently get right.
+  const LEGACY_TIER = {B:'H', C:'A', D:'M'};
+  let _tf = p.get('tier') || null;
+  if(_tf && LEGACY_TIER[_tf]) _tf = LEGACY_TIER[_tf];
+  state.tierFilter = _tf;
   state.studiesPage = parseInt(p.get('page')||'1',10) || 1;
   const si = document.getElementById('searchInput'); if(si) si.value = state.query;
   // back-compat: 'mechanism'/'evidence' used to be top-level tabs, now nested toggles; 'events' now lives inside About

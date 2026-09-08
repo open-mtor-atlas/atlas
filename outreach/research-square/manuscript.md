@@ -15,12 +15,12 @@ been published," not "how strong is the evidence, and what remains
 unknown." Oliver's mTOR Atlas (https://mtor-atlas.org) is an openly
 licensed, independently curated resource covering the mTOR (mechanistic
 target of rapamycin) signaling pathway that addresses both questions
-directly. Every eligible primary study in the corpus (354 studies
+directly. Every eligible primary study in the corpus (360 studies
 as of this snapshot) is assigned an evidence tier -- A (systematic
 review/meta-analysis) through D (mechanistic/in-vitro or narrative
 review) -- broadly modeled on evidence-hierarchy frameworks such as
-GRADE, and every claim traces to its primary source (DOI/PMID; 310
-of 354 studies, 87.6%, have a mapped PMID). A gap-finding
+GRADE, and every claim traces to its primary source (DOI/PMID; 331
+of 360 studies, 91.9%, have a mapped PMID). A gap-finding
 step cross-references a hand-built knowledge graph of 146
 pathway entities against the tiered evidence to surface specific,
 evidence-thin questions together with a proposed testable experiment. A
@@ -76,28 +76,38 @@ Europe PMC searches on mTOR, mTORC1/mTORC2, and the pathway's principal
 upstream regulators and downstream effectors, restricted to
 peer-reviewed primary literature (reviews are retained but tiered
 separately, see 2.2). The corpus underlying this paper contains
-354 studies. Each record is stored with its DOI and/or PMID, a
+360 studies. Each record is stored with its DOI and/or PMID, a
 structured key finding, and the metadata described below.
 
 ### 2.2 Evidence tiering
 
-Every study is assigned exactly one of four tiers, or is marked as
-sitting outside the A-D hierarchy entirely if it is a preprint or a
-registered trial with no results yet reported (grading either would
-invent a strength that does not exist):
+Every study carries exactly one code naming the kind of study behind
+it, or is marked as sitting outside the hierarchy if it is a preprint or
+a registered trial with no results yet reported (coding either would
+invent a claim that does not exist):
 
-- **Tier A** -- systematic review or meta-analysis.
-- **Tier B** -- a controlled or observational study in humans.
-- **Tier C** -- an animal model study (in this corpus, overwhelmingly mouse).
-- **Tier D** -- mechanistic, in-vitro, or narrative-review evidence not captured by A-C.
+- **S** -- synthesis of human data: systematic review or meta-analysis.
+- **H** -- a controlled or observational study in humans.
+- **A** -- an animal model study (in this corpus, overwhelmingly mouse).
+- **M** -- molecular: cells, biochemistry or structure.
+- **R** -- a narrative review: secondary literature, not a new result.
 
 This is a simplification of frameworks such as GRADE (Guyatt et al.,
 2008), which additionally weighs risk of bias, consistency, directness,
 precision, and publication-bias risk within each study-design category.
-The four-tier scheme trades some of that granularity for a single,
-unambiguous label a reader can act on immediately when scanning a list
-of citations. Tier is a property of study design, not of the paper's
-conclusion or perceived quality.
+The scheme trades some of that granularity for a single, unambiguous
+label a reader can act on immediately when scanning a list of citations.
+The code is a property of study design, not of the paper's conclusion or
+perceived quality.
+
+Until September 2026 these codes were the letters A-D, ordered from
+systematic review down to mechanistic work. They were renamed because a
+lettered ladder is read as a grade however it is captioned, which
+systematically undervalued the molecular studies that establish
+mechanism. The stored data still carries the original letters; only what
+a reader sees changed. R was split out of the old D at the same time,
+because a review summarising other work is a different form of claim
+from a new molecular result.
 
 ### 2.3 Knowledge graph and gap-finding
 
@@ -121,7 +131,7 @@ Two separate operations are performed on full text, gated differently
 by license because they carry different reuse risk. First, *structured
 fact extraction* (reported dose, sample size, and effect size, where
 stated) is attempted against any study for which an open-access full
-text is available (180 of 354 studies, 50.8%,
+text is available (198 of 360 studies, 55.0%,
 have a mapped PMCID and are candidates for this), on the view that a
 numeric fact extracted from a paper and re-expressed in the Atlas's own
 words is not a reproduction of the original expression. Second,
@@ -163,10 +173,10 @@ Every figure in this section is computed directly from the repository's
 own data files at manuscript-generation time (see this paper's
 companion build script), not estimated or asserted by the author.
 
-**Corpus composition.** Tier A (systematic review/meta-analysis): 2; Tier B (human trial): 35; Tier C (animal model): 97; Tier D (mechanistic/in-vitro/narrative review): 217; outside the A-D hierarchy: 2 preprint(s), 1 registered trial(s) not yet reported.
+**Corpus composition.** S, synthesis of human data (systematic review/meta-analysis): 2; H, human study: 35; A, animal model: 101; M/R, molecular or review: 219; outside the hierarchy: 2 preprint(s), 1 registered trial(s) not yet reported.
 
-**Citation coverage.** 310 of 354 studies (87.6%)
-carry a mapped PMID; 180 of 354 (50.8%) carry a
+**Citation coverage.** 331 of 360 studies (91.9%)
+carry a mapped PMID; 198 of 360 (55.0%) carry a
 mapped PMCID (a precondition for full-text-derived extraction, section
 2.4).
 
@@ -202,7 +212,7 @@ trial with no results yet reported. Run against the pre-correction
 corpus (restored from backup), it independently re-detects 14 ERROR-
 and 10 WARN-level issues; run against the post-correction 275-study
 corpus at the time of the original audit, 0 ERROR and 0 WARN. Run
-against the current, larger 354-study corpus: 17 findings, all WARN severity (0 ERROR): 1x R11 dead-pathway-layer, 5x R12 unscoped-absence-claim, 3x R2 observational-missing-caveat, 8x R9 number-without-code. WARN findings are non-blocking, lower-severity notices (missing a confounding caveat on an observational study, a number stated without its source code nearby) rather than the overstatement-of-evidence-strength failures the validator's ERROR rules exist to block.
+against the current, larger 360-study corpus: 1 findings, all WARN severity (0 ERROR): 1x R11 dead-pathway-layer. WARN findings are non-blocking, lower-severity notices (missing a confounding caveat on an observational study, a number stated without its source code nearby) rather than the overstatement-of-evidence-strength failures the validator's ERROR rules exist to block.
 The validator is wired into the deploy pipeline as a blocking gate --
 any future ERROR-level finding stops a deploy before it reaches the
 live site.

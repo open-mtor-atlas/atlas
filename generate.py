@@ -18,7 +18,7 @@ import datetime
 from zoneinfo import ZoneInfo
 
 from chrome_shared import (static_footer_html, MODE_TOGGLE_CSS, mode_toggle_html,
-                            tier_badge_by_code, tier_css,
+                            tier_badge_by_code, tier_css, TIER_LABEL, TIER_REVIEW,
                             THEME_FOUC_SCRIPT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -47,10 +47,15 @@ OUT = os.path.join(os.path.dirname(__file__), "out")
 # 2026-09-07 this file kept its own copy of the palette and never got the
 # equal-luminance fix -- exactly the drift that table now prevents.
 LEGACY_CODE = {"A": "S", "B": "H", "C": "A", "D": "M", "R": "R"}
-TIER_MEANING = {"S": "Synthesis of human data", "H": "Human study",
-                "A": "Animal model",
-                "M": "Molecular \u2014 cells, biochemistry, structure",
-                "R": "Review \u2014 secondary literature"}
+# 2026-09-07: TIER_MEANING used to be hand-written here and had already drifted
+# (R read "Review -- secondary literature", dropping "not a new result") and had
+# no PP/RT at all, so ev_table() raised KeyError on a preprint. Derived from
+# chrome_shared now, which is the single source: a label edit there reaches this
+# generator instead of quietly disagreeing with the other two.
+TIER_MEANING = {}
+for _k, _v in TIER_LABEL.items():
+    TIER_MEANING[_v[0]] = _v[1]
+TIER_MEANING[TIER_REVIEW[0]] = TIER_REVIEW[1]
 
 STYLE = """:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}

@@ -288,9 +288,14 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .oq-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .oq-num{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);color:var(--ink-soft);letter-spacing:.06em;}
 .oq-status{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:0;color:var(--paper);}
-.oq-status.open{background:var(--tier-c);}
+/* 2026-09-07: the rules below used to borrow --tier-* tokens. None of them
+   is an evidence code -- an open question is not an animal study, an entity
+   kind is not a study type -- so sharing the token meant a palette edit
+   would silently repaint them and change what they appear to mean. Own
+   values, copied from what they render as today. */
+.oq-status.open{background:#3B6A20;}
 .oq-status.partial{background:var(--teal);}
-.oq-status.resolved{background:var(--tier-a);}
+.oq-status.resolved{background:#4951C8;}
 .oq-q{font-family:'DM Sans',sans-serif;font-style:italic;font-size:var(--fs-small,15px);line-height:1.45;margin-bottom:10px;color:var(--ink);}
 .oq-why{font-size:var(--fs-small,15px);line-height:1.55;color:var(--ink-soft);margin-bottom:12px;}
 .oq-tags{display:flex;flex-wrap:wrap;gap:6px;}
@@ -495,7 +500,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
 .bio-ms:last-child{padding-bottom:2px;}
 .bio-ms:last-child:before{display:none;}
 .bio-ms .yr{position:absolute;left:0;top:-1px;width:56px;text-align:right;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--fs-caption,13px);color:var(--teal-deep);}
-.bio-ms .dot{position:absolute;left:64px;top:3px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--tier-d);}
+.bio-ms .dot{position:absolute;left:64px;top:3px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid #9632A6;}
 .bio-ms.landmark .dot{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 4px rgba(108,168,178,.12);}
 .bio-ms .ms-title{font-weight:600;font-size:var(--fs-small,15px);cursor:pointer;line-height:1.35;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:2px;}
 .bio-ms .ms-title:hover{color:var(--teal-deep);text-decoration-color:var(--teal-deep);}
@@ -691,9 +696,9 @@ html[data-theme="dark"]{
 .mx-node text{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:var(--ink);pointer-events:none;dominant-baseline:middle;text-anchor:middle;}
 .mx-node{cursor:pointer;}
 .mx-node:hover rect{stroke:var(--teal);stroke-width:2.2;}
-.mx-node.k-nut rect{fill:rgba(47,122,82,.10);stroke:var(--tier-a);}
+.mx-node.k-nut rect{fill:rgba(47,122,82,.10);stroke:#4951C8;}
 .mx-node.k-drug rect{fill:rgba(163,31,52,.10);stroke:var(--teal);}
-.mx-node.k-cx rect{fill:rgba(47,111,168,.10);stroke:var(--tier-b);}
+.mx-node.k-cx rect{fill:rgba(47,111,168,.10);stroke:#226870;}
 .mx-node.k-org rect{fill:rgba(193,122,46,.12);stroke:var(--amber);}
 .mx-node.k-out rect{fill:rgba(139,95,191,.10);stroke:var(--pp);}
 .mx-node.mx-pop rect{stroke:var(--teal);stroke-width:3;filter:drop-shadow(0 0 7px rgba(163,31,52,.45));}
