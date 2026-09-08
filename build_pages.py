@@ -1176,9 +1176,17 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
         body.append(f'<tr><td data-l="Evidence">{badge}'
                     f'</td><td data-l="Meaning">{e(label)}</td><td data-l="Studies">{n}</td></tr>')
     body.append("</table>")
-    if not counts.get("A") and not counts.get("B"):
+    # 2026-09-07: `counts` is keyed by the DISPLAYED code (tier_bits above), so
+    # since the S/H/A/M/R rename this test has to ask for S and H. It still read
+    # "A"/"B" -- the old letters -- which after the rename means it was asking
+    # "is there an ANIMAL study?" ("A" is now animal) and "is there a B?" (no
+    # such code any more). Result on the live site: 6 entity pages declared no
+    # human evidence while showing H or S in the table above the sentence, and 9
+    # that genuinely have none were not warned. A false claim about the evidence
+    # is the one kind of bug this project cannot ship.
+    if not counts.get("S") and not counts.get("H"):
         body.append("<p><em>No direct human evidence in the Atlas for this entity yet — "
-                    "everything below rests on animal or mechanistic work.</em></p>")
+                    "everything below rests on animal or molecular work.</em></p>")
 
     body.append("<h2>Studies</h2><table class=\"st\">"
                 "<tr><th>Study</th><th>Year</th><th>Evidence</th><th>Finding</th></tr>")
@@ -2044,9 +2052,11 @@ def authors_page(author_bios, author_idx):
         if not studies:
             continue
         slug = slugify(bio["full"])
-        tiers = [s.get("tier") for s in studies if s.get("tier")]
-        best_tier = min(tiers) if tiers else None
-        rows.append((bio, slug, len(studies), best_tier))
+        # keep the pyramid of the closest-to-human study alongside its tier:
+        # tier_bits() needs it to tell R (narrative review) from M.
+        graded = [(x.get("tier"), x.get("pyramid")) for x in studies if x.get("tier")]
+        best_tier, best_pyr = min(graded, key=lambda g: g[0]) if graded else (None, None)
+        rows.append((bio, slug, len(studies), best_tier, best_pyr))
     rows.sort(key=lambda r: (-r[2], r[0]["full"]))
 
     ld_list = {"@context": "https://schema.org", "@type": "ItemList",
@@ -2054,7 +2064,7 @@ def authors_page(author_bios, author_idx):
                "itemListElement": [
                    {"@type": "ListItem", "position": i,
                     "url": f"{SITE}/author/{slug}/", "name": bio["full"]}
-                   for i, (bio, slug, n, t) in enumerate(rows, 1)]}
+                   for i, (bio, slug, n, t, _p) in enumerate(rows, 1)]}
     ld_page = {"@context": "https://schema.org", "@type": "CollectionPage",
                "name": "Researchers", "url": url, "isPartOf": dict(DATASET_REF)}
 
@@ -2065,12 +2075,14 @@ def authors_page(author_bios, author_idx):
             # 2026-09-07: bridge to the interactive counterpart (see browse_page).
             f'<p><a class="cta" href="{SITE}/#view=authors">Open the sortable '
             f'researcher ranking \u2192</a></p>']
-    for bio, slug, n, t in rows:
+    for bio, slug, n, t, best_pyr in rows:
         sub = f' \u00b7 {e(bio["sub"])}' if bio.get("sub") else ""
         tier_bit = ""
         if t:
+            # pyramid must be passed, or tier_bits() cannot split R (narrative
+            # review) out of M and this row disagrees with every other page.
             tier_bit = (' \u00b7 closest to human: '
-                        + tier_badge_by_bits(*tier_bits(t)))
+                        + tier_badge_by_bits(*tier_bits(t, best_pyr)))
         body.append(
             f'<p style="margin:0 0 10px"><a href="/author/{slug}/">{e(bio["full"])}</a> '
             f'<span class="meta" style="display:inline">\u2014 {e(bio["role"])}{sub} \u00b7 '
@@ -2197,8 +2209,11 @@ def oliver_page(bio):
                 f'{e(r["sid"])} &middot; {e(r["year"] or "")}</span></td>'
                 f'<td data-l="Authors">{authors_html}</td>'
                 f'<td data-l="Why it matters">{e(r["why"])}</td>'
+                # 2026-09-07: used to append e(code) and a stray </span> after
+                # the badge, which already contains the code -- rendered as "MM"
+                # on 11 rows of /author/oliver-barton/.
                 f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}'
-                f'{e(code)}</span></td></tr>')
+                f'</td></tr>')
         body.append("</table>")
 
     body.append(f'<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>')
