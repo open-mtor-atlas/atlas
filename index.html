@@ -3101,6 +3101,11 @@ function renderDetail(){
   document.getElementById('entityDetail').innerHTML = html;
 }
 
+/* --pp / --rt belong to the PYRAMID palette (see pyramidMeta) and are a
+   different purple/blue. The evidence codes use --tier-pp / --tier-rt, which
+   is what tierMeta() and every badge emit; three colour maps here were mixing
+   the two, so PP and RT were a different colour in the legend than on the
+   badges they explain. 2026-09-07. */
 function renderTierLegendInto(containerId, jumpToStudies){
   const counts = {};
   ATLAS_STUDIES.forEach(s=>{ const t=tierMeta(s.tier, s.pyramid).letter; counts[t]=(counts[t]||0)+1; });
@@ -3108,7 +3113,7 @@ function renderTierLegendInto(containerId, jumpToStudies){
   let html = "";
   order.forEach(letter=>{
     if(!counts[letter]) return;
-    const color = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--pp)",RT:"var(--rt)"}[letter];
+    const color = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--tier-pp)",RT:"var(--tier-rt)"}[letter];
     const off = state.tierFilter && state.tierFilter!==letter ? "off":"";
     html += `<div class="tier-row ${off}" onclick="toggleTierFilter('${letter}', ${!!jumpToStudies})">
       <span class="tier-sw" style="${["R","PP","RT"].includes(letter)
@@ -3244,7 +3249,7 @@ function renderBarChart(){
   let html = "";
   order.forEach(letter=>{
     if(!counts[letter]) return;
-    const color = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--pp)",RT:"var(--rt)"}[letter];
+    const color = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--tier-pp)",RT:"var(--tier-rt)"}[letter];
     const pct = Math.round((counts[letter]/max)*100);
     html += `<div class="bar-row clickable-bar" onclick="toggleTierFilter('${letter}', true)" title="Show these ${counts[letter]} studies"><span class="lbl">${letter}</span><div class="track"><div class="fill" style="width:${pct}%;background:${color}"></div></div><span class="val">${counts[letter]}</span></div>`;
   });
@@ -3541,7 +3546,7 @@ function renderTierPyramidMatrix(){
     grid[t] = grid[t] || {};
     grid[t][p] = (grid[t][p]||0) + 1;
   });
-  const tierColor = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--pp)",RT:"var(--rt)"};
+  const tierColor = {S:"var(--tier-a)",H:"var(--tier-b)",A:"var(--tier-c)",M:"var(--tier-d)",R:"var(--tier-d)",PP:"var(--tier-pp)",RT:"var(--tier-rt)"};
   let html = `<table class="matrix"><thead><tr><th class="rowhead">Evidence \\ Type</th>`;
   pyrOrder.forEach(p=>{ html += `<th>${pyrLabelShort[p]}</th>`; });
   html += `</tr></thead><tbody>`;

@@ -17,7 +17,10 @@ import os, re, sys, glob, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MIN_CHARS = 900          # pod tímhle je to navigace, ne obsah
-MIN_PAGES = 250
+# 2026-09-07: was 250 while the site had 405 checked pages -- 155 could have
+# vanished without a word. Set close under the real count and raise it when the
+# corpus grows; a floor that cannot trip is decoration.
+MIN_PAGES = 480
 
 def visible_text(path):
     h = open(path, encoding="utf-8").read()
@@ -98,9 +101,25 @@ def check_index_tabs():
 
 def main():
     pages = sorted(glob.glob(os.path.join(HERE, "study", "*", "index.html")))
+    # 2026-09-07: this list covered 405 of 507 generated pages. Outside the gate
+    # were every hub and every section index -- /browse/, /authors/,
+    # /questions/, /pathway/, /events/, /about/, /academy/, /answers/,
+    # /glossary/, /data/, /changelog/ -- plus author/, question/ and condition/.
+    # So the four hubs that got "Open the interactive ..." buttons the same day
+    # had their canonical, JSON-LD, thin-content and dead-link checks done by
+    # nobody. A gate that silently covers 80% of the site is how the /author/
+    # regression reached production.
     for d in ("gene", "complex", "drug", "process", "disease", "outcome",
-              "organelle", "nutrient", "intervention"):
+              "organelle", "nutrient", "intervention", "condition",
+              "author", "question", "answers", "academy"):
         pages += sorted(glob.glob(os.path.join(HERE, d, "*", "index.html")))
+        pages += sorted(glob.glob(os.path.join(HERE, d, "*", "*", "index.html")))
+    for hub in ("browse", "authors", "questions", "pathway", "events", "about",
+                "evidence", "glossary", "data", "changelog", "academy"):
+        hp = os.path.join(HERE, hub, "index.html")
+        if os.path.exists(hp):
+            pages.append(hp)
+    pages = sorted(set(pages))
 
     if not pages:
         sys.exit("ŽÁDNÉ vygenerované stránky — spusť nejdřív build_pages.py")
@@ -173,6 +192,41 @@ def main():
                 missing.append(m.group(1))
         if missing:
             print("CHYBA: %d URL v sitemap bez souboru: %s" % (len(missing), missing[:5]))
+            ok = False
+
+    # ---- every #view= link must name a view the SPA actually has -----------
+    #
+    # 2026-09-07: nothing anywhere checked this. verify_academy skips fragment
+    # links (it strips everything after "#", so "/#view=studies" becomes "/"),
+    # and no gate compared the names against the SPA's own list. A typo like
+    # #view=studes would pass every check and land the reader on the welcome
+    # screen -- silently, because applyHash() falls back to welcome by design.
+    # These links matter more since the static hubs gained "Open the
+    # interactive ..." buttons.
+    idx = open(os.path.join(HERE, "index.html"), encoding="utf-8").read()
+    mv = re.search(r"const VIEWS = \{([^}]*)\}", idx)
+    if not mv:
+        print("CHYBA: v index.html nejde najít const VIEWS -- kontrola #view= odkazů "
+              "je slepá, oprav parsování místo ignorování")
+        ok = False
+    else:
+        views = set(re.findall(r"(\w+)\s*:", mv.group(1)))
+        seen = {}
+        for pg in pages + [os.path.join(HERE, "index.html")]:
+            h = open(pg, encoding="utf-8", errors="ignore").read()
+            # only real links: the prose (and HTML comments) legitimately write
+            # things like "the address bar then shows /#view=X".
+            h = re.sub(r"<!--.*?-->", " ", h, flags=re.S)
+            for name in re.findall(r'href="[^"]*#view=([A-Za-z]+)', h):
+                seen.setdefault(name, []).append(os.path.relpath(pg, HERE))
+        unknown = {k: v for k, v in seen.items() if k not in views}
+        print("\n--- odkazy #view= ---")
+        print("cíle: %s" % ", ".join("%s (%d×)" % (k, len(v))
+                                     for k, v in sorted(seen.items())))
+        if unknown:
+            for k, v in unknown.items():
+                print("CHYBA: #view=%s neexistuje (%d odkazů, např. %s) -- "
+                      "čtenář skončí na uvítací obrazovce" % (k, len(v), v[0]))
             ok = False
 
     print("\n--- index.html: taby plněné JavaScriptem ---")

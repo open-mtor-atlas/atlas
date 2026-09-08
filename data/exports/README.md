@@ -35,17 +35,19 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 CC BY 4.0 -- free to use, share and adapt, including commercially, with
 attribution. Cite as:
 
-Barton, O. ({year}). *Oliver's mTOR Atlas* [Data set]. Zenodo.
+Barton, O. (2026). *Oliver's mTOR Atlas* [Data set]. Zenodo.
 https://doi.org/10.5281/zenodo.22059963
 
 Full details: https://mtor-atlas.org/data/ and https://mtor-atlas.org/CITATION.cff.
 
 ## Caveats
 
-- Evidence tier is a study-DESIGN classification, not a quality grade
-  (a well-run tier-C animal study is not "worse" than a poorly-run
-  tier-B human one on every axis -- tier just says what kind of
-  evidence it is).
+- The code is a study-DESIGN classification, not a quality grade
+  (a well-run animal study, A, is not "worse" than a poorly-run human
+  one, H, on every axis -- the code just says what kind of evidence it
+  is). This is why the displayed codes stopped being the letters A-D in
+  September 2026: a lettered ladder reads as a school grade however it
+  is captioned.
 - "Record last updated" dates on individual study pages (not included
   in this export) are approximate for older records -- see
   https://mtor-atlas.org/study/ pages for the caveat, or the site's changelog files.

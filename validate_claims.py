@@ -587,14 +587,26 @@ def check_index(findings):
     #   - "RagA-D", the Rag GTPase family (RagA/B/C/D). A PubMed abstract in
     #     study/EFE2012 says it, it has nothing to do with evidence codes, and
     #     a gate that cries wolf gets switched off.
+    # 2026-09-07 (druhy pruchod): pridan build_pathway_model.py -- je to
+    # GENERATOR prozy do pathway/model.json, takze regrese slovniku se v nem
+    # objevi driv, nez se projevi ve vystupu, a hlavne ji tam nejde opravit
+    # "jen v modelu": nejblizsi build ji vrati. Pridan i data/exports/README.md
+    # (verejny soubor ke stazeni) a vsechny huby, ktere nese staticka vrstva.
     SCAN = ["index.html", "CITATION.cff", "llms.txt",
             os.path.join("academy_data", "lessons.json"),
             os.path.join("atlas_data", "gaps_baked.json"),
-            os.path.join("pathway", "model.json")]
+            os.path.join("pathway", "model.json"),
+            "build_pathway_model.py",
+            os.path.join("data", "exports", "README.md")]
+    SCAN += [os.path.join(d, "index.html") for d in
+             ("browse", "authors", "questions", "pathway", "events", "about",
+              "evidence", "glossary", "data", "academy")]
     OLD_TIER = re.compile(
         r"A\s*>\s*B\s*>\s*C\s*>\s*D"          # the ladder, spelled out
         r"|A\s*[\u2013\u2014-]\s*D\b"            # the range: A-D / A-D
-        r"|\b[Tt]iers?\s+[ABCD]\b"                # "tier C"
+        r"|\b[Tt]iers?[\s-][ABCD]\b"               # "tier C" AND "tier-C"
+        r"|\bGraded\s+[ABCD]\b"                    # "Graded D because ..."
+        r"|\bfrom\s+[ABCD]\s+to\s+[ABCD]\b"       # "drops from C to D"
         r"|\bA\s*=\s*systematic"                  # the old glosses
         r"|\bB\s*=\s*human"
         r"|\bC\s*=\s*animal"
@@ -605,6 +617,14 @@ def check_index(findings):
         r"at that point|was a mistake|stopped being|previously|no longer|"
         r"the letters used|old codes ran", re.I)
     RAG = re.compile(r"Rag\s*A\s*[\u2013\u2014-]\s*D|RRAGA", re.I)
+    # Treti vyjimka (2026-09-07, druhy pruchod): text, ktery vyslovne popisuje
+    # ULOZENOU hodnotu. data/exports/studies.csv skutecne nese "A - Systematic
+    # review" ... "D - Mechanistic/Review", takze jeho README ta pismena
+    # vyjmenovat MUSI -- prepsat je by z nej udelalo lez o vlastnim souboru.
+    # Vyjimka je uzka zamerne: chytit se musi jen veta, ktera rekne, ze jde o
+    # ulozenou hodnotu, ne jakakoli zminka o datech.
+    STORED = re.compile(r"stored (study-type )?value|original letters|"
+                        r"recorded with its original|the stored \w+ value", re.I)
 
     for rel in SCAN:
         fp = os.path.join(HERE, rel)
@@ -621,7 +641,7 @@ def check_index(findings):
         text = html.unescape(raw)
         for m in OLD_TIER.finditer(text):
             window = text[max(0, m.start() - 240):m.end() + 240]
-            if DATED.search(window) or RAG.search(window):
+            if DATED.search(window) or RAG.search(window) or STORED.search(window):
                 continue
             add(findings, "ERROR", "R14 stale-tier-vocabulary", rel,
                 window.strip()[:300],

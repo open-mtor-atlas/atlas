@@ -160,7 +160,11 @@ def main():
     #     described as a "strength". The live badges carried title="Evidence
     #     strength" — the exact framing the review objected to, baked into the
     #     markup while TIER_LABELS sat unused one call site away.
-    if 'title="Evidence strength"' in html:
+    # 2026-09-07: read `spa`, not `html`. Since the stylesheet was extracted,
+    # `html` IS assets/atlas.css, where a title= attribute cannot occur -- so
+    # this check could never fire again. It guards the exact framing an external
+    # review objected to; a gate that cannot fire is worse than none.
+    if 'title="Evidence strength"' in spa or 'aria-label="Evidence strength' in spa:
         errs.append('a tier badge is still labelled "Evidence strength". A tier records the '
                     "KIND of study, not its strength; that title is the misreading itself.")
     if "function tierTitle(" not in spa:
@@ -195,6 +199,26 @@ def main():
     # each carried their own hard-coded copy, and nothing compared them.
     shared = io.open(os.path.join(ROOT, "chrome_shared.py"), encoding="utf-8").read()
     code_for = {"a": "S", "b": "H", "c": "A", "d": "M", "pp": "PP", "rt": "RT"}
+    # R has no --tier-r of its own: it is drawn in the molecular colour but
+    # OUTLINED, because a review is a different FORM of claim, not a different
+    # system studied. Deliberate -- but it left R as the one displayed code no
+    # check ever compared against chrome_shared. Assert the sharing explicitly.
+    _rev = re.search(r'TIER_REVIEW\s*=\s*\(\s*"R".*?"(#[0-9A-Fa-f]{6})"\s*,\s*(True|False)',
+                     shared, re.S)
+    _mol = re.search(r'"D - Mechanistic/Review"\s*:\s*\(\s*"M".*?"(#[0-9A-Fa-f]{6})"',
+                     shared, re.S)
+    if not _rev or not _mol:
+        errs.append("could not read TIER_REVIEW / the M entry out of chrome_shared.py "
+                    "-- this check went blind, fix the parse rather than ignoring it")
+    else:
+        if _rev.group(1).upper() != _mol.group(1).upper():
+            errs.append("R no longer shares the molecular colour (%s vs %s). If that is "
+                        "intended, give R its own --tier-r token and add it to code_for; "
+                        "otherwise it is a palette regression."
+                        % (_rev.group(1), _mol.group(1)))
+        if _rev.group(2) != "True":
+            errs.append("R is no longer outlined -- outlining is what separates a "
+                        "form-of-claim code from a system-studied one.")
     for tok, code in code_for.items():
         want = light.get(tok)
         if not want:
@@ -228,15 +252,18 @@ def main():
                         "no aria-label, which is how a bare letter reaches a reader."
                         % gen)
 
-    print("evidence tier palette")
+    print("evidence code palette")
     for k in TIERS:
-        print("  %s  %s / %s   lum %.4f   white-contrast %.2f   %s"
-              % (k.upper(), light[k], dark[k], lum(light[k]),
-                 contrast(light[k], "#FFFFFF"), "filled"))
+        # print the DISPLAYED code, not the CSS token: --tier-a is today's S.
+        # A gate whose whole purpose is that codes are read correctly should not
+        # itself print "A #4951C8" for the systematic-review colour.
+        print("  %s  (--tier-%s)  %s / %s   lum %.4f   white-contrast %.2f   filled"
+              % (code_for[k], k, light[k], dark[k], lum(light[k]),
+                 contrast(light[k], "#FFFFFF")))
     for k in STATUS:
         print("  %s %s / %s   outlined (completeness status, not a study type)"
               % (k.upper(), light[k], dark[k]))
-    print("  luminance spread across A-D: %.4f (must stay under 0.02)" % spread)
+    print("  luminance spread across S/H/A/M: %.4f (must stay under 0.02)" % spread)
     print("  closest tier pair: %d (must stay above 100)"
           % min(dist(light[a], light[b]) for a, b in itertools.combinations(TIERS, 2)))
     print("ERRORS   %d" % len(errs))

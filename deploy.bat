@@ -245,6 +245,35 @@ py tools\seo\build_data_exports.py
 if errorlevel 1 echo    build_data_exports.py failed - data/exports/ may be stale, deploy continues
 
 echo.
+echo === Rebuild the pathway model ===
+REM  Pridano 2026-09-07. build_pathway_model.py TU NIKDY NEBYLO -- jen v
+REM  komentarich -- pritom stamp_updated.py vys posune ATLAS_UPDATED na dnesek
+REM  a verify_index_html.py pak porovna pathway\model.json meta.generated proti
+REM  nemu a pri starsim modelu deploy ZASTAVI hlaskou "run build_pathway_model.py".
+REM  Kazdy deploy v jiny den nez posledni rucni build modelu tedy spadl. Stejna
+REM  trida chyby jako u stamp_type_version.py a build_data_exports.py vyse.
+py build_pathway_model.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_pathway_model.py failed - /pathway/ by se nasadilo stale
+  echo a verify_index_html.py by deploy stejne zastavil.
+  exit /b 1
+)
+
+echo.
+echo === Pathway model integrity gate ===
+REM  Brana existovala od 2026-09-05 a NIKDO ji nespoustel; jedina zminka byla
+REM  v docstringu build_pathway_model.py. Kontroluje, ze zadna hrana netvrdi
+REM  vic, nez na cem stoji.
+py validate_pathway.py --strict
+if errorlevel 1 (
+  echo.
+  echo ABORTED: validate_pathway.py found pathway edges claiming more than
+  echo their evidence supports. NOT deploying.
+  exit /b 1
+)
+
+echo.
 echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
 REM  This is what AI crawlers without JS actually read (build_pages.py's own
 REM  header comment explains why) -- and it is also now the only place that
@@ -591,7 +620,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 

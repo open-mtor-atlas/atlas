@@ -17,8 +17,9 @@ CO KONTROLUJE
      existující interakce.
   3. Citace     — každý SID existuje v korpusu; každá interakce má >=1 studii.
   4. Kalibrace  — tvrzení nesmí být silnější než evidence:
-       * human_relevance = "established" vyžaduje aspoň jednu studii tier A/B
-         NEBO species obsahující human.
+       * human_relevance = "established" vyžaduje aspoň jednu studii s ULOŽENÝM
+         tierem A/B (zobrazuje se jako S = přehled lidských dat, H = lidská
+         studie) NEBO species obsahující human.
        * mechanistic = "high" nesmí stát na jediné correlative studii.
        * consensus = "established" se nesmí kombinovat s mechanistic = "low".
        * directness = "direct" u typu signal-relay je protimluv.
@@ -130,12 +131,14 @@ def main():
 
         # kalibrace
         if c.get("human_relevance") == "established" and not (tiers & {"A", "B"}) and "human" not in sp:
-            E("%s: human_relevance=established but no tier A/B study and no human model "
+            E("%s: human_relevance=established but no human-level study (stored tier "
+              "A/B, displayed S/H) and no human model "
               "(this is exactly finding F4 — do not let clinical language rest on cell-line data)" % iid)
         if c.get("mechanistic") == "high" and ev.get("kind") == "Correlative":
             E("%s: mechanistic=high on correlative evidence" % iid)
         if c.get("mechanistic") == "high" and len(sup) == 1 and tiers <= {"D"}:
-            W("%s: mechanistic=high rests on a single tier-D study" % iid)
+            W("%s: mechanistic=high rests on a single molecular study "
+              "(stored tier D, displayed M)" % iid)
         if c.get("consensus") == "established" and c.get("mechanistic") == "low":
             E("%s: consensus=established with mechanistic=low is a contradiction" % iid)
         if i["type"] == "signal-relay" and i["directness"] == "direct":
