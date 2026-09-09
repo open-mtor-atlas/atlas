@@ -44,19 +44,37 @@ KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 ENDPOINT = "https://api.indexnow.org/indexnow"
 DRY = "--dry-run" in sys.argv
 
-SITEMAP_FILES = [
-    "sitemap-home.xml", "sitemap-studies.xml", "sitemap-entities.xml",
-    "sitemap-questions.xml", "sitemap-authors.xml", "sitemap-answers.xml",
-]
+# 2026-09-09: --dir. Web se od prechodu na V2 publikuje z Atlas_v2/dist, ne
+# z korene tohoto repa, takze sitemapy k pingnuti lezi jinde nez tenhle
+# skript. Bez toho by se pingovaly stare sitemapy z main a sest novych URL
+# (/field/, /topics/, /ask/, /about/methodology/, /academy/badges/,
+# /pathway/routes/) by se do Bingu a Seznamu nikdy nedostalo.
+SRC = HERE
+if "--dir" in sys.argv:
+    SRC = os.path.abspath(sys.argv[sys.argv.index("--dir") + 1])
+
+
+def sitemap_files():
+    """Vsechny dilci sitemapy v adresari, ne rucni seznam.
+
+    Rucni seznam tu byl do 9. 9. 2026 a chybela v nem sitemap-academy.xml --
+    17 URL Academy se tedy nepinglo nikdy. Presne ten druh chyby, ktera se
+    nikde neprojevi: skript hlasi uspech a mlci o tom, co vynechal.
+    """
+    out = []
+    for f in sorted(os.listdir(SRC)):
+        if f.startswith("sitemap") and f.endswith(".xml") and f != "sitemap.xml":
+            out.append(f)
+    return out
 
 
 def collect_urls():
     urls = []
-    for fname in SITEMAP_FILES:
-        path = os.path.join(HERE, fname)
-        if not os.path.exists(path):
-            print(f"  (skip, not found: {fname})")
-            continue
+    files = sitemap_files()
+    if not files:
+        print(f"  ! v {SRC} nejsou zadne sitemap-*.xml")
+    for fname in files:
+        path = os.path.join(SRC, fname)
         text = open(path, encoding="utf-8").read()
         found = re.findall(r"<loc>(.*?)</loc>", text)
         urls.extend(found)
