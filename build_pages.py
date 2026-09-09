@@ -1873,18 +1873,11 @@ and the reason is a planned change.</p>
 <p><strong>Who reviews the selection:</strong> one person, the curator.
 There is no second reviewer or independent adjudication of borderline
 calls -- the usual safeguard against a single reader's blind spots is
-absent. The one external check to date was an unsolicited scientific
-review in July 2026, which raised sixteen points; all were addressed
-rather than quietly dropped, and one exposed a real inconsistency between
-the stated evidence-code definition and how it was actually being applied.
-An automated validator rule now blocks any deploy where a study's tier and
-its underlying evidence level disagree.</p>
+absent.</p>
 
 <h2>How often it updates</h2>
 <p>An automated job screens PubMed for new candidate mTOR studies and
-relevant conferences once daily, at 02:00; the decision to include and
-grade a flagged paper is made by hand, and publishing the updated site is
-a manual step. So the <em>screening</em> is daily, but the <em>corpus</em>
+relevant conferences once daily, but the <em>corpus</em>
 changes only when a human accepts a candidate -- typically a handful of
 papers a month, sometimes none. The exact timestamp of the live corpus is
 printed in the footer of every page, and every count on this site,
@@ -1892,7 +1885,7 @@ including the ones above, is computed from that snapshot rather than
 typed in by hand.</p>
 
 <h2>Corrections log</h2>
-<p>Every recorded correction to a study record -- what changed and why, going back to the first external review -- is public at <a href="{SITE}/changelog/">/changelog/</a>. This is what "all were addressed rather than quietly dropped" above actually means: a checkable list, not a claim to take on faith.</p>
+<p>Every recorded correction to a study record -- what changed and why -- is public at <a href="{SITE}/changelog/">/changelog/</a>: a checkable list, not a claim to take on faith.</p>
 
 <h2>License &amp; reuse</h2>
 <p>Content is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY

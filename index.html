@@ -99,7 +99,7 @@
   "isAccessibleForFree": true,
   "inLanguage": "en",
   "version": "1.0.0",
-  "dateModified": "2026-09-08"
+  "dateModified": "2026-09-09"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,7 +109,7 @@
 <link rel="stylesheet" href="/assets/type.css?v=d82d44cb8c32">
 <!-- /type-css-link -->
 <!-- atlas-css-link -->
-<link rel="stylesheet" href="/assets/atlas.css?v=bccde0d097f8">
+<link rel="stylesheet" href="/assets/atlas.css?v=066d84a743d1">
 <!-- /atlas-css-link -->
 </head>
 <body>
@@ -1411,16 +1411,10 @@ if (canvasEl){
 
         <p style="margin-top:12px;"><b>Who reviews the selection.</b> One person: the curator. There is no
         second reviewer, no editorial board, and no independent adjudication of borderline calls — the usual
-        safeguard against a single reader's blind spots is absent. The one external check to date was an
-        unsolicited scientific review in July 2026, which produced sixteen findings; these were addressed
-        rather than quietly dropped, and one of them exposed a real inconsistency between the stated tier
-        definition and the applied one (the codes were still the letters A–D at that point; it is documented above, and a validator rule now blocks the class of
-        error).</p>
+        safeguard against a single reader's blind spots is absent.</p>
 
         <p style="margin-top:12px;"><b>How often it updates.</b> An automated job screens PubMed for new
-        candidate mTOR studies and relevant conferences once daily, at 02:00, and flags anything worth adding;
-        the decision to include and grade a flagged paper is made by hand, and publishing the updated site is a
-        manual step. So the <i>screening</i> is daily, but the <i>corpus</i> changes only when a human accepts a
+        candidate mTOR studies and relevant conferences once daily, but the <i>corpus</i> changes only when a human accepts a
         candidate — typically a handful of papers a month, sometimes none. The exact timestamp of the live
         corpus is printed in the footer of every page, and every count on this site is computed from that
         snapshot rather than typed in.</p>
@@ -1450,7 +1444,7 @@ if (canvasEl){
 
 </div>
 
-<footer class="site-footer">Oliver's mTOR Atlas &middot; last updated <span id="lastUpdated">2026-09-07 20:27 UTC</span><!-- browse-link-added-by-build-pages --> &middot; <a href="/" style="color:inherit">Full interactive Atlas</a> &middot; <a href="/browse/" style="color:inherit">Browse the Atlas</a> <span class="mono" style="opacity:.65">480 pages</span> &middot; <a href="/authors/" style="color:inherit">Researchers</a> &middot; <a href="/questions/" style="color:inherit">Open Questions</a> &middot; <a href="/academy/" style="color:inherit">Academy</a> &middot; <a href="/answers/" style="color:inherit">Answers</a> &middot; <a href="/glossary/" style="color:inherit">Glossary</a> &middot; <a href="/about/" style="color:inherit">About &amp; Methodology</a> &middot; <a href="/data/" style="color:inherit">Data &amp; Citation</a><!-- /browse-link --></footer>
+<footer class="site-footer">Oliver's mTOR Atlas &middot; last updated <span id="lastUpdated">2026-09-09 10:54 UTC</span><!-- browse-link-added-by-build-pages --> &middot; <a href="/" style="color:inherit">Full interactive Atlas</a> &middot; <a href="/browse/" style="color:inherit">Browse the Atlas</a> <span class="mono" style="opacity:.65">480 pages</span> &middot; <a href="/authors/" style="color:inherit">Researchers</a> &middot; <a href="/questions/" style="color:inherit">Open Questions</a> &middot; <a href="/academy/" style="color:inherit">Academy</a> &middot; <a href="/answers/" style="color:inherit">Answers</a> &middot; <a href="/glossary/" style="color:inherit">Glossary</a> &middot; <a href="/about/" style="color:inherit">About &amp; Methodology</a> &middot; <a href="/data/" style="color:inherit">Data &amp; Citation</a><!-- /browse-link --></footer>
 <script>
 let ATLAS_STUDIES = [];
 
@@ -1479,7 +1473,9 @@ let AUTHORS_INDEX = [];  // built by initAtlasStudies() below, once ATLAS_STUDIE
 const AUTHOR_BIOS = {
   "Sabatini DM": {
     "full": "David M. Sabatini",
-    "role": "Co-discoverer of mTOR",
+    "lab_url": "https://sabatini.group.uochb.cz/en",
+    "lab_name": "Sabatini Group, IOCB Prague",
+    "role": "Found mTOR in 1994, then took the machine apart: both complexes, the lysosomal docking system, and the sensors that read individual amino acids",
     "mono": "#7A1626",
     "init": "DS",
     "sub": "Born 1968, New York, USA &middot; Whitehead Institute &amp; MIT (1997&ndash;2021) &middot; Howard Hughes Medical Institute &middot; now IOCB Prague",
@@ -1503,7 +1499,9 @@ const AUTHOR_BIOS = {
   },
   "Hall MN": {
     "full": "Michael N. Hall",
-    "role": "Discoverer of TOR",
+    "lab_url": "https://www.biozentrum.unibas.ch/research/research-groups/research-groups-a-z/overview/unit/research-group-michael-n-hall",
+    "lab_name": "Hall Lab, Biozentrum Basel",
+    "role": "Discovered TOR in yeast in 1991 and showed it is a nutrient-sensing controller of growth &mdash; two complexes, from yeast to humans",
     "mono": "#2F6FA8",
     "init": "MH",
     "sub": "Born 1953, Puerto Rico &middot; Biozentrum, University of Basel, Switzerland &middot; Lasker, Gairdner &amp; Breakthrough Prize laureate",
@@ -1523,6 +1521,8 @@ const AUTHOR_BIOS = {
   },
   "Guan KL": {
     "full": "Kun-Liang Guan",
+    "lab_url": "https://lifesciences.westlake.edu.cn/labs/kunliang-guan/molecular-cell-biology-laboratory/lab-home/",
+    "lab_name": "Guan Lab, Westlake University",
     "role": "Mapped the upstream switches of mTOR",
     "mono": "#2F7A52",
     "init": "KG",
@@ -1544,6 +1544,8 @@ const AUTHOR_BIOS = {
   },
   "Manning BD": {
     "full": "Brendan D. Manning",
+    "lab_url": "https://hsph.harvard.edu/research/manning-lab/",
+    "lab_name": "Manning Lab, Harvard Chan School",
     "role": "Linked PI3K&ndash;AKT to mTOR and metabolism",
     "mono": "#C17A2E",
     "init": "BM",
@@ -1565,6 +1567,8 @@ const AUTHOR_BIOS = {
   },
   "Blenis J": {
     "full": "John Blenis",
+    "lab_url": "http://www.blenislab.org/",
+    "lab_name": "Blenis Lab, Weill Cornell Medicine",
     "role": "Defined the growth-signalling outputs of mTOR",
     "mono": "#8B5FBF",
     "init": "JB",
@@ -1585,6 +1589,9 @@ const AUTHOR_BIOS = {
   },
   "Zoncu R": {
     "full": "Roberto Zoncu",
+    "lab_url": "http://www.robertozonculab.org/",
+    "lab_name": "Zoncu Lab, UC Berkeley",
+    "bluesky": "@robzonculab.bsky.social",
     "role": "Revealed how the lysosome senses amino acids and cholesterol",
     "mono": "#1B6E6E",
     "init": "RZ",
@@ -1605,6 +1612,8 @@ const AUTHOR_BIOS = {
   },
   "Saxton RA": {
     "full": "Robert A. Saxton",
+    "lab_url": "https://www.saxtonlabucb.org/",
+    "lab_name": "Saxton Lab, UC Berkeley",
     "role": "Solved the structures of the leucine and SAM sensors for mTORC1",
     "mono": "#A13D63",
     "init": "RS",
@@ -1625,6 +1634,8 @@ const AUTHOR_BIOS = {
   },
   "Kim DH": {
     "full": "Do-Hyung Kim",
+    "lab_url": "https://cbs.umn.edu/kim-lab",
+    "lab_name": "Kim Lab, University of Minnesota",
     "role": "Co-discovered raptor, the defining subunit of mTORC1",
     "mono": "#3D5A80",
     "init": "DK",
@@ -1645,10 +1656,12 @@ const AUTHOR_BIOS = {
   },
   "Sarbassov DD": {
     "full": "Dos D. Sarbassov",
+    "lab_url": "https://research.nu.edu.kz/en/persons/dos-sarbassov/",
+    "lab_name": "Faculty profile, Nazarbayev University",
     "role": "Discovered rictor and defined mTOR Complex 2",
     "mono": "#6B4226",
     "init": "DS",
-    "sub": "Postdoc, Whitehead Institute/MIT (Sabatini lab) &middot; Dept. of Molecular &amp; Cellular Oncology, MD Anderson Cancer Center",
+    "sub": "Postdoc, Whitehead Institute/MIT (Sabatini lab) &middot; Dept. of Molecular &amp; Cellular Oncology, MD Anderson Cancer Center &middot; now Professor of Biology, Nazarbayev University, Kazakhstan",
     "photo": "/img/people/dos-d-sarbassov.jpg",
     "thumb": "/img/people/dos-d-sarbassov-thumb.jpg",
     "credit": "",
@@ -1665,6 +1678,8 @@ const AUTHOR_BIOS = {
   },
   "Sancak Y": {
     "full": "Yasemin Sancak",
+    "lab_url": "https://www.sancaklab.org/",
+    "lab_name": "Sancak Lab, University of Washington",
     "role": "Discovered the Rag GTPases that relay amino-acid signals to mTORC1",
     "mono": "#5B7B29",
     "init": "YS",
@@ -1685,7 +1700,9 @@ const AUTHOR_BIOS = {
   },
   "Strong R": {
     "full": "Randy Strong",
-    "role": "Led the NIA trial proving rapamycin extends mouse lifespan",
+    "lab_url": "https://barshopinstitute.uthscsa.edu/team-member/strong-randy/",
+    "lab_name": "Faculty profile, Barshop Institute",
+    "role": "Ran the San Antonio arm of the ITP and its pre-registered protocol &mdash; the reason the rapamycin result replicated across three labs",
     "mono": "#8A6D3B",
     "init": "RS",
     "sub": "Professor of Pharmacology &middot; Director, Nathan Shock Center of Excellence &middot; Barshop Institute for Longevity and Aging Studies, UT Health San Antonio",
@@ -1705,7 +1722,9 @@ const AUTHOR_BIOS = {
   },
   "Miller RA": {
     "full": "Richard A. Miller",
-    "role": "Co-directs the Interventions Testing Program that showed rapamycin extends lifespan",
+    "lab_url": "https://www.richmillerlab.com/",
+    "lab_name": "Miller Lab, University of Michigan",
+    "role": "Showed how far the rapamycin lifespan effect goes &mdash; dose, sex and starting age &mdash; in the ITP's Michigan arm",
     "mono": "#4A4E9C",
     "init": "RM",
     "sub": "MD, PhD, Yale &middot; Professor of Pathology &middot; Director, Paul F. Glenn Center for Biology of Aging Research, University of Michigan",
@@ -1725,7 +1744,9 @@ const AUTHOR_BIOS = {
   },
   "Harrison DE": {
     "full": "David E. Harrison",
-    "role": "Co-directs the Interventions Testing Program at the Jackson Laboratory",
+    "lab_url": "https://www.jax.org/research-and-faculty/faculty/david-harrison",
+    "lab_name": "Faculty profile, The Jackson Laboratory",
+    "role": "Led the 2009 result that made rapamycin the first drug shown to extend mammalian lifespan even when started late in life",
     "mono": "#2E5339",
     "init": "DH",
     "sub": "PhD, Stanford &middot; Professor &amp; Senior Staff Scientist, The Jackson Laboratory, Bar Harbor, Maine",
@@ -1745,6 +1766,8 @@ const AUTHOR_BIOS = {
   },
   "Thoreen CC": {
     "full": "Carson C. Thoreen",
+    "lab_url": "https://campuspress.yale.edu/thoreenlab/",
+    "lab_name": "Thoreen Lab, Yale",
     "role": "Mapped how mTORC1 controls translation of the growth machinery",
     "mono": "#9C4A1A",
     "init": "CT",
@@ -1763,6 +1786,8 @@ const AUTHOR_BIOS = {
   },
   "Chantranupong L": {
     "full": "Lynne Chantranupong",
+    "lab_url": "https://www.chantranlab.org",
+    "lab_name": "Chantranupong Lab, Boston University",
     "role": "Identified the Sestrins and GATOR1/2 in the amino-acid-sensing pathway",
     "mono": "#6A2E5C",
     "init": "LC",
@@ -1783,6 +1808,8 @@ const AUTHOR_BIOS = {
   },
   "Inoki K": {
     "full": "Ken Inoki",
+    "lab_url": "https://www.lsi.umich.edu/science/our-labs/inoki-lab",
+    "lab_name": "Inoki Lab, U. Michigan LSI",
     "role": "Showed TSC2 and Rheb form the master brake and throttle of mTOR",
     "mono": "#1F6F8B",
     "init": "KI",
@@ -1803,7 +1830,7 @@ const AUTHOR_BIOS = {
   },
   "Ali SM": {
     "full": "Siraj M. Ali",
-    "role": "Proteomics collaborator behind the discovery of raptor and rictor",
+    "role": "Identified raptor and rictor by mass spectrometry in the purifications that defined the two mTOR complexes",
     "mono": "#7A5C1E",
     "init": "SA",
     "sub": "Mass-spectrometry proteomics collaborator on the founding raptor/rictor papers, working with the Memorial Sloan Kettering proteomics core",
@@ -1822,7 +1849,9 @@ const AUTHOR_BIOS = {
   },
   "Erdjument-Bromage H": {
     "full": "Hediye Erdjument-Bromage",
-    "role": "Mass-spectrometry scientist who helped identify raptor and rictor",
+    "lab_url": "https://med.nyu.edu/research/neubert-lab/mass-spectrometry-core-neuroscience",
+    "lab_name": "Mass Spectrometry Core, NYU Langone",
+    "role": "Ran the proteomics that put names to the unknown bands in the raptor and rictor purifications",
     "mono": "#4E5D6C",
     "init": "HE",
     "sub": "Proteomics &amp; mass spectrometry &middot; Memorial Sloan Kettering Cancer Center &rarr; NYU Langone Health Mass Spectrometry Core for Neuroscience",
@@ -1842,7 +1871,9 @@ const AUTHOR_BIOS = {
   },
   "Tempst P": {
     "full": "Paul Tempst",
-    "role": "Proteomics pioneer who helped identify raptor and rictor",
+    "lab_url": "https://www.mskcc.org/research/ski/labs/paul-tempst",
+    "lab_name": "Tempst Lab, Sloan Kettering Institute",
+    "role": "Built the mass-spectrometry protein-identification methods that made the mTOR complex purifications readable",
     "mono": "#6E4B3A",
     "init": "PT",
     "sub": "Molecular Biology Program, Memorial Sloan Kettering Cancer Center &middot; pioneer of mass-spectrometry protein identification",
@@ -1860,6 +1891,8 @@ const AUTHOR_BIOS = {
   },
   "Shaw RJ": {
     "full": "Reuben J. Shaw",
+    "lab_url": "https://shaw.salk.edu/",
+    "lab_name": "Shaw Lab, Salk Institute",
     "role": "Linked the LKB1&ndash;AMPK energy-sensing pathway to mTOR",
     "mono": "#2E7D5B",
     "init": "RS",
@@ -1880,6 +1913,8 @@ const AUTHOR_BIOS = {
   },
   "Wolfson RL": {
     "full": "Rachel L. Wolfson",
+    "lab_url": "https://wolfsonlab.hms.harvard.edu/",
+    "lab_name": "Wolfson Lab, Harvard Medical School",
     "role": "Identified Sestrin2 as the direct leucine sensor for mTORC1",
     "mono": "#A34E6E",
     "init": "RW",
@@ -1899,6 +1934,9 @@ const AUTHOR_BIOS = {
   },
   "Lamming DW": {
     "full": "Dudley W. Lamming",
+    "lab_url": "https://lamminglab.medicine.wisc.edu/",
+    "lab_name": "Lamming Lab, UW-Madison",
+    "bluesky": "@lamminglab.bsky.social",
     "role": "Showed rapamycin's side effects come from hitting mTORC2, not mTORC1",
     "mono": "#4B6F44",
     "init": "DL",
@@ -1919,6 +1957,9 @@ const AUTHOR_BIOS = {
   },
   "Bar-Peled L": {
     "full": "Liron Bar-Peled",
+    "lab_url": "https://www.barpeledlab.org/",
+    "lab_name": "Bar-Peled Lab, MGH & Harvard",
+    "bluesky": "@liron1bar-peled.bsky.social",
     "role": "Defined the GAP and GEF switches that control the Rag GTPases",
     "mono": "#7B3F61",
     "init": "LB",
@@ -1938,10 +1979,12 @@ const AUTHOR_BIOS = {
   },
   "Cantley LC": {
     "full": "Lewis C. Cantley",
+    "lab_url": "https://cantleylab.dana-farber.org/",
+    "lab_name": "Cantley Lab, Dana-Farber",
     "role": "Discovered PI3K, the pathway that feeds into mTOR from growth factors",
     "mono": "#1E4C6B",
     "init": "LC",
-    "sub": "PhD, Cornell &middot; discovered PI3K at Tufts University School of Medicine (1984) &middot; Director, Sandra and Edward Meyer Cancer Center, Weill Cornell Medicine",
+    "sub": "PhD, Cornell &middot; discovered PI3K at Tufts University School of Medicine (1984) &middot; director of the Sandra and Edward Meyer Cancer Center, Weill Cornell Medicine (2012&ndash;2022) &middot; now Professor of Cell Biology, Dana-Farber Cancer Institute &amp; Harvard Medical School",
     "photo": "/img/people/lewis-c-cantley.jpg",
     "thumb": "/img/people/lewis-c-cantley-thumb.jpg",
     "credit": "",
@@ -1957,6 +2000,8 @@ const AUTHOR_BIOS = {
   },
   "Guertin DA": {
     "full": "David A. Guertin",
+    "lab_url": "https://www.umassmed.edu/guertinlab/",
+    "lab_name": "Guertin Lab, UMass Chan",
     "role": "Built the mouse genetics that defined mTORC2's biological roles",
     "mono": "#8C5E2A",
     "init": "DG",
@@ -1976,10 +2021,12 @@ const AUTHOR_BIOS = {
   },
   "Kaeberlein M": {
     "full": "Matt Kaeberlein",
+    "lab_url": "https://dogaginginstitute.org/team/",
+    "lab_name": "Dog Aging Institute",
     "role": "Extended TOR/aging research from yeast to mice to pet dogs",
     "mono": "#3E6B4E",
     "init": "MK",
-    "sub": "PhD, MIT (2002) &middot; Professor of Pathology &middot; founder &amp; co-director, Dog Aging Project &middot; University of Washington",
+    "sub": "PhD, MIT (2002) &middot; Professor of Pathology, University of Washington &middot; founder &amp; co-director, Dog Aging Project &middot; now president, Dog Aging Institute &amp; CEO, Optispan",
     "photo": "/img/people/matt-kaeberlein.jpg",
     "thumb": "/img/people/matt-kaeberlein-thumb.jpg",
     "credit": "Portrait: UW Healthy Aging and Longevity Research Institute",
@@ -1996,10 +2043,12 @@ const AUTHOR_BIOS = {
   },
   "Ballabio A": {
     "full": "Andrea Ballabio",
+    "lab_url": "https://www.tigem.it/research/research-faculty/ballabio",
+    "lab_name": "Ballabio Lab, TIGEM",
     "role": "Discovered TFEB, the transcription factor that links lysosomes to mTORC1",
     "mono": "#6B3FA0",
     "init": "AB",
-    "sub": "MD, University of Naples &middot; Founding Director, Telethon Institute of Genetics and Medicine (TIGEM), Naples &middot; Professor of Medical Genetics, University of Naples Federico II",
+    "sub": "MD, University of Naples &middot; founding director of the Telethon Institute of Genetics and Medicine (TIGEM), Naples (1994&ndash;2024), now principal investigator there &middot; Professor of Medical Genetics, University of Naples Federico II",
     "photo": "/img/people/andrea-ballabio.jpg",
     "thumb": "/img/people/andrea-ballabio-thumb.jpg",
     "credit": "Portrait: Human Technopole / TIGEM",
@@ -2016,6 +2065,8 @@ const AUTHOR_BIOS = {
   },
   "Jacinto E": {
     "full": "Estela Jacinto",
+    "lab_url": "https://sites.rutgers.edu/jacinto-lab/",
+    "lab_name": "Jacinto Lab, Rutgers RWJMS",
     "role": "Helped define mTORC2 and its rapamycin-insensitive control of Akt",
     "mono": "#C2410C",
     "init": "EJ",
@@ -2054,6 +2105,8 @@ const AUTHOR_BIOS = {
   },
   "Mannick JB": {
     "full": "Joan B. Mannick",
+    "lab_url": "https://www.altoslabs.com/team/joan-mannick",
+    "lab_name": "Profile, Altos Labs",
     "role": "Ran the first clinical trials showing mTOR inhibition improves immune function in older adults",
     "mono": "#8B2E3F",
     "init": "JM",
@@ -2074,6 +2127,8 @@ const AUTHOR_BIOS = {
   },
   "Richardson A": {
     "full": "Arlan Richardson",
+    "lab_url": "https://www.ouhealth.com/research-experts/arlan-richardson-phd2/",
+    "lab_name": "Faculty profile, OU Health",
     "role": "Showed rapamycin also extends lifespan when given later, and mapped its downstream biology",
     "mono": "#1D4E89",
     "init": "AR",
@@ -2094,6 +2149,9 @@ const AUTHOR_BIOS = {
   },
   "Ruggero D": {
     "full": "Davide Ruggero",
+    "lab_url": "https://ruggerolab.ucsf.edu/",
+    "lab_name": "Ruggero Lab, UCSF",
+    "bluesky": "@ruggerolab.bsky.social",
     "role": "Showed how oncogenic mTOR signalling rewrites which mRNAs get translated in cancer",
     "mono": "#B8860B",
     "init": "DR",
@@ -2114,6 +2172,8 @@ const AUTHOR_BIOS = {
   },
   "Thomas G": {
     "full": "George Thomas",
+    "lab_url": "https://researchdirectory.uc.edu/p/thomasg4",
+    "lab_name": "Faculty profile, University of Cincinnati",
     "role": "Purified and cloned S6K1, the archetypal mTORC1 substrate",
     "mono": "#476072",
     "init": "GT",
@@ -2134,6 +2194,9 @@ const AUTHOR_BIOS = {
   },
   "Valvezan AJ": {
     "full": "Alexander J. Valvezan",
+    "lab_url": "https://sites.rutgers.edu/valvezan-lab/",
+    "lab_name": "Valvezan Lab, Rutgers CABM",
+    "bluesky": "@alexandervalvezan.bsky.social",
     "role": "Mapped how mTORC1 couples nucleotide synthesis to a cell's building needs",
     "mono": "#7A9E3B",
     "init": "AV",
@@ -2154,6 +2217,8 @@ const AUTHOR_BIOS = {
   },
   "Avruch J": {
     "full": "Joseph Avruch",
+    "lab_url": "https://researchers.mgh.harvard.edu/profile/3588924/Joseph-Avruch",
+    "lab_name": "Profile, MGH Research Institute",
     "role": "Co-discovered raptor and showed Rheb directly activates mTOR",
     "mono": "#3B5249",
     "init": "JA",
@@ -2173,6 +2238,9 @@ const AUTHOR_BIOS = {
   },
   "Dibble CC": {
     "full": "Christian C. Dibble",
+    "lab_url": "https://www.dibblelab.com/",
+    "lab_name": "Dibble Lab, BIDMC & Harvard",
+    "bluesky": "@dibblelab.bsky.social",
     "role": "Identified TBC1D7 as the third subunit of the TSC complex that gates mTORC1",
     "mono": "#5C7AA0",
     "init": "CD",
@@ -2193,6 +2261,8 @@ const AUTHOR_BIOS = {
   },
   "Gray NS": {
     "full": "Nathanael S. Gray",
+    "lab_url": "https://graylab.stanford.edu/",
+    "lab_name": "Gray Lab, Stanford",
     "role": "Developed the first ATP-competitive mTOR inhibitors used to probe rapamycin-resistant signalling",
     "mono": "#B04A3C",
     "init": "NG",
@@ -2213,7 +2283,7 @@ const AUTHOR_BIOS = {
   },
   "Kang SA": {
     "full": "Seong A. Kang",
-    "role": "Contributed to the discovery of PRAS40 and DEPTOR as endogenous mTORC1 inhibitors",
+    "role": "Helped show that mTOR carries its own brakes: PRAS40 and DEPTOR, inhibitors encoded by the cell itself",
     "mono": "#4E7C6E",
     "init": "SK",
     "sub": "Whitehead Institute for Biomedical Research, MIT &middot; contributed to the Sabatini lab's PRAS40 and DEPTOR papers (2007&ndash;2009)",
@@ -2233,6 +2303,8 @@ const AUTHOR_BIOS = {
   },
   "Peterson TR": {
     "full": "Timothy R. Peterson",
+    "lab_url": "https://musculoskeletal.wustl.edu/people/tim-peterson/",
+    "lab_name": "Profile, WashU Musculoskeletal Center",
     "role": "Discovered DEPTOR, the mTOR-binding protein overexpressed in multiple myeloma",
     "mono": "#8A4B6B",
     "init": "TP",
@@ -2253,6 +2325,8 @@ const AUTHOR_BIOS = {
   },
   "Powell JD": {
     "full": "Jonathan D. Powell",
+    "lab_url": "https://www.calicolabs.com/people/jonathan-powell-m-d-ph-d/",
+    "lab_name": "Profile, Calico Life Sciences",
     "role": "Showed mTORC1 and mTORC2 steer which type of helper T cell a cell becomes",
     "mono": "#2E6B8A",
     "init": "JP",
@@ -2273,6 +2347,8 @@ const AUTHOR_BIOS = {
   },
   "Shen K": {
     "full": "Kuang Shen",
+    "lab_url": "https://www.umassmed.edu/shenlab/",
+    "lab_name": "Shen Lab, UMass Chan",
     "role": "Solved cryo-EM structures of the GATOR1 and FLCN-Ragulator complexes that gate mTORC1",
     "mono": "#A87C3A",
     "init": "KS",
@@ -2293,7 +2369,7 @@ const AUTHOR_BIOS = {
   },
   "Yonezawa K": {
     "full": "Kazuyoshi Yonezawa",
-    "role": "Japanese collaborator on the founding raptor and PRAS40 papers",
+    "role": "Biochemist on the founding raptor and PRAS40 papers, from the Kobe biosignal group",
     "mono": "#5A3E7A",
     "init": "KY",
     "sub": "Biosignal Research Center, Kobe University, Japan",
@@ -2311,6 +2387,8 @@ const AUTHOR_BIOS = {
   },
   "Tee AR": {
     "full": "Andrew R. Tee",
+    "lab_url": "https://profiles.cardiff.ac.uk/staff/teea",
+    "lab_name": "Faculty profile, Cardiff University",
     "role": "Co-discovered that the TSC1–TSC2 complex acts as a GTPase-activating protein for Rheb",
     "mono": "#5E3A24",
     "init": "AT",
@@ -2329,6 +2407,8 @@ const AUTHOR_BIOS = {
   },
   "Menon S": {
     "full": "Sue Menon",
+    "lab_url": "https://www.hsph.harvard.edu/manning-lab/people/sue-menon/",
+    "lab_name": "Profile, Manning Lab (Harvard Chan)",
     "role": "Showed insulin controls mTORC1 by moving the TSC complex on and off the lysosome",
     "mono": "#3E6B8A",
     "init": "SM",
@@ -2345,6 +2425,8 @@ const AUTHOR_BIOS = {
   },
   "Joshi JN": {
     "full": "Jay N. Joshi",
+    "lab_url": "https://sites.rutgers.edu/valvezan-lab/lab-members/",
+    "lab_name": "Valvezan Lab, Rutgers",
     "role": "Showed mTORC1 activity itself rises and falls across the cell cycle, not just in response to nutrients",
     "mono": "#7A3B69",
     "init": "JJ",
@@ -2362,6 +2444,8 @@ const AUTHOR_BIOS = {
   },
   "Wang S": {
     "full": "Shuyu Wang",
+    "lab_url": "https://manolilab.ucsf.edu/lab-members",
+    "lab_name": "Manoli Lab, UCSF",
     "role": "Co-discovered SLC38A9, the lysosomal transporter that senses arginine for mTORC1",
     "mono": "#3E7A5C",
     "init": "SW",
@@ -2382,6 +2466,9 @@ const AUTHOR_BIOS = {
   },
   "Brunet A": {
     "full": "Anne Brunet",
+    "lab_url": "https://web.stanford.edu/group/brunet/",
+    "lab_name": "Brunet Lab, Stanford",
+    "bluesky": "@brunetlab.bsky.social",
     "role": "Showed that Akt directly phosphorylates and controls FOXO, the transcription-factor switch linking insulin/IGF-1 signaling to lifespan",
     "mono": "#2F5F8C",
     "init": "AB",
@@ -2399,6 +2486,8 @@ const AUTHOR_BIOS = {
   },
   "Ginzberg M": {
     "full": "Miriam Ginzberg",
+    "lab_url": "https://www.kafrilab.org/the-team",
+    "lab_name": "Kafri Lab, SickKids",
     "role": "Helped build a way to read a signal's history from a single still image, then used it to catch mTORC1's fingerprint on Akt",
     "mono": "#3A6B7A",
     "init": "MG",
@@ -2416,6 +2505,8 @@ const AUTHOR_BIOS = {
   },
   "Kafri R": {
     "full": "Ran Kafri",
+    "lab_url": "https://lab.research.sickkids.ca/kafri/",
+    "lab_name": "Kafri Lab, SickKids",
     "role": "Studies how mTORC1 sets and enforces a target size for cells",
     "mono": "#8C3A2E",
     "init": "RK",
@@ -2433,6 +2524,8 @@ const AUTHOR_BIOS = {
   },
   "Lu L": {
     "full": "Lingjun Lu",
+    "lab_url": "https://www.ipandro.com/about-me",
+    "lab_name": "Androulakis Group, Rutgers",
     "role": "Built a computational model treating mTORC1 as a rhythm set by meal timing, not a fixed level",
     "mono": "#4A7A3E",
     "init": "LL",
@@ -2446,6 +2539,8 @@ const AUTHOR_BIOS = {
   },
   "Androulakis IP": {
     "full": "Ioannis P. Androulakis",
+    "lab_url": "https://www.ipandro.com/",
+    "lab_name": "Androulakis Group, Rutgers",
     "role": "Models how circadian rhythm and nutrient-sensing pathways like mTORC1 stay synchronized",
     "mono": "#5C3A8C",
     "init": "IA",
@@ -2462,6 +2557,8 @@ const AUTHOR_BIOS = {
   },
   "Wang R": {
     "full": "Ruizhao Wang",
+    "lab_url": "https://www.piatkevich-lab.com/alimni",
+    "lab_name": "Piatkevich Lab, Westlake University",
     "role": "Built a live-cell biosensor that independently caught mTOR activity oscillating across the cell cycle",
     "mono": "#7A5C2E",
     "init": "RW",
@@ -3700,7 +3797,7 @@ let mxRouteId = "aa", mxSel = null, mxPlaying = false;
 
 
 
-var PW_ASSET_V = "dcbb50540ce4";
+var PW_ASSET_V = "4d6ebc3d37e6";
 function pwLoadAsset(tag, attrs){
   return new Promise(function(res, rej){
     var e = document.createElement(tag);
@@ -3996,7 +4093,7 @@ document.querySelectorAll('.tab').forEach(tab=>{
 })();
 
 /* ===== Ask Atlas (client-side RAG) + Gaps/Hypotheses layer ===== */
-const ATLAS_UPDATED = "2026-09-07 20:27 UTC";
+const ATLAS_UPDATED = "2026-09-09 10:54 UTC";
 const ATLAS_GAPS = [{"id": "H1", "type": "Mechanism-to-outcome gap", "title": "Sensor-selective geroprotection without the metabolic penalty", "basis": "The amino-acid sensors are the most pharmacologically specific nodes in the pathway and among the least phenotype-tested. One exception exists and is held in this corpus: LEE2010 (Science 2010) showed that loss of Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. That is an organismal age-related-pathology phenotype (A — animal), though not a lifespan endpoint, and it is carried in the pathway model as the SESN2-AGING edge. Beyond that single fly result, the sensors (Sestrin2, CASTOR1, SAMTOR, v-ATPase) rest on M — molecular — work only, and no mammalian lifespan and no human ageing endpoint shows that manipulating ONE sensor arm reproduces the benefit of broader mTORC1 inhibition. CORRECTION LOG (2026-08-30): this block previously read 'supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes'. That was already false when displayed - LEE2010 was added to the corpus after an external review in July 2026 and the Welcome page announced the correction, but this card was never updated with it. Logged rather than silently overwritten.", "hyp": "Dialing down mTORC1 through ONE sensor arm (e.g. methionine restriction via SAMTOR->GATOR1, or leucine via Sestrin2) reproduces rapamycin's healthspan benefit while sparing mTORC2 - and therefore without insulin resistance.", "exp": "Mouse: (i) SAMTOR gain-of-function / dietary methionine restriction, (ii) rapamycin, (iii) control. Endpoints: healthspan/lifespan, glucose tolerance, mTORC2 activity (Akt-Ser473). Prediction: (i) matches (ii) on healthspan but not on glucose impairment.", "studies": ["GU2017", "SAX2015", "LEE2010", "LAM2012"], "conf": 0.75, "basis_beginner": "The amino-acid sensors in this pathway (Sestrin2, CASTOR1, SAMTOR, the lysosome's acid pump) are the most precise, most drug-friendly parts of it - and almost the least tested for whether changing them actually changes health or lifespan. There is one exception: in fruit flies, losing Sestrin caused fat build-up, mitochondrial problems, muscle degeneration and heart trouble, all preventable by turning TOR down. But nothing equivalent has been shown in a mammal, and no human study has tested it at all. So the question is not 'is there any evidence' - it is whether targeting one single sensor can reproduce what the broader drugs do.", "hyp_beginner": "Educated guess, not yet tested: turning down mTORC1 through just one nutrient sensor — say, restricting methionine, which acts through SAMTOR — might give the same longevity benefit as rapamycin while sparing mTORC2, and therefore without rapamycin's insulin-resistance side effect."}, {"id": "H10", "type": "Mechanism-to-outcome gap", "title": "Suppression of senescence/SASP (geroconversion), not just autophagy, is the mediator of rapamycin's healthspan benefit", "basis": "H4 asks whether autophagy is REQUIRED for the lifespan benefit; this gap proposes a parallel, partly autophagy-INDEPENDENT mediator that is equally untested at the outcome level. Evidence that mTOR gates senescence: DEM2009 rapamycin decelerates cellular senescence (geroconversion from arrest to senescence); BLA2006 framed aging as quasi-programmed mTOR-driven cellular hyperfunction pharmacologically inhibitable by rapamycin; LAB2015 mTOR directly regulates the pro-tumorigenic SASP (via MK2/ZFP36L1 control of secreted-factor mRNAs); CAS2009 mTOR drives Wnt-induced epidermal stem-cell exhaustion; LV2026 links Lamtor5-mTOR to cGAS-driven immunosenescence. WITHDRAWN CLAIM (2026-08-30): this block previously asserted that 'external work shows rapamycin still suppresses SASP in Nrf2-KO fibroblasts WITHOUT activating autophagy'. No study in this corpus supports it, no PMID was recorded, and an uncheckable sentence has no place in a block labelled Established. It has been withdrawn. Whether SASP suppression can occur independently of autophagy is therefore an OPEN question in this Atlas, not a premise - and closing it requires a primary paper entered in the corpus. Human anchor: CHU2019 topical rapamycin REDUCED senescence markers (p16INK4a) in human skin (p=0.008) - the rare direct human PD readout, but on skin, not a systemic aging endpoint. Missing: no study in this corpus tests whether BLOCKING senescence suppression (or clearing senescent cells independently) reproduces or abolishes rapamycin's mammalian healthspan gain, so autophagy vs geroconversion as the dominant mediator is unresolved. SCOPE (2026-09-04): that sentence previously read 'no study tests whether...', an absence claim about the whole literature. Gaps here are computed against this Atlas, not against PubMed - the same scoping already applied to H4 and H9.", "hyp": "Rapamycin's healthspan benefit is mediated substantially by suppressing mTOR-driven geroconversion and the SASP - not solely by inducing autophagy. Therefore rapamycin's benefit will persist in autophagy-deficient tissue as long as senescence/SASP suppression is intact, and will be largely OCCLUDED by a senolytic (removing the target senescent-cell burden leaves rapamycin little to suppress).", "exp": "Two crossed tests in mice: (i) rapamycin in an inducible autophagy-KO (shared with H4's design) with senescence/SASP burden (p16, IL-6, SA-beta-gal) as the readout - does rapamycin still cut SASP and preserve healthspan without autophagy? (ii) Rapamycin +/- a senolytic (e.g. dasatinib+quercetin): epistasis test - if benefits are non-additive/occluded, senescence suppression is the shared mechanism; if additive, they are parallel. Endpoints: healthspan/frailty index, tissue senescence load, lifespan.", "studies": ["DEM2009", "BLA2006", "LAB2015", "CAS2009", "LV2026", "CHU2019", "PYO2013"], "conf": 0.7, "basis_beginner": "Rapamycin's anti-ageing benefit is usually credited to boosting autophagy (cellular cleanup), but there is a competing explanation: rapamycin also calms “senescent” cells - old, damaged cells that pump out inflammatory signals. Whether it can do that WITHOUT autophagy is an open question here: this card used to state that it can, but the study behind that claim was never recorded, so the claim has been withdrawn. In humans, a topical version of the drug did reduce a marker of skin-cell senescence, but that is skin, not whole-body ageing. Nobody has directly tested, in one experiment, which of the two explanations actually drives the lifespan benefit.", "hyp_beginner": "Educated guess: it's the slowing of senescent, inflamed cells — not autophagy — that does most of the work. If true, rapamycin should still help mice that can't do autophagy, as long as it can still calm senescent cells; and it should have much less left to offer if those senescent cells are already cleared out by a different drug first."}, {"id": "H2", "type": "Contradiction / tension", "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance", "basis": "The lifespan benefit of rapamycin is strongly linked to mTORC1 inhibition, whereas chronic disruption of mTORC2 is a major mechanism behind the insulin resistance (LAM2012). The separation is well supported but NOT exhaustive: this Atlas's own S6K1-IRS1 edge records that the contribution of the S6K1->IRS-1 feedback arm to rapalog dysglycaemia in humans has never been apportioned against mTORC2 loss, so 'all benefit = mTORC1, all harm = mTORC2' overstates what has been shown. QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days dosing caused NO glucose impairment and preserved mTORC1 inhibition with no detectable mTORC2 effect -> intermittent dosing decouples benefit from harm in vivo. Wording matters here: 'no detectable mTORC2 inhibition under this assay' is not the same claim as 'mTORC2 was not inhibited'. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. UPDATE (2026-07-09, revised 2026-07-29): early clinical evidence now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, which is consistent with the hypothesis that sparing mTORC2 reduces the glucose-intolerance signature seen with chronic rapamycin/rapalogs. Because SCH2025 was open-label, single-arm and had no rapamycin or ATP-site comparator, the low hyperglycaemia rate is a supportive signal, not a causal attribution: it is compared against historical rapalog experience, not against a randomised control. This is the strongest human evidence yet for the mechanistic premise of H2, but it is preliminary, and it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor. WORDING CORRECTION (2026-08-30): the opening sentence previously read 'Longevity comes from mTORC1 but chronic rapamycin's harm comes from mTORC2 disruption', and the ARR2015 clause read 'inhibited mTORC1 only'. Both presented as more certain than what the experiments actually support, which is only a preferential separation.", "hyp": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.", "exp": "Mouse lifespan under continuous vs intermittent vs low-dose rapamycin; endpoints lifespan + insulin sensitivity + mTORC2 activity (Akt-Ser473). Mirrors the human EVERLAST daily-vs-weekly design. NEW (sharper test enabled by 2023-2025 tools): repeat using a bi-steric mTORC1-selective inhibitor (RMC-6272 class) instead of rapamycin -- this removes the mTORC2-sparing question as a confound, so if lifespan extension still occurs without glucose intolerance, that is a cleaner causal test than intermittent-dosing rapamycin.", "studies": ["LAM2012", "ARR2015", "MIL2014", "KEN2016", "THO2009", "MOE2025", "NCT0583", "MEN2023", "SCH2025"], "conf": 0.85, "basis_beginner": "The lifespan benefit of blocking mTOR is closely tied to mTORC1, while the main side effect (insulin resistance) comes largely from also disrupting mTORC2. That split is well supported, but it is not the whole story - a feedback loop through S6K1 also contributes to the blood-sugar problem, and nobody has worked out how much each one matters in people. In mice, giving rapamycin less often (weekly instead of daily) avoided the glucose problems while keeping the mTORC1 effect, with no mTORC2 effect detectable - which is not quite the same as saying mTORC2 was untouched. Newer drugs aimed only at mTORC1 showed a low rate of blood-sugar side effects in an early human cancer trial: encouraging, but that trial had no comparison group and was not about ageing.", "hyp_beginner": "Educated guess: a drug (or dosing schedule) that blocks mTORC1 while leaving mTORC2 alone should give the longevity benefit of rapamycin without the blood-sugar downside."}, {"id": "H3", "type": "Contradiction / tension", "title": "Muscle-sparing, pulsed mTORC1 inhibition", "basis": "mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016, HIGH-DOSE ARM (8 mg/kg/day i.p. x 90 days from 20-21 months) -> males +60% post-treatment life expectancy (p=0.02); females NO survival benefit (p=0.261) with a shift toward aggressive haematopoietic cancers (round-cell tumours 16/16 vs 6/12 controls, p=0.002) and away from non-haematopoietic neoplasia. DOSE QUALIFIER (added 2026-08-30, from the full text): the SAME paper's second arm - 126 ppm encapsulated rapamycin in diet, same 90 days, same starting age - significantly increased post-treatment survival in BOTH sexes independently, and a Cox model with robust standard errors found no evidence that sex modified the treatment effect (p=0.904). So 'transient dosing captures the benefit' is supported, and the female harm signal is specific to the high-dose injection regimen rather than a property of pulsed dosing as such. A pulsed / muscle-sparing design must therefore control for dose and route, not only for sex. This is still one experiment in one strain: whether the principle generalises across strain, species, treatment window and endpoint is untested.", "hyp": "Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.", "exp": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.", "studies": ["DRU2009", "ROM2001", "MOE2025", "BIT2016"], "conf": 0.7, "basis_beginner": "mTORC1 is needed to build muscle, yet turning it down is also the best-known way to extend lifespan - a real tension. In one mouse study, a short course of rapamycin extended male life expectancy by 60%. At the high injected dose it did nothing for females and caused more aggressive blood cancers in them - but the same study also tested a lower dose given in food, and that one helped both sexes equally. So pulsed dosing is not automatically a problem for females; the dose and the route matter. It is still just one experiment.", "hyp_beginner": "Educated guess: giving mTOR-blocking drugs in short pulses — timed so the drug clears the body right after exercise — might preserve muscle while still giving most of the longevity benefit."}, {"id": "H4", "type": "Mechanism-to-outcome gap", "title": "Is autophagy actually REQUIRED for the mammalian lifespan benefit?", "basis": "Autophagy is assumed to mediate longevity but shown directly only in fly/worm (BJE2010, MEL2003) and by Atg5 overexpression in mouse (PYO2013). No study IN THIS CORPUS tests whether BLOCKING autophagy abolishes rapamycin's mammalian lifespan extension - the epistasis experiment that would settle it has not been done in a mammal as far as this Atlas holds. SCOPE (2026-09-04): this block previously read 'No study tests whether...', an absence claim about the whole literature. The same construction was scoped in H9 on 2026-08-30 but not here; gaps in this Atlas are computed against this corpus, not against PubMed. Note that this particular claim also survives an external check - a targeted PubMed query for an autophagy-deficient x rapamycin x mammalian lifespan experiment returns no records - but the wording should still say what it can support.", "hyp": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.", "exp": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.", "studies": ["BJE2010", "MEL2003", "PYO2013"], "conf": 0.7, "basis_beginner": "Autophagy (the cell's self-cleanup process) is widely assumed to be why blocking mTOR extends lifespan, but that's only been directly shown in flies and worms, plus one mouse study that boosted autophagy a different way. Nobody has tested what happens to rapamycin's lifespan benefit in mice that can't do autophagy at all.", "hyp_beginner": "Educated guess: autophagy is actually required — mice that can't perform autophagy should get no lifespan benefit from rapamycin, even though the drug still works everywhere else."}, {"id": "H5", "type": "Human-endpoint gap", "title": "A sensor/autophagy biomarker panel as a surrogate endpoint for human trials", "basis": "QUANTIFIED human-endpoint desert: every completed human trial in this corpus with an aging/healthspan PRIMARY endpoint missed it or was safety-only. PEARL (MOE2025): visceral fat NOT met (secondary bone density OR 0.24, 95% CI 0.06-0.93, p=0.04). RTB101 phase 3 (MAN2021): symptomatic-RTI primary NOT met. Resveratrol (POU2013): fully negative. CALERIE (ROM2016): the paper held here is the SAFETY analysis of the two-year randomised caloric-restriction trial in 218 non-obese adults - CR was safe and well tolerated overall, but bone density fell significantly more than in controls, so 'no significant differences' would be wrong. Scope note: CALERIE is a caloric-restriction trial, not an mTOR-inhibitor trial; it belongs here as a geroscience comparator, not as direct evidence on an mTOR intervention. The human 'wins' are disease indications (BOLERO-2 / BAS2012: PFS roughly doubled with exemestane, overall survival not significantly improved; RADIANT-3 / YAO2011: median PFS 11.0 vs 4.6 months, HR 0.35, p<0.001) or surrogate biomarkers (CHU2019: topical rapamycin epidermal p16 reduced, p=0.008). Not 'few trials' but none with a hard aging endpoint. CORRECTION (2026-08-30): this block previously cited RADIANT-3 (YAO2011) as showing 'PFS 5% vs 2%'. Those figures are the grade 3/4 hyperglycaemia rates from that trial's adverse-event table (YAO2011), not a progression-free-survival result - a safety number had migrated into an efficacy claim. UPDATE (2026-07-09): a candidate real-time readout tool for the mTORC1-vs-mTORC2 arm of the panel now exists -- AIMTOR (BOU2020), a genetically encoded BRET biosensor validated in human and mouse cells that reads mTOR activity live, including subcellular resolution (lysosome/cytosol/nucleus/mitochondria). This does not fill the human-endpoint desert itself, but it derisks the panel's feasibility: the biosensor arm is no longer a proposed capability, it is a published, working assay. SOURCING (2026-09-04): trial acronyms are now paired with their Atlas study codes inline, so each figure can be traced without going to the supporting list.", "hyp": "A pathway-activity panel (SAMTOR/GATOR readout + LC3-II/p62 autophagic flux + mTORC1-vs-mTORC2 substrate phosphorylation) tracks lifespan-extending interventions and can serve as a validated surrogate, enabling short human geroprotection trials.", "exp": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.", "studies": ["MOE2025", "MAN2021", "POU2013", "ROM2016", "CHU2019", "BAS2012", "YAO2011", "LEE2024", "NCT0583", "BOU2020"], "conf": 0.7, "basis_beginner": "So far, every human clinical trial aimed at an ageing or healthspan outcome has either missed its main goal or only checked safety — not one has directly proven a health or lifespan benefit in people. The wins that do exist are for specific diseases (like certain cancers), not for ageing itself. Testing ageing directly takes decades, so researchers want a faster stand-in measurement, and a tool that can track mTOR activity live inside human cells now exists — making that stand-in more realistic to build, even though it hasn't been done yet.", "hyp_beginner": "Educated guess: a panel of measurements — how the nutrient sensors are behaving, how much cleanup (autophagy) is happening, and the balance between mTORC1 and mTORC2 — could serve as a faster stand-in for “is this drug slowing ageing,” making much shorter human trials possible."}, {"id": "H6", "type": "Contradiction / tension", "title": "Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping", "basis": "Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response. BIT2016 QUALIFIED (2026-08-30): its male-benefit / female-harm result holds only for the high-dose 8 mg/kg/day injection arm. In the same paper's 126 ppm dietary arm, post-treatment survival rose significantly in both sexes and a Cox model found no evidence that sex modified the treatment effect (p=0.904). BIT2016 therefore supports DOSE-dependent dimorphism, not intrinsic dimorphism, and is as much a boundary case for this hypothesis as evidence for it. The thesis stands on SEL2009, MIL2014, HAR2009, FOK2014, WUX2013 and HAR2014.", "hyp": "Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.", "exp": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.", "studies": ["SEL2009", "MIL2014", "HAR2009", "FOK2014", "WUX2013", "BIT2016", "HAR2014"], "conf": 0.8, "basis_beginner": "Male and female animals often respond differently to these drugs — sometimes just by how much, but sometimes the effect flips direction entirely. Rapamycin tends to help females somewhat more; a different drug, acarbose, helps males more. Females also build up higher drug levels in their blood after the same dose, which may explain part of it.", "hyp_beginner": "Educated guess: some of the sex difference is simply because females end up with more drug in their blood after the same dose — matching the dose to blood levels instead of body weight might close that gap for rapamycin, though probably not for acarbose, where the male/female difference looks more like a real biological difference in how the drug acts."}, {"id": "H7", "type": "Contradiction / tension", "title": "Low-dose mTOR inhibition rejuvenates the aging immune system without net immunosuppression", "basis": "mTOR inhibition is the textbook immunosuppressant - rapalogs are licensed for transplant-rejection prophylaxis and transplantation is the largest human exposure dataset for the class. SOURCING NOTE (2026-08-30): HEI1991 is the yeast paper that identified TOR1/TOR2 through rapamycin-induced G1 arrest in S. cerevisiae. It establishes the cell-cycle mechanism, NOT the clinical immunosuppression claim, which currently has no dedicated citation in this corpus. Yet the SAME pathway at LOW dose is one of the few mTOR interventions with POSITIVE human data. QUANTIFIED: MAN2014 - 6 weeks low-dose RAD001 (everolimus) in elderly IMPROVED influenza-vaccine antibody titers (~20% rise vs placebo) and reduced exhausted PD-1+ CD4/CD8 T cells. MAN2018 - the RTB101 +/- everolimus 2a/2b program cut lab-confirmed respiratory tract infections and upregulated interferon-induced antiviral genes; only the 10 mg/day RTB101 dose worked. But MAN2021 (phase 3 PROTECTOR-1) MISSED its primary endpoint (clinically symptomatic respiratory illness NOT reduced) - so the human immune 'win' collapsed at scale. Mechanistic anchors. ARA2009 (Nature 2009) is direct SUPPORT for this hypothesis, not a counterweight: rapamycin had immunostimulatory effects on memory CD8 T-cell generation in mice and in non-human primates, increasing both the quantity and the quality of the memory response, and acting cell-intrinsically through mTORC1. The genuine counterweights are ZEN2013 (mTORC1 is REQUIRED for Treg function, so over-inhibition would blunt regulatory immunity) and the transplant dose range itself; LV2026 shows age-related Lamtor5 loss itself drives immunosenescence. CORRECTION (2026-08-30): this block previously read 'ARA2009 mTOR drives memory-CD8 differentiation ... so over-inhibition would blunt immunity', which reverses the paper's finding and made the gap argue against itself using a study that argues for it. The unresolved tension remains: the dose that rejuvenates adaptive immunity and the dose that suppresses it are not separated, and no human trial has hit a durable clinical immune endpoint.", "hyp": "There is a narrow low-dose / intermittent window in which mTORC1 inhibition reverses T-cell exhaustion and boosts vaccine and antiviral responses in the elderly while leaving protective Treg/effector immunity intact - i.e. net immune REJUVENATION, not suppression. Above that window the effect flips to classical immunosuppression. The phase 3 failure reflects a dose/endpoint mismatch, not absence of the effect.", "exp": "Dose-ranging elderly RCT with a validated immune-function primary endpoint (T-cell exhaustion markers + neoantigen/vaccine seroconversion + lab-confirmed infection incidence), testing several low/intermittent rapalog schedules against placebo, with paired PBMC mTORC1 vs mTORC2 phosphosignatures to map the rejuvenation-vs-suppression crossover. Prediction: an inverted-U where mid-low doses maximize vaccine response and minimize infections, with immunosuppression only above a definable trough.", "studies": ["MAN2014", "MAN2018", "MAN2021", "HEI1991", "ARA2009", "ZEN2013", "LV2026", "LEE2024"], "conf": 0.75, "basis_beginner": "High-dose, long-term mTOR blocking is a classic immune-suppressing treatment, used to stop organ-transplant rejection. But oddly, a low dose of a similar drug improved older adults' response to a flu vaccine and reduced infections in earlier trials. A larger follow-up trial, though, didn't confirm a real-world benefit against symptomatic respiratory illness. So there may be a “sweet spot” dose that helps rather than suppresses immunity, but nobody has pinned it down.", "hyp_beginner": "Educated guess: there's a narrow low-dose window where mTOR-blocking drugs actually refresh an ageing immune system rather than suppressing it, and the failed bigger trial simply used the wrong dose or measured the wrong outcome — not proof the effect doesn't exist."}, {"id": "H8", "type": "Mechanism-to-outcome gap", "title": "Brain-penetrant mTOR inhibition clears neurodegenerative aggregates in models but has zero human cognitive-aging endpoint - and mTORC2 is needed for memory", "basis": "The preclinical CNS case for mTOR inhibition is unusually deep; the human evidence is thin rather than absent. Aggregate-clearance evidence: SPI2010 rapamycin lowered amyloid-beta and abolished cognitive deficits in an AD mouse model (autophagy-dependent); ZHO2009 mTORC1 inhibition suppressed anatomical/behavioral abnormalities; CAC2010 mapped the mTOR-amyloid-tau triangle onto cognition; TAN2024 (preprint) restored tau-induced metabolic, mitochondrial and cognitive deficits; EHN2008 reversed learning deficits in Tsc2+/- mice. HUMAN EVIDENCE (added 2026-08-30): SAX2026, the TRON multicentre randomised controlled trial, tested everolimus against placebo on memory and executive function in tuberous sclerosis complex (38 randomised, ages 16-60, 24 weeks). Effect sizes were small (Cohen's d 0-0.465) and responder rates were high in BOTH arms (20/23, 87% everolimus vs 9/12, 75% placebo), which the authors attribute to practice and placebo effects - an uninformative trial rather than a positive one. It is disease-specific, short and not an ageing trial, so it does NOT close the cognitive-AGEING gap; but it does mean the previous wording 'every outcome is in animals/models' is no longer true of this corpus. BENEFIT-SIDE CORRECTION (2026-08-30): HAL2012 was previously cited here as a 'cognitive downside signal'. It reports the opposite - chronic rapamycin ENHANCED learning and memory in young mice, BLOCKED age-associated cognitive decline in older mice, and DECREASED anxiety- and depression-like behaviour, with elevated midbrain monoamines. It belongs on the benefit side of this gap. THE mTORC2 LIABILITY, NOW SOURCED (2026-09-05): HUA2013 supplies what this leg previously lacked. Conditional deletion of Rictor in the postnatal mouse forebrain reduced mTORC2 activity and selectively impaired long-term memory and the late phase of hippocampal LTP, with the same deficit in dTORC2-deficient flies; hippocampal actin polymerisation fell, restoring it rescued both L-LTP and memory, and a compound that raised mTORC2 activity converted early LTP into late LTP and enhanced memory. Loss of function and rescue in the same study, which is why it can carry the claim. mTORC2 is therefore required for memory consolidation - and mTORC2 is the arm chronic rapamycin also disrupts (LAM2012, SAR2006). Until 2026-09-05 this leg cited LAM2012 and LEE2024, neither of which establishes it, and was flagged here as an editorial extrapolation. Net: strong mechanism on both sides of the trade-off (A and M — animal and molecular), no human cognitive-AGEING or neurodegeneration outcome, one uninformative disease-specific human trial, and an unquantified balance between clearing aggregates (mTORC1/autophagy) and preserving plasticity (mTORC2).", "hyp": "An intermittent or mTORC1-selective, CNS-penetrant regimen enhances autophagic clearance of amyloid/tau/alpha-synuclein enough to slow cognitive decline in early neurodegeneration WITHOUT the mTORC2-dependent memory/plasticity penalty seen with chronic pan-mTOR inhibition. The healthspan-relevant readout (delayed cognitive decline) is therefore achievable but has never been tested in humans.", "exp": "Two-step: (i) mouse tauopathy/amyloid models comparing chronic pan-rapamycin vs intermittent vs mTORC1-selective (bi-steric) dosing - endpoints aggregate load, autophagic flux (LC3-II/p62), hippocampal LTP, and Morris-water-maze memory, to isolate the mTORC2/plasticity cost. (ii) A biomarker-anchored early-AD human pilot (CSF/plasma p-tau and amyloid PET as surrogate) on the winning schedule. Prediction: intermittent/selective arms clear aggregates with preserved LTP and memory; chronic pan-inhibition clears aggregates but degrades plasticity.", "studies": ["SPI2010", "ZHO2009", "CAC2010", "EHN2008", "TAN2024", "HAL2012", "SAX2026", "HUA2013", "LAM2012", "SAR2006", "LEE2024"], "conf": 0.7, "basis_beginner": "In animal and cell models, blocking mTOR clears out the toxic protein clumps involved in diseases like Alzheimer's and improves memory-related behaviour - a fairly strong case at the lab level. In fact, one long mouse study found rapamycin actually improved learning and memory and reduced anxiety. There is now one human randomised trial (in tuberous sclerosis, 24 weeks), but it was too short and too disease-specific to answer the ageing question, and both the drug and placebo groups improved about equally. The worry that these drugs also block mTORC2 - which brain cells need for long-term memory - is real, but the study proving that point has not yet been added to this Atlas, so treat it as a reasoned concern rather than a demonstrated fact here.", "hyp_beginner": "Educated guess: dosing the drug on-and-off, or using a version that only blocks mTORC1 (not mTORC2), might clear out the harmful protein buildup without also damaging the memory-related signalling that needs mTORC2 — but this hasn't been tested in humans at all."}, {"id": "H9", "type": "Evidence desert", "title": "Rapamycin + AMPK-axis drugs (acarbose / metformin): additive via distinct pathways, and untested as a combination in humans", "basis": "Animal combination data are suggestive but the human evidence for combining mTOR inhibition with AMPK-axis geroprotectors is a desert. QUANTIFIED (STR2022, NIA Interventions Testing Program C2017 cohort): rapamycin + acarbose started at 9 months extended MALE lifespan beyond what either of the two prior ITP rapamycin-only cohorts achieved, while in FEMALES the combination was neither better nor worse than rapamycin alone - the authors relate this to the limited survival benefit acarbose alone had shown in earlier female cohorts. CAVEAT: STR2022's rapamycin-only comparison is HISTORICAL, against prior cohorts rather than a concurrent rapamycin-only arm, so 'more potent than either component' is the authors' suggestion, not a within-experiment randomised result. That is precisely why this gap remains open. HAR2014 established acarbose's male-skewed lifespan effect. The AMPK arm converges back onto mTOR mechanistically: ZHO2001 metformin acts via AMPK, GWI2008 AMPK phosphorylates raptor to gate mTORC1, HOW2017 metformin inhibits hepatic mTORC1 dose-dependently via AMPK - which raises the opposite possibility that metformin + rapamycin are partly REDUNDANT on the mTORC1 node. Human signal exists only for observational data (BAN2014: type-2 diabetics on metformin outlived non-diabetic controls - a result subject to the usual immortal-time and prescription-bias caveats of the metformin-survivorship literature, and not treated here as causal). No study IN THIS CORPUS - animal or human - cleanly separates ADDITIVE (distinct pathways) from REDUNDANT (same node) for these pairs, and this corpus holds no human combination trial. SCOPE (2026-08-30): this block previously read 'No study - animal or human -', an absence claim about the whole literature that a curated corpus cannot support. Gaps here are computed against this Atlas, not against PubMed. LOGIC NOTE: distinct proximal mechanisms do not entail additivity. Two drugs can hit different targets and still converge downstream, interact non-linearly, or show sex- and strain-dependent interaction - which is exactly what the ITP combination data themselves show. SOURCING (2026-09-05): the ITP combination publication was previously flagged as missing from this corpus; it has now been entered as STR2022 (PMID 36179270) and the figure is checkable.", "hyp": "Rapamycin combined with a glucose-route geroprotector (acarbose) may be ADDITIVE because the second drug works largely outside mTOR, whereas rapamycin combined with an AMPK-mTORC1 drug (metformin) may be largely REDUNDANT on the mTORC1 node and yield sub-additive gains. This is a prediction from mechanism, not an inference the data compel: distinct targets do not guarantee additivity, and whether each pairing is additive, redundant or synergistic is unresolved. A secondary possibility worth testing separately is that metformin's main value alongside rapamycin is not additive longevity but mitigation of rapamycin's glucose intolerance.", "exp": "Factorial mouse lifespan/healthspan study (vehicle / rapamycin / acarbose / metformin / rapamycin+acarbose / rapamycin+metformin), sex-stratified, with mTORC1 (S6K/4E-BP1) and AMPK (raptor-Ser792) readouts plus glucose tolerance. Test for statistical super-additivity. Prediction: rapamycin+acarbose is additive on lifespan; rapamycin+metformin is sub-additive on lifespan but restores glucose tolerance. Follow with a human factorial healthspan-biomarker trial on the additive pair.", "studies": ["HAR2014", "ZHO2001", "GWI2008", "HOW2017", "BAN2014", "ARR2015", "MOE2025", "STR2022"], "conf": 0.7, "basis_beginner": "In mice, combining rapamycin with a diabetes drug called acarbose extended life more than either drug alone - but only in males; in females it was no better than rapamycin by itself. A different diabetes drug, metformin, works through much of the same machinery as rapamycin (via a shared checkpoint called AMPK), so combining them might not add much. But be careful with that reasoning: two drugs hitting different targets do not automatically add up - they can still overlap further downstream, or interact in unexpected ways. Nobody in this Atlas's collection has run a human trial combining any of these.", "hyp_beginner": "Educated guess: rapamycin plus acarbose may add up to a bigger benefit, since they work through different routes - but that does not follow automatically, and rapamycin plus metformin may add little extra lifespan because they overlap on the same mTORC1 switch. Which of the three outcomes (additive, redundant, or something in between) actually happens is unresolved; metformin may still be worth pairing for its effect on blood sugar."}];
 const ATLAS_FINDINGS = [
  {h:"Nutrient-sensor evidence desert", p:"Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests almost entirely on M — molecular — evidence. CORRECTED (2026-08-30): one exception is held in this corpus - loss of Sestrin in Drosophila produces an organismal ageing phenotype (LEE2010, A — animal), carried in the pathway model as the SESN2-AGING edge. Beyond that single fly result, no mammalian lifespan and no human ageing endpoint shows that manipulating one sensor arm reproduces the benefit of broader mTORC1 inhibition. The most drug-specific part of the pathway remains the least phenotype-tested.", p_beginner:"The molecules that directly sense nutrients — Sestrin2, CASTOR1, SAMTOR, the Rag proteins and others — are backed almost entirely by lab/mechanism-level studies. There is one exception: in fruit flies, losing Sestrin caused an age-related pathology (fat build-up, mitochondrial and muscle problems) — the one case in this Atlas linking a sensor to an ageing outcome. Nothing equivalent has been shown in a mammal, and no human study has tested it. These remain exactly the parts a drug could most precisely target, and they are still the least phenotype-tested part of the pathway."},
