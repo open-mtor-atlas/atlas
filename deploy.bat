@@ -70,6 +70,16 @@ REM  remote-tracking ref, which is what poisoned the gate above.
 del /f /q ".git\refs\remotes\origin\main.lock" 2>nul
 del /f /q ".git\objects\maintenance.lock" 2>nul
 
+REM  A JESTE JEDNA VRSTVA (9. 9. 2026). Kdyz Cowork sandbox nesmi soubor pres
+REM  FUSE most smazat, PREJMENUJE ho na <jmeno>.dead.<cislo> misto smazani.
+REM  V .git se jich naslo 50 a sedm z nich lezelo primo v refs\heads\ -- a git
+REM  cte KAZDY soubor v tom adresari jako referenci. Vysledek:
+REM      fatal: bad object refs/heads/main.lock.dead.1788811812479300269
+REM  a git fetch prestal fungovat uplne, takze deploy spadl hned na
+REM  reconcile_with_origin.py. Mazani main.lock vys tuhle priponu nechytne.
+del /f /q /s ".git\*.dead.*" 2>nul
+del /f /q /s ".git\*.stale*" 2>nul
+
 set "COMMIT_MSG=Atlas update %date% %time%"
 
 echo.
