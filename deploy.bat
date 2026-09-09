@@ -615,6 +615,16 @@ for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_a
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
+REM  2026-09-09: stazene fulltexty a jejich skripty. `git add -u` je nepobere,
+REM  protoze to jsou NOVE soubory, ne zmenene -- stejna dira, ktera 15. 8. nechala
+REM  mimo commit cele adresare author/ a question/. 19 novych raw XML z
+REM  refresh_fulltext.bat by takhle zustalo jen na disku, a to je jedina stazena
+REM  kopie: znovu se stahuji minuty a jen z Windows.
+if exist "atlas_fulltext\raw" git add atlas_fulltext\raw
+if exist "atlas_fulltext\refresh_fulltext.bat" git add atlas_fulltext\refresh_fulltext.bat
+if exist "atlas_fulltext\coverage_report.py" git add atlas_fulltext\coverage_report.py
+if exist "atlas_gaps\licenses.csv" git add atlas_gaps\licenses.csv
+if exist "atlas_gaps\license_gate.py" git add atlas_gaps\license_gate.py
 
 REM  The pipeline scripts themselves, the validators and the repo config. These
 REM  are not site content, but if a deploy does not stage them the generator on
