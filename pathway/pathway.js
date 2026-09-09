@@ -160,14 +160,51 @@
      Readers see the display codes S/H/A/M -- renamed 2026-09-07 because a
      lettered ladder is read as a school grade whatever the caption says. */
   var TIER_CODE = { A: "S", B: "H", C: "A", D: "M", PP: "PP", RT: "RT" };
+  /* Keyed by the DISPLAY code, not by the stored letter. Keying this by the
+     stored letter is what let the badge render "D" under a caption that says
+     M is molecular and A is animal -- the same panel then used "A" for two
+     different things. Everything that reaches tierDot()/tierPhrase() must go
+     through storedCode() first. Mirrors chrome_shared.py TIER_LABEL. */
   var TIER_MEANING = {
-    A: "synthesis of human data — systematic review / meta-analysis",
-    B: "human study — trial or cohort",
-    C: "animal or invertebrate model",
-    D: "molecular — cells, biochemistry, structure",
+    S: "synthesis of human data — systematic review / meta-analysis",
+    H: "human study — trial or cohort",
+    A: "animal or invertebrate model",
+    M: "molecular — cells, biochemistry, structure",
+    R: "review — secondary literature, not a new result",
     PP: "preprint, not yet peer-reviewed",
     RT: "registered trial, results pending"
   };
+  var TIER_COLOUR = {
+    S: "var(--tier-a)", H: "var(--tier-b)", A: "var(--tier-c)", M: "var(--tier-d)",
+    R: "var(--tier-d)", PP: "var(--tier-pp)", RT: "var(--tier-rt)"
+  };
+  /* R/PP/RT are the FORM of the claim, not the system studied, so they are
+     drawn outlined -- a different kind of claim gets a different form. */
+  var TIER_OUTLINED = { R: 1, PP: 1, RT: 1 };
+  /* Stored Airtable tier (+ optional pyramid) -> display code. `pyramid` is
+     what splits narrative reviews out of the molecular bucket, exactly as
+     tier_bits() does in chrome_shared.py; model.json edges carry no pyramid,
+     so an edge can never resolve to R. */
+  function storedCode(t, pyramid) {
+    t = (t || "").toString().trim();
+    if (!t) return "";
+    if (/^registered trial/i.test(t)) return "RT";
+    if (/^preprint/i.test(t)) return "PP";
+    var two = t.slice(0, 2).toUpperCase();
+    if (two === "PP" || two === "RT") return two;
+    var one = t.slice(0, 1).toUpperCase();
+    if (one === "D" && pyramid && /narrative review/i.test(String(pyramid))) return "R";
+    return TIER_CODE[one] || "";
+  }
+  /* A study record -> display code. V2 serves a precomputed `code` (built by
+     the same tierBits() the rest of that site uses); the SPA has the global
+     tierMeta(); everything else falls back to the stored value. */
+  function studyCode(st) {
+    if (!st) return "";
+    if (st.code) return String(st.code).toUpperCase();
+    if (typeof tierMeta === "function") return tierMeta(st.tier || "", st.pyramid || "").letter;
+    return storedCode(st.tier, st.pyramid);
+  }
   var CONF_W = { high: 100, medium: 62, low: 28 };
   var CONF_C = { high: "g", medium: "a", low: "r" };
   var HR_W = { established: 100, plausible: 55, untested: 18 };
@@ -400,7 +437,7 @@
       s += '<g class="pw-n c-' + esc(n.cls) + " " + wclass + '" data-nid="' + esc(n.id) + '" tabindex="0" role="button" '
         + 'aria-label="' + esc(n.label + ", " + n.cls + " in " + M.compIx[n.compartment].name
           + ", " + sc + " studies in this corpus, strongest evidence "
-          + (TIER_MEANING[ne.best_tier] || "not recorded")) + '">'
+          + (TIER_MEANING[storedCode(ne.best_tier)] || "not recorded")) + '">'
         + '<rect class="nb" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1)
         + '" height="' + NH + '"/>';
       if (n.cls === "complex") {
@@ -662,28 +699,25 @@
   }
 
   /* ==== inspector ====================================================== */
-  function tierDot(t) {
-    var map = { A: "var(--tier-a)", B: "var(--tier-b)", C: "var(--tier-c)", D: "var(--tier-d)",
-                PP: "var(--tier-pp)", RT: "var(--tier-rt)" };
-    /* callers pass either a single stored letter or PP/RT; a full stored
-       value ("A - Systematic review") collapses to its first letter. */
-    t = (t || "").toString().trim().toUpperCase();
-    if (t.length > 2) { t = /^(PP|RT)/.test(t) ? t.slice(0, 2) : t.slice(0, 1); }
-    var c = map[t] || "var(--tier-d)";
-    var meaning = TIER_MEANING[t] || "study type not recorded";
-    /* PP and RT are completeness STATUS, not a kind of study, so they render
-       outlined rather than filled — a different claim gets a different form,
-       not just a different hue. */
-    var status = (t === "PP" || t === "RT");
+  /* Takes a DISPLAY code (S/H/A/M/R/PP/RT) -- run stored values through
+     storedCode()/studyCode() first. "A" is both a stored letter (systematic
+     review) and a display code (animal), so this function must never be
+     asked to guess which one it was handed. */
+  function tierDot(code) {
+    code = (code || "").toString().trim().toUpperCase();
+    var c = TIER_COLOUR[code] || "var(--tier-d)";
+    var meaning = TIER_MEANING[code] || "study type not recorded";
+    var status = !!TIER_OUTLINED[code];
     var style = status ? "color:" + c + ";border:1.5px solid " + c + ";background:transparent;"
                        : "background:" + c + ";";
     return '<i class="pw-dot' + (status ? " st" : "") + '" style="' + style
-      + '" title="' + esc(meaning + " — the kind of study, not its quality") + '">' + esc(t || "?") + "</i>";
+      + '" title="' + esc(meaning + " — the kind of study, not its quality") + '">' + esc(code || "?") + "</i>";
   }
   /* Never a bare letter. The tier says what KIND of study it is; it is not a
      mark out of four, and a tier-D structural paper can be definitive. */
-  function tierPhrase(t) {
-    return tierDot(t) + " <span class=\"pw-tiername\">" + esc(TIER_MEANING[t] || "type not recorded") + "</span>";
+  function tierPhrase(code) {
+    return tierDot(code) + " <span class=\"pw-tiername\">"
+      + esc(TIER_MEANING[code] || "type not recorded") + "</span>";
   }
   function studyRows(sids, label) {
     if (!sids || !sids.length) return "";
@@ -694,7 +728,7 @@
       var first = st.authors ? String(st.authors).split(";")[0].trim() : "";
       out += '<button class="pw-ev" data-sid="' + esc(sid) + '" type="button">'
         + '<span class="pw-ev-t">' + esc(st.title) + "</span>"
-        + '<span class="pw-ev-m">' + tierDot((st.tier || "").toUpperCase()[0]) + esc(first)
+        + '<span class="pw-ev-m">' + tierDot(studyCode(st)) + esc(first)
         + (first ? " · " : "") + esc(st.year || "") + " · " + esc(sid) + "</span></button>";
     });
     return out;
@@ -705,13 +739,14 @@
       + meter("Mechanism", c.mechanistic, CONF_W[c.mechanistic], CONF_C[c.mechanistic])
       + meter("Human relevance", c.human_relevance, HR_W[c.human_relevance], HR_C[c.human_relevance])
       + '<div class="pw-confrow"><span>Field consensus</span><span><b>' + esc(c.consensus) + "</b></span></div>"
-      + '<div class="pw-confrow"><span>Strongest study</span><span>' + tierPhrase(e.evidence.best_tier)
+      + '<div class="pw-confrow"><span>Strongest study</span><span>' + tierPhrase(storedCode(e.evidence.best_tier))
       + "</span></div>"
       + '<div class="pw-confrow"><span>How it was shown</span><span>' + esc(e.evidence.kind) + "</span></div></div>"
       + '<p style="font-size:11.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55;">'
       + "A step can be mechanistically certain and still untested in humans. "
       + "<b>These codes describe the kind of study, not its quality</b> — S/H are human evidence, "
-      + "A is animal, M is molecular work in cells and structures. An M structural paper can settle a "
+      + "A is animal, M is molecular work in cells and structures, R a secondary review. An M structural "
+      + "paper can settle a "
       + "mechanism outright; it simply is not human evidence. Mechanism confidence grades the "
       + "<em>biology</em>, the code names the <em>system studied</em>.</p>";
   }
@@ -817,7 +852,7 @@
         return '<button class="pw-ev" data-eid="' + esc(e.id) + '" type="button">'
           + '<span class="pw-ev-t">' + (dir === "in" ? esc(other.label) + " → " : "→ " + esc(other.label))
           + "</span><span class=\"pw-ev-m\">" + esc(e.type) + " · " + esc(e.effect) + " · "
-          + esc(e.confidence.mechanistic) + " mech · " + tierDot(e.evidence.best_tier) + "</span></button>";
+          + esc(e.confidence.mechanistic) + " mech · " + tierDot(storedCode(e.evidence.best_tier)) + "</span></button>";
       }).join("");
     }
     var c = M.compIx[n.compartment];
@@ -835,7 +870,7 @@
       + '<span class="pw-stat"><b>' + (ne.distinct_mechanisms || []).length + "</b>distinct mechanisms</span>"
       + "</div>"
       + '<div class="pw-confrow" style="margin-top:8px"><span>Strongest study</span><span>'
-      + tierPhrase(ne.best_tier) + "</span></div>"
+      + tierPhrase(storedCode(ne.best_tier)) + "</span></div>"
       + '<p class="pw-tinynote">' + esc(ne.caveat || "") + "</p>";
     /* Reviewer point 7: the same molecule does different things in different
        contexts, and this map only shows some of them. */
@@ -975,7 +1010,7 @@
         : (B.explain[S.level] || ""),
       certainty: "Mechanistic confidence " + e.confidence.mechanistic + "; human relevance "
         + e.confidence.human_relevance + "; field consensus " + e.confidence.consensus
-        + ". Closest-to-human supporting study is " + (TIER_CODE[e.evidence.best_tier] || e.evidence.best_tier) + " (" + e.evidence.kind
+        + ". Closest-to-human supporting study is " + (storedCode(e.evidence.best_tier) || e.evidence.best_tier) + " (" + e.evidence.kind
         + ", " + (e.species.join(", ") || "model not stated") + ")."
         + (e.boundary ? " Boundary conditions: " + e.boundary : ""),
       matters: e.teaching_note || B.explain[S.level] || B.explain.research

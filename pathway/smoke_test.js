@@ -65,9 +65,15 @@ const errors = [];
 w.console = { log() {}, warn() {}, error(...a) { errors.push(a.join(" ")); } };
 
 // Atlas globals the module talks to. Minimal honest stubs.
+// Stored tier values, not display codes -- the module now translates one to
+// the other, so a stub that hands it a display code would test nothing.
 w.studyBySid = (sid) => ({ sid, title: "Stub title for " + sid, authors: "Author A; Author B",
-                           year: 2020, tier: "D" });
-w.tierMeta = (t) => ({ letter: t, color: "#000" });
+                           year: 2020, tier: "D - Mechanistic/Review",
+                           pyramid: "5 - Mechanistic / In Vitro" });
+w.tierMeta = (t, p) => ({
+  letter: /^A/.test(t) ? "S" : /^B/.test(t) ? "H" : /^C/.test(t) ? "A"
+        : (p && /narrative review/i.test(p)) ? "R" : "M",
+  color: "#000" });
 w.filterStudiesByTitle = () => {};
 w.entityByName = () => true;
 w.selectEntity = () => {};
@@ -580,8 +586,14 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   // 9. tiers are a study type, not a grade
   realClick(w, canvasEl, D.querySelector('.pw-hitline[data-eid="EVE-RCC"]'));
   const ti = D.getElementById("pwInsp").innerHTML;
-  ok(/human trial or cohort|systematic review/.test(ti),
+  /* This assertion was stale: it looked for "human trial or cohort" while the
+     dictionary said "human study - trial or cohort", so it had been failing
+     silently. Rewritten to test the thing it was named after, plus the bug it
+     failed to catch -- EVE-RCC is stored as tier B and must render as H. */
+  ok(/trial or cohort/.test(ti) && /pw-tiername/.test(ti),
     "a tier letter is rendered together with what that tier MEANS");
+  ok(/>H<\/i>/.test(ti) && !/>B<\/i>/.test(ti),
+    "the badge shows the reader-facing code (H), never the stored letter (B)");
   ok(/kind of study, not its quality/.test(ti), "the panel states tiers are not a quality score");
 
   // 6. legend separates effect from mechanism
