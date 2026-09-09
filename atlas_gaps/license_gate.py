@@ -16,12 +16,17 @@ Option: --write-airtable  adds/updates a `License` (text) + `Chunkable`
 Usage:
     python3 atlas_gaps/license_gate.py
     python3 atlas_gaps/license_gate.py --write-airtable
+    python3 atlas_gaps/license_gate.py --from-baked      # zivy korpus, ne snimek
+    python3 atlas_gaps/license_gate.py --from-baked --dry-run
 Standard library only (urllib).
 """
 import json, os, sys, csv, time, urllib.request, urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC  = os.path.join(HERE, "studies_enriched.jsonl")
+# Zivy korpus. studies_enriched.jsonl je snimek z 28. 7. 2026 (168 studii);
+# atlas_data/studies_baked.json je to, co se dnes opravdu publikuje.
+BAKED = os.path.join(HERE, "..", "atlas_data", "studies_baked.json")
 OUT  = os.path.join(HERE, "licenses.csv")
 EPMC = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 BASE = "appt2U6ObDHUcRlrj"
@@ -51,10 +56,38 @@ def chunkable(info):
     lic = info["license"]
     return lic.startswith("cc") and "nd" not in lic
 
+def targets_from_baked():
+    """Kandidati z ziveho korpusu misto snimku z cervence.
+
+    studies_enriched.jsonl mel priznak `fulltext_pmc_available`; baked data ho
+    nemaji, ale maji rovnou `pmcid`, coz je tataz informace v silnejsi forme.
+    Bereme vsechno s PMID, at licencni branka rozhodne sama -- PMCID nekdy
+    Europe PMC zna, i kdyz ho v Airtable nemame.
+    """
+    recs = json.load(open(BAKED, encoding="utf-8"))
+    recs = recs if isinstance(recs, list) else recs.get("studies", recs)
+    out = []
+    for r in recs:
+        if not r.get("pmid"):
+            continue
+        out.append({"airtable_id": r.get("id", ""), "Study_ID": r.get("sid", ""),
+                    "PMID": str(r["pmid"]), "PMCID": r.get("pmcid", "") or ""})
+    return out
+
+
 def main():
-    recs = [json.loads(l) for l in open(SRC, encoding="utf-8")]
-    targets = [r for r in recs if r.get("fulltext_pmc_available") and r.get("PMID")]
-    print(f"[gate] {len(targets)} full-text studies to check")
+    if "--from-baked" in sys.argv:
+        targets = targets_from_baked()
+        print(f"[gate] zdroj: atlas_data/studies_baked.json -- {len(targets)} studii s PMID")
+        print(f"        z toho {sum(1 for t in targets if t['PMCID'])} ma PMCID uz v datech")
+    else:
+        recs = [json.loads(l) for l in open(SRC, encoding="utf-8")]
+        targets = [r for r in recs if r.get("fulltext_pmc_available") and r.get("PMID")]
+        print(f"[gate] zdroj: studies_enriched.jsonl (snimek) -- {len(targets)} studii")
+
+    if "--dry-run" in sys.argv:
+        print("[gate] --dry-run: nic se nedotazuje ani nezapisuje.")
+        return
 
     lic = {}
     pmids = [str(r["PMID"]) for r in targets]

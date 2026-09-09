@@ -3,14 +3,14 @@ name: mtor-atlas-pipeline
 description: >
   Turn a curated Airtable base of scientific studies into an evidence-graded
   literature engine: a citation-grounded RAG assistant, structured AI extraction,
-  a "what we don't know" knowledge-gap + hypothesis layer, full-text deep search,
+  a "what we don't know" knowledge-gap + hypothesis layer,
   and a static (GitHub Pages) web page — all free/offline where possible.
   Use when the user references Oliver's mTOR Atlas or asks to: build/refresh the
   atlas, export/extract studies from Airtable, run a gap analysis, generate testable
   hypotheses, deep-extract full text (dose / sample size / effect size), fetch
-  open-access full texts, build a chunk index, wire deep search, or deploy the page.
+  open-access full texts, or deploy the page.
   Triggers: "run the atlas pipeline", "build the atlas", "gap analysis",
-  "knowledge gaps", "extract studies", "deep search", "sync Airtable to the page".
+  "knowledge gaps", "extract studies", "sync Airtable to the page".
 ---
 
 # mTOR Atlas pipeline
@@ -79,12 +79,19 @@ Hypothesis / Proposed_Experiment / Supporting studies) and write them to Knowled
 **Web + deploy.**
 - The page (`index.html`) bakes `ATLAS_STUDIES` + `ATLAS_GAPS` as JS constants and runs
   client-side TF-IDF retrieval (Ask Atlas tab) + the gap cards. No backend.
-- `scripts/build_chunk_index.py` builds `chunk_index.json` from the stored CC full texts;
-  the page's **Deep search** toggle lazy-loads it for passage-level retrieval.
+- `scripts/build_chunk_index.py` builds `chunk_index.json` from the stored CC full texts.
+  **Deep search is RETIRED (rozhodnuto 9. 9. 2026).** Only 48 of 360 studies have an open
+  licence, and the covered sample is systematically skewed: 1 of 46 pre-2005 papers, 0 of 2
+  systematic reviews, 5 of 35 human studies, and not one foundational paper (SAB1994,
+  KIM2002, INOK2003, SAN2008, HAR2009 …). A passage search that silently returns the
+  weakest slice of the literature contradicts the site's own evidence policy. The UI toggle
+  was removed from `index.html`; V2 never shipped it. Keep the fetched texts and the builder
+  — they still feed the AI fact extraction — but do NOT re-wire a Deep search surface
+  without re-reading that analysis (`claude/prechod-v2-na-produkci-plan-2026-09-09.md` §15).
 - `scripts/sync_airtable.py` regenerates the baked `ATLAS_STUDIES` / `ATLAS_GAPS`
   constants in `index.html` from Airtable (read-only PAT).
-- Deploy `index.html` + `atlas_fulltext/chunk_index.json` to GitHub Pages (serve repo root
-  so the relative fetch resolves).
+- Deploy `index.html` to GitHub Pages. `atlas_fulltext/chunk_index.json` no longer has a
+  consumer on the page and V2 deliberately does not publish it.
 
 ## Config / secrets (env vars — never commit)
 - `AIRTABLE_TOKEN` — personal access token (read for sync/pull; write for gate/extract).

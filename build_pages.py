@@ -1805,7 +1805,7 @@ compound did <em>not</em> extend lifespan -- with the same visibility as
 positive findings.</p>
 
 <h2>Who curates it</h2>
-<p><strong>Oliver Barton</strong> -- Creator &amp; Curator, Prague, Czech
+<p><strong><a href="{SITE}/author/oliver-barton/">Oliver Barton</a></strong> -- Creator &amp; Curator, Prague, Czech
 Republic, age 15. A high school student with a self-directed research
 interest in mTOR signaling and evidence-based science curation, who built
 the Atlas to be the structured resource he wished existed when he started
@@ -2208,6 +2208,34 @@ def oliver_page(bio):
                 f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}'
                 f'</td></tr>')
         body.append("</table>")
+
+    # 2026-09-09: author-written acknowledgements, same single-source pattern as
+    # the focus table above -- data lives in atlas_data/oliver_bio_baked.json
+    # ("thanks_intro" + "thanks"), rendered here and mirrored by the SPA's
+    # renderOliverBio(). Internal links (leading "/") stay in-tab; external ones
+    # get target=_blank + rel=noopener like every other outbound link on the site.
+    if bio.get("thanks"):
+        body.append("<h2>Acknowledgements</h2>")
+        if bio.get("thanks_intro"):
+            body.append(f'<p class="meta">{e(bio["thanks_intro"])}</p>')
+        body.append("<ul>")
+        for t in bio["thanks"]:
+            nm = e(t["name"])
+            href = t.get("url") or ""
+            if href:
+                ext = "" if href.startswith("/") else ' target="_blank" rel="noopener"'
+                nm = f'<a href="{e(href)}"{ext}>{nm}</a>'
+            aff = t.get("affiliation") or ""
+            aff_html = (f'<br><span class="mono" style="font-size:11px;'
+                        f'color:var(--soft)">{e(aff)}</span>') if aff else ""
+            # Duvod je vec, ktera tenhle seznam dela podekovanim a ne adresarem:
+            # cte se jako veta ("for showing me around IOCB"), proto normalni
+            # pismo, ne mono jako afiliace.
+            why = t.get("reason") or ""
+            why_html = (f'<br><span style="font-size:13px;color:var(--soft)">'
+                        f'&mdash; {e(why)}</span>') if why else ""
+            body.append(f"<li style=\"margin-bottom:9px\">{nm}{aff_html}{why_html}</li>")
+        body.append("</ul>")
 
     body.append(f'<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>')
 
