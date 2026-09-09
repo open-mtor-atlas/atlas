@@ -1,0 +1,49 @@
+
+    <div class="wrap">
+  <header>
+    <p class="eyebrow"><b>Oliver's mTOR Atlas</b> · Timeline</p>
+    <h2>How mTOR biology actually grew</h2>
+    <p class="lede">Every node is a landmark study. Every edge is a claim about <strong>what one study made possible for the next</strong>. The vertical axis is real time, so the empty stretches are part of the argument. Nodes carry the Atlas's own evidence tiers: <span class="hb">blue is direct human evidence</span>. Count the blue.</p>
+    <div class="epistemic-note">
+      <b>This is an editorial reconstruction, not a citation network.</b> Nothing on this canvas is
+      computed from citation data, co-citation, or any bibliometric measure. Each edge is a judgement
+      made by the curator &mdash; &ldquo;study A is what made study B askable&rdquo; &mdash; written down
+      so it can be argued with. Two researchers reading the same papers could reasonably draw a
+      different tree, and the absence of an edge is not evidence that no influence existed. Treat the
+      shape as <em>an interpretation of how the field moved</em>, and the nodes and their metadata
+      (PubMed-verified) as the checkable part.
+    </div>
+    <div class="stats" id="lineageStats"></div>
+  </header>
+
+  <div class="controls" id="lineageControls"></div>
+
+  <main>
+    <div class="canvas-wrap">
+      <div class="zoom-bar">
+        <p class="hint">Drag to pan &middot; scroll/pinch or +/&minus; to zoom</p>
+        <div class="zoom-controls">
+          <button type="button" class="chip zoom-btn" id="lineageZoomOut" aria-label="Zoom out">&minus;</button>
+          <button type="button" class="chip zoom-btn" id="lineageZoomFit" aria-label="Fit to screen">Fit</button>
+          <button type="button" class="chip zoom-btn" id="lineageZoomIn" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+      <div class="canvas" id="lineageCanvas">
+        <div class="lane-header-sticky" id="lineageLaneHeader"></div>
+        <svg id="lineageTree" role="img" aria-label="Time-scaled lineage of landmark mTOR studies"></svg>
+      </div>
+    </div>
+    <aside class="panel" id="lineagePanel">
+      <p class="empty">Select any node to read what it unlocked, what it left open, and which studies it grew from.</p>
+    </aside>
+  </main>
+
+  <div class="legend" id="lineageLegend"></div>
+
+  
+    </div>
+
+    
+
+    
+  

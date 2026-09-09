@@ -1,0 +1,376 @@
+/* ---- Academy (build_academy.py) -------------------------------------
+   Appended to shell()'s stylesheet, so it may override anything above it.
+   Scoped by document: only Academy pages carry this block, which is why
+   widening .wrap here cannot affect /study/ or /answers/ pages. Tokens are
+   the ones shell() already defines -- no new palette, no new type scale.
+   Card radius stays 3px to match every other static page (spec §8 defers
+   to the existing Atlas design system).
+
+   Faze 3 (2026-08-31): .wrap/nav.crumb no longer overridden here -- both
+   now default to --measure-wide (1100px) in shell()'s own CSS, the same
+   value this override used to hardcode as 1060px. Learn widens by 40px
+   to line up with .oma-topbar-inner, per the typography plan §7 Faze 3. */
+.ac-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 10px}
+.ac-hero{max-width:780px;margin:0 0 34px}
+.ac-hero h1{font-size:clamp(26px,3.4vw,34px);line-height:1.18;margin:0 0 12px}
+.ac-hero .ac-lede{font-size:17px;line-height:1.62;color:var(--soft);margin:0 0 20px}
+.ac-cta{display:inline-flex;align-items:center;min-height:44px;background:var(--ink);
+  color:var(--on-ink,#fff);text-decoration:none;padding:11px 20px;border-radius:3px;font-size:15px;
+  font-weight:600}
+.ac-cta:hover{background:var(--teal)}
+.ac-cta.ac-quiet{background:none;color:var(--ink);border:1px solid var(--line);font-weight:400}
+.ac-cta.ac-quiet:hover{background:rgba(163,31,52,.06);color:var(--teal)}
+
+/* Homepage prestavba (2026-09-06): "kde jsi" pruh + ctyri rovnocenne vstupy.
+   Duvod: stranka mela jedno primarni tlacitko na lekci 01 a tri z peti bloku
+   o jednom pilíri, takze Practice Arena i Challenges vypadaly jako prilohy.
+   Tokeny jsou porad ty, ktere definuje shell() -- zadna nova paleta. */
+.ac-resume{--ac-tint:rgba(163,31,52,.09);border:1px solid var(--line);border-radius:3px;
+  padding:18px 20px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:0 0 30px}
+html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
+.ac-resume .ac-rl{flex:1 1 320px;min-width:min(100%,280px)}
+.ac-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rbig{font-size:19px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.ac-rmeta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin:0}
+.ac-rmeta b{color:var(--ink)}
+.ac-rbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ac-mini{flex:0 0 auto}
+.ac-mini svg{display:block;width:150px;height:auto}
+.ac-mini .m-r{fill:var(--soft);opacity:.2}
+.ac-mini .m-n{fill:none;stroke:var(--line);stroke-width:1}
+.ac-mini .m-n[data-m="1"]{fill:var(--ac-tint);stroke:var(--teal)}
+.ac-mini .m-n[data-m="3"]{fill:var(--teal);stroke:var(--teal)}
+.ac-mini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
+.ac-mini .m-c{font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--soft)}
+
+.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:14px;margin:0 0 8px}
+.ac-way{border:1px solid var(--line);border-radius:3px;padding:18px 20px 16px;display:flex;
+  flex-direction:column;gap:7px}
+.ac-way .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.ac-way p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
+  border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+.ac-way .ac-state i{font-style:normal;color:var(--soft)}
+.ac-way .ac-bar{height:5px;background:var(--line);display:block;margin:6px 0 0;position:relative}
+.ac-way .ac-bar i,.ac-way .ac-bar u{position:absolute;left:0;top:0;height:100%;background:var(--teal)}
+.ac-way .ac-bar u{opacity:.28}
+.ac-way .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.03em;text-decoration:none}
+.ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+
+/* entry cards + curriculum -------------------------------------------- */
+.ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
+  margin:0 0 34px}
+.ac-card{border:1px solid var(--line);border-radius:3px;padding:20px 22px;
+  display:flex;flex-direction:column;gap:8px}
+.ac-card h3{margin:0;font-size:16px}
+.ac-card p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
+.ac-card .ac-go{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.04em;text-decoration:none}
+.ac-card.ac-soon{opacity:.62}
+.ac-card.ac-soon .ac-go{color:var(--soft)}
+
+.ac-list{list-style:none;padding:0;margin:0 0 8px;border-top:1px solid var(--line)}
+.ac-list li{border-bottom:1px solid var(--line)}
+.ac-list a,.ac-list .ac-row{display:flex;align-items:baseline;gap:12px;padding:13px 4px;
+  text-decoration:none;color:var(--ink);min-height:44px}
+.ac-list a:hover{background:rgba(163,31,52,.05)}
+.ac-list .ac-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+  width:22px;flex:none}
+.ac-list .ac-state{font-family:'IBM Plex Mono',monospace;font-size:13px;width:16px;flex:none;
+  color:var(--soft)}
+.ac-list .ac-state[data-done="1"]{color:var(--teal)}
+.ac-list .ac-ttl{flex:1;font-size:15px;font-weight:600}
+.ac-list .ac-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  letter-spacing:.03em;white-space:nowrap}
+.ac-list li.ac-planned .ac-ttl{font-weight:400;color:var(--soft)}
+
+/* "Your path" strip -- a map of the course, not a score. */
+.ac-sechead-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ac-sechead-row a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+.ac-sechead-row a:hover{border-bottom-color:currentColor}
+.ac-path{-webkit-mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  mask-image:linear-gradient(90deg,#000 94%,rgba(0,0,0,.15));
+  list-style:none;display:flex;gap:0;padding:0;margin:0 0 34px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)}
+.ac-path::-webkit-scrollbar{display:none}
+.ac-path li{flex:0 0 auto;border-right:1px solid var(--line)}
+.ac-path li:last-child{border-right:none}
+.ac-path a,.ac-path .ac-row{display:flex;align-items:center;gap:7px;padding:11px 16px;
+  min-height:44px;text-decoration:none;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.03em}
+.ac-path a:hover{background:rgba(163,31,52,.05);color:var(--teal)}
+.ac-path .ac-pathttl{font-family:'DM Sans',-apple-system,sans-serif;font-size:13px;
+  letter-spacing:0;white-space:nowrap}
+.ac-path li.ac-planned .ac-pathttl,.ac-path li.ac-planned .ac-row{color:var(--soft)}
+
+/* lesson layout -------------------------------------------------------- */
+.ac-lesson{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:44px;align-items:start}
+.ac-main{min-width:0;max-width:760px}
+.ac-rail{position:sticky;top:18px;font-size:13px}
+.ac-rail h4{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 9px;font-weight:600}
+.ac-rail ol{list-style:none;padding:0;margin:0 0 24px;border-left:1px solid var(--line)}
+.ac-rail ol li{margin:0}
+.ac-rail ol a{display:block;padding:5px 0 5px 12px;color:var(--soft);text-decoration:none;
+  line-height:1.4;border-left:2px solid transparent;margin-left:-1px}
+.ac-rail ol a:hover{color:var(--teal);border-left-color:var(--teal)}
+.ac-ctx{border-top:1px solid var(--line);padding-top:14px}
+.ac-chain{list-style:none;padding:0;margin:0}
+.ac-chain li{padding:4px 0 4px 12px;border-left:1px solid var(--line);color:var(--soft);
+  line-height:1.4}
+.ac-chain li.ac-here{border-left:2px solid var(--teal);color:var(--ink);font-weight:600}
+.ac-chain a{color:inherit;text-decoration:none}
+.ac-chain a:hover{color:var(--teal)}
+.ac-conceptlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--soft);margin:18px 0 3px}
+.ac-concepts{font-size:14px;color:var(--soft);margin:0}
+
+.ac-q{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(21px,2.6vw,26px);
+  line-height:1.3;color:var(--teal);margin:0 0 22px;font-weight:500}
+.ac-section{margin:0 0 34px}
+.ac-section>h2{font-size:17px;margin:34px 0 12px}
+.ac-note{border-left:3px solid var(--line);padding:2px 0 2px 16px;color:var(--soft);
+  font-size:15px}
+.ac-idea p{font-size:17px;line-height:1.62}
+
+/* figures -------------------------------------------------------------- */
+.ac-fig{margin:18px 0 22px;padding:0}
+.ac-svg{width:100%;height:auto;color:var(--ink);overflow:visible}
+.ac-box{fill:none;stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-box.ac-accent{stroke:var(--teal);stroke-width:1.5}
+.ac-organelle{fill:rgba(163,31,52,.05);stroke:var(--line);stroke-width:1}
+.ac-t{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-t.ac-lead{font-size:17px;font-weight:700}
+.ac-t.ac-sub{font-size:11px;fill:var(--soft)}
+.ac-t .ac-em{font-style:italic;fill:var(--teal)}
+.ac-arrow{stroke:var(--ink);stroke-width:1.2;fill:none;color:var(--ink)}
+.ac-arrow.ac-thin{stroke-width:1}
+.ac-inh{stroke:var(--teal);stroke-width:1.6;fill:none}
+.ac-dash{stroke:var(--soft);stroke-width:1;stroke-dasharray:3 3;fill:none}
+
+/* evidence ------------------------------------------------------------- */
+.ac-ev{display:grid;gap:10px;margin:6px 0 10px}
+.ac-evcard{border:1px solid var(--line);border-radius:3px;padding:13px 15px}
+.ac-evhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.ac-evyear{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+.ac-evtitle{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink)}
+.ac-evtitle:hover{color:var(--teal)}
+.ac-evcard .ac-evfind{font-size:14px;color:var(--soft);line-height:1.55;margin:0}
+.ac-evlink{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  display:inline-flex;align-items:center;min-height:32px}
+
+/* think ---------------------------------------------------------------- */
+.ac-think{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:16px 18px;margin:0 0 12px}
+.ac-think .ac-prompt{font-size:16px;line-height:1.55;margin:0 0 8px}
+.ac-think .ac-hint{font-size:13.5px;color:var(--soft);margin:0 0 10px}
+.ac-think details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-think details>summary::-webkit-details-marker{display:none}
+.ac-think details>summary::after{content:" \2192"}
+.ac-think details[open]>summary::after{content:""}
+.ac-think .ac-reveal{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+
+/* quiz ------------------------------------------------------------------
+   Spec §2/§18 again: this is a comprehension check, not a game. Nothing is
+   stored, nothing is scored across lessons, there is no pass mark and no
+   streak. Feedback is per-question and immediate, and the reason the answer
+   is right is the point -- the tick is not.
+   Correctness is never carried by colour alone (a glyph and a word carry it
+   too), and the evidence-tier palette is deliberately NOT reused here: those
+   colours mean study type, not "good/bad". */
+.ac-quiz{margin:4px 0 0}
+.ac-qz{border:1px solid var(--line);border-radius:3px;padding:15px 18px 12px;margin:0 0 12px}
+.ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
+.ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzopts{list-style:none;padding:0;margin:0}
+.ac-qzopts li{margin:0 0 6px}
+.ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
+  min-height:44px;padding:9px 12px;font:inherit;font-size:15px;line-height:1.5;
+  color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:3px;
+  cursor:pointer}
+.ac-qzopt:hover{border-color:var(--teal)}
+.ac-qzopt:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ac-qzkey{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;
+  color:var(--soft);flex:0 0 auto;padding-top:1px}
+.ac-qz[data-done] .ac-qzopt{cursor:default}
+.ac-qz[data-done] .ac-qzopt:hover{border-color:var(--line)}
+.ac-qzopt[data-mark="right"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[data-mark="right"] .ac-qzkey{color:var(--teal)}
+.ac-qzopt[data-mark="wrong"]{border-color:var(--amber);box-shadow:inset 3px 0 0 var(--amber)}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey{color:var(--amber)}
+.ac-qzopt[data-mark] .ac-qzkey::after{content:" \2713"}
+.ac-qzopt[data-mark="wrong"] .ac-qzkey::after{content:" \2715"}
+.ac-qzwhy{font-size:14.5px;line-height:1.6;margin:10px 0 2px;
+  border-left:3px solid var(--teal);padding:0 0 0 12px}
+.ac-qzverdict{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qz details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-qz details>summary::-webkit-details-marker{display:none}
+.ac-qz details>summary::after{content:" \2192"}
+.ac-qz details[open]>summary::after{content:""}
+.ac-qz details p{font-size:14.5px;line-height:1.6;margin:2px 0 0}
+.ac-qztally{font-size:14px;color:var(--soft);margin:2px 0 0}
+
+/* learning objectives + research skill (Phase 2 §12/§13) ------------------ */
+.ac-objlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.ac-objlist{margin:0 0 10px;padding-left:20px}
+.ac-objlist li{font-size:15.5px;line-height:1.6;margin:0 0 5px}
+.ac-skill{font-size:14px;color:var(--soft);margin:0}
+.ac-skill span{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;margin-right:8px}
+
+/* interactive exercises (Phase 2) ---------------------------------------
+   Tri vrstvy, stejne jako kviz: obsah je v HTML, <details> ho slozi pro
+   ctenare bez JS, JS ho jen sekvencuje. Nic vedeckeho nezije jen v JS --
+   verify_prerender.py a pravidlo 13 ve verify_academy.py to hlidaji.
+   Barva nikdy nenese vyznam sama: stav uzlu je barva + tloustka + slovo,
+   spravnost je glyf + slovo. Paleta evidence tieru se tu NEPUJCUJE. */
+.ac-ex{border:1px solid var(--line);border-radius:3px;padding:16px 18px 14px;margin:0 0 16px}
+.ac-exkind{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 6px}
+.ac-ex h3{font-size:17px;line-height:1.35;margin:0 0 8px}
+.ac-ex p{font-size:15.5px;line-height:1.6;margin:0 0 10px}
+.ac-ex details{margin:0 0 4px}
+.ac-ex details>summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  list-style:none;display:inline-flex;align-items:center;min-height:44px}
+.ac-ex details>summary::-webkit-details-marker{display:none}
+.ac-ex details>summary::after{content:" \2192"}
+.ac-ex details[open]>summary::after{content:""}
+.ac-ex details p,.ac-ex details li{font-size:14.5px;line-height:1.6}
+
+/* what this shows / does not show */
+.ac-shows{list-style:none;padding:0;margin:0 0 10px}
+.ac-shows li{position:relative;padding-left:26px;font-size:15px;line-height:1.55;margin:0 0 6px}
+.ac-shows li::before{position:absolute;left:0;top:0;font-family:'IBM Plex Mono',monospace;
+  font-weight:600}
+.ac-shows li.ac-yes::before{content:"\2713";color:var(--teal)}
+.ac-shows li.ac-no::before{content:"\2715";color:var(--amber)}
+.ac-showslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:0 0 6px}
+
+/* interactive model */
+.ac-model{margin:0}
+/* Na uzkem displeji by se schema zmenslo tak, ze by popisky uzlu byly
+   necitelne. Misto toho dostane vlastni vodorovny scroll -- stranka sama
+   se nikdy neposouva do strany (stejny vzor jako .ac-cmpwrap a pravy rail). */
+.ac-mdscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0 10px}
+.ac-mdsvg{width:100%;height:auto;color:var(--ink);overflow:visible;display:block;margin:0 auto}
+.ac-mdnode rect{fill:var(--paper);stroke:var(--line-strong,rgba(0,0,0,.34));stroke-width:1}
+.ac-mdnode text{font-family:'DM Sans',-apple-system,sans-serif;font-size:12px;fill:var(--ink);
+  text-anchor:middle}
+.ac-mdnode[data-flow="on"] rect{stroke:var(--teal);stroke-width:2}
+.ac-mdnode[data-flow="off"] rect{stroke-dasharray:3 3}
+.ac-mdnode[data-flow="off"] text{fill:var(--soft)}
+.ac-mdnode{cursor:pointer}
+.ac-mdnode:focus-visible rect{outline:2px solid var(--teal);outline-offset:2px}
+.ac-mdedge{fill:none;stroke:var(--ink);stroke-width:1.2;pointer-events:none}  /* hrana nikdy nesmi prekryt klikaci uzel */
+.ac-mdedge[data-eff="inhibits"]{stroke:var(--teal);stroke-width:1.6}
+.ac-mdedge[data-flow="off"]{stroke:var(--soft);stroke-dasharray:4 4;stroke-width:1}
+.ac-mdstate{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:var(--soft);
+  text-anchor:middle}
+.ac-mdctl{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 12px}
+.ac-mdgrp{display:flex;flex-direction:column;gap:4px}
+.ac-mdgrp>span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft)}
+.ac-mdbtns{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.ac-mdbtns button{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;
+  text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
+  padding:0 14px;min-height:44px;cursor:pointer;color:var(--ink)}
+.ac-mdbtns button:last-child{border-right:none}
+.ac-mdbtns button:hover{color:var(--teal)}
+.ac-mdbtns button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink,#fff);font-weight:600}
+.ac-mdout{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px}
+.ac-mdreadout{font-family:'IBM Plex Mono',monospace;font-size:13px;margin:0 0 4px}
+.ac-mdnote{font-size:14.5px;line-height:1.6;margin:0}
+.ac-mdkey{margin:8px 0 6px;padding:0}
+.ac-mdkey div{border-top:1px solid var(--line);padding:8px 0}
+.ac-mdkey dt{font-weight:600;font-size:14.5px;margin:0 0 2px}
+.ac-mdkey dd{margin:0;font-size:14px;line-height:1.55;color:var(--soft)}
+.ac-mdkey div[data-hi="1"]{background:rgba(163,31,52,.06)}
+.ac-mdreset{background:none;border:none;padding:0;font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);
+  cursor:pointer;min-height:44px}
+.ac-mdcap{font-size:13.5px;color:var(--soft);line-height:1.55;margin:-4px 0 12px}
+.ac-mdteach{font-size:13px;color:var(--soft);line-height:1.5;margin:6px 0 0}
+
+/* predict -> observe -> explain */
+.ac-pdstep{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);display:block;margin:12px 0 6px}
+.ac-pdobs{border:1px solid var(--line);border-radius:3px;padding:12px 14px;margin:0 0 10px}
+.ac-pdmethod{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 6px}
+.ac-pdreadout{font-size:15.5px;line-height:1.55;margin:0 0 8px}
+
+/* evidence comparison */
+.ac-cmp{width:100%;border-collapse:collapse;margin:2px 0 12px;font-size:14.5px}
+.ac-cmp th,.ac-cmp td{border-bottom:1px solid var(--line);padding:8px 10px 8px 0;
+  text-align:left;vertical-align:top;line-height:1.5}
+.ac-cmp th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);font-weight:600}
+.ac-cmpwrap{overflow-x:auto}
+
+/* experiment builder */
+.ac-dsgrid{display:grid;gap:14px;margin:0 0 12px}
+@media (min-width:620px){.ac-dsgrid{grid-template-columns:1fr 1fr}}
+.ac-dsgrp{border:1px solid var(--line);border-radius:3px;padding:10px 12px}
+.ac-dsgrp>legend,.ac-dsgrp>.ac-dslbl{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:0;margin:0 0 6px}
+.ac-dsopt{display:flex;gap:9px;align-items:flex-start;min-height:44px;padding:4px 0;
+  font-size:14.5px;line-height:1.5;cursor:pointer}
+.ac-dsopt input{margin-top:5px;flex:0 0 auto;accent-color:var(--teal)}
+.ac-dsfb{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:10px 0 0}
+.ac-dsfb h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 6px;font-weight:600}
+.ac-dsfb p{font-size:14.5px;line-height:1.6;margin:0 0 8px}
+
+.ac-deeper{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.ac-deeper a{display:inline-flex;align-items:center;min-height:36px;font-size:13.5px;
+  border:1px solid var(--line);border-radius:3px;padding:5px 11px;text-decoration:none}
+.ac-deeper a:hover{border-color:var(--teal)}
+.ac-routes{list-style:none;padding:0;margin:6px 0 16px}
+.ac-routes li{margin:0 0 9px}
+.ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
+.ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
+
+@media (max-width:1000px){
+  /* Spec §10: the right rail collapses into horizontal navigation above the
+     text (order:-1 on a grid item), and the page must not overflow sideways --
+     so the strip itself scrolls, the page does not. The "where this fits"
+     block is dropped here rather than stacked: the same information is carried
+     by the prev/next bar and the curriculum link, so nothing lives only in the
+     rail. No JS, no <details> quirks. */
+  .ac-lesson{grid-template-columns:minmax(0,1fr);gap:0}
+  .ac-main{max-width:none}
+  .ac-rail{position:static;order:-1;margin:0 0 26px;padding:0 0 4px;
+    border-bottom:1px solid var(--line)}
+  .ac-rail h4{margin:0 0 6px}
+  .ac-rail ol{display:flex;gap:0;margin:0;border-left:none;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ac-rail ol::-webkit-scrollbar{display:none}
+  .ac-rail ol li{flex:0 0 auto}
+  .ac-rail ol a{white-space:nowrap;padding:8px 14px 8px 0;border-left:none;margin-left:0;
+    min-height:40px;display:flex;align-items:center}
+  .ac-ctx{display:none}
+}
+@media (max-width:560px){
+  .ac-hero .ac-lede{font-size:16px}
+  .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
+  .ac-list .ac-meta{width:100%}
+}
