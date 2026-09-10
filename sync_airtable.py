@@ -259,6 +259,24 @@ def fetch_author_allowlist(studies):
         note = g(f, "Disambiguation")
         if note:
             rec["note"] = note
+        # People_JSON: strojovy rozpad klice na jednotlive lidi. Diky nemu umi
+        # hledani na /authors/ vyrobit samostatny zaznam pro kazdeho cloveka
+        # misto jednoho slouceneho, ktery by tvrdil, ze tri studie pod
+        # "Wang S" napsal jeden clovek. Nevalidni JSON je duvod to pole
+        # PRESKOCIT, ne shodit bake -- hledani pak jen spadne zpet na jeden
+        # zaznam, coz je stav pred 10. 9. 2026.
+        raw = g(f, "People_JSON")
+        if raw:
+            try:
+                ppl = json.loads(raw)
+            except ValueError as e:
+                print("  ! People_JSON u '%s' neni platny JSON (%s) -- preskakuji" % (key, e))
+                ppl = None
+            if isinstance(ppl, list) and len(ppl) > 1:
+                clean = [q for q in ppl
+                         if isinstance(q, dict) and q.get("name") and q.get("studies")]
+                if len(clean) > 1:
+                    rec["people"] = clean
         out[key] = rec
     return out
 
