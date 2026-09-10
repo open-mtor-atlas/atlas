@@ -1339,6 +1339,54 @@ def build_author_index(studies):
     return idx
 
 
+
+def apply_author_allowlist(author_idx):
+    """Orizne author_idx na studie, ktere doopravdy patri osobe medailonku.
+
+    build_author_index() vyse kliuje autory retezcem "prijmeni + iniciala".
+    U cinskych a korejskych jmen to sleva vice lidi do jednoho klice: faze 0
+    (2026-09-10, disambiguace proti PubMedu) nasla 27 takovych klicu ze 136 a
+    tri hotove medailonky, ktere kvuli tomu pripisovaly cloveku cizi praci.
+
+    atlas_data/author_allowlist.json (pise sync_airtable.py z pole Bio_Studies
+    v tabulce Authors) rika, ktere Study_ID patri te jedne osobe. Dve pravidla:
+      * je-li allowlist neprazdny, plati misto indexu;
+      * je-li klic oznacen jako nejednoznacny a allowlist prazdny, stranka se
+        NESMI postavit -- vratime prazdny seznam a volajici ji preskoci.
+    Chybejici soubor neni chyba: bake pak bezi jako pred fazi 0.
+
+    author_idx NEmenime pro ucely odkazu u studii -- ten musi zustat synchronni
+    s buildAuthorsIndex() v index.html. Tahle funkce se pouziva jen pro
+    medailonky a /authors/.
+    """
+    ap = os.path.join(DATA, "author_allowlist.json")
+    if not os.path.exists(ap):
+        print("atlas_data/author_allowlist.json chybí -- medailonky běží bez allowlistu")
+        return author_idx
+    allow = json.load(open(ap, encoding="utf-8"))
+    AMBIG = ("Více lidí", "Vice lidi", "Chyba v datech")
+    out, trimmed, blocked = {}, 0, []
+    for key, studies in author_idx.items():
+        rec = allow.get(key)
+        if not rec:
+            out[key] = studies
+            continue
+        ok = rec.get("studies") or []
+        if ok:
+            keep = [s for s in studies if s.get("sid") in set(ok)]
+            if len(keep) != len(studies):
+                trimmed += 1
+            out[key] = keep
+        elif rec.get("status") in AMBIG:
+            blocked.append(key)
+            out[key] = []
+        else:
+            out[key] = studies
+    print("author allowlist: %d jmen v seznamu, %d oříznuto, %d zablokováno%s"
+          % (len(allow), trimmed, len(blocked), (" (" + ", ".join(sorted(blocked)[:8]) + ")") if blocked else ""))
+    return out
+
+
 def author_page(key, bio, studies):
     slug = slugify(bio["full"])
     url = f"{SITE}/author/{slug}/"
@@ -2747,8 +2795,16 @@ def main():
     if os.path.exists(abp):
         author_bios = json.load(open(abp, encoding="utf-8"))
         author_idx = build_author_index(studies)
+        author_idx = apply_author_allowlist(author_idx)
         for key, bio in author_bios.items():
-            aurl, aslug, apage = author_page(key, bio, author_idx.get(key, []))
+            allowed = author_idx.get(key, [])
+            if not allowed:
+                # Bud ten clovek nema v korpusu zadnou studii, nebo je jeho klic
+                # nejednoznacny a allowlist prazdny. V obou pripadech nemame co
+                # na strance tvrdit, tak ji nestavime.
+                print("  medailonek %s přeskočen -- žádné ověřené studie" % key)
+                continue
+            aurl, aslug, apage = author_page(key, bio, allowed)
             write(os.path.join(HERE, "author", aslug, "index.html"), apage)
             urls.append(("author", aurl))
             author_links.append((bio["full"], aurl))

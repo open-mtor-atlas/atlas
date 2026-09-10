@@ -35,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(HERE, "index.html")
 STUDIES_JSON = os.path.join(HERE, "atlas_data", "studies_baked.json")
 ENTITIES_JSON = os.path.join(HERE, "atlas_data", "entities_baked.json")
+AUTHORS_JSON = os.path.join(HERE, "atlas_data", "author_allowlist.json")
 
 # Ověřený atomický zápis sdílený s bake_from_mcp.py (ten modul má main()
 # schovaný za __main__, takže import nic nespustí).
@@ -226,6 +227,42 @@ def gaps_js(existing_beginner=None):
     return "const ATLAS_GAPS = " + json.dumps(arr, ensure_ascii=False) + ";"
 
 
+
+def fetch_author_allowlist(studies):
+    """Per-person allowlist studii pro medailonky, z tabulky Authors.
+
+    Proc to existuje: build_author_index() kliuje autory retezcem
+    "prijmeni + iniciala" primo z pole Studies.Authors. U zapadnich jmen to
+    funguje, u cinskych a korejskych ne. Faze 0 (2026-09-10, disambiguace proti
+    PubMedu) nasla 27 klicu ze 136, pod kterymi je dva a vice ruznych lidi, a
+    tri hotove medailonky (Wang S, Jiang J, Wang R) kvuli tomu pripisovaly
+    cloveku cizi praci -- napr. Shuyu Wang z Whiteheadu nesl papir Siming Wang
+    z Changchunu.
+
+    Airtable drzi v poli Bio_Studies rucne overeny seznam studii, ktere patri
+    te JEDNE osobe, o niz medailonek je. Tady se to vynasi do bake cesty, aby
+    obe renderovaci cesty (build_pages.py i V2) cetly tyz zdroj.
+
+    Name_Status = "Vice lidi" nebo "Chyba v datech" s prazdnym Bio_Studies
+    znamena "medailonek se stavet nesmi"; vynucuje to build_pages.py.
+    """
+    sid_by_rec = {s["id"]: s["sid"] for s in studies if s.get("id") and s.get("sid")}
+    out = {}
+    for r in api("Authors"):
+        f = r["fields"]
+        key = g(f, "Author")
+        if not key:
+            continue
+        allow = sorted(x for x in (sid_by_rec.get(i) for i in (f.get("Bio_Studies") or [])) if x)
+        rec = {"status": g(f, "Name_Status"), "full": g(f, "Full_Name"),
+               "affiliation": g(f, "Affiliation"), "studies": allow}
+        note = g(f, "Disambiguation")
+        if note:
+            rec["note"] = note
+        out[key] = rec
+    return out
+
+
 def write_json_verified(path, obj):
     """Atomický zápis baked JSONu + ověření délky. Tahle složka je
     OneDrive-synced a velké zápisy se tu opakovaně tiše ořízly."""
@@ -271,6 +308,22 @@ def main():
     if not write_studies_json(studies):
         sys.exit("ABORT: nepodařilo se zapsat studies_baked.json -- nepokračuji na bake.")
     print("atlas_data/studies_baked.json zapsán")
+
+    # Allowlist medailonku (2026-09-10). Neni to fatalni cesta: kdyz se
+    # nepodari, bake pokracuje a build_pages.py spadne zpet na authorIndex --
+    # tedy na stav pred fazi 0, ne na prazdno.
+    try:
+        allowlist = fetch_author_allowlist(studies)
+    except Exception as e:
+        print("  (Authors se nepodarilo nacist, author_allowlist.json nechavam byt)", e)
+        allowlist = None
+    if allowlist:
+        if write_json_verified(AUTHORS_JSON, allowlist):
+            n_amb = sum(1 for v in allowlist.values() if v.get("status") in ("Vice lidi", "Více lidí", "Chyba v datech"))
+            print("atlas_data/author_allowlist.json zapsán (%d jmen, %d nejednoznačných)"
+                  % (len(allowlist), n_amb))
+        else:
+            print("  VAROVÁNÍ: author_allowlist.json se nepodařilo zapsat")
 
     # 2026-09-07 (SEO P0 Ukol 3b): ATLAS_STUDIES se uz NEPISE do index.html --
     # homepage si ho tahá za běhu z atlas_data/studies_baked.json (zapsáno o pár
