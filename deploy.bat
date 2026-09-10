@@ -607,11 +607,15 @@ REM  in git drift away from the copy on disk. That drift is exactly what bit
 REM  events_baked.json: hand-fixed on disk, never committed, silently reverted
 REM  on the next reset, and the fix had to be redone after every deploy.
 REM
+REM  2026-09-10: author_allowlist.json je NOVY soubor (pise ho sync_airtable.py
+REM  z tabulky Authors, pole Bio_Studies). `git add -u` ho nepobere, protoze
+REM  neni tracked -- a bez nej build_pages.py spadne zpet na authorIndex a tri
+REM  medailonky zacnou zas pripisovat cizi praci. Proto stoji v seznamu nize.
 REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
 REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
 REM  one that this particular run did not touch costs nothing.
 echo    including pipeline data and reports
-for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json) do (
+for %%F in (gaps_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json) do (
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
