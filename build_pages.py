@@ -1503,6 +1503,16 @@ def changelog_page(studies):
     # Methodology changes are a different kind of entry from a per-study
     # correction -- they change how EVERY record is read, so they are listed
     # first and by hand. Added 2026-09-07 with the evidence-code rename.
+    #
+    # Scope rule (decided 2026-09-12): this list is for changes to
+    # methodology, or to how studies are processed or read as data --
+    # e.g. a tiering/grading-system change, a change to how evidence is
+    # classified or scored, a change to what counts as in/out of the
+    # corpus. It is NOT for implementation bugs, rendering/display fixes,
+    # or anything where the underlying method and data were already
+    # correct and only the presentation lagged behind (e.g. a palette or
+    # tooltip not reaching the static pages). Those belong in commit
+    # messages / build handover docs, not here.
     method_changes = [
         ("2026-09-07",
          "Evidence codes renamed from A\u2013D to S / H / A / M / R, and "
@@ -1523,14 +1533,6 @@ def changelog_page(studies):
          "(Harvard T.H. Chan School of Public Health), who pointed out that "
          "rigorous mechanistic work should not be weighted down merely for not "
          "yet having been shown in humans."),
-        ("2026-09-07",
-         "Static pages were painting a retired palette",
-         "The evidence-marker colours were flattened to equal brightness in "
-         "August 2026, precisely so no marker could look duller than another. "
-         "That fix reached the interactive Atlas but not the 471 static pages, "
-         "which kept the old green-to-grey ramp, and their badges carried no "
-         "explanatory tooltip at all. Both are fixed, and the automated palette "
-         "check now covers the static generators as well."),
     ]
     method_html = "".join(
         f'<tr><td data-l="Date">{e(d)}</td>'
@@ -2055,7 +2057,6 @@ Barton, O. ({year}). <em>Oliver's mTOR Atlas</em> [Data set]. Zenodo.
 <p>A machine-readable citation file is also available:
 <a href="{SITE}/CITATION.cff">CITATION.cff</a>.</p>
 
-# --- SEO P0 Ukol 3 (2026-09-02): /data/ download section ---
 <h2>Download the data</h2>
 <p>The full corpus as flat CSV/JSON files -- the same data behind every
 page on this site, without scraping HTML. Regenerated on every deploy,
