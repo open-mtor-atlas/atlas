@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-stamp_pathway_version.py — cache-busting pro lazy-loadované pathway assety.
+stamp_pathway_version.py – cache-busting pro lazy-loadované pathway assety.
 
 PROČ TOHLE EXISTUJE
 index.html se při deployi mění, takže ho GitHub Pages / CDN obslouží nově.
 Ale pathway/pathway.js, pathway.css a model.json se stahují až za běhu na
-pevných URL — a ty CDN i prohlížeč drží v cache. Po nasazení nové verze
+pevných URL – a ty CDN i prohlížeč drží v cache. Po nasazení nové verze
 modulu tak stará stránka klidně načte STARÝ modul k NOVÉMU modelu.
 Přesně to se stalo při prvním nasazení Fáze 1: server měl nový JS,
 prohlížeč servíroval starý a "DETAIL" ovládání chybělo.
@@ -54,14 +54,14 @@ def main():
         j = html.find('"', i)
         old = html[i:j]
         if old == ver:
-            print("pathway assets unchanged — version stays %s" % ver)
+            print("pathway assets unchanged – version stays %s" % ver)
             return 0
         html = html[:i] + ver + html[j:]
         print("pathway asset version %s -> %s" % (old, ver))
     else:
         anchor = "function pwLoadAsset(tag, attrs){"
         if anchor not in html:
-            print("FAIL: pwLoadAsset not found — pathway asset loader is missing from index.html")
+            print("FAIL: pwLoadAsset not found – pathway asset loader is missing from index.html")
             return 1
         html = html.replace(anchor, 'var PW_ASSET_V = "%s";\n%s' % (ver, anchor), 1)
         print("pathway asset version set to %s" % ver)
@@ -79,7 +79,7 @@ def main():
         with io.open(tmp, "rb") as f:
             back = f.read()
         if back != blob:
-            print("FAIL: temp file did not match — not swapping it in")
+            print("FAIL: temp file did not match – not swapping it in")
             return 1
         os.replace(tmp, p)
     finally:

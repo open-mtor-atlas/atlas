@@ -28,14 +28,14 @@ DRY = "--dry-run" in sys.argv
 OLD_FINDING_P = (
     "Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, "
     "Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests only on M "
-    "— molecular — evidence - and the sensors link to ZERO longevity / aging outcomes. "
+    "— molecular – evidence - and the sensors link to ZERO longevity / aging outcomes. "
     "The most drug-specific part of the pathway is phenotype-untested."
 )
 NEW_FINDING_P = (
     "Every amino-acid sensor and upstream regulator (Sestrin2, CASTOR1, SAMTOR, "
     "Rag GTPases, GATOR1/2, Ragulator, Rheb, PRAS40, AMPK) rests almost entirely on "
-    "M — molecular — evidence, and exactly one of them - Sestrin2 - links to an "
-    "organismal ageing phenotype at all (LEE2010, Drosophila, A — animal; carried as the "
+    "M – molecular – evidence, and exactly one of them - Sestrin2 - links to an "
+    "organismal ageing phenotype at all (LEE2010, Drosophila, A – animal; carried as the "
     "SESN2-AGING edge). No mammalian lifespan and no human ageing endpoint exists for "
     "any sensor. The most drug-specific part of the pathway is very nearly phenotype-untested."
 )

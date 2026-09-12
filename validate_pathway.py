@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-validate_pathway.py — vědecká a strukturní branka pro pathway/model.json.
+validate_pathway.py – vědecká a strukturní branka pro pathway/model.json.
 
 PROČ TOHLE EXISTUJE
 -------------------
@@ -11,12 +11,12 @@ Externí recenze (F4) našla přesně ten druh chyby, kterou tenhle skript
 zachytí strojově: pravidlo pro tier bylo definováno jinak, než bylo použito.
 
 CO KONTROLUJE
-  1. Slovníky   — každý type/effect/timescale/directness/confidence z povolené sady.
-  2. Referenční integrita — každý source/target existuje jako uzel;
+  1. Slovníky   – každý type/effect/timescale/directness/confidence z povolené sady.
+  2. Referenční integrita – každý source/target existuje jako uzel;
      každý uzel má kompartment, který existuje; každá trasa odkazuje na
      existující interakce.
-  3. Citace     — každý SID existuje v korpusu; každá interakce má >=1 studii.
-  4. Kalibrace  — tvrzení nesmí být silnější než evidence:
+  3. Citace     – každý SID existuje v korpusu; každá interakce má >=1 studii.
+  4. Kalibrace  – tvrzení nesmí být silnější než evidence:
        * human_relevance = "established" vyžaduje aspoň jednu studii s ULOŽENÝM
          tierem A/B (zobrazuje se jako S = přehled lidských dat, H = lidská
          studie) NEBO species obsahující human.
@@ -24,9 +24,9 @@ CO KONTROLUJE
        * consensus = "established" se nesmí kombinovat s mechanistic = "low".
        * directness = "direct" u typu signal-relay je protimluv.
        * clinical-outcome / association nesmí být directness = "direct".
-  5. Pedagogika — každý uzel má text ve všech třech úrovních; žádný z nich
+  5. Pedagogika – každý uzel má text ve všech třech úrovních; žádný z nich
      není prázdný ani duplikát jiné úrovně.
-  6. Neizolovanost — žádný uzel bez hrany (tichý zbytek po editaci).
+  6. Neizolovanost – žádný uzel bez hrany (tichý zbytek po editaci).
 
 POUŽITÍ
     py validate_pathway.py            # report
@@ -48,7 +48,7 @@ TYPES = {
     "transport", "signal-relay", "functional-consequence", "clinical-outcome",
     "association",
     # Nález recenze č. 6: "stabilizuje" a "degraduje" jsou jiná biologická
-    # tvrzení než "fosforyluje" — fosforylace je tady prostředek, ne děj.
+    # tvrzení než "fosforyluje" – fosforylace je tady prostředek, ne děj.
     "stabilization", "degradation",
 }
 EFFECTS = {"activates", "inhibits", "required-for", "recruits", "binds", "context-dependent"}
@@ -84,9 +84,9 @@ def main():
             if not (ex.get(lvl) or "").strip():
                 E("node %s: missing %s explanation" % (nid, lvl))
         if ex.get("beginner") == ex.get("student") or ex.get("student") == ex.get("research"):
-            W("node %s: two learning levels are identical — the level switch does nothing here" % nid)
+            W("node %s: two learning levels are identical – the level switch does nothing here" % nid)
         if nid not in used:
-            W("node %s: no interactions — orphan in the graph" % nid)
+            W("node %s: no interactions – orphan in the graph" % nid)
 
     # --- 2+3+4 interakce --------------------------------------------------
     seen = set()
@@ -122,7 +122,7 @@ def main():
         ev = i.get("evidence", {})
         sup = ev.get("supporting") or []
         if not sup:
-            E("%s: no supporting study — every interaction must be citable" % iid)
+            E("%s: no supporting study – every interaction must be citable" % iid)
         for sid in sup + (ev.get("conflicting") or []):
             if sid not in sid_tier:
                 E("%s: cites SID %s which is not in the corpus" % (iid, sid))
@@ -133,7 +133,7 @@ def main():
         if c.get("human_relevance") == "established" and not (tiers & {"A", "B"}) and "human" not in sp:
             E("%s: human_relevance=established but no human-level study (stored tier "
               "A/B, displayed S/H) and no human model "
-              "(this is exactly finding F4 — do not let clinical language rest on cell-line data)" % iid)
+              "(this is exactly finding F4 – do not let clinical language rest on cell-line data)" % iid)
         if c.get("mechanistic") == "high" and ev.get("kind") == "Correlative":
             E("%s: mechanistic=high on correlative evidence" % iid)
         if c.get("mechanistic") == "high" and len(sup) == 1 and tiers <= {"D"}:
@@ -142,7 +142,7 @@ def main():
         if c.get("consensus") == "established" and c.get("mechanistic") == "low":
             E("%s: consensus=established with mechanistic=low is a contradiction" % iid)
         if i["type"] == "signal-relay" and i["directness"] == "direct":
-            E("%s: signal-relay cannot be direct — a relay is by definition multi-step" % iid)
+            E("%s: signal-relay cannot be direct – a relay is by definition multi-step" % iid)
         if i["type"] in ("clinical-outcome", "association") and i["directness"] == "direct":
             E("%s: %s must not be marked direct" % (iid, i["type"]))
         if i["type"] == "association" and c.get("mechanistic") != "low":
@@ -160,7 +160,7 @@ def main():
         if ev.get("studies_in_corpus", 0) == 0 and (ev.get("interactions_in", 0) + ev.get("interactions_out", 0)):
             W("node %s: has interactions but no cited studies behind any of them" % nid)
         if not (ev.get("caveat") or "").strip():
-            E("node %s: evidence block must carry the corpus caveat — a bare study "
+            E("node %s: evidence block must carry the corpus caveat – a bare study "
               "count reads as a literature count and would be misleading" % nid)
         for lvl in ("beginner", "student", "research"):
             pass
@@ -173,7 +173,7 @@ def main():
         if lp.get("sign") not in ("negative", "positive"):
             E("loop %s: bad sign %r" % (lp["id"], lp.get("sign")))
         if not (lp.get("sign_caveat") or "").strip():
-            E("loop %s: sign must ship with its caveat — parity says direction, not strength" % lp["id"])
+            E("loop %s: sign must ship with its caveat – parity says direction, not strength" % lp["id"])
         for eid in lp["interactions"]:
             if eid not in seen:
                 E("loop %s references unknown interaction %s" % (lp["id"], eid))
@@ -188,7 +188,7 @@ def main():
             if not (lp.get(k) or "").strip():
                 E("open loop %r: missing %s" % (lp.get("name"), k))
         # Otevřená smyčka nesmí být ve skutečnosti uzavřená. Když se dokurátoruje
-        # chybějící krok, deklarace se musí odebrat — jinak model tvrdí, že neumí
+        # chybějící krok, deklarace se musí odebrat – jinak model tvrdí, že neumí
         # uzavřít smyčku, kterou už uzavřel. Přesně tohle se stalo u TFEB.
         words = {w.strip().lower() for w in re.split(r"[^A-Za-z0-9α-ω/\-]+", lp.get("name", "")) if len(w.strip()) > 3}
         for det in m.get("loops", []):
@@ -225,7 +225,7 @@ def main():
                 E("route %s: journey.%s is missing or too short to be an answer" % (r["id"], k))
         b = j.get("breakthrough") or {}
         if not (b.get("why") or "").strip():
-            E("route %s: breakthrough needs a WHY — naming a paper without saying what it "
+            E("route %s: breakthrough needs a WHY – naming a paper without saying what it "
               "broke open teaches nothing" % r["id"])
         # Legitimní ústupová cesta. Některé trasy jednu zlomovou práci nemají a
         # vyžadovat ji by tlačilo k nominaci práce, která si to nezaslouží.
@@ -244,7 +244,7 @@ def main():
                     E("route %s: synthesis cites %s, which is not in the corpus" % (r["id"], sid))
         else:
             E("route %s: breakthrough must name a paper OR declare a synthesis. If no single "
-              "study broke this open, say so explicitly — do not nominate one that did not."
+              "study broke this open, say so explicitly – do not nominate one that did not."
               % r["id"])
 
     for r in m.get("routes", []):
@@ -252,7 +252,7 @@ def main():
             if ref not in seen:
                 E("route %s: references unknown interaction %s" % (r["id"], ref))
         # Každá trasa musí být DOPSANÁ. Šest ze sedmi tras dlouho běželo na
-        # automaticky složených krocích — byly poctivé, ale generické, a
+        # automaticky složených krocích – byly poctivé, ale generické, a
         # recenzent by si toho všiml dřív než chybějícího tématu. Bez branky
         # se osmá trasa nasadí zas jako šablona.
         if len(r.get("steps", [])) != len(r.get("spine", [])):
@@ -262,7 +262,7 @@ def main():
         for k, st in enumerate(r.get("steps", [])):
             if st.get("interaction") != (r.get("spine") or [None] * (k + 1))[k]:
                 E("route %s step %d: authored step is out of order with the spine "
-                  "(%r vs %r) — the narrative would not match the camera"
+                  "(%r vs %r) – the narrative would not match the camera"
                   % (r["id"], k + 1, st.get("interaction"),
                      (r.get("spine") or [None] * (k + 1))[k]))
             if len((st.get("matters") or "")) < 80:
@@ -277,7 +277,7 @@ def main():
                 if not (st.get(k) or "").strip():
                     E("route %s step %s: missing %s" % (r["id"], st.get("interaction"), k))
 
-    print("pathway/model.json — %d nodes, %d interactions, %d routes"
+    print("pathway/model.json – %d nodes, %d interactions, %d routes"
           % (len(m["nodes"]), len(m["interactions"]), len(m.get("routes", []))))
     print("ERRORS   %d" % len(errors))
     for e in errors:

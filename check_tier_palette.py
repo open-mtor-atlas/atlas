@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-check_tier_palette.py — branka pro paletu evidence tierů.
+check_tier_palette.py – branka pro paletu evidence tierů.
 
 PROČ TOHLE EXISTUJE
 -------------------
 Recenzent (2026-07-29, bod 9) namítl, že tier badge vypadají jako známkování
 kvality, ne jako typ studie. Původní paleta šla zelená → modrá → jantarová →
-šedá, tedy od "živé" k "mdlé" — a čtenář z toho čte pořadí. Tier D pak vypadá
+šedá, tedy od "živé" k "mdlé" – a čtenář z toho čte pořadí. Tier D pak vypadá
 jako špatná věda, přitom znamená jen "mechanistická práce v buňkách".
 
 Oprava není jen jiná čtyři barvy. Je to PRAVIDLO, které musí platit dál:
 
   1. Čtyři typy studií (A–D) mají STEJNOU relativní luminanci. Když mají
-     stejnou světlost, nemůže jedna vypadat "lepší" než druhá — liší se jen
+     stejnou světlost, nemůže jedna vypadat "lepší" než druhá – liší se jen
      odstín, a odstín kóduje zkoumaný systém, ne kvalitu.
   2. Každá dvojice musí být rozlišitelná (jinak je paleta k ničemu).
   3. Kontrast textu na chipu >= 4.5:1 v obou tématech.
   4. Žádný tier nesmí kolidovat s brandovými barvami.
-  5. PP a RT nejsou typ studie, ale STAV úplnosti — kreslí se obtaženě, ne
+  5. PP a RT nejsou typ studie, ale STAV úplnosti – kreslí se obtaženě, ne
      vyplněně, takže mají jiný tvar, ne jen jinou barvu.
   6. Barvy hran v pathway modulu NESMÍ sdílet proměnné s tiery. Když je
      sdílely, přebarvení tierů potichu změnilo význam šipek v dráze.
@@ -120,17 +120,17 @@ def main():
     ls = [lum(light[k]) for k in TIERS]
     spread = max(ls) - min(ls)
     if spread > 0.02:
-        errs.append("evidence tiers span %.4f in luminance — that reads as a quality ramp. "
+        errs.append("evidence tiers span %.4f in luminance – that reads as a quality ramp. "
                     "The four study types must sit at equal luminance; only hue may differ." % spread)
     ld = [lum(dark[k]) for k in TIERS]
     if max(ld) - min(ld) > 0.03:
-        errs.append("dark-theme tiers span %.4f in luminance — same ramp problem" % (max(ld) - min(ld)))
+        errs.append("dark-theme tiers span %.4f in luminance – same ramp problem" % (max(ld) - min(ld)))
 
     # 2. mutual distinguishability
     for a, b in itertools.combinations(TIERS, 2):
         d = dist(light[a], light[b])
         if d < 100:
-            errs.append("tiers %s and %s are only %d apart — not tellable apart"
+            errs.append("tiers %s and %s are only %d apart – not tellable apart"
                         % (a.upper(), b.upper(), d))
 
     # 3. text contrast on the chip
@@ -158,7 +158,7 @@ def main():
 
     # 4b. a tier letter must never appear without its meaning, and must never be
     #     described as a "strength". The live badges carried title="Evidence
-    #     strength" — the exact framing the review objected to, baked into the
+    #     strength" – the exact framing the review objected to, baked into the
     #     markup while TIER_LABELS sat unused one call site away.
     # 2026-09-07: read `spa`, not `html`. Since the stylesheet was extracted,
     # `html` IS assets/atlas.css, where a title= attribute cannot occur -- so
@@ -168,14 +168,14 @@ def main():
         errs.append('a tier badge is still labelled "Evidence strength". A tier records the '
                     "KIND of study, not its strength; that title is the misreading itself.")
     if "function tierTitle(" not in spa:
-        errs.append("tierTitle() is gone — tier letters would render without their meaning")
+        errs.append("tierTitle() is gone – tier letters would render without their meaning")
     if spa.count("tierTitle(") < 4:
         errs.append("tierTitle() has only %d call sites; every badge emitter must use it, "
                     "or some letters stand alone again" % spa.count("tierTitle("))
 
     # 5. status tiers must render outlined, not filled
     if "status:true" not in spa:
-        errs.append("tierMeta no longer marks PP/RT as status — they would render as if "
+        errs.append("tierMeta no longer marks PP/RT as status – they would render as if "
                     "they were a kind of study rather than a completeness state")
     css = io.open(os.path.join(ROOT, "pathway", "pathway.css"), encoding="utf-8").read()
     if ".pw-dot.st" not in css:

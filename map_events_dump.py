@@ -24,7 +24,7 @@ import sys, os, json, datetime, re
 # 4 events before 2026-08-15. Since the marker lives in prose, every new event
 # added by hand or by the daily check can reintroduce it, so this guard aborts
 # the bake instead of shipping an invisible row. Fix by prefixing the Airtable
-# mTOR_Relevance with "TIER n — ", per the legend rendered on the Events tab:
+# mTOR_Relevance with "TIER n – ", per the legend rendered on the Events tab:
 #   TIER 1  mTOR is a named subject of the programme, or the meeting's disease is mTOR
 #   TIER 2  a major recurring theme alongside adjacent biology
 #   TIER 3  relevance inferred from who attends, not what the programme says
@@ -128,7 +128,7 @@ def main():
               "(no left border, no wash).")
         for e in untiered:
             print("  - %s  [%s]" % (e["name"], e.get("start") or "no start date"))
-        print("Fix: prefix the Airtable mTOR_Relevance with 'TIER n — ' "
+        print("Fix: prefix the Airtable mTOR_Relevance with 'TIER n – ' "
               "(1 = mTOR named in the programme; 2 = major recurring theme; "
               "3 = inferred from who attends). Then re-run this script.")
         sys.exit("events_baked.json NOT written -- do not proceed to bake/deploy")

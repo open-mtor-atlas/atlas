@@ -76,7 +76,7 @@ def build_prompt(question,k=12):
     ctx=[]
     for m in hits:
         ctx.append(
-            f"[{m['_rank']}] ({m.get('Evidence_Tier','?')}) {m.get('Title','')} — "
+            f"[{m['_rank']}] ({m.get('Evidence_Tier','?')}) {m.get('Title','')} – "
             f"{_cite(m)}; model: {m.get('Model','') or '-'}. "
             f"Abstract: {m.get('Abstract_PubMed','').strip()}"
         )

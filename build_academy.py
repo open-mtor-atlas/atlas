@@ -1322,7 +1322,7 @@ CHALLENGE_JS = """
     if(nextHead) nextHead.hidden=closed||!runnable;
     if(nextLbl){
       nextLbl.textContent=((cursor===null)?'Where to start':'What this step opened up')+
-                          (kids.length>1?' — pick one':'');
+                          (kids.length>1?' – pick one':'');
     }
     if(nextBox) nextBox.hidden=closed;
     if(openBox){
@@ -1335,7 +1335,7 @@ CHALLENGE_JS = """
     }
     if(cursor!==null&&!runnable&&!closed&&nextLbl){
       if(nextHead) nextHead.hidden=false;
-      nextLbl.textContent='This line is finished — go back to an earlier step to take another branch.';
+      nextLbl.textContent='This line is finished – go back to an earlier step to take another branch.';
     }
 
     /* trasa */
@@ -1414,7 +1414,7 @@ CHALLENGE_JS = """
       h+='<p>The cheapest route to '+n+(n===1?' answer':' answers')+' is <strong>'+ch.cost+
          '</strong> '+D.unit+': '+names(ch.route)+'.'+
          (spent>ch.cost?' You spent '+(spent-ch.cost)+' more than that.':
-          (spent===ch.cost?' That is exactly what you spent — you took the shortest way there.':''))+
+          (spent===ch.cost?' That is exactly what you spent – you took the shortest way there.':''))+
          '</p>';
     }
     if(n<D.best.goals){
@@ -1969,7 +1969,7 @@ def model_block(ex, pw, ent_url):
             g.append('<g class="ac-mdnode" data-node="%s" tabindex="0" role="button" '
                      'aria-label="%s"><rect x="%d" y="%.0f" width="%d" height="%d" rx="3"/>'
                      '<text x="%.0f" y="%.0f">%s</text></g>'
-                     % (e(nid), e("%s — show explanation" % label), x, y, COLW, NH,
+                     % (e(nid), e("%s – show explanation" % label), x, y, COLW, NH,
                         x + COLW / 2.0, y + NH / 2.0 + 4, e(label)))
     # hrany: jen ty, ktere v modelu SKUTECNE existuji
     edges = []
@@ -2332,7 +2332,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
 
     body.append('<section class="ac-section"><h2 id="evidence">What does the evidence say?</h2>')
     body.append("<p>These are Atlas studies, with the Atlas's own evidence tier. "
-                "Each card links to the full record — nothing here restates it.</p>")
+                "Each card links to the full record – nothing here restates it.</p>")
     body.append(evidence_cards(les["studies"], by_sid))
     if les.get("uncertainty"):
         body.append('<p class="ac-note">%s</p>' % prose(les["uncertainty"]))
@@ -2421,7 +2421,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
         "audience": {"@type": "Audience",
                      "audienceType": "students and self-directed learners with a "
                                      "basic biology background"},
-        "isPartOf": {"@type": "Course", "name": "%s — mTOR Academy" % module["title"],
+        "isPartOf": {"@type": "Course", "name": "%s – mTOR Academy" % module["title"],
                      "url": "%s/academy/%s/" % (SITE, module["slug"])},
         "about": dict(DATASET_REF),
         "author": {"@type": "Person", "name": "Oliver Barton", "url": "https://orcid.org/0009-0008-2025-2148", "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
@@ -2484,7 +2484,7 @@ def curriculum_page(module, lessons_by_slug):
 
     published = [r for r in module["lessons"] if r["status"] == "published"]
     ld = {"@context": "https://schema.org", "@type": "Course",
-          "name": "%s — mTOR Academy" % module["title"], "url": url,
+          "name": "%s – mTOR Academy" % module["title"], "url": url,
           "description": module["description"], "inLanguage": "en",
           "provider": {"@type": "Organization", "name": "Oliver's mTOR Atlas",
                        "url": SITE + "/"},
@@ -3269,7 +3269,7 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
           "audience": {"@type": "Audience",
                        "audienceType": "students and self-directed learners with a "
                                        "basic biology background"},
-          "isPartOf": {"@type": "Course", "name": "Research Challenges — mTOR Academy",
+          "isPartOf": {"@type": "Course", "name": "Research Challenges – mTOR Academy",
                        "url": "%s/academy/research-challenges/" % SITE},
           "about": dict(DATASET_REF),
           "author": {"@type": "Person", "name": "Oliver Barton", "url": "https://orcid.org/0009-0008-2025-2148", "sameAs": ["https://orcid.org/0009-0008-2025-2148"]},
@@ -3323,7 +3323,7 @@ def challenges_index(challenges, lessons_by_slug):
     body.append('<p><a class="ac-cta ac-quiet" href="%s/academy/core/">Back to the lessons '
                 '&rarr;</a></p>' % SITE)
     ld = {"@context": "https://schema.org", "@type": "Course",
-          "name": "Research Challenges — mTOR Academy", "url": url,
+          "name": "Research Challenges – mTOR Academy", "url": url,
           "description": "Interactive research challenges built on the Atlas's own "
                          "evidence-graded studies: design experiments under a limited "
                          "budget, interpret what they support, and compare your reasoning "
@@ -3453,7 +3453,7 @@ def main():
 Kontrola:  py verify_academy.py
 POZOR: build_pages.py se musi spustit PO tomhle skriptu, jinak stranky studii
 nedostanou aktualni blok "Learn the biology".""" % (
-        "DRY RUN — nic nezapsano" if DRY else "Hotovo.",
+        "DRY RUN – nic nezapsano" if DRY else "Hotovo.",
         len(urls), len(sid_to_lesson), BP.STATS["written"], BP.STATS["unchanged"]))
 
 

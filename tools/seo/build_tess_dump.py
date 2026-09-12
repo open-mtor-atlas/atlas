@@ -46,7 +46,7 @@ def main():
         "_neoverene": "field names follow Bioschemas TrainingMaterial/Course; "
                        "verify against tess.elixir-europe.org before submitting",
         "type": "Course",
-        "title": "%s — mTOR Academy" % mod["title"],
+        "title": "%s – mTOR Academy" % mod["title"],
         "description": mod["description"],
         "url": "%s/academy/%s/" % (SITE, mod["slug"]),
         "resourceType": ["e-learning"],

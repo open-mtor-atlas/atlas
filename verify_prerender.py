@@ -122,7 +122,7 @@ def main():
     pages = sorted(set(pages))
 
     if not pages:
-        sys.exit("ŽÁDNÉ vygenerované stránky — spusť nejdřív build_pages.py")
+        sys.exit("ŽÁDNÉ vygenerované stránky – spusť nejdřív build_pages.py")
 
     thin, nold, nocanon, sizes = [], [], [], []
     for p in pages:
@@ -233,8 +233,8 @@ def main():
     if not check_index_tabs():
         ok = False
 
-    print("\n%s" % ("OK — crawler bez JS uvidí obsah na všech stránkách."
-                    if ok else "NEPROŠLO — nenasazuj."))
+    print("\n%s" % ("OK – crawler bez JS uvidí obsah na všech stránkách."
+                    if ok else "NEPROŠLO – nenasazuj."))
     sys.exit(0 if ok else 1)
 
 

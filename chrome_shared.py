@@ -56,7 +56,7 @@ def static_footer_html(site, build_timestamp):
     links = _static_footer_links_html(site)
     return (
         '<footer class="oma-footer">\n'
-        "<p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR\n"
+        "<p><strong>Oliver's mTOR Atlas</strong> – an evidence-graded database of the mTOR\n"
         "pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.\n"
         f'Curated by <a href="{site}/author/oliver-barton/">Oliver Barton</a>, Prague.</p>\n'
         f'<div class="oma-footer-links">\n{links}\n</div>\n'

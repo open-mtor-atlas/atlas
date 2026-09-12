@@ -453,7 +453,7 @@ def main():
 
     # --- report ---
     lines = [
-        "# Fáze 6, krok 2 — normalizace entit", "",
+        "# Fáze 6, krok 2 – normalizace entit", "",
         "Vygenerováno: %s · %d studií" % (auto["generated"], len(studies)), "",
         "## Kolik práce zbývá na člověka", "",
         "| | počet |", "|---|---|",
@@ -466,7 +466,7 @@ def main():
         "## Návrhy hran pro tabulku Relations", "",
         "Z pořadí atomů v AI_Target (`A / B / C` = směr signálu) vzniklo",
         "**%d unikátních dvojic** z %d výskytů. Všechny jsou `Proposed` a" % (len(by_pair), len(relation_rows)),
-        "`heuristic-order` — pořadí ve volném textu NENÍ důkaz směru regulace,",
+        "`heuristic-order` – pořadí ve volném textu NENÍ důkaz směru regulace,",
         "je to jen kandidát pro tvůj existující review workflow.", "",
         "## Nejčastější atomy", "", "| # | atom | zmínek | studií | varianty |",
         "|---|---|---|---|---|",
@@ -478,9 +478,9 @@ def main():
     lines += ["", "## Zamítnuto (nejde o entity)", ""]
     for t, n in rejected.most_common(20):
         lines.append("- `%s` (%d×)" % (t, n))
-    lines += ["", "## AI_Species — kontrolovaný slovník", ""]
+    lines += ["", "## AI_Species – kontrolovaný slovník", ""]
     for name, n in auto["species_vocabulary"]:
-        lines.append("- %s — %d" % (name, n))
+        lines.append("- %s – %d" % (name, n))
     if auto["species_unmapped"]:
         lines += ["", "Nenamapováno (doplň pravidlo do SPECIES_MAP):", ""]
         for u in auto["species_unmapped"][:15]:

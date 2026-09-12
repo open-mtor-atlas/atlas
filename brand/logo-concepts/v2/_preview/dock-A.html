@@ -145,7 +145,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .center{padding:0;display:flex;flex-direction:column;}
 .entity-detail{padding:20px 24px 20px;}
 .entity-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;}
-/* Entity Browser detail pane — mechanism link-out + related-entities chips
+/* Entity Browser detail pane – mechanism link-out + related-entities chips
    (replaced the two graph widgets 2026-08-06, see renderDetail()). */
 .mech-link-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 20px;padding:12px 14px;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);}
 .mech-link-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:8px 14px;border:1.5px solid var(--teal);background:var(--teal);color:var(--on-teal);cursor:pointer;border-radius:0;white-space:nowrap;flex-shrink:0;}
@@ -519,7 +519,7 @@ table.matrix td.rowlabel{text-align:left;font-family:'IBM Plex Mono',monospace;f
   #lineageView .lhs-item .idx{font-family:var(--mono);font-size:1em;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;font-weight:500;}
   #lineageView .lhs-item .nm{font-family:var(--mono);font-size:1em;letter-spacing:.12em;color:var(--ink);text-transform:uppercase;font-weight:500;}
   #lineageView .lhs-item .nt{font-family:var(--sans);font-size:.95em;color:var(--ink-soft);display:block;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  #lineageView .canvas svg {display:block}   /* rendered 1:1 and scrolled — never scaled down, so labels stay legible */
+  #lineageView .canvas svg {display:block}   /* rendered 1:1 and scrolled – never scaled down, so labels stay legible */
   #lineageView .hint {font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px}
   #lineageView .zoom-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;}
   #lineageView .zoom-bar .hint{margin:0;}
@@ -712,12 +712,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 /* `overflow-x:clip` (not `hidden`) is deliberate: hidden would turn <body>
    into a scroll container and silently break every position:sticky
    descendant. clip contains runaway width without that side-effect.
-   It is a safety net only — the real fixes are the min-width rules below. */
+   It is a safety net only – the real fixes are the min-width rules below. */
 @supports (overflow:clip){body{overflow-x:clip;}}
 
 /* The single biggest source of mobile overflow in this codebase.
    Grid and flex children default to min-width:auto, which refuses to
-   shrink below their content — so one 940px SVG stretched .center,
+   shrink below their content – so one 940px SVG stretched .center,
    .rail-left and #entityDetail to 964px at every width.
    Measured before this rule: 619-674px of horizontal overflow on the
    Pathway tab, 1696-1751px on Timeline. */
@@ -732,7 +732,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 .about-flex-text,.intro-col,.ask-wrap,.oq-card{min-width:0;max-width:100%;}
 
 /* media never escapes its container. The two gesture-controlled maps are
-   exempt — they are sized by the pan/zoom controller, not by layout. */
+   exempt – they are sized by the pan/zoom controller, not by layout. */
 img,canvas,video{max-width:100%;height:auto;}
 svg:not(#lineageTree):not(.fullmap-scroll svg):not(.mx-canvas svg){max-width:100%;}
 
@@ -1478,4 +1478,4 @@ html.force-desktop .mnav-scrim{display:none !important;}
       <div class="tab" data-tab="lineage">Timeline</div>
       <div class="tab" data-tab="about">About</div>
     </div>
-  </div><div class="atlas-intro"><div class="ase-eyebrow">Oliver's mTOR Atlas · <b>Welcome</b></div><h2 class="intro-headline">Everything the landmark literature shows about mTOR — <em>and everything it doesn’t</em></h2></div></div><div class="prev-lbl">Dock A · značka</div></body></html>
+  </div><div class="atlas-intro"><div class="ase-eyebrow">Oliver's mTOR Atlas · <b>Welcome</b></div><h2 class="intro-headline">Everything the landmark literature shows about mTOR – <em>and everything it doesn’t</em></h2></div></div><div class="prev-lbl">Dock A · značka</div></body></html>

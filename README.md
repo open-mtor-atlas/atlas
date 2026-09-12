@@ -8,23 +8,28 @@ A curated, evidence-graded database of mTOR pathway research. Every study is rat
 
 ## What's inside
 
-- 300+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in vitro, R = review) and linked back to its DOI/PubMed record. These codes ran A-D until September 2026; they were renamed because a lettered ladder reads as a quality grade, which it never was.
+- 360+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each labelled by the kind of study behind it and linked back to its DOI/PubMed record.
 - A knowledge-graph view connecting genes, diseases, and interventions.
 - An "open questions" layer - evidence gaps identified across the corpus, each paired with a proposed testable experiment.
 - A citation-grounded research assistant that answers pathway questions using only the indexed corpus, with links back to source studies.
 
 ## Evidence grading
 
-Studies are hand-selected from PubMed / Europe PMC and rated on a four-tier scale:
+Studies are hand-selected from PubMed / Europe PMC and labelled by **study design**, not by quality, importance, or citation count:
 
-- A - systematic review / meta-analysis
-- B - human trial
-- C - animal model
-- D - mechanistic / in-vitro / review
+- **S** - synthesis of human data (systematic review / meta-analysis)
+- **H** - human study (clinical trial or observational)
+- **A** - animal model
+- **M** - molecular / in-vitro (mechanistic)
+- **R** - review
+
+These codes ran A-D until September 2026. They were renamed because a lettered ladder reads as a quality grade, which it never was, and because the old bottom tier merged primary mechanistic work with narrative reviews - two different kinds of claim. The change was prompted by an external critique from a researcher in the field; the underlying data was not re-graded, only the labels shown to readers.
+
+A mechanistic paper is not "worse" than a trial. The code says what kind of claim a study can support, not how good it is.
 
 ## About this project
 
-Built and maintained independently by Oliver, a high-school student, together with his father Petr. Not affiliated with any lab, company, or institution. Feedback on the evidence grading, missing studies, or anything that looks wrong is very welcome - please open an issue.
+Built and maintained independently by Oliver, a high-school student, together with his father Petr. Not affiliated with any lab, company, or institution. Feedback on the evidence grading, missing studies, or anything that looks wrong is very welcome - please open an issue. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Citing this dataset
 
@@ -34,4 +39,9 @@ A single page with all identifiers, registrations (bio.tools, FAIRsharing, GitHu
 
 ## License
 
-Content is licensed under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+This repository is dual-licensed, because it contains two different kinds of thing:
+
+- **Curated content and data** - the study records, evidence grades, curated prose, gap hypotheses, and everything under `atlas_data/` and the generated pages - are licensed under **CC BY 4.0** (see [LICENSE](LICENSE)): https://creativecommons.org/licenses/by/4.0/
+- **Source code** - the Python generators, validation and verification scripts, and site JavaScript - is licensed under the **MIT License** (see [LICENSE-CODE](LICENSE-CODE)).
+
+If you reuse the data, attribute it. If you reuse the code, MIT terms apply.

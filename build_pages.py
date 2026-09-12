@@ -378,7 +378,7 @@ def topbar_html(active_tab=None):
             ' class="active"' if tid == active_tab else "", e(label))
         for tid, label in SITE_TABS)
     return f"""<div class="oma-topbar"><div class="oma-topbar-inner">
-<a class="oma-wordmark" href="{SITE}/" title="Oliver's mTOR Atlas — home">
+<a class="oma-wordmark" href="{SITE}/" title="Oliver's mTOR Atlas – home">
 <svg class="oma-emblem" viewBox="0 0 64 64" role="img" aria-label="Oliver's mTOR Atlas emblem"><path d="M40.89 7.57 A26 26 0 1 1 23.11 7.57" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="15" r="9" fill="currentColor"/></svg>
 <span class="oma-name">Oliver's mTOR Atlas</span>
 <span class="oma-tag">Evidence Platform</span>
@@ -936,7 +936,7 @@ def _cite_block(sid, title, url):
     year = (RECORD_DATE_BY_SID.get(sid) or RECORD_DATE_FALLBACK or "2026")[:4]
     if not year.isdigit():
         year = "2026"
-    apa = (f"Barton, O. ({year}). {title} — evidence-graded record {sid}. "
+    apa = (f"Barton, O. ({year}). {title} – evidence-graded record {sid}. "
            f"In Oliver's mTOR Atlas. {url} · Dataset DOI 10.5281/zenodo.22059963")
     bibtex_lines = [
         "@misc{atlas_" + sid + ",",
@@ -1185,7 +1185,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
     # that genuinely have none were not warned. A false claim about the evidence
     # is the one kind of bug this project cannot ship.
     if not counts.get("S") and not counts.get("H"):
-        body.append("<p><em>No direct human evidence in the Atlas for this entity yet — "
+        body.append("<p><em>No direct human evidence in the Atlas for this entity yet – "
                     "everything below rests on animal or molecular work.</em></p>")
 
     body.append("<h2>Studies</h2><table class=\"st\">"
@@ -1226,7 +1226,7 @@ def entity_page(ent, studies_by_sid, all_entities, haspage):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         (ent["type"], SITE + "/browse/"),
                         (ent["name"], None)])
-    return url, d, slug, shell(f"{ent['name']} — evidence in the mTOR pathway | Oliver's mTOR Atlas",
+    return url, d, slug, shell(f"{ent['name']} – evidence in the mTOR pathway | Oliver's mTOR Atlas",
                                desc, url, [ld, bc], "\n".join(body), crumb, active_tab="map",
                                level_switch=bool(explain and ent.get("desc")))
 
@@ -1390,7 +1390,7 @@ def apply_author_allowlist(author_idx):
 def author_page(key, bio, studies):
     slug = slugify(bio["full"])
     url = f"{SITE}/author/{slug}/"
-    desc = f"{bio['full']} ({bio['role']}) — publication timeline in Oliver's mTOR Atlas."[:300]
+    desc = f"{bio['full']} ({bio['role']}) – publication timeline in Oliver's mTOR Atlas."[:300]
 
     ld = {"@context": "https://schema.org", "@type": "Person",
           "name": bio["full"], "description": bio["role"], "url": url}
@@ -1435,7 +1435,7 @@ def author_page(key, bio, studies):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("Researchers", SITE + "/authors/"),
                         (bio["full"], None)])
-    return url, slug, shell(f"{bio['full']} — {bio['role']} | Oliver's mTOR Atlas",
+    return url, slug, shell(f"{bio['full']} – {bio['role']} | Oliver's mTOR Atlas",
                             desc, url, [ld, bc], "\n".join(body), crumb, active_tab="authors")
 
 
@@ -2569,7 +2569,7 @@ def patch_spa_links():
         done.append("studie")
 
     if len(done) < 2:
-        return "POZOR: nalezeno jen %s — vzory se rozešly, NEZAPSÁNO" % done
+        return "POZOR: nalezeno jen %s – vzory se rozešly, NEZAPSÁNO" % done
 
     if DRY:
         return "dry-run (%s)" % ", ".join(done)
@@ -2725,7 +2725,7 @@ def main():
     sp = os.path.join(DATA, "studies_baked.json")
     ep = os.path.join(DATA, "entities_baked.json")
     if not os.path.exists(ep):
-        sys.exit("Chybí atlas_data/entities_baked.json — spusť nejdřív sync_airtable.py\n"
+        sys.exit("Chybí atlas_data/entities_baked.json – spusť nejdřív sync_airtable.py\n"
                  "(vyžaduje AIRTABLE_TOKEN; ověř přes `py check_token.py`).")
     studies = json.load(open(sp, encoding="utf-8"))
     entities = json.load(open(ep, encoding="utf-8"))
@@ -2761,7 +2761,7 @@ def main():
             continue
         url, d, slug, page = entity_page(x, by_sid, entities, haspage)
         if (d, slug) in seen:
-            print("  ! kolize slugu %s/%s: %s vs %s — přeskočeno"
+            print("  ! kolize slugu %s/%s: %s vs %s – přeskočeno"
                   % (d, slug, seen[(d, slug)], x["name"]))
             continue
         seen[(d, slug)] = x["name"]
@@ -2778,7 +2778,7 @@ def main():
         for g in gaps:
             gurl, gslug, gpage = gap_page(g, by_sid)
             if gslug in seen_gap_slugs:
-                print("  ! kolize slugu question/%s: %s vs %s — přeskočeno"
+                print("  ! kolize slugu question/%s: %s vs %s – přeskočeno"
                       % (gslug, seen_gap_slugs[gslug], g["title"]))
                 continue
             seen_gap_slugs[gslug] = g["title"]
@@ -3119,7 +3119,7 @@ Creative Commons Attribution 4.0 International. Reuse and citation welcome with 
   stránek autorů  : %d
   URL v sitemap   : %d   (bylo 1)
   zapsáno         : %d   (beze změny, nezapisováno: %d)
-""" % ("DRY RUN — nic nezapsáno" if DRY else "Hotovo.",
+""" % ("DRY RUN – nic nezapsáno" if DRY else "Hotovo.",
        len([1 for k, _ in urls if k == "study"]), made, PAGE_THRESHOLD, skipped,
        len(gap_links), len(author_links),
        len(urls) + 1, STATS["written"], STATS["unchanged"]))

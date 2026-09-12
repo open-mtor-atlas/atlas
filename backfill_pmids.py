@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-backfill_pmids.py — Fáze 6, krok 1
+backfill_pmids.py – Fáze 6, krok 1
 
 Doplní ke každé studii PMID a PMCID na základě jejího DOI.
 
 Zdroje (v tomto pořadí):
-  1. NCBI ID Converter API  — hromadně, 200 DOI na požadavek, pokrývá vše v PMC
-  2. NCBI ESearch (PubMed)  — fallback pro studie, které nejsou v PMC
+  1. NCBI ID Converter API  – hromadně, 200 DOI na požadavek, pokrývá vše v PMC
+  2. NCBI ESearch (PubMed)  – fallback pro studie, které nejsou v PMC
                                (starší a non-open-access práce)
 
 Spuštění:
@@ -48,7 +48,7 @@ IDCONV = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/"
 ESEARCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 
 BATCH = 200        # maximum, které ID Converter přijme
-PAUSE = 0.4        # s mezi požadavky — NCBI limit je 3 req/s bez API klíče
+PAUSE = 0.4        # s mezi požadavky – NCBI limit je 3 req/s bez API klíče
 TIMEOUT = 30
 
 PATCH = "--no-patch" not in sys.argv
@@ -103,7 +103,7 @@ def via_idconv(dois):
 # --- krok 2: fallback přes PubMed ESearch -----------------------------------
 
 def via_esearch(dois):
-    """Po jednom — pro DOI, které nejsou v PMC, ale v PubMedu být můžou."""
+    """Po jednom – pro DOI, které nejsou v PMC, ale v PubMedu být můžou."""
     found = {}
     for n, doi in enumerate(dois, 1):
         qs = urllib.parse.urlencode({
@@ -143,13 +143,13 @@ def main():
 
     print(f"Platných DOI: {len(dois)}   nepoužitelných identifikátorů: {len(skipped)}\n")
 
-    print("Krok 1/2 — NCBI ID Converter")
+    print("Krok 1/2 – NCBI ID Converter")
     mapping = via_idconv(dois)
     print(f"  → dohledáno {len(mapping)}\n")
 
     missing = [d for d in dois if d not in mapping]
     if missing:
-        print(f"Krok 2/2 — PubMed ESearch pro {len(missing)} zbývajících")
+        print(f"Krok 2/2 – PubMed ESearch pro {len(missing)} zbývajících")
         mapping.update(via_esearch(missing))
         print(f"  → celkem dohledáno {len(mapping)}\n")
 
@@ -174,7 +174,7 @@ def main():
     pct = 100 * len(mapping) / len(dois) if dois else 0
 
     report = [
-        "# PMID backfill — report", "",
+        "# PMID backfill – report", "",
         f"- Studií celkem: **{len(studies)}**",
         f"- Platných DOI: **{len(dois)}**",
         f"- Dohledaných PMID: **{len(mapping)}** ({pct:.1f} %)",
@@ -193,7 +193,7 @@ def main():
         by_doi = {(s.get("doi") or "").strip(): s for s in studies}
         for d in still_missing:
             s = by_doi.get(d, {})
-            report.append(f"- `{d}` — {s.get('sid','?')} · {s.get('year','?')} · {s.get('journal','?')}")
+            report.append(f"- `{d}` – {s.get('sid','?')} · {s.get('year','?')} · {s.get('journal','?')}")
         report.append("")
     OUT_REPORT.write_text("\n".join(report), encoding="utf-8")
 
