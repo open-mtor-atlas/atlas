@@ -188,7 +188,7 @@
     if(nextHead) nextHead.hidden=closed||!runnable;
     if(nextLbl){
       nextLbl.textContent=((cursor===null)?'Where to start':'What this step opened up')+
-                          (kids.length>1?' — pick one':'');
+                          (kids.length>1?' – pick one':'');
     }
     if(nextBox) nextBox.hidden=closed;
     if(openBox){
@@ -201,7 +201,7 @@
     }
     if(cursor!==null&&!runnable&&!closed&&nextLbl){
       if(nextHead) nextHead.hidden=false;
-      nextLbl.textContent='This line is finished — go back to an earlier step to take another branch.';
+      nextLbl.textContent='This line is finished – go back to an earlier step to take another branch.';
     }
 
     /* trasa */
@@ -280,7 +280,7 @@
       h+='<p>The cheapest route to '+n+(n===1?' answer':' answers')+' is <strong>'+ch.cost+
          '</strong> '+D.unit+': '+names(ch.route)+'.'+
          (spent>ch.cost?' You spent '+(spent-ch.cost)+' more than that.':
-          (spent===ch.cost?' That is exactly what you spent — you took the shortest way there.':''))+
+          (spent===ch.cost?' That is exactly what you spent – you took the shortest way there.':''))+
          '</p>';
     }
     if(n<D.best.goals){

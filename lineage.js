@@ -3,7 +3,7 @@
 
     (function(){
 /* ============================================================
-   Oliver's mTOR Atlas — Lineage component (standalone)
+   Oliver's mTOR Atlas – Lineage component (standalone)
    Field shape mirrors ATLAS_STUDIES plus a `lineage` block.
    relation: ENABLES | EXTENDS | CONVERGES | CONTRADICTS | OPENS
    type:     FOUNDATIONAL | TOOL | MECHANISM | LIFESPAN |
@@ -24,34 +24,34 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     journal:"J Antibiot", doi:"10.7164/antibiotics.28.721", species:"Microbial", tier:"D",
     title:"Rapamycin (AY-22,989), a new antifungal antibiotic. I. Taxonomy of the producing streptomycete and isolation of the active principle.",
     lineage:{ branch:"A", type:"TOOL", thickness:5, parents:[],
-      unlocked:"A soil bacterium from Rapa Nui yields a molecule with an unusually clean effect on cell growth. Nobody yet knows what it binds.", unlocked_beginner:"A soil microbe from Easter Island makes a molecule that clearly slows cell growth — but nobody yet knows what it latches onto inside the cell.", still_open:null }},
+      unlocked:"A soil bacterium from Rapa Nui yields a molecule with an unusually clean effect on cell growth. Nobody yet knows what it binds.", unlocked_beginner:"A soil microbe from Easter Island makes a molecule that clearly slows cell growth – but nobody yet knows what it latches onto inside the cell.", still_open:null }},
 
   { pmid:"1715094", year:1991, label:"TOR1/TOR2 in yeast", authors:"Heitman, Movva & Hall",
     journal:"Science", doi:"10.1126/science.1715094", species:"Yeast", tier:"D",
     title:"Targets for cell cycle arrest by the immunosuppressant rapamycin in yeast.",
     lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:5, parents:[{pmid:"1102508", relation:"ENABLES"}],
-      unlocked:"Resistance mutations name the target: TOR1 and TOR2. The field's true origin — a drug converted into a genetic handle.", unlocked_beginner:"Yeast that had become resistant to the drug pointed straight at its target genes, TOR1 and TOR2 — turning a drug into a genetic tool, and starting the whole field.",
-      still_open:"The paper frames rapamycin as an immunosuppressant that blocks T-cell activation. That framing survives eighteen years, until it is inverted (Araki, 2009).", still_open_beginner:"At the time, this drug was seen purely as an immune-suppressing tool — nobody suspected it could also do the opposite under different conditions. That assumption got overturned nearly two decades later." }},
+      unlocked:"Resistance mutations name the target: TOR1 and TOR2. The field's true origin – a drug converted into a genetic handle.", unlocked_beginner:"Yeast that had become resistant to the drug pointed straight at its target genes, TOR1 and TOR2 – turning a drug into a genetic tool, and starting the whole field.",
+      still_open:"The paper frames rapamycin as an immunosuppressant that blocks T-cell activation. That framing survives eighteen years, until it is inverted (Araki, 2009).", still_open_beginner:"At the time, this drug was seen purely as an immune-suppressing tool – nobody suspected it could also do the opposite under different conditions. That assumption got overturned nearly two decades later." }},
 
-  { pmid:"7518356", year:1994, label:"RAFT1 — mammalian TOR", authors:"Sabatini et al.",
+  { pmid:"7518356", year:1994, label:"RAFT1 – mammalian TOR", authors:"Sabatini et al.",
     journal:"Cell", doi:"10.1016/0092-8674(94)90570-3", species:"Mammalian cells", tier:"D",
     title:"RAFT1: a mammalian protein that binds to FKBP12 in a rapamycin-dependent fashion and is homologous to yeast TORs.",
     lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:5, parents:[{pmid:"1715094", relation:"EXTENDS"}],
-      unlocked:"The yeast gene has a mammalian counterpart. mTOR exists, and the entire yeast literature becomes relevant to human biology.", unlocked_beginner:"The same gene turns out to exist in humans too — meaning everything learned in yeast could now apply to human biology.", still_open:null }},
+      unlocked:"The yeast gene has a mammalian counterpart. mTOR exists, and the entire yeast literature becomes relevant to human biology.", unlocked_beginner:"The same gene turns out to exist in humans too – meaning everything learned in yeast could now apply to human biology.", still_open:null }},
 
-  { pmid:"8008069", year:1994, label:"FRAP — parallel find", authors:"Brown, Albers … Schreiber",
+  { pmid:"8008069", year:1994, label:"FRAP – parallel find", authors:"Brown, Albers … Schreiber",
     journal:"Nature", doi:"10.1038/369756a0", species:"Mammalian cells", tier:"D",
     title:"A mammalian protein targeted by G1-arresting rapamycin-receptor complex.",
     lineage:{ branch:"A", type:"FOUNDATIONAL", thickness:3, parents:[{pmid:"1715094", relation:"EXTENDS"}],
-      unlocked:"Two labs isolate the same protein within weeks by different routes. Parallel discovery signals a ripe question — worth showing, not collapsing into one node.", unlocked_beginner:"A second lab finds the very same protein within weeks, using a different method — a sign this was a question the whole field was closing in on at once.", still_open:null }},
+      unlocked:"Two labs isolate the same protein within weeks by different routes. Parallel discovery signals a ripe question – worth showing, not collapsing into one node.", unlocked_beginner:"A second lab finds the very same protein within weeks, using a different method – a sign this was a question the whole field was closing in on at once.", still_open:null }},
 
   { pmid:"12150925", year:2002, label:"Raptor", authors:"Kim, Sarbassov … Sabatini",
     journal:"Cell", doi:"10.1016/s0092-8674(02)00808-5", species:"Mammalian cells", tier:"D",
     title:"mTOR interacts with raptor to form a nutrient-sensitive complex that signals to the cell growth machinery.",
     lineage:{ branch:"B", type:"MECHANISM", thickness:5, parents:[{pmid:"7518356", relation:"ENABLES"}],
-      unlocked:"mTOR is not a lone kinase but the core of a complex. Raptor is the scaffold that lets mTORC1 reach its substrates.", unlocked_beginner:"mTOR isn't a lone enzyme — it works as part of a larger complex, and Raptor is the scaffold piece that lets it reach the right targets.", still_open:null }},
+      unlocked:"mTOR is not a lone kinase but the core of a complex. Raptor is the scaffold that lets mTORC1 reach its substrates.", unlocked_beginner:"mTOR isn't a lone enzyme – it works as part of a larger complex, and Raptor is the scaffold piece that lets it reach the right targets.", still_open:null }},
 
-  { pmid:"12150926", year:2002, label:"Raptor — parallel find", authors:"Hara, Maruki … Yonezawa",
+  { pmid:"12150926", year:2002, label:"Raptor – parallel find", authors:"Hara, Maruki … Yonezawa",
     journal:"Cell", doi:"10.1016/s0092-8674(02)00833-4", species:"Mammalian cells", tier:"D",
     title:"Raptor, a binding partner of target of rapamycin (TOR), mediates TOR action.",
     lineage:{ branch:"B", type:"MECHANISM", thickness:2, parents:[{pmid:"7518356", relation:"ENABLES"}],
@@ -68,13 +68,13 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     title:"Rictor, a novel binding partner of mTOR, defines a rapamycin-insensitive and raptor-independent pathway that regulates the cytoskeleton.",
     lineage:{ branch:"B", type:"MECHANISM", thickness:5,
       parents:[{pmid:"12408816", relation:"CONVERGES"},{pmid:"12150925", relation:"CONVERGES"}],
-      unlocked:"Two lineages meet: yeast genetics said a second complex should exist, mammalian biochemistry finds it. A convergence node — the shape a citation graph cannot show you.", unlocked_beginner:"Two separate lines of research — yeast genetics and human biochemistry — arrive at the same answer at the same time: the second complex, mTORC2, really exists.", still_open:null }},
+      unlocked:"Two lineages meet: yeast genetics said a second complex should exist, mammalian biochemistry finds it. A convergence node – the shape a citation graph cannot show you.", unlocked_beginner:"Two separate lines of research – yeast genetics and human biochemistry – arrive at the same answer at the same time: the second complex, mTORC2, really exists.", still_open:null }},
 
   { pmid:"15718470", year:2005, label:"mTORC2 phosphorylates Akt", authors:"Sarbassov, Guertin, Ali & Sabatini",
     journal:"Science", doi:"10.1126/science.1106148", species:"Mammalian cells", tier:"D",
     title:"Phosphorylation and regulation of Akt/PKB by the rictor-mTOR complex.",
     lineage:{ branch:"B", type:"MECHANISM", thickness:5, parents:[{pmid:"15268862", relation:"ENABLES"}],
-      unlocked:"mTORC2 is the missing S473 kinase for Akt. The pathway closes on itself, and mTORC2 becomes a metabolic node you cannot casually switch off.", unlocked_beginner:"mTORC2 turns out to be the missing piece that fully switches on Akt, a major growth signal — tying the two mTOR complexes into one system that can't easily be split apart.",
+      unlocked:"mTORC2 is the missing S473 kinase for Akt. The pathway closes on itself, and mTORC2 becomes a metabolic node you cannot casually switch off.", unlocked_beginner:"mTORC2 turns out to be the missing piece that fully switches on Akt, a major growth signal – tying the two mTOR complexes into one system that can't easily be split apart.",
       still_open:"The origin of the selectivity problem: chronic rapalog dosing eventually reaches mTORC2, which is where the insulin resistance and hyperlipidaemia seen in the clinic come from.", still_open_beginner:"This is also where a long-term downside starts: give the drug for a long time and it eventually reaches this second complex too, causing the blood-sugar and cholesterol side effects seen in patients." }},
 
   { pmid:"12869586", year:2003, label:"TSC2 is a GAP for Rheb", authors:"Inoki, Li, Xu & Guan",
@@ -87,31 +87,31 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     journal:"Cell", doi:"10.1016/s0092-8674(03)00929-2", species:"Mammalian cells", tier:"D",
     title:"TSC2 mediates cellular energy response to control cell growth and survival.",
     lineage:{ branch:"C", type:"MECHANISM", thickness:4, parents:[{pmid:"12869586", relation:"EXTENDS"}],
-      unlocked:"Energy status enters the pathway. Low ATP → AMPK → TSC2 → mTORC1 off. The mechanistic bridge to caloric restriction and, later, to metformin.", unlocked_beginner:"The cell's low-energy alarm (AMPK) is now wired into the same brake: when energy runs low, AMPK reinforces the brake on mTOR — the mechanistic link to calorie restriction, and later to the diabetes drug metformin.", still_open:null }},
+      unlocked:"Energy status enters the pathway. Low ATP → AMPK → TSC2 → mTORC1 off. The mechanistic bridge to caloric restriction and, later, to metformin.", unlocked_beginner:"The cell's low-energy alarm (AMPK) is now wired into the same brake: when energy runs low, AMPK reinforces the brake on mTOR – the mechanistic link to calorie restriction, and later to the diabetes drug metformin.", still_open:null }},
 
   { pmid:"18497260", year:2008, label:"Rags sense amino acids", authors:"Sancak … Bar-Peled, Sabatini",
     journal:"Science", doi:"10.1126/science.1157535", species:"Mammalian cells", tier:"D",
     title:"The Rag GTPases bind raptor and mediate amino acid signaling to mTORC1.",
     lineage:{ branch:"C", type:"MECHANISM", thickness:5, parents:[{pmid:"12150925", relation:"ENABLES"}],
-      unlocked:"Amino acids act through a separate input that works by moving mTORC1, not by activating it directly. Location becomes a mechanism.", unlocked_beginner:"Amino acids turn out to switch mTOR on in an unusual way — not by directly activating it, but by moving it to a different spot inside the cell where it can then be turned on.", still_open:null }},
+      unlocked:"Amino acids act through a separate input that works by moving mTORC1, not by activating it directly. Location becomes a mechanism.", unlocked_beginner:"Amino acids turn out to switch mTOR on in an unusual way – not by directly activating it, but by moving it to a different spot inside the cell where it can then be turned on.", still_open:null }},
 
   { pmid:"20381137", year:2010, label:"mTORC1 on the lysosome", authors:"Sancak, Bar-Peled, Zoncu … Sabatini",
     journal:"Cell", doi:"10.1016/j.cell.2010.02.024", species:"Mammalian cells", tier:"D",
     title:"Ragulator-Rag complex targets mTORC1 to the lysosomal surface and is necessary for its activation by amino acids.",
     lineage:{ branch:"C", type:"MECHANISM", thickness:5, parents:[{pmid:"18497260", relation:"EXTENDS"}],
-      unlocked:"The lysosome — long treated as the cell's rubbish bin — turns out to be the platform where growth is decided.", unlocked_beginner:"The lysosome — long thought of as just the cell's trash bin — turns out to be the platform where the decision to grow gets made.", still_open:null }},
+      unlocked:"The lysosome – long treated as the cell's rubbish bin – turns out to be the platform where growth is decided.", unlocked_beginner:"The lysosome – long thought of as just the cell's trash bin – turns out to be the platform where the decision to grow gets made.", still_open:null }},
 
   { pmid:"22053050", year:2011, label:"v-ATPase: inside-out", authors:"Zoncu, Bar-Peled, Efeyan … Sabatini",
     journal:"Science", doi:"10.1126/science.1207056", species:"Mammalian cells", tier:"D",
     title:"mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase.",
     lineage:{ branch:"C", type:"MECHANISM", thickness:3, parents:[{pmid:"20381137", relation:"EXTENDS"}],
-      unlocked:"The signal starts inside the lysosomal lumen and is read outwards. Counter-intuitive, and it relocates where 'nutrient status' physically lives.", unlocked_beginner:"The nutrient signal starts from inside the lysosome and gets read from the outside — a surprising, inside-out way for a cell to sense its surroundings.", still_open:null }},
+      unlocked:"The signal starts inside the lysosomal lumen and is read outwards. Counter-intuitive, and it relocates where 'nutrient status' physically lives.", unlocked_beginner:"The nutrient signal starts from inside the lysosome and gets read from the outside – a surprising, inside-out way for a cell to sense its surroundings.", still_open:null }},
 
   { pmid:"23723238", year:2013, label:"GATOR1 / GATOR2", authors:"Bar-Peled, Chantranupong … Sabatini",
     journal:"Science", doi:"10.1126/science.1232044", species:"Mammalian cells", tier:"D",
     title:"A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1.",
     lineage:{ branch:"C", type:"MECHANISM", thickness:4, parents:[{pmid:"18497260", relation:"EXTENDS"}],
-      unlocked:"The negative arm of amino-acid sensing — and it is mutated in human cancers. Also the handle that makes the leucine sensor findable.", unlocked_beginner:"A whole new set of brake-and-release proteins for amino-acid sensing is found — some of which are mutated in human cancers, and one that later leads researchers to the actual leucine sensor.", still_open:null }},
+      unlocked:"The negative arm of amino-acid sensing – and it is mutated in human cancers. Also the handle that makes the leucine sensor findable.", unlocked_beginner:"A whole new set of brake-and-release proteins for amino-acid sensing is found – some of which are mutated in human cancers, and one that later leads researchers to the actual leucine sensor.", still_open:null }},
 
   { pmid:"26449471", year:2015, label:"Sestrin2: leucine sensor", authors:"Wolfson, Chantranupong … Sabatini",
     journal:"Science", doi:"10.1126/science.aab2674", species:"Mammalian cells", tier:"D",
@@ -123,15 +123,15 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     journal:"Mol Biol Cell", doi:"10.1091/mbc.e08-12-1248", species:"Mammalian cells", tier:"D",
     title:"Nutrient-dependent mTORC1 association with the ULK1-Atg13-FIP200 complex required for autophagy.",
     lineage:{ branch:"D", type:"MECHANISM", thickness:5, parents:[{pmid:"12150925", relation:"ENABLES"}],
-      unlocked:"The direct molecular link from nutrient status to self-digestion — the wire connecting mTOR to nearly every longevity mechanism people care about.", unlocked_beginner:"The direct wiring between “nutrients are available” and “stop the cell's self-cleanup process” is found — the same wire connects mTOR to nearly every process linked to ageing that people care about.",
-      still_open:"Nutrient input is dynamic, but this is measured as an on/off state. Whether the timing of mTORC1 release, rather than its average level, sets autophagic flux is unsettled.", still_open_beginner:"This was measured as a simple on/off state. Whether the timing of the signal — not just its average strength — matters for how much cleanup happens is still unresolved." }},
+      unlocked:"The direct molecular link from nutrient status to self-digestion – the wire connecting mTOR to nearly every longevity mechanism people care about.", unlocked_beginner:"The direct wiring between “nutrients are available” and “stop the cell's self-cleanup process” is found – the same wire connects mTOR to nearly every process linked to ageing that people care about.",
+      still_open:"Nutrient input is dynamic, but this is measured as an on/off state. Whether the timing of mTORC1 release, rather than its average level, sets autophagic flux is unsettled.", still_open_beginner:"This was measured as a simple on/off state. Whether the timing of the signal – not just its average strength – matters for how much cleanup happens is still unresolved." }},
 
   { pmid:"22552098", year:2012, label:"4E-BPs and TOP mRNAs", authors:"Thoreen, Chantranupong … Sabatini",
     journal:"Nature", doi:"10.1038/nature11083", species:"Mouse cells", tier:"D",
     title:"A unifying model for mTORC1-mediated regulation of mRNA translation.",
     lineage:{ branch:"D", type:"REVERSAL", thickness:4, parents:[{pmid:"12150925", relation:"ENABLES"}],
-      unlocked:"Ribosome profiling under a full mTOR inhibitor shows the translational program is almost entirely TOP-motif mRNAs, controlled by the 4E-BPs. Earlier models built on 5'UTR complexity find no support.", unlocked_beginner:"Blocking mTOR completely and checking exactly which genes stop being read shows the effect runs almost entirely through one protein family (4E-BPs) — overturning an earlier, more complicated model.",
-      still_open:"Rapamycin only partially inhibits 4E-BP phosphorylation — so twenty years of rapamycin data were reading a partial inhibitor as if it were complete.", still_open_beginner:"The standard drug (rapamycin) only partly blocks that same protein family — meaning two decades of studies using rapamycin were seeing a partial effect and treating it as if it were the complete picture." }},
+      unlocked:"Ribosome profiling under a full mTOR inhibitor shows the translational program is almost entirely TOP-motif mRNAs, controlled by the 4E-BPs. Earlier models built on 5'UTR complexity find no support.", unlocked_beginner:"Blocking mTOR completely and checking exactly which genes stop being read shows the effect runs almost entirely through one protein family (4E-BPs) – overturning an earlier, more complicated model.",
+      still_open:"Rapamycin only partially inhibits 4E-BP phosphorylation – so twenty years of rapamycin data were reading a partial inhibitor as if it were complete.", still_open_beginner:"The standard drug (rapamycin) only partly blocks that same protein family – meaning two decades of studies using rapamycin were seeing a partial effect and treating it as if it were the complete picture." }},
 
   { pmid:"22343943", year:2012, label:"mTORC1 → TFEB", authors:"Settembre, Zoncu … Sabatini, Ballabio",
     journal:"EMBO J", doi:"10.1038/emboj.2012.32", species:"Mammalian cells", tier:"D",
@@ -139,54 +139,54 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     lineage:{ branch:"D", type:"MECHANISM", thickness:4,
       parents:[{pmid:"20381137", relation:"CONVERGES"},{pmid:"19211835", relation:"EXTENDS"}],
       unlocked:"The sensing branch and the autophagy branch fuse: mTORC1 sits on the lysosome and phosphorylates the transcription factor that builds more lysosomes.", unlocked_beginner:"Two separate parts of the story merge into one: mTOR, sitting on the lysosome, directly controls the master switch (TFEB) that builds more lysosomes and turns on cleanup.",
-      still_open:"TFEB shuttles in and out of the nucleus — an inherently time-dependent readout, and a natural place to test whether pulse frequency carries information.", still_open_beginner:"This master switch moves in and out of the cell's nucleus over time — a natural place to ask whether the rhythm of the signal, not just its level, carries meaningful information." }},
+      still_open:"TFEB shuttles in and out of the nucleus – an inherently time-dependent readout, and a natural place to test whether pulse frequency carries information.", still_open_beginner:"This master switch moves in and out of the cell's nucleus over time – a natural place to ask whether the rhythm of the signal, not just its level, carries meaningful information." }},
 
   { pmid:"14668850", year:2003, label:"Lifespan+ in C. elegans", authors:"Vellai … Müller",
     journal:"Nature", doi:"10.1038/426620a", species:"C. elegans", tier:"C",
     title:"Genetics: influence of TOR kinase on lifespan in C. elegans.",
     lineage:{ branch:"E", type:"LIFESPAN", thickness:5, parents:[{pmid:"1715094", relation:"EXTENDS"}],
-      unlocked:"The first time TOR is tied to how long an animal lives. The pathway stops being about cell size and starts being about ageing.", unlocked_beginner:"For the first time, this pathway is linked to how long an animal lives — turning it from a story about cell size into a story about ageing.", still_open:null }},
+      unlocked:"The first time TOR is tied to how long an animal lives. The pathway stops being about cell size and starts being about ageing.", unlocked_beginner:"For the first time, this pathway is linked to how long an animal lives – turning it from a story about cell size into a story about ageing.", still_open:null }},
 
   { pmid:"15186745", year:2004, label:"Lifespan+ in Drosophila", authors:"Kapahi, Zid … Benzer",
     journal:"Curr Biol", doi:"10.1016/j.cub.2004.03.059", species:"Drosophila", tier:"C",
     title:"Regulation of lifespan in Drosophila by modulation of genes in the TOR signaling pathway.",
     lineage:{ branch:"E", type:"LIFESPAN", thickness:4, parents:[{pmid:"14668850", relation:"EXTENDS"}],
-      unlocked:"Replication in a second organism — and the effect depends on nutritional state, the first strong hint that TOR is the mechanism behind dietary restriction.", unlocked_beginner:"The same lifespan effect shows up in a second species, and it depends on how much food the animal gets — the first strong clue that this pathway is the actual mechanism behind the benefits of calorie restriction.", still_open:null }},
+      unlocked:"Replication in a second organism – and the effect depends on nutritional state, the first strong hint that TOR is the mechanism behind dietary restriction.", unlocked_beginner:"The same lifespan effect shows up in a second species, and it depends on how much food the animal gets – the first strong clue that this pathway is the actual mechanism behind the benefits of calorie restriction.", still_open:null }},
 
   { pmid:"16293764", year:2005, label:"Restriction acts via TOR", authors:"Kaeberlein … Kennedy",
     journal:"Science", doi:"10.1126/science.1115535", species:"Yeast", tier:"C",
     title:"Regulation of yeast replicative life span by TOR and Sch9 in response to nutrients.",
     lineage:{ branch:"E", type:"LIFESPAN", thickness:4, parents:[{pmid:"1715094", relation:"EXTENDS"}],
-      unlocked:"Deleting TOR1 adds nothing on top of caloric restriction — they are the same road. Restriction stops being a mystery and becomes a pathway.", unlocked_beginner:"Removing the TOR gene and restricting calories turn out to do the exact same thing — they don't add up, because they're really the same intervention.", still_open:null }},
+      unlocked:"Deleting TOR1 adds nothing on top of caloric restriction – they are the same road. Restriction stops being a mystery and becomes a pathway.", unlocked_beginner:"Removing the TOR gene and restricting calories turn out to do the exact same thing – they don't add up, because they're really the same intervention.", still_open:null }},
 
   { pmid:"19587680", year:2009, label:"Mouse lifespan +14%", authors:"Harrison, Strong … Miller",
     journal:"Nature", doi:"10.1038/nature08221", species:"Mouse", tier:"C",
     title:"Rapamycin fed late in life extends lifespan in genetically heterogeneous mice.",
     lineage:{ branch:"E", type:"LIFESPAN", thickness:5,
       parents:[{pmid:"14668850", relation:"EXTENDS"},{pmid:"15186745", relation:"EXTENDS"},{pmid:"16293764", relation:"EXTENDS"}],
-      unlocked:"A drug started at 600 days — roughly a 60-year-old human — extends life in a mammal: about 14% in females and 9% in males, replicated at three independent sites in genetically heterogeneous mice. The heaviest node in the tree.", unlocked_beginner:"A drug given to mice as old as a 60-year-old human still extends their lives — about 14% in females, 9% in males — and three independent labs get the same result. The single biggest result in this whole field.",
-      still_open:"It is a mouse. Seventeen years on, no human trial has tested a lifespan or healthspan endpoint. Everything above this node on the human side is inference.", still_open_beginner:"This is still a mouse result. Even years later, no human trial has directly tested whether the drug extends human lifespan or healthspan — everything built on top of this finding, on the human side, is inference." }},
+      unlocked:"A drug started at 600 days – roughly a 60-year-old human – extends life in a mammal: about 14% in females and 9% in males, replicated at three independent sites in genetically heterogeneous mice. The heaviest node in the tree.", unlocked_beginner:"A drug given to mice as old as a 60-year-old human still extends their lives – about 14% in females, 9% in males – and three independent labs get the same result. The single biggest result in this whole field.",
+      still_open:"It is a mouse. Seventeen years on, no human trial has tested a lifespan or healthspan endpoint. Everything above this node on the human side is inference.", still_open_beginner:"This is still a mouse result. Even years later, no human trial has directly tested whether the drug extends human lifespan or healthspan – everything built on top of this finding, on the human side, is inference." }},
 
   { pmid:"17538086", year:2007, label:"Temsirolimus, phase 3", authors:"Hudes … Motzer",
     journal:"N Engl J Med", doi:"10.1056/NEJMoa066838", species:"Human", tier:"B",
     title:"Temsirolimus, interferon alfa, or both for advanced renal-cell carcinoma.",
     lineage:{ branch:"F", type:"TRANSLATION", thickness:4, parents:[{pmid:"7518356", relation:"ENABLES"}],
-      unlocked:"The first hard human outcome for an mTOR inhibitor: median overall survival 10.9 months versus 7.3 on interferon. Also the first clean human safety picture — rash, oedema, hyperglycaemia, hyperlipidaemia.", unlocked_beginner:"The first solid evidence in actual patients: a related drug helps people with advanced kidney cancer live longer, and doctors get their first clear picture of its side effects (rash, swelling, high blood sugar, high cholesterol).",
-      still_open:"An oncology endpoint in sick patients says almost nothing about dosing a healthy person for decades.", still_open_beginner:"This trial was in very sick cancer patients — it says almost nothing about what happens if a healthy person takes the drug for decades." }},
+      unlocked:"The first hard human outcome for an mTOR inhibitor: median overall survival 10.9 months versus 7.3 on interferon. Also the first clean human safety picture – rash, oedema, hyperglycaemia, hyperlipidaemia.", unlocked_beginner:"The first solid evidence in actual patients: a related drug helps people with advanced kidney cancer live longer, and doctors get their first clear picture of its side effects (rash, swelling, high blood sugar, high cholesterol).",
+      still_open:"An oncology endpoint in sick patients says almost nothing about dosing a healthy person for decades.", still_open_beginner:"This trial was in very sick cancer patients – it says almost nothing about what happens if a healthy person takes the drug for decades." }},
 
   { pmid:"19543266", year:2009, label:"Rapamycin boosts memory", authors:"Araki … Ahmed",
     journal:"Nature", doi:"10.1038/nature08155", species:"Mouse & primate", tier:"C",
     title:"mTOR regulates memory CD8 T-cell differentiation.",
     lineage:{ branch:"F", type:"REVERSAL", thickness:5,
       parents:[{pmid:"1715094", relation:"CONTRADICTS"},{pmid:"12150925", relation:"ENABLES"}],
-      unlocked:"The drug filed for eighteen years as an immunosuppressant makes memory T cells better — in quantity and in quality, in mice and in macaques. The field's assumption inverts.", unlocked_beginner:"A drug that had been used for 18 years purely to suppress the immune system turns out to also make immune memory cells work better — flipping the field's assumption about what it does.",
-      still_open:"Immunosuppression and immune enhancement depend on dose and timing. Nobody has mapped where that boundary sits in humans.", still_open_beginner:"Whether the drug suppresses or boosts immunity seems to depend on dose and timing — but nobody has mapped out exactly where that line sits in people." }},
+      unlocked:"The drug filed for eighteen years as an immunosuppressant makes memory T cells better – in quantity and in quality, in mice and in macaques. The field's assumption inverts.", unlocked_beginner:"A drug that had been used for 18 years purely to suppress the immune system turns out to also make immune memory cells work better – flipping the field's assumption about what it does.",
+      still_open:"Immunosuppression and immune enhancement depend on dose and timing. Nobody has mapped where that boundary sits in humans.", still_open_beginner:"Whether the drug suppresses or boosts immunity seems to depend on dose and timing – but nobody has mapped out exactly where that line sits in people." }},
 
   { pmid:"22149876", year:2011, label:"Everolimus, BOLERO-2", authors:"Baselga … Hortobagyi",
     journal:"N Engl J Med", doi:"10.1056/NEJMoa1109653", species:"Human", tier:"B",
     title:"Everolimus in postmenopausal hormone-receptor-positive advanced breast cancer.",
     lineage:{ branch:"F", type:"TRANSLATION", thickness:3, parents:[{pmid:"17538086", relation:"EXTENDS"}],
-      unlocked:"Progression-free survival roughly doubles when everolimus is added to endocrine therapy. mTOR inhibition becomes standard oncology care, and its side-effect profile gets characterised in thousands of people.", unlocked_beginner:"Adding this drug to standard hormone therapy roughly doubles how long advanced breast cancer stays under control — the drug becomes a normal part of cancer treatment, and doctors learn its side effects in thousands of patients.", still_open:null }},
+      unlocked:"Progression-free survival roughly doubles when everolimus is added to endocrine therapy. mTOR inhibition becomes standard oncology care, and its side-effect profile gets characterised in thousands of people.", unlocked_beginner:"Adding this drug to standard hormone therapy roughly doubles how long advanced breast cancer stays under control – the drug becomes a normal part of cancer treatment, and doctors learn its side effects in thousands of patients.", still_open:null }},
 
   { pmid:"25540326", year:2014, label:"RAD001 in older adults", authors:"Mannick … Klickstein",
     journal:"Sci Transl Med", doi:"10.1126/scitranslmed.3009892", species:"Human", tier:"B",
@@ -194,50 +194,50 @@ const LINEAGE = [{ pmid:"1102508", year:1975, label:"Rapamycin isolated", author
     lineage:{ branch:"F", type:"TRANSLATION", thickness:5,
       parents:[{pmid:"19543266", relation:"EXTENDS"},{pmid:"19587680", relation:"EXTENDS"}],
       unlocked:"The first time the ageing branch touches a human. Low-dose everolimus raises influenza-vaccine response by about 20% in older adults and lowers PD-1 on T cells.", unlocked_beginner:"For the first time, the “ageing” side of this research reaches an actual human: a low dose of the drug improves older adults' response to a flu vaccine by about 20% and reduces a marker of immune exhaustion.",
-      still_open:"The endpoint is a surrogate — antibody titre, not health, not lifespan.", still_open_beginner:"The measurement here is a stand-in (antibody levels), not an actual health outcome and not lifespan." }},
+      still_open:"The endpoint is a surrogate – antibody titre, not health, not lifespan.", still_open_beginner:"The measurement here is a stand-in (antibody levels), not an actual health outcome and not lifespan." }},
 
   { pmid:"29997249", year:2018, label:"Phase 2a: fewer infections", authors:"Mannick … Klickstein",
     journal:"Sci Transl Med", doi:"10.1126/scitranslmed.aaq1564", species:"Human", tier:"B",
     title:"TORC1 inhibition enhances immune function and reduces infections in the elderly.",
     lineage:{ branch:"F", type:"TRANSLATION", thickness:4, parents:[{pmid:"25540326", relation:"EXTENDS"}],
-      unlocked:"264 older adults, six weeks of low-dose TORC1 inhibition, and a significant drop in infections reported over the following year. The strongest human signal the field has produced.", unlocked_beginner:"264 older adults took a low dose for six weeks, and over the following year they reported significantly fewer infections — the strongest positive human signal this field has produced so far.",
-      still_open:"Phase 2a, self-reported infections. Closer to health than a titre — but still not ageing.", still_open_beginner:"This was an early-phase trial, and infections were self-reported by participants — closer to a real health outcome than the vaccine study, but still not the same as measuring ageing itself." }},
+      unlocked:"264 older adults, six weeks of low-dose TORC1 inhibition, and a significant drop in infections reported over the following year. The strongest human signal the field has produced.", unlocked_beginner:"264 older adults took a low dose for six weeks, and over the following year they reported significantly fewer infections – the strongest positive human signal this field has produced so far.",
+      still_open:"Phase 2a, self-reported infections. Closer to health than a titre – but still not ageing.", still_open_beginner:"This was an early-phase trial, and infections were self-reported by participants – closer to a real health outcome than the vaccine study, but still not the same as measuring ageing itself." }},
 
   { pmid:"33977284", year:2021, label:"Phase 3 misses endpoint", authors:"Mannick … Shergill",
     journal:"Lancet Healthy Longev", doi:"10.1016/S2666-7568(21)00062-3", species:"Human", tier:"B",
     title:"Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials.",
     lineage:{ branch:"F", type:"NULL", thickness:5, parents:[{pmid:"29997249", relation:"CONTRADICTS"}],
-      unlocked:"1,024 participants. RTB101 did not reduce clinically symptomatic respiratory illness — 26% versus 25%, p=0.65. The antiviral genes still switched on; the clinical outcome did not move.", unlocked_beginner:"In a trial of over 1,000 people, the drug switched on the right antiviral genes just like before — but it did not actually reduce how many people got sick with respiratory illness (26% vs. 25%, essentially no difference).",
-      still_open:"The biomarker moved and the patient did not. This is the node most databases would quietly omit, and the reason the Atlas records failures at the same weight as successes.", still_open_beginner:"The lab measurement improved, but the patients didn't feel it. Most databases would quietly leave a result like this out — this atlas keeps failures visible on purpose, next to the successes." }},
+      unlocked:"1,024 participants. RTB101 did not reduce clinically symptomatic respiratory illness – 26% versus 25%, p=0.65. The antiviral genes still switched on; the clinical outcome did not move.", unlocked_beginner:"In a trial of over 1,000 people, the drug switched on the right antiviral genes just like before – but it did not actually reduce how many people got sick with respiratory illness (26% vs. 25%, essentially no difference).",
+      still_open:"The biomarker moved and the patient did not. This is the node most databases would quietly omit, and the reason the Atlas records failures at the same weight as successes.", still_open_beginner:"The lab measurement improved, but the patients didn't feel it. Most databases would quietly leave a result like this out – this atlas keeps failures visible on purpose, next to the successes." }},
 
   { pmid:"27279227", year:2016, label:"RapaLink-1", authors:"Rodrik-Outmezguine … Rosen, Shokat",
     journal:"Nature", doi:"10.1038/nature17963", species:"Cells & mouse", tier:"C",
     title:"Overcoming mTOR resistance mutations with a new-generation mTOR inhibitor.",
     lineage:{ branch:"F", type:"TOOL", thickness:5,
       parents:[{pmid:"15718470", relation:"ENABLES"},{pmid:"17538086", relation:"CONTRADICTS"}],
-      unlocked:"Linking the rapamycin pocket to the kinase pocket in a single molecule defeats resistance mutations that beat both earlier generations — and it is the chemistry that makes true mTORC1 selectivity thinkable. Direct ancestor of the bi-steric inhibitors now in human trials.", unlocked_beginner:"Chemists link two separate drug parts into a single molecule that gets around the resistance mutations that beat both earlier generations of the drug — the chemistry that first makes a much more selective mTOR-blocker seem possible, and the direct ancestor of the newer drugs now in human trials.",
+      unlocked:"Linking the rapamycin pocket to the kinase pocket in a single molecule defeats resistance mutations that beat both earlier generations – and it is the chemistry that makes true mTORC1 selectivity thinkable. Direct ancestor of the bi-steric inhibitors now in human trials.", unlocked_beginner:"Chemists link two separate drug parts into a single molecule that gets around the resistance mutations that beat both earlier generations of the drug – the chemistry that first makes a much more selective mTOR-blocker seem possible, and the direct ancestor of the newer drugs now in human trials.",
       still_open:"Selectivity in cells is not selectivity in a person dosed for years.", still_open_beginner:"Being selective in a lab dish is not the same as staying selective inside a person taking the drug for years." }},
 
   /* ---- Open questions: buds, not findings. No PMID. ---- */
   { pmid:"OQ-SELECTIVITY", year:2026, label:"mTORC1-only, in humans?", authors:null, species:"Open question", tier:null,
     lineage:{ branch:"B", type:"OPEN", thickness:1,
       parents:[{pmid:"15718470", relation:"OPENS"},{pmid:"27279227", relation:"OPENS"}], unlocked:null,
-      still_open:"Bi-steric inhibitors spare mTORC2 acutely. Whether that holds under chronic human dosing — and whether sparing mTORC2 removes the metabolic toxicity — is still open; the Phase 1 signal (SCH2025) is consistent with it but was uncontrolled.", still_open_beginner:"The newest drugs seem to spare the second mTOR complex, at least in short lab tests. Whether that holds up when people take the drug for years — and whether sparing that complex actually removes the blood-sugar side effect — is still an open question. Early human data is encouraging but the trial had no comparison group, so it isn't proof yet." }},
+      still_open:"Bi-steric inhibitors spare mTORC2 acutely. Whether that holds under chronic human dosing – and whether sparing mTORC2 removes the metabolic toxicity – is still open; the Phase 1 signal (SCH2025) is consistent with it but was uncontrolled.", still_open_beginner:"The newest drugs seem to spare the second mTOR complex, at least in short lab tests. Whether that holds up when people take the drug for years – and whether sparing that complex actually removes the blood-sugar side effect – is still an open question. Early human data is encouraging but the trial had no comparison group, so it isn't proof yet." }},
 
   { pmid:"OQ-FREQUENCY", year:2026, label:"Frequency, not level?", authors:null, species:"Open question", tier:null,
     lineage:{ branch:"D", type:"OPEN", thickness:1,
       parents:[{pmid:"22552098", relation:"OPENS"},{pmid:"19211835", relation:"OPENS"},{pmid:"22343943", relation:"OPENS"}], unlocked:null,
-      still_open:"Every mechanism on this branch was measured at steady state. If mTORC1 oscillates with feeding, growth-factor bursts and the cell cycle, then two cells with identical average activity could have opposite fates. Almost nothing in the literature is designed to detect that.", still_open_beginner:"Every measurement so far has looked at the average, steady level of mTOR activity. But if activity actually rises and falls in pulses — with meals, growth signals, or the cell cycle — then two cells with the exact same average could be behaving completely differently. Almost no study has been designed to catch that." }},
+      still_open:"Every mechanism on this branch was measured at steady state. If mTORC1 oscillates with feeding, growth-factor bursts and the cell cycle, then two cells with identical average activity could have opposite fates. Almost nothing in the literature is designed to detect that.", still_open_beginner:"Every measurement so far has looked at the average, steady level of mTOR activity. But if activity actually rises and falls in pulses – with meals, growth signals, or the cell cycle – then two cells with the exact same average could be behaving completely differently. Almost no study has been designed to catch that." }},
 
   { pmid:"OQ-CHRONO", year:2026, label:"Does timing matter?", authors:null, species:"Open question", tier:null,
     lineage:{ branch:"F", type:"OPEN", thickness:1,
       parents:[{pmid:"33977284", relation:"OPENS"},{pmid:"27279227", relation:"OPENS"}], unlocked:null,
-      still_open:"Every human trial so far dosed on a fixed schedule chosen for convenience. If mTORC1 is phase-dependent, dose timing is an untested variable sitting inside every null result — including the one directly below this bud.", still_open_beginner:"Every human trial so far picked a dosing schedule for convenience, not because of biology. If mTOR activity naturally rises and falls throughout the day, then when you take the drug — not just how much — might matter, and that's never been properly tested, including in the trial that failed just above this point." }},
+      still_open:"Every human trial so far dosed on a fixed schedule chosen for convenience. If mTORC1 is phase-dependent, dose timing is an untested variable sitting inside every null result – including the one directly below this bud.", still_open_beginner:"Every human trial so far picked a dosing schedule for convenience, not because of biology. If mTOR activity naturally rises and falls throughout the day, then when you take the drug – not just how much – might matter, and that's never been properly tested, including in the trial that failed just above this point." }},
 
   { pmid:"OQ-HUMAN", year:2026, label:"Human healthspan?", authors:null, species:"Open question", tier:null,
     lineage:{ branch:"E", type:"OPEN", thickness:1,
       parents:[{pmid:"19587680", relation:"OPENS"},{pmid:"33977284", relation:"OPENS"}], unlocked:null,
-      still_open:"Untested — not disputed, not emerging. No completed trial has used a human ageing endpoint. This is the question the Atlas exists to keep visible.", still_open_beginner:"Nobody has ever run a human trial that measured ageing itself as the outcome. It's not that the idea failed — it just hasn't been tested yet. That untested gap is the whole reason this atlas exists." }}
+      still_open:"Untested – not disputed, not emerging. No completed trial has used a human ageing endpoint. This is the question the Atlas exists to keep visible.", still_open_beginner:"Nobody has ever run a human trial that measured ageing itself as the outcome. It's not that the idea failed – it just hasn't been tested yet. That untested gap is the whole reason this atlas exists." }}
 ];
 
 /* ---------- layout ----------
@@ -280,7 +280,7 @@ const span = Math.max(...findings.map(d => d.year)) - Math.min(...findings.map(d
 document.getElementById("lineageStats").innerHTML = [
   [findings.length, "landmark studies"],
   [span + " yrs", "soil sample to clinic"],
-  [humanNodes.length, "H — human studies"],
+  [humanNodes.length, "H – human studies"],
   [ageingEndpoints, "human ageing endpoints", true],
   [reversals.length, "reversals & nulls"],
   [openNodes.length, "questions still open"]
@@ -434,7 +434,7 @@ const REL_COPY = {
   CONTRADICTS:"overturns", OPENS:"grows out of"
 };
 /* keys are the stored internal ids, values are the display codes -- see tierMeta */
-const TIER_NAME = { A:"S — synthesis of human data", B:"H — human study", C:"A — animal model", D:"M — molecular" };
+const TIER_NAME = { A:"S – synthesis of human data", B:"H – human study", C:"A – animal model", D:"M – molecular" };
 const panel = document.getElementById("lineagePanel");
 
 function select(pmid){
