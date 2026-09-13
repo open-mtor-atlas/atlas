@@ -731,8 +731,49 @@ def check_academy(findings):
                     "to the species and design of the studies the lesson actually cites.",
                     "Name the model system in the sentence, or move the claim to a "
                     "human-evidence lesson.")
-    return len(lessons)
+    return len(lessons) + check_modules_prose(findings)
 
+
+def check_modules_prose(findings):
+    """Proza v modules.json (2026-09-13): otazky a "co uz umis" u tri casti
+    kurzu a cela stranka /academy/before-you-start/.
+
+    Duvod je tyz jako u lekci: je to rucne psana proza mimo index.html, tedy
+    misto, kudy by absolutni formulace prosla nezkontrolovana. Stranka
+    prerekvizit navic definuje pojmy, takze je to prvni veda, kterou uplny
+    zacatecnik na webu precte."""
+    p = os.path.join(HERE, "academy_data", "modules.json")
+    if not os.path.exists(p):
+        return 0
+    d = json.load(open(p, encoding="utf-8"))
+    blobs = []
+    for mod in d.get("modules") or []:
+        for part in mod.get("parts") or []:
+            blobs += [("part:%s.question" % part.get("id"), part.get("question") or ""),
+                      ("part:%s.youCanNow" % part.get("id"), part.get("youCanNow") or "")]
+    b = d.get("beforeYouStart") or {}
+    if b:
+        blobs.append(("before.lede", b.get("lede") or ""))
+        for i, c in enumerate(b.get("concepts") or []):
+            blobs.append(("before.concept%d" % i, c.get("says") or ""))
+        for i, q in enumerate(b.get("checks") or []):
+            blobs += [("before.check%d.q" % i, q.get("q") or ""),
+                      ("before.check%d.a" % i, q.get("a") or "")]
+        blobs += [("before.notNeeded%d" % i, x)
+                  for i, x in enumerate(b.get("notNeeded") or [])]
+        blobs += [("before.elsewhere%d" % i, r.get("says") or "")
+                  for i, r in enumerate(b.get("elsewhere") or [])]
+    for field, raw in blobs:
+        if not raw:
+            continue
+        txt = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+        where = "academy:%s" % field
+        scan_absolute(findings, where, txt, sev="ERROR")
+        if CLINICAL_LANG.search(txt):
+            add(findings, "WARN", "R3 mechanistic-as-clinical", where, txt,
+                "Course-frame prose uses clinical/human language -- scope it or drop it.",
+                "Say which model system, or leave the clinical claim to a lesson.")
+    return 1 if blobs else 0
 
 
 def check_challenges(findings):

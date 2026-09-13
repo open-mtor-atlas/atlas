@@ -89,6 +89,48 @@
      "minutes": 30,
      "status": "published"
     }
+   ],
+   "parts": [
+    {
+     "id": "machine",
+     "title": "The machine",
+     "question": "What is this kinase, and what switches it on?",
+     "youCanNow": "tell the two complexes apart, follow a small GTPase and the brake that holds it, and say where in the cell the switch is actually thrown",
+     "lessons": [
+      "what-is-mtor",
+      "mtorc1-vs-mtorc2",
+      "rheb",
+      "tsc-and-rheb",
+      "lysosome-platform"
+     ]
+    },
+    {
+     "id": "inputs",
+     "title": "Inputs and outputs",
+     "question": "What does it listen to, and what does it do about it?",
+     "youCanNow": "trace a nutrient or a hormone from outside the cell to a readout, and say which input a single measurement leaves undecided",
+     "lessons": [
+      "nutrient-sensing",
+      "growth-factor-signaling",
+      "feedback-regulation",
+      "mtor-and-autophagy"
+     ]
+    },
+    {
+     "id": "evidence",
+     "title": "Reading the evidence",
+     "question": "How do I tell what to believe?",
+     "youCanNow": "read a claim against the method behind it, name the tier of evidence it rests on, and say what the result leaves open",
+     "lessons": [
+      "how-to-read-an-mtor-paper"
+     ]
+    }
+   ],
+   "_partsComment": [
+    "Casti nejsou novy modul ani nova adresa: deset lekci zustava tam, kde je.",
+    "Pridavaji hranici, na ktere se da rict 'tohle uz umis' -- to je jedina vec,",
+    "kterou univerzitni kurzy maji a Learn dosud nemel. Poradi lekci uvnitr casti",
+    "MUSI odpovidat poradi v `lessons` vyse; hlida to pravidlo 18."
    ]
   }
  ],
@@ -98,5 +140,83 @@
   "(/academy/research-challenges/), takze kartu na homepage generuje",
   "build_academy.py z techto dat. Pole zustava prazdne pro dalsi pilir."
  ],
- "comingSoon": []
+ "comingSoon": [],
+ "beforeYouStart": {
+  "title": "What you need first",
+  "lede": "This course does not start from zero. Here is the short list of things it assumes you already know, each in one sentence, plus six questions to check yourself against. If a few of them are new, that is worth an hour somewhere else first &mdash; lesson 03 gets hard quickly.",
+  "concepts": [
+   {
+    "term": "Protein",
+    "says": "A chain of amino acids folded into a shape; the shape is what lets it do a job."
+   },
+   {
+    "term": "Enzyme",
+    "says": "A protein that speeds up a chemical reaction without being used up by it."
+   },
+   {
+    "term": "Kinase",
+    "says": "An enzyme that attaches a phosphate group to another molecule. mTOR is one."
+   },
+   {
+    "term": "Phosphorylation",
+    "says": "Adding that phosphate group, which changes what the target protein does &mdash; often switching it on or off."
+   },
+   {
+    "term": "Cell membrane",
+    "says": "The fatty boundary around a cell, and around compartments inside it such as the lysosome."
+   },
+   {
+    "term": "Gene",
+    "says": "A stretch of DNA carrying the instructions for one protein."
+   },
+   {
+    "term": "Switching a gene off",
+    "says": "Removing or silencing a gene so its protein is missing, which is how biologists ask what that protein was doing."
+   }
+  ],
+  "checks": [
+   {
+    "q": "A kinase adds what to its target?",
+    "a": "A phosphate group. That is the whole job description."
+   },
+   {
+    "q": "If a protein is phosphorylated, has it necessarily been switched on?",
+    "a": "No. Phosphorylation changes what a protein does; for some targets that means on, for others off. Lesson 06 is built around a chain where the change is a release of inhibition."
+   },
+   {
+    "q": "What is the difference between a gene and a protein?",
+    "a": "The gene is the instruction in DNA; the protein is the molecule built from it."
+   },
+   {
+    "q": "Why would a researcher delete a gene on purpose?",
+    "a": "To see what stops working without it. That is the main way a protein's job gets pinned down."
+   },
+   {
+    "q": "Is the lysosome inside or outside the cell?",
+    "a": "Inside. It is a compartment with its own membrane, and lesson 05 is about why mTOR meets its switch there."
+   },
+   {
+    "q": "What does 'in vitro' mean?",
+    "a": "In a dish rather than in a living animal or person. Lesson 10 is largely about how much that distinction changes what a result supports."
+   }
+  ],
+  "notNeeded": [
+   "Maths beyond percentages. There is no equation in the course.",
+   "Chemistry beyond school level. No structures to draw, no mechanisms to memorise.",
+   "A prior biology course. The seven terms above are the whole entry ticket."
+  ],
+  "elsewhere": [
+   {
+    "label": "MITx 7.00x &mdash; Introduction to Biology: The Secret of Life",
+    "url": "https://mitxonline.mit.edu/courses/course-v1:MITxT+7.00x/",
+    "says": "Free to audit, self-paced. Covers every term above and a great deal more."
+   },
+   {
+    "label": "Khan Academy &mdash; Biology library",
+    "url": "https://www.khanacademy.org/science/biology",
+    "says": "Free, short videos. Good for filling one gap rather than taking a course."
+   }
+  ],
+  "_comment": "Proza teto stranky zije v datech, ne v build_academy.py, aby ji cetl validate_claims stejne jako lekce."
+ }
 }

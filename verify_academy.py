@@ -48,6 +48,15 @@ Kontroluje se:
      s existujicim slugem; blok je cely staticke HTML (zadny <script> uvnitr)
      a je i v obsahu stranky. Vlozena hra by porusila paritu bez JS stejne
      jako kviz -- proto je to rozcestnik a proto to hlida brana.
+ 18  casti kurzu (modules.json `parts`): kazda publikovana lekce lezi prave
+     v jedne casti, poradi lekci uvnitr casti odpovida poradi v modulu, casti
+     jdou po sobe bez preskoku a kazda ma otazku i vetu "co po ni umis".
+     Bez toho by hranice casti tvrdila neco, co seznam lekci nedela.
+ 19  stranka prerekvizit /academy/before-you-start/: kdyz jsou v datech
+     `beforeYouStart`, stranka existuje, ma <h1>, nese vsech sest kontrolnich
+     otazek I s odpovedmi primo v HTML (parita bez JS) a je odkazovana
+     z /academy/ i z /academy/core/. Stranka, na kterou nikdo neodkaze, je
+     stranka, ktera neexistuje.
  14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
      i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
      misto sekce prazdno; caution sekce beginner verzi mit NESMI
@@ -902,6 +911,56 @@ def main():
                     "%s.nextLesson=%r, podle poradi ma byt %r"
                     % (slug, by_slug[slug].get("nextLesson"), exp_next))
 
+    # 18 casti kurzu
+    for mod in modules["modules"]:
+        w = "module:" + mod["slug"]
+        parts = mod.get("parts") or []
+        if not parts:
+            continue
+        order = [r["lesson"] for r in mod["lessons"]]
+        seen, pos = [], -1
+        for part in parts:
+            pw_ = "%s part:%s" % (w, part.get("id"))
+            if not (part.get("question") or "").strip():
+                bad(pw_, "cast nema otazku -- hranice bez otazky nic nerika")
+            if not (part.get("youCanNow") or "").strip():
+                bad(pw_, "cast nerika, co po ni student umi (spec D2)")
+            if not (part.get("lessons") or []):
+                bad(pw_, "cast nema zadnou lekci")
+            for slug in part.get("lessons") or []:
+                if slug not in order:
+                    bad(pw_, "lekce %r neni v tomto modulu" % slug)
+                    continue
+                if slug in seen:
+                    bad(pw_, "lekce %r lezi ve dvou castech" % slug)
+                seen.append(slug)
+                i = order.index(slug)
+                if i <= pos:
+                    bad(pw_, "lekce %r porusuje poradi -- casti musi kopirovat "
+                             "poradi lekci v modulu" % slug)
+                pos = i
+        for r in mod["lessons"]:
+            if r["status"] == "published" and r["lesson"] not in seen:
+                bad(w, "publikovana lekce %r nepatri do zadne casti" % r["lesson"])
+
+    # 19 prerekvizity -- datova cast
+    pre = modules.get("beforeYouStart")
+    if pre:
+        if len(pre.get("concepts") or []) < 5:
+            bad("before-you-start", "min pet pojmu; kratsi seznam neni vstupni prah")
+        if len(pre.get("checks") or []) < 5:
+            bad("before-you-start", "min pet kontrolnich otazek")
+        for i, c in enumerate(pre.get("concepts") or []):
+            if not (c.get("term") or "").strip() or not (c.get("says") or "").strip():
+                bad("before-you-start", "pojem %d nema term nebo says" % i)
+        for i, q in enumerate(pre.get("checks") or []):
+            if not (q.get("q") or "").strip() or not (q.get("a") or "").strip():
+                bad("before-you-start", "otazka %d nema q nebo a -- otazka bez odpovedi "
+                                        "je past, ne kontrola" % i)
+        for r in pre.get("elsewhere") or []:
+            if not (r.get("url") or "").startswith("http"):
+                bad("before-you-start", "odkaz jinam nema url: %r" % r.get("label"))
+
     # 6/7/8 vygenerovane stranky
     pages = []
     for root, _, files in os.walk(ACADEMY):
@@ -918,6 +977,30 @@ def main():
             p = os.path.join(ACADEMY, mod["slug"], r["lesson"], "index.html")
             if not os.path.exists(p):
                 bad("academy/", "chybi vygenerovana stranka %s" % p)
+
+    # 19 prerekvizity -- vygenerovana stranka a odkazy na ni
+    if modules.get("beforeYouStart"):
+        pp = os.path.join(ACADEMY, "before-you-start", "index.html")
+        if not os.path.exists(pp):
+            bad("academy/", "chybi stranka /academy/before-you-start/ (pravidlo 19)")
+        else:
+            ph = open(pp, encoding="utf-8").read()
+            if "<h1>" not in ph:
+                bad("academy/before-you-start/", "stranka nema <h1>")
+            for i, q in enumerate(modules["beforeYouStart"].get("checks") or []):
+                # Otazka i odpoved musi byt v HTML. <details> odpoved jen skryva,
+                # nedotahuje ji -- stejny kontrakt jako Think a kviz.
+                for key in ("q", "a"):
+                    frag = (q.get(key) or "")[:40]
+                    if frag and frag not in ph:
+                        bad("academy/before-you-start/",
+                            "kontrolni otazka %d nema v HTML %s -- bez JS by tam bylo "
+                            "prazdno" % (i, "zadani" if key == "q" else "odpoved"))
+            for src, label in ((os.path.join(ACADEMY, "index.html"), "/academy/"),
+                               (os.path.join(ACADEMY, "core", "index.html"), "/academy/core/")):
+                if os.path.exists(src) and "/academy/before-you-start/" not in \
+                        open(src, encoding="utf-8").read():
+                    bad(label, "neodkazuje na stranku prerekvizit (pravidlo 19)")
 
     href = re.compile(r'href="([^"#][^"]*)"')
     for p in pages:

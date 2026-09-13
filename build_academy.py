@@ -909,6 +909,18 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
+/* Hlavicka casti v seznamu lekci. Neni to odkaz -- cast nema vlastni adresu,
+   je to hranice uvnitr jednoho seznamu. */
+.ac-parthead{display:block;padding:22px 0 10px;border-top:1px solid var(--line);
+  margin-top:10px}
+.ac-list li.ac-parthead:first-child{border-top:none;margin-top:0;padding-top:4px}
+.ac-partn{display:inline-block;font-size:12.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);margin-right:10px}
+.ac-parttitle{font-size:17px;font-weight:700}
+.ac-partq{display:block;font-size:15px;margin-top:4px}
+.ac-partdone{display:block;font-size:13.5px;color:var(--soft);margin-top:3px;
+  line-height:1.5}
+
 /* "Practice this lesson" -- rozcestnik do Areny, ne vlozena hra. Uvnitr lekce
    se nic nehraje: vlozena hra by porusila paritu bez JS (pravidlo 8/13), tak
    jako ji drzi kviz a cviceni. Cely blok je staticke HTML. */
@@ -2298,8 +2310,13 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     secs.append(("deeper", "Go deeper"))
 
     body = [SVG_DEFS, '<div class="ac-lesson"><article class="ac-main">']
-    body.append('<p class="ac-eyebrow">%s &middot; Lesson %s &middot; %s &middot; %d min</p>'
-                % (e(module["title"]), e(les["id"][1:]), e(les["level"]), les["estimatedTime"]))
+    pt = part_of(module, slug)
+    n_pub = len([r for r in module["lessons"] if r["status"] == "published"])
+    body.append('<p class="ac-eyebrow">%s%s &middot; Lesson %s of %d &middot; %s &middot; %d min</p>'
+                % (e(module["title"]),
+                   (" &middot; Part %s: %s" % (ROMAN.get(pt[0], str(pt[0])), e(pt[1]["title"])))
+                   if pt else "",
+                   e(les["id"][1:]), n_pub, e(les["level"]), les["estimatedTime"]))
     body.append("<h1>%s</h1>" % e(title))
     body.append('<p class="meta">%s</p>' % e(les["subtitle"]))
     body.append('<h2 id="question" class="ac-vh">The question</h2>'
@@ -2462,11 +2479,37 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     return url, page, missing
 
 
+def part_of(module, slug):
+    """Cast, do ktere lekce patri, nebo None. Casti jsou data v modules.json,
+    ne dalsi modul: adresy lekci se nemeni, pribyva jen hranice, na ktere se da
+    rict 'tohle uz umis'. Kdyz `parts` v datech nejsou, chova se vsechno jako
+    dosud a stranky vypadaji, jako by se nic nestalo."""
+    for i, part in enumerate(module.get("parts") or []):
+        if slug in part["lessons"]:
+            return i + 1, part
+    return None
+
+
+ROMAN = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V"}
+
+
 def curriculum_page(module, lessons_by_slug):
     url = "%s/academy/%s/" % (SITE, module["slug"])
     rows = []
+    seen_parts = set()
     for row in module["lessons"]:
         slug = row["lesson"]
+        pt = part_of(module, slug)
+        if pt and pt[0] not in seen_parts:
+            seen_parts.add(pt[0])
+            n, part = pt
+            rows.append('<li class="ac-parthead"><span class="ac-partn">Part %s</span>'
+                        '<span class="ac-parttitle">%s</span>'
+                        '<span class="ac-partq">%s</span>'
+                        '<span class="ac-partdone">By the end of this part you can %s.</span>'
+                        '</li>'
+                        % (ROMAN.get(n, str(n)), e(part["title"]), e(part["question"]),
+                           e(part["youCanNow"])))
         pub = row["status"] == "published"
         title = lessons_by_slug[slug]["title"] if pub else row.get("title", slug)
         meta = "%s · %d min" % (row["level"], row["minutes"])
@@ -2484,6 +2527,9 @@ def curriculum_page(module, lessons_by_slug):
     body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
             '<h1>%s</h1><p class="ac-lede">%s</p></div>' % (e(module["title"]),
                                                             e(module["description"]))]
+    body.append('<p class="ac-note">New to this? '
+                '<a href="%s/academy/before-you-start/">What you need first</a> '
+                '&mdash; seven terms and six questions to check yourself against.</p>' % SITE)
     body.append('<ul class="ac-list">%s</ul>' % "".join(rows))
     # Poznamka o planovanych lekcich se ukaze, jen kdyz nejaka planovana je.
     # Jinak by stranka varovala pred necim, co na ni neni (od 2026-08-30 je
@@ -2515,6 +2561,70 @@ def curriculum_page(module, lessons_by_slug):
     return url, shell("%s | mTOR Academy | Oliver's mTOR Atlas" % module["title"],
                       module["description"][:300], url, [ld, bc], "".join(body), crumb,
                       active_tab="learn", extra_css=ACADEMY_CSS, extra_body=PROGRESS_JS)
+
+
+def prereq_page(modules, module, first_slug):
+    """/academy/before-you-start/ -- co ma clovek umet, nez otevre lekci 01.
+
+    MITx to uvadi natvrdo a je to poctive: bez toho spadne zacatecnik na lekci
+    03. Proza zije v modules.json (klic beforeYouStart), ne tady, aby ji
+    validate_claims cetl stejne jako lekce.
+
+    Cely obsah je v HTML; <details> jen skryva odpoved, kterou uz prohlizec
+    stahl -- stejny kontrakt jako Think a kviz, zadny JS."""
+    cfg = modules.get("beforeYouStart")
+    if not cfg:
+        return None
+    url = "%s/academy/before-you-start/" % SITE
+    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
+            '<h1>%s</h1><p class="ac-lede">%s</p></div>' % (e(cfg["title"]), prose(cfg["lede"]))]
+
+    body.append('<section class="ac-section"><h2 id="terms">Seven terms</h2><ul class="ac-objlist">')
+    for c in cfg["concepts"]:
+        body.append("<li><strong>%s</strong> &mdash; %s</li>" % (e(c["term"]), prose(c["says"])))
+    body.append("</ul></section>")
+
+    body.append('<section class="ac-section"><h2 id="check">Check yourself</h2>'
+                "<p>Six questions. If you can answer five of them, the course will "
+                "carry you; the sixth is what lesson 10 is for.</p>")
+    for q in cfg["checks"]:
+        body.append('<div class="ac-think"><p class="ac-prompt">%s</p>'
+                    '<details><summary>Answer</summary><p class="ac-reveal">%s</p>'
+                    "</details></div>" % (prose(q["q"]), prose(q["a"])))
+    body.append("</section>")
+
+    body.append('<section class="ac-section"><h2 id="not-needed">What the course does not need</h2>'
+                '<ul class="ac-objlist">%s</ul></section>'
+                % "".join("<li>%s</li>" % prose(x) for x in cfg["notNeeded"]))
+
+    body.append('<section class="ac-section"><h2 id="elsewhere">If a few of these are new</h2>'
+                "<p>Neither of these is ours and neither costs anything.</p><ul class=\"ac-routes\">")
+    for r in cfg["elsewhere"]:
+        body.append('<li><a href="%s" rel="noopener">%s</a><span>%s</span></li>'
+                    % (e(r["url"]), e(r["label"]), prose(r["says"])))
+    body.append("</ul></section>")
+
+    body.append('<div class="ac-nextbar">'
+                '<a class="ac-cta ac-quiet" href="%s/academy/">&larr; Academy</a>'
+                '<a class="ac-cta" href="%s/academy/%s/%s/">Start lesson 01 &rarr;</a></div>'
+                % (SITE, SITE, module["slug"], e(first_slug)))
+
+    ld = {"@context": "https://schema.org", "@type": "LearningResource",
+          "name": cfg["title"], "url": url, "inLanguage": "en",
+          "learningResourceType": "prerequisite guide",
+          "educationalLevel": "Secondary",
+          "isPartOf": {"@type": "Course", "name": "%s – mTOR Academy" % module["title"],
+                       "url": "%s/academy/%s/" % (SITE, module["slug"])},
+          "about": dict(DATASET_REF),
+          "license": "https://creativecommons.org/licenses/by/4.0/"}
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Academy", SITE + "/academy/"),
+                        (cfg["title"], None)])
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> · %s'
+             % (SITE, SITE, e(cfg["title"])))
+    return url, shell("%s | mTOR Academy | Oliver's mTOR Atlas" % cfg["title"],
+                      TAG_RE.sub("", cfg["lede"])[:300], url, [ld, bc], "".join(body),
+                      crumb, active_tab="learn", extra_css=ACADEMY_CSS)
 
 
 def academy_home(modules, lessons_by_slug, challenges):
@@ -2603,10 +2713,12 @@ def academy_home(modules, lessons_by_slug, challenges):
                 '<h3>Learn</h3><p>The mental model most mTOR papers assume you already have &mdash; '
                 'one mechanism at a time, with the evidence attached.</p>'
                 '<span class="ac-state">%d&ndash;%d min each <i>&middot; start anywhere</i></span>'
-                '<a class="ac-go" href="%s/academy/%s/%s/">Read lesson %s &rarr;</a></div>'
+                '<a class="ac-go" href="%s/academy/%s/%s/">Read lesson %s &rarr;</a>'
+                '<a class="ac-go ac-quiet" href="%s/academy/before-you-start/">'
+                'What you need first &rarr;</a></div>'
                 % (len(published), min(r["minutes"] for r in published),
                    max(r["minutes"] for r in published), SITE, mod["slug"], e(first["lesson"]),
-                   first["n"]))
+                   first["n"], SITE))
     if has_practice:
         body.append('<div class="ac-way" data-way="practice"><span class="ac-kind">Practice &middot; %d games</span>'
                     '<h3>Practice Arena</h3><p>Predict a perturbation, rebuild a route, name what a '
@@ -3461,6 +3573,16 @@ def main():
     url, page = academy_home(modules, lessons_by_slug, challenges)
     write(os.path.join(ACADEMY_DIR, "index.html"), page)
     urls.append((url, "1.0"))
+
+    # Stranka prerekvizit. Patri k prvnimu modulu (jediny, ktery dnes je),
+    # ale ma vlastni adresu mimo nej -- neni to lekce a nema cislo.
+    first_mod = modules["modules"][0]
+    first_slug = first_mod["lessons"][0]["lesson"]
+    pre = prereq_page(modules, first_mod, first_slug)
+    if pre:
+        url, page = pre
+        write(os.path.join(ACADEMY_DIR, "before-you-start", "index.html"), page)
+        urls.append((url, "0.7"))
 
     sid_to_lesson = {}
     for mod in modules["modules"]:

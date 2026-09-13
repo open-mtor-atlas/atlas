@@ -393,7 +393,10 @@ def render(cfg, m):
             A('</tbody></table>')
         A('<p>This is the query no other resource can answer. Reactome, KEGG, '
           'SIGNOR and Open Targets record the interaction; none of them record '
-          'that it was only ever shown in one sex, or only in cell culture.</p>')
+          'that it was only ever shown in one sex, or only in cell culture. '
+          'The two time-related kinds have a page of their own: '
+          '<a href="%s/pathway/timing/">how long the exposure lasted, and what '
+          'happens when it stops</a>.</p>' % SITE)
 
     # --- 6. null results ---
     A('<h2 id="null-results">What has been tested and failed</h2>')

@@ -284,6 +284,27 @@ def main():
             bad(w, "adresa zpet %r nevypada jako stranka lekce" % meta.get("u"))
         if meta.get("nx") and meta["nx"] not in lmap:
             bad(w, "nextLesson %r neni v mape lekci" % meta["nx"])
+    # Vyjimka pro set z lekce: Perturbation Lab a What It Doesn't Show jsou tam
+    # otevrene uz na hodnosti 1. Musi platit tri veci naraz, jinak se vyjimka
+    # tise rozleze jinam: (a) tyka se prave techto dvou her, (b) allowed() ji
+    # bere jako parametr, (c) true predava JEDINE lessonPool().
+    if "function allowed(item, inLesson)" not in engine_js:
+        bad("engine", "allowed() nezna vyjimku pro set z lekce (P13)")
+    for g in ("pert", "limits"):
+        if ("item.game === '%s' && !inLesson" % g) not in engine_js:
+            bad("engine", "hra %r nema v allowed() vyjimku pro set z lekce (P13)" % g)
+    for g in ("autopsy", "sources", "frontier"):
+        if ("item.game === '%s' && !inLesson" % g) in engine_js:
+            bad("engine", "hra %r dostala vyjimku pro set z lekce -- rozhodnuto bylo "
+                          "jen o pert a limits (P13)" % g)
+    callers = engine_js.count("allowed(it, true)")
+    if callers != 1:
+        bad("engine", "allowed(it, true) se vola %dx -- vyjimka patri jedine do "
+                      "lessonPool() (P13)" % callers)
+    if "those two games unlock at rank 2" not in engine:
+        bad("practice page", "panel neprozradi, ze dve hry jsou v setu z lekce "
+                             "otevrene driv nez v Arene (P13)")
+
     if '"lessons")' not in engine and '"counts", "lessons"' not in engine:
         bad("payload", "mapa lekci se nezapeka do payloadu -- D.lessons by na strance "
                        "chybelo")
