@@ -194,6 +194,28 @@ if defined AIRTABLE_TOKEN (
 )
 
 echo.
+echo === optional: Refresh ATLAS_EDGES from Airtable ===
+REM  13. 9. 2026: sync_relations.py byl v tomhle skriptu uveden JEN v seznamu
+REM  pro `git add` a NIKDY se nespoustel -- presne ta chyba, kterou popisuje
+REM  komentar u generate.py o kus niz. Dusledek: hrany drahy se do index.html
+REM  dostavaly jen kdyz je nekdo spustil rucne. Bod 7.5 pridal hranam pole
+REM  Time_Dependence a /pathway/timing/ ho cte z ATLAS_EDGES, takze bez tohohle
+REM  kroku by stranka ukazovala stara data a nikdo by si toho nevsiml.
+REM  POZOR: prvni beh po 13. 9. udela vetsi diff v index.html -- ke 100 hranam
+REM  pribyde klic `timedep`. To je ocekavane, ne poplach.
+if defined AIRTABLE_TOKEN (
+  py sync_relations.py --write
+  if errorlevel 1 (
+    echo.
+    echo ABORTED: sync_relations.py failed - ATLAS_EDGES by zustaly stale a
+    echo /pathway/timing/ by merilo stara data.
+    exit /b 1
+  )
+) else (
+  echo    AIRTABLE_TOKEN not set - skipping edge refresh
+)
+
+echo.
 echo === Rebuild Deep-search chunk index - best effort ===
 py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
@@ -332,6 +354,20 @@ if errorlevel 1 (
   echo.
   echo ABORTED: build_evidence_audit.py failed - /evidence/audit/ by ukazoval
   echo cisla o starych datech, coz je horsi nez zadna stranka.
+  exit /b 1
+)
+
+echo.
+echo === Build /pathway/timing/ ===
+REM  13. 9. 2026, bod 7.5: casova osa. Cte Regimen ze studies_baked.json a
+REM  Time_Dependence z ATLAS_EDGES, takze MUSI bezet az po sync_airtable.py
+REM  i sync_relations.py vys a po build_pages.py. Stejna pojistka na GA4 tag
+REM  a canonical jako u auditu.
+py build_timing_page.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_timing_page.py failed - /pathway/timing/ by ukazovalo
+  echo stara data.
   exit /b 1
 )
 
@@ -591,6 +627,7 @@ REM  reach the live site, however freshly it was generated. When you add a new
 REM  build artifact, add it here in the same commit.
 git add index.html
 if exist "build_evidence_audit.py" git add build_evidence_audit.py
+if exist "build_timing_page.py" git add build_timing_page.py
 if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
 if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
 if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
