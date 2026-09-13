@@ -15,12 +15,16 @@
     var r = PA.rankDef(S.rank), nx = PA.nextRank();
     var bar = document.getElementById('paRank'); if(!bar) return;
     var pct = 0, to = '';
-    if(nx && nx.phase === 'A'){
+    if(nx){
+      /* Drive tady stalo 'Phase B ranks open with the next set of games'.
+         Ty hry na webu uz jsou (autopsy, sources, frontier), takze slib do
+         budoucna byl nepravdivy: zebrik vede az na hodnost 6. */
       var span = Math.max(1, nx.xp - r.xp);
       pct = Math.max(0, Math.min(100, Math.round((S.xp - r.xp) / span * 100)));
       to = (nx.xp - S.xp > 0 ? (nx.xp - S.xp) + ' XP to ' : 'ready for ') + nx.name;
+      if(nx.brier) to += ' (with calibration)';
     } else {
-      pct = 100; to = 'Phase B ranks open with the next set of games';
+      pct = 100; to = 'Top rank';
     }
     bar.innerHTML =
       '<div><p class="pa-rk">Rank ' + r.n + '</p><p class="pa-rkname">' + esc(r.name) + '</p></div>' +
@@ -172,7 +176,8 @@
       pass = session.ok >= Math.ceil(queue.length * CFG.rankup.passRatio);
       if(pass) PA.promote();
     }
-    if(mode === 'daily'){ S.day.done = 1; PA.save(); }
+    if(mode === 'daily'){ S.day.done = 1; PA.save();
+      PA.track('daily5_completed', {correct: session.ok, of: session.n}); }
     show(head(title, '') + '<div class="pa-body">' +
       '<p class="pa-q">' + session.ok + ' of ' + session.n + ' &middot; +' + session.xp + ' XP</p>' +
       (pass === null ? '' :

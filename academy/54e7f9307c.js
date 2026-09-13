@@ -184,7 +184,11 @@
     var html = '', crit = '', i, b, p, state, sub;
     for(i=0;i<CFG.badges.length;i++){
       b = CFG.badges[i];
-      if(b.phase === 'A'){
+      /* Drive se tady zamykal kazdy odznak faze B natvrdo ('phase B'), i kdyz
+         engine jeho metriku uz mericky pocital -- student hral Paper Autopsy a
+         odznak zustal seda. Zamceny je nove jen odznak s pending:true, tedy
+         ten, jehoz metriku zatim opravdu nic neplni. */
+      if(!b.pending){
         p = PA.badgeProgress(b);
         state = p.tier ? 'earned' : (p.pct > 0 ? 'progress' : 'locked');
         sub = p.tier ? (b.tiers.length > 1 ? 'Tier ' + roman(p.tier) : 'Earned')
@@ -192,14 +196,14 @@
                         ? (p.value ? p.value.toFixed(2) + ' &rarr; ' + b.tiers[0] : 'no data yet')
                         : p.value + ' / ' + p.next));
       } else {
-        p = {tier:0, pct:0}; state = 'locked'; sub = 'phase B';
+        p = {tier:0, pct:0}; state = 'locked'; sub = b.pendingNote || 'not measured yet';
       }
       html += '<div class="pa-badge" data-state="' + state + '">' +
               badgeSvg(b.id, 76, state, p.pct, b.tiers.length, p.tier) +
               '<div class="pa-bn">' + esc(b.name) + '</div><div class="pa-bs">' + sub + '</div></div>';
       crit += '<li><span class="pa-cn">' + esc(b.name) + '</span>' +
               '<span class="pa-cc">' + esc(b.criterion) + '</span>' +
-              '<span class="pa-cv">' + (b.phase === 'A' ? sub : 'phase B') + '</span></li>';
+              '<span class="pa-cv">' + sub + '</span></li>';
     }
     shelf.innerHTML = html;
     if(list) list.innerHTML = crit;
@@ -321,4 +325,5 @@
   }
 
   wireTools(); redraw();
+  PA.track('map_opened', {rank: S.rank});
 })();

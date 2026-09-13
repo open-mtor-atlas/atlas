@@ -11,6 +11,7 @@ window.PA = (function(){
     try { D = JSON.parse(el.textContent); } catch(err){ return null; }
     KEY = (D.cfg && D.cfg.storageKey) || KEY;
     S = read();
+    trackOutbound();
     return D;
   }
 
@@ -36,6 +37,36 @@ window.PA = (function(){
   }
   function state(){ return S; }
   function data(){ return D; }
+
+  /* ---------------- analytika pilotu ----------------
+     Stejny kontrakt jako CHALLENGE_JS v build_academy.py: hlasi se do gtag,
+     ktery shell() uz nacetl, zadna nova platforma, zadne ulozeni, vse v
+     try/catch. Bez techto sesti udalosti se pilot Areny neda vyhodnotit --
+     navrh to zadal 5. 9., nasazeno az ted. Nesleduje se cas na strance,
+     pocet polozek ani denni serie; to jsou metriky navstevnosti, ne uceni. */
+  function track(name, extra){
+    try { if(typeof gtag === 'function'){
+      var p = {}, k;
+      if(extra) for(k in extra) p[k] = extra[k];
+      gtag('event', name, p);
+    } } catch(err){}
+  }
+  function trackOutbound(){
+    /* atlas_from_practice: odchod z Areny do Atlasu (studie, lekce, entita).
+       Odkazy uvnitr Areny se nepocitaji -- meri se, jestli je hra branou do
+       Atlasu, ne proklik mezi dvema jejimi strankami. */
+    if(!document.addEventListener) return;
+    document.addEventListener('click', function(ev){
+      var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if(!a) return;
+      var u;
+      try { u = new URL(a.href, location.href); } catch(err){ return; }
+      if(u.host !== location.host) return;
+      if(u.pathname.indexOf('/academy/practice/') === 0) return;
+      if(u.pathname.indexOf('/academy/progress/') === 0) return;
+      track('atlas_from_practice', {to: u.pathname});
+    }, true);
+  }
 
   /* ---------------- mastery (with decay) ---------------- */
   /* Mastery is what you can do NOW. A node you stop practising slides back
@@ -155,6 +186,9 @@ window.PA = (function(){
     snapshot();
     var gained = evalBadges();
     save();
+    track('item_answered', {game: item.game, difficulty: item.diff || 1,
+                            confidence: (p === null ? 'none' : (sure ? 'sure' : 'unsure')),
+                            result: ok ? 'correct' : 'wrong'});
     return {xp: xp, badges: gained};
   }
   function recordWire(puz, bonds, perfect){
@@ -173,6 +207,9 @@ window.PA = (function(){
     touchStreak(); snapshot();
     var gained = evalBadges();
     save();
+    track('item_answered', {game: 'wire', difficulty: puz.diff || 1,
+                            confidence: 'none',
+                            result: perfect ? 'correct' : 'wrong'});
     return {xp: xp, badges: gained};
   }
 
@@ -250,6 +287,7 @@ window.PA = (function(){
       if(p.tier > (S.bg[b.id]||0)){
         S.bg[b.id] = p.tier;
         gained.push({id:b.id, name:b.name, tier:p.tier});
+        track('badge_earned', {badge: b.id, tier: p.tier});
       }
     }
     return gained;
@@ -269,7 +307,10 @@ window.PA = (function(){
     if(r.brier){ var br = brier(); if(!br || br.v > r.brier) return false; }
     return true;
   }
-  function promote(){ S.rank = Math.min(S.rank+1, D.cfg.ranks.length); save(); }
+  function promote(){
+    S.rank = Math.min(S.rank+1, D.cfg.ranks.length); save();
+    track('rank_up', {rank: S.rank});
+  }
   function unlocked(what){
     var i, r;
     for(i=0;i<D.cfg.ranks.length;i++){
@@ -391,5 +432,5 @@ window.PA = (function(){
           unlocked:unlocked, pool:pool, wirePool:wirePool, daily:daily,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
-          reset:reset};
+          reset:reset, track:track};
 })();
