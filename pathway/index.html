@@ -14,13 +14,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="All 88 nodes and 119 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta name="description" content="All 88 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <link rel="canonical" href="https://mtor-atlas.org/pathway/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="All 88 nodes and 119 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta property="og:description" content="All 88 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <meta property="og:url" content="https://mtor-atlas.org/pathway/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -345,7 +345,7 @@ table.int-table td[data-l="Mechanism"]{max-width:420px}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>The mTOR pathway, node by node</h1>
 <p class="summary">The same curated model behind the Atlas's interactive
-pathway map (88 nodes, 119 interactions,
+pathway map (88 nodes, 120 interactions,
 11 guided routes, 6 feedback loops), written
 out as text: eleven guided walks through the network, each followed by the
 full interaction reference table below.</p>
@@ -646,7 +646,7 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>4. mTORC2 phosphorylates Akt on S473.</strong>
 <a class="step-jump" href="#int-mtorc2-akt">mechanism &darr;</a></p>
 <p>This is mTORC2&#x27;s signature reaction. Akt needs both T308 from PDK1 and S473 from mTORC2 for full activity against many substrates.</p>
-<p><em>Akt becomes fully active – and Akt is what activates mTORC1&#x27;s upstream arm.</em> mTORC2 therefore sits upstream of mTORC1, through Akt. The two complexes are not parallel branches; one feeds the other.</p>
+<p><em>Akt becomes fully active – and Akt is what activates mTORC1&#x27;s upstream arm.</em> Through Akt, mTORC2 is one of the inputs that licenses mTORC1. That is not a simple hierarchy, though: both complexes read PI3K, each has substrates the other never touches, and mTORC1&#x27;s own S6K1 to IRS-1 feedback runs back into the signalling that feeds mTORC2. Upstream here names a route, not a rank.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, multiple studies, and the genetic dissection in mice is the strongest evidence in this route: Rictor or mLST8 loss abolishes signalling to Akt while sparing S6K1.</p>
 <p class="summary">Here is the structural reason the two-complex question matters clinically. Rapamycin hits mTORC1 but not mTORC2 acutely, so it leaves the Akt-activating arm intact – one more reason blocking mTORC1 does not simply shut the pathway down.</p></li><li class="step">
 <p class="step-what"><strong>5. Disrupting mTORC2 degrades whole-body glucose handling.</strong>
@@ -898,7 +898,7 @@ full interaction reference table below.</p>
 <p class="tier-why">Certainty: Contested, low mechanistic confidence, untested in humans – and the validator flags that no boundary conditions are stated for it, which is itself a curation gap this route is happy to expose.</p>
 <p class="summary">Notice that the Atlas is admitting a hole in its own curation here rather than hiding it. A validator warning left visible is more useful than a warning silenced.</p></li><li class="step">
 <p class="step-what"><strong>3. Glutamine may reach mTORC1 without the Rag GTPases at all.</strong>
-<a class="step-jump" href="#int-gln-rag">mechanism &darr;</a></p>
+<a class="step-jump" href="#int-gln-mtorc1-arf1">mechanism &darr;</a></p>
 <p>A Rag-independent, Arf1-dependent route has been reported. If real, it means the lysosomal recruitment story is not the only way in.</p>
 <p><em>Potentially the architecture of the whole nutrient arm.</em> The map draws it dotted and thin, because the claim is large and the reproduction is not uniform.</p>
 <p class="tier-why">Certainty: Contested, low mechanistic confidence, human relevance untested.</p>
@@ -971,16 +971,16 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>1. PTEN is lost, and nothing erases the growth signal any more.</strong>
 <a class="step-jump" href="#int-pten-pi3k">mechanism &darr;</a></p>
 <p>PTEN is a lipid phosphatase: it converts PIP3 back to PIP2. It does not inhibit the PI3K enzyme – it destroys PI3K&#x27;s product. Delete PTEN and the product accumulates even at normal PI3K activity.</p>
-<p><em>PIP3 builds up in the membrane. The signal is no longer being written faster than it is erased; it is simply not being erased.</em> Everything that reads PIP3 is now permanently recruited to the membrane, with no upstream hormone required.</p>
+<p><em>PIP3 builds up in the membrane. The signal is no longer being written faster than it is erased; it is simply not being erased.</em> Anything that reads PIP3 now spends far more of its time at the membrane, with no upstream hormone required.</p>
 <p class="tier-why">Certainty: Mouse evidence in this corpus (A – animal), with PTEN among the most frequently inactivated tumour suppressors in human cancer. Graded human-relevance plausible here because the cited studies are mouse, not because the human genetics is weak.</p>
 <p class="summary">The first thing to understand about mTOR in cancer is that the lesion is usually not in mTOR. It is in the machinery that decides whether mTOR should be receiving a signal. That distinction is why inhibiting mTOR treats a symptom of the genotype rather than its cause.</p></li><li class="step">
 <p class="step-what"><strong>2. Accumulated PIP3 recruits Akt continuously.</strong>
 <a class="step-jump" href="#int-pi3k-akt">mechanism &darr;</a></p>
-<p>Akt binds PIP3 and is then phosphorylated by PDK1 and mTORC2. With PIP3 permanently elevated, that recruitment stops being an event and becomes a state.</p>
-<p><em>Akt is chronically at the membrane and chronically activated.</em> The growth-permission signal is now generated inside the cell rather than arriving from outside it.</p>
+<p>Akt binds PIP3 and is then phosphorylated by PDK1 and mTORC2. With PIP3 chronically elevated, recruitment stops being an event and becomes closer to a standing condition.</p>
+<p><em>Akt occupies the membrane persistently, and Akt signalling runs high.</em> The growth-permission signal is now generated inside the cell rather than arriving from outside it.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, cell-line evidence.</p>
 <p class="summary">This is what oncogenic means in signalling terms: not a stronger signal, but a signal that no longer requires its input. The cell has stopped asking the organism for permission and started granting it to itself.</p></li><li class="step">
-<p class="step-what"><strong>3. Akt inhibits the TSC complex – permanently, now.</strong>
+<p class="step-what"><strong>3. Akt inhibits the TSC complex, persistently now rather than in bursts.</strong>
 <a class="step-jump" href="#int-akt-tsc">mechanism &darr;</a></p>
 <p>Phosphorylation of TSC2 by Akt inhibits the complex and moves it away from where its target sits.</p>
 <p><em>The pathway&#x27;s master brake is held off continuously rather than transiently.</em> Rheb stops being switched off.</p>
@@ -1045,7 +1045,7 @@ full interaction reference table below.</p>
 <p class="tier-why"><strong>Evidence base:</strong> Cell-line pharmacology and biochemistry for the escape mechanisms; H – randomised trials – for the clinical outcomes; one phase 1 trial (SCH2025, 2025) for the newest drug class. Note the asymmetry that runs through this route: the mechanism is cell-line evidence, the disappointment is human evidence.</p>
 <p class="tier-why"><strong>Still unresolved:</strong> Which tumours depend on mTOR remains largely unpredictable from genotype – the single largest open problem here. Whether closing the 4E-BP1 escape translates into survival benefit is exactly what the bi-steric trials are testing and is not yet answered. And why rapalogs delay progression without clearly extending overall survival in several indications has no accepted explanation, with the feedback arms as leading suspects.</p>
 </section>
-<h2 id="interactions">All 119 interactions</h2>
+<h2 id="interactions">All 120 interactions</h2>
 <p class="summary">Every modelled interaction in the network: source,
 direction of effect, target, mechanism, the closest-to-human evidence behind
 it, and the studies that support it. Rows are the same interactions the
@@ -1174,10 +1174,10 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BAS2012/">BAS2012</a></td>
 </tr><tr id="int-eve-immune">
 <td data-l="Source"><a href="/drug/everolimus/">Everolimus</a></td>
-<td data-l="Effect">activates</td>
+<td data-l="Effect">context-dependent</td>
 <td data-l="Target"><a href="/outcome/immune-function/">Immune function</a></td>
 <td data-l="Type">clinical-outcome</td>
-<td data-l="Mechanism"><span class="lv-beginner">Surprisingly, a low dose of an mTOR-blocking drug improved older adults&#x27; vaccine response and cut infections – the same drug class used to suppress the immune system can boost it at a lower dose.</span><span class="lv-student">Counter-intuitive but well tested: low-dose mTOR inhibition improved vaccine response and cut infections in elderly volunteers. The same drug class that suppresses transplant rejection can enhance an ageing immune system at a lower dose.</span><span class="lv-research">Counter-intuitive but well tested: low-dose mTOR inhibition improved vaccine response and cut infections in elderly volunteers. The same drug class that suppresses transplant rejection can enhance an ageing immune system at a lower dose.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, the same drug class damps the immune system down. A larger follow-up trial did not find fewer infections – so what this arrow means depends on the dose.</span><span class="lv-student">Dose and schedule set the direction here, not the target. Intermittent low-dose mTOR inhibition improved influenza vaccine responses in older adults (MAN2014), the larger follow-up did not reproduce the reduction in respiratory infections (MAN2021), and continuous transplant-level dosing of the same drug class is immunosuppressive. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span><span class="lv-research">Dose and schedule set the direction here, not the target. Intermittent low-dose mTOR inhibition improved influenza vaccine responses in older adults (MAN2014), the larger follow-up did not reproduce the reduction in respiratory infections (MAN2021), and continuous transplant-level dosing of the same drug class is immunosuppressive. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/MAN2014/">MAN2014</a>, <a href="https://mtor-atlas.org/study/MAN2021/">MAN2021</a> <span class="tier-why">(conflicting: MAN2021)</span></td>
 </tr><tr id="int-eve-lam">
@@ -1257,9 +1257,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/rag-gtpases/">Rag GTPases</a></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Glutamine can switch on mTORC1 partly just by being burned for fuel, and in some cells it does this without going through the Rag proteins at all.</span><span class="lv-student">Glutamine feeds mTORC1 partly by being burned into alpha-ketoglutarate; in some cells it activates mTORC1 without the Rags at all.</span><span class="lv-research">Glutamine feeds mTORC1 partly by being burned into alpha-ketoglutarate; in some cells it activates mTORC1 without the Rags at all.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.</span><span class="lv-student">Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.</span><span class="lv-research">Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/DUR2012/">DUR2012</a>, <a href="https://mtor-atlas.org/study/JEW2015/">JEW2015</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/DUR2012/">DUR2012</a></td>
 </tr><tr id="int-grb10-igf1">
 <td data-l="Source"><span>Grb10</span></td>
 <td data-l="Effect">inhibits</td>
@@ -1345,7 +1345,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">required-for</td>
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">localisation</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC1 only works while it&#x27;s sitting on the lysosome – move it somewhere else and amino acids stop being able to reach it.</span><span class="lv-student">mTORC1 has to be on the lysosomal membrane to be switched on. Force it elsewhere and amino acids stop mattering.</span><span class="lv-research">mTORC1 has to be on the lysosomal membrane to be switched on. Force it elsewhere and amino acids stop mattering.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">In the amino-acid route, mTORC1 only works while it&#x27;s sitting on the lysosome, because that is where its activator waits – move it somewhere else and amino acids stop being able to reach it.</span><span class="lv-student">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.</span><span class="lv-research">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a>, <a href="https://mtor-atlas.org/study/ZON2011/">ZON2011</a></td>
 </tr><tr id="int-metformin-ampk">
@@ -1457,7 +1457,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/cellular-senescence/">Cellular senescence</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC1 drives old, &quot;senescent&quot; cells to pump out inflammatory signals; blocking it calms that down without necessarily killing the cells.</span><span class="lv-student">mTORC1 drives the inflammatory secretory programme of senescent cells, so inhibiting it makes old cells less toxic to their neighbours without necessarily killing them.</span><span class="lv-research">mTORC1 drives the inflammatory secretory programme of senescent cells, so inhibiting it makes old cells less toxic to their neighbours without necessarily killing them.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC1 keeps old, &quot;senescent&quot; cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.</span><span class="lv-student">What the evidence supports is the secretory programme, not entry into senescence: mTORC1 sustains the inflammatory output of cells that are already senescent, and inhibiting it quietens that output without reversing the arrest.</span><span class="lv-research">What the evidence supports is the secretory programme, not entry into senescence: mTORC1 sustains the inflammatory output of cells that are already senescent, and inhibiting it quietens that output without reversing the arrest.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LAB2015/">LAB2015</a></td>
 </tr><tr id="int-mtorc1-srebp">
@@ -1577,7 +1577,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/gene/pi3k/">PI3K</a></td>
 <td data-l="Type">dephosphorylation</td>
-<td data-l="Mechanism"><span class="lv-beginner">PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway stuck &quot;on.&quot;</span><span class="lv-student">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour switches this whole axis on permanently.</span><span class="lv-research">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour switches this whole axis on permanently.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.</span><span class="lv-student">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span><span class="lv-research">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2009/">GUE2009</a>, <a href="https://mtor-atlas.org/study/MAJ2004/">MAJ2004</a></td>
 </tr><tr id="int-rag-mtorc1">
@@ -1852,6 +1852,14 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Mechanism"><span class="lv-beginner">The lysosome&#x27;s acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.</span><span class="lv-student">The lysosome&#x27;s proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.</span><span class="lv-research">The lysosome&#x27;s proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/ZON2011/">ZON2011</a>, <a href="https://mtor-atlas.org/study/BAR2012/">BAR2012</a></td>
+</tr><tr id="int-gln-mtorc1-arf1">
+<td data-l="Source"><span>Glutamine</span></td>
+<td data-l="Effect">activates</td>
+<td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
+<td data-l="Type">signal-relay</td>
+<td data-l="Mechanism"><span class="lv-beginner">Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.</span><span class="lv-student">A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.</span><span class="lv-research">A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/JEW2015/">JEW2015</a></td>
 </tr><tr id="int-load-mtorc1">
 <td data-l="Source"><span>Resistance exercise / mechanical load</span></td>
 <td data-l="Effect">activates</td>
@@ -2013,7 +2021,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-13 09:09 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-13 10:59 Prague time</div>
 </footer>
 </div>
 </body>
