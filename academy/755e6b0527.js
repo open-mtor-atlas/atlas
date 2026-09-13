@@ -574,6 +574,12 @@
       ? 'All ' + tot + ' items tied to this lesson are open.'
       : open + ' of the ' + tot + ' items tied to this lesson are open at rank ' +
         S.rank + '. The rest unlock as you rank up.';
+    /* Perturbation Lab a What It Doesn't Show jsou jako dlazdice zamcene do
+       hodnosti 2, ale v setu z lekce se hraji hned. Kdyby to stranka
+       neprozradila, vypadalo by to jako chyba jednoho z tech dvou mist. */
+    if(S.rank < 2)
+      note += ' Prediction and "what it does not show" items are open here from ' +
+              'the start, although those two games unlock at rank 2 in the Arena.';
     box.innerHTML = '<p class="pa-note"><a href="' + L.u + '">&larr; Lesson ' + esc(L.n) +
                     ' &middot; ' + esc(L.t) + '</a> &mdash; ' + note + '</p>';
     box.hidden = false;

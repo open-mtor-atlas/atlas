@@ -326,10 +326,19 @@ window.PA = (function(){
   }
 
   /* ---------------- item pools ---------------- */
-  function allowed(item){
+  /* inLesson = polozka se nabizi v setu navazanem na jednu lekci
+     (/academy/practice/?lesson=<slug>). Tam jsou Perturbation Lab a What It
+     Doesn't Show otevrene od zacatku, i kdyz jako HRY se v Arene odemykaji az
+     na hodnosti 2. Duvod: bez teto vyjimky dostal student na hodnosti 1 u
+     lekci 04, 06, 09 a 10 jen dve az tri polozky, tedy rozcestnik, ktery slibi
+     set a da otazku. Merene, ne odhadnute: minimum stoupne z 2 na 6.
+     Vyjimka se tyka VYHRADNE techto dvou her a vyhradne setu z lekce -- pool
+     (route) i obtiznost plati dal, dlazdice v Arene zustavaji zamcene a panel
+     nad hracim polem to rekne nahlas. Hlida to P13. */
+  function allowed(item, inLesson){
     if(item.pool === 'route' && !unlocked('routepool')) return false;
-    if(item.game === 'pert' && !unlocked('pert')) return false;
-    if(item.game === 'limits' && !unlocked('limits')) return false;
+    if(item.game === 'pert' && !inLesson && !unlocked('pert')) return false;
+    if(item.game === 'limits' && !inLesson && !unlocked('limits')) return false;
     if(item.game === 'autopsy' && !unlocked('autopsy')) return false;
     if(item.game === 'sources' && !unlocked('sources')) return false;
     if(item.game === 'frontier' && !unlocked('frontier')) return false;
@@ -436,7 +445,7 @@ window.PA = (function(){
     for(i=0;i<D.items.length;i++){
       it = D.items[i];
       if(it.lesson !== slug) continue;
-      if(!allowed(it)) continue;
+      if(!allowed(it, true)) continue;
       out.push(it);
     }
     return out;
