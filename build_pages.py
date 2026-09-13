@@ -2253,6 +2253,17 @@ def oliver_page(bio):
                     '<th>Why it matters</th><th>Evidence</th></tr>')
         for r in bio["focus_studies"]:
             code, label, colour, _o = tier_bits(r.get("tier"), r.get("pyramid"))
+            # 13. 9. 2026: `authors` MUSI byt seznam. Kdyz to byl retezec
+            # ("Korolchuk VI; Saiki S; ..."), join() iteroval po ZNACICH a na
+            # strance se objevilo "K, o, r, o, l, ...", zatimco Astro stranka
+            # /author/oliver-barton/ spadla na "(f.authors ?? []).map is not a
+            # function" a shodila cely build V2 -- tri hodiny hledani neceho,
+            # co ma rict jedna veta.
+            if not isinstance(r.get("authors"), list):
+                raise SystemExit(
+                    "build_pages: oliver_bio_baked.json -> focus_studies[%s].authors "
+                    "je %s, ma to byt seznam jmen (prvni a posledni autor)."
+                    % (r.get("sid"), type(r.get("authors")).__name__))
             authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
             body.append(
                 f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
