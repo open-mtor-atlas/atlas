@@ -318,6 +318,23 @@ if errorlevel 1 (
   exit /b 1
 )
 
+echo.
+echo === Build /evidence/audit/ ===
+REM  13. 9. 2026, bod 7.1: stranka meri korpus proti sobe -- podil lidske
+REM  evidence, pokryti drahy, hrany na jedine studii, podil tvrzeni s
+REM  hranici platnosti. MUSI bezet AZ PO build_pages.py a po sync_relations:
+REM  cte atlas_data\studies_baked.json a ATLAS_EDGES z index.html, takze pri
+REM  drivejsim poradi by vyrobila cisla o predchozim stavu dat. Skript sam
+REM  kontroluje, ze vystup nese GA4 tag i canonical, a spadne, kdyz ne --
+REM  nova stranka bez mericiho tagu je chyba, ktera se jinak poste tri tydny.
+py build_evidence_audit.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_evidence_audit.py failed - /evidence/audit/ by ukazoval
+  echo cisla o starych datech, coz je horsi nez zadna stranka.
+  exit /b 1
+)
+
 if not exist "out\glossary\index.html" (
   echo.
   echo ABORTED: generate.py probehl, ale out\glossary\index.html neexistuje -
@@ -573,6 +590,7 @@ REM  This list is the deploy's contract: a file that is not named here does not
 REM  reach the live site, however freshly it was generated. When you add a new
 REM  build artifact, add it here in the same commit.
 git add index.html
+if exist "build_evidence_audit.py" git add build_evidence_audit.py
 if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
 if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
 if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
