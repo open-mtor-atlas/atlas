@@ -8,7 +8,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 
 ## Files
 
-- **studies.csv / studies.json** -- 364 hand-curated
+- **studies.csv / studies.json** -- 365 hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
   (`sid`), title, authors, year, journal, `tier` -- the stored study-type
   value, still recorded with its original letters (A = systematic
