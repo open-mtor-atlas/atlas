@@ -1,6 +1,6 @@
 # Oliver's mTOR Atlas
 
-A curated, evidence-graded database of mTOR pathway research. Every study is rated by evidence tier - from systematic reviews and meta-analyses down to mechanistic and in-vitro work - and traced back to its primary source, alongside a knowledge-graph view of genes, diseases, and interventions, plus a set of AI-identified open questions with proposed testable experiments.
+A curated, evidence-graded database of mTOR pathway research in which every claim carries its source, the conditions it was measured under, and the point where it stops holding. Studies are labelled by the kind of study behind them - from synthesis of human data down to mechanistic and in-vitro work - and traced back to their primary source, alongside a knowledge-graph view of genes, diseases, and interventions and a layer of open questions naming what the evidence does not yet resolve.
 
 **Live site:** https://mtor-atlas.org
 

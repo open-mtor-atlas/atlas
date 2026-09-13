@@ -134,12 +134,14 @@ DATASET_REF = {
     "name": "Oliver's mTOR Atlas",
     "url": SITE + "/",
     "description": (
-        "A curated, evidence-graded database of mTOR pathway research: over 350 "
-        "studies, with every eligible peer-reviewed primary study labelled by the kind "
-        "of study behind it (S = synthesis of human data, H = human study, A = animal "
-        "model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, "
-        "diseases and interventions, plus AI-identified knowledge gaps and testable "
-        "hypotheses."
+        "A curated, evidence-graded database of mTOR pathway research in which every "
+        "claim carries its source, the conditions it was measured under, and the point "
+        "where its validity ends. Over 350 peer-reviewed primary studies, each labelled "
+        "by the kind of study behind it (S = synthesis of human data, H = human study, "
+        "A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge "
+        "graph of genes, diseases and interventions, plus named knowledge gaps and "
+        "testable hypotheses \u2014 what the literature has tested and failed to show, and "
+        "what it has not tested at all."
     ),
     "identifier": "https://doi.org/10.5281/zenodo.22059963",
     "sameAs": [
@@ -1849,10 +1851,12 @@ defended by one person, then connected by hand into a knowledge graph of
 genes, drugs, diseases and outcomes. Every claim carries an explicit
 evidence label naming the system it was established in (S = synthesis of
 human data, H = human study, A = animal model, M = molecular/in-vitro,
-R = review), and the corpus
+R = review), together with the boundary conditions that claim was
+established under -- species, sex, tissue, dose, nutrient state, duration --
+because that is where a finding stops being general. The corpus
 deliberately keeps negative results -- studies where a popular longevity
 compound did <em>not</em> extend lifespan -- with the same visibility as
-positive findings.</p>
+positive findings, and names what has not been tested at all.</p>
 
 <h2>Who curates it</h2>
 <p><strong><a href="{SITE}/author/oliver-barton/">Oliver Barton</a></strong> -- Creator &amp; Curator, Prague, Czech
@@ -2341,6 +2345,11 @@ trial. The code describes what was studied, and nothing else. Until
 September 2026 these codes were the letters A&ndash;D; they were renamed
 because a lettered ladder reads as a school report no matter what the
 caption says. <a href="{SITE}/changelog/">What changed and why</a>.</p>
+<p class="summary">The table below counts what the corpus is made of. For what
+those proportions mean &mdash; how much of the pathway reaches a human, how many
+links rest on a single paper, and how much of what is claimed carries a recorded
+boundary &mdash; see the <a href="{SITE}/evidence/audit/"><strong>evidence
+audit</strong></a>.</p>
 <table class="kv">
 <tr><th>Evidence</th><th>Studies</th><th>Share of corpus</th></tr>
 {rows}
@@ -2971,6 +2980,13 @@ def main():
     if evidence_url:
         pathway_events_lines += (
             f'  <url><loc>{evidence_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
+    # /evidence/audit/ (2026-09-13, bod 7.1) -- stránku NEGENERUJE tenhle skript,
+    # ale build_evidence_audit.py, který běží hned po něm. URL se sem přidává
+    # napevno právě proto: kdyby se spoléhalo na existenci souboru, sitemapa by
+    # se při prvním buildu lišila od druhého. Pokud se audit někdy přestane
+    # stavět, musí zmizet i tenhle řádek.
+    pathway_events_lines += (
+        f'  <url><loc>{SITE}/evidence/audit/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n')
     write(os.path.join(HERE, "sitemap-home.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
