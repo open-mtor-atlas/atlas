@@ -1296,7 +1296,8 @@
       + line("f-activates m-high d-direct", "pwArrowA", "<b>Activates</b> — arrowhead")
       + line("f-inhibits m-high d-direct", "pwBar", "<b>Inhibits</b> — bar, never colour alone")
       + line("f-required-for m-medium d-direct", "pwChev", "<b>Required for / recruits</b> — enables, does not switch on")
-      + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical, no directional claim");
+      + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical, no directional claim")
+      + line("f-context-dependent m-medium d-unresolved", "pwQ", "<b>Context-dependent</b> — dose, schedule or cell type sets the direction");
     var certainty = ""
       + line("f-activates m-high d-direct", "pwArrowA", "<b>Solid, thick</b> — direct, high mechanistic confidence")
       + line("f-activates m-medium d-indirect", "pwArrowA", "<b>Long dash</b> — indirect: more than one molecular step")
