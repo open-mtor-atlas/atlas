@@ -577,6 +577,15 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
+/* "Practice this lesson" -- rozcestnik do Areny, ne vlozena hra. Uvnitr lekce
+   se nic nehraje: vlozena hra by porusila paritu bez JS (pravidlo 8/13), tak
+   jako ji drzi kviz a cviceni. Cely blok je staticke HTML. */
+.ac-practice ul{list-style:none;padding:0;margin:10px 0 14px;display:flex;
+  flex-wrap:wrap;gap:8px}
+.ac-practice ul li{font-size:13.5px;line-height:1;padding:7px 11px;border-radius:3px;
+  border:1px solid var(--line);color:var(--soft)}
+.ac-practice .ac-pracgo{margin:14px 0 8px}
+
 @media (max-width:1000px){
   /* Spec §10: the right rail collapses into horizontal navigation above the
      text (order:-1 on a grid item), and the page must not overflow sideways --
@@ -856,7 +865,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-13 20:02 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-13 20:54 Prague time</div>
 </footer>
 </div>
 </body>

@@ -33,6 +33,13 @@ PRAVIDLA
   P11 Find the Evidence nabizi jen SID, ktere v korpusu existuji, a spravna
       odpoved je opravdu v supporting (resp. conflicting) te hrany.
   P12 Paper Autopsy ma ctyri ruzne moznosti a otagovany druh slabiny.
+  P13 Deep link z lekce: banka nese mapu lekci, kazda vedena lekce ma aspon pet
+      polozek, mapa jde do payloadu a stranka Areny umi precist ?lesson=.
+      Bez toho by rozcestnik na konci lekce vedl do Areny bez filtru.
+  P14 Reading level se u odpovedi opravdu ZAPISUJE (ne jen jmenuje) a odchazi
+      i do udalosti item_answered. Pravidlo je psane stejne prisne jako P5:
+      hleda se skutecny zapis. Uroven nesmi nic odemykat ani menit prahy --
+      kdyby zacala, je to zmena zadani, ne detail implementace.
 
     py verify_practice.py          # 0 = cisto, 1 = nalezy
 """
@@ -264,6 +271,46 @@ def main():
         if it["id"].startswith("ap:") and it.get("sid") not in by_sid:
             bad(w, "studie %r neni v korpusu" % it.get("sid"))
 
+    # ---- P13: deep link z lekce ---------------------------------------------
+    lmap = bank.get("lessons") or {}
+    if not lmap:
+        bad("bank", "banka nenese mapu lekci -- rozcestnik v lekcich by nemel na co "
+                    "odkazat (P13)")
+    for slug, meta in sorted(lmap.items()):
+        w = "lesson %s" % slug
+        if meta["c"] < 5:
+            bad(w, "jen %d polozek; rozcestnik slibuje set, ne dve otazky" % meta["c"])
+        if not meta.get("u", "").startswith("/academy/"):
+            bad(w, "adresa zpet %r nevypada jako stranka lekce" % meta.get("u"))
+        if meta.get("nx") and meta["nx"] not in lmap:
+            bad(w, "nextLesson %r neni v mape lekci" % meta["nx"])
+    if '"lessons")' not in engine and '"counts", "lessons"' not in engine:
+        bad("payload", "mapa lekci se nezapeka do payloadu -- D.lessons by na strance "
+                       "chybelo")
+    pjs = engine.split("PRACTICE_JS = ")[1] if "PRACTICE_JS = " in engine else ""
+    for needle, msg in (("lesson=", "stranka Areny necte parametr ?lesson="),
+                        ("lessonPool(", "stranka nepouziva filtr podle lekce"),
+                        ("paFrom", "chybi panel, ktery rekne, ze set prisel z lekce")):
+        if needle not in pjs:
+            bad("practice page", msg + " (P13)")
+
+    # ---- P14: zaznam reading levelu ------------------------------------------
+    # Uroven se musi zapsat v okamziku odpovedi. Kdyby se jen cetla pri
+    # vyhodnoceni, staci ji prepnout pred zkouskou -- proto se hleda zapis.
+    if "S.lv[lv] = (S.lv[lv] || 0) + 1" not in engine_js:
+        bad("engine", "reading level se nikam nezapisuje pri odpovedi (P14)")
+    if "S.seen[id][3] = lv" not in engine_js:
+        bad("engine", "uroven posledni odpovedi se neuklada k polozce (P14)")
+    if "lv:{}" not in engine_js:
+        bad("engine", "blank() nema pole lv -- starsi ulozeny stav by se nedoplnil (P14)")
+    if engine_js.count("reading_level:") < 2:
+        bad("engine", "udalost item_answered nenese reading_level u obou cest "
+                      "(polozka i wire) (P14)")
+    for banned in ("if(readingLevel()", "readingLevel() ===", "lv === 'beginner'"):
+        if banned in engine_js:
+            bad("engine", "uroven se pouziva jako podminka (%r) -- prahy, brany ani "
+                          "obtiznost se s urovni menit nesmi (P14)" % banned)
+
     # ---- vysledek ----------------------------------------------------------
     c = bank["counts"]
     print("Practice Arena: %d polozek, %d wire puzzlu, %d uzlu (core %d, route %d) z %d"
@@ -273,7 +320,7 @@ def main():
         for p in PROBLEMS:
             print("  ! " + p)
         return 1
-    print("Cisto -- vsech dvanact pravidel prosslo.")
+    print("Cisto -- vsech ctrnact pravidel prosslo.")
     return 0
 
 

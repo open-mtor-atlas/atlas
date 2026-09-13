@@ -43,6 +43,11 @@ Kontroluje se:
      odemyka, otazka bez dosazitelneho poznatku MUSI byt oznacena jako
      otevrena, a hypoteticky krok nesmi vydavat zadny poznatek
  16  stranka vyzvy ma bez-JS ekvivalent laboratore, modelu i odpovedi
+ 17  blok "Practice this lesson": lekce, na kterou je v Arene navazano aspon
+     pet polozek, ho MUSI mit; odkaz vede na /academy/practice/?lesson=<slug>
+     s existujicim slugem; blok je cely staticke HTML (zadny <script> uvnitr)
+     a je i v obsahu stranky. Vlozena hra by porusila paritu bez JS stejne
+     jako kviz -- proto je to rozcestnik a proto to hlida brana.
  14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
      i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
      misto sekce prazdno; caution sekce beginner verzi mit NESMI
@@ -595,6 +600,19 @@ def main():
 
     by_slug = {l["slug"]: l for l in lessons}
 
+    # 17: kolik polozek Areny visi na ktere lekci. Kdyz se banka nenacte,
+    # pravidlo se preskoci -- brana nesmi spadnout na tom, ze chybi data pro
+    # jinou vrstvu, ale nesmi to ani tise projit, takze se to vypise.
+    prac_items, prac_labels = {}, set()
+    try:
+        import build_practice as _BPR
+        _cfg, _les, _pw, _st, _g = _BPR.load()
+        _bank = _BPR.build_bank(_cfg, _les, _pw, _st, _g)
+        prac_items = {k: v["c"] for k, v in _bank["lessons"].items()}
+        prac_labels = {n["label"] for n in _bank["nodes"].values()}
+    except Exception as err:
+        print("  ! banka Practice Areny se nenacetla (%s) -- pravidlo 17 se preskakuje" % err)
+
     for l in lessons:
         w = "lesson:" + l["slug"]
 
@@ -939,6 +957,29 @@ def main():
             if 'data-rc-notes' in h and 'data-rc-note="0"' not in h:
                 bad(rel, "napsana zpetna vazba k volbam neni v HTML -- bez JS by "
                          "stranka byla prazdny seznam tlacitek")
+        # 17 rozcestnik do Areny
+        if is_lesson and prac_items:
+            slug = parts[2]
+            n_items = prac_items.get(slug, 0)
+            has = '<section class="ac-section ac-practice">' in h
+            if n_items >= 5 and not has:
+                bad(rel, "lekce ma v Arene %d polozek, ale chybi blok "
+                         "'Practice this lesson' (pravidlo 17)" % n_items)
+            if has:
+                link = '/academy/practice/?lesson=%s"' % slug
+                if link not in h:
+                    bad(rel, "blok Practice neodkazuje na ?lesson=%s -- odkaz by "
+                             "vedl do Areny bez filtru" % slug)
+                if "#practice" not in h:
+                    bad(rel, "blok Practice neni v obsahu stranky (kotva #practice)")
+                seg = h.split('<section class="ac-section ac-practice">', 1)[1]
+                seg = seg.split("</section>", 1)[0]
+                if "<script" in seg:
+                    bad(rel, "blok Practice obsahuje <script> -- ma to byt rozcestnik "
+                             "v HTML, ne vlozena hra (parita bez JS)")
+                for lab in re.findall(r"<li>([^<]+)</li>", seg):
+                    if lab not in prac_labels:
+                        bad(rel, "blok Practice jmenuje %r, coz neni uzel v modelu" % lab)
         if is_lesson and "Check yourself" in h and "ac-qzfall" not in h:
             bad(rel, "kviz nema bez-JS fallback -- bez JS by to byl slepy seznam moznosti")
         if is_lesson and "What does the evidence say?" not in h:

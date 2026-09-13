@@ -151,10 +151,45 @@ def single_study_edges(edges):
     return {"n": len(one), "pct": 100.0 * len(one) / len(edges), "ids": one}
 
 
+# Tagy, které nejsou psané rukou, ale počítané ze stavu hrany (sync_relations.py,
+# blok DERIVED_TAGS). Na stránce se oddělují, protože říkají něco jiného:
+# "tahle hrana stojí na jedné práci" je fakt o korpusu, "platí jen u samic" je
+# fakt o biologii.
+DERIVED_TAGS = {"time-dependent", "reversible-on-withdrawal",
+                "single-study", "direction-contested"}
+TAG_BLURB = {
+    "sex-specific": "shown in one sex only",
+    "single-species": "shown in one species and not tested elsewhere",
+    "cell-line-only": "cell culture only, never in a whole organism",
+    "tissue-specific": "holds in particular tissues or cell types",
+    "diet-dependent": "depends on the diet the animal was on",
+    "nutrient-state-dependent": "depends on whether the cell is fed or starved",
+    "dose-dependent": "depends on the dose, not merely on the drug being present",
+    "time-dependent": "depends on how long the exposure lasted",
+    "reversible-on-withdrawal": "the effect goes away when the intervention stops",
+    "single-study": "the whole link rests on one paper in this corpus",
+    "direction-contested": "the literature disagrees about the direction",
+}
+
+
 def boundary_coverage(edges):
     with_ctx = [x for x in edges if (x.get("ctx") or "").strip()]
+    by_tag = collections.defaultdict(list)
+    for x in edges:
+        for t in (x.get("tags") or []):
+            by_tag[t].append(x["id"])
+    tagged = [x for x in edges if (x.get("tags") or [])]
+
+    # Kontrola, ne dekorace: ruční tag na hraně bez Context_Note znamená
+    # tvrzení bez opory v próze -- přesně to, co pravidlo u pole zakazuje.
+    # Odvozené tagy se počítají ze stavu hrany, takže prózu mít nemusí.
+    orphans = sorted(x["id"] for x in edges
+                     if (set(x.get("tags") or []) - DERIVED_TAGS)
+                     and not (x.get("ctx") or "").strip())
+
     return {"n": len(with_ctx), "total": len(edges),
-            "pct": 100.0 * len(with_ctx) / len(edges)}
+            "pct": 100.0 * len(with_ctx) / len(edges),
+            "tagged": len(tagged), "by_tag": dict(by_tag), "orphans": orphans}
 
 
 def curation_state(edges):
@@ -330,6 +365,36 @@ def render(cfg, m):
       'exact error this layer exists to prevent.</p>'
       % (bnd["n"], bnd["total"], bnd["pct"]))
 
+    if bnd["by_tag"]:
+        A('<h3 id="boundary-kinds">What kind of boundary</h3>')
+        A('<p>The sentence is for a reader; the tag is what makes it answerable. '
+          '"Female mice only in SEL2009" is clear to anyone and invisible to a '
+          'query, so each recorded boundary also carries a machine-readable kind. '
+          'The first group below describes the biology; the second is computed '
+          'from the state of the corpus rather than written by hand.</p>')
+        for heading, keys in (
+            ("Boundaries on the biology",
+             [t for t in sorted(bnd["by_tag"]) if t not in DERIVED_TAGS]),
+            ("Computed from the corpus",
+             [t for t in sorted(bnd["by_tag"]) if t in DERIVED_TAGS])):
+            if not keys:
+                continue
+            A('<p><strong>%s</strong></p>' % heading)
+            A('<table class="aud"><thead><tr><th>Kind</th><th class="num">Links</th>'
+              '<th>Which</th></tr></thead><tbody>')
+            for t in keys:
+                ids = sorted(bnd["by_tag"][t])
+                shown = ", ".join("<code>%s</code>" % e(i) for i in ids[:8])
+                if len(ids) > 8:
+                    shown += " and %d more" % (len(ids) - 8)
+                A('<tr><td><strong>%s</strong><br><span style="font-size:.87rem;opacity:.8">%s</span></td>'
+                  '<td class="num">%d</td><td>%s</td></tr>'
+                  % (e(t), e(TAG_BLURB.get(t, "")), len(ids), shown))
+            A('</tbody></table>')
+        A('<p>This is the query no other resource can answer. Reactome, KEGG, '
+          'SIGNOR and Open Targets record the interaction; none of them record '
+          'that it was only ever shown in one sex, or only in cell culture.</p>')
+
     # --- 6. null results ---
     A('<h2 id="null-results">What has been tested and failed</h2>')
     A('<p>Findings that did not replicate, and compounds that did not extend lifespan, '
@@ -456,6 +521,11 @@ def build(cfg, dry_run=False):
     # nová stránka by tiše přestala měřit -- proto to kontrolujeme tady, ne až
     # v analytice za měsíc.
     problems = []
+    if m["boundary"]["orphans"]:
+        problems.append(
+            "ruční boundary tag bez věty v Context_Note u hran: %s -- pravidlo u "
+            "pole Boundary_Tags říká, že tag smí stát jen tam, kde ho próza nese"
+            % ", ".join(m["boundary"]["orphans"]))
     if "G-420TPC8J46" not in html:
         problems.append("chybí GA4 tag")
     if 'rel="canonical"' not in html:

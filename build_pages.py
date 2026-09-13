@@ -3094,11 +3094,14 @@ def main():
 
     write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
 
-> A curated, evidence-graded database of mTOR pathway research: {len(studies)} \
+> The mTOR pathway, mapped by what the evidence can actually carry. Every claim \
+carries its source, the conditions it was measured under, and the point where its \
+validity ends -- species, sex, dose, nutrient state, duration. {len(studies)} \
 peer-reviewed primary studies labelled by study type (S = synthesis of human data, \
 H = human study, A = animal model, M = molecular/in vitro, R = review), linked to \
-a knowledge graph of genes, drugs, diseases and outcomes, plus AI-identified \
-knowledge gaps and testable hypotheses. Content is CC BY 4.0 -- free to cite \
+a knowledge graph of genes, drugs, diseases and outcomes, plus a layer of named \
+knowledge gaps and testable hypotheses: what the literature has tested and failed \
+to show, and what it has not tested at all. Content is CC BY 4.0 -- free to cite \
 and reuse with attribution to "Oliver's mTOR Atlas".
 
 ## Start here
@@ -3108,6 +3111,8 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
 - [Data & Citation](https://mtor-atlas.org/data/): bio.tools/FAIRsharing registration, dataset DOI, ORCID, license, how to cite
+- [Evidence audit](https://mtor-atlas.org/evidence/audit/): what the corpus is actually built on -- share of human evidence, how much of the pathway has any human data behind it, how many links rest on a single paper, how much carries a recorded boundary condition; every figure recomputed from the corpus on each build
+- [Timing](https://mtor-atlas.org/pathway/timing/): how mTOR interventions were delivered over time -- acute, intermittent, chronic, withdrawal-tested -- and which pathway links are known to depend on duration; the axis no pathway database records
 {academy_section}{answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.

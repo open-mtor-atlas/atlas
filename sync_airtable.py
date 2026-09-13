@@ -89,6 +89,13 @@ def fetch_studies():
             # projektová paměť entities-bake-path) -- chybějící cesta, ne špatný běh.
             "ai_dose": g(f, "AI_Dose"), "ai_samplesize": g(f, "AI_SampleSize"),
             "ai_effectsize": g(f, "AI_EffectSize"), "ai_limitations": g(f, "AI_Limitations"),
+            # Bod 7.5 (13. 9. 2026): časový režim intervence. Je to vlastní osa,
+            # ne podrobnost dávky -- AI_Dose ji nese v próze, tahle čtyři pole ji
+            # dělají dotazovatelnou. regimen_evidence je doslovný úryvek, který
+            # zařazení dokládá; bez něj je hodnota v regimen neověřitelná, a proto
+            # se peče spolu s ní, ne zvlášť.
+            "regimen": g(f, "Regimen"), "regimen_evidence": g(f, "Regimen_Evidence"),
+            "exposure": g(f, "Exposure_Window"), "washout": bool(f.get("Washout")),
         })
     return arr
 

@@ -751,6 +751,21 @@ def build_bank(cfg, les, pw, studies=None, gaps=None):
              + gen_frontier(pw, meta, gaps))
     wire = gen_wire(pw, meta, core)
 
+    # Mapa lekci pro rozcestnik "Practice this lesson" v lekcich a pro deep
+    # link /academy/practice/?lesson=<slug>. Nese jen to, co stranka Areny
+    # potrebuje vypsat: cislo, titulek, adresu zpet a nasledujici lekci.
+    lessons_map = {}
+    for l in les:
+        slug = l["slug"]
+        n = sum(1 for i in items if i.get("lesson") == slug)
+        if not n:
+            continue
+        lessons_map[slug] = {
+            "n": l["id"][1:], "t": l["title"], "c": n,
+            "u": "/academy/%s/%s/" % (l.get("module", "core"), slug),
+            "nx": l.get("nextLesson") or "",
+        }
+
     bands = pw.get("bands") or []
     comps = {c["id"]: {"short": c["short"], "name": c["name"]} for c in pw["compartments"]}
     rest = [[round(n["x"]), round(n["y"])] for n in pw["nodes"] if n["id"] not in meta]
@@ -758,6 +773,7 @@ def build_bank(cfg, les, pw, studies=None, gaps=None):
     return {
         "v": cfg["version"], "cfg": cfg,
         "nodes": meta, "items": items, "models": models, "wire": wire,
+        "lessons": lessons_map,
         "map": {"bands": bands, "comps": comps, "rest": rest,
                 "edges": [{"s": i["source"], "t": i["target"], "eff": i["effect"],
                            "dir": i.get("directness", "direct"), "id": i["id"]}
@@ -787,6 +803,8 @@ PRACTICE_CSS = """
 .pa-tint{--pa-tint:rgba(163,31,52,.09)}
 html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
 
+.pa-from{margin:0 0 14px}
+.pa-from a{font-weight:600}
 .pa-rankbar{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;
   border:1px solid var(--line);border-radius:3px;padding:14px 18px;margin:0 0 12px}
 .pa-rankbar .pa-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
@@ -1101,7 +1119,7 @@ window.PA = (function(){
                  limitsOk:0, sprintOk:0, answered:0,
                  autopsyOk:0, autopsyKinds:[], sampleOk:0, sampleFalseReject:0,
                  openOk:0, openFalse:0, sourceOk:0, sourceWeakening:[], discriminating:0},
-            bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
+            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
   }
   function read(){
     var o;
@@ -1227,6 +1245,7 @@ window.PA = (function(){
     var xp = scoreItem(item, ok, p);
     var seen = S.seen[item.id];
     S.seen[item.id] = [ (seen?seen[0]:0) + 1, today(), seen ? seen[2] : (ok?1:0) ];
+    var lv = noteLevel(item.id);
     S.xp += xp;
     S.met.answered++;
     bumpMastery(item.nodes, ok, sure);
@@ -1268,7 +1287,8 @@ window.PA = (function(){
     save();
     track('item_answered', {game: item.game, difficulty: item.diff || 1,
                             confidence: (p === null ? 'none' : (sure ? 'sure' : 'unsure')),
-                            result: ok ? 'correct' : 'wrong'});
+                            result: ok ? 'correct' : 'wrong',
+                            reading_level: lv});
     return {xp: xp, badges: gained};
   }
   function recordWire(puz, bonds, perfect){
@@ -1277,6 +1297,7 @@ window.PA = (function(){
                         (cf.difficulty[String(puz.diff)]||1) * noveltyFor({id:puz.id}));
     var seen = S.seen[puz.id];
     S.seen[puz.id] = [ (seen?seen[0]:0)+1, today(), seen ? seen[2] : (perfect?1:0) ];
+    var lv = noteLevel(puz.id);
     S.xp += xp;
     S.met.answered++;
     bumpMastery(puz.seq, perfect, false);
@@ -1289,7 +1310,8 @@ window.PA = (function(){
     save();
     track('item_answered', {game: 'wire', difficulty: puz.diff || 1,
                             confidence: 'none',
-                            result: perfect ? 'correct' : 'wrong'});
+                            result: perfect ? 'correct' : 'wrong',
+                            reading_level: lv});
     return {xp: xp, badges: gained};
   }
 
@@ -1482,6 +1504,46 @@ window.PA = (function(){
     var i; for(i=0;i<D.items.length;i++){ if(D.items[i].id === id) return D.items[i]; }
     return null;
   }
+
+  /* ---------------- reading level ----------------
+     Uroven se cte v OKAMZIKU odpovedi, nikdy pri vyhodnoceni. Kdyby se cetla
+     pozdeji, stacilo by prepnout prepinac pred zkouskou a zaznam by lhal.
+     Uroven nic neodemyka a nesnizuje zadnou latku -- prahy, Brierova brana i
+     obtiznost polozek jsou pro vsechny tri urovne stejne. Je to popis toho,
+     jak student cetl, ne brana. Prepinac (LevelToggle ve V2) sahá na
+     data-level na <html>; jeho chybejici hodnota znamena "student". */
+  function readingLevel(){
+    try { return document.documentElement.getAttribute('data-level') || 'student'; }
+    catch(err){ return 'student'; }
+  }
+  function noteLevel(id){
+    var lv = readingLevel();
+    S.lv[lv] = (S.lv[lv] || 0) + 1;
+    /* ctvrty prvek S.seen[id] je uroven POSLEDNI odpovedi. Doplneni na index 3
+       je zpetne kompatibilni: starsi ulozeny stav ma tri prvky a vsechno
+       ostatni cte jen indexy 0-2. */
+    if(S.seen[id]) S.seen[id][3] = lv;
+    return lv;
+  }
+
+  /* Polozky vazane na jednu lekci -- rozcestnik na konci lekce. Prochazi
+     stejnym allowed() jako vsechno ostatni, takze deep link nikdy neobejde
+     hodnost ani pool. Kolik jich je celkem rika lessonTotal(). */
+  function lessonPool(slug){
+    var out = [], i, it;
+    for(i=0;i<D.items.length;i++){
+      it = D.items[i];
+      if(it.lesson !== slug) continue;
+      if(!allowed(it)) continue;
+      out.push(it);
+    }
+    return out;
+  }
+  function lessonTotal(slug){
+    var n = 0, i;
+    for(i=0;i<D.items.length;i++) if(D.items[i].lesson === slug) n++;
+    return n;
+  }
   function modelById(id){
     var i; for(i=0;i<D.models.length;i++){ if(D.models[i].id === id) return D.models[i]; }
     return null;
@@ -1510,6 +1572,8 @@ window.PA = (function(){
           recordWire:recordWire, brier:brier, badgeProgress:badgeProgress,
           rankDef:rankDef, nextRank:nextRank, rankReady:rankReady, promote:promote,
           unlocked:unlocked, pool:pool, wirePool:wirePool, daily:daily,
+          lessonPool:lessonPool, lessonTotal:lessonTotal,
+          readingLevel:readingLevel, weakestFirst:weakestFirst,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
           reset:reset, track:track};
@@ -1712,6 +1776,7 @@ PRACTICE_JS = """
         '<p class="pa-fb">' + (pass ?
           '<b>Promoted.</b> You are now ' + esc(PA.rankDef(S.rank).name) + '. ' + esc(PA.rankDef(S.rank).blurb) :
           '<b>Not yet.</b> Nothing is lost &mdash; practise the weak nodes and take the board again.') + '</p>') +
+      lessonOutro() +
       '<div class="pa-tools" style="margin-top:16px">' +
       '<button id="paBack" type="button">Back to the games</button>' +
       '<button id="paMap" type="button">See your pathway &rarr;</button></div></div>');
@@ -2071,7 +2136,60 @@ PRACTICE_JS = """
     return s + '</svg>';
   }
 
+  /* ---------------- deep link z lekce ----------------
+     /academy/practice/?lesson=<slug> spusti set navazany na jednu lekci.
+     Filtr jde pres tyz allowed() jako vsechno ostatni, takze odkaz z lekce
+     nikdy neobejde hodnost ani pool -- jen vybere z toho, co uz otevrene je.
+     Kdyz je otevrenych min, nez lekce celkem ma, rekne se to nahlas; slibit
+     osm polozek a dat dve je presne ten druh tichy lzi, kterou tenhle web
+     nedela. */
+  var fromLesson = null;
+
+  function lessonSlug(){
+    var m = /[?&]lesson=([A-Za-z0-9_-]+)/.exec(location.search || '');
+    if(!m) return '';
+    var slug = decodeURIComponent(m[1]);
+    return (D.lessons && D.lessons[slug]) ? slug : '';
+  }
+  function lessonOutro(){
+    if(!fromLesson) return '';
+    var L = D.lessons[fromLesson], nx = L.nx && D.lessons[L.nx];
+    return '<p class="pa-fb"><a href="' + L.u + '">&larr; Back to lesson ' + esc(L.n) +
+           '</a>' + (nx ? ' &middot; <a href="' + nx.u + '">Next: lesson ' + esc(nx.n) +
+           ', ' + esc(nx.t) + ' &rarr;</a>' : '') + '</p>';
+  }
+  function paintFrom(){
+    var box = document.getElementById('paFrom'); if(!box || !fromLesson) return;
+    var L = D.lessons[fromLesson];
+    var open = PA.lessonPool(fromLesson).length, tot = PA.lessonTotal(fromLesson);
+    var note = open >= tot
+      ? 'All ' + tot + ' items tied to this lesson are open.'
+      : open + ' of the ' + tot + ' items tied to this lesson are open at rank ' +
+        S.rank + '. The rest unlock as you rank up.';
+    box.innerHTML = '<p class="pa-note"><a href="' + L.u + '">&larr; Lesson ' + esc(L.n) +
+                    ' &middot; ' + esc(L.t) + '</a> &mdash; ' + note + '</p>';
+    box.hidden = false;
+  }
+  function startLesson(slug){
+    var p = PA.lessonPool(slug);
+    if(!p.length) return false;
+    mode = 'lesson'; pressTile('');
+    var ids = PA.weakestFirst(p).slice(0, 8).map(function(it){ return it.id; });
+    startQueue(ids, 'Lesson ' + esc(D.lessons[slug].n) + ' &middot; ' + esc(D.lessons[slug].t));
+    return true;
+  }
+
   paintRank(); paintTiles(); paintWorld();
+  fromLesson = lessonSlug();
+  if(fromLesson){
+    paintFrom();
+    if(!startLesson(fromLesson)){
+      var b0 = document.getElementById('paFrom');
+      if(b0) b0.innerHTML += '<p class="pa-note">Nothing from this lesson is open yet. ' +
+        'Play Signal Sprint or Daily 5 first &mdash; these items open at the next rank.</p>';
+    }
+    PA.track('lesson_practice_opened', {lesson: fromLesson, rank: S.rank});
+  }
   var note = document.getElementById('paStorage');
   if(note) note.hidden = false;
 })();
@@ -2601,7 +2719,8 @@ def payload(bank):
     """Banka se zapece do stranky jako JSON v <script type="application/json">.
     Stejny vzorec jako ac-rcdata u Research Challenges: zadny fetch, stranka je
     jeden soubor a funguje i offline."""
-    slim = {k: bank[k] for k in ("v", "cfg", "nodes", "items", "models", "wire", "map", "counts")}
+    slim = {k: bank[k] for k in ("v", "cfg", "nodes", "items", "models", "wire",
+                                 "map", "counts", "lessons")}
     txt = json.dumps(slim, ensure_ascii=False, separators=(",", ":"))
     # </script> uvnitr dat by ukoncilo blok drive, nez ma -- stejna past jako
     # v build_academy.py u rc_lab_data().
@@ -2642,6 +2761,7 @@ def practice_page(bank):
         tiles.append('<div class="pa-tile"><span class="pa-skill">%s</span><h3>%s</h3><p>%s</p></div>'
                      % (e(g["skill"]), e(g["name"]), e(g["blurb"])))
     body.append('<div class="pa-tiles" id="paTiles">%s</div>' % "".join(tiles))
+    body.append('<div class="pa-from" id="paFrom" hidden></div>')
     body.append('<div class="pa-board" id="paBoard" hidden></div>')
 
     body.append('<p class="pa-note" id="paStorage" hidden>%s</p>'

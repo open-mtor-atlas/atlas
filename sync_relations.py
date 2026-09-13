@@ -59,13 +59,39 @@ F = {
     "ctx":         "fldXVdsFzV2y9m4oT",
     "status":      "fldEO9HwufC5nEXKo",
     "note":        "fldND70SWZKmHA9kn",
+    # Bod 7.5 (13. 9. 2026): časová závislost vazby. Prázdná hodnota v
+    # Airtable znamená "Not tested" -- viz normalizace v SCALAR zpracování
+    # níž. Je to záměr: default říká, že tuhle hranu nikdo v čase neproměřil.
+    "timedep":     "fldGpT7vpSzRvrAA8",
+    # Bod 7.2 (13. 9. 2026): strojově čitelná podoba Context_Note. Ruční tagy
+    # se berou odsud, čtyři odvozené dopočítává blok DERIVED_TAGS níž.
+    "tags":        "fldLJyDmWlnAi6TV5",
 }
 F_STUDY_SID = "fldnmqtOHZ0luHRiI"
 F_STUDY_TIER = "fld4mOmLgEYFA4mYE"
 
 # ATLAS_EDGES key <- Airtable field. Order is the diff display order.
 SCALAR = [("sign", "sign"), ("mech", "mech"), ("dir", "dir"),
-          ("sp", "sp"), ("ctx", "ctx"), ("status", "status")]
+          ("sp", "sp"), ("ctx", "ctx"), ("status", "status"),
+          ("timedep", "timedep")]
+
+# Klíče, kde prázdná buňka v Airtable NEZNAMENÁ "neměnit", ale konkrétní
+# hodnotu. Zatím jen timedep; kdyby přibyl další, patří sem.
+DEFAULTS = {"timedep": "Not tested"}
+
+# Tagy, které se NIKDY neberou z Airtable, ale počítají z jiných polí. Kdyby se
+# zadávaly ručně, vznikl by druhý zdroj pravdy a ten se dřív nebo později
+# rozejde s tím prvním -- proto se z ručního seznamu odstraňují a dosazují znovu.
+DERIVED_TAGS = {"time-dependent", "reversible-on-withdrawal",
+                "single-study", "direction-contested"}
+# timedep -> tag. "Not tested" a "Time-invariant" žádný tag nedávají: hrana,
+# kterou nikdo v čase neměřil, není tím pádem časově závislá.
+TIMEDEP_TAG = {
+    "Chronic only": "time-dependent",
+    "Acute only": "time-dependent",
+    "Diverges with time": "time-dependent",
+    "Reversible on withdrawal": "reversible-on-withdrawal",
+}
 LINKED = [("st", "studies"), ("cf", "conflicting")]
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -151,6 +177,14 @@ def main():
             v = f.get(F[fk])
             v = v.strip() if isinstance(v, str) else v
             if not v:
+                # Bod 7.5: u timedep je prázdno SAMO O SOBĚ informace ("nikdo to
+                # v čase neproměřil"), ne chybějící údaj. Normalizuje se proto na
+                # explicitní hodnotu, aby se dalo počítat, místo aby klíč chyběl
+                # a každý čtenář dat si domýšlel, co znamená jeho nepřítomnost.
+                if key in DEFAULTS:
+                    if e.get(key) != DEFAULTS[key]:
+                        new[key] = DEFAULTS[key]
+                    continue
                 if e.get(key):
                     kept += 1
                 continue
@@ -166,6 +200,12 @@ def main():
                 continue
             if v != sorted(e.get(key) or []):
                 new[key] = v
+
+        # Ruční boundary tagy. Odvozené se odsud odstraňují: jejich zdrojem je
+        # DERIVED_TAGS blok níž, ne to, co někdo naklikal v Airtable.
+        manual = sorted(set(f.get(F["tags"]) or []) - DERIVED_TAGS)
+        if manual != sorted(set(e.get("tags") or []) - DERIVED_TAGS):
+            new["tags"] = manual
 
         if INCLUDE_NOTE:
             v = (f.get(F["note"]) or "").strip()
@@ -199,6 +239,32 @@ def main():
                 hit[1].update(fix)
             else:
                 changes.append((eid, fix, e))
+
+    # Bod 7.2: odvozené boundary tagy. Stejný princip jako tier/tiers výš --
+    # počítá se pro KAŽDOU hranu, ne jen pro ty, kterých se Airtable dotkla,
+    # protože vstupem jsou pole (timedep, st, status), která se mění nezávisle.
+    # Kdyby se odvozovalo jen při změně tagů, hrana, které ubyla studie, by
+    # navždy nesla `single-study`, aniž by si toho někdo všiml.
+    for eid, e in local.items():
+        pend = dict(next((n for i, n, _ in changes if i == eid), {}))
+        cur = lambda k, d=None: pend.get(k, e.get(k, d))
+
+        derived = set()
+        t = TIMEDEP_TAG.get(cur("timedep") or "")
+        if t:
+            derived.add(t)
+        if len(cur("st") or []) == 1:
+            derived.add("single-study")
+        if (cur("status") or "") == "Contested":
+            derived.add("direction-contested")
+
+        want = sorted(set(cur("tags") or []) - DERIVED_TAGS | derived)
+        if want != sorted(e.get("tags") or []):
+            hit = next((c for c in changes if c[0] == eid), None)
+            if hit:
+                hit[1]["tags"] = want
+            else:
+                changes.append((eid, {"tags": want}, e))
 
     if not changes:
         print("\nNothing to change: ATLAS_EDGES already matches Airtable.")

@@ -909,6 +909,15 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
+/* "Practice this lesson" -- rozcestnik do Areny, ne vlozena hra. Uvnitr lekce
+   se nic nehraje: vlozena hra by porusila paritu bez JS (pravidlo 8/13), tak
+   jako ji drzi kviz a cviceni. Cely blok je staticke HTML. */
+.ac-practice ul{list-style:none;padding:0;margin:10px 0 14px;display:flex;
+  flex-wrap:wrap;gap:8px}
+.ac-practice ul li{font-size:13.5px;line-height:1;padding:7px 11px;border-radius:3px;
+  border:1px solid var(--line);color:var(--soft)}
+.ac-practice .ac-pracgo{margin:14px 0 8px}
+
 @media (max-width:1000px){
   /* Spec §10: the right rail collapses into horizontal navigation above the
      text (order:-1 on a grid item), and the page must not overflow sideways --
@@ -2283,6 +2292,9 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     secs.append(("think", "Think"))
     if les.get("quiz"):
         secs.append(("quiz", "Check yourself"))
+    prac = practice_block(les)
+    if prac:
+        secs.append(("practice", "Practice this lesson"))
     secs.append(("deeper", "Go deeper"))
 
     body = [SVG_DEFS, '<div class="ac-lesson"><article class="ac-main">']
@@ -2358,6 +2370,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
     body.append("</section>")
 
     body.append(quiz_block(les))
+    body.append(prac)
 
     chips, missing = deeper_links(les, ent_url, gaps)
     body.append('<section class="ac-section"><h2 id="deeper">Go deeper</h2>')
@@ -2670,15 +2683,80 @@ def academy_home(modules, lessons_by_slug, challenges):
                       extra_body=PROGRESS_JS + payload + (HOME_JS if has_practice else ""))
 
 
+_PRACTICE_BANK = []          # [] = jeste nenacteno, [None] = nacteni selhalo
+
+
+def _practice_bank():
+    """Banka Practice Areny, nactena nejvys jednou za beh. Stavba banky neni
+    zadarmo (generuje se z modelu i korpusu) a saha po ni homepage i kazda
+    z deseti lekci, takze bez teto pameti by se postavila jedenactkrat.
+
+    Kdyz se nacist neda, vraci None a volajici se chova, jako by Arena
+    neexistovala -- lekce se musi postavit i tak."""
+    if not _PRACTICE_BANK:
+        try:
+            import build_practice
+            cfg, les, pw, st, g = build_practice.load()
+            _PRACTICE_BANK.append(build_practice.build_bank(cfg, les, pw, st, g))
+        except Exception:
+            _PRACTICE_BANK.append(None)
+    return _PRACTICE_BANK[0]
+
+
 def _practice_item_count():
     """Pocet polozek Practice Areny pro kartu na homepage. Cte se z banky, ne
     z natvrdo napsaneho cisla -- jinak by se to rozeslo pri prvnim rozsireni."""
-    try:
-        import build_practice
-        cfg, les, pw, st, g = build_practice.load()
-        return build_practice.build_bank(cfg, les, pw, st, g)["counts"]["items"]
-    except Exception:
-        return 0
+    bank = _practice_bank()
+    return bank["counts"]["items"] if bank else 0
+
+
+def practice_block(les):
+    """Blok "Practice this lesson" na konci lekce.
+
+    Je to ROZCESTNIK, ne vlozena hra. Duvod je tvrdy: cely vedecky obsah
+    stranky musi byt v HTML i bez JS (pravidlo 8 a 13 ve verify_academy.py,
+    verify_prerender.py). Vlozena arena by tenhle kontrakt porusila, takze
+    lekce jen rekne, co se procvicuje, kolik toho je, a odkaze do Areny
+    predfiltrovane na tuhle lekci.
+
+    Kolik polozek je zrovna OTEVRENYCH, zavisi na hodnosti studenta a vi to az
+    Arena. Tady se proto uvadi celkovy pocet a rekne se nahlas, ze se odemykaji
+    postupne -- slibit osm a dat dve by byla presne ta tichá lez, kterou tenhle
+    web nedela."""
+    bank = _practice_bank()
+    if not bank:
+        return ""
+    slug = les["slug"]
+    items = [i for i in bank["items"] if i.get("lesson") == slug]
+    if len(items) < 5:
+        return ""
+    # Co se procvicuje: uzly modelu, na ktere polozky opravdu sahaji, seřazene
+    # podle toho, kolikrat se objevi. Neopisuje se seznam konceptu z "Go
+    # deeper" -- ten mluvi o vykladu, tohle o polozkach.
+    freq = {}
+    for it in items:
+        for nid in it.get("nodes") or []:
+            if nid in bank["nodes"]:
+                freq[nid] = freq.get(nid, 0) + 1
+    top = sorted(freq, key=lambda n: (-freq[n], n))[:6]
+    labels = [bank["nodes"][n]["label"] for n in top]
+
+    out = ['<section class="ac-section ac-practice">'
+           '<h2 id="practice">Practice this lesson</h2>']
+    out.append("<p>The Practice Arena has %d items tied to this lesson: sign of an "
+               "interaction, what a perturbation does, and what a result does not "
+               "show. Every one of them asks how sure you are before it answers.</p>"
+               % len(items))
+    if labels:
+        out.append("<p class=\"ac-conceptlbl\">What these items drill</p>"
+                   "<ul>%s</ul>" % "".join("<li>%s</li>" % e(x) for x in labels))
+    out.append('<p class="ac-pracgo"><a class="ac-cta" href="%s/academy/practice/?lesson=%s">'
+               'Practice these &rarr;</a></p>' % (SITE, e(slug)))
+    out.append('<p class="ac-note">Items open with your rank, so early on you will see '
+               'fewer than %d. The Arena says how many are open before it starts.</p>'
+               % len(items))
+    out.append("</section>")
+    return "".join(out)
 
 
 # --------------------------------------------------- research challenges ---
