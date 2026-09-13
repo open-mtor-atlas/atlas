@@ -1873,7 +1873,12 @@ the selection" below for what that does and doesn't mean for trust.</p>
 landmark discovery papers, systematic reviews and large human RCTs over
 secondary commentary; bioRxiv supplies preprints (always flagged as such,
 never treated as equivalent to peer-reviewed work), and ClinicalTrials.gov
-supplies ongoing human trials.</li>
+supplies ongoing human trials. Each new issue of
+<a href="https://biomed.news/bims-auttor">bims-auttor</a> -- the weekly
+"Autophagy and mTOR" reading list on <a href="https://biomed.news/">biomed.news</a>,
+selected by Viktor Korolchuk at Newcastle University -- is screened here
+as well: a reading queue, not an inclusion criterion, since an item still
+has to clear the same bar as anything else on this page.</li>
 <li><strong>Verify</strong> -- each citation's PMID, DOI, year and journal
 are confirmed against PubMed's own metadata before the entry is written;
 no citation is added from memory alone.</li>
