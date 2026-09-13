@@ -184,6 +184,7 @@
         '<p class="pa-fb">' + (pass ?
           '<b>Promoted.</b> You are now ' + esc(PA.rankDef(S.rank).name) + '. ' + esc(PA.rankDef(S.rank).blurb) :
           '<b>Not yet.</b> Nothing is lost &mdash; practise the weak nodes and take the board again.') + '</p>') +
+      lessonOutro() +
       '<div class="pa-tools" style="margin-top:16px">' +
       '<button id="paBack" type="button">Back to the games</button>' +
       '<button id="paMap" type="button">See your pathway &rarr;</button></div></div>');
@@ -543,7 +544,60 @@
     return s + '</svg>';
   }
 
+  /* ---------------- deep link z lekce ----------------
+     /academy/practice/?lesson=<slug> spusti set navazany na jednu lekci.
+     Filtr jde pres tyz allowed() jako vsechno ostatni, takze odkaz z lekce
+     nikdy neobejde hodnost ani pool -- jen vybere z toho, co uz otevrene je.
+     Kdyz je otevrenych min, nez lekce celkem ma, rekne se to nahlas; slibit
+     osm polozek a dat dve je presne ten druh tichy lzi, kterou tenhle web
+     nedela. */
+  var fromLesson = null;
+
+  function lessonSlug(){
+    var m = /[?&]lesson=([A-Za-z0-9_-]+)/.exec(location.search || '');
+    if(!m) return '';
+    var slug = decodeURIComponent(m[1]);
+    return (D.lessons && D.lessons[slug]) ? slug : '';
+  }
+  function lessonOutro(){
+    if(!fromLesson) return '';
+    var L = D.lessons[fromLesson], nx = L.nx && D.lessons[L.nx];
+    return '<p class="pa-fb"><a href="' + L.u + '">&larr; Back to lesson ' + esc(L.n) +
+           '</a>' + (nx ? ' &middot; <a href="' + nx.u + '">Next: lesson ' + esc(nx.n) +
+           ', ' + esc(nx.t) + ' &rarr;</a>' : '') + '</p>';
+  }
+  function paintFrom(){
+    var box = document.getElementById('paFrom'); if(!box || !fromLesson) return;
+    var L = D.lessons[fromLesson];
+    var open = PA.lessonPool(fromLesson).length, tot = PA.lessonTotal(fromLesson);
+    var note = open >= tot
+      ? 'All ' + tot + ' items tied to this lesson are open.'
+      : open + ' of the ' + tot + ' items tied to this lesson are open at rank ' +
+        S.rank + '. The rest unlock as you rank up.';
+    box.innerHTML = '<p class="pa-note"><a href="' + L.u + '">&larr; Lesson ' + esc(L.n) +
+                    ' &middot; ' + esc(L.t) + '</a> &mdash; ' + note + '</p>';
+    box.hidden = false;
+  }
+  function startLesson(slug){
+    var p = PA.lessonPool(slug);
+    if(!p.length) return false;
+    mode = 'lesson'; pressTile('');
+    var ids = PA.weakestFirst(p).slice(0, 8).map(function(it){ return it.id; });
+    startQueue(ids, 'Lesson ' + esc(D.lessons[slug].n) + ' &middot; ' + esc(D.lessons[slug].t));
+    return true;
+  }
+
   paintRank(); paintTiles(); paintWorld();
+  fromLesson = lessonSlug();
+  if(fromLesson){
+    paintFrom();
+    if(!startLesson(fromLesson)){
+      var b0 = document.getElementById('paFrom');
+      if(b0) b0.innerHTML += '<p class="pa-note">Nothing from this lesson is open yet. ' +
+        'Play Signal Sprint or Daily 5 first &mdash; these items open at the next rank.</p>';
+    }
+    PA.track('lesson_practice_opened', {lesson: fromLesson, rank: S.rank});
+  }
   var note = document.getElementById('paStorage');
   if(note) note.hidden = false;
 })();

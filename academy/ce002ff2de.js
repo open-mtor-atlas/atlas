@@ -21,7 +21,7 @@ window.PA = (function(){
                  limitsOk:0, sprintOk:0, answered:0,
                  autopsyOk:0, autopsyKinds:[], sampleOk:0, sampleFalseReject:0,
                  openOk:0, openFalse:0, sourceOk:0, sourceWeakening:[], discriminating:0},
-            bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
+            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
   }
   function read(){
     var o;
@@ -147,6 +147,7 @@ window.PA = (function(){
     var xp = scoreItem(item, ok, p);
     var seen = S.seen[item.id];
     S.seen[item.id] = [ (seen?seen[0]:0) + 1, today(), seen ? seen[2] : (ok?1:0) ];
+    var lv = noteLevel(item.id);
     S.xp += xp;
     S.met.answered++;
     bumpMastery(item.nodes, ok, sure);
@@ -188,7 +189,8 @@ window.PA = (function(){
     save();
     track('item_answered', {game: item.game, difficulty: item.diff || 1,
                             confidence: (p === null ? 'none' : (sure ? 'sure' : 'unsure')),
-                            result: ok ? 'correct' : 'wrong'});
+                            result: ok ? 'correct' : 'wrong',
+                            reading_level: lv});
     return {xp: xp, badges: gained};
   }
   function recordWire(puz, bonds, perfect){
@@ -197,6 +199,7 @@ window.PA = (function(){
                         (cf.difficulty[String(puz.diff)]||1) * noveltyFor({id:puz.id}));
     var seen = S.seen[puz.id];
     S.seen[puz.id] = [ (seen?seen[0]:0)+1, today(), seen ? seen[2] : (perfect?1:0) ];
+    var lv = noteLevel(puz.id);
     S.xp += xp;
     S.met.answered++;
     bumpMastery(puz.seq, perfect, false);
@@ -209,7 +212,8 @@ window.PA = (function(){
     save();
     track('item_answered', {game: 'wire', difficulty: puz.diff || 1,
                             confidence: 'none',
-                            result: perfect ? 'correct' : 'wrong'});
+                            result: perfect ? 'correct' : 'wrong',
+                            reading_level: lv});
     return {xp: xp, badges: gained};
   }
 
@@ -402,6 +406,46 @@ window.PA = (function(){
     var i; for(i=0;i<D.items.length;i++){ if(D.items[i].id === id) return D.items[i]; }
     return null;
   }
+
+  /* ---------------- reading level ----------------
+     Uroven se cte v OKAMZIKU odpovedi, nikdy pri vyhodnoceni. Kdyby se cetla
+     pozdeji, stacilo by prepnout prepinac pred zkouskou a zaznam by lhal.
+     Uroven nic neodemyka a nesnizuje zadnou latku -- prahy, Brierova brana i
+     obtiznost polozek jsou pro vsechny tri urovne stejne. Je to popis toho,
+     jak student cetl, ne brana. Prepinac (LevelToggle ve V2) sahá na
+     data-level na <html>; jeho chybejici hodnota znamena "student". */
+  function readingLevel(){
+    try { return document.documentElement.getAttribute('data-level') || 'student'; }
+    catch(err){ return 'student'; }
+  }
+  function noteLevel(id){
+    var lv = readingLevel();
+    S.lv[lv] = (S.lv[lv] || 0) + 1;
+    /* ctvrty prvek S.seen[id] je uroven POSLEDNI odpovedi. Doplneni na index 3
+       je zpetne kompatibilni: starsi ulozeny stav ma tri prvky a vsechno
+       ostatni cte jen indexy 0-2. */
+    if(S.seen[id]) S.seen[id][3] = lv;
+    return lv;
+  }
+
+  /* Polozky vazane na jednu lekci -- rozcestnik na konci lekce. Prochazi
+     stejnym allowed() jako vsechno ostatni, takze deep link nikdy neobejde
+     hodnost ani pool. Kolik jich je celkem rika lessonTotal(). */
+  function lessonPool(slug){
+    var out = [], i, it;
+    for(i=0;i<D.items.length;i++){
+      it = D.items[i];
+      if(it.lesson !== slug) continue;
+      if(!allowed(it)) continue;
+      out.push(it);
+    }
+    return out;
+  }
+  function lessonTotal(slug){
+    var n = 0, i;
+    for(i=0;i<D.items.length;i++) if(D.items[i].lesson === slug) n++;
+    return n;
+  }
   function modelById(id){
     var i; for(i=0;i<D.models.length;i++){ if(D.models[i].id === id) return D.models[i]; }
     return null;
@@ -430,6 +474,8 @@ window.PA = (function(){
           recordWire:recordWire, brier:brier, badgeProgress:badgeProgress,
           rankDef:rankDef, nextRank:nextRank, rankReady:rankReady, promote:promote,
           unlocked:unlocked, pool:pool, wirePool:wirePool, daily:daily,
+          lessonPool:lessonPool, lessonTotal:lessonTotal,
+          readingLevel:readingLevel, weakestFirst:weakestFirst,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
           reset:reset, track:track};
