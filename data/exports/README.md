@@ -8,7 +8,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 
 ## Files
 
-- **studies.csv / studies.json** -- 371 hand-curated
+- **studies.csv / studies.json** -- 380 hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
   (`sid`), title, authors, year, journal, `tier` -- the stored study-type
   value, still recorded with its original letters (A = systematic
@@ -21,7 +21,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   AI-assisted deep-extraction fields: intervention, target, species,
   effect, dose, sample size, effect size, and limitations. `atlas_url`
   links back to the full record page.
-- **entities.csv / entities.json** -- 146 pathway
+- **entities.csv / entities.json** -- 149 pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a
