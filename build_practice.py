@@ -1091,6 +1091,7 @@ window.PA = (function(){
     try { D = JSON.parse(el.textContent); } catch(err){ return null; }
     KEY = (D.cfg && D.cfg.storageKey) || KEY;
     S = read();
+    trackOutbound();
     return D;
   }
 
@@ -1116,6 +1117,36 @@ window.PA = (function(){
   }
   function state(){ return S; }
   function data(){ return D; }
+
+  /* ---------------- analytika pilotu ----------------
+     Stejny kontrakt jako CHALLENGE_JS v build_academy.py: hlasi se do gtag,
+     ktery shell() uz nacetl, zadna nova platforma, zadne ulozeni, vse v
+     try/catch. Bez techto sesti udalosti se pilot Areny neda vyhodnotit --
+     navrh to zadal 5. 9., nasazeno az ted. Nesleduje se cas na strance,
+     pocet polozek ani denni serie; to jsou metriky navstevnosti, ne uceni. */
+  function track(name, extra){
+    try { if(typeof gtag === 'function'){
+      var p = {}, k;
+      if(extra) for(k in extra) p[k] = extra[k];
+      gtag('event', name, p);
+    } } catch(err){}
+  }
+  function trackOutbound(){
+    /* atlas_from_practice: odchod z Areny do Atlasu (studie, lekce, entita).
+       Odkazy uvnitr Areny se nepocitaji -- meri se, jestli je hra branou do
+       Atlasu, ne proklik mezi dvema jejimi strankami. */
+    if(!document.addEventListener) return;
+    document.addEventListener('click', function(ev){
+      var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if(!a) return;
+      var u;
+      try { u = new URL(a.href, location.href); } catch(err){ return; }
+      if(u.host !== location.host) return;
+      if(u.pathname.indexOf('/academy/practice/') === 0) return;
+      if(u.pathname.indexOf('/academy/progress/') === 0) return;
+      track('atlas_from_practice', {to: u.pathname});
+    }, true);
+  }
 
   /* ---------------- mastery (with decay) ---------------- */
   /* Mastery is what you can do NOW. A node you stop practising slides back
@@ -1235,6 +1266,9 @@ window.PA = (function(){
     snapshot();
     var gained = evalBadges();
     save();
+    track('item_answered', {game: item.game, difficulty: item.diff || 1,
+                            confidence: (p === null ? 'none' : (sure ? 'sure' : 'unsure')),
+                            result: ok ? 'correct' : 'wrong'});
     return {xp: xp, badges: gained};
   }
   function recordWire(puz, bonds, perfect){
@@ -1253,6 +1287,9 @@ window.PA = (function(){
     touchStreak(); snapshot();
     var gained = evalBadges();
     save();
+    track('item_answered', {game: 'wire', difficulty: puz.diff || 1,
+                            confidence: 'none',
+                            result: perfect ? 'correct' : 'wrong'});
     return {xp: xp, badges: gained};
   }
 
@@ -1330,6 +1367,7 @@ window.PA = (function(){
       if(p.tier > (S.bg[b.id]||0)){
         S.bg[b.id] = p.tier;
         gained.push({id:b.id, name:b.name, tier:p.tier});
+        track('badge_earned', {badge: b.id, tier: p.tier});
       }
     }
     return gained;
@@ -1349,7 +1387,10 @@ window.PA = (function(){
     if(r.brier){ var br = brier(); if(!br || br.v > r.brier) return false; }
     return true;
   }
-  function promote(){ S.rank = Math.min(S.rank+1, D.cfg.ranks.length); save(); }
+  function promote(){
+    S.rank = Math.min(S.rank+1, D.cfg.ranks.length); save();
+    track('rank_up', {rank: S.rank});
+  }
   function unlocked(what){
     var i, r;
     for(i=0;i<D.cfg.ranks.length;i++){
@@ -1471,7 +1512,7 @@ window.PA = (function(){
           unlocked:unlocked, pool:pool, wirePool:wirePool, daily:daily,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
-          reset:reset};
+          reset:reset, track:track};
 })();
 </script>
 """
@@ -1502,12 +1543,16 @@ PRACTICE_JS = """
     var r = PA.rankDef(S.rank), nx = PA.nextRank();
     var bar = document.getElementById('paRank'); if(!bar) return;
     var pct = 0, to = '';
-    if(nx && nx.phase === 'A'){
+    if(nx){
+      /* Drive tady stalo 'Phase B ranks open with the next set of games'.
+         Ty hry na webu uz jsou (autopsy, sources, frontier), takze slib do
+         budoucna byl nepravdivy: zebrik vede az na hodnost 6. */
       var span = Math.max(1, nx.xp - r.xp);
       pct = Math.max(0, Math.min(100, Math.round((S.xp - r.xp) / span * 100)));
       to = (nx.xp - S.xp > 0 ? (nx.xp - S.xp) + ' XP to ' : 'ready for ') + nx.name;
+      if(nx.brier) to += ' (with calibration)';
     } else {
-      pct = 100; to = 'Phase B ranks open with the next set of games';
+      pct = 100; to = 'Top rank';
     }
     bar.innerHTML =
       '<div><p class="pa-rk">Rank ' + r.n + '</p><p class="pa-rkname">' + esc(r.name) + '</p></div>' +
@@ -1659,7 +1704,8 @@ PRACTICE_JS = """
       pass = session.ok >= Math.ceil(queue.length * CFG.rankup.passRatio);
       if(pass) PA.promote();
     }
-    if(mode === 'daily'){ S.day.done = 1; PA.save(); }
+    if(mode === 'daily'){ S.day.done = 1; PA.save();
+      PA.track('daily5_completed', {correct: session.ok, of: session.n}); }
     show(head(title, '') + '<div class="pa-body">' +
       '<p class="pa-q">' + session.ok + ' of ' + session.n + ' &middot; +' + session.xp + ' XP</p>' +
       (pass === null ? '' :
@@ -2226,7 +2272,11 @@ PROGRESS_JS = """
     var html = '', crit = '', i, b, p, state, sub;
     for(i=0;i<CFG.badges.length;i++){
       b = CFG.badges[i];
-      if(b.phase === 'A'){
+      /* Drive se tady zamykal kazdy odznak faze B natvrdo ('phase B'), i kdyz
+         engine jeho metriku uz mericky pocital -- student hral Paper Autopsy a
+         odznak zustal seda. Zamceny je nove jen odznak s pending:true, tedy
+         ten, jehoz metriku zatim opravdu nic neplni. */
+      if(!b.pending){
         p = PA.badgeProgress(b);
         state = p.tier ? 'earned' : (p.pct > 0 ? 'progress' : 'locked');
         sub = p.tier ? (b.tiers.length > 1 ? 'Tier ' + roman(p.tier) : 'Earned')
@@ -2234,14 +2284,14 @@ PROGRESS_JS = """
                         ? (p.value ? p.value.toFixed(2) + ' &rarr; ' + b.tiers[0] : 'no data yet')
                         : p.value + ' / ' + p.next));
       } else {
-        p = {tier:0, pct:0}; state = 'locked'; sub = 'phase B';
+        p = {tier:0, pct:0}; state = 'locked'; sub = b.pendingNote || 'not measured yet';
       }
       html += '<div class="pa-badge" data-state="' + state + '">' +
               badgeSvg(b.id, 76, state, p.pct, b.tiers.length, p.tier) +
               '<div class="pa-bn">' + esc(b.name) + '</div><div class="pa-bs">' + sub + '</div></div>';
       crit += '<li><span class="pa-cn">' + esc(b.name) + '</span>' +
               '<span class="pa-cc">' + esc(b.criterion) + '</span>' +
-              '<span class="pa-cv">' + (b.phase === 'A' ? sub : 'phase B') + '</span></li>';
+              '<span class="pa-cv">' + sub + '</span></li>';
     }
     shelf.innerHTML = html;
     if(list) list.innerHTML = crit;
@@ -2363,6 +2413,7 @@ PROGRESS_JS = """
   }
 
   wireTools(); redraw();
+  PA.track('map_opened', {rank: S.rank});
 })();
 </script>
 """
@@ -2521,7 +2572,8 @@ def badge_table(cfg):
         rows.append('<li><span class="pa-cn">%s</span><span class="pa-cc">%s</span>'
                     '<span class="pa-cv">%s</span></li>'
                     % (e(b["name"]), e(b["criterion"]),
-                       "phase B" if b["phase"] != "A" else "&mdash;"))
+                       e(b.get("pendingNote") or "not measured yet")
+                       if b.get("pending") else "&mdash;"))
     return '<ul class="pa-crit" id="paCrit">%s</ul>' % "".join(rows)
 
 

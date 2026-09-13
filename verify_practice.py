@@ -17,8 +17,10 @@ PRAVIDLA
       rozptylovac (hard) na ceste NElezi.
   P4  Kazda pert polozka ma existujici model, existujici stav a neprazdny
       readout; moznosti se daji sestavit (model ma aspon dva ruzne readouty).
-  P5  Kazdy odznak ma metriku, kterou engine skutecne pocita, neprazdne tiers
-      a viditelne kriterium. Odznak bez merene metriky by nesel nikdy ziskat.
+  P5  Kazdy odznak ma metriku, kterou engine skutecne ZVYSUJE (ne jen
+      vyjmenuje v blank()), neprazdne tiers a viditelne kriterium. Odznak,
+      jehoz metriku nic neplni, musi byt oznaceny pending + pendingNote --
+      jinak by visel na poličce jako nesplnitelny a nikdo by se to nedozvedel.
   P6  Prahy hodnosti rostou (XP i pocet zvladnutych uzlu) a faze A konci
       hodnosti 3 -- vys se ve fazi A nelze dostat, takze to nesmi byt slibeno.
   P7  Parita bez JS: obe stranky obsahuji staticky ekvivalent (cvicebnice s
@@ -137,9 +139,23 @@ def main():
         if not b.get("criterion"):
             bad(w, "chybi viditelne kriterium")
         m = b["metric"]
-        known = (("S.met." + m) in engine_js) or (("'" + m + "'") in engine_js)
-        if b["phase"] == "A" and not known:
-            bad(w, "metrika %r se nikde v enginu nepocita -- odznak by byl nezískatelny" % m)
+        # Drive stacilo, ze se jmeno metriky v enginu nekde vyskytne -- jenze
+        # blank() ho vyjmenuje vzdycky, takze brana prosla i u metriky, kterou
+        # nic nezvysovalo (odznak Falsifier). Ted se hleda skutecny zapis.
+        fed = (("S.met." + m + "++") in engine_js
+               or ("S.met." + m + " +=") in engine_js
+               or ("S.met." + m + "=") in engine_js
+               or m in ("brier", "coreMastered"))  # pocitane v metricValue()
+        if b.get("pending") and fed:
+            bad(w, "odznak je oznacen pending, ale metriku %r uz engine plni "
+                   "-- priznak je potreba odstranit, jinak zustane zamceny" % m)
+        if not b.get("pending") and not fed:
+            bad(w, "metriku %r nic v enginu nezvysuje -- odznak by byl "
+                   "neziskatelny; bud ji zacni plnit, nebo odznak oznac "
+                   "pending + pendingNote" % m)
+        if b.get("pending") and not b.get("pendingNote"):
+            bad(w, "pending odznak musi mit pendingNote (co mu chybi) -- "
+                   "zamceny odznak bez duvodu je loterie, ne cil")
 
     # ---- P6 ----------------------------------------------------------------
     last_xp, last_nodes = -1, -1
