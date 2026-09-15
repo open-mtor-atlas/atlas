@@ -1402,6 +1402,13 @@ def author_page(key, bio, studies):
         # kontext stranky. <img src> nize relativni zustava. Doplneno
         # 2026-09-05 spolu s vytazenim base64 fotek do /img/people/.
         ld["image"] = (SITE + bio["photo"]) if bio["photo"].startswith("/") else bio["photo"]
+    same_as = []
+    if bio.get("lab_url"):
+        same_as.append(bio["lab_url"])
+    if bio.get("bluesky"):
+        same_as.append("https://bsky.app/profile/" + bio["bluesky"].lstrip("@"))
+    if same_as:
+        ld["sameAs"] = same_as
 
     ordered = sorted(studies, key=lambda s: (s.get("year") or 0))
     body = [f"<h1>{e(bio['full'])}</h1>",
@@ -1414,6 +1421,21 @@ def author_page(key, bio, studies):
                     f'onerror="this.style.display=\'none\'">' + cred)
     for p in bio.get("story") or []:
         body.append(f"<p>{p}</p>")
+
+    # 2026-09-15: lab_url/lab_name/bluesky have been sitting unused in
+    # author_bios_baked.json for a couple dozen researchers -- baked in but
+    # never rendered anywhere on the actual /author/ page. Surface them here
+    # the same way oliver_page() already does for Oliver's own contact line,
+    # but conditionally, since most of the 218 entries still lack them.
+    extras = []
+    if bio.get("lab_url"):
+        extras.append(f'<a href="{e(bio["lab_url"])}">Lab website</a>')
+    if bio.get("bluesky"):
+        handle = bio["bluesky"].lstrip("@")
+        bsky_url = f"https://bsky.app/profile/{handle}"
+        extras.append(f'Bluesky: <a href="{e(bsky_url)}">{e(bio["bluesky"])}</a>')
+    if extras:
+        body.append(f'<p class="meta">{" &middot; ".join(extras)}</p>')
 
     if ordered:
         body.append("<h2>Milestones in the Atlas</h2><table class=\"st\">"
