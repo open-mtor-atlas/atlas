@@ -80,11 +80,10 @@ def build_provider_info():
   <NameAbbr>mTORAtlas</NameAbbr>
   <SubjectType>%s</SubjectType>
   <Url>%s/</Url>
-  <Brief>Evidence-graded, open-access database of curated primary studies
-on mTOR (mechanistic target of rapamycin) signaling. Each record links
-the primary study to its evidence tier (A = systematic review/meta-
-analysis through D = mechanistic/in-vitro), extracted findings, and the
-pathway entities it involves. Free, no login, CC BY 4.0.</Brief>
+  <Brief>Evidence-graded, open-access database of curated mTOR
+(mechanistic target of rapamycin) studies. Classifies each study by
+type -- systematic review, human, animal, or molecular -- not a
+quality score. Free, no login, CC BY 4.0.</Brief>
 </Provider>
 """ % (SUBJECT_TYPE, SITE)
     path = os.path.join(OUT_DIR, "providerinfo.xml")
@@ -153,14 +152,21 @@ signaling.
 About the resource:
 - Non-commercial, no login required, no advertising.
 - Content license: CC BY 4.0.
-- Each record links a PubMed-indexed primary study to an evidence tier
-  (A = systematic review/meta-analysis through D = mechanistic/in-vitro
-  study), extracted findings, and the pathway entities/processes it
-  involves -- adding structured, freely reusable context on top of the
-  PubMed record, not duplicating it.
+- Each record is classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking, plus extracted
+  findings and the pathway entities/processes it involves -- adding
+  structured, freely reusable context on top of the PubMed record, not
+  duplicating it.
 - Registered with FAIRsharing (FAIRsharing ID: 8905) and bio.tools
   (ID: olivers_mtor_atlas).
-- Dataset DOI: 10.5281/zenodo.22059963.
+- Software/dataset DOI: 10.5281/zenodo.22059963 (Zenodo).
+- Companion article DOI: 10.6084/m9.figshare.33772297 (Figshare
+  preprint, CC BY 4.0): "Ten percent human: an evidence-graded audit
+  of 364 curated mTOR studies and the pathway's translational gap".
+- Access: fully free, no registration, no subscription, no fee, no
+  advertising.
+
+Database record type we would like to link from: PubMed (one record
+per curated study, matched by PMID).
 
 We would like to link out from PubMed records to the corresponding
 record on our site wherever we hold a PMID match. Five example

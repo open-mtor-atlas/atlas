@@ -17,12 +17,11 @@ form still uses this structure before submitting.
 - **Database name:** Oliver's mTOR Atlas
 - **Short name/acronym:** mTOR Atlas
 - **URL:** https://mtor-atlas.org/
-- **Description:** An evidence-graded, open-access database of 354
+- **Description:** An evidence-graded, open-access database of 384
   curated primary research studies on mTOR (mechanistic target of
-  rapamycin) signaling. Each study is linked to an evidence tier
-  (A = systematic review/meta-analysis through D = mechanistic/
-  in-vitro), extracted findings, and the pathway entities/processes it
-  involves (146 curated entities), forming a browsable knowledge graph
+  rapamycin) signaling. Each study is classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking,
+  with extracted findings and the pathway entities/processes it
+  involves (149 curated entities), forming a browsable knowledge graph
   of mTOR biology.
 - **Organism/species scope:** Cross-species (human and model-organism
   studies, tagged per record)

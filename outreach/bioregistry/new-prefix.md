@@ -28,10 +28,9 @@ Petr/Oliver can supply -- not guessed here.
 
 5. **Description:** An evidence-graded database of curated primary
    research studies on mTOR (mechanistic target of rapamycin)
-   signaling. Each study record is graded by evidence tier (A =
-   systematic review/meta-analysis through D = mechanistic/in-vitro)
-   and linked to the pathway entities and processes it involves. 354
-   studies, 146 pathway entities. Free, non-commercial, no login
+   signaling. Each study record is classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking
+   and linked to the pathway entities and processes it involves. 384
+   studies, 149 pathway entities. Free, non-commercial, no login
    required.
 
 6. **License:** CC BY 4.0

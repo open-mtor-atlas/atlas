@@ -50,7 +50,7 @@ OUT_DIR = os.path.join(ROOT, "pathway")
 OUT = os.path.join(OUT_DIR, "model.json")
 
 MODEL_VERSION = "2.0.0"
-CURATOR = "Open mTOR Atlas curation team"
+CURATOR = "Oliver's mTOR Atlas curation team"
 REVIEW_DATE = "2026-07-29"
 
 # ---------------------------------------------------------------------------

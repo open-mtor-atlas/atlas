@@ -25,16 +25,14 @@ Title:
   Oliver's mTOR Atlas
 
 Subtitle (max ~120 chars):
-  354 evidence-graded studies + 146 pathway entities on mTOR signaling, aging, and rapamycin
+  384 evidence-graded studies + 149 pathway entities on mTOR signaling, aging, and rapamycin
 
 Description (paste as-is, Markdown supported):
 
   A curated, evidence-graded database of mTOR (mechanistic target of
   rapamycin) pathway research. Every study earned its place through
   manual curation, not a keyword search -- and every included study is
-  rated by evidence tier (A = systematic review/meta-analysis, B =
-  human trial, C = animal model, D = mechanistic/in-vitro/review; tier
-  describes study design, not a 1-5 quality score) and linked to a
+  classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking, and linked to a
   knowledge graph of genes, proteins, complexes, drugs, interventions,
   biological processes, diseases, outcomes, organelles, and
   nutrients/metabolites.

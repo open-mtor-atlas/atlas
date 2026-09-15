@@ -1,6 +1,6 @@
 # Pathway & Mechanism — complete redesign
 
-**Open mTOR Atlas · 29 July 2026 · Phase 1 shipped, Phases 2–4 specified**
+**Oliver's mTOR Atlas · 29 July 2026 · Phase 1 shipped, Phases 2–4 specified**
 
 Scope: the Pathway section of the Atlas, rebuilt from scratch rather than optimised.
 Corpus at time of writing: 283 studies, 111 curated interactions, 83 molecules, 7 guided routes.

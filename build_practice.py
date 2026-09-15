@@ -2800,7 +2800,7 @@ def practice_page(bank):
           "name": "mTOR Practice Arena", "url": url, "inLanguage": "en",
           "learningResourceType": "Quiz",
           "educationalLevel": "Secondary and undergraduate",
-          "description": "Practice games built on the Open mTOR Atlas pathway model: predict "
+          "description": "Practice games built on the Oliver's mTOR Atlas pathway model: predict "
                          "perturbations, rebuild routes, and name what a result does not show.",
           "isPartOf": dict(DATASET_REF),
           "license": "https://creativecommons.org/licenses/by/4.0/"}

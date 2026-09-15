@@ -58,11 +58,9 @@ size_categories:
 # Oliver's mTOR Atlas
 
 A curated, evidence-graded database of mTOR (mechanistic target of
-rapamycin) pathway research: 354 hand-curated primary studies, each
-rated by evidence tier (A = systematic review/meta-analysis, B = human
-trial, C = animal model, D = mechanistic/in-vitro/review -- tier
-describes study design, not a quality score), linked to a knowledge
-graph of 146 pathway entities (genes/proteins, complexes, drugs,
+rapamycin) pathway research: 384 hand-curated primary studies, each
+classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking, linked to a knowledge
+graph of 149 pathway entities (genes/proteins, complexes, drugs,
 interventions, biological processes, diseases, outcomes, organelles,
 nutrients/metabolites, and conditions).
 
@@ -90,8 +88,9 @@ Every study in this corpus already passed a relevance/quality bar to be
 included at all. The tier field answers a different question -- what
 *kind* of evidence is this -- so a reader (or a downstream model) can
 tell a systematic review apart from a single mechanistic cell-culture
-result without reading the abstract. It is not a 1-5 quality score:
-tier A-D is a study-design classification.
+result without reading the abstract. It is not a quality score:
+the S/H/A/M/R code is a study-design classification, with no ranking
+implied between the letters.
 
 ## Intended uses
 

@@ -1,4 +1,4 @@
-# Fáze 6 — Nalezitelnost & rozšiřitelnost Open mTOR Atlas
+# Fáze 6 — Nalezitelnost & rozšiřitelnost Oliver's mTOR Atlas
 
 **Datum:** 2026-07-27
 **Stav webu při psaní:** jeden soubor `index.html` (1.33 MB), GitHub Pages, doména `mtor-atlas.org`, 270 studií, sitemap má **1 URL**.
