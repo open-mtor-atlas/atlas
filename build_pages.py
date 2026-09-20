@@ -1357,6 +1357,10 @@ def apply_author_allowlist(author_idx):
         NESMI postavit -- vratime prazdny seznam a volajici ji preskoci.
     Chybejici soubor neni chyba: bake pak bezi jako pred fazi 0.
 
+    Vraci dvojici (index, jmena_z_rozpadu). Druha polozka rika volajicimu,
+    ktere klice jsou plna jmena vytazena zpod kolizniho klice -- potrebuje ji
+    k poradi, aby duplicitni medailonek nepresal ten korpusovy.
+
     author_idx NEmenime pro ucely odkazu u studii -- ten musi zustat synchronni
     s buildAuthorsIndex() v index.html. Tahle funkce se pouziva jen pro
     medailonky a /authors/.
@@ -1384,9 +1388,33 @@ def apply_author_allowlist(author_idx):
             out[key] = []
         else:
             out[key] = studies
+    # Rozpad kolizniho klice na jednotlive lidi (pole people[] z faze 0).
+    # Medailonek pro ne lezi pod PLNYM jmenem ("Jing Wang"), jenze author_idx
+    # je klicovany "prijmeni + iniciala" -- pod plnym jmenem tedy nenajde nic
+    # a stranka se nepostavi. Takhle zustalo 46 hotovych medailonku (mezi nimi
+    # Sunghoon Kim, senior autor HAN2012) mimo web i mimo sitemapu.
+    # Overeny seznam u kazdeho cloveka je prave ta chybejici vazba.
+    # TOTEZ dela bioSids()/SPLIT_PERSON_SIDS v Atlas_v2/src/lib/data.ts. Kdyz
+    # se meni jedno, musi se i druhe -- jinak se sitemapa rozejde s webem.
+    split_names, split_added = set(), 0
+    for key, rec in allow.items():
+        parent = author_idx.get(key, [])
+        for person in (rec.get("people") or []):
+            name = person.get("name")
+            sids = set(person.get("studies") or [])
+            if not name or not sids:
+                continue
+            split_names.add(name)
+            if name in out:
+                continue
+            mine = [s for s in parent if s.get("sid") in sids]
+            if mine:
+                out[name] = mine
+                split_added += 1
     print("author allowlist: %d jmen v seznamu, %d oříznuto, %d zablokováno%s"
           % (len(allow), trimmed, len(blocked), (" (" + ", ".join(sorted(blocked)[:8]) + ")") if blocked else ""))
-    return out
+    print("author allowlist: %d medailonků navázáno přes rozpad kolizního klíče" % split_added)
+    return out, split_names
 
 
 def author_page(key, bio, studies):
@@ -1403,6 +1431,11 @@ def author_page(key, bio, studies):
         # 2026-09-05 spolu s vytazenim base64 fotek do /img/people/.
         ld["image"] = (SITE + bio["photo"]) if bio["photo"].startswith("/") else bio["photo"]
     same_as = []
+    # ORCID prvni: je to identifikator OSOBY, kdezto lab_url a bluesky casto
+    # patri laboratori, ne tomu cloveku. Doplneno 20. 9. 2026, zdrojem je DOI
+    # (Crossref byline nebo autoruv vlastni doi-self zaznam), ne shoda jmena.
+    if bio.get("orcid"):
+        same_as.append("https://orcid.org/" + bio["orcid"])
     if bio.get("lab_url"):
         same_as.append(bio["lab_url"])
     if bio.get("bluesky"):
@@ -1428,6 +1461,8 @@ def author_page(key, bio, studies):
     # the same way oliver_page() already does for Oliver's own contact line,
     # but conditionally, since most of the 218 entries still lack them.
     extras = []
+    if bio.get("orcid"):
+        extras.append(f'ORCID: <a href="https://orcid.org/{e(bio["orcid"])}">{e(bio["orcid"])}</a>')
     if bio.get("lab_url"):
         extras.append(f'<a href="{e(bio["lab_url"])}">Lab website</a>')
     if bio.get("bluesky"):
@@ -2866,8 +2901,15 @@ def main():
     if os.path.exists(abp):
         author_bios = json.load(open(abp, encoding="utf-8"))
         author_idx = build_author_index(studies)
-        author_idx = apply_author_allowlist(author_idx)
-        for key, bio in author_bios.items():
+        author_idx, split_names = apply_author_allowlist(author_idx)
+        # Korpusove klice prvni. U Ruizhao Wanga a Jiana Jianga existuje
+        # medailonek dvakrat -- jednou pod klicem, jednou pod plnym jmenem --
+        # a oba davaji tentyz slug. Jsou to titiz lide, ne dva ruzni; druhy
+        # v poradi by prepsal soubor prvniho a do sitemapy poslal tutez URL
+        # dvakrat. Az ty dva redundantni klice z author_bios_baked.json zmizi,
+        # seen_slugs uz nebude mit co zahazovat.
+        seen_slugs = set()
+        for key, bio in sorted(author_bios.items(), key=lambda kv: kv[0] in split_names):
             allowed = author_idx.get(key, [])
             if not allowed:
                 # Bud ten clovek nema v korpusu zadnou studii, nebo je jeho klic
@@ -2876,6 +2918,10 @@ def main():
                 print("  medailonek %s přeskočen -- žádné ověřené studie" % key)
                 continue
             aurl, aslug, apage = author_page(key, bio, allowed)
+            if aslug in seen_slugs:
+                print("  medailonek %s přeskočen -- duplicitní slug %s" % (key, aslug))
+                continue
+            seen_slugs.add(aslug)
             write(os.path.join(HERE, "author", aslug, "index.html"), apage)
             urls.append(("author", aurl))
             author_links.append((bio["full"], aurl))
@@ -3043,6 +3089,12 @@ def main():
     # stavět, musí zmizet i tenhle řádek.
     pathway_events_lines += (
         f'  <url><loc>{SITE}/evidence/audit/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n')
+    # /authors/all/ (2026-09-20) -- abecední index všech medailonků. Stejný
+    # případ jako /evidence/audit/ o řádek výš: stránku staví Astro v Atlas_v2,
+    # ne tenhle skript, takže se URL přidává napevno. Vzniklo proto, že mřížka
+    # na /authors/ má práh 3+ studie a odkazovala tak jen na 49 z 226 profilů.
+    pathway_events_lines += (
+        f'  <url><loc>{SITE}/authors/all/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n')
     write(os.path.join(HERE, "sitemap-home.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
