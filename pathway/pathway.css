@@ -407,3 +407,45 @@
 .pw-jstory{margin-top:16px;padding-top:13px;border-top:1px solid var(--line);font-size:var(--fs-caption,13px);
   line-height:1.62;color:var(--ink-soft);}
 .pw-routebtn small{opacity:.66;}
+
+/* ==== Context evidence + Scenario Lab (2026-09-21) ====================
+   Neutral ink only. Edge colour stays reserved for effect and dash/width for
+   certainty; scenario state lives in glyphs and text, never in a new hue.
+   Mismatch rows are marked by the word "differs" plus an amber rule, so the
+   signal never depends on colour alone. */
+.pw-review{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);letter-spacing:.06em;
+  font-weight:600;text-transform:uppercase;border:1px dashed var(--line-strong);color:var(--ink-soft);
+  padding:1px 5px;margin-left:6px;vertical-align:1px;}
+.pw-claim{border-top:1px solid var(--line);padding-top:8px;margin-top:10px;}
+.pw-claim p{font-size:var(--fs-caption,13px);line-height:1.55;margin:4px 0 6px;}
+.pw-gap{border-left:2px solid var(--amber);padding:5px 0 5px 10px;color:var(--ink-soft);}
+.pw-n.pw-pert .nb{stroke:var(--ink);stroke-width:2.6;stroke-dasharray:4,3;}
+.pw-scn{border:1.5px solid var(--line-strong);padding:14px 16px;background:var(--paper);margin-bottom:10px;}
+.pw-scn-pick{display:flex;flex-wrap:wrap;border:1.5px solid var(--line-strong);width:fit-content;margin-bottom:12px;}
+.pw-scn-hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;}
+.pw-scn-hd h4{margin:0;}
+.pw-scn-meta{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);color:var(--ink-soft);letter-spacing:.04em;}
+.pw-scn-q{font-weight:600;margin:8px 0 4px;}
+.pw-scn p{font-size:var(--fs-caption,13px);line-height:1.6;max-width:760px;}
+.pw-scn-t{width:100%;max-width:820px;border-collapse:collapse;font-size:var(--fs-caption,13px);margin:10px 0 6px;}
+.pw-scn-t th,.pw-scn-t td{text-align:left;padding:6px 8px;vertical-align:top;}
+.pw-scn-t thead th{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);border-bottom:1.5px solid var(--line-strong);}
+.pw-scn-t tbody tr:not(.pw-scn-why) th,.pw-scn-t tbody tr:not(.pw-scn-why) td{border-top:1px solid var(--line);}
+.pw-scn-t tr.miss:not(.pw-scn-why) th{border-left:3px solid var(--amber);}
+.pw-scn-t tr.pw-scn-why.miss td{border-left:3px solid var(--amber);}
+.pw-scn-why td{color:var(--ink-soft);line-height:1.55;padding-top:0;}
+.pw-scn-g{font-family:'IBM Plex Mono',monospace;font-weight:700;display:inline-block;min-width:1.1em;}
+.pw-scn-path{display:block;font-size:var(--fs-micro,11px);color:var(--ink-soft);margin-top:2px;}
+.pw-scn-v{white-space:nowrap;font-family:'IBM Plex Mono',monospace;font-size:var(--fs-micro,11px);}
+.pw-scn-sum{border-left:2px solid var(--line-strong);padding-left:10px;}
+.pw-scn-key{font-size:var(--fs-micro,11px);color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:4px 14px;margin:8px 0;}
+.pw-linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--ink);text-decoration:underline;
+  text-decoration-color:var(--line-strong);text-underline-offset:2px;cursor:pointer;text-align:left;}
+.pw-linkbtn:hover{color:var(--teal);}
+.pw-linkbtn:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
+@media (max-width:640px){
+  .pw-scn{padding:12px;}
+  .pw-scn-t th,.pw-scn-t td{padding:5px 4px;}
+  .pw-scn-v{white-space:normal;}
+}
