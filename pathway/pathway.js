@@ -1424,7 +1424,10 @@
   function inspectCtxEvidence(c, auto) {
     var ev = c.evidence || [];
     var h = "<h4>Why the " + esc(c.label) + " view looks like this</h4>"
-      + '<p class="pw-empty">Each claim below backs a group of states on the map. Studies are from this '
+      /* NOT .pw-empty: the V2 host hides the whole inspector with
+         .pw-insp:has(.pw-empty), its marker for the idle intro panel. Reusing
+         that class made the Evidence button look dead on mtor-atlas.org. */
+      + '<p class="pw-lede">Each claim below backs a group of states on the map. Studies are from this '
       + "Atlas's corpus. A claim marked <b>gap</b> says what the corpus does not yet show.</p>";
     ev.forEach(function (cl, i) {
       h += '<div class="pw-claim"><div class="k">Claim ' + (i + 1) + "</div><p>" + esc(cl.claim) + "</p>"

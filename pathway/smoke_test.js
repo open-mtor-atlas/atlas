@@ -757,6 +757,17 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "a single-breakthrough route names it as such");
 
   reduceMotion = false;
+  // The V2 host hides the inspector via .pw-insp:has(.pw-empty) (idle
+  // panel marker). Evidence panels must never carry that class.
+  D.querySelector('.pw-ctx-chip[data-ctx="muscle"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  await wait(10);
+  D.querySelector(".pw-ctxev").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+  await wait(10);
+  ok(/Why the Muscle view/.test(D.getElementById("pwInsp").textContent), "Evidence button fills the inspector");
+  ok(!D.getElementById("pwInsp").querySelector(".pw-empty"),
+    "evidence panel carries no .pw-empty (V2 host would hide the whole inspector)");
+  D.querySelector('.pw-ctx-chip[data-ctx="all"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+
   console.log("— Scenario Lab —");
   {
     const scns = contextsDoc.scenarios || [];
