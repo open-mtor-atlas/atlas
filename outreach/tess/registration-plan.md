@@ -61,7 +61,25 @@ fallback (path 2, one entry at a time via "Register material").
 
 ## Status
 
-NOT YET DONE -- blocked on step 1 (account creation/login), which this
-session cannot perform. Once Petr is logged in, the rest (steps 2-4)
-can be filled in via browser automation, same pattern as the
-Bioregistry/Kaggle submissions.
+DONE -- 2026-09-21. Petr logged in to tess.elixir-europe.org as OliverPrague;
+Claude filled in the rest via Claude in Chrome (same Chrome profile/session):
+
+1. Registered content provider "Oliver's mTOR Atlas -- mTOR Academy"
+   (https://tess.elixir-europe.org/content_providers/oliver-s-mtor-atlas-mtor-academy),
+   Type: Project, URL https://mtor-atlas.org/academy/, contact
+   oliver.barton1113@gmail.com, keywords mTOR / signal transduction / aging biology.
+2. Added a Source (id 75) on the provider: URL
+   https://mtor-atlas.org/sitemap-academy.xml, ingestion method Bioschemas, enabled,
+   default language English.
+3. Ran "Test Source" before requesting approval: 18 URLs in the sitemap, parsed into
+   11 Courses / 11 CourseInstances / 13 LearningResources. Only the 3 non-lesson app
+   pages (/academy/, /academy/badges/, /academy/progress/) had no Bioschemas markup,
+   which is expected -- they're UI shells, not lessons.
+4. Clicked "Request Approval" -- confirmed "Approval request was sent successfully.",
+   status is now "Approval requested", pending a TeSS administrator.
+
+Nothing left to do here until an admin approves the source. Once approved, TeSS
+re-crawls the sitemap automatically -- no manual re-submission needed when new
+lessons are added. Fallback path 2 (outreach/tess/atlas-academy.json, manual
+"Register material") is unused and can stay as a backup only if this source ever
+gets rejected.
