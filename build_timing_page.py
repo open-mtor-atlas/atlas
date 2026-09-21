@@ -30,6 +30,11 @@ ZDROJE
   /pathway/timing/pattern/ ("Does the pattern matter more than the average?").
   Obě staví tenhle skript; deploy.bat se proto neměnil.
 
+INTERAKTIVNÍ VRSTVA (21. 9. 2026)
+  Pět vizualizací (vlna "same average", žebřík evidence, dvoje hodiny,
+  matice systémů, květ smyček). CSS a JS jsou uvnitř obsahu kvůli V2 --
+  viz blok INTERAKTIVNÍ VRSTVA na konci souboru.
+
 SPUŠTĚNÍ
     py build_timing_page.py            # zapíše pathway/timing/index.html
                                        # a pathway/timing/pattern/index.html
@@ -180,6 +185,7 @@ def render(m):
     P = []
     A = P.append
 
+    A(pv_style())  # uvnitř .wrap kvůli V2 (sync_prose), viz INTERAKTIVNÍ VRSTVA
     A('<h1>Timing: the axis the pathway maps leave out</h1>')
     A('<p class="tm-lead">Every pathway map treats a link as a fact that either '
       'holds or does not. None of them record <em>when</em>. Yet rapamycin given '
@@ -335,6 +341,7 @@ def render(m):
       'Citation</a>. The same corpus is measured from a different angle on the '
       '<a href="%s/evidence/audit/">evidence audit</a>.</p>' % (SITE, SITE))
 
+    A(pv_script(dict(arms=loops_viz_data(m["dyn"]))))
     return "\n".join(P)
 
 
@@ -550,6 +557,12 @@ def render_dynamics(m):
       'produce pulses or oscillation. It is not proof that it does: that also '
       'needs a delay, a steep enough response and enough gain, and none of those '
       'can be read off a diagram.</p>' % (len(d["loops"]), len(d["arms"])))
+    A(pv_box("loops", "%s ways mTORC1 turns itself down" % _NUM.get(len(d["arms"]), str(len(d["arms"]))),
+             sub="%d routes on the map come back to mTORC1 with a net inhibitory sign. They all "
+                 "return through one of these arms. Line thickness shows the number of routes; "
+                 "click an arm." % len(d["loops"]),
+             schem="A loop is a structure that could oscillate. It is not evidence that it does."))
+    A('<div data-pv-fallback="loops">')
     A('<table class="tm"><thead><tr><th>Feedback arm</th><th class="num">Routes</th>'
       '<th>Evidence in time</th><th>Studies</th></tr></thead><tbody>')
     for a in d["arms"]:
@@ -563,6 +576,7 @@ def render_dynamics(m):
           % (a["label"], e(a["status"].lower()), e(a["note"])))
         A('<p class="tm-meta">Routes through this arm:</p><p class="tm-ids">%s</p></div>'
           % "<br>".join(_loop_text(c) for c in a["cycles"]))
+    A('</div>')
     A('<p>&ldquo;Followed in time&rdquo; means at least one study linked to the arm '
       'reports a time series, a cell-cycle-resolved or a 24-hour measurement. It '
       'says nothing about whether the arm oscillates.</p>')
@@ -678,6 +692,7 @@ def render_pattern(m):
     cited = set()
     P = []
     A = P.append
+    A(pv_style())  # uvnitř .wrap kvůli V2 (sync_prose), viz INTERAKTIVNÍ VRSTVA
     A('<h1>Does the pattern matter more than the average?</h1>')
     A('<p class="tm-lead">Most experiments on mTOR measure how much of it is active: '
       'more after a meal, less after rapamycin. But inside a single cell, mTORC1 '
@@ -692,7 +707,15 @@ def render_pattern(m):
       'pattern matters <em>more</em> than the average has not been tested directly by any '
       'study in this atlas.</div>')
 
+    A(pv_box("wave", "Same average. Different pattern.", hidden=False, inner=pv_verdict_html(),
+             schem="Schematic, not data"))
+    A(pv_box("ladder", "How far up the evidence goes",
+             sub="Each rung needs the one below it. Click a rung to see the studies."))
+
     A('<h2 id="moves">Measured: mTORC1 activity moves on its own</h2>')
+    A(pv_box("clocks", "Two clocks mTORC1 keeps time with", sub="Click a phase or a study.",
+             schem="Shading shows low versus high only (JOS2024). Phase lengths are not to scale, "
+                   "and the daily peak differs between tissues."))
     for sid, t in MOVES:
         A(_card(sid, t, by_sid)); cited.add(sid)
     A('<p>What made this measurable is a small set of reporters:</p><ul>')
@@ -724,6 +747,10 @@ def render_pattern(m):
           % (len(mixed), ", ".join(study_link(s) for s in mixed)))
         cited.update(s["sid"] for s in mixed)
 
+    A(pv_box("matrix", "Where the evidence sits",
+             sub="Studies on this page by what they show and in what system. An empty column is "
+                 "a finding, not a gap in the drawing."))
+
     A('<h2 id="missing">Missing</h2>')
     for head, text in MISSING:
         A('<div class="tm-card"><h3>%s</h3><p>%s</p></div>' % (head, text))
@@ -746,6 +773,7 @@ def render_pattern(m):
       'show it. The one-line summaries are the curator&rsquo;s reading of each abstract. '
       'The build fails if any cited study leaves the corpus.</p>')
     A('<p>Data are CC&nbsp;BY&nbsp;4.0 &mdash; see <a href="%s/data/">Data &amp; Citation</a>.</p>' % SITE)
+    A(pv_script(pattern_viz_data(d, pure, load_oliver_sids())))
     return "\n".join(P), cited
 
 
@@ -777,7 +805,7 @@ def build_pattern(m, dry_run=False):
         title="Does the pattern of mTORC1 activity matter more than the average? — Oliver's mTOR Atlas",
         desc=desc, canonical=url, jsonld=ld, body=body,
         breadcrumb="Oliver's mTOR Atlas · Pathway · Timing · <b>Pattern vs average</b>",
-        active_tab="map", extra_css=CSS,
+        active_tab="map", extra_css="",
     )
     _check_tags(html, url)
     print("pattern: %d citovaných studií" % len(cited))
@@ -848,7 +876,7 @@ def build(dry_run=False):
         title="Timing in the %s pathway — Oliver's mTOR Atlas" % CFG["name"],
         desc=desc, canonical=CFG["url"], jsonld=ld, body=body,
         breadcrumb="Oliver's mTOR Atlas · Pathway · <b>Timing</b>",
-        active_tab="map", extra_css=CSS,
+        active_tab="map", extra_css="",
     )
 
     # Stejná pojistka jako u /evidence/audit/: nová stránka bez měřicího tagu
@@ -900,6 +928,400 @@ def _report(m):
         n = m["td"].get(t, 0)
         if n:
             print("   %-26s %d" % (t, n))
+
+
+
+# ===========================================================================
+# INTERAKTIVNÍ VRSTVA (21. 9. 2026, "pět prvků", návrh
+# claude/timing-pattern-vizualizace-navrh-2026-09-21.md)
+# ---------------------------------------------------------------------------
+#   /pattern/: 1 same average / different pattern, 2 evidence ladder,
+#              3 two clocks, 4 evidence matrix
+#   /timing/#signal: 5 feedback loop flower
+# PRAVIDLA
+#  - Bez JS se nic neztratí: karty a tabulky zůstávají v HTML (SEO, llms.txt,
+#    čtečky). Grafika je vrstva nad nimi. Jediná výjimka: tabulka větví a
+#    karty tras na /timing/ se po vykreslení květu schovají (hidden) -- květ
+#    nese totéž včetně tras. Bez JS zůstanou vidět.
+#  - JS nic nepočítá. Všechna čísla a texty jdou z Pythonu v JSON bloku
+#    #pv-data, stejnými funkcemi jako zbytek stránky.
+#  - CSS a JS jsou UVNITŘ obsahu (.wrap), ne v <head>: Atlas_v2
+#    scripts/sync_prose.py přebírá jen .wrap. Dřív CSS šlo přes
+#    shell(extra_css=) a ve V2 proto tm-* třídy neměly styl vůbec.
+#  - Barvy jen přes --teal/--amber/--soft (brand), nikdy --tier-*/--t-*
+#    (check_tier_palette.py pravidlo 6).
+#  - Schéma není data: vlna i stínování hodin nesou štítek "Schematic".
+# ===========================================================================
+
+# Studie, které drží průměrnou aktivitu mTORC1 stejnou a mění jen vzorec
+# (pulzy vs. ustálená hladina) a měří autofagii/růst. Dnes žádná. Až
+# přibude, patří sem -- verdikt "Not tested" i žebřík se otočí samy.
+DECISIVE = []
+
+# V jakém systému studie měřila. Ruční kurátorské přiřazení (pole Model je
+# volný text); build spadne, když citovaná studie v mapě chybí, místo aby
+# ji tiše zařadil do buněk.
+SYSTEM = {
+    "JOS2024": "Cell lines", "WANG2026C": "Cell lines", "GIN2026": "Cell lines",
+    "KUB2012": "Cell lines",
+    "RAM2018": "Animals", "OKA2013": "Animals", "LIP2015": "Animals",
+    "KUB2018": "Animals", "ARR2015": "Animals", "LIP2017": "Animals",
+    "KHA2014": "Animals",
+}
+SYSTEM_COLS = ["Cell lines", "Animals", "Humans", "In silico"]
+
+KHA_TEXT = ("Indirect only: mice lacking the clock protein BMAL1 had higher mTORC1 activity, "
+            "and rapamycin extended their lifespan.")
+
+# Buněčný cyklus: (fáze, podíl kruhu -- jen schéma, mTORC1 vysoko?, text, studie)
+CC_PHASES = [
+    ("G1", 0.40, False, "<b>G1: mTORC1 low.</b> Cells here were more sensitive to autophagy "
+     "induction from the same partial inhibition or nutrient drop.", ["JOS2024"]),
+    ("S", 0.30, True, "<b>S: mTORC1 high.</b> Activity rises through S, set through the TSC "
+     "complex and independently of Akt and Mek/Erk.", ["JOS2024"]),
+    ("G2", 0.20, True, "<b>G2: mTORC1 high.</b> High activity here promotes entry into mitosis.",
+     ["JOS2024"]),
+    ("M", 0.10, False, "<b>Mitosis: mTORC1 lowest.</b> Also seen in an independent live "
+     "recording.", ["JOS2024", "WANG2026C"]),
+]
+CC_BOUNDARY = ("G1/S", "<b>The G1/S window.</b> Feedback on AKT acted only in a narrow window "
+               "here, reconstructed from fixed single-cell images.", ["GIN2026"])
+
+_NUM = {2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six"}
+
+PV_CSS = r""".pv{--pv-acc:var(--teal,#A31F34);--pv-mod:var(--amber,#A56827);--pv-miss:var(--soft,#8A857E);
+  --pv-soft:var(--soft,#55524C);--pv-ink:var(--ink,#0A0A0A);--pv-bg:var(--paper,#fff);
+  --pv-line:var(--line,rgba(0,0,0,.13));--pv-mono:var(--font-mono,'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace);
+  --pv-grid:color-mix(in srgb,var(--pv-ink) 8%,transparent);
+  --pv-wash:color-mix(in srgb,var(--pv-ink) 4%,transparent);
+  --pv-acc-wash:color-mix(in srgb,var(--pv-acc) 16%,transparent);
+  border:1px solid var(--pv-line);border-radius:10px;padding:20px;margin:24px 0;color:var(--pv-ink)}
+.pv-title{font-size:1.15rem;font-weight:700;line-height:1.3;margin:0 0 4px}
+.pv-sub{font-size:.9rem;opacity:.85;margin:0 0 12px;max-width:62ch}
+.pv-schem{font-family:var(--pv-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--pv-soft);margin:12px 0 0}
+.pv svg{display:block;max-width:100%;height:auto}
+.pv-scroll{overflow-x:auto}
+.pv-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:10px 0 4px}
+.pv-ctrl label{font-size:.85rem;color:var(--pv-soft)}
+.pv-ctrl input[type=range]{accent-color:var(--pv-acc);width:220px;max-width:100%}
+.pv button.pv-btn,.pv button.pv-pill,.pv button.pv-rung{font:inherit;color:var(--pv-ink);cursor:pointer;background:var(--pv-bg)}
+.pv button.pv-btn{border:1px solid var(--pv-line);background:var(--pv-wash);border-radius:4px;padding:5px 12px;font-size:.85rem}
+.pv button.pv-btn:hover{border-color:var(--pv-acc)}
+.pv :focus-visible{outline:2px solid var(--pv-acc);outline-offset:2px}
+.pv-stats{display:flex;gap:26px;flex-wrap:wrap;font-variant-numeric:tabular-nums;margin-top:6px}
+.pv-stat .n{font-size:1.5rem;font-weight:700;line-height:1.1}
+.pv-stat .l{font-size:.78rem;color:var(--pv-soft)}
+.pv-verdict{margin:16px 0 0;padding:12px 14px;border:1.5px dashed var(--pv-miss);border-radius:6px;font-size:.93rem;max-width:none}
+.pv-verdict b{color:var(--pv-acc)}
+.pv-ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.pv-ladder{grid-template-columns:1fr 1fr}}
+.pv button.pv-rung{text-align:left;border:1.5px solid var(--pv-line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.pv-rung .st{font-family:var(--pv-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.pv-rung .q{font-weight:700;font-size:.95rem;line-height:1.25}
+.pv-rung .c{font-size:.8rem;color:var(--pv-soft);margin-top:auto}
+.pv button.pv-rung.m{border-color:var(--pv-acc);background:var(--pv-acc-wash)}
+.pv button.pv-rung.p{border-color:var(--pv-acc)}
+.pv-rung.m .st,.pv-rung.p .st{color:var(--pv-acc)}
+.pv button.pv-rung.x{border-style:dashed;border-color:var(--pv-miss)}
+.pv-rung.x .st{color:var(--pv-miss)}
+.pv button.pv-rung[aria-pressed="true"]{box-shadow:0 0 0 2px var(--pv-ink) inset}
+.pv-panel{margin-top:14px;border-top:1px solid var(--pv-line);padding-top:12px;font-size:.9rem}
+.pv-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--pv-grid)}
+.pv a.pv-sid,.pv-more a{color:var(--pv-acc)}
+.pv-sid{font-family:var(--pv-mono);font-weight:600;font-size:.8rem}
+.pv-sys{display:block;font-family:var(--pv-mono);font-size:10px;color:var(--pv-soft)}
+.pv-more,.pv-side{font-size:.83rem;color:var(--pv-soft);margin:10px 0 0}
+.pv-mod-t{color:var(--pv-mod)}
+.pv-clocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:640px){.pv-clocks{grid-template-columns:1fr}}
+.pv-clock svg{max-width:300px;margin:6px auto 0}
+.pv-h{display:block;font-size:.98rem;margin-bottom:4px}
+.pv-seg{cursor:pointer}
+.pv-seg:hover{opacity:.8}
+.pv-cap{min-height:5em;font-size:.87rem;border-top:1px solid var(--pv-line);padding-top:10px;margin-top:8px}
+.pv-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
+.pv button.pv-pill{border:1px solid var(--pv-line);border-radius:999px;padding:2px 10px;font-family:var(--pv-mono);font-size:11px}
+.pv button.pv-pill[aria-pressed="true"]{border-color:var(--pv-acc);color:var(--pv-acc)}
+.pv table.pv-mx{border-collapse:separate;border-spacing:6px;width:100%;min-width:560px;margin:0;font-size:.85rem}
+.pv table.pv-mx th,.pv table.pv-mx td{border-bottom:0;background:none}
+.pv table.pv-mx th{font-family:var(--pv-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--pv-soft);font-weight:500;text-align:left;padding:0 4px}
+.pv table.pv-mx th.rh{font-family:inherit;text-transform:none;letter-spacing:0;font-size:.85rem;color:var(--pv-ink);font-weight:600;width:150px;vertical-align:middle}
+.pv table.pv-mx td{vertical-align:top;border-radius:4px;padding:8px;background:var(--pv-wash);height:60px}
+.pv table.pv-mx td.none{background:none;border:1.5px dashed var(--pv-miss);color:var(--pv-miss);font-size:.78rem;font-style:italic}
+.pv a.pv-chip{display:inline-block;margin:2px;padding:2px 7px;border-radius:3px;font-family:var(--pv-mono);font-size:10.5px;font-weight:600;color:var(--pv-bg);background:var(--pv-acc);text-decoration:none;transition:opacity .2s,box-shadow .2s}
+.pv a.pv-chip.mo{background:var(--pv-mod)}
+.pv .dim a.pv-chip{opacity:.22}
+.pv .dim a.pv-chip.ol{opacity:1;box-shadow:0 0 0 2px var(--pv-bg),0 0 0 3.5px var(--pv-ink)}
+.pv-toggle{display:inline-flex;align-items:center;gap:8px;font-size:.87rem;cursor:pointer;margin-bottom:8px}
+.pv-loops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+@media (max-width:640px){.pv-loops{grid-template-columns:1fr}}
+.pv-loops>svg{max-width:380px;margin:0 auto}
+.pv-hit{cursor:pointer}
+.pv-lp{font-size:.88rem}
+.pv-lp .st{font-family:var(--pv-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.pv-lp .pv-solid,.pv-lp .pv-dash{color:var(--pv-acc)}
+.pv-lp .pv-model{color:var(--pv-mod)}
+.pv-lp .pv-grey{color:var(--pv-miss)}
+.pv-n{font-weight:400;color:var(--pv-soft);font-size:.85rem}
+.pv-note{color:var(--pv-soft)}
+.pv-routes{margin-top:10px}
+.pv-routes summary{cursor:pointer;font-size:.85rem}
+.pv-lkey{display:flex;flex-direction:column;gap:5px;font-size:.8rem;color:var(--pv-soft);margin-top:12px}
+.pv-lkey span{display:flex;align-items:center;gap:8px}
+.pv-lkey svg{flex:none;width:28px;height:6px;margin:0}
+@media (prefers-reduced-motion: reduce){.pv *{transition:none!important}}
+"""
+
+PV_JS = r"""(function(){
+var src=document.getElementById('pv-data');if(!src)return;
+var D;try{D=JSON.parse(src.textContent);}catch(err){return;}
+var NS='http://www.w3.org/2000/svg',XL='http://www.w3.org/1999/xlink',TAU=Math.PI*2;
+var reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+function el(t,a,p){var n=document.createElementNS(NS,t);for(var k in a){if(k==='fill'||k==='stroke')n.style[k]=a[k];else n.setAttribute(k,a[k]);}if(p)p.appendChild(n);return n;}
+function txt(p,x,y,s,a){a=a||{};a.x=x;a.y=y;if(!a.fill)a.fill='var(--pv-ink)';var n=el('text',a,p);n.textContent=s;return n;}
+function h(t,c,html){var n=document.createElement(t);if(c)n.className=c;if(html!=null)n.innerHTML=html;return n;}
+function sid(s){return '<a class="pv-sid" href="/study/'+s+'/">'+s+'</a>';}
+function box(k){return document.querySelector('.pv[data-pv="'+k+'"]');}
+function act(n,fn){n.addEventListener('click',fn);n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});}
+function role(n,label){n.setAttribute('tabindex','0');n.setAttribute('role','button');n.setAttribute('aria-label',label);}
+function press(on,list){for(var j=0;j<list.length;j++)list[j].setAttribute('aria-pressed',j===on?'true':'false');}
+function safe(f){try{f();}catch(err){if(window.console)console.warn('pv:',err);}}
+
+/* 1. Same average, different pattern */
+safe(function(){var b=box('wave');if(!b)return;
+ var L=40,R=620,T=20,B=180,AVG=.28,DUTY=.35,E=.06,PER=4;
+ var svg=el('svg',{viewBox:'0 0 640 220',role:'img','aria-label':'Schematic: a steady signal turning into pulses with the same average'});
+ function y(v){return B-(B-T)*v;}
+ el('line',{x1:L,y1:B,x2:R,y2:B,stroke:'var(--pv-line)'},svg);
+ el('line',{x1:L,y1:T,x2:R,y2:T,stroke:'var(--pv-grid)'},svg);
+ txt(svg,L-6,B+4,'0',{'text-anchor':'end','font-size':11,fill:'var(--pv-soft)'});
+ txt(svg,L-6,T+4,'max',{'text-anchor':'end','font-size':11,fill:'var(--pv-soft)'});
+ var area=el('path',{fill:'var(--pv-acc-wash)',stroke:'none'},svg);
+ var line=el('path',{fill:'none',stroke:'var(--pv-acc)','stroke-width':2.2,'stroke-linejoin':'round'},svg);
+ el('line',{x1:L,y1:y(AVG),x2:R,y2:y(AVG),stroke:'var(--pv-ink)','stroke-dasharray':'6 5','stroke-width':1.4},svg);
+ txt(svg,R,y(AVG)-7,'average',{'text-anchor':'end','font-size':11.5,'font-weight':600});
+ txt(svg,(L+R)/2,B+30,'time →',{'text-anchor':'middle','font-size':11,fill:'var(--pv-soft)'});
+ var sc=h('div','pv-scroll');sc.appendChild(svg);
+ var ctrl=h('div','pv-ctrl','<label for="pv-morph">steady</label><input type="range" id="pv-morph" min="0" max="100" value="70"><label for="pv-morph">pulsed</label><button class="pv-btn" type="button">Play</button>');
+ var stats=h('div','pv-stats','<div class="pv-stat"><div class="n">'+Math.round(AVG*100)+' %</div><div class="l">time-average</div></div><div class="pv-stat"><div class="n pv-peak"></div><div class="l">peak</div></div><div class="pv-stat"><div class="n pv-low"></div><div class="l">lowest</div></div>');
+ var sub=h('p','pv-sub','Drag the slider. The dashed line, the time-averaged mTORC1 activity, never moves. Only the shape does.');
+ var v=b.querySelector('.pv-verdict');[sub,sc,ctrl,stats].forEach(function(n){b.insertBefore(n,v);});
+ function pulse(t){var ph=(t*PER)%1;if(ph<E)return ph/E;if(ph<DUTY-E)return 1;if(ph<DUTY)return (DUTY-ph)/E;return 0;}
+ var pk=stats.querySelector('.pv-peak'),lo=stats.querySelector('.pv-low');
+ function draw(m){var pts=[];for(var i=0;i<=320;i++){var t=i/320,val=(1-m)*AVG+m*pulse(t)*AVG/(DUTY-E);pts.push((L+(R-L)*t).toFixed(1)+','+y(val).toFixed(1));}
+  var d='M'+pts.join('L');line.setAttribute('d',d);area.setAttribute('d',d+'L'+R+','+B+'L'+L+','+B+'Z');
+  pk.textContent=Math.round(((1-m)*AVG+m*AVG/(DUTY-E))*100)+' %';lo.textContent=Math.round((1-m)*AVG*100)+' %';}
+ var sl=ctrl.querySelector('input'),btn=ctrl.querySelector('button'),playing=false,raf=0;
+ sl.addEventListener('input',function(){draw(sl.value/100);});
+ btn.addEventListener('click',function(){
+  if(reduce){sl.value=sl.value>50?0:100;draw(sl.value/100);return;}
+  if(playing){playing=false;cancelAnimationFrame(raf);btn.textContent='Play';return;}
+  playing=true;btn.textContent='Pause';var t0=null,ph0=Math.acos(1-2*(sl.value/100));
+  function step(ts){if(t0===null)t0=ts;var m=(1-Math.cos(ph0+(ts-t0)/2200*Math.PI))/2;sl.value=Math.round(m*100);draw(m);if(playing)raf=requestAnimationFrame(step);}
+  raf=requestAnimationFrame(step);});
+ draw(.7);});
+
+/* 2. Evidence ladder */
+safe(function(){var b=box('ladder');if(!b||!D.ladder)return;
+ var lad=h('div','pv-ladder'),pan=h('div','pv-panel'),btns=[];b.appendChild(lad);b.appendChild(pan);
+ function open(i){press(i,btns);var r=D.ladder[i],s='';
+  if(r.empty)s+='<p>'+r.empty+'</p>';
+  r.rows.forEach(function(x){s+='<div class="pv-row"><div>'+sid(x[0])+'<span class="pv-sys">'+x[1]+'</span></div><div>'+x[2]+'</div></div>';});
+  if(r.anchor)s+='<p class="pv-more"><a href="#'+r.anchor+'">Full cards below &darr;</a></p>';
+  if(D.models&&D.models.length)s+='<p class="pv-side">Side pile, <b class="pv-mod-t">modelled only</b>: '+D.models.map(sid).join(', ')+'. They propose mechanisms; they do not show a cell doing it.</p>';
+  pan.innerHTML=s;}
+ D.ladder.forEach(function(r,i){var x=h('button','pv-rung '+r.k,'<span class="st">'+(i+1)+' &middot; '+r.st+'</span><span class="q">'+r.q+'</span><span class="c">'+r.c+'</span>');
+  x.type='button';x.setAttribute('aria-pressed','false');x.addEventListener('click',function(){open(i);});lad.appendChild(x);btns.push(x);});
+ open(Math.min(1,D.ladder.length-1));b.hidden=false;});
+
+/* 3. Two clocks */
+safe(function(){var b=box('clocks');if(!b||!D.clocks)return;
+ var C=D.clocks,g=h('div','pv-clocks');b.insertBefore(g,b.querySelector('.pv-schem'));
+ function arc(cx,cy,r0,r1,a0,a1){function p(r,a){return (cx+r*Math.sin(a)).toFixed(1)+','+(cy-r*Math.cos(a)).toFixed(1);}
+  var l=(a1-a0)>Math.PI?1:0;return 'M'+p(r1,a0)+'A'+r1+','+r1+' 0 '+l+' 1 '+p(r1,a1)+'L'+p(r0,a1)+'A'+r0+','+r0+' 0 '+l+' 0 '+p(r0,a0)+'Z';}
+ function cite(t,ids){return t+' '+ids.map(sid).join(', ');}
+ var c1=h('div','pv-clock','<b class="pv-h">Cell cycle</b>'),cc=el('svg',{viewBox:'0 0 300 300',role:'img','aria-label':'Cell cycle ring shaded by low or high mTORC1 activity'}),cap=h('div','pv-cap');
+ c1.appendChild(cc);c1.appendChild(cap);g.appendChild(c1);
+ var a=0;C.phases.forEach(function(p){var a1=a+p.f*TAU,mid=(a+a1)/2;
+  var seg=el('path',{d:arc(150,150,78,124,a+.012,a1-.012),fill:p.hi?'var(--pv-acc)':'var(--pv-acc-wash)',stroke:p.hi?'none':'var(--pv-acc)','stroke-width':1.2,'class':'pv-seg'},cc);
+  role(seg,p.n);
+  txt(cc,150+101*Math.sin(mid),150-101*Math.cos(mid)+5,p.n,{'text-anchor':'middle','font-size':15,'font-weight':700,fill:p.hi?'var(--pv-bg)':'var(--pv-acc)','pointer-events':'none'});
+  act(seg,function(){cap.innerHTML=cite(p.t,p.ids);});a=a1;});
+ var bd=C.boundary;if(bd){var ga=bd.at*TAU;
+  el('line',{x1:150+70*Math.sin(ga),y1:150-70*Math.cos(ga),x2:150+136*Math.sin(ga),y2:150-136*Math.cos(ga),stroke:'var(--pv-ink)','stroke-width':2.5},cc);
+  var bl=txt(cc,150+146*Math.sin(ga)+2,150-146*Math.cos(ga)+14,bd.n,{'font-size':10.5,'font-weight':600,'class':'pv-seg'});role(bl,bd.n);
+  act(bl,function(){cap.innerHTML=cite(bd.t,bd.ids);});}
+ txt(cc,150,146,'mTORC1',{'text-anchor':'middle','font-size':13,'font-weight':700});
+ txt(cc,150,163,'through one cycle',{'text-anchor':'middle','font-size':10.5,fill:'var(--pv-soft)'});
+ cap.innerHTML=cite(C.phases[0].t,C.phases[0].ids);
+ if(C.day&&C.day.length){
+  var c2=h('div','pv-clock','<b class="pv-h">24-hour day</b>'),dr=el('svg',{viewBox:'0 0 300 300',role:'img','aria-label':'24-hour ring with a daily rhythm; the peak time depends on the tissue'});c2.appendChild(dr);
+  for(var k=0;k<24;k++){var an=k/24*TAU,r1=k%6===0?128:124;el('line',{x1:150+118*Math.sin(an),y1:150-118*Math.cos(an),x2:150+r1*Math.sin(an),y2:150-r1*Math.cos(an),stroke:'var(--pv-soft)','stroke-width':k%6===0?1.5:.8},dr);}
+  [0,6,12,18].forEach(function(k){var an=k/24*TAU;txt(dr,150+141*Math.sin(an),150-141*Math.cos(an)+4,k+' h',{'text-anchor':'middle','font-size':10,fill:'var(--pv-soft)'});});
+  var rg=el('g',{},dr),NS48=48;for(var i=0;i<NS48;i++){var a0=i/NS48*TAU,a1=(i+1)/NS48*TAU,lv=.5+.5*Math.cos((a0+a1)/2);el('path',{d:arc(150,150,78,112,a0,a1+.004),fill:'var(--pv-acc)','fill-opacity':(.08+.82*lv).toFixed(2),stroke:'none'},rg);}
+  if(!reduce)el('animateTransform',{attributeName:'transform',type:'rotate',from:'0 150 150',to:'360 150 150',dur:'40s',repeatCount:'indefinite'},rg);
+  txt(dr,150,146,'one cycle a day',{'text-anchor':'middle','font-size':13,'font-weight':700});
+  txt(dr,150,163,'peak time varies by tissue',{'text-anchor':'middle','font-size':10.5,fill:'var(--pv-soft)'});
+  var pills=h('div','pv-pills'),dc=h('div','pv-cap'),pb=[];c2.appendChild(pills);c2.appendChild(dc);g.appendChild(c2);
+  C.day.forEach(function(d,i){var x=h('button','pv-pill',d[0]);x.type='button';x.setAttribute('aria-pressed','false');
+   x.addEventListener('click',function(){press(i,pb);dc.innerHTML=sid(d[0])+' '+d[1];});pills.appendChild(x);pb.push(x);});
+  pb[0].click();}
+ b.hidden=false;});
+
+/* 4. Where the evidence sits */
+safe(function(){var b=box('matrix');if(!b||!D.matrix)return;
+ var M=D.matrix,ol=D.oliver||[],s='<thead><tr><th></th>'+M.cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+ M.rows.forEach(function(r){s+='<tr><th class="rh">'+r.label+'</th>';r.cells.forEach(function(c){
+  if(c===null){s+='<td class="none">none</td>';return;}
+  s+='<td>'+c.map(function(x){return '<a href="/study/'+x+'/" class="pv-chip'+(r.model?' mo':'')+(ol.indexOf(x)>-1?' ol':'')+'">'+x+'</a>';}).join('')+'</td>';});s+='</tr>';});
+ var t=h('table','pv-mx',s+'</tbody>'),sc=h('div','pv-scroll');sc.appendChild(t);
+ if(ol.length){var lab=h('label','pv-toggle','<input type="checkbox" id="pv-ol"> Highlight Oliver&rsquo;s reading list');b.appendChild(lab);
+  lab.querySelector('input').addEventListener('change',function(){t.classList.toggle('dim',this.checked);});}
+ b.appendChild(sc);b.hidden=false;});
+
+/* 5. Feedback loop flower */
+safe(function(){var b=box('loops');if(!b||!D.arms||!D.arms.length)return;
+ var A=D.arms,C=190,wrap=h('div','pv-loops'),svg=el('svg',{viewBox:'0 0 380 380',role:'img','aria-label':'Feedback arms around mTORC1'}),panel=h('div','pv-lp'),paths=[],opens=[];
+ wrap.appendChild(svg);wrap.appendChild(panel);b.insertBefore(wrap,b.querySelector('.pv-schem'));
+ function rad(d){return d*Math.PI/180;}
+ function pt(r,d){return (C+r*Math.sin(rad(d))).toFixed(1)+','+(C-r*Math.cos(rad(d))).toFixed(1);}
+ var COL={solid:'var(--pv-acc)',dash:'var(--pv-acc)',model:'var(--pv-mod)',grey:'var(--pv-miss)'};
+ var KEYTXT={solid:'followed in unperturbed cells',dash:'followed only after a drug',model:'modelled only',grey:'snapshots only'},seen={},key='<div class="pv-lkey">';
+ A.forEach(function(a){if(seen[a.style])return;seen[a.style]=1;key+='<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke-width="3" style="stroke:'+COL[a.style]+'"'+(a.style==='dash'?' stroke-dasharray="6 4"':'')+'></line></svg>'+KEYTXT[a.style]+'</span>';});
+ key+='</div>';
+ A.forEach(function(a,i){var ang=-45+i*360/A.length,d='M'+C+','+C+' C'+pt(190,ang-30)+' '+pt(190,ang+30)+' '+C+','+C;
+  var p=el('path',{d:d,id:'pv-petal'+i,fill:'none',stroke:COL[a.style],'stroke-width':1.5+a.n*.9,'stroke-linecap':'round'},svg);
+  if(a.style==='dash')p.setAttribute('stroke-dasharray','9 6');
+  var hit=el('path',{d:d,fill:'none',stroke:'transparent','stroke-width':22,'class':'pv-hit'},svg);role(hit,a.label);
+  txt(svg,C+150*Math.sin(rad(ang)),C-150*Math.cos(rad(ang))+(Math.cos(rad(ang))>0?-6:14),a.label,{'text-anchor':'middle','font-size':12,'font-weight':700,'pointer-events':'none'});
+  if(!reduce){var dot=el('circle',{r:4.5,fill:COL[a.style]},svg),am=el('animateMotion',{dur:(3.2+i*.5)+'s',repeatCount:'indefinite'},dot),mp=el('mpath',{},am);
+   mp.setAttributeNS(XL,'xlink:href','#pv-petal'+i);mp.setAttribute('href','#pv-petal'+i);}
+  function open(){for(var j=0;j<paths.length;j++)paths[j].style.opacity=j===i?1:.35;
+   panel.innerHTML='<div class="st pv-'+a.style+'">'+a.status+'</div><b class="pv-h">'+a.label_html+' <span class="pv-n">&middot; '+a.n+' route'+(a.n===1?'':'s')+'</span></b><p>'+a.what+'</p><p class="pv-note">'+a.note+'</p><div>'+a.sids.map(sid).join(' &middot; ')+'</div><details class="pv-routes"><summary>Routes through this arm</summary><p class="tm-ids">'+a.routes.join('<br>')+'</p></details>'+key;}
+  act(hit,open);paths.push(p);opens.push(open);});
+ el('circle',{cx:C,cy:C,r:30,fill:'var(--pv-bg)',stroke:'var(--pv-ink)','stroke-width':1.5},svg);
+ txt(svg,C,C+4,'mTORC1',{'text-anchor':'middle','font-size':12,'font-weight':700});
+ opens[0]();b.hidden=false;
+ var fb=document.querySelectorAll('[data-pv-fallback="loops"]');for(var k=0;k<fb.length;k++)fb[k].hidden=true;});
+})();
+"""
+
+
+def pv_style():
+    return "<style>\n%s%s</style>" % (CSS, PV_CSS)
+
+
+def pv_script(data):
+    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return ('<script type="application/json" id="pv-data">%s</script>\n<script>%s</script>'
+            % (blob, PV_JS))
+
+
+def _sys(sid):
+    if sid not in SYSTEM:
+        raise SystemExit("build_timing_page (viz): %s nemá záznam v SYSTEM.\n"
+                         "  Doplň, v jakém systému studie měřila (Cell lines / Animals / Humans)." % sid)
+    return SYSTEM[sid]
+
+
+def pv_verdict_html():
+    if not DECISIVE:
+        return ('<p class="pv-verdict"><b>Not tested.</b> The experiment that would settle the '
+                'question holds the average fixed, changes only the shape, and measures autophagy '
+                'or growth. No study in this atlas has done it.</p>')
+    return ('<p class="pv-verdict"><b>Tested in %d stud%s.</b> See the cards under '
+            '<a href="#missing">Missing</a> for what they found and how far it goes.</p>'
+            % (len(DECISIVE), "y" if len(DECISIVE) == 1 else "ies"))
+
+
+def pattern_viz_data(d, pure_models, oliver):
+    by_sid = d["by_sid"]
+    for sid in DECISIVE:
+        _need(sid, by_sid)
+    moves = [[s, _sys(s), t] for s, t in MOVES]
+    tools = [[s, "Method", t] for s, t in TOOLS]
+    outc = [[s, _sys(s), t] for s, t in OUTCOME]
+    dec = [[s, _sys(s), ""] for s in DECISIVE]
+    humans = any(r[1] == "Humans" for r in moves + outc)
+    ladder = [
+        dict(k="m", st="Measured", q="mTORC1 activity moves on its own",
+             c="%d studies &middot; %d reporters" % (len(moves), len(tools)),
+             rows=moves + tools, anchor="moves"),
+        dict(k="p", st="Measured, partly", q="Timing changes the outcome",
+             c="%d studies &middot; %s" % (len(outc), "none isolates pattern" if not DECISIVE
+                                             else "see rung 3"),
+             rows=outc, anchor="outcome"),
+        dict(k="m" if DECISIVE else "x", st="Measured" if DECISIVE else "Not tested",
+             q="The pattern beats the average", c="%d studies" % len(DECISIVE), rows=dec,
+             empty="" if DECISIVE else MISSING[0][1], anchor="missing"),
+        dict(k="p" if humans else "x", st="Measured" if humans else "Missing",
+             q="It matters in humans and ageing",
+             c="%d human studies &middot; 1 indirect" % (1 if humans else 0),
+             rows=[["KHA2014", _sys("KHA2014"), KHA_TEXT]],
+             empty="" if humans else MISSING[2][1], anchor="missing"),
+    ]
+    # Dvoje hodiny: fáze kurátorsky, denní rytmus odvozený ze Signal_Readout.
+    at, phases = 0.0, []
+    for n, f, hi, t, ids in CC_PHASES:
+        for s in ids:
+            _need(s, by_sid)
+        phases.append(dict(n=n, f=f, hi=hi, t=t, ids=ids))
+        if n == "G1":
+            at = f
+    for s in CC_BOUNDARY[2]:
+        _need(s, by_sid)
+    day, seen = [], set()
+    for s, t in MOVES + OUTCOME:
+        if s not in seen and "Circadian" in (by_sid[s].get("readout") or []):
+            seen.add(s)
+            day.append([s, t])
+    clocks = dict(phases=phases, day=day,
+                  boundary=dict(n=CC_BOUNDARY[0], t=CC_BOUNDARY[1], ids=CC_BOUNDARY[2], at=at))
+
+    def cells(rows, empty_none=False, model=False):
+        out = []
+        for col in SYSTEM_COLS:
+            if model:
+                hit = [s["sid"] for s in pure_models] if col == "In silico" else []
+            else:
+                hit = list(dict.fromkeys(r[0] for r in rows if r[1] == col))
+            out.append(None if (not hit and (empty_none or col == "Humans")) else hit)
+        return out
+    matrix = dict(cols=SYSTEM_COLS, rows=[
+        dict(label="Activity moves on its own", cells=cells(moves)),
+        dict(label="Timing changes the outcome", cells=cells(outc)),
+        dict(label="Pattern beats average", cells=cells(dec, empty_none=True)),
+        dict(label="Modelled only", cells=cells([], model=True), model=True),
+    ])
+    return dict(ladder=ladder, clocks=clocks, matrix=matrix,
+                models=[s["sid"] for s in pure_models],
+                oliver=[s for s in oliver if s in by_sid])
+
+
+def loops_viz_data(d):
+    import html as _html
+    out = []
+    for a in d["arms"]:
+        st, ctx = a["status"], a["context"]
+        if st == "Followed in time":
+            style = "dash" if "drug" in ctx else "solid"
+        elif st == "Modelled only":
+            style = "model"
+        else:
+            style = "grey"
+        status = e(st) if ctx == "not followed in time" else "%s &middot; %s" % (e(st), e(ctx))
+        out.append(dict(label=_html.unescape(a["label"]), label_html=a["label"], n=len(a["cycles"]),
+                        style=style, status=status, what=e(a["what"]), note=e(a["note"]),
+                        sids=[s for s in a["sids"] if s in d["by_sid"]],
+                        routes=[_loop_text(c) for c in a["cycles"]]))
+    return out
+
+
+def pv_box(key, title, sub="", schem="", hidden=True, inner=""):
+    return ('<div class="pv" data-pv="%s"%s><p class="pv-title">%s</p>%s%s%s</div>'
+            % (key, " hidden" if hidden else "", title,
+               ('<p class="pv-sub">%s</p>' % sub) if sub else "", inner,
+               ('<p class="pv-schem">%s</p>' % schem) if schem else ""))
 
 
 if __name__ == "__main__":
