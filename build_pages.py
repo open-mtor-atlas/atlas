@@ -3220,7 +3220,8 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
 - [Data & Citation](https://mtor-atlas.org/data/): bio.tools/FAIRsharing registration, dataset DOI, ORCID, license, how to cite
 - [Evidence audit](https://mtor-atlas.org/evidence/audit/): what the corpus is actually built on -- share of human evidence, how much of the pathway has any human data behind it, how many links rest on a single paper, how much carries a recorded boundary condition; every figure recomputed from the corpus on each build
-- [Timing](https://mtor-atlas.org/pathway/timing/): how mTOR interventions were delivered over time -- acute, intermittent, chronic, withdrawal-tested -- and which pathway links are known to depend on duration; the axis no pathway database records
+- [Timing](https://mtor-atlas.org/pathway/timing/): how mTOR interventions were delivered over time -- acute, intermittent, chronic, withdrawal-tested -- and which pathway links are known to depend on duration; plus time inside the cell: how each study reads the signal (snapshot, time course, live single cells, cell cycle, 24-hour clock, model) and which negative feedback loops on the map have ever been followed in time
+- [Does the pattern matter more than the average?](https://mtor-atlas.org/pathway/timing/pattern/): the open question of whether the pattern of mTORC1 activity over time, not just its average level, decides outcomes like autophagy or growth -- what has been measured, what has only been modelled, and what no study in the atlas has done yet
 {academy_section}{answers_section}
 ## Open questions & testable hypotheses
 Original synthesis, not aggregated abstracts -- each page states an evidence gap, a hypothesis and a proposed experiment.

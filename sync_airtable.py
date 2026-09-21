@@ -96,6 +96,13 @@ def fetch_studies():
             # se peče spolu s ní, ne zvlášť.
             "regimen": g(f, "Regimen"), "regimen_evidence": g(f, "Regimen_Evidence"),
             "exposure": g(f, "Exposure_Window"), "washout": bool(f.get("Washout")),
+            # Uroven B (21. 9. 2026): jak studie cte signal v case -- snapshot,
+            # casova rada populace, zive jednotlive bunky, bunecny cyklus,
+            # cirkadianni rytmus, model. Multi-select, proto seznam; klic se
+            # zapisuje vzdy (i prazdny), aby build_timing_page.py poznal
+            # nesynchronizovana data od neklasifikovane studie.
+            "readout": list(f.get("Signal_Readout") or []),
+            "readout_evidence": g(f, "Signal_Readout_Evidence"),
         })
     return arr
 

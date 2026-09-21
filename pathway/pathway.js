@@ -50,6 +50,7 @@
     filters: { effect: null, evidence: null, physOnly: false },
     routeId: null, step: -1,
     contextId: "all",
+    scenarioId: null, ctxBeforeScen: "all",
     cam: null, camTarget: null, anim: null, snap: null
   };
 
@@ -68,6 +69,12 @@
     unclear: { width: 3, dash: "1,4", opacity: 0.4 }
   };
   var CTX_NODE_BADGE = { active: "\u25B2", suppressed: "\u25BD", unclear: "\u2013" };
+  /* Scenario Lab nodes carry CHANGE vs baseline, not flux state, so they get
+     their own glyphs (same neutral ink, same badge slot -- still no colour). */
+  var SCN_NODE_BADGE = { up: "\u25B2", down: "\u25BD", partial: "\u25D0",
+                         unchanged: "=", perturbed: "\u2715" };
+  var SCN_WORD = { up: "up", down: "down", partial: "partly", unchanged: "unchanged",
+                   perturbed: "perturbed", conflict: "ambiguous", none: "no path" };
 
   /* ---- helpers --------------------------------------------------------- */
   function esc(s) {
@@ -288,8 +295,8 @@
       + ' curated steps in ' + M.compartments.length + ' cellular compartments. Zoom, search, filter by evidence.</span></button>'
       + '<button class="pw-ov-act" data-go="guided"><b>Follow a guided route →</b><span>' + n.routes
       + ' narrated walkthroughs. Each one answers what happened, why, what changed, and how certain we are.</span></button>'
-      + '<button class="pw-ov-act" data-go="scenarios"><b>Experiment with scenarios →</b><span>Starvation, PTEN loss, '
-      + 'rapamycin. Qualitative, clearly labelled as educational modelling.</span></button>'
+      + '<button class="pw-ov-act" data-go="scenarios"><b>Experiment with scenarios →</b><span>Rapamycin, Torin1, TSC2 loss. '
+      + 'What the arrows predict next to what the papers show, and where the two part ways.</span></button>'
       + "</div>";
     el.ov.querySelectorAll("[data-go]").forEach(function (b) {
       b.addEventListener("click", function () { setMode(b.dataset.go); });
@@ -643,14 +650,20 @@
       var b = g.querySelector(".pw-ctxb");
       if (!b) return;
       var st = on ? (c.nodes[g.dataset.nid] || null) : null;
-      b.textContent = st ? CTX_NODE_BADGE[st] : "";
-      b.classList.toggle("down", st === "suppressed");
-      b.classList.toggle("unclear", st === "unclear");
+      var scn = !!(c && c.cluster === "scenario");
+      b.textContent = st ? (scn ? SCN_NODE_BADGE[st] : CTX_NODE_BADGE[st]) || "" : "";
+      b.classList.toggle("down", st === "suppressed" || st === "down");
+      b.classList.toggle("unclear", st === "unclear" || st === "partial" || st === "unchanged");
+      g.classList.toggle("pw-pert", on && st === "perturbed");
     });
   }
 
   function edgePasses(e) {
     var f = S.filters;
+    /* Scenario Lab draws exactly the scenario's curated edges. Explorer
+       filters (view, time, effect, evidence) belong to the Explorer and must
+       not silently hide a step the scenario is explaining. */
+    if (S.mode === "scenarios") return !!ctxEdgeState(e.id);
     /* Route mode always shows the route's own edges regardless of detail set:
        a guided lesson must never hide the step it is teaching. */
     if (S.mode !== "guided") {
@@ -1116,33 +1129,148 @@
     say("Step " + (S.step + 1) + " of " + total + ", in the " + st._where + ". " + st.what);
   }
 
-  /* ==== 4. SCENARIOS (Phase 2) ========================================= */
+  /* ==== 4. SCENARIO LAB ================================================ */
+  /* Curated perturbations only (pathway/contexts.json -> scenarios), never
+     free input. Each scenario is an overlay like Fed/Fasting (states + cited
+     claims) plus READOUTS. For every readout we show two answers side by side:
+
+       Map predicts  -- plain sign propagation over the curated arrows, computed
+                        here at runtime from model.json. Shortest path wins;
+                        no feedback strength, no timing, no dose, no tissue.
+       Literature    -- what the cited studies report (curated, build-checked).
+
+     The disagreements are the lesson: they show where a single arrow stops
+     being enough. That is why the propagation stays deliberately naive and is
+     never shown alone. No numbers anywhere. */
+  var PROP_SIGN = { "activates": 1, "required-for": 1, "recruits": 1, "inhibits": -1 };
+  function propagate(targets) {
+    var out = {};
+    M.interactions.forEach(function (e) {
+      var sg = PROP_SIGN[e.effect];
+      if (sg == null) return;
+      (out[e.source] = out[e.source] || []).push({ t: e.target, s: sg });
+    });
+    var st = {}, q = [];
+    Object.keys(targets).forEach(function (n) {
+      st[n] = { s: targets[n], d: 0, path: [n] }; q.push(n);
+    });
+    while (q.length) {
+      var n = q.shift(), cur = st[n];
+      (out[n] || []).forEach(function (o) {
+        var ns = cur.s === 0 ? 0 : cur.s * o.s;
+        var prev = st[o.t];
+        if (!prev) { st[o.t] = { s: ns, d: cur.d + 1, path: cur.path.concat(o.t) }; q.push(o.t); }
+        /* two equally short paths that disagree: the map itself cannot say */
+        else if (prev.d === cur.d + 1 && prev.s !== ns) prev.s = 0;
+      });
+    }
+    return st;
+  }
+  function mapWord(p) {
+    if (!p) return "none";
+    return p.s > 0 ? "up" : p.s < 0 ? "down" : "conflict";
+  }
+  /* "partial" and "unchanged" are literature-only words: the map has no way to
+     express them, so any definite map answer against them is a mismatch. */
+  function agrees(mapW, litW) { return mapW === litW; }
+  function nodeLabel(id) { var n = nodeById(id); return n ? n.label : id; }
+
+  function scenarios() { return (CTX && CTX.scen) ? CTX.scen : []; }
+
   function renderScenarios() {
-    el.scen.innerHTML = '<div class="pw-step"><div class="pw-step-hd"><h4>Scenario Laboratory</h4>'
-      /* NOT .pw-step-n. That class belongs to guided-route step badges, and
-         reusing it here meant a global querySelector(".pw-step-n") found the
-         Scenario Lab badge instead of the live route step, because #pwScen
-         sits earlier in the DOM. Cost me a false negative in live testing and
-         a vacuous pass in the smoke test. Shared card styling is fine;
-         shared identity is not. */
-      + '<span class="pw-badge">Phase 2 — in build</span></div>'
-      + "<p>The Scenario Laboratory will let you switch on conditions — fed, starved, exercised, hypoxic, "
-      + "PTEN-null, PIK3CA-mutant, TSC1/2-null, high or low leucine, acute or chronic rapamycin, Torin, "
-      + "metformin — and watch the network change qualitatively.</p>"
-      + '<div class="pw-bound"><b>Why it is not shipped yet, deliberately.</b> A sandbox that propagates '
-      + "signals through this graph will produce a confident answer for every condition you give it, including "
-      + "the conditions where the real biology is governed by feedback loops the graph compresses into single "
-      + "arrows. Shipping that before it is constrained would make the Atlas less accurate while making it look "
-      + "more impressive. The engine is being built against hand-curated, cited expected outcomes for each "
-      + "scenario: if the propagation does not reproduce the literature, the build fails and nothing deploys.</p>"
-      + '<div class="k">What it will never do</div>'
-      + '<p class="pw-empty">It will not output numbers. There will be no predicted fold-changes, no simulated '
-      + "western blots and no dose-response curves, because this graph cannot legitimately produce any of those. "
-      + "Direction and confidence only, always labelled as educational modelling rather than validated simulation.</p>"
-      + '<div class="pw-nav"><button class="pw-btn" data-go="guided">Follow a guided route instead →</button></div></div>';
+    var list = scenarios();
+    if (!list.length) {
+      el.scen.innerHTML = '<div class="pw-step"><div class="pw-step-hd"><h4>Scenario Laboratory</h4></div>'
+        + '<p class="pw-empty">No curated scenarios are available in this build.</p></div>';
+      return;
+    }
+    if (!S.scenarioId || !CTX.ix[S.scenarioId]) S.scenarioId = list[0].id;
+    var sc = CTX.ix[S.scenarioId];
+    var pred = propagate(sc.perturbation.targets || {});
+    var h = '<div class="pw-scn">'
+      + '<div class="pw-scn-pick" role="group" aria-label="Choose a scenario">'
+      + list.map(function (x) {
+          return '<button class="pw-ctx-chip" data-scn="' + esc(x.id) + '" aria-pressed="'
+            + (x.id === sc.id) + '">' + esc(x.label) + "</button>";
+        }).join("")
+      + "</div>"
+      + '<div class="pw-scn-hd"><h4>' + esc(sc.label) + reviewTag(sc) + "</h4>"
+      + '<span class="pw-scn-meta">' + esc(sc.perturbation.label) + " · " + esc(sc.timescale) + "</span></div>"
+      + '<p class="pw-scn-q">' + esc(sc.question) + "</p>"
+      + "<p>" + esc(sc.brief) + "</p>"
+      + '<table class="pw-scn-t"><thead><tr><th scope="col">Readout</th>'
+      + '<th scope="col" title="Plain sign propagation over the curated arrows">Map predicts</th>'
+      + '<th scope="col">Literature</th><th scope="col"><span class="pw-sr">Agreement</span></th></tr></thead><tbody>';
+    var miss = 0;
+    sc.readouts.forEach(function (r, i) {
+      var p = pred[r.node], mw = mapWord(p), ok = agrees(mw, r.literature);
+      if (!ok) miss++;
+      h += '<tr class="' + (ok ? "ok" : "miss") + '">'
+        + '<th scope="row"><button class="pw-linkbtn" data-scnnode="' + esc(r.node) + '" type="button">'
+        + esc(nodeLabel(r.node)) + "</button></th>"
+        + '<td><span class="pw-scn-g">' + (SCN_NODE_BADGE[mw] || "?") + "</span> " + esc(SCN_WORD[mw])
+        + (p && p.path.length > 1 ? '<span class="pw-scn-path">via ' + esc(p.path.slice(1, -1).map(nodeLabel).join(" → ") || "direct arrow") + "</span>" : "")
+        + "</td>"
+        + '<td><span class="pw-scn-g">' + SCN_NODE_BADGE[r.literature] + "</span> " + esc(SCN_WORD[r.literature]) + "</td>"
+        + '<td class="pw-scn-v">' + (ok ? "matches" : "<b>differs</b>") + "</td></tr>"
+        + '<tr class="pw-scn-why ' + (ok ? "ok" : "miss") + '"><td colspan="4">' + esc(r.why)
+        + ' <button class="pw-linkbtn" data-scnwhy="' + i + '" type="button">studies (' + r.studies.length + ")</button></td></tr>";
+    });
+    h += "</tbody></table>"
+      + '<p class="pw-scn-sum"><b>' + (miss ? miss + " of " + sc.readouts.length + " readouts differ from"
+          : "All " + sc.readouts.length + " readouts match") + " what the arrows alone predict.</b> "
+      + esc(sc.lesson || "") + "</p>"
+      + '<p class="pw-tinynote">' + esc((CTX.meta && CTX.meta.scenario_caveat) || "") + "</p>"
+      + '<div class="pw-scn-key">Glyphs: ' + ["up", "down", "partial", "unchanged", "perturbed"].map(function (k) {
+          return '<span><b class="pw-scn-g">' + SCN_NODE_BADGE[k] + "</b> " + SCN_WORD[k] + "</span>";
+        }).join(" ") + "</div>"
+      + '<div class="pw-nav"><button class="pw-btn" data-scnev="1" type="button">Evidence behind this scenario →</button>'
+      + '<button class="pw-btn" data-go="guided" type="button">Follow a guided route instead →</button></div>'
+      + "</div>";
+    el.scen.innerHTML = h;
+    el.scen.querySelectorAll("[data-scn]").forEach(function (b) {
+      b.addEventListener("click", function () { setScenario(b.dataset.scn); });
+    });
+    el.scen.querySelectorAll("[data-scnnode]").forEach(function (b) {
+      b.addEventListener("click", function () { inspectNode(b.dataset.scnnode); frameNode(b.dataset.scnnode); paint(); });
+    });
+    el.scen.querySelectorAll("[data-scnwhy]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var r = sc.readouts[+b.dataset.scnwhy];
+        setInsp("<h4>" + esc(nodeLabel(r.node)) + " — " + esc(sc.label) + "</h4>"
+          + "<p>" + esc(r.why) + "</p>" + studyRows(r.studies, "Studies"));
+      });
+    });
+    var evb = el.scen.querySelector("[data-scnev]");
+    if (evb) evb.addEventListener("click", function () { inspectCtxEvidence(sc); });
     el.scen.querySelectorAll("[data-go]").forEach(function (b) {
       b.addEventListener("click", function () { setMode(b.dataset.go); });
     });
+  }
+
+  function frameScenario(sc) {
+    var xs = [], ys = [];
+    Object.keys(sc.nodes).forEach(function (id) {
+      var n = nodeById(id); if (n) { xs.push(n.x); ys.push(n.y); }
+    });
+    if (!xs.length) return frameCore();
+    var x1 = Math.min.apply(null, xs), y1 = Math.min.apply(null, ys);
+    frameBox(x1 - 70, y1 - 30, Math.max.apply(null, xs) - x1 + 140, Math.max.apply(null, ys) - y1 + 60, 60);
+  }
+
+  function setScenario(id) {
+    if (!CTX || !CTX.ix[id]) return;
+    S.scenarioId = id;
+    S.contextId = id;
+    renderScenarios();
+    var sc = CTX.ix[id];
+    inspectCtxEvidence(sc, true);
+    var hb = $("pwHintBox");
+    if (hb) hb.innerHTML = "<b>Scenario</b> \u2014 " + esc(sc.label) + " \u00B7 "
+      + Object.keys(sc.edges).length + " curated steps drawn \u00B7 click any arrow or molecule";
+    frameScenario(sc);
+    paint();
+    say("Scenario: " + sc.label + ". " + sc.question);
   }
 
   /* ==== mode switching ================================================= */
@@ -1156,10 +1284,21 @@
     el.scen.classList.toggle("pw-hide", m !== "scenarios");
     el.explorerUI.classList.toggle("pw-hide", m !== "explorer");
     el.guidedUI.classList.toggle("pw-hide", m !== "guided");
-    el.stageWrap.classList.toggle("pw-hide", m !== "explorer" && m !== "guided");
+    el.stageWrap.classList.toggle("pw-hide", m !== "explorer" && m !== "guided" && m !== "scenarios");
+    /* Scenario Lab borrows the context overlay slot; hand it back on the way
+       out so the Explorer returns to whatever context the reader had chosen. */
+    if (m !== "scenarios" && CTX && CTX.ix[S.contextId] && CTX.ix[S.contextId].cluster === "scenario") {
+      S.contextId = S.ctxBeforeScen || "all";
+    }
+    if (m === "scenarios" && CTX && (!CTX.ix[S.contextId] || CTX.ix[S.contextId].cluster !== "scenario")) {
+      S.ctxBeforeScen = S.contextId;
+    }
     if (m === "explorer") { S.routeId = null; S.step = -1; inspectDefault(); updateHint(); frameCore(); paint(); }
     if (m === "guided") { if (!S.routeId) S.routeId = M.routes[0].id; S.step = -1; renderGuided(); }
-    if (m === "scenarios") renderScenarios();
+    if (m === "scenarios") {
+      if (scenarios().length) setScenario(S.scenarioId || scenarios()[0].id);
+      else renderScenarios();
+    }
     say("Switched to " + m);
   }
 
@@ -1263,9 +1402,39 @@
     var box = $("pwCtxBrief"); if (!box) return;
     var c = activeCtx();
     if (!c) { box.innerHTML = ""; return; }
-    box.innerHTML = "<h5>" + esc(c.label) + "</h5><p>" + esc(c.brief) + "</p>"
+    var ev = c.evidence || [];
+    box.innerHTML = "<h5>" + esc(c.label) + reviewTag(c) + "</h5><p>" + esc(c.brief) + "</p>"
       + (c.note ? '<p class="pw-ctxnote2">' + esc(c.note) + "</p>" : "")
+      + (ev.length ? '<p><button class="pw-btn pw-ctxev" type="button">Evidence behind this view ('
+         + ev.length + (ev.length === 1 ? " claim" : " claims") + ") \u2192</button></p>" : "")
       + '<p class="pw-tinynote">' + esc((CTX.meta && CTX.meta.caveat) || "") + "</p>";
+    var btn = box.querySelector(".pw-ctxev");
+    if (btn) btn.addEventListener("click", function () { inspectCtxEvidence(c); });
+  }
+
+  /* "Proposed" = drafted with citations, not yet signed off by the curator.
+     Same honesty rule as the Relations review: say it on the page. */
+  function reviewTag(c) {
+    if (!c || c.review !== "proposed") return "";
+    return ' <span class="pw-review" title="Drafted with citations, awaiting curator sign-off">proposed</span>';
+  }
+
+  /* Every state in a curated overlay is backed by a claim with studies
+     (enforced at build time by build_pathway_contexts.py). This lists them. */
+  function inspectCtxEvidence(c, auto) {
+    var ev = c.evidence || [];
+    var h = "<h4>Why the " + esc(c.label) + " view looks like this</h4>"
+      + '<p class="pw-empty">Each claim below backs a group of states on the map. Studies are from this '
+      + "Atlas's corpus. A claim marked <b>gap</b> says what the corpus does not yet show.</p>";
+    ev.forEach(function (cl, i) {
+      h += '<div class="pw-claim"><div class="k">Claim ' + (i + 1) + "</div><p>" + esc(cl.claim) + "</p>"
+        + (cl.gap ? '<p class="pw-gap"><b>Gap.</b> ' + esc(cl.gap) + "</p>" : "")
+        + studyRows(cl.studies, "Studies") + "</div>";
+    });
+    setInsp(h);
+    /* opened by picking a scenario, not by the reader asking: on phones the
+       inspector is a bottom sheet and must not cover the table unasked */
+    if (auto) el.insp.classList.remove("open");
   }
 
   function setContext(id) {
@@ -1578,6 +1747,7 @@
     window.addEventListener("resize", function () {
       if (S.mode === "explorer") { frameCore(); paint(); }
       else if (S.mode === "guided") { fitAll(); paint(); }
+      else if (S.mode === "scenarios" && S.scenarioId && CTX) { frameScenario(CTX.ix[S.scenarioId]); paint(); }
     });
   }
 
@@ -1617,7 +1787,10 @@
   function indexContexts(doc) {
     var ix = {};
     (doc.contexts || []).forEach(function (c) { ix[c.id] = c; });
-    return { list: doc.contexts || [], ix: ix, meta: doc.meta || {} };
+    /* scenarios share the overlay index (same painter, same dimming rule) but
+       never appear in the context chip bar, which iterates `list` only */
+    (doc.scenarios || []).forEach(function (c) { ix[c.id] = c; });
+    return { list: doc.contexts || [], scen: doc.scenarios || [], ix: ix, meta: doc.meta || {} };
   }
 
   var booted = false;

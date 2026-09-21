@@ -122,6 +122,7 @@ function realDrag(w, canvas, shape, x1, y1, x2, y2) {
 
 const host = w.document.getElementById("host");
 
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   const D = w.document;
   /* NB: host contains TWO svgs - the overview diagram and the canvas. An
@@ -424,7 +425,27 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     ok(!!D.querySelector(`.pw-ctx-chip[data-ctx="${id}"]`), `chip for "${id}" renders`);
   });
   const stubIds = contextsDoc.contexts.filter((c) => c.stub).map((c) => c.id);
-  ok(stubIds.length === 5, `five contexts are marked stub (${stubIds.join(", ")})`);
+  // Stub count is read from contexts.json, never hard-coded: every context
+  // that gets curated flips stub -> false and must not break this test.
+  const curatedIds = contextsDoc.contexts.filter((c) => !c.stub && c.id !== "all").map((c) => c.id);
+  ok(stubIds.length + curatedIds.length + 1 === contextsDoc.contexts.length,
+    `every context is either "all", curated or stub (${curatedIds.length} curated, ${stubIds.length} stub)`);
+  curatedIds.forEach((id) => {
+    ok(!D.querySelector(`.pw-ctx-chip[data-ctx="${id}"]`).classList.contains("stub"),
+      `${id} chip is live (no "planned" marker)`);
+  });
+  // schema v2: every state in a curated overlay is backed by a claim with studies
+  const allOverlays = contextsDoc.contexts.concat(contextsDoc.scenarios || []);
+  allOverlays.filter((c) => !c.stub && c.id !== "all").forEach((c) => {
+    const covered = new Set();
+    (c.evidence || []).forEach((cl) => {
+      ok(cl.studies && cl.studies.length > 0, `${c.id}: claim "${cl.claim.slice(0, 40)}..." cites studies`);
+      (cl.covers || []).forEach((x) => covered.add(x));
+    });
+    (c.readouts || []).forEach((r) => covered.add(r.node));
+    Object.keys(c.edges).concat(Object.keys(c.nodes)).forEach((id) =>
+      ok(covered.has(id), `${c.id}: ${id} is backed by a claim`));
+  });
   stubIds.forEach((id) => {
     ok(D.querySelector(`.pw-ctx-chip[data-ctx="${id}"]`).classList.contains("stub"),
       `${id} chip carries the stub/"planned" marker`);
@@ -736,6 +757,49 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     "a single-breakthrough route names it as such");
 
   reduceMotion = false;
+  console.log("— Scenario Lab —");
+  {
+    const scns = contextsDoc.scenarios || [];
+    ok(scns.length >= 3, `at least three curated scenarios (${scns.length})`);
+    D.getElementById("pwMode-scenarios").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    await wait(30);
+    ok(!D.getElementById("pwStageWrap").classList.contains("pw-hide"), "Scenario Lab shows the diagram");
+    ok(D.querySelectorAll("[data-scn]").length === scns.length, "one picker button per scenario");
+    ok(!/Phase 2/.test(D.getElementById("pwScen").textContent), "placeholder 'Phase 2' text is gone");
+    for (const sc of scns) {
+      D.querySelector(`[data-scn="${sc.id}"]`).dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+      await wait(10);
+      ok(D.querySelector(`[data-scn="${sc.id}"]`).getAttribute("aria-pressed") === "true", `${sc.id}: picker pressed`);
+      const rows = D.querySelectorAll(".pw-scn-t tbody tr:not(.pw-scn-why)");
+      ok(rows.length === sc.readouts.length, `${sc.id}: one table row per readout (${rows.length})`);
+      ok(!/\d+(\.\d+)?\s*(%|fold|x\b|nM|µM|mg)/i.test(D.querySelector(".pw-scn-t").textContent),
+        `${sc.id}: table carries no numbers-as-quantities`);
+      // only the scenario's edges are drawn
+      const shown = model.interactions.filter((e) => !D.getElementById("pwe-" + e.id).classList.contains("dim")).map((e) => e.id);
+      ok(shown.length === Object.keys(sc.edges).length && shown.every((id) => id in sc.edges),
+        `${sc.id}: exactly the scenario's ${Object.keys(sc.edges).length} edges are drawn (${shown.length})`);
+      const pert = D.querySelector(`.pw-n[data-nid="${w.CSS.escape(sc.perturbation.node)}"]`);
+      ok(pert && pert.classList.contains("pw-pert"), `${sc.id}: perturbed node is marked`);
+    }
+    // the rapamycin scenario must show the known mismatch on 4E-BP1
+    const rapa = scns.find((x) => x.id === "scn-rapamycin-acute");
+    if (rapa) {
+      D.querySelector('[data-scn="scn-rapamycin-acute"]').dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+      await wait(10);
+      const row = [...D.querySelectorAll(".pw-scn-t tbody tr:not(.pw-scn-why)")].find((r) => /4E-BP1/.test(r.textContent));
+      ok(row && row.classList.contains("miss"), "rapamycin: 4E-BP1 row flagged as differing from the map");
+      const akt = [...D.querySelectorAll(".pw-scn-t tbody tr:not(.pw-scn-why)")].find((r) => /Akt/.test(r.textContent));
+      ok(akt && akt.classList.contains("ok"), "rapamycin: Akt row matches (feedback arrow curated)");
+    }
+    // leaving the lab hands the overlay slot back
+    D.getElementById("pwMode-explorer").dispatchEvent(new w.MouseEvent("click", { bubbles: true }));
+    await wait(10);
+    const pressed = D.querySelector(".pw-ctx-chip[aria-pressed='true']");
+    ok(!model.interactions.every((e) => D.getElementById("pwe-" + e.id).classList.contains("dim")),
+      "Explorer is not left blank after visiting the Scenario Lab");
+    ok(pressed && !/^scn-/.test(pressed.dataset.ctx), "Explorer context chip is a real context, not a scenario");
+  }
+
   console.log("— console —");
   ok(errors.length === 0, "no console errors (" + errors.slice(0, 3).join(" | ") + ")");
 
