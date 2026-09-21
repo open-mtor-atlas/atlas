@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================
-REM  Deploy the Open mTOR Atlas to GitHub Pages.
+REM  Deploy Oliver's mTOR Atlas to GitHub Pages.
 REM  Pushes the two files the live site needs:
 REM      index.html                       (the page: abstract RAG + gaps)
 REM      atlas_fulltext\chunk_index.json  (the Deep-search full-text index)
