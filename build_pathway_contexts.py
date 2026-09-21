@@ -46,12 +46,21 @@ import json
 import os
 import sys
 
-REPO = "/sessions/clever-vigilant-brown/mnt/Oliver biology Cowork"
+# Relative to this file, never an absolute session path. The previous
+# hard-coded /sessions/<name>/mnt/... path belonged to one Cowork session and
+# made the script unrunnable anywhere else (found 2026-09-21).
+REPO = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(REPO, "pathway", "model.json")
 OUT_PATH = os.path.join(REPO, "pathway", "contexts.json")
+STUDIES_PATH = os.path.join(REPO, "atlas_data", "studies_baked.json")
 
 with open(MODEL_PATH, "r", encoding="utf-8") as f:
     MODEL = json.load(f)
+with open(STUDIES_PATH, "r", encoding="utf-8") as f:
+    _studies = json.load(f)
+    if isinstance(_studies, dict):
+        _studies = _studies.get("studies", [])
+CORPUS_SIDS = set(s.get("sid") for s in _studies if s.get("sid"))
 
 ALL_EDGE_IDS = set(e["id"] for e in MODEL["interactions"])
 ALL_NODE_IDS = set(n["id"] for n in MODEL["nodes"])
@@ -166,14 +175,211 @@ EXERCISE_NODES = {
     "Nucleotide synthesis": "suppressed", "Autophagy": "active", "Longevity": "active",
 }
 
+# ---------------------------------------------------------------------------
+# EVIDENCE -- schema v2 (2026-09-21).
+#
+# Until v1.0.0 every state above was a bare curator assertion: an edge could be
+# drawn "active in Fed" with no study behind it, while the same edge in
+# model.json could not exist without one. v2 closes that gap. Each curated
+# context carries a list of claims:
+#
+#   {"claim": "...", "studies": [sid, ...], "covers": [edge/node ids],
+#    "gap": "optional -- what the corpus does NOT yet show"}
+#
+# The build FAILS unless (a) every sid is in atlas_data/studies_baked.json and
+# (b) every evaluated edge and node of the context is covered by at least one
+# claim. "gap" is how a claim admits that its studies establish the mechanism
+# but not this exact condition (e.g. no acute-exercise human study in corpus).
+# Contexts ship as review="proposed" until Oliver signs them off.
+# ---------------------------------------------------------------------------
+AA_ARM_EDGES = ["LEU-SESN2", "LEU-LARS", "SESN2-GATOR2", "ARG-CASTOR1", "CASTOR1-GATOR2",
+                "SAM-SAMTOR", "SAMTOR-GATOR1", "GATOR2-GATOR1", "GATOR1-RAG", "LARS-RAG",
+                "SLC38A9-RAG", "GLN-RAG", "RAG-MTORC1"]
+AA_ARM_NODES = ["Leucine", "Arginine", "S-adenosylmethionine (SAM)", "Glutamine", "Sestrin2",
+                "CASTOR1", "SAMTOR", "GATOR1", "GATOR2", "LARS (leucyl-tRNA synthetase)",
+                "SLC38A9", "Rag GTPases"]
+AA_ARM_STUDIES = ["SAN2008", "BAR2013", "WOL2015", "CHA2014", "CHA2016", "GU2017", "HAN2012",
+                  "WAN2015", "REB2015", "DUR2012", "JEW2015"]
+GF_ARM_EDGES = ["IGF1-PI3K", "PI3K-AKT", "AKT-TSC", "TSC-RHEB", "RHEB-MTORC1",
+                "AKT-PRAS40", "PRAS40-MTORC1"]
+GF_ARM_NODES = ["Growth hormone / IGF-1 axis", "PI3K", "Akt/PKB", "TSC1/TSC2", "Rheb",
+                "PRAS40", "mTORC1"]
+GF_ARM_STUDIES = ["INO2002", "INOK2003", "GAR2003", "SAN2007", "CAN2002"]
+FEEDBACK_EDGES = ["S6K1-IRS1", "IRS1-PI3K", "MTORC1-GRB10", "GRB10-IGF1"]
+FEEDBACK_NODES = ["IRS-1 / IRS-2"]
+FEEDBACK_STUDIES = ["HAR2004", "SHA2004", "HSU2011", "YUX2011"]
+ENERGY_EDGES = ["STRESS-AMPK", "AMPK-TSC", "AMPK-MTORC1", "AMPK-ULK1", "AMPK-MITOPHAGY"]
+ENERGY_NODES = ["AMPK"]
+ENERGY_STUDIES = ["INO2003", "GWI2008", "EGA2010", "KIM2011"]
+TRANSL_EDGES = ["MTORC1-S6K1", "MTORC1-4EBP1", "4EBP1-EIF4E", "EIF4E-TRANSL", "S6K1-PDCD4",
+                "PDCD4-TRANSL", "TRANSL-MUSCLE"]
+TRANSL_NODES = ["S6K1", "4E-BP1", "eIF4E", "PDCD4", "Protein synthesis", "Muscle growth"]
+TRANSL_STUDIES = ["BUR1998", "HOL2005", "DOR2006", "BOD2001"]
+AUTO_EDGES = ["MTORC1-ULK1", "ULK1-AUTOPHAGY", "MTORC1-TFEB", "TFEB-AUTOPHAGY"]
+AUTO_NODES = ["ULK1", "TFEB", "Autophagy"]
+AUTO_STUDIES = ["KIM2011", "HOS2009", "GAN2009", "SET2012", "ROC2012", "MAR2012"]
+META_EDGES = ["MTORC1-SREBP", "SREBP-LIPID", "MTORC1-MITO", "4EBP1-MITO", "MTORC1-NUCL", "S6K1-NUCL"]
+META_NODES = ["SREBP1 / SREBP2", "Lipid synthesis", "Mitochondrial biogenesis", "Nucleotide synthesis"]
+META_STUDIES = ["POR2008", "CUN2007", "MOR2013", "BEN2013", "BEN2016", "ROB2013"]
+LONG_EDGES = ["4EBP1-LONGEVITY", "S6K1-LONGEVITY"]
+LONG_NODES = ["Longevity"]
+LONG_STUDIES = ["ZID2009", "SEL2009"]
+
+FED_EVIDENCE = [
+    {"claim": "Amino acids switch the Rag GTPases on: leucine (Sestrin2, LARS), arginine "
+              "(CASTOR1, SLC38A9) and SAM (SAMTOR) each release the GATOR2-to-GATOR1 brake, so "
+              "Rag-bound mTORC1 is recruited to the lysosome.",
+     "studies": AA_ARM_STUDIES, "covers": AA_ARM_EDGES + AA_ARM_NODES},
+    {"claim": "Insulin/IGF-1 signalling through PI3K and Akt phosphorylates and inactivates TSC2 "
+              "and PRAS40, leaving Rheb GTP-loaded to activate lysosomal mTORC1.",
+     "studies": GF_ARM_STUDIES, "covers": GF_ARM_EDGES + GF_ARM_NODES},
+    {"claim": "Sustained mTORC1/S6K1 activity engages the negative feedback arms (S6K1 on IRS-1, "
+              "mTORC1 stabilising Grb10), which damp insulin/IGF-1 input to PI3K.",
+     "studies": FEEDBACK_STUDIES, "covers": FEEDBACK_EDGES + FEEDBACK_NODES},
+    {"claim": "AMPK engages TSC2, raptor and ULK1 under energy stress; with nutrients and ATP "
+              "plentiful this arm is quiet.",
+     "studies": ENERGY_STUDIES, "covers": ENERGY_EDGES + ENERGY_NODES,
+     "gap": "The studies show the arm firing under energy stress; its quiescence in the fed state "
+            "is the inference, not a separately measured result."},
+    {"claim": "Active mTORC1 phosphorylates S6K1 and 4E-BP1: 4E-BP1 releases eIF4E, S6K1 "
+              "targets PDCD4 for degradation, and cap-dependent translation rises.",
+     "studies": TRANSL_STUDIES, "covers": TRANSL_EDGES + TRANSL_NODES},
+    {"claim": "mTORC1 phosphorylates ULK1 and TFEB, holding autophagy initiation and lysosomal "
+              "gene transcription off while nutrients are present.",
+     "studies": AUTO_STUDIES, "covers": AUTO_EDGES + AUTO_NODES},
+    {"claim": "mTORC1 drives anabolic metabolism: SREBP-dependent lipid synthesis, "
+              "mitochondrial biogenesis and purine/pyrimidine synthesis.",
+     "studies": META_STUDIES, "covers": META_EDGES + META_NODES},
+    {"claim": "Organism-level link: lower S6K1 or higher 4E-BP activity extends lifespan in "
+              "animal models, so a persistently fed state leans away from those outcomes.",
+     "studies": LONG_STUDIES, "covers": LONG_EDGES + LONG_NODES,
+     "gap": "Chronic, organism-level and animal-only (fly, mouse). A meal is not a lifespan "
+            "experiment; read this row as direction of lean, not effect."},
+]
+
+FASTING_EVIDENCE = [
+    {"claim": "Amino-acid withdrawal lets GATOR1 act as a GAP on the Rags, and mTORC1 leaves the "
+              "lysosome.",
+     "studies": AA_ARM_STUDIES, "covers": AA_ARM_EDGES + AA_ARM_NODES},
+    {"claim": "Without insulin/IGF-1 input Akt no longer inactivates TSC2 or PRAS40; TSC2 keeps "
+              "Rheb GDP-bound and mTORC1 goes quiet.",
+     "studies": GF_ARM_STUDIES, "covers": GF_ARM_EDGES + GF_ARM_NODES},
+    {"claim": "With mTORC1/S6K1 low, the negative feedback on IRS-1 and Grb10 is released.",
+     "studies": FEEDBACK_STUDIES, "covers": [x for x in FEEDBACK_EDGES if x != "IRS1-PI3K"] + FEEDBACK_NODES},
+    {"claim": "Energy stress activates AMPK, which phosphorylates TSC2, raptor and ULK1.",
+     "studies": ENERGY_STUDIES, "covers": ENERGY_EDGES + ENERGY_NODES},
+    {"claim": "Dephosphorylated 4E-BP1 clamps eIF4E and S6K1 activity falls, so cap-dependent "
+              "translation drops.",
+     "studies": TRANSL_STUDIES, "covers": TRANSL_EDGES + TRANSL_NODES},
+    {"claim": "Released from mTORC1, ULK1 initiates autophagy and TFEB enters the nucleus to "
+              "drive lysosomal and autophagy genes.",
+     "studies": AUTO_STUDIES, "covers": AUTO_EDGES + AUTO_NODES},
+    {"claim": "Anabolic programmes (lipid, nucleotide synthesis, mitochondrial biogenesis) lose "
+              "their mTORC1 drive.",
+     "studies": META_STUDIES, "covers": META_EDGES + META_NODES},
+    {"claim": "Dietary restriction requires 4E-BP to extend lifespan in flies; S6K1 loss extends "
+              "lifespan in female mice.",
+     "studies": LONG_STUDIES, "covers": LONG_EDGES + LONG_NODES,
+     "gap": "Chronic restriction in animals, not a single fast in humans."},
+]
+
+EXERCISE_EVIDENCE = [
+    {"claim": "Energy stress activates AMPK via LKB1; AMPK phosphorylates TSC2 and raptor "
+              "(damping mTORC1) and ULK1 (starting autophagy/mitophagy).",
+     "studies": ["SHW2004", "INO2003", "GWI2008", "EGA2010", "KIM2011", "INOK2003"],
+     "covers": ["STRESS-AMPK", "LKB1-AMPK", "AMPK-ULK1", "AMPK-MITOPHAGY", "AMPK-TSC",
+                "AMPK-MTORC1", "TSC-RHEB", "RHEB-MTORC1",
+                "Energy & cellular stress", "AMPK", "LKB1 (STK11)", "TSC1/TSC2", "Rheb", "mTORC1"],
+     "gap": "The corpus establishes the AMPK mechanism in cells; it holds no study measuring "
+            "AMPK and mTORC1 in human muscle during an acute bout. Candidate for inclusion."},
+    {"claim": "Contraction can activate muscle mTORC1 without Akt-mediated TSC2 phosphorylation, "
+              "so the growth-factor and amino-acid inputs are not what sets mTORC1 in the acute "
+              "window; their state there is left unclear rather than guessed.",
+     "studies": ["LAP2026"],
+     "covers": ["IGF1-PI3K", "PI3K-AKT", "AKT-TSC", "AKT-PRAS40", "PRAS40-MTORC1"]
+               + AA_ARM_EDGES
+               + ["Growth hormone / IGF-1 axis", "PI3K", "Akt/PKB", "PRAS40"] + AA_ARM_NODES},
+    {"claim": "With mTORC1 damped, S6K1 and 4E-BP1 phosphorylation fall, translation is held "
+              "back, ULK1 and TFEB are released and autophagy runs.",
+     "studies": ["GWI2008", "INO2003", "KIM2011", "MAR2012", "BUR1998", "DOR2006"],
+     "covers": ["MTORC1-S6K1", "MTORC1-4EBP1", "MTORC1-TFEB", "MTORC1-ULK1", "MTORC1-SREBP",
+                "S6K1-PDCD4", "4EBP1-EIF4E", "PDCD4-TRANSL", "EIF4E-TRANSL",
+                "TFEB-AUTOPHAGY", "ULK1-AUTOPHAGY", "SREBP-LIPID", "MTORC1-NUCL", "S6K1-NUCL",
+                "S6K1", "4E-BP1", "ULK1", "TFEB", "SREBP1 / SREBP2", "PDCD4", "eIF4E",
+                "Protein synthesis", "Nucleotide synthesis", "Autophagy"],
+     "gap": "Acute suppression is inferred from the AMPK mechanism, not from a bout measured in "
+            "muscle within this corpus."},
+    {"claim": "Muscle growth is set by the post-exercise window, not the bout itself: rapamycin "
+              "given before resistance exercise blocks the rise in muscle protein synthesis in "
+              "humans.",
+     "studies": ["DRU2009"], "covers": ["TRANSL-MUSCLE", "Muscle growth"]},
+    {"claim": "Organism-level lean, as in Fasting: lower S6K1 and higher 4E-BP activity are the "
+              "directions linked to longer lifespan in animals.",
+     "studies": LONG_STUDIES, "covers": LONG_EDGES + LONG_NODES,
+     "gap": "Animal-only, chronic. An exercise bout is not a lifespan intervention."},
+]
+
+# ---------------------------------------------------------------------------
+# MUSCLE -- first tissue context (2026-09-21). Skeletal muscle in the anabolic
+# window: resistance exercise followed by a protein meal. Only arms with
+# muscle-specific evidence in this corpus are evaluated; everything else stays
+# absent (= not evaluated for muscle), never guessed from the generic map.
+# ---------------------------------------------------------------------------
+MUSCLE_EDGES = {
+    "LOAD-MTORC1": "active",
+    "IGF1-PI3K": "active", "PI3K-AKT": "active", "AKT-TSC": "active",
+    "TSC-RHEB": "suppressed", "RHEB-MTORC1": "active", "RAPTOR-MTORC1": "active",
+    "LEU-SESN2": "active", "SESN2-GATOR2": "suppressed",
+    "MTORC1-S6K1": "active", "MTORC1-4EBP1": "active", "4EBP1-EIF4E": "suppressed",
+    "EIF4E-TRANSL": "active", "TRANSL-MUSCLE": "active",
+}
+MUSCLE_NODES = {
+    "Resistance exercise / mechanical load": "active", "Leucine": "active", "Sestrin2": "suppressed",
+    "Growth hormone / IGF-1 axis": "active", "PI3K": "active", "Akt/PKB": "active",
+    "TSC1/TSC2": "suppressed", "Rheb": "active", "Raptor": "active", "mTORC1": "active",
+    "S6K1": "active", "4E-BP1": "suppressed", "eIF4E": "active",
+    "Protein synthesis": "active", "Muscle growth": "active",
+}
+MUSCLE_EVIDENCE = [
+    {"claim": "Mechanical load activates muscle mTORC1: passive stretch raises mTOR, p70S6K, rpS6 "
+              "and 4E-BP1 phosphorylation ex vivo, and in humans rapamycin blocks the "
+              "contraction-induced rise in muscle protein synthesis.",
+     "studies": ["KRISTIANSEN2026", "DRU2009", "BOD2001"],
+     "covers": ["LOAD-MTORC1", "Resistance exercise / mechanical load", "mTORC1",
+                "MTORC1-S6K1", "MTORC1-4EBP1", "S6K1", "4E-BP1"]},
+    {"claim": "Feeding reaches muscle mTORC1 through Akt phosphorylating TSC2. Contraction does "
+              "not need this step: the two routes into mTORC1 are genetically separable.",
+     "studies": ["LAP2026"],
+     "covers": ["AKT-TSC", "TSC-RHEB", "RHEB-MTORC1", "Akt/PKB", "TSC1/TSC2", "Rheb"]},
+    {"claim": "IGF-1 drives myotube hypertrophy through PI3K, Akt and mTOR; Akt/mTOR signalling "
+              "is sufficient for hypertrophy and prevents atrophy in vivo.",
+     "studies": ["ROM2001", "BOD2001"],
+     "covers": ["IGF1-PI3K", "PI3K-AKT", "Growth hormone / IGF-1 axis", "PI3K"]},
+    {"claim": "Raptor (mTORC1) is essential in muscle: its muscle-specific loss causes dystrophy, "
+              "whereas loss of rictor (mTORC2) does not.",
+     "studies": ["BEN2008"], "covers": ["RAPTOR-MTORC1", "Raptor"]},
+    {"claim": "Leucine sensing through Sestrin2 activates mTORC1 and restores muscle protein "
+              "synthesis in a sarcopenia model.",
+     "studies": ["SHIM2026", "WOL2015"],
+     "covers": ["LEU-SESN2", "SESN2-GATOR2", "Leucine", "Sestrin2"],
+     "gap": "SHIM2026 uses a D-leucine prodrug in mice; human muscle leucine-dose data are not in "
+            "this corpus."},
+    {"claim": "4E-BP1 release lets eIF4E drive cap-dependent translation, and sustained protein "
+              "synthesis underlies hypertrophy.",
+     "studies": ["BOD2001", "DRU2009", "HOL2005"],
+     "covers": ["4EBP1-EIF4E", "EIF4E-TRANSL", "TRANSL-MUSCLE", "eIF4E", "Protein synthesis",
+                "Muscle growth"],
+     "gap": "LAP2026: mice lacking the feeding-induced signal keep normal muscle mass, so "
+            "postprandial synthesis and long-term size are not the same variable."},
+]
+
 STUBS = {
     "cancer": {
         "cluster": "disease",
         "label": "Cancer",
-        "brief": "Not yet curated. Needs a different annotation than flux-state: which nodes are "
-                 "recurrently altered (TSC1/2 loss, PTEN loss, S6K amplification) rather than "
-                 "transiently on or off. Planned as a separate curation pass over this corpus's "
-                 "cancer-tagged studies.",
+        "brief": "Not yet curated. Cancer is not a flux state but a set of lesions (TSC1/2 loss, "
+                 "PTEN loss, PIK3CA activation), so it is being built as lesion scenarios in the "
+                 "Scenario Lab rather than as an overlay here. TSC2 loss is the first one live.",
     },
     "aging": {
         "cluster": "disease",
@@ -183,25 +389,225 @@ STUBS = {
                  "MTORC1-SENESCENCE and related chronic-timescale edges were deliberately left "
                  "unevaluated in Fed/Fasting/Exercise pending this pass.",
     },
-    "muscle": {
-        "cluster": "tissue",
-        "label": "Muscle",
-        "brief": "Not yet curated. Requires a dedicated tissue-specific literature pass -- which nodes "
-                 "and isoforms are muscle-enriched -- rather than reweighting the existing generic map.",
-    },
     "immune": {
         "cluster": "tissue",
         "label": "Immune cell",
         "brief": "Not yet curated. Same scope as Muscle: a separate curation sprint over a smaller, "
-                 "tissue-specific node subset.",
+                 "tissue-specific node subset (T-cell anchors such as Delgoffe 2009/2011 are "
+                 "already in the corpus).",
     },
     "neuron": {
         "cluster": "tissue",
         "label": "Neuron",
         "brief": "Not yet curated. Local translation at synapses needs sourcing distinct from the rest "
-                 "of this map.",
+                 "of this map, and new nodes in model.json.",
     },
 }
+
+# ---------------------------------------------------------------------------
+# SCENARIO LAB (2026-09-21) -- curated perturbations, never free input.
+#
+# A scenario is the same overlay shape as a context (edges/nodes -> state,
+# claims with studies) plus a perturbation and a list of READOUTS. For each
+# readout pathway.js computes what plain sign propagation over model.json
+# predicts, and shows it next to what the cited literature reports. The
+# disagreements are the content: they mark where single arrows stop being
+# enough (drug selectivity, time, feedback strength, tissue).
+#
+# Node vocabulary here is CHANGE vs baseline, not flux state:
+#   up | down | partial | unchanged | perturbed
+# Edge vocabulary stays active | suppressed | unclear.
+# No numbers, ever: direction and evidence only.
+# ---------------------------------------------------------------------------
+SCN_NODE_STATES = ("up", "down", "partial", "unchanged", "perturbed")
+
+SCENARIOS = [
+    {
+        "id": "scn-rapamycin-acute",
+        "lesson": "The map treats rapamycin as a plain minus sign on mTORC1. The papers show a "
+                  "partial, output-selective block, a feedback that takes hours to build, and a "
+                  "second complex that is spared at first and falls only with prolonged treatment.",
+        "label": "Rapamycin, acute",
+        "timescale": "hours",
+        "question": "Rapamycin is called an mTORC1 inhibitor. Does it switch off everything "
+                    "mTORC1 does?",
+        "brief": "Rapamycin binds FKBP12 and the complex blocks mTORC1 allosterically. S6K1 "
+                 "falls fast. But some mTORC1 outputs keep running, and by relieving the "
+                 "S6K1-to-IRS-1 feedback the drug turns Akt up rather than down.",
+        "perturbation": {"node": "Rapamycin", "targets": {"mTORC1": -1},
+                         "kind": "drug", "label": "Allosteric mTORC1 inhibitor (with FKBP12)"},
+        "edges": {"RAPA-FKBP12": "active", "FKBP12-MTORC1": "active",
+                  "MTORC1-S6K1": "suppressed", "MTORC1-4EBP1": "unclear",
+                  "MTORC1-ULK1": "unclear", "S6K1-IRS1": "suppressed",
+                  "IRS1-PI3K": "active", "PI3K-AKT": "active"},
+        "nodes": {"Rapamycin": "perturbed", "FKBP12": "perturbed", "mTORC1": "partial",
+                  "S6K1": "down", "4E-BP1": "partial", "Autophagy": "partial",
+                  "IRS-1 / IRS-2": "up", "PI3K": "up", "Akt/PKB": "up", "mTORC2": "unchanged",
+                  "Protein synthesis": "partial"},
+        "evidence": [
+            {"claim": "FKBP12-rapamycin binds and allosterically inhibits mTORC1, not mTORC2.",
+             "studies": ["SAR2006", "BRO1994", "SAB1995"],
+             "covers": ["RAPA-FKBP12", "FKBP12-MTORC1", "Rapamycin", "FKBP12", "mTORC1"]},
+            {"claim": "Released feedback: S6K1 no longer suppresses IRS-1, so IRS-1 to PI3K "
+                      "signalling recovers.",
+             "studies": ["ORE2006", "HAR2004"],
+             "covers": ["S6K1-IRS1", "IRS1-PI3K", "PI3K-AKT", "PI3K"]},
+            {"claim": "Rapamycin-resistant mTORC1 outputs keep the 4E-BP1 and ULK1 arms "
+                      "partly running.",
+             "studies": ["THO2009", "FEL2009"],
+             "covers": ["MTORC1-4EBP1", "MTORC1-ULK1", "MTORC1-S6K1"]},
+        ],
+        "readouts": [
+            {"node": "S6K1", "literature": "down",
+             "why": "S6K1 phosphorylation is the most rapamycin-sensitive mTORC1 output.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "4E-BP1", "literature": "partial",
+             "why": "The brake is only partly re-engaged: 4E-BP1 phosphorylation is largely "
+                    "rapamycin-resistant, which Torin1 revealed. The map has one arrow from "
+                    "mTORC1 to 4E-BP1 and no way to say which drug is on it.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "Autophagy", "literature": "partial",
+             "why": "Rapamycin only weakly induces autophagy; suppression of autophagy is one of "
+                    "the rapamycin-resistant mTORC1 functions.",
+             "studies": ["THO2009"]},
+            {"node": "Protein synthesis", "literature": "partial",
+             "why": "Cap-dependent translation largely survives rapamycin; Torin1 impairs growth "
+                    "and proliferation far more.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "IRS-1 / IRS-2", "literature": "up",
+             "why": "mTOR inhibition induces IRS-1 expression. This takes hours, the timescale of "
+                    "the S6K1-to-IRS-1 arrow.",
+             "studies": ["ORE2006", "HAR2004"]},
+            {"node": "Akt/PKB", "literature": "up",
+             "why": "Akt is activated in cancer cell lines and in patient tumours on the rapamycin "
+                    "analogue RAD001, a likely reason for its modest anti-tumour effect. The map "
+                    "gets this right only because the feedback arrows are curated.",
+             "studies": ["ORE2006"]},
+            {"node": "mTORC2", "literature": "unchanged",
+             "why": "mTORC2 does not bind FKBP12-rapamycin, so acutely it is not inhibited. "
+                    "Prolonged treatment is different: it blocks mTORC2 assembly in many cell "
+                    "types and causes insulin resistance in mice.",
+             "studies": ["SAR2006", "LAM2012"]},
+        ],
+    },
+    {
+        "id": "scn-torin1",
+        "lesson": "Everything matches here. Yet the map received the same minus sign on mTORC1 "
+                  "as it did for rapamycin, where most readouts differed. The arrows cannot tell "
+                  "the two drugs apart; that difference lives only in the data.",
+        "label": "Torin1 (ATP-competitive)",
+        "timescale": "hours",
+        "question": "What changes if you block the mTOR kinase site itself instead of using "
+                    "rapamycin?",
+        "brief": "Torin1 and related TORKinibs block the active site of mTOR in both complexes. "
+                 "They shut down the rapamycin-resistant outputs too: 4E-BP1 is fully "
+                 "dephosphorylated, translation falls and autophagy rises. On the map, both drugs "
+                 "put a minus sign on the same node. The difference only shows up in the data.",
+        "perturbation": {"node": "ATP-competitive mTOR inhibitors",
+                         "targets": {"mTORC1": -1, "mTORC2": -1},
+                         "kind": "drug", "label": "Active-site inhibitor of mTORC1 and mTORC2"},
+        "edges": {"TORIN-MTORC1": "active", "TORIN-MTORC2": "active",
+                  "MTORC1-S6K1": "suppressed", "MTORC1-4EBP1": "suppressed",
+                  "4EBP1-EIF4E": "active", "MTORC1-ULK1": "suppressed",
+                  "ULK1-AUTOPHAGY": "active", "MTORC2-AKT": "suppressed"},
+        "nodes": {"ATP-competitive mTOR inhibitors": "perturbed", "mTORC1": "down",
+                  "mTORC2": "down", "S6K1": "down", "4E-BP1": "up", "eIF4E": "down",
+                  "Protein synthesis": "down", "ULK1": "up", "Autophagy": "up", "Akt/PKB": "down"},
+        "evidence": [
+            {"claim": "ATP-competitive inhibitors block the kinase of both mTORC1 and mTORC2, "
+                      "including rapamycin-resistant mTORC1 outputs.",
+             "studies": ["THO2009", "FEL2009", "CHR2009"],
+             "covers": ["TORIN-MTORC1", "TORIN-MTORC2", "ATP-competitive mTOR inhibitors",
+                        "mTORC1", "mTORC2", "MTORC1-S6K1", "MTORC1-4EBP1", "MTORC1-ULK1",
+                        "MTORC2-AKT"]},
+            {"claim": "Dephosphorylated 4E-BP1 blocks eIF4E and cap-dependent translation; "
+                      "released ULK1 drives autophagy.",
+             "studies": ["THO2009", "FEL2009"],
+             "covers": ["4EBP1-EIF4E", "ULK1-AUTOPHAGY", "eIF4E", "ULK1"]},
+        ],
+        "readouts": [
+            {"node": "S6K1", "literature": "down", "why": "Blocked, as with rapamycin.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "4E-BP1", "literature": "up",
+             "why": "The brake is fully re-engaged: Torin1 blocks the 4E-BP1 phosphorylation that "
+                    "rapamycin leaves running. The map predicts the same for both drugs; only this "
+                    "one matches it.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "Protein synthesis", "literature": "down",
+             "why": "Cap-dependent translation is suppressed, and growth and proliferation fall far "
+                    "more than with rapamycin.",
+             "studies": ["THO2009", "FEL2009"]},
+            {"node": "Autophagy", "literature": "up",
+             "why": "Autophagy is strongly induced, unlike with rapamycin.",
+             "studies": ["THO2009"]},
+            {"node": "Akt/PKB", "literature": "down",
+             "why": "Akt S473 phosphorylation by mTORC2 is lost because both complexes are hit.",
+             "studies": ["FEL2009", "THO2009"]},
+        ],
+    },
+    {
+        "id": "scn-tsc2-loss",
+        "lesson": "Akt matches, but only because the S6K1-to-IRS-1 feedback arrow is curated. "
+                  "The readout that differs is the clinical one: an arrow can say 'more growth', "
+                  "not 'mostly benign'.",
+        "label": "TSC2 loss",
+        "timescale": "chronic (genetic)",
+        "question": "Remove the main brake on mTORC1. Does the cell simply signal harder?",
+        "brief": "Without TSC2, Rheb stays GTP-loaded and mTORC1 and S6K1 run constitutively. "
+                 "S6K1 then depletes IRS-1 and IRS-2, so insulin and IGF-1 can no longer reach "
+                 "PI3K and Akt. The lesion that switches mTORC1 on switches Akt off, which may "
+                 "explain why TSC tumours are mostly benign.",
+        "perturbation": {"node": "TSC1/TSC2", "targets": {"TSC1/TSC2": -1},
+                         "kind": "lesion", "label": "Loss of function (genetic)"},
+        "edges": {"TSC-RHEB": "suppressed", "RHEB-MTORC1": "active", "MTORC1-S6K1": "active",
+                  "S6K1-IRS1": "active", "IRS1-PI3K": "suppressed", "PI3K-AKT": "suppressed",
+                  "MTORC1-TUMOR": "unclear"},
+        "nodes": {"TSC1/TSC2": "perturbed", "Rheb": "up", "mTORC1": "up", "S6K1": "up",
+                  "IRS-1 / IRS-2": "down", "PI3K": "down", "Akt/PKB": "down",
+                  "Tumor growth": "partial"},
+        "evidence": [
+            {"claim": "TSC2 is the GAP for Rheb; without it Rheb and mTORC1 are constitutively "
+                      "active.",
+             "studies": ["INOK2003", "GAR2003", "INO2002"],
+             "covers": ["TSC-RHEB", "RHEB-MTORC1", "MTORC1-S6K1", "TSC1/TSC2", "Rheb", "mTORC1",
+                        "S6K1"]},
+            {"claim": "Constitutive S6K1 represses and phosphorylates IRS-1/2, cutting insulin "
+                      "signalling to PI3K and Akt.",
+             "studies": ["HAR2004", "SHA2004"],
+             "covers": ["S6K1-IRS1", "IRS1-PI3K", "PI3K-AKT", "IRS-1 / IRS-2", "PI3K", "Akt/PKB"]},
+            {"claim": "The failure to activate PI3K may explain the low malignant potential of "
+                      "TSC-deficient tumours.",
+             "studies": ["HAR2004", "SHA2004"],
+             "covers": ["MTORC1-TUMOR", "Tumor growth"],
+             "gap": "Stated by the authors as an argument from cell models, not a clinical "
+                    "measurement."},
+        ],
+        "readouts": [
+            {"node": "mTORC1", "literature": "up",
+             "why": "Rheb is GTP-loaded without its GAP.", "studies": ["INOK2003", "GAR2003"]},
+            {"node": "S6K1", "literature": "up", "why": "Constitutive, insulin-independent.",
+             "studies": ["INO2002", "SHA2004"]},
+            {"node": "IRS-1 / IRS-2", "literature": "down",
+             "why": "Repressed and phosphorylated by S6K1.", "studies": ["HAR2004", "SHA2004"]},
+            {"node": "Akt/PKB", "literature": "down",
+             "why": "Akt becomes refractory to insulin and IGF-1. The map gets this only through "
+                    "the curated feedback arrow; without it, straight-line reading would say "
+                    "Akt is untouched.",
+             "studies": ["SHA2004", "HAR2004"]},
+            {"node": "Tumor growth", "literature": "partial",
+             "why": "Growth yes, malignancy mostly no: TSC lesions are largely benign hamartomas, "
+                    "which the authors attribute to the switched-off PI3K/Akt arm. A single "
+                    "'mTORC1 drives tumour growth' arrow cannot express that.",
+             "studies": ["HAR2004", "SHA2004"]},
+        ],
+    },
+]
+
+STATE_CONTEXTS = [
+    ("fed", "Fed", FED_EDGES, FED_NODES, FED_EVIDENCE),
+    ("fasting", "Fasting", FASTING_EDGES, FASTING_NODES, FASTING_EVIDENCE),
+    ("exercise", "Exercise", EXERCISE_EDGES, EXERCISE_NODES, EXERCISE_EVIDENCE),
+]
 
 
 def build():
@@ -210,7 +616,7 @@ def build():
         "id": "all", "cluster": "state", "stub": False, "label": "All (no filter)",
         "brief": "Default view, no context weighting applied. All interactions render at standard "
                  "evidence-tier styling, exactly as today.",
-        "note": "", "edges": {}, "nodes": {},
+        "note": "", "edges": {}, "nodes": {}, "evidence": [], "review": "n/a",
     })
     contexts.append({
         "id": "fed", "cluster": "state", "stub": False, "label": "Fed",
@@ -218,6 +624,7 @@ def build():
                  "mTORC1; AMPK and TSC1/2 sit quiet. Net effect: the cap comes off S6K1 and 4E-BP1, "
                  "autophagy (ULK1, TFEB) stays held off.",
         "note": "", "edges": FED_EDGES, "nodes": FED_NODES,
+        "evidence": FED_EVIDENCE, "review": "proposed",
     })
     contexts.append({
         "id": "fasting", "cluster": "state", "stub": False, "label": "Fasting",
@@ -229,6 +636,7 @@ def build():
                 "releasing that feedback brake does not by itself imply active signalling when upstream "
                 "growth-factor input is also low.",
         "edges": FASTING_EDGES, "nodes": FASTING_NODES,
+        "evidence": FASTING_EVIDENCE, "review": "proposed",
     })
     contexts.append({
         "id": "exercise", "cluster": "state", "stub": False, "label": "Exercise",
@@ -236,42 +644,100 @@ def build():
                  "genuinely unclear in this acute window rather than simply off. mTORC1 is suppressed "
                  "acutely; autophagy runs.",
         "note": "Acute bout shown. Post-exercise refeeding reactivates mTORC1 via the mechanical + "
-                "amino-acid route, which this snapshot does not model. Mitochondrial biogenesis is left "
-                "unevaluated here (na) rather than marked suppressed: this corpus's mTORC1-MITO edge is "
-                "not the dominant exercise-driven route (that runs through AMPK/PGC-1alpha, not curated "
-                "as a distinct edge yet), so scoring it off this edge alone would overclaim.",
+                "amino-acid route, which this snapshot does not model (see Cell type: Muscle). "
+                "Mitochondrial biogenesis is left unevaluated here (na) rather than marked suppressed: "
+                "this corpus's mTORC1-MITO edge is not the dominant exercise-driven route (that runs "
+                "through AMPK/PGC-1alpha, not curated as a distinct edge yet), so scoring it off this "
+                "edge alone would overclaim.",
         "edges": EXERCISE_EDGES, "nodes": EXERCISE_NODES,
+        "evidence": EXERCISE_EVIDENCE, "review": "proposed",
     })
     for cid, spec in STUBS.items():
+        if cid == "immune":
+            contexts.append({
+                "id": "muscle", "cluster": "tissue", "stub": False, "label": "Muscle",
+                "brief": "Skeletal muscle in the anabolic window: resistance exercise followed by "
+                         "a protein meal. Load and feeding enter mTORC1 by two separable routes "
+                         "(load does not need Akt to phosphorylate TSC2, feeding does), and both "
+                         "converge on S6K1, 4E-BP1 and protein synthesis.",
+                "note": "Only arms with muscle-specific evidence in this corpus are shown; the rest "
+                        "of the map is not evaluated for muscle, not assumed inactive. mTORC2 is "
+                        "left out on purpose: muscle-specific rictor loss does not cause the "
+                        "dystrophy that raptor loss does (BEN2008), so its role here is not "
+                        "established enough to draw. The load-to-mTORC1 and synthesis-to-growth "
+                        "steps are compressed links, drawn under VIEW \u2192 Pathway.",
+                "edges": MUSCLE_EDGES, "nodes": MUSCLE_NODES,
+                "evidence": MUSCLE_EVIDENCE, "review": "proposed",
+            })
         contexts.append({
             "id": cid, "cluster": spec["cluster"], "stub": True, "label": spec["label"],
             "brief": spec["brief"], "note": "", "edges": {}, "nodes": {},
+            "evidence": [], "review": "n/a",
         })
+    scenarios = []
+    for sc in SCENARIOS:
+        d = dict(sc)
+        d["cluster"] = "scenario"
+        d["stub"] = False
+        d["review"] = "proposed"
+        d.setdefault("note", "")
+        scenarios.append(d)
     return {
         "meta": {
-            "version": "1.0.0",
+            "version": "2.0.0",
             "source_of_truth": "pathway/contexts.json (generated by build_pathway_contexts.py, "
                                 "overlay on pathway/model.json -- never hand-edited)",
             "vocab": {
                 "state": ["active", "suppressed", "unclear"],
-                "cluster": ["state", "disease", "tissue"],
+                "scenario_node": list(SCN_NODE_STATES),
+                "cluster": ["state", "disease", "tissue", "scenario"],
+                "review": ["proposed", "confirmed", "n/a"],
             },
             "caveat": "Reads as directional emphasis within this curated corpus, not a quantitative "
                       "claim about flux. Node positions never move between contexts -- only weighting "
                       "changes. An id absent from a context's edges/nodes map was not evaluated for "
                       "that context and renders identically to the unfiltered baseline.",
+            "scenario_caveat": "Educational modelling, not validated simulation. Direction and "
+                               "evidence only: no fold-changes, no doses, no time courses. The "
+                               "'map predicts' column is plain sign propagation over the curated "
+                               "arrows (shortest path wins, no feedback strength, no timing) and "
+                               "is shown precisely so you can see where it fails.",
         },
         "contexts": contexts,
+        "scenarios": scenarios,
     }
+
+
+def _check_claims(owner, claims, evaluated, errors, required=True, extra_covered=()):
+    if required and not claims:
+        errors.append(owner + ": curated overlay has no evidence claims")
+    covered = set(extra_covered)
+    for i, cl in enumerate(claims):
+        tag = owner + " claim " + str(i + 1)
+        if not cl.get("claim"):
+            errors.append(tag + ": empty claim text")
+        if not cl.get("studies"):
+            errors.append(tag + ": no studies")
+        for sid in cl.get("studies", []):
+            if sid not in CORPUS_SIDS:
+                errors.append(tag + ": study " + sid + " not in atlas_data/studies_baked.json")
+        for cid in cl.get("covers", []):
+            if cid not in evaluated:
+                errors.append(tag + ": covers " + cid + " which this overlay does not evaluate")
+            covered.add(cid)
+    for cid in sorted(evaluated - covered):
+        errors.append(owner + ": " + cid + " has a state but no claim/study behind it")
 
 
 def validate(doc):
     errors = []
     seen_ids = set()
-    for c in doc["contexts"]:
+    for c in doc["contexts"] + doc.get("scenarios", []):
         if c["id"] in seen_ids:
             errors.append("duplicate context id " + c["id"])
         seen_ids.add(c["id"])
+        is_scn = c.get("cluster") == "scenario"
+        node_vocab = SCN_NODE_STATES if is_scn else ("active", "suppressed", "unclear")
         for eid, state in c["edges"].items():
             if eid not in ALL_EDGE_IDS:
                 errors.append(c["id"] + ": unknown edge id " + eid)
@@ -280,9 +746,51 @@ def validate(doc):
         for nid, state in c["nodes"].items():
             if nid not in ALL_NODE_IDS:
                 errors.append(c["id"] + ": unknown node id " + nid)
-            if state not in ("active", "suppressed", "unclear"):
+            if state not in node_vocab:
                 errors.append(c["id"] + ": bad node state " + nid + "=" + str(state))
+        curated = not c.get("stub") and c["id"] != "all"
+        if curated:
+            evaluated = set(c["edges"]) | set(c["nodes"])
+            # a scenario readout carries its own studies, so it covers its node
+            _check_claims(c["id"], c.get("evidence", []), evaluated, errors,
+                          extra_covered=[r["node"] for r in c.get("readouts", [])])
+        if is_scn:
+            p = c.get("perturbation") or {}
+            if p.get("node") not in ALL_NODE_IDS:
+                errors.append(c["id"] + ": perturbation node missing/unknown")
+            for t in (p.get("targets") or {}):
+                if t not in ALL_NODE_IDS:
+                    errors.append(c["id"] + ": perturbation target " + t + " unknown")
+            if not c.get("lesson"):
+                errors.append(c["id"] + ": scenario has no lesson text")
+            if not c.get("readouts"):
+                errors.append(c["id"] + ": scenario has no readouts")
+            for r in c.get("readouts", []):
+                if r["node"] not in ALL_NODE_IDS:
+                    errors.append(c["id"] + ": readout node " + r["node"] + " unknown")
+                if r["literature"] not in SCN_NODE_STATES:
+                    errors.append(c["id"] + ": readout " + r["node"] + " bad state")
+                if r["node"] not in c["nodes"]:
+                    errors.append(c["id"] + ": readout " + r["node"] + " not drawn in nodes map")
+                elif c["nodes"][r["node"]] != r["literature"]:
+                    errors.append(c["id"] + ": readout " + r["node"] + " disagrees with nodes map")
+                if not r.get("studies"):
+                    errors.append(c["id"] + ": readout " + r["node"] + " has no studies")
+                for sid in r.get("studies", []):
+                    if sid not in CORPUS_SIDS:
+                        errors.append(c["id"] + ": readout study " + sid + " not in corpus")
     return errors
+
+
+def write_atomic(path, text):
+    # LF only, atomic replace -- same CRLF/partial-write trap as the other
+    # scripts that rewrite repo files on the OneDrive-synced Windows mount.
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
 
 
 if __name__ == "__main__":
@@ -295,10 +803,11 @@ if __name__ == "__main__":
         sys.exit(1)
     print("Validation OK.")
     print("Contexts:", [c["id"] for c in doc["contexts"]])
-    for c in doc["contexts"]:
+    for c in doc["contexts"] + doc["scenarios"]:
         if not c["stub"] and c["id"] != "all":
-            print(" ", c["id"], "edges:", len(c["edges"]), "nodes:", len(c["nodes"]))
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(doc, f, indent=2, ensure_ascii=False)
-        f.write("\n")
+            print(" ", c["id"], "edges:", len(c["edges"]), "nodes:", len(c["nodes"]),
+                  "claims:", len(c.get("evidence", [])))
+    if "--check" in sys.argv:
+        sys.exit(0)
+    write_atomic(OUT_PATH, json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
     print("Wrote", OUT_PATH)

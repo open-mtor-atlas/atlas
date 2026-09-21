@@ -306,6 +306,22 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Rebuild the context + Scenario Lab overlay ===
+REM  Pridano 2026-09-21. pathway\contexts.json (Fed/Fasting/Exercise/Muscle a
+REM  scenare Scenario Labu) se dosud generoval jen rucne a skript mel natvrdo
+REM  cestu ze stare Cowork session. Od schema v2 build SPADNE, kdyz nejaky stav
+REM  v overlayi nema claim se studii z korpusu, nebo kdyz odkazuje na hranu/uzel,
+REM  ktery build_pathway_model.py prejmenoval nebo smazal. Musi bezet AZ PO
+REM  build_pathway_model.py a PRED stamp_pathway_version.py.
+py build_pathway_contexts.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_pathway_contexts.py failed - a context or scenario state has
+  echo no cited claim behind it, or points at a node/edge model.json no longer has.
+  exit /b 1
+)
+
+echo.
 echo === Regenerate pre-rendered pages (study/entity/author/about/data/...) ===
 REM  This is what AI crawlers without JS actually read (build_pages.py's own
 REM  header comment explains why) -- and it is also now the only place that
