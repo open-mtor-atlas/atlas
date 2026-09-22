@@ -194,6 +194,17 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
 .ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzrec{display:none;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);
+  border-radius:3px;padding:1px 7px;margin:0 0 8px}
+/* Reading level -> ktera otazka se oznaci "Start here" (viz QZ_LEVEL_REC).
+   Chybejici data-level na <html> = student (stejna konvence jako chrome_shared
+   .LEVEL_SWITCH_CSS), takze medium otazka je doporucena, dokud si ctenar
+   uroven nezmeni. */
+html:not([data-level]) .ac-qzrec[data-lv="student"],
+html[data-level="student"] .ac-qzrec[data-lv="student"]{display:inline-block}
+html[data-level="beginner"] .ac-qzrec[data-lv="beginner"]{display:inline-block}
+html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-qzopts{list-style:none;padding:0;margin:0}
 .ac-qzopts li{margin:0 0 6px}
 .ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
@@ -396,4 +407,193 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
   .ac-list .ac-meta{width:100%}
 }
 
-.ac-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;padding:0;margin:-1px}
+/* ---- Research Challenges (build_academy.py) --------------------------
+   Appended AFTER ACADEMY_CSS, so it inherits every Academy token and only
+   adds what a decision environment needs that a lesson does not: numbered
+   steps, a budget meter, experiment cards and a qualitative result chart.
+   No new palette, no new type scale, radius stays 3px. Spec §32: slightly
+   more immersive than a lesson, unmistakably the same site. */
+.ac-rcframe{font-size:14.5px;line-height:1.6;color:var(--soft);border-left:3px solid var(--line);
+  padding:2px 0 2px 12px;margin:0 0 26px}
+.ac-rcstep{border-top:1px solid var(--line);padding-top:20px;margin:0 0 34px}
+.ac-rcnum{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-rcstep>h2{margin:0 0 10px}
+.ac-rcknow{list-style:none;padding:0;margin:4px 0 18px}
+.ac-rcknow li{border-top:1px solid var(--line);padding:9px 0;font-size:15px;line-height:1.6}
+.ac-rcsid{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+  border:1px solid var(--line);border-radius:3px;padding:1px 5px;text-decoration:none;
+  white-space:nowrap}
+.ac-rcsid:hover{border-color:var(--teal)}
+
+/* budget meter -- a constraint, not a score. No countdown, no colour alarm. */
+.ac-rcbudget{border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin:0 0 18px}
+.ac-rcblabel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 6px}
+.ac-rcbleft{font-size:15px;margin:0 0 8px}
+.ac-rcbleft strong{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal)}
+.ac-rcbartrack{display:block;background:var(--line);border-radius:2px;height:6px;overflow:hidden}
+.ac-rcbarfill{display:block;background:var(--teal);height:100%}
+.ac-rcbudgetbar{margin:0 0 8px}
+
+.ac-rcbtns{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:16px 0 18px}
+
+/* laborator: panel dilcich otazek + rozpocet vedle sebe -------------------
+   Panel je videt od zacatku zamerne: cil "dostat maximum odpovedi za minimum
+   kreditu" se neda sledovat, kdyz clovek nevi, z ceho se ta puvodni otazka
+   sklada. Neni to skore -- je to mapa otazky. */
+.ac-labtop{display:grid;gap:16px;margin:0 0 18px}
+@media (min-width:760px){.ac-labtop{grid-template-columns:1.25fr 1fr;align-items:start}}
+.ac-labgoals{border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.ac-labcount{float:right;font-family:'IBM Plex Mono',monospace;letter-spacing:0;
+  text-transform:none}
+.ac-labcount strong{font-size:16px;color:var(--teal)}
+.ac-labgoallist{list-style:none;padding:0;margin:8px 0 0;counter-reset:g}
+.ac-labgoallist li{display:flex;gap:9px;align-items:flex-start;padding:7px 0;
+  border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--soft)}
+.ac-labgoallist li[data-done="1"]{color:var(--ink)}
+.ac-labtick{font-family:'IBM Plex Mono',monospace;flex:0 0 auto;width:14px}
+.ac-labgoallist li[data-done="1"] .ac-labtick{color:var(--teal);font-weight:600}
+.ac-labgoallist li.ac-labopenq{border-left:2px solid var(--line);padding-left:9px}
+.ac-labgnote{display:block;font-size:13px;line-height:1.5;margin:3px 0 0;opacity:.85}
+.ac-labtop .ac-rcbudget{margin:0}
+
+/* trasa -- klikatelna, navrat kredity nevraci */
+.ac-labpath{margin:0 0 16px}
+.ac-labpath ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:6px 0 0}
+.ac-labpath li{display:flex;align-items:center}
+.ac-labpath li+li::before{content:"→";color:var(--soft);margin-right:6px;
+  font-family:'IBM Plex Mono',monospace}
+.ac-labpath button{font-size:13px;line-height:1.3;background:none;cursor:pointer;
+  border:1px solid var(--line);border-radius:3px;padding:6px 10px;min-height:36px;
+  color:var(--ink);text-align:left}
+.ac-labpath button:hover{border-color:var(--teal);color:var(--teal)}
+.ac-labpath button span{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--soft);margin-left:5px}
+.ac-labpath li[data-here="1"] button{background:var(--ink);color:var(--on-ink,#fff);
+  border-color:var(--ink);font-weight:600}
+.ac-labpath li[data-here="1"] button span{color:var(--on-ink,#fff);opacity:.7}
+
+.ac-labnexthead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  justify-content:space-between;margin:18px 0 8px;border-bottom:1px solid var(--line);
+  padding-bottom:7px}
+.ac-labnextlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--soft);margin:0}
+.ac-labremain{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--soft);margin:0;white-space:nowrap}
+.ac-labremain strong{font-size:15px;color:var(--teal);letter-spacing:0}
+.ac-labafter{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--soft);margin:0;text-align:center;width:100%}
+.ac-labopenbox{margin:0 0 18px}
+.ac-labopenbox>summary{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
+  min-height:44px;display:flex;align-items:center}
+.ac-labopens{font-size:14px;line-height:1.55;color:var(--soft);margin:14px 0 10px}
+.ac-labpred{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);
+  border-radius:3px;padding:3px 7px;margin:0 0 10px;line-height:1.4}
+.ac-labfull>[data-rc-out]{border-top:none;margin-top:0}
+
+/* debrief -- co ta sada dohromady koupila */
+.ac-rcdebrief{border:1px solid var(--teal);border-radius:3px;padding:16px 18px;margin:0 0 18px}
+.ac-rcdebrief h3{margin:0 0 8px;font-size:17px;display:inline-block}
+.ac-rcdebrief h3:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.ac-rcdebrief p{font-size:14.5px;line-height:1.62}
+.ac-rcshort{font-size:16px;line-height:1.6;margin:0 0 10px}
+.ac-rcrules{list-style:none;padding:0;margin:0 0 14px}
+.ac-rcrules li{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px;
+  font-size:14.5px;line-height:1.62}
+.ac-rcport{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:10px 0;margin:0 0 14px}
+.ac-rcportnames{font-weight:600;margin:0 0 4px}
+.ac-rcskip{list-style:none;padding:0;margin:0}
+.ac-rcskip li{border-top:1px solid var(--line);padding:8px 0;display:grid;
+  grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;font-size:14px;line-height:1.5}
+.ac-rcskipn{font-weight:600}
+.ac-rcskipc{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);
+  white-space:nowrap;text-align:right}
+.ac-rcskipa{grid-column:1/-1;color:var(--soft)}
+
+/* krok "Where the question stands" */
+.ac-rcanswer{border-left:3px solid var(--teal);padding:2px 0 2px 14px;margin:0 0 20px}
+.ac-rcshort strong{font-family:'IBM Plex Mono',monospace}
+.ac-rcanswer .ac-rcshort{font-size:17.5px;line-height:1.58;margin:0}
+.ac-rcinterp p{font-size:15.5px;line-height:1.65;margin:0 0 12px}
+.ac-rcverdicts dt{font-size:15px}
+.ac-rcverdicts dd{color:var(--ink)}
+
+/* experiment card */
+.ac-rcspent{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0}
+.ac-rcexp{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 16px}
+
+/* volba kroku ------------------------------------------------------------
+   Moznosti musi jit POROVNAT, jinak to neni volba. Proto grid vedle sebe a
+   kompaktni hlava: cena velkym cislem (to je ten kompromis), nazev, na co
+   miri, co si zada, a navrh sbaleny do <details>. Vysledek se rozbaluje az
+   u kroku, na kterem clovek stoji -- pred zaplacenim by to stejne byla
+   odpoved na otazku, kterou si jeste nekoupil. */
+[data-lab-next],[data-lab-open]>div{display:grid;gap:14px;align-items:stretch;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,224px),1fr))}
+.ac-labnode[data-view="choice"]{margin:0;display:flex;flex-direction:column}
+.ac-labnode[data-view="choice"] .ac-labfull{display:none}
+.ac-labnode[data-view="choice"] .ac-labchoice{flex:1;display:flex;flex-direction:column}
+.ac-labnode[data-view="choice"] .ac-labact{margin-top:auto;padding-top:10px}
+.ac-labnode[data-view="choice"] .ac-rcrun{width:100%;justify-content:center}
+.ac-labnode[data-view="result"]{border-color:var(--teal)}
+.ac-labcost{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 4px}
+.ac-labcost strong{font-size:26px;line-height:1;color:var(--teal);letter-spacing:0;
+  margin-right:4px}
+.ac-labchoice h3{margin:0 0 10px;font-size:16.5px;line-height:1.3}
+.ac-labfield{font-size:13.5px;line-height:1.5;color:var(--soft);margin:0 0 8px}
+.ac-labfield .ac-rclbl{margin:0 0 1px}
+.ac-labdesign{margin:2px 0 0}
+.ac-labdesign>summary{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--teal);cursor:pointer;
+  min-height:36px;display:flex;align-items:center}
+.ac-labdesign .ac-cmp{font-size:13.5px}
+.ac-labact{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ac-cta[hidden],.ac-rcrun[hidden]{display:none}
+.ac-rcrun[disabled]{opacity:.45;cursor:not-allowed}
+.ac-rcrun[disabled]:hover{background:none;color:var(--ink)}
+.ac-rcdenied{font-size:14px;color:var(--soft);line-height:1.55;margin:6px 0 0}
+.ac-rcexp .ac-cmp tr:last-child th,.ac-rcexp .ac-cmp tr:last-child td{border-bottom:none}
+.ac-rcexp .ac-cmpwrap{margin-bottom:2px}
+.ac-rcout{border-top:1px solid var(--line);margin:12px 0 0;padding-top:12px}
+.ac-rcsrc,.ac-rchypo{font-size:14px;line-height:1.6;margin:0 0 10px}
+.ac-rclbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:600;
+  display:block;margin:0 0 3px}
+.ac-rchypo{border-left:3px solid var(--soft);padding:2px 0 2px 12px;color:var(--soft)}
+.ac-rchypo .ac-rclbl{color:var(--ink)}
+
+/* qualitative result chart -- levels, never invented numbers */
+.ac-rcchart{margin:0 0 8px}
+.ac-rcunit{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 8px}
+.ac-rcbarrow{display:grid;grid-template-columns:minmax(0,1fr) 42% auto;gap:10px;
+  align-items:center;padding:4px 0;font-size:14px}
+.ac-rcbarlbl{line-height:1.4}
+.ac-rcbarval{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  white-space:nowrap}
+@media (max-width:560px){
+  .ac-rcbarrow{grid-template-columns:minmax(0,1fr);gap:3px}
+  .ac-rcbarval{text-align:right}
+}
+.ac-rcinfo{font-size:14px;line-height:1.6;color:var(--soft);margin:10px 0 0}
+.ac-rcnotes{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:8px 0 12px}
+.ac-rcnotes p{font-size:14.5px;line-height:1.6;margin:0 0 8px}
+.ac-rcnotes p:last-child{margin-bottom:0}
+.ac-rcnew{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:12px 14px;margin:0 0 14px}
+.ac-rcnewlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-rcnew p:last-child{margin:0;font-size:15px;line-height:1.62}
+.ac-rccmp{border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.ac-rcrefl{margin:0 0 18px}
+.ac-rccommit{font-size:14px;color:var(--teal);margin:6px 0 0;
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.03em}
+.ac-rcnextlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);font-weight:600;margin:14px 0 5px}
+.ac-rc .ac-list .ac-n{width:26px}

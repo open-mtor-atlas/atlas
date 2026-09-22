@@ -100,6 +100,19 @@
     });
   }
 
+  /* ---------------- scaffolding (bod 3 zadani z 22.9.) ----------------
+     Mira lesseni pred polozkou se meni s reading levelem, ne latka: hint je
+     jen na beginner urovni, nic neodemyka a neovlivnuje spravnost odpovedi
+     ani XP/kalibraci. Student a research zustavaji presne v dnesnim chovani
+     (bez hintu), aby se nezmenilo nic v tom, co uz je nasazene a overene. */
+  function hintFor(item){
+    if(PA.readingLevel() !== 'beginner') return '';
+    var nid = (item.nodes || [])[0];
+    var h = nid && D.nodes[nid] && D.nodes[nid].hint;
+    if(!h) return '';
+    return '<details class="pa-hint"><summary>Need a hint?</summary><p>' + esc(h) + '</p></details>';
+  }
+
   /* ---------------- generic MCQ card ---------------- */
   function mcq(item, title, prog, after){
     var opts = '', i, letters = 'ABCDEFGH';
@@ -111,6 +124,7 @@
          (item.stem ? '<div class="pa-stem">' + item.stem + '</div>' : '') +
          '<p class="pa-q">' + item.prompt + '</p>' +
          (item.sub ? '<p class="pa-sub">' + esc(item.sub) + '</p>' : '') +
+         hintFor(item) +
          '<div class="pa-opts">' + opts + '</div>' +
          (item.game === 'frontier' ? '<p class="pa-note">' + D.frontierHelp + '</p>' : '') +
          '<div id="paConf"></div><div id="paFb"></div></div>');
@@ -220,6 +234,7 @@
          '<div class="pa-ctrls">' + setting + '</div>' +
          '<div class="pa-diagram">' + diagram(M, null) + '</div>' +
          '<p class="pa-q">' + q.prompt + '</p><p class="pa-sub">' + esc(M.title) + '</p>' +
+         hintFor(item) +
          '<div class="pa-opts">' + readouts.map(function(r,i){
             return '<button class="pa-opt" type="button" data-i="' + i + '">' +
                    '<span class="pa-k">' + 'ABCD'[i] + '</span><span>' + r + '</span></button>'; }).join('') +
@@ -584,11 +599,32 @@
                     ' &middot; ' + esc(L.t) + '</a> &mdash; ' + note + '</p>';
     box.hidden = false;
   }
+  /* Registr a poradi polozek v setu z lekce podle reading levelu (bod 1-2
+     zadani z 22.9.). Pool a povoleni (allowed()) se NEMENI -- level nic
+     neodemyka a neuvolnuje, jen preskladava totez, co uz weakestFirst() vrati.
+     Student (chybejici uroven) je kanonicky: chovani je bit-identicke
+     predchozimu nasazeni, aby beh, ktery uz probehl, zustal nezmenen.
+     Beginner dostane nejlehci polozky napred (mene stresu na startu lekce),
+     research nejtezsi napred (min casu na rozehrivku, kterou nepotrebuje).
+     Mastery poradi (weakestFirst) je vzdy tie-break, ne prvni klic -- level
+     meni jen to, ktera obtiznost dostane prioritu. */
+  function orderByLevel(list, lv){
+    var base = PA.weakestFirst(list);
+    if(lv !== 'beginner' && lv !== 'research') return base;
+    var sign = (lv === 'beginner') ? 1 : -1;
+    var withIdx = base.map(function(it, i){ return [it, i]; });
+    withIdx.sort(function(a, b){
+      var da = a[0].diff || 1, db = b[0].diff || 1;
+      if(da !== db) return sign * (da - db);
+      return a[1] - b[1]; /* stabilni tie-break na puvodni weakestFirst poradi */
+    });
+    return withIdx.map(function(p){ return p[0]; });
+  }
   function startLesson(slug){
     var p = PA.lessonPool(slug);
     if(!p.length) return false;
     mode = 'lesson'; pressTile('');
-    var ids = PA.weakestFirst(p).slice(0, 8).map(function(it){ return it.id; });
+    var ids = orderByLevel(p, PA.readingLevel()).slice(0, 8).map(function(it){ return it.id; });
     startQueue(ids, 'Lesson ' + esc(D.lessons[slug].n) + ' &middot; ' + esc(D.lessons[slug].t));
     return true;
   }

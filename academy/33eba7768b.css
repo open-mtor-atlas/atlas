@@ -194,6 +194,17 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
 .ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzrec{display:none;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);
+  border-radius:3px;padding:1px 7px;margin:0 0 8px}
+/* Reading level -> ktera otazka se oznaci "Start here" (viz QZ_LEVEL_REC).
+   Chybejici data-level na <html> = student (stejna konvence jako chrome_shared
+   .LEVEL_SWITCH_CSS), takze medium otazka je doporucena, dokud si ctenar
+   uroven nezmeni. */
+html:not([data-level]) .ac-qzrec[data-lv="student"],
+html[data-level="student"] .ac-qzrec[data-lv="student"]{display:inline-block}
+html[data-level="beginner"] .ac-qzrec[data-lv="beginner"]{display:inline-block}
+html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-qzopts{list-style:none;padding:0;margin:0}
 .ac-qzopts li{margin:0 0 6px}
 .ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
@@ -395,3 +406,5 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
   .ac-list a,.ac-list .ac-row{flex-wrap:wrap;gap:8px}
   .ac-list .ac-meta{width:100%}
 }
+
+.ac-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;padding:0;margin:-1px}
