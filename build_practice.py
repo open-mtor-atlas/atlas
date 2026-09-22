@@ -136,11 +136,17 @@ def coverage(les, pw):
     for n in pw["nodes"]:
         if n["id"] in core or n["id"] in route_nodes:
             slug = lesson_of.get(n["id"], "")
+            expl = n.get("explain") or {}
             meta[n["id"]] = {
                 "label": n["label"], "cls": n["cls"], "comp": n["compartment"],
                 "x": n["x"], "y": n["y"],
                 "pool": "core" if n["id"] in core else "route",
                 "lesson": slug, "url": url_of.get(slug, ""),
+                # Beginner-uroven vysvetleni uzlu z pathway/model.json, pouzita
+                # jako "hint" pred polozkou v Arene na beginner reading levelu
+                # (bod 3 zadani z 22.9.). Zadna nova proza -- jen znovupouziti
+                # toho, co uz existuje pro Academy lekce.
+                "hint": expl.get("beginner") or "",
             }
     return core, route_nodes, meta
 
@@ -842,6 +848,11 @@ html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
 .pa-q{font-size:17px;line-height:1.5;margin:0 0 4px;font-weight:600}\n.pa-stem{border-left:3px solid var(--line);padding:2px 0 2px 15px;margin:0 0 16px;\n  font-size:15px;line-height:1.6;color:var(--soft)}\n.pa-stem strong{color:var(--ink)}
 .pa-sub{font-size:13px;color:var(--soft);margin:0 0 16px;font-family:'IBM Plex Mono',monospace;
   letter-spacing:.03em}
+.pa-hint{border:1px dashed var(--line);border-radius:3px;padding:9px 13px;margin:0 0 14px;
+  font-size:13.5px;color:var(--soft)}
+.pa-hint summary{cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal);min-height:22px}
+.pa-hint p{margin:8px 0 0;color:var(--ink)}
 .pa-opts{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
 .pa-opt{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;
   border:1px solid var(--line);border-radius:3px;background:none;color:var(--ink);
@@ -1701,6 +1712,19 @@ PRACTICE_JS = """
     });
   }
 
+  /* ---------------- scaffolding (bod 3 zadani z 22.9.) ----------------
+     Mira lesseni pred polozkou se meni s reading levelem, ne latka: hint je
+     jen na beginner urovni, nic neodemyka a neovlivnuje spravnost odpovedi
+     ani XP/kalibraci. Student a research zustavaji presne v dnesnim chovani
+     (bez hintu), aby se nezmenilo nic v tom, co uz je nasazene a overene. */
+  function hintFor(item){
+    if(PA.readingLevel() !== 'beginner') return '';
+    var nid = (item.nodes || [])[0];
+    var h = nid && D.nodes[nid] && D.nodes[nid].hint;
+    if(!h) return '';
+    return '<details class="pa-hint"><summary>Need a hint?</summary><p>' + esc(h) + '</p></details>';
+  }
+
   /* ---------------- generic MCQ card ---------------- */
   function mcq(item, title, prog, after){
     var opts = '', i, letters = 'ABCDEFGH';
@@ -1712,6 +1736,7 @@ PRACTICE_JS = """
          (item.stem ? '<div class="pa-stem">' + item.stem + '</div>' : '') +
          '<p class="pa-q">' + item.prompt + '</p>' +
          (item.sub ? '<p class="pa-sub">' + esc(item.sub) + '</p>' : '') +
+         hintFor(item) +
          '<div class="pa-opts">' + opts + '</div>' +
          (item.game === 'frontier' ? '<p class="pa-note">' + D.frontierHelp + '</p>' : '') +
          '<div id="paConf"></div><div id="paFb"></div></div>');
@@ -1821,6 +1846,7 @@ PRACTICE_JS = """
          '<div class="pa-ctrls">' + setting + '</div>' +
          '<div class="pa-diagram">' + diagram(M, null) + '</div>' +
          '<p class="pa-q">' + q.prompt + '</p><p class="pa-sub">' + esc(M.title) + '</p>' +
+         hintFor(item) +
          '<div class="pa-opts">' + readouts.map(function(r,i){
             return '<button class="pa-opt" type="button" data-i="' + i + '">' +
                    '<span class="pa-k">' + 'ABCD'[i] + '</span><span>' + r + '</span></button>'; }).join('') +
@@ -2185,11 +2211,32 @@ PRACTICE_JS = """
                     ' &middot; ' + esc(L.t) + '</a> &mdash; ' + note + '</p>';
     box.hidden = false;
   }
+  /* Registr a poradi polozek v setu z lekce podle reading levelu (bod 1-2
+     zadani z 22.9.). Pool a povoleni (allowed()) se NEMENI -- level nic
+     neodemyka a neuvolnuje, jen preskladava totez, co uz weakestFirst() vrati.
+     Student (chybejici uroven) je kanonicky: chovani je bit-identicke
+     predchozimu nasazeni, aby beh, ktery uz probehl, zustal nezmenen.
+     Beginner dostane nejlehci polozky napred (mene stresu na startu lekce),
+     research nejtezsi napred (min casu na rozehrivku, kterou nepotrebuje).
+     Mastery poradi (weakestFirst) je vzdy tie-break, ne prvni klic -- level
+     meni jen to, ktera obtiznost dostane prioritu. */
+  function orderByLevel(list, lv){
+    var base = PA.weakestFirst(list);
+    if(lv !== 'beginner' && lv !== 'research') return base;
+    var sign = (lv === 'beginner') ? 1 : -1;
+    var withIdx = base.map(function(it, i){ return [it, i]; });
+    withIdx.sort(function(a, b){
+      var da = a[0].diff || 1, db = b[0].diff || 1;
+      if(da !== db) return sign * (da - db);
+      return a[1] - b[1]; /* stabilni tie-break na puvodni weakestFirst poradi */
+    });
+    return withIdx.map(function(p){ return p[0]; });
+  }
   function startLesson(slug){
     var p = PA.lessonPool(slug);
     if(!p.length) return false;
     mode = 'lesson'; pressTile('');
-    var ids = PA.weakestFirst(p).slice(0, 8).map(function(it){ return it.id; });
+    var ids = orderByLevel(p, PA.readingLevel()).slice(0, 8).map(function(it){ return it.id; });
     startQueue(ids, 'Lesson ' + esc(D.lessons[slug].n) + ' &middot; ' + esc(D.lessons[slug].t));
     return true;
   }

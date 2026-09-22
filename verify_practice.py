@@ -38,8 +38,16 @@ PRAVIDLA
       Bez toho by rozcestnik na konci lekce vedl do Areny bez filtru.
   P14 Reading level se u odpovedi opravdu ZAPISUJE (ne jen jmenuje) a odchazi
       i do udalosti item_answered. Pravidlo je psane stejne prisne jako P5:
-      hleda se skutecny zapis. Uroven nesmi nic odemykat ani menit prahy --
-      kdyby zacala, je to zmena zadani, ne detail implementace.
+      hleda se skutecny zapis. Uroven nesmi nic odemykat ani menit prahy,
+      brany ani obtiznost -- to overuje jmenovite ve funkcich allowed(),
+      rankReady(), promote(), scoreItem(), calibBand(), brier(),
+      badgeProgress() a daily(), ktere musi zustat uroven-slepe.
+  P15 Registr/poradi polozek a lesseni PRED polozkou se s urovni smi menit
+      (zadani 22.9., body 1-3) -- ale jen jako preskladani/pridani, nikdy
+      jako filtr: orderByLevel() nesmi volat allowed()/pool() ani polozky
+      odebirat (zadny .filter(/continue/return false), jen .sort(); hintFor()
+      nesmi sahat na S.xp, S.seen ani volat record()/scoreItem()/calibBand()
+      -- hint je text, ne branka.
 
     py verify_practice.py          # 0 = cisto, 1 = nalezy
 """
@@ -327,10 +335,59 @@ def main():
     if engine_js.count("reading_level:") < 2:
         bad("engine", "udalost item_answered nenese reading_level u obou cest "
                       "(polozka i wire) (P14)")
-    for banned in ("if(readingLevel()", "readingLevel() ===", "lv === 'beginner'"):
-        if banned in engine_js:
-            bad("engine", "uroven se pouziva jako podminka (%r) -- prahy, brany ani "
-                          "obtiznost se s urovni menit nesmi (P14)" % banned)
+    def _func_body(src, name):
+        """Vytahne telo JS funkce `function name(...){ ... }` pocitanim
+        zavorek -- ne regexem na jeden radek, protoze tela jsou dlouha a
+        vnorena. None, pokud funkce v `src` neni (napr. jina soubor/scope)."""
+        m = re.search(r"function\s+" + re.escape(name) + r"\s*\([^)]*\)\s*\{", src)
+        if not m:
+            return None
+        i, depth = m.end(), 1
+        start = i
+        while i < len(src) and depth:
+            if src[i] == "{":
+                depth += 1
+            elif src[i] == "}":
+                depth -= 1
+            i += 1
+        return src[start:i-1]
+
+    # Tyto funkce museji zustat uroven-slepe: level nesmi ovlivnit, co je
+    # allowed, kdy se povysi, kolik XP/kalibrace polozka nese, ani Brierovu
+    # branu, badge progres nebo slozeni Daily 5. Kdyby zacal, prahy tri
+    # urovni by uz nebyly srovnatelne (viz zamknute rozhodnuti z 5.9.).
+    LEVEL_BLIND_FNS = ("allowed", "rankReady", "promote", "scoreItem",
+                       "calibBand", "brier", "badgeProgress", "daily")
+    for fn in LEVEL_BLIND_FNS:
+        body = _func_body(engine_js, fn)
+        if body is None:
+            bad("engine", "funkce %s() nenalezena -- P14/P15 ji nemuze overit" % fn)
+            continue
+        if "readingLevel(" in body or re.search(r"\blv\b", body):
+            bad("engine", "%s() sahá na reading level -- prahy, brany ani obtiznost "
+                          "se s urovni menit nesmi (P14)" % fn)
+
+    # ---- P15: registr/poradi/lesseni se meni jen preskladanim, ne filtrem --
+    ob = _func_body(engine_js, "orderByLevel")
+    if ob is None:
+        bad("engine", "orderByLevel() chybi -- bod 1-2 zadani z 22.9. neni napojen (P15)")
+    else:
+        if ".sort(" not in ob:
+            bad("engine", "orderByLevel() nepresklada pomoci .sort() -- neni jasne, "
+                          "ze jen meni poradi (P15)")
+        for banned in (".filter(", "allowed(", "PA.pool(", "return false"):
+            if banned in ob:
+                bad("engine", "orderByLevel() obsahuje %r -- smi jen preskladat, "
+                              "nikdy polozky odebirat (P15)" % banned)
+
+    hf = _func_body(engine_js, "hintFor")
+    if hf is None:
+        bad("engine", "hintFor() chybi -- bod 3 zadani z 22.9. (lesseni) neni napojen (P15)")
+    else:
+        for banned in ("S.xp", "S.seen", "record(", "scoreItem(", "calibBand(", "PA.record"):
+            if banned in hf:
+                bad("engine", "hintFor() sahá na %r -- hint je jen text, nesmi ovlivnit "
+                              "skore ani stav (P15)" % banned)
 
     # ---- vysledek ----------------------------------------------------------
     c = bank["counts"]
@@ -341,7 +398,7 @@ def main():
         for p in PROBLEMS:
             print("  ! " + p)
         return 1
-    print("Cisto -- vsech ctrnact pravidel prosslo.")
+    print("Cisto -- vsech patnact pravidel prosslo.")
     return 0
 
 

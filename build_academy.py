@@ -754,6 +754,17 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-qz .ac-qzq{font-size:16px;line-height:1.55;margin:0 0 10px}
 .ac-qzn{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:block;margin:0 0 4px}
+.ac-qzrec{display:none;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);
+  border-radius:3px;padding:1px 7px;margin:0 0 8px}
+/* Reading level -> ktera otazka se oznaci "Start here" (viz QZ_LEVEL_REC).
+   Chybejici data-level na <html> = student (stejna konvence jako chrome_shared
+   .LEVEL_SWITCH_CSS), takze medium otazka je doporucena, dokud si ctenar
+   uroven nezmeni. */
+html:not([data-level]) .ac-qzrec[data-lv="student"],
+html[data-level="student"] .ac-qzrec[data-lv="student"]{display:inline-block}
+html[data-level="beginner"] .ac-qzrec[data-lv="beginner"]{display:inline-block}
+html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-qzopts{list-style:none;padding:0;margin:0}
 .ac-qzopts li{margin:0 0 6px}
 .ac-qzopt{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;
@@ -1893,6 +1904,14 @@ QZ_KEYS = "ABCD"
 QZ_LEVEL = {"easy": "Warm-up", "medium": "Step up", "hard": "Harder"}
 
 
+# Reading level (beginner/student/research) -> ktera otazka je "Start here".
+# Vsechny tri otazky zustavaji v HTML pro kazdou uroven (pravidlo "CSS schova
+# to, co uz je v HTML", nikdy "obsah dotvori") -- meni se jen to, ktera z nich
+# se oznaci jako doporucena. Level tim NIC neodemyka a nemeni poradi otazek
+# na strance (rule 11 poradi easy/medium/hard je dal fixni).
+QZ_LEVEL_REC = {"easy": "beginner", "medium": "student", "hard": "research"}
+
+
 def quiz_block(les):
     """Tri otazky, lehka -> tezka. Data se validuji uz ve verify_academy.py;
     tady se jen kresli. Odpoved je v data-answer, protoze fallback <details>
@@ -1906,9 +1925,11 @@ def quiz_block(les):
            "reading.</p>", '<div class="ac-quiz">']
     for i, q in enumerate(qz):
         lvl = QZ_LEVEL.get(q.get("level"), "Question")
+        rec = QZ_LEVEL_REC.get(q.get("level"), "")
+        rec_badge = ('<span class="ac-qzrec" data-lv="%s">Start here</span>' % rec) if rec else ""
         out.append('<div class="ac-qz" data-answer="%d">' % q["answer"])
-        out.append('<p class="ac-qzq"><span class="ac-qzn">Question %d &middot; %s</span>%s</p>'
-                   % (i + 1, e(lvl), prose(q["prompt"])))
+        out.append('<p class="ac-qzq"><span class="ac-qzn">Question %d &middot; %s</span>%s%s</p>'
+                   % (i + 1, e(lvl), rec_badge, prose(q["prompt"])))
         out.append('<ul class="ac-qzopts" role="group" aria-label="Answer options">')
         for j, opt in enumerate(q["options"]):
             out.append('<li><button type="button" class="ac-qzopt" data-i="%d">'
@@ -2530,6 +2551,18 @@ def curriculum_page(module, lessons_by_slug):
     body.append('<p class="ac-note">New to this? '
                 '<a href="%s/academy/before-you-start/">What you need first</a> '
                 '&mdash; seven terms and six questions to check yourself against.</p>' % SITE)
+    # Doporucena trasa kurzem podle reading levelu (data-level na <html>).
+    # Poradi lekci a hranice casti se nemeni pro nikoho -- meni se jen to,
+    # co strankaradi ctenari REKNE o poradi. Chybejici uroven = student, tedy
+    # beze zmeny oproti dosavadnimu chovani.
+    body.append(
+        '<p class="ac-note lv-beginner">New here: go in order, Part I then II '
+        'then III. Each part leans on the one before it, so skipping ahead '
+        'makes Part II hard to follow.</p>'
+        '<p class="ac-note lv-research">Already comfortable with the mechanism? '
+        'Lesson 10 (how to read an mTOR paper) and the Research Challenges lab '
+        'are the highest-leverage entry points here &mdash; treat the rest as '
+        'reference and dip in where a gap shows up.</p>')
     body.append('<ul class="ac-list">%s</ul>' % "".join(rows))
     # Poznamka o planovanych lekcich se ukaze, jen kdyz nejaka planovana je.
     # Jinak by stranka varovala pred necim, co na ni neni (od 2026-08-30 je

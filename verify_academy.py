@@ -1065,6 +1065,27 @@ def main():
                         bad(rel, "blok Practice jmenuje %r, coz neni uzel v modelu" % lab)
         if is_lesson and "Check yourself" in h and "ac-qzfall" not in h:
             bad(rel, "kviz nema bez-JS fallback -- bez JS by to byl slepy seznam moznosti")
+        # 20 kviz -> reading level (zadani 22.9., bod 5): kazda otazka kvizu
+        # dostane presne jeden "Start here" stitek pro svou uroven (easy=
+        # beginner, medium=student, hard=research); vsechny tri otazky
+        # zustavaji na strance pro kazdou uroven -- meni se jen doporuceni,
+        # nikdy obsah ani poradi (rule 11).
+        if is_lesson and "Check yourself" in h:
+            for lv in ("beginner", "student", "research"):
+                n = h.count('class="ac-qzrec" data-lv="%s"' % lv)
+                if n != 1:
+                    bad(rel, "kviz ma %d stitku Start here pro uroven %r, ma byt "
+                             "presne 1 (pravidlo 20)" % (n, lv))
+        # 21 doporucena trasa kurzem podle urovne (zadani 22.9., bod 4):
+        # curriculum stranka nese poznamku pro beginner i research -- poradi
+        # a hranice casti (D2) se pro nikoho nemeni, meni se jen text.
+        if 'class="ac-parthead"' in h:
+            if 'ac-note lv-beginner' not in h:
+                bad(rel, "curriculum stranka nema doporucenou trasu pro beginner "
+                         "(pravidlo 21)")
+            if 'ac-note lv-research' not in h:
+                bad(rel, "curriculum stranka nema doporucenou trasu pro research "
+                         "(pravidlo 21)")
         if is_lesson and "What does the evidence say?" not in h:
             bad(rel, "lekce nema sekci Evidence primo v HTML (crawler bez JS by ji nevidel)")
         if "mtor-atlas.org" not in h:
