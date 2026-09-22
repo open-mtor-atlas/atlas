@@ -35,6 +35,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(HERE, "index.html")
 STUDIES_JSON = os.path.join(HERE, "atlas_data", "studies_baked.json")
 ENTITIES_JSON = os.path.join(HERE, "atlas_data", "entities_baked.json")
+# 2026-09-21: TREti bake cesta, ktera se nikdy nesynchronizovala. ATLAS_GAPS se
+# psalo do index.html, ale atlas_data/gaps_baked.json -- ze ktereho build_pages.py
+# stavi VSECHNY verejne /question/ stranky -- nepsal nikdo. Audit 2026-09-21 nasel
+# 27 rozdilnych poli mezi temi dvema ulozisti, vcetne oprav znenim, ktere uz v
+# aplikaci davno byly a na verejne strance ne. Stejna trida chyby jako
+# entities_baked.json zamrzle na 120/146 vyse.
+GAPS_JSON = os.path.join(HERE, "atlas_data", "gaps_baked.json")
 AUTHORS_JSON = os.path.join(HERE, "atlas_data", "author_allowlist.json")
 
 # Ověřený atomický zápis sdílený s bake_from_mcp.py (ten modul má main()
@@ -238,6 +245,15 @@ def gaps_js(existing_beginner=None):
             row["hyp_beginner"] = hyp_beginner
         arr.append(row)
     print("  ATLAS_GAPS: %d/%d records carrying forward Beginner-level text" % (carried, len(arr)))
+    # Zapisujeme i gaps_baked.json, jinak se verejne /question/ stranky rozejdou
+    # s kartami v aplikaci (viz komentar u GAPS_JSON). Neni to fatalni cesta:
+    # kdyz zapis selze, bake pokracuje, ale build_pages.py postavi stranky ze
+    # stareho souboru -- proto to hlasi nahlas.
+    if write_json_verified(GAPS_JSON, arr):
+        print("  atlas_data/gaps_baked.json zapsan (%d zaznamu)" % len(arr))
+    else:
+        print("  VAROVANI: gaps_baked.json se nepodarilo zapsat -- /question/ stranky "
+              "se postavi ze stare kopie")
     return "const ATLAS_GAPS = " + json.dumps(arr, ensure_ascii=False) + ";"
 
 

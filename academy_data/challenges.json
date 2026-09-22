@@ -160,7 +160,7 @@
        "rheb-sufficient",
        "feedback-measured"
       ],
-      "note": "Two findings, and that is the point: an overexpression result only answers this once you have shown the input arm did not move with it."
+      "note": "Two findings, and that is the point: an overexpression result only answers this once you have checked whether the input arm moved with it."
      },
      {
       "id": "g4",
@@ -266,7 +266,7 @@
       ],
       "design": {
        "model": "Cultured mammalian cells and Drosophila",
-       "perturbation": "Stimulate serum-starved cells with insulin, with and without TSC1/TSC2",
+       "perturbation": "Stimulate serum-starved cells with insulin, with and without co-expressed TSC1/TSC2",
        "readout": "Fraction of Rheb in the GTP state, alongside p-S6K1",
        "control": "Serum-starved, unstimulated cells; PI3K inhibition"
       },
@@ -287,7 +287,7 @@
          "level": "high"
         },
         {
-         "label": "+ insulin, TSC1/TSC2 present",
+         "label": "+ insulin, TSC1/TSC2 co-expressed",
          "level": "low"
         }
        ],
@@ -351,7 +351,7 @@
        ]
       },
       "result": {
-       "unit": "mTORC1 output (p-S6K1 / p-4E-BP1)",
+       "unit": "mTORC1 output (p-S6K1)",
        "bars": [
         {
          "label": "Control",
@@ -366,7 +366,7 @@
          "level": "low"
         }
        ],
-       "caption": "Direction and rank order as reported across the two source studies, which also report increased growth in Drosophila tissue. Schematic, not measured values."
+       "caption": "Direction and rank order as reported across the two source studies, which also report increased growth in Drosophila tissue. The bars show p-S6K1 only, because rapamycin blocks 4E-BP1 phosphorylation just partly. Schematic, not measured values."
       },
       "conclude": [
        "More Rheb is sufficient to raise mTORC1 output in these systems, and the effect runs through mTOR rather than around it.",
@@ -422,7 +422,7 @@
         },
         {
          "label": "No",
-         "note": "Hard to hold once the feedback is on the table: the input arm moved, so &lsquo;more Rheb-GTP acting on mTORC1&rsquo; is one of at least two routes from the manipulation to the readout."
+         "note": "Hard to hold once the feedback is on the table: the input arm moved, so the cell you measured is not the control cell with one arrow strengthened. The feedback cannot explain the rise, because it points the other way, but it changes what the rise is a measurement of."
         },
         {
          "label": "Not enough information",
@@ -438,7 +438,7 @@
       "label": "Measure p-AKT in the same lysates",
       "cost": 15,
       "equipment": "The lysates you already have and one more antibody. The cheapest follow-up here, and the one that decides what the step above meant.",
-      "addresses": "Whether the overexpression result came through Rheb at all",
+      "addresses": "Whether the manipulation moved more than one arm of the network",
       "discriminates": [
        "nucleotide"
       ],
@@ -472,7 +472,7 @@
        "With the feedback measured rather than assumed, the size of the objection is on the record and the overexpression result can be stated with its scope attached."
       ],
       "cannotConclude": [
-       "How much of the p-S6K1 rise travelled through Rheb and how much through the feedback. Separating those needs an acute or endogenous manipulation, not another blot.",
+       "What the p-S6K1 rise would have been with the insulin arm held where it was. The feedback cannot have produced the rise, since lower p-AKT points the other way, but it means the rise was measured on a re-set network. Holding that arm constant needs an acute or endogenous manipulation, not another blot.",
        "Anything about location &mdash; nothing here reports where any of these proteins were."
       ],
       "informative": "Low on its own and high in combination. Fifteen units turn a result you could not interpret into one you can, which is the cheapest thing you will do in this challenge.",
@@ -483,7 +483,7 @@
        },
        {
         "label": "It weakens my hypothesis",
-        "note": "If you read the overexpression result as clean evidence that loading drives the output, then yes: part of that effect has a second route to the readout."
+        "note": "If you read the overexpression result as a clean single-variable experiment, yes. Notice the direction. Lower p-AKT would, on its own, lower mTORC1 output, so the feedback cannot be what produced the rise you measured. What it does show is that this is not a single-variable experiment: a cell with more Rheb is a cell with a re-set insulin arm, and the growth readout is downstream of both changes."
        },
        {
         "label": "It is inconclusive for my question",
@@ -659,14 +659,14 @@
       "next": [
        "retarget-rheb"
       ],
-      "opensNote": "There is one step left after this, and it is the one nobody has taken."
+      "opensNote": "There is one step left after this, and it is the one no study in this corpus has taken."
      },
      {
       "id": "retarget-rheb",
       "label": "Move Rheb itself, at endogenous levels, both ways",
       "cost": 40,
       "equipment": "A knock-in line, reciprocal targeting constructs and live imaging. The most equipment on this menu, and part of why nobody in this corpus has done it.",
-      "addresses": "Position alone at endogenous abundance &mdash; an experiment nobody has published",
+      "addresses": "Position alone at endogenous abundance. No study in this Atlas corpus reports it; published attempts relocalise re-expressed Rheb rather than the endogenous protein, and one of them finds Rheb is not enriched on lysosomes at all.",
       "discriminates": [],
       "design": {
        "model": "Cultured cells with a knock-in, so abundance is held at the endogenous level",
@@ -704,7 +704,7 @@
        "Anything at all, until it is done. Reading a predicted pattern as evidence is the specific error this challenge is built to make visible.",
        "A tether is itself a perturbation: the tag, the linker and the local concentration are three changes riding along with the one you meant to make."
       ],
-      "informative": "The highest in principle and the most expensive, and it is the gap in the literature rather than a line in it. Choosing it costs 40 units and returns a prediction &mdash; which is a fair picture of what committing to an unpublished experiment actually feels like.",
+      "informative": "The highest in principle and the most expensive, and it is a gap in this corpus rather than a line in it. Choosing it costs 40 units and returns a prediction &mdash; which is a fair picture of what committing to an unpublished experiment actually feels like.",
       "interpret": [
        {
         "label": "It supports my hypothesis",
@@ -934,7 +934,6 @@
      },
      "OFF|GTP|lysosome": {
       "flow": [
-       "TSC1/TSC2",
        "v-ATPase",
        "Ragulator",
        "Rag GTPases",
@@ -943,16 +942,18 @@
        "S6K1",
        "4E-BP1"
       ],
-      "cut": [],
+      "cut": [
+       "TSC-RHEB"
+      ],
       "readout": "p-S6K1 high  ·  4E-BP1 phosphorylated",
-      "note": "Loaded Rheb with the brake engaged and no hormone. In the model this is a held state; in a cell it is what a TSC-null background looks like &mdash; mTORC1 active without the permission signal that normally licenses it."
+      "note": "Rheb stays loaded with no hormone present. The model holds this state so you can compare it with the one below; in a cell it corresponds to a TSC-null background, where the brake is absent rather than merely unengaged."
      },
      "OFF|GTP|cytosol": {
       "flow": [
-       "TSC1/TSC2",
        "Rheb"
       ],
       "cut": [
+       "TSC-RHEB",
        "RAG-MTORC1"
       ],
       "readout": "p-S6K1 low  ·  4E-BP1 unphosphorylated",

@@ -82,7 +82,7 @@ TIMEDEP_BLURB = {
     "Chronic only": "appears only after prolonged exposure",
     "Diverges with time": "the sign or the strength changes with duration",
     "Reversible on withdrawal": "the effect goes away when the intervention stops",
-    "Not tested": "nobody has measured this link across time",
+    "Not tested": "no study cited for this link, in this corpus, establishes whether the relationship changes with exposure time",
 }
 
 
@@ -201,8 +201,8 @@ def render(m):
     A('<div class="tm-figure">')
     A(_fig(len(cls), "studies with a recorded regimen, each quoting the sentence that shows it"))
     A(_fig(len(by_reg.get("Intermittent", [])), "tested an intermittent schedule rather than continuous dosing"))
-    A(_fig(len(m["stops"]), "watched what happened after the intervention stopped"))
-    A(_fig("%d of %d" % (td.get("Not tested", 0), n_edges), "pathway links have never been measured across time"))
+    A(_fig(len(m["stops"]), "included stopping the intervention and watching what happened next"))
+    A(_fig("%d of %d" % (td.get("Not tested", 0), n_edges), "pathway links carry no recorded time dependence in this Atlas"))
     A('</div>')
 
     # --- 1. regimes -------------------------------------------------------
@@ -230,6 +230,16 @@ def render(m):
       '%d of the %d studies in the corpus have not been classified yet.</p>'
       % (nk, len(by_reg.get("Not stated", [])), len(by_reg.get("Not applicable", [])),
          m["n_unclassified"], n_all))
+    # Hero a sekce "What happens when you stop" počítají podle washout; řádek
+    # "Withdrawal tested" podle hlavního režimu. Rozdíl se tu vysvětluje, aby
+    # čísla na stránce nesouhlasila jen zdánlivě (audit 21. 9. 2026).
+    wd = {s["sid"] for s in by_reg.get("Withdrawal tested", [])}
+    extra_stops = sorted(s["sid"] for s in m["stops"] if s["sid"] not in wd)
+    if extra_stops:
+        A('<p>The <em>withdrawal tested</em> row counts studies whose main design is '
+          'stopping. %d more (%s) included a recovery period after a different main '
+          'regimen, so the stopping section below lists %d studies in all.</p>'
+          % (len(extra_stops), ", ".join(e(x) for x in extra_stops), len(m["stops"])))
 
     # --- 2. dose vs schedule ---------------------------------------------
     A('<h2 id="dose-versus-schedule">Dose versus schedule</h2>')
@@ -279,8 +289,8 @@ def render(m):
     A('<h2 id="link-timing">Which links depend on time</h2>')
     A('<p>Each link in the pathway map cites at least one study. Where those '
       'studies establish that the relationship changes with exposure, the link '
-      'says so. Where nobody has looked, it says that too &mdash; and that is the '
-      'majority.</p>')
+      'says so. Where no cited study in this corpus settles it, it says that too '
+      '&mdash; and that is the majority.</p>')
     A('<table class="tm"><thead><tr><th>Time dependence</th><th class="num">Links</th>'
       '<th>Which</th></tr></thead><tbody>')
     for t in TIMEDEP:
@@ -296,8 +306,8 @@ def render(m):
           % (e(t), e(TIMEDEP_BLURB[t]), len(rows), which))
     A('</tbody></table>')
     A('<p><strong>%d of %d links have any time dimension recorded.</strong> The '
-      'other %d are not thereby time-invariant &mdash; they are links where the '
-      'question was never asked. Treating an untested link as unconditional is '
+      'other %d are not thereby time-invariant &mdash; they are links where no time '
+      'dependence is recorded in this Atlas. Treating an untested link as unconditional is '
       'the error this column exists to prevent.</p>'
       % (tested, n_edges, td.get("Not tested", 0)))
 
@@ -323,8 +333,8 @@ def render(m):
       'schedule and described it loosely will read as <em>not stated</em>. The '
       'classification says how the intervention was delivered, never whether the '
       'schedule was a good one. And the links marked <em>not tested</em> are the '
-      'honest majority: this axis is at its most useful as a map of what has not '
-      'been done.</div>')
+      'honest majority: this axis is at its most useful as a map of what this '
+      'Atlas has not yet recorded.</div>')
 
     # --- 7. method ---------------------------------------------------------
     A('<h2 id="method">Method</h2>')
@@ -397,10 +407,15 @@ ARMS = {
         label="Grb10 &rarr; IGF-1 / PI3K",
         what="a second brake: mTORC1 stabilises Grb10, which damps growth-factor receptor signalling",
         extra=[],
-        context="only after a drug",
-        note="Time appears here only as recovery from a drug: ROD2011 saw AKT dip and then come back as "
-             "mTOR kinase inhibition released the brake on receptor tyrosine kinases. How this arm behaves "
-             "in an unperturbed cell is not recorded in this atlas."),
+        # Citované na hraně, ale Grb10 samy neměří: ROD2011 = uvolnění RTK zpětné
+        # vazby obecně, ORE2006 = indukce IRS-1 (větev S6K1 -> IRS1). Do statusu
+        # větve se proto nepočítají (audit 21. 9. 2026).
+        not_arm=["ROD2011", "ORE2006"],
+        context="not followed in time",
+        note="The Grb10 papers are snapshot biochemistry. The time course usually cited here (ROD2011) "
+             "shows AKT rebound after mTOR kinase inhibition through relief of receptor tyrosine kinase "
+             "feedback, without measuring Grb10, so it is evidence that a brake exists, not that this is "
+             "the brake."),
     "ULK1-AMPK": dict(
         label="ULK1 &rarr; AMPK",
         what="the energy loop: ULK1, which mTORC1 restrains, phosphorylates AMPK and turns it down",
@@ -505,8 +520,11 @@ def compute_dynamics(st, ed):
         if edge is None:
             raise SystemExit("build_timing_page: hrana %s z ARMS v ATLAS_EDGES chybí" % k)
         sids = list(dict.fromkeys(list(edge.get("st") or []) + a["extra"]))
+        # Status větve jen ze studií, které tu větev skutečně měří (not_arm vyřazuje
+        # studie citované na hraně kvůli jinému mechanismu).
+        arm_sids = [s for s in sids if s not in a.get("not_arm", [])]
         arm_rows.append(dict(key=k, cycles=cycles, sids=sids,
-                             status=arm_status(sids, by_sid), **a))
+                             status=arm_status(arm_sids, by_sid), **a))
     return {"with_rd": with_rd, "by_rd": by_rd, "measured": measured,
             "loops": loops, "arms": arm_rows, "by_sid": by_sid}
 
@@ -518,13 +536,15 @@ def _loop_text(c):
 def render_dynamics(m):
     d = m["dyn"]
     n_follow = sum(1 for a in d["arms"] if a["status"] == "Followed in time")
+    # Ne každá smyčka prochází mTORC1 (např. AMPK -> ULK1 -> AMPK), proto zvlášť.
+    n_via = sum(1 for c in d["loops"] if "mTORC1" in [x["s"] for x in c])
     P = []
     A = P.append
     A('<h2 id="signal">How the signal itself moves</h2>')
     A('<p>Everything above is time imposed from outside: how long and how often an '
       'intervention was given. There is a second kind of time, inside the cell. '
-      'mTORC1 activity is not a fixed setting; it can rise and fall on its own, '
-      'with the cell cycle and with the time of day. Whether that pattern, and not '
+      'mTORC1 activity is not a fixed setting: it rises and falls without any change in '
+      'the external stimulus, driven by the cell cycle and by the daily clock. Whether that pattern, and not '
       'only the average level, decides what the cell does is an open question '
       '&mdash; it has <a href="%s/pathway/timing/pattern/">its own page</a>.</p>' % SITE)
     A('<div class="tm-figure">')
@@ -558,9 +578,9 @@ def render_dynamics(m):
       'needs a delay, a steep enough response and enough gain, and none of those '
       'can be read off a diagram.</p>' % (len(d["loops"]), len(d["arms"])))
     A(pv_box("loops", "%s ways mTORC1 turns itself down" % _NUM.get(len(d["arms"]), str(len(d["arms"]))),
-             sub="%d routes on the map come back to mTORC1 with a net inhibitory sign. They all "
-                 "return through one of these arms. Line thickness shows the number of routes; "
-                 "click an arm." % len(d["loops"]),
+             sub="%d closed routes on the map carry a net inhibitory sign, %d of them through "
+                 "mTORC1. They all return through one of these arms. Line thickness shows the "
+                 "number of routes; click an arm." % (len(d["loops"]), n_via),
              schem="A loop is a structure that could oscillate. It is not evidence that it does."))
     A('<div data-pv-fallback="loops">')
     A('<table class="tm"><thead><tr><th>Feedback arm</th><th class="num">Routes</th>'
@@ -601,8 +621,9 @@ PATTERN_CFG = {
 MOVES = [
     ("JOS2024", "In human and mouse cell lines, mTORC1 activity was lowest in mitosis and G1 and "
                 "highest in S and G2, set through the TSC complex and independently of Akt and Mek/Erk."),
-    ("WANG2026C", "A live-cell recording platform built independently of JOS2024 recorded mTOR activity "
-                  "oscillating with the cell cycle."),
+    ("WANG2026C", "WANG2026C, a live recording platform reporting mTOR-driven transcription rather than "
+                  "mTORC1 kinase activity, saw the same cell-cycle pattern in synchronised HEK293T cells, "
+                  "with a different method from JOS2024 but explicitly following it up."),
     ("RAM2018", "Starts from mTOR activity oscillating over 24 hours in many tissues, then shows that mTOR "
                 "in turn sets the period and amplitude of the clock in cells, ex vivo tissue and mice."),
     ("OKA2013", "In mouse kidney tumours, phosphorylated mTOR followed a 24-hour rhythm, driven by the clock "
@@ -611,7 +632,7 @@ MOVES = [
                 "synthesis rates oscillated over the day in a BMAL1-dependent way."),
 ]
 TOOLS = [
-    ("ZHO2015", "TORCAR, the first genetically encoded reporter of mTORC1 activity (FRET)."),
+    ("ZHO2015", "TORCAR, the first genetically encoded reporter of mTORC1 kinase activity (FRET)."),
     ("BOU2020", "AIMTOR, a bioluminescence reporter with versions for separate compartments."),
     ("GIN2026", "A way to read how a signal changes over time from still images of many cells."),
 ]
@@ -645,8 +666,10 @@ MISSING = [
      "or growth. Until that is done, every result above is compatible with the average still being what "
      "counts."),
     ("The loops, watched live",
-     "None of the feedback arms on the map has been followed in living cells. The one arm with timing "
-     "evidence (S6K1 &rarr; IRS1) was reconstructed from fixed images."),
+     "None of the feedback arms on the map has been followed in living cells. The only arm with "
+     "time-resolved evidence in unperturbed cells is S6K1 to IRS1, and it comes from fixed-cell "
+     "reconstruction (GIN2026) and from population time courses fitted as a model (DAL2012), not "
+     "from live imaging."),
     ("Humans",
      "Every measurement of mTORC1's own rhythm in this atlas comes from cell lines or mice. No human study "
      "here follows mTORC1 activity over the cell cycle or the day."),
@@ -702,8 +725,8 @@ def render_pattern(m):
     A('<p class="tm-lead">This page sorts the evidence in this atlas into three piles: '
       'what has been measured, what has only been modelled, and what nobody has done yet.</p>')
 
-    A('<div class="tm-caveat"><b>The short answer.</b> mTORC1 activity does move on its own, '
-      'and in a few cases the timing of a signal changes what the cell does. Whether the '
+    A('<div class="tm-caveat"><b>The short answer.</b> mTORC1 activity is patterned in time, '
+      'driven by the cell cycle and by the daily clock, and in a few cases the timing of a signal changes what the cell does. Whether the '
       'pattern matters <em>more</em> than the average has not been tested directly by any '
       'study in this atlas.</div>')
 
@@ -712,7 +735,7 @@ def render_pattern(m):
     A(pv_box("ladder", "How far up the evidence goes",
              sub="Each rung needs the one below it. Click a rung to see the studies."))
 
-    A('<h2 id="moves">Measured: mTORC1 activity moves on its own</h2>')
+    A('<h2 id="moves">Measured: mTORC1 activity is patterned in time</h2>')
     A(pv_box("clocks", "Two clocks mTORC1 keeps time with", sub="Click a phase or a study.",
              schem="Shading shows low versus high only (JOS2024). Phase lengths are not to scale, "
                    "and the daily peak differs between tissues."))
@@ -752,6 +775,12 @@ def render_pattern(m):
                  "a finding, not a gap in the drawing."))
 
     A('<h2 id="missing">Missing</h2>')
+    # Věta v MISSING[1] jmenuje jedinou větev sledovanou v čase; musí souhlasit
+    # s tím, co spočítá /timing/ (audit 21. 9. 2026: stránky si odporovaly).
+    followed = [a["key"] for a in d["arms"] if a["status"] == "Followed in time"]
+    if followed != ["S6K1-IRS1"]:
+        raise SystemExit("build_timing_page (pattern): věty v MISSING tvrdí, že v čase je "
+                         "sledovaná jen větev S6K1-IRS1, ale výpočet dává %s. Oprav MISSING." % followed)
     for head, text in MISSING:
         A('<div class="tm-card"><h3>%s</h3><p>%s</p></div>' % (head, text))
     _need("KHA2014", by_sid); cited.add("KHA2014")
@@ -847,7 +876,7 @@ def build(dry_run=False):
 
     desc = ("How mTOR interventions were delivered over time, and which pathway links "
             "depend on it: %d studies with a recorded regimen, %d that tested an "
-            "intermittent schedule, and %d of %d links never measured across time."
+            "intermittent schedule, and %d of %d links with no recorded time dependence in this Atlas."
             % (len(m["classified"]), len(m["by_reg"].get("Intermittent", [])),
                td.get("Not tested", 0), n_edges))
 
@@ -981,8 +1010,8 @@ CC_PHASES = [
      "complex and independently of Akt and Mek/Erk.", ["JOS2024"]),
     ("G2", 0.20, True, "<b>G2: mTORC1 high.</b> High activity here promotes entry into mitosis.",
      ["JOS2024"]),
-    ("M", 0.10, False, "<b>Mitosis: mTORC1 lowest.</b> Also seen in an independent live "
-     "recording.", ["JOS2024", "WANG2026C"]),
+    ("M", 0.10, False, "<b>Mitosis: mTORC1 lowest.</b> Also seen with a different method, a "
+     "readout of mTOR-driven transcription (WANG2026C, a follow-up of JOS2024).", ["JOS2024", "WANG2026C"]),
 ]
 CC_BOUNDARY = ("G1/S", "<b>The G1/S window.</b> Feedback on AKT acted only in a narrow window "
                "here, reconstructed from fixed single-cell images.", ["GIN2026"])
@@ -1244,7 +1273,7 @@ def pattern_viz_data(d, pure_models, oliver):
     dec = [[s, _sys(s), ""] for s in DECISIVE]
     humans = any(r[1] == "Humans" for r in moves + outc)
     ladder = [
-        dict(k="m", st="Measured", q="mTORC1 activity moves on its own",
+        dict(k="m", st="Measured", q="mTORC1 activity is patterned in time",
              c="%d studies &middot; %d reporters" % (len(moves), len(tools)),
              rows=moves + tools, anchor="moves"),
         dict(k="p", st="Measured, partly", q="Timing changes the outcome",
@@ -1288,7 +1317,7 @@ def pattern_viz_data(d, pure_models, oliver):
             out.append(None if (not hit and (empty_none or col == "Humans")) else hit)
         return out
     matrix = dict(cols=SYSTEM_COLS, rows=[
-        dict(label="Activity moves on its own", cells=cells(moves)),
+        dict(label="Activity is patterned in time", cells=cells(moves)),
         dict(label="Timing changes the outcome", cells=cells(outc)),
         dict(label="Pattern beats average", cells=cells(dec, empty_none=True)),
         dict(label="Modelled only", cells=cells([], model=True), model=True),

@@ -160,7 +160,7 @@ DERIVED_TAGS = {"time-dependent", "reversible-on-withdrawal",
 TAG_BLURB = {
     "sex-specific": "shown in one sex only",
     "single-species": "shown in one species and not tested elsewhere",
-    "cell-line-only": "cell culture only, never in a whole organism",
+    "cell-line-only": "the studies cited for this link used cell culture only",
     "tissue-specific": "holds in particular tissues or cell types",
     "diet-dependent": "depends on the diet the animal was on",
     "nutrient-state-dependent": "depends on whether the cell is fed or starved",
@@ -168,8 +168,14 @@ TAG_BLURB = {
     "time-dependent": "depends on how long the exposure lasted",
     "reversible-on-withdrawal": "the effect goes away when the intervention stops",
     "single-study": "the whole link rests on one paper in this corpus",
-    "direction-contested": "the literature disagrees about the direction",
+    "direction-contested": "the Atlas records the direction, mechanism or scope of this link as disputed",
 }
+# Zobrazovaný název tagu tam, kde se liší od id (id zůstává kvůli datům a dotazům).
+TAG_LABEL = {"direction-contested": "contested"}
+# Odvozené technicky (sync_relations.py), ale ze stavu Contested, který nastavuje
+# kurátor ručně. Na stránce proto nepatří do skupiny "Computed from the corpus"
+# (audit 21. 9. 2026). Kontrola sirotků výš dál používá DERIVED_TAGS.
+CURATED_DERIVED = {"direction-contested"}
 
 
 def boundary_coverage(edges):
@@ -194,8 +200,11 @@ def boundary_coverage(edges):
 
 def curation_state(edges):
     c = collections.Counter(x.get("status") or "(unset)" for x in edges)
+    # Contested je tvrzení o konsenzu, ne o recenzi: sporná hrana je stejně
+    # nerecenzovaná jako Proposed. Recenzovaná je jen Confirmed.
     return {"counts": dict(c), "total": len(edges),
-            "unreviewed": c.get("Proposed", 0)}
+            "unreviewed": len(edges) - c.get("Confirmed", 0),
+            "proposed": c.get("Proposed", 0), "contested": c.get("Contested", 0)}
 
 
 def null_results(studies, edges):
@@ -259,11 +268,11 @@ def render(cfg, m):
     P = []
     A = P.append
 
-    A('<h1>Evidence audit of the %s literature</h1>' % e(name))
+    A('<h1>Evidence audit of the Atlas&rsquo;s %s corpus</h1>' % e(name))
     A('<p class="aud-lead">This page measures the Atlas against itself. Not how '
       'many studies it holds &mdash; that number says nothing about the field &mdash; '
-      'but what kind of evidence the %s pathway is actually built on: how much of it '
-      'reaches a human, which parts of the pathway nobody has measured in one, how '
+      'but what kind of evidence this Atlas&rsquo;s %s pathway map is built on: how much of it '
+      'reaches a human, which parts of the map have no human study cited behind them, how '
       'many links in the map rest on a single paper, and how much of what is claimed '
       'carries a recorded boundary.</p>' % e(name))
     A('<p class="aud-lead">Every number below is computed from the corpus at build '
@@ -273,7 +282,7 @@ def render(cfg, m):
     # --- headline figures ---
     A('<div class="aud-figure">')
     A(_fig("%.0f&nbsp;%%" % mix["human_pct"], "of the corpus is human evidence (%d of %d studies)" % (mix["human"], mix["n"])))
-    A(_fig("%.0f&nbsp;%%" % cov["mech_pct"], "of pathway links rest on mechanistic work alone"))
+    A(_fig("%.0f&nbsp;%%" % cov["mech_pct"], "of pathway links rest on mechanistic or review papers alone"))
     A(_fig("%.0f&nbsp;%%" % sng["pct"], "of pathway links are carried by a single paper"))
     A(_fig("%.0f&nbsp;%%" % bnd["pct"], "of links record the conditions they hold under"))
     A('</div>')
@@ -297,13 +306,15 @@ def render(cfg, m):
              _bar(100.0 * mix["off_ladder"] / mix["n"])))
     A('</tbody></table>')
     A('<p><strong>%d of %d studies &mdash; %.1f&nbsp;%% &mdash; are human evidence.</strong> '
-      'Everything else is animal, cellular or theoretical. That is the single most '
-      'important number on this page, and it is not a criticism of the field: it is '
-      'what the published record looks like.</p>'
-      % (mix["human"], mix["n"], mix["human_pct"]))
+      'Almost everything else is animal, cellular or theoretical%s. That is the single most '
+      'important number on this page, and it is a fact about this collection, not a '
+      'measurement of the field.</p>'
+      % (mix["human"], mix["n"], mix["human_pct"],
+         (" (the %d off-ladder records are preprints and registered trials, which can "
+          "include human studies not yet reported)" % mix["off_ladder"]) if mix["off_ladder"] else ""))
 
     # --- 2. over time ---
-    A('<h2 id="does-it-reach-people">Is the field moving towards people?</h2>')
+    A('<h2 id="does-it-reach-people">Is this corpus&rsquo;s human share rising over time?</h2>')
     A('<p>If the pathway were maturing towards clinical use, the share of human work '
       'would rise over time. Here is what the corpus shows, by five-year window.</p>')
     A('<table class="aud"><thead><tr><th>Period</th><th class="num">Studies</th>'
@@ -338,7 +349,7 @@ def render(cfg, m):
           '<td>%s</td></tr>' % (TIER_LABEL[t], n, pct, _bar(pct)))
     A('</tbody></table>')
     A('<p><strong>%d of %d links (%.0f&nbsp;%%) have any human evidence behind them; '
-      '%d (%.0f&nbsp;%%) rest on mechanistic work alone.</strong> This is the '
+      '%d (%.0f&nbsp;%%) rest on mechanistic or review papers alone.</strong> This is the '
       'quantified form of what the Atlas elsewhere calls the human endpoint desert.</p>'
       % (cov["human"], cov["n"], cov["human_pct"], cov["mech_only"], cov["mech_pct"]))
 
@@ -370,13 +381,16 @@ def render(cfg, m):
         A('<p>The sentence is for a reader; the tag is what makes it answerable. '
           '"Female mice only in SEL2009" is clear to anyone and invisible to a '
           'query, so each recorded boundary also carries a machine-readable kind. '
-          'The first group below describes the biology; the second is computed '
+          'The first group below describes the biology; the second records a '
+          'curator&rsquo;s judgement that the link is disputed; the third is computed '
           'from the state of the corpus rather than written by hand.</p>')
         for heading, keys in (
             ("Boundaries on the biology",
              [t for t in sorted(bnd["by_tag"]) if t not in DERIVED_TAGS]),
+            ("Set by the curator",
+             [t for t in sorted(bnd["by_tag"]) if t in CURATED_DERIVED]),
             ("Computed from the corpus",
-             [t for t in sorted(bnd["by_tag"]) if t in DERIVED_TAGS])):
+             [t for t in sorted(bnd["by_tag"]) if t in DERIVED_TAGS - CURATED_DERIVED])):
             if not keys:
                 continue
             A('<p><strong>%s</strong></p>' % heading)
@@ -389,11 +403,12 @@ def render(cfg, m):
                     shown += " and %d more" % (len(ids) - 8)
                 A('<tr><td><strong>%s</strong><br><span style="font-size:.87rem;opacity:.8">%s</span></td>'
                   '<td class="num">%d</td><td>%s</td></tr>'
-                  % (e(t), e(TAG_BLURB.get(t, "")), len(ids), shown))
+                  % (e(TAG_LABEL.get(t, t)), e(TAG_BLURB.get(t, "")), len(ids), shown))
             A('</tbody></table>')
         A('<p>This is the query no other resource can answer. Reactome, KEGG, '
           'SIGNOR and Open Targets record the interaction; none of them record '
-          'that it was only ever shown in one sex, or only in cell culture. '
+          'that it was only ever shown in one sex, or only in cell culture, in a '
+          'form you can query across a whole pathway. '
           'The two time-related kinds have a page of their own: '
           '<a href="%s/pathway/timing/">how long the exposure lasted, and what '
           'happens when it stops</a>.</p>' % SITE)
@@ -402,7 +417,10 @@ def render(cfg, m):
     A('<h2 id="null-results">What has been tested and failed</h2>')
     A('<p>Findings that did not replicate, and compounds that did not extend lifespan, '
       'are kept with the same visibility as positive results.</p>')
-    A('<p>The corpus holds <strong>%d studies recorded as negative results</strong>%s. '
+    A('<p>The corpus holds <strong>%d studies whose curated category is '
+      '<code>Negative_result</code></strong>%s. The label marks studies whose headline '
+      'result was null; a trial with a null pre-registered primary endpoint may carry '
+      'another category (MOE2025, the PEARL trial, is filed as Human). '
       'The pathway map also has a dedicated sign for a tested-and-null link '
       '(<code>no-effect</code>), and it is currently used <strong>%d times</strong>. '
       'That gap is real: null relationships are being recorded at the level of the '
@@ -415,8 +433,9 @@ def render(cfg, m):
     A('<h2 id="curation-state">Who has checked this</h2>')
     A('<p>Each link in the map has a curation state. <em>Proposed</em> means it was '
       'drafted and cited but has not been signed off by a second reader; '
-      '<em>Contested</em> means the literature disagrees with itself and the entry '
-      'says so; <em>Confirmed</em> means a reviewer has checked the claim against the '
+      '<em>Contested</em> means the Atlas records the direction, mechanism or scope of '
+      'the link as disputed, which is a statement about the literature, not about '
+      'review; <em>Confirmed</em> means a reviewer has checked the claim against the '
       'cited papers.</p>')
     A('<table class="aud"><thead><tr><th>State</th><th class="num">Links</th>'
       '<th class="num">Share</th></tr></thead><tbody>')
@@ -424,14 +443,15 @@ def render(cfg, m):
         A('<tr><td>%s</td><td class="num">%d</td><td class="num">%.0f&nbsp;%%</td></tr>'
           % (e(k), cur["counts"][k], 100.0 * cur["counts"][k] / cur["total"]))
     A('</tbody></table>')
-    A('<div class="aud-caveat"><b>%d of %d links are still unreviewed &mdash; and they '
-      'are displayed anyway.</b> There is no second reader on this project, so '
-      '<em>Proposed</em> here means drafted and cited by the curator, not independently '
-      'verified. The map does not hide those links behind their status, because hiding '
+    A('<div class="aud-caveat"><b>%d of %d links have not been reviewed by a second '
+      'reader &mdash; and they are displayed anyway.</b> That count includes the %d '
+      '<em>Contested</em> links as well as the %d <em>Proposed</em> ones. There is no '
+      'second reader on this project, so both states here mean drafted and cited by the '
+      'curator, not independently verified. The map does not hide those links behind their status, because hiding '
       'most of the pathway would be a worse answer than labelling it. Every link, '
       'reviewed or not, names the studies it stands on, so the claim can be checked '
       'against the papers rather than taken on trust.</div>'
-      % (cur["unreviewed"], cur["total"]))
+      % (cur["unreviewed"], cur["total"], cur["contested"], cur["proposed"]))
 
     # --- 8. what this does not measure ---
     A('<h2 id="limits">What this audit does not measure</h2>')
@@ -478,8 +498,8 @@ def build(cfg, dry_run=False):
     m = compute(cfg)
     body = render(cfg, m)
 
-    desc = ("What the %s literature is actually built on: %.0f%% of the corpus is human "
-            "evidence, %.0f%% of pathway links rest on mechanistic work alone, and "
+    desc = ("What this Atlas's %s corpus is built on: %.0f%% of the corpus is human "
+            "evidence, %.0f%% of pathway links rest on mechanistic or review papers alone, and "
             "%.0f%% are carried by a single paper. Recomputed from the corpus on every "
             "build." % (cfg["name"], m["mix"]["human_pct"], m["cover"]["mech_pct"],
                         m["single"]["pct"]))
@@ -488,7 +508,7 @@ def build(cfg, dry_run=False):
     ld = [{
         "@context": "https://schema.org",
         "@type": "Report",
-        "name": "Evidence audit of the %s literature" % cfg["name"],
+        "name": "Evidence audit of the Atlas's %s corpus" % cfg["name"],
         "url": cfg["url"],
         "description": desc,
         "dateModified": today,
@@ -510,7 +530,7 @@ def build(cfg, dry_run=False):
     }]
 
     html = shell(
-        title="Evidence audit of the %s literature — Oliver's mTOR Atlas" % cfg["name"],
+        title="Evidence audit of the Atlas's %s corpus — Oliver's mTOR Atlas" % cfg["name"],
         desc=desc,
         canonical=cfg["url"],
         jsonld=ld,

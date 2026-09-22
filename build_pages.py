@@ -1321,12 +1321,11 @@ def gap_page(g, studies_by_sid):
 # authorship/expertise (E-E-A-T) to Google and gives an AI answer engine a
 # citable source for "who discovered mTORC2" style questions. Until now they
 # only rendered inside a JS modal (showAuthorBio()), invisible to a
-# non-JS crawler. Source of truth stays index.html; this script reads a baked
-# export (atlas_data/author_bios_baked.json) so the Python build has no Node
-# dependency. If AUTHOR_BIOS in index.html changes, re-export it -- see the
-# comment at the top of that JSON file... actually there isn't one yet, so:
-# re-extract with a small Node snippet that assigns AUTHOR_BIOS and
-# JSON.stringifies it (same technique used to build this file originally).
+# non-JS crawler. 2026-09-22: the ONLY source of truth is
+# atlas_data/author_bios_baked.json. index.html no longer carries an inline
+# AUTHOR_BIOS copy; the SPA fetches this same JSON at runtime (ensureAuthorBios).
+# The inline copy had drifted to 98 bios against 232 here, because new bios
+# were written only to this file and nothing checked the other one.
 
 def build_author_index(studies):
     """Replicates buildAuthorsIndex() from index.html in Python: split each
@@ -2894,8 +2893,8 @@ def main():
         gaps = []
         print("atlas_data/gaps_baked.json chybí -- Open Questions stránky přeskočeny")
 
-    # Author bio stránky (2026-08-04) -- zdroj pravdy je AUTHOR_BIOS v
-    # index.html, exportovaný do atlas_data/author_bios_baked.json.
+    # Author bio stránky (2026-08-04) -- jediný zdroj pravdy je od 2026-09-22
+    # atlas_data/author_bios_baked.json (SPA si ho načítá za běhu).
     abp = os.path.join(DATA, "author_bios_baked.json")
     author_links = []
     if os.path.exists(abp):

@@ -49,7 +49,7 @@
       "stub": false,
       "label": "Fed",
       "brief": "Insulin and amino acids both high. PI3K-Akt and the Rag GTPases actively drive mTORC1; AMPK and TSC1/2 sit quiet. Net effect: the cap comes off S6K1 and 4E-BP1, autophagy (ULK1, TFEB) stays held off.",
-      "note": "",
+      "note": "IRS-1/IRS-2 to PI3K is shown active: S6K1 feedback damps this arm in the fed state, it does not switch it off.",
       "edges": {
         "LEU-SESN2": "active",
         "LEU-LARS": "active",
@@ -76,7 +76,7 @@
         "MTORC1-GRB10": "active",
         "GRB10-IGF1": "active",
         "S6K1-IRS1": "active",
-        "IRS1-PI3K": "suppressed",
+        "IRS1-PI3K": "active",
         "MTORC1-S6K1": "active",
         "STRESS-AMPK": "suppressed",
         "AMPK-ULK1": "suppressed",
@@ -108,7 +108,7 @@
         "Glutamine": "active",
         "PI3K": "active",
         "Akt/PKB": "active",
-        "IRS-1 / IRS-2": "suppressed",
+        "IRS-1 / IRS-2": "active",
         "TSC1/TSC2": "suppressed",
         "Rheb": "active",
         "AMPK": "suppressed",
@@ -330,7 +330,7 @@
       "stub": false,
       "label": "Fasting",
       "brief": "Insulin and amino acids both low. AMPK and TSC1/2 take over, mTORC1 goes quiet. 4E-BP1 stays bound as a brake, ULK1 and TFEB switch on: autophagy and lysosomal biogenesis.",
-      "note": "Generated as the mirror image of Fed on the same fixed layout -- same nodes, opposite arms lit -- except IRS-1/IRS-2 to PI3K, left unevaluated rather than mirrored because releasing that feedback brake does not by itself imply active signalling when upstream growth-factor input is also low.",
+      "note": "Generated as the mirror image of Fed on the same fixed layout -- same nodes, opposite arms lit -- except IRS-1/IRS-2 and its link to PI3K, left unevaluated rather than mirrored because releasing that feedback brake does not by itself imply active signalling when upstream growth-factor input is also low. Mitochondrial biogenesis and the mTORC1-MITO edge are also left unevaluated rather than marked suppressed: the dominant route runs through AMPK/PGC-1alpha (not curated as a distinct edge yet), and fasting raises PGC-1alpha programmes, so scoring it off this edge alone would overclaim.",
       "edges": {
         "LEU-SESN2": "suppressed",
         "LEU-LARS": "suppressed",
@@ -373,7 +373,6 @@
         "TFEB-AUTOPHAGY": "active",
         "ULK1-AUTOPHAGY": "active",
         "SREBP-LIPID": "suppressed",
-        "MTORC1-MITO": "suppressed",
         "4EBP1-MITO": "active",
         "MTORC1-NUCL": "suppressed",
         "S6K1-NUCL": "suppressed",
@@ -388,7 +387,6 @@
         "Glutamine": "suppressed",
         "PI3K": "suppressed",
         "Akt/PKB": "suppressed",
-        "IRS-1 / IRS-2": "active",
         "TSC1/TSC2": "active",
         "Rheb": "suppressed",
         "AMPK": "active",
@@ -412,7 +410,6 @@
         "Protein synthesis": "suppressed",
         "Muscle growth": "suppressed",
         "Lipid synthesis": "suppressed",
-        "Mitochondrial biogenesis": "suppressed",
         "Nucleotide synthesis": "suppressed",
         "Autophagy": "active",
         "Longevity": "active"
@@ -498,8 +495,7 @@
           "covers": [
             "S6K1-IRS1",
             "MTORC1-GRB10",
-            "GRB10-IGF1",
-            "IRS-1 / IRS-2"
+            "GRB10-IGF1"
           ]
         },
         {
@@ -564,7 +560,7 @@
           ]
         },
         {
-          "claim": "Anabolic programmes (lipid, nucleotide synthesis, mitochondrial biogenesis) lose their mTORC1 drive.",
+          "claim": "Anabolic programmes (lipid and nucleotide synthesis) lose their mTORC1 drive.",
           "studies": [
             "POR2008",
             "CUN2007",
@@ -576,13 +572,11 @@
           "covers": [
             "MTORC1-SREBP",
             "SREBP-LIPID",
-            "MTORC1-MITO",
             "4EBP1-MITO",
             "MTORC1-NUCL",
             "S6K1-NUCL",
             "SREBP1 / SREBP2",
             "Lipid synthesis",
-            "Mitochondrial biogenesis",
             "Nucleotide synthesis"
           ]
         },
@@ -607,7 +601,7 @@
       "cluster": "state",
       "stub": false,
       "label": "Exercise",
-      "brief": "Mechanical and energy stress drive AMPK hard; growth-factor and amino-acid input are genuinely unclear in this acute window rather than simply off. mTORC1 is suppressed acutely; autophagy runs.",
+      "brief": "Endurance-type energy stress drives AMPK; growth-factor and amino-acid input are genuinely unclear in this acute window rather than simply off. mTORC1 is damped during the bout in this corpus by inference, not measurement; autophagy runs. Mechanical load pushes mTORC1 the other way, which is why the load arm is shown in the Muscle context.",
       "note": "Acute bout shown. Post-exercise refeeding reactivates mTORC1 via the mechanical + amino-acid route, which this snapshot does not model (see Cell type: Muscle). Mitochondrial biogenesis is left unevaluated here (na) rather than marked suppressed: this corpus's mTORC1-MITO edge is not the dominant exercise-driven route (that runs through AMPK/PGC-1alpha, not curated as a distinct edge yet), so scoring it off this edge alone would overclaim.",
       "edges": {
         "STRESS-AMPK": "active",
@@ -1154,7 +1148,7 @@
     },
     {
       "id": "scn-torin1",
-      "lesson": "Everything matches here. Yet the map received the same minus sign on mTORC1 as it did for rapamycin, where most readouts differed. The arrows cannot tell the two drugs apart; that difference lives only in the data.",
+      "lesson": "Most readouts match here. Yet the map received the same minus sign on mTORC1 as it did for rapamycin, where most readouts differed. The arrows cannot tell the two drugs apart; that difference lives only in the data.",
       "label": "Torin1 (ATP-competitive)",
       "timescale": "hours",
       "question": "What changes if you block the mTOR kinase site itself instead of using rapamycin?",
@@ -1263,10 +1257,11 @@
         {
           "node": "Akt/PKB",
           "literature": "down",
-          "why": "Akt S473 phosphorylation by mTORC2 is lost because both complexes are hit.",
+          "why": "Akt S473 phosphorylation by mTORC2 is lost because both complexes are hit. T308 rebounds over hours as feedback is relieved (ROD2011), so this readout matches only early.",
           "studies": [
             "FEL2009",
-            "THO2009"
+            "THO2009",
+            "ROD2011"
           ]
         }
       ],

@@ -1,6 +1,30 @@
 [
  {
   "severity": "WARN",
+  "rule": "R3 mechanistic-as-clinical",
+  "where": "study:FON2010",
+  "excerpt": "Influential review proposing that dietary restriction and reduced nutrient-sensing signalling (mTOR, GH/IGF-1) may slow ageing through similar, evolutionarily conserved mechanisms. Lifespan extension is shown in yeast, invertebrates, rodents and rhesus monkeys; in humans the evidence is limited to p",
+  "message": "Tier D - Mechanistic/Review (Narrative Review) but the text uses clinical language 'in humans'.",
+  "suggested": "Scope to the model organism/system, or add 'no human data'."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R3b unscoped-causal-claim",
+  "where": "study:LEE2010",
+  "excerpt": "An early study linking Sestrin, later identified as a leucine sensor in mammals, to age-associated pathology in flies (fat accumulation, mitochondrial dysfunction, muscle and cardiac decline), prevented by TOR inhibition or AMPK activation. Sestrin sits in a negative feedback loop: TOR activity driv",
+  "message": "Causal verb in a non-human study with no species/system scope in the sentence.",
+  "suggested": "Name the model explicitly ('in mice', 'in these cells')."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R10 code-not-in-supporting-list",
+  "where": "gap:H4",
+  "excerpt": "MEL2003",
+  "message": "Study code(s) MEL2003 appear in the gap's text but not in its Supporting_Studies list.",
+  "suggested": "Add the code(s) to Supporting_Studies, or remove the in-text citation."
+ },
+ {
+  "severity": "WARN",
   "rule": "R11 dead-pathway-layer",
   "where": "index.html",
   "excerpt": "MAP_NODES",

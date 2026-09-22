@@ -221,21 +221,23 @@
         "4E-BP1",
         "ULK1"
        ],
-       "cut": [],
+       "cut": [
+        "AMPK-MTORC1"
+       ],
        "readout": "S6K1 phosphorylated · 4E-BP1 phosphorylated · ULK1 held off",
        "note": "Everything the cell needs is present, and everything the cell needs permission for has been granted. mTORC1 is active, the building programs run and autophagy stays restrained."
       },
       "HIGH|ON|low": {
        "flow": [
         "Rag GTPases",
-        "Rheb",
+        "AMPK",
         "ULK1"
        ],
        "cut": [
-        "RAG-MTORC1"
+        "RHEB-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
-       "note": "Raw material and permission are both there, and the cell still does not build, because AMPK reports that the energy to pay for it is not. An input that can veto on its own is not the same kind of input as one that merely contributes."
+       "note": "Raw material and permission are both there, and the cell still does not build, because AMPK strengthens the TSC brake on Rheb and phosphorylates raptor directly. An input that can veto on its own is not the same kind of input as one that merely contributes."
       },
       "HIGH|OFF|normal": {
        "flow": [
@@ -243,7 +245,8 @@
         "ULK1"
        ],
        "cut": [
-        "RHEB-MTORC1"
+        "RHEB-MTORC1",
+        "AMPK-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
        "note": "The situation worth remembering from this lesson. Nutrients are abundant, so mTORC1 is delivered to the right place &mdash; and the activator waiting for it there has not been switched on, because no growth factor said so. Lesson 03 is about that step."
@@ -251,11 +254,11 @@
       "HIGH|OFF|low": {
        "flow": [
         "Rag GTPases",
+        "AMPK",
         "ULK1"
        ],
        "cut": [
-        "RHEB-MTORC1",
-        "RAG-MTORC1"
+        "RHEB-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
        "note": "Two independent reasons not to build. Notice that the readout looks identical to the state above it: a single downstream measurement cannot tell you which input was missing."
@@ -266,18 +269,20 @@
         "ULK1"
        ],
        "cut": [
-        "RAG-MTORC1"
+        "RAG-MTORC1",
+        "AMPK-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
        "note": "Permission without material. The hormone signal arrives and the amino acids that would put mTORC1 in position do not, so the kinase never reaches the membrane where its activator sits."
       },
       "LOW|ON|low": {
        "flow": [
-        "Rheb",
+        "AMPK",
         "ULK1"
        ],
        "cut": [
-        "RAG-MTORC1"
+        "RAG-MTORC1",
+        "RHEB-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
        "note": "Nothing to build with and nothing to build it on. In a real cell this is where recycling stops being an option and becomes the main source of amino acids."
@@ -288,13 +293,15 @@
        ],
        "cut": [
         "RAG-MTORC1",
-        "RHEB-MTORC1"
+        "RHEB-MTORC1",
+        "AMPK-MTORC1"
        ],
        "readout": "S6K1 low · 4E-BP1 unphosphorylated · ULK1 released",
        "note": "The resting or starved state. Autophagy is not switched on here so much as let go of &mdash; the restraint mTORC1 was applying to ULK1 is simply no longer there."
       },
       "LOW|OFF|low": {
        "flow": [
+        "AMPK",
         "ULK1"
        ],
        "cut": [
@@ -386,7 +393,7 @@
     "The same mTOR kinase is found in at least two distinct complexes, built around different partner proteins. <strong>mTORC1</strong> contains RAPTOR; <strong>mTORC2</strong> contains RICTOR and SIN1. Both also contain mLST8.",
     "The partner protein is not decoration. RAPTOR helps recruit the substrates mTORC1 acts on, which is a large part of why the two complexes phosphorylate different targets even though the catalytic machinery is the same. Changing the partner changes what the kinase can reach.",
     "The distinction has an experimental origin worth knowing: mTORC2 was found because a part of mTOR signalling did not behave the way rapamycin said it should. Acute rapamycin treatment inhibits mTORC1 readily; the RICTOR-containing complex was described as insensitive to that acute inhibition. A drug's failure to explain everything is what split the field into two complexes.",
-    "Worth noting how the discoveries actually landed, because single-name stories are usually wrong: RAPTOR was reported in 2002 by Kim and colleagues and, independently and in the same issue of <em>Cell</em>, by Hara and colleagues. In the same year Loewith and colleagues described two distinct TOR complexes in yeast, only one of them rapamycin-sensitive — the TORC1/TORC2 paradigm arrives from yeast genetics before the mammalian RICTOR paper in 2004. The Atlas's Timeline records the same parallel attribution."
+    "Worth noting how the discoveries actually landed, because single-name stories are usually wrong: RAPTOR was reported in 2002 by Kim and colleagues and, independently and in the same issue of <em>Cell</em>, by Hara and colleagues. In the same year Loewith and colleagues described two distinct TOR complexes in yeast, only one of them rapamycin-sensitive — the TORC1/TORC2 paradigm arrives from yeast genetics before the mammalian RICTOR papers of 2004. The Atlas's Timeline records the same parallel attribution."
    ],
    "sections": [
     {
@@ -1258,7 +1265,7 @@
      ],
      "bodyBeginner": [
       "In tuberous sclerosis, one of the brake's genes is faulty, so the brake is missing and benign tumours grow.",
-      "A trial in 117 people with the condition found that a drug aimed at mTORC1 shrank brain tumours in about a third of those treated, and in nobody on placebo.",
+      "A trial in 117 people with the condition found that a drug aimed at mTORC1 shrank the brain tumours by at least half in about a third of those treated, and in nobody on placebo.",
       "That is strong evidence &mdash; about this condition. It does not tell you what the same drug does in someone whose brake works, and it says nothing about ageing."
      ]
     },
@@ -1266,7 +1273,7 @@
      "kind": "caution",
      "heading": "Reading the tiers on this lesson",
      "body": [
-      "Five of the six studies below are M: biochemistry and cell work, mostly in cell lines. One is H and is a randomised trial in a rare genetic disease. Those are not the same kind of statement, and the Atlas codes mark study design rather than quality &mdash; a careful biochemistry paper is not a weak clinical trial, it is a different experiment answering a different question."
+      "Six of the seven studies below are M: biochemistry and cell work, mostly in cell lines. One is H and is a randomised trial in a rare genetic disease. Those are not the same kind of statement, and the Atlas codes mark study design rather than quality &mdash; a careful biochemistry paper is not a weak clinical trial, it is a different experiment answering a different question."
      ]
     }
    ],
@@ -1544,7 +1551,7 @@
       "readout": "Tumour volume. A reduction of at least 50% in the brain lesions of 35% of the treated group, versus none on placebo."
      },
      "bothSupport": "That the TSC&ndash;Rheb&ndash;mTORC1 axis is operating in human tissue and not only in cell culture: the molecular result predicts what the drug does in a population whose brake is broken.",
-     "differ": "In what question they answer. The cell experiment establishes the mechanism &mdash; what TSC does to Rheb &mdash; and says nothing about people. The trial establishes an effect in people whose brake is already gone, and says nothing about the mechanism, nor about anyone whose TSC complex works. Neither one covers the other's ground, and the tiers (D and B) mark that difference in design rather than a difference in quality.",
+     "differ": "In what question they answer. The cell experiment establishes the mechanism &mdash; what TSC does to Rheb &mdash; and says nothing about people. The trial establishes an effect in people whose brake is already gone, and says nothing about the mechanism, nor about anyone whose TSC complex works. Neither one covers the other's ground, and the tiers (M and H) mark that difference in design rather than a difference in quality.",
      "nextExperiment": "The missing middle is a human study in people with an intact TSC complex, with a pharmacodynamic readout of the pathway rather than a tumour endpoint &mdash; which is close to what the ageing trials in Lesson 10 attempt, and why their endpoints are so hard to choose."
     },
     {
@@ -1553,14 +1560,14 @@
      "title": "What the convergence picture supports",
      "shows": [
       "That several unrelated kinds of signal act on the TSC complex, and that it acts on Rheb rather than on mTORC1 directly",
-      "That losing the complex raises mTORC1 activity and drives tissue overgrowth in people who inherit that loss"
+      "That losing the complex raises mTORC1 activity and drives tissue overgrowth in people who carry that loss"
      ],
      "doesNotShow": [
       "That the four inputs contribute equally, or in the same proportion in every tissue",
       "That the site mapping done with strong acute stimuli in cell lines describes how these inputs combine at physiological signal strengths",
       "That an mTORC1-directed drug does the same thing in a person whose TSC complex is intact"
      ],
-     "why": "Five of this lesson's six studies are M — cell biochemistry; the human evidence comes from a population defined by a broken brake. Reading the trial as a general statement about mTORC1 inhibition is the most common way a strong, narrow result gets stretched."
+     "why": "Six of this lesson's seven studies are M — cell biochemistry; the human evidence comes from a population defined by a broken brake. Reading the trial as a general statement about mTORC1 inhibition is the most common way a strong, narrow result gets stretched."
     }
    ],
    "coreIdeaBeginner": [
@@ -1590,14 +1597,14 @@
      "figure": "lysosome-hub",
      "body": [
       "The <strong>Rag GTPases</strong> work as heterodimers &mdash; RagA or RagB paired with RagC or RagD &mdash; and unlike Rheb they are not membrane-anchored themselves. They are held at the lysosomal surface by <strong>Ragulator</strong>, a multi-subunit complex that both tethers them and acts on their nucleotide state. When amino acids are available, the Rag dimer adopts the nucleotide configuration that binds RAPTOR, and mTORC1 is recruited from the cytosol to the membrane, where Rheb is.",
-      "The signal does not begin outside the lysosome. Amino acids accumulating in the <strong>lumen</strong> are read from the inside, and the vacuolar H<sup>+</sup>-ATPase &mdash; the proton pump that acidifies the compartment &mdash; is required to relay that information outward to Ragulator and the Rags. This 'inside-out' arrangement is genuinely odd on first meeting, and it is one of the better arguments that the lysosome is not merely a convenient surface but part of the sensing apparatus.",
+      "One of the amino-acid signals does not begin outside the lysosome. Amino acids accumulating in the <strong>lumen</strong>, arginine in particular, are read from the inside, and the vacuolar H<sup>+</sup>-ATPase &mdash; the proton pump that acidifies the compartment &mdash; is required to relay that information outward to Ragulator and the Rags. Other amino acids, leucine among them, are read in the cytosol instead, by the sensors of Lesson 06, so the pathway samples the same nutrient pool from two sides. This 'inside-out' arrangement is genuinely odd on first meeting, and it is one of the better arguments that the lysosome is not merely a convenient surface but part of the sensing apparatus.",
       "<strong>SLC38A9</strong>, a lysosomal membrane protein with an amino-acid transporter fold, sits in the same assembly and links lumenal amino-acid content &mdash; arginine in particular &mdash; to Rag activity. Structural work has since described how mTORC1 docks onto the Rag&ndash;Ragulator scaffold, which turns a cartoon arrow into a described interaction surface.",
       "The traffic runs outward as well. <strong>TFEB</strong>, a transcription factor for lysosomal and autophagy genes, is phosphorylated in an mTORC1-dependent manner at the lysosomal surface; phosphorylated, it stays in the cytosol, and when mTORC1 activity falls it enters the nucleus. So the same platform that reports the cell's nutrient state also controls the transcriptional program that builds more lysosomes &mdash; a loop from the organelle to the genome and back."
      ],
      "interactive": "lyso-platform",
      "bodyBeginner": [
       "A group of proteins called the Rag GTPases sits on the lysosome, held there by a complex called Ragulator. When amino acids are available, the Rags grab mTORC1 and pull it to the membrane.",
-      "Oddly, the amino acids being counted are inside the lysosome, not outside it. The pump that makes the compartment acidic is needed to pass that information out to the Rags.",
+      "Oddly, some of the amino acids being counted are inside the lysosome, not outside it. The pump that makes the compartment acidic is needed to pass that information out to the Rags. Other amino acids, such as leucine, are counted outside the lysosome by the sensors in Lesson 06, so the cell checks its food supply from both sides.",
       "Traffic also runs the other way: a protein called TFEB is held outside the nucleus while mTORC1 is active, and goes in when it is not &mdash; switching on the genes that build more lysosomes."
      ]
     },
@@ -1834,8 +1841,8 @@
       "readout": "Rag activity and mTORC1 signalling, which track amino acids inside the lysosomal lumen and require the proton pump to relay the signal outward."
      },
      "bothSupport": "That the lysosomal surface is where mTORC1 is switched on, and that the Rag&ndash;Ragulator machinery is what puts it there. Both make the compartment part of the mechanism rather than a backdrop.",
-     "differ": "In where they place the measuring step. The first is compatible with a cytosolic signal arriving at a lysosomal platform; the second puts the sensed pool inside the lumen and makes the pump part of the relay. That is a real disagreement about mechanism, not a difference of emphasis, and it is why the second result was surprising rather than confirmatory.",
-     "nextExperiment": "Anything that reports lumenal amino-acid content directly and continuously, in living cells, while Rag activity is measured at the same time &mdash; the two claims differ about a quantity that has mostly been inferred rather than watched."
+     "differ": "In where they place the measuring step. The first is compatible with a cytosolic signal arriving at a lysosomal platform; the second puts the sensed pool inside the lumen and makes the pump part of the relay. These are two complementary findings about different parts of the mechanism rather than a disagreement: the field now holds both, a cytosolic route and a lumenal one. The second result was still surprising rather than confirmatory, because it showed the compartment reading its own contents.",
+     "nextExperiment": "Anything that reports lumenal amino-acid content directly and continuously, in living cells, while Rag activity is measured at the same time &mdash; the lumenal route rests on a quantity that has mostly been inferred rather than watched."
     },
     {
      "id": "lysosome-caution",
@@ -1889,19 +1896,19 @@
       "Follow leucine. With no leucine, its detector Sestrin2 holds down a complex called GATOR2. Leucine binding to Sestrin2 lets GATOR2 go. Free GATOR2 blocks GATOR1, and GATOR1 is the thing that switches the Rag proteins off.",
       "Arginine works the same way with a different detector, and a molecule derived from methionine with a third one.",
       "One detector sits inside the lysosome membrane and reports what is in the lumen &mdash; so a single amino acid can be reported from two different places.",
-      "Not everything goes this route: glutamine has been shown to reach mTORC1 without the Rag proteins at all."
+      "Not everything goes this route. Glutamine has been reported to reach mTORC1 without the Rag proteins in some cells, alongside a second route that does use them."
      ]
     },
     {
      "kind": "prose",
      "heading": "Why double negatives, and why it matters for reading data",
      "body": [
-      "Inhibitory wiring is not a quirk of evolution's taste. A system whose default is 'held off' fails safe: lose a component and the pathway tends toward inactive rather than toward unrestrained growth. It also makes the response fast in the direction that matters &mdash; releasing an existing inhibition is quicker than assembling an activating signal.",
+      "Inhibitory wiring is not a quirk of evolution's taste. Which way the system fails depends on where it breaks. Lose GATOR2 and the pathway tends toward inactive; lose a sensor such as Sestrin2 and the cell stops needing that amino acid; lose GATOR1, the GAP at the end of the chain, and the Rags stay on whatever the nutrient supply says, which is why GATOR1 subunit genes behave as tumour suppressors. Inhibitory wiring also makes the response fast in the direction that matters &mdash; releasing an existing inhibition is quicker than assembling an activating signal.",
       "For a reader, the consequence is that <em>signs are easy to get backwards</em>, and a surprising number of confusions in this literature are sign errors rather than disagreements about data. GATOR1 loss-of-function raises mTORC1 signalling; GATOR2 loss lowers it; Sestrin2 overexpression lowers it; leucine addition raises it. Each of those follows from the same diagram, but only if you count the blunt ends carefully.",
       "GATOR1 subunit genes are also mutated in some cancers, which is the expected consequence of removing a brake: the same logic as TSC in Lesson 04, at a different point in the same input branch."
      ],
      "bodyBeginner": [
-      "Wiring things this way has an advantage: if a part breaks, the system tends to fail towards 'off' rather than towards uncontrolled growth.",
+      "Which way the system fails depends on which part breaks. Lose GATOR2 and the pathway tends to switch off. Lose a sensor and the cell stops needing that amino acid. Lose GATOR1, the last brake in the chain, and the switch stays on even when food is short.",
       "For a reader it has a cost. Signs are easy to get backwards, and a surprising number of confusions in this field are sign errors rather than disagreements about data.",
       "Genes for one of these blocking complexes are mutated in some cancers &mdash; the same logic as the missing brake in Lesson 04, one step further up."
      ]
@@ -1963,7 +1970,7 @@
     {
      "prompt": "Predict what happens to mTORC1 signalling if you delete Sestrin2, and then if you delete a GATOR1 subunit. Do the two predictions have the same sign?",
      "hint": "Write the chain out with each arrow's sign, then remove one box at a time.",
-     "reveal": "They have opposite signs. Sestrin2 inhibits GATOR2, so deleting Sestrin2 leaves GATOR2 free &mdash; GATOR1 stays restrained, Rag signalling tends to stay on even without leucine. Deleting a GATOR1 subunit removes the GAP that shuts the Rags down, which also raises signalling, but for the opposite structural reason and with a different dependence on nutrients: the Sestrin2-null cell has lost a leucine-responsive step, while the GATOR1-null cell has lost the off-switch itself. That difference &mdash; loss of regulation versus loss of a specific input &mdash; is what an experiment measuring only phospho-S6K would miss, and it is why nutrient-response experiments are usually run as withdrawal and re-addition rather than at steady state."
+     "reveal": "They have the same sign and different causes. Deleting Sestrin2 leaves GATOR2 free, so GATOR1 stays restrained and Rag signalling continues even without leucine. Deleting a GATOR1 subunit removes the GAP itself, which also raises signalling, but the Sestrin2-null cell has lost one nutrient input while the GATOR1-null cell has lost the off-switch. That difference, loss of a specific input versus loss of regulation, is what a phospho-S6K blot alone would miss, and it is why nutrient-response experiments are usually run as withdrawal and re-addition rather than at steady state."
     },
     {
      "prompt": "Glutamine has been reported to reach mTORC1 by a route that does not require the Rag GTPases. What would that do to an experiment that used Rag-null cells to ask 'is this response amino-acid dependent'?",
@@ -2081,7 +2088,7 @@
        "cut": [
         "SESN2-GATOR2",
         "CASTOR1-GATOR2",
-        "GATOR2-GATOR1"
+        "GATOR1-RAG"
        ],
        "readout": "GATOR1 restrained · Rag GTPases in their active state",
        "note": "Both amino acids are bound to their sensors, so neither sensor is inhibiting GATOR2, GATOR2 is free to inhibit GATOR1, and GATOR1 stops switching the Rags off. Count the blunt ends on the way through: the pathway is on because three inhibitions are released, not because anything was pushed."
@@ -2093,8 +2100,8 @@
         "GATOR1"
        ],
        "cut": [
-        "SESN2-GATOR2",
-        "GATOR1-RAG"
+        "ARG-CASTOR1",
+        "SESN2-GATOR2"
        ],
        "readout": "GATOR2 partly inhibited · Rag signalling reduced",
        "note": "One sensor is free and the other is still holding GATOR2. The teaching model draws this as a reduced rather than an absent response; how much a single missing amino acid actually costs varies with cell type and is not a fixed fraction."
@@ -2106,8 +2113,8 @@
         "GATOR1"
        ],
        "cut": [
-        "CASTOR1-GATOR2",
-        "GATOR1-RAG"
+        "LEU-SESN2",
+        "CASTOR1-GATOR2"
        ],
        "readout": "GATOR2 partly inhibited · Rag signalling reduced",
        "note": "The mirror image, and worth comparing with the state above: the pathway can report which amino acid is missing at the sensor, and by the time the signal reaches the Rags that information is gone."
@@ -2118,7 +2125,11 @@
         "CASTOR1",
         "GATOR1"
        ],
-       "cut": [],
+       "cut": [
+        "LEU-SESN2",
+        "ARG-CASTOR1",
+        "GATOR2-GATOR1"
+       ],
        "readout": "GATOR1 active · Rag GTPases switched off",
        "note": "Both sensors unoccupied, both inhibiting GATOR2, GATOR1 free to act as a GAP on the Rags. This is the resting state of the system: held off, and released by the arrival of nutrients rather than switched on by them."
       }
@@ -2201,11 +2212,11 @@
      "kind": "prose",
      "heading": "The same wiring, seen in an animal",
      "body": [
-      "Most of the mechanism above comes from cell lines and biochemistry. The clearest whole-tissue demonstration in this corpus is skeletal muscle: in mice and in cultured myotubes, the AKT&ndash;mTOR axis was shown to be required for hypertrophy and sufficient to counteract atrophy, which connects the arrows above to a phenotype an animal actually has.",
+      "Most of the mechanism above comes from cell lines and biochemistry. The clearest whole-tissue demonstration in this corpus is skeletal muscle: in rats and mice in vivo, the AKT&ndash;mTOR axis was shown to be required for hypertrophy and sufficient to counteract atrophy, which connects the arrows above to a phenotype an animal actually has.",
       "That study is A rather than M &mdash; animal rather than molecular &mdash; and the shift is not cosmetic. It moves the claim from 'these proteins interact this way in this cell type' to 'this axis is load-bearing for a tissue-level outcome in a living animal'. It is also where an important limit appears: the same axis in the same animal does different things in different tissues, so a muscle result is a muscle result."
      ],
      "bodyBeginner": [
-      "Most of the above comes from cells in a dish. The clearest whole-animal example here is muscle: in mice, this axis is needed for muscle to grow and can counteract muscle loss.",
+      "Most of the above comes from cells in a dish. The clearest whole-animal example here is muscle: in rats and mice, this axis is needed for muscle to grow and can counteract muscle loss.",
       "That moves the claim from 'these proteins interact' to 'this matters for a whole tissue in a living animal' &mdash; and a muscle result is still a muscle result."
      ]
     },
@@ -2264,7 +2275,7 @@
     {
      "prompt": "mTORC2 phosphorylates AKT, and AKT relieves inhibition of mTORC1. Draw that as a circuit. What does it predict about an inhibitor that hits both complexes?",
      "hint": "Ask what happens to the input when you remove the amplifier and the output at once.",
-     "reveal": "As a circuit, mTORC2 sits upstream of mTORC1 by way of AKT, so an inhibitor that reaches both should lower mTORC1 output by two routes at once: directly, and by weakening the AKT signal that would otherwise release TSC2 and PRAS40. That predicts a deeper and more sustained suppression than an mTORC1-only inhibitor &mdash; and a different side-effect profile, since AKT signalling does a great deal besides growth, including in glucose handling. Both predictions are broadly borne out in the corpus, and they are the reason 'mTORC1-selective' has been a design goal rather than a footnote. The catch is that selectivity claims depend on dose and duration, not on the molecule alone."
+     "reveal": "As a circuit, mTORC2 feeds AKT, which relieves inhibition of mTORC1, so an inhibitor reaching both cuts the diagram twice. Be careful about what that buys: deleting the mTORC2 subunits abolishes AKT Ser473 and still leaves S6K1 signalling intact, so most of the deeper suppression seen with active-site inhibitors comes from blocking the rapamycin-resistant outputs of mTORC1 itself rather than from the AKT arm. What the dual reach does change is the side-effect profile, because AKT signalling does a great deal besides growth, including in glucose handling. That is the reason 'mTORC1-selective' has been a design goal rather than a footnote. The catch is that selectivity claims depend on dose and duration, not on the molecule alone."
     },
     {
      "prompt": "A paper reports that a compound &lsquo;activates mTORC1&rsquo; in muscle cells and concludes that it will promote muscle growth. What would you want before accepting the second half?",
@@ -2377,7 +2388,6 @@
         "mTORC1"
        ],
        "cut": [
-        "AKT-PRAS40",
         "PRAS40-MTORC1"
        ],
        "readout": "PIP3 high · AKT active · PRAS40 released · mTORC1 active",
@@ -2390,7 +2400,8 @@
        ],
        "cut": [
         "IGF1-PI3K",
-        "PI3K-AKT"
+        "PI3K-AKT",
+        "AKT-PRAS40"
        ],
        "readout": "PIP3 low · AKT quiet · PRAS40 clamping · mTORC1 quiet",
        "note": "No ligand, no PIP3, no AKT, and PRAS40 stays where it is. Note what is doing the inhibiting here: not an active off-signal but an unopposed brake."
@@ -2404,7 +2415,6 @@
        ],
        "cut": [
         "PTEN-PI3K",
-        "AKT-PRAS40",
         "PRAS40-MTORC1"
        ],
        "readout": "PIP3 high and sustained · AKT active · mTORC1 active",
@@ -2418,7 +2428,6 @@
        ],
        "cut": [
         "PTEN-PI3K",
-        "AKT-PRAS40",
         "PRAS40-MTORC1"
        ],
        "readout": "PIP3 elevated without ligand · AKT active · mTORC1 active",
@@ -2437,7 +2446,7 @@
      },
      "b": {
       "sid": "BOD2001",
-      "perturbation": "Mouse skeletal muscle in vivo: the AKT&ndash;mTOR axis raised and lowered during hypertrophy and atrophy.",
+      "perturbation": "Rat and mouse skeletal muscle in vivo: the AKT&ndash;mTOR axis raised and lowered during hypertrophy and atrophy.",
       "readout": "Muscle mass and fibre size over weeks, with the axis shown to be required for hypertrophy and able to counteract atrophy."
      },
      "bothSupport": "That the AKT&ndash;mTOR axis is load-bearing rather than incidental: it carries a specific biochemical activity and it is needed for a tissue-level outcome in an animal.",
@@ -2694,7 +2703,6 @@
         "S6K1"
        ],
        "cut": [
-        "AKT-PRAS40",
         "PRAS40-MTORC1"
        ],
        "readout": "mTORC1 active · S6K1 active · IRS-1 being degraded · insulin input falling",
@@ -2707,7 +2715,6 @@
         "Akt/PKB"
        ],
        "cut": [
-        "AKT-PRAS40",
         "MTORC1-S6K1",
         "PRAS40-MTORC1",
         "S6K1-IRS1"
@@ -2724,7 +2731,6 @@
         "S6K1"
        ],
        "cut": [
-        "AKT-PRAS40",
         "PRAS40-MTORC1",
         "S6K1-IRS1"
        ],
@@ -2738,7 +2744,6 @@
         "Akt/PKB"
        ],
        "cut": [
-        "AKT-PRAS40",
         "MTORC1-S6K1",
         "PRAS40-MTORC1",
         "S6K1-IRS1"
@@ -2826,12 +2831,12 @@
      "heading": "Is the autophagy connected to the lifespan effect?",
      "body": [
       "This is where the lesson stops describing mechanism and starts describing an argument. Lowering mTOR signalling extends lifespan in several laboratory species; lowering it also releases autophagy; so the obvious hypothesis is that autophagy is how the lifespan effect works. Two lines of evidence in the corpus bear on it directly.",
-      "In <em>C. elegans</em>, animals lacking the autophagy gene <em>bec-1</em> lost the lifespan extension normally conferred by reduced insulin-like signalling &mdash; a necessity result, and a strong one for that organism. In mice, animals engineered to overexpress <em>Atg5</em> showed increased autophagy and lived about 17% longer, alongside being leaner and more insulin-sensitive &mdash; a sufficiency result of a kind, in a mammal.",
+      "In <em>C. elegans</em>, animals in which the autophagy gene <em>bec-1</em> was knocked down lost the lifespan extension normally conferred by reduced insulin-like signalling &mdash; a necessity result, and a strong one for that organism. In mice, animals engineered to overexpress <em>Atg5</em> showed increased autophagy and lived about 17% longer, alongside being leaner and more insulin-sensitive &mdash; a sufficiency result of a kind, in a mammal.",
       "Put together, they make the hypothesis serious without closing it. Neither study manipulated mTOR; both change autophagy by other means, so they support 'autophagy matters for lifespan in these models' rather than 'autophagy is the mechanism of the mTOR effect'. The Atlas carries the remaining question in its own words &mdash; whether autophagy is actually required for the mammalian lifespan benefit &mdash; and it is a good example of a hypothesis that is widely believed, well motivated, and not yet directly tested in the form in which it is usually stated."
      ],
      "bodyBeginner": [
       "Lowering mTOR signalling lengthens life in several laboratory species, and it also releases autophagy &mdash; so the obvious guess is that autophagy is how the lifespan effect works.",
-      "Two results support the guess. Worms without a key autophagy gene lost the lifespan benefit of reduced insulin-like signalling. Mice given extra copies of an autophagy gene lived about 17% longer.",
+      "Two results support the guess. Worms in which a key autophagy gene was turned down lost the lifespan benefit of reduced insulin-like signalling. Mice given extra copies of an autophagy gene lived about 17% longer.",
       "Neither experiment touched mTOR. So they make the idea serious and leave the actual question open &mdash; which is why the Atlas still lists it as unresolved."
      ]
     },
@@ -2925,7 +2930,7 @@
     },
     {
      "level": "hard",
-     "prompt": "Worms lacking <em>bec-1</em> lose the lifespan extension from reduced insulin-like signalling, and mice overexpressing <em>Atg5</em> live about 17% longer. What do these two results together support?",
+     "prompt": "Worms in which <em>bec-1</em> is knocked down lose the lifespan extension from reduced insulin-like signalling, and mice overexpressing <em>Atg5</em> live about 17% longer. What do these two results together support?",
      "options": [
       "That autophagy is the mechanism by which mTOR inhibition extends lifespan",
       "That autophagy matters for lifespan in these models &mdash; while leaving open whether it is the route by which reduced mTOR signalling acts, since neither study manipulated mTOR",
@@ -2955,7 +2960,7 @@
      "id": "autophagy-clocks",
      "kind": "model",
      "title": "Two clocks on the same decision",
-     "caption": "The fast arm (mTORC1 and AMPK acting on ULK1) and the slow arm (mTORC1 holding TFEB out of the nucleus) side by side. The second control is time, because the difference between these two arms is entirely a difference in how long they take.",
+     "caption": "The fast arm (mTORC1 acting on ULK1, with AMPK as a second input that joins when energy falls too) and the slow arm (mTORC1 holding TFEB out of the nucleus) side by side. The second control is time, because the difference between these two arms is entirely a difference in how long they take.",
      "layout": [
       [
        "mTORC1",
@@ -2999,7 +3004,8 @@
        ],
        "cut": [
         "ULK1-AUTOPHAGY",
-        "TFEB-LYSOBIO"
+        "TFEB-LYSOBIO",
+        "AMPK-ULK1"
        ],
        "readout": "ULK1 phosphorylated and inactive · TFEB cytosolic",
        "note": "Nutrients present: mTORC1 sits on the ULK1 complex and keeps it off, and TFEB is held out of the nucleus. Autophagy is restrained rather than absent &mdash; the machinery is there and being held."
@@ -3010,27 +3016,27 @@
        ],
        "cut": [
         "ULK1-AUTOPHAGY",
-        "TFEB-LYSOBIO"
+        "TFEB-LYSOBIO",
+        "AMPK-ULK1"
        ],
        "readout": "ULK1 inactive · TFEB cytosolic · lysosomal genes quiet",
        "note": "Nothing new happens over hours in a fed cell, which is the flat comparison the starved column needs to be read against."
       },
       "starved|minutes": {
        "flow": [
-        "AMPK",
         "ULK1",
         "Autophagy"
        ],
        "cut": [
         "MTORC1-ULK1",
-        "TFEB-LYSOBIO"
+        "TFEB-LYSOBIO",
+        "AMPK-ULK1"
        ],
-       "readout": "ULK1 released and activated by AMPK · autophagosomes forming · TFEB just entering the nucleus",
-       "note": "The fast arm. Removing a phosphorylation is quick, and AMPK pushes the same kinase from the other side, so autophagy can start within minutes &mdash; long before any new protein has been made."
+       "readout": "ULK1 released from mTORC1 · autophagosomes forming · TFEB just entering the nucleus",
+       "note": "The fast arm. Removing a phosphorylation is quick, so autophagy can start within minutes, long before any new protein has been made. AMPK is drawn but idle: withdrawing amino acids need not lower the cell's energy charge. When energy does fall as well, AMPK pushes the same kinase from the other side."
       },
       "starved|hours": {
        "flow": [
-        "AMPK",
         "ULK1",
         "TFEB",
         "Autophagy",
@@ -3038,7 +3044,8 @@
        ],
        "cut": [
         "MTORC1-ULK1",
-        "MTORC1-TFEB"
+        "MTORC1-TFEB",
+        "AMPK-ULK1"
        ],
        "readout": "Autophagy running · TFEB nuclear · lysosomal and autophagy genes transcribed",
        "note": "The slow arm arrives. TFEB in the nucleus means the cell is building more of the apparatus it has been using &mdash; and more functional lysosomes eventually release more amino acids, which is how this becomes a loop rather than a one-way street."
@@ -3051,8 +3058,8 @@
      "title": "Necessity in a worm, sufficiency in a mouse",
      "a": {
       "sid": "MEL2003",
-      "perturbation": "<em>C. elegans</em> with reduced insulin-like signalling, in which the autophagy gene <em>bec-1</em> was removed.",
-      "readout": "Lifespan. The extension normally conferred by reduced insulin-like signalling was lost without the autophagy gene."
+      "perturbation": "<em>C. elegans</em> with reduced insulin-like signalling, in which the autophagy gene <em>bec-1</em> was knocked down by RNAi.",
+      "readout": "Lifespan. The extension normally conferred by reduced insulin-like signalling was lost when the autophagy gene was knocked down."
      },
      "b": {
       "sid": "PYO2013",
@@ -3105,14 +3112,14 @@
      "heading": "The anatomy of a claim",
      "figure": "claim-anatomy",
      "body": [
-      "<strong>Model system.</strong> A cancer cell line, a primary cell, a fly, a worm, a mouse, a dog, a person. Each answers a different question and none is a small version of the next one. The Atlas's evidence codes are a compressed statement of this: M is molecular or in-vitro work, A animal, H human, S a synthesis of human data. <em>The code is study design, not quality.</em> A careful biochemistry paper is not a weak trial; it is a different experiment.",
+      "<strong>Model system.</strong> A cancer cell line, a primary cell, a fly, a worm, a mouse, a dog, a person. Each answers a different question and none is a small version of the next one. The Atlas's evidence codes are a compressed statement of this: M is molecular or in-vitro work, A animal, H human, S a synthesis of human data, and R a narrative review that summarises other papers rather than reporting a new result. <em>The code is study design, not quality.</em> A careful biochemistry paper is not a weak trial; it is a different experiment.",
       "<strong>Perturbation.</strong> What was actually done &mdash; a knockout, a knockdown, an overexpression, a drug at some dose for some duration, a diet. Overexpression tells you what a protein <em>can</em> do; a knockout tells you what the system does without it, in the presence of whatever compensation occurred. Neither is the same as watching the endogenous protein work.",
       "<strong>Readout.</strong> What was measured, when, and in what units. A phosphorylation on a blot, a lifespan curve, a tumour volume, a body-composition scan. The readout is the only quantitative fact in the paper; everything else is interpretation of it.",
       "<strong>Claim.</strong> The sentence in the abstract. Read it last, deliberately, after you have the other three &mdash; and then ask what would have to be true for it to follow."
      ],
      "interactive": "tool-and-readout",
      "bodyBeginner": [
-      "<strong>What was studied.</strong> A cell line, a fly, a mouse, a dog, a person. The Atlas tiers record this: D is lab-bench work, C animal, B human, A a review of many human studies. Tier is the type of study, not a score.",
+      "<strong>What was studied.</strong> A cell line, a fly, a mouse, a dog, a person. The Atlas tiers record this: M is lab-bench work, A animal, H human, S a careful review of many human studies, and R a review that sums up other papers without a new result. Tier is the type of study, not a score.",
       "<strong>What was done.</strong> A gene removed, a gene added, a drug at some dose for some time, a diet. Adding extra protein shows what it <em>can</em> do; removing it shows what the system does without it.",
       "<strong>What was measured.</strong> A band on a gel, a survival curve, a tumour size. This is the only number in the paper.",
       "<strong>What is claimed.</strong> Read this last, on purpose, and ask what would have to be true for it to follow."

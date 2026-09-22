@@ -14,13 +14,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="All 88 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta name="description" content="All 91 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <link rel="canonical" href="https://mtor-atlas.org/pathway/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="All 88 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta property="og:description" content="All 91 nodes and 120 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <meta property="og:url" content="https://mtor-atlas.org/pathway/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -70,28 +70,28 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "794316"
+    "contentSize": "814006"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "979003"
+    "contentSize": "998680"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "65030"
+    "contentSize": "68027"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "87499"
+    "contentSize": "90482"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -109,7 +109,7 @@
    "evidence-based research"
   ],
   "version": "1.0.0",
-  "dateModified": "2026-09-21"
+  "dateModified": "2026-09-22"
  }
 }
 </script>
@@ -345,7 +345,7 @@ table.int-table td[data-l="Mechanism"]{max-width:420px}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>The mTOR pathway, node by node</h1>
 <p class="summary">The same curated model behind the Atlas's interactive
-pathway map (88 nodes, 120 interactions,
+pathway map (91 nodes, 120 interactions,
 11 guided routes, 6 feedback loops), written
 out as text: eleven guided walks through the network, each followed by the
 full interaction reference table below.</p>
@@ -365,7 +365,7 @@ full interaction reference table below.</p>
 <p>Sestrin2 carries a pocket that fits leucine with roughly 20 µM affinity. That number is the whole argument: it sits inside the range over which leucine inside a real cell actually rises and falls, so Sestrin2 changes state when leucine changes, rather than being permanently full or permanently empty.</p>
 <p><em>Leucine-loaded Sestrin2 can no longer hold onto GATOR2. Nothing has been switched on yet – something has been let go of.</em> GATOR2 is now free. Watch what it does with that freedom: it does not activate anything either. It inhibits the next brake.</p>
 <p class="tier-why">Certainty: The binding is structurally resolved and the affinity measured in vitro. What is not established is whether the same 20 µM setpoint holds in tissues with different leucine transport – so this is high mechanistic confidence with unproven human physiological calibration.</p>
-<p class="summary">This is where the pathway&#x27;s logic starts being counter-intuitive. The cell does not detect food and then send a &#x27;grow&#x27; signal. It detects food and stops sending a &#x27;do not grow&#x27; signal. Almost every nutrient input works this way, and it is the reason the pathway is so hard to read off a diagram of arrows.</p></li><li class="step">
+<p class="summary">This is where the pathway&#x27;s logic starts being counter-intuitive. The cell does not detect food and then send a &#x27;grow&#x27; signal. It detects food and stops sending a &#x27;do not grow&#x27; signal. Most nutrient inputs drawn in this map work that way – count the double negatives yourself rather than taking the word &#x27;almost every&#x27; on trust – and it is the reason the pathway is so hard to read off a diagram of arrows.</p></li><li class="step">
 <p class="step-what"><strong>2. GATOR2 is released – the first brake comes off.</strong>
 <a class="step-jump" href="#int-sesn2-gator2">mechanism &darr;</a></p>
 <p>Sestrin2 and GATOR2 are mutually exclusive binding partners: leucine-bound Sestrin2 lets go, and free GATOR2 becomes able to act on GATOR1.</p>
@@ -393,10 +393,10 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>6. The Rags recruit mTORC1 to the lysosome. They do not switch it on.</strong>
 <a class="step-jump" href="#int-rag-mtorc1">mechanism &darr;</a></p>
 <p>GTP-loaded RagA/B binds Raptor directly, dragging the whole mTORC1 complex out of the cytosol and onto the lysosomal surface.</p>
-<p><em>mTORC1&#x27;s location changes, and only its location. Its kinase activity at this moment is essentially unchanged. Recruitment is not activation – these are two different claims and this map draws them differently on purpose.</em> mTORC1 is now in the one place where it can meet Rheb. Meeting Rheb is the event that actually switches it on.</p>
+<p><em>mTORC1&#x27;s location changes, and only its location. Its kinase activity at this moment is essentially unchanged. Recruitment is not activation – these are two different claims and this map draws them differently on purpose.</em> mTORC1 is now at the surface where the Rheb pool that switches it on in this route is waiting. Meeting Rheb is the event that actually switches it on.</p>
 <p class="tier-why">Certainty: Directly demonstrated and reproduced across labs; the corpus evidence is cell-line biochemistry, so human relevance is graded plausible rather than established.</p>
 <p class="summary">If you take one thing from this route, take this: amino acids alone cannot make a cell grow. Starve a cell of growth factors, flood it with leucine, and mTORC1 will sit on the lysosome doing nothing. The nutrient arm answers &#x27;are the parts available?&#x27; – it does not answer &#x27;am I allowed to build?&#x27;</p></li><li class="step">
-<p class="step-what"><strong>7. Rheb switches mTORC1 on – and only growth factors control Rheb.</strong>
+<p class="step-what"><strong>7. Rheb switches mTORC1 on – and nutrients do not control Rheb.</strong>
 <a class="step-jump" href="#int-rheb-mtorc1">mechanism &darr;</a></p>
 <p>GTP-loaded Rheb binds mTORC1 and physically realigns its active site into a catalytically competent conformation. This is an allosteric activation, a different kind of event from everything upstream in this route.</p>
 <p><em>mTORC1 becomes an active kinase. Now, and only now, S6K1 and 4E-BP1 start getting phosphorylated.</em> The cell builds. And because Rheb is controlled by the TSC complex, which is controlled by Akt, AMPK and ERK, the growth-factor and energy arms all converge on this single step.</p>
@@ -434,7 +434,7 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>4. Released from Akt&#x27;s inhibition, TSC would switch Rheb off – so inhibiting TSC leaves Rheb loaded.</strong>
 <a class="step-jump" href="#int-tsc-rheb">mechanism &darr;</a></p>
 <p>TSC2 is a GAP: it forces Rheb to hydrolyse GTP to GDP. With TSC inhibited, Rheb accumulates in its GTP state.</p>
-<p><em>Rheb flips from GDP-loaded to GTP-loaded. This is the moment the growth-factor signal becomes a switch position.</em> GTP-Rheb can now do the one thing in this pathway that genuinely activates mTORC1.</p>
+<p><em>Rheb flips from GDP-loaded to GTP-loaded. This is the moment the growth-factor signal becomes a switch position.</em> GTP-Rheb can now do what nothing upstream in this route has done: switch the kinase on rather than merely position it.</p>
 <p class="tier-why">Certainty: The second breakthrough paper (INOK2003), with GAR2003 independently. High mechanistic confidence; cell-line evidence.</p>
 <p class="summary">Note how far the signal has travelled and how little has been &#x27;activated&#x27;: a hormone bound a receptor, a lipid was made, a kinase was recruited, a brake was released, and a GTPase changed nucleotide. Four negations and a nucleotide swap. That is what a signalling pathway actually is.</p></li><li class="step">
 <p class="step-what"><strong>5. GTP-Rheb binds mTORC1 and switches the kinase on.</strong>
@@ -454,7 +454,7 @@ full interaction reference table below.</p>
 <p>Serine phosphorylation of IRS-1 creates a degradation signal. The adaptor that connected the receptor to PI3K is removed.</p>
 <p><em>IRS-1 protein levels fall. The input arm of this very route is dismantled.</em> PI3K recruitment drops, Akt activity falls, and the growth signal decays – even though the hormone is still present.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, multiple supporting studies. Cell-line evidence, so human relevance graded plausible, though the clinical consequence is well documented.</p>
-<p class="summary">This is negative feedback, and it is the most clinically consequential loop in the pathway. Block mTORC1 with a rapalog and you also block this loop – so IRS-1 survives, PI3K/Akt reactivate, and the tumour you were treating gets a growth signal back. Half the reason rapalog monotherapy underperforms is visible in this single arrow.</p></li><li class="step">
+<p class="summary">This is negative feedback, and it is the most clinically consequential loop in the pathway. Block mTORC1 with a rapalog and you also block this loop – so IRS-1 survives, PI3K/Akt reactivate, and the tumour you were treating gets a growth signal back. A large part of why rapalog monotherapy underperforms is visible in this single arrow. Note which way round the loop runs: it is mTORC1 ACTIVITY that destroys IRS-1, so the loop is a mechanism of insulin resistance under nutrient excess – the drug relieves it.</p></li><li class="step">
 <p class="step-what"><strong>8. IRS-1 recruits PI3K – closing the loop back to step one.</strong>
 <a class="step-jump" href="#int-irs1-pi3k">mechanism &darr;</a></p>
 <p>IRS-1 is the scaffold that brings PI3K to the activated receptor. Its abundance sets how much signal gets through.</p>
@@ -487,9 +487,9 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>3. One output rapamycin does release: mTORC1 stops holding ULK1 down.</strong>
 <a class="step-jump" href="#int-mtorc1-ulk1">mechanism &darr;</a></p>
 <p>mTORC1 phosphorylates ULK1 on S757, which blocks ULK1 from being activated by AMPK. Inhibit mTORC1 and that block lifts.</p>
-<p><em>ULK1 becomes available to AMPK. Autophagy initiation is no longer suppressed.</em> The cell starts recycling. This is the arm of rapamycin&#x27;s action that behaves the way people expect a clean inhibitor to behave.</p>
+<p><em>ULK1 becomes available to AMPK. Autophagy initiation is no longer suppressed.</em> The block on autophagy initiation is lifted. How much recycling actually follows is a separate question, and the answer is less than the textbook suggests.</p>
 <p class="tier-why">Certainty: Direct biochemistry, replicated across labs; mechanistic confidence high, evidence from mammalian cells.</p>
-<p class="summary">Notice the asymmetry this creates. Rapamycin turns autophagy on fairly reliably while only partly turning protein synthesis off. It is not a dimmer switch on &#x27;mTORC1 activity&#x27; – it reshapes the output profile. That asymmetry is why rapamycin can extend lifespan in mice while being a mediocre anti-proliferative in many tumours.</p></li><li class="step">
+<p class="summary">Here the route has to correct a story it would be easy to tell. THO2009 – the paper this route names as its breakthrough – found autophagy among the mTORC1 outputs that rapamycin leaves largely intact, and ATP-competitive inhibitors induce it far more completely. So rapamycin is partial on BOTH arms, and what it does is not turn &#x27;mTORC1 activity&#x27; down by a fixed amount but reshape which outputs stay on. That reshaping is why rapamycin can extend lifespan in mice while being a mediocre anti-proliferative in many tumours – and why &#x27;rapamycin induces autophagy&#x27; needs the dose, the cell type and the readout attached before it is true.</p></li><li class="step">
 <p class="step-what"><strong>4. ULK1 initiates autophagy.</strong>
 <a class="step-jump" href="#int-ulk1-autophagy">mechanism &darr;</a></p>
 <p>Freed and phosphorylated by AMPK, ULK1 nucleates the machinery that builds an autophagosome.</p>
@@ -675,7 +675,7 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>1. Lose the TSC brake and mTORC1 runs unopposed.</strong>
 <a class="step-jump" href="#int-tsc-mtorc1">mechanism &darr;</a></p>
 <p>TSC never touches mTORC1 – it acts on Rheb. This arrow is a deliberate two-step compression, drawn as one link so the clinical story reads cleanly.</p>
-<p><em>Without TSC, Rheb stays GTP-loaded and mTORC1 stays on regardless of the cell&#x27;s actual circumstances.</em> Growth signalling becomes constitutive rather than conditional.</p>
+<p><em>Without TSC, Rheb stays GTP-loaded and mTORC1 stays on even when no growth factor says it should. Note what this does not mean: TSC2-null cells still need amino acids and still respond to energy stress, so the input that has been lost is the growth-factor one, not every input.</em> Growth signalling becomes constitutive rather than conditional.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, and this is the one place in the whole map where human genetics establishes causality: TSC1/TSC2 loss causes disease in people.</p>
 <p class="summary">Every other arm of this pathway is inferred from cells and mice. This one is inferred from patients. That difference is why tuberous sclerosis is the setting where mTOR inhibitors work best – the drug is aimed at the actual cause.</p></li><li class="step">
 <p class="step-what"><strong>2. Constitutive mTORC1 supports tumour growth.</strong>
@@ -772,7 +772,7 @@ full interaction reference table below.</p>
 <p>Multi-site phosphorylation makes 4E-BP1 let go of eIF4E.</p>
 <p><em>eIF4E is free. A phosphate was added and an inhibitor stopped inhibiting.</em> Cap-dependent initiation can proceed.</p>
 <p class="tier-why">Certainty: High mechanistic confidence; cell-line evidence.</p>
-<p class="summary">This is the arm rapamycin only partly blocks – and yet rapamycin blocked the human hypertrophy response in DRU2009. Worth sitting with: partial inhibition of this step was enough to abolish a whole-body physiological response, which suggests the muscle response has little reserve.</p></li><li class="step">
+<p class="summary">This is the arm rapamycin only partly blocks – and yet in DRU2009 rapamycin abolished the rise in human muscle protein synthesis after a single bout of resistance exercise, measured 1–2 h afterwards. Read the endpoint carefully: that is acute protein synthesis, not muscle gained, and rapamycin also blunted ERK1/2 in the same volunteers, so the block is not cleanly attributable to this step alone. Even so, partial inhibition was enough to abolish a whole-body acute response, which suggests little reserve in it.</p></li><li class="step">
 <p class="step-what"><strong>8. eIF4E binds eIF4G and the initiation complex assembles.</strong>
 <a class="step-jump" href="#int-4ebp1-eif4e">mechanism &darr;</a></p>
 <p>4E-BP1 and eIF4G compete for the same surface. Remove one and the other binds.</p>
@@ -831,7 +831,7 @@ full interaction reference table below.</p>
 <p>mTORC1 had been phosphorylating ULK1 on S757, preventing AMPK from activating it. With mTORC1 quiet, that block is gone.</p>
 <p><em>ULK1 becomes available.</em> Availability is not activity. Something still has to switch it on.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, replicated; cell-line evidence.</p>
-<p class="summary">Release and activation as separate events, on the same protein, from two different kinases. The cell has built an AND gate on autophagy too: it starts only when mTORC1 is off AND AMPK is on, which stops recycling from firing on a brief dip in either signal.</p></li><li class="step">
+<p class="summary">Release and activation as separate events, on the same protein, from two different kinases. On this arm the cell has built something close to an AND gate: ULK1-driven initiation needs mTORC1 down AND AMPK up, which stops recycling from firing on a brief dip in either signal. &#x27;Close to&#x27;, not exactly: autophagy has inputs this map does not draw, so treat the gate as the logic of these two arrows rather than as the whole control of autophagy.</p></li><li class="step">
 <p class="step-what"><strong>6. And AMPK provides the activating push.</strong>
 <a class="step-jump" href="#int-ampk-ulk1">mechanism &darr;</a></p>
 <p>AMPK phosphorylates ULK1 at activating sites – the second half of the gate.</p>
@@ -882,12 +882,12 @@ full interaction reference table below.</p>
 <h2>Where does this pathway stop being known?</h2>
 <p class="meta">The contested, the unresolved and the untested</p>
 <p class="summary">Every pathway diagram looks equally confident everywhere. This one is not, and it records where. So: which parts of mTOR biology are contested between labs, which have a mechanism nobody has resolved, and which have never been tested in a human at all?</p>
-<p>Every other route shows you what the Atlas holds. This one walks the weakest links on purpose: seven contested interactions, eight with low mechanistic confidence, thirteen with no human evidence at all. Read it as a guide to reading evidence, not as a confession.</p>
+<p>Every other route shows you what the Atlas holds. This one walks the weakest links on purpose: the interactions this Atlas grades as contested, the ones carrying low mechanistic confidence, and the ones with no human evidence in this corpus. Read it as a guide to reading evidence, not as a confession – and read it as a statement about what has been curated here, not about what the field has done.</p>
 <ol class="step-list">
 <li class="step">
 <p class="step-what"><strong>1. Two labs proposed two different leucine sensors, and the field has not fully closed the question.</strong>
 <a class="step-jump" href="#int-leu-lars">mechanism &darr;</a></p>
-<p>Sestrin2 binds leucine with an affinity in the range over which intracellular leucine actually fluctuates. LARS, a leucyl-tRNA synthetase, was independently proposed to moonlight as a leucine sensor acting on the Rag GTPases. Both cannot be the primary sensor in the same cell.</p>
+<p>Sestrin2 binds leucine with an affinity in the range over which intracellular leucine actually fluctuates. LARS, a leucyl-tRNA synthetase, was independently proposed to moonlight as a leucine sensor acting on the Rag GTPases. Both could operate, but they cannot both be the dominant sensor in one cell, and the two proposals have not been reconciled – it is also possible that which one dominates depends on the cell type.</p>
 <p><em>Nothing in the cell. What changes is how much weight you should put on either arrow.</em> This map draws both, and marks LARS as contested with a dashed line and an amber halo.</p>
 <p class="tier-why">Certainty: Contested consensus, LOW mechanistic confidence, human relevance untested. The LARS model has not reproduced cleanly across labs.</p>
 <p class="summary">Start here because it is the cleanest example of the general problem. A pathway diagram that showed only the winning model would be more comfortable and less true; one that showed both without marking which is disputed would be worse still. The honest option is the one that costs a dashed line and an explanation.</p></li><li class="step">
@@ -1024,8 +1024,8 @@ full interaction reference table below.</p>
 <p class="summary">The escape route is not a mutation. It requires no new genetic event and no selection time – it is the pathway&#x27;s normal homeostatic wiring responding correctly to the drug. That is why resistance appears fast and why combination strategies target the loop rather than the kinase.</p></li><li class="step">
 <p class="step-what"><strong>10. There is a second escape, through MAPK.</strong>
 <a class="step-jump" href="#int-mtorc1-mapk">mechanism &darr;</a></p>
-<p>mTORC1 inhibition activates ERK in a PI3K-dependent manner – an independent arm from the IRS-1 route.</p>
-<p><em>ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.</em> Two independent reroutes now oppose the drug. Blocking one leaves the other.</p>
+<p>mTORC1 inhibition activates ERK in a PI3K-dependent manner. CAR2008 traces it through the same S6K1–PI3K–Ras relay that carries the IRS-1 escape, so this is a second OUTPUT of one feedback circuit rather than a separate circuit.</p>
+<p><em>ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.</em> The drug now faces two reroutes with a shared root. Because they share it, blocking PI3K upstream can close both – while blocking only the IRS-1 arm leaves the MAPK output open.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that the pathway&#x27;s most clinically consequential feedback was missing from the graph.</p>
 <p class="summary">Redundancy is the theme of this pathway and it cuts both ways. The same architecture that makes the cell robust makes the tumour robust. This is the mechanistic rationale for combining mTOR inhibition with MEK inhibition rather than escalating the mTOR dose.</p></li><li class="step">
 <p class="step-what"><strong>11. So build a drug that occupies the site instead of obstructing it.</strong>
@@ -1177,15 +1177,15 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">context-dependent</td>
 <td data-l="Target"><a href="/outcome/immune-function/">Immune function</a></td>
 <td data-l="Type">clinical-outcome</td>
-<td data-l="Mechanism"><span class="lv-beginner">At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, the same drug class damps the immune system down. A larger follow-up trial did not find fewer infections – so what this arrow means depends on the dose.</span><span class="lv-student">Dose and schedule set the direction here, not the target. Intermittent low-dose mTOR inhibition improved influenza vaccine responses in older adults (MAN2014), the larger follow-up did not reproduce the reduction in respiratory infections (MAN2021), and continuous transplant-level dosing of the same drug class is immunosuppressive. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span><span class="lv-research">Dose and schedule set the direction here, not the target. Intermittent low-dose mTOR inhibition improved influenza vaccine responses in older adults (MAN2014), the larger follow-up did not reproduce the reduction in respiratory infections (MAN2021), and continuous transplant-level dosing of the same drug class is immunosuppressive. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.</span><span class="lv-student">Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span><span class="lv-research">Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/MAN2014/">MAN2014</a>, <a href="https://mtor-atlas.org/study/MAN2021/">MAN2021</a> <span class="tier-why">(conflicting: MAN2021)</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/MAN2014/">MAN2014</a> <span class="tier-why">(conflicting: MAN2021)</span></td>
 </tr><tr id="int-eve-lam">
 <td data-l="Source"><a href="/drug/everolimus/">Everolimus</a></td>
 <td data-l="Effect">inhibits</td>
-<td data-l="Target"><span>Lymphangioleiomyomatosis</span></td>
+<td data-l="Target"><span>Renal angiomyolipoma</span></td>
 <td data-l="Type">clinical-outcome</td>
-<td data-l="Mechanism"><span class="lv-beginner">In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.</span><span class="lv-student">EXIST-2 tested everolimus against renal ANGIOMYOLIPOMA in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by &gt;=50% in 42% versus 0% on placebo.</span><span class="lv-research">EXIST-2 tested everolimus against renal ANGIOMYOLIPOMA in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by &gt;=50% in 42% versus 0% on placebo.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.</span><span class="lv-student">EXIST-2 tested everolimus against renal angiomyolipoma in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by &gt;=50% in 42% versus 0% on placebo.</span><span class="lv-research">EXIST-2 tested everolimus against renal angiomyolipoma in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by &gt;=50% in 42% versus 0% on placebo.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BIS2013/">BIS2013</a></td>
 </tr><tr id="int-eve-mtorc1">
@@ -1217,7 +1217,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex</a></td>
 <td data-l="Type">clinical-outcome</td>
-<td data-l="Mechanism"><span class="lv-beginner">In patients with the genetic disease tuberous sclerosis, everolimus shrank both brain and kidney tumours – treating the actual genetic cause, not just a symptom.</span><span class="lv-student">EXIST trials: everolimus shrank the brain tumours (SEGA) and kidney lesions of tuberous sclerosis - treating the genetic cause of mTORC1 hyperactivation rather than a symptom.</span><span class="lv-research">EXIST trials: everolimus shrank the brain tumours (SEGA) and kidney lesions of tuberous sclerosis - treating the genetic cause of mTORC1 hyperactivation rather than a symptom.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">In patients with the genetic disease tuberous sclerosis, everolimus shrank both brain and kidney tumours. It works one step downstream of the mutation: it replaces the brake the mutation removed, so the tumours shrink while the drug is given and regrow when it stops. The mutation itself is untouched.</span><span class="lv-student">EXIST trials: everolimus shrank the brain tumours (SEGA) and kidney lesions of tuberous sclerosis - treating the pathway the mutation switches on, rather than a downstream symptom. The gene defect itself remains.</span><span class="lv-research">EXIST trials: everolimus shrank the brain tumours (SEGA) and kidney lesions of tuberous sclerosis - treating the pathway the mutation switches on, rather than a downstream symptom. The gene defect itself remains.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/KRU2010/">KRU2010</a>, <a href="https://mtor-atlas.org/study/BIS2013/">BIS2013</a></td>
 </tr><tr id="int-fkbp12-mtorc1">
@@ -1259,21 +1259,21 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Type">signal-relay</td>
 <td data-l="Mechanism"><span class="lv-beginner">Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.</span><span class="lv-student">Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.</span><span class="lv-research">Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/DUR2012/">DUR2012</a>, <a href="https://mtor-atlas.org/study/JEW2015/">JEW2015</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/DUR2012/">DUR2012</a></td>
 </tr><tr id="int-grb10-igf1">
 <td data-l="Source"><span>Grb10</span></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><span>Growth hormone / IGF-1 axis</span></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.</span><span class="lv-student">Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is why blocking mTOR paradoxically raises Akt activity - remove mTORC1 and you remove its own brake on the receptor.</span><span class="lv-research">Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is why blocking mTOR paradoxically raises Akt activity - remove mTORC1 and you remove its own brake on the receptor.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.</span><span class="lv-student">Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is one of two feedback arms behind the paradox that blocking mTORC1 raises Akt activity; the other is the S6K1-IRS-1 loop.</span><span class="lv-research">Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is one of two feedback arms behind the paradox that blocking mTORC1 raises Akt activity; the other is the S6K1-IRS-1 loop.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/HSU2011/">HSU2011</a>, <a href="https://mtor-atlas.org/study/YUX2011/">YUX2011</a>, <a href="https://mtor-atlas.org/study/ORE2006/">ORE2006</a>, <a href="https://mtor-atlas.org/study/ROD2011/">ROD2011</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/HSU2011/">HSU2011</a>, <a href="https://mtor-atlas.org/study/YUX2011/">YUX2011</a></td>
 </tr><tr id="int-hypoxia-redd1">
 <td data-l="Source"><span>Hypoxia</span></td>
 <td data-l="Effect">activates</td>
 <td data-l="Target"><span>REDD1 (DDIT4)</span></td>
 <td data-l="Type">transcriptional</td>
-<td data-l="Mechanism"><span class="lv-beginner">Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.</span><span class="lv-student">Low oxygen induces REDD1 within minutes - a transcriptional response, so it is slower than AMPK but longer-lasting.</span><span class="lv-research">Low oxygen induces REDD1 within minutes - a transcriptional response, so it is slower than AMPK but longer-lasting.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.</span><span class="lv-student">Low oxygen induces REDD1 transcriptionally over hours, slower than AMPK. REDD1 protein is short-lived, so the signal lasts only as long as hypoxia keeps the gene switched on.</span><span class="lv-research">Low oxygen induces REDD1 transcriptionally over hours, slower than AMPK. REDD1 protein is short-lived, so the signal lasts only as long as hypoxia keeps the gene switched on.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BRU2004/">BRU2004</a></td>
 </tr><tr id="int-igf1-pi3k">
@@ -1321,7 +1321,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><span>LARS (leucyl-tRNA synthetase)</span></td>
 <td data-l="Type">binding</td>
-<td data-l="Mechanism"><span class="lv-beginner">One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.</span><span class="lv-student">A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, sensing charged leucine directly.</span><span class="lv-research">A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, sensing charged leucine directly.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.</span><span class="lv-student">A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.</span><span class="lv-research">A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HAN2012/">HAN2012</a></td>
 </tr><tr id="int-leu-sesn2">
@@ -1362,8 +1362,8 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">signal-relay</td>
 <td data-l="Mechanism"><span class="lv-beginner">Metformin can also block mTORC1 through a completely separate route that doesn&#x27;t need AMPK at all – a route often left out of the simple &quot;metformin works via AMPK&quot; story.</span><span class="lv-student">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span><span class="lv-research">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span></td>
-<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/KAL2010/">KAL2010</a>, <a href="https://mtor-atlas.org/study/FOR2010/">FOR2010</a></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/KAL2010/">KAL2010</a></td>
 </tr><tr id="int-mlst8-mtorc2">
 <td data-l="Source"><span>mLST8</span></td>
 <td data-l="Effect">required-for</td>
@@ -1455,9 +1455,9 @@ eleven routes above walk through, cross-referenced by each step's
 </tr><tr id="int-mtorc1-senescence">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Effect">activates</td>
-<td data-l="Target"><a href="/process/cellular-senescence/">Cellular senescence</a></td>
+<td data-l="Target"><span>Senescence-associated secretory phenotype (SASP)</span></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC1 keeps old, &quot;senescent&quot; cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.</span><span class="lv-student">What the evidence supports is the secretory programme, not entry into senescence: mTORC1 sustains the inflammatory output of cells that are already senescent, and inhibiting it quietens that output without reversing the arrest.</span><span class="lv-research">What the evidence supports is the secretory programme, not entry into senescence: mTORC1 sustains the inflammatory output of cells that are already senescent, and inhibiting it quietens that output without reversing the arrest.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC1 keeps old, &quot;senescent&quot; cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.</span><span class="lv-student">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span><span class="lv-research">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LAB2015/">LAB2015</a></td>
 </tr><tr id="int-mtorc1-srebp">
@@ -1505,7 +1505,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/akt-pkb/">Akt/PKB</a></td>
 <td data-l="Type">phosphorylation</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts.</span><span class="lv-student">mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks - and the reason chronic rapamycin causes metabolic side effects.</span><span class="lv-research">mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks - and the reason chronic rapamycin causes metabolic side effects.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts.</span><span class="lv-student">mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks, and a major reason, in mice, that chronic rapamycin impairs glucose tolerance (LAM2012).</span><span class="lv-research">mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks, and a major reason, in mice, that chronic rapamycin impairs glucose tolerance (LAM2012).</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/JAC2006/">JAC2006</a>, <a href="https://mtor-atlas.org/study/FRI2006/">FRI2006</a>, <a href="https://mtor-atlas.org/study/YAN2006/">YAN2006</a>, <a href="https://mtor-atlas.org/study/LIU2015/">LIU2015</a></td>
 </tr><tr id="int-mtorc2-insulinres">
@@ -1521,7 +1521,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/lipid-synthesis/">Lipid synthesis</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC2 also drives fat-making, and this is a big part of how it helps tumours grow.</span><span class="lv-student">mTORC2 drives lipid synthesis and this is a substantial part of how it supports tumour growth.</span><span class="lv-research">mTORC2 drives lipid synthesis and this is a substantial part of how it supports tumour growth.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow – shown in cells and mice, not measured in patients.</span><span class="lv-student">mTORC2 drives lipid synthesis and this is a substantial part of how it supports tumour growth.</span><span class="lv-research">mTORC2 drives lipid synthesis and this is a substantial part of how it supports tumour growth.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUR2017/">GUR2017</a></td>
 </tr><tr id="int-mtorc2-prostate">
@@ -1579,7 +1579,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Type">dephosphorylation</td>
 <td data-l="Mechanism"><span class="lv-beginner">PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.</span><span class="lv-student">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span><span class="lv-research">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2009/">GUE2009</a>, <a href="https://mtor-atlas.org/study/MAJ2004/">MAJ2004</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2009/">GUE2009</a></td>
 </tr><tr id="int-rag-mtorc1">
 <td data-l="Source"><a href="/gene/rag-gtpases/">Rag GTPases</a></td>
 <td data-l="Effect">recruits</td>
@@ -1593,7 +1593,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/rag-gtpases/">Rag GTPases</a></td>
 <td data-l="Type">scaffolding</td>
-<td data-l="Mechanism"><span class="lv-beginner">Ragulator anchors the Rag proteins to the lysosome and flips them into their &quot;on&quot; shape.</span><span class="lv-student">Ragulator both tethers the Rag GTPases to the lysosome and acts as their GEF, loading RagA/B with GTP - the active shape.</span><span class="lv-research">Ragulator both tethers the Rag GTPases to the lysosome and acts as their GEF, loading RagA/B with GTP - the active shape.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their &quot;on&quot; shape. The anchoring is the better-established of the two jobs.</span><span class="lv-student">Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.</span><span class="lv-research">Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BAR2012/">BAR2012</a>, <a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a></td>
 </tr><tr id="int-rapa-fkbp12">
@@ -1616,7 +1616,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/drug/rapamycin/">Rapamycin</a></td>
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
-<td data-l="Type">clinical-outcome</td>
+<td data-l="Type">functional-consequence</td>
 <td data-l="Mechanism"><span class="lv-beginner">Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole &quot;this pathway and ageing&quot; idea.</span><span class="lv-student">Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - the single most influential result in the geroscience arm of this Atlas.</span><span class="lv-research">Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - the single most influential result in the geroscience arm of this Atlas.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2009/">HAR2009</a>, <a href="https://mtor-atlas.org/study/BIT2016/">BIT2016</a> <span class="tier-why">(conflicting: BIT2016)</span></td>
@@ -1626,8 +1626,8 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Target"><a href="/complex/mtorc2/">mTORC2</a></td>
 <td data-l="Type">complex-disassembly</td>
 <td data-l="Mechanism"><span class="lv-beginner">Rapamycin doesn&#x27;t touch mTORC2 right away, but over days it stops new mTORC2 from being built.</span><span class="lv-student">Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.</span><span class="lv-research">Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.</span></td>
-<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/SAR2006/">SAR2006</a></td>
+<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/SAR2006/">SAR2006</a>, <a href="https://mtor-atlas.org/study/LAM2012/">LAM2012</a></td>
 </tr><tr id="int-raptor-mtorc1">
 <td data-l="Source"><a href="/gene/raptor/">Raptor</a></td>
 <td data-l="Effect">required-for</td>
@@ -1640,7 +1640,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><span>REDD1 (DDIT4)</span></td>
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/tsc1-tsc2/">TSC1/TSC2</a></td>
-<td data-l="Type">binding</td>
+<td data-l="Type">signal-relay</td>
 <td data-l="Mechanism"><span class="lv-beginner">REDD1 acts through the TSC brake, so low oxygen and low growth-factor signals end up hitting the very same switch.</span><span class="lv-student">REDD1 works through the TSC complex, not around it - hypoxia and growth factors therefore converge on the same brake.</span><span class="lv-research">REDD1 works through the TSC complex, not around it - hypoxia and growth factors therefore converge on the same brake.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BRU2004/">BRU2004</a></td>
@@ -1665,7 +1665,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/gene/irs-1-irs-2/">IRS-1 / IRS-2</a></td>
 <td data-l="Type">degradation</td>
-<td data-l="Mechanism"><span class="lv-beginner">This is the pathway&#x27;s main self-limiting &quot;off switch&quot;: strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off – a big reason blocking mTOR can paradoxically make Akt more active, and part of why these drugs can cause insulin resistance.</span><span class="lv-student">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTOR paradoxically RAISES Akt activity, and a major contributor to rapalog-associated insulin resistance.</span><span class="lv-research">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTOR paradoxically RAISES Akt activity, and a major contributor to rapalog-associated insulin resistance.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">This is the pathway&#x27;s main self-limiting &quot;off switch&quot;: strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed on a different mechanism (loss of mTORC2), not on this loop.</span><span class="lv-student">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span><span class="lv-research">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2004/">HAR2004</a>, <a href="https://mtor-atlas.org/study/SHA2004/">SHA2004</a>, <a href="https://mtor-atlas.org/study/UMX2004/">UMX2004</a></td>
 </tr><tr id="int-s6k1-longevity">
@@ -1705,7 +1705,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><span>SAMTOR</span></td>
 <td data-l="Type">binding</td>
-<td data-l="Mechanism"><span class="lv-beginner">SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – this is how the cell senses how much methionine it has.</span><span class="lv-student">S-adenosylmethionine, the cell&#x27;s methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.</span><span class="lv-research">S-adenosylmethionine, the cell&#x27;s methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – the proposed way the cell senses how much methionine it has. Worked out in cells; whether this sensor is what matters in a whole animal has not been shown.</span><span class="lv-student">S-adenosylmethionine, the cell&#x27;s methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.</span><span class="lv-research">S-adenosylmethionine, the cell&#x27;s methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GU2017/">GU2017</a></td>
 </tr><tr id="int-samtor-gator1">
@@ -1718,10 +1718,10 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GU2017/">GU2017</a></td>
 </tr><tr id="int-sesn2-aging">
 <td data-l="Source"><span>Sestrin2</span></td>
-<td data-l="Effect">activates</td>
-<td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
+<td data-l="Effect">inhibits</td>
+<td data-l="Target"><span>Age-related pathology</span></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. Watch what was measured – how sick the flies got, not how long they lived.</span><span class="lv-student">The only edge in this Atlas connecting an amino-acid sensor to an organismal ageing phenotype. Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction - all prevented by inhibiting TOR or activating AMPK.</span><span class="lv-research">The only edge in this Atlas connecting an amino-acid sensor to an organismal ageing phenotype. Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction - all prevented by inhibiting TOR or activating AMPK.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.</span><span class="lv-student">Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. Sestrin therefore limits age-associated pathology in the fly.</span><span class="lv-research">Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. Sestrin therefore limits age-associated pathology in the fly.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LEE2010/">LEE2010</a></td>
 </tr><tr id="int-sesn2-gator2">
@@ -1809,7 +1809,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/muscle-growth/">Muscle growth</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Ongoing protein-building is what physically builds muscle – blocking mTOR blunts how much muscle grows after exercise.</span><span class="lv-student">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span><span class="lv-research">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.</span><span class="lv-student">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span><span class="lv-research">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BOD2001/">BOD2001</a>, <a href="https://mtor-atlas.org/study/ROM2001/">ROM2001</a>, <a href="https://mtor-atlas.org/study/DRU2009/">DRU2009</a></td>
 </tr><tr id="int-tsc-mtorc1">
@@ -1874,13 +1874,13 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">signal-relay</td>
 <td data-l="Mechanism"><span class="lv-beginner">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span><span class="lv-student">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span><span class="lv-research">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span></td>
-<td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/ROM2016/">ROM2016</a>, <a href="https://mtor-atlas.org/study/MAT2017/">MAT2017</a>, <a href="https://mtor-atlas.org/study/SOL2014/">SOL2014</a></td>
+<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/SOL2014/">SOL2014</a></td>
 </tr><tr id="int-cr-longevity">
 <td data-l="Source"><a href="/intervention/caloric-restriction/">Caloric restriction</a></td>
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
-<td data-l="Type">clinical-outcome</td>
+<td data-l="Type">functional-consequence</td>
 <td data-l="Mechanism"><span class="lv-beginner">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span><span class="lv-student">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span><span class="lv-research">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/MAT2017/">MAT2017</a>, <a href="https://mtor-atlas.org/study/SOL2014/">SOL2014</a></td>
@@ -1937,15 +1937,15 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><span>Oxidative phosphorylation</span></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC1 boosts how much energy mitochondria can produce, through both gene activation and protein-building.</span><span class="lv-student">mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.</span><span class="lv-research">mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.</span></td>
-<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/CUN2007/">CUN2007</a>, <a href="https://mtor-atlas.org/study/MOR2013/">MOR2013</a>, <a href="https://mtor-atlas.org/study/POL2008/">POL2008</a></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC1 boosts how much energy mitochondria can produce, through both gene activation and protein-building. One mouse experiment points the other way – removing mTORC1 from fat tissue RAISED respiration – so this direction is not settled in a living animal.</span><span class="lv-student">mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.</span><span class="lv-research">mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/CUN2007/">CUN2007</a>, <a href="https://mtor-atlas.org/study/MOR2013/">MOR2013</a> <span class="tier-why">(conflicting: POL2008)</span></td>
 </tr><tr id="int-mtorc1-pgc1a">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Effect">activates</td>
 <td data-l="Target"><span>PGC-1α / YY1</span></td>
 <td data-l="Type">binding</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell&#x27;s outer edges.</span><span class="lv-student">mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.</span><span class="lv-research">mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell&#x27;s outer edges. The direct interaction rests on a single study in this Atlas.</span><span class="lv-student">mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.</span><span class="lv-research">mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/CUN2007/">CUN2007</a></td>
 </tr><tr id="int-mtorc1-ros">
@@ -2021,7 +2021,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-21 22:19 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-22 06:49 Prague time</div>
 </footer>
 </div>
 </body>

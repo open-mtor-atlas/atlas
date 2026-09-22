@@ -81,7 +81,7 @@ FED_EDGES = {
     "AMPK-TSC": "suppressed", "AMPK-MTORC1": "suppressed",
     "TSC-RHEB": "suppressed", "AKT-PRAS40": "active", "PRAS40-MTORC1": "suppressed",
     "MTORC1-GRB10": "active", "GRB10-IGF1": "active",
-    "S6K1-IRS1": "active", "IRS1-PI3K": "suppressed",
+    "S6K1-IRS1": "active", "IRS1-PI3K": "active",  # damped by S6K1 feedback, not switched off
     "MTORC1-S6K1": "active",
     # energy arm -- quiet
     "STRESS-AMPK": "suppressed", "AMPK-ULK1": "suppressed", "AMPK-MITOPHAGY": "suppressed",
@@ -98,7 +98,7 @@ FED_EDGES = {
 FED_NODES = {
     "Growth hormone / IGF-1 axis": "active", "Leucine": "active", "Arginine": "active",
     "S-adenosylmethionine (SAM)": "active", "Glutamine": "active",
-    "PI3K": "active", "Akt/PKB": "active", "IRS-1 / IRS-2": "suppressed",
+    "PI3K": "active", "Akt/PKB": "active", "IRS-1 / IRS-2": "active",
     "TSC1/TSC2": "suppressed", "Rheb": "active", "AMPK": "suppressed",
     "Rag GTPases": "active", "SLC38A9": "active",
     "GATOR1": "suppressed", "GATOR2": "active",
@@ -114,8 +114,11 @@ FED_NODES = {
 
 # Edges/nodes where a literal active<->suppressed mirror would overclaim for
 # Fasting -- excluded from the mirror and left unevaluated (na) instead.
-FASTING_EDGE_OVERRIDE = {"IRS1-PI3K": None}
-FASTING_NODE_OVERRIDE = {}
+# IRS-1/IRS-2 (node) and the mitochondrial-biogenesis arm are left out for the same
+# reason (audit 2026-09-21): released feedback does not imply active signalling, and
+# fasting raises PGC-1alpha programmes that this corpus does not curate as an edge.
+FASTING_EDGE_OVERRIDE = {"IRS1-PI3K": None, "MTORC1-MITO": None}
+FASTING_NODE_OVERRIDE = {"IRS-1 / IRS-2": None, "Mitochondrial biogenesis": None}
 
 FLIP = {"active": "suppressed", "suppressed": "active"}
 
@@ -138,7 +141,7 @@ FASTING_NODES = mirror(FED_NODES, FASTING_NODE_OVERRIDE)
 # EXERCISE -- hand-curated, acute bout. Not a mirror of anything.
 # ---------------------------------------------------------------------------
 EXERCISE_EDGES = {
-    # energy / mechanical arm -- the exercise-defining arm
+    # energy arm -- the exercise-defining arm (mechanical load is in MUSCLE)
     "STRESS-AMPK": "active", "LKB1-AMPK": "active", "AMPK-ULK1": "active",
     "AMPK-MITOPHAGY": "active", "AMPK-TSC": "active", "AMPK-MTORC1": "active",
     "TSC-RHEB": "active", "RHEB-MTORC1": "suppressed",
@@ -265,7 +268,7 @@ FASTING_EVIDENCE = [
               "Rheb GDP-bound and mTORC1 goes quiet.",
      "studies": GF_ARM_STUDIES, "covers": GF_ARM_EDGES + GF_ARM_NODES},
     {"claim": "With mTORC1/S6K1 low, the negative feedback on IRS-1 and Grb10 is released.",
-     "studies": FEEDBACK_STUDIES, "covers": [x for x in FEEDBACK_EDGES if x != "IRS1-PI3K"] + FEEDBACK_NODES},
+     "studies": FEEDBACK_STUDIES, "covers": [x for x in FEEDBACK_EDGES if x != "IRS1-PI3K"]},
     {"claim": "Energy stress activates AMPK, which phosphorylates TSC2, raptor and ULK1.",
      "studies": ENERGY_STUDIES, "covers": ENERGY_EDGES + ENERGY_NODES},
     {"claim": "Dephosphorylated 4E-BP1 clamps eIF4E and S6K1 activity falls, so cap-dependent "
@@ -274,9 +277,10 @@ FASTING_EVIDENCE = [
     {"claim": "Released from mTORC1, ULK1 initiates autophagy and TFEB enters the nucleus to "
               "drive lysosomal and autophagy genes.",
      "studies": AUTO_STUDIES, "covers": AUTO_EDGES + AUTO_NODES},
-    {"claim": "Anabolic programmes (lipid, nucleotide synthesis, mitochondrial biogenesis) lose "
-              "their mTORC1 drive.",
-     "studies": META_STUDIES, "covers": META_EDGES + META_NODES},
+    {"claim": "Anabolic programmes (lipid and nucleotide synthesis) lose their mTORC1 drive.",
+     "studies": META_STUDIES,
+     "covers": [x for x in META_EDGES + META_NODES
+                if x not in ("MTORC1-MITO", "Mitochondrial biogenesis")]},
     {"claim": "Dietary restriction requires 4E-BP to extend lifespan in flies; S6K1 loss extends "
               "lifespan in female mice.",
      "studies": LONG_STUDIES, "covers": LONG_EDGES + LONG_NODES,
@@ -492,7 +496,7 @@ SCENARIOS = [
     },
     {
         "id": "scn-torin1",
-        "lesson": "Everything matches here. Yet the map received the same minus sign on mTORC1 "
+        "lesson": "Most readouts match here. Yet the map received the same minus sign on mTORC1 "
                   "as it did for rapamycin, where most readouts differed. The arrows cannot tell "
                   "the two drugs apart; that difference lives only in the data.",
         "label": "Torin1 (ATP-competitive)",
@@ -541,8 +545,10 @@ SCENARIOS = [
              "why": "Autophagy is strongly induced, unlike with rapamycin.",
              "studies": ["THO2009"]},
             {"node": "Akt/PKB", "literature": "down",
-             "why": "Akt S473 phosphorylation by mTORC2 is lost because both complexes are hit.",
-             "studies": ["FEL2009", "THO2009"]},
+             "why": "Akt S473 phosphorylation by mTORC2 is lost because both complexes are hit. "
+                    "T308 rebounds over hours as feedback is relieved (ROD2011), so this readout "
+                    "matches only early.",
+             "studies": ["FEL2009", "THO2009", "ROD2011"]},
         ],
     },
     {
@@ -623,7 +629,9 @@ def build():
         "brief": "Insulin and amino acids both high. PI3K-Akt and the Rag GTPases actively drive "
                  "mTORC1; AMPK and TSC1/2 sit quiet. Net effect: the cap comes off S6K1 and 4E-BP1, "
                  "autophagy (ULK1, TFEB) stays held off.",
-        "note": "", "edges": FED_EDGES, "nodes": FED_NODES,
+        "note": "IRS-1/IRS-2 to PI3K is shown active: S6K1 feedback damps this arm in the fed "
+                "state, it does not switch it off.",
+        "edges": FED_EDGES, "nodes": FED_NODES,
         "evidence": FED_EVIDENCE, "review": "proposed",
     })
     contexts.append({
@@ -632,17 +640,23 @@ def build():
                  "4E-BP1 stays bound as a brake, ULK1 and TFEB switch on: autophagy and lysosomal "
                  "biogenesis.",
         "note": "Generated as the mirror image of Fed on the same fixed layout -- same nodes, opposite "
-                "arms lit -- except IRS-1/IRS-2 to PI3K, left unevaluated rather than mirrored because "
-                "releasing that feedback brake does not by itself imply active signalling when upstream "
-                "growth-factor input is also low.",
+                "arms lit -- except IRS-1/IRS-2 and its link to PI3K, left unevaluated rather than "
+                "mirrored because releasing that feedback brake does not by itself imply active "
+                "signalling when upstream growth-factor input is also low. Mitochondrial biogenesis "
+                "and the mTORC1-MITO edge are also left unevaluated rather than marked suppressed: "
+                "the dominant route runs through AMPK/PGC-1alpha (not curated as a distinct edge "
+                "yet), and fasting raises PGC-1alpha programmes, so scoring it off this edge alone "
+                "would overclaim.",
         "edges": FASTING_EDGES, "nodes": FASTING_NODES,
         "evidence": FASTING_EVIDENCE, "review": "proposed",
     })
     contexts.append({
         "id": "exercise", "cluster": "state", "stub": False, "label": "Exercise",
-        "brief": "Mechanical and energy stress drive AMPK hard; growth-factor and amino-acid input are "
-                 "genuinely unclear in this acute window rather than simply off. mTORC1 is suppressed "
-                 "acutely; autophagy runs.",
+        "brief": "Endurance-type energy stress drives AMPK; growth-factor and amino-acid input are "
+                 "genuinely unclear in this acute window rather than simply off. mTORC1 is damped "
+                 "during the bout in this corpus by inference, not measurement; autophagy runs. "
+                 "Mechanical load pushes mTORC1 the other way, which is why the load arm is shown "
+                 "in the Muscle context.",
         "note": "Acute bout shown. Post-exercise refeeding reactivates mTORC1 via the mechanical + "
                 "amino-acid route, which this snapshot does not model (see Cell type: Muscle). "
                 "Mitochondrial biogenesis is left unevaluated here (na) rather than marked suppressed: "

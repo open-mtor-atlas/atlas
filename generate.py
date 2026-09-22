@@ -426,10 +426,14 @@ add(
             cite("KRA2018", "B", "low-dose rapamycin was tolerable in older adults over "
                  "8+ weeks, with only minor adverse events."),
             cite("HAR2009", "C", "rapamycin fed starting at 600 days of age (late-middle-age "
-                 "for a mouse) extended median lifespan by 9–14% in both sexes."),
+                 "for a mouse) extended both median and maximal lifespan in both sexes "
+                 "(age at 90% mortality rose 14% in females and 9% in males)."),
             cite("BIT2016", "C", "just 3 months of rapamycin late in life increased "
                  "subsequent life expectancy by up to 60% – the lifespan benefit doesn't "
-                 "require lifelong dosing."),
+                 "require lifelong dosing. The 60% figure comes from males on the high "
+                 "injected dose. At that dose females gained no survival benefit and "
+                 "developed more aggressive blood cancers; the lower dietary dose raised "
+                 "survival in both sexes, so dose and route matter as much as the pulse."),
             cite("SAR2006", "D", "long-term dosing also suppresses mTORC2 signaling in many "
                  "cell types – the likely mechanism behind the insulin resistance seen "
                  "with daily dosing."),
@@ -450,8 +454,8 @@ add(
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
         "No study has directly tested this – a human lifespan trial would take decades. "
-        "Rapamycin reliably extends lifespan in mice (animal evidence, e.g. a 9-14% median "
-        "lifespan increase in HAR2009). In humans, the evidence so far covers biomarkers, "
+        "Rapamycin reliably extends lifespan in mice (animal evidence, e.g. HAR2009, where "
+        "it extended lifespan in both sexes, more in females). In humans, the evidence so far covers biomarkers, "
         "immune/cardiovascular/skin parameters, and short-term safety (human evidence), not "
         "an actual mortality outcome."
     ),
@@ -471,7 +475,8 @@ add(
         "response to nutrients and growth factors – and it's the one rapamycin blocks. "
         "<strong>mTORC2</strong> phosphorylates Akt/PKB and affects cell survival and "
         "glucose metabolism – and critically, it is <em>not</em> directly blocked by "
-        "rapamycin (it doesn't use the same Raptor-dependent mechanism). Long-term "
+        "rapamycin (in mTORC2, the partner proteins Rictor and mSin1 cover the FRB site "
+        "where the FKBP12-rapamycin pair docks). Long-term "
         "rapamycin dosing eventually suppresses mTORC2 too, indirectly – the likely "
         "source of the insulin-resistance side effect seen with daily dosing."
     ),
@@ -490,8 +495,8 @@ add(
         ("Why the distinction matters", "<p>mTORC1 is rapamycin's direct target, so its "
          "studies are where you'll find the growth/autophagy/protein-synthesis effects; "
          "mTORC2 is where the metabolic side effects trace back to, and it only shows up "
-         "because chronic rapamycin dosing eventually reaches it indirectly – not because "
-         "rapamycin was designed to hit it. This is the basis of one of the Atlas's "
+         "because chronic rapamycin dosing eventually reaches it indirectly – a consequence "
+         "of chronic exposure, not of the effect the drug is used for. This is the basis of one of the Atlas's "
          "flagged open questions: whether a dosing strategy that hits mTORC1 (for the "
          "benefit) while sparing mTORC2 (avoiding the metabolic cost) is achievable, and "
          "if so, whether it's a matter of drug selectivity, dose, or timing. See "
@@ -521,15 +526,18 @@ add(
     description="Rapalogs vs ATP-competitive TORKinibs vs bi-steric inhibitors – every class of mTOR inhibitor, with the Atlas study that established each.",
     h1="What are mTOR inhibitors? The full list, by mechanism",
     tldr=(
-        "mTOR inhibitors fall into three mechanistic classes. <strong>Rapalogs</strong> "
+        "mTOR inhibitors fall into three main mechanistic classes. <strong>Rapalogs</strong> "
         "(rapamycin/sirolimus and its analogs everolimus, temsirolimus, ridaforolimus) bind "
         "FKBP12 and allosterically block mTORC1 – the original class, in clinical use since "
         "1999. <strong>ATP-competitive inhibitors</strong> (\"TORKinibs\": Torin1, PP242, "
         "AZD8055, sapanisertib) jam the kinase's active site directly, blocking mTORC1 "
         "<em>and</em> mTORC2 – more complete inhibition, but less selective. "
-        "<strong>Bi-steric inhibitors</strong> (RMC-6272 and related compounds) are the newest "
-        "class, engineered for mTORC1 selectivity even higher than rapalogs while still "
-        "hitting the rapamycin-resistant substrate 4E-BP1."
+        "<strong>Bi-steric inhibitors</strong> (RMC-6272, RMC-5552) are the newest class. "
+        "They shut down mTORC1 completely, including 4E-BP1, which rapamycin cannot, while "
+        "sparing mTORC2 far better than the ATP-competitive drugs, with roughly 25-fold "
+        "selectivity rather than absolute sparing. A related group, <strong>dual "
+        "PI3K/mTOR inhibitors</strong> (dactolisib, also called BEZ235 or RTB101, and "
+        "gedatolisib), blocks the ATP site of both mTOR and PI3K."
     ),
     sections=[
         ("Rapalogs – allosteric, FKBP12-dependent, mTORC1-selective", "<ul>" + "".join([
@@ -552,7 +560,13 @@ add(
         ]) + "</ul><p>TORKinibs block the shared catalytic site both complexes use, so "
              "they inhibit mTORC1 and mTORC2 together – more complete, but harder to "
              "dose without hitting mTORC2-dependent side effects.</p>"),
-        ("Bi-steric inhibitors – the newest, most mTORC1-selective class", "<ul>" + "".join([
+        ("Dual PI3K/mTOR inhibitors: hit mTOR and PI3K together", "<p>Dactolisib "
+         "(BEZ235, later developed as RTB101) and gedatolisib are ATP-competitive "
+         "inhibitors of both mTOR and class I PI3K, the kinase just upstream of Akt. "
+         "They block mTORC1, mTORC2 and PI3K at once, so they are the broadest class. "
+         "RTB101 is the drug tested in the large phase 3 trial MAN2021 (see the "
+         '<a href="/answers/rapamycin-side-effects/">side-effects page</a>).</p>'),
+        ("Bi-steric inhibitors – the newest class", "<ul>" + "".join([
             cite("MEN2023", "C", "RMC-6272, a bi-steric molecule with >25-fold selectivity "
                  "for mTORC1 over mTORC2, completely suppresses mTORC1 – including "
                  "4E-BP1, the substrate rapamycin itself can't fully block – while largely "
@@ -560,7 +574,9 @@ add(
             cite("SCH2025", "B", "the first human trial (n=57, advanced solid tumors) of a "
                  "bi-steric mTORC1-selective inhibitor; treatment-related hyperglycemia "
                  "was reported, showing even this more selective class isn't side-effect-free."),
-        ]) + "</ul>"),
+        ]) + "</ul><p>The idea goes back to RapaLink-1 (2016), which joins rapamycin to "
+             "an ATP-site inhibitor in one molecule and was the first of these "
+             "third-generation (bivalent) mTOR inhibitors.</p>"),
         ("Where this connects to the Atlas's open questions", "<p>Whether higher mTORC1 "
          "selectivity actually delivers rapamycin's longevity benefit without its metabolic "
          "cost is untested in humans at aging-relevant doses – see the open question on "
@@ -572,12 +588,14 @@ add(
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
-        "Three classes: rapalogs (rapamycin/sirolimus, everolimus, temsirolimus, "
+        "Three main classes: rapalogs (rapamycin/sirolimus, everolimus, temsirolimus, "
         "ridaforolimus – allosteric, FKBP12-dependent, mTORC1-selective, in clinical use "
         "since 1999); ATP-competitive \"TORKinibs\" (Torin1, PP242, AZD8055, sapanisertib – "
         "block the shared catalytic site, hitting both mTORC1 and mTORC2); and bi-steric "
         "inhibitors (RMC-6272 and related compounds – the newest class, >25-fold "
-        "mTORC1-over-mTORC2 selectivity, in early human trials as of 2025)."
+        "mTORC1-over-mTORC2 selectivity, in early human trials as of 2025). A related "
+        "group, dual PI3K/mTOR inhibitors (dactolisib, also called BEZ235 or RTB101, and "
+        "gedatolisib), blocks PI3K as well as both mTOR complexes."
     ),
 )
 
@@ -592,8 +610,8 @@ add(
     tldr=(
         "It depends enormously on dose. At the high, continuous doses used for decades to "
         "prevent transplant rejection, rapamycin (sirolimus) causes well-documented issues: "
-        "mouth ulcers, elevated blood lipids, delayed wound healing, and – mechanistically – "
-        "insulin resistance from chronic mTORC2 suppression. At the much lower, often "
+        "mouth ulcers, elevated blood lipids, delayed wound healing, and insulin "
+        "resistance, which mouse work links mainly to chronic mTORC2 suppression. At the much lower, often "
         "intermittent doses tested in recent aging trials, the picture looks different: "
         "the Atlas's own human studies report the drug as well tolerated, with only minor "
         "adverse events."
@@ -602,9 +620,10 @@ add(
         ("The mechanism behind the metabolic side effects", "<ul>" + "".join([
             cite("SAR2006", "D", "chronic rapamycin dosing eventually suppresses mTORC2 "
                  "signaling too, not just mTORC1 – and mTORC2 is what phosphorylates "
-                 "Akt/PKB, a key node in insulin signaling. This is the mechanistic basis "
-                 "for rapamycin-associated insulin resistance: it's a chronic-dosing, "
-                 "off-target effect, not what the drug was designed to do."),
+                 "Akt/PKB, a key node in insulin signaling. This is the leading mechanistic "
+                 "explanation, from cell and mouse work (see also LAM2012), for "
+                 "rapamycin-associated insulin resistance: a consequence of chronic "
+                 "exposure, not of the effect the drug is used for."),
         ]) + "</ul>"),
         ("What the Atlas's low-dose human trials actually report", "<ul>" + "".join([
             cite("KRA2018", "B", "a safety-first pilot RCT (n=25, ages 70–95) asking the "
@@ -614,20 +633,21 @@ add(
                  "264 elderly people improved immune function – the opposite direction of "
                  "\"more immunosuppression\", showing dose and selectivity change the "
                  "safety picture, not just the benefit."),
-            cite("GIL2026", "B", "low-dose rapamycin in ME/CFS patients reduced fatigue "
-                 "symptoms and modulated inflammation without the profile reported at "
-                 "transplant-immunosuppression doses."),
+            cite("GIL2026", "B", "in an uncontrolled pilot with no placebo group, people "
+                 "with ME/CFS taking low-dose rapamycin reported less fatigue; the "
+                 "mechanistic links were shown in lab assays, not in patients. A "
+                 "tolerability signal, not evidence of benefit."),
             cite("MOE2025", "B", "a 48-week RCT (n=114) at an aging-relevant dose found no "
                  "significant change in its primary endpoint – a null efficacy result, "
                  "but also no signal of the adverse effects associated with chronic "
                  "high-dose use."),
         ]) + "</ul>"),
-        ("Not every rapalog trial succeeds – or is side-effect free", "<ul>" + "".join([
-            cite("MAN2021", "B", "the crucial reality check: after a promising phase 2a, "
-                 "the large phase 3 trial (n=1024) of RTB101 (a rapalog-class mTOR "
-                 "inhibitor) FAILED its primary endpoint for reducing respiratory illness – "
-                 "a reminder that dose-sparing strategies don't automatically preserve "
-                 "efficacy just because they reduce side effects."),
+        ("Not every mTOR-inhibitor trial succeeds, or is side-effect free", "<ul>" + "".join([
+            cite("MAN2021", "B", "the crucial reality check: the large phase 3 trial "
+                 "(n=1024) of RTB101, an ATP-competitive inhibitor of PI3K and mTOR rather "
+                 "than a rapalog, failed its primary endpoint for reducing symptomatic "
+                 "respiratory illness. Dose-sparing strategies do not automatically "
+                 "preserve efficacy."),
         ]) + "</ul>"),
         ("Why the dose distinction matters", "<p>Nearly everything people cite as "
          "\"rapamycin's side effects\" – mouth sores, hyperlipidemia, poor wound healing – "
@@ -647,8 +667,9 @@ add(
     faq_a=(
         "At transplant-immunosuppression doses (continuous, high), documented side effects "
         "include mouth ulcers, elevated blood lipids, delayed wound healing, and insulin "
-        "resistance – the last one traced mechanistically to chronic mTORC2 suppression "
-        "(SAR2006), not mTORC1, rapamycin's intended target. At the lower, often "
+        "resistance – the last one explained mainly, from cell and mouse work, by chronic "
+        "mTORC2 suppression (SAR2006, LAM2012) rather than by the mTORC1 block the drug "
+        "is used for. At the lower, often "
         "intermittent doses tested in recent aging trials, human studies in the Atlas "
         "report the drug as well tolerated with only minor adverse events (KRA2018, "
         "GIL2026, MOE2025)."
@@ -684,9 +705,11 @@ add(
         ]) + "</ul><p>18 studies in the Atlas touch autophagy directly (9 animal, 9 "
              "mechanistic/in vitro) – a substantial mechanistic case that autophagy "
              "<em>changes</em> when mTORC1 is inhibited.</p>"),
-        ("What's actually missing", "<p>What's missing is the causal experiment: block "
-         "autophagy genetically (e.g. knock out an ATG gene) in an animal also given "
-         "rapamycin, and see whether the lifespan benefit disappears. If it does, autophagy "
+        ("What's actually missing", "<p>What is missing is the causal experiment in a mammal. "
+         "It has been done in flies (BJE2010) and worms (HAN2008), where blocking "
+         "autophagy genes abolishes the lifespan extension from rapamycin or TOR "
+         "inhibition, but no study blocks autophagy in mice given rapamycin and asks "
+         "whether the lifespan benefit disappears. If it does, autophagy "
          "is required. If lifespan extends anyway, something else in the mTORC1 pathway is "
          "doing the work and autophagy is a correlated side effect, not the mechanism. This "
          "exact experiment is the Atlas's flagged evidence gap – read the full breakdown, "
@@ -705,10 +728,12 @@ add(
     faq_a=(
         "Not proven – it's one of the Atlas's flagged open questions. Autophagy reliably "
         "increases when mTORC1 is inhibited, and several disease-model studies (SPI2010, "
-        "CAC2010) show autophagy-linked benefits tracking with mTOR inhibition. But no "
-        "study has shown the causal experiment: blocking autophagy genetically while still "
-        "giving rapamycin, to see whether the lifespan benefit survives. Until that's done, "
-        "autophagy's role is correlational, not confirmed as required."
+        "CAC2010) show autophagy-linked benefits tracking with mTOR inhibition. In flies "
+        "(BJE2010) and worms (HAN2008), blocking autophagy genes abolishes the lifespan "
+        "extension from rapamycin or TOR inhibition. But no study has done the causal "
+        "experiment in a mammal: blocking autophagy in mice given rapamycin, to see "
+        "whether the lifespan benefit survives. Until that's done, autophagy's role in "
+        "mammals is not confirmed as required."
     ),
 )
 
@@ -726,19 +751,25 @@ add(
         "started late in life (not just from birth), and it still works when given only "
         "briefly rather than continuously. Neither finding has been replicated with a "
         "matched dosing protocol in a human lifespan trial – that trial doesn't exist and "
-        "may never be practical to run."
+        "may never be practical to run. Using rapamycin for longevity is off-label, and "
+        "no dose or schedule has been established for people."
     ),
     sections=[
         ("Late-onset, continuous dosing", "<ul>" + "".join([
             cite("HAR2009", "C", "rapamycin fed starting at 600 days of age – "
-                 "late-middle-age for a mouse – extended median lifespan by 9–14% in both "
-                 "sexes. This was the finding that established rapamycin doesn't need to "
+                 "late-middle-age for a mouse – extended both median and maximal lifespan "
+                 "in both sexes (age at 90% mortality rose 14% in females and 9% in males). "
+                 "This was the finding that established rapamycin doesn't need to "
                  "start early to work."),
         ]) + "</ul>"),
         ("Brief, late-life dosing", "<ul>" + "".join([
             cite("BIT2016", "C", "just 3 months of rapamycin, given late in life, increased "
                  "subsequent life expectancy by up to 60% – the lifespan benefit doesn't "
-                 "require lifelong daily dosing, at least in mice."),
+                 "require lifelong daily dosing, at least in mice. The 60% figure comes "
+                 "from males on the high injected dose. At that dose females gained no "
+                 "survival benefit and developed more aggressive blood cancers; the lower "
+                 "dietary dose raised survival in both sexes, so dose and route matter as "
+                 "much as the pulse."),
         ]) + "</ul>"),
         ("Why intermittent/pulsed dosing is a live research question, not settled practice",
          "<p>If a few months of treatment can extend lifespan as much as continuous dosing "
@@ -767,9 +798,11 @@ add(
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
         "The mouse data uses varied protocols, not one fixed dose. Two key findings: "
-        "rapamycin still extends lifespan when started late (600 days old – HAR2009, 9–14% "
-        "median lifespan increase) and when given only briefly (3 months late in life – "
-        "BIT2016, up to 60% increase in subsequent life expectancy). No human trial has "
+        "rapamycin still extends lifespan when started late (600 days old – HAR2009, "
+        "which extended lifespan in both sexes, more in females) and when given only "
+        "briefly (3 months late in life – BIT2016, up to 60% more subsequent life "
+        "expectancy in males on a high injected dose; females on that dose gained no "
+        "survival benefit, while a lower dietary dose helped both sexes). No human trial has "
         "tested a matched dosing protocol against a lifespan endpoint – human trials to "
         "date (KRA2018, MOE2025) have tested safety and short-term metabolic markers, "
         "not survival."
@@ -823,8 +856,9 @@ add(
          "unusually wide range of conditions: cancer (see "
          '<a href="/answers/mtor-cancer-connection/">how mTOR connects to cancer</a>), '
          "the genetic disorder tuberous sclerosis complex (where a mutation leaves mTORC1 "
-         "stuck permanently \"on\"), and the biology of aging, where inhibiting it with "
-         "rapamycin is the single most consistent way known to extend lifespan in "
+         "switched on without its growth-factor brake), and the biology of aging, where "
+         "inhibiting it with rapamycin is the most consistent drug-based way known to "
+         "extend lifespan in "
          "laboratory animals across species.</p>"),
     ],
     related_links='<a href="/gene/mtor/">mTOR <span style="color:var(--muted-count,#7C7569)">62</span></a>'
@@ -853,15 +887,16 @@ add(
     tldr=(
         "They're often mentioned together as geroprotector candidates, but they work "
         "differently and have very different evidence behind them in this Atlas. Rapamycin "
-        "directly and potently inhibits mTORC1 (its designed mechanism) and has 38 "
+        "directly and potently inhibits mTORC1 (its primary target) and has 38 "
         "evidence-labelled studies here, including a systematic review of human data. Metformin "
         "inhibits mTORC1 only indirectly – mainly by activating AMPK, though it also acts "
         "on mTORC1 through AMPK-independent routes – and has just 3 studies in the Atlas, "
         "none of them a randomized trial for a longevity endpoint."
     ),
     sections=[
-        ("Mechanism: direct vs indirect", "<p>Rapamycin binds FKBP12 and directly blocks "
-         "mTORC1's Raptor-dependent activity – a precise, well-characterized mechanism. "
+        ("Mechanism: direct vs indirect", "<p>Rapamycin binds FKBP12, and the pair docks on "
+         "mTOR's FRB domain next to the kinase's substrate cleft, directly blocking "
+         "mTORC1 – a precise, well-characterized mechanism. "
          "Metformin's route to mTORC1 is murkier and is itself an open scientific question: "
          "it activates AMPK, an energy-sensor that inhibits mTORC1 upstream, but studies "
          "in the Atlas show metformin still suppresses hepatic gluconeogenesis in "
@@ -942,14 +977,16 @@ add(
                  "progression-free survival (11.0 vs 4.6 months)."),
             cite("FRA2013", "B", "a phase 3 RCT (n=117) in tuberous sclerosis showing "
                  "everolimus shrinks SEGA brain tumors by ≥50% in over a third of "
-                 "patients – a genetic disease where mTOR is stuck permanently \"on\"."),
+                 "patients – a genetic disease where mTORC1 is held on regardless of hormones, "
+                 "though nutrients still gate it."),
         ]) + "</ul>"),
         ("The practical difference", "<p>The two drugs aren't interchangeable in clinical "
          "practice, even though they share a mechanism: sirolimus is mainly used for "
-         "transplant immunosuppression (its original, longest-standing indication) and is "
-         "the molecule almost all the aging/longevity mouse and human trials in this Atlas "
-         "actually test. Everolimus is mainly used in oncology and for tuberous sclerosis "
-         "complex, where its more predictable pharmacokinetics matter for precise dosing "
+         "transplant immunosuppression (its original, longest-standing indication), is also "
+         "approved for lymphangioleiomyomatosis and, as nab-sirolimus, for advanced "
+         "malignant PEComa, and is the molecule most of the aging/longevity mouse and "
+         "human trials in this Atlas actually test. Everolimus is mainly used in oncology "
+         "and for tuberous sclerosis complex (and, as Zortress, in transplantation), where its more predictable pharmacokinetics matter for precise dosing "
          "against tumors.</p>"),
     ],
     related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
@@ -978,7 +1015,8 @@ add(
         "mTORC1 promotes cell growth and proliferation – the same activity that makes it a "
         "longevity target makes its hyperactivation a cancer risk. The clearest "
         "proof-of-concept is tuberous sclerosis complex, a genetic disorder where losing "
-        "the TSC1/TSC2 brake leaves mTORC1 stuck permanently \"on\" and drives tumor "
+        "the TSC1/TSC2 brake leaves mTORC1 switched on without its growth-factor brake "
+        "and drives tumor "
         "growth – and where an mTOR inhibitor (everolimus) is a direct, FDA-approved "
         "treatment. mTOR inhibitors are also approved treatments in kidney cancer, "
         "hormone-resistant breast cancer, and pancreatic neuroendocrine tumors."
@@ -986,8 +1024,8 @@ add(
     sections=[
         ("The genetic proof of concept: tuberous sclerosis complex", "<ul>" + "".join([
             cite("FRA2013", "B", "a phase 3 RCT (n=117) in TSC – the disease where mTOR is "
-                 "stuck \"on\" by a genetic fault – showed everolimus shrinks SEGA brain "
-                 "tumors by ≥50% in 35% of patients versus far fewer on placebo."),
+                 "left on by a genetic fault that removes its growth-factor brake – showed everolimus shrinks SEGA brain "
+                 "tumors by ≥50% in 35% of patients versus 0% on placebo."),
             cite("BIS2013", "B", "the companion phase 3 RCT (n=118) targeting kidney "
                  "tumors (angiomyolipomas) in the same disease: everolimus shrank them by "
                  "≥50% in 42% of patients."),
@@ -995,8 +1033,9 @@ add(
                  "angiomyolipoma patients, everolimus reduced tumor volume by ≥50% in 44% "
                  "of patients at 3 months, rising further with continued treatment."),
         ]) + "</ul><p>TSC matters because it isolates mTOR as the cause, not just a "
-             "correlate – the tumors exist specifically because mTORC1 can't be switched "
-             "off, and switching it off pharmacologically shrinks them.</p>"),
+             "correlate – the tumors exist specifically because mTORC1 runs without its "
+             "growth-factor brake (nutrients still gate it), and turning it down "
+             "pharmacologically shrinks them.</p>"),
         ("Sporadic cancers where mTOR signaling gets switched on", "<ul>" + "".join([
             cite("BAS2012", "B", "in hormone-receptor-positive advanced breast cancer, "
                  "resistance to endocrine therapy is partly driven by mTOR signaling "
@@ -1011,7 +1050,7 @@ add(
         ]) + "</ul>"),
         ("The double-edged-sword problem for longevity research", "<p>This is exactly why "
          "mTOR inhibition is scientifically interesting for aging, not just cancer: a "
-         "pathway that drives unwanted growth when stuck \"on\" is a plausible target for "
+         "pathway that drives unwanted growth when overactive is a plausible target for "
          "slowing the growth-related decline of aging when partially turned down. But it "
          "also means any long-term, population-wide use of mTOR inhibitors for healthy "
          "aging needs to reckon with a drug class whose clearest, best-proven human "
@@ -1025,7 +1064,7 @@ add(
     faq_a=(
         "mTORC1 promotes cell growth and proliferation, so its hyperactivation is a "
         "cancer driver. The clearest proof is tuberous sclerosis complex, a genetic "
-        "disorder where losing the TSC1/TSC2 brake leaves mTORC1 permanently active and "
+        "disorder where losing the TSC1/TSC2 brake leaves mTORC1 active without its growth-factor brake and "
         "causes tumors – treatable with the mTOR inhibitor everolimus (FRA2013, BIS2013). "
         "mTOR inhibitors are also FDA-approved treatments in kidney cancer (temsirolimus, "
         "HUD2007), hormone-resistant breast cancer (everolimus, BAS2012), and pancreatic "
@@ -1067,7 +1106,8 @@ GLOSSARY = [
     ("Everolimus", "/drug/everolimus/", "14",
      "A semi-synthetic rapalog with better oral bioavailability and a shorter half-life "
      "than rapamycin itself. Used clinically in oncology (breast cancer, pancreatic "
-     "neuroendocrine tumors, kidney cancer) and for tuberous sclerosis complex."),
+     "neuroendocrine tumors, kidney cancer), for tuberous sclerosis complex, and to "
+     "prevent organ-transplant rejection (as Zortress)."),
     ("Metformin", "/drug/metformin/", "3",
      "A widely used antidiabetic drug that activates AMPK and inhibits mTORC1 indirectly "
      "— though part of its action bypasses AMPK entirely. Frequently proposed as a "
@@ -1088,12 +1128,12 @@ GLOSSARY = [
      "age-related disease; mTOR both promotes the senescent state and powers its "
      "inflammatory secretions."),
     ("TSC1/TSC2", "/gene/tsc1-tsc2/", None,
-     "A two-protein complex that acts as the principal brake on mTORC1, integrating "
+     "A protein complex (TSC1, TSC2 and TBC1D7) that acts as the principal brake on mTORC1, integrating "
      "signals about cellular stress and growth-factor availability. Loss-of-function "
      "mutations in either gene cause tuberous sclerosis complex."),
     ("Tuberous sclerosis complex", "/disease/tuberous-sclerosis-complex/", "5",
-     "A genetic disorder caused by TSC1/TSC2 mutations that leaves mTORC1 stuck "
-     "permanently active, causing benign tumors in the brain, kidney, and elsewhere. The "
+     "A genetic disorder caused by TSC1/TSC2 mutations that leaves mTORC1 active "
+     "without its growth-factor brake (nutrients still gate it), causing benign tumors in the brain, kidney, and elsewhere. The "
      "clearest human proof-of-concept that mTOR hyperactivation alone can drive tumor "
      "growth – and that mTOR inhibitors (everolimus) can treat it directly."),
     ("AMPK", "/gene/ampk/", None,
@@ -1116,7 +1156,9 @@ GLOSSARY = [
      "downstream of active mTORC1."),
     ("Raptor", "/gene/raptor/", None,
      "Regulatory-associated protein of mTOR – the defining scaffold subunit of mTORC1, "
-     "required for rapamycin's allosteric inhibition of the complex."),
+     "which presents substrates such as S6K1 and 4E-BP1 to the kinase. In mTORC1 the "
+     "FRB site where FKBP12-rapamycin docks stays exposed, so this is the complex "
+     "rapamycin blocks directly."),
     ("Rictor", "/gene/rictor/", None,
      "Rapamycin-insensitive companion of mTOR – the defining scaffold subunit of mTORC2, "
      "and the reason mTORC2 isn't directly blocked by rapamycin the way mTORC1 is."),
@@ -1144,8 +1186,9 @@ GLOSSARY = [
      "pathways."),
     ("Insulin resistance", "/outcome/insulin-resistance/", None,
      "A reduced cellular response to insulin. Relevant to mTOR biology as rapamycin's "
-     "best-documented metabolic side effect, mechanistically linked to chronic "
-     "suppression of mTORC2 rather than mTORC1, its intended target."),
+     "best-documented metabolic side effect, linked mainly to chronic suppression of "
+     "mTORC2 in mice (LAM2012); how much of the effect in people comes from mTORC2 "
+     "loss and how much from other routes has not been separated."),
     ("Evidence code (S/H/A/M/R)", None, None,
      "This Atlas's label for WHICH SYSTEM a finding was established in \u2014 never a "
      "mark for how good the work is: S = synthesis of human data, H = human study, "
