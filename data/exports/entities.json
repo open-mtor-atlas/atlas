@@ -74,8 +74,8 @@
   {
     "name": "PRAS40",
     "type": "Gene/Protein",
-    "description": "Insulin-regulated inhibitor subunit of mTORC1. Insulin triggers Akt to phosphorylate PRAS40, releasing its brake and switching mTORC1 on.",
-    "description_beginner": "A brake on mTORC1 that insulin can release. When insulin signals arrive, a kinase called Akt tags this protein, which lets go of mTORC1 and allows it to switch on.",
+    "description": "Insulin-regulated inhibitor subunit of mTORC1. Insulin triggers Akt to phosphorylate PRAS40, which lifts one inhibitory subunit off the complex; that on its own is not the on-switch, as most of the insulin input runs through the TSC2/Rheb arm.",
+    "description_beginner": "A brake on mTORC1 that insulin can release. When insulin signals arrive, a kinase called Akt tags this protein and it lets go of mTORC1. That alone does not switch mTORC1 on, though: most of the insulin signal travels through the TSC2/Rheb route.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -137,8 +137,8 @@
   {
     "name": "Lung transplant",
     "type": "Condition",
-    "description": "Clinical setting in which mTOR inhibitors are used as antiproliferative, calcineurin-sparing immunosuppression, notably against chronic lung allograft dysfunction.",
-    "description_beginner": "The situation after a donor lung is implanted, where the immune system has to be held back for life. mTOR inhibitors are used because they block rejection without the kidney damage the usual drugs cause, and may slow the gradual scarring that destroys transplanted lungs.",
+    "description": "Clinical setting in which mTOR inhibitors are used as antiproliferative, calcineurin-sparing immunosuppression. They are not used de novo: early sirolimus after lung transplantation caused fatal bronchial anastomotic dehiscence, so they are introduced only once the airway anastomosis has healed, and a benefit against chronic lung allograft dysfunction is not established.",
+    "description_beginner": "The situation after a donor lung is implanted, where the immune system has to be held back for life. mTOR inhibitors are used mainly to reduce the dose of the usual drugs and spare the kidneys. They are not started straight after surgery, because early use stopped the airway join from healing, which was fatal in some patients, and whether they slow the long-term scarring that destroys transplanted lungs is still being tested.",
     "synonyms": "",
     "n_linked_studies": 0,
     "atlas_url": ""
@@ -317,8 +317,8 @@
   {
     "name": "Lymphangioleiomyomatosis",
     "type": "Disease",
-    "description": "LAM - a rare progressive cystic lung disease in women driven by inappropriate mTOR activation; sirolimus stabilizes lung function (MILES trial).",
-    "description_beginner": "LAM - a rare lung disease, almost always in women, in which mTOR gets stuck in the 'on' position and slowly destroys healthy lung tissue with cysts. The mTOR-blocking drug sirolimus is a proven treatment that keeps lung function from declining further.",
+    "description": "LAM - a rare progressive cystic lung disease in women driven by inappropriate mTOR activation; sirolimus stabilizes lung function for as long as it is taken (MILES trial), with decline resuming after the drug is stopped.",
+    "description_beginner": "LAM - a rare lung disease, almost always in women, in which mTOR gets stuck in the 'on' position and slowly destroys healthy lung tissue with cysts. The mTOR-blocking drug sirolimus is a proven treatment that keeps lung function from declining further for as long as it is taken: in the MILES trial, decline started again after the drug was stopped.",
     "synonyms": "",
     "n_linked_studies": 2,
     "atlas_url": ""
@@ -425,8 +425,8 @@
   {
     "name": "FoxO",
     "type": "Gene/Protein",
-    "description": "Forkhead box O transcription factors (FOXO1/3/4) that act as key downstream targets of mTORC1/Akt signalling; phosphorylation by Akt excludes them from the nucleus, while mTORC1 inhibition promotes nuclear translocation and transcription of stress-response and longevity genes.",
-    "description_beginner": "A family of 'stress-response' gene switches that Akt normally keeps locked out of the nucleus. When mTORC1/Akt signaling drops, they move into the nucleus and turn on genes linked to stress resistance and longevity.",
+    "description": "Forkhead box O transcription factors (FOXO1/3/4) that act as key downstream targets of PI3K/Akt and mTOR signalling; they are excluded from the nucleus by Akt, with an mTORC2/SGK contribution, so catalytic or mTORC2-directed inhibition promotes nuclear entry and transcription of stress-response and longevity genes, whereas rapamycin can raise Akt activity through feedback relief and leave them cytoplasmic.",
+    "description_beginner": "A family of 'stress-response' gene switches that Akt normally keeps locked out of the nucleus. When Akt activity drops they move into the nucleus and turn on genes linked to stress resistance and longevity. Rapamycin does not reliably do this: by releasing a feedback loop it can even raise Akt activity, leaving these switches outside the nucleus.",
     "synonyms": "",
     "n_linked_studies": 3,
     "atlas_url": "https://mtor-atlas.org/gene/foxo/"
@@ -515,8 +515,8 @@
   {
     "name": "LC3B (MAP1LC3B)",
     "type": "Gene/Protein",
-    "description": "Key autophagosome membrane marker; lipidation of LC3B (LC3-II) is induced when mTOR is inhibited and marks autophagy induction.",
-    "description_beginner": "A protein that gets attached to the membrane of autophagosomes (cellular cleanup sacs) - scientists use it as a marker to see autophagy happening. It shows up more when mTOR is blocked.",
+    "description": "Key autophagosome membrane marker; LC3B lipidation (LC3-II) rises when mTORC1 is inhibited, but a single LC3-II level cannot separate more autophagosomes being built from fewer being cleared; flux has to be measured against a lysosomal block (bafilomycin or chloroquine) or a turnover readout.",
+    "description_beginner": "A protein that gets attached to the membrane of autophagosomes (cellular cleanup sacs), so scientists use it as a marker. More of it appears when mTORC1 is blocked, but one measurement cannot tell whether more sacs are being built or fewer are being cleared away: to show real flux you have to block the lysosome as well and compare.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -578,8 +578,8 @@
   {
     "name": "Arginine",
     "type": "Nutrient/Metabolite",
-    "description": "Essential amino acid sensed by two separate routes: cytosolic arginine binds CASTOR1, and lysosomal arginine is read by the transporter-like protein SLC38A9.",
-    "description_beginner": "An essential amino acid the cell senses through two separate paths - a sensor inside the cell (CASTOR1) reads free-floating arginine, while a transporter-like protein on the lysosome (SLC38A9) reads arginine stored inside the lysosome.",
+    "description": "Conditionally essential amino acid sensed by two separate routes: cytosolic arginine binds CASTOR1, and lysosomal arginine is read by the transporter-like protein SLC38A9.",
+    "description_beginner": "A conditionally essential amino acid (the body can make some, but not always enough) that the cell senses through two separate paths - a sensor inside the cell (CASTOR1) reads free-floating arginine, while a transporter-like protein on the lysosome (SLC38A9) reads arginine stored inside the lysosome.",
     "synonyms": "",
     "n_linked_studies": 5,
     "atlas_url": "https://mtor-atlas.org/nutrient/arginine/"
@@ -632,8 +632,8 @@
   {
     "name": "Integrated stress response",
     "type": "Pathway/Complex",
-    "description": "Conserved response to unfolded protein, amino-acid and other stresses. Reaches mTORC1 by routes independent of both TSC and AMPK.",
-    "description_beginner": "The cell's general-purpose alarm system for problems like misfolded proteins or amino-acid shortage. It can reach and suppress mTORC1 through routes that don't go through the two other main brakes, TSC or AMPK.",
+    "description": "Conserved response to unfolded protein, amino-acid and other stresses. Reaches mTORC1 by more than one route: ATF4-induced REDD1 acts through the TSC complex, while ATF4-induced Sestrin2 acts on GATOR2. It is not a single brake, and it is not the AMPK one.",
+    "description_beginner": "The cell's general-purpose alarm system for problems like misfolded proteins or amino-acid shortage. It suppresses mTORC1 by more than one route: one of them (REDD1) works through the TSC brake, another (Sestrin2) works on GATOR2. So it is not one single brake, and it is not the AMPK one.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -686,8 +686,8 @@
   {
     "name": "PTEN",
     "type": "Gene/Protein",
-    "description": "Phosphatase that erases PIP3 and so shuts down the PI3K arm. One of the most frequently lost tumour suppressors in human cancer, and the commonest way this pathway gets stuck on.",
-    "description_beginner": "A tumor-suppressing enzyme that erases the 'go' signal generated by PI3K, shutting that branch of the pathway down. It's one of the genes most frequently lost in human cancer, and losing it is a common way this pathway gets stuck switched on.",
+    "description": "Phosphatase that erases PIP3 and so shuts down the PI3K arm. One of the most frequently lost tumour suppressors in human cancer, and one of the most common ways this pathway is left switched on without its growth-factor brake.",
+    "description_beginner": "A tumor-suppressing enzyme that erases the 'go' signal generated by PI3K, shutting that branch of the pathway down. It's one of the genes most frequently lost in human cancer, and losing it is one of the most common ways this pathway is left switched on without its growth-factor brake.",
     "synonyms": "",
     "n_linked_studies": 2,
     "atlas_url": ""
@@ -857,8 +857,8 @@
   {
     "name": "Akt/PKB",
     "type": "Gene/Protein",
-    "description": "Key kinase downstream of PI3K in growth signaling; activated by mTORC2.",
-    "description_beginner": "A key signaling kinase that sits downstream of PI3K and is switched on by mTORC2. It's one of the cell's central 'growth is good, keep going' signals.",
+    "description": "Key kinase downstream of PI3K in growth signalling; activated by PDK1 at T308 and further phosphorylated by mTORC2 at S473, which shapes which substrates it hits.",
+    "description_beginner": "A key signaling kinase that sits downstream of PI3K. It is switched on by PI3K signaling through PDK1, with mTORC2 adding a second mark that tunes what it does. It's one of the cell's central 'growth is good, keep going' signals.",
     "synonyms": "Akt; AKT; AKT1; PKB; protein kinase B; Akt Ser473; phospho-Akt S473\n\nPozn.: 'Akt Ser473' je fosforylační místo, ne samostatná entita — vedeno jako synonymum, aby se studie o něm navázaly sem.",
     "n_linked_studies": 16,
     "atlas_url": "https://mtor-atlas.org/gene/akt-pkb/"
@@ -929,8 +929,8 @@
   {
     "name": "DEPTOR",
     "type": "Gene/Protein",
-    "description": "Endogenous inhibitor of both mTORC1 and mTORC2; paradoxically overexpressed in a subset of multiple myelomas.",
-    "description_beginner": "A natural brake on both mTOR complexes at once. Oddly, some multiple myeloma (bone marrow cancer) cells make extra amounts of it despite it being an inhibitor - a paradox that isn't fully explained.",
+    "description": "Endogenous inhibitor of both mTORC1 and mTORC2; paradoxically overexpressed in a subset of multiple myelomas, which depend on high DEPTOR: partial mTORC1 suppression relieves S6K1-IRS1 feedback and sustains PI3K/Akt survival signalling (Peterson 2009).",
+    "description_beginner": "A natural brake on both mTOR complexes at once. Oddly, some multiple myeloma (bone marrow cancer) cells make extra amounts of it and depend on having it: damping mTORC1 releases a feedback loop and keeps PI3K/Akt survival signaling switched on.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -938,8 +938,8 @@
   {
     "name": "Kidney transplant",
     "type": "Outcome",
-    "description": "Original and still-standard clinical use of rapamycin (as sirolimus), preventing organ rejection by suppressing T cell activation.",
-    "description_beginner": "The original medical use of rapamycin: preventing the immune system from rejecting a transplanted organ by suppressing T-cell activation.",
+    "description": "The original clinical use of rapamycin (as sirolimus), preventing organ rejection by suppressing T cell activation. It is no longer standard first-line maintenance; today it is used in selected regimens, often to spare calcineurin inhibitors.",
+    "description_beginner": "The original medical use of rapamycin: preventing the immune system from rejecting a transplanted organ by suppressing T-cell activation. It is not the standard first choice today, but it is still used in selected patients, often to cut down the dose of the harsher usual drugs.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -956,8 +956,8 @@
   {
     "name": "Energy & cellular stress",
     "type": "Condition",
-    "description": "Falling ATP, glucose withdrawal and a range of other insults. They converge on mTORC1 through two routes: AMPK, and physical relocation of the TSC complex to the lysosome.",
-    "description_beginner": "A catch-all for problems like falling energy (ATP) levels or glucose shortage. These reach mTORC1 through two separate routes: the AMPK brake, and physically moving the TSC complex to the lysosome.",
+    "description": "Falling ATP, glucose withdrawal and a range of other insults. They converge on mTORC1 chiefly through two routes: AMPK, which acts on both TSC2 and raptor, and physical relocation of the TSC complex to the lysosome.",
+    "description_beginner": "A catch-all for problems like falling energy (ATP) levels or glucose shortage. These reach mTORC1 chiefly through two routes: the AMPK brake, and physically moving the TSC complex to the lysosome.",
     "synonyms": "",
     "n_linked_studies": 4,
     "atlas_url": "https://mtor-atlas.org/condition/energy-cellular-stress/"
@@ -1019,8 +1019,8 @@
   {
     "name": "Tuberous sclerosis complex",
     "type": "Disease",
-    "description": "Genetic disorder from TSC1/TSC2 loss causing constitutive mTOR activation and benign tumors in brain, kidney, and elsewhere. Everolimus shrinks these tumors (EXIST trials) - the clearest randomised human evidence that blocking mTOR helps a human disease driven by mTOR overactivation.",
-    "description_beginner": "A genetic disease caused by loss of the TSC1 or TSC2 brake, leaving mTOR stuck in the 'on' position and causing benign tumors in the brain, kidneys, and elsewhere. Everolimus shrinks these tumors - the clearest, most direct evidence in humans that blocking mTOR helps a disease actually caused by too much mTOR activity.",
+    "description": "Genetic disorder from TSC1/TSC2 loss causing constitutive mTOR activation and benign tumors in brain, kidney, and elsewhere, as well as epilepsy, often the presenting problem, and TSC-associated neuropsychiatric disorders. Everolimus shrinks these tumors (EXIST trials) and is also approved for TSC-associated seizures - the clearest randomised human evidence that blocking mTOR helps a human disease driven by mTOR overactivation.",
+    "description_beginner": "A genetic disease caused by loss of the TSC1 or TSC2 brake, leaving mTOR stuck in the 'on' position and causing benign tumors in the brain, kidneys, and elsewhere, along with epilepsy, which is often the first sign, and learning and behavior difficulties. Everolimus shrinks these tumors and is approved for the seizures too - the clearest, most direct evidence in humans that blocking mTOR helps a disease actually caused by too much mTOR activity.",
     "synonyms": "",
     "n_linked_studies": 6,
     "atlas_url": "https://mtor-atlas.org/disease/tuberous-sclerosis-complex/"
@@ -1082,8 +1082,8 @@
   {
     "name": "Hypoxia",
     "type": "Condition",
-    "description": "Low oxygen. Acts on mTORC1 transcriptionally through REDD1 rather than through AMPK, so it is slower to engage and slower to release.",
-    "description_beginner": "Low oxygen levels. It reaches mTORC1 through a gene called REDD1 rather than through the AMPK energy-sensing route, so it's slower to switch the brake on and slower to release it again.",
+    "description": "Low oxygen. Acts on mTORC1 transcriptionally, chiefly through REDD1 at the oxygen tensions used in these studies rather than through AMPK, so it is slower to engage and slower to release.",
+    "description_beginner": "Low oxygen levels. It reaches mTORC1 chiefly through a gene called REDD1 rather than through the AMPK energy-sensing route, so it's slower to switch the brake on and slower to release it again. Severe oxygen shortage does bring AMPK in as well.",
     "synonyms": "",
     "n_linked_studies": 1,
     "atlas_url": ""
@@ -1100,8 +1100,8 @@
   {
     "name": "RTB101",
     "type": "Drug",
-    "description": "An oral ATP-competitive mTOR inhibitor (formerly BEZ235) tested for boosting immune function in the elderly; improved antiviral gene expression but failed its phase 3 clinical endpoint.",
-    "description_beginner": "An oral mTOR-blocking drug tested for boosting immune function in older adults. It improved antiviral gene activity in early trials but ultimately failed to meet its goal in a larger, phase 3 clinical trial.",
+    "description": "An oral ATP-competitive inhibitor of both class I PI3K and mTOR (dactolisib, formerly BEZ235), used at low doses intended to hit TORC1; tested for immune function in older adults, where it raised antiviral gene expression but failed its phase 3 clinical endpoint.",
+    "description_beginner": "An oral drug that blocks both class I PI3K and mTOR (also called dactolisib, formerly BEZ235), given at low doses meant to hit mTORC1 rather than everything at once. It was tested for boosting immune function in older adults: it raised antiviral gene activity in early trials but failed to meet its goal in a larger, phase 3 clinical trial.",
     "synonyms": "",
     "n_linked_studies": 2,
     "atlas_url": ""
@@ -1298,7 +1298,7 @@
   {
     "name": "Vps34 (PIK3C3)",
     "type": "Gene/Protein",
-    "description": "The class III phosphatidylinositol 3-kinase, the only PI3K that makes PI(3)P. It has two jobs that meet in the Atlas: it is required to build the autophagosome, and it was reported as a nutrient-regulated input to mTORC1 that runs separately from the insulin/class I PI3K route (BYF2005, NOB2005). The relationship between that input and the later Rag/Ragulator account of amino acid sensing is unresolved.",
+    "description": "The class III phosphatidylinositol 3-kinase and the main source of PI(3)P (class II PI3Ks make local pools of it too). It has two jobs that meet in the Atlas: it is required to build the autophagosome, and it was reported as a nutrient-regulated input to mTORC1 that runs separately from the insulin/class I PI3K route (BYF2005, NOB2005). The relationship between that input and the later Rag/Ragulator account of amino acid sensing is unresolved.",
     "description_beginner": "An enzyme that tags membranes with a small chemical label. Cells need it to build the bag that swallows worn-out parts during autophagy, and some experiments say it also helps tell mTOR that amino acids are around, by a different route than insulin uses.",
     "synonyms": "hVps34; PIK3C3; class III PI3K; VPS34",
     "n_linked_studies": 0,
