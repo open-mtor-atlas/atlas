@@ -167,8 +167,8 @@ DATASET_REF = {
     "inLanguage": "en",
     "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity",
                  "aging biology", "TSC complex", "evidence-based research"],
-    # "version" is the last formally cut Zenodo release (tag v1.0.0, DOI
-    # 10.5281/zenodo.22059964) -- NOT the live corpus size, which changes
+    # "version" is the last formally cut Zenodo release (tag v2.0.0, DOI
+    # 10.5281/zenodo.22916413) -- NOT the live corpus size, which changes
     # far more often than a release should. dateModified tracks the living
     # corpus itself (stamped at build time, same convention as the sitemap
     # <lastmod>): a reader/crawler can see the page changed even between
@@ -2129,6 +2129,9 @@ Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 <tr><td>Dataset DOI</td><td><a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>
 &mdash; concept DOI, always resolves to the latest archived version on
 Zenodo</td></tr>
+<tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.22916413">10.5281/zenodo.22916413</a>
+&mdash; the v2.0.0 snapshot, for citing the exact state of the corpus this
+version archived</td></tr>
 <tr><td>Curator ORCID</td><td><a href="https://orcid.org/0009-0008-2025-2148">0009-0008-2025-2148</a>
 (Oliver Barton)</td></tr>
 <tr><td>License</td><td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
