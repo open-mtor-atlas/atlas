@@ -46,6 +46,7 @@
         else if(kind==='confounder') track('confounder_answered',{choice:tag});
         else if(kind==='experiments') track('experiment_interpreted',{choice:tag});
         else if(kind==='reflect') track('challenge_completed',{choice:tag});
+        nbOption(kind,box,b);
       });
     });
   });
@@ -74,6 +75,131 @@
       });
     });
   });
+
+  /* ---------- research notebook + "what would change your mind?" ----------
+     Zaznam rozhodnuti, ne skore. Vsechno, co se tady sbira, uz na strance je;
+     tenhle kus to jen slozi na jedno misto v poradi, ve kterem to vznikalo.
+     Zadne uloziste a zadna sit: po reloadu je notebook prazdny, stejne jako
+     zbytek vyzvy. Funkce jsou deklarace (hoisted), takze je smi volat i
+     posluchac zaregistrovany vys. */
+  var nbBox=document.querySelector('[data-rc-notebook]');
+  var nbBody=nbBox?nbBox.querySelector('[data-nb-body]'):null;
+  var NB={hyp:'',rev:'',next:'',fals:[],falsBy:{},runs:[],refl:[],
+          answered:0,goals:0,openGoals:[],spent:0,total:0,unit:'',closed:false};
+
+  function nbEsc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+  function nbSec(t,inner){
+    return inner?'<div class="ac-nbsec"><p class="ac-nblbl">'+t+'</p>'+inner+'</div>':'';}
+  function nbLabel(btn){
+    var sp=btn.querySelectorAll('span');
+    return (sp.length?sp[sp.length-1]:btn).textContent.trim();}
+  function nbList(items,cls){
+    return '<ul class="ac-shows">'+items.map(function(t){
+      return '<li class="'+cls+'">'+t+'</li>';}).join('')+'</ul>';}
+
+  function nbRender(){
+    if(!nbBody) return;
+    var h='';
+    var q=nbBox.getAttribute('data-nb-question')||'';
+    if(q) h+=nbSec('The question','<p>'+nbEsc(q)+'</p>');
+    if(NB.hyp) h+=nbSec('My working hypothesis','<p>'+nbEsc(NB.hyp)+'</p>');
+    if(NB.fals.length) h+=nbSec('What I said would change my mind',
+      '<ul class="ac-shows">'+NB.fals.map(function(f){
+        var tail=f.run?(f.hit?' — and that is what the step returned'
+                             :' — the step returned something else')
+                      :' — step not run';
+        return '<li class="'+(f.run?(f.hit?'ac-yes':'ac-no'):'')+'"><strong>'+
+               nbEsc(f.node)+'.</strong> '+nbEsc(f.label)+tail+'</li>';}).join('')+'</ul>');
+    if(NB.runs.length) h+=nbSec('Evidence I bought',
+      '<ul class="ac-nbrun">'+NB.runs.map(function(r){
+        return '<li><strong>'+nbEsc(r.label)+'</strong><span class="ac-nbcost">'+r.cost+
+               ' '+nbEsc(NB.unit)+'</span>'+
+               (r.conclude.length?'<ul>'+r.conclude.map(function(t){
+                 return '<li>'+t+'</li>';}).join('')+'</ul>':'')+'</li>';}).join('')+
+      '</ul><p class="ac-nbempty">'+NB.spent+' of '+NB.total+' '+nbEsc(NB.unit)+' spent.</p>');
+    var cannot=[],seen={};
+    NB.runs.forEach(function(r){r.cannot.forEach(function(t){
+      if(!seen[t]){seen[t]=1;cannot.push(t);}});});
+    if(cannot.length) h+=nbSec('What it could not settle',nbList(cannot,'ac-no'));
+    if(NB.goals&&(NB.runs.length||NB.closed)) h+=nbSec('Where the question stood',
+      '<p>'+NB.answered+' of '+NB.goals+' sub-questions answered'+
+      (NB.closed?', investigation closed':' so far')+'.</p>'+
+      (NB.openGoals.length?nbList(NB.openGoals,'ac-no'):''));
+    var changed='';
+    if(NB.rev) changed+='<p>'+nbEsc(NB.rev)+'</p>';
+    if(NB.refl.length) changed+='<ul>'+NB.refl.map(function(r){
+      return '<li>'+nbEsc(r.q)+' <strong>'+nbEsc(r.a)+'</strong></li>';}).join('')+'</ul>';
+    if(changed) h+=nbSec('What changed my mind',changed);
+    if(NB.next) h+=nbSec('My next experiment','<p>'+nbEsc(NB.next)+'</p>');
+    var started=NB.hyp||NB.rev||NB.next||NB.fals.length||NB.runs.length||NB.refl.length;
+    if(started&&h) nbBody.innerHTML=h;
+    else if(!nbBody.getAttribute('data-nb-ready')){
+      /* skript bezi, takze veta o tom, co by se stalo bez nej, uz neplati */
+      nbBody.setAttribute('data-nb-ready','1');
+      nbBody.innerHTML='<p class="ac-nbempty">This fills itself as you go. Commit to a '+
+        'hypothesis, say what would change your mind, run the steps you can afford, and the '+
+        'record of those decisions collects here. Nothing is stored and nothing is scored.</p>';
+    }
+    var cp=nbBox?nbBox.querySelector('[data-nb-copy]'):null;
+    if(cp) cp.hidden=!started;
+  }
+
+  function nbOption(kind,box,btn){
+    var full=nbLabel(btn);
+    var fals=box.closest?box.closest('[data-rc-fals]'):null;
+    if(fals){
+      var id=fals.getAttribute('data-rc-fals');
+      var card=fals.closest('[data-rc-exp]');
+      var h3=card?card.querySelector('h3'):null;
+      var rec=NB.falsBy[id];
+      if(!rec){rec={node:h3?h3.textContent.trim():id,label:full,hit:false,run:false};
+               NB.falsBy[id]=rec;NB.fals.push(rec);}
+      rec.label=full;
+      rec.hit=parseInt(btn.getAttribute('data-rc-opt'),10)===
+              parseInt(fals.getAttribute('data-happened'),10);
+      track('falsify_predicted',{experiment:id});
+      nbRender();
+      return;
+    }
+    if(kind==='hypothesis') NB.hyp=full;
+    else if(kind==='revise') NB.rev=full;
+    else if(kind==='reflect') NB.next=full;
+    else return;
+    nbRender();
+  }
+
+  /* Reflexe: az dosud to byla tlacitka bez posluchace -- odpoved nikam nesla.
+     Ted se zapise do notebooku, protoze "co me presvedcilo" patri do zaznamu
+     vic nez cokoli jineho. Porad bez znamkovani: spravna odpoved neexistuje. */
+  [].forEach.call(document.querySelectorAll('.ac-rcrefl'),function(rb){
+    var qEl=rb.querySelector('.ac-pdstep'), qt=qEl?qEl.textContent.trim():'';
+    var rec=null;
+    [].forEach.call(rb.querySelectorAll('[data-rc-refl]'),function(b){
+      b.addEventListener('click',function(){
+        [].forEach.call(rb.querySelectorAll('[data-rc-refl]'),function(o){
+          o.setAttribute('aria-pressed',String(o===b));});
+        var a=nbLabel(b);
+        if(rec) rec.a=a; else {rec={q:qt,a:a};NB.refl.push(rec);}
+        track('reflection_answered',{choice:a.slice(0,60)});
+        nbRender();
+      });
+    });
+  });
+
+  var nbCopy=nbBox?nbBox.querySelector('[data-nb-copy]'):null;
+  var nbSaid=nbBox?nbBox.querySelector('[data-nb-copied]'):null;
+  if(nbCopy) nbCopy.addEventListener('click',function(){
+    var t=(nbBody?(nbBody.innerText||nbBody.textContent||''):'').trim();
+    function said(m){if(nbSaid){nbSaid.textContent=m;nbSaid.hidden=false;}}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){said('Copied.');},
+          function(){said('Could not copy — select the text above instead.');});
+      }else said('Could not copy — select the text above instead.');
+    }catch(err){said('Could not copy — select the text above instead.');}
+    track('notebook_copied');
+  });
+  nbRender();
 
   /* ---------- vyzkumna cesta (lab) ----------
      Stavovy automat, ne nakupni seznam. Drzi ctyri veci: kde stojis (`cursor`),
@@ -163,6 +289,10 @@
       if(sp) sp.hidden=!done;
       c.setAttribute('data-rc-spent',done?'1':'0');
       var after=c.querySelector('[data-lab-after]');
+      /* predpoved patri k rozhodovani: otevrena je tam, kde se prave vybira,
+         a sbalena v zasobniku, aby sly karty porovnat vedle sebe */
+      var fd=c.querySelector('.ac-labfals');
+      if(fd) fd.open=(box===nextBox||box===hereBox)&&!done&&!closed;
       if(done){
         if(run) run.hidden=true;
         if(no) no.hidden=true;
@@ -217,6 +347,44 @@
       pathBox.hidden=false;
     }
     if(btns) btns.hidden=false;
+    nbSync();
+  }
+
+  function nbSync(){
+    NB.total=total; NB.spent=total-left; NB.unit=D.unit;
+    NB.goals=D.goals.length; NB.answered=answered().length; NB.closed=closed;
+    var got={}; answered().forEach(function(g){got[g.id]=1;});
+    NB.openGoals=D.goals.filter(function(g){return !got[g.id];})
+                        .map(function(g){return g.q;});
+    nbRender();
+  }
+
+  /* Verdikt k predpovedi. Mluvi o tom, co krok vratil, ne o tom, jak dobre
+     clovek tipnul -- a kdyz predpoved nepadla, rekne to rovnou, protoze
+     predpoved udelana po vysledku uz zadna predpoved neni. */
+  function falsVerdict(id){
+    var card=cards[id]; if(!card) return;
+    var fb=card.querySelector('[data-rc-fals]'); if(!fb) return;
+    var v=fb.querySelector('[data-fals-verdict]'); if(!v) return;
+    var rec=NB.falsBy[id];
+    if(!rec){
+      v.textContent='You ran this one without saying what would change your mind. '+
+        'Worth a click on the next step: a prediction made after the result is not a '+
+        'prediction.';
+      v.setAttribute('data-hit','0');
+    }else{
+      rec.run=true;
+      v.textContent=rec.hit
+        ? 'You said this result would weaken your model — and it is what the step '+
+          'returned. Now is the moment to say what you are changing, while it is cheap.'
+        : 'You named a different result as the one that would weaken your model. This '+
+          'step returned something else, so your model comes through it untouched — '+
+          'which is worth noticing rather than celebrating.';
+      v.setAttribute('data-hit',rec.hit?'1':'0');
+    }
+    v.hidden=false;
+    fb.open=true;
+    track('falsify_checked',{experiment:id,matched:rec?(rec.hit?1:0):-1});
   }
 
   function goto_(id){
@@ -250,7 +418,10 @@
     var u=unlocked(); if(!u[id]) return;
     left-=n.cost; ran.push(id); cursor=id;
     if(ran.length===1) paFalsifier(id);
+    NB.runs.push({label:n.label,cost:n.cost,conclude:n.conclude||[],cannot:n.cannot||[]});
     paint();
+    falsVerdict(id);
+    nbSync();
     track('experiment_run',{experiment:id,cost:n.cost,remaining:left,
                             answers:answered().length});
   }
@@ -331,6 +502,9 @@
     left=total; ran=[]; cursor=null; closed=false;
     if(closeBtn) closeBtn.disabled=false;
     if(deb){deb.hidden=true;deb.innerHTML='';}
+    NB.runs=[]; NB.fals=[]; NB.falsBy={};
+    [].forEach.call(step.querySelectorAll('[data-fals-verdict]'),function(v){
+      v.hidden=true;v.textContent='';v.removeAttribute('data-hit');});
     paint();
   });
   paint();

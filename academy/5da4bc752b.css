@@ -597,3 +597,45 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-rcnextlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:14px 0 5px}
 .ac-rc .ac-list .ac-n{width:26px}
+
+/* "What would change your mind?" (2026-09-23). Sedi v ROZHODOVACI pulce karty,
+   protoze predpoved po vysledku uz neni predpoved. Sbalene, aby dve karty vedle
+   sebe zustaly porovnatelne; JS ji otevre u kroku, o kterem se prave rozhoduje. */
+/* Vybrana moznost ve skupine s komentarem. Az dosud nemela zadny stav: JS
+   nastavoval aria-pressed a CSS si toho nevsimalo, takze po kliknuti nebylo
+   poznat, co clovek vybral -- coz zacalo vadit ve chvili, kdy se volba
+   zapisuje do notebooku. Zamerne jina znacka nez data-mark: tady neni
+   spravna odpoved, jen ta zvolena. */
+.ac-qzopt[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[aria-pressed="true"] .ac-qzkey{color:var(--teal)}
+.ac-labfals{border:1px dashed var(--line);border-radius:3px;padding:0 12px;margin:10px 0 0}
+.ac-labfals[open]{padding:10px 12px 12px}
+.ac-labfals>summary{cursor:pointer;padding:9px 0;font-size:13px;color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.03em}
+.ac-labfals[open]>summary{margin-bottom:6px}
+.ac-labfals .ac-qzopts{margin:6px 0 0}
+.ac-rcfalsq{font-size:14.5px;line-height:1.6;margin:0 0 4px}
+.ac-rcfalsv{font-size:14px;line-height:1.6;margin:8px 0 0;padding-left:10px;
+  border-left:3px solid var(--teal)}
+.ac-rcfalsv[data-hit="0"]{border-left-color:var(--soft)}
+
+/* Research notebook. Neni to skore ani shrnuti spravnych odpovedi -- je to
+   zaznam rozhodnuti: s cim jsi zacal, co te melo presvedcit, co sis koupil a
+   kde jsi skoncil. Plni se sam, jak clovek prochazi vyzvou. */
+.ac-nb{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 14px}
+.ac-nblbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-nbsec{border-top:1px solid var(--line);padding:12px 0 0;margin:0 0 12px}
+.ac-nbsec:first-child{border-top:0;padding-top:0}
+.ac-nbsec p,.ac-nbsec li{font-size:14.5px;line-height:1.62}
+.ac-nbsec>p{margin:0}
+.ac-nbsec ul{margin:0;padding-left:18px}
+.ac-nbsec ul.ac-shows{padding-left:0}
+.ac-nbrun{list-style:none;padding:0;margin:0}
+.ac-nbrun>li{border-top:1px solid var(--line);padding:8px 0}
+.ac-nbrun>li:first-child{border-top:0;padding-top:0}
+.ac-nbcost{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  margin-left:6px;white-space:nowrap}
+.ac-nbempty{font-size:14.5px;line-height:1.62;color:var(--soft);margin:0}
+.ac-nbcopied{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);
+  margin:8px 0 0}
