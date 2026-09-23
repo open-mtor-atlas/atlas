@@ -1254,7 +1254,11 @@ GAP_TYPE_LABEL = {
 
 
 def gap_page(g, studies_by_sid):
-    slug = slugify(g["title"])
+    # 2026-09-23: slug uz NENI odvozeny z title. Revize karet proti literature
+    # prepsala dva nazvy (H8, H9), ktere tvrdily neco, co publikovane lidske
+    # vysledky vyvratily -- ale URL musi zustat (R5). Kdo meni title, nemeni
+    # adresu; pole `slug` je zamek. Totez dela [slug].astro ve V2.
+    slug = g.get("slug") or slugify(g["title"])
     url = f"{SITE}/question/{slug}/"
     kind = GAP_TYPE_LABEL.get(g.get("type"), g.get("type") or "Open question")
     conf = g.get("conf")
@@ -1262,6 +1266,8 @@ def gap_page(g, studies_by_sid):
 
     qa = [
         ("What's the evidence gap?", g.get("basis_beginner") or g.get("basis") or ""),
+        ("What changed since this question was written?", g.get("changed") or ""),
+        ("What is still open?", g.get("open_now") or ""),
         ("What's the testable hypothesis?", g.get("hyp_beginner") or g.get("hyp") or ""),
         ("How could this be tested?", g.get("exp") or ""),
     ]
@@ -1274,6 +1280,7 @@ def gap_page(g, studies_by_sid):
     body = [f"<h1>{e(g['title'])}</h1>",
             f'<p class="meta">{e(kind)}'
             + (f' · confidence {e(round(conf*100))}%' if conf is not None else "")
+            + (f' · evidence stands at: {e(g["tier"])}' if g.get("tier") else "")
             + f' · Atlas ID <code>{e(g["id"])}</code></p>']
     lv_needed = False
     if g.get("basis_beginner"):
@@ -1283,6 +1290,11 @@ def gap_page(g, studies_by_sid):
             lv_needed = True
     elif g.get("basis"):
         body.append(f'<h2>The gap</h2><p class="summary">{e(g["basis"])}</p>')
+    if g.get("changed"):
+        body.append(f'<h2>What changed since this question was written</h2>'
+                    f'<p>{e(g["changed"])}</p>')
+    if g.get("open_now"):
+        body.append(f'<h2>What is still open</h2><p>{e(g["open_now"])}</p>')
     if g.get("hyp_beginner"):
         body.append(f'<h2>The hypothesis</h2><p>{g["hyp_beginner"]}</p>')
         if g.get("hyp") and g["hyp"] != g["hyp_beginner"]:
@@ -2238,7 +2250,7 @@ def authors_page(author_bios, author_idx):
 # question's own FAQPage.
 def questions_page(gaps):
     url = f"{SITE}/questions/"
-    items = [(g, slugify(g["title"])) for g in gaps]
+    items = [(g, g.get("slug") or slugify(g["title"])) for g in gaps]
     items.sort(key=lambda gi: -(gi[0].get("conf") or 0))
 
     ld_list = {"@context": "https://schema.org", "@type": "ItemList",
@@ -2251,10 +2263,16 @@ def questions_page(gaps):
                "name": "Open Questions", "url": url, "isPartOf": dict(DATASET_REF)}
 
     body = ["<h1>Open Questions</h1>",
-            f'<p class="summary">{len(items)} evidence gaps and testable hypotheses the '
-            f'Atlas has identified in the mTOR pathway literature \u2014 each computed '
-            f'against this curated corpus, not the whole literature, and each with a '
-            f'proposed way to test it.</p>',
+            f'<p class="summary">{len(items)} open questions in the mTOR pathway. Each '
+            f'card says where the evidence currently stands, what has changed since the '
+            f'question was written, what remains open, and how it could be tested. Gaps '
+            f'are computed against this curated corpus, not the whole literature '
+            f'\u2014 so \u201cthe Atlas holds no study on this\u201d is not the same claim as '
+            f'\u201cnobody has tested it\u201d, and where the wider literature has since '
+            f'answered or contradicted a question, that is recorded under What changed.</p>',
+            f'<p><a href="{SITE}/questions/frontier/">Frontier questions \u2192</a> '
+            f'\u2014 five questions about how the pathway is being read, rather than gaps '
+            f'in what has been read.</p>',
             # 2026-09-07: bridge to the interactive counterpart (see browse_page).
             f'<p><a class="cta" href="{SITE}/#view=questions">Open all {len(items)} '
             f'questions on one page \u2192</a></p>']
@@ -2266,7 +2284,9 @@ def questions_page(gaps):
         body.append(
             f'<div style="margin:0 0 20px"><h3 style="margin:0 0 4px">'
             f'<a href="/question/{slug}/">{e(g["title"])}</a></h3>'
-            f'<p class="meta" style="margin:0 0 6px">{e(kind)}{conf_html}</p>'
+            f'<p class="meta" style="margin:0 0 6px">{e(kind)}{conf_html}'
+            + (f' \u00b7 evidence stands at: {e(g["tier"])}' if g.get("tier") else "")
+            + '</p>'
             f'<p style="margin:0;color:var(--soft)">{e(synopsis)}</p></div>')
 
     crumb = f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 Open Questions'
@@ -2276,6 +2296,79 @@ def questions_page(gaps):
                       f"the mTOR pathway, each with a proposed experiment.",
                       url, [ld_page, ld_list, bc], "\n".join(body), crumb,
                       active_tab="questions")
+
+
+# --------------------------------------------------------- frontier questions ---
+# Pridano 2026-09-23 spolu s revizi Open Questions proti literature. ZAMERNE
+# vlastni stranka a vlastni soubor (atlas_data/frontier_baked.json), ne polozky
+# v gaps_baked.json: /questions/ drzi mezery vypoctene PROTI KORPUSU Atlasu
+# ("tenhle Atlas na to nema studii"), kdezto tyhle otazky se ptaji, jestli se
+# draha meri ve spravne veliciny. Smichat je by rozmazalo prave tu metodickou
+# hranici, kterou /questions/ o sobe tvrdi. Obe stranky se na sebe odkazuji.
+# Zrcadlo: Atlas_v2/src/pages/questions/frontier.astro -- kdo meni jedno,
+# musi i druhe, jinak se parita rozejde.
+
+def frontier_page(frontier, gaps):
+    url = f"{SITE}/questions/frontier/"
+    gap_by_id = {g["id"]: g for g in gaps}
+    desc = (f"{len(frontier)} frontier questions in mTOR biology \u2014 not gaps in the "
+            f"Atlas's corpus, but questions about how the pathway is being measured.")
+
+    qa = []
+    for f in frontier:
+        qa.append((f["title"], f.get("gap_beginner") or f.get("gap") or ""))
+        if f.get("open_now"):
+            qa.append((f'{f["title"]} \u2014 what is still open?', f["open_now"]))
+    ld_faq = {"@context": "https://schema.org", "@type": "FAQPage",
+              "mainEntity": [{"@type": "Question", "name": q,
+                              "acceptedAnswer": {"@type": "Answer",
+                                                 "text": re.sub(r"<[^>]+>", "", a)}}
+                             for q, a in qa if a]}
+    ld_page = {"@context": "https://schema.org", "@type": "CollectionPage",
+               "name": "Frontier Questions", "url": url, "isPartOf": dict(DATASET_REF)}
+
+    body = ["<h1>Frontier Questions</h1>",
+            f'<p class="summary">{e(desc)}</p>',
+            '<p class="meta">These are a different kind of question from the ones on '
+            f'<a href="{SITE}/questions/">Open Questions</a>. Those are gaps in what this '
+            'corpus holds. These are about the shape of the measurement itself \u2014 which '
+            'is why a card here can sit on a large literature and still be open.</p>']
+    for f in frontier:
+        body.append(f'<section id="{e(f["id"])}" style="margin:0 0 32px;'
+                    f'padding-left:14px;border-left:2px solid var(--line)">')
+        body.append(f'<h2 style="margin:0 0 4px">{e(f["title"])}</h2>')
+        meta = e(f.get("type") or "Frontier question")
+        if f.get("tier"):
+            meta += f' \u00b7 evidence stands at: {e(f["tier"])}'
+        body.append(f'<p class="meta" style="margin:0 0 10px">{meta} \u00b7 Atlas ID '
+                    f'<code>{e(f["id"])}</code></p>')
+        body.append(f'<h3>The gap</h3><p class="summary">{e(f.get("gap_beginner") or f.get("gap") or "")}</p>')
+        if f.get("gap_beginner") and f.get("gap") and f["gap"] != f["gap_beginner"]:
+            body.append(f'<p class="meta lv-hide-beginner"><em>Technical framing:</em> {e(f["gap"])}</p>')
+        for label, key in (("What changed", "changed"),
+                           ("What is still open", "open_now"),
+                           ("How it could be tested", "exp"),
+                           ("Why it matters", "why")):
+            if f.get(key):
+                body.append(f'<h3>{label}</h3><p>{e(f[key])}</p>')
+        rel = [gap_by_id[i] for i in (f.get("related") or []) if i in gap_by_id]
+        if rel:
+            links = " \u00b7 ".join(
+                f'<a href="/question/{e(g.get("slug") or slugify(g["title"]))}/">{e(g["title"])}</a>'
+                for g in rel)
+            body.append(f'<p class="meta">Bears on: {links}</p>')
+        body.append("</section>")
+    body.append(f'<p><a href="{SITE}/questions/">\u2190 All open questions</a></p>')
+
+    crumb = (f'<a href="{SITE}/">Oliver\'s mTOR Atlas</a> \u00b7 '
+             f'<a href="{SITE}/questions/">Open Questions</a> \u00b7 Frontier Questions')
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Open Questions", SITE + "/questions/"),
+                        ("Frontier Questions", None)])
+    return url, shell("Frontier Questions \u2014 how the mTOR pathway is being read | "
+                      "Oliver's mTOR Atlas", desc, url, [ld_page, ld_faq, bc],
+                      "\n".join(body), crumb, active_tab="questions",
+                      level_switch=any(x.get("gap_beginner") for x in frontier))
 
 
 # ------------------------------------------------------------ Oliver's own page ---
@@ -2320,6 +2413,16 @@ def oliver_page(bio):
             f'style="max-width:220px;border-radius:4px;margin:0 0 16px">']
     for p in bio["bio_paragraphs"]:
         body.append(f"<p>{p}</p>")
+    # 2026-09-23: druhy odstavec medailonku konci odkazem "one of the open
+    # questions raised in this Atlas's Open Questions tab" -- jenze ta otazka
+    # tam nikdy nebyla. Ted je, na /questions/frontier/ jako F1. Zrcadlo:
+    # Atlas_v2/src/pages/author/oliver-barton/index.astro.
+    body.append(
+        f'<p><a href="{SITE}/questions/frontier/#F1">Read that question in full '
+        f'\u2192</a> \u2014 it is the first of five frontier questions in the Atlas, '
+        f'alongside whether mTORC1\'s outputs separate, whether location decides '
+        f'substrate choice, whether dosing has to match the body\'s own rhythm, and '
+        f'which human ageing phenotypes are actually reachable.</p>')
     orcid_id = bio["orcid"].replace("https://orcid.org/", "")
     body.append(
         f'<p class="meta"><span class="mono">Contact \u2014</span> '
@@ -2945,6 +3048,18 @@ def main():
         write(os.path.join(HERE, "questions", "index.html"), questions_page_html)
         urls.append(("about", questions_url))
 
+        # Frontier questions (2026-09-23). Chybejici soubor neni chyba -- starsi
+        # kopie repa ho nema a build kvuli tomu nesmi spadnout.
+        fp = os.path.join(DATA, "frontier_baked.json")
+        if os.path.exists(fp):
+            frontier = json.load(open(fp, encoding="utf-8"))
+            frontier_url, frontier_html = frontier_page(frontier, gaps)
+            write(os.path.join(HERE, "questions", "frontier", "index.html"), frontier_html)
+            urls.append(("about", frontier_url))
+            print("Frontier Questions: %d otazek" % len(frontier))
+        else:
+            print("atlas_data/frontier_baked.json chybi -- Frontier Questions preskoceny")
+
     # Oliver's own /author/oliver-barton/ page (2026-09-07) -- see
     # oliver_page() docstring above. Rides sitemap-authors.xml (category
     # "author") alongside every other researcher page.
@@ -3081,6 +3196,13 @@ def main():
     if questions_url:
         pathway_events_lines += (
             f'  <url><loc>{questions_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
+    # /questions/frontier/ (2026-09-23) -- singularni hub jako /questions/ o radek
+    # vys, ne per-record stranka, takze nepatri do sitemap-questions.xml. Ve V2 ji
+    # bere pravidlo startswith("/questions/") v scripts/build_sitemaps.py.
+    if os.path.exists(os.path.join(HERE, "questions", "frontier", "index.html")):
+        pathway_events_lines += (
+            f'  <url><loc>{SITE}/questions/frontier/</loc><changefreq>monthly</changefreq>'
+            f'<priority>0.6</priority></url>\n')
     if evidence_url:
         pathway_events_lines += (
             f'  <url><loc>{evidence_url}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
