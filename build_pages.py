@@ -255,6 +255,14 @@ EXTERNAL_IDS = {
 
 # ---------------------------------------------------------------- helpers ---
 
+def src_url(d):
+    """Registrovana studie nese misto DOI cislo NCT; doi.org ho nezna (404)."""
+    d = (d or "").strip()
+    if re.match(r"^NCT\d+$", d, re.I):
+        return "https://clinicaltrials.gov/study/" + d.upper()
+    return "https://doi.org/" + d
+
+
 def slugify(s):
     s = unicodedata.normalize("NFKD", s)
     s = s.replace("\u03b1", "alpha").replace("\u03b2", "beta").replace("\u03b3", "gamma")
@@ -673,7 +681,7 @@ def _load_gap_citations():
         return {}
     out = {}
     for g in gaps:
-        url = f"{SITE}/question/{slugify(g['title'])}/"
+        url = f"{SITE}/question/{g.get('slug') or slugify(g['title'])}/"
         for sid in g.get("studies") or []:
             out.setdefault(sid, []).append((g["title"], url))
     return out
@@ -981,7 +989,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
     ids = []
     if s.get("doi"):
         ids.append({"@type": "PropertyValue", "propertyID": "DOI", "value": s["doi"]})
-        ld["sameAs"] = "https://doi.org/" + s["doi"]
+        ld["sameAs"] = src_url(s["doi"])
     if s.get("pmid"):
         ids.append({"@type": "PropertyValue", "propertyID": "PMID", "value": s["pmid"]})
     if ids:
@@ -1001,7 +1009,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
             ("Record last updated", e(record_date if record_date != "unknown" else "—"))]
     links = []
     if s.get("doi"):
-        links.append(f'<a href="https://doi.org/{e(s["doi"])}">DOI {e(s["doi"])}</a>')
+        links.append(f'<a href="{e(src_url(s["doi"]))}">{"ClinicalTrials.gov" if s["doi"].upper().startswith("NCT") else "DOI"} {e(s["doi"])}</a>')
     if s.get("pmid"):
         links.append(f'<a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
                      f'PMID {e(s["pmid"])}</a>')
@@ -1093,7 +1101,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
                 more = (f' <a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
                        f'Read the full abstract on PubMed &rarr;</a>')
             elif s.get("doi"):
-                more = f' <a href="https://doi.org/{e(s["doi"])}">Read the full abstract &rarr;</a>'
+                more = f' <a href="{e(src_url(s["doi"]))}">Read the full abstract &rarr;</a>'
         body.append(f'<div class="lv-hide-beginner"><h2>Abstract</h2>'
                     f'<p class="abstract">{e(snippet)}{more}</p></div>')
 
