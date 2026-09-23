@@ -43,10 +43,26 @@
   },
   {
    "@type": "Question",
+   "name": "What changed since this question was written?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The premise is age-inverted. The worry about muscle comes from a single acute dose in young men, measuring protein synthesis over one to two hours (Drummond, J Physiol 2009, PMID 19188252). In aged muscle mTORC1 is already hyperactive and partial inhibition increased mass and fibre cross-sectional area in old rats (Joseph, Mol Cell Biol 2019, PMID 31308131); constitutive myofibre mTORC1 activation is itself a sarcopenia model, rescued by activating 4E-BP1 (Crombie, JCSM 2022, PMID 36398408); and exercise is now framed as normalising mTORC1 downward (Choy, PNAS 2025, PMID 41284871). The only head-to-head schedule comparison found weekly and thrice-weekly rapamycin both preserved hypertrophy, grip strength and exercise capacity — the schedule mattered for glucose, not for muscle (Elliehausen, Aging Cell 2025, PMID 40704394). In humans, 48 weeks of intermittent low-dose rapamycin raised lean mass in women at 10 mg/week (Moel, Aging 2025, PMID 40188830)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is still open?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not whether mTOR inhibition spares muscle. Two narrower things: whether in aged mammals there is a dose and schedule that improves muscle function rather than only preserving mass, and whether bi-steric inhibitors, which suppress mTORC1 output more deeply than rapamycin, cross from the protective into the atrophic regime. There are no bi-steric skeletal-muscle data at all."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "What's the testable hypothesis?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Educated guess: giving mTOR-blocking drugs in short pulses – timed so the drug clears the body right after exercise – might preserve muscle while still giving most of the longevity benefit."
+    "text": "Educated guess: in old muscle the pathway is stuck too far on, so turning it down helps rather than hurts. The worry about losing muscle may only apply to young, growing muscle."
    }
   },
   {
@@ -54,7 +70,7 @@
    "name": "How could this be tested?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan."
+    "text": "Partial mTORC1 inhibition started at 18 months or later in genetically heterogeneous mice. Endpoints must be functional — grip strength, contractile force, neuromuscular junction integrity — not mass, because the two dissociate: mice with hyperactive mTORC1 gain mass and mitochondrial activity with no functional gain (Kalenta, J Appl Physiol 2026, PMID 41979886). Counterexample to carry honestly: four weeks of daily rapamycin in young rats did reduce fast-fibre mass independently of energy intake (Ato, PLoS One 2024, PMID 39637031)."
    }
   }
  ]
@@ -289,12 +305,14 @@ a{overflow-wrap:anywhere}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · Muscle-sparing, pulsed mTORC1 inhibition</nav>
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Muscle-sparing, pulsed mTORC1 inhibition</h1>
-<p class="meta">Studies point in different directions · confidence 70% · Atlas ID <code>H3</code></p>
+<p class="meta">Studies point in different directions · confidence 70% · evidence stands at: Lifespan in mice; PD in humans · Atlas ID <code>H3</code></p>
 <h2>The gap</h2><p class="summary">mTORC1 is needed to build muscle, yet turning it down is also the best-known way to extend lifespan - a real tension. In one mouse study, a short course of rapamycin extended male life expectancy by 60%. At the high injected dose it did nothing for females and caused more aggressive blood cancers in them - but the same study also tested a lower dose given in food, and that one helped both sexes equally. So pulsed dosing is not automatically a problem for females; the dose and the route matter. It is still just one experiment.</p>
 <p class="meta lv-hide-beginner"><em>Technical framing:</em> mTORC1 is required for muscle (raptor-KO dystrophy; DRU2009 blocks human MPS; ROM2001 hypertrophy) yet mTOR inhibition is the leading longevity lever. QUANTIFIED: BIT2016, HIGH-DOSE ARM (8 mg/kg/day i.p. x 90 days from 20-21 months) -&gt; males +60% post-treatment life expectancy (p=0.02); females NO survival benefit (p=0.261) with a shift toward aggressive haematopoietic cancers (round-cell tumours 16/16 vs 6/12 controls, p=0.002) and away from non-haematopoietic neoplasia. DOSE QUALIFIER (added 2026-08-30, from the full text): the SAME paper&#x27;s second arm - 126 ppm encapsulated rapamycin in diet, same 90 days, same starting age - significantly increased post-treatment survival in BOTH sexes independently, and a Cox model with robust standard errors found no evidence that sex modified the treatment effect (p=0.904). So &#x27;transient dosing captures the benefit&#x27; is supported, and the female harm signal is specific to the high-dose injection regimen rather than a property of pulsed dosing as such. A pulsed / muscle-sparing design must therefore control for dose and route, not only for sex. This is still one experiment in one strain: whether the principle generalises across strain, species, treatment window and endpoint is untested.</p>
-<h2>The hypothesis</h2><p>Educated guess: giving mTOR-blocking drugs in short pulses – timed so the drug clears the body right after exercise – might preserve muscle while still giving most of the longevity benefit.</p>
-<p class="meta lv-hide-beginner"><em>Technical framing:</em> Time-restricted / pulsed mTORC1 inhibition (drug trough permitting post-exercise anabolic windows) preserves muscle mass while still capturing the longevity benefit.</p>
-<h2>How it could be tested</h2><p>Mouse: continuous vs pulsed rapamycin timed around resistance loading; endpoints lifespan + muscle mass/fiber CSA + autophagic flux (LC3-II/p62). Prediction: pulsed arm preserves muscle at similar healthspan.</p>
+<h2>What changed since this question was written</h2><p>The premise is age-inverted. The worry about muscle comes from a single acute dose in young men, measuring protein synthesis over one to two hours (Drummond, J Physiol 2009, PMID 19188252). In aged muscle mTORC1 is already hyperactive and partial inhibition increased mass and fibre cross-sectional area in old rats (Joseph, Mol Cell Biol 2019, PMID 31308131); constitutive myofibre mTORC1 activation is itself a sarcopenia model, rescued by activating 4E-BP1 (Crombie, JCSM 2022, PMID 36398408); and exercise is now framed as normalising mTORC1 downward (Choy, PNAS 2025, PMID 41284871). The only head-to-head schedule comparison found weekly and thrice-weekly rapamycin both preserved hypertrophy, grip strength and exercise capacity — the schedule mattered for glucose, not for muscle (Elliehausen, Aging Cell 2025, PMID 40704394). In humans, 48 weeks of intermittent low-dose rapamycin raised lean mass in women at 10 mg/week (Moel, Aging 2025, PMID 40188830).</p>
+<h2>What is still open</h2><p>Not whether mTOR inhibition spares muscle. Two narrower things: whether in aged mammals there is a dose and schedule that improves muscle function rather than only preserving mass, and whether bi-steric inhibitors, which suppress mTORC1 output more deeply than rapamycin, cross from the protective into the atrophic regime. There are no bi-steric skeletal-muscle data at all.</p>
+<h2>The hypothesis</h2><p>Educated guess: in old muscle the pathway is stuck too far on, so turning it down helps rather than hurts. The worry about losing muscle may only apply to young, growing muscle.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> In aged muscle, where mTORC1 is already elevated, partial inhibition improves contractile function rather than costing it — and any anabolic cost is confined to young or growing muscle.</p>
+<h2>How it could be tested</h2><p>Partial mTORC1 inhibition started at 18 months or later in genetically heterogeneous mice. Endpoints must be functional — grip strength, contractile force, neuromuscular junction integrity — not mass, because the two dissociate: mice with hyperactive mTORC1 gain mass and mitochondrial activity with no functional gain (Kalenta, J Appl Physiol 2026, PMID 41979886). Counterexample to carry honestly: four weeks of daily rapamycin in young rats did reduce fast-fibre mass independently of energy intake (Ato, PLoS One 2024, PMID 39637031).</p>
 <h2>Related studies</h2><p><a href="/study/DRU2009/">DRU2009</a> · <a href="/study/ROM2001/">ROM2001</a> · <a href="/study/MOE2025/">MOE2025</a> · <a href="/study/BIT2016/">BIT2016</a></p>
 <p class="meta">Discussed in these plain-language answers: <a href="https://mtor-atlas.org/answers/rapamycin-dosing-longevity/">How is rapamycin dosed in the longevity studies?</a> · <a href="https://mtor-atlas.org/answers/rapamycin-side-effects/">What are rapamycin&#x27;s side effects?</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#view=questions">Open in the Atlas explorer</a></p>
@@ -305,7 +323,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 16:41 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 17:02 Prague time</div>
 </footer>
 </div>
 </body>

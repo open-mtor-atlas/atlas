@@ -374,6 +374,11 @@ def r13_title_contradicts(title, sign, target):
             return m.group(0)
     return None
 
+# 2026-09-23: co se pocita jako dohledatelny zdroj v poli changed/open_now
+# (pravidlo R13). Atlasove kody resi CODE; tohle je pro literaturu mimo korpus.
+EXTERNAL_CITE = re.compile(r"\bPMID\s*\d{5,}|\bNCT\d{6,}|\bpreprint\b", re.I)
+
+
 def load_atlas_gaps(h):
     m = re.search(r"const ATLAS_GAPS = (\[.*?\]);", h, re.S)
     if not m:
@@ -404,7 +409,11 @@ def check_gap_regression_rules(findings, h):
         gid = g.get("id", "?")
         basis = g.get("basis") or ""
         hyp = g.get("hyp") or ""
-        blob = basis + " " + hyp
+        # 2026-09-23: changed/open_now jsou nova pole karty. Do blobu patri,
+        # aby je pokryla R10 (kod zmineny v textu musi byt v Supporting_Studies).
+        # R9 a R12 se na ne ZAMERNE nepousti -- viz R13 nize.
+        outside = " ".join(x for x in (g.get("changed"), g.get("open_now")) if x)
+        blob = basis + " " + hyp + " " + outside
 
         # R8, concretely: an amino-acid-sensor gap asserting a ZERO/NONE-style
         # absence of any sensor->aging outcome, while the model already
@@ -455,6 +464,30 @@ def check_gap_regression_rules(findings, h):
                 "Study code(s) %s appear in the gap's text but not in its Supporting_Studies "
                 "list." % ", ".join(sorted(missing)),
                 "Add the code(s) to Supporting_Studies, or remove the in-text citation.")
+
+        # R13 -- What changed / What is still open jsou JEDINA pole karty, ktera
+        # smi mluvit o literature mimo korpus Atlasu; prave proto na ne nesmi
+        # R9 (cislo potrebuje kod studie Z KORPUSU) ani R12 (absence musi byt
+        # scopnuta na korpus) -- obe by tady hlasily prave to, kvuli cemu ta
+        # pole vznikla. Misto toho plati prisnejsi, ne volnejsi pravidlo:
+        # kazde cislo musi mit u sebe DOHLEDATELNY zdroj. Kod z korpusu staci,
+        # jinak PMID, NCT nebo oznaceni preprintu. Bez toho je to cislo, ktere
+        # ctenar nema jak overit -- a cela ta sekce stoji na overitelnosti.
+        for field in ("changed", "open_now"):
+            text = g.get(field) or ""
+            if not text:
+                continue
+            for sent, off in split_sentences(text):
+                if not NUMERAL.search(sent):
+                    continue
+                window = text[max(0, off - 400):off + len(sent)]
+                if CODE.search(window) or EXTERNAL_CITE.search(window):
+                    continue
+                add(findings, "WARN", "R13 figure-without-traceable-source",
+                    "gap:%s.%s" % (gid, field), sent,
+                    "Figure in an outside-the-corpus block with no PMID, NCT number, "
+                    "preprint marker or Atlas study code anywhere near it.",
+                    "Attach the PMID (or NCT number) of the study the figure comes from.")
 
         # R12 -- scope guard: an absence claim not scoped to "in this
         # corpus/Atlas" reads as a claim about the whole literature.

@@ -43,10 +43,26 @@
   },
   {
    "@type": "Question",
+   "name": "What changed since this question was written?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The pharmacokinetic explanation was never a tested claim. It was one speculative line in a discussion — lifespan extension was larger in females at each dose, perhaps reflecting sexual dimorphism in blood levels (Miller, Aging Cell 2014, PMID 24341993). What is demonstrated instead is endocrine: gonadectomy flips drug responses in both directions, castrated males losing most responses and ovariectomised females gaining male-like ones (Garratt, Aging Cell 2017, PMID 28834262); 17-alpha-estradiol improves sarcopenia in intact but not castrated males at the same dose and exposure (Garratt, Aging Cell 2019, PMID 30740872); and it engages the pathway in males only, whereas rapamycin and acarbose do so in both sexes (Shen, Aging Cell 2021, PMID 33742521). Newer work adds something the card did not anticipate: the direction flips by endpoint, not only by drug. Rapamycin favours females for lifespan and motor decline (Singh, J Gerontol A 2026, PMID 41863332), acarbose and 17-alpha-estradiol favour males for lifespan — yet all three favour females for trabecular bone (Dall'Ara, bioRxiv 2026, preprint, not peer reviewed)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is still open?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Two narrow questions, neither of which is pharmacokinetics against pharmacodynamics. Does the female advantage in rapamycin lifespan survive titrating both sexes to equal whole-blood trough concentrations? Nobody has run this, and it is the only falsifiable form of the PK claim. And is the governing variable gonadal hormone milieu rather than chromosomal sex? The claim that exposure-matching would narrow the gap for rapamycin but not for acarbose is untested in either direction and should not be read as established."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "What's the testable hypothesis?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Educated guess: some of the sex difference is simply because females end up with more drug in their blood after the same dose – matching the dose to blood levels instead of body weight might close that gap for rapamycin, though probably not for acarbose, where the male/female difference looks more like a real biological difference in how the drug acts."
+    "text": "Educated guess: what decides the difference is not being male or female as such, but which sex hormones are circulating — and the answer can flip depending on whether you measure lifespan, bone or movement."
    }
   },
   {
@@ -54,7 +70,7 @@
    "name": "How could this be tested?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven."
+    "text": "Two experiments. First the pharmacokinetic test nobody has run: titrate males and females to equal whole-blood rapamycin trough concentrations and re-measure lifespan. Second, four-core-genotype mice plus gonadectomy with and without hormone replacement, across rapamycin, acarbose and 17-alpha-estradiol, separating chromosomal sex from hormonal environment. Measure more than one endpoint in the same animals — survival, bone and motor function — because they do not point the same way."
    }
   }
  ]
@@ -289,12 +305,14 @@ a{overflow-wrap:anywhere}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</nav>
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Sex dimorphism in mTOR-longevity responses is pervasive and sometimes direction-flipping</h1>
-<p class="meta">Studies point in different directions · confidence 80% · Atlas ID <code>H6</code></p>
+<p class="meta">Studies point in different directions · confidence 80% · evidence stands at: Lifespan in mice · Atlas ID <code>H6</code></p>
 <h2>The gap</h2><p class="summary">Male and female animals often respond differently to these drugs – sometimes just by how much, but sometimes the effect flips direction entirely. Rapamycin tends to help females somewhat more; a different drug, acarbose, helps males more. Females also build up higher drug levels in their blood after the same dose, which may explain part of it.</p>
 <p class="meta lv-hide-beginner"><em>Technical framing:</em> Emerged directly from the full-text effect sizes: S6K1-KO +19% median lifespan in FEMALES / no effect in males (SEL2009); rapamycin favors females (MIL2014 all doses in F vs top-2 in M; HAR2009 +38% F vs +28% M; FOK2014 +16% F vs +11% M; WUX2013 +22% F/+19% M); yet acarbose favors MALES (+22% vs +5%, HAR2014). Sex changes not just the magnitude but sometimes the DIRECTION of the response. BIT2016 QUALIFIED (2026-08-30): its male-benefit / female-harm result holds only for the high-dose 8 mg/kg/day injection arm. In the same paper&#x27;s 126 ppm dietary arm, post-treatment survival rose significantly in both sexes and a Cox model found no evidence that sex modified the treatment effect (p=0.904). BIT2016 therefore supports DOSE-dependent dimorphism, not intrinsic dimorphism, and is as much a boundary case for this hypothesis as evidence for it. The thesis stands on SEL2009, MIL2014, HAR2009, FOK2014, WUX2013 and HAR2014.</p>
-<h2>The hypothesis</h2><p>Educated guess: some of the sex difference is simply because females end up with more drug in their blood after the same dose – matching the dose to blood levels instead of body weight might close that gap for rapamycin, though probably not for acarbose, where the male/female difference looks more like a real biological difference in how the drug acts.</p>
-<p class="meta lv-hide-beginner"><em>Technical framing:</em> Sex-specific pharmacokinetics (females reach higher rapamycin blood levels, MIL2014) plus pharmacodynamic differences drive the dimorphism; matching blood exposure across sexes will narrow the gap for rapamycin, but not for interventions with the opposite skew (acarbose), which must be target-driven.</p>
-<h2>How it could be tested</h2><p>Sex-stratified, dose-matched study: titrate rapamycin to equal blood levels in males and females; measure lifespan/healthspan + mTORC1 vs mTORC2 signaling, separating PK (exposure) from PD (tissue response). Repeat for acarbose to test whether its male-skew is exposure- or target-driven.</p>
+<h2>What changed since this question was written</h2><p>The pharmacokinetic explanation was never a tested claim. It was one speculative line in a discussion — lifespan extension was larger in females at each dose, perhaps reflecting sexual dimorphism in blood levels (Miller, Aging Cell 2014, PMID 24341993). What is demonstrated instead is endocrine: gonadectomy flips drug responses in both directions, castrated males losing most responses and ovariectomised females gaining male-like ones (Garratt, Aging Cell 2017, PMID 28834262); 17-alpha-estradiol improves sarcopenia in intact but not castrated males at the same dose and exposure (Garratt, Aging Cell 2019, PMID 30740872); and it engages the pathway in males only, whereas rapamycin and acarbose do so in both sexes (Shen, Aging Cell 2021, PMID 33742521). Newer work adds something the card did not anticipate: the direction flips by endpoint, not only by drug. Rapamycin favours females for lifespan and motor decline (Singh, J Gerontol A 2026, PMID 41863332), acarbose and 17-alpha-estradiol favour males for lifespan — yet all three favour females for trabecular bone (Dall&#x27;Ara, bioRxiv 2026, preprint, not peer reviewed).</p>
+<h2>What is still open</h2><p>Two narrow questions, neither of which is pharmacokinetics against pharmacodynamics. Does the female advantage in rapamycin lifespan survive titrating both sexes to equal whole-blood trough concentrations? Nobody has run this, and it is the only falsifiable form of the PK claim. And is the governing variable gonadal hormone milieu rather than chromosomal sex? The claim that exposure-matching would narrow the gap for rapamycin but not for acarbose is untested in either direction and should not be read as established.</p>
+<h2>The hypothesis</h2><p>Educated guess: what decides the difference is not being male or female as such, but which sex hormones are circulating — and the answer can flip depending on whether you measure lifespan, bone or movement.</p>
+<p class="meta lv-hide-beginner"><em>Technical framing:</em> The governing variable is gonadal hormone milieu rather than chromosomal sex, and which sex benefits depends on the endpoint measured as well as on the drug.</p>
+<h2>How it could be tested</h2><p>Two experiments. First the pharmacokinetic test nobody has run: titrate males and females to equal whole-blood rapamycin trough concentrations and re-measure lifespan. Second, four-core-genotype mice plus gonadectomy with and without hormone replacement, across rapamycin, acarbose and 17-alpha-estradiol, separating chromosomal sex from hormonal environment. Measure more than one endpoint in the same animals — survival, bone and motor function — because they do not point the same way.</p>
 <h2>Related studies</h2><p><a href="/study/SEL2009/">SEL2009</a> · <a href="/study/MIL2014/">MIL2014</a> · <a href="/study/HAR2009/">HAR2009</a> · <a href="/study/FOK2014/">FOK2014</a> · <a href="/study/WUX2013/">WUX2013</a> · <a href="/study/BIT2016/">BIT2016</a> · <a href="/study/HAR2014/">HAR2014</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#view=questions">Open in the Atlas explorer</a></p>
 <footer class="oma-footer">
@@ -304,7 +322,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 16:41 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 17:02 Prague time</div>
 </footer>
 </div>
 </body>

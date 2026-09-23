@@ -43,6 +43,22 @@
   },
   {
    "@type": "Question",
+   "name": "What changed since this question was written?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Nothing has answered the question, but the experiment as proposed turns out not to be runnable. Inducible whole-body Atg7 deletion in an adult mouse limits survival to two or three months through neurodegeneration and infection, plus fatal fasting hypoglycaemia (Karsli-Uzunbas, Cancer Discov 2014, PMID 24875857); a lifespan study needs about three years. A null result would be unreadable — no benefit, or an animal that died of something rapamycin cannot fix — and chronic rapamycin also inhibits mTORC2, so failure in an Atg7 knockout would not implicate autophagy cleanly either. In flies, rapamycin already acts through autophagy and translation in parallel (Bjedov, Cell Metab 2010, PMID 20074526), so the expected mammalian answer is partly, which a survival curve cannot resolve."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is still open?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Necessity, still untested in any mammal. The mammalian evidence runs one way only: raising autophagy extends life (Becn1-F121A knock-in, Fernandez, Nature 2018, PMID 29849149; Atg5 overexpression, +17.2% median, Pyo, Nat Commun 2013, PMID 23939249). Sufficiency is shown; necessity is not."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "What's the testable hypothesis?",
    "acceptedAnswer": {
     "@type": "Answer",
@@ -54,7 +70,7 @@
    "name": "How could this be tested?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control."
+    "text": "Occlusion rather than ablation. Does rapamycin still extend lifespan in Becn1-F121A mice, which already carry maximal basal autophagy and are healthy? Full additivity means autophagy carries little of rapamycin's benefit; occlusion means it carries that much. No sick animals are needed and the line already exists. Supporting designs: tissue-restricted Atg7 deletion, which survives into old age (Yuan, Aging Cell 2020, PMID 32212304), and autophagy-hypomorphic rather than null backgrounds. One caveat on the Becn1 line: its longevity phenotype is abolished by a chronic high-phosphate diet (Shi, FASEB J 2020, PMID 31908069), so diet must be controlled."
    }
   }
  ]
@@ -289,12 +305,14 @@ a{overflow-wrap:anywhere}
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · Is autophagy actually REQUIRED for the mammalian lifespan benefit?</nav>
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>Is autophagy actually REQUIRED for the mammalian lifespan benefit?</h1>
-<p class="meta">Mechanism shown, outcome untested · confidence 70% · Atlas ID <code>H4</code></p>
+<p class="meta">Mechanism shown, outcome untested · confidence 70% · evidence stands at: Lifespan in mice (sufficiency only) · Atlas ID <code>H4</code></p>
 <h2>The gap</h2><p class="summary">Autophagy (the cell's self-cleanup process) is widely assumed to be why blocking mTOR extends lifespan, but that's only been directly shown in flies and worms, plus one mouse study that boosted autophagy a different way. Nobody has tested what happens to rapamycin's lifespan benefit in mice that can't do autophagy at all.</p>
 <p class="meta lv-hide-beginner"><em>Technical framing:</em> Autophagy is assumed to mediate longevity but shown directly only in fly and worm - BJE2010 (rapamycin extends fly lifespan through autophagy and reduced translation) and HAN2008 (blocking autophagy genes abolishes the lifespan extension produced by dietary restriction in C. elegans) - plus Atg5 overexpression in mouse (PYO2013), which shows sufficiency, not necessity. No study IN THIS CORPUS tests whether BLOCKING autophagy abolishes rapamycin&#x27;s mammalian lifespan extension - the epistasis experiment that would settle it has not been done in a mammal as far as this Atlas holds. Note the shape of the gap: it is specifically MAMMALIAN. The causal experiment does exist in invertebrates, which is why this card cites two of them. SCOPE (2026-09-04): this block previously read &#x27;No study tests whether...&#x27;, an absence claim about the whole literature. The same construction was scoped in H9 on 2026-08-30 but not here; gaps in this Atlas are computed against this corpus, not against PubMed. Note that this particular claim also survives an external check - a targeted PubMed query for an autophagy-deficient x rapamycin x mammalian lifespan experiment returns no records - but the wording should still say what it can support. CORRECTION LOG (2026-09-21): MEL2003 was cited here as the worm evidence. It tested bec-1 in daf-2 mutants, i.e. the insulin/IGF-1 pathway, not TOR and not dietary restriction, so it did not support the claim it was attached to. HAN2008 does and replaces it. Logged rather than silently overwritten.</p>
+<h2>What changed since this question was written</h2><p>Nothing has answered the question, but the experiment as proposed turns out not to be runnable. Inducible whole-body Atg7 deletion in an adult mouse limits survival to two or three months through neurodegeneration and infection, plus fatal fasting hypoglycaemia (Karsli-Uzunbas, Cancer Discov 2014, PMID 24875857); a lifespan study needs about three years. A null result would be unreadable — no benefit, or an animal that died of something rapamycin cannot fix — and chronic rapamycin also inhibits mTORC2, so failure in an Atg7 knockout would not implicate autophagy cleanly either. In flies, rapamycin already acts through autophagy and translation in parallel (Bjedov, Cell Metab 2010, PMID 20074526), so the expected mammalian answer is partly, which a survival curve cannot resolve.</p>
+<h2>What is still open</h2><p>Necessity, still untested in any mammal. The mammalian evidence runs one way only: raising autophagy extends life (Becn1-F121A knock-in, Fernandez, Nature 2018, PMID 29849149; Atg5 overexpression, +17.2% median, Pyo, Nat Commun 2013, PMID 23939249). Sufficiency is shown; necessity is not.</p>
 <h2>The hypothesis</h2><p>Educated guess: autophagy is actually required – mice that can't perform autophagy should get no lifespan benefit from rapamycin, even though the drug still works everywhere else.</p>
 <p class="meta lv-hide-beginner"><em>Technical framing:</em> Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.</p>
-<h2>How it could be tested</h2><p>Rapamycin x inducible tissue-wide autophagy-KO mouse lifespan study, with a wild-type rapamycin arm as positive control.</p>
+<h2>How it could be tested</h2><p>Occlusion rather than ablation. Does rapamycin still extend lifespan in Becn1-F121A mice, which already carry maximal basal autophagy and are healthy? Full additivity means autophagy carries little of rapamycin&#x27;s benefit; occlusion means it carries that much. No sick animals are needed and the line already exists. Supporting designs: tissue-restricted Atg7 deletion, which survives into old age (Yuan, Aging Cell 2020, PMID 32212304), and autophagy-hypomorphic rather than null backgrounds. One caveat on the Becn1 line: its longevity phenotype is abolished by a chronic high-phosphate diet (Shi, FASEB J 2020, PMID 31908069), so diet must be controlled.</p>
 <h2>Related studies</h2><p><a href="/study/BJE2010/">BJE2010</a> · <a href="/study/HAN2008/">HAN2008</a> · <a href="/study/PYO2013/">PYO2013</a></p>
 <p class="meta">Discussed in the plain-language answer: <a href="https://mtor-atlas.org/answers/autophagy-required-lifespan/">Is autophagy actually required for the lifespan benefit of mTOR inhibition?</a></p>
 <p><a class="cta" href="https://mtor-atlas.org/#view=questions">Open in the Atlas explorer</a></p>
@@ -305,7 +323,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 16:41 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 17:02 Prague time</div>
 </footer>
 </div>
 </body>

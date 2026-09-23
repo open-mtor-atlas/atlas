@@ -243,6 +243,24 @@ def gaps_js(existing_beginner=None):
             row["basis_beginner"] = basis_beginner
         if hyp_beginner:
             row["hyp_beginner"] = hyp_beginner
+        # 2026-09-23, revize karet proti literature. Ctyri pole, ktera drzi novou
+        # strukturu karty. Volitelna zamerne: kdyz sloupec v Airtable neexistuje
+        # nebo je prazdny, karta se vykresli jako driv, jen bez te sekce -- bake
+        # kvuli tomu nesmi spadnout.
+        #   URL_Slug         -> slug   ZAMEK ADRESY. Bez nej se slug odvozuje z
+        #                       Title, takze prejmenovani karty zmeni /question/
+        #                       URL (R5 rika, ze se menit nesmi). Vyplneno u H8 a
+        #                       H9, jejichz nazvy tvrdily neco, co publikovane
+        #                       lidske vysledky vyvratily.
+        #   Evidence_Stands_At -> tier na jakem patre dukazu otazka stoji
+        #   What_Changed     -> changed  co se zmenilo VE VNEJSI literature; jedine
+        #                       pole karty, ktere smi mluvit mimo korpus Atlasu
+        #   Still_Open       -> open_now co presne zbyva otevrene
+        for src, dst in (("URL_Slug", "slug"), ("Evidence_Stands_At", "tier"),
+                         ("What_Changed", "changed"), ("Still_Open", "open_now")):
+            v = g(f, src, "")
+            if v:
+                row[dst] = v
         arr.append(row)
     print("  ATLAS_GAPS: %d/%d records carrying forward Beginner-level text" % (carried, len(arr)))
     # Zapisujeme i gaps_baked.json, jinak se verejne /question/ stranky rozejdou
