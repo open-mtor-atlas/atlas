@@ -48,6 +48,12 @@
    "courseMode": "online",
    "name": "Is Rheb an ON/OFF switch?",
    "url": "https://mtor-atlas.org/academy/research-challenges/is-rheb-an-on-off-switch/"
+  },
+  {
+   "@type": "CourseInstance",
+   "courseMode": "online",
+   "name": "Why rapamycin does not switch mTORC1 off",
+   "url": "https://mtor-atlas.org/academy/research-challenges/why-doesnt-rapamycin-switch-mtor-off/"
   }
  ]
 }
@@ -826,6 +832,48 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:14px 0 5px}
 .ac-rc .ac-list .ac-n{width:26px}
 
+/* "What would change your mind?" (2026-09-23). Sedi v ROZHODOVACI pulce karty,
+   protoze predpoved po vysledku uz neni predpoved. Sbalene, aby dve karty vedle
+   sebe zustaly porovnatelne; JS ji otevre u kroku, o kterem se prave rozhoduje. */
+/* Vybrana moznost ve skupine s komentarem. Az dosud nemela zadny stav: JS
+   nastavoval aria-pressed a CSS si toho nevsimalo, takze po kliknuti nebylo
+   poznat, co clovek vybral -- coz zacalo vadit ve chvili, kdy se volba
+   zapisuje do notebooku. Zamerne jina znacka nez data-mark: tady neni
+   spravna odpoved, jen ta zvolena. */
+.ac-qzopt[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[aria-pressed="true"] .ac-qzkey{color:var(--teal)}
+.ac-labfals{border:1px dashed var(--line);border-radius:3px;padding:0 12px;margin:10px 0 0}
+.ac-labfals[open]{padding:10px 12px 12px}
+.ac-labfals>summary{cursor:pointer;padding:9px 0;font-size:13px;color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.03em}
+.ac-labfals[open]>summary{margin-bottom:6px}
+.ac-labfals .ac-qzopts{margin:6px 0 0}
+.ac-rcfalsq{font-size:14.5px;line-height:1.6;margin:0 0 4px}
+.ac-rcfalsv{font-size:14px;line-height:1.6;margin:8px 0 0;padding-left:10px;
+  border-left:3px solid var(--teal)}
+.ac-rcfalsv[data-hit="0"]{border-left-color:var(--soft)}
+
+/* Research notebook. Neni to skore ani shrnuti spravnych odpovedi -- je to
+   zaznam rozhodnuti: s cim jsi zacal, co te melo presvedcit, co sis koupil a
+   kde jsi skoncil. Plni se sam, jak clovek prochazi vyzvou. */
+.ac-nb{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 14px}
+.ac-nblbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-nbsec{border-top:1px solid var(--line);padding:12px 0 0;margin:0 0 12px}
+.ac-nbsec:first-child{border-top:0;padding-top:0}
+.ac-nbsec p,.ac-nbsec li{font-size:14.5px;line-height:1.62}
+.ac-nbsec>p{margin:0}
+.ac-nbsec ul{margin:0;padding-left:18px}
+.ac-nbsec ul.ac-shows{padding-left:0}
+.ac-nbrun{list-style:none;padding:0;margin:0}
+.ac-nbrun>li{border-top:1px solid var(--line);padding:8px 0}
+.ac-nbrun>li:first-child{border-top:0;padding-top:0}
+.ac-nbcost{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  margin-left:6px;white-space:nowrap}
+.ac-nbempty{font-size:14.5px;line-height:1.62;color:var(--soft);margin:0}
+.ac-nbcopied{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);
+  margin:8px 0 0}
+
 
 .lvsw{display:flex;align-items:center;gap:10px;margin:0 0 18px;
   font-family:'IBM Plex Mono',monospace;flex-wrap:wrap}
@@ -880,7 +928,7 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 <div class="wrap">
 <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · Research Challenges</nav>
 
-<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>Research Challenges</h1><p class="ac-lede">Learn answers &ldquo;what do we know?&rdquo;. Guided Routes answer &ldquo;how are these ideas connected?&rdquo;. Research Challenges ask the third question: given what we know, what would you do next?</p></div><p>Each challenge starts from a question the field has not closed. You build a model of it, commit to a hypothesis, spend a limited research budget on experiments, read what they do and do not support, meet a complication, revise, and only then see what someone actually published. There is no score and nothing to unlock.</p><ul class="ac-list"><li><a href="https://mtor-atlas.org/academy/research-challenges/is-rheb-an-on-off-switch/"><span class="ac-n">01</span><span class="ac-ttl">Is Rheb an ON/OFF switch?</span><span class="ac-meta">Experiment / Mechanism · Core · 30 min</span></a></li></ul><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/core/">Back to the lessons &rarr;</a></p>
+<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p><h1>Research Challenges</h1><p class="ac-lede">Learn answers &ldquo;what do we know?&rdquo;. Guided Routes answer &ldquo;how are these ideas connected?&rdquo;. Research Challenges ask the third question: given what we know, what would you do next?</p></div><p>Each challenge starts from a question the field has not closed. You build a model of it, commit to a hypothesis, spend a limited research budget on experiments, read what they do and do not support, meet a complication, revise, and only then see what someone actually published. There is no score and nothing to unlock.</p><ul class="ac-list"><li><a href="https://mtor-atlas.org/academy/research-challenges/is-rheb-an-on-off-switch/"><span class="ac-n">01</span><span class="ac-ttl">Is Rheb an ON/OFF switch?</span><span class="ac-meta">Experiment / Mechanism · Core · 30 min</span></a></li><li><a href="https://mtor-atlas.org/academy/research-challenges/why-doesnt-rapamycin-switch-mtor-off/"><span class="ac-n">02</span><span class="ac-ttl">Why rapamycin does not switch mTORC1 off</span><span class="ac-meta">Pharmacology / Mechanism · Core · 35 min</span></a></li></ul><p><a class="ac-cta ac-quiet" href="https://mtor-atlas.org/academy/core/">Back to the lessons &rarr;</a></p>
 <footer class="oma-footer">
 <p><strong>Oliver's mTOR Atlas</strong> – an evidence-graded database of the mTOR
 pathway. Every entry traces to a primary paper and is labelled by the kind of study behind it.
@@ -888,7 +936,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 13:12 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-23 15:07 Prague time</div>
 </footer>
 </div>
 </body>

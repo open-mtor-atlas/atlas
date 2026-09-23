@@ -253,7 +253,29 @@
        "insulin-loading",
        "rheb-overexpression"
       ],
-      "opensNote": "Having the assay working is what makes the two cell-based steps worth doing at all."
+      "opensNote": "Having the assay working is what makes the two cell-based steps worth doing at all.",
+      "falsify": {
+       "prompt": "Say it before you look: which of these results would weaken the model you are holding?",
+       "options": [
+        {
+         "label": "TSC2 leaves Rheb loaded &mdash; the brake acts somewhere else entirely",
+         "note": "That would move the brake off Rheb and rearrange the diagram above it. It is the result that would cost you the most, which is exactly why it is worth naming before you look."
+        },
+        {
+         "label": "TSC2 unloads Rheb, the way the diagram says",
+         "happened": true,
+         "note": "This is the shared background every hypothesis on your list already predicts, so it cannot weaken any of them. Naming it as your falsifier is itself a signal that this step is not discriminating."
+        },
+        {
+         "label": "The effect appears only once there are cells involved",
+         "note": "A tube has no compartments, so this design cannot show that either way. If it is what you care about, your units belong in the cell-based steps."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Defensible for this step in particular, and worth saying aloud: if no outcome would move you, the ten units buy reassurance rather than information."
+        }
+       ]
+      }
      },
      {
       "id": "insulin-loading",
@@ -327,7 +349,29 @@
        "rheb-overexpression",
        "force-location"
       ],
-      "opensNote": "A regulated loading step is the reason to ask whether loading is what decides the output &mdash; and the reason to go looking at position."
+      "opensNote": "A regulated loading step is the reason to ask whether loading is what decides the output &mdash; and the reason to go looking at position.",
+      "falsify": {
+       "prompt": "Before the result: which outcome would weaken your working hypothesis?",
+       "options": [
+        {
+         "label": "Insulin leaves Rheb loading exactly where it was",
+         "note": "That would take the nucleotide arm out of the regulated part of the pathway, and a nucleotide-dominant reading would lose its premise rather than just its scope."
+        },
+        {
+         "label": "Insulin raises loading, and the TSC complex blocks that rise",
+         "happened": true,
+         "note": "What the study reports. It supports the premise of the nucleotide arm without deciding whether that arm is the one that sets the output, so read it as a floor rather than a verdict."
+        },
+        {
+         "label": "Loading rises while p-S6K1 stays flat",
+         "note": "That would split the two readouts and make loading look like a bystander. It would be the most interesting result on this card, and it is not the one that came out."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then the twenty units are buying a premise you already hold, and the question is whether the location arm can be bought instead."
+        }
+       ]
+      }
      },
      {
       "id": "rheb-overexpression",
@@ -431,6 +475,28 @@
        ],
        "explain": "mTORC1 output feeds back on upstream insulin signalling, so a cell with more Rheb is not the same cell with one arrow strengthened. The rise in p-S6K1 is a real observation either way. What needs care is the interpretation: attributing it specifically to more Rheb-GTP acting on mTORC1 requires the feedback arm to be held constant, or at least measured.",
        "control": "Measure p-AKT in the same lysate; use an acute, inducible increase rather than a stable line, so the network has less time to re-equilibrate; or use an endogenous knock-in so that abundance is not the variable at all."
+      },
+      "falsify": {
+       "prompt": "Name the result that would weaken your model, then run it.",
+       "options": [
+        {
+         "label": "More Rheb leaves the output where it was",
+         "note": "That would break the arrow from Rheb to the kinase, which is the one thing all four of your hypotheses currently assume. The most expensive result to receive, and the least likely."
+        },
+        {
+         "label": "Output rises, and rapamycin blocks the rise",
+         "happened": true,
+         "note": "What the two source studies report. It places the effect inside mTOR signalling; what it cannot place is whether abundance or nucleotide state did the work."
+        },
+        {
+         "label": "Output rises and rapamycin does not touch it",
+         "note": "That would put the effect outside the kinase you are studying and turn this into a different investigation. Worth naming, because it is how a clean result rules a route out."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then notice what you are buying: an overexpression result moves two variables at once, so this step mostly generates the objection that the next one measures."
+        }
+       ]
       }
      },
      {
@@ -500,7 +566,29 @@
       "next": [
        "force-location"
       ],
-      "opensNote": "With the feedback on the record you can go at the spatial arm without carrying an unresolved objection."
+      "opensNote": "With the feedback on the record you can go at the spatial arm without carrying an unresolved objection.",
+      "falsify": {
+       "prompt": "Before you read the second blot: what would change your mind about the step above?",
+       "options": [
+        {
+         "label": "p-AKT is unchanged &mdash; the manipulation moved one arrow after all",
+         "note": "That would make the overexpression result a single-variable experiment and let you state it without a qualifier. It is the reading most people carry into this step."
+        },
+        {
+         "label": "p-AKT falls &mdash; the input arm moved too",
+         "happened": true,
+         "note": "What the source study reports. It does not explain the rise you measured, since lower input points the other way; it means the rise was measured on a network that had re-set itself."
+        },
+        {
+         "label": "p-AKT rises alongside Rheb",
+         "note": "That would point at a loop running the other way and would need its own explanation. It is not what came out, and naming it is how you would have recognised it."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Hard to hold for fifteen units. The whole value of this step is that it can change how the previous one reads &mdash; if it cannot, do not buy it."
+        }
+       ]
+      }
      },
      {
       "id": "force-location",
@@ -580,7 +668,29 @@
        "brake-localisation",
        "retarget-rheb"
       ],
-      "opensNote": "Once position is a control point, the questions become how far it goes and whether it is really separable."
+      "opensNote": "Once position is a control point, the questions become how far it goes and whether it is really separable.",
+      "falsify": {
+       "prompt": "This is the discriminating step. Which result would weaken the hypothesis you committed to?",
+       "options": [
+        {
+         "label": "Locking the position keeps signalling going without amino acids",
+         "happened": true,
+         "note": "What the source study reports, and the result a nucleotide-dominant reading has to absorb: position turns out to be doing work rather than keeping house."
+        },
+        {
+         "label": "Locking the position changes nothing &mdash; withdrawal still collapses the output",
+         "note": "That would leave position as a housekeeping detail and hand the question to the nucleotide arm. It is the cleanest support a nucleotide-dominant reading could have got here."
+        },
+        {
+         "label": "Output collapses under every condition, locked or not",
+         "note": "That would say the manipulation broke something other than what it aimed at, and the matched controls on this card are there to catch exactly that."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Worth rereading the card before you commit to that: this is the one step whose result the four hypotheses predict differently, so it is the step most able to move you."
+        }
+       ]
+      }
      },
      {
       "id": "brake-localisation",
@@ -659,7 +769,29 @@
       "next": [
        "retarget-rheb"
       ],
-      "opensNote": "There is one step left after this, and it is the one no study in this corpus has taken."
+      "opensNote": "There is one step left after this, and it is the one no study in this corpus has taken.",
+      "falsify": {
+       "prompt": "Say what would weaken your model here before the images come back.",
+       "options": [
+        {
+         "label": "TSC2 stays cytoplasmic whatever is withdrawn",
+         "note": "That would keep state and place as two separate variables, which is what makes the original question well posed. It would be good news for whichever single-arm hypothesis you hold."
+        },
+        {
+         "label": "TSC2 accumulates at the lysosome whenever an input is missing",
+         "happened": true,
+         "note": "What the source study reports, and the result that complicates both single-arm readings at once: the enzyme that sets the nucleotide state is itself positioned."
+        },
+        {
+         "label": "TSC2 moves for amino acids but not for growth factors",
+         "note": "That would split the two inputs and give you a sharper question than the one you started with. It is not what came out, and it would have been worth the twenty-five units."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then this step is a reframing you have decided not to accept in advance, which is a position rather than an argument &mdash; and an expensive one at this price."
+        }
+       ]
+      }
      },
      {
       "id": "retarget-rheb",
@@ -1206,6 +1338,1589 @@
      "localisation": "Half-right in a way worth naming. Position is a genuine control point, but the experiment that shows it was run in growth-factor-replete cells, so the loading requirement was quietly satisfied the whole time. Nothing here shows position is sufficient on its own.",
      "both": "The reading the current evidence best supports, and the one that inherits the hardest job: making &lsquo;both&rsquo; specific enough to test. The brake-localisation result is what saves it from being a hedge &mdash; it names a shared mechanism rather than just declining to choose.",
      "insufficient": "Defensible for the narrow question of relative contribution, which really is unmeasured. Harder to hold for the broad question, because the forced-location result does decide something: it rules out the version where position is a housekeeping detail."
+    }
+   }
+  },
+  {
+   "id": "RC02",
+   "n": "02",
+   "slug": "why-doesnt-rapamycin-switch-mtor-off",
+   "status": "published",
+   "title": "Why rapamycin does not switch mTORC1 off",
+   "subtitle": "One drug, two complexes, and a clock &mdash; and how you would tell which of the three you are looking at",
+   "type": "Pharmacology / Mechanism",
+   "level": "Core",
+   "estimatedTime": 35,
+   "researchQuestion": "Cells treated with rapamycin keep doing some of the things mTORC1 drives. Is that because of how the drug inhibits, because of what the experiment measures, because the network answers back, or because the drug is acting somewhere else?",
+   "prerequisites": [
+    {
+     "lesson": "what-is-mtor",
+     "why": "What the kinase integrates, and which readouts stand in for its activity."
+    },
+    {
+     "lesson": "mtorc1-vs-mtorc2",
+     "why": "Why a sentence about &lsquo;mTOR inhibition&rsquo; is usually a sentence about one of two complexes."
+    },
+    {
+     "lesson": "feedback-regulation",
+     "why": "The loops that make a treated cell something other than an untreated cell with one arrow cut."
+    },
+    {
+     "lesson": "how-to-read-an-mtor-paper",
+     "why": "Reading a single band as a claim about a whole pathway is the habit this challenge works against."
+    }
+   ],
+   "learningObjectives": [
+    "Distinguish a claim about a drug's target from a claim about which of that target's outputs it blocks",
+    "Predict which readout would hide a partial block and which would expose it",
+    "Rank candidate experiments by how well they separate a property of the drug from a response of the network",
+    "Identify what a single-arm dose-escalation trial can and cannot support"
+   ],
+   "researchSkills": [
+    "Causal reasoning",
+    "Experimental design",
+    "Control selection",
+    "Evidence evaluation",
+    "Alternative explanations",
+    "Scientific uncertainty"
+   ],
+   "whatWeKnow": [
+    {
+     "claim": "Rapamycin does not work alone. It binds the small abundant protein FKBP12, and the pair docks on a site next to the kinase's active site rather than in it, so the inhibition is steric obstruction rather than occupancy of the catalytic pocket.",
+     "sids": [
+      "CHO1996",
+      "SAB1995"
+     ]
+    },
+    {
+     "claim": "The S6K1 arm goes quiet within minutes of treatment, and that band is the readout most papers use when they report &lsquo;mTORC1 activity&rsquo;.",
+     "sids": [
+      "CHU1992",
+      "PRI1992"
+     ]
+    },
+    {
+     "claim": "Compared against an inhibitor that occupies the active site, rapamycin leaves a class of mTORC1 outputs largely running &mdash; 4E-BP1 phosphorylation most of all, and autophagy induction as well.",
+     "sids": [
+      "THO2009",
+      "FEL2009"
+     ]
+    },
+    {
+     "claim": "Time changes the target list. Short exposure leaves the second complex alone; prolonged exposure traps free mTOR and new mTORC2 stops being assembled in the sensitive lines, and the same loss of signalling appears in mouse liver.",
+     "sids": [
+      "SAR2006",
+      "LAM2012"
+     ]
+    },
+    {
+     "claim": "Inhibiting mTORC1 releases a brake on the arm above it: S6K1 no longer represses IRS-1, upstream receptor signalling picks up, and Akt activity can rise rather than fall.",
+     "sids": [
+      "HAR2004",
+      "ORE2006",
+      "ROD2011"
+     ]
+    },
+    {
+     "claim": "A bivalent molecule can reach the substrate rapamycin leaves alone while leaving the second complex largely engaged, in resistant breast-cancer models and in a first-in-human dose-escalation trial.",
+     "sids": [
+      "MEN2023",
+      "SCH2025"
+     ]
+    }
+   ],
+   "uncertainty": [
+    "Whether prolonged exposure reaches the second complex in any particular cell depends on the line, the dose and the duration. The Atlas grades that edge as contested for a reason: it is absent acutely and variably present later.",
+    "Two routes lead from mTORC1 inhibition to disturbed glucose handling &mdash; loss of the second complex and relief of the S6K1-to-IRS-1 brake &mdash; and their relative contribution has never been apportioned in people.",
+    "The lifespan data in this corpus come from rapamycin, and the selective compounds have been read out against tumour endpoints. No study here joins selective inhibition to an ageing outcome, which is the join the last sub-question asks for."
+   ],
+   "studies": [
+    "CHO1996",
+    "SAB1995",
+    "CHU1992",
+    "PRI1992",
+    "THO2009",
+    "FEL2009",
+    "SAR2006",
+    "LAM2012",
+    "ARR2015",
+    "ORE2006",
+    "HAR2004",
+    "ROD2011",
+    "MEN2023",
+    "SCH2025"
+   ],
+   "lab": {
+    "budget": {
+     "total": 120,
+     "unit": "research units",
+     "note": "Each step costs what its equipment costs. Running everything would take 205 units, and answering every sub-question that <em>can</em> be answered would take 165 &mdash; so this budget buys four of the five answers at most. Which four is the whole exercise."
+    },
+    "start": [
+     "s6k-blot",
+     "torin-compare",
+     "feedback-blot"
+    ],
+    "startNote": "Three ways in: the cheap historical blot, the chemistry comparison that does the discriminating, or straight at the network's reply. None of them is wrong, and they do not cost the same.",
+    "goals": [
+     {
+      "id": "g1",
+      "question": "Does rapamycin block every mTORC1 output to the same degree?",
+      "answeredBy": [
+       "rapa-blocks-s6k",
+       "substrate-selective",
+       "autophagy-partial"
+      ],
+      "note": "Three findings, and that is the point: one band tells you the drug engages its target, two bands tell you the block is uneven, and a functional readout tells you the unevenness is not an antibody story."
+     },
+     {
+      "id": "g2",
+      "question": "Is a deeper block chemically available, or is this as far as the kinase can be pushed?",
+      "answeredBy": [
+       "active-site-deeper"
+      ]
+     },
+     {
+      "id": "g3",
+      "question": "Does the network answer back when mTORC1 is inhibited?",
+      "answeredBy": [
+       "feedback-relieved"
+      ]
+     },
+     {
+      "id": "g4",
+      "question": "Does the drug reach the second complex, and does that depend on time?",
+      "answeredBy": [
+       "chronic-hits-mtorc2"
+      ]
+     },
+     {
+      "id": "g5",
+      "question": "Can the metabolic cost be separated from target engagement?",
+      "answeredBy": [
+       "schedule-separates",
+       "selective-possible"
+      ],
+      "note": "Two ways of separating them &mdash; by calendar and by molecule &mdash; and neither is worth much without the other, because one shows the cost shrinking and the other shows it being designed out."
+     },
+     {
+      "id": "g6",
+      "question": "Does a block that spares the second complex keep the lifespan benefit without the metabolic cost?",
+      "answeredBy": [
+       "longevity-without-penalty"
+      ],
+      "open": true,
+      "note": "Nothing in this corpus yields this. The only step that would address it returns a prediction rather than a result, so this sub-question stays open at any price &mdash; and it is the same gap the Atlas records as H2, not an omission from the menu."
+     }
+    ],
+    "nodes": [
+     {
+      "id": "s6k-blot",
+      "label": "Treat cells with rapamycin and blot p-S6K1",
+      "cost": 10,
+      "equipment": "Cell culture, one compound, one antibody. The oldest experiment in this field and still the cheapest item on the menu.",
+      "addresses": "Whether the drug reaches mTORC1 at all",
+      "discriminates": [],
+      "design": {
+       "model": "Cultured mammalian cells and T cells",
+       "perturbation": "Add rapamycin to growing cells for tens of minutes",
+       "readout": "Phosphorylation of p70 S6 kinase",
+       "control": "Untreated cells, and vehicle without the compound"
+      },
+      "evidence": {
+       "sids": [
+        "CHU1992",
+        "PRI1992"
+       ]
+      },
+      "result": {
+       "unit": "p-S6K1",
+       "bars": [
+        {
+         "label": "Untreated",
+         "level": "high"
+        },
+        {
+         "label": "+ rapamycin",
+         "level": "low"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the two source studies. The bars are a schematic of that direction, not measured values."
+      },
+      "conclude": [
+       "Rapamycin reaches mTORC1 and takes the S6K1 arm down within minutes.",
+       "The drug has a real molecular target in this pathway, which is why it became the tool the whole field was built on."
+      ],
+      "cannotConclude": [
+       "Anything about the outputs you did not blot for. One band is one substrate.",
+       "Whether mTORC1 as a whole went quiet, which is the question you actually asked."
+      ],
+      "informative": "High for the existence of the target and zero for your question: all four hypotheses predict this band collapsing. Ten units buy confidence in shared background rather than a decision &mdash; though these are also the lysates the next step reads, so it is not money thrown away.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "Be careful what it supports. A result every candidate explanation predicts favours none of them; it agrees with the part nobody was disputing, which feels like progress and is not."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "Hard to see how. No hypothesis on your list denies that rapamycin takes the S6K1 arm down &mdash; they differ about what the rest of the kinase is doing while that happens."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "That is the reading this result deserves. A clean, interpretable experiment about a step none of your four explanations disagreed on."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "Not an alternative so much as a reminder of how the habit started: this band is fast, cheap and dramatic, which is exactly why it became the readout everyone reported."
+       }
+      ],
+      "yields": [
+       "rapa-blocks-s6k"
+      ],
+      "next": [
+       "4ebp-blot",
+       "torin-compare"
+      ],
+      "opensNote": "One lysate, two antibodies: the second substrate is the cheapest next move. The drug comparison becomes worth its price once you know the drug engages its target.",
+      "falsify": {
+       "prompt": "Before the blot comes back: which result would weaken the model you are holding?",
+       "options": [
+        {
+         "label": "p-S6K1 is unchanged &mdash; the drug never reaches the kinase",
+         "note": "That would end the investigation and start a different one. It is the result none of your four hypotheses can absorb, which makes it the honest answer to what would change your mind &mdash; and the least likely one to arrive."
+        },
+        {
+         "label": "p-S6K1 collapses within minutes",
+         "happened": true,
+         "note": "What the two source studies report, and what all four of your hypotheses predict. A result everyone expects cannot weaken anybody, so naming it here is a sign the step is background rather than evidence."
+        },
+        {
+         "label": "p-S6K1 falls only after days of treatment",
+         "note": "That would make this a slow, indirect effect and would put the time axis in play far earlier than it belongs. Worth naming, because it is how you would have spotted it."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "The most defensible answer on this card, and it comes with a cost attached: if no outcome would move you, the ten units are buying a lysate rather than an argument."
+        }
+       ]
+      }
+     },
+     {
+      "id": "4ebp-blot",
+      "label": "Probe the same lysates for p-4E-BP1",
+      "cost": 15,
+      "equipment": "The lysates you already have and one more antibody. No new cells, no new dosing.",
+      "addresses": "Whether the block is the same size on every output",
+      "discriminates": [
+       "partial-block",
+       "readout-artefact"
+      ],
+      "design": {
+       "model": "The same cultured cells and the same lysates as the step above",
+       "perturbation": "None new &mdash; this reads a second substrate from material you already have",
+       "readout": "Phosphorylation of 4E-BP1 alongside p-S6K1",
+       "control": "Untreated lysates from the same experiment, run on the same blot"
+      },
+      "evidence": {
+       "sids": [
+        "THO2009",
+        "FEL2009"
+       ]
+      },
+      "result": {
+       "unit": "Phosphorylation of two substrates under rapamycin",
+       "bars": [
+        {
+         "label": "p-S6K1, untreated",
+         "level": "high"
+        },
+        {
+         "label": "p-S6K1, + rapamycin",
+         "level": "low"
+        },
+        {
+         "label": "p-4E-BP1, untreated",
+         "level": "high"
+        },
+        {
+         "label": "p-4E-BP1, + rapamycin",
+         "level": "mid"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the source studies, which describe 4E-BP1 phosphorylation as largely surviving a treatment that collapses S6K1. Schematic, not measured values."
+      },
+      "conclude": [
+       "The drug is substrate-selective rather than a general off-switch: one arm goes, the other largely stays.",
+       "A single-substrate readout reports the size of the block on that substrate, and nothing wider."
+      ],
+      "cannotConclude": [
+       "Why the two arms differ. A blot shows the difference; the mechanism behind it needs a second chemistry or a structure.",
+       "Whether the residue is a property of the drug or a response of the network, since both were free to happen in this dish."
+      ],
+      "informative": "The best value on the menu. Fifteen units turn &lsquo;the drug engages its target&rsquo; into &lsquo;the drug engages it unevenly&rsquo;, which is the observation the rest of this challenge is about. It also puts the readout-artefact hypothesis under real pressure for the first time.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "If you chose partial block, this is the observation your hypothesis exists to explain. Notice it is an observation and not yet a mechanism: nothing here says why the two substrates differ."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For the readout-artefact reading it is awkward: the residue is on a second antibody, in the same lysate, under the same dose, so it is not a property of one reagent."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Too cautious now. The split between arms is the thing that needs explaining, and you have it for 25 units in total."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It does, quietly: if one arm survives, perhaps the kinase was never fully blocked, and perhaps the cell helped. Those are two different follow-ups, and they cost different amounts."
+       }
+      ],
+      "yields": [
+       "substrate-selective"
+      ],
+      "next": [
+       "torin-compare",
+       "autophagy-flux"
+      ],
+      "opensNote": "Two ways on from an uneven block: bring in a chemistry that blocks differently, or check whether the unevenness reaches the arm the drug is famous for.",
+      "falsify": {
+       "prompt": "Name the outcome that would weaken your hypothesis, then read the second antibody.",
+       "options": [
+        {
+         "label": "Both substrates collapse together",
+         "note": "That would make the drug a clean off-switch and leave the residue everyone argues about as an artefact of somebody's blot. It is the strongest result the readout-artefact reading could have received."
+        },
+        {
+         "label": "S6K1 collapses while 4E-BP1 largely survives",
+         "happened": true,
+         "note": "What the source studies report. It is the observation the rest of this challenge exists to explain, and the first real pressure on a readout-artefact reading."
+        },
+        {
+         "label": "4E-BP1 collapses while S6K1 survives",
+         "note": "The mirror image, and it would overturn a decade of reading. Naming it is useful precisely because it shows which way round the asymmetry runs."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then you are treating the split as decided before you have seen it, which is the habit this step is cheapest at interrupting."
+        }
+       ]
+      }
+     },
+     {
+      "id": "torin-compare",
+      "label": "Compare rapamycin head to head with an active-site inhibitor",
+      "cost": 25,
+      "equipment": "A second compound, matched dose-response for both, and a full substrate panel. New chemistry, so a new cost.",
+      "addresses": "Whether the incompleteness belongs to the drug or to the kinase",
+      "discriminates": [
+       "partial-block",
+       "readout-artefact"
+      ],
+      "design": {
+       "model": "Mouse and human cell lines, including primary cells",
+       "perturbation": "Treat matched cultures with rapamycin or with an ATP-competitive inhibitor",
+       "readout": "p-S6K1, p-4E-BP1 and cap-dependent translation",
+       "control": "Vehicle-treated cultures, and a dose-response for each compound so the comparison is not a dose artefact"
+      },
+      "evidence": {
+       "sids": [
+        "THO2009",
+        "FEL2009"
+       ]
+      },
+      "result": {
+       "unit": "mTORC1 output under two chemistries",
+       "bars": [
+        {
+         "label": "Untreated",
+         "level": "high"
+        },
+        {
+         "label": "+ rapamycin",
+         "level": "mid"
+        },
+        {
+         "label": "+ active-site inhibitor",
+         "level": "low"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the two source studies, which used the active-site compound as a ruler against rapamycin. Schematic, not measured values."
+      },
+      "conclude": [
+       "A deeper block is chemically available, so what rapamycin leaves running is a property of how rapamycin inhibits rather than a limit of the kinase.",
+       "The rapamycin-resistant outputs are only visible when a second chemistry is there to measure against &mdash; which is why the field lived with them for a decade."
+      ],
+      "cannotConclude": [
+       "That the deeper block is the better drug. This design reads substrate phosphorylation, not benefit and not harm.",
+       "Which complex each compound is acting on: the same active site sits in both, so this chemistry has no reason to tell them apart."
+      ],
+      "informative": "The most discriminating step at a middling price. The two chemistries are predicted to behave differently by the partial-block reading and identically by the readout-artefact one, so the result separates them &mdash; and it says nothing about the time axis or about the network's reply.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For partial block, strongly, and with a scope worth stating: two chemistries, one panel of substrates, in cells. What it does not give you is the size of that difference in a tissue."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For readout-artefact it is close to decisive: the residue moves when the molecule changes while the antibodies stay the same, which is not how a reagent artefact behaves."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Defensible only in a narrow sense &mdash; relief of feedback happens under both compounds, so this design does not take that contribution off the table."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It introduces a cost rather than an explanation: a compound that reaches further reaches into the second complex as well, and that is the trade-off the last two steps are about."
+       }
+      ],
+      "yields": [
+       "active-site-deeper"
+      ],
+      "next": [
+       "chronic-mtorc2",
+       "autophagy-flux"
+      ],
+      "opensNote": "Having a ruler makes two further questions affordable: how far the unevenness extends across outputs, and what happens when the drug stays on.",
+      "falsify": {
+       "prompt": "This is the discriminating step. Which result would weaken the hypothesis you committed to?",
+       "options": [
+        {
+         "label": "Both compounds stop at the same depth",
+         "note": "That would make the residue a property of the kinase rather than of the drug, and a partial-block reading would lose its main claim. It is the result that reading has to be willing to receive."
+        },
+        {
+         "label": "The active-site compound reaches further than rapamycin",
+         "happened": true,
+         "note": "What both source studies report. The residue moves when the molecule changes while the antibodies stay the same, which is the pattern a readout artefact cannot produce."
+        },
+        {
+         "label": "Rapamycin reaches further than the active-site compound",
+         "note": "That would be a surprise worth chasing and would say something is wrong with the dosing or the compound rather than with the model. The dose-response on this card exists to tell those apart."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Twenty-five units is a lot to spend on a result you have decided in advance. If that is where you are, the cheaper steps are the better buy."
+        }
+       ]
+      }
+     },
+     {
+      "id": "autophagy-flux",
+      "label": "Ask whether the autophagy arm is released the way textbooks say",
+      "cost": 20,
+      "equipment": "Flux assays with lysosomal blockade, imaging and blots. Cheap reagents, fussy controls, and a fortnight of them.",
+      "addresses": "Whether the uneven block reaches the arm the drug is best known for",
+      "discriminates": [
+       "readout-artefact"
+      ],
+      "design": {
+       "model": "Mouse and human cells",
+       "perturbation": "Rapamycin or an active-site inhibitor, each with and without lysosomal blockade",
+       "readout": "Autophagic flux rather than a single marker at a single time point",
+       "control": "Untreated cells, plus the blockade-only arm that makes flux readable at all"
+      },
+      "evidence": {
+       "sids": [
+        "THO2009"
+       ]
+      },
+      "result": {
+       "unit": "Autophagy induction",
+       "bars": [
+        {
+         "label": "Untreated",
+         "level": "low"
+        },
+        {
+         "label": "+ rapamycin",
+         "level": "mid"
+        },
+        {
+         "label": "+ active-site inhibitor",
+         "level": "high"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the source study, which found autophagy among the mTORC1 outputs rapamycin leaves largely intact. Schematic, not measured values."
+      },
+      "conclude": [
+       "&lsquo;Rapamycin induces autophagy&rsquo; needs a qualifier: the induction is partial, and the compound that occupies the active site induces more.",
+       "The unevenness is not confined to translation. It shows up on the arm most often quoted as the drug's main effect, which is where it does the most damage to sloppy reading."
+      ],
+      "cannotConclude": [
+       "How much of this carries into a tissue, where the dose at the cell and the supply of nutrients are both different.",
+       "That the difference between compounds on this arm runs through mTORC1 alone, since the active-site compound is not complex-selective."
+      ],
+      "informative": "Moderate for the question as posed and high for unlearning a sentence most readers arrive with. It is also the step whose price is easiest to underestimate: flux needs the blockade arm, and without it you are measuring a marker, not recycling.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For partial block, yes, and it widens the claim from one substrate to a functional output &mdash; which is a stronger position than a second band on the same blot."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For readout-artefact it is the harder result of the two, because this is not a phosphosite. A functional readout behaving like the phosphosites leaves little room for an antibody story."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "A fair reading if your question was about the residue on 4E-BP1 specifically. This step widens the phenomenon rather than explaining it."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It reframes more than it explains: the drug does not turn mTORC1 output down by a fixed fraction, it reshapes which outputs stay on. That is a different kind of pharmacology from a dial."
+       }
+      ],
+      "yields": [
+       "autophagy-partial"
+      ],
+      "next": [
+       "chronic-mtorc2"
+      ],
+      "opensNote": "Once the unevenness is established across arms, the open question is what the same molecule does when it stays on for days.",
+      "falsify": {
+       "prompt": "Before the flux assay: what would weaken your model?",
+       "options": [
+        {
+         "label": "Both compounds induce recycling to the same extent",
+         "note": "That would confine the unevenness to translation and leave the drug's best-known effect intact. It is the result that would keep the textbook sentence as it stands."
+        },
+        {
+         "label": "Rapamycin induces it partly, and the active-site compound more",
+         "happened": true,
+         "note": "What the source study reports. A functional readout behaving like the phosphosites leaves a readout-artefact reading with very little room."
+        },
+        {
+         "label": "Neither compound induces recycling at all",
+         "note": "That would say the block on this arm is not being relieved by either chemistry, and it would point the investigation at the assay before it pointed at the biology."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then twenty units buy a wider description of something you already accept. That is a legitimate purchase and a poor one at this stage."
+        }
+       ]
+      }
+     },
+     {
+      "id": "feedback-blot",
+      "label": "Follow the arm above the kinase after mTORC1 is inhibited",
+      "cost": 15,
+      "equipment": "Cell culture, a time course, and antibodies against p-AKT and IRS-1. Cheap, and the design is in the time points rather than the reagents.",
+      "addresses": "Whether the network replies when the kinase is blocked",
+      "discriminates": [
+       "feedback"
+      ],
+      "design": {
+       "model": "Human cancer cell lines",
+       "perturbation": "Inhibit mTORC1 and follow the upstream arm over a time course rather than at one point",
+       "readout": "p-AKT and IRS-1 levels alongside p-S6K1",
+       "control": "Untreated cultures sampled at the same time points"
+      },
+      "evidence": {
+       "sids": [
+        "ORE2006",
+        "HAR2004",
+        "ROD2011"
+       ]
+      },
+      "result": {
+       "unit": "Upstream signalling after mTORC1 inhibition",
+       "bars": [
+        {
+         "label": "p-S6K1, untreated",
+         "level": "high"
+        },
+        {
+         "label": "p-S6K1, inhibited",
+         "level": "low"
+        },
+        {
+         "label": "p-AKT, untreated",
+         "level": "mid"
+        },
+        {
+         "label": "p-AKT, inhibited",
+         "level": "high"
+        }
+       ],
+       "caption": "Direction as reported across the source studies, which describe relief of feedback onto receptor signalling and a biphasic rise in Akt phosphorylation. Schematic, not measured values."
+      },
+      "conclude": [
+       "Inhibiting the kinase releases a brake on the arm above it, so the cell you measure an hour later is not the untreated cell with one arrow cut.",
+       "Part of what reads as an incomplete block is the network pushing back, which is a different thing from a drug obstructing a substrate channel."
+      ],
+      "cannotConclude": [
+       "How much of the surviving 4E-BP1 phosphorylation is feedback and how much is substrate selectivity. Separating those needs the chemistry comparison, not this blot.",
+       "Anything about the second complex, which this design does not read, even though the arm to Akt runs through it."
+      ],
+      "informative": "Cheap and clarifying. It puts a second contributor on the table with a measurement attached rather than leaving it as an objection raised after the talk &mdash; and it is the only step that discriminates the feedback hypothesis at all.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For the feedback reading, directly. Keep the limit in view: showing that a loop re-sets is not the same as showing how much of the residue it accounts for."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For partial block in its strictest form it is uncomfortable, because now two things change when you add the drug. Most of the strength survives if you treat feedback as a co-contributor rather than a rival."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Reasonable: the design shows a loop moving without apportioning the residue between two mechanisms. Saying what would apportion it is the useful next sentence."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It makes an existing one measurable, and it carries a warning for later: relief of this brake is one of two routes from mTORC1 inhibition to disturbed glucose handling, and the two have never been separated in people."
+       }
+      ],
+      "yields": [
+       "feedback-relieved"
+      ],
+      "next": [
+       "chronic-mtorc2"
+      ],
+      "opensNote": "With the network's reply on the record, the expensive question is what happens when the drug stays on long enough for the cell to rebuild itself around it.",
+      "falsify": {
+       "prompt": "Say what would weaken your model before you follow the arm above the kinase.",
+       "options": [
+        {
+         "label": "Upstream signalling sits still while mTORC1 goes down",
+         "note": "That would take the network's reply off the table and leave the residue entirely to the chemistry. It is the cleanest result a partial-block reading could have received here."
+        },
+        {
+         "label": "p-AKT rises while p-S6K1 falls",
+         "happened": true,
+         "note": "What the source studies report. It does not explain the residue by itself, and it does mean the cell you measured is not the untreated cell with one arrow cut."
+        },
+        {
+         "label": "p-AKT falls together with p-S6K1",
+         "note": "That would make the drug look like a general dampener of the whole arm and would need a different mechanism from the loops in the lessons. It is not what came out."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "This is the only step on the menu that can move the feedback hypothesis at all. Declining to be moved by it makes the other fifteen units the better buy."
+        }
+       ]
+      }
+     },
+     {
+      "id": "chronic-mtorc2",
+      "label": "Hold the drug on for days and read the second complex",
+      "cost": 30,
+      "equipment": "Long-term culture across several lines, complex immunoprecipitation and the Ser473 antibody. Weeks of dosing before the first informative point.",
+      "addresses": "Whether exposure time changes which complex the drug is acting on",
+      "discriminates": [
+       "wrong-complex",
+       "partial-block"
+      ],
+      "design": {
+       "model": "Several human and mouse cell lines",
+       "perturbation": "Short exposure against prolonged exposure to the same compound at the same dose",
+       "readout": "Assembly of the second complex, and Akt Ser473 phosphorylation",
+       "control": "Acutely treated and untreated cultures of the same lines, read on the same day"
+      },
+      "evidence": {
+       "sids": [
+        "SAR2006",
+        "LAM2012"
+       ]
+      },
+      "result": {
+       "unit": "Second-complex output (Akt Ser473)",
+       "bars": [
+        {
+         "label": "Untreated",
+         "level": "high"
+        },
+        {
+         "label": "Acute rapamycin",
+         "level": "high"
+        },
+        {
+         "label": "Prolonged rapamycin",
+         "level": "low"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the source studies, in which prolonged treatment reduced assembly of the second complex in sensitive lines. Schematic, not measured values."
+      },
+      "conclude": [
+       "The drug's target list depends on how long it has been on: acutely the second complex is left alone, and after prolonged exposure new complex stops being assembled.",
+       "Any description of what this molecule blocks is unfinished without a duration attached, which is most of why two honest groups can report different target lists."
+      ],
+      "cannotConclude": [
+       "That this happens in every cell type or at every dose. The reported sensitivity varies between lines, and the effect is dose- and duration-dependent, which is why the Atlas grades this edge contested.",
+       "That losing the second complex is what produces any whole-body effect &mdash; that needs an animal rather than a lysate."
+      ],
+      "informative": "High, and it is the reason this challenge has a second axis at all. It separates the wrong-complex reading from the other three, and it leaves the residue on 4E-BP1 exactly where it was, since that sits inside mTORC1 signalling.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For the wrong-complex reading, yes &mdash; with the scope the Atlas itself attaches: sensitive lines, prolonged exposure, and an edge graded contested rather than settled background."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For any reading that treats the drug as having one fixed target, this is the awkward result. The molecule did not change between the two lanes; only the clock did."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Defensible if your question was strictly about the residue on mTORC1 outputs. This step answers a neighbouring question that turns out to matter more for what the drug does to an animal."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It introduces a second axis rather than an alternative: chemistry decides depth, and duration decides breadth. Most confusion in this literature comes from reporting one and reading the other."
+       }
+      ],
+      "yields": [
+       "chronic-hits-mtorc2"
+      ],
+      "next": [
+       "intermittent-dosing",
+       "bisteric"
+      ],
+      "opensNote": "A time-dependent effect invites two quite different moves: change the schedule, or change the molecule. They cost different amounts and answer different questions.",
+      "event": {
+       "title": "New information",
+       "info": "The same loss of second-complex signalling turns up in mouse liver, where prolonged treatment goes together with disturbed glucose handling &mdash; and in the same work, reducing mTORC1 signalling genetically, without the drug, extended lifespan in female mice without that metabolic cost.",
+       "sids": [
+        "LAM2012"
+       ],
+       "prompt": "Does this affect your conclusion?",
+       "options": [
+        {
+         "label": "Yes, substantially",
+         "note": "This is the reading the design supports. The benefit and the metabolic cost come apart in that experiment, so &lsquo;what does the drug block&rsquo; stops being one question and becomes two, with different answers and different consequences."
+        },
+        {
+         "label": "Possibly",
+         "note": "Reasonable if you doubt how far a liver lysate travels. Say what would move you &mdash; matching target engagement between the genetic and the drug arms is the comparison that would make the separation readable."
+        },
+        {
+         "label": "No",
+         "note": "Hard to hold once the genetic arm is on the table: it reaches the lifespan endpoint without the glucose phenotype, so attributing both to one undifferentiated &lsquo;mTOR inhibition&rsquo; no longer fits what was measured."
+        },
+        {
+         "label": "Not enough information",
+         "note": "Also defensible, and it points at a missing measurement rather than missing knowledge: what is absent is a matched comparison of schedules and molecules against the same endpoints in the same animals."
+        }
+       ],
+       "explain": "Two things that had travelled together in the literature separate here. Reduced mTORC1 signalling reached the survival endpoint, while the metabolic cost tracked the loss of the second complex &mdash; which reframes the question from &lsquo;how much does the drug inhibit&rsquo; to &lsquo;which parts, for how long, and at what cost&rsquo;. The separation is reported in mice, so it is a strong lead about mechanism rather than a statement about people.",
+       "control": "Vary the schedule at a matched dose and read target engagement and glucose handling in the same animals; or hold the schedule and change the molecule to one that spares the second complex. Both of those are on the menu below."
+      },
+      "falsify": {
+       "prompt": "Before the long exposure comes back: which result would weaken your model?",
+       "options": [
+        {
+         "label": "Prolonged exposure looks exactly like acute exposure",
+         "note": "That would remove the time axis from the story and make the drug's target list a fixed property. A wrong-complex reading would lose most of its force, and the challenge would have one axis instead of two."
+        },
+        {
+         "label": "Prolonged exposure lowers Akt Ser473 while acute exposure leaves it alone",
+         "happened": true,
+         "note": "What the source studies report, with the scope the Atlas attaches: sensitive lines, prolonged exposure, an edge graded contested rather than background."
+        },
+        {
+         "label": "Even acute exposure lowers Akt Ser473",
+         "note": "That would make the second complex an immediate target and would sit badly against the acute experiments in the rest of the corpus. Naming it is how you would have noticed a dose or a line behaving unusually."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Thirty units on a foregone conclusion is the most expensive way to be certain on this menu. If the time axis cannot move you, spend it on the chemistry instead."
+        }
+       ]
+      }
+     },
+     {
+      "id": "intermittent-dosing",
+      "label": "Change the schedule rather than the molecule",
+      "cost": 15,
+      "equipment": "Mouse cohorts on different dosing intervals, glucose and pyruvate tolerance tests. Cheap only because the cohorts already exist.",
+      "addresses": "Whether the metabolic cost can be separated from target engagement by timing alone",
+      "discriminates": [
+       "wrong-complex"
+      ],
+      "design": {
+       "model": "Mice dosed daily, weekly, or every fifth day",
+       "perturbation": "Vary the dosing interval at a matched dose",
+       "readout": "Glucose and pyruvate tolerance, fasting insulin, beta-cell function, alongside mTORC1 output",
+       "control": "Untreated littermates, and the daily-dosed group as the comparison that makes the interval the variable"
+      },
+      "evidence": {
+       "sids": [
+        "ARR2015"
+       ]
+      },
+      "result": {
+       "unit": "Disturbance of glucose tolerance",
+       "bars": [
+        {
+         "label": "Untreated",
+         "level": "none"
+        },
+        {
+         "label": "Daily dosing",
+         "level": "high"
+        },
+        {
+         "label": "Weekly or every fifth day",
+         "level": "low"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the source study, in which spaced schedules largely spared glucose handling while mTORC1 inhibition was retained. Schematic, not measured values."
+      },
+      "conclude": [
+       "Spacing the doses kept glucose handling near the untreated range while mTORC1 inhibition was still there, so the two can come apart in a living animal without changing the molecule.",
+       "Schedule is a variable in its own right, alongside dose and chemistry &mdash; and it is the one most often left out of the methods sentence."
+      ],
+      "cannotConclude": [
+       "That the benefit survives the change. This study measured side-effect endpoints and no lifespan or healthspan outcome, so it shows the harm shrinking rather than the benefit being kept.",
+       "That the second complex was untouched on the spaced schedules. What was reported is that no effect on it was detectable under that assay, which is a narrower statement."
+      ],
+      "informative": "Cheap and load-bearing for the last sub-question, and the step most likely to be over-read. Notice how easily the honest version &mdash; harm reduced, benefit not measured &mdash; turns into the sentence people actually quote.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For the wrong-complex reading it supports the practical half: if the cost tracks prolonged exposure, spacing the exposure should reduce it, and it did in these cohorts."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "It weakens any reading in which the drug's harms follow inevitably from its target engagement, since here the two were separated by a calendar alone."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Right for the question as asked. Nothing here touches the residue on mTORC1 outputs; it is about the cost of keeping the drug on."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It introduces a design lesson: an endpoint that was never measured is the easiest thing in the world to read into a result. The benefit endpoint is missing from this study by design."
+       }
+      ],
+      "yields": [
+       "schedule-separates"
+      ],
+      "next": [
+       "bisteric"
+      ],
+      "opensNote": "If a calendar can separate them, the question is whether a molecule can do it more cleanly.",
+      "falsify": {
+       "prompt": "What result here would weaken the reading you are holding?",
+       "options": [
+        {
+         "label": "Spacing the doses changes nothing &mdash; the cost tracks the dose, not the exposure",
+         "note": "That would tie the metabolic cost to target engagement itself and leave scheduling as a dead end. It is the result that would push the whole question towards a different molecule."
+        },
+        {
+         "label": "Spaced schedules spare glucose handling while mTORC1 inhibition is kept",
+         "happened": true,
+         "note": "What the source study reports, with the endpoint it actually measured: the harm shrinks. Whether the benefit survives is not in this experiment, and it is the sentence most often read into it."
+        },
+        {
+         "label": "Spacing removes the metabolic cost and the target engagement together",
+         "note": "That would make the schedule a blunt dose reduction rather than a separation, which is the alternative reading this design exists to rule out."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Then the fifteen units are confirming a schedule you have already chosen, and the missing benefit endpoint will still be missing afterwards."
+        }
+       ]
+      }
+     },
+     {
+      "id": "bisteric",
+      "label": "Build a molecule that blocks mTORC1 deeply and leaves the second complex alone",
+      "cost": 35,
+      "equipment": "A bivalent compound, resistant breast-cancer models, patient-derived xenografts, and then a first-in-human dose-escalation trial. The whole apparatus of drug development, and priced accordingly.",
+      "addresses": "Whether depth of block and complex selectivity can be had at the same time",
+      "discriminates": [
+       "partial-block",
+       "wrong-complex"
+      ],
+      "design": {
+       "model": "Human breast-cancer lines and mouse patient-derived xenografts; then dose escalation in advanced solid tumours",
+       "perturbation": "A bi-steric molecule engaging an FKBP12-dependent site and the active site at once",
+       "readout": "Suppression of p-4E-BP1 and the state of Akt Ser473, plus safety and disease control in the trial",
+       "control": "Rapalog-treated and untreated models in the preclinical arm; no randomised comparator in the trial, which is the design's main limit"
+      },
+      "evidence": {
+       "sids": [
+        "MEN2023",
+        "SCH2025"
+       ]
+      },
+      "result": {
+       "unit": "Depth of mTORC1 block against sparing of the second complex",
+       "bars": [
+        {
+         "label": "Rapalog: p-4E-BP1 suppression",
+         "level": "low"
+        },
+        {
+         "label": "Bi-steric: p-4E-BP1 suppression",
+         "level": "high"
+        },
+        {
+         "label": "Bi-steric: Akt Ser473 retained",
+         "level": "high"
+        }
+       ],
+       "caption": "Direction and rank order as reported in the source studies, which describe over twenty-five-fold selectivity for mTORC1 over the second complex alongside suppression of the rapamycin-resistant substrate. Schematic, not measured values."
+      },
+      "conclude": [
+       "The two properties are not forced to trade off: a molecule can reach the substrate rapamycin leaves alone and still leave the second complex largely engaged.",
+       "The residue identified in cells in 2009 was specific enough to design against, which is what a well-posed mechanistic question eventually buys."
+      ],
+      "cannotConclude": [
+       "That sparing the second complex is why the metabolic signal stayed low in the trial. It was open-label and single-arm with no head-to-head comparator, so the low rate sits against historical experience rather than against a control group.",
+       "Anything about ageing: these are tumour models and an oncology trial, and the endpoints are tumour endpoints."
+      ],
+      "informative": "High for the mechanism and deliberately silent on the sub-question left open. It is the step that shows the design problem is soluble, and the step that makes the absence of an ageing readout impossible to miss.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "For partial block, it closes the loop: the residue was real, it was drug-shaped, and a differently shaped drug removes it. For wrong-complex, it supports the practical half &mdash; the cost can be engineered away rather than merely rescheduled."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "For readout-artefact, decisively: a molecule designed against a supposed artefact would have nothing to show, and this one has preclinical and early trial data."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Fair for the question this challenge ends on. It shows the chemistry is possible without showing what the chemistry buys where the benefit was claimed."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It introduces a scoping problem instead: the mechanism was read out in one disease area, and the benefit everyone is interested in was measured in another. Nothing joins them yet."
+       }
+      ],
+      "yields": [
+       "selective-possible"
+      ],
+      "next": [
+       "longevity-selective"
+      ],
+      "opensNote": "One step remains, and it is the one nobody in this corpus has taken.",
+      "falsify": {
+       "prompt": "Before the selective molecule: name the result that would weaken your model.",
+       "options": [
+        {
+         "label": "Depth and selectivity trade off &mdash; reaching 4E-BP1 costs the second complex",
+         "note": "That would make the two properties inseparable and turn the metabolic cost into the price of a deep block. It is the result that would end the selective-inhibitor programme, and it is the one to watch for."
+        },
+        {
+         "label": "The molecule suppresses 4E-BP1 and leaves Akt Ser473 largely engaged",
+         "happened": true,
+         "note": "What the source studies report in resistant tumour models and in a single-arm dose-escalation trial. It shows the design problem is soluble; it shows nothing about an ageing endpoint."
+        },
+        {
+         "label": "The molecule behaves like a rapalog",
+         "note": "That would say the bivalent design does not deliver what it promises, and the preclinical comparison on this card is the arm that would have shown it."
+        },
+        {
+         "label": "Nothing here would change my mind",
+         "note": "Thirty-five units is the second-largest item on the menu. Buying it with no result in mind that would move you is the definition of an expensive habit."
+        }
+       ]
+      }
+     },
+     {
+      "id": "longevity-selective",
+      "label": "Run a selective molecule against an ageing endpoint",
+      "cost": 40,
+      "equipment": "Long-lived cohorts of both sexes, a selective compound dosed for most of a lifespan, survival and metabolic endpoints in the same animals. The most equipment on this menu, and part of why nobody in this corpus has it.",
+      "addresses": "Whether a block that spares the second complex keeps the lifespan benefit without the metabolic cost. No study in this Atlas corpus reports it: the selective molecules have been read out against tumour endpoints, and the survival data come from rapamycin.",
+      "discriminates": [],
+      "design": {
+       "model": "Genetically heterogeneous mice of both sexes, dosed for most of the lifespan",
+       "perturbation": "A selective mTORC1 inhibitor, against rapamycin and against vehicle",
+       "readout": "Survival, glucose handling and mTORC1 output in the same animals",
+       "control": "A vehicle cohort and a rapamycin cohort at matched target engagement, so the comparison is about selectivity rather than about dose"
+      },
+      "evidence": {
+       "hypothetical": true,
+       "basis": "No study in this Atlas corpus reports this experiment. What follows is the outcome the model above predicts, written as a prediction and labelled as one. Treat it as a hypothesis to be tested, not as a result to cite."
+      },
+      "result": {
+       "unit": "Survival and glucose handling (predicted)",
+       "bars": [
+        {
+         "label": "Vehicle: survival",
+         "level": "mid"
+        },
+        {
+         "label": "Selective molecule: survival",
+         "level": "high"
+        },
+        {
+         "label": "Selective molecule: glucose disturbance",
+         "level": "low"
+        }
+       ],
+       "caption": "Expected, not observed. These bars are what the teaching model predicts if the benefit tracks mTORC1 and the metabolic cost tracks the second complex. Nothing in the Atlas corpus reports this measurement."
+      },
+      "conclude": [
+       "Only a survival endpoint would turn the mechanistic separation into an answer about the benefit rather than a story about it.",
+       "Running rapamycin alongside at matched target engagement is what would make the comparison readable, and it is the arm most likely to be cut for cost."
+      ],
+      "cannotConclude": [
+       "Anything at all, until it is done. Reading a predicted pattern as evidence is the specific error this challenge is built to make visible.",
+       "Sex is not a nuisance variable here: the reported effects on lifespan differ between males and females, so a single-sex cohort would answer a narrower question than the one asked."
+      ],
+      "informative": "The highest in principle, and a gap in this corpus rather than a line in it. Choosing it costs 40 units and returns a prediction &mdash; which is a fair picture of what committing to an unpublished experiment feels like from the inside.",
+      "interpret": [
+       {
+        "label": "It supports my hypothesis",
+        "note": "A prediction cannot support a hypothesis; it is generated by one. If this felt like support while you were reading it, that reflex is what the labelling is here to interrupt."
+       },
+       {
+        "label": "It weakens my hypothesis",
+        "note": "Also not something a prediction can do. What it can do is tell you which hypothesis you would give up if the experiment came out the other way, which is worth writing down before it runs."
+       },
+       {
+        "label": "It is inconclusive for my question",
+        "note": "Correct, and the useful follow-up is: what would you have to see here to change your mind? Naming that in advance is most of what makes an experiment worth its budget."
+       },
+       {
+        "label": "It introduces an alternative explanation",
+        "note": "It introduces a design problem rather than an explanation: lifelong dosing, two sexes and matched engagement are three expensive requirements, and dropping any one of them changes what the survival curve would mean."
+       }
+      ],
+      "yields": [],
+      "next": [],
+      "returns": "prediction"
+     }
+    ],
+    "debrief": {
+     "rules": [
+      {
+       "ran": [],
+       "notRan": [
+        "s6k-blot",
+        "4ebp-blot",
+        "torin-compare",
+        "autophagy-flux",
+        "feedback-blot",
+        "chronic-mtorc2",
+        "intermittent-dosing",
+        "bisteric",
+        "longevity-selective"
+       ],
+       "note": "You closed the investigation without spending anything. That is a legitimate move only if you had already decided the menu could not move the question &mdash; and if so, the reasoning for that belongs in the final step."
+      },
+      {
+       "ran": [
+        "4ebp-blot"
+       ],
+       "notRan": [],
+       "note": "The second antibody is where this challenge starts paying. Fifteen units on a lysate you already had turned &lsquo;the drug works&rsquo; into &lsquo;the drug works unevenly&rsquo;, which is the observation everything else here explains or fails to explain."
+      },
+      {
+       "ran": [
+        "s6k-blot"
+       ],
+       "notRan": [
+        "4ebp-blot"
+       ],
+       "note": "You bought the famous band and stopped. Every hypothesis on your list predicted it, so ten units went on shared background &mdash; and the cheapest follow-up on the menu, on the same lysates, was the one that would have shown the split."
+      },
+      {
+       "ran": [
+        "torin-compare"
+       ],
+       "notRan": [],
+       "note": "The chemistry comparison did the discriminating work. It is the one place where the partial-block reading and the readout-artefact reading expect different things, and the result went against the second."
+      },
+      {
+       "ran": [],
+       "notRan": [
+        "torin-compare"
+       ],
+       "note": "You never put a second chemistry next to the first. Without one, a surviving signal is compatible with a partial block, with an artefact of the readout, and with the network answering back &mdash; which is why the question can still feel open at the end."
+      },
+      {
+       "ran": [
+        "torin-compare",
+        "feedback-blot"
+       ],
+       "notRan": [],
+       "note": "Chemistry and feedback measured rather than argued about. This pair is the strongest route through the menu for the question as posed: one says the residue is drug-shaped, the other says how much of the cell moved while you were looking."
+      },
+      {
+       "ran": [
+        "chronic-mtorc2"
+       ],
+       "notRan": [
+        "intermittent-dosing"
+       ],
+       "note": "You found the time-dependent arm and left the cheapest follow-up unbought. Fifteen units would have shown whether the cost tracks exposure closely enough for a calendar to separate it &mdash; which is the part of this story with consequences outside the dish."
+      },
+      {
+       "ran": [
+        "chronic-mtorc2",
+        "intermittent-dosing",
+        "bisteric"
+       ],
+       "notRan": [],
+       "note": "The full route through the second axis: the cost appears with prolonged exposure, shrinks when the schedule is spaced, and can be engineered out with a differently shaped molecule. Notice what all three still lack &mdash; a benefit endpoint."
+      },
+      {
+       "ran": [
+        "intermittent-dosing"
+       ],
+       "notRan": [
+        "chronic-mtorc2"
+       ],
+       "note": "You bought the schedule comparison without the step that says why the schedule should matter. The result stands on its own, but the reason it is interesting &mdash; that the cost tracks prolonged exposure &mdash; is the 30-unit step you skipped."
+      },
+      {
+       "ran": [
+        "longevity-selective"
+       ],
+       "notRan": [],
+       "note": "Forty units, the largest single item, bought a prediction rather than a result, and the card said so before you paid. That makes it a decision rather than a trap, and it is roughly what committing to an unpublished experiment costs."
+      },
+      {
+       "ran": [
+        "s6k-blot",
+        "4ebp-blot",
+        "autophagy-flux"
+       ],
+       "notRan": [
+        "torin-compare"
+       ],
+       "note": "Everything you ran describes the unevenness, and nothing you ran explains it. Three consistent descriptions of the same phenomenon are not evidence about its cause &mdash; the ruler was the missing 25 units."
+      }
+     ]
+    }
+   },
+   "model": {
+    "id": "rapamycin-partial-block",
+    "title": "The model you are arguing with",
+    "caption": "Two chemistries on the left, one kinase in the middle, and three outputs on the right. The drug switch chooses nothing, rapamycin or an active-site inhibitor; the clock switch chooses acute or prolonged exposure. Nodes and arrows come from the Atlas pathway model, so this teaching diagram cannot drift away from the scientific one.",
+    "layout": [
+     [
+      "Rapamycin"
+     ],
+     [
+      "ATP-competitive mTOR inhibitors",
+      "FKBP12"
+     ],
+     [
+      "mTORC1",
+      "mTORC2"
+     ],
+     [
+      "S6K1",
+      "4E-BP1",
+      "ULK1",
+      "Akt/PKB"
+     ],
+     [
+      "eIF4E",
+      "Autophagy",
+      "IRS-1 / IRS-2"
+     ],
+     [
+      "Protein synthesis"
+     ]
+    ],
+    "edges": [
+     "RAPA-FKBP12",
+     "FKBP12-MTORC1",
+     "TORIN-MTORC1",
+     "TORIN-MTORC2",
+     "RAPA-MTORC2",
+     "MTORC2-AKT",
+     "MTORC1-S6K1",
+     "MTORC1-4EBP1",
+     "MTORC1-ULK1",
+     "S6K1-IRS1",
+     "4EBP1-EIF4E",
+     "EIF4E-TRANSL",
+     "ULK1-AUTOPHAGY"
+    ],
+    "controls": [
+     {
+      "id": "drug",
+      "label": "Drug",
+      "options": [
+       "none",
+       "rapamycin",
+       "active-site"
+      ]
+     },
+     {
+      "id": "clock",
+      "label": "Exposure",
+      "options": [
+       "acute",
+       "prolonged"
+      ]
+     }
+    ],
+    "start": {
+     "drug": "none",
+     "clock": "acute"
+    },
+    "states": {
+     "none|acute": {
+      "flow": [
+       "mTORC1",
+       "S6K1",
+       "4E-BP1",
+       "eIF4E",
+       "Protein synthesis",
+       "ULK1",
+       "mTORC2",
+       "Akt/PKB"
+      ],
+      "cut": [
+       "4EBP1-EIF4E",
+       "ULK1-AUTOPHAGY",
+       "S6K1-IRS1"
+      ],
+      "readout": "p-S6K1 high  ·  p-4E-BP1 high  ·  autophagy held down  ·  Akt Ser473 phosphorylated",
+      "note": "The reference state. Note what an active kinase does to two of the arrows: phosphorylated 4E-BP1 lets go of eIF4E, and phosphorylated ULK1 cannot be switched on, so a growing cell builds protein and keeps recycling down. Both of those are brakes being held off rather than accelerators being pressed."
+     },
+     "none|prolonged": {
+      "flow": [
+       "mTORC1",
+       "S6K1",
+       "4E-BP1",
+       "eIF4E",
+       "Protein synthesis",
+       "ULK1",
+       "mTORC2",
+       "Akt/PKB"
+      ],
+      "cut": [
+       "4EBP1-EIF4E",
+       "ULK1-AUTOPHAGY",
+       "S6K1-IRS1"
+      ],
+      "readout": "p-S6K1 high  ·  p-4E-BP1 high  ·  autophagy held down  ·  Akt Ser473 phosphorylated",
+      "note": "With no drug on, the clock changes nothing. The state is here so you can hold one switch still while you move the other &mdash; the comparison that makes a time-dependent effect visible at all."
+     },
+     "rapamycin|acute": {
+      "flow": [
+       "Rapamycin",
+       "FKBP12",
+       "mTORC1",
+       "4E-BP1",
+       "eIF4E",
+       "Protein synthesis",
+       "ULK1",
+       "Autophagy",
+       "mTORC2",
+       "Akt/PKB",
+       "IRS-1 / IRS-2"
+      ],
+      "cut": [
+       "MTORC1-S6K1",
+       "4EBP1-EIF4E"
+      ],
+      "readout": "p-S6K1 low  ·  p-4E-BP1 largely retained  ·  autophagy partly released  ·  Akt Ser473 phosphorylated",
+      "note": "Sit with this one; it is the state a decade of papers reported as &lsquo;mTORC1 off&rsquo;. The S6K1 arm is gone, and the kinase is still phosphorylating 4E-BP1, so protein is still being built. IRS-1 lights up because the brake on it went with S6K1 &mdash; the treated cell has a livelier insulin arm than the untreated one."
+     },
+     "rapamycin|prolonged": {
+      "flow": [
+       "Rapamycin",
+       "FKBP12",
+       "mTORC1",
+       "4E-BP1",
+       "eIF4E",
+       "Protein synthesis",
+       "ULK1",
+       "Autophagy",
+       "IRS-1 / IRS-2"
+      ],
+      "cut": [
+       "MTORC1-S6K1",
+       "4EBP1-EIF4E",
+       "RAPA-MTORC2",
+       "MTORC2-AKT"
+      ],
+      "readout": "p-S6K1 low  ·  p-4E-BP1 largely retained  ·  Akt Ser473 lost in the sensitive lines  ·  glucose handling disturbed in mice",
+      "note": "Same drug, same dose, different answer to the question &lsquo;what does it block?&rsquo;. New mTORC2 stops being assembled, Akt loses its second phosphate, and in mice the metabolic cost appears. The Atlas draws this arrow dashed and grades it contested, because it is absent acutely and varies between cell lines."
+     },
+     "active-site|acute": {
+      "flow": [
+       "ATP-competitive mTOR inhibitors",
+       "mTORC1",
+       "mTORC2",
+       "4E-BP1",
+       "ULK1",
+       "Autophagy",
+       "IRS-1 / IRS-2"
+      ],
+      "cut": [
+       "MTORC1-S6K1",
+       "MTORC1-4EBP1",
+       "MTORC2-AKT"
+      ],
+      "readout": "p-S6K1 low  ·  p-4E-BP1 low  ·  cap-dependent translation down  ·  autophagy induced  ·  Akt Ser473 low",
+      "note": "Occupying the active site rather than obstructing the doorway gives a different pattern from the first click: 4E-BP1 stays unphosphorylated, keeps hold of eIF4E, and protein synthesis goes with it. The same site sits in both complexes, so the second complex goes down too &mdash; at once, not after days."
+     },
+     "active-site|prolonged": {
+      "flow": [
+       "ATP-competitive mTOR inhibitors",
+       "mTORC1",
+       "mTORC2",
+       "4E-BP1",
+       "ULK1",
+       "Autophagy",
+       "IRS-1 / IRS-2"
+      ],
+      "cut": [
+       "MTORC1-S6K1",
+       "MTORC1-4EBP1",
+       "MTORC2-AKT"
+      ],
+      "readout": "p-S6K1 low  ·  p-4E-BP1 low  ·  cap-dependent translation down  ·  autophagy induced  ·  Akt Ser473 low",
+      "note": "Here the clock is the uninteresting switch. This chemistry hits both complexes from the first minutes, so there is no second phase to wait for &mdash; which is the contrast that makes the time axis a real finding for the other drug rather than a detail of dosing."
+     }
+    }
+   },
+   "break": [
+    {
+     "id": "break-readout",
+     "prompt": "Set the drug to rapamycin and the clock to acute. Two of the three output arms are in the model. Which readout would report the pathway as switched off, and which would report it still running?",
+     "options": [
+      "p-S6K1 would report it off, and p-4E-BP1 would report output continuing",
+      "Both readouts would report it off",
+      "Both readouts would report output continuing",
+      "The model cannot represent this"
+     ],
+     "answer": 0,
+     "explain": "The two arms come apart in this state, and which one you blot for decides what you would write in the abstract. That is why a decade of papers using p-S6K1 as the readout of mTORC1 activity over-reported how much of the kinase rapamycin was switching off."
+    },
+    {
+     "id": "break-clock",
+     "prompt": "Keep the drug at rapamycin and move the clock from acute to prolonged. A part of the diagram lights up that was dark before. What does that do to the sentence &lsquo;rapamycin is an mTORC1 inhibitor&rsquo;?",
+     "options": [
+      "Nothing &mdash; the drug has one target and the clock is a detail of dosing",
+      "The second complex joins the picture, so the target list depends on how long the drug has been on",
+      "mTORC1 becomes fully blocked once the exposure is long enough",
+      "The model cannot represent this"
+     ],
+     "answer": 1,
+     "explain": "The sentence is not wrong so much as unfinished: it needs a duration attached. An acute experiment and a chronic one are asking different questions of the same molecule, and much of the disagreement in this literature is two groups reporting honestly from either side of that clock."
+    },
+    {
+     "id": "break-same-band",
+     "prompt": "Three states in this model give a low p-S6K1 and differ in almost everything else. What follows for a paper that reports only that band?",
+     "options": [
+      "Nothing &mdash; p-S6K1 is the standard readout of mTORC1 activity",
+      "A low p-S6K1 does not say which chemistry or which exposure produced it, so the design needs a second substrate or a second time point",
+      "p-S6K1 should be replaced by p-4E-BP1 in every design",
+      "The model is wrong, because one readout should identify one cause"
+     ],
+     "answer": 1,
+     "explain": "A readout earns its place in proportion to how differently the candidate explanations predict it. This one is a fine measure of the S6K1 arm and a poor discriminator between the four explanations you are about to choose from, because three quite different states of the cell collapse onto the same band."
+    }
+   ],
+   "hypotheses": {
+    "prompt": "Commit to a working hypothesis before you spend anything. It is meant to be revised later &mdash; that is what the second half of this challenge is for.",
+    "options": [
+     {
+      "id": "partial-block",
+      "label": "The block is partial by construction",
+      "note": "The drug obstructs the doorway to the kinase rather than filling its catalytic pocket, so substrates that need deep, sustained access lose out and others carry on. It predicts that a chemistry which does occupy the site reaches further, and that the split between outputs is reproducible rather than noise. Its weak point: obstruction and network feedback predict the same blot in a single-time-point experiment."
+     },
+     {
+      "id": "readout-artefact",
+      "label": "The incompleteness is in the readout, not the drug",
+      "note": "On this reading mTORC1 really is switched off and the persisting signal is an artefact of which band gets blotted, of antibody sensitivity, or of a phosphosite that another kinase also touches. It predicts that a wider substrate panel, or a functional readout instead of a phosphosite, makes the residue disappear. It is the hypothesis most worth holding early and the easiest to hold too long."
+     },
+     {
+      "id": "feedback",
+      "label": "The network answers back",
+      "note": "Block the kinase and the loops around it re-set: S6K1 stops repressing IRS-1, upstream receptor signalling picks up, and the cell you measure is no longer the untreated cell with one arrow cut. It predicts that the residue grows over time rather than staying flat, and that the arm above the kinase moves in the same lysates. It has to explain why a deeper chemistry, which relieves the same feedback, still gives a deeper block."
+     },
+     {
+      "id": "wrong-complex",
+      "label": "The interesting part is the complex the drug was not supposed to touch",
+      "note": "Here the incompleteness on mTORC1 is the less consequential half of the story, and what matters is that prolonged exposure reaches the second complex, taking the arm to Akt with it. It predicts that the drug's effects at day ten are not the drug's effects at minute ten. Its weak point as an answer to the question asked: it explains the side effects better than it explains the residue."
+     }
+    ]
+   },
+   "revise": {
+    "prompt": "Your working hypothesis, after the evidence you bought",
+    "note": "Changing your mind here is the expected outcome, not a failure state. A first hypothesis that survives every experiment untouched usually means the experiments were not discriminating.",
+    "feedback": {
+     "partial-block": "The drug comparison is the strongest support available in this corpus for this reading, and it comes with a scope: what you have is a difference between two chemistries on a panel of substrates in cells. Holding it well means saying which substrates, at which dose, and keeping the feedback arm in view as a second contributor rather than a rival.",
+     "readout-artefact": "Hard to hold once a second chemistry is in the experiment, because the residue moves when the drug changes and the antibody does not. Worth keeping a narrow version of it: a phosphosite is still a proxy, and the functional readouts in this challenge behave more like the phosphosites than most people expect.",
+     "feedback": "Well supported as a real contributor and hard to hold as the whole answer: relief of the upstream brake happens under either chemistry, so it cannot by itself explain why one of them reaches further. The version that survives is a joint one, where obstruction sets the floor and feedback decides how fast the signal creeps back up.",
+     "wrong-complex": "Right about the most consequential part of the drug's behaviour and slightly off the question as posed. The second-complex arm is where the metabolic cost lives and where the schedule and the selective molecule earn their place &mdash; but the residue on 4E-BP1 sits inside mTORC1 signalling and needs the chemistry comparison rather than the time axis."
+    }
+   },
+   "compare": {
+    "sid": "THO2009",
+    "whatTheyTested": "What an inhibitor that occupies the active site would reveal about the one everybody was already using &mdash; measured as phosphorylation of both mTORC1 substrates, as cap-dependent translation, and as autophagy induction, in matched cultures side by side.",
+    "whatItAnswered": [
+     "Rapamycin leaves a class of mTORC1 outputs largely running, 4E-BP1 phosphorylation among them.",
+     "Autophagy sits in that class too, so the drug's best-known effect is also its partial one.",
+     "The residue is a property of the chemistry rather than a limit of the kinase, since a different chemistry reaches further."
+    ],
+    "whatItDidNot": [
+     "It did not read the second complex over days, so the time axis of this challenge is outside its design.",
+     "The active-site compound is not complex-selective, so it cannot say which complex each part of the deeper effect came from.",
+     "It is cell-line pharmacology: how much of the residue matters in any particular tissue or tumour is not something this design measures."
+    ],
+    "howToRead": "The published experiment is not the perfect version of your design, and it was never meant to be. It is a real design with its own controls, its own scope and its own limits &mdash; and reading it that way rather than as a verdict is the skill this step is for. Compare it with what you chose: which of your unspent steps would you now run alongside it?"
+   },
+   "reflection": [
+    {
+     "id": "changed",
+     "prompt": "What changed your mind, if anything?",
+     "options": [
+      "A result came out differently from what I predicted",
+      "A result was what I expected but did not separate the hypotheses",
+      "A limitation or a confounder made me re-read a result I had already accepted",
+      "Nothing changed; I ended where I started"
+     ]
+    },
+    {
+     "id": "mattered",
+     "prompt": "Which evidence mattered most to your final position?",
+     "options": [
+      "The second antibody on the same lysates",
+      "The head-to-head comparison of two chemistries",
+      "The time axis, and what prolonged exposure reached",
+      "The absence of the experiment I most wanted to run"
+     ]
+    }
+   ],
+   "nextQuestion": {
+    "text": "The list above is where a next experiment would go. Pick the one you would defend in front of someone holding the budget &mdash; not the most interesting one, the one that would change what the field can say.",
+    "prompt": "You have one more opportunity and a limited budget. What would you do next?",
+    "options": [
+     {
+      "label": "Run a second-complex-sparing molecule against a survival endpoint, with rapamycin alongside at matched target engagement",
+      "note": "The direct attack on the gap, and the most expensive option on any realistic menu. Budget both sexes and the rapamycin arm from the start: without the comparator the survival curve cannot separate selectivity from dose, and without both sexes it answers a narrower question than the one asked."
+     },
+     {
+      "label": "Apportion the two routes to disturbed glucose handling in one set of animals",
+      "note": "Cheaper and badly needed. Loss of the second complex and relief of the S6K1-to-IRS-1 brake have never been weighed against each other in the same experiment, and the answer would tell you whether a selective molecule can spare the metabolic cost or only part of it."
+     },
+     {
+      "label": "Map the residue across a wide substrate panel and a dose-response, in more than one cell type",
+      "note": "The unglamorous option that would firm up the foundation. Much of what we call rapamycin-resistant output rests on a handful of substrates in a handful of lines; knowing which substrates behave that way, and how reproducibly, would sharpen every design downstream."
+     },
+     {
+      "label": "Read the second-complex effect across lines, doses and durations to find where it actually appears",
+      "note": "Follows the most contested edge in this story rather than the original question. The Atlas grades it contested because sensitivity varies; a systematic map would turn a caveat into a rule of thumb, which is worth more than it sounds for anyone choosing a schedule."
+     }
+    ]
+   },
+   "skillsPractised": [
+    "Causal reasoning",
+    "Experimental design",
+    "Control selection",
+    "Evidence evaluation",
+    "Alternative explanations",
+    "Scientific uncertainty"
+   ],
+   "relatedLessons": [
+    "what-is-mtor",
+    "mtorc1-vs-mtorc2",
+    "feedback-regulation",
+    "how-to-read-an-mtor-paper"
+   ],
+   "relatedRoutes": [
+    {
+     "id": "rapa",
+     "why": "The rapamycin route, which is this whole question drawn end to end."
+    },
+    {
+     "id": "out",
+     "why": "The output route, where the substrates this challenge argues about do their work."
+    }
+   ],
+   "relatedEntities": {
+    "proteins": [
+     "S6K1",
+     "4E-BP1",
+     "Akt/PKB",
+     "Rictor",
+     "ULK1"
+    ],
+    "pathways": [
+     "mTORC1",
+     "mTORC2"
+    ],
+    "processes": [
+     "Autophagy",
+     "Protein synthesis"
+    ]
+   },
+   "openQuestions": [
+    "mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance"
+   ],
+   "answer": {
+    "short": "On the evidence in this Atlas: because of how it inhibits, and then, after long enough, because of where it ends up. The drug obstructs the doorway to the kinase rather than filling its catalytic pocket, so some substrates keep their access &mdash; and prolonged exposure adds a second target that acute exposure leaves alone.",
+    "observation": [
+     {
+      "text": "Rapamycin binds FKBP12 and the pair docks on a site adjacent to the kinase's active site rather than in it.",
+      "sids": [
+       "CHO1996",
+       "SAB1995"
+      ]
+     },
+     {
+      "text": "Treatment takes p-S6K1 down within minutes, and that band became the standard readout of mTORC1 activity.",
+      "sids": [
+       "CHU1992",
+       "PRI1992"
+      ]
+     },
+     {
+      "text": "Against an active-site inhibitor as a ruler, rapamycin leaves 4E-BP1 phosphorylation largely in place and induces autophagy only partly.",
+      "sids": [
+       "THO2009",
+       "FEL2009"
+      ]
+     },
+     {
+      "text": "Inhibiting mTORC1 relieves feedback onto receptor signalling, and Akt phosphorylation can rise rather than fall.",
+      "sids": [
+       "ORE2006",
+       "HAR2004",
+       "ROD2011"
+      ]
+     },
+     {
+      "text": "Prolonged exposure reduces assembly of the second complex in sensitive lines, and the same loss appears in mouse liver alongside disturbed glucose handling.",
+      "sids": [
+       "SAR2006",
+       "LAM2012"
+      ]
+     },
+     {
+      "text": "Spacing the doses in mice largely spared glucose handling while mTORC1 inhibition was retained; side-effect endpoints only, with no benefit endpoint measured.",
+      "sids": [
+       "ARR2015"
+      ]
+     },
+     {
+      "text": "A bi-steric molecule suppresses the rapamycin-resistant substrate while sparing the second complex, in resistant tumour models and in a single-arm dose-escalation trial.",
+      "sids": [
+       "MEN2023",
+       "SCH2025"
+      ]
+     }
+    ],
+    "interpretation": [
+     "Read together, these support a two-axis picture rather than a single number for potency. Chemistry decides the depth of the block on mTORC1 outputs: obstruction of the substrate channel leaves some substrates reachable, and occupying the active site does not. Duration decides its breadth: acutely one complex, after prolonged exposure often both. Most apparent disagreements about &lsquo;how much rapamycin inhibits mTOR&rsquo; turn out to be two groups reporting from different corners of those two axes.",
+     "The network's reply is a real third contributor and not a rival to the first. Relieving the brake on the arm above the kinase happens under either chemistry, so it cannot be why one reaches further &mdash; but it does mean a treated cell is not an untreated cell with one arrow cut, and it sets how fast a partly blocked signal creeps back.",
+     "What the drug does, then, is not to turn mTORC1 output down by a fixed fraction but to reshape which outputs stay on. That reshaping is a plausible reason the same molecule can extend lifespan in mice while performing modestly as a single agent against many tumours, and it is why &lsquo;rapamycin induces autophagy&rsquo; needs the dose, the cell type and the readout attached before it is a claim."
+    ],
+    "stillOpen": [
+     "No study in this corpus joins a second-complex-sparing molecule to an ageing endpoint. The selective compounds were read out against tumour endpoints; the survival data come from rapamycin. That join is the 40-unit item on your menu that returns a prediction, and it is the same gap the Atlas records as H2.",
+     "Two routes lead from mTORC1 inhibition to disturbed glucose handling &mdash; loss of the second complex, and relief of the S6K1-to-IRS-1 brake &mdash; and their relative contribution in people has not been apportioned. The Atlas's own edge on that feedback arm records the missing apportionment rather than papering over it.",
+     "Whether prolonged exposure reaches the second complex in a given cell depends on line, dose and duration, and what the spaced-schedule study reports is that no effect on it was detectable under its assay. &lsquo;Not detected here&rsquo; and &lsquo;not happening&rsquo; are different claims, and the difference matters for anyone choosing a schedule."
+    ],
+    "hypothesisVerdicts": {
+     "partial-block": "The reading the evidence best supports for the question as asked, once it is stated with its scope: steric obstruction rather than occupancy, measured across a substrate panel in cells, with the chemistry comparison as the load-bearing result. It got sharper rather than failing &mdash; the qualified version names substrates and a mechanism instead of a potency.",
+     "readout-artefact": "Does not survive the chemistry comparison. The residue moves when the molecule changes while the antibodies stay the same, and it shows up on a functional readout as well as on phosphosites. A narrow version is still worth keeping: a phosphosite is a proxy, and this challenge is partly about how much weight one band carries.",
+     "feedback": "Right about a real contributor, wrong as the whole answer. Relief of the upstream brake is measured, and it happens under either chemistry, so it cannot explain why one reaches further. The version that survives is joint: obstruction sets the floor, feedback sets how quickly the signal comes back.",
+     "wrong-complex": "Half-right in a way worth naming precisely. The second-complex arm is where the metabolic cost lives, and it is the half with consequences outside the dish &mdash; but it is time-dependent, graded contested, and silent about the residue on 4E-BP1, which sits inside mTORC1 signalling."
     }
    }
   }

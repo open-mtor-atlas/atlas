@@ -1160,6 +1160,48 @@ CHALLENGE_CSS = """
 .ac-rcnextlbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:14px 0 5px}
 .ac-rc .ac-list .ac-n{width:26px}
+
+/* "What would change your mind?" (2026-09-23). Sedi v ROZHODOVACI pulce karty,
+   protoze predpoved po vysledku uz neni predpoved. Sbalene, aby dve karty vedle
+   sebe zustaly porovnatelne; JS ji otevre u kroku, o kterem se prave rozhoduje. */
+/* Vybrana moznost ve skupine s komentarem. Az dosud nemela zadny stav: JS
+   nastavoval aria-pressed a CSS si toho nevsimalo, takze po kliknuti nebylo
+   poznat, co clovek vybral -- coz zacalo vadit ve chvili, kdy se volba
+   zapisuje do notebooku. Zamerne jina znacka nez data-mark: tady neni
+   spravna odpoved, jen ta zvolena. */
+.ac-qzopt[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 3px 0 0 var(--teal)}
+.ac-qzopt[aria-pressed="true"] .ac-qzkey{color:var(--teal)}
+.ac-labfals{border:1px dashed var(--line);border-radius:3px;padding:0 12px;margin:10px 0 0}
+.ac-labfals[open]{padding:10px 12px 12px}
+.ac-labfals>summary{cursor:pointer;padding:9px 0;font-size:13px;color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.03em}
+.ac-labfals[open]>summary{margin-bottom:6px}
+.ac-labfals .ac-qzopts{margin:6px 0 0}
+.ac-rcfalsq{font-size:14.5px;line-height:1.6;margin:0 0 4px}
+.ac-rcfalsv{font-size:14px;line-height:1.6;margin:8px 0 0;padding-left:10px;
+  border-left:3px solid var(--teal)}
+.ac-rcfalsv[data-hit="0"]{border-left-color:var(--soft)}
+
+/* Research notebook. Neni to skore ani shrnuti spravnych odpovedi -- je to
+   zaznam rozhodnuti: s cim jsi zacal, co te melo presvedcit, co sis koupil a
+   kde jsi skoncil. Plni se sam, jak clovek prochazi vyzvou. */
+.ac-nb{border:1px solid var(--line);border-radius:3px;padding:16px 18px;margin:0 0 14px}
+.ac-nblbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+.ac-nbsec{border-top:1px solid var(--line);padding:12px 0 0;margin:0 0 12px}
+.ac-nbsec:first-child{border-top:0;padding-top:0}
+.ac-nbsec p,.ac-nbsec li{font-size:14.5px;line-height:1.62}
+.ac-nbsec>p{margin:0}
+.ac-nbsec ul{margin:0;padding-left:18px}
+.ac-nbsec ul.ac-shows{padding-left:0}
+.ac-nbrun{list-style:none;padding:0;margin:0}
+.ac-nbrun>li{border-top:1px solid var(--line);padding:8px 0}
+.ac-nbrun>li:first-child{border-top:0;padding-top:0}
+.ac-nbcost{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  margin-left:6px;white-space:nowrap}
+.ac-nbempty{font-size:14.5px;line-height:1.62;color:var(--soft);margin:0}
+.ac-nbcopied{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);
+  margin:8px 0 0}
 """
 
 CHALLENGE_JS = """
@@ -1212,6 +1254,7 @@ CHALLENGE_JS = """
         else if(kind==='confounder') track('confounder_answered',{choice:tag});
         else if(kind==='experiments') track('experiment_interpreted',{choice:tag});
         else if(kind==='reflect') track('challenge_completed',{choice:tag});
+        nbOption(kind,box,b);
       });
     });
   });
@@ -1240,6 +1283,131 @@ CHALLENGE_JS = """
       });
     });
   });
+
+  /* ---------- research notebook + "what would change your mind?" ----------
+     Zaznam rozhodnuti, ne skore. Vsechno, co se tady sbira, uz na strance je;
+     tenhle kus to jen slozi na jedno misto v poradi, ve kterem to vznikalo.
+     Zadne uloziste a zadna sit: po reloadu je notebook prazdny, stejne jako
+     zbytek vyzvy. Funkce jsou deklarace (hoisted), takze je smi volat i
+     posluchac zaregistrovany vys. */
+  var nbBox=document.querySelector('[data-rc-notebook]');
+  var nbBody=nbBox?nbBox.querySelector('[data-nb-body]'):null;
+  var NB={hyp:'',rev:'',next:'',fals:[],falsBy:{},runs:[],refl:[],
+          answered:0,goals:0,openGoals:[],spent:0,total:0,unit:'',closed:false};
+
+  function nbEsc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+  function nbSec(t,inner){
+    return inner?'<div class="ac-nbsec"><p class="ac-nblbl">'+t+'</p>'+inner+'</div>':'';}
+  function nbLabel(btn){
+    var sp=btn.querySelectorAll('span');
+    return (sp.length?sp[sp.length-1]:btn).textContent.trim();}
+  function nbList(items,cls){
+    return '<ul class="ac-shows">'+items.map(function(t){
+      return '<li class="'+cls+'">'+t+'</li>';}).join('')+'</ul>';}
+
+  function nbRender(){
+    if(!nbBody) return;
+    var h='';
+    var q=nbBox.getAttribute('data-nb-question')||'';
+    if(q) h+=nbSec('The question','<p>'+nbEsc(q)+'</p>');
+    if(NB.hyp) h+=nbSec('My working hypothesis','<p>'+nbEsc(NB.hyp)+'</p>');
+    if(NB.fals.length) h+=nbSec('What I said would change my mind',
+      '<ul class="ac-shows">'+NB.fals.map(function(f){
+        var tail=f.run?(f.hit?' — and that is what the step returned'
+                             :' — the step returned something else')
+                      :' — step not run';
+        return '<li class="'+(f.run?(f.hit?'ac-yes':'ac-no'):'')+'"><strong>'+
+               nbEsc(f.node)+'.</strong> '+nbEsc(f.label)+tail+'</li>';}).join('')+'</ul>');
+    if(NB.runs.length) h+=nbSec('Evidence I bought',
+      '<ul class="ac-nbrun">'+NB.runs.map(function(r){
+        return '<li><strong>'+nbEsc(r.label)+'</strong><span class="ac-nbcost">'+r.cost+
+               ' '+nbEsc(NB.unit)+'</span>'+
+               (r.conclude.length?'<ul>'+r.conclude.map(function(t){
+                 return '<li>'+t+'</li>';}).join('')+'</ul>':'')+'</li>';}).join('')+
+      '</ul><p class="ac-nbempty">'+NB.spent+' of '+NB.total+' '+nbEsc(NB.unit)+' spent.</p>');
+    var cannot=[],seen={};
+    NB.runs.forEach(function(r){r.cannot.forEach(function(t){
+      if(!seen[t]){seen[t]=1;cannot.push(t);}});});
+    if(cannot.length) h+=nbSec('What it could not settle',nbList(cannot,'ac-no'));
+    if(NB.goals&&(NB.runs.length||NB.closed)) h+=nbSec('Where the question stood',
+      '<p>'+NB.answered+' of '+NB.goals+' sub-questions answered'+
+      (NB.closed?', investigation closed':' so far')+'.</p>'+
+      (NB.openGoals.length?nbList(NB.openGoals,'ac-no'):''));
+    var changed='';
+    if(NB.rev) changed+='<p>'+nbEsc(NB.rev)+'</p>';
+    if(NB.refl.length) changed+='<ul>'+NB.refl.map(function(r){
+      return '<li>'+nbEsc(r.q)+' <strong>'+nbEsc(r.a)+'</strong></li>';}).join('')+'</ul>';
+    if(changed) h+=nbSec('What changed my mind',changed);
+    if(NB.next) h+=nbSec('My next experiment','<p>'+nbEsc(NB.next)+'</p>');
+    var started=NB.hyp||NB.rev||NB.next||NB.fals.length||NB.runs.length||NB.refl.length;
+    if(started&&h) nbBody.innerHTML=h;
+    else if(!nbBody.getAttribute('data-nb-ready')){
+      /* skript bezi, takze veta o tom, co by se stalo bez nej, uz neplati */
+      nbBody.setAttribute('data-nb-ready','1');
+      nbBody.innerHTML='<p class="ac-nbempty">This fills itself as you go. Commit to a '+
+        'hypothesis, say what would change your mind, run the steps you can afford, and the '+
+        'record of those decisions collects here. Nothing is stored and nothing is scored.</p>';
+    }
+    var cp=nbBox?nbBox.querySelector('[data-nb-copy]'):null;
+    if(cp) cp.hidden=!started;
+  }
+
+  function nbOption(kind,box,btn){
+    var full=nbLabel(btn);
+    var fals=box.closest?box.closest('[data-rc-fals]'):null;
+    if(fals){
+      var id=fals.getAttribute('data-rc-fals');
+      var card=fals.closest('[data-rc-exp]');
+      var h3=card?card.querySelector('h3'):null;
+      var rec=NB.falsBy[id];
+      if(!rec){rec={node:h3?h3.textContent.trim():id,label:full,hit:false,run:false};
+               NB.falsBy[id]=rec;NB.fals.push(rec);}
+      rec.label=full;
+      rec.hit=parseInt(btn.getAttribute('data-rc-opt'),10)===
+              parseInt(fals.getAttribute('data-happened'),10);
+      track('falsify_predicted',{experiment:id});
+      nbRender();
+      return;
+    }
+    if(kind==='hypothesis') NB.hyp=full;
+    else if(kind==='revise') NB.rev=full;
+    else if(kind==='reflect') NB.next=full;
+    else return;
+    nbRender();
+  }
+
+  /* Reflexe: az dosud to byla tlacitka bez posluchace -- odpoved nikam nesla.
+     Ted se zapise do notebooku, protoze "co me presvedcilo" patri do zaznamu
+     vic nez cokoli jineho. Porad bez znamkovani: spravna odpoved neexistuje. */
+  [].forEach.call(document.querySelectorAll('.ac-rcrefl'),function(rb){
+    var qEl=rb.querySelector('.ac-pdstep'), qt=qEl?qEl.textContent.trim():'';
+    var rec=null;
+    [].forEach.call(rb.querySelectorAll('[data-rc-refl]'),function(b){
+      b.addEventListener('click',function(){
+        [].forEach.call(rb.querySelectorAll('[data-rc-refl]'),function(o){
+          o.setAttribute('aria-pressed',String(o===b));});
+        var a=nbLabel(b);
+        if(rec) rec.a=a; else {rec={q:qt,a:a};NB.refl.push(rec);}
+        track('reflection_answered',{choice:a.slice(0,60)});
+        nbRender();
+      });
+    });
+  });
+
+  var nbCopy=nbBox?nbBox.querySelector('[data-nb-copy]'):null;
+  var nbSaid=nbBox?nbBox.querySelector('[data-nb-copied]'):null;
+  if(nbCopy) nbCopy.addEventListener('click',function(){
+    var t=(nbBody?(nbBody.innerText||nbBody.textContent||''):'').trim();
+    function said(m){if(nbSaid){nbSaid.textContent=m;nbSaid.hidden=false;}}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){said('Copied.');},
+          function(){said('Could not copy — select the text above instead.');});
+      }else said('Could not copy — select the text above instead.');
+    }catch(err){said('Could not copy — select the text above instead.');}
+    track('notebook_copied');
+  });
+  nbRender();
 
   /* ---------- vyzkumna cesta (lab) ----------
      Stavovy automat, ne nakupni seznam. Drzi ctyri veci: kde stojis (`cursor`),
@@ -1329,6 +1497,10 @@ CHALLENGE_JS = """
       if(sp) sp.hidden=!done;
       c.setAttribute('data-rc-spent',done?'1':'0');
       var after=c.querySelector('[data-lab-after]');
+      /* predpoved patri k rozhodovani: otevrena je tam, kde se prave vybira,
+         a sbalena v zasobniku, aby sly karty porovnat vedle sebe */
+      var fd=c.querySelector('.ac-labfals');
+      if(fd) fd.open=(box===nextBox||box===hereBox)&&!done&&!closed;
       if(done){
         if(run) run.hidden=true;
         if(no) no.hidden=true;
@@ -1383,6 +1555,44 @@ CHALLENGE_JS = """
       pathBox.hidden=false;
     }
     if(btns) btns.hidden=false;
+    nbSync();
+  }
+
+  function nbSync(){
+    NB.total=total; NB.spent=total-left; NB.unit=D.unit;
+    NB.goals=D.goals.length; NB.answered=answered().length; NB.closed=closed;
+    var got={}; answered().forEach(function(g){got[g.id]=1;});
+    NB.openGoals=D.goals.filter(function(g){return !got[g.id];})
+                        .map(function(g){return g.q;});
+    nbRender();
+  }
+
+  /* Verdikt k predpovedi. Mluvi o tom, co krok vratil, ne o tom, jak dobre
+     clovek tipnul -- a kdyz predpoved nepadla, rekne to rovnou, protoze
+     predpoved udelana po vysledku uz zadna predpoved neni. */
+  function falsVerdict(id){
+    var card=cards[id]; if(!card) return;
+    var fb=card.querySelector('[data-rc-fals]'); if(!fb) return;
+    var v=fb.querySelector('[data-fals-verdict]'); if(!v) return;
+    var rec=NB.falsBy[id];
+    if(!rec){
+      v.textContent='You ran this one without saying what would change your mind. '+
+        'Worth a click on the next step: a prediction made after the result is not a '+
+        'prediction.';
+      v.setAttribute('data-hit','0');
+    }else{
+      rec.run=true;
+      v.textContent=rec.hit
+        ? 'You said this result would weaken your model \u2014 and it is what the step '+
+          'returned. Now is the moment to say what you are changing, while it is cheap.'
+        : 'You named a different result as the one that would weaken your model. This '+
+          'step returned something else, so your model comes through it untouched \u2014 '+
+          'which is worth noticing rather than celebrating.';
+      v.setAttribute('data-hit',rec.hit?'1':'0');
+    }
+    v.hidden=false;
+    fb.open=true;
+    track('falsify_checked',{experiment:id,matched:rec?(rec.hit?1:0):-1});
   }
 
   function goto_(id){
@@ -1416,7 +1626,10 @@ CHALLENGE_JS = """
     var u=unlocked(); if(!u[id]) return;
     left-=n.cost; ran.push(id); cursor=id;
     if(ran.length===1) paFalsifier(id);
+    NB.runs.push({label:n.label,cost:n.cost,conclude:n.conclude||[],cannot:n.cannot||[]});
     paint();
+    falsVerdict(id);
+    nbSync();
     track('experiment_run',{experiment:id,cost:n.cost,remaining:left,
                             answers:answered().length});
   }
@@ -1497,6 +1710,9 @@ CHALLENGE_JS = """
     left=total; ran=[]; cursor=null; closed=false;
     if(closeBtn) closeBtn.disabled=false;
     if(deb){deb.hidden=true;deb.innerHTML='';}
+    NB.runs=[]; NB.fals=[]; NB.falsBy={};
+    [].forEach.call(step.querySelectorAll('[data-fals-verdict]'),function(v){
+      v.hidden=true;v.textContent='';v.removeAttribute('data-hit');});
     paint();
   });
   paint();
@@ -3018,6 +3234,38 @@ def rc_result(ex, by_sid):
             % (head, chart, prose(res["caption"]), interp, lists, info))
 
 
+def rc_falsify(n):
+    """"What would change your mind?" -- predpoved PRED vysledkem.
+
+    Ucebnicova falsifikovatelnost bez filozofie vedy: student rekne dopredu,
+    ktery vysledek by jeho model oslabil, a teprve pak krok spusti. Po vysledku
+    stranka rekne, jestli se to stalo. Neni to znamka -- verdikt mluvi o tom,
+    co krok vratil, ne o tom, jak dobre student tipnul.
+
+    Tri pravidla, ktera drzi bran (pravidlo 22):
+      * blok patri do ROZHODOVACI pulky karty; po vysledku uz to neni predpoved,
+      * prave jedna moznost nese `happened: true` -- jinak by verdikt nemel
+        z ceho vzniknout,
+      * hypoteticky krok zadny nema: predpoved se neda falsifikovat predpovedi.
+    """
+    f = n.get("falsify")
+    if not f:
+        return ""
+    hit = [i for i, o in enumerate(f["options"]) if o.get("happened")]
+    if len(hit) != 1:
+        raise SystemExit("build_academy: krok %r musi mit prave jednu moznost "
+                         "falsify s happened:true" % n["id"])
+    fall = ('<details class="ac-rcfall"><summary>Which of these the step returned'
+            '</summary><p><strong>%s.</strong> %s</p></details>'
+            % (e(QZ_KEYS[hit[0]]), prose(f["options"][hit[0]]["label"])))
+    return ('<details class="ac-labfals" data-rc-fals="%s" data-happened="%d">'
+            '<summary>Before you run it: what would change your mind?</summary>'
+            '<p class="ac-rcfalsq">%s</p>%s'
+            '<p class="ac-rcfalsv" data-fals-verdict hidden></p>%s</details>'
+            % (e(n["id"]), hit[0], prose(f["prompt"]),
+               rc_optnotes(f["options"], "What would change your mind"), fall))
+
+
 def rc_node(n, by_sid, unit):
     """Karta jednoho kroku vyzkumu ve DVOU podobach v jednom kusu markupu.
 
@@ -3061,7 +3309,7 @@ def rc_node(n, by_sid, unit):
               '<p class="ac-labfield"><span class="ac-rclbl">Addresses</span> %s</p>'
               '<p class="ac-labfield"><span class="ac-rclbl">Needs</span> %s</p>'
               '<details class="ac-labdesign"><summary>The design</summary>'
-              '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div></details>'
+              '<div class="ac-cmpwrap"><table class="ac-cmp">%s</table></div></details>%s'
               '<div class="ac-labact">'
               '<button type="button" class="ac-cta ac-quiet ac-rcrun">Run &middot; %d %s'
               '</button>'
@@ -3072,7 +3320,8 @@ def rc_node(n, by_sid, unit):
               '<p class="ac-rcdenied" hidden>Not enough budget left for this one. What you '
               'have already spent stays spent.</p></div>'
               % (n["cost"], e(unit), e(n["label"]), pred, prose(n["addresses"]),
-                 prose(n["equipment"]), rows, n["cost"], e(unit), n["cost"], e(unit)))
+                 prose(n["equipment"]), rows, rc_falsify(n),
+                 n["cost"], e(unit), n["cost"], e(unit)))
     return ('<div class="ac-rcexp ac-labnode" data-rc-exp="%s" data-cost="%d">%s'
             '<div class="ac-labfull">%s%s%s</div></div>'
             % (e(n["id"]), n["cost"], choice, opens, rc_result(n, by_sid), ev))
@@ -3281,6 +3530,54 @@ def rc_answer(ans, by_sid, hyp_options):
             % (prose(ans["short"]), "".join(obs), interp, open_, "".join(verdicts)))
 
 
+def rc_notebook(ch):
+    """Research notebook -- zaznam rozhodnuti, ne skore.
+
+    Vsechno, co tenhle blok ukazuje, uz engine vi: hypotezu ze kroku 3,
+    predpovedi z kroku 4, utracene kredity, ktere dilci otazky se odemkly,
+    revizi, reflexi a vybrany dalsi experiment. Az dosud to ale nikdy nebylo
+    videt pohromade, a prave ten prehled je to, co si clovek odnasi -- proto
+    ma vlastni krok a da se zkopirovat ven.
+
+    Zadne uloziste: notebook zije v jedne navsteve stranky, stejne jako
+    zbytek vyzvy. Bez JS se misto nej vykresli seznam toho, co by obsahoval,
+    a odkaz na to, ze cely material uz je vyse na strance (parita, pravidlo 23).
+    """
+    sections = [
+        ("The question", "the research question this challenge opens with"),
+        ("My working hypothesis", "the one you committed to before spending anything"),
+        ("What I said would change my mind", "your prediction at each step, and whether "
+         "the step returned it"),
+        ("Evidence I bought", "each step you ran, what it cost and what it let you "
+         "conclude"),
+        ("What it could not settle", "the other half of every result you bought"),
+        ("Where the question stood when I closed it", "sub-questions answered, and the "
+         "ones left open at any price"),
+        ("What changed my mind", "your revised hypothesis and your own answer to why"),
+        ("My next experiment", "the one you said you would defend in front of a budget"),
+    ]
+    rows = "".join("<li><strong>%s</strong> &mdash; %s</li>" % (e(a), e(b))
+                   for a, b in sections)
+    fall = ('<details class="ac-rcfall"><summary>The notebook, without JavaScript'
+            '</summary><p>With scripting on, this page keeps a running record of your '
+            'own decisions and prints it here as one page you can copy out. Nothing is '
+            'stored anywhere and nothing is scored &mdash; it is a record of what you '
+            'chose, not of how well you chose. Without scripting the record cannot '
+            'assemble itself, because the decisions are yours rather than the page\'s. '
+            'These are the sections it would hold, and every piece of material in them '
+            'is already above on this page.</p><ul>%s</ul></details>' % rows)
+    return ('<div class="ac-nb" data-rc-notebook data-nb-question="%s">'
+            '<p class="ac-nblbl">Research notebook</p>'
+            '<div data-nb-body><p class="ac-nbempty">With scripting on, the record of your own '
+            'decisions collects here as you work through the page. Without it the record '
+            'cannot assemble itself, because the decisions are yours rather than the '
+            'page\'s &mdash; the sections it would hold are listed below.</p></div>'
+            '<div class="ac-rcbtns"><button type="button" class="ac-cta ac-quiet" '
+            'data-nb-copy hidden>Copy the notebook</button></div>'
+            '<p class="ac-nbcopied" data-nb-copied hidden></p></div>%s'
+            % (e(TAG_RE.sub("", ch["researchQuestion"])), fall))
+
+
 def rc_step(n, key, title, inner, lead=""):
     return ('<section class="ac-rcstep" id="step-%d" data-rc-step="%s">'
             '<p class="ac-rcnum">Step %d</p><h2>%s</h2>%s%s</section>'
@@ -3408,7 +3705,16 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
     steps.append(rc_step(n, "reflect", "What would you do next?", inner))
     secs.append(("step-%d" % n, "What would you do next?"))
 
-    # 9 complete ----------------------------------------------------------
+    # 9 research notebook --------------------------------------------------
+    n += 1
+    steps.append(rc_step(n, "notebook", "Research notebook", rc_notebook(ch),
+                         "Everything you decided on this page, on one page. It is a "
+                         "record of choices rather than a score &mdash; what you started "
+                         "with, what you said would change your mind, what you bought "
+                         "with the budget, and where you left the question."))
+    secs.append(("step-%d" % n, "Research notebook"))
+
+    # 10 complete ----------------------------------------------------------
     n += 1
     lessons = "".join('<a href="%s/academy/core/%s/">%s</a>'
                       % (SITE, e(s), e(lessons_by_slug[s]["title"]))

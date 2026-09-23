@@ -835,6 +835,11 @@ def check_challenges(findings):
             for i, op in enumerate(x.get("interpret") or []):
                 blobs += [("%s.interpret%d.label" % (xw, i), op.get("label") or ""),
                           ("%s.interpret%d.note" % (xw, i), op.get("note") or "")]
+            fa = x.get("falsify") or {}
+            blobs.append(("%s.falsify.prompt" % xw, fa.get("prompt") or ""))
+            for i, op in enumerate(fa.get("options") or []):
+                blobs += [("%s.falsify%d.label" % (xw, i), op.get("label") or ""),
+                          ("%s.falsify%d.note" % (xw, i), op.get("note") or "")]
             ev = x.get("event") or {}
             for f in ("info", "prompt", "explain", "control"):
                 blobs.append(("%s.event.%s" % (xw, f), ev.get(f) or ""))

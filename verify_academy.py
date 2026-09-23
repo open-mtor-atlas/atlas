@@ -43,6 +43,9 @@ Kontroluje se:
      odemyka, otazka bez dosazitelneho poznatku MUSI byt oznacena jako
      otevrena, a hypoteticky krok nesmi vydavat zadny poznatek
  16  stranka vyzvy ma bez-JS ekvivalent laboratore, modelu i odpovedi
+ 22  kazdy nehypoteticky krok vyzvy ma "what would change your mind" (prave jedna
+     moznost je ta, ktera se stala); hypoteticky krok ho nesmi mit
+ 23  stranka vyzvy ma Research Notebook vcetne bez-JS podoby
  17  blok "Practice this lesson": lekce, na kterou je v Arene navazano aspon
      pet polozek, ho MUSI mit; odkaz vede na /academy/practice/?lesson=<slug>
      s existujicim slugem; blok je cely staticke HTML (zadny <script> uvnitr)
@@ -376,6 +379,39 @@ def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slu
                 bad(xw, "chybi cannotConclude -- druha polovina §14 je povinna")
             if not (x.get("informative") or "").strip():
                 bad(xw, "chybi informative -- §17 chce rict, jestli krok rozlisuje")
+            # 22 -- "what would change your mind": predpoved PRED vysledkem.
+            #
+            # Dve veci, ktere by na strance nebyly videt a ucily by spatne:
+            #   * hypoteticky krok s falsifikaci -- predpoved se neda vyvratit
+            #     predpovedi, a verdikt by mluvil o necem, co se nestalo,
+            #   * jina nez prave jedna moznost `happened` -- engine by nemel
+            #     z ceho postavit verdikt, nebo by tvrdil dve veci naraz.
+            fa = x.get("falsify")
+            if ev.get("hypothetical"):
+                if fa:
+                    bad(xw, "hypoteticky krok ma falsify -- predpoved se neda "
+                            "falsifikovat predpovedi (pravidlo 22)")
+            elif not fa:
+                bad(xw, "chybi falsify -- krok se spusti, aniz student rekl, co by "
+                        "ho presvedcilo (pravidlo 22)")
+            else:
+                if not (fa.get("prompt") or "").strip():
+                    bad(xw, "falsify nema prompt")
+                fopts = fa.get("options") or []
+                if not 3 <= len(fopts) <= 4:
+                    bad(xw, "falsify ma %d moznosti, povoleny jsou 3 nebo 4" % len(fopts))
+                hit = [o for o in fopts if o.get("happened")]
+                if len(hit) != 1:
+                    bad(xw, "falsify ma %d moznosti s happened:true, musi byt prave "
+                            "jedna -- jinak nema verdikt z ceho vzniknout" % len(hit))
+                for o in fopts:
+                    if not (o.get("label") or "").strip():
+                        bad(xw, "moznost falsify bez popisku")
+                    if not (o.get("note") or "").strip():
+                        bad(xw, "moznost %r ve falsify nema komentar" % o.get("label"))
+                    prose_blobs += [o.get("label") or "", o.get("note") or ""]
+                prose_blobs.append(fa.get("prompt") or "")
+
             interp = x.get("interpret") or []
             if not 3 <= len(interp) <= 4:
                 bad(xw, "ma %d interpretaci, povoleny jsou 3 nebo 4" % len(interp))
@@ -1037,6 +1073,14 @@ def main():
                          "a neodpovedela")
             if 'data-rc-budget' in h and 'class="ac-rcdata"' not in h:
                 bad(rel, "chybi payload debriefu -- rozpocet by se utratil bez zaveru")
+            if 'data-rc-budget' in h and 'data-rc-notebook' not in h:
+                bad(rel, "stranka vyzvy nema Research Notebook (pravidlo 23)")
+            if 'data-rc-notebook' in h and 'data-nb-question' not in h:
+                bad(rel, "Notebook nenese vyzkumnou otazku -- bez JS i s nim by zacinal "
+                         "prazdnou strankou")
+            if 'data-rc-fals' in h and 'data-happened' not in h:
+                bad(rel, "falsifikace nema v HTML, ktera moznost se stala -- verdikt by "
+                         "vznikal az v JS (pravidlo 22)")
             if 'data-rc-notes' in h and 'data-rc-note="0"' not in h:
                 bad(rel, "napsana zpetna vazba k volbam neni v HTML -- bez JS by "
                          "stranka byla prazdny seznam tlacitek")
