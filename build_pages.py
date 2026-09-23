@@ -2474,11 +2474,12 @@ def oliver_page(bio):
     # tam nikdy nebyla. Ted je, ma vlastni stranku pod /questions/frontier/. Zrcadlo:
     # Atlas_v2/src/pages/author/oliver-barton/index.astro.
     body.append(
-        f'<p><a href="{SITE}/questions/frontier/does-mtorc1-encode-information-in-dynamics-not-average-activity/">Read that question in full '
-        f'\u2192</a> \u2014 it is the first of five frontier questions in the Atlas, '
-        f'alongside whether mTORC1\'s outputs separate, whether location decides '
-        f'substrate choice, whether dosing has to match the body\'s own rhythm, and '
-        f'which human ageing phenotypes are actually reachable.</p>')
+        f'<p><a href="{SITE}/questions/frontier/">Read the frontier questions in full '
+        f'\u2192</a> \u2014 five questions in the Atlas about whether mTORC1 carries '
+        f'information in its dynamics rather than its average level, whether its '
+        f'outputs separate, whether location decides substrate choice, whether dosing '
+        f'has to match the body\'s own rhythm, and which human ageing phenotypes are '
+        f'actually reachable.</p>')
     orcid_id = bio["orcid"].replace("https://orcid.org/", "")
     body.append(
         f'<p class="meta"><span class="mono">Contact \u2014</span> '
