@@ -37,7 +37,7 @@ HOW TO ACTUALLY DO THIS (manual, ~10 minutes once registered):
 **Description:**
 A free, 10-lesson self-paced course on the mechanistic biology of mTOR
 (mechanistic target of rapamycin) signaling, built inside a larger
-evidence-graded research database of 384 curated primary studies. Each
+evidence-graded research database of 411 curated primary studies. Each
 lesson answers one question (e.g. "What is mTOR?", "mTORC1 vs mTORC2 —
 what's the difference?") and links every mechanistic claim to the
 primary study behind it, classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking. Includes

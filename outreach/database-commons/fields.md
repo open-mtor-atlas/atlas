@@ -17,7 +17,7 @@ form still uses this structure before submitting.
 - **Database name:** Oliver's mTOR Atlas
 - **Short name/acronym:** mTOR Atlas
 - **URL:** https://mtor-atlas.org/
-- **Description:** An evidence-graded, open-access database of 384
+- **Description:** An evidence-graded, open-access database of 411
   curated primary research studies on mTOR (mechanistic target of
   rapamycin) signaling. Each study is classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking,
   with extracted findings and the pathway entities/processes it
@@ -33,10 +33,10 @@ form still uses this structure before submitting.
 ## 2. Data
 
 - **Data source:** Manually curated from primary literature indexed in
-  PubMed (310 of 354 records have a mapped PMID); each record's
+  PubMed (400 of 411 records have a mapped PMID); each record's
   evidence tier, finding, and pathway associations are hand-extracted
   and reviewed, not automatically generated.
-- **Data scale:** 354 studies, 146 pathway entities/processes
+- **Data scale:** 411 studies, 149 pathway entities/processes
 - **Update frequency:** Ongoing (rolling additions and corrections;
   see public changelog: https://mtor-atlas.org/changelog/)
 - **Data format(s) available for download:** CSV and JSON exports

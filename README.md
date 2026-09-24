@@ -8,7 +8,7 @@ A curated, evidence-graded database of mTOR pathway research in which every clai
 
 ## What's inside
 
-- 360+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each labelled by the kind of study behind it and linked back to its DOI/PubMed record.
+- 400+ hand-curated primary studies on the mTOR signaling pathway (mTORC1/mTORC2, autophagy, rapamycin and related interventions), each labelled by the kind of study behind it and linked back to its DOI/PubMed record.
 - A knowledge-graph view connecting genes, diseases, and interventions.
 - An "open questions" layer - evidence gaps identified across the corpus, each paired with a proposed testable experiment.
 - A citation-grounded research assistant that answers pathway questions using only the indexed corpus, with links back to source studies.

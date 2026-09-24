@@ -29,7 +29,7 @@ instead of chasing that link.
 
 **Description (<=100 words):**
 
-An evidence-graded database of 354 curated primary studies on mTOR (mechanistic target of rapamycin) signaling, linking each study to its evidence tier, extracted findings, and 146 pathway entities/processes. Curated from PubMed literature; free, open, CC BY 4.0, no login required. Includes an interactive pathway browser, plain-language answer pages, and a 10-lesson Academy course. Zenodo DOI: 10.5281/zenodo.22059963.
+An evidence-graded database of 411 curated primary studies on mTOR (mechanistic target of rapamycin) signaling, linking each study to its study type, extracted findings, and 149 pathway entities/processes. Curated from PubMed literature; free, open, CC BY 4.0, no login required. Includes an interactive pathway browser, plain-language answer pages, and a 10-lesson Academy course. Zenodo DOI: 10.5281/zenodo.22059963.
 
 (Word count: 56)
 
@@ -50,9 +50,9 @@ collection's Name/URL/Category/Description/Contact format.
 Name: Oliver's mTOR Atlas
 URL: https://mtor-atlas.org/
 Category: Literature / Pathways
-Description: An evidence-graded database of 354 curated primary
+Description: An evidence-graded database of 411 curated primary
 studies on mTOR (mechanistic target of rapamycin) signaling, linking
-each study to its evidence tier, extracted findings, and 146 pathway
+each study to its study type, extracted findings, and 149 pathway
 entities/processes. Curated from PubMed literature; free, open, CC BY
 4.0, no login required. Includes an interactive pathway browser,
 plain-language answer pages, and a 10-lesson Academy course. Zenodo

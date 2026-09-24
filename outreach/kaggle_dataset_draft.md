@@ -25,7 +25,7 @@ Title:
   Oliver's mTOR Atlas
 
 Subtitle (max ~120 chars):
-  384 evidence-graded studies + 149 pathway entities on mTOR signaling, aging, and rapamycin
+  411 evidence-graded studies + 149 pathway entities on mTOR signaling, aging, and rapamycin
 
 Description (paste as-is, Markdown supported):
 
@@ -38,13 +38,13 @@ Description (paste as-is, Markdown supported):
   nutrients/metabolites.
 
   **What's included:**
-  - `studies.csv` / `studies.json` -- 354 studies: title, authors,
+  - `studies.csv` / `studies.json` -- 411 studies: title, authors,
     year, journal, evidence tier, study category/model, DOI/PMID/PMCID,
     a curated one-line finding, the PubMed abstract, and (where
     available) AI-assisted deep-extraction fields: intervention,
     target, species, effect, dose, sample size, effect size,
     limitations.
-  - `entities.csv` / `entities.json` -- 146 pathway entities with
+  - `entities.csv` / `entities.json` -- 149 pathway entities with
     technical + plain-language descriptions, synonyms, and study-count
     per entity.
 

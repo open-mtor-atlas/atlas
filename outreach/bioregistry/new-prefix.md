@@ -29,7 +29,7 @@ Petr/Oliver can supply -- not guessed here.
 5. **Description:** An evidence-graded database of curated primary
    research studies on mTOR (mechanistic target of rapamycin)
    signaling. Each study record is classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking
-   and linked to the pathway entities and processes it involves. 384
+   and linked to the pathway entities and processes it involves. 411
    studies, 149 pathway entities. Free, non-commercial, no login
    required.
 
@@ -47,10 +47,10 @@ Petr/Oliver can supply -- not guessed here.
    `^[A-Z]+\d{4,8}[A-Z]?$`
 
    Note for the reviewer: the brief's originally suggested pattern
-   (`^[A-Z]+\d{4}[A-Z]?$`, exactly 4 digits) does not match all 354
+   (`^[A-Z]+\d{4}[A-Z]?$`, exactly 4 digits) does not match all 411
    SIDs -- one record uses a clinical-trial NCT identifier as its SID
    (`NCT05835999`, 8 digits). Widened the digit-count quantifier to
-   `{4,8}` and re-verified against every one of the 354 SIDs in
+   `{4,8}` and re-verified against every one of the 411 SIDs in
    `atlas_data/studies_baked.json`: 0 non-matches, 0 duplicates, 0
    lowercase.
 

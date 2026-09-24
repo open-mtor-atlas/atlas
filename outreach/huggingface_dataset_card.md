@@ -58,7 +58,7 @@ size_categories:
 # Oliver's mTOR Atlas
 
 A curated, evidence-graded database of mTOR (mechanistic target of
-rapamycin) pathway research: 384 hand-curated primary studies, each
+rapamycin) pathway research: 411 hand-curated primary studies, each
 classified by study type -- systematic review of human data (S), human study (H), animal model (A), or molecular/mechanistic work (M) -- a classification of study design, not a quality ranking, linked to a knowledge
 graph of 149 pathway entities (genes/proteins, complexes, drugs,
 interventions, biological processes, diseases, outcomes, organelles,

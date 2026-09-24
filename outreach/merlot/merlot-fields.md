@@ -42,7 +42,7 @@ mTOR (mechanistic target of rapamycin) signaling — from "what is mTOR"
 through nutrient sensing, growth factor signaling, feedback regulation,
 and autophagy — for students and self-directed learners with a basic
 biology background. Every mechanistic claim links to the primary study
-behind it in Oliver's mTOR Atlas, an evidence-graded database of 354
+behind it in Oliver's mTOR Atlas, an evidence-graded database of 411
 curated mTOR studies, with that study's evidence tier (A–D) attached.
 Each lesson includes think-questions and a short quiz; the course closes
 with a lesson on how to critically read a primary mTOR paper. Free, no
