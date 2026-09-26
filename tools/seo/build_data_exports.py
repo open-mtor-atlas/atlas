@@ -96,9 +96,8 @@ def write_verified_text(path, text):
         f.flush()
         os.fsync(f.fileno())
     os.replace(tmp, path)
-    # newline="" on both sides: csv.writer emits \r\n line terminators, and
-    # verifying with universal-newline read (default) would silently strip
-    # the \r on every line and produce a false length mismatch.
+    # newline="" on both sides: no newline translation on write or read, so
+    # the verified length is the exact length that lands on disk.
     check = open(path, encoding="utf-8", newline="").read()
     assert len(check) == len(text), f"write verify failed for {path}: {len(check)} != {len(text)}"
 
@@ -147,10 +146,16 @@ def write_csv(path, rows, fieldnames):
     lines = []
     import io
     buf = io.StringIO()
-    w = csv.DictWriter(buf, fieldnames=fieldnames)
+    # 25. 9. 2026: LF, ne CRLF. .gitattributes drzi *.csv jako eol=lf, takze
+    # git pri commitu CRLF prepsal na LF a web (V2 bere exporty z gitu) servi-
+    # roval jiny soubor, nez pro jaky manifest.json spocital velikost a sha256.
+    # S lineterminator="\n" a bez \r v hodnotach je soubor bajtove stejny na
+    # disku, v gitu i na webu.
+    w = csv.DictWriter(buf, fieldnames=fieldnames, lineterminator="\n")
     w.writeheader()
     for r in rows:
-        w.writerow(r)
+        w.writerow({k: (v.replace("\r\n", "\n").replace("\r", "\n")
+                        if isinstance(v, str) else v) for k, v in r.items()})
     write_verified_text(path, buf.getvalue())
 
 
