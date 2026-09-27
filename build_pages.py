@@ -1872,7 +1872,7 @@ events alongside the Atlas's own study corpus.</p>
         url, [ld, bc], body, crumb, active_tab="lineage", extra_css=extra_css)
 
 
-def about_page(studies, entities):
+def about_page(studies, entities, bio=None):
     """Statická /about/ stránka -- přidáno 2026-08-23 v reakci na audit finding
     (SEO_GEO_AUDIT.md §14): AI systém nebo skeptický čtenář, co přistane na
     /study/... nebo /answers/... ze search výsledků, neměl žádný STATICKÝ odkaz
@@ -1911,6 +1911,62 @@ def about_page(studies, entities):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("About & Methodology", None)])
 
+    # 2026-09-27: Oliver's research focus -- current-focus studies, the
+    # frontier questions they grow out of, and ongoing trials/preprints not
+    # yet in the graded corpus. Same JSON as index.html's renderResearchFocus()
+    # (About > Research focus subtab) and oliver_page() links here instead of
+    # duplicating the table. Guarded on bio being present, same pattern as the
+    # focus_studies block in oliver_page().
+    research_focus_html = ""
+    if bio:
+        fq_html = ""
+        for f in (bio.get("frontier_questions") or []):
+            badge = ' <span class="mono" style="font-size:10px;">[primary]</span>' if f.get("primary") else ""
+            fq_html += (
+                f'<li style="margin-bottom:12px;"><a href="{SITE}/questions/frontier/{e(f["slug"])}/">'
+                f'{e(f["title"])}</a>{badge}<br><span class="meta">{e(f.get("gap_beginner") or "")}</span></li>\n')
+        studies_html = ""
+        if bio.get("focus_studies"):
+            studies_html += '<table class="st"><tr><th>Study</th><th>Authors</th>' \
+                            '<th>Why it matters</th><th>Evidence</th></tr>'
+            for r in bio["focus_studies"]:
+                code, label, colour, _o = tier_bits(r.get("tier"), r.get("pyramid"))
+                authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
+                studies_html += (
+                    f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
+                    f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">'
+                    f'{e(r["sid"])} &middot; {e(str(r["year"]) if r.get("year") else "")}</span></td>'
+                    f'<td data-l="Authors">{authors_html}</td>'
+                    f'<td data-l="Why it matters">{e(r["why"])}</td>'
+                    f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}</td></tr>')
+            studies_html += "</table>"
+        horizon_html = ""
+        if bio.get("on_the_horizon"):
+            horizon_html += '<table class="st"><tr><th>Study / trial</th><th>Type &amp; status</th>' \
+                            '<th>Why it matters</th></tr>'
+            for h in bio["on_the_horizon"]:
+                horizon_html += (
+                    f'<tr><td data-l="Study / trial"><a href="{e(h["url"])}">{e(h["title"])}</a>'
+                    f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">{e(h["id"])}'
+                    f'{(" &middot; " + e(h["sponsor"])) if h.get("sponsor") else ""}</span></td>'
+                    f'<td data-l="Type &amp; status">{e(h["kind"])}<br>{e(h["status"])}</td>'
+                    f'<td data-l="Why it matters">{e(h["why"])}</td></tr>')
+            horizon_html += "</table>"
+        research_focus_html = f'''
+<h2 id="research-focus">Oliver's research focus</h2>
+{"".join(f"<p>{p}</p>" for p in bio.get("research_focus_intro") or [])}
+<h3>Frontier questions</h3>
+<p class="meta">{e(bio.get("frontier_questions_intro") or "")}</p>
+<ul>
+{fq_html}</ul>
+<h3>Related studies &mdash; current focus</h3>
+<p class="meta">{e(bio.get("focus_table_intro") or "")}</p>
+{studies_html}
+<h3>On the horizon</h3>
+<p class="meta">{e(bio.get("on_the_horizon_intro") or "")}</p>
+{horizon_html}
+'''
+
     body = f"""<h1>About Oliver's mTOR Atlas</h1>
 <p class="summary">A curated, evidence-graded database of mTOR pathway
 research -- {n_studies} studies and {n_entities} cross-linked entities
@@ -1945,7 +2001,7 @@ articles.</p>
 <p>There is no editorial board and no second reviewer -- see "Who reviews
 the selection" below for what that does and doesn't mean for trust.</p>
 <p><strong>Contact:</strong> oliver.barton1113(at)gmail.com &middot; Bluesky: <a href="https://bsky.app/profile/oliver-barton.bsky.social">@oliver-barton.bsky.social</a>.</p>
-
+{research_focus_html}
 <h2>How a study gets in</h2>
 <p>Every study passes through the same four steps before it's added:</p>
 <ol>
@@ -2475,19 +2531,16 @@ def oliver_page(bio):
             f'<p class="meta">{e(bio["role"])}</p>',
             f'<img src="{e(bio["photo"])}" alt="{e(bio["full"])}" loading="lazy" '
             f'style="max-width:220px;border-radius:4px;margin:0 0 16px">']
+    # 2026-09-27: the second bio paragraph carries a {{RESEARCH_FOCUS_LINK}}
+    # placeholder (same JSON used by index.html's renderOliverBio(), which
+    # substitutes its own SPA-tab-switching link) -- here it resolves to a
+    # plain anchor into the new /about/#research-focus section, which now
+    # holds the frontier-questions summary and the focus-studies table that
+    # used to be duplicated on this page. Zrcadlo: Atlas_v2/src/pages/author/
+    # oliver-barton/index.astro.
+    research_focus_link = f'<a href="{SITE}/about/#research-focus">Research focus</a>'
     for p in bio["bio_paragraphs"]:
-        body.append(f"<p>{p}</p>")
-    # 2026-09-23: druhy odstavec medailonku konci odkazem "one of the open
-    # questions raised in this Atlas's Open Questions tab" -- jenze ta otazka
-    # tam nikdy nebyla. Ted je, ma vlastni stranku pod /questions/frontier/. Zrcadlo:
-    # Atlas_v2/src/pages/author/oliver-barton/index.astro.
-    body.append(
-        f'<p><a href="{SITE}/questions/frontier/">Read the frontier questions in full '
-        f'\u2192</a> \u2014 five questions in the Atlas about whether mTORC1 carries '
-        f'information in its dynamics rather than its average level, whether its '
-        f'outputs separate, whether location decides substrate choice, whether dosing '
-        f'has to match the body\'s own rhythm, and which human ageing phenotypes are '
-        f'actually reachable.</p>')
+        body.append(f'<p>{p.replace("{{RESEARCH_FOCUS_LINK}}", research_focus_link)}</p>')
     orcid_id = bio["orcid"].replace("https://orcid.org/", "")
     body.append(
         f'<p class="meta"><span class="mono">Contact \u2014</span> '
@@ -2496,37 +2549,10 @@ def oliver_page(bio):
         f'&middot; Bluesky: <a href="{e(bio["bluesky"])}">{e(bio["bluesky_handle"])}</a>'
         f'</span></p>')
 
-    if bio.get("focus_studies"):
-        body.append("<h2>Related studies \u2014 current research focus</h2>")
-        body.append(f'<p class="meta">{e(bio["focus_table_intro"])}</p>')
-        body.append('<table class="st"><tr><th>Study</th><th>Authors</th>'
-                    '<th>Why it matters</th><th>Evidence</th></tr>')
-        for r in bio["focus_studies"]:
-            code, label, colour, _o = tier_bits(r.get("tier"), r.get("pyramid"))
-            # 13. 9. 2026: `authors` MUSI byt seznam. Kdyz to byl retezec
-            # ("Korolchuk VI; Saiki S; ..."), join() iteroval po ZNACICH a na
-            # strance se objevilo "K, o, r, o, l, ...", zatimco Astro stranka
-            # /author/oliver-barton/ spadla na "(f.authors ?? []).map is not a
-            # function" a shodila cely build V2 -- tri hodiny hledani neceho,
-            # co ma rict jedna veta.
-            if not isinstance(r.get("authors"), list):
-                raise SystemExit(
-                    "build_pages: oliver_bio_baked.json -> focus_studies[%s].authors "
-                    "je %s, ma to byt seznam jmen (prvni a posledni autor)."
-                    % (r.get("sid"), type(r.get("authors")).__name__))
-            authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
-            body.append(
-                f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
-                f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">'
-                f'{e(r["sid"])} &middot; {e(r["year"] or "")}</span></td>'
-                f'<td data-l="Authors">{authors_html}</td>'
-                f'<td data-l="Why it matters">{e(r["why"])}</td>'
-                # 2026-09-07: used to append e(code) and a stray </span> after
-                # the badge, which already contains the code -- rendered as "MM"
-                # on 11 rows of /author/oliver-barton/.
-                f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}'
-                f'</td></tr>')
-        body.append("</table>")
+    # 2026-09-27: the "current focus" studies table moved to
+    # /about/#research-focus (about_page()) -- this page now just links
+    # there via the {{RESEARCH_FOCUS_LINK}} substitution above, instead of
+    # duplicating the table.
 
     # 2026-09-09: author-written acknowledgements, same single-source pattern as
     # the focus table above -- data lives in atlas_data/oliver_bio_baked.json
@@ -3134,6 +3160,7 @@ def main():
     # oliver_page() docstring above. Rides sitemap-authors.xml (category
     # "author") alongside every other researcher page.
     oliver_bio_path = os.path.join(DATA, "oliver_bio_baked.json")
+    oliver_bio = None
     if os.path.exists(oliver_bio_path):
         oliver_bio = json.load(open(oliver_bio_path, encoding="utf-8"))
         ourl, oslug, opage = oliver_page(oliver_bio)
@@ -3147,7 +3174,7 @@ def main():
     write(os.path.join(HERE, "evidence", "index.html"), evidence_page_html)
     urls.append(("about", evidence_url))
 
-    aurl, apage = about_page(studies, entities)
+    aurl, apage = about_page(studies, entities, oliver_bio)
     write(os.path.join(HERE, "about", "index.html"), apage)
     urls.append(("about", aurl))
 
