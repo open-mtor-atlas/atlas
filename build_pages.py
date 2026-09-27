@@ -1911,61 +1911,21 @@ def about_page(studies, entities, bio=None):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("About & Methodology", None)])
 
-    # 2026-09-27: Oliver's research focus -- current-focus studies, the
-    # frontier questions they grow out of, and ongoing trials/preprints not
-    # yet in the graded corpus. Same JSON as index.html's renderResearchFocus()
-    # (About > Research focus subtab) and oliver_page() links here instead of
-    # duplicating the table. Guarded on bio being present, same pattern as the
-    # focus_studies block in oliver_page().
+    # 2026-09-27: Oliver's research focus zila kratce primo tady jako sekce
+    # (#research-focus) -- Petr chtel misto toho VLASTNI stranku v About
+    # submenu, ne kotvu v prostred jineho dokumentu (stejny duvod, proc uz
+    # drive dostala vlastni stranku Methodology, viz split_methodology()
+    # v Atlas_v2/scripts/sync_prose.py). Stranka je proto jen ve V2:
+    # Atlas_v2/src/pages/about/research-focus/index.astro, cte primo
+    # oliver_bio_baked.json (stejny zdroj jako tady) -- V1 na ni jen odkazuje
+    # absolutni URL, takze zadny soubor tu chybet nemusi (K9 v verify_parity.py
+    # kontroluje jen V1 -> V2 smer).
     research_focus_html = ""
     if bio:
-        fq_html = ""
-        for f in (bio.get("frontier_questions") or []):
-            badge = ' <span class="mono" style="font-size:10px;">[primary]</span>' if f.get("primary") else ""
-            fq_html += (
-                f'<li style="margin-bottom:12px;"><a href="{SITE}/questions/frontier/{e(f["slug"])}/">'
-                f'{e(f["title"])}</a>{badge}<br><span class="meta">{e(f.get("gap_beginner") or "")}</span></li>\n')
-        studies_html = ""
-        if bio.get("focus_studies"):
-            studies_html += '<table class="st"><tr><th>Study</th><th>Authors</th>' \
-                            '<th>Why it matters</th><th>Evidence</th></tr>'
-            for r in bio["focus_studies"]:
-                code, label, colour, _o = tier_bits(r.get("tier"), r.get("pyramid"))
-                authors_html = ", ".join(e(a) for a in r["authors"]) + " et al."
-                studies_html += (
-                    f'<tr><td data-l="Study"><a href="/study/{e(r["sid"])}/">{e(r["title"])}</a>'
-                    f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">'
-                    f'{e(r["sid"])} &middot; {e(str(r["year"]) if r.get("year") else "")}</span></td>'
-                    f'<td data-l="Authors">{authors_html}</td>'
-                    f'<td data-l="Why it matters">{e(r["why"])}</td>'
-                    f'<td data-l="Evidence">{tier_badge_by_bits(code, label, colour, _o)}</td></tr>')
-            studies_html += "</table>"
-        horizon_html = ""
-        if bio.get("on_the_horizon"):
-            horizon_html += '<table class="st"><tr><th>Study / trial</th><th>Type &amp; status</th>' \
-                            '<th>Why it matters</th></tr>'
-            for h in bio["on_the_horizon"]:
-                horizon_html += (
-                    f'<tr><td data-l="Study / trial"><a href="{e(h["url"])}">{e(h["title"])}</a>'
-                    f'<br><span class="mono" style="font-size:10.5px;color:var(--soft)">{e(h["id"])}'
-                    f'{(" &middot; " + e(h["sponsor"])) if h.get("sponsor") else ""}</span></td>'
-                    f'<td data-l="Type &amp; status">{e(h["kind"])}<br>{e(h["status"])}</td>'
-                    f'<td data-l="Why it matters">{e(h["why"])}</td></tr>')
-            horizon_html += "</table>"
-        research_focus_html = f'''
-<h2 id="research-focus">Oliver's research focus</h2>
-{"".join(f"<p>{p}</p>" for p in bio.get("research_focus_intro") or [])}
-<h3>Frontier questions</h3>
-<p class="meta">{e(bio.get("frontier_questions_intro") or "")}</p>
-<ul>
-{fq_html}</ul>
-<h3>Related studies &mdash; current focus</h3>
-<p class="meta">{e(bio.get("focus_table_intro") or "")}</p>
-{studies_html}
-<h3>On the horizon</h3>
-<p class="meta">{e(bio.get("on_the_horizon_intro") or "")}</p>
-{horizon_html}
-'''
+        research_focus_html = (
+            f'\n<p><a href="{SITE}/about/research-focus/">Oliver\'s research focus &rarr;</a> '
+            f'&mdash; the studies he is watching most closely right now, the frontier questions '
+            f'they grow out of, and clinical trials or preprints not yet in the graded corpus.</p>\n')
 
     body = f"""<h1>About Oliver's mTOR Atlas</h1>
 <p class="summary">A curated, evidence-graded database of mTOR pathway
@@ -2533,12 +2493,12 @@ def oliver_page(bio):
             f'style="max-width:220px;border-radius:4px;margin:0 0 16px">']
     # 2026-09-27: the second bio paragraph carries a {{RESEARCH_FOCUS_LINK}}
     # placeholder (same JSON used by index.html's renderOliverBio(), which
-    # substitutes its own SPA-tab-switching link) -- here it resolves to a
-    # plain anchor into the new /about/#research-focus section, which now
-    # holds the frontier-questions summary and the focus-studies table that
-    # used to be duplicated on this page. Zrcadlo: Atlas_v2/src/pages/author/
-    # oliver-barton/index.astro.
-    research_focus_link = f'<a href="{SITE}/about/#research-focus">Research focus</a>'
+    # substitutes its own SPA-tab-switching link) -- here it resolves to the
+    # dedicated /about/research-focus/ page (V2-only, see about_page() above),
+    # which holds the frontier-questions summary, the on-the-horizon trials/
+    # preprints, and the focus-studies table that used to be duplicated on
+    # this page. Zrcadlo: Atlas_v2/src/pages/author/oliver-barton/index.astro.
+    research_focus_link = f'<a href="{SITE}/about/research-focus/">Research focus</a>'
     for p in bio["bio_paragraphs"]:
         body.append(f'<p>{p.replace("{{RESEARCH_FOCUS_LINK}}", research_focus_link)}</p>')
     orcid_id = bio["orcid"].replace("https://orcid.org/", "")
@@ -2549,10 +2509,10 @@ def oliver_page(bio):
         f'&middot; Bluesky: <a href="{e(bio["bluesky"])}">{e(bio["bluesky_handle"])}</a>'
         f'</span></p>')
 
-    # 2026-09-27: the "current focus" studies table moved to
-    # /about/#research-focus (about_page()) -- this page now just links
-    # there via the {{RESEARCH_FOCUS_LINK}} substitution above, instead of
-    # duplicating the table.
+    # 2026-09-27: the "current focus" studies table moved to its own page,
+    # /about/research-focus/ -- this page now just links there via the
+    # {{RESEARCH_FOCUS_LINK}} substitution above, instead of duplicating
+    # the table.
 
     # 2026-09-09: author-written acknowledgements, same single-source pattern as
     # the focus table above -- data lives in atlas_data/oliver_bio_baked.json
