@@ -920,16 +920,67 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-routes li{margin:0 0 9px}
 .ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
 .ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-res{transition:border-color .15s,transform .15s,box-shadow .15s}
+.ac-res:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.ac-res[hidden],.ac-fcgroup[hidden],.ac-fcfilter[hidden]{display:none}
 .ac-res h3 a{text-decoration:none}
 .ac-res h3 a:hover{text-decoration:underline}
-.ac-res .ac-state{display:flex;flex-direction:column;gap:3px}
-.ac-res .ac-mt{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);
-  font-weight:600}
-.ac-levels{list-style:none;padding:0;margin:4px 0 12px;display:flex;flex-wrap:wrap;gap:6px 18px}
-.ac-levels li{font-size:14px;color:var(--soft)}
-.ac-levels b{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink);margin-right:6px}
-.ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
+.ac-fctop{display:flex;align-items:center;gap:10px}
+.ac-fctop .ac-kind i{font-style:normal;letter-spacing:.06em;color:var(--ink);font-weight:500}
+.ac-fcico{flex:none;width:38px;height:38px;border-radius:50%;background:var(--ac-tint);
+  color:var(--teal);display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--line)}
+.ac-fcgrid{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ac-fcmeta{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);
+  padding-top:10px;margin-top:4px}
+.ac-fcrow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ac-mt{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);font-weight:600;
+  flex:1;min-width:0}
+.ac-fcdepth{display:inline-flex;align-items:flex-end;gap:2px;height:14px;flex:none;margin-right:6px}
+.ac-fcdepth i{display:block;width:5px;background:var(--line);border-radius:1px}
+.ac-fcdepth i:nth-child(1){height:6px}.ac-fcdepth i:nth-child(2){height:10px}
+.ac-fcdepth i:nth-child(3){height:14px}
+.ac-fcdepth[data-d="1"] i:nth-child(-n+1),.ac-fcdepth[data-d="2"] i:nth-child(-n+2),
+.ac-fcdepth[data-d="3"] i{background:var(--teal)}
+.ac-fcpills{display:inline-flex;gap:3px}
+.ac-fcpill{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:10px;border:1px solid var(--line);
+  color:var(--soft);opacity:.55}
+.ac-fcpill.on{border-color:var(--teal);color:var(--teal);opacity:1;font-weight:600}
+.ac-fctime{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
+.ac-fccert{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  background:var(--ac-tint);border-radius:3px;padding:4px 7px;align-self:flex-start}
+.ac-fccert.paid{color:var(--ink)}
+.ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);margin:0 0 18px}
+.ac-fcpaths{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.ac-fcpath{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:16px 20px 12px}
+.ac-fcpath .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0}
+.ac-fcpsub{font-size:14px;color:var(--soft);margin:4px 0 10px}
+.ac-fcpath ol{list-style:none;counter-reset:fc;padding:0;margin:0}
+.ac-fcpath li{counter-increment:fc;position:relative;padding:0 0 12px 36px;font-size:15px;line-height:1.45}
+.ac-fcpath li::before{content:counter(fc);position:absolute;left:0;top:-1px;width:24px;height:24px;
+  border-radius:50%;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.ac-fcpath li:not(:last-child)::after{content:"";position:absolute;left:11.5px;top:25px;bottom:1px;
+  width:1px;background:var(--line)}
+.ac-fcpath a{text-decoration:none}
+.ac-fcpath a:hover{text-decoration:underline}
+.ac-fclegend{display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--soft);margin:0 0 10px}
+.ac-fclegend .ac-fcdepth{vertical-align:-2px}
+.ac-fcfilter{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.ac-fcfilter span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);margin-right:4px}
+.ac-fcfilter button{font:inherit;font-size:13.5px;min-height:36px;padding:5px 14px;cursor:pointer;
+  border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink)}
+.ac-fcfilter button:hover{border-color:var(--teal)}
+.ac-fcfilter button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.ac-fchead{display:flex;align-items:baseline;gap:10px;margin:34px 0 2px}
+.ac-fchead h2{margin:0;font-size:19px}
+.ac-fccount{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);
+  border:1px solid var(--teal);border-radius:10px;padding:1px 7px}
+.ac-fcblurb{color:var(--soft);font-size:14.5px;margin:4px 0 14px}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
@@ -2897,6 +2948,37 @@ FREE_URL = "/academy/free-courses/"
 _MONTHS = ("January February March April May June July August September October "
            "November December").split()
 
+# Ikony typu zdroje: jednoduche cesty v 24x24, barvu bere currentColor.
+_FC_ICON = {
+    "play": '<path d="M9 7.5v9l7.5-4.5z" fill="currentColor"/>',
+    "course": '<path d="M3 9.5 12 5l9 4.5-9 4.5z" fill="none" stroke="currentColor" '
+              'stroke-width="1.6" stroke-linejoin="round"/><path d="M7 11.8V15c0 1.2 2.2 2.5 5 2.5'
+              's5-1.3 5-2.5v-3.2" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+    "book": '<path d="M5 5.5h5.5a2 2 0 0 1 1.5.7 2 2 0 0 1 1.5-.7H19v12h-5.5a2 2 0 0 0-1.5.7'
+            ' 2 2 0 0 0-1.5-.7H5z" fill="none" stroke="currentColor" stroke-width="1.6" '
+            'stroke-linejoin="round"/><path d="M12 6.3v12" stroke="currentColor" stroke-width="1.6"/>',
+    "doc": '<path d="M7 4.5h7l4 4v11H7z" fill="none" stroke="currentColor" stroke-width="1.6" '
+           'stroke-linejoin="round"/><path d="M9.5 12h6M9.5 15h6" stroke="currentColor" '
+           'stroke-width="1.6"/>',
+}
+_FC_KIND = {"Video": "play", "Lecture": "play", "Interview": "play", "Course": "course",
+            "Textbook chapter": "book", "Seminar materials": "doc"}
+
+FC_JS = """<script>(function(){
+var bar=document.getElementById('acFcFilter'); if(!bar) return;
+bar.hidden=false;
+var btns=bar.querySelectorAll('button');
+function set(lv){
+  for(var i=0;i<btns.length;i++){btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-lv')===lv?'true':'false');}
+  var cards=document.querySelectorAll('.ac-res');
+  for(var j=0;j<cards.length;j++){var ls=' '+cards[j].getAttribute('data-level')+' ';
+    cards[j].hidden = lv!=='all' && ls.indexOf(' '+lv+' ')<0;}
+  var gs=document.querySelectorAll('.ac-fcgroup');
+  for(var k=0;k<gs.length;k++){gs[k].hidden=!gs[k].querySelector('.ac-res:not([hidden])');}
+}
+for(var i=0;i<btns.length;i++){btns[i].addEventListener('click',function(){set(this.getAttribute('data-lv'));});}
+})();</script>"""
+
 
 def further_page(modules):
     """/academy/free-courses/ -- bezplatne kurzy a prednasky jinde (2026-09-28).
@@ -2907,7 +2989,10 @@ def further_page(modules):
     na strance opravdu vykreslila. Urovne jsou tytez tri jako prepinac Reading
     level, aby clovek nemusel prekladat mezi dvema stupnicemi.
 
-    Zadny JS, zadne localStorage: je to seznam odkazu, ne aplikace."""
+    Vizualni vrstva (2. verze tehoz dne; pruh s cisly Petr nechtel): dve ocislovane cesty,
+    ukazatel hloubky mTORu (depth 1-3), pilulky urovni, stitek certifikatu.
+    Filtr urovni je progresivni vylepseni: bez JS je lista skryta atributem
+    hidden a vsechny karty jsou videt."""
     cfg = modules.get("furtherLearning")
     if not cfg:
         return None
@@ -2916,35 +3001,73 @@ def further_page(modules):
     y, m, d = (int(x) for x in cfg["checked"].split("-"))
     checked = "%d %s %d" % (d, _MONTHS[m - 1], y)
 
-    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
-            '<h1>%s</h1><p class="ac-lede">%s</p>'
-            '<p class="ac-checked">Links checked %s</p></div>'
-            % (e(cfg["title"]), prose(cfg["lede"]), checked)]
+    def ahref(u):
+        return (SITE + u) if u.startswith("/") else u
+
+    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy &middot; Beyond the Atlas</p>'
+            '<h1>%s</h1><p class="ac-lede">%s</p></div>' % (e(cfg["title"]), prose(cfg["lede"]))]
+    body.append('<p class="ac-checked">Links checked %s</p>' % checked)
     body.append('<p class="ac-note">%s</p>' % prose(cfg["note"]))
 
+    # ---- dve cesty -------------------------------------------------------
+    body.append('<section class="ac-section"><h2 id="where-to-start">Where to start</h2>'
+                '<div class="ac-fcpaths">')
+    for o in cfg["order"]:
+        body.append('<div class="ac-fcpath"><p class="ac-kind">%s</p><p class="ac-fcpsub">%s</p><ol>%s</ol></div>'
+                    % (e(o["who"]), prose(o["says"]),
+                       "".join('<li><a href="%s"%s>%s</a></li>'
+                               % (e(ahref(s["url"])),
+                                  "" if s["url"].startswith("/") else ' rel="noopener"',
+                                  e(s["label"])) for s in o["steps"])))
+    body.append("</div></section>")
+
+    # ---- jak cist karty + filtr -------------------------------------------
     body.append('<section class="ac-section"><h2 id="how-to-read">How to read the cards</h2>'
-                '<ul class="ac-levels">%s</ul><p>%s</p></section>'
-                % ("".join('<li><b>%s</b>%s</li>' % (e(l["label"]), prose(l["says"]))
-                           for l in cfg["levels"]),
-                   prose(cfg["certNote"])))
+                '<div class="ac-fclegend">'
+                '<div><span class="ac-fclv">%s</span></div>'
+                '<div><span class="ac-fcdepth" data-d="3"><i></i><i></i><i></i></span> '
+                'how much of it is about mTOR: three bars means all of it, one bar means '
+                'useful background</div></div><p>%s</p>'
+                '<div class="ac-fcfilter" id="acFcFilter" role="group" aria-label="Filter by level" hidden>'
+                '<span>Show</span><button type="button" data-lv="all" aria-pressed="true">All</button>%s</div>'
+                '</section>'
+                % ("".join('<span class="ac-fcpill on">%s</span> %s &nbsp; '
+                           % (e(l["label"]), prose(l["says"])) for l in cfg["levels"]),
+                   prose(cfg["certNote"]),
+                   "".join('<button type="button" data-lv="%s" aria-pressed="false">%s</button>'
+                           % (e(l["id"]), e(l["label"])) for l in cfg["levels"])))
 
     items_ld = []
     for g in cfg["groups"]:
-        body.append('<section class="ac-section"><h2 id="%s">%s</h2><div class="ac-ways">'
-                    % (e(g["id"]), e(g["title"])))
+        body.append('<section class="ac-section ac-fcgroup"><div class="ac-fchead">'
+                    '<h2 id="%s">%s</h2><span class="ac-fccount">%d</span></div>'
+                    '<p class="ac-fcblurb">%s</p><div class="ac-ways ac-fcgrid">'
+                    % (e(g["id"]), e(g["title"]), len(g["items"]), prose(g.get("blurb", ""))))
         for it in g["items"]:
             lvl = " to ".join(lv[x]["label"] for x in it["level"])
+            pills = "".join('<span class="ac-fcpill%s">%s</span>'
+                            % (" on" if l["id"] in it["level"] else "", e(l["label"]))
+                            for l in cfg["levels"])
+            paid = "$" in it["cert"] or "paid" in it["cert"]
+            icon = _FC_ICON[_FC_KIND.get(it["kind"], "doc")]
             body.append(
                 '<div class="ac-way ac-res" data-level="%s">'
-                '<span class="ac-kind">%s &middot; %s</span>'
+                '<div class="ac-fctop"><span class="ac-fcico" aria-hidden="true">'
+                '<svg viewBox="0 0 24 24" width="22" height="22">%s</svg></span>'
+                '<span class="ac-kind">%s<br><i>%s</i></span></div>'
                 '<h3><a href="%s" rel="noopener">%s</a></h3>'
                 '<p>%s</p>'
-                '<span class="ac-state"><span class="ac-mt">mTOR: %s</span>'
-                '<span>%s &middot; <i>%s</i></span><span><i>%s</i></span></span>'
+                '<div class="ac-fcmeta">'
+                '<span class="ac-fcrow"><span class="ac-fcdepth" data-d="%d" aria-hidden="true">'
+                '<i></i><i></i><i></i></span><span class="ac-mt">mTOR: %s</span></span>'
+                '<span class="ac-fcrow"><span class="ac-fcpills" aria-label="Level: %s">%s</span>'
+                '<span class="ac-fctime">%s</span></span>'
+                '<span class="ac-fccert%s">%s</span></div>'
                 '<a class="ac-go" href="%s" rel="noopener">Open &rarr;</a></div>'
-                % (" ".join(it["level"]), e(it["kind"]), e(it["provider"]),
+                % (" ".join(it["level"]), icon, e(it["kind"]), e(it["provider"]),
                    e(it["url"]), e(it["label"]), prose(it["says"]),
-                   e(it["mtor"]), e(lvl), e(it["time"]), e(it["cert"]), e(it["url"])))
+                   it.get("depth", 1), e(it["mtor"]), e(lvl), pills, e(it["time"]),
+                   " paid" if paid else "", e(it["cert"]), e(it["url"])))
             items_ld.append({"@type": "LearningResource", "name": it["label"],
                              "url": it["url"], "learningResourceType": it["kind"],
                              "provider": {"@type": "Organization",
@@ -2952,11 +3075,6 @@ def further_page(modules):
                              "educationalLevel": lvl, "isAccessibleForFree": True,
                              "inLanguage": "en"})
         body.append("</div></section>")
-
-    body.append('<section class="ac-section"><h2 id="where-to-start">Where to start</h2>'
-                '<ul class="ac-objlist">%s</ul></section>'
-                % "".join("<li><strong>%s:</strong> %s</li>" % (e(o["who"]), prose(o["says"]))
-                          for o in cfg["order"]))
 
     body.append('<div class="ac-nextbar">'
                 '<a class="ac-cta ac-quiet" href="%s/academy/">&larr; Academy</a>'
@@ -2979,7 +3097,7 @@ def further_page(modules):
                       "cell signalling, biochemistry and ageing. Each one marked with its level, "
                       "certificate and how much mTOR it contains.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
-                      extra_css=ACADEMY_CSS)
+                      extra_css=ACADEMY_CSS, extra_body=FC_JS)
 
 
 def academy_home(modules, lessons_by_slug, challenges):

@@ -719,16 +719,67 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-routes li{margin:0 0 9px}
 .ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
 .ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-res{transition:border-color .15s,transform .15s,box-shadow .15s}
+.ac-res:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.ac-res[hidden],.ac-fcgroup[hidden],.ac-fcfilter[hidden]{display:none}
 .ac-res h3 a{text-decoration:none}
 .ac-res h3 a:hover{text-decoration:underline}
-.ac-res .ac-state{display:flex;flex-direction:column;gap:3px}
-.ac-res .ac-mt{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);
-  font-weight:600}
-.ac-levels{list-style:none;padding:0;margin:4px 0 12px;display:flex;flex-wrap:wrap;gap:6px 18px}
-.ac-levels li{font-size:14px;color:var(--soft)}
-.ac-levels b{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink);margin-right:6px}
-.ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
+.ac-fctop{display:flex;align-items:center;gap:10px}
+.ac-fctop .ac-kind i{font-style:normal;letter-spacing:.06em;color:var(--ink);font-weight:500}
+.ac-fcico{flex:none;width:38px;height:38px;border-radius:50%;background:var(--ac-tint);
+  color:var(--teal);display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--line)}
+.ac-fcgrid{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ac-fcmeta{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);
+  padding-top:10px;margin-top:4px}
+.ac-fcrow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ac-mt{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);font-weight:600;
+  flex:1;min-width:0}
+.ac-fcdepth{display:inline-flex;align-items:flex-end;gap:2px;height:14px;flex:none;margin-right:6px}
+.ac-fcdepth i{display:block;width:5px;background:var(--line);border-radius:1px}
+.ac-fcdepth i:nth-child(1){height:6px}.ac-fcdepth i:nth-child(2){height:10px}
+.ac-fcdepth i:nth-child(3){height:14px}
+.ac-fcdepth[data-d="1"] i:nth-child(-n+1),.ac-fcdepth[data-d="2"] i:nth-child(-n+2),
+.ac-fcdepth[data-d="3"] i{background:var(--teal)}
+.ac-fcpills{display:inline-flex;gap:3px}
+.ac-fcpill{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:10px;border:1px solid var(--line);
+  color:var(--soft);opacity:.55}
+.ac-fcpill.on{border-color:var(--teal);color:var(--teal);opacity:1;font-weight:600}
+.ac-fctime{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
+.ac-fccert{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
+  background:var(--ac-tint);border-radius:3px;padding:4px 7px;align-self:flex-start}
+.ac-fccert.paid{color:var(--ink)}
+.ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);margin:0 0 18px}
+.ac-fcpaths{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.ac-fcpath{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
+  padding:16px 20px 12px}
+.ac-fcpath .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--teal);font-weight:600;margin:0}
+.ac-fcpsub{font-size:14px;color:var(--soft);margin:4px 0 10px}
+.ac-fcpath ol{list-style:none;counter-reset:fc;padding:0;margin:0}
+.ac-fcpath li{counter-increment:fc;position:relative;padding:0 0 12px 36px;font-size:15px;line-height:1.45}
+.ac-fcpath li::before{content:counter(fc);position:absolute;left:0;top:-1px;width:24px;height:24px;
+  border-radius:50%;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.ac-fcpath li:not(:last-child)::after{content:"";position:absolute;left:11.5px;top:25px;bottom:1px;
+  width:1px;background:var(--line)}
+.ac-fcpath a{text-decoration:none}
+.ac-fcpath a:hover{text-decoration:underline}
+.ac-fclegend{display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--soft);margin:0 0 10px}
+.ac-fclegend .ac-fcdepth{vertical-align:-2px}
+.ac-fcfilter{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.ac-fcfilter span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--soft);margin-right:4px}
+.ac-fcfilter button{font:inherit;font-size:13.5px;min-height:36px;padding:5px 14px;cursor:pointer;
+  border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink)}
+.ac-fcfilter button:hover{border-color:var(--teal)}
+.ac-fcfilter button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.ac-fchead{display:flex;align-items:baseline;gap:10px;margin:34px 0 2px}
+.ac-fchead h2{margin:0;font-size:19px}
+.ac-fccount{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);
+  border:1px solid var(--teal);border-radius:10px;padding:1px 7px}
+.ac-fcblurb{color:var(--soft);font-size:14.5px;margin:4px 0 14px}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
@@ -842,7 +893,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-28 11:57 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-09-28 20:06 Prague time</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's
