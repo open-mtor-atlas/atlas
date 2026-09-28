@@ -796,6 +796,17 @@ def check_modules_prose(findings):
                   for i, x in enumerate(b.get("notNeeded") or [])]
         blobs += [("before.elsewhere%d" % i, r.get("says") or "")
                   for i, r in enumerate(b.get("elsewhere") or [])]
+    fl = d.get("furtherLearning") or {}
+    if fl:
+        # /academy/free-courses/ (2026-09-28): popisky cizich kurzu jsou nase
+        # proza -- tvrzeni typu "this course proves" by proslo jinak bez kontroly.
+        blobs += [("free.lede", fl.get("lede") or ""), ("free.note", fl.get("note") or ""),
+                  ("free.certNote", fl.get("certNote") or "")]
+        blobs += [("free.order%d" % i, o.get("says") or "")
+                  for i, o in enumerate(fl.get("order") or [])]
+        for g in fl.get("groups") or []:
+            blobs += [("free.%s.%d" % (g.get("id"), i), it.get("says") or "")
+                      for i, it in enumerate(g.get("items") or [])]
     for field, raw in blobs:
         if not raw:
             continue

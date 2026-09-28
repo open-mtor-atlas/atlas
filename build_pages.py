@@ -3378,6 +3378,16 @@ def main():
                 "- [mTOR Academy](https://mtor-atlas.org/academy/): course overview and "
                 "entry points\n"
                 + "\n".join(_lines) + "\n")
+            _fl = json.load(open(os.path.join(HERE, "academy_data", "modules.json"),
+                                 encoding="utf-8")).get("furtherLearning")
+            if _fl and os.path.exists(os.path.join(HERE, "academy", "free-courses",
+                                                   "index.html")):
+                _n = sum(len(g["items"]) for g in _fl["groups"])
+                academy_section += (
+                    f'- [{_fl["title"]}](https://mtor-atlas.org/academy/free-courses/): '
+                    f'{_n} free courses, lectures and readings elsewhere (MITx, Coursera, '
+                    f'iBiology, FutureLearn), each with level, certificate and how much '
+                    f'mTOR it covers\n')
         except Exception as exc:
             print("  ! llms.txt: sekce Academy přeskočena (%s)" % exc)
 

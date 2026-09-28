@@ -920,6 +920,16 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-routes li{margin:0 0 9px}
 .ac-routes a{font-size:15px;font-weight:600;text-decoration:none}
 .ac-routes span{display:block;font-size:13.5px;color:var(--soft);line-height:1.5}
+.ac-res h3 a{text-decoration:none}
+.ac-res h3 a:hover{text-decoration:underline}
+.ac-res .ac-state{display:flex;flex-direction:column;gap:3px}
+.ac-res .ac-mt{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal);
+  font-weight:600}
+.ac-levels{list-style:none;padding:0;margin:4px 0 12px;display:flex;flex-wrap:wrap;gap:6px 18px}
+.ac-levels li{font-size:14px;color:var(--soft)}
+.ac-levels b{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink);margin-right:6px}
+.ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft)}
 .ac-nextbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
 
@@ -2854,7 +2864,11 @@ def prereq_page(modules, module, first_slug):
     for r in cfg["elsewhere"]:
         body.append('<li><a href="%s" rel="noopener">%s</a><span>%s</span></li>'
                     % (e(r["url"]), e(r["label"]), prose(r["says"])))
-    body.append("</ul></section>")
+    body.append("</ul>")
+    if modules.get("furtherLearning"):
+        body.append('<p><a href="%s%s">More free courses and lectures, with level and '
+                    'certificate for each &rarr;</a></p>' % (SITE, FREE_URL))
+    body.append("</section>")
 
     body.append('<div class="ac-nextbar">'
                 '<a class="ac-cta ac-quiet" href="%s/academy/">&larr; Academy</a>'
@@ -2877,6 +2891,95 @@ def prereq_page(modules, module, first_slug):
     return url, shell("%s | mTOR Academy | Oliver's mTOR Atlas" % cfg["title"],
                       TAG_RE.sub("", cfg["lede"])[:300], url, [ld, bc], "".join(body),
                       crumb, active_tab="learn", extra_css=ACADEMY_CSS)
+
+
+FREE_URL = "/academy/free-courses/"
+_MONTHS = ("January February March April May June July August September October "
+           "November December").split()
+
+
+def further_page(modules):
+    """/academy/free-courses/ -- bezplatne kurzy a prednasky jinde (2026-09-28).
+
+    Stejny kontrakt jako prereq_page: proza a odkazy ziji v modules.json
+    (klic furtherLearning), validate_claims je cte, verify_academy (pravidlo 24)
+    hlida, ze kazda polozka ma uroven, certifikat a "kolik mTORu" a ze se
+    na strance opravdu vykreslila. Urovne jsou tytez tri jako prepinac Reading
+    level, aby clovek nemusel prekladat mezi dvema stupnicemi.
+
+    Zadny JS, zadne localStorage: je to seznam odkazu, ne aplikace."""
+    cfg = modules.get("furtherLearning")
+    if not cfg:
+        return None
+    url = SITE + FREE_URL
+    lv = {l["id"]: l for l in cfg["levels"]}
+    y, m, d = (int(x) for x in cfg["checked"].split("-"))
+    checked = "%d %s %d" % (d, _MONTHS[m - 1], y)
+
+    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
+            '<h1>%s</h1><p class="ac-lede">%s</p>'
+            '<p class="ac-checked">Links checked %s</p></div>'
+            % (e(cfg["title"]), prose(cfg["lede"]), checked)]
+    body.append('<p class="ac-note">%s</p>' % prose(cfg["note"]))
+
+    body.append('<section class="ac-section"><h2 id="how-to-read">How to read the cards</h2>'
+                '<ul class="ac-levels">%s</ul><p>%s</p></section>'
+                % ("".join('<li><b>%s</b>%s</li>' % (e(l["label"]), prose(l["says"]))
+                           for l in cfg["levels"]),
+                   prose(cfg["certNote"])))
+
+    items_ld = []
+    for g in cfg["groups"]:
+        body.append('<section class="ac-section"><h2 id="%s">%s</h2><div class="ac-ways">'
+                    % (e(g["id"]), e(g["title"])))
+        for it in g["items"]:
+            lvl = " to ".join(lv[x]["label"] for x in it["level"])
+            body.append(
+                '<div class="ac-way ac-res" data-level="%s">'
+                '<span class="ac-kind">%s &middot; %s</span>'
+                '<h3><a href="%s" rel="noopener">%s</a></h3>'
+                '<p>%s</p>'
+                '<span class="ac-state"><span class="ac-mt">mTOR: %s</span>'
+                '<span>%s &middot; <i>%s</i></span><span><i>%s</i></span></span>'
+                '<a class="ac-go" href="%s" rel="noopener">Open &rarr;</a></div>'
+                % (" ".join(it["level"]), e(it["kind"]), e(it["provider"]),
+                   e(it["url"]), e(it["label"]), prose(it["says"]),
+                   e(it["mtor"]), e(lvl), e(it["time"]), e(it["cert"]), e(it["url"])))
+            items_ld.append({"@type": "LearningResource", "name": it["label"],
+                             "url": it["url"], "learningResourceType": it["kind"],
+                             "provider": {"@type": "Organization",
+                                          "name": it["provider"].split(" · ")[-1]},
+                             "educationalLevel": lvl, "isAccessibleForFree": True,
+                             "inLanguage": "en"})
+        body.append("</div></section>")
+
+    body.append('<section class="ac-section"><h2 id="where-to-start">Where to start</h2>'
+                '<ul class="ac-objlist">%s</ul></section>'
+                % "".join("<li><strong>%s:</strong> %s</li>" % (e(o["who"]), prose(o["says"]))
+                          for o in cfg["order"]))
+
+    body.append('<div class="ac-nextbar">'
+                '<a class="ac-cta ac-quiet" href="%s/academy/">&larr; Academy</a>'
+                '<a class="ac-cta" href="%s/academy/before-you-start/">What you need first &rarr;</a></div>'
+                % (SITE, SITE))
+
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage",
+          "name": cfg["title"], "url": url, "inLanguage": "en",
+          "description": TAG_RE.sub("", cfg["lede"])[:300],
+          "isPartOf": {"@type": "WebSite", "name": "mTOR Academy", "url": SITE + "/academy/"},
+          "hasPart": items_ld,
+          "license": "https://creativecommons.org/licenses/by/4.0/"}
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
+                        ("Academy", SITE + "/academy/"),
+                        (cfg["title"], None)])
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> · <a href="%s/academy/">Academy</a> · %s'
+             % (SITE, SITE, e(cfg["title"])))
+    return url, shell("%s | mTOR Academy | Oliver's mTOR Atlas" % cfg["title"],
+                      "Free online courses and lectures that cover the biology around mTOR: "
+                      "cell signalling, biochemistry and ageing. Each one marked with its level, "
+                      "certificate and how much mTOR it contains.",
+                      url, [ld, bc], "".join(body), crumb, active_tab="learn",
+                      extra_css=ACADEMY_CSS)
 
 
 def academy_home(modules, lessons_by_slug, challenges):
@@ -3028,6 +3131,12 @@ def academy_home(modules, lessons_by_slug, challenges):
                 '%s</div>'
                 % (SITE, SITE, SITE, SITE, SITE,
                    ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))
+    if modules.get("furtherLearning"):
+        body.append('<p class="ac-sechead">Beyond the Atlas</p>'
+                    '<p>Free courses and lectures elsewhere, from MIT, Coursera, iBiology and others, '
+                    'each marked with its level, certificate and how much mTOR it covers.</p>'
+                    '<div class="ac-deeper"><a href="%s%s">Free courses and lectures &rarr;</a></div>'
+                    % (SITE, FREE_URL))
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "mTOR Academy", "url": url, "inLanguage": "en",
@@ -3925,6 +4034,12 @@ def main():
         url, page = pre
         write(os.path.join(ACADEMY_DIR, "before-you-start", "index.html"), page)
         urls.append((url, "0.7"))
+
+    fur = further_page(modules)
+    if fur:
+        url, page = fur
+        write(os.path.join(ACADEMY_DIR, "free-courses", "index.html"), page)
+        urls.append((url, "0.6"))
 
     sid_to_lesson = {}
     for mod in modules["modules"]:

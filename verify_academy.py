@@ -60,6 +60,11 @@ Kontroluje se:
      otazek I s odpovedmi primo v HTML (parita bez JS) a je odkazovana
      z /academy/ i z /academy/core/. Stranka, na kterou nikdo neodkaze, je
      stranka, ktera neexistuje.
+ 24  stranka /academy/free-courses/ (2026-09-28): kdyz jsou v datech
+     `furtherLearning`, kazda polozka ma http url, uroven z `levels`,
+     neprazdny `cert`, `time`, `mtor` a `says`; stranka existuje, ma <h1>,
+     kazda url i kazdy text certifikatu je primo v HTML (ctenar se rozhoduje
+     prave podle nich) a /academy/ i /academy/before-you-start/ na ni odkazuji.
  14  beginner uroven: kdyz ma lekce zkracenou verzi core idea, MUSI ji mit
      i kazda ne-caution sekce -- jinak by ctenar na urovni beginner videl
      misto sekce prazdno; caution sekce beginner verzi mit NESMI
@@ -997,6 +1002,27 @@ def main():
             if not (r.get("url") or "").startswith("http"):
                 bad("before-you-start", "odkaz jinam nema url: %r" % r.get("label"))
 
+    # 24 bezplatne kurzy jinde -- datova cast
+    fl = modules.get("furtherLearning")
+    fl_items = []
+    if fl:
+        lv_ids = {l.get("id") for l in fl.get("levels") or []}
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", fl.get("checked") or ""):
+            bad("free-courses", "chybi datum overeni odkazu `checked` (YYYY-MM-DD)")
+        for g in fl.get("groups") or []:
+            for it in g.get("items") or []:
+                fl_items.append(it)
+                who = it.get("label") or "?"
+                if not (it.get("url") or "").startswith("http"):
+                    bad("free-courses", "polozka %r nema http url" % who)
+                if not it.get("level") or any(x not in lv_ids for x in it["level"]):
+                    bad("free-courses", "polozka %r ma uroven mimo `levels`" % who)
+                for key in ("cert", "time", "mtor", "says", "provider", "kind"):
+                    if not (it.get(key) or "").strip():
+                        bad("free-courses", "polozka %r nema %s (pravidlo 24)" % (who, key))
+        if not fl_items:
+            bad("free-courses", "furtherLearning bez jedine polozky")
+
     # 6/7/8 vygenerovane stranky
     pages = []
     for root, _, files in os.walk(ACADEMY):
@@ -1037,6 +1063,29 @@ def main():
                 if os.path.exists(src) and "/academy/before-you-start/" not in \
                         open(src, encoding="utf-8").read():
                     bad(label, "neodkazuje na stranku prerekvizit (pravidlo 19)")
+
+    # 24 bezplatne kurzy -- vygenerovana stranka a odkazy na ni
+    if fl:
+        fp = os.path.join(ACADEMY, "free-courses", "index.html")
+        if not os.path.exists(fp):
+            bad("academy/", "chybi stranka /academy/free-courses/ (pravidlo 24)")
+        else:
+            fh = open(fp, encoding="utf-8").read()
+            if "<h1>" not in fh:
+                bad("academy/free-courses/", "stranka nema <h1>")
+            for it in fl_items:
+                u = (it.get("url") or "").replace("&", "&amp;")
+                if u and u not in fh:
+                    bad("academy/free-courses/", "odkaz %r se nevykreslil" % it.get("label"))
+                c = (it.get("cert") or "").replace("&", "&amp;")
+                if c and c not in fh:
+                    bad("academy/free-courses/", "certifikat u %r neni v HTML" % it.get("label"))
+            for src, label in ((os.path.join(ACADEMY, "index.html"), "/academy/"),
+                               (os.path.join(ACADEMY, "before-you-start", "index.html"),
+                                "/academy/before-you-start/")):
+                if os.path.exists(src) and "/academy/free-courses/" not in \
+                        open(src, encoding="utf-8").read():
+                    bad(label, "neodkazuje na /academy/free-courses/ (pravidlo 24)")
 
     href = re.compile(r'href="([^"#][^"]*)"')
     for p in pages:
