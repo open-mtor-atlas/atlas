@@ -864,6 +864,9 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
   text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line);
   padding:0 14px;min-height:44px;cursor:pointer;color:var(--ink)}
 .ac-mdbtns button:last-child{border-right:none}
+/* 27. 9. 2026: tri tlacitka (rapamycin / ATP-competitive / bi-steric) se
+   na 320 px nevesla a lekce sla posouvat do strany o 3 px. */
+@media (max-width:400px){.ac-mdbtns button{padding:0 9px;letter-spacing:.02em}}
 .ac-mdbtns button:hover{color:var(--teal)}
 .ac-mdbtns button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink,#fff);font-weight:600}
 .ac-mdout{border-left:3px solid var(--teal);padding:2px 0 2px 12px;margin:0 0 10px}
