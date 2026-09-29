@@ -1958,8 +1958,7 @@ the Atlas to be the structured resource he wished existed when he started
 reading primary literature on the pathway: studies, mechanisms and honest
 evidence grades held side by side, rather than scattered across review
 articles.</p>
-<p>There is no editorial board and no second reviewer -- see "Who reviews
-the selection" below for what that does and doesn't mean for trust.</p>
+<p>There is no editorial board and no second reviewer.</p>
 <p><strong>Contact:</strong> oliver.barton1113(at)gmail.com &middot; Bluesky: <a href="https://bsky.app/profile/oliver-barton.bsky.social">@oliver-barton.bsky.social</a>.</p>
 {research_focus_html}
 <h2>How a study gets in</h2>
