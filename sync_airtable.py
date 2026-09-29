@@ -256,8 +256,14 @@ def gaps_js(existing_beginner=None):
         #   What_Changed     -> changed  co se zmenilo VE VNEJSI literature; jedine
         #                       pole karty, ktere smi mluvit mimo korpus Atlasu
         #   Still_Open       -> open_now co presne zbyva otevrene
+        #   Revision_Log     -> revlog  (2026-09-29) historie uprav karty, radek po
+        #                       radku "YYYY-MM-DD: ...". Drive to stalo uvnitr
+        #                       Evidence_Basis jako CORRECTION/SCOPE/SOURCING a
+        #                       rozbijelo vedecky text; externi auditor to precetl
+        #                       jako osirelou vetu. Web ji ukazuje sbalenou pod kartou.
         for src, dst in (("URL_Slug", "slug"), ("Evidence_Stands_At", "tier"),
-                         ("What_Changed", "changed"), ("Still_Open", "open_now")):
+                         ("What_Changed", "changed"), ("Still_Open", "open_now"),
+                         ("Revision_Log", "revlog")):
             v = g(f, src, "")
             if v:
                 row[dst] = v

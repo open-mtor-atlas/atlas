@@ -1317,6 +1317,12 @@ def gap_page(g, studies_by_sid):
              for sid in g.get("studies") or [] if sid in studies_by_sid]
     if links:
         body.append(f'<h2>Related studies</h2><p>{" · ".join(links)}</p>')
+    # 2026-09-29: historie uprav karty je oddelena od vedeckeho textu (pole
+    # Revision_Log). Zustava verejna, ale sbalena, aby nelamala argument.
+    # Zrcadlo: Atlas_v2/src/pages/question/[slug].astro a renderGaps v index.html.
+    if g.get("revlog"):
+        items = "".join(f"<li>{e(ln)}</li>" for ln in g["revlog"].splitlines() if ln.strip())
+        body.append(f'<details class="revlog"><summary>Revision history</summary><ul>{items}</ul></details>')
     backlinks = ANSWER_GAP_BACKLINKS.get(slug, [])
     if backlinks:
         label = "Discussed in the plain-language answer" if len(backlinks) == 1 \
