@@ -3017,7 +3017,7 @@ def further_page(modules):
                     % (e(o["who"]), prose(o["says"]),
                        "".join('<li><a href="%s"%s>%s</a></li>'
                                % (e(ahref(s["url"])),
-                                  "" if s["url"].startswith("/") else ' rel="noopener"',
+                                  "" if s["url"].startswith("/") else ' target="_blank" rel="noopener"',
                                   e(s["label"])) for s in o["steps"])))
     body.append("</div></section>")
 
@@ -3055,7 +3055,7 @@ def further_page(modules):
                 '<div class="ac-fctop"><span class="ac-fcico" aria-hidden="true">'
                 '<svg viewBox="0 0 24 24" width="22" height="22">%s</svg></span>'
                 '<span class="ac-kind">%s<br><i>%s</i></span></div>'
-                '<h3><a href="%s" rel="noopener">%s</a></h3>'
+                '<h3><a href="%s" target="_blank" rel="noopener">%s</a></h3>'
                 '<p>%s</p>'
                 '<div class="ac-fcmeta">'
                 '<span class="ac-fcrow"><span class="ac-fcdepth" data-d="%d" aria-hidden="true">'
@@ -3063,7 +3063,7 @@ def further_page(modules):
                 '<span class="ac-fcrow"><span class="ac-fcpills" aria-label="Level: %s">%s</span>'
                 '<span class="ac-fctime">%s</span></span>'
                 '<span class="ac-fccert%s">%s</span></div>'
-                '<a class="ac-go" href="%s" rel="noopener">Open &rarr;</a></div>'
+                '<a class="ac-go" href="%s" target="_blank" rel="noopener">Open &rarr;</a></div>'
                 % (" ".join(it["level"]), icon, e(it["kind"]), e(it["provider"]),
                    e(it["url"]), e(it["label"]), prose(it["says"]),
                    it.get("depth", 1), e(it["mtor"]), e(lvl), pills, e(it["time"]),
