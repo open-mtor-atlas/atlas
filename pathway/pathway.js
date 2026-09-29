@@ -158,7 +158,10 @@
   };
   var MARK = {
     "activates": "pwArrowA", "inhibits": "pwBar", "required-for": "pwChev",
-    "recruits": "pwChev", "binds": "pwDot", "context-dependent": "pwQ"
+    "recruits": "pwChev", "binds": "pwDot", "context-dependent": "pwQ",
+    /* 2026-09-29: tested and null. Drawn so a negative result is visible on the map
+       instead of being absent from it. */
+    "no-effect": "pwNull"
   };
   /* Reviewer point 9: a bare letter reads as a grade. The Atlas already has
      descriptive labels site-wide (TIER_LABELS); the pathway panel just never
@@ -367,6 +370,7 @@
     d += '<marker id="pwBar" ' + head + ' refX="5" refY="5"><path d="M5,0.6 L5,9.4" stroke="currentColor" stroke-width="2.8" fill="none"/></marker>';
     d += '<marker id="pwChev" ' + head + ' refX="8" refY="5"><path d="M1,1 L8,5 L1,9" stroke="currentColor" stroke-width="1.9" fill="none"/></marker>';
     d += '<marker id="pwDot" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.4" fill="currentColor"/></marker>';
+    d += '<marker id="pwNull" ' + head + ' refX="5" refY="5"><path d="M1.5,1.5 L8.5,8.5 M8.5,1.5 L1.5,8.5" stroke="currentColor" stroke-width="1.8" fill="none"/></marker>';
     d += '<marker id="pwQ" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/></marker>';
     return d + "</defs>";
   }
@@ -1469,7 +1473,8 @@
       + line("f-inhibits m-high d-direct", "pwBar", "<b>Inhibits</b> — bar, never colour alone")
       + line("f-required-for m-medium d-direct", "pwChev", "<b>Required for / recruits</b> — enables, does not switch on")
       + line("f-binds m-medium d-direct", "pwDot", "<b>Binds</b> — physical, no directional claim")
-      + line("f-context-dependent m-medium d-unresolved", "pwQ", "<b>Context-dependent</b> — dose, schedule or cell type sets the direction");
+      + line("f-context-dependent m-medium d-unresolved", "pwQ", "<b>Context-dependent</b> — dose, schedule or cell type sets the direction")
+      + line("f-no-effect m-medium d-direct", "pwNull", "<b>No effect</b> — tested, and the result was null");
     var certainty = ""
       + line("f-activates m-high d-direct", "pwArrowA", "<b>Solid, thick</b> — direct, high mechanistic confidence")
       + line("f-activates m-medium d-indirect", "pwArrowA", "<b>Long dash</b> — indirect: more than one molecular step")

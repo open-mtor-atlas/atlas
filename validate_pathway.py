@@ -51,7 +51,10 @@ TYPES = {
     # tvrzení než "fosforyluje" – fosforylace je tady prostředek, ne děj.
     "stabilization", "degradation",
 }
-EFFECTS = {"activates", "inhibits", "required-for", "recruits", "binds", "context-dependent"}
+EFFECTS = {"activates", "inhibits", "required-for", "recruits", "binds", "context-dependent",
+           # 2026-09-29 audit: a tested-and-null relationship must be drawable, otherwise
+           # the map reads more positive than the corpus (Airtable Relations.Sign already has it).
+           "no-effect"}
 TIMESCALES = {"seconds", "minutes", "hours", "days", "chronic", "constitutive"}
 DIRECTNESS = {"direct", "indirect", "unresolved"}
 MECH = {"high", "medium", "low"}

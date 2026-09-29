@@ -306,6 +306,13 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Cross-layer consistency check (warning only) ===
+REM  Pridano 2026-09-29 po vedeckem auditu. Hleda absolutni formulace, beginner
+REM  texty bez kvalifikatoru (pohlavi, druh), studii v supporting i conflicting
+REM  a kody studii, ktere v korpusu nejsou. Deploy NEZASTAVUJE, jen vypise.
+py check_consistency.py
+
+echo.
 echo === Rebuild the context + Scenario Lab overlay ===
 REM  Pridano 2026-09-21. pathway\contexts.json (Fed/Fasting/Exercise/Muscle a
 REM  scenare Scenario Labu) se dosud generoval jen rucne a skript mel natvrdo

@@ -1422,7 +1422,7 @@
      ]
     },
     {
-     "claim": "A bivalent molecule can reach the substrate rapamycin leaves alone while leaving the second complex largely engaged, in resistant breast-cancer models and in a first-in-human dose-escalation trial.",
+     "claim": "A bivalent molecule can reach the substrate rapamycin leaves alone while leaving the second complex largely spared, in resistant breast-cancer models and in a first-in-human dose-escalation trial.",
      "sids": [
       "MEN2023",
       "SCH2025"
@@ -2102,7 +2102,7 @@
         }
        ],
        "explain": "Two things that had travelled together in the literature separate here. Reduced mTORC1 signalling reached the survival endpoint, while the metabolic cost tracked the loss of the second complex &mdash; which reframes the question from &lsquo;how much does the drug inhibit&rsquo; to &lsquo;which parts, for how long, and at what cost&rsquo;. The separation is reported in mice, so it is a strong lead about mechanism rather than a statement about people.",
-       "control": "Vary the schedule at a matched dose and read target engagement and glucose handling in the same animals; or hold the schedule and change the molecule to one that spares the second complex. Both of those are on the menu below."
+       "control": "Vary the schedule at a matched per-injection dose (which lowers cumulative exposure) and read target engagement and glucose handling in the same animals; or hold the schedule and change the molecule to one that spares the second complex. Both of those are on the menu below."
       },
       "falsify": {
        "prompt": "Before the long exposure comes back: which result would weaken your model?",
@@ -2138,7 +2138,7 @@
       ],
       "design": {
        "model": "Mice dosed daily, weekly, or every fifth day",
-       "perturbation": "Vary the dosing interval at a matched dose",
+       "perturbation": "Vary the dosing interval at a matched per-injection dose (which lowers cumulative exposure)",
        "readout": "Glucose and pyruvate tolerance, fasting insulin, beta-cell function, alongside mTORC1 output",
        "control": "Untreated littermates, and the daily-dosed group as the comparison that makes the interval the variable"
       },
@@ -2209,7 +2209,7 @@
         {
          "label": "Spaced schedules spare glucose handling while mTORC1 inhibition is kept",
          "happened": true,
-         "note": "What the source study reports, with the endpoint it actually measured: the harm shrinks. Whether the benefit survives is not in this experiment, and it is the sentence most often read into it."
+         "note": "What the source study reports, with the endpoint it actually measured: the harm shrinks. Whether the benefit survives is not in this experiment. A follow-up study with the same schedule reported extended lifespan in female C57BL/6J mice (Arriola Apelo 2016), so harm reduction plus benefit has been shown once, in one sex and one strain."
         },
         {
          "label": "Spacing removes the metabolic cost and the target engagement together",
@@ -2263,7 +2263,7 @@
        "caption": "Direction and rank order as reported in the source studies, which describe over twenty-five-fold selectivity for mTORC1 over the second complex alongside suppression of the rapamycin-resistant substrate. Schematic, not measured values."
       },
       "conclude": [
-       "The two properties are not forced to trade off: a molecule can reach the substrate rapamycin leaves alone and still leave the second complex largely engaged.",
+       "The two properties are not forced to trade off: a molecule can reach the substrate rapamycin leaves alone and still leave the second complex largely spared.",
        "The residue identified in cells in 2009 was specific enough to design against, which is what a well-posed mechanistic question eventually buys."
       ],
       "cannotConclude": [
@@ -2304,7 +2304,7 @@
          "note": "That would make the two properties inseparable and turn the metabolic cost into the price of a deep block. It is the result that would end the selective-inhibitor programme, and it is the one to watch for."
         },
         {
-         "label": "The molecule suppresses 4E-BP1 and leaves Akt Ser473 largely engaged",
+         "label": "The molecule suppresses 4E-BP1 and leaves Akt Ser473 largely spared",
          "happened": true,
          "note": "What the source studies report in resistant tumour models and in a single-arm dose-escalation trial. It shows the design problem is soluble; it shows nothing about an ageing endpoint."
         },

@@ -401,7 +401,14 @@ def gen_wire(pw, meta, core):
         if any(n not in meta for n in seq):
             continue
         allcore = all(meta[n]["pool"] == "core" for n in seq)
-        base = {"route": r["id"], "name": r.get("name", ""),
+        name = r.get("name", "")
+        # Audit 2026-09-29: kdyz nejdelsi linearni usek nezacina prvnim krokem
+        # patere, puzzle ukazuje jen cast trasy (napr. u exercise jen hormonalni
+        # rameno bez LOAD-MTORC1). Nazev cele trasy by pak tvrdil vic, nez
+        # puzzle obsahuje, proto se k nemu pripise, ktery usek to je.
+        if (r.get("spine") or [None])[0] != steps[0]["id"]:
+            name = "%s (the %s \u2192 %s stretch only)" % (name, seq[0], seq[-1])
+        base = {"route": r["id"], "name": name,
                 "pool": "core" if allcore else "route"}
         if len(steps) >= 3:
             puz.append(dict(base, id="wr:%s:easy" % r["id"], diff=1,
