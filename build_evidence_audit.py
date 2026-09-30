@@ -25,11 +25,11 @@ metoda hodnocení důkazní základny dráhy.
 ZDROJE DAT
 ----------
   atlas_data/studies_baked.json  -- korpus (pole tier, pyramid, year, ...)
-  index.html -> const ATLAS_EDGES -- hrany dráhy (pole tiers, st, ctx, status)
+  atlas_data/relations_baked.json -- hrany dráhy (pole tiers, st, ctx, status)
 
-Hrany se čtou z index.html, protože relations_baked.json neexistuje --
-sync_relations.py peče ATLAS_EDGES rovnou do index.html. Kdyby vznikl
-samostatný JSON, změní se jen _load_edges().
+Od 2026-09-30 je zdrojem hran jen Airtable Relations; relations_bake.py je
+peče do relations_baked.json a odtud je čte i tahle stránka (dřív z kopie
+ATLAS_EDGES v index.html).
 
 SPUŠTĚNÍ
 --------
@@ -81,13 +81,11 @@ def _load_studies(path):
     return d["studies"] if isinstance(d, dict) and "studies" in d else d
 
 
-def _load_edges(path):
-    """ATLAS_EDGES je JS literál uvnitř index.html, ne samostatný soubor."""
-    s = io.open(os.path.join(HERE, path), encoding="utf-8").read()
-    m = re.search(r"const ATLAS_EDGES\s*=\s*(\[.*?\]);\s*\n", s, re.S)
-    if not m:
-        raise SystemExit("build_evidence_audit: ATLAS_EDGES nenalezeny v " + path)
-    return json.loads(m.group(1))
+def _load_edges(path=None):
+    """Publikované hrany z atlas_data/relations_baked.json, v tvaru ATLAS_EDGES.
+    Argument `path` je pozůstatek čtení z index.html a ignoruje se."""
+    import relations_bake
+    return relations_bake.atlas_edges()
 
 
 def tier_of(rec):

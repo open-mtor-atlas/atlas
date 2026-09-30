@@ -194,7 +194,13 @@ if defined AIRTABLE_TOKEN (
 )
 
 echo.
-echo === optional: Refresh ATLAS_EDGES from Airtable ===
+echo === Refresh pathway edges from Airtable (single source of truth since 2026-09-30) ===
+REM  30. 9. 2026: Airtable Relations je JEDINY zdroj pravdy pro hrany drahy.
+REM  sync_relations.py pece atlas_data\relations_baked.json (vsechna pole hrany,
+REM  vcetne typu, kompartmentu, jistot a beginner textu) a z nej odvozuje
+REM  ATLAS_EDGES v index.html. build_pathway_model.py, build_evidence_audit.py
+REM  a build_timing_page.py ctou relations_baked.json. Bez tokenu zustava
+REM  posledni commitnuty relations_baked.json -- nic se nerozbije, jen nic noveho.
 REM  13. 9. 2026: sync_relations.py byl v tomhle skriptu uveden JEN v seznamu
 REM  pro `git add` a NIKDY se nespoustel -- presne ta chyba, kterou popisuje
 REM  komentar u generate.py o kus niz. Dusledek: hrany drahy se do index.html
@@ -693,7 +699,7 @@ REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
 REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
 REM  one that this particular run did not touch costs nothing.
 echo    including pipeline data and reports
-for %%F in (gaps_baked.json frontier_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json) do (
+for %%F in (gaps_baked.json frontier_baked.json relations_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json) do (
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
@@ -722,7 +728,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 

@@ -283,10 +283,12 @@ CODE = re.compile(r"\b[A-Z]{2,6}\d{4}[A-Za-z]?\b")
 DEAD_LAYERS = ["MAP_NODES", "MAP_CORE_EDGES", "MAP_PERIPH_EDGES", "MAP_BANDS"]
 DEAD_FUNCS = ["renderMechanism", "mxBuildSVG", "mxSetRoute"]
 
-# NOT dead, despite never being rendered: build_pathway_model.py reads these out
-# of index.html (read_atlas_array, called from main()) and they are the input
-# from which pathway/model.json is generated. Deleting them breaks the build.
-# Corrected 2026-09-04, after R11 was found advising exactly that deletion.
+# NOT dead, despite never being rendered. ATLAS_ROUTES is build input:
+# build_pathway_model.py reads it out of index.html. ATLAS_EDGES is, since
+# 2026-09-30, a DERIVED copy (relations_bake.py writes it from
+# atlas_data/relations_baked.json, the Airtable bake) that the V1 SPA,
+# verify_index_html.py and the checks below still read. Deleting either breaks
+# something. Corrected 2026-09-04, after R11 was found advising that deletion.
 BUILD_INPUT_ARRAYS = ["ATLAS_EDGES", "ATLAS_ROUTES"]
 
 
@@ -525,7 +527,7 @@ def check_dead_layers(findings, h):
             "called, but machine-readable to crawlers): %s. MAP_CORE_EDGES also "
             "carries three wrong signs." % ", ".join(present),
             "Safe to delete: nothing reads these. Do NOT also remove ATLAS_EDGES "
-            "or ATLAS_ROUTES -- build_pathway_model.py needs them.")
+            "or ATLAS_ROUTES -- the build and the checks still read them.")
 
     # R11b -- the inverse guard. If a build-input array goes missing, the next
     # build_pathway_model.py run raises SystemExit("missing %s in index.html").

@@ -31,7 +31,8 @@ Tenhle skript zavádí JEDEN zdroj pravdy: pathway/model.json.
     ručně. Staré route.bows / route.ctrl byly ruční konstanty s komentářem
     "regenerate them if you move a node" – to je dluh, ne architektura.
 
-VSTUP   index.html  (ATLAS_EDGES, ATLAS_ROUTES – migrace stávající kurace)
+VSTUP   atlas_data/relations_baked.json (hrany; zdroj Airtable Relations, od 2026-09-30)
+        index.html  (ATLAS_ROUTES)
         atlas_data/studies_baked.json (validace SID)
 VÝSTUP  pathway/model.json
 
@@ -434,256 +435,21 @@ NODES = {
 # dat – byl externě recenzován a nebyl v něm nalezen ani jeden chybný znak.
 # Tady se doplňuje jen to, co dosud chybělo.
 # ---------------------------------------------------------------------------
-CUR = {
- "LEU-SESN2":        ("binding","cytosol","seconds","direct","high","plausible","established"),
- "SESN2-GATOR2":     ("binding","cytosol","seconds","direct","high","plausible","established"),
- "ARG-CASTOR1":      ("binding","cytosol","seconds","direct","high","plausible","established"),
- "CASTOR1-GATOR2":   ("binding","cytosol","seconds","direct","high","plausible","established"),
- "GATOR2-GATOR1":    ("binding","lyso","seconds","direct","medium","plausible","emerging"),
- "KICSTOR-GATOR1":   ("recruitment","lyso","constitutive","direct","high","established","established"),
- "GATOR1-RAG":       ("gap-activity","lyso","seconds","direct","high","established","established"),
- "SAM-SAMTOR":       ("binding","cytosol","seconds","direct","high","plausible","emerging"),
- "SAMTOR-GATOR1":    ("binding","lyso","seconds","direct","medium","plausible","emerging"),
- "RAGULATOR-RAG":    ("scaffolding","lyso","constitutive","direct","high","established","established"),
- "VATPASE-RAGULATOR":("binding","lyso","constitutive","direct","medium","plausible","emerging"),
- "SLC38A9-RAG":      ("binding","lyso","seconds","direct","high","plausible","established"),
- "FLCN-RAG":         ("gap-activity","lyso","seconds","direct","high","established","established"),
- "RAG-MTORC1":       ("recruitment","lyso","minutes","direct","high","established","established"),
- "LYSO-MTORC1":      ("localisation","lyso","minutes","direct","high","established","established"),
- "LEU-LARS":         ("binding","cytosol","seconds","unresolved","low","untested","contested"),
- "LARS-RAG":         ("gap-activity","lyso","seconds","unresolved","low","untested","contested"),
- "GLN-RAG":          ("signal-relay","lyso","minutes","indirect","medium","untested","emerging"),
- "IGF1-PI3K":        ("signal-relay","pm","seconds","indirect","high","established","established"),
- "PI3K-AKT":         ("recruitment","pm","seconds","indirect","high","established","established"),
- "MTORC2-AKT":       ("phosphorylation","pm","seconds","direct","high","established","established"),
- "AKT-TSC":          ("phosphorylation","cytosol","seconds","direct","high","established","established"),
- "TBC1D7-TSC":       ("complex-assembly","cytosol","constitutive","direct","high","established","established"),
- "TSC-RHEB":         ("gap-activity","lyso","seconds","direct","high","established","established"),
- "RHEB-MTORC1":      ("allosteric-activation","lyso","seconds","direct","high","established","established"),
- "AKT-PRAS40":       ("phosphorylation","cytosol","seconds","direct","high","established","established"),
- "PRAS40-MTORC1":    ("competitive-inhibition","lyso","seconds","direct","high","plausible","established"),
- "AMPK-TSC":         ("phosphorylation","cytosol","minutes","direct","high","established","established"),  # see CTX
- "AMPK-MTORC1":      ("phosphorylation","lyso","minutes","direct","high","established","established"),
- # mTORC1 phosphorylation STABILISES Grb10 rather than switching an enzyme on.
- "MTORC1-GRB10":     ("stabilization","cytosol","minutes","direct","high","plausible","established"),
- "GRB10-IGF1":       ("signal-relay","pm","hours","indirect","medium","plausible","established"),
- "MTORC1-S6K1":      ("phosphorylation","cytosol","minutes","direct","high","established","established"),
- "MTORC1-4EBP1":     ("phosphorylation","cytosol","minutes","direct","high","established","established"),
- "MTORC1-ULK1":      ("phosphorylation","cytosol","minutes","direct","high","established","established"),
- "ULK1-AUTOPHAGY":   ("functional-consequence","autophagy","minutes","direct","high","established","established"),
- "RAPA-FKBP12":      ("binding","cytosol","seconds","direct","high","established","established"),
- "FKBP12-MTORC1":    ("binding","lyso","minutes","direct","high","established","established"),
- "RAPTOR-MTORC1":    ("complex-assembly","cytosol","constitutive","direct","high","established","established"),
- "RICTOR-MTORC2":    ("complex-assembly","cytosol","constitutive","direct","high","established","established"),
- "RAPA-MTORC2":      ("complex-disassembly","cytosol","chronic","indirect","low","plausible","contested"),
- "MTORC2-INSULINRES":("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
- "RAPA-LONGEVITY":   ("functional-consequence","outcome","chronic","indirect","medium","untested","established"),
- "MTORC1-LONGEVITY": ("functional-consequence","outcome","chronic","indirect","medium","untested","established"),
- "4EBP1-EIF4E":      ("competitive-inhibition","cytosol","seconds","direct","high","established","established"),
- "EIF4E-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","established","established"),
- # Reviewer point 6: the *outcome* of this phosphorylation is destruction of a
- # repressor, which is a different biological claim from "adds a phosphate".
- "S6K1-PDCD4":       ("degradation","cytosol","minutes","direct","high","plausible","emerging"),
- "PDCD4-TRANSL":     ("functional-consequence","cytosol","minutes","direct","high","plausible","established"),
- "TRANSL-MUSCLE":    ("functional-consequence","outcome","days","indirect","high","established","established"),
- "MTORC1-TFEB":      ("phosphorylation","lyso","minutes","direct","high","established","established"),
- "TFEB-AUTOPHAGY":   ("transcriptional","nucleus","hours","direct","high","established","established"),
- "MTORC1-SREBP":     ("signal-relay","cytosol","hours","indirect","medium","plausible","emerging"),
- "SREBP-LIPID":      ("transcriptional","nucleus","hours","direct","high","established","established"),
- "MTORC1-MITO":      ("signal-relay","mito","hours","indirect","medium","plausible","emerging"),
- "4EBP1-MITO":       ("functional-consequence","mito","hours","indirect","medium","untested","emerging"),
- "MTORC1-NUCL":      ("signal-relay","cytosol","hours","indirect","high","plausible","established"),
- "S6K1-NUCL":        ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
- "4EBP1-LONGEVITY":  ("functional-consequence","outcome","chronic","indirect","medium","untested","emerging"),
- "S6K1-LONGEVITY":   ("functional-consequence","outcome","chronic","indirect","medium","untested","emerging"),
- "MTORC1-SENESCENCE":("functional-consequence","outcome","days","indirect","medium","plausible","emerging"),
- "STRESS-AMPK":      ("allosteric-activation","cytosol","seconds","direct","high","established","established"),
- "LKB1-AMPK":        ("phosphorylation","cytosol","seconds","direct","high","established","established"),
- "METFORMIN-AMPK":   ("signal-relay","cytosol","minutes","indirect","low","plausible","contested"),
- "AMPK-ULK1":        ("phosphorylation","cytosol","minutes","direct","medium","plausible","contested"),
- "ULK1-AMPK":        ("phosphorylation","cytosol","minutes","direct","high","plausible","established"),
- "HYPOXIA-REDD1":    ("transcriptional","nucleus","hours","indirect","high","established","emerging"),
- "REDD1-TSC":        ("signal-relay","cytosol","hours","indirect","medium","plausible","emerging"),
- "STRESS-TSC":       ("translocation","lyso","minutes","direct","medium","plausible","emerging"),
- "ISR-SALR":         ("transcriptional","nucleus","hours","indirect","medium","untested","emerging"),
- "SALR-MTORC1":      ("signal-relay","cytosol","hours","unresolved","low","untested","emerging"),
- "AMPK-MITOPHAGY":   ("functional-consequence","mito","hours","indirect","medium","plausible","emerging"),
- "MTOR-MTORC2":      ("complex-assembly","cytosol","constitutive","direct","high","established","established"),
- "SIN1-MTORC2":      ("complex-assembly","cytosol","constitutive","direct","high","established","established"),
- "MLST8-MTORC2":     ("complex-assembly","cytosol","constitutive","direct","high","plausible","established"),
- "PI3K-MTORC2":      ("signal-relay","pm","seconds","indirect","medium","plausible","emerging"),
- "PTEN-PI3K":        ("dephosphorylation","pm","seconds","direct","high","established","established"),
- "MTORC2-SGK1":      ("phosphorylation","cytosol","minutes","direct","high","established","emerging"),
- "MTORC2-ACTIN":     ("functional-consequence","cytosol","minutes","indirect","high","plausible","established"),
- "MTORC2-LIPID":     ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
- "MTORC2-PROSTATE":  ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
- "DEPTOR-MTOR":      ("binding","cytosol","constitutive","direct","high","plausible","established"),
- "TSC-MTORC1":       ("signal-relay","lyso","seconds","indirect","high","established","established"),
- "MTORC1-TUMOR":     ("functional-consequence","outcome","chronic","indirect","high","established","established"),
- "EVE-MTORC1":       ("allosteric-inhibition","lyso","hours","indirect","high","established","established"),
- "TEM-MTORC1":       ("allosteric-inhibition","lyso","hours","indirect","high","established","established"),
- "EVE-RCC":          ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "TEM-RCC":          ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "EVE-PNET":         ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "EVE-BREAST":       ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "EVE-TSC":          ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "EVE-LAM":          ("clinical-outcome","outcome","chronic","indirect","medium","established","established"),
- "EVE-IMMUNE":       ("clinical-outcome","outcome","chronic","indirect","medium","established","contested"),
- "MTORC1-PROSTATE":  ("functional-consequence","outcome","chronic","indirect","medium","plausible","emerging"),
- "S6K1-IRS1":        ("degradation","cytosol","hours","direct","high","established","established"),
- "IRS1-PI3K":        ("recruitment","pm","seconds","direct","high","established","established"),
- "ERK-TSC":          ("phosphorylation","cytosol","minutes","direct","high","plausible","emerging"),
- "MTORC1-MAPK":      ("signal-relay","cytosol","hours","indirect","high","established","established"),
- "METFORMIN-MTORC1": ("signal-relay","cytosol","hours","indirect","low","plausible","contested"),
- "SESN2-AGING":      ("functional-consequence","outcome","chronic","indirect","medium","untested","emerging"),
- "RAPA-LAM":         ("clinical-outcome","outcome","chronic","indirect","high","established","established"),
- "MTORC1-RCC":       ("association","outcome","chronic","unresolved","low","established","emerging"),
-}
+# CUR -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: Interaction_Type, Compartment, Timescale, Causal_Directness, Mechanistic_Confidence, Human_Relevance_Claim, Consensus). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
 # Poznámky, které stará data neuměla vyjádřit a které jsou pedagogicky
 # nosné – proč je zde znak takový, jaký je.
-TEACH = {
- "RAG-MTORC1": "Recruitment, not activation. The Rags decide *where* mTORC1 is; they do not switch the kinase on. This is why amino acids alone cannot drive growth.",
- "RHEB-MTORC1": "This is the activation step, and it only works on mTORC1 that the amino-acid arm has already brought to the lysosome. Everything the growth-factor arm does converges here.",
- "PI3K-AKT": "Indirect on purpose: PI3K makes PIP3, and PIP3 recruits Akt. Recruitment then enables two separate phosphorylations. Three distinct events often drawn as one arrow.",
- "PTEN-PI3K": "PTEN does not touch the PI3K protein. It removes PI3K's product. Drawn as an inhibition arrow for readability – the mechanism is enzymatic reversal.",
- "TSC-MTORC1": "A deliberate shortcut edge: TSC never touches mTORC1. It acts on Rheb. Shown so the overview reads cleanly; switch to Research level to see the two-step version.",
- "FKBP12-MTORC1": "Partial, not complete. The FKBP12–rapamycin complex occludes the substrate channel, so S6K1 phosphorylation collapses while 4E-BP1 phosphorylation persists. This was a main motivation for developing ATP-competitive inhibitors.",
- "FLCN-RAG": "Positive regulator of the RagC/D arm, despite being a tumour suppressor. It licenses mTORC1 to phosphorylate TFEB specifically – substrate choice, not overall activity.",
- "S6K1-IRS1": "The pathway's most clinically consequential feedback loop, and the direction matters twice over: active mTORC1 destroys IRS-1 (insulin resistance under nutrient excess), while blocking mTORC1 spares IRS-1 and reactivates PI3K/Akt. A large part of why rapalog monotherapy underperforms.",
- "MTORC1-MAPK": "The second feedback arm. mTORC1 inhibition activates ERK PI3K-dependently, which is the rationale for combined mTOR/MEK strategies.",
- "MTORC1-4EBP1": "The sign is on 4E-BP1's repressor function: mTORC1 phosphorylates it, which stops it repressing eIF4E. Phosphorylation is not the same as inhibition – here it happens to be.",
- "GATOR2-GATOR1": "Everyone agrees this inhibition happens; nobody has fully resolved how. Kept visible as an honest hole in a canonical pathway.",
- "ULK1-AMPK": "Closes the loop. ULK1 dampens the very kinase that activated it, so 'AMPK switches on autophagy' is a loop, not an arrow.",
- "MTORC1-RCC": "Association, not demonstrated causation. Renal cancers often carry lesions that leave mTORC1 active; that is why the tissue responds to rapalogs, not proof that mTORC1 initiates the disease.",
- "LYSO-MTORC1": "A requirement, not a signal. The lysosome contributes a location. Read it as the canonical amino-acid route rather than a universal rule for mTOR: BOU2020 resolves mTOR activity in several compartments, and the map declares those localisations as open instead of asserting they do not exist.",
- "S6K1-LONGEVITY": "The Atlas's own H6 sex-dimorphism hypothesis starts here, and this is the result whose qualifier is lost in retelling most often. SEL2009's extension is female-specific; the male arm was not significant. An earlier external review found the qualifier stated in some places and dropped in others, which is why it now sits in the claim itself and not only in the boundary conditions.",
- "SESN2-AGING": "The arrow now lands on Age-related pathology rather than on Longevity, because that is what LEE2010 measured: flies lacking Sestrin accumulate fat and develop muscle and cardiac pathology, and no lifespan was recorded. Sestrin holds that pathology back, which is why the sign is inhibits. It is the sensor arm's only organismal readout and it is not evidence that Sestrin2 extends life.",
- "MTORC1-SENESCENCE": "The arrow points at the SASP node, not at Cellular senescence, because that is the claim the evidence supports: LAB2015 shows mTORC1 promoting IL1A translation in cells that are ALREADY arrested, and rapamycin suppressing the secretome while the arrest stays. mTORC1 does not make healthy cells senescent. Senescence and SASP are separate claims, and conflating them is the commonest misreading here.",
- "EVE-IMMUNE": "The one edge in this map whose sign is conditional. 'mTOR inhibition suppresses immunity' and 'low intermittent dosing improves the vaccine response of the old' are both supported, under different regimens, so a single activating arrow would be false in one of them. Dose and schedule belong to the claim here, not to the methods section.",
- "STRESS-TSC": "Regulation by relocation: energy stress moves the TSC complex to the lysosome, where Rheb is. Location is a form of control the pathway uses repeatedly.",
-}
+# TEACH -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: Teaching_Note). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
 # Beginner-register paraphrase of `mechanism`, one level down from the
 # curated research-register text above. Added for the site-wide
 # Beginner/Student/Research reading-level switch (2026-08-04).
 # Student and Research levels keep reading the curated `mechanism` field
 # unchanged -- only Beginner gets separately authored text here.
-MECH_BEGINNER = {
- "RAPA-MTORC1": "Rapamycin, carried by its helper protein FKBP12, jams part of mTORC1 – it blocks some of what mTORC1 does but not all of it.",
- "LEU-SESN2": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
- "SESN2-GATOR2": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
- "ARG-CASTOR1": "Arginine sticks to CASTOR1 the same way leucine sticks to Sestrin2 – the same trick, for a different amino acid.",
- "CASTOR1-GATOR2": "Without arginine, CASTOR1 holds onto GATOR2 and keeps the pathway switched off.",
- "GATOR2-GATOR1": "GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn't fully worked out yet.",
- "KICSTOR-GATOR1": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
- "GATOR1-RAG": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
- "SAM-SAMTOR": "SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – the proposed way the cell senses how much methionine it has. Worked out in cells; whether this sensor is what matters in a whole animal has not been shown.",
- "SAMTOR-GATOR1": "When methionine is low, SAMTOR teams up with GATOR1 to help keep mTORC1 switched off.",
- "RAGULATOR-RAG": "Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their \"on\" shape. The anchoring is the better-established of the two jobs.",
- "VATPASE-RAGULATOR": "The lysosome's acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.",
- "SLC38A9-RAG": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and tells the Rag proteins there's enough.",
- "FLCN-RAG": "FLCN flips the other half of the Rag pair into its working shape – but it only changes one specific output (TFEB), not the whole pathway.",
- "RAG-MTORC1": "The switched-on Rag proteins grab mTORC1 and drag it to the lysosome. This moves it into place; it doesn't turn it on by itself.",
- "LYSO-MTORC1": "In the amino-acid route, mTORC1 only works while it's sitting on the lysosome, because that is where its activator waits – move it somewhere else and amino acids stop being able to reach it.",
- "LEU-LARS": "One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.",
- "LARS-RAG": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
- "GLN-RAG": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
- "GLN-MTORC1-ARF1": "Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.",
- "IGF1-PI3K": "Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.",
- "PI3K-AKT": "That lipid pulls Akt to the cell membrane, where it gets switched on.",
- "MTORC2-AKT": "mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts. In mice, that disruption is a major reason long-term rapamycin raises blood sugar.",
- "AKT-TSC": "Akt tags TSC2 to disable it. Growth signals work by releasing a brake, not by pressing a gas pedal.",
- "TBC1D7-TSC": "TBC1D7 is a smaller, easy-to-miss third piece of the TSC brake; losing it weakens the brake without removing it.",
- "TSC-RHEB": "TSC2 forces Rheb to switch itself off – the one step where TSC acts as a tumour-suppressing brake.",
- "RHEB-MTORC1": "Switched-on Rheb docks onto mTORC1 and physically reshapes it into its working form – the actual \"on\" switch.",
- "AKT-PRAS40": "Akt tags PRAS40, which then gets pulled away from mTORC1 – a second way insulin releases a brake.",
- "PRAS40-MTORC1": "Untagged PRAS40 sits inside mTORC1 and blocks it, like a built-in plug.",
- "AMPK-TSC": "When energy is low, AMPK tags TSC2 and makes the brake on Rheb stronger.",
- "AMPK-MTORC1": "AMPK also hits mTORC1 directly, adding a second, energy-based checkpoint on top of TSC.",
- "MTORC1-GRB10": "mTORC1 stabilises Grb10, kicking off a feedback loop that talks back to the insulin receptor.",
- "GRB10-IGF1": "Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.",
- "MTORC1-S6K1": "mTORC1 switches on S6K1, which turns on the cell's protein-building machinery – the classic effect most studies of this drug class measure.",
- "MTORC1-4EBP1": "mTORC1 tags 4E-BP1 so it lets go of another protein, freeing up protein-building – but the standard drug (rapamycin) only partly blocks this step.",
- "MTORC1-ULK1": "Active mTORC1 tags ULK1 to hold it back, keeping the cell's self-cleanup process (autophagy) switched off while nutrients are plentiful.",
- "ULK1-AUTOPHAGY": "Freed ULK1 kicks off autophagy – the cell's recycling programme, and the leading idea for why blocking this pathway might be beneficial.",
- "RAPA-FKBP12": "Rapamycin doesn't work alone – it first has to team up with a helper protein called FKBP12.",
- "FKBP12-MTORC1": "Only when it carries rapamycin does FKBP12 dock on mTORC1; the pair then blocks some, but not all, of what mTORC1 does. FKBP12 on its own does nothing to mTORC1.",
- "RAPTOR-MTORC1": "Raptor is the piece that makes mTORC1 what it is, and hands it the targets it needs to act on.",
- "RICTOR-MTORC2": "Rictor is what makes the second complex, mTORC2, distinct – and rapamycin doesn't block it right away.",
- "RAPA-MTORC2": "Rapamycin doesn't touch mTORC2 right away, but over days it stops new mTORC2 from being built.",
- "MTORC2-INSULINRES": "Losing mTORC2 disconnects Akt from insulin signalling and can cause blood-sugar problems – a separate effect from any lifespan benefit.",
- "RAPA-LONGEVITY": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
- "MTORC1-LONGEVITY": "Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the most universal anti-ageing effects known.",
- "4EBP1-EIF4E": "Untagged 4E-BP1 clamps onto eIF4E and blocks it; mTORC1 tags 4E-BP1 to make it let go – releasing a brake, not pressing an accelerator.",
- "EIF4E-TRANSL": "Freed eIF4E brings the ribosome to the mRNA – the step that actually turns a growth signal into new protein.",
- "S6K1-PDCD4": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
- "PDCD4-TRANSL": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
- "TRANSL-MUSCLE": "Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.",
- "MTORC1-TFEB": "Active mTORC1 tags TFEB and traps it outside the nucleus; switch mTORC1 off and TFEB moves in.",
- "TFEB-AUTOPHAGY": "Once inside the nucleus, TFEB switches on a whole set of genes for cleanup and for building new lysosomes.",
- "MTORC1-SREBP": "mTORC1 switches on SREBP, the genes that build fat and cholesterol – a growing cell needs membrane material, not just protein.",
- "SREBP-LIPID": "SREBP is the master switch for making new fat from scratch.",
- "MTORC1-MITO": "mTORC1 boosts the cell's mitochondria – its power plants – two ways at once: through a gene-activating complex, and by freeing up 4E-BP.",
- "4EBP1-MITO": "The 4E-BP branch helps set how many mitochondrial proteins get built. In mammalian cells it holds them back; in fruit flies on a restricted diet it boosts them, so the direction depends on the organism and the diet.",
- "MTORC1-NUCL": "mTORC1 turns on the machinery for building DNA/RNA building blocks, so a growing cell can actually copy its DNA.",
- "S6K1-NUCL": "S6K1 switches on an enzyme that starts building the raw materials for DNA – a direct line from growth signal to DNA parts.",
- "4EBP1-LONGEVITY": "Keeping 4E-BP switched on extends lifespan in fruit flies on a restricted diet, by protecting their mitochondria.",
- "S6K1-LONGEVITY": "Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.",
- "MTORC1-SENESCENCE": "mTORC1 keeps old, \"senescent\" cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.",
- "STRESS-AMPK": "When the cell's fuel runs low, AMPK switches on – it's the cell's low-battery alarm, and one of the first things it does is shut mTORC1 off.",
- "LKB1-AMPK": "LKB1 is the kinase that switches AMPK on in the first place; without it, the whole low-energy alarm system goes silent.",
- "METFORMIN-AMPK": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
- "AMPK-ULK1": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
- "ULK1-AMPK": "ULK1 tags AMPK back and calms it down – a feedback loop that keeps cleanup from running out of control.",
- "HYPOXIA-REDD1": "Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.",
- "REDD1-TSC": "REDD1 acts through the TSC brake, so low oxygen and low growth-factor signals end up hitting the very same switch.",
- "STRESS-TSC": "Different kinds of stress all do the same physical thing: they drag TSC2 over to the lysosome, right next to Rheb. Moving it there is the switch, not making more of it.",
- "ISR-SALR": "The cell's stress-response system switches on a growth-blocking gene – a route to shutting down mTORC1 that skips right past TSC and AMPK.",
- "SALR-MTORC1": "This stress-induced protein suppresses mTORC1-driven growth once stress signalling turns it on.",
- "AMPK-MITOPHAGY": "The energy-sensing pathway keeps damaged mitochondria cleared out; lose it, and their broken contents leak out and inflame the cell.",
- "MTOR-MTORC2": "mTORC2 is built from the very same mTOR enzyme as mTORC1 – it's the partner proteins around it that make the two complexes different.",
- "SIN1-MTORC2": "SIN1 holds mTORC2 together and positions its target – without it, mTORC2 can't switch Akt on.",
- "MLST8-MTORC2": "This protein isn't needed for mTORC1 in a living animal, but mTORC2 can't work without it – a clean genetic way to tell the two complexes apart.",
- "PI3K-MTORC2": "The same lipid signal that switches Akt on also switches mTORC2 on – so growth-factor signals hit both complexes.",
- "PTEN-PI3K": "PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.",
- "MTORC2-SGK1": "SGK1 is a second target of mTORC2 alongside Akt, and it shares some of Akt's jobs.",
- "MTORC2-ACTIN": "mTORC2's first known job was shaping the cell's internal skeleton – noticed precisely because rapamycin didn't block it.",
- "MTORC2-LIPID": "mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow – shown in cells and mice, not measured in patients.",
- "MTORC2-PROSTATE": "Prostate tumours caused by losing a specific tumour-suppressor gene specifically need mTORC2 to grow – normal prostate tissue doesn't, at least in mice.",
- "DEPTOR-MTOR": "DEPTOR sits on mTOR and dampens both complexes; some cancer cells (myeloma) make extra DEPTOR and come to depend on that damping.",
- "TSC-MTORC1": "The TSC brake is the pathway's main tumour-suppressor. Inherit one broken copy of the gene and growths appear wherever the second copy is also lost. (This arrow skips a step for simplicity – TSC actually acts through Rheb first.)",
- "MTORC1-TUMOR": "Hyperactive mTORC1 pushes cells to build a specific set of growth- and spread-promoting proteins – the tumour becomes hooked on that programme.",
- "EVE-MTORC1": "Everolimus is rapamycin with a small chemical tweak that makes it easier to take as a pill – same mechanism, better drug.",
- "TEM-MTORC1": "Temsirolimus is the IV version of rapamycin, and the first mTOR-blocking drug shown to help patients live longer in a controlled trial.",
- "EVE-RCC": "In a clinical trial, everolimus roughly doubled the time before advanced kidney cancer got worse, after other treatments had stopped working.",
- "TEM-RCC": "In hard-to-treat kidney cancer, temsirolimus helped patients live longer compared with an older drug.",
- "EVE-PNET": "In a trial, everolimus more than doubled the time before advanced pancreatic neuroendocrine tumours got worse.",
- "EVE-BREAST": "Adding everolimus to hormone therapy roughly doubled the time before certain advanced breast cancers got worse.",
- "EVE-TSC": "In patients with the genetic disease tuberous sclerosis, everolimus shrank both brain and kidney tumours. It works one step downstream of the mutation: it replaces the brake the mutation removed, so the tumours shrink while the drug is given and regrow when it stops. The mutation itself is untouched.",
- "EVE-LAM": "In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.",
- "EVE-IMMUNE": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
- "MTORC1-PROSTATE": "Blocking mTOR reversed early, pre-cancerous prostate changes in mice caused by an overactive growth signal.",
- "S6K1-IRS1": "This is the pathway's main self-limiting \"off switch\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
- "IRS1-PI3K": "IRS proteins carry the signal from the insulin receptor to PI3K; without them, the receptor is still there but the wire connecting it is cut.",
- "ERK-TSC": "A separate growth pathway also disables the TSC brake – a third route into mTORC1 that drugs blocking only PI3K/Akt can't shut down.",
- "MTORC1-MAPK": "Blocking mTORC1 can backfire by releasing a brake on a different growth pathway (MAPK) – one reason mTOR-blocking drugs alone often aren't enough.",
- "METFORMIN-MTORC1": "Metformin can also block mTORC1 through a completely separate route that doesn't need AMPK at all – a route often left out of the simple \"metformin works via AMPK\" story.",
- "SESN2-AGING": "The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.",
- "RAPA-LAM": "In a clinical trial, rapamycin stabilised lung function in a rare lung disease while patients kept taking it – the decline came back once they stopped.",
- "MTORC1-RCC": "Many kidney cancers carry mutations that leave mTORC1 stuck \"on\" – that's why this cancer type responds to mTOR-blocking drugs at all, though it doesn't prove mTORC1 causes the cancer.",
- "TFEB-LYSOBIO": "In the nucleus, TFEB switches on a whole gene package for cleanup and for building new lysosomes.",
- "LYSOBIO-LYSOSOME": "More, fresher lysosomes change the very platform that controls mTORC1 – closing a loop back to where the signal started.",
- "MITODYS-MTORC1": "When mitochondria – the cell's power plants – are damaged, at least two separate alarm signals reach mTORC1 to shut it down.",
- "MTORC1-OXPHOS": "mTORC1 boosts how much energy mitochondria can produce, through both gene activation and protein-building. One mouse experiment points the other way – removing mTORC1 from fat tissue RAISED respiration – so this direction is not settled in a living animal.",
- "MTORC1-PGC1A": "mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell's outer edges. The direct interaction rests on a single study in this Atlas.",
- "MTORC1-ROS": "Switching mTORC1 on too much pushes resting stem cells to start dividing and floods them with reactive, damaging molecules; giving them antioxidants restores their normal function.",
- "ROS-MTORC1": "Oxidative damage can itself switch on mTORC1 through a chain of signals, closing a feedback loop that can turn a brief stress into a lasting one.",
- "MTORC2-MAM": "mTORC2 signalling also happens at a specific contact point between mitochondria and another cell structure – proof this pathway works at more than one location in the cell.",
- "MTORC2-AKT-FOXO": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
- "FOXO-LONGEVITY": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
- "MTORC1-HIF1A": "In one specific setting (prostate cells), mTORC1 turns on a factor usually associated with low oxygen – here it's mTORC1 driving it, not the other way around.",
-}
+# MECH_BEGINNER -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: Mechanism_Beginner). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
 
 # ---------------------------------------------------------------------------
@@ -1410,29 +1176,8 @@ ROUTE_STEPS = {
 # být v jednom buněčném typu nosná a v jiném zanedbatelná. Tam, kde to platí
 # silně, se to říká přímo na hraně – ne jen v globálním disclaimeru.
 # ---------------------------------------------------------------------------
-CTX_EXTRA = {
- "PTEN-PI3K": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically. It dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking PI3K's activity.",
- "STRESS-AMPK": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
- "ULK1-AUTOPHAGY": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
- "TFEB-AUTOPHAGY": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
- # -- External audit 2026-08-30 (items 16-18): boundary/context clauses added above for
- # PTEN-PI3K, STRESS-AMPK, ULK1-AUTOPHAGY, TFEB-AUTOPHAGY. Mirrored directly into the live
- # pathway/model.json context_note fields on 2026-08-30 as a one-off patch (this build script
- # was not re-run for that release) -- keep these two in sync on the next full rebuild.
- "AMPK-TSC": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
- "AMPK-MTORC1": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
- "MTORC1-S6K1": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
- "RHEB-MTORC1": "Rheb must be GTP-loaded and co-located with mTORC1. Rheb is also distributed across the ER and Golgi, and which pool supplies the activating Rheb is unresolved.",
- "TSC-MTORC1": "Deliberately compressed: TSC acts on Rheb, never on mTORC1. Kept as one link so the overview reads cleanly.",
- "PI3K-AKT": "PIP3 recruits Akt; recruitment alone does not activate it. Full activation additionally needs PDK1 (T308) and mTORC2 (S473), so the strength of this link depends on the activity of both of those.",
- "MTORC2-AKT": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
- "METFORMIN-MTORC1": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
- "TRANSL-MUSCLE": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
- "MTORC1-LONGEVITY": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
- "EVE-IMMUNE": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
- "ULK1-AMPK": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
- "MTORC1-TFEB": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
-}
+# CTX_EXTRA -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: Context_Dependence). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
 
 
@@ -1576,174 +1321,11 @@ OPEN_LOOPS = [
 # silently deleted the one thing this Atlas claims to model that others do not.
 # Seeded from the two cases found by external audit; extend as they are found,
 # or wire to a Conflicting_Studies field on the Relations table.
-CONFLICTING = {
-    # MAN2021 is the negative phase 3 (no reduction in clinically symptomatic
-    # respiratory illness: 26% vs 25%, OR 1.07, p=0.65) on an "activates" edge.
-    "EVE-IMMUNE": ["MAN2021"],
-    # ZID2009: 4E-BP ENHANCES mitochondrial activity in fly under dietary
-    # restriction - opposite direction to this edge's mammalian-cell sign.
-    "4EBP1-MITO": ["ZID2009"],
-    # POL2008: adipose Raptor knockout (LESS mTORC1) gave lean mice with
-    # ENHANCED mitochondrial respiration - opposite to this edge's sign. It had
-    # been cited on the edge as "genetic confirmation" (audit 2026-09-21).
-    "MTORC1-OXPHOS": ["POL2008"],
-}
+# CONFLICTING -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: Conflicting_Studies). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
-EXTRA_EDGES = [
- ("RAPA-MTORC1", "Rapamycin", "mTORC1", "inhibits", "allosteric-inhibition",
-  "lyso", "minutes", "indirect", "high", "plausible", "established",
-  "Structural", "human cells", ["CHU1992", "BRO1994", "SAB1994", "SAB1995", "CHO1996"],
-  "Rapamycin inhibits mTORC1 only as a complex with FKBP12: the pair docks on the FRB domain beside the active site and blocks some substrates but not all, so S6K1 phosphorylation collapses while much of 4E-BP1 phosphorylation persists.",
-  "Drawn as the functional arrow so that the map assigns the inhibition to the drug rather than to FKBP12. The physical route is RAPA-FKBP12 then FKBP12-MTORC1 (binding); FKBP12 without rapamycin does not inhibit mTORC1.",
-  "Directness is graded indirect because the mechanism requires FKBP12, as for everolimus and the bi-sterics. Acute effect only; the chronic effect on mTORC2 is the separate RAPA-MTORC2 edge."),
-
- # Split out of GLN-RAG on 2026-09-13 after external review. One edge was
- # asserting a Rag-DEPENDENT mechanism (DUR2012) while its own prose described
- # a Rag-INDEPENDENT one (JEW2015). Those are two architectural claims with
- # different evidence, and compressing them into one arrow made the map
- # contradict itself. They are now two edges with two grades.
- ("GLN-MTORC1-ARF1", "Glutamine", "mTORC1", "activates", "signal-relay",
-  "cytosol", "minutes", "unresolved", "low", "untested", "contested",
-  "Genetic epistasis", "mammalian cells", ["JEW2015"],
-  "A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.",
-  "Kept separate from the Rag-dependent glutaminolysis edge on purpose. Weight of a claim and strength of its evidence are independent: this one would revise the architecture of the whole nutrient arm, and it rests on a single study in this corpus.",
-  "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other."),
-
- ("LOAD-MTORC1", "Resistance exercise / mechanical load", "mTORC1", "activates", "signal-relay",
-  "lyso", "hours", "indirect", "high", "established", "established",
-  "Pharmacological", "human; mouse", ["DRU2009", "BOD2001"],
-  "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers blocks the contraction-induced increase in muscle protein synthesis, placing mTORC1 causally between the load and the response.",
-  "This is the rare case where the interruption experiment was done in people rather than inferred from cells. Human relevance is established here, not merely plausible – which is true of almost nothing else upstream in this map.",
-  "Compressed: load reaches mTORC1 through several routes, only some of which need IGF-1, and the map draws one arrow. The human evidence establishes that mTORC1 is required, not which upstream route carries the signal."),
-
- ("CR-MTORC1", "Fasting / caloric restriction", "mTORC1", "inhibits", "signal-relay",
-  "lyso", "chronic", "indirect", "medium", "plausible", "established",
-  "Genetic epistasis", "mouse", ["SOL2014"],
-  "Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.",
-  "Fasting and caloric restriction are the oldest way to lower mTORC1 in a whole animal and the least mechanistically resolved: nobody can say which arm carries most of the effect in a given tissue, and the effect on mTORC1 itself varies between tissues.",
-  "Supporting evidence here is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge, not to this one. SOL2014 found macronutrient RATIO mattered more than total intake in mice, so 'caloric restriction' may be the wrong variable name."),
-
- ("CR-LONGEVITY", "Fasting / caloric restriction", "Longevity", "activates", "functional-consequence",
-  "outcome", "chronic", "indirect", "medium", "untested", "emerging",
-  "Genetic epistasis", "rhesus; mouse", ["MAT2017", "SOL2014"],
-  "Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.",
-  "Read the species line before the claim. Primate survival data is the closest thing to human evidence here, and it is still not human – and the two large rhesus studies famously disagreed on lifespan depending on the control diet.",
-  "No human lifespan data exists. Effect direction is reproducible across several species; effect size and even the responsible variable (calories versus composition) are not settled."),
-
- ("TORIN-MTORC1", "ATP-competitive mTOR inhibitors", "mTORC1", "inhibits", "competitive-inhibition",
-  "lyso", "minutes", "direct", "high", "plausible", "established",
-  "Pharmacological", "mammalian cells", ["THO2009", "FEL2009", "CHR2009"],
-  "Occupies the mTOR active site in competition with ATP, so inhibition does not depend on obstructing substrate access and is not partial in the way rapalog inhibition is.",
-  "The comparison between this and rapamycin is what exposed rapamycin-resistant outputs. Torin was built as a ruler, and what it measured was how much of mTORC1 rapamycin had been leaving alone.",
-  "Cell-line pharmacology. Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition, which is precisely what the bi-steric design tries to avoid."),
-
- ("TORIN-MTORC2", "ATP-competitive mTOR inhibitors", "mTORC2", "inhibits", "competitive-inhibition",
-  "pm", "minutes", "direct", "high", "plausible", "established",
-  "Pharmacological", "mammalian cells", ["THO2009", "FEL2009"],
-  "The same active site is present in both complexes, so an ATP-competitive inhibitor cannot distinguish them.",
-  "Selectivity in this pathway comes from accessory subunits, not from the catalytic site – so a drug aimed at the site inherits no selectivity. That is a structural fact, not a design oversight.",
-  "Explains the metabolic and immunological toxicity of this class relative to rapalogs; the magnitude in patients is not established from these cell-line studies."),
-
- ("BISTERIC-MTORC1", "Bi-steric mTORC1-selective inhibitors", "mTORC1", "inhibits", "competitive-inhibition",
-  "lyso", "hours", "indirect", "medium", "established", "emerging",
-  "Pharmacological", "human", ["SCH2025"],
-  "A bivalent molecule engages an FKBP12-dependent site and the active site simultaneously, producing deeper mTORC1 inhibition than a rapalog while sparing mTORC2.",
-  "This is what forty years of mechanism bought: a drug designed against a specific known weakness of the previous drug. The 4E-BP1 escape identified in cells in 2009 is the thing this molecule exists to close.",
-  "Phase 1 in advanced solid tumours – a safety and pharmacodynamic result, not an efficacy verdict. Directness is graded indirect because, like rapalogs, the mechanism requires FKBP12. Consensus is emerging: one trial, newest evidence in the corpus."),
-
- ("TFEB-LYSOBIO", "TFEB", "Lysosomal biogenesis", "activates", "transcriptional",
-  "nucleus", "hours", "direct", "high", "plausible", "established",
-  "Genetic epistasis", "human cells; mouse cells", ["SET2011", "ROC2012"],
-  "Nuclear TFEB switches on the lysosomal and autophagy gene programme as a single coordinated module, expanding the lysosomal compartment.",
-  "This is the arm that makes the pathway circular. mTORC1 controls TFEB, TFEB controls how many lysosomes exist, and lysosomes are where mTORC1 is controlled.",
-  "Transcriptional output measured as gene expression and lysosomal markers; how much the compartment actually expands varies with cell type and starvation depth."),
-
- ("LYSOBIO-LYSOSOME", "Lysosomal biogenesis", "Lysosome", "activates", "functional-consequence",
-  "lyso", "hours", "direct", "high", "plausible", "established",
-  "Genetic epistasis", "mammalian cells", ["SET2012", "SET2011"],
-  "A larger, renewed lysosomal compartment changes the platform on which mTORC1 is regulated – the return leg of the lysosome-to-nucleus circuit.",
-  "Closing this arm turns a dangling output into a real feedback loop. Before it was curated, the map could not show that mTORC1 shapes its own regulatory surface.",
-  "SET2012 establishes lysosome-to-nucleus signalling via mTOR and TFEB; the quantitative effect of compartment size on mTORC1 output is not resolved."),
-
- ("MITODYS-MTORC1", "Mitochondrial dysfunction", "mTORC1", "inhibits", "signal-relay",
-  "cytosol", "hours", "indirect", "high", "plausible", "emerging",
-  "Genetic epistasis", "human cells", ["CON2021"],
-  "Genome-wide CRISPR screens identify at least two parallel relays carrying mitochondrial dysfunction to mTORC1: AMPK, and the heme-regulated inhibitor HRI acting through the integrated stress response.",
-  "Multitiered by design. The cell does not read mitochondrial failure through one channel, which is why single-gene knockouts rarely abolish the response.",
-  "CRISPR screening in cell lines; the relative weight of the AMPK and HRI arms in tissue is untested."),
-
- ("MTORC1-OXPHOS", "mTORC1", "Oxidative phosphorylation", "activates", "signal-relay",
-  "mito", "hours", "indirect", "high", "plausible", "established",
-  "Genetic epistasis", "mammalian cells", ["CUN2007", "MOR2013"],
-  "mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.",
-  "One of the few places mTORC1 acts mainly through transcription – and one where a genetic experiment points the other way. Adipose Raptor knockout, which REMOVES mTORC1, produced lean mice with enhanced mitochondrial respiration (POL2008). That result is carried as conflicting evidence; it was previously cited here as genetic confirmation, which inverted its sign (audit 2026-09-21).",
-  "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo. OVERLAP (audit 2026-09-04): this edge and MTORC1-MITO assert overlapping biology from overlapping citations (CUN2007, MOR2013) at different tiers and different consensus levels. Read them together; they are not independent support."),
-
- ("MTORC1-PGC1A", "mTORC1", "PGC-1α / YY1", "activates", "binding",
-  "nucleus", "hours", "direct", "high", "plausible", "emerging",
-  "Direct biochemical", "mammalian cells", ["CUN2007"],
-  "mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.",
-  "A nuclear action of a kinase usually taught as cytosolic. The pathway is not confined to the lysosomal surface and the cytosol.",
-  "Single-study support in this corpus for the direct interaction; the downstream respiratory phenotype is better replicated than the binding itself."),
-
- ("MTORC1-ROS", "mTORC1", "Reactive oxygen species", "activates", "functional-consequence",
-  "mito", "days", "indirect", "medium", "plausible", "established",
-  "Genetic epistasis", "mouse", ["CHE2008"],
-  "Unleashing mTORC1 by deleting TSC1 drives quiescent haematopoietic stem cells into cycle, raises mitochondrial biogenesis and floods them with ROS; an antioxidant rescues self-renewal.",
-  "The antioxidant rescue is what makes this causal rather than correlative – ROS is the mediator, not a side observation.",
-  "Demonstrated in haematopoietic stem cells, where quiescence is the baseline state. Cell types that are already cycling need not behave this way."),
-
- ("ROS-MTORC1", "Reactive oxygen species", "mTORC1", "activates", "signal-relay",
-  "cytosol", "minutes", "indirect", "medium", "untested", "emerging",
-  "Direct biochemical", "cell line", ["JIN2026"],
-  "Oxidative stress activates a redox-sensitive PI3K–Akt–mTORC1–eIF4A cascade that selectively promotes cap-dependent translation of P-glycoprotein.",
-  "Together with mTORC1 → ROS this would close a positive feedback loop, which would amplify rather than stabilise a transient oxidative insult. The two arms come from different systems (haematopoietic stem cells in mice, a multidrug-resistant cell line), so the loop is a hypothesis assembled from two papers, not a measured circuit.",
-  "One cell-line study in a multidrug-resistance context; whether the loop runs in normal physiology at these ROS levels is untested."),
-
- ("MTORC2-MAM", "mTORC2", "MAM (ER–mitochondria contacts)", "activates", "localisation",
-  "mito", "minutes", "direct", "medium", "plausible", "emerging",
-  "Direct biochemical", "mammalian cells", ["BET2013"],
-  "mTORC2–Akt signalling localises to mitochondria-associated ER membranes and regulates mitochondrial physiology from there.",
-  "Direct evidence that mTOR signalling happens at more than one membrane. The lysosome is where mTORC1 is switched on; it is not the only place mTOR works.",
-  "Biochemical fractionation and imaging in cell lines; the functional contribution relative to plasma-membrane mTORC2 is not quantified."),
-
- ("MTORC2-AKT-FOXO", "Akt/PKB", "FOXO1/3", "inhibits", "phosphorylation",
-  "nucleus", "minutes", "direct", "high", "plausible", "established",
-  "Genetic epistasis", "mouse; mammalian cells", ["GUE2006", "JAC2006"],
-  "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
-  "The clean genetic separation: this arm belongs to mTORC2, not mTORC1. It also means rapamycin does not release FOXO the way an mTOR kinase inhibitor can.",
-  "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue."),
-
- ("FOXO-LONGEVITY", "FOXO1/3", "Longevity", "activates", "functional-consequence",
-  "outcome", "chronic", "indirect", "medium", "untested", "emerging",
-  "Genetic epistasis", "C. elegans", ["ROB2012"],
-  "TOR signalling and rapamycin influence lifespan partly through the SKN-1/Nrf and DAF-16/FoxO transcriptional programmes.",
-  "An invertebrate result. It is the mechanistic basis most often cited for 'mTOR inhibition acts through stress-resistance programmes', and it has not been shown in mammals in this corpus.",
-  "C. elegans only. DAF-16 is the FOXO orthologue; mapping worm lifespan genetics onto mammalian FOXO1/3 is an inference, not a demonstration."),
-
- ("MTORC1-HIF1A", "mTORC1", "HIF-1α", "activates", "signal-relay",
-  "nucleus", "hours", "indirect", "medium", "plausible", "emerging",
-  "Genetic epistasis", "mouse", ["MAJ2004"],
-  "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
-  "Note the direction. Hypoxia → HIF-1α is the arm everyone expects, but it is mTORC1 → HIF-1α that this corpus supports; the hypoxia arm is drawn here through REDD1 instead, because that is what the cited paper shows.",
-  "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment."),
-
- # ---- added 2026-08-06: entity-browser audit (cGAS-STING pathway had no
- # node anywhere in the Atlas despite a real, citable mechanistic link).
- ("RAGULATOR-CGASSTING", "Ragulator", "cGAS-STING pathway", "inhibits", "signal-relay",
-  "cytosol", "chronic", "indirect", "medium", "untested", "emerging",
-  "Genetic loss-of-function / rescue", "mouse", ["LV2026"],
-  "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
-  "The sign here is a brake being released, not a switch being thrown: Ragulator/Lamtor5 does not touch cGAS or STING directly, it maintains an mTORC1 signalling state that keeps the sensor pathway quiet. Ageing removes the brake.",
-  "One mouse study (LV2026), A – animal. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link."),
-
- ("CGASSTING-SENESCENCE", "cGAS-STING pathway", "Cellular senescence", "activates", "functional-consequence",
-  "outcome", "days", "indirect", "medium", "untested", "emerging",
-  "Genetic loss-of-function / rescue", "mouse", ["LV2026"],
-  "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
-  "'Paracrine' is the operative word: senescence signalling propagates outward from the affected macrophages to other cells rather than staying cell-autonomous – part of why restoring Lamtor5 in one compartment produced a systemic phenotype reversal.",
-  "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested."),
-]
+# EXTRA_EDGES -- ZRUŠENO 2026-09-30. Hrany žijí jen v Airtable Relations
+# (pole: celé záznamy (21 hran přeneseno 2026-09-30)). Čte se přes relations_bake.py -> atlas_data/relations_baked.json.
 
 
 
@@ -2002,7 +1584,11 @@ def layout(nodes_by_comp, edges, comp_order):
 
 def main():
     html = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
-    old_edges = read_atlas_array(html, "ATLAS_EDGES")
+    # Hrany: jediný zdroj pravdy je Airtable Relations (od 2026-09-30), sem
+    # přicházejí přes relations_bake.py -> atlas_data/relations_baked.json.
+    # Jen publikované (Published = true, Status != Rejected).
+    import relations_bake
+    old_edges = relations_bake.load(published_only=True)
     old_routes = read_atlas_array(html, "ATLAS_ROUTES")
     studies = json.load(open(os.path.join(ROOT, "atlas_data", "studies_baked.json"), encoding="utf-8"))
     known_sids = {s.get("sid") for s in studies}
@@ -2016,10 +1602,6 @@ def main():
     endpoints = set()
     for e in old_edges:
         endpoints.add(e["s"]); endpoints.add(e["t"])
-    # Uzly se odvozují z KONCŮ HRAN, takže nové hrany musí přispět svými uzly,
-    # jinak se tiše zahodí a hrany budou ukazovat do prázdna.
-    for row in EXTRA_EDGES:
-        endpoints.add(row[1]); endpoints.add(row[2])
     for name in endpoints:
         if name not in NODES:
             problems.append("node not curated: %s" % name)
@@ -2040,12 +1622,9 @@ def main():
     # ---- hrany -----------------------------------------------------------
     interactions = []
     for e in old_edges:
-        cur = CUR.get(e["id"])
-        if not cur:
-            problems.append("edge not curated: %s" % e["id"])
-            cur = ("signal-relay", "cytosol", "minutes", "unresolved", "low", "untested", "emerging")
-        typ, comp, ts, direct, mc, hr, cons = cur
-        bad = [s for s in e["st"] if s not in known_sids]
+        typ, comp, ts, direct, mc, hr, cons = (e["type"], e["comp"], e["ts"], e["directness"],
+                                               e["mc"], e["hr"], e["cons"])
+        bad = [s for s in e["st"] + e["cf"] if s not in known_sids]
         if bad:
             problems.append("edge %s cites unknown SID(s) %s" % (e["id"], bad))
 
@@ -2055,6 +1634,7 @@ def main():
         # ale odebrat kurátorovi možnost tvrdit víc, než evidence unese.
         # Kurátor smí lidskou relevanci jen SNÍŽIT (např. "untested" u
         # myších lifespan dat), nikdy zvýšit nad to, co dovolují citace.
+        # Airtable pole Human_Relevance_Claim je proto NÁROK, ne výsledek.
         tiers_here = {sid_tier.get(s, "?") for s in e["st"]}
         human_sp = "human" in e["sp"].lower()
         ceiling = "established" if (tiers_here & {"A", "B"}) or human_sp else "plausible"
@@ -2073,62 +1653,28 @@ def main():
             "timescale": ts,
             "species": [x.strip() for x in re.split(r"[;,]", e["sp"]) if x.strip()],
             "mechanism": e["mech"],
-            "mechanism_beginner": MECH_BEGINNER.get(e["id"], ""),
-            "teaching_note": TEACH.get(e["id"], ""),
-            "boundary": e.get("ctx", ""),
+            "mechanism_beginner": e["mech_beginner"],
+            "teaching_note": e["teach"],
+            "boundary": e["ctx"],
             # Nález recenze č. 1: kontextová závislost patří na hranu, ne jen
             # do globálního disclaimeru.
-            "context_note": CTX_EXTRA.get(e["id"], ""),
-            "note": e.get("note", ""),
+            "context_note": e["context"],
+            "note": e["note"],
             "evidence": {
                 "kind": e["dir"],
                 "tiers": e["tiers"],
                 "best_tier": e["tier"],
                 "supporting": e["st"],
-                "conflicting": (e.get("cf") or CONFLICTING.get(e["id"], [])),  # cf comes from ATLAS_EDGES; dict is the fallback
+                "conflicting": e["cf"],
             },
             "confidence": {
                 "mechanistic": mc,
                 "human_relevance": hr,
                 "consensus": cons,
             },
-            "review": {"reviewer": CURATOR, "reviewed": REVIEW_DATE, "updated": REVIEW_DATE},
-        })
-
-    # ---- organelle build-out: same pipeline, same gates ------------------
-    # Nové hrany prochází stejným odvozením lidské relevance jako migrované.
-    # Kdyby se přidávaly zvlášť, dala by se tím obejít branka z nálezu F4.
-    for (eid, src, tgt, eff, typ, comp, ts, direct, mc, hr_want, cons,
-         kind, sp, sids, mech, teach, bound) in EXTRA_EDGES:
-        if src not in NODES:
-            problems.append("extra edge %s: source %r not curated as a node" % (eid, src))
-        if tgt not in NODES:
-            problems.append("extra edge %s: target %r not curated as a node" % (eid, tgt))
-        bad = [x for x in sids if x not in known_sids]
-        if bad:
-            problems.append("extra edge %s cites unknown SID(s) %s" % (eid, bad))
-        tiers_here = {sid_tier.get(x, "?") for x in sids}
-        ceiling = "established" if (tiers_here & {"A", "B"}) or "human" in sp.lower() else "plausible"
-        rank = {"untested": 0, "plausible": 1, "established": 2}
-        hr = hr_want
-        if rank[hr] > rank[ceiling]:
-            downgrades.append("%s: human_relevance %s -> %s (cited tiers %s, species %r)"
-                              % (eid, hr, ceiling, "".join(sorted(tiers_here)), sp))
-            hr = ceiling
-        interactions.append({
-            "id": eid, "source": src, "target": tgt,
-            "type": typ, "effect": eff, "compartment": comp,
-            "directness": direct, "timescale": ts,
-            "species": [x.strip() for x in re.split(r"[;,]", sp) if x.strip()],
-            "mechanism": mech, "mechanism_beginner": MECH_BEGINNER.get(eid, ""),
-            "teaching_note": teach,
-            "boundary": bound, "note": "",
-            "context_note": CTX_EXTRA.get(eid, ""),
-            "evidence": {"kind": kind, "tiers": sorted(tiers_here),
-                         "best_tier": sorted(tiers_here, key=lambda t: "ABCD".find(t) if t in "ABCD" else 9)[0],
-                         "supporting": list(sids), "conflicting": CONFLICTING.get(eid, [])},
-            "confidence": {"mechanistic": mc, "human_relevance": hr, "consensus": cons},
-            "review": {"reviewer": CURATOR, "reviewed": REVIEW_DATE, "updated": REVIEW_DATE},
+            "review": {"reviewer": e.get("reviewed_by") or CURATOR,
+                       "reviewed": e.get("reviewed_on") or REVIEW_DATE,
+                       "updated": e.get("reviewed_on") or REVIEW_DATE},
         })
 
     ix = {i["id"]: i for i in interactions}

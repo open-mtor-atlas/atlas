@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.open-mtor-atlas/mtor-atlas",
+  "title": "Oliver's mTOR Atlas",
+  "description": "Evidence-labelled mTOR research: studies, entities, pathway claims with supporting and conflicting evidence, open questions.",
+  "websiteUrl": "https://mtor-atlas.org/api/",
+  "repository": {
+    "url": "https://github.com/open-mtor-atlas/atlas",
+    "source": "github",
+    "subfolder": "mcp"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "mtor-atlas-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "ATLAS_API_BASE",
+          "description": "Optional. Base URL (or local folder) of the Atlas API. Defaults to https://mtor-atlas.org/api/v1",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

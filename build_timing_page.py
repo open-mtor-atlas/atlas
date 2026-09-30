@@ -22,7 +22,7 @@ DVĚ RŮZNÉ VĚCI, KTERÉ SE NESMÍ SLÉVAT
 ZDROJE
   atlas_data/studies_baked.json   -- pole regimen, regimen_evidence,
                                      exposure, washout
-  index.html -> const ATLAS_EDGES -- pole timedep
+  atlas_data/relations_baked.json -- pole timedep (Airtable Relations; od 2026-09-30)
 
 ÚROVEŇ B (21. 9. 2026)
   Druhá sekce "How the signal itself moves" (Studies.Signal_Readout a smyčky
@@ -92,11 +92,10 @@ def load_studies():
 
 
 def load_edges():
-    s = io.open(os.path.join(HERE, CFG["edges_from_index"]), encoding="utf-8").read()
-    m = re.search(r"const ATLAS_EDGES\s*=\s*(\[.*?\]);\s*\n", s, re.S)
-    if not m:
-        raise SystemExit("build_timing_page: ATLAS_EDGES nenalezeny")
-    return json.loads(m.group(1))
+    # Od 2026-09-30 z relations_baked.json (jediný zdroj: Airtable Relations),
+    # ne z kopie ATLAS_EDGES v index.html.
+    import relations_bake
+    return relations_bake.atlas_edges()
 
 
 def compute():
