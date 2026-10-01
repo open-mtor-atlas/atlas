@@ -100,16 +100,16 @@ export default {
     if (url.pathname === '/health') return json({ ok: true, version: VERSION });
 
     // Public aggregate usage counts (no per-request rows, nothing about people).
-    // Needs the secret CF_API_TOKEN (Account Analytics: Read); cached for 10 minutes.
+    // Needs the secret ANALYTICS_TOKEN (Account Analytics: Read); cached for 10 minutes.
     if (url.pathname === '/stats') {
-      if (!env?.CF_API_TOKEN) return json({ error: 'Usage stats not configured' }, 404);
+      if (!env?.ANALYTICS_TOKEN) return json({ error: 'Usage stats not configured' }, 404);
       const days = Math.max(1, Math.min(90, Number(url.searchParams.get('days')) || 30));
       const cacheKey = new Request(`https://stats.cache/${days}`);
       const cache = globalThis.caches?.default;
       const hit = cache && await cache.match(cacheKey);
       if (hit) return withCors(hit);
       try {
-        const report = await usageReport(env.CF_ACCOUNT_ID, env.CF_API_TOKEN, days);
+        const report = await usageReport(env.CF_ACCOUNT_ID, env.ANALYTICS_TOKEN, days);
         const res = new Response(JSON.stringify(report, null, 2), {
           headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=600' },
         });
