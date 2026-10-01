@@ -168,8 +168,8 @@ DATASET_REF = {
     "inLanguage": "en",
     "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity",
                  "aging biology", "TSC complex", "evidence-based research"],
-    # "version" is the last formally cut Zenodo release (tag v2.0.0, DOI
-    # 10.5281/zenodo.22916413) -- NOT the live corpus size, which changes
+    # "version" is the last formally cut Zenodo release (tag v2.0.1, DOI
+    # 10.5281/zenodo.23090261) -- NOT the live corpus size, which changes
     # far more often than a release should. dateModified tracks the living
     # corpus itself (stamped at build time, same convention as the sitemap
     # <lastmod>): a reader/crawler can see the page changed even between
@@ -1543,40 +1543,6 @@ def changelog_page(studies):
     (2026-07-29 for both rounds currently on file) -- shown here as-is,
     flagged, not invented as a fake precise timestamp."""
     url = f"{SITE}/changelog/"
-    AUDIT_ROUND_DATE = "2026-07-29"
-
-    entries = []  # (date, sid, field, why)
-    for fn in ("AUDIT_changelog_studies.json", "REVIEW_changelog_studies.json"):
-        p = os.path.join(DATA, fn)
-        if not os.path.exists(p):
-            continue
-        try:
-            rows = json.load(open(p, encoding="utf-8"))
-        except Exception:
-            continue
-        for row in rows:
-            sid = row.get("sid")
-            why = row.get("why")
-            if sid and why:
-                entries.append((AUDIT_ROUND_DATE, sid, row.get("field") or "—", why))
-    # novejsi datum prvni; pri stejnem datu podle SID pro stabilni poradi
-    entries.sort(key=lambda t: (t[0], t[1]), reverse=True)
-
-    if entries:
-        rows_html = "".join(
-            f'<tr><td data-l="Date">{e(d)}</td>'
-            f'<td data-l="Study"><a href="{SITE}/study/{e(sid)}/">{e(sid)}</a></td>'
-            f'<td data-l="Field">{e(field)}</td>'
-            f'<td data-l="What changed and why">{e(why)}</td></tr>'
-            for d, sid, field, why in entries)
-        table_html = (f'<table class="st"><tr><th>Date</th><th>Study</th>'
-                      f'<th>Field</th><th>What changed and why</th></tr>'
-                      f'{rows_html}</table>')
-        count_line = (f"<p>{len(entries)} corrections on record, from "
-                      f"{len(set(e2[1] for e2 in entries))} distinct study records.</p>")
-    else:
-        table_html = "<p><em>No corrections on record yet.</em></p>"
-        count_line = ""
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "Corrections log | Oliver's mTOR Atlas", "url": url,
@@ -1599,6 +1565,45 @@ def changelog_page(studies):
     # tooltip not reaching the static pages). Those belong in commit
     # messages / build handover docs, not here.
     method_changes = [
+        ("2026-09-23",
+         "Open Questions cards rewritten around what has changed since the question was written",
+         "A check of the ten cards against published human results found sentences "
+         "and two titles saying that something had never been tested in humans when "
+         "trials existed (for example, the combination of rapamycin with other "
+         "drugs was tested by the mouse Interventions Testing Program in 2016 and "
+         "2022). Each card now states what level of evidence the question stands "
+         "on, what has changed in the literature since it was written, and what is "
+         "still open. The changed-since block is the only place a card may cite "
+         "studies outside the corpus, and every number in it must carry a source "
+         "a reader can look up (PMID, trial number, preprint or corpus code). "
+         "Later edits to a card go into a separate collapsed revision history "
+         "instead of the scientific text itself. Five Frontier Questions about "
+         "how the pathway is measured got their own section, kept apart from "
+         "the gaps computed against the corpus."),
+        ("2026-09-14",
+         "Inclusion and exclusion criteria rewritten to match what the corpus actually does",
+         "The published rules asked for a systematic review or a large randomised "
+         "trial. The corpus never followed that, and should not: its human "
+         "evidence includes small trials of 8 to about 25 people, because nothing "
+         "stronger exists for those questions. The rule is now the strongest "
+         "evidence available for the claim, with sample size and limits shown in "
+         "the record. A PMID is no longer required. A DOI or an NCT number is "
+         "enough, because 29 of 380 records (7.6%) were papers still waiting for "
+         "PubMed indexing and one is a registered trial. A fifth inclusion rule "
+         "covers narrative reviews, about 10% of the corpus; a review never "
+         "stands alone behind a causal link. The rules are numbered IN1 to IN5 "
+         "and EX1 to EX4 so that any exclusion can be cited."),
+        ("2026-09-13",
+         "Public self-audit of the evidence, and a record of how long and under what dosing a finding was measured",
+         "Two pages now audit the corpus against itself. /evidence/audit/ shows "
+         "what the evidence can carry: at the time of publication 10.3% of "
+         "studies were human, 72% of pathway links rested only on mechanistic "
+         "work, 40% rested on a single study, and none of the links had been "
+         "signed off as Confirmed by a reviewer. /pathway/timing/ records "
+         "whether a finding was measured under chronic, intermittent, acute or "
+         "withdrawal dosing. Not stated means nobody checked; not applicable "
+         "means the question does not arise for that study, and the two are "
+         "never merged."),
         ("2026-09-07",
          "Evidence codes renamed from A\u2013D to S / H / A / M / R, and "
          "reviews split out",
@@ -1618,6 +1623,26 @@ def changelog_page(studies):
          "(Harvard T.H. Chan School of Public Health), who pointed out that "
          "rigorous mechanistic work should not be weighted down merely for not "
          "yet having been shown in humans."),
+        ("2026-08-03",
+         "Wording calibrated to what each statement is: fact, interpretation or hypothesis",
+         "Statements are labelled as fact, interpretation or hypothesis. Absolute "
+         "wording such as none of them or the first was replaced with hedged "
+         "wording that names the limit. The evidence pyramid carries a note that "
+         "a lower rung is not worse science. The section once called Gaps and "
+         "Hypotheses became Open Questions. The selection policy now says that no "
+         "screening log of rejected papers exists, so no number of rejected papers "
+         "is quoted."),
+        ("2026-07-29",
+         "External scientific review: citations must carry the claim, and confidence split into three judgements",
+         "An external review checked all 93 pathway links at the time, sign by "
+         "sign, and found no wrong sign. It found 16 problems elsewhere, mostly "
+         "citations that did not support the claim made: a paper that measured "
+         "only side effects was cited for a lifespan benefit and was replaced. "
+         "Since then a citation has to support the specific claim it is attached "
+         "to. Confidence is no longer one number but three separate judgements "
+         "(strength of the mechanism, relevance to humans, degree of consensus). "
+         "Relevance to humans is derived from the cited studies, and a curator "
+         "can only lower it; on the first run it dropped for 29 of 100 links."),
     ]
     method_html = "".join(
         f'<tr><td data-l="Date">{e(d)}</td>'
@@ -1626,31 +1651,19 @@ def changelog_page(studies):
         for d, t, w in method_changes)
 
     body = f"""<h1>Corrections log</h1>
-<p class="summary">Every recorded correction to a study record's finding or
-supporting fields, with the curator's own reason for the change, plus any
-change to the method itself. This is the log referenced from
-<a href="{SITE}/about/">About &amp; Methodology</a>'s correction policy.</p>
+<p class="summary">Changes to the method itself: how studies are selected,
+graded or read. Each entry has a date and the reason for the change. This is
+the log referenced from <a href="{SITE}/about/">About &amp; Methodology</a>'s
+correction policy.</p>
 
-<h2>Changes to the method</h2>
-<p>Changes affecting how every record is read, rather than a fix to one
-study.</p>
 <table class="st"><tr><th>Date</th><th>Change</th><th>Why</th></tr>
 {method_html}</table>
-
-<h2>Corrections to individual records</h2>
-{count_line}
-<p><em>Dates below mark the audit round in which each correction was made,
-not the individual edit's own timestamp -- neither source file this page
-reads carries a true per-entry date. See
-<a href="{SITE}/about/">About &amp; Methodology</a> for how the review
-process itself works.</em></p>
-{table_html}
 <p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>
 """
     return url, shell(
         "Corrections log | Oliver's mTOR Atlas",
-        "Every recorded correction to an Oliver's mTOR Atlas study record, "
-        "with the field changed and the curator's reason -- a public "
+        "Changes to how Oliver's mTOR Atlas selects, grades and reads "
+        "evidence, each with its date and the reason -- a public "
         "accountability log.",
         url, [ld, bc], body, crumb, active_tab=None)
 
@@ -2065,7 +2078,7 @@ including the ones above, is computed from that snapshot rather than
 typed in by hand.</p>
 
 <h2>Corrections log</h2>
-<p>Every recorded correction to a study record -- what changed and why -- is public at <a href="{SITE}/changelog/">/changelog/</a>: a checkable list, not a claim to take on faith.</p>
+<p>Every change to the method itself (how studies are selected, graded or read), with its date and the reason, is public at <a href="{SITE}/changelog/">/changelog/</a>.</p>
 
 <h2>License &amp; reuse</h2>
 <p>Content is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
@@ -2174,8 +2187,8 @@ Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 <tr><td>Dataset DOI</td><td><a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>
 &mdash; concept DOI, always resolves to the latest archived version on
 Zenodo</td></tr>
-<tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.22916413">10.5281/zenodo.22916413</a>
-&mdash; the v2.0.0 snapshot, for citing the exact state of the corpus this
+<tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.23090261">10.5281/zenodo.23090261</a>
+&mdash; the v2.0.1 snapshot, for citing the exact state of the corpus this
 version archived</td></tr>
 <tr><td>FAIRsharing DOI</td><td><a href="https://doi.org/10.25504/FAIRsharing.691885">10.25504/FAIRsharing.691885</a>
 &mdash; resolves to the FAIRsharing registry record above</td></tr>
@@ -3451,7 +3464,7 @@ Publication timelines for the scientists most represented in the corpus.
 ## Machine-readable
 - [Data & Citation](https://mtor-atlas.org/data/): DOI, ORCID, license, bio.tools/FAIRsharing registration, citation string
 - [Data exports (CSV/JSON)](https://mtor-atlas.org/data/exports/): the full corpus as flat files, regenerated on every deploy
-- [Corrections log](https://mtor-atlas.org/changelog/): every recorded correction to a study record, with reason
+- [Corrections log](https://mtor-atlas.org/changelog/): every change to the method (selection, grading, reading of evidence), with date and reason
 - [Sitemap index](https://mtor-atlas.org/sitemap.xml)
 - [robots.txt](https://mtor-atlas.org/robots.txt)
 
