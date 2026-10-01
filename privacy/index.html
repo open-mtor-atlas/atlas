@@ -96,16 +96,21 @@ html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4
     which GitHub sees as ordinary web requests.</li> <li><strong>Remote version</strong> (<code>https://mtor-atlas-mcp.mtor-atlas.workers.dev/mcp</code>). It runs on
     Cloudflare Workers. When an AI assistant uses it, the server receives only the tool call: the tool
     name and its arguments, such as a search term or a study ID. It does not receive your conversation,
-    your name or your account. It needs no sign-in and sets no cookies.</li> <li><strong>No logs, no storage.</strong> The server's code does not record requests or tool arguments
-    and stores nothing between requests other than a temporary in-memory copy of the public Atlas data.
-    Request logging in Cloudflare is switched off. Cloudflare itself processes network traffic (including
-    IP addresses) to deliver and protect the service, under the
-<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a>; the Atlas sees only
-    aggregate counts (number of requests and errors).</li> <li><strong>What it returns</strong> is public metadata about published research (titles, authors,
+    your name or your account. It needs no sign-in and sets no cookies.</li> <li><strong>No logs of what you ask.</strong> The server's code does not record tool arguments, results,
+    IP addresses or browser details, and stores nothing between requests other than a temporary in-memory
+    copy of the public Atlas data. Request logging in Cloudflare is switched off.</li> <li><strong>Anonymous usage counts.</strong> For each request the server adds one count to an aggregate
+    table (Cloudflare Workers Analytics Engine): the time, which tool was used (for example
+<code>search_studies</code>), the name the connecting app reports for itself (for example
+<code>claude-ai</code>), the kind of app taken from its User-Agent (for example "claude" or "openai"),
+    whether the call succeeded and how long it took. Nothing in it identifies a person. The Atlas uses these
+    counts only to see whether and how the server is used. Cloudflare keeps them for 3 months.</li> <li><strong>Cloudflare</strong> itself processes network traffic (including IP addresses) to deliver and
+    protect the service, under the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy
+    Policy</a>.</li> <li><strong>What it returns</strong> is public metadata about published research (titles, authors,
     DOIs, curated findings), the same as on the website. It contains no personal or health data about
     users.</li> </ul> <h2>Sharing and selling</h2> <p>Nothing is sold, shared with advertisers or used to profile anyone. The only third parties involved
   are the service providers named above (GitHub, Google Analytics, Cloudflare, and npm for the package
-  download).</p> <h2>Retention</h2> <p>The Atlas keeps no personal data of its own. Google Analytics event data is deleted after 2 months.
+  download).</p> <h2>Retention</h2> <p>The Atlas keeps no personal data of its own. Google Analytics event data is deleted after 2 months;
+  the MCP server's anonymous usage counts after 3 months.
   Retention of operational logs at GitHub and Cloudflare is governed by their policies linked above.</p> <h2>Questions and changes</h2> <p>Write to oliver.barton1113(at)gmail.com. If anything here changes, this page is updated and the
   date at the top changes with it.</p>   </main> <footer class="oma-footer"> <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
   pathway. Every entry traces to a primary paper and is labelled by the kind of study
