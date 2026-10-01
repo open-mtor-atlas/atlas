@@ -1,15 +1,16 @@
 // Anonymous usage report for the remote MCP server (Workers Analytics Engine).
 //
-//   set CF_ACCOUNT_ID=...            (Cloudflare dashboard, right column of Workers & Pages)
-//   set CF_API_TOKEN=...             (API token with "Account Analytics: Read")
+//   CF_ACCOUNT_ID defaults to the Atlas account; override with set CF_ACCOUNT_ID=...
+//   set CF_API_TOKEN=...             (token "mtor-atlas-mcp-usage-read", Account Analytics: Read)
 //   node usage.mjs [days]            default 30
 //
 // Data points come from src/index.js recordUsage(): blob1 method, blob2 tool,
 // blob3 client name (initialize only), blob4 client family, blob5 outcome,
 // double2 duration in ms. Analytics Engine samples at high volume, so counts
 // use SUM(_sample_interval). Data is kept by Cloudflare for 3 months.
-const { CF_ACCOUNT_ID: acct, CF_API_TOKEN: token } = process.env;
-if (!acct || !token) { console.error('Set CF_ACCOUNT_ID and CF_API_TOKEN first (see the header of this file).'); process.exit(1); }
+const acct = process.env.CF_ACCOUNT_ID || '28737ccd742e4db6af4ea76764219a6f';
+const token = process.env.CF_API_TOKEN;
+if (!acct || !token) { console.error('Set CF_API_TOKEN first (see the header of this file).'); process.exit(1); }
 const days = Math.max(1, Math.min(90, Number(process.argv[2]) || 30));
 const DS = 'mtor_atlas_mcp_usage';
 const since = `timestamp > NOW() - INTERVAL '${days}' DAY`;
