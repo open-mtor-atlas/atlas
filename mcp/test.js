@@ -1,10 +1,11 @@
+import { fileURLToPath } from 'node:url';
 // Smoke test: starts the server over stdio and calls every tool once.
 //   ATLAS_API_BASE=/path/to/dist/api/v1 node test.js   (local build)
 //   node test.js                                       (live site)
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-const t = new StdioClientTransport({ command: process.execPath, args: [new URL('./index.js', import.meta.url).pathname], env: { ...process.env } });
+const t = new StdioClientTransport({ command: process.execPath, args: [fileURLToPath(new URL('./index.js', import.meta.url))], env: { ...process.env } });
 const c = new Client({ name: 'atlas-test', version: '0' });
 await c.connect(t);
 const tools = (await c.listTools()).tools.map((x) => x.name);
