@@ -2534,7 +2534,7 @@ def oliver_page(bio):
         body.append("<h2>Acknowledgements</h2>")
         if bio.get("thanks_intro"):
             body.append(f'<p class="meta">{e(bio["thanks_intro"])}</p>')
-        body.append("<ul>")
+        body.append("<ul style=\"padding-left:0\">")
         for t in bio["thanks"]:
             nm = e(t["name"])
             href = t.get("url") or ""
@@ -2550,7 +2550,18 @@ def oliver_page(bio):
             why = t.get("reason") or ""
             why_html = (f'<br><span style="font-size:13px;color:var(--soft)">'
                         f'&mdash; {e(why)}</span>') if why else ""
-            body.append(f"<li style=\"margin-bottom:9px\">{nm}{aff_html}{why_html}</li>")
+            th = t.get("thumb") or ""
+            if th:
+                av = (f'<img src="{e(th)}" alt="" width="40" height="40" loading="lazy" '
+                      f'style="width:40px;height:40px;border-radius:50%;object-fit:cover;'
+                      f'object-position:50% 20%;flex:none">')
+            else:
+                av = (f'<span aria-hidden="true" class="mono" style="width:40px;height:40px;'
+                      f'border-radius:50%;flex:none;display:inline-flex;align-items:center;'
+                      f'justify-content:center;font-size:11px;border:1px solid var(--soft);'
+                      f'color:var(--soft)">{e(t.get("init") or "")}</span>')
+            body.append(f'<li style="margin-bottom:12px;list-style:none;display:flex;gap:12px;'
+                        f'align-items:center">{av}<span>{nm}{aff_html}{why_html}</span></li>')
         body.append("</ul>")
 
     body.append(f'<p><a class="cta" href="{SITE}/about/">About &amp; Methodology</a></p>')

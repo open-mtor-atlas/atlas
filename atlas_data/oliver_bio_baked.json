@@ -1,614 +1,637 @@
 {
- "full": "Oliver Barton",
- "role": "Creator & Curator — Prague, Czech Republic — Age 15",
- "bio_paragraphs": [
-  "I am a high school student in Prague with a self-directed research interest in mTOR signaling, longevity biology, and evidence-based science curation. I built Oliver's mTOR Atlas myself, with help from AI along the way, to create the kind of resource I wished existed when I began reading primary literature on the pathway: one structured database that holds studies, mechanisms, interventions, and honest evidence grades side by side, rather than scattered across dozens of review articles and pathway maps.",
-  "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b> — most of the literature treats mTORC1/mTORC2 activity as fixed rather than something that shifts over time in a real cell. I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. See {{RESEARCH_FOCUS_LINK}} in About for the frontier questions and studies behind it."
- ],
- "email_obfuscated": "oliver.barton1113(at)gmail.com",
- "bluesky": "https://bsky.app/profile/oliver-barton.bsky.social",
- "bluesky_handle": "@oliver-barton.bsky.social",
- "orcid": "https://orcid.org/0009-0008-2025-2148",
- "photo": "/img/people/misc-7cff05feef.jpg",
- "research_focus_intro": [
-  "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b>. Most of the literature treats mTORC1/mTORC2 activity as fixed — a level, measured once, usually right after a nutrient jolt in a dish. Real cells never see a jolt like that: they see meals, exercise, sleep and waking, a rhythm underneath everything else.",
-  "I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. If it is, a lot of the field's single-time-point measurements are answering a different question than the one being asked. This section collects the frontier questions this raises, the studies that motivate them, and what is currently running or newly published that bears on them."
- ],
- "frontier_questions_intro": "Five open framing questions in the Atlas grow directly out of this — not gaps in what has been measured, but questions about whether the standard way of measuring mTOR is even asking the right thing:",
- "frontier_questions": [
-  {
-   "id": "F1",
-   "slug": "does-mtorc1-encode-information-in-dynamics-not-average-activity",
-   "title": "Does mTORC1 carry information in the pattern of its activity over time, not its average level?",
-   "gap_beginner": "Nearly every study measures mTOR activity the way you would read a thermometer once: a single number, from a single moment, usually right after the cell was given a sudden jolt of nutrients. But real cells never get a sudden jolt. They get meals, exercise, sleep and waking — a rhythm. If what matters is the rhythm rather than the average, then the standard measurement is not just imprecise. It is answering a different question from the one being asked.",
-   "primary": true
-  },
-  {
-   "id": "F3",
-   "slug": "is-mtor-signalling-decided-by-where-not-how-much",
-   "title": "Is mTOR signalling decided by where the complex is active, rather than by how much of it is active?",
-   "gap_beginner": "The lysosome is normally described as mTOR's parking space. Newer structural work describes it more like a workbench: what the enzyme can reach depends on how it is docked. If that is right, two cells with the same amount of activity can be doing completely different jobs — and grinding them up to measure the total would hide exactly that.",
-   "primary": false
-  },
-  {
-   "id": "F4",
-   "slug": "must-inhibition-match-the-bodys-own-rhythm",
-   "title": "Does the timing of mTOR inhibition have to match the body's own pulses — feeding, exercise, sleep?",
-   "gap_beginner": "Giving the drug once a week instead of daily is usually explained as a way to lower the dose and avoid side effects. But if the pathway cares about rhythm, the question is not how often you give it — it is whether the gaps in the drug line up with the moments the body actually needs the pathway on, like after a meal or after exercise. Nobody has tested that alignment.",
-   "primary": false
-  },
-  {
-   "id": "F2",
-   "slug": "which-mtorc1-outputs-actually-carry-ageing",
-   "title": "Is mTORC1 one pathway or several separable outputs — and which of them carries ageing?",
-   "gap_beginner": "Most of the argument is about how hard to press the brake, and recently about which of the two brakes to press. Hardly anyone asks which of the things the brake controls actually needs slowing. And those things do come apart: in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
-   "primary": false
-  },
-  {
-   "id": "F5",
-   "slug": "which-human-ageing-phenotypes-are-causally-reversible",
-   "title": "Which human ageing phenotypes are causally reversible by mTOR modulation — and is it the same mechanism in each tissue?",
-   "gap_beginner": "Asking whether a drug makes people live longer cannot be answered in any reasonable amount of time, and aiming at it has crowded out better questions. Ageing is not one thing: the immune system, muscle, metabolism and the brain each age in their own way, and a drug might reach some of them and miss others entirely.",
-   "primary": false
-  }
- ],
- "focus_table_intro": "The foundational and most closely related studies behind the “pattern over time, not just average level” question above, ranked by scientific significance rather than publication date:",
- "focus_studies": [
-  {
-   "title": "Tuberous sclerosis complex gene products, Tuberin and Hamartin, control mTOR signaling by acting as a GTPase-activating protein complex toward Rheb",
-   "doi_url": "https://doi.org/10.1016/s0960-9822(03)00506-2",
-   "sid": "TEE2003",
-   "authors": [
-    "Tee AR",
-    "Cantley LC"
-   ],
-   "year": "2003",
-   "why": "Founding paper — first to show TSC1/TSC2 acting as the GAP complex for Rheb, the discovery the whole TSC→mTORC1 axis rests on.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "Rheb GTPase is a direct target of TSC2 GAP activity and regulates mTOR signaling",
-   "doi_url": "https://doi.org/10.1101/gad.1110003",
-   "sid": "INOK2003",
-   "authors": [
-    "Inoki K",
-    "Guan KL"
-   ],
-   "year": "2003",
-   "why": "Companion founding paper, published independently and simultaneously with Tee et al. 2003 — same weight, same discovery.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling",
-   "doi_url": "https://doi.org/10.1038/ncb839",
-   "sid": "INO2002",
-   "authors": [
-    "Inoki K",
-    "Guan KL"
-   ],
-   "year": "2002",
-   "why": "Established the Akt→TSC2→mTOR link — the exact “known regulatory input” Joshi 2024 shows is bypassed during interphase.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "TBC1D7 is a third subunit of the TSC1-TSC2 complex upstream of mTORC1",
-   "doi_url": "https://doi.org/10.1016/j.molcel.2012.06.009",
-   "sid": "DIB2012",
-   "authors": [
-    "Dibble CC",
-    "Manning BD"
-   ],
-   "year": "2012",
-   "why": "Completed the parts list of the TSC complex whose GAP activity Joshi 2024 studies across the cell cycle.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "Spatial control of the TSC complex integrates insulin and nutrient regulation of mTORC1 at the lysosome",
-   "doi_url": "https://doi.org/10.1016/j.cell.2013.11.049",
-   "sid": "MEN2014",
-   "authors": [
-    "Menon S",
-    "Manning BD"
-   ],
-   "year": "2014",
-   "why": "Closest mechanistic precedent to the “timing, not just level” question — shows TSC complex localization, not just abundance, gates mTORC1.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "sid": "KOR2011",
-   "year": 2011,
-   "title": "Lysosomal positioning coordinates cellular nutrient responses",
-   "authors": [
-    "Korolchuk VI",
-    "Rubinsztein DC"
-   ],
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro",
-   "doi_url": "https://doi.org/10.1038/ncb2204",
-   "why": "The spatial counterpart to Menétrey 2014, one storey up: with nutrients available lysosomes move out to the cell periphery and mTORC1 is active there; starvation pulls them into a cluster around the nucleus, output falls and autophagy is released. Where the compartment sits, not how much of it there is, carries the signal — and it sets the rate of autophagy directly."
-  },
-  {
-   "title": "Molecular logic of mTORC1 signalling as a metabolic rheostat",
-   "doi_url": "https://doi.org/10.1038/s42255-019-0038-7",
-   "sid": "VAL2019",
-   "authors": [
-    "Valvezan AJ",
-    "Manning BD"
-   ],
-   "year": "2019",
-   "why": "Conceptual framework from Joshi 2024's own senior author — mTORC1 as a graded rheostat rather than an on/off switch.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "Narrative Review"
-  },
-  {
-   "title": "mTORC1 Couples Nucleotide Synthesis to Nucleotide Demand Resulting in a Targetable Metabolic Vulnerability",
-   "doi_url": "https://doi.org/10.1016/j.ccell.2017.09.013",
-   "sid": "VAL2017",
-   "authors": [
-    "Valvezan AJ",
-    "Manning BD"
-   ],
-   "year": "2017",
-   "why": "Same lab's translational angle — TSC-mutant cells' nucleotide synthesis as a druggable weak point.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "mTORC1 activity oscillates throughout the cell cycle, promoting mitotic entry and differentially influencing autophagy induction",
-   "doi_url": "https://doi.org/10.1016/j.celrep.2024.114543",
-   "sid": "JOS2024",
-   "authors": [
-    "Joshi JN",
-    "Valvezan AJ"
-   ],
-   "year": "2024",
-   "why": "The paper that sparked this focus — mTORC1 activity is lowest in mitosis/G1 and highest in S/G2, and this timing, not just average level, shapes autophagy sensitivity.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "sid": "BOU2020",
-   "year": 2020,
-   "title": "AIMTOR, a BRET biosensor for live imaging, reveals subcellular mTOR signaling and dysfunctions",
-   "authors": [
-    "Bouquier N",
-    "Ollendorff V"
-   ],
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro",
-   "doi_url": "https://doi.org/10.1186/s12915-020-00790-8",
-   "why": "The enabling technology behind the question. AIMTOR reads mTOR activity live in single cells and separately in the cytosol, at the lysosome, in the nucleus and near mitochondria — which is what turns a pulsatile or oscillatory hypothesis from something arguable into something measurable. It came five years after TORCAR (ZHO2015), the first live mTORC1 reporter, and adds compartment-specific versions in a bioluminescence format."
-  },
-  {
-   "title": "Inferring feedback regulation from static snapshots of a single signal",
-   "doi_url": "https://doi.org/10.1016/j.bbrep.2026.102747",
-   "sid": "GIN2026",
-   "authors": [
-    "Ginzberg M",
-    "Kafri R"
-   ],
-   "year": "2026",
-   "why": "A method for reading a signal’s change over time out of still images — and it finds AKT feedback that exists only in a narrow window at G1/S, which the authors attribute to mTORC1/S6K1→IRS1 while stating their data do not establish that edge uniquely.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "Mathematical modeling of dietary timing- and protein quality-responsive liver circadian clock and its function on ribosome biogenesis",
-   "doi_url": "https://doi.org/10.1152/physiolgenomics.00152.2026",
-   "sid": "LU2026",
-   "authors": [
-    "Lu L",
-    "Androulakis IP"
-   ],
-   "year": "2026",
-   "why": "Treats mTORC1 as a rhythm set by the timing and quality of amino acid intake rather than a fixed level, and asks what the shape of that rhythm does to ribosome biogenesis. A prediction, not a measurement — the model is in silico.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "title": "Fluorescent protein ticker tape (FPTT): Multiplexed recording of transcriptional dynamics in living cells and in vivo",
-   "doi_url": "https://doi.org/10.1126/sciadv.aef9406",
-   "sid": "WANG2026C",
-   "authors": [
-    "Wang R",
-    "Jiang J"
-   ],
-   "year": "2026",
-   "why": "A new multiplexed live-cell biosensor platform that, built and validated independently of JOS2024, directly visualized mTOR activity oscillating across the cell cycle — orthogonal confirmation that the pattern of mTOR signaling over time is a real, reproducible phenomenon rather than an artifact of one assay.",
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro"
-  },
-  {
-   "sid": "ARR2015",
-   "year": 2015,
-   "title": "Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system",
-   "authors": [
-    "Arriola Apelo SI",
-    "Lamming DW"
-   ],
-   "tier": "C - Animal",
-   "pyramid": "4 - Animal Study",
-   "doi_url": "https://doi.org/10.1111/acel.12405",
-   "why": "One of two studies in this corpus that hold the compound constant and vary only when it is given (the other, OKA2013, varies the time of day): weekly or every-fifth-day rapamycin spared glucose tolerance, beta-cell function and the immune system that daily dosing impaired, while still inhibiting mTORC1. Read the scope honestly — this is organismal pharmacology rather than cell-level signalling, and it measured side effects, not benefit. It belongs here because it is the same claim in a different register: the pattern, not the average, decided the outcome."
-  },
-  {
-   "sid": "ZHO2015",
-   "year": 2015,
-   "title": "Dynamic Visualization of mTORC1 Activity in Living Cells",
-   "authors": [
-    "Zhou X",
-    "Zhang J"
-   ],
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro",
-   "doi_url": "https://doi.org/10.1016/j.celrep.2015.02.031",
-   "why": "The first genetically encoded reporter of mTORC1 activity: a FRET sensor that shows mTORC1 changing in living cells, in real time and compartment by compartment. It found activity in the nucleus and at the plasma membrane as well as at the lysosome, with different signals lighting up different places. Without a live reader, the question of whether the pattern matters could not be asked of mTORC1 at all."
-  },
-  {
-   "sid": "KUB2012",
-   "year": 2012,
-   "title": "Temporal coding of insulin action through multiplexing of the AKT pathway",
-   "authors": [
-    "Kubota H",
-    "Kuroda S"
-   ],
-   "tier": "D - Mechanistic/Review",
-   "pyramid": "5 - Mechanistic / In Vitro",
-   "doi_url": "https://doi.org/10.1016/j.molcel.2012.04.018",
-   "why": "The cleanest cell-level proof that timing carries information in this pathway: a pulse of insulin and a sustained dose became transient and sustained AKT signals, and S6K answered only the transient one. It sits one step upstream of mTORC1 and uses a rat liver cell line, so it is not mTORC1's own rhythm. What it shows is the principle the question rests on: same pathway, same molecules, and the shape of the signal decides which output responds."
-  }
- ],
- "on_the_horizon_intro": "Not yet part of the graded corpus above — because they are either still running or have not been peer-reviewed — but directly relevant, found via ClinicalTrials.gov and bioRxiv:",
- "on_the_horizon": [
-  {
-   "kind": "Clinical trial",
-   "status": "Recruiting · primary completion 2028",
-   "id": "NCT06658093",
-   "title": "RESTOR — Rapamycin and Everolimus Study Towards Older Rejuvenation",
-   "url": "https://clinicaltrials.gov/study/NCT06658093",
-   "sponsor": "UT Health San Antonio · NIA",
-   "why": "The most direct human test of this question so far: it first measures mTOR activity in young adults as a “youthful” target, then compares daily vs. intermittent dosing against placebo in older adults over 6 months, tracking S6/S6K and Akt phosphorylation in blood, muscle and fat — pattern vs. level, not just dose vs. no dose.",
-   "added": "2026-09-27",
-   "lifecycle": "Registered trial",
-   "tier": "B - Human",
-   "model": "Humans, 65–90 y (n = 194)",
-   "started": "Mar 2026",
-   "expected": "Primary completion Jul 2028; no results posted yet"
-  },
-  {
-   "kind": "Clinical trial",
-   "status": "Recruiting · primary completion 2027",
-   "id": "NCT05949658",
-   "title": "RAP PAC — Safer mTOR Inhibition for Human Geroprotection",
-   "url": "https://clinicaltrials.gov/study/NCT05949658",
-   "sponsor": "University of Wisconsin–Madison · NIA",
-   "why": "Weekly dosing with blood drawn out to 168 hours post-dose — a real time-course of mTOR inhibition in older adults, rather than a single before/after measurement.",
-   "added": "2026-09-27",
-   "lifecycle": "Registered trial",
-   "tier": "B - Human",
-   "model": "Humans, 55–89 y (n = 72)",
-   "started": "May 2024",
-   "expected": "Primary completion Mar 2027; study completion Dec 2028; no results posted yet"
-  },
-  {
-   "kind": "Clinical trial",
-   "status": "Recruiting · primary completion 2027",
-   "id": "NCT06727305",
-   "title": "Characterization of mTOR Inhibitor Pharmacokinetics and Pharmacodynamics in Older Adults",
-   "url": "https://clinicaltrials.gov/study/NCT06727305",
-   "sponsor": "UT Southwestern · NIA",
-   "why": "Hourly blood draws after dosing track S6K activity as a curve rather than a point, alongside a senescence marker (SASP index) — the PK/PD groundwork this frontier question needs before intermittent regimens can be tested properly.",
-   "added": "2026-09-27",
-   "lifecycle": "Registered trial",
-   "tier": "B - Human",
-   "model": "Humans, 65–80 y (n = 60)",
-   "started": "May 2026",
-   "expected": "Primary completion Sep 2027; study completion Nov 2027; no results posted yet"
-  },
-  {
-   "kind": "Preprint",
-   "status": "Preprint, not peer-reviewed · posted January 2026",
-   "id": "bioRxiv 2026.01.15.699678",
-   "title": "TSC1 phosphorylation by lysosomal mTORC1 establishes a minimal autoregulatory feedback loop",
-   "url": "https://www.biorxiv.org/content/10.64898/2026.01.15.699678v1",
-   "sponsor": "",
-   "why": "Shows mTORC1 phosphorylating TSC1, part of its own inhibitory brake — a candidate mechanism for how a self-limiting pulse of activity could arise inside a cell, rather than being imposed only by external nutrient swings.",
-   "added": "2026-09-27",
-   "lifecycle": "Preprint",
-   "tier": "D - Mechanistic/Review",
-   "model": "Cultured human cells",
-   "started": "Posted 15 Jan 2026",
-   "expected": "Data already public; journal version not found as of 30 Sep 2026"
-  },
-  {
-   "kind": "Preprint",
-   "status": "Preprint, not peer-reviewed · posted May 2026",
-   "id": "bioRxiv 2026.05.04.722648",
-   "title": "mTORC1 supports progression toward activation competence in quiescent adult neural stem cells",
-   "url": "https://www.biorxiv.org/content/10.64898/2026.05.04.722648v1",
-   "sponsor": "",
-   "why": "A different cell type — adult neural stem cells — where the timing of mTORC1 activity during a quiescence phase, not just whether it is on, sets the tempo of a cell-fate decision. Evidence that this isn't a phenomenon specific to cycling cancer cell lines.",
-   "added": "2026-09-27",
-   "lifecycle": "Preprint",
-   "tier": "C - Animal",
-   "model": "Adult zebrafish brain",
-   "started": "Posted 6 May 2026",
-   "expected": "Data already public; journal version not found as of 30 Sep 2026"
-  },
-  {
-   "kind": "Preprint",
-   "status": "Preprint, not peer-reviewed · posted August 2026",
-   "id": "bioRxiv 2026.08.28.747564",
-   "title": "The mTOR pathway drives daily physiology",
-   "url": "https://www.biorxiv.org/content/10.64898/2026.08.28.747564v1",
-   "sponsor": "",
-   "why": "Shows the circadian clock protein PERIOD2 binds mTORC1 directly, and that acutely blocking mTOR abolishes most daily rhythms in mouse liver and forebrain physiology without stopping the core clock itself — direct evidence that mTOR acts as a clock-output arm pacing physiology across the day, not just a nutrient-responsive switch.",
-   "added": "2026-09-30",
-   "lifecycle": "Preprint",
-   "tier": "C - Animal",
-   "model": "Mouse and zebrafish; also cells, plant, fungus",
-   "started": "Posted 31 Aug 2026",
-   "expected": "Data already public; journal version not found as of 30 Sep 2026"
-  }
- ],
- "labs_intro": "Research groups whose work bears most directly on the question above, grouped by how they get at it. Each one links to the lab's own page; photos link to the lab head's profile in the Atlas.",
- "labs": [
-  {
-   "group": "Measuring how mTOR activity changes over time, and what that timing does",
-   "items": [
+  "full": "Oliver Barton",
+  "role": "Creator & Curator — Prague, Czech Republic — Age 15",
+  "bio_paragraphs": [
+    "I am a high school student in Prague with a self-directed research interest in mTOR signaling, longevity biology, and evidence-based science curation. I built Oliver's mTOR Atlas myself, with help from AI along the way, to create the kind of resource I wished existed when I began reading primary literature on the pathway: one structured database that holds studies, mechanisms, interventions, and honest evidence grades side by side, rather than scattered across dozens of review articles and pathway maps.",
+    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b> — most of the literature treats mTORC1/mTORC2 activity as fixed rather than something that shifts over time in a real cell. I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. See {{RESEARCH_FOCUS_LINK}} in About for the frontier questions and studies behind it."
+  ],
+  "email_obfuscated": "oliver.barton1113(at)gmail.com",
+  "bluesky": "https://bsky.app/profile/oliver-barton.bsky.social",
+  "bluesky_handle": "@oliver-barton.bsky.social",
+  "orcid": "https://orcid.org/0009-0008-2025-2148",
+  "photo": "/img/people/misc-7cff05feef.jpg",
+  "research_focus_intro": [
+    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b>. Most of the literature treats mTORC1/mTORC2 activity as fixed — a level, measured once, usually right after a nutrient jolt in a dish. Real cells never see a jolt like that: they see meals, exercise, sleep and waking, a rhythm underneath everything else.",
+    "I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. If it is, a lot of the field's single-time-point measurements are answering a different question than the one being asked. This section collects the frontier questions this raises, the studies that motivate them, and what is currently running or newly published that bears on them."
+  ],
+  "frontier_questions_intro": "Five open framing questions in the Atlas grow directly out of this — not gaps in what has been measured, but questions about whether the standard way of measuring mTOR is even asking the right thing:",
+  "frontier_questions": [
     {
-     "lab": "Valvezan Lab",
-     "url": "https://sites.rutgers.edu/valvezan-lab/",
-     "pis": [
-      "Valvezan AJ"
-     ],
-     "institution": "Rutgers University (CABM)",
-     "city": "Piscataway, NJ",
-     "country": "USA",
-     "cc": "us",
-     "why": "Showed that mTORC1 activity rises and falls through the cell cycle, and that cells low in mTORC1 during G1 are pushed into autophagy more easily. This is the study the whole focus grew out of."
+      "id": "F1",
+      "slug": "does-mtorc1-encode-information-in-dynamics-not-average-activity",
+      "title": "Does mTORC1 carry information in the pattern of its activity over time, not its average level?",
+      "gap_beginner": "Nearly every study measures mTOR activity the way you would read a thermometer once: a single number, from a single moment, usually right after the cell was given a sudden jolt of nutrients. But real cells never get a sudden jolt. They get meals, exercise, sleep and waking — a rhythm. If what matters is the rhythm rather than the average, then the standard measurement is not just imprecise. It is answering a different question from the one being asked.",
+      "primary": true
     },
     {
-     "lab": "Kafri Lab",
-     "url": "https://lab.research.sickkids.ca/kafri/",
-     "pis": [
-      "Kafri R"
-     ],
-     "institution": "The Hospital for Sick Children (SickKids)",
-     "city": "Toronto",
-     "country": "Canada",
-     "cc": "ca",
-     "why": "Studies how mTORC1 sets a target size for cells, and built a method for reading how a signal changes over time out of fixed snapshots."
+      "id": "F3",
+      "slug": "is-mtor-signalling-decided-by-where-not-how-much",
+      "title": "Is mTOR signalling decided by where the complex is active, rather than by how much of it is active?",
+      "gap_beginner": "The lysosome is normally described as mTOR's parking space. Newer structural work describes it more like a workbench: what the enzyme can reach depends on how it is docked. If that is right, two cells with the same amount of activity can be doing completely different jobs — and grinding them up to measure the total would hide exactly that.",
+      "primary": false
     },
     {
-     "lab": "Albeck Lab",
-     "url": "https://albeck.faculty.ucdavis.edu/",
-     "pis": [
-      "Albeck JG"
-     ],
-     "institution": "University of California, Davis",
-     "city": "Davis, CA",
-     "country": "USA",
-     "cc": "us",
-     "why": "Films mTORC1–TFEB, AMPK and AKT signalling in single living cells and showed that mTORC1 output adjusts continuously as nutrients change."
+      "id": "F4",
+      "slug": "must-inhibition-match-the-bodys-own-rhythm",
+      "title": "Does the timing of mTOR inhibition have to match the body's own pulses — feeding, exercise, sleep?",
+      "gap_beginner": "Giving the drug once a week instead of daily is usually explained as a way to lower the dose and avoid side effects. But if the pathway cares about rhythm, the question is not how often you give it — it is whether the gaps in the drug line up with the moments the body actually needs the pathway on, like after a meal or after exercise. Nobody has tested that alignment.",
+      "primary": false
     },
     {
-     "lab": "Milias-Argeitis Lab",
-     "url": "https://sites.google.com/rug.nl/milias-argeitis-lab",
-     "pis": [
-      "Milias-Argeitis A"
-     ],
-     "institution": "University of Groningen",
-     "city": "Groningen",
-     "country": "Netherlands",
-     "cc": "nl",
-     "why": "Showed in single yeast cells that TORC1 activity oscillates with the cell cycle even when nothing outside the cell changes, a yeast counterpart to the Valvezan result."
+      "id": "F2",
+      "slug": "which-mtorc1-outputs-actually-carry-ageing",
+      "title": "Is mTORC1 one pathway or several separable outputs — and which of them carries ageing?",
+      "gap_beginner": "Most of the argument is about how hard to press the brake, and recently about which of the two brakes to press. Hardly anyone asks which of the things the brake controls actually needs slowing. And those things do come apart: in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
+      "primary": false
     },
     {
-     "lab": "Cappell Lab",
-     "url": "https://ccr.cancer.gov/staff-directory/steven-d-cappell",
-     "pis": [
-      "Cappell SD"
-     ],
-     "institution": "National Cancer Institute (NIH)",
-     "city": "Bethesda, MD",
-     "country": "USA",
-     "cc": "us",
-     "why": "Found that mTOR briefly switches off the APC/C as a cell starts to divide, creating a short pulse of glycolysis the cell needs to get going."
-    },
-    {
-     "lab": "Kuroda Lab",
-     "url": "https://kurodalab.bs.s.u-tokyo.ac.jp/en/",
-     "pis": [
-      "Kuroda S"
-     ],
-     "institution": "The University of Tokyo",
-     "city": "Tokyo",
-     "country": "Japan",
-     "cc": "jp",
-     "why": "Showed that different time courses of insulin are read out by different branches of the AKT pathway, S6K among them: an early, direct demonstration that the shape of a signal carries information, not just its level."
-    },
-    {
-     "lab": "Zebrafish Neurogenetics Unit (Bally-Cuif)",
-     "url": "https://research.pasteur.fr/en/team/zebrafish-neurogenetics/",
-     "pis": [
-      "Bally-Cuif L"
-     ],
-     "institution": "Institut Pasteur",
-     "city": "Paris",
-     "country": "France",
-     "cc": "fr",
-     "why": "A 2026 preprint from the lab reports that mTORC1 sets the tempo at which dormant neural stem cells in the adult zebrafish brain move toward activation."
-    },
-    {
-     "lab": "Scadden Lab",
-     "url": "https://scaddenlab.com/",
-     "pis": [
-      "Scadden DT"
-     ],
-     "institution": "Massachusetts General Hospital & Harvard Stem Cell Institute",
-     "city": "Boston, MA",
-     "country": "USA",
-     "cc": "us",
-     "why": "Imaged mTORC1 activity in leukaemia cells inside live mice and found that inhibiting mTORC1 at one particular moment during chemotherapy kills more cancer cells."
+      "id": "F5",
+      "slug": "which-human-ageing-phenotypes-are-causally-reversible",
+      "title": "Which human ageing phenotypes are causally reversible by mTOR modulation — and is it the same mechanism in each tissue?",
+      "gap_beginner": "Asking whether a drug makes people live longer cannot be answered in any reasonable amount of time, and aiming at it has crowded out better questions. Ageing is not one thing: the immune system, muscle, metabolism and the brain each age in their own way, and a drug might reach some of them and miss others entirely.",
+      "primary": false
     }
-   ]
-  },
-  {
-   "group": "Tools for watching mTOR activity live",
-   "items": [
+  ],
+  "focus_table_intro": "The foundational and most closely related studies behind the “pattern over time, not just average level” question above, ranked by scientific significance rather than publication date:",
+  "focus_studies": [
     {
-     "lab": "Zhang Lab",
-     "url": "https://jinzhanglab.ucsd.edu/",
-     "pis": [
-      "Zhang J"
-     ],
-     "institution": "University of California San Diego",
-     "city": "La Jolla, CA",
-     "country": "USA",
-     "cc": "us",
-     "why": "Built TORCAR, a FRET biosensor that shows mTORC1 activity in living cells as it happens, including in separate parts of the cell."
+      "title": "Tuberous sclerosis complex gene products, Tuberin and Hamartin, control mTOR signaling by acting as a GTPase-activating protein complex toward Rheb",
+      "doi_url": "https://doi.org/10.1016/s0960-9822(03)00506-2",
+      "sid": "TEE2003",
+      "authors": [
+        "Tee AR",
+        "Cantley LC"
+      ],
+      "year": "2003",
+      "why": "Founding paper — first to show TSC1/TSC2 acting as the GAP complex for Rheb, the discovery the whole TSC→mTORC1 axis rests on.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
     },
     {
-     "lab": "Perroy & Ollendorff teams",
-     "url": "https://www.igf.cnrs.fr/en/teams/team-perroy/",
-     "pis": [
-      "Perroy J",
-      "Ollendorff V"
-     ],
-     "institution": "IGF (CNRS/INSERM) and DMEM (INRAE), University of Montpellier",
-     "city": "Montpellier",
-     "country": "France",
-     "cc": "fr",
-     "why": "Co-developed AIMTOR, a BRET biosensor that reads mTOR activity live in single cells and in compartments such as the lysosome and the nucleus."
+      "title": "Rheb GTPase is a direct target of TSC2 GAP activity and regulates mTOR signaling",
+      "doi_url": "https://doi.org/10.1101/gad.1110003",
+      "sid": "INOK2003",
+      "authors": [
+        "Inoki K",
+        "Guan KL"
+      ],
+      "year": "2003",
+      "why": "Companion founding paper, published independently and simultaneously with Tee et al. 2003 — same weight, same discovery.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
     },
     {
-     "lab": "Ktistakis Group",
-     "url": "https://www.babraham.ac.uk/our-research/signalling/nicholas-ktistakis",
-     "pis": [
-      "Ktistakis NT"
-     ],
-     "institution": "Babraham Institute",
-     "city": "Cambridge",
-     "country": "UK",
-     "cc": "gb",
-     "why": "Filmed mTORC1 moving to lysosomes within two minutes of adding amino acids, before its targets are phosphorylated."
+      "title": "TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling",
+      "doi_url": "https://doi.org/10.1038/ncb839",
+      "sid": "INO2002",
+      "authors": [
+        "Inoki K",
+        "Guan KL"
+      ],
+      "year": "2002",
+      "why": "Established the Akt→TSC2→mTOR link — the exact “known regulatory input” Joshi 2024 shows is bypassed during interphase.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "title": "TBC1D7 is a third subunit of the TSC1-TSC2 complex upstream of mTORC1",
+      "doi_url": "https://doi.org/10.1016/j.molcel.2012.06.009",
+      "sid": "DIB2012",
+      "authors": [
+        "Dibble CC",
+        "Manning BD"
+      ],
+      "year": "2012",
+      "why": "Completed the parts list of the TSC complex whose GAP activity Joshi 2024 studies across the cell cycle.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "title": "Spatial control of the TSC complex integrates insulin and nutrient regulation of mTORC1 at the lysosome",
+      "doi_url": "https://doi.org/10.1016/j.cell.2013.11.049",
+      "sid": "MEN2014",
+      "authors": [
+        "Menon S",
+        "Manning BD"
+      ],
+      "year": "2014",
+      "why": "Closest mechanistic precedent to the “timing, not just level” question — shows TSC complex localization, not just abundance, gates mTORC1.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "sid": "KOR2011",
+      "year": 2011,
+      "title": "Lysosomal positioning coordinates cellular nutrient responses",
+      "authors": [
+        "Korolchuk VI",
+        "Rubinsztein DC"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1038/ncb2204",
+      "why": "The spatial counterpart to Menétrey 2014, one storey up: with nutrients available lysosomes move out to the cell periphery and mTORC1 is active there; starvation pulls them into a cluster around the nucleus, output falls and autophagy is released. Where the compartment sits, not how much of it there is, carries the signal — and it sets the rate of autophagy directly."
+    },
+    {
+      "title": "Molecular logic of mTORC1 signalling as a metabolic rheostat",
+      "doi_url": "https://doi.org/10.1038/s42255-019-0038-7",
+      "sid": "VAL2019",
+      "authors": [
+        "Valvezan AJ",
+        "Manning BD"
+      ],
+      "year": "2019",
+      "why": "Conceptual framework from Joshi 2024's own senior author — mTORC1 as a graded rheostat rather than an on/off switch.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "Narrative Review"
+    },
+    {
+      "title": "mTORC1 Couples Nucleotide Synthesis to Nucleotide Demand Resulting in a Targetable Metabolic Vulnerability",
+      "doi_url": "https://doi.org/10.1016/j.ccell.2017.09.013",
+      "sid": "VAL2017",
+      "authors": [
+        "Valvezan AJ",
+        "Manning BD"
+      ],
+      "year": "2017",
+      "why": "Same lab's translational angle — TSC-mutant cells' nucleotide synthesis as a druggable weak point.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "title": "mTORC1 activity oscillates throughout the cell cycle, promoting mitotic entry and differentially influencing autophagy induction",
+      "doi_url": "https://doi.org/10.1016/j.celrep.2024.114543",
+      "sid": "JOS2024",
+      "authors": [
+        "Joshi JN",
+        "Valvezan AJ"
+      ],
+      "year": "2024",
+      "why": "The paper that sparked this focus — mTORC1 activity is lowest in mitosis/G1 and highest in S/G2, and this timing, not just average level, shapes autophagy sensitivity.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "sid": "BOU2020",
+      "year": 2020,
+      "title": "AIMTOR, a BRET biosensor for live imaging, reveals subcellular mTOR signaling and dysfunctions",
+      "authors": [
+        "Bouquier N",
+        "Ollendorff V"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1186/s12915-020-00790-8",
+      "why": "The enabling technology behind the question. AIMTOR reads mTOR activity live in single cells and separately in the cytosol, at the lysosome, in the nucleus and near mitochondria — which is what turns a pulsatile or oscillatory hypothesis from something arguable into something measurable. It came five years after TORCAR (ZHO2015), the first live mTORC1 reporter, and adds compartment-specific versions in a bioluminescence format."
+    },
+    {
+      "title": "Inferring feedback regulation from static snapshots of a single signal",
+      "doi_url": "https://doi.org/10.1016/j.bbrep.2026.102747",
+      "sid": "GIN2026",
+      "authors": [
+        "Ginzberg M",
+        "Kafri R"
+      ],
+      "year": "2026",
+      "why": "A method for reading a signal’s change over time out of still images — and it finds AKT feedback that exists only in a narrow window at G1/S, which the authors attribute to mTORC1/S6K1→IRS1 while stating their data do not establish that edge uniquely.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "title": "Mathematical modeling of dietary timing- and protein quality-responsive liver circadian clock and its function on ribosome biogenesis",
+      "doi_url": "https://doi.org/10.1152/physiolgenomics.00152.2026",
+      "sid": "LU2026",
+      "authors": [
+        "Lu L",
+        "Androulakis IP"
+      ],
+      "year": "2026",
+      "why": "Treats mTORC1 as a rhythm set by the timing and quality of amino acid intake rather than a fixed level, and asks what the shape of that rhythm does to ribosome biogenesis. A prediction, not a measurement — the model is in silico.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "title": "Fluorescent protein ticker tape (FPTT): Multiplexed recording of transcriptional dynamics in living cells and in vivo",
+      "doi_url": "https://doi.org/10.1126/sciadv.aef9406",
+      "sid": "WANG2026C",
+      "authors": [
+        "Wang R",
+        "Jiang J"
+      ],
+      "year": "2026",
+      "why": "A new multiplexed live-cell biosensor platform that, built and validated independently of JOS2024, directly visualized mTOR activity oscillating across the cell cycle — orthogonal confirmation that the pattern of mTOR signaling over time is a real, reproducible phenomenon rather than an artifact of one assay.",
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro"
+    },
+    {
+      "sid": "ARR2015",
+      "year": 2015,
+      "title": "Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system",
+      "authors": [
+        "Arriola Apelo SI",
+        "Lamming DW"
+      ],
+      "tier": "C - Animal",
+      "pyramid": "4 - Animal Study",
+      "doi_url": "https://doi.org/10.1111/acel.12405",
+      "why": "One of two studies in this corpus that hold the compound constant and vary only when it is given (the other, OKA2013, varies the time of day): weekly or every-fifth-day rapamycin spared glucose tolerance, beta-cell function and the immune system that daily dosing impaired, while still inhibiting mTORC1. Read the scope honestly — this is organismal pharmacology rather than cell-level signalling, and it measured side effects, not benefit. It belongs here because it is the same claim in a different register: the pattern, not the average, decided the outcome."
+    },
+    {
+      "sid": "ZHO2015",
+      "year": 2015,
+      "title": "Dynamic Visualization of mTORC1 Activity in Living Cells",
+      "authors": [
+        "Zhou X",
+        "Zhang J"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1016/j.celrep.2015.02.031",
+      "why": "The first genetically encoded reporter of mTORC1 activity: a FRET sensor that shows mTORC1 changing in living cells, in real time and compartment by compartment. It found activity in the nucleus and at the plasma membrane as well as at the lysosome, with different signals lighting up different places. Without a live reader, the question of whether the pattern matters could not be asked of mTORC1 at all."
+    },
+    {
+      "sid": "KUB2012",
+      "year": 2012,
+      "title": "Temporal coding of insulin action through multiplexing of the AKT pathway",
+      "authors": [
+        "Kubota H",
+        "Kuroda S"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1016/j.molcel.2012.04.018",
+      "why": "The cleanest cell-level proof that timing carries information in this pathway: a pulse of insulin and a sustained dose became transient and sustained AKT signals, and S6K answered only the transient one. It sits one step upstream of mTORC1 and uses a rat liver cell line, so it is not mTORC1's own rhythm. What it shows is the principle the question rests on: same pathway, same molecules, and the shape of the signal decides which output responds."
     }
-   ]
-  },
-  {
-   "group": "Rhythm and dosing in the whole organism",
-   "items": [
+  ],
+  "on_the_horizon_intro": "Not yet part of the graded corpus above — because they are either still running or have not been peer-reviewed — but directly relevant, found via ClinicalTrials.gov and bioRxiv:",
+  "on_the_horizon": [
     {
-     "lab": "Kondratov Lab",
-     "url": "https://www.csuohio.edu/grhd/faculty/roman-kondratov",
-     "pis": [
-      "Kondratov RV"
-     ],
-     "institution": "Cleveland State University",
-     "city": "Cleveland, OH",
-     "country": "USA",
-     "cc": "us",
-     "why": "Found that mTOR activity in the liver follows a daily rhythm set by feeding, and compares calorie restriction with cycles of fasting and refeeding."
+      "kind": "Clinical trial",
+      "status": "Recruiting · primary completion 2028",
+      "id": "NCT06658093",
+      "title": "RESTOR — Rapamycin and Everolimus Study Towards Older Rejuvenation",
+      "url": "https://clinicaltrials.gov/study/NCT06658093",
+      "sponsor": "UT Health San Antonio · NIA",
+      "why": "The most direct human test of this question so far: it first measures mTOR activity in young adults as a “youthful” target, then compares daily vs. intermittent dosing against placebo in older adults over 6 months, tracking S6/S6K and Akt phosphorylation in blood, muscle and fat — pattern vs. level, not just dose vs. no dose.",
+      "added": "2026-09-27",
+      "lifecycle": "Registered trial",
+      "tier": "B - Human",
+      "model": "Humans, 65–90 y (n = 194)",
+      "started": "Mar 2026",
+      "expected": "Primary completion Jul 2028; no results posted yet"
     },
     {
-     "lab": "Androulakis Lab",
-     "url": "https://www.ipandro.com/",
-     "pis": [
-      "Androulakis IP"
-     ],
-     "institution": "Rutgers University",
-     "city": "Piscataway, NJ",
-     "country": "USA",
-     "cc": "us",
-     "why": "Models liver mTORC1 as a rhythm set by when and what an animal eats, and asks what that rhythm does to ribosome production."
+      "kind": "Clinical trial",
+      "status": "Recruiting · primary completion 2027",
+      "id": "NCT05949658",
+      "title": "RAP PAC — Safer mTOR Inhibition for Human Geroprotection",
+      "url": "https://clinicaltrials.gov/study/NCT05949658",
+      "sponsor": "University of Wisconsin–Madison · NIA",
+      "why": "Weekly dosing with blood drawn out to 168 hours post-dose — a real time-course of mTOR inhibition in older adults, rather than a single before/after measurement.",
+      "added": "2026-09-27",
+      "lifecycle": "Registered trial",
+      "tier": "B - Human",
+      "model": "Humans, 55–89 y (n = 72)",
+      "started": "May 2024",
+      "expected": "Primary completion Mar 2027; study completion Dec 2028; no results posted yet"
     },
     {
-     "lab": "Lamming Lab",
-     "url": "https://lamminglab.medicine.wisc.edu/",
-     "pis": [
-      "Lamming DW"
-     ],
-     "institution": "University of Wisconsin–Madison",
-     "city": "Madison, WI",
-     "country": "USA",
-     "cc": "us",
-     "why": "Showed that rapamycin given once every five days still extends mouse lifespan with fewer side effects, so the dosing schedule matters, not just the dose."
+      "kind": "Clinical trial",
+      "status": "Recruiting · primary completion 2027",
+      "id": "NCT06727305",
+      "title": "Characterization of mTOR Inhibitor Pharmacokinetics and Pharmacodynamics in Older Adults",
+      "url": "https://clinicaltrials.gov/study/NCT06727305",
+      "sponsor": "UT Southwestern · NIA",
+      "why": "Hourly blood draws after dosing track S6K activity as a curve rather than a point, alongside a senescence marker (SASP index) — the PK/PD groundwork this frontier question needs before intermittent regimens can be tested properly.",
+      "added": "2026-09-27",
+      "lifecycle": "Registered trial",
+      "tier": "B - Human",
+      "model": "Humans, 65–80 y (n = 60)",
+      "started": "May 2026",
+      "expected": "Primary completion Sep 2027; study completion Nov 2027; no results posted yet"
     },
     {
-     "lab": "Partridge Lab",
-     "url": "https://www.ucl.ac.uk/biosciences/gee/institute-healthy-ageing/people/partridge-lab",
-     "pis": [
-      "Partridge L"
-     ],
-     "institution": "UCL Institute of Healthy Ageing (and MPI for Biology of Ageing, Cologne, emerita)",
-     "city": "London",
-     "country": "UK",
-     "cc": "gb",
-     "why": "Showed that a brief course of rapamycin in early adulthood gives lasting protection against ageing, and that intermittent rapamycin feeding keeps the lifespan benefit."
+      "kind": "Preprint",
+      "status": "Preprint, not peer-reviewed · posted January 2026",
+      "id": "bioRxiv 2026.01.15.699678",
+      "title": "TSC1 phosphorylation by lysosomal mTORC1 establishes a minimal autoregulatory feedback loop",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.01.15.699678v1",
+      "sponsor": "",
+      "why": "Shows mTORC1 phosphorylating TSC1, part of its own inhibitory brake — a candidate mechanism for how a self-limiting pulse of activity could arise inside a cell, rather than being imposed only by external nutrient swings.",
+      "added": "2026-09-27",
+      "lifecycle": "Preprint",
+      "tier": "D - Mechanistic/Review",
+      "model": "Cultured human cells",
+      "started": "Posted 15 Jan 2026",
+      "expected": "Data already public; journal version not found as of 30 Sep 2026"
+    },
+    {
+      "kind": "Preprint",
+      "status": "Preprint, not peer-reviewed · posted May 2026",
+      "id": "bioRxiv 2026.05.04.722648",
+      "title": "mTORC1 supports progression toward activation competence in quiescent adult neural stem cells",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.05.04.722648v1",
+      "sponsor": "",
+      "why": "A different cell type — adult neural stem cells — where the timing of mTORC1 activity during a quiescence phase, not just whether it is on, sets the tempo of a cell-fate decision. Evidence that this isn't a phenomenon specific to cycling cancer cell lines.",
+      "added": "2026-09-27",
+      "lifecycle": "Preprint",
+      "tier": "C - Animal",
+      "model": "Adult zebrafish brain",
+      "started": "Posted 6 May 2026",
+      "expected": "Data already public; journal version not found as of 30 Sep 2026"
+    },
+    {
+      "kind": "Preprint",
+      "status": "Preprint, not peer-reviewed · posted August 2026",
+      "id": "bioRxiv 2026.08.28.747564",
+      "title": "The mTOR pathway drives daily physiology",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.08.28.747564v1",
+      "sponsor": "",
+      "why": "Shows the circadian clock protein PERIOD2 binds mTORC1 directly, and that acutely blocking mTOR abolishes most daily rhythms in mouse liver and forebrain physiology without stopping the core clock itself — direct evidence that mTOR acts as a clock-output arm pacing physiology across the day, not just a nutrient-responsive switch.",
+      "added": "2026-09-30",
+      "lifecycle": "Preprint",
+      "tier": "C - Animal",
+      "model": "Mouse and zebrafish; also cells, plant, fungus",
+      "started": "Posted 31 Aug 2026",
+      "expected": "Data already public; journal version not found as of 30 Sep 2026"
     }
-   ]
-  }
- ],
- "thanks_intro": "Special thanks to the people who have helped me along the way towards understanding mTOR — in no particular order.",
- "thanks": [
-  {
-   "name": "Dr. Hana Dvořáková",
-   "affiliation": "Co-founder, Experientia Foundation — NMR Laboratory, University of Chemistry and Technology, Prague",
-   "url": "https://www.experientia.cz/en/about-us/",
-   "reason": "for connecting me with the right people"
-  },
-  {
-   "name": "Dr. Iva Pichová",
-   "affiliation": "Group leader, Viral and Microbial Proteins — IOCB Prague",
-   "url": "https://www.uochb.cz/en/directory/122/iva-pichova",
-   "reason": "for her kindness, and for connecting me with people at IOCB"
-  },
-  {
-   "name": "Dr. Zuzana Kečkéšová",
-   "affiliation": "Group leader, Tumor Suppressors — IOCB Prague",
-   "url": "https://www.uochb.cz/en/directory/538/zuzana-keckesova",
-   "reason": "for introducing me to her colleagues, and for making my visit to the Prague conference possible"
-  },
-  {
-   "name": "David M. Sabatini, M.D., Ph.D.",
-   "affiliation": "Senior group leader, Molecular Analysis of Growth Regulation in Animals — IOCB Prague & IOCB Boston",
-   "url": "/author/david-m-sabatini/",
-   "reason": "for his time, for his feedback on my hypothesis, and for encouraging me to dig into the subject"
-  },
-  {
-   "name": "Edith M. Valeri, MBA, MSA, MA",
-   "affiliation": "Administration, David Sabatini Lab",
-   "url": "https://www.davidsabatinilab.com/",
-   "reason": "for making those introductions possible"
-  },
-  {
-   "name": "Ondřej Peller",
-   "affiliation": "David Sabatini Group — IOCB Prague",
-   "url": "https://sabatini.group.uochb.cz/en",
-   "reason": "for showing me around IOCB"
-  },
-  {
-   "name": "Prof. Alexandra Kolenová, M.D., Ph.D.",
-   "affiliation": "Head, Department of Pediatric Hematology and Oncology — Comenius University Faculty of Medicine & National Institute of Children's Diseases, Bratislava",
-   "url": "https://www.fmed.uniba.sk/pracoviska/klinicke-pracoviska/klinika-detskej-hematologie-a-onkologie-lf-uk-a-nudch/",
-   "reason": "for explaining the subject to me, and for letting me visit her laboratory"
-  },
-  {
-   "name": "Brendan D. Manning, Ph.D.",
-   "affiliation": "Professor, Harvard T.H. Chan School of Public Health",
-   "url": "/author/brendan-d-manning/",
-   "reason": "for his feedback on Bluesky"
-  },
-  {
-   "name": "My mom and dad",
-   "affiliation": "",
-   "url": ""
-  }
- ]
+  ],
+  "labs_intro": "Research groups whose work bears most directly on the question above, grouped by how they get at it. Each one links to the lab's own page; photos link to the lab head's profile in the Atlas.",
+  "labs": [
+    {
+      "group": "Measuring how mTOR activity changes over time, and what that timing does",
+      "items": [
+        {
+          "lab": "Valvezan Lab",
+          "url": "https://sites.rutgers.edu/valvezan-lab/",
+          "pis": [
+            "Valvezan AJ"
+          ],
+          "institution": "Rutgers University (CABM)",
+          "city": "Piscataway, NJ",
+          "country": "USA",
+          "cc": "us",
+          "why": "Showed that mTORC1 activity rises and falls through the cell cycle, and that cells low in mTORC1 during G1 are pushed into autophagy more easily. This is the study the whole focus grew out of."
+        },
+        {
+          "lab": "Kafri Lab",
+          "url": "https://lab.research.sickkids.ca/kafri/",
+          "pis": [
+            "Kafri R"
+          ],
+          "institution": "The Hospital for Sick Children (SickKids)",
+          "city": "Toronto",
+          "country": "Canada",
+          "cc": "ca",
+          "why": "Studies how mTORC1 sets a target size for cells, and built a method for reading how a signal changes over time out of fixed snapshots."
+        },
+        {
+          "lab": "Albeck Lab",
+          "url": "https://albeck.faculty.ucdavis.edu/",
+          "pis": [
+            "Albeck JG"
+          ],
+          "institution": "University of California, Davis",
+          "city": "Davis, CA",
+          "country": "USA",
+          "cc": "us",
+          "why": "Films mTORC1–TFEB, AMPK and AKT signalling in single living cells and showed that mTORC1 output adjusts continuously as nutrients change."
+        },
+        {
+          "lab": "Milias-Argeitis Lab",
+          "url": "https://sites.google.com/rug.nl/milias-argeitis-lab",
+          "pis": [
+            "Milias-Argeitis A"
+          ],
+          "institution": "University of Groningen",
+          "city": "Groningen",
+          "country": "Netherlands",
+          "cc": "nl",
+          "why": "Showed in single yeast cells that TORC1 activity oscillates with the cell cycle even when nothing outside the cell changes, a yeast counterpart to the Valvezan result."
+        },
+        {
+          "lab": "Cappell Lab",
+          "url": "https://ccr.cancer.gov/staff-directory/steven-d-cappell",
+          "pis": [
+            "Cappell SD"
+          ],
+          "institution": "National Cancer Institute (NIH)",
+          "city": "Bethesda, MD",
+          "country": "USA",
+          "cc": "us",
+          "why": "Found that mTOR briefly switches off the APC/C as a cell starts to divide, creating a short pulse of glycolysis the cell needs to get going."
+        },
+        {
+          "lab": "Kuroda Lab",
+          "url": "https://kurodalab.bs.s.u-tokyo.ac.jp/en/",
+          "pis": [
+            "Kuroda S"
+          ],
+          "institution": "The University of Tokyo",
+          "city": "Tokyo",
+          "country": "Japan",
+          "cc": "jp",
+          "why": "Showed that different time courses of insulin are read out by different branches of the AKT pathway, S6K among them: an early, direct demonstration that the shape of a signal carries information, not just its level."
+        },
+        {
+          "lab": "Zebrafish Neurogenetics Unit (Bally-Cuif)",
+          "url": "https://research.pasteur.fr/en/team/zebrafish-neurogenetics/",
+          "pis": [
+            "Bally-Cuif L"
+          ],
+          "institution": "Institut Pasteur",
+          "city": "Paris",
+          "country": "France",
+          "cc": "fr",
+          "why": "A 2026 preprint from the lab reports that mTORC1 sets the tempo at which dormant neural stem cells in the adult zebrafish brain move toward activation."
+        },
+        {
+          "lab": "Scadden Lab",
+          "url": "https://scaddenlab.com/",
+          "pis": [
+            "Scadden DT"
+          ],
+          "institution": "Massachusetts General Hospital & Harvard Stem Cell Institute",
+          "city": "Boston, MA",
+          "country": "USA",
+          "cc": "us",
+          "why": "Imaged mTORC1 activity in leukaemia cells inside live mice and found that inhibiting mTORC1 at one particular moment during chemotherapy kills more cancer cells."
+        }
+      ]
+    },
+    {
+      "group": "Tools for watching mTOR activity live",
+      "items": [
+        {
+          "lab": "Zhang Lab",
+          "url": "https://jinzhanglab.ucsd.edu/",
+          "pis": [
+            "Zhang J"
+          ],
+          "institution": "University of California San Diego",
+          "city": "La Jolla, CA",
+          "country": "USA",
+          "cc": "us",
+          "why": "Built TORCAR, a FRET biosensor that shows mTORC1 activity in living cells as it happens, including in separate parts of the cell."
+        },
+        {
+          "lab": "Perroy & Ollendorff teams",
+          "url": "https://www.igf.cnrs.fr/en/teams/team-perroy/",
+          "pis": [
+            "Perroy J",
+            "Ollendorff V"
+          ],
+          "institution": "IGF (CNRS/INSERM) and DMEM (INRAE), University of Montpellier",
+          "city": "Montpellier",
+          "country": "France",
+          "cc": "fr",
+          "why": "Co-developed AIMTOR, a BRET biosensor that reads mTOR activity live in single cells and in compartments such as the lysosome and the nucleus."
+        },
+        {
+          "lab": "Ktistakis Group",
+          "url": "https://www.babraham.ac.uk/our-research/signalling/nicholas-ktistakis",
+          "pis": [
+            "Ktistakis NT"
+          ],
+          "institution": "Babraham Institute",
+          "city": "Cambridge",
+          "country": "UK",
+          "cc": "gb",
+          "why": "Filmed mTORC1 moving to lysosomes within two minutes of adding amino acids, before its targets are phosphorylated."
+        }
+      ]
+    },
+    {
+      "group": "Rhythm and dosing in the whole organism",
+      "items": [
+        {
+          "lab": "Kondratov Lab",
+          "url": "https://www.csuohio.edu/grhd/faculty/roman-kondratov",
+          "pis": [
+            "Kondratov RV"
+          ],
+          "institution": "Cleveland State University",
+          "city": "Cleveland, OH",
+          "country": "USA",
+          "cc": "us",
+          "why": "Found that mTOR activity in the liver follows a daily rhythm set by feeding, and compares calorie restriction with cycles of fasting and refeeding."
+        },
+        {
+          "lab": "Androulakis Lab",
+          "url": "https://www.ipandro.com/",
+          "pis": [
+            "Androulakis IP"
+          ],
+          "institution": "Rutgers University",
+          "city": "Piscataway, NJ",
+          "country": "USA",
+          "cc": "us",
+          "why": "Models liver mTORC1 as a rhythm set by when and what an animal eats, and asks what that rhythm does to ribosome production."
+        },
+        {
+          "lab": "Lamming Lab",
+          "url": "https://lamminglab.medicine.wisc.edu/",
+          "pis": [
+            "Lamming DW"
+          ],
+          "institution": "University of Wisconsin–Madison",
+          "city": "Madison, WI",
+          "country": "USA",
+          "cc": "us",
+          "why": "Showed that rapamycin given once every five days still extends mouse lifespan with fewer side effects, so the dosing schedule matters, not just the dose."
+        },
+        {
+          "lab": "Partridge Lab",
+          "url": "https://www.ucl.ac.uk/biosciences/gee/institute-healthy-ageing/people/partridge-lab",
+          "pis": [
+            "Partridge L"
+          ],
+          "institution": "UCL Institute of Healthy Ageing (and MPI for Biology of Ageing, Cologne, emerita)",
+          "city": "London",
+          "country": "UK",
+          "cc": "gb",
+          "why": "Showed that a brief course of rapamycin in early adulthood gives lasting protection against ageing, and that intermittent rapamycin feeding keeps the lifespan benefit."
+        }
+      ]
+    }
+  ],
+  "thanks_intro": "Special thanks to the people who have helped me along the way towards understanding mTOR — in no particular order.",
+  "thanks": [
+    {
+      "name": "Dr. Hana Dvořáková",
+      "affiliation": "Co-founder, Experientia Foundation — NMR Laboratory, University of Chemistry and Technology, Prague",
+      "url": "https://www.experientia.cz/en/about-us/",
+      "reason": "for connecting me with the right people",
+      "init": "HD",
+      "thumb": "/img/people/hana-dvorakova-thumb.jpg",
+      "credit": "Portrait: Experientia Foundation"
+    },
+    {
+      "name": "Dr. Iva Pichová",
+      "affiliation": "Group leader, Viral and Microbial Proteins — IOCB Prague",
+      "url": "https://www.uochb.cz/en/directory/122/iva-pichova",
+      "reason": "for her kindness, and for connecting me with people at IOCB",
+      "init": "IP",
+      "thumb": "/img/people/iva-pichova-thumb.jpg",
+      "credit": "Portrait: NIVB"
+    },
+    {
+      "name": "Dr. Zuzana Kečkéšová",
+      "affiliation": "Group leader, Tumor Suppressors — IOCB Prague",
+      "url": "https://www.uochb.cz/en/directory/538/zuzana-keckesova",
+      "reason": "for introducing me to her colleagues, and for making my visit to the Prague conference possible",
+      "init": "ZK",
+      "thumb": "/img/people/zuzana-keckesova-thumb.jpg",
+      "credit": "Portrait: IOCB Prague"
+    },
+    {
+      "name": "David M. Sabatini, M.D., Ph.D.",
+      "affiliation": "Senior group leader, Molecular Analysis of Growth Regulation in Animals — IOCB Prague & IOCB Boston",
+      "url": "/author/david-m-sabatini/",
+      "reason": "for his time, for his feedback on my hypothesis, and for encouraging me to dig into the subject",
+      "init": "DS",
+      "thumb": "/img/people/david-m-sabatini-thumb.jpg",
+      "credit": "Portrait: Ceal Capistrano/Whitehead Institute for Biomedical Research"
+    },
+    {
+      "name": "Edith M. Valeri, MBA, MSA, MA",
+      "affiliation": "Administration, David Sabatini Lab",
+      "url": "https://www.davidsabatinilab.com/",
+      "reason": "for making those introductions possible",
+      "init": "EV",
+      "thumb": "/img/people/edith-m-valeri-thumb.jpg",
+      "credit": "Portrait: Prague Metabolism and Signaling Symposium"
+    },
+    {
+      "name": "Ondřej Peller",
+      "affiliation": "David Sabatini Group — IOCB Prague",
+      "url": "https://sabatini.group.uochb.cz/en",
+      "reason": "for showing me around IOCB",
+      "init": "OP",
+      "thumb": "/img/people/ondrej-peller-thumb.jpg",
+      "credit": "Portrait: David Sabatini Lab"
+    },
+    {
+      "name": "Prof. Alexandra Kolenová, M.D., Ph.D.",
+      "affiliation": "Head, Department of Pediatric Hematology and Oncology — Comenius University Faculty of Medicine & National Institute of Children's Diseases, Bratislava",
+      "url": "https://www.fmed.uniba.sk/pracoviska/klinicke-pracoviska/klinika-detskej-hematologie-a-onkologie-lf-uk-a-nudch/",
+      "reason": "for explaining the subject to me, and for letting me visit her laboratory",
+      "init": "AK",
+      "thumb": "/img/people/alexandra-kolenova-thumb.jpg"
+    },
+    {
+      "name": "Brendan D. Manning, Ph.D.",
+      "affiliation": "Professor, Harvard T.H. Chan School of Public Health",
+      "url": "/author/brendan-d-manning/",
+      "reason": "for his feedback on Bluesky",
+      "init": "BM",
+      "thumb": "/img/people/brendan-d-manning-thumb.jpg"
+    },
+    {
+      "name": "My mom and dad",
+      "affiliation": "",
+      "url": "",
+      "init": "A P"
+    }
+  ]
 }
