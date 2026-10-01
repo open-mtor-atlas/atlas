@@ -77,7 +77,7 @@ html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4
 </script> </div> </div></div> <div class="oma-tabs-row"><div class="oma-tabs-inner"> <nav class="oma-tabs" aria-label="Main"> <a href="/">Welcome</a><a href="/academy/">Academy</a><a href="/ask/">Answers</a><a href="/pathway/">Pathway</a><a href="/browse/">Studies</a><a href="/authors/">Researchers</a><a href="/questions/">Open Questions</a><a href="/field/">The Field</a><a href="/events/">Events</a><a href="/about/" class="active" aria-current="page">About</a> </nav> </div></div> <div class="oma-subnav"><nav class="oma-subnav-inner" aria-label="Section"><a href="/about/">Project</a><a href="/author/oliver-barton/">Author</a><a href="/about/research-focus/">Research focus</a><a href="/about/methodology/">Methodology</a><a href="/data/">Data &amp; citation</a><a href="/api/" aria-current="page">API &amp; MCP</a><a href="/changelog/">Changelog</a></nav></div> <main class="wrap"> <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="https://mtor-atlas.org/about/">About</a> · API &amp; MCP</nav>  <h1>API &amp; MCP</h1> <p class="summary">The data behind every page of the Atlas, as JSON. Each relation in the pathway
   model comes with the claim it makes, the conditions it was measured under, how confident the
   curation is, and the studies that support or contradict it. No key, no sign-up, CC BY 4.0.</p> <p>Current state: API 1.0.0 · dataset 2.0.0 · corpus snapshot
-<time datetime="2026-10-01T14:49:35+0200">2026-10-01</time> ·
+<time datetime="2026-10-01T15:17:34+0200">2026-10-01</time> ·
 428 studies · 162 entities · 121 relations ·
 15 questions.</p> <h2>How it works</h2> <ul> <li><strong>Same data as the website.</strong> The JSON files are built in the same step as the
     HTML pages, from the same source. The API cannot show something the site does not.</li> <li><strong>Static files.</strong> There are no query parameters and no search endpoint. Lists are
@@ -95,8 +95,8 @@ html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4
   &quot;meta&quot;: {
     &quot;api_version&quot;: &quot;1.0.0&quot;,
     &quot;dataset_version&quot;: &quot;2.0.0&quot;,
-    &quot;corpus_snapshot&quot;: &quot;2026-10-01T14:49:35+0200&quot;,
-    &quot;source_commit&quot;: &quot;03bba2194c4832a1bcdfb704d54dd458ab0df021&quot;,
+    &quot;corpus_snapshot&quot;: &quot;2026-10-01T15:17:34+0200&quot;,
+    &quot;source_commit&quot;: &quot;5363094d6c26329c06cbba719d5b269de038976c&quot;,
     &quot;license&quot;: &quot;CC-BY-4.0&quot;,
     &quot;cite&quot;: &quot;Barton O. Oliver&#39;s mTOR Atlas. doi:10.5281/zenodo.22059963&quot;,
     &quot;docs&quot;: &quot;https://mtor-atlas.org/api/&quot;
@@ -161,16 +161,20 @@ for r in rels[&quot;data&quot;]:
         print(r[&quot;claim&quot;], &quot;|&quot;, best.get(&quot;code&quot;), &quot;|&quot;, &quot;, &quot;.join(r[&quot;evidence&quot;][&quot;supporting&quot;]))</code></pre> <h3>JavaScript</h3> <pre><code>const BASE = &quot;https://mtor-atlas.org/api/v1&quot;;
 const { data } = await (await fetch(`${BASE}/entities/mtorc1.json`)).json();
 const contested = data.relations.filter(r =&gt; r.contested);
-console.log(data.name, data.study_count, &quot;studies,&quot;, contested.length, &quot;contested relations&quot;);</code></pre>  <h2 id="mcp">Use it from an AI assistant</h2> <p>There are two ways. Assistants that can run a local
-<a href="https://modelcontextprotocol.io">Model Context Protocol</a> (MCP) server get the
-      Atlas as a set of tools: they search studies by evidence code, look up the evidence for a pathway
+console.log(data.name, data.study_count, &quot;studies,&quot;, contested.length, &quot;contested relations&quot;);</code></pre>  <h2 id="mcp">Use it from an AI assistant</h2> <p>Assistants that support the <a href="https://modelcontextprotocol.io">Model Context
+      Protocol</a> (MCP) get the Atlas as a set of tools: they search studies by evidence code, look up the evidence for a pathway
       claim with both the supporting and the contradicting studies, and list contested claims and open
-      questions. Assistants that only work in the browser can read the same JSON API directly.
-      Either way, every answer can carry the dataset version and snapshot date, so it can be cited.</p> <p>The MCP server runs on your own computer and needs <a href="https://nodejs.org">Node.js</a> 18
-      or newer. Package: <a href="https://www.npmjs.com/package/mtor-atlas-mcp">mtor-atlas-mcp</a> ·
+      questions. Web assistants connect to a hosted server by URL; desktop and coding assistants can
+      also run the same server on your own computer. Assistants without MCP can read the JSON API
+      directly. Either way, every answer can carry the dataset version and snapshot date, so it can be cited.</p>  <h3>Web assistants: connect by URL</h3> <p>Server URL (Streamable HTTP, no sign-in, read-only):</p> <pre><code>https://mtor-atlas-mcp.mtor-atlas.workers.dev/mcp</code></pre> <ul> <li><strong>Claude</strong> (claude.ai, desktop and mobile apps): Settings → Connectors →
+            Add custom connector. Name <code>mtor-atlas</code>, paste the URL.</li> <li><strong>ChatGPT</strong>: Settings → Apps → Advanced settings → turn on Developer mode,
+            then Create app. Paste the URL, authentication: No authentication. Availability depends on
+            the ChatGPT plan.</li> <li><strong>Grok</strong>: <a href="https://grok.com/connectors">grok.com/connectors</a> →
+            New Connector → Custom, paste the URL.</li> <li><strong>Other clients</strong> that accept a remote MCP server: the same URL.</li> </ul> <p>Menu names in these apps change often; if a step is not where described, look for
+          “connectors”, “apps” or “MCP” in the settings.</p> <h3>Desktop and coding assistants: run it locally</h3> <p>The local server needs <a href="https://nodejs.org">Node.js</a> 18 or newer. Package: <a href="https://www.npmjs.com/package/mtor-atlas-mcp">mtor-atlas-mcp</a> ·
       source: <a href="https://github.com/open-mtor-atlas/atlas/tree/main/mcp">GitHub</a> (MIT) · listed in the
 <a href="https://registry.modelcontextprotocol.io">MCP Registry</a> as
-<code>io.github.open-mtor-atlas/mtor-atlas</code>.</p> <h3>Claude Desktop</h3> <p>Settings → Developer → Edit Config. Add this to <code>claude_desktop_config.json</code> and
+<code>io.github.open-mtor-atlas/mtor-atlas</code>.</p> <h4>Claude Desktop</h4> <p>Settings → Developer → Edit Config. Add this to <code>claude_desktop_config.json</code> and
       restart Claude:</p> <pre><code>{
   &quot;mcpServers&quot;: {
     &quot;mtor-atlas&quot;: {
@@ -181,8 +185,8 @@ console.log(data.name, data.study_count, &quot;studies,&quot;, contested.length,
       ]
     }
   }
-}</code></pre> <h3>Claude Code</h3> <pre><code>claude mcp add mtor-atlas -- npx -y mtor-atlas-mcp</code></pre> <h3>Cursor, Windsurf and other MCP clients</h3> <p>Use the same <code>mcpServers</code> block as for Claude Desktop (in Cursor:
-<code>~/.cursor/mcp.json</code>, or Settings → MCP → Add new server).</p> <h3>VS Code (Copilot agent mode)</h3> <p>Add to <code>.vscode/mcp.json</code> in your project, or run MCP: Add Server from the command palette:</p> <pre><code>{
+}</code></pre> <h4>Claude Code</h4> <pre><code>claude mcp add mtor-atlas -- npx -y mtor-atlas-mcp</code></pre> <h4>Cursor, Windsurf and other MCP clients</h4> <p>Use the same <code>mcpServers</code> block as for Claude Desktop (in Cursor:
+<code>~/.cursor/mcp.json</code>, or Settings → MCP → Add new server).</p> <h4>VS Code (Copilot agent mode)</h4> <p>Add to <code>.vscode/mcp.json</code> in your project, or run MCP: Add Server from the command palette:</p> <pre><code>{
   &quot;servers&quot;: {
     &quot;mtor-atlas&quot;: {
       &quot;type&quot;: &quot;stdio&quot;,
@@ -193,10 +197,9 @@ console.log(data.name, data.study_count, &quot;studies,&quot;, contested.length,
       ]
     }
   }
-}</code></pre> <h3>OpenAI Codex CLI</h3> <pre><code>codex mcp add mtor-atlas -- npx -y mtor-atlas-mcp</code></pre> <h3>Perplexity (Mac app)</h3> <p>Settings → Connectors. Install the PerplexityXPC helper when asked, then Add Connector, name it
+}</code></pre> <h4>OpenAI Codex CLI</h4> <pre><code>codex mcp add mtor-atlas -- npx -y mtor-atlas-mcp</code></pre> <h4>Perplexity (Mac app)</h4> <p>Settings → Connectors. Install the PerplexityXPC helper when asked, then Add Connector, name it
 <code>mtor-atlas</code> and enter the command <code>npx -y mtor-atlas-mcp</code>. When it shows
-      Running, switch it on under Sources.</p> <h3>ChatGPT, Grok, Gemini and other web assistants</h3> <p>These either take no custom MCP servers or accept only remote ones reachable by URL. The
-      Atlas server runs locally, so it cannot be added there. They can still use the Atlas:</p> <ul> <li><strong>Give them the API.</strong> With web access switched on, paste a prompt like this
+      Running, switch it on under Sources.</p> <h3>Assistants without MCP connectors</h3> <p>Gemini and assistants on plans without custom connectors can still use the Atlas:</p> <ul> <li><strong>Give them the API.</strong> With web access switched on, paste a prompt like this
         and add your question. Check that the answer cites study IDs from the Atlas; if it does not,
         the assistant did not read the API.
 <pre><code>Use the open, read-only JSON API of Oliver&#39;s mTOR Atlas.
@@ -217,7 +220,7 @@ Question: &lt;your question&gt;</code></pre></li> <li><strong>A custom GPT in Ch
   corpus snapshot date from the <code>meta</code> block.</p>  </main> <footer class="oma-footer"> <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
   pathway. Every entry traces to a primary paper and is labelled by the kind of study
   behind it. Curated by <a href="/author/oliver-barton/">Oliver Barton</a>, Prague.</p> <div class="oma-footer-links"> <a href="/">Full interactive Atlas</a><a href="/browse/">Browse the Atlas</a><a href="/authors/">Researchers</a><a href="/questions/">Open Questions</a><a href="/academy/">Academy</a><a href="/answers/">Answers</a><a href="/glossary/">Glossary</a><a href="/about/">About</a><a href="/about/methodology/">Methodology</a><a href="/data/">Data &amp; Citation</a><a href="/api/">API</a> </div> <div class="oma-footer-meta">
-Page last updated <time datetime="2026-10-01T12:49:35.000Z">1 Oct 2026, 14:49</time> Prague time
+Page last updated <time datetime="2026-10-01T13:17:34.000Z">1 Oct 2026, 15:17</time> Prague time
 </div> </footer> <!-- Řazení rejstříků kliknutím na záhlaví sloupce. Platí pro každou
      table.idx na webu — /browse/, entitní stránky, medailonky, odpovědi na
      otázky, tabulka interakcí na /pathway/ — takže se to nemusí zapínat
