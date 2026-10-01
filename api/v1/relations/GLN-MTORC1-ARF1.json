@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "GLN-MTORC1-ARF1",
+  "claim": "Glutamine activates mTORC1",
+  "source": {
+   "name": "Glutamine",
+   "entity": "glutamine"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "unresolved",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.",
+  "mechanism_beginner": "Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.",
+  "context": null,
+  "boundary": "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other.",
+  "note": null,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "untested",
+   "consensus": "contested"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "JEW2015"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-MTORC1-ARF1.json"
+ }
+}

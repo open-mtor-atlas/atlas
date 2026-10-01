@@ -1,0 +1,5590 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "count": 121,
+ "data": [
+  {
+   "id": "4EBP1-EIF4E",
+   "claim": "4E-BP1 inhibits eIF4E",
+   "source": {
+    "name": "4E-BP1",
+    "entity": "4e-bp1"
+   },
+   "target": {
+    "name": "eIF4E",
+    "entity": "eif4e"
+   },
+   "effect": "inhibits",
+   "type": "competitive-inhibition",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Unphosphorylated 4E-BP1 clamps onto eIF4E and stops it assembling the cap-binding complex. mTORC1 phosphorylates 4E-BP1 to release that grip - so the brake on translation is released, not the accelerator pressed.",
+   "mechanism_beginner": "Untagged 4E-BP1 clamps onto eIF4E and blocks it; mTORC1 tags 4E-BP1 to make it let go – releasing a brake, not pressing an accelerator.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "MAX2009",
+     "THO2012",
+     "SCH2003"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-EIF4E.json"
+  },
+  {
+   "id": "4EBP1-LONGEVITY",
+   "claim": "4E-BP1 activates Longevity",
+   "source": {
+    "name": "4E-BP1",
+    "entity": "4e-bp1"
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "fly"
+   ],
+   "mechanism": "Keeping 4E-BP active extends lifespan under dietary restriction in flies, by enhancing mitochondrial activity. One of the few places where a single downstream node, not the whole pathway, carries the lifespan effect.",
+   "mechanism_beginner": "Keeping 4E-BP switched on extends lifespan in fruit flies on a restricted diet, by protecting their mitochondria.",
+   "context": null,
+   "boundary": "Fly only, and only under dietary restriction - the effect was not seen on a full diet.",
+   "note": "Boundary condition matters more than the headline here.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "ZID2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-LONGEVITY.json"
+  },
+  {
+   "id": "4EBP1-MITO",
+   "claim": "4E-BP1 context-dependent Mitochondrial biogenesis",
+   "source": {
+    "name": "4E-BP1",
+    "entity": "4e-bp1"
+   },
+   "target": {
+    "name": "Mitochondrial biogenesis",
+    "entity": "mitochondrial-biogenesis"
+   },
+   "effect": "context-dependent",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "mito",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "In mammalian cells (MOR2013) 4E-BPs repress translation of nucleus-encoded mitochondrial mRNAs, so mTORC1 raises mitochondrial output by inhibiting them; this arm is less rapamycin-sensitive than the S6K arm. In flies on dietary restriction (ZID2009) upregulated 4E-BP instead enhances translation of mitochondrial respiratory mRNAs. The sign depends on organism and nutrient state, so it is drawn as conditional.",
+   "mechanism_beginner": "The 4E-BP branch helps set how many mitochondrial proteins get built. In mammalian cells it holds them back; in fruit flies on a restricted diet it boosts them, so the direction depends on the organism and the diet.",
+   "context": null,
+   "boundary": "Scope: mammalian cells, MOR2013. The sign holds where 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (TFAM, mitochondrial ribosomal proteins), which is why this branch survives rapamycin better than the S6K arm. It does NOT hold universally across species and nutrient states: in Drosophila under dietary restriction, ZID2009 reports that 4E-BP ENHANCES mitochondrial activity, and that this is how it extends lifespan. Treat the mammalian-cell direction as scoped, not general.",
+   "note": "ZID2009 is recorded as conflicting evidence on this edge (moved out of the supporting list on 2026-08-30): its own title says 4E-BP ENHANCES mitochondrial activity under dietary restriction in flies, which is the opposite sign to this mammalian-cell edge.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "MOR2013"
+    ],
+    "conflicting": [
+     "ZID2009"
+    ]
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-MITO.json"
+  },
+  {
+   "id": "AKT-PRAS40",
+   "claim": "Akt/PKB inhibits PRAS40",
+   "source": {
+    "name": "Akt/PKB",
+    "entity": "akt-pkb"
+   },
+   "target": {
+    "name": "PRAS40",
+    "entity": "pras40"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Akt phosphorylates PRAS40, which then gets sequestered away from mTORC1 - a second, parallel way insulin lifts a brake.",
+   "mechanism_beginner": "Akt tags PRAS40, which then gets pulled away from mTORC1 – a second way insulin releases a brake.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAN2007",
+     "VAN2007",
+     "OSH2007"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-PRAS40.json"
+  },
+  {
+   "id": "AKT-TSC",
+   "claim": "Akt/PKB inhibits TSC1/TSC2",
+   "source": {
+    "name": "Akt/PKB",
+    "entity": "akt-pkb"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Akt phosphorylates TSC2, disabling the complex. Growth-factor signalling works by removing a brake, not by pressing an accelerator.",
+   "mechanism_beginner": "Akt tags TSC2 to disable it. Growth signals work by releasing a brake, not by pressing a gas pedal.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "INO2002"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-TSC.json"
+  },
+  {
+   "id": "AMPK-MITOPHAGY",
+   "claim": "AMPK activates Mitophagy",
+   "source": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "target": {
+    "name": "Mitophagy",
+    "entity": "mitophagy"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "mito",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "The LKB1-AMPK axis keeps damaged mitochondria being cleared; lose it and mitochondrial DNA leaks into the cytosol and inflames the cell.",
+   "mechanism_beginner": "The energy-sensing pathway keeps damaged mitochondria cleared out; lose it, and their broken contents leak out and inflame the cell.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus (ZHU2026), and that study is a toxicology model rather than a dedicated test of this step. Treat as indicative.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "ZHU2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MITOPHAGY.json"
+  },
+  {
+   "id": "AMPK-MTORC1",
+   "claim": "AMPK inhibits mTORC1",
+   "source": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "AMPK also hits mTORC1 directly by phosphorylating Raptor, imposing a metabolic checkpoint independent of TSC.",
+   "mechanism_beginner": "AMPK also hits mTORC1 directly, adding a second, energy-based checkpoint on top of TSC.",
+   "context": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GWI2008"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MTORC1.json"
+  },
+  {
+   "id": "AMPK-TSC",
+   "claim": "AMPK activates TSC1/TSC2",
+   "source": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "When energy runs low, AMPK phosphorylates TSC2 and strengthens the brake on Rheb.",
+   "mechanism_beginner": "When energy is low, AMPK tags TSC2 and makes the brake on Rheb stronger.",
+   "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "INO2003"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-TSC.json"
+  },
+  {
+   "id": "AMPK-ULK1",
+   "claim": "AMPK activates ULK1",
+   "source": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "target": {
+    "name": "ULK1",
+    "entity": "ulk1"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "AMPK phosphorylates ULK1 at sites distinct from mTORC1's inhibitory S757 site. The classic reading is that low energy therefore switches autophagy on directly, not only by releasing the mTORC1 brake; that reading is now disputed (see boundary).",
+   "mechanism_beginner": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
+   "context": null,
+   "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. Park, Lee and Kim (Nat Commun 2023, PMID 37225695, outside this corpus) report that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
+   "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "EGA2010",
+     "KIM2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-ULK1.json"
+  },
+  {
+   "id": "ARG-CASTOR1",
+   "claim": "Arginine inhibits CASTOR1",
+   "source": {
+    "name": "Arginine",
+    "entity": "arginine"
+   },
+   "target": {
+    "name": "CASTOR1",
+    "entity": "castor1"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Cytosolic arginine binds CASTOR1 and breaks its grip on GATOR2 - the same trick as leucine/Sestrin2, but for a different amino acid.",
+   "mechanism_beginner": "Arginine sticks to CASTOR1 the same way leucine sticks to Sestrin2 – the same trick, for a different amino acid.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHA2016",
+     "SAX2016"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ARG-CASTOR1.json"
+  },
+  {
+   "id": "CASTOR1-GATOR2",
+   "claim": "CASTOR1 inhibits GATOR2",
+   "source": {
+    "name": "CASTOR1",
+    "entity": "castor1"
+   },
+   "target": {
+    "name": "GATOR2",
+    "entity": "gator2"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Arginine-free CASTOR1 binds GATOR2 and inhibits it, so the pathway stays off until arginine is available.",
+   "mechanism_beginner": "Without arginine, CASTOR1 holds onto GATOR2 and keeps the pathway switched off.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHA2016",
+     "SAX2016"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/CASTOR1-GATOR2.json"
+  },
+  {
+   "id": "DEPTOR-MTOR",
+   "claim": "DEPTOR inhibits mTOR",
+   "source": {
+    "name": "DEPTOR",
+    "entity": "deptor"
+   },
+   "target": {
+    "name": "mTOR",
+    "entity": "mtor"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "DEPTOR sits on mTOR and damps both complexes; myeloma cells overexpress it and depend on that damping.",
+   "mechanism_beginner": "DEPTOR sits on mTOR and dampens both complexes; some cancer cells (myeloma) make extra DEPTOR and come to depend on that damping.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "PET2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/DEPTOR-MTOR.json"
+  },
+  {
+   "id": "EIF4E-TRANSL",
+   "claim": "eIF4E activates Protein synthesis",
+   "source": {
+    "name": "eIF4E",
+    "entity": "eif4e"
+   },
+   "target": {
+    "name": "Protein synthesis",
+    "entity": "protein-synthesis"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Free eIF4E recruits the ribosome to the mRNA cap. This is the step that actually turns a growth signal into new protein.",
+   "mechanism_beginner": "Freed eIF4E brings the ribosome to the mRNA – the step that actually turns a growth signal into new protein.",
+   "context": null,
+   "boundary": null,
+   "note": "Not every mRNA is equally sensitive - HSI2012 shows a specific translational program, not a uniform increase.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "MAX2009",
+     "HSI2012",
+     "THO2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EIF4E-TRANSL.json"
+  },
+  {
+   "id": "ERK-TSC",
+   "claim": "ERK / RSK (MAPK) inhibits TSC1/TSC2",
+   "source": {
+    "name": "ERK / RSK (MAPK)",
+    "entity": "erk-rsk-mapk"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "ERK phosphorylates TSC2 and inactivates the TSC complex, so Ras-MAPK growth signalling converges on the same brake that Akt releases. This is the third upstream arm alongside PI3K/Akt and AMPK, and clinically it is a route to mTORC1 activation that PI3K inhibitors do not close.",
+   "mechanism_beginner": "A separate growth pathway also disables the TSC brake – a third route into mTORC1 that drugs blocking only PI3K/Akt can't shut down.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus; Roux 2004 describes the parallel RSK arm and is not yet held.",
+   "note": "Added 2026-07-29. The graph previously had no MAPK input to mTORC1 at all.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "MA2005"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-TSC.json"
+  },
+  {
+   "id": "EVE-BREAST",
+   "claim": "Everolimus inhibits Breast cancer",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Breast cancer",
+    "entity": "breast-cancer"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "BOLERO-2: adding everolimus to hormone therapy roughly doubled progression-free survival in hormone-receptor-positive advanced breast cancer.",
+   "mechanism_beginner": "Adding everolimus to hormone therapy roughly doubled the time before certain advanced breast cancers got worse.",
+   "context": null,
+   "boundary": "Progression-free survival, in combination with exemestane - overall survival was not significantly improved.",
+   "note": "Say PFS, not survival. The distinction is the whole argument of this Atlas.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "BAS2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-BREAST.json"
+  },
+  {
+   "id": "EVE-IMMUNE",
+   "claim": "Everolimus context-dependent Immune function",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Immune function",
+    "entity": "immune-function"
+   },
+   "effect": "context-dependent",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.",
+   "mechanism_beginner": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
+   "context": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
+   "boundary": "Dose-dependent and duration-dependent: this is not the immunosuppressive regimen. The corpus supports an improved vaccine response under one regimen, not improved immune function in general. MAN2021 is recorded as conflicting rather than supporting because it tested RTB101, a different drug, not everolimus.",
+   "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "established",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "MAN2014"
+    ],
+    "conflicting": [
+     "MAN2021"
+    ]
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-IMMUNE.json"
+  },
+  {
+   "id": "EVE-LAM",
+   "claim": "Everolimus inhibits Renal angiomyolipoma",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Renal angiomyolipoma",
+    "entity": "renal-angiomyolipoma"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "EXIST-2 tested everolimus against renal angiomyolipoma in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by >=50% in 42% versus 0% on placebo.",
+   "mechanism_beginner": "In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.",
+   "context": null,
+   "boundary": "Scope: the endpoint was the kidney lesion, not LAM lung disease, which is why this arrow lands on the angiomyolipoma and not on LAM. The evidence that mTOR inhibition treats the lung disease itself is the MILES trial with sirolimus - see the RAPA-LAM edge.",
+   "note": "Rescoped 2026-07-29: this edge previously read as though everolimus had been shown to treat LAM.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "BIS2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-LAM.json"
+  },
+  {
+   "id": "EVE-MTORC1",
+   "claim": "Everolimus inhibits mTORC1",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "allosteric-inhibition",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "lyso",
+   "species": [
+    "human"
+   ],
+   "mechanism": "Everolimus is rapamycin with a solubilising side chain - same FKBP12 mechanism, better oral pharmacokinetics. It is the molecule that carried this pathway into routine clinical use.",
+   "mechanism_beginner": "Everolimus is rapamycin with a small chemical tweak that makes it easier to take as a pill – same mechanism, better drug.",
+   "context": null,
+   "boundary": null,
+   "note": "Six trials behind one arrow. They establish the clinical effect of the drug; the allosteric mechanism itself rests on the rapamycin biochemistry.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "MOT2008",
+     "YAO2011",
+     "BAS2012",
+     "KRU2010",
+     "BIS2013",
+     "IYE2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-MTORC1.json"
+  },
+  {
+   "id": "EVE-PNET",
+   "claim": "Everolimus inhibits Pancreatic neuroendocrine tumor",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Pancreatic neuroendocrine tumor",
+    "entity": "pancreatic-neuroendocrine-tumor"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "RADIANT-3: progression-free survival more than doubled in advanced pancreatic neuroendocrine tumours.",
+   "mechanism_beginner": "In a trial, everolimus more than doubled the time before advanced pancreatic neuroendocrine tumours got worse.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "YAO2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-PNET.json"
+  },
+  {
+   "id": "EVE-RCC",
+   "claim": "Everolimus inhibits Renal cell carcinoma (RCC)",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Renal cell carcinoma (RCC)",
+    "entity": "renal-cell-carcinoma-rcc"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "RECORD-1: everolimus roughly doubled progression-free survival after other targeted therapy failed.",
+   "mechanism_beginner": "In a clinical trial, everolimus roughly doubled the time before advanced kidney cancer got worse, after other treatments had stopped working.",
+   "context": null,
+   "boundary": "Second-line setting, after VEGF-targeted therapy - not first-line.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "MOT2008"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-RCC.json"
+  },
+  {
+   "id": "EVE-TSC",
+   "claim": "Everolimus inhibits Tuberous sclerosis complex",
+   "source": {
+    "name": "Everolimus",
+    "entity": "everolimus"
+   },
+   "target": {
+    "name": "Tuberous sclerosis complex",
+    "entity": "tuberous-sclerosis-complex"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "EXIST trials: everolimus shrank the brain tumours (SEGA) and kidney lesions of tuberous sclerosis - treating the pathway the mutation switches on, rather than a downstream symptom. The gene defect itself remains.",
+   "mechanism_beginner": "In patients with the genetic disease tuberous sclerosis, everolimus shrank both brain and kidney tumours. It works one step downstream of the mutation: it replaces the brake the mutation removed, so the tumours shrink while the drug is given and regrow when it stops. The mutation itself is untouched.",
+   "context": null,
+   "boundary": "Lesions regrow when the drug is stopped - this is suppression, not cure.",
+   "note": "The purest case in the Atlas: known gene, known pathway, matched drug, randomised evidence.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "KRU2010",
+     "BIS2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-TSC.json"
+  },
+  {
+   "id": "FKBP12-MTORC1",
+   "claim": "FKBP12 binds mTORC1",
+   "source": {
+    "name": "FKBP12",
+    "entity": "fkbp12"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "binds",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Only when it is carrying rapamycin, FKBP12 docks on the FRB domain next to mTOR's active site. The FKBP12-rapamycin complex, not FKBP12 alone, is what blocks access for some substrates but not all; FKBP12 without the drug does not inhibit mTORC1. The inhibitory arrow is drawn from rapamycin (RAPA-MTORC1).",
+   "mechanism_beginner": "Only when it carries rapamycin does FKBP12 dock on mTORC1; the pair then blocks some, but not all, of what mTORC1 does. FKBP12 on its own does nothing to mTORC1.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAB1994",
+     "SAB1995",
+     "CHU1992",
+     "BRO1994"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/FKBP12-MTORC1.json"
+  },
+  {
+   "id": "FLCN-RAG",
+   "claim": "FLCN / FNIP1/2 activates Rag GTPases",
+   "source": {
+    "name": "FLCN / FNIP1/2",
+    "entity": "flcn-fnip1-2"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "activates",
+   "type": "gap-activity",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "FLCN-FNIP is the GAP for the other half of the Rag dimer (RagC/D). Only when both halves are in the right nucleotide state can the dimer hold mTORC1. Crucially this arm is SUBSTRATE-SPECIFIC: it gates TFEB and TFE3 phosphorylation, while canonical outputs like S6K1 and 4E-BP1 carry on without it.",
+   "mechanism_beginner": "FLCN flips the other half of the Rag pair into its working shape – but it only changes one specific output (TFEB), not the whole pathway.",
+   "context": null,
+   "boundary": "The substrate selectivity is why Birt-Hogg-Dube syndrome is driven by constitutive nuclear TFEB/TFE3 rather than by blanket mTORC1 hyperactivation (NAP2020).",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "LAW2019",
+     "SHE2019",
+     "NAP2020"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/FLCN-RAG.json"
+  },
+  {
+   "id": "GATOR1-RAG",
+   "claim": "GATOR1 inhibits Rag GTPases",
+   "source": {
+    "name": "GATOR1",
+    "entity": "gator1"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "inhibits",
+   "type": "gap-activity",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "GATOR1 acts as a GAP: it forces RagA/B to hydrolyse GTP, flipping the Rag heterodimer into the inactive shape that cannot hold mTORC1.",
+   "mechanism_beginner": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BAR2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR1-RAG.json"
+  },
+  {
+   "id": "GATOR2-GATOR1",
+   "claim": "GATOR2 inhibits GATOR1",
+   "source": {
+    "name": "GATOR2",
+    "entity": "gator2"
+   },
+   "target": {
+    "name": "GATOR1",
+    "entity": "gator1"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.",
+   "mechanism_beginner": "GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn't fully worked out yet.",
+   "context": null,
+   "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+   "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BAR2013",
+     "PAR2014",
+     "VAL2022"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR2-GATOR1.json"
+  },
+  {
+   "id": "GLN-RAG",
+   "claim": "Glutamine activates Rag GTPases",
+   "source": {
+    "name": "Glutamine",
+    "entity": "glutamine"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.",
+   "mechanism_beginner": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
+   "context": null,
+   "boundary": "Cell-type dependent, and deliberately narrow: the separate claim that glutamine can reach mTORC1 without the Rags is carried by its own edge rather than folded in here.",
+   "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "DUR2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-RAG.json"
+  },
+  {
+   "id": "GRB10-IGF1",
+   "claim": "Grb10 inhibits Growth hormone / IGF-1 axis",
+   "source": {
+    "name": "Grb10",
+    "entity": "grb10"
+   },
+   "target": {
+    "name": "Growth hormone / IGF-1 axis",
+    "entity": "growth-hormone-igf-1-axis"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is one of two feedback arms behind the paradox that blocking mTORC1 raises Akt activity; the other is the S6K1-IRS-1 loop.",
+   "mechanism_beginner": "Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.",
+   "context": null,
+   "boundary": null,
+   "note": "ORE2006 and ROD2011 were removed from this edge on 2026-09-21: neither measured Grb10. ORE2006 belongs to the S6K1-IRS-1 arm and ROD2011 shows relief of receptor tyrosine kinase feedback in general.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HSU2011",
+     "YUX2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/GRB10-IGF1.json"
+  },
+  {
+   "id": "HYPOXIA-REDD1",
+   "claim": "Hypoxia activates REDD1 (DDIT4)",
+   "source": {
+    "name": "Hypoxia",
+    "entity": "hypoxia"
+   },
+   "target": {
+    "name": "REDD1 (DDIT4)",
+    "entity": "redd1-ddit4"
+   },
+   "effect": "activates",
+   "type": "transcriptional",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Low oxygen induces REDD1 transcriptionally over hours, slower than AMPK. REDD1 protein is short-lived, so the signal lasts only as long as hypoxia keeps the gene switched on.",
+   "mechanism_beginner": "Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus.",
+   "note": "Thin - one supporting study.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BRU2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/HYPOXIA-REDD1.json"
+  },
+  {
+   "id": "IGF1-PI3K",
+   "claim": "Growth hormone / IGF-1 axis activates PI3K",
+   "source": {
+    "name": "Growth hormone / IGF-1 axis",
+    "entity": "growth-hormone-igf-1-axis"
+   },
+   "target": {
+    "name": "PI3K",
+    "entity": "pi3k"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.",
+   "mechanism_beginner": "Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CAN2002",
+     "ROM2001"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/IGF1-PI3K.json"
+  },
+  {
+   "id": "IRS1-PI3K",
+   "claim": "IRS-1 / IRS-2 activates PI3K",
+   "source": {
+    "name": "IRS-1 / IRS-2",
+    "entity": "irs-1-irs-2"
+   },
+   "target": {
+    "name": "PI3K",
+    "entity": "pi3k"
+   },
+   "effect": "activates",
+   "type": "recruitment",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "IRS proteins are the adaptors that carry the signal from the insulin/IGF-1 receptor to PI3K. Deplete them and the receptor is still there but the wire is cut.",
+   "mechanism_beginner": "IRS proteins carry the signal from the insulin receptor to PI3K; without them, the receptor is still there but the wire connecting it is cut.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HAR2004",
+     "CAN2002"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/IRS1-PI3K.json"
+  },
+  {
+   "id": "ISR-SALR",
+   "claim": "Integrated stress response activates Spalt-related (Salr)",
+   "source": {
+    "name": "Integrated stress response",
+    "entity": "integrated-stress-response"
+   },
+   "target": {
+    "name": "Spalt-related (Salr)",
+    "entity": "spalt-related-salr"
+   },
+   "effect": "activates",
+   "type": "transcriptional",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "fly"
+   ],
+   "mechanism": "The integrated stress response switches on Salr, a growth inhibitor - a route into mTORC1 that bypasses TSC and AMPK entirely.",
+   "mechanism_beginner": "The cell's stress-response system switches on a growth-blocking gene – a route to shutting down mTORC1 that skips right past TSC and AMPK.",
+   "context": null,
+   "boundary": "Fly only, and newly reported.",
+   "note": "Thin and species-limited, but it is a genuinely different input route - worth showing as such.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "DEN2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ISR-SALR.json"
+  },
+  {
+   "id": "KICSTOR-GATOR1",
+   "claim": "KICSTOR required-for GATOR1",
+   "source": {
+    "name": "KICSTOR",
+    "entity": "kicstor"
+   },
+   "target": {
+    "name": "GATOR1",
+    "entity": "gator1"
+   },
+   "effect": "required-for",
+   "type": "recruitment",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "KICSTOR is the dock that holds GATOR1 on the lysosomal surface. Without it, GATOR1 cannot reach its target and nutrient control of mTORC1 is lost.",
+   "mechanism_beginner": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "WOL2017",
+     "PEN2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/KICSTOR-GATOR1.json"
+  },
+  {
+   "id": "LARS-RAG",
+   "claim": "LARS (leucyl-tRNA synthetase) activates Rag GTPases",
+   "source": {
+    "name": "LARS (leucyl-tRNA synthetase)",
+    "entity": "lars-leucyl-trna-synthetase"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "activates",
+   "type": "gap-activity",
+   "directness": "unresolved",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "In this model LARS acts as a GAP for RagD, doing for the RagC/D half what FLCN does - an alternative route from leucine to the Rags.",
+   "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
+   "context": null,
+   "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+   "note": "See LEU-LARS.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "untested",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HAN2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LARS-RAG.json"
+  },
+  {
+   "id": "LEU-LARS",
+   "claim": "Leucine activates LARS (leucyl-tRNA synthetase)",
+   "source": {
+    "name": "Leucine",
+    "entity": "leucine"
+   },
+   "target": {
+    "name": "LARS (leucyl-tRNA synthetase)",
+    "entity": "lars-leucyl-trna-synthetase"
+   },
+   "effect": "activates",
+   "type": "binding",
+   "directness": "unresolved",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.",
+   "mechanism_beginner": "One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.",
+   "context": null,
+   "boundary": "Proposed before the Sestrin2 model and never cleanly reconciled with it.",
+   "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "untested",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HAN2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-LARS.json"
+  },
+  {
+   "id": "LEU-SESN2",
+   "claim": "Leucine inhibits Sestrin2",
+   "source": {
+    "name": "Leucine",
+    "entity": "leucine"
+   },
+   "target": {
+    "name": "Sestrin2",
+    "entity": "sestrin2"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Leucine binds a pocket inside Sestrin2 with roughly 20 uM affinity - close to the concentration at which cells actually feel leucine coming and going. The bound sensor can no longer hold GATOR2, so leucine effectively switches the brake off.",
+   "mechanism_beginner": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
+   "context": null,
+   "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "WOL2015",
+     "SAX2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-SESN2.json"
+  },
+  {
+   "id": "LKB1-AMPK",
+   "claim": "LKB1 (STK11) activates AMPK",
+   "source": {
+    "name": "LKB1 (STK11)",
+    "entity": "lkb1-stk11"
+   },
+   "target": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "LKB1 is the kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; without it the whole energy-stress arm is deaf.",
+   "mechanism_beginner": "LKB1 is the kinase that switches AMPK on in the first place; without it, the whole low-energy alarm system goes silent.",
+   "context": null,
+   "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
+   "note": "Until 2026-07-29 this edge was supported only by ZHU2026, a trichloroethylene liver-injury study that is consistent with the step but was not designed to establish it. Re-cited to Shaw 2004.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SHW2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LKB1-AMPK.json"
+  },
+  {
+   "id": "LYSO-MTORC1",
+   "claim": "Lysosome required-for mTORC1",
+   "source": {
+    "name": "Lysosome",
+    "entity": "lysosome"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "required-for",
+   "type": "localisation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.",
+   "mechanism_beginner": "In the amino-acid route, mTORC1 only works while it's sitting on the lysosome, because that is where its activator waits – move it somewhere else and amino acids stop being able to reach it.",
+   "context": null,
+   "boundary": "Scoped to amino-acid-driven activation. Live BRET imaging in this corpus (BOU2020) resolves mTOR activity in the cytosol, at the lysosome, in the nucleus and near mitochondria, so mTOR signalling is measurably not one pool. This map draws the lysosomal route and keeps the other localisations declared as open rather than asserting there are none. FER2024 refines this further: lysosomal mTORC1 (fed by local lysosomal proteolysis) and cytoplasmic mTORC1 (fed by exogenous amino acids) phosphorylate distinct downstream substrates — the lysosome is required for one regulatory sub-pool of mTORC1, not for all of it.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAN2010",
+     "ZON2011",
+     "FER2024"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LYSO-MTORC1.json"
+  },
+  {
+   "id": "METFORMIN-AMPK",
+   "claim": "Metformin activates AMPK",
+   "source": {
+    "name": "Metformin",
+    "entity": "metformin"
+   },
+   "target": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Metformin shifts the cell's energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.",
+   "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
+   "context": null,
+   "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+   "note": null,
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "plausible",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ZHO2001"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-AMPK.json"
+  },
+  {
+   "id": "METFORMIN-MTORC1",
+   "claim": "Metformin inhibits mTORC1",
+   "source": {
+    "name": "Metformin",
+    "entity": "metformin"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells",
+    "mouse liver"
+   ],
+   "mechanism": "Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the 'metformin works via AMPK' summary.",
+   "mechanism_beginner": "Metformin can also block mTORC1 through a completely separate route that doesn't need AMPK at all – a route often left out of the simple \"metformin works via AMPK\" story.",
+   "context": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
+   "boundary": "Runs in parallel with METFORMIN-AMPK, not instead of it. The relative weight of the two routes in humans is unresolved.",
+   "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "plausible",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "KAL2010"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-MTORC1.json"
+  },
+  {
+   "id": "MLST8-MTORC2",
+   "claim": "mLST8 required-for mTORC2",
+   "source": {
+    "name": "mLST8",
+    "entity": "mlst8"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "mLST8 is dispensable for mTORC1 in vivo but essential for mTORC2 - a rare clean genetic separation of the two complexes.",
+   "mechanism_beginner": "This protein isn't needed for mTORC1 in a living animal, but mTORC2 can't work without it – a clean genetic way to tell the two complexes apart.",
+   "context": null,
+   "boundary": null,
+   "note": "The cleanest genetic argument that the two complexes are truly separate machines.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GUE2006",
+     "KIM2003"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MLST8-MTORC2.json"
+  },
+  {
+   "id": "MTOR-MTORC2",
+   "claim": "mTOR required-for mTORC2",
+   "source": {
+    "name": "mTOR",
+    "entity": "mtor"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "human cells",
+    "yeast"
+   ],
+   "mechanism": "mTORC2 is built around the same mTOR kinase as mTORC1 - the partner subunits, not the catalytic core, are what make the two complexes different.",
+   "mechanism_beginner": "mTORC2 is built from the very same mTOR enzyme as mTORC1 – it's the partner proteins around it that make the two complexes different.",
+   "context": null,
+   "boundary": null,
+   "note": "Three independent structures - unusually well supported for this corpus.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHE2018",
+     "SCA2020",
+     "STU2018",
+     "KAR2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTOR-MTORC2.json"
+  },
+  {
+   "id": "MTORC1-4EBP1",
+   "claim": "mTORC1 inhibits 4E-BP1",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "4E-BP1",
+    "entity": "4e-bp1"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 phosphorylates 4E-BP1, which lets go of eIF4E and frees cap-dependent translation. Rapamycin blocks this arm only partially - the origin of the whole 'rapamycin-resistant output' problem.",
+   "mechanism_beginner": "mTORC1 tags 4E-BP1 so it lets go of another protein, freeing up protein-building – but the standard drug (rapamycin) only partly blocks this step.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BUR1998",
+     "HARA2002",
+     "FEL2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-4EBP1.json"
+  },
+  {
+   "id": "MTORC1-GRB10",
+   "claim": "mTORC1 activates Grb10",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Grb10",
+    "entity": "grb10"
+   },
+   "effect": "activates",
+   "type": "stabilization",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 phosphorylates and stabilises Grb10 - the start of a feedback loop that talks back to the insulin receptor.",
+   "mechanism_beginner": "mTORC1 stabilises Grb10, kicking off a feedback loop that talks back to the insulin receptor.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HSU2011",
+     "YUX2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-GRB10.json"
+  },
+  {
+   "id": "MTORC1-LONGEVITY",
+   "claim": "mTORC1 inhibits Longevity",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "inhibits",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "multiple species"
+   ],
+   "mechanism": "Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.",
+   "mechanism_beginner": "Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the most universal anti-ageing effects known.",
+   "context": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
+   "boundary": "No human hard-endpoint evidence. This is the Atlas's flagged 'human endpoint desert'.",
+   "note": "Links to ATLAS_FINDINGS human-endpoint desert.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "HAR2009",
+     "LAM2012",
+     "ROB2012",
+     "VEL2003"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-LONGEVITY.json"
+  },
+  {
+   "id": "MTORC1-MAPK",
+   "claim": "mTORC1 inhibits ERK / RSK (MAPK)",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "ERK / RSK (MAPK)",
+    "entity": "erk-rsk-mapk"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "human cells",
+    "mouse"
+   ],
+   "mechanism": "A second feedback arm: inhibiting mTORC1 releases a PI3K-dependent brake and MAPK signalling goes up. Together with S6K1-IRS1 this is why single-agent mTOR inhibition tends to be met by compensatory growth signalling.",
+   "mechanism_beginner": "Blocking mTORC1 can backfire by releasing a brake on a different growth pathway (MAPK) – one reason mTOR-blocking drugs alone often aren't enough.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus.",
+   "note": "CAR2008 was already in the corpus but carried no edge until 2026-07-29.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CAR2008"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-MAPK.json"
+  },
+  {
+   "id": "MTORC1-MITO",
+   "claim": "mTORC1 activates Mitochondrial biogenesis",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Mitochondrial biogenesis",
+    "entity": "mitochondrial-biogenesis"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "mito",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 raises mitochondrial output two ways: through a YY1-PGC-1alpha transcription complex, and by relieving 4E-BP so mitochondrial proteins get translated.",
+   "mechanism_beginner": "mTORC1 boosts the cell's mitochondria – its power plants – two ways at once: through a gene-activating complex, and by freeing up 4E-BP.",
+   "context": null,
+   "boundary": "Shown in cultured cells and skeletal muscle (CUN2007) and mammalian cell lines (MOR2013). One organismal result points the other way: adipose-specific Raptor deletion raised mitochondrial respiration (POL2008), see MTORC1-OXPHOS.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CUN2007",
+     "MOR2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-MITO.json"
+  },
+  {
+   "id": "MTORC1-NUCL",
+   "claim": "mTORC1 activates Nucleotide synthesis",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Nucleotide synthesis",
+    "entity": "nucleotide-synthesis"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 couples nucleotide supply to demand - it turns on purine synthesis through the mitochondrial tetrahydrofolate cycle so a dividing cell can actually copy its DNA.",
+   "mechanism_beginner": "mTORC1 turns on the machinery for building DNA/RNA building blocks, so a growing cell can actually copy its DNA.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "VAL2017",
+     "BEN2016"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-NUCL.json"
+  },
+  {
+   "id": "MTORC1-PROSTATE",
+   "claim": "mTORC1 activates Prostate cancer",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Prostate cancer",
+    "entity": "prostate-cancer"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Blocking mTOR reversed Akt-driven pre-cancerous prostate lesions in mice, showing the growth was mTORC1-dependent and reversible.",
+   "mechanism_beginner": "Blocking mTOR reversed early, pre-cancerous prostate changes in mice caused by an overactive growth signal.",
+   "context": null,
+   "boundary": "Scope: the lesion was prostatic intraepithelial neoplasia, a pre-cancerous stage, driven by transgenic human AKT1 in mice, and the drug (RAD001) inhibits mTORC1 allosterically. Not a demonstration in established prostate cancer.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "MAJ2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-PROSTATE.json"
+  },
+  {
+   "id": "MTORC1-RCC",
+   "claim": "mTORC1 activates Renal cell carcinoma (RCC)",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Renal cell carcinoma (RCC)",
+    "entity": "renal-cell-carcinoma-rcc"
+   },
+   "effect": "activates",
+   "type": "association",
+   "directness": "unresolved",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "Renal cancers frequently carry lesions that leave mTORC1 constitutively active - which is why this tissue responds to mTOR inhibitors at all, and why an exceptional responder could be traced to TSC1 loss.",
+   "mechanism_beginner": "Many kidney cancers carry mutations that leave mTORC1 stuck \"on\" – that's why this cancer type responds to mTOR-blocking drugs at all, though it doesn't prove mTORC1 causes the cancer.",
+   "context": null,
+   "boundary": "Correlative plus one n-of-1 genomic case (IYE2012); not a demonstration that mTORC1 activation initiates RCC.",
+   "note": "Replaces TUMOR-RCC, which asserted 'Tumor growth activates RCC' - a category error, since RCC is an instance of tumour growth, not a downstream target.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "established",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Correlative",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "IYE2012",
+     "MOT2008",
+     "HUD2007"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-RCC.json"
+  },
+  {
+   "id": "MTORC1-S6K1",
+   "claim": "mTORC1 activates S6K1",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "S6K1",
+    "entity": "s6k1"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 phosphorylates S6K1, switching on the translation machinery. This is the classic rapamycin-sensitive output and the readout most papers actually measure.",
+   "mechanism_beginner": "mTORC1 switches on S6K1, which turns on the cell's protein-building machinery – the classic effect most studies of this drug class measure.",
+   "context": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
+   "boundary": "Caution: p-S6K is a proxy, not the phenotype. Many 'mTORC1 activity' claims rest on this single band.",
+   "note": "Worth flagging on the page: readout != outcome.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BUR1998",
+     "CHU1992",
+     "HOL2005"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-S6K1.json"
+  },
+  {
+   "id": "MTORC1-SENESCENCE",
+   "claim": "mTORC1 activates Senescence-associated secretory phenotype (SASP)",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Senescence-associated secretory phenotype (SASP)",
+    "entity": "senescence-associated-secretory-phenotype-sasp"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "days",
+   "compartment": "outcome",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.",
+   "mechanism_beginner": "mTORC1 keeps old, \"senescent\" cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus, and a scoped one: LAB2015 measures the secretome of senescent cells, not whether mTORC1 drives cells into senescence. That is why this arrow lands on the secretory programme and not on senescence itself.",
+   "note": "Thin - one supporting study.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "LAB2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-SENESCENCE.json"
+  },
+  {
+   "id": "MTORC1-SREBP",
+   "claim": "mTORC1 activates SREBP1 / SREBP2",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "SREBP1 / SREBP2",
+    "entity": "srebp1-srebp2"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 drives the SREBP transcription factors, which turn on the genes for making fat and cholesterol - growth needs membrane, not just protein.",
+   "mechanism_beginner": "mTORC1 switches on SREBP, the genes that build fat and cholesterol – a growing cell needs membrane material, not just protein.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "POR2008",
+     "PET2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-SREBP.json"
+  },
+  {
+   "id": "MTORC1-TFEB",
+   "claim": "mTORC1 inhibits TFEB",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "TFEB",
+    "entity": "tfeb"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Active mTORC1 phosphorylates TFEB right on the lysosomal surface, trapping it in the cytoplasm. Switch mTORC1 off and TFEB walks into the nucleus.",
+   "mechanism_beginner": "Active mTORC1 tags TFEB and traps it outside the nucleus; switch mTORC1 off and TFEB moves in.",
+   "context": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
+   "boundary": "RagD specifically (more than RagC) promotes TFEB/TFE3 phosphorylation via tighter LAMTOR binding — GOL2022 shows this is paralogue-specific, not a generic Rag-dimer property.",
+   "note": "Four independent studies - one of the best-supported output edges.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ROC2012",
+     "SET2012",
+     "MAR2012",
+     "SET2011",
+     "GOL2022"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TFEB.json"
+  },
+  {
+   "id": "MTORC1-TUMOR",
+   "claim": "mTORC1 activates Tumor growth",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Tumor growth",
+    "entity": "tumor-growth"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse",
+    "human cells"
+   ],
+   "mechanism": "Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).",
+   "mechanism_beginner": "Hyperactive mTORC1 pushes cells to build a specific set of growth- and spread-promoting proteins – the tumour becomes hooked on that programme.",
+   "context": null,
+   "boundary": "Context-dependent: shown in genetically driven mouse tumour models and cancer cell lines with hyperactive mTORC1 (PTEN loss, TSC loss), not as a general property of tumours.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HSI2010",
+     "HSI2012",
+     "VAL2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TUMOR.json"
+  },
+  {
+   "id": "MTORC1-ULK1",
+   "claim": "mTORC1 inhibits ULK1",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "ULK1",
+    "entity": "ulk1"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Active mTORC1 phosphorylates ULK1 at an inhibitory site, holding autophagy shut while nutrients are plentiful.",
+   "mechanism_beginner": "Active mTORC1 tags ULK1 to hold it back, keeping the cell's self-cleanup process (autophagy) switched off while nutrients are plentiful.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HOS2009",
+     "GAN2009",
+     "KIM2011",
+     "NAZ2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-ULK1.json"
+  },
+  {
+   "id": "MTORC2-ACTIN",
+   "claim": "mTORC2 activates Actin cytoskeleton",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "Actin cytoskeleton",
+    "entity": "actin-cytoskeleton"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells",
+    "yeast"
+   ],
+   "mechanism": "One of the first functions assigned to mTORC2 was shaping the cell's skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.",
+   "mechanism_beginner": "mTORC2's first known job was shaping the cell's internal skeleton – noticed precisely because rapamycin didn't block it.",
+   "context": null,
+   "boundary": null,
+   "note": "The two-complex model itself came from biochemistry (LOE2002, JAC2004, SAR2004).",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "JAC2004",
+     "SAR2004",
+     "LOE2002"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-ACTIN.json"
+  },
+  {
+   "id": "MTORC2-AKT",
+   "claim": "mTORC2 activates Akt/PKB",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "Akt/PKB",
+    "entity": "akt-pkb"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks, and a major reason, in mice, that chronic rapamycin impairs glucose tolerance (LAM2012).",
+   "mechanism_beginner": "mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts. In mice, that disruption is a major reason long-term rapamycin raises blood sugar.",
+   "context": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
+   "boundary": null,
+   "note": "Bridge edge between the growth-factor route and the rapamycin route.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "JAC2006",
+     "FRI2006",
+     "YAN2006",
+     "LIU2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-AKT.json"
+  },
+  {
+   "id": "MTORC2-INSULINRES",
+   "claim": "mTORC2 inhibits Insulin resistance",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "Insulin resistance",
+    "entity": "insulin-resistance"
+   },
+   "effect": "inhibits",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Losing mTORC2 uncouples Akt from insulin signalling and produces glucose intolerance - and this is separable from the lifespan benefit.",
+   "mechanism_beginner": "Losing mTORC2 disconnects Akt from insulin signalling and can cause blood-sugar problems – a separate effect from any lifespan benefit.",
+   "context": null,
+   "boundary": "In mice, intermittent dosing largely spared glucose tolerance while keeping mTORC1 inhibition (ARR2015); not tested against this endpoint in humans.",
+   "note": "Feeds hypothesis H2 in Knowledge_Gaps.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "LAM2012",
+     "ARR2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-INSULINRES.json"
+  },
+  {
+   "id": "MTORC2-LIPID",
+   "claim": "mTORC2 activates Lipid synthesis",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "Lipid synthesis",
+    "entity": "lipid-synthesis"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.",
+   "mechanism_beginner": "mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow – shown in cells and mice, not measured in patients.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus, shown in one liver tumour model (GUR2017). Not established as a general mTORC2 function outside that setting.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "GUR2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-LIPID.json"
+  },
+  {
+   "id": "MTORC2-PROSTATE",
+   "claim": "mTORC2 activates Prostate cancer",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "Prostate cancer",
+    "entity": "prostate-cancer"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Prostate tumours driven by Pten loss need mTORC2 specifically - normal prostate does not. A real therapeutic window, at least in mice.",
+   "mechanism_beginner": "Prostate tumours caused by losing a specific tumour-suppressor gene specifically need mTORC2 to grow – normal prostate tissue doesn't, at least in mice.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "GUE2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-PROSTATE.json"
+  },
+  {
+   "id": "MTORC2-SGK1",
+   "claim": "mTORC2 activates SGK1",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "SGK1",
+    "entity": "sgk1"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "SGK1 is a second mTORC2 substrate alongside Akt, and it carries some of the functions usually credited to Akt.",
+   "mechanism_beginner": "SGK1 is a second target of mTORC2 alongside Akt, and it shares some of Akt's jobs.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GAR2008"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-SGK1.json"
+  },
+  {
+   "id": "PDCD4-TRANSL",
+   "claim": "PDCD4 inhibits Protein synthesis",
+   "source": {
+    "name": "PDCD4",
+    "entity": "pdcd4"
+   },
+   "target": {
+    "name": "Protein synthesis",
+    "entity": "protein-synthesis"
+   },
+   "effect": "inhibits",
+   "type": "functional-consequence",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "PDCD4 blocks the eIF4A helicase, so mRNAs with structured 5' ends cannot be unwound and translated.",
+   "mechanism_beginner": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
+   "context": null,
+   "boundary": "SOURCING FLAG (2026-09-04): the mechanism stated here is correct and canonical, but no study currently in this corpus demonstrates it. Treat as an unsourced canonical step until Yang 2003 or Suzuki 2008 is added.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "DOR2006"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
+  },
+  {
+   "id": "PI3K-AKT",
+   "claim": "PI3K activates Akt/PKB",
+   "source": {
+    "name": "PI3K",
+    "entity": "pi3k"
+   },
+   "target": {
+    "name": "Akt/PKB",
+    "entity": "akt-pkb"
+   },
+   "effect": "activates",
+   "type": "recruitment",
+   "directness": "indirect",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "PIP3 pulls Akt to the membrane, where it gets phosphorylated and activated.",
+   "mechanism_beginner": "That lipid pulls Akt to the cell membrane, where it gets switched on.",
+   "context": "PIP3 recruits Akt; recruitment alone does not activate it. Full activation additionally needs PDK1 (T308) and mTORC2 (S473), so the strength of this link depends on the activity of both of those.",
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CAN2002",
+     "LIU2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PI3K-AKT.json"
+  },
+  {
+   "id": "PI3K-MTORC2",
+   "claim": "PI3K activates mTORC2",
+   "source": {
+    "name": "PI3K",
+    "entity": "pi3k"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "PIP3 made by PI3K binds SIN1 and releases its hold on the kinase site - so growth-factor signalling switches mTORC2 on, not only mTORC1.",
+   "mechanism_beginner": "The same lipid signal that switches Akt on also switches mTORC2 on – so growth-factor signals hit both complexes.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus.",
+   "note": "Thin - one supporting study for a step drawn as canonical.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "LIU2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PI3K-MTORC2.json"
+  },
+  {
+   "id": "PRAS40-MTORC1",
+   "claim": "PRAS40 inhibits mTORC1",
+   "source": {
+    "name": "PRAS40",
+    "entity": "pras40"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "competitive-inhibition",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Unphosphorylated PRAS40 sits in the substrate groove of mTORC1 and blocks it - a built-in plug.",
+   "mechanism_beginner": "Untagged PRAS40 sits inside mTORC1 and blocks it, like a built-in plug.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAN2007",
+     "YAN2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PRAS40-MTORC1.json"
+  },
+  {
+   "id": "PTEN-PI3K",
+   "claim": "PTEN inhibits PI3K",
+   "source": {
+    "name": "PTEN",
+    "entity": "pten"
+   },
+   "target": {
+    "name": "PI3K",
+    "entity": "pi3k"
+   },
+   "effect": "inhibits",
+   "type": "dephosphorylation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "pm",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.",
+   "mechanism_beginner": "PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.",
+   "context": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically. It dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking PI3K's activity.",
+   "boundary": "The cancer genetics here is mouse work (GUE2009). The biochemical step itself, PTEN dephosphorylating PIP3, has no dedicated paper in this corpus.",
+   "note": "MAJ2004 was removed from this edge on 2026-09-21: it used Akt-transgenic mice and never manipulated PTEN, so it could not support this step and should not have been setting the edge's tier and species.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "GUE2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PTEN-PI3K.json"
+  },
+  {
+   "id": "RAG-MTORC1",
+   "claim": "Rag GTPases recruits mTORC1",
+   "source": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "recruits",
+   "type": "recruitment",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "The active Rag dimer grabs Raptor and physically drags mTORC1 to the lysosomal surface. This is a relocation, not an activation - the kinase is moved to where its activator waits.",
+   "mechanism_beginner": "The switched-on Rag proteins grab mTORC1 and drag it to the lysosome. This moves it into place; it doesn't turn it on by itself.",
+   "context": null,
+   "boundary": "Rag paralogues are not interchangeable: RagC/D sets substrate specificity downstream (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding, while both Rags are involved for non-lysosomal substrates like S6K), and RagA/B sets the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even when starved) — GOL2022.",
+   "note": "The conceptual crux of the whole route: teach recruitment vs activation as two separate ideas.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAN2008",
+     "SAN2010",
+     "LAW2018",
+     "GOL2022"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAG-MTORC1.json"
+  },
+  {
+   "id": "RAGULATOR-RAG",
+   "claim": "Ragulator activates Rag GTPases",
+   "source": {
+    "name": "Ragulator",
+    "entity": "ragulator"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "activates",
+   "type": "scaffolding",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.",
+   "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their \"on\" shape. The anchoring is the better-established of the two jobs.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BAR2012",
+     "SAN2010"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-RAG.json"
+  },
+  {
+   "id": "RAPA-FKBP12",
+   "claim": "Rapamycin binds FKBP12",
+   "source": {
+    "name": "Rapamycin",
+    "entity": "rapamycin"
+   },
+   "target": {
+    "name": "FKBP12",
+    "entity": "fkbp12"
+   },
+   "effect": "binds",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Rapamycin is not an ordinary inhibitor: it first binds the small protein FKBP12, and only the two-part complex is the real drug.",
+   "mechanism_beginner": "Rapamycin doesn't work alone – it first has to team up with a helper protein called FKBP12.",
+   "context": null,
+   "boundary": null,
+   "note": "The molecular-glue concept - genuinely surprising to newcomers.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHO1996",
+     "BRO1994",
+     "SAB1995"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-FKBP12.json"
+  },
+  {
+   "id": "RAPA-LAM",
+   "claim": "Rapamycin inhibits Lymphangioleiomyomatosis",
+   "source": {
+    "name": "Rapamycin",
+    "entity": "rapamycin"
+   },
+   "target": {
+    "name": "Lymphangioleiomyomatosis",
+    "entity": "lymphangioleiomyomatosis"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "The MILES trial: sirolimus stabilised lung function (FEV1) in lymphangioleiomyomatosis while patients took it, and decline resumed after stopping. This - not the everolimus angiomyolipoma trial - is the evidence that mTOR inhibition treats LAM lung disease.",
+   "mechanism_beginner": "In a clinical trial, rapamycin stabilised lung function in a rare lung disease while patients kept taking it – the decline came back once they stopped.",
+   "context": null,
+   "boundary": "Benefit is suppressive: lung function declined again after withdrawal.",
+   "note": "Added 2026-07-29. EVE-LAM previously carried this claim on a trial whose endpoint was renal angiomyolipoma.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "MCC2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-LAM.json"
+  },
+  {
+   "id": "RAPA-LONGEVITY",
+   "claim": "Rapamycin activates Longevity",
+   "source": {
+    "name": "Rapamycin",
+    "entity": "rapamycin"
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.",
+   "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
+   "context": null,
+   "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper.",
+   "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "HAR2009",
+     "BIT2016"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-LONGEVITY.json"
+  },
+  {
+   "id": "RAPA-MTORC2",
+   "claim": "Rapamycin inhibits mTORC2",
+   "source": {
+    "name": "Rapamycin",
+    "entity": "rapamycin"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "inhibits",
+   "type": "complex-disassembly",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.",
+   "mechanism_beginner": "Rapamycin doesn't touch mTORC2 right away, but over days it stops new mTORC2 from being built.",
+   "context": null,
+   "boundary": "Strictly time- and cell-type-dependent: absent acutely, present after prolonged exposure, and the sensitivity varies between cell lines. LAM2012 shows the same loss of mTORC2 signalling in mouse liver in vivo, so this is not a cell-culture-only phenomenon. Treating this edge as unconditional is a common error.",
+   "note": "THE key context-dependent edge. Should render dashed with an explicit 'chronic only' label.",
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "plausible",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "SAR2006",
+     "LAM2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-MTORC2.json"
+  },
+  {
+   "id": "RAPTOR-MTORC1",
+   "claim": "Raptor required-for mTORC1",
+   "source": {
+    "name": "Raptor",
+    "entity": "raptor"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Raptor is the subunit that defines mTORC1 and presents substrates to the kinase.",
+   "mechanism_beginner": "Raptor is the piece that makes mTORC1 what it is, and hands it the targets it needs to act on.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "HARA2002",
+     "KIM2002"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPTOR-MTORC1.json"
+  },
+  {
+   "id": "REDD1-TSC",
+   "claim": "REDD1 (DDIT4) activates TSC1/TSC2",
+   "source": {
+    "name": "REDD1 (DDIT4)",
+    "entity": "redd1-ddit4"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "REDD1 works through the TSC complex, not around it - hypoxia and growth factors therefore converge on the same brake.",
+   "mechanism_beginner": "REDD1 acts through the TSC brake, so low oxygen and low growth-factor signals end up hitting the very same switch.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BRU2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/REDD1-TSC.json"
+  },
+  {
+   "id": "RHEB-MTORC1",
+   "claim": "Rheb activates mTORC1",
+   "source": {
+    "name": "Rheb",
+    "entity": "rheb"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "activates",
+   "type": "allosteric-activation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "GTP-loaded Rheb binds mTORC1 at the lysosome and physically re-shapes its active site into the working conformation.",
+   "mechanism_beginner": "Switched-on Rheb docks onto mTORC1 and physically reshapes it into its working form – the actual \"on\" switch.",
+   "context": "Rheb must be GTP-loaded and co-located with mTORC1. Rheb is also distributed across the ER and Golgi, and which pool supplies the activating Rheb is unresolved.",
+   "boundary": null,
+   "note": "Convergence point: the amino-acid route delivers mTORC1 here, the growth-factor route delivers Rheb. Both required.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "INOK2003",
+     "SAU2003",
+     "YAN2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RHEB-MTORC1.json"
+  },
+  {
+   "id": "RICTOR-MTORC2",
+   "claim": "Rictor required-for mTORC2",
+   "source": {
+    "name": "Rictor",
+    "entity": "rictor"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Rictor defines the second complex, mTORC2, which rapamycin does not block acutely.",
+   "mechanism_beginner": "Rictor is what makes the second complex, mTORC2, distinct – and rapamycin doesn't block it right away.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SAR2004",
+     "JAC2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RICTOR-MTORC2.json"
+  },
+  {
+   "id": "S6K1-IRS1",
+   "claim": "S6K1 inhibits IRS-1 / IRS-2",
+   "source": {
+    "name": "S6K1",
+    "entity": "s6k1"
+   },
+   "target": {
+    "name": "IRS-1 / IRS-2",
+    "entity": "irs-1-irs-2"
+   },
+   "effect": "inhibits",
+   "type": "degradation",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "The pathway's principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
+   "mechanism_beginner": "This is the pathway's main self-limiting \"off switch\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
+   "context": null,
+   "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
+   "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "HAR2004",
+     "SHA2004",
+     "UMX2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-IRS1.json"
+  },
+  {
+   "id": "S6K1-LONGEVITY",
+   "claim": "S6K1 inhibits Longevity",
+   "source": {
+    "name": "S6K1",
+    "entity": "s6k1"
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "inhibits",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. It also protects against diet-induced obesity. Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.",
+   "mechanism_beginner": "Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.",
+   "context": null,
+   "boundary": "Female mice only in SEL2009 - the lifespan extension was not significant in males.",
+   "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "SEL2009",
+     "UMX2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-LONGEVITY.json"
+  },
+  {
+   "id": "S6K1-NUCL",
+   "claim": "S6K1 activates Nucleotide synthesis",
+   "source": {
+    "name": "S6K1",
+    "entity": "s6k1"
+   },
+   "target": {
+    "name": "Nucleotide synthesis",
+    "entity": "nucleotide-synthesis"
+   },
+   "effect": "activates",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "S6K1 phosphorylates CAD, the enzyme that starts de novo pyrimidine synthesis - a direct line from growth signal to DNA building blocks.",
+   "mechanism_beginner": "S6K1 switches on an enzyme that starts building the raw materials for DNA – a direct line from growth signal to DNA parts.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BEN2013",
+     "ROB2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-NUCL.json"
+  },
+  {
+   "id": "S6K1-PDCD4",
+   "claim": "S6K1 inhibits PDCD4",
+   "source": {
+    "name": "S6K1",
+    "entity": "s6k1"
+   },
+   "target": {
+    "name": "PDCD4",
+    "entity": "pdcd4"
+   },
+   "effect": "inhibits",
+   "type": "degradation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "S6K1 tags PDCD4 for destruction. PDCD4 is itself a translation inhibitor, so removing it is a second, parallel way mTORC1 lifts a brake on protein synthesis.",
+   "mechanism_beginner": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
+   "context": null,
+   "boundary": "Single-study edge in this corpus.",
+   "note": "Thin - one supporting study.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "DOR2006"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+  },
+  {
+   "id": "SALR-MTORC1",
+   "claim": "Spalt-related (Salr) inhibits mTORC1",
+   "source": {
+    "name": "Spalt-related (Salr)",
+    "entity": "spalt-related-salr"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "unresolved",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "fly"
+   ],
+   "mechanism": "Salr suppresses mTORC1-driven growth downstream of stress signalling.",
+   "mechanism_beginner": "This stress-induced protein suppresses mTORC1-driven growth once stress signalling turns it on.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "DEN2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SALR-MTORC1.json"
+  },
+  {
+   "id": "SAM-SAMTOR",
+   "claim": "S-adenosylmethionine (SAM) inhibits SAMTOR",
+   "source": {
+    "name": "S-adenosylmethionine (SAM)",
+    "entity": "s-adenosylmethionine-sam"
+   },
+   "target": {
+    "name": "SAMTOR",
+    "entity": "samtor"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "S-adenosylmethionine, the cell's methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.",
+   "mechanism_beginner": "SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – the proposed way the cell senses how much methionine it has. Worked out in cells; whether this sensor is what matters in a whole animal has not been shown.",
+   "context": null,
+   "boundary": "Single-study edge. Needs independent replication before it is treated as established.",
+   "note": "Only one supporting study in the corpus - flag as thin.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GU2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SAM-SAMTOR.json"
+  },
+  {
+   "id": "SAMTOR-GATOR1",
+   "claim": "SAMTOR activates GATOR1",
+   "source": {
+    "name": "SAMTOR",
+    "entity": "samtor"
+   },
+   "target": {
+    "name": "GATOR1",
+    "entity": "gator1"
+   },
+   "effect": "activates",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Methionine-starved SAMTOR binds the GATOR1-KICSTOR complex and helps it keep mTORC1 off.",
+   "mechanism_beginner": "When methionine is low, SAMTOR teams up with GATOR1 to help keep mTORC1 switched off.",
+   "context": null,
+   "boundary": null,
+   "note": "Only one supporting study in the corpus.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GU2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SAMTOR-GATOR1.json"
+  },
+  {
+   "id": "SESN2-AGING",
+   "claim": "Sestrin2 inhibits Age-related pathology",
+   "source": {
+    "name": "Sestrin2",
+    "entity": "sestrin2"
+   },
+   "target": {
+    "name": "Age-related pathology",
+    "entity": "age-related-pathology"
+   },
+   "effect": "inhibits",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "fly"
+   ],
+   "mechanism": "Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. Sestrin therefore limits age-associated pathology in the fly.",
+   "mechanism_beginner": "The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.",
+   "context": null,
+   "boundary": "Fly only, and the readout is age-related pathology: survival was never measured. No mammalian sensor-to-ageing evidence exists in this corpus.",
+   "note": "Added 2026-07-29. Gap H1 previously asserted the sensors link to ZERO ageing outcomes, which was true of the corpus but not of the literature.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "LEE2010"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-AGING.json"
+  },
+  {
+   "id": "SESN2-GATOR2",
+   "claim": "Sestrin2 inhibits GATOR2",
+   "source": {
+    "name": "Sestrin2",
+    "entity": "sestrin2"
+   },
+   "target": {
+    "name": "GATOR2",
+    "entity": "gator2"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "When leucine is scarce, free Sestrin2 clamps onto GATOR2 and blocks it, keeping the whole pathway switched off.",
+   "mechanism_beginner": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHA2014",
+     "PAR2014",
+     "WOL2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-GATOR2.json"
+  },
+  {
+   "id": "SIN1-MTORC2",
+   "claim": "SIN1 / MAPKAP1 required-for mTORC2",
+   "source": {
+    "name": "SIN1 / MAPKAP1",
+    "entity": "sin1-mapkap1"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "SIN1 holds the complex together and positions the substrate; without it mTORC2 cannot phosphorylate Akt.",
+   "mechanism_beginner": "SIN1 holds mTORC2 together and positions its target – without it, mTORC2 can't switch Akt on.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "JAC2006",
+     "FRI2006",
+     "YAN2006",
+     "STU2018"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SIN1-MTORC2.json"
+  },
+  {
+   "id": "SLC38A9-RAG",
+   "claim": "SLC38A9 activates Rag GTPases",
+   "source": {
+    "name": "SLC38A9",
+    "entity": "slc38a9"
+   },
+   "target": {
+    "name": "Rag GTPases",
+    "entity": "rag-gtpases"
+   },
+   "effect": "activates",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.",
+   "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and tells the Rag proteins there's enough.",
+   "context": null,
+   "boundary": null,
+   "note": "Four independent studies - one of the best-supported edges in the sensor branch.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "REB2015",
+     "WAN2015",
+     "JUN2015",
+     "WYA2017"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SLC38A9-RAG.json"
+  },
+  {
+   "id": "SREBP-LIPID",
+   "claim": "SREBP1 / SREBP2 activates Lipid synthesis",
+   "source": {
+    "name": "SREBP1 / SREBP2",
+    "entity": "srebp1-srebp2"
+   },
+   "target": {
+    "name": "Lipid synthesis",
+    "entity": "lipid-synthesis"
+   },
+   "effect": "activates",
+   "type": "transcriptional",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "SREBP1 is the main transcriptional switch for de novo lipogenesis, and SREBP2 for cholesterol synthesis.",
+   "mechanism_beginner": "SREBP is the master switch for making new fat from scratch.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "POR2008",
+     "PET2011",
+     "SHI2014"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/SREBP-LIPID.json"
+  },
+  {
+   "id": "STRESS-AMPK",
+   "claim": "Energy & cellular stress activates AMPK",
+   "source": {
+    "name": "Energy & cellular stress",
+    "entity": "energy-cellular-stress"
+   },
+   "target": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "effect": "activates",
+   "type": "allosteric-activation",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "AMPK does not read ATP directly - it reads the ratio of AMP and ADP to ATP. As ATP is consumed, AMP and ADP accumulate and bind the gamma subunit, which is the actual switch: it activates AMPK allosterically and protects the activating Thr172 phosphate from removal. AMPK is the cell's low-fuel sensor, and mTORC1 is one of the first things it shuts off.",
+   "mechanism_beginner": "When the cell's fuel runs low, AMPK switches on – it's the cell's low-battery alarm, and one of the first things it does is shut mTORC1 off.",
+   "context": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
+   "boundary": "SOURCING FLAG (2026-09-29): the AMP/ADP binding to the gamma subunit described here is canonical, but no study currently in this corpus demonstrates it; GWI2008 and ZHO2001 show the downstream consequences. Treat as an unsourced canonical step until a primary paper is added.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GWI2008",
+     "ZHO2001"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/STRESS-AMPK.json"
+  },
+  {
+   "id": "STRESS-TSC",
+   "claim": "Energy & cellular stress recruits TSC1/TSC2",
+   "source": {
+    "name": "Energy & cellular stress",
+    "entity": "energy-cellular-stress"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "recruits",
+   "type": "translocation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Many different stresses do the same physical thing: they drag TSC2 onto the lysosome, right where Rheb is. That relocation, not a change in TSC2 amount, is the switch.",
+   "mechanism_beginner": "Different kinds of stress all do the same physical thing: they drag TSC2 over to the lysosome, right next to Rheb. Moving it there is the switch, not making more of it.",
+   "context": null,
+   "boundary": null,
+   "note": "Nice parallel to RAG-MTORC1 in the amino-acid route: both branches work by moving a protein to the lysosome.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "DEM2016",
+     "MEN2014"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/STRESS-TSC.json"
+  },
+  {
+   "id": "TBC1D7-TSC",
+   "claim": "TBC1D7 required-for TSC1/TSC2",
+   "source": {
+    "name": "TBC1D7",
+    "entity": "tbc1d7"
+   },
+   "target": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "effect": "required-for",
+   "type": "complex-assembly",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "TBC1D7 is the third, often-forgotten subunit of the TSC complex; losing it weakens the brake without removing it.",
+   "mechanism_beginner": "TBC1D7 is a smaller, easy-to-miss third piece of the TSC brake; losing it weakens the brake without removing it.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "DIB2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TBC1D7-TSC.json"
+  },
+  {
+   "id": "TEM-MTORC1",
+   "claim": "Temsirolimus inhibits mTORC1",
+   "source": {
+    "name": "Temsirolimus",
+    "entity": "temsirolimus"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "allosteric-inhibition",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "lyso",
+   "species": [
+    "human"
+   ],
+   "mechanism": "Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.",
+   "mechanism_beginner": "Temsirolimus is the IV version of rapamycin, and the first mTOR-blocking drug shown to help patients live longer in a controlled trial.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "HUD2007"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-MTORC1.json"
+  },
+  {
+   "id": "TEM-RCC",
+   "claim": "Temsirolimus inhibits Renal cell carcinoma (RCC)",
+   "source": {
+    "name": "Temsirolimus",
+    "entity": "temsirolimus"
+   },
+   "target": {
+    "name": "Renal cell carcinoma (RCC)",
+    "entity": "renal-cell-carcinoma-rcc"
+   },
+   "effect": "inhibits",
+   "type": "clinical-outcome",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "human"
+   ],
+   "mechanism": "In poor-prognosis renal cancer, temsirolimus improved overall survival against interferon - the hardest endpoint there is.",
+   "mechanism_beginner": "In hard-to-treat kidney cancer, temsirolimus helped patients live longer compared with an older drug.",
+   "context": null,
+   "boundary": "Poor-prognosis patients specifically; the combination arm did not beat temsirolimus alone.",
+   "note": "Overall survival, not a surrogate. Worth pointing at.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "HUD2007"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-RCC.json"
+  },
+  {
+   "id": "TFEB-AUTOPHAGY",
+   "claim": "TFEB activates Autophagy",
+   "source": {
+    "name": "TFEB",
+    "entity": "tfeb"
+   },
+   "target": {
+    "name": "Autophagy",
+    "entity": "autophagy"
+   },
+   "effect": "activates",
+   "type": "transcriptional",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "In the nucleus TFEB switches on a whole gene programme for autophagy and for building new lysosomes - the cell's recycling capacity, not just a single step.",
+   "mechanism_beginner": "Once inside the nucleus, TFEB switches on a whole set of genes for cleanup and for building new lysosomes.",
+   "context": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
+   "boundary": null,
+   "note": "The transcriptional arm of autophagy, distinct from the fast ULK1 arm.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SET2011",
+     "ROC2012",
+     "SET2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-AUTOPHAGY.json"
+  },
+  {
+   "id": "TRANSL-MUSCLE",
+   "claim": "Protein synthesis activates Muscle growth",
+   "source": {
+    "name": "Protein synthesis",
+    "entity": "protein-synthesis"
+   },
+   "target": {
+    "name": "Muscle growth",
+    "entity": "muscle-growth"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "days",
+   "compartment": "outcome",
+   "species": [
+    "mouse",
+    "human"
+   ],
+   "mechanism": "Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.",
+   "mechanism_beginner": "Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.",
+   "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
+   "boundary": "DRU2009 is direct human evidence: rapamycin blocked the contraction-induced rise in muscle protein synthesis in volunteers.",
+   "note": "Rare non-molecular badge in the output branch - DRU2009 is H, a human study.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "BOD2001",
+     "ROM2001",
+     "DRU2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TRANSL-MUSCLE.json"
+  },
+  {
+   "id": "TSC-MTORC1",
+   "claim": "TSC1/TSC2 inhibits mTORC1",
+   "source": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "human",
+    "mammalian cells"
+   ],
+   "mechanism": "The TSC complex is the pathway's main tumour suppressor. Inherit one broken copy and lesions grow wherever the second copy is lost - the clearest human evidence that mTORC1 activity drives tissue overgrowth.",
+   "mechanism_beginner": "The TSC brake is the pathway's main tumour-suppressor. Inherit one broken copy of the gene and growths appear wherever the second copy is also lost. (This arrow skips a step for simplicity – TSC actually acts through Rheb first.)",
+   "context": "Deliberately compressed: TSC acts on Rheb, never on mTORC1. Kept as one link so the overview reads cleanly.",
+   "boundary": null,
+   "note": "This is the edge that turns the biochemistry into a disease.",
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "TEE2003",
+     "INOK2003",
+     "KRU2010"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TSC-MTORC1.json"
+  },
+  {
+   "id": "TSC-RHEB",
+   "claim": "TSC1/TSC2 inhibits Rheb",
+   "source": {
+    "name": "TSC1/TSC2",
+    "entity": "tsc1-tsc2"
+   },
+   "target": {
+    "name": "Rheb",
+    "entity": "rheb"
+   },
+   "effect": "inhibits",
+   "type": "gap-activity",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "TSC2 is a GAP for Rheb: it forces Rheb to hydrolyse its GTP, switching it off. This is the single step where the tumour-suppressor function lives.",
+   "mechanism_beginner": "TSC2 forces Rheb to switch itself off – the one step where TSC acts as a tumour-suppressing brake.",
+   "context": null,
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "INOK2003",
+     "GAR2003"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TSC-RHEB.json"
+  },
+  {
+   "id": "ULK1-AMPK",
+   "claim": "ULK1 inhibits AMPK",
+   "source": {
+    "name": "ULK1",
+    "entity": "ulk1"
+   },
+   "target": {
+    "name": "AMPK",
+    "entity": "ampk"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "ULK1 phosphorylates AMPK back, damping the signal that activated it - a negative feedback loop that stops autophagy running away.",
+   "mechanism_beginner": "ULK1 tags AMPK back and calms it down – a feedback loop that keeps cleanup from running out of control.",
+   "context": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "LOF2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AMPK.json"
+  },
+  {
+   "id": "ULK1-AUTOPHAGY",
+   "claim": "ULK1 activates Autophagy",
+   "source": {
+    "name": "ULK1",
+    "entity": "ulk1"
+   },
+   "target": {
+    "name": "Autophagy",
+    "entity": "autophagy"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "autophagy",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Freed ULK1 nucleates the autophagosome - the self-eating programme that recycles damaged parts and is the leading candidate mechanism for mTOR inhibition's benefits.",
+   "mechanism_beginner": "Freed ULK1 kicks off autophagy – the cell's recycling programme, and the leading idea for why blocking this pathway might be beneficial.",
+   "context": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
+   "boundary": null,
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GAN2009",
+     "HOS2009",
+     "EGA2010"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AUTOPHAGY.json"
+  },
+  {
+   "id": "VATPASE-RAGULATOR",
+   "claim": "v-ATPase required-for Ragulator",
+   "source": {
+    "name": "v-ATPase",
+    "entity": "v-atpase"
+   },
+   "target": {
+    "name": "Ragulator",
+    "entity": "ragulator"
+   },
+   "effect": "required-for",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "constitutive",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "The lysosome's proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.",
+   "mechanism_beginner": "The lysosome's acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.",
+   "context": null,
+   "boundary": "The 'inside-out' model requires amino acids to accumulate inside the lysosome first; how they get there for every amino acid is not fully mapped.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ZON2011",
+     "BAR2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-RAGULATOR.json"
+  },
+  {
+   "id": "RAPA-MTORC1",
+   "claim": "Rapamycin inhibits mTORC1",
+   "source": {
+    "name": "Rapamycin",
+    "entity": "rapamycin"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "allosteric-inhibition",
+   "directness": "indirect",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Rapamycin inhibits mTORC1 only as a complex with FKBP12: the pair docks on the FRB domain beside the active site and blocks some substrates but not all, so S6K1 phosphorylation collapses while much of 4E-BP1 phosphorylation persists.",
+   "mechanism_beginner": "Rapamycin, carried by its helper protein FKBP12, jams part of mTORC1 – it blocks some of what mTORC1 does but not all of it.",
+   "context": null,
+   "boundary": "Directness is graded indirect because the mechanism requires FKBP12, as for everolimus and the bi-sterics. Acute effect only; the chronic effect on mTORC2 is the separate RAPA-MTORC2 edge.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Structural",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CHU1992",
+     "BRO1994",
+     "SAB1994",
+     "SAB1995",
+     "CHO1996"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-MTORC1.json"
+  },
+  {
+   "id": "GLN-MTORC1-ARF1",
+   "claim": "Glutamine activates mTORC1",
+   "source": {
+    "name": "Glutamine",
+    "entity": "glutamine"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "unresolved",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.",
+   "mechanism_beginner": "Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.",
+   "context": null,
+   "boundary": "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other.",
+   "note": null,
+   "contested": true,
+   "confidence": {
+    "mechanistic": "low",
+    "human_relevance": "untested",
+    "consensus": "contested"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "JEW2015"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-MTORC1-ARF1.json"
+  },
+  {
+   "id": "LOAD-MTORC1",
+   "claim": "Resistance exercise / mechanical load activates mTORC1",
+   "source": {
+    "name": "Resistance exercise / mechanical load",
+    "entity": "resistance-exercise-mechanical-load"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "lyso",
+   "species": [
+    "human",
+    "mouse"
+   ],
+   "mechanism": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers blocks the contraction-induced increase in muscle protein synthesis, placing mTORC1 causally between the load and the response.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Compressed: load reaches mTORC1 through several routes, only some of which need IGF-1, and the map draws one arrow. The human evidence establishes that mTORC1 is required, not which upstream route carries the signal.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "established",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "DRU2009",
+     "BOD2001"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LOAD-MTORC1.json"
+  },
+  {
+   "id": "CR-MTORC1",
+   "claim": "Fasting / caloric restriction inhibits mTORC1",
+   "source": {
+    "name": "Fasting / caloric restriction",
+    "entity": null
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "lyso",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Supporting evidence here is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge, not to this one. SOL2014 found macronutrient RATIO mattered more than total intake in mice, so 'caloric restriction' may be the wrong variable name.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "SOL2014"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/CR-MTORC1.json"
+  },
+  {
+   "id": "CR-LONGEVITY",
+   "claim": "Fasting / caloric restriction activates Longevity",
+   "source": {
+    "name": "Fasting / caloric restriction",
+    "entity": null
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "rhesus",
+    "mouse"
+   ],
+   "mechanism": "Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "No human lifespan data exists. Effect direction is reproducible across several species; effect size and even the responsible variable (calories versus composition) are not settled.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "MAT2017",
+     "SOL2014"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/CR-LONGEVITY.json"
+  },
+  {
+   "id": "TORIN-MTORC1",
+   "claim": "ATP-competitive mTOR inhibitors inhibits mTORC1",
+   "source": {
+    "name": "ATP-competitive mTOR inhibitors",
+    "entity": "atp-competitive-mtor-inhibitors"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "competitive-inhibition",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "Occupies the mTOR active site in competition with ATP, so inhibition does not depend on obstructing substrate access and is not partial in the way rapalog inhibition is.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Cell-line pharmacology. Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition, which is precisely what the bi-steric design tries to avoid.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "THO2009",
+     "FEL2009",
+     "CHR2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TORIN-MTORC1.json"
+  },
+  {
+   "id": "TORIN-MTORC2",
+   "claim": "ATP-competitive mTOR inhibitors inhibits mTORC2",
+   "source": {
+    "name": "ATP-competitive mTOR inhibitors",
+    "entity": "atp-competitive-mtor-inhibitors"
+   },
+   "target": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "effect": "inhibits",
+   "type": "competitive-inhibition",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "pm",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "The same active site is present in both complexes, so an ATP-competitive inhibitor cannot distinguish them.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Explains the metabolic and immunological toxicity of this class relative to rapalogs; the magnitude in patients is not established from these cell-line studies.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "THO2009",
+     "FEL2009"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TORIN-MTORC2.json"
+  },
+  {
+   "id": "BISTERIC-MTORC1",
+   "claim": "Bi-steric mTORC1-selective inhibitors inhibits mTORC1",
+   "source": {
+    "name": "Bi-steric mTORC1-selective inhibitors",
+    "entity": "bi-steric-mtorc1-selective-inhibitors"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "competitive-inhibition",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "lyso",
+   "species": [
+    "human"
+   ],
+   "mechanism": "A bivalent molecule engages an FKBP12-dependent site and the active site simultaneously, producing deeper mTORC1 inhibition than a rapalog while sparing mTORC2.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Phase 1 in advanced solid tumours – a safety and pharmacodynamic result, not an efficacy verdict. Directness is graded indirect because, like rapalogs, the mechanism requires FKBP12. Consensus is emerging: one trial, newest evidence in the corpus.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "established",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Pharmacological",
+    "strongest": {
+     "code": "H",
+     "label": "Human study"
+    },
+    "supporting": [
+     "SCH2025"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/BISTERIC-MTORC1.json"
+  },
+  {
+   "id": "TFEB-LYSOBIO",
+   "claim": "TFEB activates Lysosomal biogenesis",
+   "source": {
+    "name": "TFEB",
+    "entity": "tfeb"
+   },
+   "target": {
+    "name": "Lysosomal biogenesis",
+    "entity": "lysosomal-biogenesis"
+   },
+   "effect": "activates",
+   "type": "transcriptional",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "human cells",
+    "mouse cells"
+   ],
+   "mechanism": "Nuclear TFEB switches on the lysosomal and autophagy gene programme as a single coordinated module, expanding the lysosomal compartment.",
+   "mechanism_beginner": "In the nucleus, TFEB switches on a whole gene package for cleanup and for building new lysosomes.",
+   "context": null,
+   "boundary": "Transcriptional output measured as gene expression and lysosomal markers; how much the compartment actually expands varies with cell type and starvation depth.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SET2011",
+     "ROC2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-LYSOBIO.json"
+  },
+  {
+   "id": "LYSOBIO-LYSOSOME",
+   "claim": "Lysosomal biogenesis activates Lysosome",
+   "source": {
+    "name": "Lysosomal biogenesis",
+    "entity": "lysosomal-biogenesis"
+   },
+   "target": {
+    "name": "Lysosome",
+    "entity": "lysosome"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "lyso",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "A larger, renewed lysosomal compartment changes the platform on which mTORC1 is regulated – the return leg of the lysosome-to-nucleus circuit.",
+   "mechanism_beginner": "More, fresher lysosomes change the very platform that controls mTORC1 – closing a loop back to where the signal started.",
+   "context": null,
+   "boundary": "SET2012 establishes lysosome-to-nucleus signalling via mTOR and TFEB; the quantitative effect of compartment size on mTORC1 output is not resolved.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SET2012",
+     "SET2011"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/LYSOBIO-LYSOSOME.json"
+  },
+  {
+   "id": "MITODYS-MTORC1",
+   "claim": "Mitochondrial dysfunction inhibits mTORC1",
+   "source": {
+    "name": "Mitochondrial dysfunction",
+    "entity": "mitochondrial-dysfunction"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Genome-wide CRISPR screens identify at least two parallel relays carrying mitochondrial dysfunction to mTORC1: AMPK, and the heme-regulated inhibitor HRI acting through the integrated stress response.",
+   "mechanism_beginner": "When mitochondria – the cell's power plants – are damaged, at least two separate alarm signals reach mTORC1 to shut it down.",
+   "context": null,
+   "boundary": "CRISPR screening in cell lines; the relative weight of the AMPK and HRI arms in tissue is untested.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CON2021"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MITODYS-MTORC1.json"
+  },
+  {
+   "id": "MTORC1-OXPHOS",
+   "claim": "mTORC1 activates Oxidative phosphorylation",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Oxidative phosphorylation",
+    "entity": "oxidative-phosphorylation"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "mito",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.",
+   "mechanism_beginner": "mTORC1 boosts how much energy mitochondria can produce, through both gene activation and protein-building. One mouse experiment points the other way – removing mTORC1 from fat tissue RAISED respiration – so this direction is not settled in a living animal.",
+   "context": null,
+   "boundary": "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo. OVERLAP (audit 2026-09-04): this edge and MTORC1-MITO assert overlapping biology from overlapping citations (CUN2007, MOR2013) at different tiers and different consensus levels. Read them together; they are not independent support.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CUN2007",
+     "MOR2013"
+    ],
+    "conflicting": [
+     "POL2008"
+    ]
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-OXPHOS.json"
+  },
+  {
+   "id": "MTORC1-PGC1A",
+   "claim": "mTORC1 activates PGC-1α / YY1",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "PGC-1α / YY1",
+    "entity": "pgc-1alpha-yy1"
+   },
+   "effect": "activates",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.",
+   "mechanism_beginner": "mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell's outer edges. The direct interaction rests on a single study in this Atlas.",
+   "context": null,
+   "boundary": "Single-study support in this corpus for the direct interaction; the downstream respiratory phenotype is better replicated than the binding itself.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "CUN2007"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-PGC1A.json"
+  },
+  {
+   "id": "MTORC1-ROS",
+   "claim": "mTORC1 activates Reactive oxygen species",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "Reactive oxygen species",
+    "entity": "reactive-oxygen-species"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "days",
+   "compartment": "mito",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Unleashing mTORC1 by deleting TSC1 drives quiescent haematopoietic stem cells into cycle, raises mitochondrial biogenesis and floods them with ROS; an antioxidant rescues self-renewal.",
+   "mechanism_beginner": "Switching mTORC1 on too much pushes resting stem cells to start dividing and floods them with reactive, damaging molecules; giving them antioxidants restores their normal function.",
+   "context": null,
+   "boundary": "Demonstrated in haematopoietic stem cells, where quiescence is the baseline state. Cell types that are already cycling need not behave this way.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "CHE2008"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-ROS.json"
+  },
+  {
+   "id": "ROS-MTORC1",
+   "claim": "Reactive oxygen species activates mTORC1",
+   "source": {
+    "name": "Reactive oxygen species",
+    "entity": "reactive-oxygen-species"
+   },
+   "target": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "species": [
+    "cell line"
+   ],
+   "mechanism": "Oxidative stress activates a redox-sensitive PI3K–Akt–mTORC1–eIF4A cascade that selectively promotes cap-dependent translation of P-glycoprotein.",
+   "mechanism_beginner": "Oxidative damage can itself switch on mTORC1 through a chain of signals, closing a feedback loop that can turn a brief stress into a lasting one.",
+   "context": null,
+   "boundary": "One cell-line study in a multidrug-resistance context; whether the loop runs in normal physiology at these ROS levels is untested.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "JIN2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/ROS-MTORC1.json"
+  },
+  {
+   "id": "MTORC2-MAM",
+   "claim": "mTORC2 activates MAM (ER–mitochondria contacts)",
+   "source": {
+    "name": "mTORC2",
+    "entity": "mtorc2"
+   },
+   "target": {
+    "name": "MAM (ER–mitochondria contacts)",
+    "entity": "mam-er-mitochondria-contacts"
+   },
+   "effect": "activates",
+   "type": "localisation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "mito",
+   "species": [
+    "mammalian cells"
+   ],
+   "mechanism": "mTORC2–Akt signalling localises to mitochondria-associated ER membranes and regulates mitochondrial physiology from there.",
+   "mechanism_beginner": "mTORC2 signalling also happens at a specific contact point between mitochondria and another cell structure – proof this pathway works at more than one location in the cell.",
+   "context": null,
+   "boundary": "Biochemical fractionation and imaging in cell lines; the functional contribution relative to plasma-membrane mTORC2 is not quantified.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "BET2013"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-MAM.json"
+  },
+  {
+   "id": "MTORC2-AKT-FOXO",
+   "claim": "Akt/PKB inhibits FOXO1/3",
+   "source": {
+    "name": "Akt/PKB",
+    "entity": "akt-pkb"
+   },
+   "target": {
+    "name": "FOXO1/3",
+    "entity": null
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "nucleus",
+   "species": [
+    "mouse",
+    "mammalian cells"
+   ],
+   "mechanism": "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
+   "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
+   "context": null,
+   "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "high",
+    "human_relevance": "plausible",
+    "consensus": "established"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "GUE2006",
+     "JAC2006"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-AKT-FOXO.json"
+  },
+  {
+   "id": "FOXO-LONGEVITY",
+   "claim": "FOXO1/3 activates Longevity",
+   "source": {
+    "name": "FOXO1/3",
+    "entity": null
+   },
+   "target": {
+    "name": "Longevity",
+    "entity": "longevity"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "outcome",
+   "species": [
+    "C. elegans"
+   ],
+   "mechanism": "TOR signalling and rapamycin influence lifespan partly through the SKN-1/Nrf and DAF-16/FoxO transcriptional programmes.",
+   "mechanism_beginner": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
+   "context": null,
+   "boundary": "C. elegans only. DAF-16 is the FOXO orthologue; mapping worm lifespan genetics onto mammalian FOXO1/3 is an inference, not a demonstration.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "ROB2012"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/FOXO-LONGEVITY.json"
+  },
+  {
+   "id": "MTORC1-HIF1A",
+   "claim": "mTORC1 activates HIF-1α",
+   "source": {
+    "name": "mTORC1",
+    "entity": "mtorc1"
+   },
+   "target": {
+    "name": "HIF-1α",
+    "entity": "hif-1alpha"
+   },
+   "effect": "activates",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "hours",
+   "compartment": "nucleus",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
+   "mechanism_beginner": "In one specific setting (prostate cells), mTORC1 turns on a factor usually associated with low oxygen – here it's mTORC1 driving it, not the other way around.",
+   "context": null,
+   "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic epistasis",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "MAJ2004"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-HIF1A.json"
+  },
+  {
+   "id": "RAGULATOR-CGASSTING",
+   "claim": "Ragulator inhibits cGAS-STING pathway",
+   "source": {
+    "name": "Ragulator",
+    "entity": "ragulator"
+   },
+   "target": {
+    "name": "cGAS-STING pathway",
+    "entity": "cgas-sting-pathway"
+   },
+   "effect": "inhibits",
+   "type": "signal-relay",
+   "directness": "indirect",
+   "timescale": "chronic",
+   "compartment": "cytosol",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "One mouse study (LV2026), A – animal. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic loss-of-function / rescue",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "LV2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-CGASSTING.json"
+  },
+  {
+   "id": "CGASSTING-SENESCENCE",
+   "claim": "cGAS-STING pathway activates Cellular senescence",
+   "source": {
+    "name": "cGAS-STING pathway",
+    "entity": "cgas-sting-pathway"
+   },
+   "target": {
+    "name": "Cellular senescence",
+    "entity": "cellular-senescence"
+   },
+   "effect": "activates",
+   "type": "functional-consequence",
+   "directness": "indirect",
+   "timescale": "days",
+   "compartment": "outcome",
+   "species": [
+    "mouse"
+   ],
+   "mechanism": "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
+   "mechanism_beginner": null,
+   "context": null,
+   "boundary": "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested.",
+   "note": null,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "untested",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic loss-of-function / rescue",
+    "strongest": {
+     "code": "A",
+     "label": "Animal model"
+    },
+    "supporting": [
+     "LV2026"
+    ],
+    "conflicting": []
+   },
+   "reviewed": "2026-07-29",
+   "updated": "2026-07-29",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/CGASSTING-SENESCENCE.json"
+  }
+ ]
+}

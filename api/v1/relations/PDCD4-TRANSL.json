@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "PDCD4-TRANSL",
+  "claim": "PDCD4 inhibits Protein synthesis",
+  "source": {
+   "name": "PDCD4",
+   "entity": "pdcd4"
+  },
+  "target": {
+   "name": "Protein synthesis",
+   "entity": "protein-synthesis"
+  },
+  "effect": "inhibits",
+  "type": "functional-consequence",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "PDCD4 blocks the eIF4A helicase, so mRNAs with structured 5' ends cannot be unwound and translated.",
+  "mechanism_beginner": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
+  "context": null,
+  "boundary": "SOURCING FLAG (2026-09-04): the mechanism stated here is correct and canonical, but no study currently in this corpus demonstrates it. Treat as an unsourced canonical step until Yang 2003 or Suzuki 2008 is added.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "DOR2006"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
+ }
+}

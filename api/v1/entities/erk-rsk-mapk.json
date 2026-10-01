@@ -1,0 +1,167 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "erk-rsk-mapk",
+  "name": "ERK / RSK (MAPK)",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "ERK",
+   "ERK1/2",
+   "MAPK",
+   "RSK",
+   "p90RSK",
+   "Ras-MAPK"
+  ],
+  "description": "The Ras-MAPK growth-signalling arm. ERK and its effector RSK phosphorylate TSC2 and inactivate the TSC complex, so MAPK signalling converges on the same brake that Akt releases (MA2005). This is the third major upstream input to mTORC1 alongside PI3K/Akt and AMPK, and it is a route to mTORC1 activation that PI3K inhibitors do not close. mTORC1 inhibition also feeds back to activate MAPK (CAR2008).",
+  "study_count": 2,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/erk-rsk-mapk.json",
+  "description_beginner": "A separate growth-signaling chain that reaches mTORC1 through its own route. Two of its members disable the TSC brake, the same brake that Akt also releases - so this is a third major way to switch mTORC1 on, one that drugs blocking PI3K don't touch. mTORC1 can also feed back and switch this chain on.",
+  "studies": [
+   {
+    "sid": "MA2005",
+    "title": "Phosphorylation and functional inactivation of TSC2 by Erk implications for tuberous sclerosis and cancer pathogenesis",
+    "authors": "Ma L; Chen Z; Erdjument-Bromage H; Tempst P; Pandolfi PP",
+    "year": 2005,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2005.02.031",
+    "pmid": "15851026",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The MAPK input to mTORC1. In mammalian cells, ERK phosphorylates TSC2 and inactivates the TSC complex, so growth signalling through Ras/ERK converges on the same brake that Akt releases. This is the third major upstream arm alongside PI3K/Akt and AMPK. Its practical significance is that it offers a route to mTORC1 activation that PI3K inhibitors do not close - though that inference is mechanistic; no human data here.",
+    "url": "https://mtor-atlas.org/study/MA2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MA2005.json"
+   },
+   {
+    "sid": "CAR2008",
+    "title": "Inhibition of mTORC1 leads to MAPK pathway activation through a PI3K-dependent feedback loop in human cancer",
+    "authors": "Carracedo A; Pandolfi PP et al.",
+    "year": 2008,
+    "journal": "The Journal of clinical investigation",
+    "doi": "10.1172/JCI34739",
+    "pmid": "18725988",
+    "pmcid": "PMC2518073",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cancer cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibition activates the MAPK pathway via a PI3K-dependent feedback loop in cancer.",
+    "url": "https://mtor-atlas.org/study/CAR2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAR2008.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "ERK-TSC",
+    "claim": "ERK / RSK (MAPK) inhibits TSC1/TSC2",
+    "source": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "ERK phosphorylates TSC2 and inactivates the TSC complex, so Ras-MAPK growth signalling converges on the same brake that Akt releases. This is the third upstream arm alongside PI3K/Akt and AMPK, and clinically it is a route to mTORC1 activation that PI3K inhibitors do not close.",
+    "mechanism_beginner": "A separate growth pathway also disables the TSC brake – a third route into mTORC1 that drugs blocking only PI3K/Akt can't shut down.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus; Roux 2004 describes the parallel RSK arm and is not yet held.",
+    "note": "Added 2026-07-29. The graph previously had no MAPK input to mTORC1 at all.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MA2005"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-TSC.json"
+   },
+   {
+    "id": "MTORC1-MAPK",
+    "claim": "mTORC1 inhibits ERK / RSK (MAPK)",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "species": [
+     "human cells",
+     "mouse"
+    ],
+    "mechanism": "A second feedback arm: inhibiting mTORC1 releases a PI3K-dependent brake and MAPK signalling goes up. Together with S6K1-IRS1 this is why single-agent mTOR inhibition tends to be met by compensatory growth signalling.",
+    "mechanism_beginner": "Blocking mTORC1 can backfire by releasing a brake on a different growth pathway (MAPK) – one reason mTOR-blocking drugs alone often aren't enough.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "note": "CAR2008 was already in the corpus but carried no edge until 2026-07-29.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CAR2008"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-MAPK.json"
+   }
+  ]
+ }
+}

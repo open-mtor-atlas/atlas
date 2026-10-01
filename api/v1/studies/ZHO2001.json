@@ -1,0 +1,73 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZHO2001",
+  "title": "Role of AMP-activated protein kinase in mechanism of metformin action",
+  "authors": "Zhou G et al.",
+  "year": 2001,
+  "journal": "J Clin Invest",
+  "doi": "10.1172/JCI13505",
+  "pmid": "11602624",
+  "pmcid": "PMC209533",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Rat; hepatocytes; skeletal muscle",
+  "peer_reviewed": true,
+  "finding": "Metformin activates AMPK, suppressing hepatic gluconeogenesis and lipogenesis.",
+  "url": "https://mtor-atlas.org/study/ZHO2001/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2001.json",
+  "abstract_excerpt": "Metformin is a widely used drug for treatment of type 2 diabetes with no defined cellular mechanism of action. Its glucose-lowering effect results from decreased hepatic glucose production and increased glucose utilization. Metformin's beneficial effects on circulating lipids have been linked to reduced fatty liver. AMP-activated protein kinase (AMPK) is a major cellular regulator of lipid and glucose metabolism.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Metformin",
+   "target": "AMPK (→ ACC; indirect mTORC1)",
+   "species": "Rat; hepatocytes; skeletal muscle",
+   "effect": "Metformin activates AMPK, explaining its glucose- and lipid-lowering effects"
+  },
+  "entities": [
+   {
+    "id": "metformin",
+    "name": "Metformin",
+    "type": "Drug"
+   },
+   {
+    "id": "energy-cellular-stress",
+    "name": "Energy & cellular stress",
+    "type": "Condition"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "METFORMIN-AMPK",
+    "STRESS-AMPK"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H9"
+  ],
+  "related_studies": [
+   "HOW2017",
+   "GWI2008",
+   "BAN2014",
+   "DEM2016"
+  ]
+ }
+}

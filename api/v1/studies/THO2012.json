@@ -1,0 +1,71 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "THO2012",
+  "title": "A unifying model for mTORC1-mediated regulation of mRNA translation",
+  "authors": "Thoreen CC; Chantranupong L; Keys HR; Wang T; Gray NS; Sabatini DM",
+  "year": 2012,
+  "journal": "Nature",
+  "doi": "10.1038/nature11083",
+  "pmid": "22552098",
+  "pmcid": "PMC3347774",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse cells (ribosome profiling)",
+  "peer_reviewed": true,
+  "finding": "Used ribosome profiling with the complete inhibitor Torin1 to address a long-standing debate: in these cells, mTORC1's translational control runs largely through the 4E-BP family acting on a specific class of mRNAs (TOP motifs). Losing just the 4E-BPs makes translation of TOP mRNAs resistant to mTOR inhibition - naming them the master effectors.",
+  "url": "https://mtor-atlas.org/study/THO2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/THO2012.json",
+  "abstract_excerpt": "The mTOR complex 1 (mTORC1) kinase nucleates a pathway that promotes cell growth and proliferation and is the target of rapamycin, a drug with many clinical uses. mTORC1 regulates messenger RNA translation, but the overall translational program is poorly defined and no unifying model exists to explain how mTORC1 differentially controls the translation of specific mRNAs. Here we use high-resolution transcriptome-scale ribosome profiling to monitor translation in mouse cells acutely treated with the mTOR inhibitor Torin 1, which, unlike rapamycin, fully inhibits mTORC1 (ref. 2).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Ribosome profiling (Torin1)",
+   "target": "mTORC1 / 4E-BP / TOP mRNAs",
+   "species": "Mouse cells",
+   "effect": "Proposes a unifying model: mTORC1 controls translation of TOP mRNAs via 4E-BP"
+  },
+  "entities": [
+   {
+    "id": "eif4e",
+    "name": "eIF4E",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "4EBP1-EIF4E",
+    "EIF4E-TRANSL"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "HSI2012",
+   "MAX2009",
+   "SCH2003",
+   "LAB2015"
+  ]
+ }
+}

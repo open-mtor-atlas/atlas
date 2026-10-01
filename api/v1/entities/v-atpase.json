@@ -1,0 +1,94 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "v-atpase",
+  "name": "v-ATPase",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Vacuolar H+-ATPase; senses lysosomal amino acids from the inside and relays the signal to Ragulator-Rag to activate mTORC1.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/v-atpase.json",
+  "description_beginner": "A proton pump on the lysosome that helps sense how many amino acids are inside, then passes that information along to the Ragulator-Rag system to help switch mTORC1 on.",
+  "studies": [
+   {
+    "sid": "ZON2011",
+    "title": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase",
+    "authors": "Zoncu R; Bar-Peled L; Efeyan A; Wang S; Sancak Y; Sabatini DM",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1207056",
+    "pmid": "22053050",
+    "pmcid": "PMC3211112",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cell-free reconstitution",
+    "peer_reviewed": true,
+    "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
+    "url": "https://mtor-atlas.org/study/ZON2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "VATPASE-RAGULATOR",
+    "claim": "v-ATPase required-for Ragulator",
+    "source": {
+     "name": "v-ATPase",
+     "entity": "v-atpase"
+    },
+    "target": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "effect": "required-for",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The lysosome's proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.",
+    "mechanism_beginner": "The lysosome's acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.",
+    "context": null,
+    "boundary": "The 'inside-out' model requires amino acids to accumulate inside the lysosome first; how they get there for every amino acid is not fully mapped.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ZON2011",
+      "BAR2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-RAGULATOR.json"
+   }
+  ]
+ }
+}

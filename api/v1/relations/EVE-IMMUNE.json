@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "EVE-IMMUNE",
+  "claim": "Everolimus context-dependent Immune function",
+  "source": {
+   "name": "Everolimus",
+   "entity": "everolimus"
+  },
+  "target": {
+   "name": "Immune function",
+   "entity": "immune-function"
+  },
+  "effect": "context-dependent",
+  "type": "clinical-outcome",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": "outcome",
+  "species": [
+   "human"
+  ],
+  "mechanism": "Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.",
+  "mechanism_beginner": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
+  "context": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
+  "boundary": "Dose-dependent and duration-dependent: this is not the immunosuppressive regimen. The corpus supports an improved vaccine response under one regimen, not improved immune function in general. MAN2021 is recorded as conflicting rather than supporting because it tested RTB101, a different drug, not everolimus.",
+  "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
+  "contested": true,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "established",
+   "consensus": "contested"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "MAN2014"
+   ],
+   "conflicting": [
+    "MAN2021"
+   ]
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-IMMUNE.json"
+ }
+}

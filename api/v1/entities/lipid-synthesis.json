@@ -1,0 +1,203 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lipid-synthesis",
+  "name": "Lipid synthesis",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "De novo synthesis of fatty acids and cholesterol via SREBP. A growing cell needs membrane as much as it needs protein; both mTOR complexes feed this.",
+  "study_count": 4,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/process/lipid-synthesis/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lipid-synthesis.json",
+  "description_beginner": "Building new fats and cholesterol from scratch, mainly through a genetic switch called SREBP. A growing cell needs new membranes just as much as new proteins, and both mTOR complexes help fuel this.",
+  "studies": [
+   {
+    "sid": "POR2008",
+    "title": "SREBP activity is regulated by mTORC1 and contributes to Akt-dependent cell growth",
+    "authors": "Porstmann T; Schulze A et al.",
+    "year": 2008,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2008.07.007",
+    "pmid": "18762023",
+    "pmcid": "PMC2593919",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 activates SREBP to drive lipogenesis supporting Akt-dependent cell growth.",
+    "url": "https://mtor-atlas.org/study/POR2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POR2008.json"
+   },
+   {
+    "sid": "PET2011",
+    "title": "mTOR complex 1 regulates lipin 1 localization to control the SREBP pathway",
+    "authors": "Peterson TR; Sabatini DM et al.",
+    "year": 2011,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2011.06.034",
+    "pmid": "21816276",
+    "pmcid": "PMC3336367",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 controls lipin-1 nuclear localization to regulate SREBP and lipid synthesis.",
+    "url": "https://mtor-atlas.org/study/PET2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PET2011.json"
+   },
+   {
+    "sid": "GUR2017",
+    "title": "mTORC2 Promotes Tumorigenesis via Lipid Synthesis",
+    "authors": "Guri Y; Hall MN et al.",
+    "year": 2017,
+    "journal": "Cancer cell",
+    "doi": "10.1016/j.ccell.2017.11.011",
+    "pmid": "29232555",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse; cells",
+    "peer_reviewed": true,
+    "finding": "mTORC2 promotes tumorigenesis through control of de novo lipid synthesis.",
+    "url": "https://mtor-atlas.org/study/GUR2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUR2017.json"
+   },
+   {
+    "sid": "SHI2014",
+    "title": "Making new contacts: the mTOR network in metabolism and signalling crosstalk",
+    "authors": "Shimobayashi M; Hall MN et al.",
+    "year": 2014,
+    "journal": "Nature reviews. Molecular cell biology",
+    "doi": "10.1038/nrm3757",
+    "pmid": "24556838",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of the mTOR network in metabolism and signalling crosstalk.",
+    "url": "https://mtor-atlas.org/study/SHI2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHI2014.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-LIPID",
+    "claim": "mTORC2 activates Lipid synthesis",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "Lipid synthesis",
+     "entity": "lipid-synthesis"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.",
+    "mechanism_beginner": "mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow – shown in cells and mice, not measured in patients.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus, shown in one liver tumour model (GUR2017). Not established as a general mTORC2 function outside that setting.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "GUR2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-LIPID.json"
+   },
+   {
+    "id": "SREBP-LIPID",
+    "claim": "SREBP1 / SREBP2 activates Lipid synthesis",
+    "source": {
+     "name": "SREBP1 / SREBP2",
+     "entity": "srebp1-srebp2"
+    },
+    "target": {
+     "name": "Lipid synthesis",
+     "entity": "lipid-synthesis"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "SREBP1 is the main transcriptional switch for de novo lipogenesis, and SREBP2 for cholesterol synthesis.",
+    "mechanism_beginner": "SREBP is the master switch for making new fat from scratch.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "POR2008",
+      "PET2011",
+      "SHI2014"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SREBP-LIPID.json"
+   }
+  ]
+ }
+}

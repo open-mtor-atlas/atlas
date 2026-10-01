@@ -1,0 +1,203 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "energy-cellular-stress",
+  "name": "Energy & cellular stress",
+  "type": "Condition",
+  "synonyms": [],
+  "description": "Falling ATP, glucose withdrawal and a range of other insults. They converge on mTORC1 chiefly through two routes: AMPK, which acts on both TSC2 and raptor, and physical relocation of the TSC complex to the lysosome.",
+  "study_count": 4,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/condition/energy-cellular-stress/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/energy-cellular-stress.json",
+  "description_beginner": "A catch-all for problems like falling energy (ATP) levels or glucose shortage. These reach mTORC1 chiefly through two routes: the AMPK brake, and physically moving the TSC complex to the lysosome.",
+  "studies": [
+   {
+    "sid": "GWI2008",
+    "title": "AMPK phosphorylation of raptor mediates a metabolic checkpoint",
+    "authors": "Gwinn DM; Shackelford DB; Egan DF; Mihaylova MM; Mery A; Vasquez DS; Turk BE; Shaw RJ",
+    "year": 2008,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2008.03.003",
+    "pmid": "18439900",
+    "pmcid": "PMC2674027",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Found a SECOND way the energy sensor AMPK shuts mTORC1 down. Besides acting through TSC2, AMPK directly phosphorylates Raptor - the core mTORC1 subunit - to halt growth when energy runs low. This 'metabolic checkpoint' is exactly the switch that drugs like metformin and exercise tap into.",
+    "url": "https://mtor-atlas.org/study/GWI2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GWI2008.json"
+   },
+   {
+    "sid": "ZHO2001",
+    "title": "Role of AMP-activated protein kinase in mechanism of metformin action",
+    "authors": "Zhou G et al.",
+    "year": 2001,
+    "journal": "J Clin Invest",
+    "doi": "10.1172/JCI13505",
+    "pmid": "11602624",
+    "pmcid": "PMC209533",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat; hepatocytes; skeletal muscle",
+    "peer_reviewed": true,
+    "finding": "Metformin activates AMPK, suppressing hepatic gluconeogenesis and lipogenesis.",
+    "url": "https://mtor-atlas.org/study/ZHO2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2001.json"
+   },
+   {
+    "sid": "DEM2016",
+    "title": "Lysosomal recruitment of TSC2 is a universal response to cellular stress",
+    "authors": "Demetriades C; Teleman AA et al.",
+    "year": 2016,
+    "journal": "Nature communications",
+    "doi": "10.1038/ncomms10662",
+    "pmid": "26868506",
+    "pmcid": "PMC4754342",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Lysosomal recruitment of TSC2 is a universal response to cellular stress that inhibits mTORC1.",
+    "url": "https://mtor-atlas.org/study/DEM2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2016.json"
+   },
+   {
+    "sid": "MEN2014",
+    "title": "Spatial control of the TSC complex integrates insulin and nutrient regulation of mTORC1 at the lysosome",
+    "authors": "Menon S; Manning BD et al.",
+    "year": 2014,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2013.11.049",
+    "pmid": "24529379",
+    "pmcid": "PMC4030681",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Spatial control of the TSC complex integrates insulin and nutrient inputs at the lysosome.",
+    "url": "https://mtor-atlas.org/study/MEN2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MEN2014.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "STRESS-AMPK",
+    "claim": "Energy & cellular stress activates AMPK",
+    "source": {
+     "name": "Energy & cellular stress",
+     "entity": "energy-cellular-stress"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "activates",
+    "type": "allosteric-activation",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "AMPK does not read ATP directly - it reads the ratio of AMP and ADP to ATP. As ATP is consumed, AMP and ADP accumulate and bind the gamma subunit, which is the actual switch: it activates AMPK allosterically and protects the activating Thr172 phosphate from removal. AMPK is the cell's low-fuel sensor, and mTORC1 is one of the first things it shuts off.",
+    "mechanism_beginner": "When the cell's fuel runs low, AMPK switches on – it's the cell's low-battery alarm, and one of the first things it does is shut mTORC1 off.",
+    "context": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
+    "boundary": "SOURCING FLAG (2026-09-29): the AMP/ADP binding to the gamma subunit described here is canonical, but no study currently in this corpus demonstrates it; GWI2008 and ZHO2001 show the downstream consequences. Treat as an unsourced canonical step until a primary paper is added.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GWI2008",
+      "ZHO2001"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/STRESS-AMPK.json"
+   },
+   {
+    "id": "STRESS-TSC",
+    "claim": "Energy & cellular stress recruits TSC1/TSC2",
+    "source": {
+     "name": "Energy & cellular stress",
+     "entity": "energy-cellular-stress"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "recruits",
+    "type": "translocation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Many different stresses do the same physical thing: they drag TSC2 onto the lysosome, right where Rheb is. That relocation, not a change in TSC2 amount, is the switch.",
+    "mechanism_beginner": "Different kinds of stress all do the same physical thing: they drag TSC2 over to the lysosome, right next to Rheb. Moving it there is the switch, not making more of it.",
+    "context": null,
+    "boundary": null,
+    "note": "Nice parallel to RAG-MTORC1 in the amino-acid route: both branches work by moving a protein to the lysosome.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DEM2016",
+      "MEN2014"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/STRESS-TSC.json"
+   }
+  ]
+ }
+}

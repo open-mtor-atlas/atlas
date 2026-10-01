@@ -1,0 +1,136 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "insulin-resistance",
+  "name": "Insulin resistance",
+  "type": "Outcome",
+  "synonyms": [],
+  "description": "Metabolic side effect of chronic mTOR inhibition. In mice, mTORC2 disruption is a major contributor (LAM2012). In humans the relative contributions are not resolved: mTORC2 loss, S6K1-IRS-1 feedback relief (HAR2004, SHA2004) and direct beta-cell effects are all plausible, and no study has apportioned them.",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/outcome/insulin-resistance/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/insulin-resistance.json",
+  "description_beginner": "A metabolic side effect sometimes seen with long-term mTOR blocking. In mice this is mostly traced to disrupting mTORC2; in humans it's less clear-cut, since mTORC2 loss, a feedback loop involving S6K1/IRS-1, and direct effects on insulin-making cells could all be contributing, and no study has yet worked out how much each one matters.",
+  "studies": [
+   {
+    "sid": "LAM2012",
+    "title": "Rapamycin-induced insulin resistance is mediated by mTORC2 loss and uncoupled from longevity",
+    "authors": "Lamming DW et al.; Sabatini DM",
+    "year": 2012,
+    "journal": "Science",
+    "doi": "10.1126/science.1215135",
+    "pmid": "22461615",
+    "pmcid": "PMC3324089",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Side effect",
+    "model_system": "Mouse (in vivo glucose and insulin tolerance)",
+    "peer_reviewed": true,
+    "finding": "In mice, chronic rapamycin also disrupts mTORC2, causing insulin resistance; reduced mTORC1 signalling alone (female mTOR/mLST8 double-heterozygous mice) extended lifespan without impairing glucose homeostasis.",
+    "url": "https://mtor-atlas.org/study/LAM2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAM2012.json"
+   },
+   {
+    "sid": "NCT05835999",
+    "title": "Everolimus Aging Study (EVERLAST): Clinical Evaluation of mTORC1 Inhibition for Geroprotection",
+    "authors": "University of Wisconsin, Madison (registered trial)",
+    "year": null,
+    "journal": "ClinicalTrials.gov (registration)",
+    "doi": "NCT05835999",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "RT",
+     "label": "Registered trial, no results yet",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Ongoing_Trial",
+    "model_system": "Humans, RCT (registered, ongoing)",
+    "peer_reviewed": false,
+    "finding": "Currently active phase 2 trial (NCT05835999) directly testing this Atlas's open dosing hypothesis: whether daily low-dose (0.5mg) versus weekly (5mg) everolimus can improve aging biomarkers and insulin resistance in humans without the metabolic penalty seen with continuous higher-dose rapalog use. No results yet - status ACTIVE_NOT_RECRUITING.",
+    "url": "https://mtor-atlas.org/study/NCT05835999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NCT05835999.json"
+   },
+   {
+    "sid": "KEN2016",
+    "title": "The Mechanistic Target of Rapamycin: The Grand ConducTOR of Metabolism and Aging",
+    "authors": "Kennedy BK; Lamming DW",
+    "year": 2016,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2016.05.009",
+    "pmid": "27304501",
+    "pmcid": "PMC4910876",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review (metabolism/aging)",
+    "peer_reviewed": true,
+    "finding": "A Cell Metabolism review framing mTOR as the 'grand conductor' that coordinates whole-body metabolism, tissue by tissue. Especially valuable for its clear-eyed section on WHY rapamycin causes metabolic side effects (the mTORC2 problem) - which is the main barrier to using it against aging. Pairs perfectly with Lamming's own 2012 mechanism paper.",
+    "url": "https://mtor-atlas.org/study/KEN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KEN2016.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-INSULINRES",
+    "claim": "mTORC2 inhibits Insulin resistance",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "Insulin resistance",
+     "entity": "insulin-resistance"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Losing mTORC2 uncouples Akt from insulin signalling and produces glucose intolerance - and this is separable from the lifespan benefit.",
+    "mechanism_beginner": "Losing mTORC2 disconnects Akt from insulin signalling and can cause blood-sugar problems – a separate effect from any lifespan benefit.",
+    "context": null,
+    "boundary": "In mice, intermittent dosing largely spared glucose tolerance while keeping mTORC1 inhibition (ARR2015); not tested against this endpoint in humans.",
+    "note": "Feeds hypothesis H2 in Knowledge_Gaps.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LAM2012",
+      "ARR2015"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-INSULINRES.json"
+   }
+  ]
+ }
+}

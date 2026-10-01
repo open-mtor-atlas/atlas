@@ -1,0 +1,86 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GUE2006",
+  "title": "Ablation in mice of the mTORC components raptor, rictor, or mLST8 reveals that mTORC2 is required for signaling to Akt-FOXO and PKCalpha, but not S6K1",
+  "authors": "Guertin DA; Stevens DM; Thoreen CC; Burds AA; Kalaany NY; Moffat J; Brown M; Fitzgerald KJ; Sabatini DM",
+  "year": 2006,
+  "journal": "Developmental Cell",
+  "doi": "10.1016/j.devcel.2006.10.007",
+  "pmid": "17141160",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Knockout mice (raptor/rictor/mLST8)",
+  "peer_reviewed": true,
+  "finding": "The foundational genetic 'dissection' of the two complexes in living mice. Deleting Raptor was lethal early (mTORC1 essential); deleting Rictor or mLST8 selectively knocked out mTORC2 signaling to Akt and PKCalpha but spared S6K1. This cleanly assigned jobs to each complex and showed mLST8 is an mTORC2-specific requirement in mice.",
+  "url": "https://mtor-atlas.org/study/GUE2006/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GUE2006.json",
+  "abstract_excerpt": "The mTOR kinase controls cell growth, proliferation, and survival through two distinct multiprotein complexes, mTORC1 and mTORC2. mTOR and mLST8 are in both complexes, while raptor and rictor are part of only mTORC1 and mTORC2, respectively. To investigate mTORC1 and mTORC2 function in vivo, we generated mice deficient for raptor, rictor, or mLST8. Like mice null for mTOR, those lacking raptor die early in development. However, mLST8 null embryos survive until e10.5 and resemble embryos missing rictor.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (raptor / rictor / mLST8 knockout mice)",
+   "target": "mTORC1 vs mTORC2 / Akt-FOXO / PKCα",
+   "species": "Knockout mice",
+   "effect": "mTORC2 (rictor/mLST8) is required for Akt-FOXO and PKCα signaling but not S6K1; raptor/mTOR-null mice die early"
+  },
+  "entities": [
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mlst8",
+    "name": "mLST8",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MLST8-MTORC2",
+    "MTORC2-AKT-FOXO"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "KIM2003",
+   "SAR2004",
+   "SAR2006",
+   "SAN2007"
+  ]
+ }
+}

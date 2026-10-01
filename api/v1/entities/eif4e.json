@@ -1,0 +1,205 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "eif4e",
+  "name": "eIF4E",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Cap-binding protein that recruits the ribosome to an mRNA. Held hostage by 4E-BP1 until mTORC1 phosphorylates the latter - the rate-limiting step of cap-dependent translation.",
+  "study_count": 4,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/gene/eif4e/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/eif4e.json",
+  "description_beginner": "A protein that grabs onto mRNA and starts the process of building a new protein from it. Normally it's held back by 4E-BP1; mTORC1 releases that hold, which is the key step that turns on protein production.",
+  "studies": [
+   {
+    "sid": "MAX2009",
+    "title": "Molecular mechanisms of mTOR-mediated translational control",
+    "authors": "Ma XM; Blenis J et al.",
+    "year": 2009,
+    "journal": "Nature reviews. Molecular cell biology",
+    "doi": "10.1038/nrm2672",
+    "pmid": "19339977",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of the molecular mechanisms of mTOR-mediated translational control.",
+    "url": "https://mtor-atlas.org/study/MAX2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAX2009.json"
+   },
+   {
+    "sid": "THO2012",
+    "title": "A unifying model for mTORC1-mediated regulation of mRNA translation",
+    "authors": "Thoreen CC; Chantranupong L; Keys HR; Wang T; Gray NS; Sabatini DM",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11083",
+    "pmid": "22552098",
+    "pmcid": "PMC3347774",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse cells (ribosome profiling)",
+    "peer_reviewed": true,
+    "finding": "Used ribosome profiling with the complete inhibitor Torin1 to address a long-standing debate: in these cells, mTORC1's translational control runs largely through the 4E-BP family acting on a specific class of mRNAs (TOP motifs). Losing just the 4E-BPs makes translation of TOP mRNAs resistant to mTOR inhibition - naming them the master effectors.",
+    "url": "https://mtor-atlas.org/study/THO2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/THO2012.json"
+   },
+   {
+    "sid": "SCH2003",
+    "title": "TOS motif-mediated raptor binding regulates 4E-BP1 multisite phosphorylation and function",
+    "authors": "Schalm SS; Blenis J et al.",
+    "year": 2003,
+    "journal": "Current biology : CB",
+    "doi": "10.1016/s0960-9822(03)00329-4",
+    "pmid": "12747827",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro",
+    "peer_reviewed": true,
+    "finding": "The TOS motif mediates raptor binding and controls multisite 4E-BP1 phosphorylation by mTORC1.",
+    "url": "https://mtor-atlas.org/study/SCH2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2003.json"
+   },
+   {
+    "sid": "HSI2012",
+    "title": "The translational landscape of mTOR signalling steers cancer initiation and metastasis",
+    "authors": "Hsieh AC; Liu Yi; Edlind MP; Ingolia NT; Janes MR; Sher A; et al.; Ruggero D",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature10912",
+    "pmid": "22367541",
+    "pmcid": "PMC3663483",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse models + human prostate cancer",
+    "peer_reviewed": true,
+    "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
+    "url": "https://mtor-atlas.org/study/HSI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "4EBP1-EIF4E",
+    "claim": "4E-BP1 inhibits eIF4E",
+    "source": {
+     "name": "4E-BP1",
+     "entity": "4e-bp1"
+    },
+    "target": {
+     "name": "eIF4E",
+     "entity": "eif4e"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Unphosphorylated 4E-BP1 clamps onto eIF4E and stops it assembling the cap-binding complex. mTORC1 phosphorylates 4E-BP1 to release that grip - so the brake on translation is released, not the accelerator pressed.",
+    "mechanism_beginner": "Untagged 4E-BP1 clamps onto eIF4E and blocks it; mTORC1 tags 4E-BP1 to make it let go – releasing a brake, not pressing an accelerator.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MAX2009",
+      "THO2012",
+      "SCH2003"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-EIF4E.json"
+   },
+   {
+    "id": "EIF4E-TRANSL",
+    "claim": "eIF4E activates Protein synthesis",
+    "source": {
+     "name": "eIF4E",
+     "entity": "eif4e"
+    },
+    "target": {
+     "name": "Protein synthesis",
+     "entity": "protein-synthesis"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Free eIF4E recruits the ribosome to the mRNA cap. This is the step that actually turns a growth signal into new protein.",
+    "mechanism_beginner": "Freed eIF4E brings the ribosome to the mRNA – the step that actually turns a growth signal into new protein.",
+    "context": null,
+    "boundary": null,
+    "note": "Not every mRNA is equally sensitive - HSI2012 shows a specific translational program, not a uniform increase.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MAX2009",
+      "HSI2012",
+      "THO2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/EIF4E-TRANSL.json"
+   }
+  ]
+ }
+}

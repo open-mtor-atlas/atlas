@@ -1,0 +1,57 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-ULK1",
+  "claim": "AMPK activates ULK1",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "ULK1",
+   "entity": "ulk1"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "AMPK phosphorylates ULK1 at sites distinct from mTORC1's inhibitory S757 site. The classic reading is that low energy therefore switches autophagy on directly, not only by releasing the mTORC1 brake; that reading is now disputed (see boundary).",
+  "mechanism_beginner": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
+  "context": null,
+  "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. Park, Lee and Kim (Nat Commun 2023, PMID 37225695, outside this corpus) report that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
+  "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+  "contested": true,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "contested"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "EGA2010",
+    "KIM2011"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-ULK1.json"
+ }
+}

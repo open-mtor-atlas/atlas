@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ERK-TSC",
+  "claim": "ERK / RSK (MAPK) inhibits TSC1/TSC2",
+  "source": {
+   "name": "ERK / RSK (MAPK)",
+   "entity": "erk-rsk-mapk"
+  },
+  "target": {
+   "name": "TSC1/TSC2",
+   "entity": "tsc1-tsc2"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "ERK phosphorylates TSC2 and inactivates the TSC complex, so Ras-MAPK growth signalling converges on the same brake that Akt releases. This is the third upstream arm alongside PI3K/Akt and AMPK, and clinically it is a route to mTORC1 activation that PI3K inhibitors do not close.",
+  "mechanism_beginner": "A separate growth pathway also disables the TSC brake – a third route into mTORC1 that drugs blocking only PI3K/Akt can't shut down.",
+  "context": null,
+  "boundary": "Single-study edge in this corpus; Roux 2004 describes the parallel RSK arm and is not yet held.",
+  "note": "Added 2026-07-29. The graph previously had no MAPK input to mTORC1 at all.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "MA2005"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-TSC.json"
+ }
+}

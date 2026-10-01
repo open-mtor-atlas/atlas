@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "SAM-SAMTOR",
+  "claim": "S-adenosylmethionine (SAM) inhibits SAMTOR",
+  "source": {
+   "name": "S-adenosylmethionine (SAM)",
+   "entity": "s-adenosylmethionine-sam"
+  },
+  "target": {
+   "name": "SAMTOR",
+   "entity": "samtor"
+  },
+  "effect": "inhibits",
+  "type": "binding",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "cytosol",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "S-adenosylmethionine, the cell's methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.",
+  "mechanism_beginner": "SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – the proposed way the cell senses how much methionine it has. Worked out in cells; whether this sensor is what matters in a whole animal has not been shown.",
+  "context": null,
+  "boundary": "Single-study edge. Needs independent replication before it is treated as established.",
+  "note": "Only one supporting study in the corpus - flag as thin.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "GU2017"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/SAM-SAMTOR.json"
+ }
+}

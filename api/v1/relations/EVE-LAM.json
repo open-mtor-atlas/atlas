@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "EVE-LAM",
+  "claim": "Everolimus inhibits Renal angiomyolipoma",
+  "source": {
+   "name": "Everolimus",
+   "entity": "everolimus"
+  },
+  "target": {
+   "name": "Renal angiomyolipoma",
+   "entity": "renal-angiomyolipoma"
+  },
+  "effect": "inhibits",
+  "type": "clinical-outcome",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": "outcome",
+  "species": [
+   "human"
+  ],
+  "mechanism": "EXIST-2 tested everolimus against renal angiomyolipoma in patients with tuberous sclerosis or sporadic LAM, and shrank those lesions by >=50% in 42% versus 0% on placebo.",
+  "mechanism_beginner": "In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.",
+  "context": null,
+  "boundary": "Scope: the endpoint was the kidney lesion, not LAM lung disease, which is why this arrow lands on the angiomyolipoma and not on LAM. The evidence that mTOR inhibition treats the lung disease itself is the MILES trial with sirolimus - see the RAPA-LAM edge.",
+  "note": "Rescoped 2026-07-29: this edge previously read as though everolimus had been shown to treat LAM.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "established",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "BIS2013"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-LAM.json"
+ }
+}

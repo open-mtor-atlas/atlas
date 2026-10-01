@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "cgas-sting-pathway",
+  "name": "cGAS-STING pathway",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "An innate immune sensing pathway triggered by cytosolic DNA; drives inflammatory senescence signaling and is activated downstream of mTOR dysfunction in aging immune cells.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/cgas-sting-pathway.json",
+  "description_beginner": "An immune alarm system that detects DNA where it shouldn't be (in the cell's main fluid, not the nucleus). It drives inflammatory 'senescence' signaling and gets switched on when mTOR signaling goes wrong in aging immune cells.",
+  "studies": [
+   {
+    "sid": "LV2026",
+    "title": "Age-associated decline of Lamtor5 drives immunosenescence and systemic aging via cGAS-mediated paracrine inflammation.",
+    "authors": "Lv N, Tang Y, Zhang W, Zhang S, Zhang M",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01823-5",
+    "pmid": "42463581",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "Age-driven loss of Lamtor5, a key lysosomal mTOR activation complex subunit, drives macrophage immunosenescence and systemic aging phenotypes in mice by unleashing cGAS-STING paracrine inflammation; restoring Lamtor5 in aged mice rescued immunosenescence and attenuated systemic ageing phenotypes.",
+    "url": "https://mtor-atlas.org/study/LV2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LV2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "RAGULATOR-CGASSTING",
+    "claim": "Ragulator inhibits cGAS-STING pathway",
+    "source": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "target": {
+     "name": "cGAS-STING pathway",
+     "entity": "cgas-sting-pathway"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "cytosol",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "One mouse study (LV2026), A – animal. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LV2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-CGASSTING.json"
+   },
+   {
+    "id": "CGASSTING-SENESCENCE",
+    "claim": "cGAS-STING pathway activates Cellular senescence",
+    "source": {
+     "name": "cGAS-STING pathway",
+     "entity": "cgas-sting-pathway"
+    },
+    "target": {
+     "name": "Cellular senescence",
+     "entity": "cellular-senescence"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "days",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LV2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/CGASSTING-SENESCENCE.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "hypoxia",
+  "name": "Hypoxia",
+  "type": "Condition",
+  "synonyms": [],
+  "description": "Low oxygen. Acts on mTORC1 transcriptionally, chiefly through REDD1 at the oxygen tensions used in these studies rather than through AMPK, so it is slower to engage and slower to release.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/hypoxia.json",
+  "description_beginner": "Low oxygen levels. It reaches mTORC1 chiefly through a gene called REDD1 rather than through the AMPK energy-sensing route, so it's slower to switch the brake on and slower to release it again. Severe oxygen shortage does bring AMPK in as well.",
+  "studies": [
+   {
+    "sid": "BRU2004",
+    "title": "Regulation of mTOR function in response to hypoxia by REDD1 and the TSC1/TSC2 tumor suppressor complex",
+    "authors": "Brugarolas J; Kaelin WG et al.",
+    "year": 2004,
+    "journal": "Genes & development",
+    "doi": "10.1101/gad.1256804",
+    "pmid": "15545625",
+    "pmcid": "PMC534650",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Hypoxia inhibits mTOR via REDD1-dependent activation of the TSC1/2 complex.",
+    "url": "https://mtor-atlas.org/study/BRU2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRU2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "HYPOXIA-REDD1",
+    "claim": "Hypoxia activates REDD1 (DDIT4)",
+    "source": {
+     "name": "Hypoxia",
+     "entity": "hypoxia"
+    },
+    "target": {
+     "name": "REDD1 (DDIT4)",
+     "entity": "redd1-ddit4"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Low oxygen induces REDD1 transcriptionally over hours, slower than AMPK. REDD1 protein is short-lived, so the signal lasts only as long as hypoxia keeps the gene switched on.",
+    "mechanism_beginner": "Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "note": "Thin - one supporting study.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BRU2004"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/HYPOXIA-REDD1.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "bi-steric-mtorc1-selective-inhibitors",
+  "name": "Bi-steric mTORC1-selective inhibitors",
+  "type": "Drug",
+  "synonyms": [],
+  "description": "Bivalent compounds (e.g. RMC-5552) engaging both an FKBP12-dependent site and the active site, giving deeper mTORC1 inhibition with selectivity over mTORC2.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/bi-steric-mtorc1-selective-inhibitors.json",
+  "description_beginner": "A newer design: deep inhibition of one complex only.",
+  "studies": [
+   {
+    "sid": "SCH2025",
+    "title": "The Bi-steric, mTORC1-Selective Inhibitor, RMC-5552, in Advanced Solid Tumors: A Phase 1 Trial",
+    "authors": "Schram AM; Meyerowitz JG et al.",
+    "year": 2025,
+    "journal": "Clinical Cancer Research",
+    "doi": "10.1158/1078-0432.CCR-25-2112",
+    "pmid": "41056387",
+    "pmcid": "PMC12666311",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human (Phase 1 dose escalation, n=57, advanced solid tumors, NCT04774952)",
+    "peer_reviewed": true,
+    "finding": "First-in-human, open-label dose-escalation trial (n=57, advanced solid tumors, no comparator arm) of a bi-steric mTORC1-selective inhibitor. Treatment-related hyperglycemia was low (4%) and not dose-limiting, alongside a 64% disease control rate. Because the trial was uncontrolled and made no head-to-head comparison against rapamycin or an ATP-site inhibitor, this is encouraging early clinical evidence consistent with the hypothesis that sparing mTORC2 reduces metabolic toxicity -- it does not establish mTORC2 sparing as the cause.",
+    "url": "https://mtor-atlas.org/study/SCH2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2025.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "BISTERIC-MTORC1",
+    "claim": "Bi-steric mTORC1-selective inhibitors inhibits mTORC1",
+    "source": {
+     "name": "Bi-steric mTORC1-selective inhibitors",
+     "entity": "bi-steric-mtorc1-selective-inhibitors"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "lyso",
+    "species": [
+     "human"
+    ],
+    "mechanism": "A bivalent molecule engages an FKBP12-dependent site and the active site simultaneously, producing deeper mTORC1 inhibition than a rapalog while sparing mTORC2.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Phase 1 in advanced solid tumours – a safety and pharmacodynamic result, not an efficacy verdict. Directness is graded indirect because, like rapalogs, the mechanism requires FKBP12. Consensus is emerging: one trial, newest evidence in the corpus.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "established",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "SCH2025"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/BISTERIC-MTORC1.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SEL2009",
+  "title": "Ribosomal protein S6 kinase 1 signaling regulates mammalian life span",
+  "authors": "Selman C; Withers DJ et al.",
+  "year": 2009,
+  "journal": "Science",
+  "doi": "10.1126/science.1177221",
+  "pmid": "19797661",
+  "pmcid": "PMC4954603",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (S6K1 knockout)",
+  "peer_reviewed": true,
+  "finding": "Deleting S6K1 (a direct mTORC1 effector) extended lifespan in FEMALE mice (+19% median); the effect was not significant in males. It also protected against age-related bone, immune and motor decline. One of the clearest cases of the sex dimorphism catalogued in gap H6 - and a reminder that a single downstream branch, not mTORC1 as a whole, can carry much of the ageing signal.",
+  "url": "https://mtor-atlas.org/study/SEL2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SEL2009.json",
+  "abstract_excerpt": "Caloric restriction (CR) protects against aging and disease, but the mechanisms by which this affects mammalian life span are unclear. We show in mice that deletion of ribosomal S6 protein kinase 1 (S6K1), a component of the nutrient-responsive mTOR (mammalian target of rapamycin) signaling pathway, led to increased life span and resistance to age-related pathologies, such as bone, immune, and motor dysfunction and loss of insulin sensitivity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (S6K1 knockout)",
+   "target": "S6K1 / mTOR",
+   "species": "Mouse (S6K1 KO)",
+   "effect": "S6K1 deletion extends lifespan in female mice only (+19% median, not significant in males) and improves healthspan measures",
+   "dose": "not stated",
+   "sample_size": "not stated",
+   "effect_size": "Median lifespan in S6K1 -/- mice increased by 80 days (from 862 to 942 days) or 9% relative to WT mice (X 2 = 10.52, p 0.05).",
+   "limitations": "not stated"
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "S6K1-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H6"
+  ],
+  "related_studies": [
+   "DAL2012",
+   "DOR2006",
+   "HARA2002",
+   "KIM2002"
+  ]
+ }
+}

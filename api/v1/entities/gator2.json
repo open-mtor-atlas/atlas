@@ -1,0 +1,209 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "gator2",
+  "name": "GATOR2",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.",
+  "study_count": 2,
+  "relation_count": 3,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/gator2.json",
+  "description_beginner": "A relay switch that reactivates mTORC1. Amino-acid sensors like Sestrin2 and CASTOR1 work by inhibiting it (when nutrients are scarce) or releasing it (when nutrients return), and it in turn keeps GATOR1 - mTORC1's main brake - in check.",
+  "studies": [
+   {
+    "sid": "BAR2013",
+    "title": "A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1",
+    "authors": "Bar-Peled L; Chantranupong L; Cherniack AD; Chen WW; Ottina KA; Grabiner BC; Spear ED; Carter SL; Meyerson M; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1232044",
+    "pmid": "23723238",
+    "pmcid": "PMC3728654",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cancer genomics",
+    "peer_reviewed": true,
+    "finding": "Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated in cancers, making those tumors 'blind' to starvation and hypersensitive to rapamycin.",
+    "url": "https://mtor-atlas.org/study/BAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2013.json"
+   },
+   {
+    "sid": "CHA2016",
+    "title": "The CASTOR Proteins Are Arginine Sensors for the mTORC1 Pathway",
+    "authors": "Chantranupong L; Scaria SM; Saxton RA; Gygi MP; Shen K; Wyant GA; Wang T; Harper JW; Gygi SP; Sabatini DM",
+    "year": 2016,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2016.02.035",
+    "pmid": "26972053",
+    "pmcid": "PMC4808398",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Identified CASTOR1 as the direct arginine sensor: when arginine binds CASTOR1, it lets go of GATOR2, switching mTORC1 on. Together with Sestrin2 (leucine) this built the picture of mTORC1 as a cell that literally tastes individual amino acids.",
+    "url": "https://mtor-atlas.org/study/CHA2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2016.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "CASTOR1-GATOR2",
+    "claim": "CASTOR1 inhibits GATOR2",
+    "source": {
+     "name": "CASTOR1",
+     "entity": "castor1"
+    },
+    "target": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Arginine-free CASTOR1 binds GATOR2 and inhibits it, so the pathway stays off until arginine is available.",
+    "mechanism_beginner": "Without arginine, CASTOR1 holds onto GATOR2 and keeps the pathway switched off.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CHA2016",
+      "SAX2016"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/CASTOR1-GATOR2.json"
+   },
+   {
+    "id": "GATOR2-GATOR1",
+    "claim": "GATOR2 inhibits GATOR1",
+    "source": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.",
+    "mechanism_beginner": "GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn't fully worked out yet.",
+    "context": null,
+    "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+    "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2013",
+      "PAR2014",
+      "VAL2022"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR2-GATOR1.json"
+   },
+   {
+    "id": "SESN2-GATOR2",
+    "claim": "Sestrin2 inhibits GATOR2",
+    "source": {
+     "name": "Sestrin2",
+     "entity": "sestrin2"
+    },
+    "target": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When leucine is scarce, free Sestrin2 clamps onto GATOR2 and blocks it, keeping the whole pathway switched off.",
+    "mechanism_beginner": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CHA2014",
+      "PAR2014",
+      "WOL2015"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-GATOR2.json"
+   }
+  ]
+ }
+}

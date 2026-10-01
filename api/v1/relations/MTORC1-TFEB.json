@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MTORC1-TFEB",
+  "claim": "mTORC1 inhibits TFEB",
+  "source": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "target": {
+   "name": "TFEB",
+   "entity": "tfeb"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "Active mTORC1 phosphorylates TFEB right on the lysosomal surface, trapping it in the cytoplasm. Switch mTORC1 off and TFEB walks into the nucleus.",
+  "mechanism_beginner": "Active mTORC1 tags TFEB and traps it outside the nucleus; switch mTORC1 off and TFEB moves in.",
+  "context": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
+  "boundary": "RagD specifically (more than RagC) promotes TFEB/TFE3 phosphorylation via tighter LAMTOR binding — GOL2022 shows this is paralogue-specific, not a generic Rag-dimer property.",
+  "note": "Four independent studies - one of the best-supported output edges.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "ROC2012",
+    "SET2012",
+    "MAR2012",
+    "SET2011",
+    "GOL2022"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TFEB.json"
+ }
+}

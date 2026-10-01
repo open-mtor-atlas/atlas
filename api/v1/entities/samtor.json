@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "samtor",
+  "name": "SAMTOR",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Sensor of S-adenosylmethionine (SAM), linking methionine / one-carbon metabolism to mTORC1 via GATOR1.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/samtor.json",
+  "description_beginner": "A sensor for S-adenosylmethionine (SAM), a molecule that reports how much of the amino acid methionine is available. It links methionine metabolism to mTORC1 through the GATOR1 brake.",
+  "studies": [
+   {
+    "sid": "GU2017",
+    "title": "SAMTOR is an S-adenosylmethionine sensor for the mTORC1 pathway",
+    "authors": "Gu X; Orozco JM; Saxton RA; Condon KJ; Liu GY; Krawczyk PA; Scaria SM; Harper JW; Gygi SP; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aao3265",
+    "pmid": "29123071",
+    "pmcid": "PMC5747364",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Extended nutrient sensing beyond amino acids to METABOLITES: SAMTOR reads S-adenosylmethionine (SAM), the cell's methyl-donor currency, linking methionine and one-carbon metabolism to mTORC1. Relevant to why methionine restriction affects aging.",
+    "url": "https://mtor-atlas.org/study/GU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GU2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "SAM-SAMTOR",
+    "claim": "S-adenosylmethionine (SAM) inhibits SAMTOR",
+    "source": {
+     "name": "S-adenosylmethionine (SAM)",
+     "entity": "s-adenosylmethionine-sam"
+    },
+    "target": {
+     "name": "SAMTOR",
+     "entity": "samtor"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "S-adenosylmethionine, the cell's methyl-donor currency, binds SAMTOR and pulls it off GATOR1 - this is how methionine availability reaches mTORC1.",
+    "mechanism_beginner": "SAM, a byproduct of methionine, binds SAMTOR and pulls it away from GATOR1 – the proposed way the cell senses how much methionine it has. Worked out in cells; whether this sensor is what matters in a whole animal has not been shown.",
+    "context": null,
+    "boundary": "Single-study edge. Needs independent replication before it is treated as established.",
+    "note": "Only one supporting study in the corpus - flag as thin.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GU2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SAM-SAMTOR.json"
+   },
+   {
+    "id": "SAMTOR-GATOR1",
+    "claim": "SAMTOR activates GATOR1",
+    "source": {
+     "name": "SAMTOR",
+     "entity": "samtor"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Methionine-starved SAMTOR binds the GATOR1-KICSTOR complex and helps it keep mTORC1 off.",
+    "mechanism_beginner": "When methionine is low, SAMTOR teams up with GATOR1 to help keep mTORC1 switched off.",
+    "context": null,
+    "boundary": null,
+    "note": "Only one supporting study in the corpus.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GU2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SAMTOR-GATOR1.json"
+   }
+  ]
+ }
+}

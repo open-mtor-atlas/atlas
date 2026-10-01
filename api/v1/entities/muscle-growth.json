@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "muscle-growth",
+  "name": "Muscle growth",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "mTORC1-dependent process of skeletal muscle fiber enlargement (hypertrophy); driven by growth factors and exercise, blocked by rapamycin.",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/process/muscle-growth/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/muscle-growth.json",
+  "description_beginner": "The process by which muscle fibers get bigger (hypertrophy), driven by exercise and growth signals and requiring mTORC1 activity. Blocking mTORC1 blocks this growth response.",
+  "studies": [
+   {
+    "sid": "DRU2009",
+    "title": "Rapamycin administration in humans blocks the contraction-induced increase in skeletal muscle protein synthesis",
+    "authors": "Drummond MJ; Rasmussen BB et al.",
+    "year": 2009,
+    "journal": "Journal of Physiology",
+    "doi": "10.1113/jphysiol.2008.163816",
+    "pmid": "19188252",
+    "pmcid": "PMC2678224",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, controlled trial",
+    "peer_reviewed": true,
+    "finding": "Rapamycin given before resistance exercise completely blocked the normal post-exercise increase in human muscle protein synthesis.",
+    "url": "https://mtor-atlas.org/study/DRU2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DRU2009.json"
+   },
+   {
+    "sid": "MOE2025",
+    "title": "Influence of rapamycin on safety and healthspan metrics after one year: PEARL trial results",
+    "authors": "Moel M; Harinath G; Lee V; Nyquist A; Morgan SL; Isman A; Zalzala S",
+    "year": 2025,
+    "journal": "Aging (Albany NY)",
+    "doi": "10.18632/aging.206235",
+    "pmid": "40188830",
+    "pmcid": "PMC12074816",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, RCT, ages 50-85 (n=114 completed)",
+    "peer_reviewed": true,
+    "finding": "First completed long-term RCT of rapamycin for healthy human aging (NCT04488601, 48 weeks, n=114). Primary endpoint (visceral fat by DXA) showed NO significant change (p=0.942) - a null result on the pre-registered primary endpoint. Secondary endpoints were more promising: women on the 10mg/week dose had significant improvements in lean tissue mass and self-reported pain. A textbook example of why the pre-registered primary endpoint, not the most exciting secondary finding, is what should drive the headline conclusion.",
+    "url": "https://mtor-atlas.org/study/MOE2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MOE2025.json"
+   },
+   {
+    "sid": "ROM2001",
+    "title": "Mediation of IGF-1-induced skeletal myotube hypertrophy by PI(3)K/Akt/mTOR and PI(3)K/Akt/GSK3 pathways",
+    "authors": "Rommel C; Bodine SC et al.",
+    "year": 2001,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb1101-1009",
+    "pmid": "11715022",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured muscle cells (mouse)",
+    "peer_reviewed": true,
+    "finding": "Shows IGF-1 drives muscle fiber hypertrophy through Akt, via both the mTOR and GSK3 branches, in cultured myotubes, establishing mTOR as a central node for muscle growth signaling.",
+    "url": "https://mtor-atlas.org/study/ROM2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROM2001.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TRANSL-MUSCLE",
+    "claim": "Protein synthesis activates Muscle growth",
+    "source": {
+     "name": "Protein synthesis",
+     "entity": "protein-synthesis"
+    },
+    "target": {
+     "name": "Muscle growth",
+     "entity": "muscle-growth"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "days",
+    "compartment": "outcome",
+    "species": [
+     "mouse",
+     "human"
+    ],
+    "mechanism": "Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.",
+    "mechanism_beginner": "Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.",
+    "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
+    "boundary": "DRU2009 is direct human evidence: rapamycin blocked the contraction-induced rise in muscle protein synthesis in volunteers.",
+    "note": "Rare non-molecular badge in the output branch - DRU2009 is H, a human study.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "BOD2001",
+      "ROM2001",
+      "DRU2009"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TRANSL-MUSCLE.json"
+   }
+  ]
+ }
+}

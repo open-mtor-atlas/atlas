@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ROG2019",
+  "title": "Structural basis for the docking of mTORC1 on the lysosomal surface",
+  "authors": "Rogala KB; Sabatini DM et al.",
+  "year": 2019,
+  "journal": "Science",
+  "doi": "10.1126/science.aay0166",
+  "pmid": "31601708",
+  "pmcid": "PMC7176403",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution) + cell-based mutagenesis",
+  "peer_reviewed": true,
+  "finding": "3.2-angstrom cryo-EM structure of Raptor bound to Rag-Ragulator, showing how Raptor reads out the nutrient-dependent nucleotide state of the Rag GTPases: one part of Raptor senses RagA's nucleotide state, a separate 'claw' senses RagC's, and both have to be in the correct nutrient-signalling combination before Raptor is allowed to dock. Mutating the contact points blocks mTORC1 from reaching the lysosome and inhibits its signalling, which is the functional evidence behind the structural claim. Combined with a separate structure of mTORC1 bound to its activator Rheb, the paper builds a model of the complete, active mTORC1 sitting on the lysosome. Boundary: cryo-EM of a complex reconstituted from purified human proteins, not a live-cell measurement.",
+  "url": "https://mtor-atlas.org/study/ROG2019/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ROG2019.json",
+  "abstract_excerpt": "The mTORC1 (mechanistic target of rapamycin complex 1) protein kinase regulates growth in response to nutrients and growth factors. Nutrients promote its translocation to the lysosomal surface, where its Raptor subunit interacts with the Rag guanosine triphosphatase (GTPase)-Ragulator complex. Nutrients switch the heterodimeric Rag GTPases among four different nucleotide-binding states, only one of which (RagA/B GTP-RagC/D GDP) permits mTORC1 association.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Structural (cryo-EM, reconstituted complex) + mutagenesis",
+   "target": "mTORC1 / Raptor / Rag-Ragulator",
+   "species": "Human proteins, cell-free reconstitution",
+   "effect": "3.2 A structure showing how Raptor reads the nucleotide state of RagA and RagC to dock mTORC1 on the lysosome; docking-disrupting mutations block mTORC1 lysosomal localization and signalling"
+  },
+  "entities": [
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CUI2025",
+   "CUI2023",
+   "SAN2010",
+   "ZON2011"
+  ]
+ }
+}

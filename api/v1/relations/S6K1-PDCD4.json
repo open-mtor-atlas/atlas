@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "S6K1-PDCD4",
+  "claim": "S6K1 inhibits PDCD4",
+  "source": {
+   "name": "S6K1",
+   "entity": "s6k1"
+  },
+  "target": {
+   "name": "PDCD4",
+   "entity": "pdcd4"
+  },
+  "effect": "inhibits",
+  "type": "degradation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "S6K1 tags PDCD4 for destruction. PDCD4 is itself a translation inhibitor, so removing it is a second, parallel way mTORC1 lifts a brake on protein synthesis.",
+  "mechanism_beginner": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
+  "context": null,
+  "boundary": "Single-study edge in this corpus.",
+  "note": "Thin - one supporting study.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "DOR2006"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+ }
+}

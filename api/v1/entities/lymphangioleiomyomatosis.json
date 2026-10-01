@@ -1,0 +1,114 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lymphangioleiomyomatosis",
+  "name": "Lymphangioleiomyomatosis",
+  "type": "Disease",
+  "synonyms": [],
+  "description": "LAM - a rare progressive cystic lung disease in women driven by inappropriate mTOR activation; sirolimus stabilizes lung function for as long as it is taken (MILES trial), with decline resuming after the drug is stopped.",
+  "study_count": 2,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lymphangioleiomyomatosis.json",
+  "description_beginner": "LAM - a rare lung disease, almost always in women, in which mTOR gets stuck in the 'on' position and slowly destroys healthy lung tissue with cysts. The mTOR-blocking drug sirolimus is a proven treatment that keeps lung function from declining further for as long as it is taken: in the MILES trial, decline started again after the drug was stopped.",
+  "studies": [
+   {
+    "sid": "BIS2013",
+    "title": "Everolimus for angiomyolipoma associated with tuberous sclerosis complex or sporadic lymphangioleiomyomatosis (EXIST-2): a multicentre, randomised, double-blind, placebo-controlled trial",
+    "authors": "Bissler JJ; Kingswood JC; Radzikowska E; Zonnenberg BA; Frost M; et al.; Budde K",
+    "year": 2013,
+    "journal": "Lancet",
+    "doi": "10.1016/S0140-6736(12)61767-X",
+    "pmid": "23312829",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase 3 RCT (n=118, TSC/LAM)",
+    "peer_reviewed": true,
+    "finding": "The companion phase 3 RCT (n=118) to EXIST-1, targeting kidney tumors (angiomyolipomas) in tuberous sclerosis and LAM. Everolimus shrank them by >=50% in 42% of patients versus 0% on placebo. Together EXIST-1 and -2 sealed everolimus as a disease-modifying therapy across multiple TSC tumor types.",
+    "url": "https://mtor-atlas.org/study/BIS2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BIS2013.json"
+   },
+   {
+    "sid": "MCC2011",
+    "title": "Efficacy and safety of sirolimus in lymphangioleiomyomatosis (MILES)",
+    "authors": "McCormack FX; Inoue Y; Moss J; Singer LG; Strange C; et al.; Trapnell BC",
+    "year": 2011,
+    "journal": "New England Journal of Medicine",
+    "doi": "10.1056/NEJMoa1100391",
+    "pmid": "21410393",
+    "pmcid": "PMC3118601",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, RCT (n=89, women with LAM)",
+    "peer_reviewed": true,
+    "finding": "A landmark placebo-controlled RCT (n=89) - the first to show that rapamycin (sirolimus) benefits a human lung disease. In LAM, lung function normally declines relentlessly; sirolimus STOPPED that decline while patients took it (and it resumed after stopping). Randomised human evidence that mTOR inhibition can suspend progression of this disease; the benefit did not persist after withdrawal.",
+    "url": "https://mtor-atlas.org/study/MCC2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MCC2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "RAPA-LAM",
+    "claim": "Rapamycin inhibits Lymphangioleiomyomatosis",
+    "source": {
+     "name": "Rapamycin",
+     "entity": "rapamycin"
+    },
+    "target": {
+     "name": "Lymphangioleiomyomatosis",
+     "entity": "lymphangioleiomyomatosis"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "The MILES trial: sirolimus stabilised lung function (FEV1) in lymphangioleiomyomatosis while patients took it, and decline resumed after stopping. This - not the everolimus angiomyolipoma trial - is the evidence that mTOR inhibition treats LAM lung disease.",
+    "mechanism_beginner": "In a clinical trial, rapamycin stabilised lung function in a rare lung disease while patients kept taking it – the decline came back once they stopped.",
+    "context": null,
+    "boundary": "Benefit is suppressive: lung function declined again after withdrawal.",
+    "note": "Added 2026-07-29. EVE-LAM previously carried this claim on a trial whose endpoint was renal angiomyolipoma.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "MCC2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-LAM.json"
+   }
+  ]
+ }
+}

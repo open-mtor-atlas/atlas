@@ -1,0 +1,252 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "gator1",
+  "name": "GATOR1",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "Negative regulator of the Rag GTPases (a GAP); switches mTORC1 OFF when amino acids are scarce. Tumor suppressor - mutated in some cancers.",
+  "study_count": 2,
+  "relation_count": 4,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/gator1.json",
+  "description_beginner": "The main 'off switch' for mTORC1 in the amino-acid sensing system - it acts on the Rag GTPases to shut mTORC1 down when nutrients run low. It's a tumor suppressor, and it's found mutated in some cancers.",
+  "studies": [
+   {
+    "sid": "BAR2013",
+    "title": "A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1",
+    "authors": "Bar-Peled L; Chantranupong L; Cherniack AD; Chen WW; Ottina KA; Grabiner BC; Spear ED; Carter SL; Meyerson M; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1232044",
+    "pmid": "23723238",
+    "pmcid": "PMC3728654",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cancer genomics",
+    "peer_reviewed": true,
+    "finding": "Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated in cancers, making those tumors 'blind' to starvation and hypersensitive to rapamycin.",
+    "url": "https://mtor-atlas.org/study/BAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2013.json"
+   },
+   {
+    "sid": "GU2017",
+    "title": "SAMTOR is an S-adenosylmethionine sensor for the mTORC1 pathway",
+    "authors": "Gu X; Orozco JM; Saxton RA; Condon KJ; Liu GY; Krawczyk PA; Scaria SM; Harper JW; Gygi SP; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aao3265",
+    "pmid": "29123071",
+    "pmcid": "PMC5747364",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Extended nutrient sensing beyond amino acids to METABOLITES: SAMTOR reads S-adenosylmethionine (SAM), the cell's methyl-donor currency, linking methionine and one-carbon metabolism to mTORC1. Relevant to why methionine restriction affects aging.",
+    "url": "https://mtor-atlas.org/study/GU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GU2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "GATOR1-RAG",
+    "claim": "GATOR1 inhibits Rag GTPases",
+    "source": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "inhibits",
+    "type": "gap-activity",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "GATOR1 acts as a GAP: it forces RagA/B to hydrolyse GTP, flipping the Rag heterodimer into the inactive shape that cannot hold mTORC1.",
+    "mechanism_beginner": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2013"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR1-RAG.json"
+   },
+   {
+    "id": "GATOR2-GATOR1",
+    "claim": "GATOR2 inhibits GATOR1",
+    "source": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.",
+    "mechanism_beginner": "GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn't fully worked out yet.",
+    "context": null,
+    "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+    "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2013",
+      "PAR2014",
+      "VAL2022"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR2-GATOR1.json"
+   },
+   {
+    "id": "KICSTOR-GATOR1",
+    "claim": "KICSTOR required-for GATOR1",
+    "source": {
+     "name": "KICSTOR",
+     "entity": "kicstor"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "required-for",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "KICSTOR is the dock that holds GATOR1 on the lysosomal surface. Without it, GATOR1 cannot reach its target and nutrient control of mTORC1 is lost.",
+    "mechanism_beginner": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WOL2017",
+      "PEN2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/KICSTOR-GATOR1.json"
+   },
+   {
+    "id": "SAMTOR-GATOR1",
+    "claim": "SAMTOR activates GATOR1",
+    "source": {
+     "name": "SAMTOR",
+     "entity": "samtor"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Methionine-starved SAMTOR binds the GATOR1-KICSTOR complex and helps it keep mTORC1 off.",
+    "mechanism_beginner": "When methionine is low, SAMTOR teams up with GATOR1 to help keep mTORC1 switched off.",
+    "context": null,
+    "boundary": null,
+    "note": "Only one supporting study in the corpus.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GU2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SAMTOR-GATOR1.json"
+   }
+  ]
+ }
+}

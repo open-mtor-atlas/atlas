@@ -1,0 +1,47 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H8",
+  "kind": "open-question",
+  "title": "Brain-penetrant mTOR inhibition clears aggregates in models, but human dosing has not been shown to reach the brain — and mTORC2 is needed for memory in mice",
+  "category": "Mechanism-to-outcome gap",
+  "confidence": 0.7,
+  "evidence_stands_at": "Clinical outcome in humans — negative on target engagement",
+  "gap": "The preclinical CNS case for mTOR inhibition is unusually deep; the human evidence is thin rather than absent. Aggregate-clearance evidence: SPI2010 rapamycin lowered amyloid-beta and abolished cognitive deficits in an AD mouse model, with increased neuronal autophagy; ZHO2009 mTORC1 inhibition suppressed anatomical/behavioral abnormalities; CAC2010 mapped the mTOR-amyloid-tau triangle onto cognition; TAN2024 (preprint) restored tau-induced metabolic, mitochondrial and cognitive deficits; EHN2008 reversed learning deficits in Tsc2+/- mice. Human evidence: SAX2026, the TRON multicentre randomised controlled trial, tested everolimus against placebo on memory and executive function in tuberous sclerosis complex (38 randomised, ages 16-60, 24 weeks). Effect sizes were small (Cohen's d 0-0.465) and responder rates were high in BOTH arms (20/23, 87% everolimus vs 9/12, 75% placebo), which the authors attribute to practice and placebo effects - an uninformative trial rather than a positive one. It is disease-specific, short and not an ageing trial, so it does NOT close the cognitive-AGEING gap; but it does mean that not every outcome in this corpus comes from animals or models. HAL2012 is on the benefit side: chronic rapamycin ENHANCED learning and memory in young mice, BLOCKED age-associated cognitive decline in older mice, and DECREASED anxiety- and depression-like behaviour, with elevated midbrain monoamines. The mTORC2 liability is sourced by HUA2013. Conditional deletion of Rictor in the postnatal mouse forebrain reduced mTORC2 activity and selectively impaired long-term memory and the late phase of hippocampal LTP, with the same deficit in dTORC2-deficient flies; hippocampal actin polymerisation fell, restoring it rescued both L-LTP and memory, and a compound that raised mTORC2 activity converted early LTP into late LTP and enhanced memory. Loss of function and rescue in the same study, which is why it can carry the claim. mTORC2 is therefore required for memory consolidation - and mTORC2 is the arm chronic rapamycin also disrupts (LAM2012, SAR2006). Net: strong mechanism on both sides of the trade-off (A and M – animal and molecular), two human trials that reported in 2025 and failed upstream of efficacy rather than at it, one uninformative disease-specific human trial, and an unquantified balance between clearing aggregates (mTORC1/autophagy) and preserving plasticity (mTORC2).",
+  "gap_beginner": "In animal and cell models, blocking mTOR clears out the toxic protein clumps involved in diseases like Alzheimer's and improves memory-related behaviour - a fairly strong case at the lab level. In fact, one long mouse study found rapamycin actually improved learning and memory and reduced anxiety. In people the picture is different: two trials reported in 2025 and neither showed a benefit - and in both, the drug could not be shown to have reached the brain at all, so they do not really test the idea. The worry that these drugs also block mTORC2 is backed by a study in this Atlas: mice whose forebrain neurons lacked mTORC2 formed weaker long-term memories, and raising mTORC2 activity improved memory (HUA2013). That was shown in mice and flies, not in people.",
+  "changed_since_written": "Two human trials have now reported, and both failed upstream of efficacy. An eight-week open-label phase 1 in mild cognitive impairment and early dementia made CNS penetrance its primary endpoint and found rapamycin undetectable in cerebrospinal fluid before or after treatment, with no cognitive change, while CSF p-tau181, GFAP and neurofilament light rose (Gonzales, Commun Med 2025, PMID 40394335, NCT04200911, n=10). A six-month single-arm phase IIa at 7 mg/week in early Alzheimer's found no change in cerebral glucose metabolism on FDG-PET and no cognitive change; CSF total tau rose 22% and neurofilament light 24%, which at n=13 without a control arm is at least as compatible with neuronal injury as with aggregate clearance (Svensson, medRxiv 2025, NCT06022068, preprint). A randomised 12-month phase 2 with cognitive secondary endpoints reads out in 2026 (REACH, NCT04629495, n=40).",
+  "still_open": "Not whether mTOR inhibition helps human cognitive ageing, because that has not been tested yet. Whether any CNS-penetrant mTOR inhibitor can achieve brain mTORC1 inhibition at tolerable doses. Every human ageing and Alzheimer's trial found uses sirolimus or everolimus, both P-glycoprotein substrates and poor CNS penetrators, and no CNS-optimised mTOR inhibitor appears in the ageing or dementia trial registry. The mTORC2 clause makes the design harder rather than easier: an inhibitor that did reach the brain chronically would be expected to erode long-term memory (Huang, Nat Neurosci 2013, PMID 23455608), so the target is a window, not a direction.",
+  "hypothesis": "A CNS-penetrant, intermittent or mTORC1-selective regimen can reach brain mTORC1 at a level that enhances autophagic clearance without chronic mTORC2 suppression. The first half — reaching the brain at all — is the part that has now failed twice at geroscience doses and must be demonstrated before the second half can be tested.",
+  "hypothesis_beginner": "Educated guess: a drug that actually gets into the brain, given in pulses rather than continuously, might help clear the protein clumps of neurodegeneration without blunting the part of the pathway that memory needs. The catch found in 2025: at the doses used in ageing trials, the drug does not measurably get into the brain at all.",
+  "how_to_test": "Two-step: (i) mouse tauopathy/amyloid models comparing chronic pan-rapamycin vs intermittent vs mTORC1-selective (bi-steric) dosing - endpoints aggregate load, autophagic flux (LC3-II/p62), hippocampal LTP, and Morris-water-maze memory, to isolate the mTORC2/plasticity cost. (ii) A biomarker-anchored early-AD human pilot (CSF/plasma p-tau and amyloid PET as surrogate) on the winning schedule. Prediction: intermittent/selective arms clear aggregates with preserved LTP and memory; chronic pan-inhibition clears aggregates but degrades plasticity.",
+  "studies": [
+   "SPI2010",
+   "ZHO2009",
+   "CAC2010",
+   "EHN2008",
+   "TAN2024",
+   "HAL2012",
+   "SAX2026",
+   "HUA2013",
+   "LAM2012",
+   "SAR2006",
+   "LEE2024"
+  ],
+  "revision_log": [
+   "2026-08-30: SAX2026 (TRON trial) added as human evidence. HAL2012 had been cited as a 'cognitive downside signal'; it reports the opposite and moved to the benefit side.",
+   "2026-09-05: The mTORC2-memory leg previously cited LAM2012 and LEE2024, neither of which establishes it, and was flagged as an editorial extrapolation. HUA2013 now sources it.",
+   "2026-09-23: The card previously claimed no human cognitive-ageing or neurodegeneration outcome. Two 2025 trials reported null cognitive results, and in both the drug was not shown to reach the brain. The title was changed accordingly (URL kept).",
+   "2026-09-29: Title changed to 'has not been shown to reach the brain' and 'in mice'; SPI2010 no longer described as 'autophagy-dependent'; the beginner text no longer says the mTORC2 study is missing; CSF biomarker rises in Gonzales 2025 added."
+  ],
+  "url": "https://mtor-atlas.org/question/brain-penetrant-mtor-inhibition-clears-neurodegenerative-aggregates-in-models-but-has-zero-human-cognitive-aging-endpoint-and-mtorc2-is-needed-for-memory/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H8.json"
+ }
+}

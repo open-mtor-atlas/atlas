@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-MITOPHAGY",
+  "claim": "AMPK activates Mitophagy",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "Mitophagy",
+   "entity": "mitophagy"
+  },
+  "effect": "activates",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "hours",
+  "compartment": "mito",
+  "species": [
+   "mouse"
+  ],
+  "mechanism": "The LKB1-AMPK axis keeps damaged mitochondria being cleared; lose it and mitochondrial DNA leaks into the cytosol and inflames the cell.",
+  "mechanism_beginner": "The energy-sensing pathway keeps damaged mitochondria cleared out; lose it, and their broken contents leak out and inflame the cell.",
+  "context": null,
+  "boundary": "Single-study edge in this corpus (ZHU2026), and that study is a toxicology model rather than a dedicated test of this step. Treat as indicative.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "ZHU2026"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MITOPHAGY.json"
+ }
+}

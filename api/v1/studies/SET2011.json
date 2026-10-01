@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SET2011",
+  "title": "TFEB links autophagy to lysosomal biogenesis",
+  "authors": "Settembre C; Di Malta C; Polito VA; Garcia Arencibia M; Vetrini F; Erdin S; et al.; Ballabio A",
+  "year": 2011,
+  "journal": "Science",
+  "doi": "10.1126/science.1204592",
+  "pmid": "21617040",
+  "pmcid": "PMC3638014",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human/mouse cells",
+  "peer_reviewed": true,
+  "finding": "Showed that TFEB drives a coordinated autophagy and lysosomal gene programme during starvation. In this paper TFEB was regulated by ERK2 phosphorylation; its control by mTORC1 at the lysosome was established in later work (SET2012).",
+  "url": "https://mtor-atlas.org/study/SET2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SET2011.json",
+  "abstract_excerpt": "Autophagy is a cellular catabolic process that relies on the cooperation of autophagosomes and lysosomes. During starvation, the cell expands both compartments to enhance degradation processes. We found that starvation activates a transcriptional program that controls major steps of the autophagic pathway, including autophagosome formation, autophagosome-lysosome fusion, and substrate degradation. The transcription factor EB (TFEB), a master gene for lysosomal biogenesis, coordinated this program by driving expression of autophagy and lysosomal genes.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (TFEB)",
+   "target": "TFEB / autophagy-lysosome",
+   "species": "Human/mouse cells",
+   "effect": "TFEB drives a transcriptional program that links autophagy to lysosomal biogenesis"
+  },
+  "entities": [
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "lysosomal-biogenesis",
+    "name": "Lysosomal biogenesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-TFEB",
+    "TFEB-AUTOPHAGY",
+    "TFEB-LYSOBIO",
+    "LYSOBIO-LYSOSOME"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ROC2012",
+   "SET2012",
+   "MAR2012",
+   "ULL2026"
+  ]
+ }
+}

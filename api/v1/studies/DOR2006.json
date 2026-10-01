@@ -1,0 +1,71 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DOR2006",
+  "title": "S6K1- and betaTRCP-mediated degradation of PDCD4 promotes protein translation and cell growth",
+  "authors": "Dorrello NV; Pagano M et al.",
+  "year": 2006,
+  "journal": "Science",
+  "doi": "10.1126/science.1130276",
+  "pmid": "17053147",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells",
+  "peer_reviewed": true,
+  "finding": "S6K1 triggers betaTRCP-mediated degradation of the tumour suppressor PDCD4 to promote translation.",
+  "url": "https://mtor-atlas.org/study/DOR2006/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DOR2006.json",
+  "abstract_excerpt": "The tumor suppressor programmed cell death protein 4 (PDCD4) inhibits the translation initiation factor eIF4A, an RNA helicase that catalyzes the unwinding of secondary structure at the 5' untranslated region (5'UTR) of messenger RNAs (mRNAs). In response to mitogens, PDCD4 was rapidly phosphorylated on Ser67 by the protein kinase S6K1 and subsequently degraded via the ubiquitin ligase SCF(betaTRCP).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (S6K1, βTRCP, PDCD4)",
+   "target": "S6K1 / PDCD4 / eIF4A",
+   "species": "Mammalian cells",
+   "effect": "S6K1 phosphorylates PDCD4 (Ser67) triggering βTRCP-mediated degradation → promotes translation and cell growth"
+  },
+  "entities": [
+   {
+    "id": "pdcd4",
+    "name": "PDCD4",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "PDCD4-TRANSL",
+    "S6K1-PDCD4"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BOD2001",
+   "DRU2009",
+   "FAN2026",
+   "HSI2012"
+  ]
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H1",
+  "kind": "open-question",
+  "title": "Sensor-selective geroprotection without the metabolic penalty",
+  "category": "Mechanism-to-outcome gap",
+  "confidence": 0.75,
+  "evidence_stands_at": "Mechanism in cells",
+  "gap": "The amino-acid sensors are among the most pathway-specific upstream control points and among the least phenotype-tested; how readily each can be drugged has not been compared systematically. One exception exists and is held in this corpus: LEE2010 (Science 2010) showed that loss of Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. That is an organismal age-related-pathology phenotype (A – animal), though not a lifespan endpoint, and it is carried in the pathway model as the SESN2-AGING edge. Beyond that single fly result, the sensors (Sestrin2, CASTOR1, SAMTOR, v-ATPase) rest on M – molecular – work only, and no mammalian lifespan and no human ageing endpoint shows that manipulating ONE sensor arm reproduces the benefit of broader mTORC1 inhibition. Read the gap as a mechanism-attribution gap, not as an absence of mammalian data on the nutrients themselves. Dietary methionine restriction does extend mouse lifespan and does improve glucose and insulin measures (Miller 2005 and later work; outside this corpus, which is why no SID is cited here). What has not been shown is the SENSOR claim - that such a benefit is transmitted through SAMTOR to GATOR1, or through Sestrin2, rather than through any other consequence of eating less methionine.",
+  "gap_beginner": "The amino-acid sensors in this pathway (Sestrin2, CASTOR1, SAMTOR, the lysosome's acid pump) are among the most pathway-specific control points in it - and among the least tested for whether changing them actually changes health or lifespan. There is one exception: in fruit flies, losing Sestrin caused fat build-up, mitochondrial problems, muscle degeneration and heart trouble, all preventable by turning TOR down. In mammals, the diet side of this does work - feeding mice less methionine makes them live longer and handle blood sugar better. What nobody has shown is that the benefit actually travels THROUGH one of these sensors, and no human study has tested it at all. So the question is not 'is there any evidence' - it is whether targeting one single sensor can reproduce what the broader drugs do.",
+  "changed_since_written": "The premise has been disfavoured since 2018, outside this corpus. Methionine restriction delivers its metabolic benefit even in mice with constitutively active hepatic mTORC1, so suppressing mTORC1 is not required for it (Yu and Lamming, FASEB J 2018, PMID 29401631). Its known mediators are hepatic FGF21, the transsulfuration/H2S route (Hine, Cell 2014, PMID 25542313) and separable downstream arms (Wanders, FASEB J 2015, PMID 25742717) — and an H2S donor on its own did not extend lifespan in the ITP (Harrison, GeroScience 2023, PMID 38041783). Separately, the destination this question aims at was already reached genetically without any sensor: reduced mTORC1 alone extended life with normal glucose tolerance in female mTOR/mLST8 double-heterozygous mice (Lamming, Science 2012, PMID 22461615).",
+  "still_open": "What fraction, if any, of methionine restriction's benefit actually runs through SAMTOR to GATOR1. This is genuinely untested: no SAMTOR knockout ageing study and no mammalian Sestrin lifespan study exists in the literature searched. But it is now a question about the size of a contribution, not about an unexplored route to geroprotection.",
+  "hypothesis": "Stated as a null, which is the testable form: if methionine restriction's healthspan effects persist unchanged in a SAMTOR-null or SAM-binding-dead knock-in mouse, the sensor arm is dispensable and sensor-selective drugs are a dead end.",
+  "hypothesis_beginner": "Turned around into a form that can fail: if mice engineered without a working SAM sensor still get the full benefit of a low-methionine diet, then that sensor is not how the benefit travels, and building drugs against it would be pointless.",
+  "how_to_test": "SAMTOR-null or SAM-binding-dead knock-in mice on methionine-restricted against control diet; healthspan, glucose tolerance and mTORC2 activity as endpoints. One confound to design around: Sestrin loss is deleterious rather than geroprotective — it abolishes the benefits of exercise, acting through AKT and PGC1-alpha (Kim, Nat Commun 2020, PMID 31929512) — so a Sestrin knockout does not test this hypothesis. Secondary and cheaper: does hepatic PRMT1 inhibition, which improved insulin sensitivity in aged mice (Jiang, Cell Metab 2023, PMID 38006878), reproduce the metabolic half without mTORC2 loss?",
+  "studies": [
+   "GU2017",
+   "SAX2015",
+   "LEE2010",
+   "LAM2012"
+  ],
+  "revision_log": [
+   "2026-08-30: The evidence basis previously read 'supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes'. That was already false when displayed: LEE2010 had been added after the July 2026 external review, but this card had not been updated.",
+   "2026-09-21: Scope clarified as a mechanism-attribution gap. An earlier beginner-register version said 'nothing equivalent has been shown in a mammal', which overstated the gap.",
+   "2026-09-29: 'the most pharmacologically specific nodes' and 'most precise, most drug-friendly' softened, because no comparative analysis supports them. The Lamming 2012 result is now qualified as female mice."
+  ],
+  "url": "https://mtor-atlas.org/question/sensor-selective-geroprotection-without-the-metabolic-penalty/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H1.json"
+ }
+}

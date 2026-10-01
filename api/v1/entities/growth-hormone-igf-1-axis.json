@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "growth-hormone-igf-1-axis",
+  "name": "Growth hormone / IGF-1 axis",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "Upstream growth-signaling axis; reduced activity (as in Ames dwarf mice) is one of the most robust lifespan-extending interventions known in mammals, acting upstream of PI3K/Akt/mTOR.",
+  "study_count": 2,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/growth-hormone-igf-1-axis.json",
+  "description_beginner": "A hormone signaling chain (growth hormone leads to IGF-1) that sits upstream of mTOR. Turning this axis down - as seen in naturally long-lived dwarf mice - is one of the most reliable ways scientists know to extend lifespan in mammals.",
+  "studies": [
+   {
+    "sid": "BRO1996",
+    "title": "Dwarf mice and the ageing process",
+    "authors": "Brown-Borg HM; Bartke A et al.",
+    "year": 1996,
+    "journal": "Nature",
+    "doi": "10.1038/384033a0",
+    "pmid": "8900272",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Ames dwarf mice (growth-hormone deficient)",
+    "peer_reviewed": true,
+    "finding": "Mice with growth hormone deficiency lived substantially longer than normal littermates - founding observation linking reduced growth-signaling to mammalian longevity.",
+    "url": "https://mtor-atlas.org/study/BRO1996/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRO1996.json"
+   },
+   {
+    "sid": "FON2010",
+    "title": "Extending healthy life span--from yeast to humans",
+    "authors": "Fontana L; Partridge L; Longo VD",
+    "year": 2010,
+    "journal": "Science",
+    "doi": "10.1126/science.1172539",
+    "pmid": "20395504",
+    "pmcid": "PMC3607354",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review (yeast to humans)",
+    "peer_reviewed": true,
+    "finding": "Influential review proposing that dietary restriction and reduced nutrient-sensing signalling (mTOR, GH/IGF-1) may slow ageing through similar, evolutionarily conserved mechanisms. Lifespan extension is shown in yeast, invertebrates, rodents and rhesus monkeys; in humans the evidence is limited to protective biomarker changes and genetic associations.",
+    "url": "https://mtor-atlas.org/study/FON2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FON2010.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "GRB10-IGF1",
+    "claim": "Grb10 inhibits Growth hormone / IGF-1 axis",
+    "source": {
+     "name": "Grb10",
+     "entity": "grb10"
+    },
+    "target": {
+     "name": "Growth hormone / IGF-1 axis",
+     "entity": "growth-hormone-igf-1-axis"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "pm",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is one of two feedback arms behind the paradox that blocking mTORC1 raises Akt activity; the other is the S6K1-IRS-1 loop.",
+    "mechanism_beginner": "Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.",
+    "context": null,
+    "boundary": null,
+    "note": "ORE2006 and ROD2011 were removed from this edge on 2026-09-21: neither measured Grb10. ORE2006 belongs to the S6K1-IRS-1 arm and ROD2011 shows relief of receptor tyrosine kinase feedback in general.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HSU2011",
+      "YUX2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GRB10-IGF1.json"
+   },
+   {
+    "id": "IGF1-PI3K",
+    "claim": "Growth hormone / IGF-1 axis activates PI3K",
+    "source": {
+     "name": "Growth hormone / IGF-1 axis",
+     "entity": "growth-hormone-igf-1-axis"
+    },
+    "target": {
+     "name": "PI3K",
+     "entity": "pi3k"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "seconds",
+    "compartment": "pm",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.",
+    "mechanism_beginner": "Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CAN2002",
+      "ROM2001"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/IGF1-PI3K.json"
+   }
+  ]
+ }
+}

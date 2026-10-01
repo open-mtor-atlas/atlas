@@ -1,0 +1,183 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lysosomal-biogenesis",
+  "name": "Lysosomal biogenesis",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "TFEB-driven expansion of the lysosomal compartment.",
+  "study_count": 3,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/process/lysosomal-biogenesis/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lysosomal-biogenesis.json",
+  "description_beginner": "Making more recycling plants.",
+  "studies": [
+   {
+    "sid": "ROC2012",
+    "title": "The transcription factor TFEB links mTORC1 signaling to transcriptional control of lysosome homeostasis",
+    "authors": "Roczniak-Ferguson A; Ferguson SM et al.",
+    "year": 2012,
+    "journal": "Science signaling",
+    "doi": "10.1126/scisignal.2002790",
+    "pmid": "22692423",
+    "pmcid": "PMC3437338",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 phosphorylates TFEB to control lysosomal and autophagy gene transcription.",
+    "url": "https://mtor-atlas.org/study/ROC2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROC2012.json"
+   },
+   {
+    "sid": "SET2012",
+    "title": "A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB",
+    "authors": "Settembre C; Ballabio A et al.",
+    "year": 2012,
+    "journal": "The EMBO journal",
+    "doi": "10.1038/emboj.2012.32",
+    "pmid": "22343943",
+    "pmcid": "PMC3298007",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "A lysosome-to-nucleus mechanism uses mTOR-dependent TFEB phosphorylation to sense lysosomal state.",
+    "url": "https://mtor-atlas.org/study/SET2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2012.json"
+   },
+   {
+    "sid": "SET2011",
+    "title": "TFEB links autophagy to lysosomal biogenesis",
+    "authors": "Settembre C; Di Malta C; Polito VA; Garcia Arencibia M; Vetrini F; Erdin S; et al.; Ballabio A",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1204592",
+    "pmid": "21617040",
+    "pmcid": "PMC3638014",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells",
+    "peer_reviewed": true,
+    "finding": "Showed that TFEB drives a coordinated autophagy and lysosomal gene programme during starvation. In this paper TFEB was regulated by ERK2 phosphorylation; its control by mTORC1 at the lysosome was established in later work (SET2012).",
+    "url": "https://mtor-atlas.org/study/SET2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TFEB-LYSOBIO",
+    "claim": "TFEB activates Lysosomal biogenesis",
+    "source": {
+     "name": "TFEB",
+     "entity": "tfeb"
+    },
+    "target": {
+     "name": "Lysosomal biogenesis",
+     "entity": "lysosomal-biogenesis"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "human cells",
+     "mouse cells"
+    ],
+    "mechanism": "Nuclear TFEB switches on the lysosomal and autophagy gene programme as a single coordinated module, expanding the lysosomal compartment.",
+    "mechanism_beginner": "In the nucleus, TFEB switches on a whole gene package for cleanup and for building new lysosomes.",
+    "context": null,
+    "boundary": "Transcriptional output measured as gene expression and lysosomal markers; how much the compartment actually expands varies with cell type and starvation depth.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SET2011",
+      "ROC2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-LYSOBIO.json"
+   },
+   {
+    "id": "LYSOBIO-LYSOSOME",
+    "claim": "Lysosomal biogenesis activates Lysosome",
+    "source": {
+     "name": "Lysosomal biogenesis",
+     "entity": "lysosomal-biogenesis"
+    },
+    "target": {
+     "name": "Lysosome",
+     "entity": "lysosome"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "A larger, renewed lysosomal compartment changes the platform on which mTORC1 is regulated – the return leg of the lysosome-to-nucleus circuit.",
+    "mechanism_beginner": "More, fresher lysosomes change the very platform that controls mTORC1 – closing a loop back to where the signal started.",
+    "context": null,
+    "boundary": "SET2012 establishes lysosome-to-nucleus signalling via mTOR and TFEB; the quantitative effect of compartment size on mTORC1 output is not resolved.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SET2012",
+      "SET2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LYSOBIO-LYSOSOME.json"
+   }
+  ]
+ }
+}

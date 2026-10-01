@@ -1,0 +1,43 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H2",
+  "kind": "open-question",
+  "title": "mTORC1-selective (mTORC2-sparing) dosing captures longevity without insulin resistance",
+  "category": "Contradiction / tension",
+  "confidence": 0.85,
+  "evidence_stands_at": "Clinical outcome in humans (oncology); no ageing endpoint",
+  "gap": "The lifespan benefit of rapamycin is strongly linked to mTORC1 inhibition, whereas chronic disruption of mTORC2 is a major mechanism behind the insulin resistance (LAM2012). The separation is well supported but NOT exhaustive: this Atlas's own S6K1-IRS1 edge records that the contribution of the S6K1->IRS-1 feedback arm to rapalog dysglycaemia in humans has never been apportioned against mTORC2 loss, so 'all benefit = mTORC1, all harm = mTORC2' overstates what has been shown. QUANTIFIED (full text): ARR2015 - daily 2 mg/kg rapamycin impaired glucose tolerance (+71% AUC) and inhibited BOTH mTORC1 and mTORC2 (AKT-S473), while weekly / every-5-days dosing caused NO glucose impairment and preserved mTORC1 inhibition with no detectable mTORC2 effect -> intermittent dosing decouples benefit from harm in vivo. Wording matters here: 'no detectable mTORC2 inhibition under this assay' is not the same claim as 'mTORC2 was not inhibited'. Dose-response MIL2014 (4.7/14/42 ppm; top dose +23% M / +26% F). PEARL tested 5 vs 10 mg/week but its primary endpoint was visceral fat (missed) - no mTORC1-selective human aging readout exists. Early clinical evidence now exists outside the rapamycin/rapalog class. Bi-steric mTORC1-selective inhibitors (>25-fold selectivity over mTORC2) were validated preclinically (MEN2023: RMC-6272 overcomes drug resistance via complete mTORC1 suppression, sparing mTORC2) and clinically (SCH2025: RMC-5552 Phase 1, n=57 solid tumors) -- treatment-related hyperglycemia was only 4%, which is consistent with the hypothesis that sparing mTORC2 reduces the glucose-intolerance signature seen with chronic rapamycin/rapalogs. Because SCH2025 was open-label, single-arm and had no rapamycin or ATP-site comparator, the low hyperglycaemia rate is a supportive signal, not a causal attribution: it is compared against historical rapalog experience, not against a randomised control. This is the strongest human evidence yet for the mechanistic premise of H2, but it is preliminary, and it comes from an oncology trial, not an aging/longevity endpoint -- the missing link is still a healthspan/lifespan readout for a selective inhibitor.",
+  "gap_beginner": "The lifespan benefit of blocking mTOR is closely tied to mTORC1, while the main side effect (insulin resistance) comes largely from also disrupting mTORC2. That split is well supported, but it is not the whole story - a feedback loop through S6K1 also contributes to the blood-sugar problem, and nobody has worked out how much each one matters in people. In mice, giving rapamycin less often (weekly instead of daily) avoided the glucose problems while keeping the mTORC1 effect, with no mTORC2 effect detectable - which is not quite the same as saying mTORC2 was untouched. Newer drugs aimed only at mTORC1 showed a low rate of blood-sugar side effects in an early human cancer trial: encouraging, but that trial had no comparison group and was not about ageing.",
+  "changed_since_written": "2025: a bi-steric mTORC1-selective inhibitor reached humans. In a phase 1 trial of RMC-5552 (Schram, Clin Cancer Res 2025, PMID 41056387, n=57) treatment-related hyperglycaemia occurred in 4% and was not dose-limiting — but mucositis occurred in 49%, so the dose-limiting toxicity moved rather than disappeared. The mechanistic premise also firmed up: bi-sterics reactivate 4E-BP1, which rapalogs cannot, while sparing mTORC2 (Mahauad-Fernandez, Cell Chem Biol 2025, PMID 40803322). No lifespan data exist for any bi-steric in any species.",
+  "still_open": "Two things this question had merged. First, does a bi-steric extend lifespan in genetically heterogeneous mice? Untested, and not in any ITP cohort. Second, is rapamycin's glucose intolerance costing anything at all? Lamming 2012 already reported lifespan extension as separable from glucose homeostasis (in female mTOR/mLST8 double-heterozygous mice), and the highest ITP rapamycin dose produces both the largest lifespan gain and glucose intolerance — so the penalty this question proposes to remove may be a biomarker rather than a cost. A further complication: in male mice, lifespan extension by acarbose and 17-alpha-estradiol travels with raised hepatic mTORC2 signalling (Garratt, Aging Cell 2017, PMID 28834262), so mTORC2 tone is not purely a side-effect channel.",
+  "hypothesis": "An intervention that suppresses the mTORC1/4E-BP1 arm while sparing mTORC2 -- now achievable with bi-steric mTORC1-selective inhibitors (RMC-6272/RMC-5552) in addition to intermittent/low-dose rapamycin -- yields the lifespan benefit without glucose intolerance.",
+  "hypothesis_beginner": "Educated guess: a drug (or dosing schedule) that blocks mTORC1 while leaving mTORC2 alone should give the longevity benefit of rapamycin without the blood-sugar downside.",
+  "how_to_test": "Two experiments, not one. (a) Bi-steric (RMC-6272 class) in an ITP-style lifespan protocol at a dose achieving measurable 4E-BP1 dephosphorylation — the actually untested claim. (b) To test whether the metabolic penalty is a cost: normalise glucose tolerance on top of 42 ppm rapamycin, with acarbose or an SGLT2 inhibitor, and ask whether lifespan moves. Note that bi-sterics (deeper, continuous suppression) and intermittent rapamycin (shallower, pulsed) are opposite manipulations and predict opposite things for muscle and immunity; they should not be pooled as one strategy.",
+  "studies": [
+   "LAM2012",
+   "ARR2015",
+   "MIL2014",
+   "KEN2016",
+   "THO2009",
+   "MOE2025",
+   "MEN2023",
+   "SCH2025"
+  ],
+  "revision_log": [
+   "2026-07-09: Bi-steric inhibitor evidence added (revised 2026-07-29).",
+   "2026-08-30: The opening sentence previously read 'Longevity comes from mTORC1 but chronic rapamycin's harm comes from mTORC2 disruption', and the ARR2015 clause read 'inhibited mTORC1 only'. Both were more certain than the experiments support, which is a preferential separation.",
+   "2026-09-29: The Lamming 2012 result is now qualified as female mice."
+  ],
+  "url": "https://mtor-atlas.org/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H2.json"
+ }
+}

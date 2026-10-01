@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GWI2008",
+  "title": "AMPK phosphorylation of raptor mediates a metabolic checkpoint",
+  "authors": "Gwinn DM; Shackelford DB; Egan DF; Mihaylova MM; Mery A; Vasquez DS; Turk BE; Shaw RJ",
+  "year": 2008,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2008.03.003",
+  "pmid": "18439900",
+  "pmcid": "PMC2674027",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human/mouse cells (biochemistry)",
+  "peer_reviewed": true,
+  "finding": "Found a SECOND way the energy sensor AMPK shuts mTORC1 down. Besides acting through TSC2, AMPK directly phosphorylates Raptor - the core mTORC1 subunit - to halt growth when energy runs low. This 'metabolic checkpoint' is exactly the switch that drugs like metformin and exercise tap into.",
+  "url": "https://mtor-atlas.org/study/GWI2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GWI2008.json",
+  "abstract_excerpt": "AMPK is a highly conserved sensor of cellular energy status that is activated under conditions of low intracellular ATP. AMPK responds to energy stress by suppressing cell growth and biosynthetic processes, in part through its inhibition of the rapamycin-sensitive mTOR (mTORC1) pathway. AMPK phosphorylation of the TSC2 tumor suppressor contributes to suppression of mTORC1; however, TSC2-deficient cells remain responsive to energy stress. Using a proteomic and bioinformatics approach, we sought to identify additional substrates of AMPK that mediate its effects on growth control.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (AMPK phosphorylation of raptor)",
+   "target": "raptor / mTORC1 / AMPK",
+   "species": "Human/mouse cells (biochemistry)",
+   "effect": "Under energy stress AMPK phosphorylates raptor → a metabolic checkpoint that suppresses mTORC1"
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "energy-cellular-stress",
+    "name": "Energy & cellular stress",
+    "type": "Condition"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AMPK-MTORC1",
+    "STRESS-AMPK"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H9"
+  ],
+  "related_studies": [
+   "ZHO2001",
+   "DEM2016",
+   "MEN2014",
+   "HOW2017"
+  ]
+ }
+}

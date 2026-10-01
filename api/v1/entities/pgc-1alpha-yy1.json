@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pgc-1alpha-yy1",
+  "name": "PGC-1α / YY1",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Transcriptional complex through which mTORC1 drives mitochondrial gene expression.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pgc-1alpha-yy1.json",
+  "description_beginner": "The switch that builds power plants.",
+  "studies": [
+   {
+    "sid": "CUN2007",
+    "title": "mTOR controls mitochondrial oxidative function through a YY1-PGC-1alpha transcriptional complex",
+    "authors": "Cunningham JT; Rodgers JT; Arlow DH; Vazquez F; Mootha VK; Puigserver P",
+    "year": 2007,
+    "journal": "Nature",
+    "doi": "10.1038/nature06322",
+    "pmid": "18046414",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Skeletal muscle cells + tissue",
+    "peer_reviewed": true,
+    "finding": "Showed mTOR isn't just about building proteins - it also runs the cell's POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional program; block mTOR with rapamycin and mitochondrial output falls. Explains part of why mTOR inhibition reshapes metabolism.",
+    "url": "https://mtor-atlas.org/study/CUN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUN2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-PGC1A",
+    "claim": "mTORC1 activates PGC-1α / YY1",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "PGC-1α / YY1",
+     "entity": "pgc-1alpha-yy1"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.",
+    "mechanism_beginner": "mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell's outer edges. The direct interaction rests on a single study in this Atlas.",
+    "context": null,
+    "boundary": "Single-study support in this corpus for the direct interaction; the downstream respiratory phenotype is better replicated than the binding itself.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CUN2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-PGC1A.json"
+   }
+  ]
+ }
+}

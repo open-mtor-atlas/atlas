@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZID2009",
+  "title": "4E-BP extends lifespan upon dietary restriction by enhancing mitochondrial activity in Drosophila",
+  "authors": "Zid BM; Rogers AN; Katewa SD; Vargas MA; Kolipinski MC; Lu TA; Benzer S; Kapahi P",
+  "year": 2009,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2009.07.034",
+  "pmid": "19804760",
+  "pmcid": "PMC2759400",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Drosophila (fruit fly)",
+  "peer_reviewed": true,
+  "finding": "Connected the dots between diet, mTOR, and lifespan. 4E-BP, an mTOR target, is upregulated on dietary restriction and here was shown to be REQUIRED for the lifespan boost, working by selectively boosting translation of mitochondrial genes. A rare case pinning a specific mTOR effector to the longevity benefit of eating less.",
+  "url": "https://mtor-atlas.org/study/ZID2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZID2009.json",
+  "abstract_excerpt": "Dietary restriction (DR) extends lifespan in multiple species. To examine the mechanisms of lifespan extension upon DR, we assayed genome-wide translational changes in Drosophila. A number of nuclear encoded mitochondrial genes, including those in Complex I and IV of the electron transport chain, showed increased ribosomal loading and enhanced overall activity upon DR. We found that various mitochondrial genes possessed shorter and less structured 5'UTRs, which were important for their enhanced mRNA translation.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (4E-BP)",
+   "target": "4E-BP / mitochondria",
+   "species": "Drosophila",
+   "effect": "4E-BP extends lifespan under dietary restriction by enhancing mitochondrial activity",
+   "dose": "Reducing the concentration of yeast or yeast extract in the fly diet while sucrose was constant (Dietary Restriction)",
+   "sample_size": "not stated",
+   "effect_size": "Upon DR, approximately 30% decrease of labeled methionine incorporation into newly synthesized proteins; mitochondrial protein density increased 25% in control flies; 20% upregulation in Complex I activity in DR flies; Cytochrome C oxidase (COX) activity increased 60% in control flies upon DR; 55 genes were differentially translationally downregulated and 201 upregulated upon DR (FDR < 5%)",
+   "limitations": "not stated"
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "caloric-restriction",
+    "name": "Caloric restriction",
+    "type": "Intervention"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "4EBP1-LONGEVITY"
+   ],
+   "conflicts_with": [
+    "4EBP1-MITO"
+   ]
+  },
+  "questions": [],
+  "related_studies": [
+   "FON2010",
+   "MAT2017",
+   "ROM2016",
+   "HSI2012"
+  ]
+ }
+}

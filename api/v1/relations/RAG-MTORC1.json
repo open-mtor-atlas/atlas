@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "RAG-MTORC1",
+  "claim": "Rag GTPases recruits mTORC1",
+  "source": {
+   "name": "Rag GTPases",
+   "entity": "rag-gtpases"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "recruits",
+  "type": "recruitment",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "The active Rag dimer grabs Raptor and physically drags mTORC1 to the lysosomal surface. This is a relocation, not an activation - the kinase is moved to where its activator waits.",
+  "mechanism_beginner": "The switched-on Rag proteins grab mTORC1 and drag it to the lysosome. This moves it into place; it doesn't turn it on by itself.",
+  "context": null,
+  "boundary": "Rag paralogues are not interchangeable: RagC/D sets substrate specificity downstream (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding, while both Rags are involved for non-lysosomal substrates like S6K), and RagA/B sets the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even when starved) — GOL2022.",
+  "note": "The conceptual crux of the whole route: teach recruitment vs activation as two separate ideas.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "established",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SAN2008",
+    "SAN2010",
+    "LAW2018",
+    "GOL2022"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/RAG-MTORC1.json"
+ }
+}

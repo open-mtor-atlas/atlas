@@ -1,0 +1,117 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "oxidative-phosphorylation",
+  "name": "Oxidative phosphorylation",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "Mitochondrial respiratory capacity, supported by mTORC1.",
+  "study_count": 2,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/oxidative-phosphorylation.json",
+  "description_beginner": "Burning fuel for energy.",
+  "studies": [
+   {
+    "sid": "MOR2013",
+    "title": "mTORC1 controls mitochondrial activity and biogenesis through 4E-BP-dependent translational regulation",
+    "authors": "Morita M; Sonenberg N et al.",
+    "year": 2013,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2013.10.001",
+    "pmid": "24206664",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 controls mitochondrial biogenesis and activity through 4E-BP-dependent translation.",
+    "url": "https://mtor-atlas.org/study/MOR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MOR2013.json"
+   },
+   {
+    "sid": "CUN2007",
+    "title": "mTOR controls mitochondrial oxidative function through a YY1-PGC-1alpha transcriptional complex",
+    "authors": "Cunningham JT; Rodgers JT; Arlow DH; Vazquez F; Mootha VK; Puigserver P",
+    "year": 2007,
+    "journal": "Nature",
+    "doi": "10.1038/nature06322",
+    "pmid": "18046414",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Skeletal muscle cells + tissue",
+    "peer_reviewed": true,
+    "finding": "Showed mTOR isn't just about building proteins - it also runs the cell's POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional program; block mTOR with rapamycin and mitochondrial output falls. Explains part of why mTOR inhibition reshapes metabolism.",
+    "url": "https://mtor-atlas.org/study/CUN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUN2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-OXPHOS",
+    "claim": "mTORC1 activates Oxidative phosphorylation",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "Oxidative phosphorylation",
+     "entity": "oxidative-phosphorylation"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "mito",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTORC1 raises mitochondrial respiratory capacity through a YY1–PGC-1α transcriptional programme and through 4E-BP-dependent translation of respiratory components.",
+    "mechanism_beginner": "mTORC1 boosts how much energy mitochondria can produce, through both gene activation and protein-building. One mouse experiment points the other way – removing mTORC1 from fat tissue RAISED respiration – so this direction is not settled in a living animal.",
+    "context": null,
+    "boundary": "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo. OVERLAP (audit 2026-09-04): this edge and MTORC1-MITO assert overlapping biology from overlapping citations (CUN2007, MOR2013) at different tiers and different consensus levels. Read them together; they are not independent support.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CUN2007",
+      "MOR2013"
+     ],
+     "conflicting": [
+      "POL2008"
+     ]
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-OXPHOS.json"
+   }
+  ]
+ }
+}

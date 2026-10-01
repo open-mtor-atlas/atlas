@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MTORC2-AKT",
+  "claim": "mTORC2 activates Akt/PKB",
+  "source": {
+   "name": "mTORC2",
+   "entity": "mtorc2"
+  },
+  "target": {
+   "name": "Akt/PKB",
+   "entity": "akt-pkb"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "pm",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "mTORC2 puts the second, activating phosphate on Akt (Ser473). This is the step rapamycin eventually breaks, and a major reason, in mice, that chronic rapamycin impairs glucose tolerance (LAM2012).",
+  "mechanism_beginner": "mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts. In mice, that disruption is a major reason long-term rapamycin raises blood sugar.",
+  "context": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
+  "boundary": null,
+  "note": "Bridge edge between the growth-factor route and the rapamycin route.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "JAC2006",
+    "FRI2006",
+    "YAN2006",
+    "LIU2015"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-AKT.json"
+ }
+}

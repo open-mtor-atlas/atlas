@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "integrated-stress-response",
+  "name": "Integrated stress response",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "Conserved response to unfolded protein, amino-acid and other stresses. Reaches mTORC1 by more than one route: ATF4-induced REDD1 acts through the TSC complex, while ATF4-induced Sestrin2 acts on GATOR2. It is not a single brake, and it is not the AMPK one.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/integrated-stress-response.json",
+  "description_beginner": "The cell's general-purpose alarm system for problems like misfolded proteins or amino-acid shortage. It suppresses mTORC1 by more than one route: one of them (REDD1) works through the TSC brake, another (Sestrin2) works on GATOR2. So it is not one single brake, and it is not the AMPK one.",
+  "studies": [
+   {
+    "sid": "DEN2026",
+    "title": "Spalt-related is an inhibitor of mTORC1-mediated growth activated by the integrated stress response",
+    "authors": "Onur Deniz, Ying Liu, Tuuli Kirkinen, Krista Kokki, Kateryna Gaertner, Pau Clavell-Revelles, Jaakko Mattila, Ville Hietakangas",
+    "year": 2026,
+    "journal": "The EMBO Journal",
+    "doi": "10.1038/s44318-026-00858-1",
+    "pmid": "42436355",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster",
+    "peer_reviewed": true,
+    "finding": "Transcription factor Spalt-related (Salr) is a novel mTORC1 inhibitor in Drosophila activated by the integrated stress response, restricting anabolic growth and lipid storage during nutrient stress. Salr responds to a distinct, ISR-driven cue, acting convergently with FoxO rather than downstream of it.",
+    "url": "https://mtor-atlas.org/study/DEN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "ISR-SALR",
+    "claim": "Integrated stress response activates Spalt-related (Salr)",
+    "source": {
+     "name": "Integrated stress response",
+     "entity": "integrated-stress-response"
+    },
+    "target": {
+     "name": "Spalt-related (Salr)",
+     "entity": "spalt-related-salr"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "fly"
+    ],
+    "mechanism": "The integrated stress response switches on Salr, a growth inhibitor - a route into mTORC1 that bypasses TSC and AMPK entirely.",
+    "mechanism_beginner": "The cell's stress-response system switches on a growth-blocking gene – a route to shutting down mTORC1 that skips right past TSC and AMPK.",
+    "context": null,
+    "boundary": "Fly only, and newly reported.",
+    "note": "Thin and species-limited, but it is a genuinely different input route - worth showing as such.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "DEN2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ISR-SALR.json"
+   }
+  ]
+ }
+}

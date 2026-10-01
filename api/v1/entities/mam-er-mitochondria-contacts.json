@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "mam-er-mitochondria-contacts",
+  "name": "MAM (ER–mitochondria contacts)",
+  "type": "Organelle",
+  "synonyms": [],
+  "description": "Mitochondria-associated ER membranes: a signalling platform distinct from the lysosome.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/mam-er-mitochondria-contacts.json",
+  "description_beginner": "Where two organelles touch and talk.",
+  "studies": [
+   {
+    "sid": "BET2013",
+    "title": "mTOR complex 2-Akt signaling at mitochondria-associated endoplasmic reticulum membranes (MAM) regulates mitochondrial physiology",
+    "authors": "Betz C; Hall MN et al.",
+    "year": 2013,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.1302455110",
+    "pmid": "23852728",
+    "pmcid": "PMC3732980",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC2-Akt signalling localizes to mitochondria-associated ER membranes to regulate mitochondrial function.",
+    "url": "https://mtor-atlas.org/study/BET2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BET2013.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-MAM",
+    "claim": "mTORC2 activates MAM (ER–mitochondria contacts)",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "MAM (ER–mitochondria contacts)",
+     "entity": "mam-er-mitochondria-contacts"
+    },
+    "effect": "activates",
+    "type": "localisation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "mito",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTORC2–Akt signalling localises to mitochondria-associated ER membranes and regulates mitochondrial physiology from there.",
+    "mechanism_beginner": "mTORC2 signalling also happens at a specific contact point between mitochondria and another cell structure – proof this pathway works at more than one location in the cell.",
+    "context": null,
+    "boundary": "Biochemical fractionation and imaging in cell lines; the functional contribution relative to plasma-membrane mTORC2 is not quantified.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BET2013"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-MAM.json"
+   }
+  ]
+ }
+}

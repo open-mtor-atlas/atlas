@@ -1,0 +1,981 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Oliver's mTOR Atlas API",
+  "version": "1.0.0",
+  "summary": "Static, read-only JSON over the curated mTOR corpus.",
+  "description": "Every endpoint is a pre-built JSON file generated from the same data as the website. There are no query parameters: fetch a list and filter locally. Evidence codes describe the kind of study behind a finding, not its quality. Data: CC BY 4.0, cite doi:10.5281/zenodo.22059963.",
+  "license": {
+   "name": "CC BY 4.0",
+   "identifier": "CC-BY-4.0"
+  },
+  "contact": {
+   "name": "Oliver's mTOR Atlas",
+   "url": "https://mtor-atlas.org/about/"
+  }
+ },
+ "externalDocs": {
+  "url": "https://mtor-atlas.org/api/",
+  "description": "Human-readable documentation with examples"
+ },
+ "servers": [
+  {
+   "url": "https://mtor-atlas.org/api/v1"
+  }
+ ],
+ "paths": {
+  "/meta.json": {
+   "get": {
+    "operationId": "getMeta",
+    "summary": "Dataset version, counts, evidence codes, endpoint list",
+    "responses": {
+     "200": {
+      "description": "Metadata",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/studies.json": {
+   "get": {
+    "operationId": "listStudies",
+    "summary": "All studies (summary records)",
+    "responses": {
+     "200": {
+      "description": "List of studies",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/StudySummary"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/studies/{sid}.json": {
+   "get": {
+    "operationId": "getStudy",
+    "summary": "One study with its entities, relations and questions",
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "description": "Atlas study ID",
+      "schema": {
+       "type": "string"
+      },
+      "example": "SAB1994"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Study",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Study"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/entities.json": {
+   "get": {
+    "operationId": "listEntities",
+    "summary": "All entities (genes, drugs, diseases, processes…)",
+    "responses": {
+     "200": {
+      "description": "List of entities",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/EntitySummary"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/entities/{id}.json": {
+   "get": {
+    "operationId": "getEntity",
+    "summary": "One entity with its studies and pathway relations",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Entity ID (slug of the name)",
+      "schema": {
+       "type": "string"
+      },
+      "example": "mtorc1"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Entity"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/relations.json": {
+   "get": {
+    "operationId": "listRelations",
+    "summary": "All evidence-linked pathway relations (claims)",
+    "responses": {
+     "200": {
+      "description": "List of relations",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Relation"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/relations/{id}.json": {
+   "get": {
+    "operationId": "getRelation",
+    "summary": "One relation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Relation ID",
+      "schema": {
+       "type": "string"
+      },
+      "example": "4EBP1-EIF4E"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Relation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Relation"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/questions.json": {
+   "get": {
+    "operationId": "listQuestions",
+    "summary": "Open questions and frontier questions",
+    "responses": {
+     "200": {
+      "description": "List of questions",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Question"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/questions/{id}.json": {
+   "get": {
+    "operationId": "getQuestion",
+    "summary": "One question",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Question ID (H… open question, F… frontier)",
+      "schema": {
+       "type": "string"
+      },
+      "example": "H1"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Question",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Question"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Meta": {
+    "type": "object",
+    "description": "Provenance of the response",
+    "properties": {
+     "api_version": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "dataset_version": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "corpus_snapshot": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "source_commit": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "license": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "cite": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "docs": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
+   "Evidence": {
+    "type": "object",
+    "required": [
+     "code",
+     "label",
+     "note"
+    ],
+    "properties": {
+     "code": {
+      "type": "string",
+      "enum": [
+       "S",
+       "H",
+       "A",
+       "M",
+       "PP",
+       "RT",
+       "R",
+       "—"
+      ]
+     },
+     "label": {
+      "type": "string"
+     },
+     "note": {
+      "type": "string"
+     }
+    }
+   },
+   "StudySummary": {
+    "type": "object",
+    "required": [
+     "sid",
+     "evidence",
+     "url"
+    ],
+    "properties": {
+     "sid": {
+      "type": "string"
+     },
+     "title": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "authors": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "year": {
+      "type": [
+       "integer",
+       "string",
+       "null"
+      ]
+     },
+     "journal": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "doi": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmcid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "evidence": {
+      "$ref": "#/components/schemas/Evidence"
+     },
+     "category": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "model_system": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "peer_reviewed": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     },
+     "finding": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "url": {
+      "type": "string"
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Study": {
+    "allOf": [
+     {
+      "$ref": "#/components/schemas/StudySummary"
+     },
+     {
+      "type": "object",
+      "properties": {
+       "abstract_excerpt": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "abstract_truncated": {
+        "type": [
+         "boolean",
+         "null"
+        ]
+       },
+       "extracted_findings": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "additionalProperties": {
+         "type": "string"
+        }
+       },
+       "entities": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "string"
+          },
+          "name": {
+           "type": "string"
+          },
+          "type": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "relations": {
+        "type": "object",
+        "properties": {
+         "supports": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "conflicts_with": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "questions": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "related_studies": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ]
+   },
+   "EntitySummary": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "type"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "synonyms": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "description": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "study_count": {
+      "type": "integer"
+     },
+     "relation_count": {
+      "type": "integer"
+     },
+     "url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Entity": {
+    "allOf": [
+     {
+      "$ref": "#/components/schemas/EntitySummary"
+     },
+     {
+      "type": "object",
+      "properties": {
+       "description_beginner": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "studies": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/StudySummary"
+        }
+       },
+       "relations": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/Relation"
+        }
+       }
+      }
+     }
+    ]
+   },
+   "NodeRef": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "entity": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
+   "Relation": {
+    "type": "object",
+    "required": [
+     "id",
+     "source",
+     "target",
+     "evidence"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "claim": {
+      "type": "string"
+     },
+     "source": {
+      "$ref": "#/components/schemas/NodeRef"
+     },
+     "target": {
+      "$ref": "#/components/schemas/NodeRef"
+     },
+     "effect": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "type": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "directness": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "timescale": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "compartment": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "species": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "mechanism": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "mechanism_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "context": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "boundary": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "note": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "contested": {
+      "type": "boolean"
+     },
+     "confidence": {
+      "type": "object",
+      "properties": {
+       "mechanistic": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "human_relevance": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "consensus": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      }
+     },
+     "evidence": {
+      "type": "object",
+      "properties": {
+       "kind": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "strongest": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "properties": {
+         "code": {
+          "type": "string"
+         },
+         "label": {
+          "type": "string"
+         }
+        }
+       },
+       "supporting": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "conflicting": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "reviewed": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "updated": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Question": {
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "title"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "open-question",
+       "frontier"
+      ]
+     },
+     "title": {
+      "type": "string"
+     },
+     "category": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "confidence": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "evidence_stands_at": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "gap": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "gap_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "changed_since_written": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "still_open": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "hypothesis": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "hypothesis_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "why_it_matters": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "how_to_test": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "studies": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "related_questions": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "revision_log": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "url": {
+      "type": "string"
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

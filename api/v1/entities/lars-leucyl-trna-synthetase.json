@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lars-leucyl-trna-synthetase",
+  "name": "LARS (leucyl-tRNA synthetase)",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Enzyme that charges tRNA with leucine, proposed as an alternative intracellular leucine sensor acting as a GAP for RagD. Competes with the Sestrin2 model - an unresolved question in the field.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lars-leucyl-trna-synthetase.json",
+  "description_beginner": "An enzyme that loads the amino acid leucine onto its transport molecule (tRNA) so cells can build proteins. Some scientists think it might also work as a second sensor that tells mTORC1 when leucine is available - a rival idea to the more established Sestrin2 sensor, and the two ideas haven't been fully reconciled.",
+  "studies": [
+   {
+    "sid": "HAN2012",
+    "title": "Leucyl-tRNA synthetase is an intracellular leucine sensor for the mTORC1-signaling pathway",
+    "authors": "Han JM; Kim S et al.",
+    "year": 2012,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2012.02.044",
+    "pmid": "22424946",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Leucyl-tRNA synthetase acts as an intracellular leucine sensor activating mTORC1 via the Rag pathway.",
+    "url": "https://mtor-atlas.org/study/HAN2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "LARS-RAG",
+    "claim": "LARS (leucyl-tRNA synthetase) activates Rag GTPases",
+    "source": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "gap-activity",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "In this model LARS acts as a GAP for RagD, doing for the RagC/D half what FLCN does - an alternative route from leucine to the Rags.",
+    "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
+    "context": null,
+    "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+    "note": "See LEU-LARS.",
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LARS-RAG.json"
+   },
+   {
+    "id": "LEU-LARS",
+    "claim": "Leucine activates LARS (leucyl-tRNA synthetase)",
+    "source": {
+     "name": "Leucine",
+     "entity": "leucine"
+    },
+    "target": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.",
+    "mechanism_beginner": "One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.",
+    "context": null,
+    "boundary": "Proposed before the Sestrin2 model and never cleanly reconciled with it.",
+    "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-LARS.json"
+   }
+  ]
+ }
+}

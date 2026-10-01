@@ -1,0 +1,76 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HARA2002",
+  "title": "Raptor, a binding partner of target of rapamycin (TOR), mediates TOR action",
+  "authors": "Hara K; Maruki Y; Long X; Yoshino K; Oshiro N; Hidayat S; Tokunaga C; Avruch J; Yonezawa K",
+  "year": 2002,
+  "journal": "Cell",
+  "doi": "10.1016/s0092-8674(02)00833-4",
+  "pmid": "12150926",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells + C. elegans RNAi",
+  "peer_reviewed": true,
+  "finding": "Independent co-discovery of Raptor (same issue of Cell as Kim 2002). Showed Raptor is essential for mTOR to phosphorylate 4E-BP1 and S6K1, and that knocking it down in worms mimics loss of TOR - confirming Raptor as a core, conserved mediator of TOR action.",
+  "url": "https://mtor-atlas.org/study/HARA2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HARA2002.json",
+  "abstract_excerpt": "mTOR controls cell growth, in part by regulating p70 S6 kinase alpha (p70alpha) and eukaryotic initiation factor 4E binding protein 1 (4EBP1). Raptor is a 150 kDa mTOR binding protein that also binds 4EBP1 and p70alpha. The binding of raptor to mTOR is necessary for the mTOR-catalyzed phosphorylation of 4EBP1 in vitro, and it strongly enhances the mTOR kinase activity toward p70alpha. Rapamycin or amino acid withdrawal increases, whereas insulin strongly inhibits, the recovery of 4EBP1 and raptor on 7-methyl-GTP Sepharose.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (raptor; C. elegans RNAi)",
+   "target": "mTOR / raptor / 4EBP1 / S6K",
+   "species": "Human cells + C. elegans",
+   "effect": "Raptor binds mTOR and its substrates (4EBP1, p70S6K) and is required for mTOR-catalyzed phosphorylation"
+  },
+  "entities": [
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-4EBP1",
+    "RAPTOR-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "KIM2002",
+   "CUI2023",
+   "CUI2025",
+   "CUN2007"
+  ]
+ }
+}

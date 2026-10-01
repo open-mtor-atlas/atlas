@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "deptor",
+  "name": "DEPTOR",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Endogenous inhibitor of both mTORC1 and mTORC2; paradoxically overexpressed in a subset of multiple myelomas, which depend on high DEPTOR: partial mTORC1 suppression relieves S6K1-IRS1 feedback and sustains PI3K/Akt survival signalling (Peterson 2009).",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/deptor.json",
+  "description_beginner": "A natural brake on both mTOR complexes at once. Oddly, some multiple myeloma (bone marrow cancer) cells make extra amounts of it and depend on having it: damping mTORC1 releases a feedback loop and keeps PI3K/Akt survival signaling switched on.",
+  "studies": [
+   {
+    "sid": "PET2009",
+    "title": "DEPTOR is an mTOR inhibitor frequently overexpressed in multiple myeloma cells and required for their survival",
+    "authors": "Peterson TR; Laplante M; Thoreen CC; Sancak Y; Kang SA; Kuehl WM; Gray NS; Sabatini DM",
+    "year": 2009,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2009.03.046",
+    "pmid": "19446321",
+    "pmcid": "PMC2758791",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines",
+    "peer_reviewed": true,
+    "finding": "Identified DEPTOR as a built-in brake on BOTH mTOR complexes. The twist: in some multiple myelomas DEPTOR is overexpressed, which by relieving a feedback loop actually keeps pro-survival Akt signaling ON - a neat example of how an 'inhibitor' can be co-opted by cancer.",
+    "url": "https://mtor-atlas.org/study/PET2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PET2009.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "DEPTOR-MTOR",
+    "claim": "DEPTOR inhibits mTOR",
+    "source": {
+     "name": "DEPTOR",
+     "entity": "deptor"
+    },
+    "target": {
+     "name": "mTOR",
+     "entity": "mtor"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "DEPTOR sits on mTOR and damps both complexes; myeloma cells overexpress it and depend on that damping.",
+    "mechanism_beginner": "DEPTOR sits on mTOR and dampens both complexes; some cancer cells (myeloma) make extra DEPTOR and come to depend on that damping.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "PET2009"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/DEPTOR-MTOR.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "INO2003",
+  "title": "TSC2 mediates cellular energy response to control cell growth and survival",
+  "authors": "Inoki K; Zhu T; Guan KL",
+  "year": 2003,
+  "journal": "Cell",
+  "doi": "10.1016/s0092-8674(03)00929-2",
+  "pmid": "14651849",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells (biochemistry)",
+  "peer_reviewed": true,
+  "finding": "Established the energy-sensing arm of the pathway. When energy runs low, AMPK phosphorylates TSC2, boosting its ability to shut mTOR down - protecting the cell from burning through resources and from starvation-induced death. The founding paper for how mTOR reads the cell's fuel gauge (complements the Akt-TSC2 growth-factor arm).",
+  "url": "https://mtor-atlas.org/study/INO2003/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/INO2003.json",
+  "abstract_excerpt": "Mutations in either the TSC1 or TSC2 tumor suppressor gene are responsible for Tuberous Sclerosis Complex. The gene products of TSC1 and TSC2 form a functional complex and inhibit the phosphorylation of S6K and 4EBP1, two key regulators of translation. Here, we describe that TSC2 is regulated by cellular energy levels and plays an essential role in the cellular energy response pathway. Under energy starvation conditions, the AMP-activated protein kinase (AMPK) phosphorylates TSC2 and enhances its activity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (AMPK/TSC2)",
+   "target": "TSC2 / AMPK / mTOR",
+   "species": "Mammalian cells (biochemistry)",
+   "effect": "TSC2 mediates the cellular energy response (via AMPK) to control cell growth and survival"
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AMPK-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "GWI2008",
+   "HOW2017",
+   "DAL2016",
+   "KIM2011"
+  ]
+ }
+}

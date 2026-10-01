@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "LYSO-MTORC1",
+  "claim": "Lysosome required-for mTORC1",
+  "source": {
+   "name": "Lysosome",
+   "entity": "lysosome"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "required-for",
+  "type": "localisation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.",
+  "mechanism_beginner": "In the amino-acid route, mTORC1 only works while it's sitting on the lysosome, because that is where its activator waits – move it somewhere else and amino acids stop being able to reach it.",
+  "context": null,
+  "boundary": "Scoped to amino-acid-driven activation. Live BRET imaging in this corpus (BOU2020) resolves mTOR activity in the cytosol, at the lysosome, in the nucleus and near mitochondria, so mTOR signalling is measurably not one pool. This map draws the lysosomal route and keeps the other localisations declared as open rather than asserting there are none. FER2024 refines this further: lysosomal mTORC1 (fed by local lysosomal proteolysis) and cytoplasmic mTORC1 (fed by exogenous amino acids) phosphorylate distinct downstream substrates — the lysosome is required for one regulatory sub-pool of mTORC1, not for all of it.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "established",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SAN2010",
+    "ZON2011",
+    "FER2024"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/LYSO-MTORC1.json"
+ }
+}

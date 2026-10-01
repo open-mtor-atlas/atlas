@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SAR2004",
+  "title": "Rictor, a novel binding partner of mTOR, defines a rapamycin-insensitive and raptor-independent pathway that regulates the cytoskeleton",
+  "authors": "Sarbassov DD; Ali SM; Kim DH; Guertin DA; Latek RR; Erdjument-Bromage H; Tempst P; Sabatini DM",
+  "year": 2004,
+  "journal": "Current Biology",
+  "doi": "10.1016/j.cub.2004.06.054",
+  "pmid": "15268862",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells + Drosophila",
+  "peer_reviewed": true,
+  "finding": "Discovery of Rictor and the SECOND mTOR complex, mTORC2. Crucially showed this complex is NOT blocked by rapamycin and does not use Raptor - it controls the cytoskeleton via PKC. This is the paper that split mTOR biology into 'two faces' at the molecular level.",
+  "url": "https://mtor-atlas.org/study/SAR2004/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2004.json",
+  "abstract_excerpt": "The mammalian TOR (mTOR) pathway integrates nutrient- and growth factor-derived signals to regulate growth, the process whereby cells accumulate mass and increase in size. mTOR is a large protein kinase and the target of rapamycin, an immunosuppressant that also blocks vessel restenosis and has potential anticancer applications. mTOR interacts with the raptor and GbetaL proteins to form a complex that is the target of rapamycin. Here, we demonstrate that mTOR is also part of a distinct complex defined by the novel protein rictor (rapamycin-insensitive companion of mTOR).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (rictor)",
+   "target": "mTORC2 (rictor) / actin cytoskeleton",
+   "species": "Human cells + Drosophila",
+   "effect": "Defines rictor-mTOR (mTORC2) as a rapamycin-insensitive, raptor-independent pathway regulating the cytoskeleton"
+  },
+  "entities": [
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "actin-cytoskeleton",
+    "name": "Actin cytoskeleton",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC2-ACTIN",
+    "RICTOR-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "GUE2006",
+   "SAR2006",
+   "JAC2004",
+   "LOE2002"
+  ]
+ }
+}

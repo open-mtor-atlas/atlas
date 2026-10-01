@@ -1,0 +1,77 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAS2012",
+  "title": "Everolimus in postmenopausal hormone-receptor-positive advanced breast cancer (BOLERO-2)",
+  "authors": "Baselga J; Campone M; Piccart M; Burris HA; Rugo HS; et al.; Hortobagyi GN",
+  "year": 2012,
+  "journal": "New England Journal of Medicine",
+  "doi": "10.1056/NEJMoa1109653",
+  "pmid": "22149876",
+  "pmcid": "PMC5705195",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, phase 3 RCT (n=724)",
+  "peer_reviewed": true,
+  "finding": "A phase 3 RCT (n=724) proving mTOR matters in a common cancer. Resistance to hormone therapy in breast cancer is associated with mTOR activation. Adding everolimus more than doubled progression-free survival (10.6 vs 4.1 months by central review) - leading to FDA approval. Main toxicity was stomatitis.",
+  "url": "https://mtor-atlas.org/study/BAS2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAS2012.json",
+  "abstract_excerpt": "Resistance to endocrine therapy in breast cancer is associated with activation of the mammalian target of rapamycin (mTOR) intracellular signaling pathway. In early studies, the mTOR inhibitor everolimus added to endocrine therapy showed antitumor activity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Everolimus + exemestane",
+   "target": "mTORC1",
+   "species": "Human – phase 3 RCT (BOLERO-2, n=724, HR+ breast cancer)",
+   "effect": "Adding everolimus to exemestane improved progression-free survival in HR+ advanced breast cancer",
+   "dose": "Everolimus 10 mg once daily + exemestane vs placebo + exemestane; oral; international double-blind phase 3, 2:1 randomization (BOLERO-2).",
+   "sample_size": "724 women, 189 centers, 24 countries (485 everolimus-combination / 239 control); PK subgroup n=80.",
+   "effect_size": "Primary endpoint progression-free survival; adding everolimus significantly improved PFS vs exemestane alone (log-rank, stratified).",
+   "limitations": "Kaplan-Meier estimates beyond week 36 to be interpreted with caution (few patients at risk, limited follow-up)."
+  },
+  "entities": [
+   {
+    "id": "everolimus",
+    "name": "Everolimus",
+    "type": "Drug"
+   },
+   {
+    "id": "breast-cancer",
+    "name": "Breast cancer",
+    "type": "Disease"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "EVE-BREAST",
+    "EVE-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H5"
+  ],
+  "related_studies": [
+   "MAR2026",
+   "MEN2023",
+   "BIS2013",
+   "FRA2013"
+  ]
+ }
+}

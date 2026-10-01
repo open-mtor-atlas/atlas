@@ -1,0 +1,79 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MCC2011",
+  "title": "Efficacy and safety of sirolimus in lymphangioleiomyomatosis (MILES)",
+  "authors": "McCormack FX; Inoue Y; Moss J; Singer LG; Strange C; et al.; Trapnell BC",
+  "year": 2011,
+  "journal": "New England Journal of Medicine",
+  "doi": "10.1056/NEJMoa1100391",
+  "pmid": "21410393",
+  "pmcid": "PMC3118601",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, RCT (n=89, women with LAM)",
+  "peer_reviewed": true,
+  "finding": "A landmark placebo-controlled RCT (n=89) - the first to show that rapamycin (sirolimus) benefits a human lung disease. In LAM, lung function normally declines relentlessly; sirolimus STOPPED that decline while patients took it (and it resumed after stopping). Randomised human evidence that mTOR inhibition can suspend progression of this disease; the benefit did not persist after withdrawal.",
+  "url": "https://mtor-atlas.org/study/MCC2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MCC2011.json",
+  "abstract_excerpt": "Lymphangioleiomyomatosis (LAM) is a progressive, cystic lung disease in women; it is associated with inappropriate activation of mammalian target of rapamycin (mTOR) signaling, which regulates cellular growth and lymphangiogenesis. Sirolimus (also called rapamycin) inhibits mTOR and has shown promise in phase 1-2 trials involving patients with LAM.\n\nWe conducted a two-stage trial of sirolimus involving 89 patients with LAM who had moderate lung impairment--a 12-month randomized, double-blind comparison of sirolimus with placebo, followed by a 12-month observation period.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Sirolimus (rapamycin)",
+   "target": "mTOR",
+   "species": "Human – RCT (MILES, n=89, women with LAM)",
+   "effect": "Sirolimus stabilized lung function (FEV1) in lymphangioleiomyomatosis during treatment",
+   "dose": "Oral sirolimus, initial 2 mg/day titrated to trough 5-15 ng/ml; 12-month double-blind treatment + 12-month observation off-drug; 1:1 vs placebo (MILES).",
+   "sample_size": "111 consented, 89 randomized (43 placebo / 46 sirolimus); women with LAM, FEV1 <=70% predicted.",
+   "effect_size": "Primary outcome FEV1 slope (mL/month): sirolimus stabilized lung function during treatment while placebo declined; benefit waned after stopping the drug.",
+   "limitations": "Interim analysis delayed by site/contracting issues; other health-symptom measures not significantly different; benefit tied to continued dosing."
+  },
+  "entities": [
+   {
+    "id": "lymphangioleiomyomatosis",
+    "name": "Lymphangioleiomyomatosis",
+    "type": "Disease"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-LAM"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BIS2013",
+   "BCH2026",
+   "BIT2016",
+   "BJE2010"
+  ]
+ }
+}

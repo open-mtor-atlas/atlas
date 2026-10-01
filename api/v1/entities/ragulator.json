@@ -1,0 +1,290 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ragulator",
+  "name": "Ragulator",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "Lysosome-anchored scaffold that recruits the Rag GTPases and positions mTORC1 on the lysosomal surface for activation.",
+  "study_count": 6,
+  "relation_count": 3,
+  "url": "https://mtor-atlas.org/complex/ragulator/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/ragulator.json",
+  "description_beginner": "A scaffold anchored to the lysosome that recruits the Rag GTPases and holds mTORC1 in position on the lysosome's surface so it can be switched on there.",
+  "studies": [
+   {
+    "sid": "SAN2010",
+    "title": "Ragulator-Rag complex targets mTORC1 to the lysosomal surface and is necessary for its activation by amino acids",
+    "authors": "Sancak Y; Bar-Peled L; Zoncu R; Markhard AL; Nada S; Sabatini DM",
+    "year": 2010,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2010.02.024",
+    "pmid": "20381137",
+    "pmcid": "PMC3024592",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + Drosophila",
+    "peer_reviewed": true,
+    "finding": "Established WHERE mTORC1 gets switched on: the lysosome surface. Identified Ragulator as the lysosomal dock that recruits the Rag GTPases and drags mTORC1 to the membrane where its activator Rheb lives. Amino acids work by controlling this translocation.",
+    "url": "https://mtor-atlas.org/study/SAN2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2010.json"
+   },
+   {
+    "sid": "ZON2011",
+    "title": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase",
+    "authors": "Zoncu R; Bar-Peled L; Efeyan A; Wang S; Sancak Y; Sabatini DM",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1207056",
+    "pmid": "22053050",
+    "pmcid": "PMC3211112",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cell-free reconstitution",
+    "peer_reviewed": true,
+    "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
+    "url": "https://mtor-atlas.org/study/ZON2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json"
+   },
+   {
+    "sid": "MAR2012",
+    "title": "MTORC1 functions as a transcriptional regulator of autophagy by preventing nuclear transport of TFEB",
+    "authors": "Martina JA; Chen Yong; Gucek M; Puertollano R",
+    "year": 2012,
+    "journal": "Autophagy",
+    "doi": "10.4161/auto.19653",
+    "pmid": "22576015",
+    "pmcid": "PMC3427256",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells",
+    "peer_reviewed": true,
+    "finding": "Showed mTORC1-dependent TFEB Ser211 phosphorylation: mTORC1 (docked at the lysosome via Ragulator) phosphorylates TFEB on Ser211, which traps it in the cytosol via 14-3-3 proteins. Inhibit mTORC1 and TFEB rushes to the nucleus to switch on autophagy - explaining how mTORC1 controls recycling at the level of gene transcription.",
+    "url": "https://mtor-atlas.org/study/MAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2012.json"
+   },
+   {
+    "sid": "CUI2023",
+    "title": "Structure of the lysosomal mTORC1-TFEB-Rag-Ragulator megacomplex",
+    "authors": "Cui Z; Napolitano G; de Araujo MEG; Esposito A; Monfregola J; Huber LA; Ballabio A; Hurley JH",
+    "year": 2023,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-05652-7",
+    "pmid": "36697823",
+    "pmcid": "PMC9931586",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution)",
+    "peer_reviewed": true,
+    "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way no other mTORC1 substrate does. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
+    "url": "https://mtor-atlas.org/study/CUI2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json"
+   },
+   {
+    "sid": "CUI2025",
+    "title": "Structural basis for mTORC1 activation on the lysosomal membrane",
+    "authors": "Cui Z; Esposito A; Napolitano G; Ballabio A; Hurley JH",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09545-3",
+    "pmid": "40963021",
+    "pmcid": "PMC12448111",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, reconstituted on membranes)",
+    "peer_reviewed": true,
+    "finding": "Resolves how mTORC1 flips from 'parked on the lysosome' to 'catalytically switched on'. Reconstituting the whole assembly on membranes from purified Rheb, Rag GTPases, Ragulator and mTORC1, cryo-EM shows the kinase reaches full activity only after two separate anchoring steps: Rag-Ragulator first pulls it to within about 100 angstroms of the membrane, then Rheb pulls it to within about 40 angstroms, and only when Raptor and mTOR itself also touch the membrane directly do the catalytic residues line up for full activity. Growth-factor input (via Rheb) and nutrient input (via the Rags) are shown converging on the same physical docking event rather than acting through separate switches. Boundary: reconstituted on synthetic membranes from purified components — a structural/biochemical model, not a measurement inside a living cell.",
+    "url": "https://mtor-atlas.org/study/CUI2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2025.json"
+   },
+   {
+    "sid": "ROG2019",
+    "title": "Structural basis for the docking of mTORC1 on the lysosomal surface",
+    "authors": "Rogala KB; Sabatini DM et al.",
+    "year": 2019,
+    "journal": "Science",
+    "doi": "10.1126/science.aay0166",
+    "pmid": "31601708",
+    "pmcid": "PMC7176403",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution) + cell-based mutagenesis",
+    "peer_reviewed": true,
+    "finding": "3.2-angstrom cryo-EM structure of Raptor bound to Rag-Ragulator, showing how Raptor reads out the nutrient-dependent nucleotide state of the Rag GTPases: one part of Raptor senses RagA's nucleotide state, a separate 'claw' senses RagC's, and both have to be in the correct nutrient-signalling combination before Raptor is allowed to dock. Mutating the contact points blocks mTORC1 from reaching the lysosome and inhibits its signalling, which is the functional evidence behind the structural claim. Combined with a separate structure of mTORC1 bound to its activator Rheb, the paper builds a model of the complete, active mTORC1 sitting on the lysosome. Boundary: cryo-EM of a complex reconstituted from purified human proteins, not a live-cell measurement.",
+    "url": "https://mtor-atlas.org/study/ROG2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROG2019.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "RAGULATOR-RAG",
+    "claim": "Ragulator activates Rag GTPases",
+    "source": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "scaffolding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.",
+    "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their \"on\" shape. The anchoring is the better-established of the two jobs.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2012",
+      "SAN2010"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-RAG.json"
+   },
+   {
+    "id": "VATPASE-RAGULATOR",
+    "claim": "v-ATPase required-for Ragulator",
+    "source": {
+     "name": "v-ATPase",
+     "entity": "v-atpase"
+    },
+    "target": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "effect": "required-for",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The lysosome's proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.",
+    "mechanism_beginner": "The lysosome's acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.",
+    "context": null,
+    "boundary": "The 'inside-out' model requires amino acids to accumulate inside the lysosome first; how they get there for every amino acid is not fully mapped.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ZON2011",
+      "BAR2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-RAGULATOR.json"
+   },
+   {
+    "id": "RAGULATOR-CGASSTING",
+    "claim": "Ragulator inhibits cGAS-STING pathway",
+    "source": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "target": {
+     "name": "cGAS-STING pathway",
+     "entity": "cgas-sting-pathway"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "cytosol",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "One mouse study (LV2026), A – animal. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LV2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-CGASSTING.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "GATOR2-GATOR1",
+  "claim": "GATOR2 inhibits GATOR1",
+  "source": {
+   "name": "GATOR2",
+   "entity": "gator2"
+  },
+  "target": {
+   "name": "GATOR1",
+   "entity": "gator1"
+  },
+  "effect": "inhibits",
+  "type": "binding",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.",
+  "mechanism_beginner": "GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn't fully worked out yet.",
+  "context": null,
+  "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+  "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "BAR2013",
+    "PAR2014",
+    "VAL2022"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR2-GATOR1.json"
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "name": "Oliver's mTOR Atlas API",
+ "description": "Read-only, static JSON access to the curated corpus of Oliver's mTOR Atlas: studies labelled by the kind of study behind them, entities, evidence-linked pathway relations and open questions. The same data that builds the website.",
+ "api_version": "1.0.0",
+ "dataset_version": "2.0.0",
+ "corpus_snapshot": "2026-10-01T10:57:31+0200",
+ "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+ "license": "CC-BY-4.0",
+ "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+ "docs": "https://mtor-atlas.org/api/",
+ "counts": {
+  "studies": 428,
+  "entities": 162,
+  "relations": 121,
+  "contested_relations": 8,
+  "questions": 15
+ },
+ "evidence_codes": [
+  {
+   "code": "S",
+   "label": "Synthesis of human data"
+  },
+  {
+   "code": "H",
+   "label": "Human study"
+  },
+  {
+   "code": "A",
+   "label": "Animal model"
+  },
+  {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure"
+  },
+  {
+   "code": "PP",
+   "label": "Preprint, not peer-reviewed"
+  },
+  {
+   "code": "RT",
+   "label": "Registered trial, no results yet"
+  },
+  {
+   "code": "R",
+   "label": "Review — secondary literature, not a new result"
+  }
+ ],
+ "evidence_note": "this describes the kind of study, not its quality",
+ "endpoints": {
+  "meta": "https://mtor-atlas.org/api/v1/meta.json",
+  "studies": "https://mtor-atlas.org/api/v1/studies.json",
+  "study": "https://mtor-atlas.org/api/v1/studies/{sid}.json",
+  "entities": "https://mtor-atlas.org/api/v1/entities.json",
+  "entity": "https://mtor-atlas.org/api/v1/entities/{id}.json",
+  "relations": "https://mtor-atlas.org/api/v1/relations.json",
+  "relation": "https://mtor-atlas.org/api/v1/relations/{id}.json",
+  "questions": "https://mtor-atlas.org/api/v1/questions.json",
+  "question": "https://mtor-atlas.org/api/v1/questions/{id}.json",
+  "openapi": "https://mtor-atlas.org/api/openapi.json",
+  "bulk_exports": "https://mtor-atlas.org/data/"
+ },
+ "limits": "Static files: no query parameters, no authentication, no rate limit. Download a list endpoint and filter locally. Responses carry ETag/Last-Modified from the host."
+}

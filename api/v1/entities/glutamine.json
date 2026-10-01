@@ -1,0 +1,159 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "glutamine",
+  "name": "Glutamine",
+  "type": "Nutrient/Metabolite",
+  "synonyms": [],
+  "description": "Most abundant free amino acid; activates mTORC1 partly through glutaminolysis and, in some settings, through a Rag-independent Arf1 route - one of the clearest examples that 'amino acid sensing' is not a single mechanism.",
+  "study_count": 2,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/glutamine.json",
+  "description_beginner": "The most abundant free amino acid in the body. It switches on mTORC1 partly by being broken down for fuel and, in some cell types, through a completely separate route that skips the usual Rag-GTPase sensors - a reminder that 'amino acid sensing' isn't just one single mechanism.",
+  "studies": [
+   {
+    "sid": "DUR2012",
+    "title": "Glutaminolysis activates Rag-mTORC1 signaling",
+    "authors": "Duran RV; Hall MN et al.",
+    "year": 2012,
+    "journal": "Molecular cell",
+    "doi": "10.1016/j.molcel.2012.05.043",
+    "pmid": "22749528",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Glutaminolysis activates Rag-mTORC1 signalling through alpha-ketoglutarate production.",
+    "url": "https://mtor-atlas.org/study/DUR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DUR2012.json"
+   },
+   {
+    "sid": "JEW2015",
+    "title": "Metabolism. Differential regulation of mTORC1 by leucine and glutamine",
+    "authors": "Jewell JL; Guan KL et al.",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.1259472",
+    "pmid": "25567907",
+    "pmcid": "PMC4384888",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Glutamine activates mTORC1 via a Rag-independent, Arf1-dependent route distinct from leucine.",
+    "url": "https://mtor-atlas.org/study/JEW2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JEW2015.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "GLN-RAG",
+    "claim": "Glutamine activates Rag GTPases",
+    "source": {
+     "name": "Glutamine",
+     "entity": "glutamine"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.",
+    "mechanism_beginner": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
+    "context": null,
+    "boundary": "Cell-type dependent, and deliberately narrow: the separate claim that glutamine can reach mTORC1 without the Rags is carried by its own edge rather than folded in here.",
+    "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DUR2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-RAG.json"
+   },
+   {
+    "id": "GLN-MTORC1-ARF1",
+    "claim": "Glutamine activates mTORC1",
+    "source": {
+     "name": "Glutamine",
+     "entity": "glutamine"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "unresolved",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.",
+    "mechanism_beginner": "Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.",
+    "context": null,
+    "boundary": "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other.",
+    "note": null,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "JEW2015"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-MTORC1-ARF1.json"
+   }
+  ]
+ }
+}

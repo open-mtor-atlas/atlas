@@ -1,0 +1,135 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "cellular-senescence",
+  "name": "Cellular senescence",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "State in which a cell permanently stops dividing but stays alive, secreting inflammatory signals (the SASP). Senescent cells accumulate with age and drive age-related disease. mTOR powers the inflammatory secretions of cells that are already senescent (LAB2015, the stronger evidence); that it also promotes entry into the senescent state rests on weaker cell-culture evidence (DEM2009).",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/process/cellular-senescence/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/cellular-senescence.json",
+  "description_beginner": "A state where a cell permanently stops dividing but stays alive and starts pumping out inflammatory signals. These 'zombie cells' build up with age and drive age-related disease. mTOR powers the inflammatory signals these cells release; whether it also pushes cells into this state is less firmly shown.",
+  "studies": [
+   {
+    "sid": "LAB2015",
+    "title": "mTOR regulates the pro-tumorigenic senescence-associated secretory phenotype by promoting IL1A translation",
+    "authors": "Laberge RM; Sun Y; Orjalo AV; Patil CK; Freund A; et al.; Campisi J",
+    "year": 2015,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb3195",
+    "pmid": "26147250",
+    "pmcid": "PMC4691706",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + mouse xenografts",
+    "peer_reviewed": true,
+    "finding": "Explained HOW rapamycin calms 'inflammaging'. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytokine at the top of the cascade. Rapamycin selectively shuts it down - and blocked senescent cells from fueling prostate tumor growth in mice.",
+    "url": "https://mtor-atlas.org/study/LAB2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAB2015.json"
+   },
+   {
+    "sid": "CHU2019",
+    "title": "Topical rapamycin reduces markers of senescence and aging in human skin: an exploratory, prospective, randomized trial",
+    "authors": "Chung CL; Lawrence I; Hoffman M; Elgindi D; Nadhan K; et al.; Sell C",
+    "year": 2019,
+    "journal": "GeroScience",
+    "doi": "10.1007/s11357-019-00113-y",
+    "pmid": "31761958",
+    "pmcid": "PMC6925069",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, RCT (skin, age >40; n=17 completed)",
+    "peer_reviewed": true,
+    "finding": "A small human trial testing whether rapamycin can slow aging in a tissue you can actually see and biopsy - skin. Topical rapamycin significantly lowered the senescence marker p16 and raised collagen VII, with visible improvement in skin appearance. Early, small-scale evidence (17 of 36 completed) that topical rapamycin can reduce a senescence marker in human skin.",
+    "url": "https://mtor-atlas.org/study/CHU2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHU2019.json"
+   },
+   {
+    "sid": "DEM2009",
+    "title": "Rapamycin decelerates cellular senescence",
+    "authors": "Demidenko ZN; Zubova SG; Bukreeva EI; Pospelov VA; Pospelova TV; Blagosklonny MV",
+    "year": 2009,
+    "journal": "Cell Cycle",
+    "doi": "10.4161/cc.8.12.8606",
+    "pmid": "19471117",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human + rodent cell lines",
+    "peer_reviewed": true,
+    "finding": "Blagosklonny's key experiment behind his 'hyperfunction' theory of aging. When a cell's division is blocked but mTOR keeps driving growth, the cell tips into permanent senescence. Rapamycin uncouples the two - keeping arrested cells reversible instead of senescent. Direct evidence that mTOR actively drives the senescent state, not just passively accompanies it.",
+    "url": "https://mtor-atlas.org/study/DEM2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2009.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "CGASSTING-SENESCENCE",
+    "claim": "cGAS-STING pathway activates Cellular senescence",
+    "source": {
+     "name": "cGAS-STING pathway",
+     "entity": "cgas-sting-pathway"
+    },
+    "target": {
+     "name": "Cellular senescence",
+     "entity": "cellular-senescence"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "days",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LV2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/CGASSTING-SENESCENCE.json"
+   }
+  ]
+ }
+}

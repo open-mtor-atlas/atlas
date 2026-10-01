@@ -1,0 +1,71 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HOS2009",
+  "title": "Nutrient-dependent mTORC1 association with the ULK1-Atg13-FIP200 complex required for autophagy",
+  "authors": "Hosokawa N; Hara T; Kaizuka T; Kishi C; Takamura A; Miura Y; et al.; Mizushima N",
+  "year": 2009,
+  "journal": "Molecular Biology of the Cell",
+  "doi": "10.1091/mbc.e08-12-1248",
+  "pmid": "19211835",
+  "pmcid": "PMC2663915",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells",
+  "peer_reviewed": true,
+  "finding": "Showed the DIRECT brake mTORC1 uses on autophagy: when nutrients are plentiful, mTORC1 physically joins the ULK1-Atg13-FIP200 complex (the autophagy-starter kinase) and phosphorylates ULK1 to keep it off. Starvation or rapamycin releases this brake and autophagy begins.",
+  "url": "https://mtor-atlas.org/study/HOS2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HOS2009.json",
+  "abstract_excerpt": "Autophagy is an intracellular degradation system, by which cytoplasmic contents are degraded in lysosomes. Autophagy is dynamically induced by nutrient depletion to provide necessary amino acids within cells, thus helping them adapt to starvation. Although it has been suggested that mTOR is a major negative regulator of autophagy, how it controls autophagy has not yet been determined. Here, we report a novel mammalian autophagy factor, Atg13, which forms a stable approximately 3-MDa protein complex with ULK1 and FIP200.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic/biochemical (mTORC1/ULK1-Atg13-FIP200)",
+   "target": "mTORC1 / ULK1-Atg13-FIP200",
+   "species": "Mammalian cells",
+   "effect": "Nutrient-dependent mTORC1 association with the ULK1-Atg13-FIP200 complex controls autophagy induction"
+  },
+  "entities": [
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-ULK1",
+    "ULK1-AUTOPHAGY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DAL2016",
+   "KIM2011",
+   "LOF2011",
+   "SONH2026"
+  ]
+ }
+}

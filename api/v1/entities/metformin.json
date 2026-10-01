@@ -1,0 +1,181 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "metformin",
+  "name": "Metformin",
+  "type": "Drug",
+  "synonyms": [],
+  "description": "Antidiabetic biguanide; activates AMPK (ZHO2001) and inhibits mTORC1. How much of its action actually runs through AMPK is disputed: metformin still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells, via the Rag GTPases (KAL2010). Frequently discussed as a geroprotector alongside rapamycin.",
+  "study_count": 3,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/drug/metformin/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/metformin.json",
+  "description_beginner": "A widely used diabetes drug that switches on AMPK and, through that, dials down mTORC1. Exactly how much of its effect runs through AMPK versus other routes is still debated - it still works in cells that lack AMPK entirely. It's often discussed as a possible longevity drug alongside rapamycin.",
+  "studies": [
+   {
+    "sid": "ZHO2001",
+    "title": "Role of AMP-activated protein kinase in mechanism of metformin action",
+    "authors": "Zhou G et al.",
+    "year": 2001,
+    "journal": "J Clin Invest",
+    "doi": "10.1172/JCI13505",
+    "pmid": "11602624",
+    "pmcid": "PMC209533",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat; hepatocytes; skeletal muscle",
+    "peer_reviewed": true,
+    "finding": "Metformin activates AMPK, suppressing hepatic gluconeogenesis and lipogenesis.",
+    "url": "https://mtor-atlas.org/study/ZHO2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2001.json"
+   },
+   {
+    "sid": "BAN2014",
+    "title": "Can people with type 2 diabetes live longer than those without? A comparison of mortality in people initiated with metformin or sulphonylurea monotherapy and matched, non-diabetic controls",
+    "authors": "Bannister CA et al.",
+    "year": 2014,
+    "journal": "Diabetes, Obesity and Metabolism",
+    "doi": "10.1111/dom.12354",
+    "pmid": "25041462",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, retrospective cohort (n=180,926)",
+    "peer_reviewed": true,
+    "finding": "Diabetic patients started on metformin had longer median survival than matched non-diabetic controls without the drug. Retrospective and observational: consistent with a survival benefit, but confounding by indication and healthy-adherer effects cannot be excluded.",
+    "url": "https://mtor-atlas.org/study/BAN2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAN2014.json"
+   },
+   {
+    "sid": "HOW2017",
+    "title": "Metformin Inhibits Hepatic mTORC1 Signaling via Dose-Dependent Mechanisms Involving AMPK and the TSC Complex",
+    "authors": "Howell JJ; Hellberg K; Turner M; Talbott G; Kolar MJ; Ross DS; Hoxhaj G; Saghatelian A; Shaw RJ; Manning BD",
+    "year": 2017,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2016.12.009",
+    "pmid": "28089566",
+    "pmcid": "PMC5299044",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse liver + primary hepatocytes",
+    "peer_reviewed": true,
+    "finding": "Pinned down HOW the diabetes drug metformin - a major longevity candidate - actually reaches mTOR. In the liver, metformin lowers cellular energy, and at low doses this shuts down mTORC1 specifically through AMPK and the TSC complex. Direct mechanistic bridge between a widely-used drug, energy sensing, and the mTOR pathway.",
+    "url": "https://mtor-atlas.org/study/HOW2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HOW2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "METFORMIN-AMPK",
+    "claim": "Metformin activates AMPK",
+    "source": {
+     "name": "Metformin",
+     "entity": "metformin"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Metformin shifts the cell's energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.",
+    "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
+    "context": null,
+    "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+    "note": null,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "plausible",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ZHO2001"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-AMPK.json"
+   },
+   {
+    "id": "METFORMIN-MTORC1",
+    "claim": "Metformin inhibits mTORC1",
+    "source": {
+     "name": "Metformin",
+     "entity": "metformin"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells",
+     "mouse liver"
+    ],
+    "mechanism": "Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the 'metformin works via AMPK' summary.",
+    "mechanism_beginner": "Metformin can also block mTORC1 through a completely separate route that doesn't need AMPK at all – a route often left out of the simple \"metformin works via AMPK\" story.",
+    "context": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
+    "boundary": "Runs in parallel with METFORMIN-AMPK, not instead of it. The relative weight of the two routes in humans is unresolved.",
+    "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK.",
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "plausible",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "KAL2010"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-MTORC1.json"
+   }
+  ]
+ }
+}

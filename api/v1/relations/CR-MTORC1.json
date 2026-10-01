@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "CR-MTORC1",
+  "claim": "Fasting / caloric restriction inhibits mTORC1",
+  "source": {
+   "name": "Fasting / caloric restriction",
+   "entity": null
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "inhibits",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": "lyso",
+  "species": [
+   "mouse"
+  ],
+  "mechanism": "Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.",
+  "mechanism_beginner": null,
+  "context": null,
+  "boundary": "Supporting evidence here is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge, not to this one. SOL2014 found macronutrient RATIO mattered more than total intake in mice, so 'caloric restriction' may be the wrong variable name.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "SOL2014"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/CR-MTORC1.json"
+ }
+}

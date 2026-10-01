@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-TSC",
+  "claim": "AMPK activates TSC1/TSC2",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "TSC1/TSC2",
+   "entity": "tsc1-tsc2"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "When energy runs low, AMPK phosphorylates TSC2 and strengthens the brake on Rheb.",
+  "mechanism_beginner": "When energy is low, AMPK tags TSC2 and makes the brake on Rheb stronger.",
+  "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
+  "boundary": null,
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "INO2003"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-TSC.json"
+ }
+}

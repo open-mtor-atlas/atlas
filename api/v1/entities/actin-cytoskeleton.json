@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "actin-cytoskeleton",
+  "name": "Actin cytoskeleton",
+  "type": "Biological process",
+  "synonyms": [],
+  "description": "Cell shape and motility machinery. The original TOR2 phenotype in yeast, and the mammalian mTORC2 function that showed the second complex is acutely rapamycin-insensitive (JAC2004, SAR2004); the two-complex model itself came from biochemistry (LOE2002).",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/process/actin-cytoskeleton/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/actin-cytoskeleton.json",
+  "description_beginner": "The scaffolding that gives a cell its shape and lets it move. It was one of the first jobs pinned on mTORC2, and one that rapamycin does not block in the short term. The idea of two separate mTOR complexes itself came from purifying the proteins.",
+  "studies": [
+   {
+    "sid": "JAC2004",
+    "title": "Mammalian TOR complex 2 controls the actin cytoskeleton and is rapamycin insensitive",
+    "authors": "Jacinto E; Hall MN et al.",
+    "year": 2004,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/ncb1183",
+    "pmid": "15467718",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC2 (rictor) controls the actin cytoskeleton and is rapamycin-insensitive, defining a second mTOR complex in mammals.",
+    "url": "https://mtor-atlas.org/study/JAC2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JAC2004.json"
+   },
+   {
+    "sid": "SAR2004",
+    "title": "Rictor, a novel binding partner of mTOR, defines a rapamycin-insensitive and raptor-independent pathway that regulates the cytoskeleton",
+    "authors": "Sarbassov DD; Ali SM; Kim DH; Guertin DA; Latek RR; Erdjument-Bromage H; Tempst P; Sabatini DM",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.06.054",
+    "pmid": "15268862",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + Drosophila",
+    "peer_reviewed": true,
+    "finding": "Discovery of Rictor and the SECOND mTOR complex, mTORC2. Crucially showed this complex is NOT blocked by rapamycin and does not use Raptor - it controls the cytoskeleton via PKC. This is the paper that split mTOR biology into 'two faces' at the molecular level.",
+    "url": "https://mtor-atlas.org/study/SAR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2004.json"
+   },
+   {
+    "sid": "LOE2002",
+    "title": "Two TOR complexes, only one of which is rapamycin sensitive, have distinct roles in cell growth control",
+    "authors": "Loewith R; Hall MN et al.",
+    "year": 2002,
+    "journal": "Molecular cell",
+    "doi": "10.1016/s1097-2765(02)00636-6",
+    "pmid": "12408816",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Yeast S. cerevisiae",
+    "peer_reviewed": true,
+    "finding": "Defined two distinct TOR complexes, only one rapamycin-sensitive, founding the TORC1/TORC2 paradigm.",
+    "url": "https://mtor-atlas.org/study/LOE2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LOE2002.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-ACTIN",
+    "claim": "mTORC2 activates Actin cytoskeleton",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "Actin cytoskeleton",
+     "entity": "actin-cytoskeleton"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells",
+     "yeast"
+    ],
+    "mechanism": "One of the first functions assigned to mTORC2 was shaping the cell's skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.",
+    "mechanism_beginner": "mTORC2's first known job was shaping the cell's internal skeleton – noticed precisely because rapamycin didn't block it.",
+    "context": null,
+    "boundary": null,
+    "note": "The two-complex model itself came from biochemistry (LOE2002, JAC2004, SAR2004).",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "JAC2004",
+      "SAR2004",
+      "LOE2002"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-ACTIN.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CHE2008",
+  "title": "TSC-mTOR maintains quiescence and function of hematopoietic stem cells by repressing mitochondrial biogenesis and reactive oxygen species",
+  "authors": "Chen C; Liu Yu; Liu R; Ikenoue T; Guan KL; Liu Yang; Zheng P",
+  "year": 2008,
+  "journal": "Journal of Experimental Medicine",
+  "doi": "10.1084/jem.20081297",
+  "pmid": "18809716",
+  "pmcid": "PMC2556783",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (conditional Tsc1 knockout)",
+  "peer_reviewed": true,
+  "finding": "Showed why blood stem cells must keep mTOR LOW. Deleting TSC1 (which unleashes mTOR) drove resting stem cells into rapid division, flooded them with reactive oxygen species, and burned out their ability to self-renew. An antioxidant rescued them. A key link between mTOR, stem-cell exhaustion, and tissue aging.",
+  "url": "https://mtor-atlas.org/study/CHE2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CHE2008.json",
+  "abstract_excerpt": "The tuberous sclerosis complex (TSC)-mammalian target of rapamycin (mTOR) pathway is a key regulator of cellular metabolism. We used conditional deletion of Tsc1 to address how quiescence is associated with the function of hematopoietic stem cells (HSCs). We demonstrate that Tsc1 deletion in the HSCs drives them from quiescence into rapid cycling, with increased mitochondrial biogenesis and elevated levels of reactive oxygen species (ROS).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (Tsc1 conditional knockout)",
+   "target": "TSC-mTOR / mitochondrial biogenesis / ROS",
+   "species": "Mouse (conditional Tsc1 KO)",
+   "effect": "TSC-mTOR maintains hematopoietic stem cell quiescence and function by repressing mitochondrial biogenesis and ROS",
+   "dose": "Mice (6 wk old) treated with polyinosine-polycytidine (pIpC) every other day for 2 wk to induce Tsc1 deletion.",
+   "sample_size": "Variable, e.g., n=3 to n=10 mice per group depending on the experiment.",
+   "effect_size": "Tsc1 deletion reduced quiescent LT-HSCs from ~70% to <15% and increased BrdU incorporation nearly fourfold (from 13% to ~60%); resulted in an ~50% reduction in white blood cell counts (P = 0.001).",
+   "limitations": "It is unlikely that the HSCs in the spleen are fully functional because HSCs have reduced self-renewal when their niche in BM is disrupted."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "reactive-oxygen-species",
+    "name": "Reactive oxygen species",
+    "type": "Nutrient/Metabolite"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-ROS"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "JIN2026",
+   "DAL2012",
+   "GWI2008",
+   "HOW2017"
+  ]
+ }
+}

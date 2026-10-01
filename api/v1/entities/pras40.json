@@ -1,0 +1,141 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pras40",
+  "name": "PRAS40",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Insulin-regulated inhibitor subunit of mTORC1. Insulin triggers Akt to phosphorylate PRAS40, which lifts one inhibitory subunit off the complex; that on its own is not the on-switch, as most of the insulin input runs through the TSC2/Rheb arm.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pras40.json",
+  "description_beginner": "A brake on mTORC1 that insulin can release. When insulin signals arrive, a kinase called Akt tags this protein and it lets go of mTORC1. That alone does not switch mTORC1 on, though: most of the insulin signal travels through the TSC2/Rheb route.",
+  "studies": [
+   {
+    "sid": "SAN2007",
+    "title": "PRAS40 is an insulin-regulated inhibitor of the mTORC1 protein kinase",
+    "authors": "Sancak Y; Thoreen CC; Peterson TR; Lindquist RA; Kang SA; Spooner E; Carr SA; Sabatini DM",
+    "year": 2007,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2007.03.003",
+    "pmid": "17386266",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Identified PRAS40 as the missing insulin-controlled brake INSIDE mTORC1. When insulin is absent PRAS40 clamps the complex shut; insulin makes Akt phosphorylate PRAS40, releasing the brake so Rheb can fully switch mTORC1 on. Explained how hormone signals set the exact strength of mTORC1 activity.",
+    "url": "https://mtor-atlas.org/study/SAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "AKT-PRAS40",
+    "claim": "Akt/PKB inhibits PRAS40",
+    "source": {
+     "name": "Akt/PKB",
+     "entity": "akt-pkb"
+    },
+    "target": {
+     "name": "PRAS40",
+     "entity": "pras40"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Akt phosphorylates PRAS40, which then gets sequestered away from mTORC1 - a second, parallel way insulin lifts a brake.",
+    "mechanism_beginner": "Akt tags PRAS40, which then gets pulled away from mTORC1 – a second way insulin releases a brake.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SAN2007",
+      "VAN2007",
+      "OSH2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-PRAS40.json"
+   },
+   {
+    "id": "PRAS40-MTORC1",
+    "claim": "PRAS40 inhibits mTORC1",
+    "source": {
+     "name": "PRAS40",
+     "entity": "pras40"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Unphosphorylated PRAS40 sits in the substrate groove of mTORC1 and blocks it - a built-in plug.",
+    "mechanism_beginner": "Untagged PRAS40 sits inside mTORC1 and blocks it, like a built-in plug.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SAN2007",
+      "YAN2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PRAS40-MTORC1.json"
+   }
+  ]
+ }
+}

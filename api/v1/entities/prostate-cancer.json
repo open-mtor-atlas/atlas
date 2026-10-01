@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "prostate-cancer",
+  "name": "Prostate cancer",
+  "type": "Disease",
+  "synonyms": [],
+  "description": "Cancer in which oncogenic mTOR signaling reprograms the cell's translation to drive proliferation, invasion and metastasis.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/prostate-cancer.json",
+  "description_beginner": "A cancer in which mTOR signaling gets hijacked to rev up a tumor's protein-building machinery, helping it grow, invade nearby tissue, and spread.",
+  "studies": [
+   {
+    "sid": "HSI2012",
+    "title": "The translational landscape of mTOR signalling steers cancer initiation and metastasis",
+    "authors": "Hsieh AC; Liu Yi; Edlind MP; Ingolia NT; Janes MR; Sher A; et al.; Ruggero D",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature10912",
+    "pmid": "22367541",
+    "pmcid": "PMC3663483",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse models + human prostate cancer",
+    "peer_reviewed": true,
+    "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
+    "url": "https://mtor-atlas.org/study/HSI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-PROSTATE",
+    "claim": "mTORC1 activates Prostate cancer",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "Prostate cancer",
+     "entity": "prostate-cancer"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Blocking mTOR reversed Akt-driven pre-cancerous prostate lesions in mice, showing the growth was mTORC1-dependent and reversible.",
+    "mechanism_beginner": "Blocking mTOR reversed early, pre-cancerous prostate changes in mice caused by an overactive growth signal.",
+    "context": null,
+    "boundary": "Scope: the lesion was prostatic intraepithelial neoplasia, a pre-cancerous stage, driven by transgenic human AKT1 in mice, and the drug (RAD001) inhibits mTORC1 allosterically. Not a demonstration in established prostate cancer.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "MAJ2004"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-PROSTATE.json"
+   },
+   {
+    "id": "MTORC2-PROSTATE",
+    "claim": "mTORC2 activates Prostate cancer",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "Prostate cancer",
+     "entity": "prostate-cancer"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Prostate tumours driven by Pten loss need mTORC2 specifically - normal prostate does not. A real therapeutic window, at least in mice.",
+    "mechanism_beginner": "Prostate tumours caused by losing a specific tumour-suppressor gene specifically need mTORC2 to grow – normal prostate tissue doesn't, at least in mice.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "GUE2009"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-PROSTATE.json"
+   }
+  ]
+ }
+}

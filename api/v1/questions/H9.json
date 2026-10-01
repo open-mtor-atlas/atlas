@@ -1,0 +1,44 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H9",
+  "kind": "open-question",
+  "title": "Rapamycin + AMPK-axis drugs (acarbose / metformin): at least additive in male mice, untested in humans",
+  "category": "Evidence desert",
+  "confidence": 0.7,
+  "evidence_stands_at": "Lifespan in mice (answered); no human data",
+  "gap": "Animal combination data are suggestive but the human evidence for combining mTOR inhibition with AMPK-axis geroprotectors is a desert. QUANTIFIED (STR2022, NIA Interventions Testing Program C2017 cohort): rapamycin + acarbose started at 9 months extended MALE lifespan beyond what either of the two prior ITP rapamycin-only cohorts achieved, while in FEMALES the combination was neither better nor worse than rapamycin alone - the authors relate this to the limited survival benefit acarbose alone had shown in earlier female cohorts. CAVEAT: STR2022's rapamycin-only comparison is HISTORICAL, against prior cohorts rather than a concurrent rapamycin-only arm, so 'more potent than either component' is the authors' suggestion, not a within-experiment randomised result. That is precisely why this gap remains open. HAR2014 established acarbose's male-skewed lifespan effect. The AMPK arm converges back onto mTOR mechanistically: ZHO2001 metformin acts via AMPK, GWI2008 AMPK phosphorylates raptor to gate mTORC1, HOW2017 metformin inhibits hepatic mTORC1 dose-dependently via AMPK - which raises the opposite possibility that metformin + rapamycin are partly REDUNDANT on the mTORC1 node. Human signal exists only for observational data (BAN2014: type-2 diabetics on metformin outlived non-diabetic controls - a result subject to the usual immortal-time and prescription-bias caveats of the metformin-survivorship literature, and not treated here as causal). No study IN THIS CORPUS - animal or human - cleanly separates ADDITIVE (distinct pathways) from REDUNDANT (same node) for these pairs, and this corpus holds no human combination trial. Gaps here are computed against this Atlas, not against PubMed. LOGIC NOTE: distinct proximal mechanisms do not entail additivity. Two drugs can hit different targets and still converge downstream, interact non-linearly, or show sex- and strain-dependent interaction - which is exactly what the ITP combination data themselves show.",
+  "gap_beginner": "In mice, combining rapamycin with a diabetes drug called acarbose extended life more than either drug alone - but only in males; in females it was no better than rapamycin by itself. A different diabetes drug, metformin, reaches mTORC1 partly through AMPK, the cell's fuel sensor. It therefore presses on the same checkpoint that rapamycin blocks, only from another direction, so combining them might not add much. But be careful with that reasoning: two drugs hitting different targets do not automatically add up - they can still overlap further downstream, or interact in unexpected ways. Nobody in this Atlas's collection has run a human trial combining any of these.",
+  "changed_since_written": "The mouse half has not been open since 2016, outside this corpus. The NIA Interventions Testing Program tested metformin with rapamycin (Strong, Aging Cell 2016, PMID 27312235) and rapamycin with acarbose (Strong, Aging Cell 2022, PMID 36179270); the acarbose combination gave male mice longer lifespan than rapamycin alone, with no comparable benefit in females. Both conclusions rest on historical comparison against earlier rapamycin-only cohorts rather than a contemporaneous factorial, so at least additive in males is defensible and synergistic is not. A three-drug combination also beat every single agent on healthspan measures in 20-month-old mice (Jiang, Sci Rep 2022, PMID 35508491). The category itself is also questionable: acarbose is an intestinal alpha-glucosidase inhibitor with a strong male bias, and low-dose metformin reaches AMPK through the lysosomal PEN2 route rather than complex I (Ma, Nature 2022, PMID 35197629), so grouping them as the AMPK axis imports a shared mechanism neither clearly uses at geroprotective doses.",
+  "still_open": "The human half, entirely: no trial has tested rapamycin with an AMPK-axis or glucose-lowering drug against either agent alone on any ageing endpoint, and TAME remains unfunded with no rapamycin arm. A more consequential question has appeared alongside it. Metformin abolished the VO2max gain from 16 weeks of training and blunted training-induced vascular insulin sensitivity in 91 adults (Malin, JCEM 2026, PMID 41160096). Since exercise is the best-evidenced human geroprotective intervention, an AMPK-axis drug may subtract from a stack rather than add to it. For contrast, trametinib and rapamycin combine additively for mouse lifespan in both sexes (Gkioni, Nature Aging 2025, PMID 40437307) — combination with dose-lowering may be a more tractable route to benefit without toxicity than engineering complex selectivity.",
+  "hypothesis": "In mice the answer is in: at least additive in males for rapamycin with acarbose, with no comparable female benefit, on cross-cohort rather than factorial evidence. What is hypothesised and untested is the human case — and the live alternative, raised by the exercise data, is that AMPK-axis drugs antagonise other geroprotective interventions in people rather than complementing them.",
+  "hypothesis_beginner": "In mice this has been answered: pairing rapamycin with acarbose did better than rapamycin alone in males, though not in females. In people nothing has been tried. And there is a warning sign — in a recent human trial metformin cancelled out the fitness gains from exercise training, so adding it to a stack may take away rather than add.",
+  "how_to_test": "Factorial mouse lifespan/healthspan study (vehicle / rapamycin / acarbose / metformin / rapamycin+acarbose / rapamycin+metformin), sex-stratified, with mTORC1 (S6K/4E-BP1) and AMPK (raptor-Ser792) readouts plus glucose tolerance. Test for statistical super-additivity. Prediction: rapamycin+acarbose is additive on lifespan; rapamycin+metformin is sub-additive on lifespan but restores glucose tolerance. Follow with a human factorial healthspan-biomarker trial on the additive pair.",
+  "studies": [
+   "HAR2014",
+   "ZHO2001",
+   "GWI2008",
+   "HOW2017",
+   "BAN2014",
+   "ARR2015",
+   "MOE2025",
+   "STR2022"
+  ],
+  "revision_log": [
+   "2026-08-30: The basis previously read 'No study - animal or human -', an absence claim about the whole literature; now scoped to this corpus.",
+   "2026-09-05: The ITP combination publication, previously flagged as missing, was entered as STR2022 (PMID 36179270).",
+   "2026-09-23: Title changed after the literature review (URL kept).",
+   "2026-09-29: Title changed from 'answered in mice' to 'at least additive in male mice'; the beginner text no longer says metformin and rapamycin share AMPK."
+  ],
+  "url": "https://mtor-atlas.org/question/rapamycin-ampk-axis-drugs-acarbose-metformin-potentially-additive-redundant-or-synergistic-and-untested-as-a-combination-in-humans/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H9.json"
+ }
+}

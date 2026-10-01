@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "TFEB-AUTOPHAGY",
+  "claim": "TFEB activates Autophagy",
+  "source": {
+   "name": "TFEB",
+   "entity": "tfeb"
+  },
+  "target": {
+   "name": "Autophagy",
+   "entity": "autophagy"
+  },
+  "effect": "activates",
+  "type": "transcriptional",
+  "directness": "direct",
+  "timescale": "hours",
+  "compartment": "nucleus",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "In the nucleus TFEB switches on a whole gene programme for autophagy and for building new lysosomes - the cell's recycling capacity, not just a single step.",
+  "mechanism_beginner": "Once inside the nucleus, TFEB switches on a whole set of genes for cleanup and for building new lysosomes.",
+  "context": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
+  "boundary": null,
+  "note": "The transcriptional arm of autophagy, distinct from the fast ULK1 arm.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SET2011",
+    "ROC2012",
+    "SET2012"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-AUTOPHAGY.json"
+ }
+}

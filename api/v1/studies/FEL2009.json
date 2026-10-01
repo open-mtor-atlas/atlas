@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "FEL2009",
+  "title": "Active-site inhibitors of mTOR target rapamycin-resistant outputs of mTORC1 and mTORC2",
+  "authors": "Feldman ME; Apsel B; Uotila A; Loewith R; Knight ZA; Ruggero D; Shokat KM",
+  "year": 2009,
+  "journal": "PLoS Biology",
+  "doi": "10.1371/journal.pbio.1000038",
+  "pmid": "19209957",
+  "pmcid": "PMC2637922",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse fibroblasts + primary cells",
+  "peer_reviewed": true,
+  "finding": "The parallel discovery to Thoreen 2009 (same year), from the Shokat lab. Their TORKinibs (PP242, PP30) block mTOR's active site, hitting both complexes and shutting down cap-dependent translation that rapamycin misses. Together these two papers established a whole new drug class beyond rapamycin.",
+  "url": "https://mtor-atlas.org/study/FEL2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/FEL2009.json",
+  "abstract_excerpt": "The mammalian target of rapamycin (mTOR) regulates cell growth and survival by integrating nutrient and hormonal signals. These signaling functions are distributed between at least two distinct mTOR protein complexes: mTORC1 and mTORC2. mTORC1 is sensitive to the selective inhibitor rapamycin and activated by growth factor stimulation via the canonical phosphoinositide 3-kinase (PI3K)-->Akt-->mTOR pathway. Activated mTORC1 kinase up-regulates protein synthesis by phosphorylating key regulators of mRNA translation. By contrast, mTORC2 is resistant to rapamycin.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "ATP-competitive mTOR active-site inhibitors (vs rapamycin)",
+   "target": "mTORC1 & mTORC2",
+   "species": "Mouse fibroblasts + primary cells",
+   "effect": "Active-site inhibitors block rapamycin-resistant outputs of mTORC1/2 (e.g. 4E-BP1), unlike rapamycin"
+  },
+  "entities": [
+   {
+    "id": "pp242",
+    "name": "PP242",
+    "type": "Drug"
+   },
+   {
+    "id": "atp-competitive-mtor-inhibitors",
+    "name": "ATP-competitive mTOR inhibitors",
+    "type": "Drug"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-4EBP1",
+    "TORIN-MTORC1",
+    "TORIN-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "THO2009",
+   "CHR2009",
+   "SAR2006",
+   "DAL2012"
+  ]
+ }
+}

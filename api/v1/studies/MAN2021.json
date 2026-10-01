@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAN2021",
+  "title": "Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials",
+  "authors": "Mannick JB; Teo G; Bernardo P; Quinn D; Russell K; Klickstein L; Marshall W; Shergill S",
+  "year": 2021,
+  "journal": "Lancet Healthy Longevity",
+  "doi": "10.1016/S2666-7568(21)00062-3",
+  "pmid": "33977284",
+  "pmcid": "PMC8102040",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Negative_result",
+  "model_system": "Humans, phase 2b + phase 3 RCT (n=1024 phase 3)",
+  "peer_reviewed": true,
+  "finding": "The crucial reality check. After the promising phase 2a, the large phase 3 trial (n=1024) FAILED its primary endpoint - RTB101 did not reduce clinically symptomatic respiratory illness (26% vs 25%, p=0.65). It still reliably switched on antiviral genes, so the biomarker moved but the clinical outcome did not. A textbook lesson that a promising biomarker is not a proven benefit.",
+  "url": "https://mtor-atlas.org/study/MAN2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2021.json",
+  "abstract_excerpt": "The COVID-19 pandemic highlights the need for therapies that improve immune function in older adults, including interferon (IFN)-induced antiviral immunity that declines with age. In a previous phase 2a trial, RTB101 (previously known as BEZ235), an oral mechanistic target of rapamycin (mTOR) inhibitor, was observed to increase IFN-induced antiviral gene expression and decrease the incidence of respiratory tract infections (RTIs) in older adults.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "RTB101 (BEZ235), oral mTOR inhibitor; ± everolimus",
+   "target": "mTOR (TORC1/2)",
+   "species": "Human – phase 2b + phase 3 RCT (n=1024)",
+   "effect": "Phase 3 FAILED its primary endpoint (no reduction in symptomatic respiratory infections, 26 vs 25%); antiviral genes still upregulated",
+   "dose": "RTB101 5 or 10 mg once daily (+/- everolimus in phase 2b); phase 3 used RTB101 10 mg once daily; oral, placebo-controlled.",
+   "sample_size": "Phase 2b + phase 3 across >1500 adults aged >=65 (phase 3 n=1024).",
+   "effect_size": "Phase 3 primary endpoint (proportion with >=1 clinically symptomatic respiratory illness) NOT met; RTB101 still upregulated IFN-induced antiviral gene expression. Biomarker moved, clinical outcome did not.",
+   "limitations": "FDA changed the primary endpoint between phase 2b and phase 3 (symptom-based vs lab-confirmed), complicating comparison; positive biomarker did not translate to clinical benefit."
+  },
+  "entities": [
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rtb101",
+    "name": "RTB101",
+    "type": "Drug"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": [
+    "EVE-IMMUNE"
+   ]
+  },
+  "questions": [
+   "H5",
+   "H7"
+  ],
+  "related_studies": [
+   "MAN2018",
+   "KRA2018",
+   "LEE2024",
+   "MAN2014"
+  ]
+ }
+}

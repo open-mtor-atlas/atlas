@@ -1,0 +1,86 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HSI2012",
+  "title": "The translational landscape of mTOR signalling steers cancer initiation and metastasis",
+  "authors": "Hsieh AC; Liu Yi; Edlind MP; Ingolia NT; Janes MR; Sher A; et al.; Ruggero D",
+  "year": 2012,
+  "journal": "Nature",
+  "doi": "10.1038/nature10912",
+  "pmid": "22367541",
+  "pmcid": "PMC3663483",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse models + human prostate cancer",
+  "peer_reviewed": true,
+  "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
+  "url": "https://mtor-atlas.org/study/HSI2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json",
+  "abstract_excerpt": "The mammalian target of rapamycin (mTOR) kinase is a master regulator of protein synthesis that couples nutrient sensing to cell growth and cancer. However, the downstream translationally regulated nodes of gene expression that may direct cancer development are poorly characterized. Using ribosome profiling, we uncover specialized translation of the prostate cancer genome by oncogenic mTOR signalling, revealing a remarkably specific repertoire of genes involved in cell proliferation, metabolism and invasion.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Oncogenic mTOR modulation + ribosome profiling",
+   "target": "mTOR / 4E-BP–eIF4E translation",
+   "species": "Mouse models + human prostate cancer",
+   "effect": "Oncogenic mTOR reprograms translation of a specific gene set driving proliferation, metabolism and invasion/metastasis"
+  },
+  "entities": [
+   {
+    "id": "eif4e",
+    "name": "eIF4E",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "prostate-cancer",
+    "name": "Prostate cancer",
+    "type": "Disease"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "EIF4E-TRANSL",
+    "MTORC1-TUMOR"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "MAX2009",
+   "THO2012",
+   "SCH2003",
+   "HSI2010"
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "PI3K-MTORC2",
+  "claim": "PI3K activates mTORC2",
+  "source": {
+   "name": "PI3K",
+   "entity": "pi3k"
+  },
+  "target": {
+   "name": "mTORC2",
+   "entity": "mtorc2"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "seconds",
+  "compartment": "pm",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "PIP3 made by PI3K binds SIN1 and releases its hold on the kinase site - so growth-factor signalling switches mTORC2 on, not only mTORC1.",
+  "mechanism_beginner": "The same lipid signal that switches Akt on also switches mTORC2 on – so growth-factor signals hit both complexes.",
+  "context": null,
+  "boundary": "Single-study edge in this corpus.",
+  "note": "Thin - one supporting study for a step drawn as canonical.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "LIU2015"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/PI3K-MTORC2.json"
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DAL2012",
+  "title": "A dynamic network model of mTOR signaling reveals TSC-independent mTORC2 regulation",
+  "authors": "Dalle Pezze P; Sonntag AG; Thien A; Prentzell MT; Gödel M; Fischer S; Neumann-Haefelin E; Huber TB; Baumeister R; Shanley DP; Thedieck K",
+  "year": 2012,
+  "journal": "Science Signaling",
+  "doi": "10.1126/scisignal.2002469",
+  "pmid": "22457331",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Data-driven dynamic model of the insulin-mTOR network, tested in HeLa and other cell lines",
+  "peer_reviewed": true,
+  "finding": "A time-resolved, data-fitted model of the whole core insulin-mTOR network, including the mTORC1 negative feedback loop onto PI3K. Perturbing it in silico and in cells showed that TSC1-TSC2 is not a regulator of mTORC2, directly or through the feedback loop, and that mTORC2 activation runs through a PI3K variant insensitive to that loop. One of the few places where the feedback loops in the atlas are treated as a dynamical system rather than a diagram.",
+  "url": "https://mtor-atlas.org/study/DAL2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2012.json",
+  "abstract_excerpt": "The kinase mammalian target of rapamycin (mTOR) exists in two multiprotein complexes (mTORC1 and mTORC2) and is a central regulator of growth and metabolism. Insulin activation of mTORC1, mediated by phosphoinositide 3-kinase (PI3K), Akt, and the inhibitory tuberous sclerosis complex 1/2 (TSC1-TSC2), initiates a negative feedback loop that ultimately inhibits PI3K. We present a data-driven dynamic insulin-mTOR network model that integrates the entire core network and used this model to investigate the less well understood mechanisms by which insulin regulates mTORC2.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "In silico and experimental perturbations (insulin, inhibitors, knockdowns)",
+   "target": "mTORC1; mTORC2; TSC1-TSC2; PI3K; negative feedback loop",
+   "species": "Human cell lines",
+   "effect": "mTORC2 is not regulated by TSC1-TSC2 or by the mTORC1-driven negative feedback loop"
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "INO2002",
+   "CAN2002",
+   "DAL2016",
+   "NAT2026"
+  ]
+ }
+}

@@ -1,0 +1,227 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "renal-cell-carcinoma-rcc",
+  "name": "Renal cell carcinoma (RCC)",
+  "type": "Disease",
+  "synonyms": [],
+  "description": "Cancer of the kidney; target indication for everolimus treatment in clinical practice.",
+  "study_count": 3,
+  "relation_count": 3,
+  "url": "https://mtor-atlas.org/disease/renal-cell-carcinoma-rcc/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/renal-cell-carcinoma-rcc.json",
+  "description_beginner": "The most common form of kidney cancer. It's an approved use for the mTOR-blocking drug everolimus in clinical practice.",
+  "studies": [
+   {
+    "sid": "MOT2008",
+    "title": "Efficacy of everolimus in advanced renal cell carcinoma: a double-blind, randomised, placebo-controlled phase III trial",
+    "authors": "Motzer RJ et al.",
+    "year": 2008,
+    "journal": "Lancet",
+    "doi": "10.1016/S0140-6736(08)61039-9",
+    "pmid": "18653228",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase III RCT (RECORD-1)",
+    "peer_reviewed": true,
+    "finding": "Everolimus extended median progression-free survival from 1.9 to 4.0 months versus placebo in metastatic renal cell carcinoma.",
+    "url": "https://mtor-atlas.org/study/MOT2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MOT2008.json"
+   },
+   {
+    "sid": "GUE2007",
+    "title": "Defining the role of mTOR in cancer",
+    "authors": "Guertin DA; Sabatini DM",
+    "year": 2007,
+    "journal": "Cancer Cell",
+    "doi": "10.1016/j.ccr.2007.05.008",
+    "pmid": "17613433",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review article",
+    "peer_reviewed": true,
+    "finding": "Comprehensive review arguing mTOR signaling is commonly deregulated in human cancers, laying out the rationale for rapalog trials in oncology.",
+    "url": "https://mtor-atlas.org/study/GUE2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUE2007.json"
+   },
+   {
+    "sid": "HUD2007",
+    "title": "Temsirolimus, interferon alfa, or both for advanced renal-cell carcinoma",
+    "authors": "Hudes G et al.",
+    "year": 2007,
+    "journal": "New England Journal of Medicine",
+    "doi": "10.1056/NEJMoa066838",
+    "pmid": "17538086",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase III RCT (n=626)",
+    "peer_reviewed": true,
+    "finding": "Temsirolimus alone extended median overall survival to 10.9 months versus 7.3 months with interferon alfa in poor-prognosis metastatic kidney cancer; rash, hyperglycemia, and hyperlipidemia were more common with temsirolimus.",
+    "url": "https://mtor-atlas.org/study/HUD2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HUD2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "EVE-RCC",
+    "claim": "Everolimus inhibits Renal cell carcinoma (RCC)",
+    "source": {
+     "name": "Everolimus",
+     "entity": "everolimus"
+    },
+    "target": {
+     "name": "Renal cell carcinoma (RCC)",
+     "entity": "renal-cell-carcinoma-rcc"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "RECORD-1: everolimus roughly doubled progression-free survival after other targeted therapy failed.",
+    "mechanism_beginner": "In a clinical trial, everolimus roughly doubled the time before advanced kidney cancer got worse, after other treatments had stopped working.",
+    "context": null,
+    "boundary": "Second-line setting, after VEGF-targeted therapy - not first-line.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "MOT2008"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-RCC.json"
+   },
+   {
+    "id": "MTORC1-RCC",
+    "claim": "mTORC1 activates Renal cell carcinoma (RCC)",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "Renal cell carcinoma (RCC)",
+     "entity": "renal-cell-carcinoma-rcc"
+    },
+    "effect": "activates",
+    "type": "association",
+    "directness": "unresolved",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "Renal cancers frequently carry lesions that leave mTORC1 constitutively active - which is why this tissue responds to mTOR inhibitors at all, and why an exceptional responder could be traced to TSC1 loss.",
+    "mechanism_beginner": "Many kidney cancers carry mutations that leave mTORC1 stuck \"on\" – that's why this cancer type responds to mTOR-blocking drugs at all, though it doesn't prove mTORC1 causes the cancer.",
+    "context": null,
+    "boundary": "Correlative plus one n-of-1 genomic case (IYE2012); not a demonstration that mTORC1 activation initiates RCC.",
+    "note": "Replaces TUMOR-RCC, which asserted 'Tumor growth activates RCC' - a category error, since RCC is an instance of tumour growth, not a downstream target.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "established",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Correlative",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "IYE2012",
+      "MOT2008",
+      "HUD2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-RCC.json"
+   },
+   {
+    "id": "TEM-RCC",
+    "claim": "Temsirolimus inhibits Renal cell carcinoma (RCC)",
+    "source": {
+     "name": "Temsirolimus",
+     "entity": "temsirolimus"
+    },
+    "target": {
+     "name": "Renal cell carcinoma (RCC)",
+     "entity": "renal-cell-carcinoma-rcc"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "In poor-prognosis renal cancer, temsirolimus improved overall survival against interferon - the hardest endpoint there is.",
+    "mechanism_beginner": "In hard-to-treat kidney cancer, temsirolimus helped patients live longer compared with an older drug.",
+    "context": null,
+    "boundary": "Poor-prognosis patients specifically; the combination arm did not beat temsirolimus alone.",
+    "note": "Overall survival, not a surrogate. Worth pointing at.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "HUD2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-RCC.json"
+   }
+  ]
+ }
+}

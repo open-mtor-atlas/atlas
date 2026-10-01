@@ -1,0 +1,529 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "rag-gtpases",
+  "name": "Rag GTPases",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "Rag",
+   "Rag GTPase",
+   "RagA",
+   "RagB",
+   "RagC",
+   "RagD",
+   "RagA/B",
+   "RRAGA",
+   "RRAGB"
+  ],
+  "description": "Family of small GTPases that let mTORC1 sense amino acids by controlling its localization near its activator Rheb inside the cell.",
+  "study_count": 8,
+  "relation_count": 7,
+  "url": "https://mtor-atlas.org/gene/rag-gtpases/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/rag-gtpases.json",
+  "description_beginner": "A family of small molecular switches that let mTORC1 sense amino acids by controlling where inside the cell it's allowed to sit - specifically, whether it can get close enough to its activator Rheb.",
+  "studies": [
+   {
+    "sid": "SAN2008",
+    "title": "The Rag GTPases bind raptor and mediate amino acid signaling to mTORC1",
+    "authors": "Sancak Y; Sabatini DM et al.",
+    "year": 2008,
+    "journal": "Science",
+    "doi": "10.1126/science.1157535",
+    "pmid": "18497260",
+    "pmcid": "PMC2475333",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines",
+    "peer_reviewed": true,
+    "finding": "Identifies the Rag GTPase family as the missing link that lets mTORC1 sense amino acids by controlling whether mTOR is positioned near its activator Rheb.",
+    "url": "https://mtor-atlas.org/study/SAN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2008.json"
+   },
+   {
+    "sid": "MUT2026",
+    "title": "ER-Lysosome Cholesterol Exchange Regulates Lysosomal Motility Through mTOR-Dependent LAMTOR1 Phosphorylation",
+    "authors": "Muthukottiappan P; Winter D et al.",
+    "year": 2026,
+    "journal": "bioRxiv (preprint)",
+    "doi": "10.64898/2026.03.31.715514",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "PP",
+     "label": "Preprint, not peer-reviewed",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Preprint",
+    "model_system": "Human cell lines",
+    "peer_reviewed": false,
+    "finding": "Identifies a new layer of control over mTORC1's lysosomal machinery: cholesterol exchange between the ER and lysosome regulates lysosome movement via mTOR-dependent phosphorylation of LAMTOR1, a core component of the Ragulator complex that anchors the Rag GTPases already in this Atlas.",
+    "url": "https://mtor-atlas.org/study/MUT2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MUT2026.json"
+   },
+   {
+    "sid": "SAN2010",
+    "title": "Ragulator-Rag complex targets mTORC1 to the lysosomal surface and is necessary for its activation by amino acids",
+    "authors": "Sancak Y; Bar-Peled L; Zoncu R; Markhard AL; Nada S; Sabatini DM",
+    "year": 2010,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2010.02.024",
+    "pmid": "20381137",
+    "pmcid": "PMC3024592",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + Drosophila",
+    "peer_reviewed": true,
+    "finding": "Established WHERE mTORC1 gets switched on: the lysosome surface. Identified Ragulator as the lysosomal dock that recruits the Rag GTPases and drags mTORC1 to the membrane where its activator Rheb lives. Amino acids work by controlling this translocation.",
+    "url": "https://mtor-atlas.org/study/SAN2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2010.json"
+   },
+   {
+    "sid": "ZON2011",
+    "title": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase",
+    "authors": "Zoncu R; Bar-Peled L; Efeyan A; Wang S; Sancak Y; Sabatini DM",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1207056",
+    "pmid": "22053050",
+    "pmcid": "PMC3211112",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cell-free reconstitution",
+    "peer_reviewed": true,
+    "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
+    "url": "https://mtor-atlas.org/study/ZON2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json"
+   },
+   {
+    "sid": "BAR2013",
+    "title": "A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1",
+    "authors": "Bar-Peled L; Chantranupong L; Cherniack AD; Chen WW; Ottina KA; Grabiner BC; Spear ED; Carter SL; Meyerson M; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1232044",
+    "pmid": "23723238",
+    "pmcid": "PMC3728654",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cancer genomics",
+    "peer_reviewed": true,
+    "finding": "Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated in cancers, making those tumors 'blind' to starvation and hypersensitive to rapamycin.",
+    "url": "https://mtor-atlas.org/study/BAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2013.json"
+   },
+   {
+    "sid": "CUI2023",
+    "title": "Structure of the lysosomal mTORC1-TFEB-Rag-Ragulator megacomplex",
+    "authors": "Cui Z; Napolitano G; de Araujo MEG; Esposito A; Monfregola J; Huber LA; Ballabio A; Hurley JH",
+    "year": 2023,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-05652-7",
+    "pmid": "36697823",
+    "pmcid": "PMC9931586",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution)",
+    "peer_reviewed": true,
+    "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way no other mTORC1 substrate does. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
+    "url": "https://mtor-atlas.org/study/CUI2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json"
+   },
+   {
+    "sid": "CUI2025",
+    "title": "Structural basis for mTORC1 activation on the lysosomal membrane",
+    "authors": "Cui Z; Esposito A; Napolitano G; Ballabio A; Hurley JH",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09545-3",
+    "pmid": "40963021",
+    "pmcid": "PMC12448111",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, reconstituted on membranes)",
+    "peer_reviewed": true,
+    "finding": "Resolves how mTORC1 flips from 'parked on the lysosome' to 'catalytically switched on'. Reconstituting the whole assembly on membranes from purified Rheb, Rag GTPases, Ragulator and mTORC1, cryo-EM shows the kinase reaches full activity only after two separate anchoring steps: Rag-Ragulator first pulls it to within about 100 angstroms of the membrane, then Rheb pulls it to within about 40 angstroms, and only when Raptor and mTOR itself also touch the membrane directly do the catalytic residues line up for full activity. Growth-factor input (via Rheb) and nutrient input (via the Rags) are shown converging on the same physical docking event rather than acting through separate switches. Boundary: reconstituted on synthetic membranes from purified components — a structural/biochemical model, not a measurement inside a living cell.",
+    "url": "https://mtor-atlas.org/study/CUI2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2025.json"
+   },
+   {
+    "sid": "ROG2019",
+    "title": "Structural basis for the docking of mTORC1 on the lysosomal surface",
+    "authors": "Rogala KB; Sabatini DM et al.",
+    "year": 2019,
+    "journal": "Science",
+    "doi": "10.1126/science.aay0166",
+    "pmid": "31601708",
+    "pmcid": "PMC7176403",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution) + cell-based mutagenesis",
+    "peer_reviewed": true,
+    "finding": "3.2-angstrom cryo-EM structure of Raptor bound to Rag-Ragulator, showing how Raptor reads out the nutrient-dependent nucleotide state of the Rag GTPases: one part of Raptor senses RagA's nucleotide state, a separate 'claw' senses RagC's, and both have to be in the correct nutrient-signalling combination before Raptor is allowed to dock. Mutating the contact points blocks mTORC1 from reaching the lysosome and inhibits its signalling, which is the functional evidence behind the structural claim. Combined with a separate structure of mTORC1 bound to its activator Rheb, the paper builds a model of the complete, active mTORC1 sitting on the lysosome. Boundary: cryo-EM of a complex reconstituted from purified human proteins, not a live-cell measurement.",
+    "url": "https://mtor-atlas.org/study/ROG2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROG2019.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "FLCN-RAG",
+    "claim": "FLCN / FNIP1/2 activates Rag GTPases",
+    "source": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "gap-activity",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "FLCN-FNIP is the GAP for the other half of the Rag dimer (RagC/D). Only when both halves are in the right nucleotide state can the dimer hold mTORC1. Crucially this arm is SUBSTRATE-SPECIFIC: it gates TFEB and TFE3 phosphorylation, while canonical outputs like S6K1 and 4E-BP1 carry on without it.",
+    "mechanism_beginner": "FLCN flips the other half of the Rag pair into its working shape – but it only changes one specific output (TFEB), not the whole pathway.",
+    "context": null,
+    "boundary": "The substrate selectivity is why Birt-Hogg-Dube syndrome is driven by constitutive nuclear TFEB/TFE3 rather than by blanket mTORC1 hyperactivation (NAP2020).",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "LAW2019",
+      "SHE2019",
+      "NAP2020"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/FLCN-RAG.json"
+   },
+   {
+    "id": "GATOR1-RAG",
+    "claim": "GATOR1 inhibits Rag GTPases",
+    "source": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "inhibits",
+    "type": "gap-activity",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "GATOR1 acts as a GAP: it forces RagA/B to hydrolyse GTP, flipping the Rag heterodimer into the inactive shape that cannot hold mTORC1.",
+    "mechanism_beginner": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2013"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GATOR1-RAG.json"
+   },
+   {
+    "id": "GLN-RAG",
+    "claim": "Glutamine activates Rag GTPases",
+    "source": {
+     "name": "Glutamine",
+     "entity": "glutamine"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.",
+    "mechanism_beginner": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
+    "context": null,
+    "boundary": "Cell-type dependent, and deliberately narrow: the separate claim that glutamine can reach mTORC1 without the Rags is carried by its own edge rather than folded in here.",
+    "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DUR2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-RAG.json"
+   },
+   {
+    "id": "LARS-RAG",
+    "claim": "LARS (leucyl-tRNA synthetase) activates Rag GTPases",
+    "source": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "gap-activity",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "In this model LARS acts as a GAP for RagD, doing for the RagC/D half what FLCN does - an alternative route from leucine to the Rags.",
+    "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
+    "context": null,
+    "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+    "note": "See LEU-LARS.",
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "consensus": "contested"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LARS-RAG.json"
+   },
+   {
+    "id": "RAG-MTORC1",
+    "claim": "Rag GTPases recruits mTORC1",
+    "source": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The active Rag dimer grabs Raptor and physically drags mTORC1 to the lysosomal surface. This is a relocation, not an activation - the kinase is moved to where its activator waits.",
+    "mechanism_beginner": "The switched-on Rag proteins grab mTORC1 and drag it to the lysosome. This moves it into place; it doesn't turn it on by itself.",
+    "context": null,
+    "boundary": "Rag paralogues are not interchangeable: RagC/D sets substrate specificity downstream (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding, while both Rags are involved for non-lysosomal substrates like S6K), and RagA/B sets the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even when starved) — GOL2022.",
+    "note": "The conceptual crux of the whole route: teach recruitment vs activation as two separate ideas.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SAN2008",
+      "SAN2010",
+      "LAW2018",
+      "GOL2022"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAG-MTORC1.json"
+   },
+   {
+    "id": "RAGULATOR-RAG",
+    "claim": "Ragulator activates Rag GTPases",
+    "source": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "scaffolding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.",
+    "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their \"on\" shape. The anchoring is the better-established of the two jobs.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2012",
+      "SAN2010"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-RAG.json"
+   },
+   {
+    "id": "SLC38A9-RAG",
+    "claim": "SLC38A9 activates Rag GTPases",
+    "source": {
+     "name": "SLC38A9",
+     "entity": "slc38a9"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.",
+    "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and tells the Rag proteins there's enough.",
+    "context": null,
+    "boundary": null,
+    "note": "Four independent studies - one of the best-supported edges in the sensor branch.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "REB2015",
+      "WAN2015",
+      "JUN2015",
+      "WYA2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SLC38A9-RAG.json"
+   }
+  ]
+ }
+}

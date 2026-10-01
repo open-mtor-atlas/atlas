@@ -1,0 +1,164 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "fkbp12",
+  "name": "FKBP12",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Rapamycin's docking protein. Rapamycin first binds FKBP12; only the FKBP12-rapamycin pair can grab mTOR. This is why rapamycin is an 'allosteric' (indirect) inhibitor - it works through a chaperone, not by blocking the active site.",
+  "study_count": 2,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/fkbp12.json",
+  "description_beginner": "The 'docking protein' rapamycin needs to work. Rapamycin first grabs onto this protein, and only that combined pair can then latch onto and block mTOR - which is why rapamycin is called an indirect ('allosteric') inhibitor rather than one that blocks mTOR's active site directly.",
+  "studies": [
+   {
+    "sid": "CHO1996",
+    "title": "Structure of the FKBP12-rapamycin complex interacting with the binding domain of human FRAP",
+    "authors": "Choi J; Chen J; Schreiber SL; Clardy J",
+    "year": 1996,
+    "journal": "Science",
+    "doi": "10.1126/science.273.5272.239",
+    "pmid": "8662507",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "X-ray crystallography (structural biology)",
+    "peer_reviewed": true,
+    "finding": "The crystal structure that showed HOW rapamycin works at the atomic level: one rapamycin molecule glues two proteins together - FKBP12 and mTOR's FRB domain - by plugging into two hydrophobic pockets at once. A textbook example of a small molecule acting as 'molecular glue' to force protein dimerization.",
+    "url": "https://mtor-atlas.org/study/CHO1996/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHO1996.json"
+   },
+   {
+    "sid": "YAN2013",
+    "title": "mTOR kinase structure, mechanism and regulation",
+    "authors": "Yang H; Rudge DG; Koos JD; Vaidialingam B; Yang HJ; Pavletich NP",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature12122",
+    "pmid": "23636326",
+    "pmcid": "PMC4512754",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "X-ray crystallography (structural biology)",
+    "peer_reviewed": true,
+    "finding": "Solved the crystal structure of the mTOR kinase itself. Revealed why the active site is so hard to reach - it sits in a deep recess guarded by the FRB domain, which acts as a 'gatekeeper' letting substrates in. This structure explains at the atomic level exactly how FKBP12-rapamycin blocks access, and why activating cancer mutations cluster where they do.",
+    "url": "https://mtor-atlas.org/study/YAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YAN2013.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "FKBP12-MTORC1",
+    "claim": "FKBP12 binds mTORC1",
+    "source": {
+     "name": "FKBP12",
+     "entity": "fkbp12"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "binds",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Only when it is carrying rapamycin, FKBP12 docks on the FRB domain next to mTOR's active site. The FKBP12-rapamycin complex, not FKBP12 alone, is what blocks access for some substrates but not all; FKBP12 without the drug does not inhibit mTORC1. The inhibitory arrow is drawn from rapamycin (RAPA-MTORC1).",
+    "mechanism_beginner": "Only when it carries rapamycin does FKBP12 dock on mTORC1; the pair then blocks some, but not all, of what mTORC1 does. FKBP12 on its own does nothing to mTORC1.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SAB1994",
+      "SAB1995",
+      "CHU1992",
+      "BRO1994"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/FKBP12-MTORC1.json"
+   },
+   {
+    "id": "RAPA-FKBP12",
+    "claim": "Rapamycin binds FKBP12",
+    "source": {
+     "name": "Rapamycin",
+     "entity": "rapamycin"
+    },
+    "target": {
+     "name": "FKBP12",
+     "entity": "fkbp12"
+    },
+    "effect": "binds",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Rapamycin is not an ordinary inhibitor: it first binds the small protein FKBP12, and only the two-part complex is the real drug.",
+    "mechanism_beginner": "Rapamycin doesn't work alone – it first has to team up with a helper protein called FKBP12.",
+    "context": null,
+    "boundary": null,
+    "note": "The molecular-glue concept - genuinely surprising to newcomers.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CHO1996",
+      "BRO1994",
+      "SAB1995"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-FKBP12.json"
+   }
+  ]
+ }
+}

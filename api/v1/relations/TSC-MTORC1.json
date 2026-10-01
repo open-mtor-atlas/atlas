@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "TSC-MTORC1",
+  "claim": "TSC1/TSC2 inhibits mTORC1",
+  "source": {
+   "name": "TSC1/TSC2",
+   "entity": "tsc1-tsc2"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "inhibits",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "seconds",
+  "compartment": "lyso",
+  "species": [
+   "human",
+   "mammalian cells"
+  ],
+  "mechanism": "The TSC complex is the pathway's main tumour suppressor. Inherit one broken copy and lesions grow wherever the second copy is lost - the clearest human evidence that mTORC1 activity drives tissue overgrowth.",
+  "mechanism_beginner": "The TSC brake is the pathway's main tumour-suppressor. Inherit one broken copy of the gene and growths appear wherever the second copy is also lost. (This arrow skips a step for simplicity – TSC actually acts through Rheb first.)",
+  "context": "Deliberately compressed: TSC acts on Rheb, never on mTORC1. Kept as one link so the overview reads cleanly.",
+  "boundary": null,
+  "note": "This is the edge that turns the biochemistry into a disease.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "established",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "TEE2003",
+    "INOK2003",
+    "KRU2010"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/TSC-MTORC1.json"
+ }
+}

@@ -1,0 +1,57 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "LEU-SESN2",
+  "claim": "Leucine inhibits Sestrin2",
+  "source": {
+   "name": "Leucine",
+   "entity": "leucine"
+  },
+  "target": {
+   "name": "Sestrin2",
+   "entity": "sestrin2"
+  },
+  "effect": "inhibits",
+  "type": "binding",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "cytosol",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "Leucine binds a pocket inside Sestrin2 with roughly 20 uM affinity - close to the concentration at which cells actually feel leucine coming and going. The bound sensor can no longer hold GATOR2, so leucine effectively switches the brake off.",
+  "mechanism_beginner": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
+  "context": null,
+  "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Structural",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "WOL2015",
+    "SAX2015"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-SESN2.json"
+ }
+}

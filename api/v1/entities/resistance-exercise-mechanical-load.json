@@ -1,0 +1,116 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "resistance-exercise-mechanical-load",
+  "name": "Resistance exercise / mechanical load",
+  "type": "Intervention",
+  "synonyms": [],
+  "description": "Mechanical loading of skeletal muscle, the physiological stimulus for hypertrophy, acting through mTORC1.",
+  "study_count": 2,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/resistance-exercise-mechanical-load.json",
+  "description_beginner": "Lifting something heavy.",
+  "studies": [
+   {
+    "sid": "BOD2001",
+    "title": "Akt/mTOR pathway is a crucial regulator of skeletal muscle hypertrophy and can prevent muscle atrophy in vivo",
+    "authors": "Bodine SC; Yancopoulos GD et al.",
+    "year": 2001,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/ncb1101-1014",
+    "pmid": "11715023",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse; muscle",
+    "peer_reviewed": true,
+    "finding": "Akt/mTOR signalling is necessary and sufficient to drive skeletal-muscle hypertrophy and counteract atrophy in vivo.",
+    "url": "https://mtor-atlas.org/study/BOD2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BOD2001.json"
+   },
+   {
+    "sid": "DRU2009",
+    "title": "Rapamycin administration in humans blocks the contraction-induced increase in skeletal muscle protein synthesis",
+    "authors": "Drummond MJ; Rasmussen BB et al.",
+    "year": 2009,
+    "journal": "Journal of Physiology",
+    "doi": "10.1113/jphysiol.2008.163816",
+    "pmid": "19188252",
+    "pmcid": "PMC2678224",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, controlled trial",
+    "peer_reviewed": true,
+    "finding": "Rapamycin given before resistance exercise completely blocked the normal post-exercise increase in human muscle protein synthesis.",
+    "url": "https://mtor-atlas.org/study/DRU2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DRU2009.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "LOAD-MTORC1",
+    "claim": "Resistance exercise / mechanical load activates mTORC1",
+    "source": {
+     "name": "Resistance exercise / mechanical load",
+     "entity": "resistance-exercise-mechanical-load"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "lyso",
+    "species": [
+     "human",
+     "mouse"
+    ],
+    "mechanism": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers blocks the contraction-induced increase in muscle protein synthesis, placing mTORC1 causally between the load and the response.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Compressed: load reaches mTORC1 through several routes, only some of which need IGF-1, and the map draws one arrow. The human evidence establishes that mTORC1 is required, not which upstream route carries the signal.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "DRU2009",
+      "BOD2001"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LOAD-MTORC1.json"
+   }
+  ]
+ }
+}

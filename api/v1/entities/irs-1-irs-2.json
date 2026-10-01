@@ -1,0 +1,187 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "irs-1-irs-2",
+  "name": "IRS-1 / IRS-2",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "IRS1",
+   "IRS2",
+   "insulin receptor substrate"
+  ],
+  "description": "Insulin receptor substrate proteins - the adaptors that carry the signal from the insulin/IGF-1 receptor to PI3K. S6K1 phosphorylates and represses them, which is the pathway's principal negative feedback loop: sustained mTORC1 activity deafens the cell to insulin, and blocking mTOR restores insulin signalling and raises Akt activity.",
+  "study_count": 3,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/gene/irs-1-irs-2/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/irs-1-irs-2.json",
+  "description_beginner": "The adaptor proteins that carry the signal from the insulin/IGF-1 receptor onward to PI3K. mTORC1's partner S6K1 tags them for shutdown, which is the pathway's main feedback brake: too much mTORC1 activity 'deafens' the cell to insulin, and blocking mTOR restores that sensitivity and raises Akt activity.",
+  "studies": [
+   {
+    "sid": "HAR2004",
+    "title": "The TSC1-2 tumor suppressor controls insulin-PI3K signaling via regulation of IRS proteins",
+    "authors": "Harrington LS; Findlay GM; Lamb RF et al.",
+    "year": 2004,
+    "journal": "The Journal of Cell Biology",
+    "doi": "10.1083/jcb.200403069",
+    "pmid": "15249583",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells (TSC1/TSC2-null MEFs, human cells)",
+    "peer_reviewed": true,
+    "finding": "One of two 2004 papers that placed mTORC1's main negative feedback loop downstream of TSC-Rheb-S6K1 (rapamycin-sensitive IRS-1 degradation had been reported earlier, Haruta 2000). When mTORC1/S6K1 activity is left switched on, S6K1 phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the textbook explanation for why blocking mTORC1 paradoxically raises Akt activity, and it contributes to insulin resistance when mTORC1 is chronically overactive (for example with TSC loss or nutrient excess). The insulin resistance seen with chronic rapamycin is instead attributed mainly to mTORC2 disruption (LAM2012).",
+    "url": "https://mtor-atlas.org/study/HAR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAR2004.json"
+   },
+   {
+    "sid": "SHA2004",
+    "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+    "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.08.026",
+    "pmid": "15380067",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+    "url": "https://mtor-atlas.org/study/SHA2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
+   },
+   {
+    "sid": "UMX2004",
+    "title": "Absence of S6K1 protects against age- and diet-induced obesity while enhancing insulin sensitivity",
+    "authors": "Um SH; Thomas G et al.",
+    "year": 2004,
+    "journal": "Nature",
+    "doi": "10.1038/nature02866",
+    "pmid": "15306821",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (S6K1 KO)",
+    "peer_reviewed": true,
+    "finding": "S6K1 deletion protects mice from age- and diet-induced obesity and enhances insulin sensitivity.",
+    "url": "https://mtor-atlas.org/study/UMX2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/UMX2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "IRS1-PI3K",
+    "claim": "IRS-1 / IRS-2 activates PI3K",
+    "source": {
+     "name": "IRS-1 / IRS-2",
+     "entity": "irs-1-irs-2"
+    },
+    "target": {
+     "name": "PI3K",
+     "entity": "pi3k"
+    },
+    "effect": "activates",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "pm",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "IRS proteins are the adaptors that carry the signal from the insulin/IGF-1 receptor to PI3K. Deplete them and the receptor is still there but the wire is cut.",
+    "mechanism_beginner": "IRS proteins carry the signal from the insulin receptor to PI3K; without them, the receptor is still there but the wire connecting it is cut.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAR2004",
+      "CAN2002"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/IRS1-PI3K.json"
+   },
+   {
+    "id": "S6K1-IRS1",
+    "claim": "S6K1 inhibits IRS-1 / IRS-2",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "IRS-1 / IRS-2",
+     "entity": "irs-1-irs-2"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "The pathway's principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
+    "mechanism_beginner": "This is the pathway's main self-limiting \"off switch\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
+    "context": null,
+    "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
+    "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "HAR2004",
+      "SHA2004",
+      "UMX2004"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-IRS1.json"
+   }
+  ]
+ }
+}

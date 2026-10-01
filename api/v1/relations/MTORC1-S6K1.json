@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MTORC1-S6K1",
+  "claim": "mTORC1 activates S6K1",
+  "source": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "target": {
+   "name": "S6K1",
+   "entity": "s6k1"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "mTORC1 phosphorylates S6K1, switching on the translation machinery. This is the classic rapamycin-sensitive output and the readout most papers actually measure.",
+  "mechanism_beginner": "mTORC1 switches on S6K1, which turns on the cell's protein-building machinery – the classic effect most studies of this drug class measure.",
+  "context": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
+  "boundary": "Caution: p-S6K is a proxy, not the phenotype. Many 'mTORC1 activity' claims rest on this single band.",
+  "note": "Worth flagging on the page: readout != outcome.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "BUR1998",
+    "CHU1992",
+    "HOL2005"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-S6K1.json"
+ }
+}

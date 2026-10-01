@@ -1,0 +1,75 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GU2017",
+  "title": "SAMTOR is an S-adenosylmethionine sensor for the mTORC1 pathway",
+  "authors": "Gu X; Orozco JM; Saxton RA; Condon KJ; Liu GY; Krawczyk PA; Scaria SM; Harper JW; Gygi SP; Sabatini DM",
+  "year": 2017,
+  "journal": "Science",
+  "doi": "10.1126/science.aao3265",
+  "pmid": "29123071",
+  "pmcid": "PMC5747364",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells (biochemistry)",
+  "peer_reviewed": true,
+  "finding": "Extended nutrient sensing beyond amino acids to METABOLITES: SAMTOR reads S-adenosylmethionine (SAM), the cell's methyl-donor currency, linking methionine and one-carbon metabolism to mTORC1. Relevant to why methionine restriction affects aging.",
+  "url": "https://mtor-atlas.org/study/GU2017/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GU2017.json",
+  "abstract_excerpt": "mTOR complex 1 (mTORC1) regulates cell growth and metabolism in response to multiple environmental cues. Nutrients signal via the Rag guanosine triphosphatases (GTPases) to promote the localization of mTORC1 to the lysosomal surface, its site of activation. We identified SAMTOR, a previously uncharacterized protein, which inhibits mTORC1 signaling by interacting with GATOR1, the GTPase activating protein (GAP) for RagA/B. We found that the methyl donor-adenosylmethionine (SAM) disrupts the SAMTOR-GATOR1 complex by binding directly to SAMTOR with a dissociation constant of approximately 7 μM.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (SAMTOR)",
+   "target": "SAMTOR / GATOR1 / mTORC1 (SAM/methionine)",
+   "species": "Human cells (biochemistry)",
+   "effect": "SAMTOR is an S-adenosylmethionine sensor that inhibits mTORC1 by interacting with GATOR1"
+  },
+  "entities": [
+   {
+    "id": "samtor",
+    "name": "SAMTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s-adenosylmethionine-sam",
+    "name": "S-adenosylmethionine (SAM)",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "gator1",
+    "name": "GATOR1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "SAM-SAMTOR",
+    "SAMTOR-GATOR1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H1"
+  ],
+  "related_studies": [
+   "BAR2013"
+  ]
+ }
+}

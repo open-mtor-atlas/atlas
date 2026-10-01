@@ -1,0 +1,76 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CHA2016",
+  "title": "The CASTOR Proteins Are Arginine Sensors for the mTORC1 Pathway",
+  "authors": "Chantranupong L; Scaria SM; Saxton RA; Gygi MP; Shen K; Wyant GA; Wang T; Harper JW; Gygi SP; Sabatini DM",
+  "year": 2016,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2016.02.035",
+  "pmid": "26972053",
+  "pmcid": "PMC4808398",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells (biochemistry)",
+  "peer_reviewed": true,
+  "finding": "Identified CASTOR1 as the direct arginine sensor: when arginine binds CASTOR1, it lets go of GATOR2, switching mTORC1 on. Together with Sestrin2 (leucine) this built the picture of mTORC1 as a cell that literally tastes individual amino acids.",
+  "url": "https://mtor-atlas.org/study/CHA2016/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2016.json",
+  "abstract_excerpt": "Amino acids signal to the mTOR complex I (mTORC1) growth pathway through the Rag GTPases. Multiple distinct complexes regulate the Rags, including GATOR1, a GTPase activating protein (GAP), and GATOR2, a positive regulator of unknown molecular function. Arginine stimulation of cells activates mTORC1, but how it is sensed is not well understood. Recently, SLC38A9 was identified as a putative lysosomal arginine sensor required for arginine to activate mTORC1 but how arginine deprivation represses mTORC1 is unknown.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (CASTOR1/2)",
+   "target": "CASTOR / GATOR2 / mTORC1 (arginine)",
+   "species": "Human cells (biochemistry)",
+   "effect": "The CASTOR proteins are direct arginine sensors for the mTORC1 pathway"
+  },
+  "entities": [
+   {
+    "id": "arginine",
+    "name": "Arginine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "gator2",
+    "name": "GATOR2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "castor1",
+    "name": "CASTOR1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ARG-CASTOR1",
+    "CASTOR1-GATOR2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BAR2013",
+   "KUS2026",
+   "LEI2018",
+   "REB2015"
+  ]
+ }
+}

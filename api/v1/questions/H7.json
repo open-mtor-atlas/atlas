@@ -1,0 +1,43 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H7",
+  "kind": "open-question",
+  "title": "Low-dose mTOR inhibition rejuvenates the aging immune system without net immunosuppression",
+  "category": "Contradiction / tension",
+  "confidence": 0.75,
+  "evidence_stands_at": "Clinical outcome in humans — negative",
+  "gap": "mTOR inhibition is the textbook immunosuppressant - rapalogs are licensed for transplant-rejection prophylaxis and transplantation is the largest human exposure dataset for the class. Sourcing note: HEI1991 is the yeast paper that identified TOR1/TOR2 through rapamycin-induced G1 arrest in S. cerevisiae. It establishes the cell-cycle mechanism, NOT the clinical immunosuppression claim, which currently has no dedicated citation in this corpus. Yet the SAME pathway at LOW dose is one of the few mTOR interventions with POSITIVE human data. QUANTIFIED: MAN2014 - 6 weeks low-dose RAD001 (everolimus) in elderly IMPROVED influenza-vaccine antibody titers (~20% rise vs placebo) and reduced exhausted PD-1+ CD4/CD8 T cells. MAN2018 - the phase 2a trial: six weeks of a low-dose combination of BEZ235 (RTB101) plus everolimus was associated with fewer self-reported infections over the following year and upregulated interferon-induced antiviral genes. The phase 2b result - fewer laboratory-confirmed respiratory tract infections, with only the 10 mg/day RTB101 dose effective - is reported in MAN2021, together with the phase 3. But MAN2021 (phase 3 PROTECTOR-1) MISSED its primary endpoint (clinically symptomatic respiratory illness NOT reduced) - so the human immune 'win' collapsed at scale. Mechanistic anchors. ARA2009 (Nature 2009) is direct SUPPORT for this hypothesis, not a counterweight: rapamycin had immunostimulatory effects on memory CD8 T-cell generation in mice and in non-human primates, increasing both the quantity and the quality of the memory response, and acting cell-intrinsically through mTORC1. The genuine counterweights are ZEN2013 (mTORC1 is REQUIRED for Treg function, so over-inhibition would blunt regulatory immunity) and the transplant dose range itself; LV2026 shows age-related Lamtor5 loss itself drives immunosenescence. The unresolved tension remains: the dose that rejuvenates adaptive immunity and the dose that suppresses it are not separated.",
+  "gap_beginner": "High-dose, long-term mTOR blocking is a classic immune-suppressing treatment, used to stop organ-transplant rejection. But oddly, a low dose of a similar drug improved older adults' response to a flu vaccine and reduced infections in earlier trials. A larger follow-up trial, though, didn't confirm a real-world benefit against symptomatic respiratory illness. So there may be a \"sweet spot\" dose that helps rather than suppresses immunity. One drug was taken all the way to a large trial on that idea and it did not work, and newer trials suggest the trade-off may not be a single dial at all.",
+  "changed_since_written": "The hypothesis was tested at phase 3 scale and failed. RTB101 monotherapy for 16 weeks in adults aged 65 and over, double-blind and placebo-controlled across 54 sites, did not reduce clinically symptomatic respiratory tract infections (Mannick, Lancet Healthy Longev 2021, PMID 33977284); the programme ended there. One nuance matters: the 2018 positive result was a combination of BEZ235 and RAD001 in a different population, so the negative is decisive for RTB101 monotherapy in the general elderly, not for the mechanism. Newer data also cut against the no-immunosuppression half. Switching transplant recipients to everolimus left neutralising antibody titres unchanged, lowered spike-specific T-cell responses and raised bacterial infections from 11.1% to 27.3% in the same trial (Messchendorp, Clin Infect Dis 2026, PMID 40231961). Weekly sirolimus at 6 mg plus home exercise in adults 65 to 85 came out favouring placebo on the primary functional endpoint, with 99 against 63 adverse events and one possibly drug-related pneumonia (Stanfield, JCSM 2026, PMID 41985884) — and that dose sits inside the supposedly safe window. PEARL established tolerability over 48 weeks but its primary endpoint was null and it carried no immune endpoint (Moel, Aging 2025, PMID 40188830).",
+  "still_open": "Net immunosuppression is the wrong axis. The effect is dissociative rather than scalar: the same trial can show raised antibody titres alongside lowered antigen-specific T-cell responses and more bacterial infections. What remains open is whether any dose or schedule gives a net favourable balance read per compartment — humoral against cellular, viral against bacterial against fungal — and whether the 2018 combination approach, untested since 2021, behaves differently from monotherapy. Reversal of T-cell exhaustion, which this card asserts, has never been the primary endpoint of a human trial of low-dose mTOR inhibition; MAN2014 reported fewer PD-1-positive T cells only as a supporting readout.",
+  "hypothesis": "There is a dose and schedule of intermittent mTORC1 inhibition that improves humoral and antiviral responses in older adults without a net infection cost. For RTB101 monotherapy at phase 3 scale the answer is already no; for combination TORC1 inhibition and other schedules it is untested since 2021.",
+  "hypothesis_beginner": "Educated guess, now partly tested and partly not: there may be a low dose that wakes up an old immune system without leaving it exposed. One drug was tried in a large trial and did not work. Whether a different dose, schedule or drug combination could is still unknown — and the newer data suggest the trade-off may not be a single dial at all.",
+  "how_to_test": "Dose-ranging elderly RCT with a validated immune-function primary endpoint (T-cell exhaustion markers + neoantigen/vaccine seroconversion + lab-confirmed infection incidence), testing several low/intermittent rapalog schedules against placebo, with paired PBMC mTORC1 vs mTORC2 phosphosignatures to map the rejuvenation-vs-suppression crossover. Prediction: an inverted-U where mid-low doses maximize vaccine response and minimize infections, with immunosuppression only above a definable trough.",
+  "studies": [
+   "MAN2014",
+   "MAN2018",
+   "MAN2021",
+   "HEI1991",
+   "ARA2009",
+   "ZEN2013",
+   "LV2026",
+   "LEE2024"
+  ],
+  "revision_log": [
+   "2026-08-30: The basis previously read 'ARA2009 mTOR drives memory-CD8 differentiation ... so over-inhibition would blunt immunity', which reversed the paper's finding; ARA2009 supports this hypothesis.",
+   "2026-09-23: The basis previously ended 'and no human trial has hit a durable clinical immune endpoint'. A phase 3 trial did test one and missed it, which is a negative result rather than an absence of one.",
+   "2026-09-29: The phase 2b result (laboratory-confirmed infections, 10 mg RTB101) was attributed to MAN2018; it is reported in MAN2021. MAN2018 is the phase 2a combination trial with self-reported infections."
+  ],
+  "url": "https://mtor-atlas.org/question/low-dose-mtor-inhibition-rejuvenates-the-aging-immune-system-without-net-immunosuppression/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H7.json"
+ }
+}

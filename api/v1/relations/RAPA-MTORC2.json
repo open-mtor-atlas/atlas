@@ -1,0 +1,57 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "RAPA-MTORC2",
+  "claim": "Rapamycin inhibits mTORC2",
+  "source": {
+   "name": "Rapamycin",
+   "entity": "rapamycin"
+  },
+  "target": {
+   "name": "mTORC2",
+   "entity": "mtorc2"
+  },
+  "effect": "inhibits",
+  "type": "complex-disassembly",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.",
+  "mechanism_beginner": "Rapamycin doesn't touch mTORC2 right away, but over days it stops new mTORC2 from being built.",
+  "context": null,
+  "boundary": "Strictly time- and cell-type-dependent: absent acutely, present after prolonged exposure, and the sensitivity varies between cell lines. LAM2012 shows the same loss of mTORC2 signalling in mouse liver in vivo, so this is not a cell-culture-only phenomenon. Treating this edge as unconditional is a common error.",
+  "note": "THE key context-dependent edge. Should render dashed with an explicit 'chronic only' label.",
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "plausible",
+   "consensus": "contested"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "SAR2006",
+    "LAM2012"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-MTORC2.json"
+ }
+}

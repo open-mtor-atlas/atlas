@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "4EBP1-MITO",
+  "claim": "4E-BP1 context-dependent Mitochondrial biogenesis",
+  "source": {
+   "name": "4E-BP1",
+   "entity": "4e-bp1"
+  },
+  "target": {
+   "name": "Mitochondrial biogenesis",
+   "entity": "mitochondrial-biogenesis"
+  },
+  "effect": "context-dependent",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "hours",
+  "compartment": "mito",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "In mammalian cells (MOR2013) 4E-BPs repress translation of nucleus-encoded mitochondrial mRNAs, so mTORC1 raises mitochondrial output by inhibiting them; this arm is less rapamycin-sensitive than the S6K arm. In flies on dietary restriction (ZID2009) upregulated 4E-BP instead enhances translation of mitochondrial respiratory mRNAs. The sign depends on organism and nutrient state, so it is drawn as conditional.",
+  "mechanism_beginner": "The 4E-BP branch helps set how many mitochondrial proteins get built. In mammalian cells it holds them back; in fruit flies on a restricted diet it boosts them, so the direction depends on the organism and the diet.",
+  "context": null,
+  "boundary": "Scope: mammalian cells, MOR2013. The sign holds where 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (TFAM, mitochondrial ribosomal proteins), which is why this branch survives rapamycin better than the S6K arm. It does NOT hold universally across species and nutrient states: in Drosophila under dietary restriction, ZID2009 reports that 4E-BP ENHANCES mitochondrial activity, and that this is how it extends lifespan. Treat the mammalian-cell direction as scoped, not general.",
+  "note": "ZID2009 is recorded as conflicting evidence on this edge (moved out of the supporting list on 2026-08-30): its own title says 4E-BP ENHANCES mitochondrial activity under dietary restriction in flies, which is the opposite sign to this mammalian-cell edge.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "untested",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "MOR2013"
+   ],
+   "conflicting": [
+    "ZID2009"
+   ]
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-MITO.json"
+ }
+}

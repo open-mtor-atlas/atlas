@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "grb10",
+  "name": "Grb10",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "mTORC1 substrate that, once phosphorylated, damps insulin/IGF-1 receptor signalling - one arm of the negative feedback that makes mTOR inhibitors paradoxically raise upstream Akt activity.",
+  "study_count": 2,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/grb10.json",
+  "description_beginner": "A protein that mTORC1 activates as part of a feedback loop - once switched on, it dials down signaling from the insulin/IGF-1 receptor. It's one reason mTOR inhibitors can paradoxically boost upstream Akt activity.",
+  "studies": [
+   {
+    "sid": "HSU2011",
+    "title": "The mTOR-regulated phosphoproteome reveals a mechanism of mTORC1-mediated inhibition of growth factor signaling",
+    "authors": "Hsu PP; Sabatini DM et al.",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1199498",
+    "pmid": "21659604",
+    "pmcid": "PMC3177140",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTOR-dependent phosphoproteomics reveal Grb10 as a substrate mediating feedback inhibition of PI3K.",
+    "url": "https://mtor-atlas.org/study/HSU2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HSU2011.json"
+   },
+   {
+    "sid": "YUX2011",
+    "title": "Phosphoproteomic analysis identifies Grb10 as an mTORC1 substrate that negatively regulates insulin signaling",
+    "authors": "Yu Yonghao; Blenis J et al.",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1199484",
+    "pmid": "21659605",
+    "pmcid": "PMC3195509",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Phosphoproteomics identify Grb10 as an mTORC1 substrate driving negative feedback on insulin/PI3K.",
+    "url": "https://mtor-atlas.org/study/YUX2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YUX2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "GRB10-IGF1",
+    "claim": "Grb10 inhibits Growth hormone / IGF-1 axis",
+    "source": {
+     "name": "Grb10",
+     "entity": "grb10"
+    },
+    "target": {
+     "name": "Growth hormone / IGF-1 axis",
+     "entity": "growth-hormone-igf-1-axis"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "pm",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Stabilised Grb10 damps insulin/IGF-1 receptor signalling. This is one of two feedback arms behind the paradox that blocking mTORC1 raises Akt activity; the other is the S6K1-IRS-1 loop.",
+    "mechanism_beginner": "Grb10 dampens insulin/IGF-1 signalling – which is why blocking mTOR can paradoxically make Akt more active.",
+    "context": null,
+    "boundary": null,
+    "note": "ORE2006 and ROD2011 were removed from this edge on 2026-09-21: neither measured Grb10. ORE2006 belongs to the S6K1-IRS-1 arm and ROD2011 shows relief of receptor tyrosine kinase feedback in general.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HSU2011",
+      "YUX2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/GRB10-IGF1.json"
+   },
+   {
+    "id": "MTORC1-GRB10",
+    "claim": "mTORC1 activates Grb10",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "Grb10",
+     "entity": "grb10"
+    },
+    "effect": "activates",
+    "type": "stabilization",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTORC1 phosphorylates and stabilises Grb10 - the start of a feedback loop that talks back to the insulin receptor.",
+    "mechanism_beginner": "mTORC1 stabilises Grb10, kicking off a feedback loop that talks back to the insulin receptor.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HSU2011",
+      "YUX2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-GRB10.json"
+   }
+  ]
+ }
+}

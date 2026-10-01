@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pancreatic-neuroendocrine-tumor",
+  "name": "Pancreatic neuroendocrine tumor",
+  "type": "Disease",
+  "synonyms": [],
+  "description": "Pancreatic neuroendocrine tumor - a cancer where mTOR drives growth; everolimus more than doubled progression-free survival (RADIANT-3), an FDA-approved indication.",
+  "study_count": 1,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pancreatic-neuroendocrine-tumor.json",
+  "description_beginner": "A type of pancreatic cancer driven partly by mTOR signaling. Everolimus more than doubled the time before the tumor progressed in a major clinical trial, and it's now an approved treatment.",
+  "studies": [
+   {
+    "sid": "YAO2011",
+    "title": "Everolimus for advanced pancreatic neuroendocrine tumors (RADIANT-3)",
+    "authors": "Yao JC; Shah MH; Ito T; Bohas CL; Wolin EM; et al.; Oberg K",
+    "year": 2011,
+    "journal": "New England Journal of Medicine",
+    "doi": "10.1056/NEJMoa1009290",
+    "pmid": "21306238",
+    "pmcid": "PMC4208619",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase 3 RCT (n=410)",
+    "peer_reviewed": true,
+    "finding": "A phase 3 RCT (n=410) that made everolimus a standard treatment for pancreatic neuroendocrine tumors. It more than doubled progression-free survival (11.0 vs 4.6 months, a 65% reduction in risk of progression/death) with mostly mild side effects. Another FDA-approved indication built on blocking mTOR.",
+    "url": "https://mtor-atlas.org/study/YAO2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YAO2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "EVE-PNET",
+    "claim": "Everolimus inhibits Pancreatic neuroendocrine tumor",
+    "source": {
+     "name": "Everolimus",
+     "entity": "everolimus"
+    },
+    "target": {
+     "name": "Pancreatic neuroendocrine tumor",
+     "entity": "pancreatic-neuroendocrine-tumor"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "RADIANT-3: progression-free survival more than doubled in advanced pancreatic neuroendocrine tumours.",
+    "mechanism_beginner": "In a trial, everolimus more than doubled the time before advanced pancreatic neuroendocrine tumours got worse.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "YAO2011"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-PNET.json"
+   }
+  ]
+ }
+}

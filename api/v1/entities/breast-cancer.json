@@ -1,0 +1,135 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "breast-cancer",
+  "name": "Breast cancer",
+  "type": "Disease",
+  "synonyms": [],
+  "description": "Hormone-receptor-positive advanced breast cancer becomes resistant to endocrine therapy partly by activating mTOR; adding the rapalog everolimus to exemestane delays progression (BOLERO-2: progression-free survival roughly doubled, without a significant overall-survival benefit).",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/disease/breast-cancer/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/breast-cancer.json",
+  "description_beginner": "Hormone-driven advanced breast cancer can become resistant to standard hormone therapy partly by switching on mTOR signaling as a workaround. Adding the mTOR-blocking drug everolimus to hormone therapy roughly doubled the time before the cancer grew again, although it did not significantly lengthen overall survival.",
+  "studies": [
+   {
+    "sid": "BAS2012",
+    "title": "Everolimus in postmenopausal hormone-receptor-positive advanced breast cancer (BOLERO-2)",
+    "authors": "Baselga J; Campone M; Piccart M; Burris HA; Rugo HS; et al.; Hortobagyi GN",
+    "year": 2012,
+    "journal": "New England Journal of Medicine",
+    "doi": "10.1056/NEJMoa1109653",
+    "pmid": "22149876",
+    "pmcid": "PMC5705195",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase 3 RCT (n=724)",
+    "peer_reviewed": true,
+    "finding": "A phase 3 RCT (n=724) proving mTOR matters in a common cancer. Resistance to hormone therapy in breast cancer is associated with mTOR activation. Adding everolimus more than doubled progression-free survival (10.6 vs 4.1 months by central review) - leading to FDA approval. Main toxicity was stomatitis.",
+    "url": "https://mtor-atlas.org/study/BAS2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAS2012.json"
+   },
+   {
+    "sid": "MEN2023",
+    "title": "A bi-steric mTORC1-selective inhibitor overcomes drug resistance in breast cancer",
+    "authors": "Meng D; Bandyopadhyay S et al.",
+    "year": 2023,
+    "journal": "Oncogene",
+    "doi": "10.1038/s41388-023-02737-z",
+    "pmid": "37264081",
+    "pmcid": "PMC10328828",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Human ER+/HER2- breast cancer cell lines; mouse patient-derived xenografts (PDX)",
+    "peer_reviewed": true,
+    "finding": "RMC-6272, a bi-steric molecule with >25-fold selectivity for mTORC1 over mTORC2, completely suppresses mTORC1 (hitting the rapamycin-resistant substrate 4E-BP1) and overcomes hormone- and CDK4/6-inhibitor resistance in breast cancer cell lines and PDX -- the preclinical basis for the RMC-5552 selective-inhibitor clinical program.",
+    "url": "https://mtor-atlas.org/study/MEN2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MEN2023.json"
+   },
+   {
+    "sid": "MAR2026",
+    "title": "EVERolimus effectiveness after proGREssion on ENdocrine therapy plus CDK4/6 inhibitor for ER-positive/HER2-negative advanced breast cancer: EVERGREEN study",
+    "authors": "Diogo Martins-Branco, Soraia Lobo-Martins, Philippe Aftimos, Bernardo Pereira, Leonor Vasconcelos de Matos, Leonor Fernandes, Guilherme Nader-Marta, Michel Moreau, Donatienne Taylor, Francois P Duhoux, Evandro de Azambuja",
+    "year": 2026,
+    "journal": "Breast Cancer Research and Treatment",
+    "doi": "10.1007/s10549-026-08012-5",
+    "pmid": "42429895",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human (multicenter retrospective cohort)",
+    "peer_reviewed": true,
+    "finding": "Everolimus added to endocrine therapy provided modest but statistically significant PFS benefit (5.0 vs 4.3 months; HR 0.68) in ER+/HER2- advanced breast cancer post-CDK4/6 inhibitor progression, without demonstrable OS benefit, supporting selective use. Retrospective and non-randomised, so treatment-selection bias cannot be excluded.",
+    "url": "https://mtor-atlas.org/study/MAR2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "EVE-BREAST",
+    "claim": "Everolimus inhibits Breast cancer",
+    "source": {
+     "name": "Everolimus",
+     "entity": "everolimus"
+    },
+    "target": {
+     "name": "Breast cancer",
+     "entity": "breast-cancer"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "BOLERO-2: adding everolimus to hormone therapy roughly doubled progression-free survival in hormone-receptor-positive advanced breast cancer.",
+    "mechanism_beginner": "Adding everolimus to hormone therapy roughly doubled the time before certain advanced breast cancers got worse.",
+    "context": null,
+    "boundary": "Progression-free survival, in combination with exemestane - overall survival was not significantly improved.",
+    "note": "Say PFS, not survival. The distinction is the whole argument of this Atlas.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "BAS2012"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-BREAST.json"
+   }
+  ]
+ }
+}

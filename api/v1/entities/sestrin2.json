@@ -1,0 +1,207 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "sestrin2",
+  "name": "Sestrin2",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Direct intracellular leucine sensor and a NEGATIVE regulator of mTORC1. When leucine is scarce, Sestrin2 binds and inhibits GATOR2, so GATOR1 stays active and keeps mTORC1 switched off. Leucine binding (~20 uM affinity) releases GATOR2 - the pathway is switched on by removing a brake, not by adding a signal. Sestrin2 does not act on the Rag GTPases directly; it works two steps upstream, through GATOR2 and GATOR1.",
+  "study_count": 2,
+  "relation_count": 3,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/sestrin2.json",
+  "description_beginner": "The main sensor that directly detects leucine inside the cell, and a brake on mTORC1. When leucine is scarce, it holds down GATOR2, which keeps GATOR1 active and mTORC1 switched off. Leucine coming back releases GATOR2, so this is a brake being lifted, not a new 'go' signal being added - and it works two steps upstream of the Rag GTPases, not directly on them.",
+  "studies": [
+   {
+    "sid": "SAX2015",
+    "title": "Structural basis for leucine sensing by the Sestrin2-mTORC1 pathway",
+    "authors": "Saxton RA; Wolfson RL; Sabatini DM et al.",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aad2087",
+    "pmid": "26586190",
+    "pmcid": "PMC4698039",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (crystal structure)",
+    "peer_reviewed": true,
+    "finding": "Solves the crystal structure of Sestrin2 bound to leucine, revealing the molecular pocket that lets it act as mTORC1's dedicated leucine sensor.",
+    "url": "https://mtor-atlas.org/study/SAX2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAX2015.json"
+   },
+   {
+    "sid": "LEE2010",
+    "title": "Sestrin as a feedback inhibitor of TOR that prevents age-related pathologies",
+    "authors": "Lee JH; Budanov AV; Bodmer R; Bier E; Karin M et al.",
+    "year": 2010,
+    "journal": "Science",
+    "doi": "10.1126/science.1182228",
+    "pmid": "20203043",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila melanogaster (dSesn loss-of-function)",
+    "peer_reviewed": true,
+    "finding": "An early study linking Sestrin, later identified as a leucine sensor in mammals, to age-associated pathology in flies (fat accumulation, mitochondrial dysfunction, muscle and cardiac decline), prevented by TOR inhibition or AMPK activation. Sestrin sits in a negative feedback loop: TOR activity drives Sestrin expression, and Sestrin inhibits TOR back.",
+    "url": "https://mtor-atlas.org/study/LEE2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LEE2010.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "LEU-SESN2",
+    "claim": "Leucine inhibits Sestrin2",
+    "source": {
+     "name": "Leucine",
+     "entity": "leucine"
+    },
+    "target": {
+     "name": "Sestrin2",
+     "entity": "sestrin2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Leucine binds a pocket inside Sestrin2 with roughly 20 uM affinity - close to the concentration at which cells actually feel leucine coming and going. The bound sensor can no longer hold GATOR2, so leucine effectively switches the brake off.",
+    "mechanism_beginner": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
+    "context": null,
+    "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WOL2015",
+      "SAX2015"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-SESN2.json"
+   },
+   {
+    "id": "SESN2-AGING",
+    "claim": "Sestrin2 inhibits Age-related pathology",
+    "source": {
+     "name": "Sestrin2",
+     "entity": "sestrin2"
+    },
+    "target": {
+     "name": "Age-related pathology",
+     "entity": "age-related-pathology"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "fly"
+    ],
+    "mechanism": "Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. Sestrin therefore limits age-associated pathology in the fly.",
+    "mechanism_beginner": "The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.",
+    "context": null,
+    "boundary": "Fly only, and the readout is age-related pathology: survival was never measured. No mammalian sensor-to-ageing evidence exists in this corpus.",
+    "note": "Added 2026-07-29. Gap H1 previously asserted the sensors link to ZERO ageing outcomes, which was true of the corpus but not of the literature.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LEE2010"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-AGING.json"
+   },
+   {
+    "id": "SESN2-GATOR2",
+    "claim": "Sestrin2 inhibits GATOR2",
+    "source": {
+     "name": "Sestrin2",
+     "entity": "sestrin2"
+    },
+    "target": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When leucine is scarce, free Sestrin2 clamps onto GATOR2 and blocks it, keeping the whole pathway switched off.",
+    "mechanism_beginner": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CHA2014",
+      "PAR2014",
+      "WOL2015"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-GATOR2.json"
+   }
+  ]
+ }
+}

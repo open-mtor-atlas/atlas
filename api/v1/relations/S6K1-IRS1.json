@@ -1,0 +1,58 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "S6K1-IRS1",
+  "claim": "S6K1 inhibits IRS-1 / IRS-2",
+  "source": {
+   "name": "S6K1",
+   "entity": "s6k1"
+  },
+  "target": {
+   "name": "IRS-1 / IRS-2",
+   "entity": "irs-1-irs-2"
+  },
+  "effect": "inhibits",
+  "type": "degradation",
+  "directness": "direct",
+  "timescale": "hours",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "The pathway's principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
+  "mechanism_beginner": "This is the pathway's main self-limiting \"off switch\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
+  "context": null,
+  "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
+  "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "HAR2004",
+    "SHA2004",
+    "UMX2004"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-IRS1.json"
+ }
+}

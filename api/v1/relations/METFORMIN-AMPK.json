@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "METFORMIN-AMPK",
+  "claim": "Metformin activates AMPK",
+  "source": {
+   "name": "Metformin",
+   "entity": "metformin"
+  },
+  "target": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "Metformin shifts the cell's energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.",
+  "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
+  "context": null,
+  "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+  "note": null,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "plausible",
+   "consensus": "contested"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "ZHO2001"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-AMPK.json"
+ }
+}

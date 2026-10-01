@@ -1,0 +1,183 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "atp-competitive-mtor-inhibitors",
+  "name": "ATP-competitive mTOR inhibitors",
+  "type": "Drug",
+  "synonyms": [],
+  "description": "Torin1, AZD8055 and relatives occupy the mTOR active site directly, inhibiting both complexes.",
+  "study_count": 3,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/drug/atp-competitive-mtor-inhibitors/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/atp-competitive-mtor-inhibitors.json",
+  "description_beginner": "Drugs that block mTOR's engine instead of getting in its way.",
+  "studies": [
+   {
+    "sid": "FEL2009",
+    "title": "Active-site inhibitors of mTOR target rapamycin-resistant outputs of mTORC1 and mTORC2",
+    "authors": "Feldman ME; Apsel B; Uotila A; Loewith R; Knight ZA; Ruggero D; Shokat KM",
+    "year": 2009,
+    "journal": "PLoS Biology",
+    "doi": "10.1371/journal.pbio.1000038",
+    "pmid": "19209957",
+    "pmcid": "PMC2637922",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse fibroblasts + primary cells",
+    "peer_reviewed": true,
+    "finding": "The parallel discovery to Thoreen 2009 (same year), from the Shokat lab. Their TORKinibs (PP242, PP30) block mTOR's active site, hitting both complexes and shutting down cap-dependent translation that rapamycin misses. Together these two papers established a whole new drug class beyond rapamycin.",
+    "url": "https://mtor-atlas.org/study/FEL2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FEL2009.json"
+   },
+   {
+    "sid": "THO2009",
+    "title": "An ATP-competitive mammalian target of rapamycin inhibitor reveals rapamycin-resistant functions of mTORC1",
+    "authors": "Thoreen CC; Kang SA; Chang JW; Liu Q; Zhang Jianming; Gao Y; Reichling LJ; Sim T; Sabatini DM; Gray NS",
+    "year": 2009,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.M900301200",
+    "pmid": "19150980",
+    "pmcid": "PMC2658096",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse/human cells",
+    "peer_reviewed": true,
+    "finding": "Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosphorylation and autophagy suppression. This reframed a decade of rapamycin experiments and launched the search for complete inhibitors.",
+    "url": "https://mtor-atlas.org/study/THO2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/THO2009.json"
+   },
+   {
+    "sid": "CHR2009",
+    "title": "AZD8055 is a potent, selective, and orally bioavailable ATP-competitive mammalian target of rapamycin kinase inhibitor with in vitro and in vivo antitumor activity",
+    "authors": "Chresta CM; Pass M et al.",
+    "year": 2009,
+    "journal": "Cancer research",
+    "doi": "10.1158/0008-5472.CAN-09-1751",
+    "pmid": "20028854",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cancer cells; xenograft",
+    "peer_reviewed": true,
+    "finding": "AZD8055, an ATP-competitive mTOR kinase inhibitor, blocks both mTORC1 and mTORC2 (rapamycin-resistant outputs).",
+    "url": "https://mtor-atlas.org/study/CHR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHR2009.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TORIN-MTORC1",
+    "claim": "ATP-competitive mTOR inhibitors inhibits mTORC1",
+    "source": {
+     "name": "ATP-competitive mTOR inhibitors",
+     "entity": "atp-competitive-mtor-inhibitors"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Occupies the mTOR active site in competition with ATP, so inhibition does not depend on obstructing substrate access and is not partial in the way rapalog inhibition is.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Cell-line pharmacology. Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition, which is precisely what the bi-steric design tries to avoid.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "THO2009",
+      "FEL2009",
+      "CHR2009"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TORIN-MTORC1.json"
+   },
+   {
+    "id": "TORIN-MTORC2",
+    "claim": "ATP-competitive mTOR inhibitors inhibits mTORC2",
+    "source": {
+     "name": "ATP-competitive mTOR inhibitors",
+     "entity": "atp-competitive-mtor-inhibitors"
+    },
+    "target": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "pm",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "The same active site is present in both complexes, so an ATP-competitive inhibitor cannot distinguish them.",
+    "mechanism_beginner": null,
+    "context": null,
+    "boundary": "Explains the metabolic and immunological toxicity of this class relative to rapalogs; the magnitude in patients is not established from these cell-line studies.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "THO2009",
+      "FEL2009"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TORIN-MTORC2.json"
+   }
+  ]
+ }
+}

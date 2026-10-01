@@ -1,0 +1,75 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "INO2002",
+  "title": "TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling",
+  "authors": "Inoki K; Guan KL et al.",
+  "year": 2002,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb839",
+  "pmid": "12172553",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cell lines",
+  "peer_reviewed": true,
+  "finding": "Akt directly phosphorylates and inactivates TSC2, disrupting the TSC1-TSC2 complex and releasing its inhibition of mTOR - the link between growth-factor/insulin signaling and mTORC1 activation.",
+  "url": "https://mtor-atlas.org/study/INO2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/INO2002.json",
+  "abstract_excerpt": "Tuberous sclerosis (TSC) is an autosomal dominant disorder characterized by the formation of hamartomas in a wide range of human tissues. Mutation in either the TSC1 or TSC2 tumour suppressor gene is responsible for both the familial and sporadic forms of this disease. TSC1 and TSC2 proteins form a physical and functional complex in vivo. Here, we show that TSC1-TSC2 inhibits the p70 ribosomal protein S6 kinase 1 (an activator of translation) and activates the eukaryotic initiation factor 4E binding protein 1 (4E-BP1, an inhibitor of translational initiation).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (Akt phosphorylation of TSC2)",
+   "target": "TSC2 / Akt / mTOR",
+   "species": "Human cell lines",
+   "effect": "Akt phosphorylates and inactivates TSC2 → relieves mTOR inhibition (links insulin/growth factors to mTORC1)"
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DAL2012",
+   "CAN2002",
+   "NAT2026",
+   "ROM2001"
+  ]
+ }
+}

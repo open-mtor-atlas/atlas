@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "GLN-RAG",
+  "claim": "Glutamine activates Rag GTPases",
+  "source": {
+   "name": "Glutamine",
+   "entity": "glutamine"
+  },
+  "target": {
+   "name": "Rag GTPases",
+   "entity": "rag-gtpases"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "Glutamine burned through glutaminolysis raises alpha-ketoglutarate, which promotes RagB GTP loading and mTORC1 translocation to the lysosome. This edge asserts the Rag-dependent route only.",
+  "mechanism_beginner": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
+  "context": null,
+  "boundary": "Cell-type dependent, and deliberately narrow: the separate claim that glutamine can reach mTORC1 without the Rags is carried by its own edge rather than folded in here.",
+  "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "untested",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "DUR2012"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-RAG.json"
+ }
+}

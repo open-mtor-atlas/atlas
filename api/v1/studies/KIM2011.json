@@ -1,0 +1,76 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KIM2011",
+  "title": "AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1",
+  "authors": "Kim J; Kundu M; Viollet B; Guan KL",
+  "year": 2011,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb2152",
+  "pmid": "21258367",
+  "pmcid": "PMC3987946",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human/mouse cells",
+  "peer_reviewed": true,
+  "finding": "Revealed the tug-of-war over ULK1: the energy sensor AMPK phosphorylates ULK1 at activating sites to turn autophagy ON when energy is low, while mTORC1 phosphorylates a different site (Ser757) to keep it OFF and even blocks AMPK from reaching ULK1. Two opposing kinases wired to the same switch.",
+  "url": "https://mtor-atlas.org/study/KIM2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2011.json",
+  "abstract_excerpt": "Autophagy is a process by which components of the cell are degraded to maintain essential activity and viability in response to nutrient limitation. Extensive genetic studies have shown that the yeast ATG1 kinase has an essential role in autophagy induction. Furthermore, autophagy is promoted by AMP activated protein kinase (AMPK), which is a key energy sensor and regulates cellular metabolism to maintain energy homeostasis. Conversely, autophagy is inhibited by the mammalian target of rapamycin (mTOR), a central cell-growth regulator that integrates growth factor and nutrient signals.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic/biochemical (AMPK, mTOR, ULK1)",
+   "target": "AMPK / mTOR / ULK1",
+   "species": "Human/mouse cells",
+   "effect": "AMPK and mTOR reciprocally phosphorylate ULK1 to regulate autophagy"
+  },
+  "entities": [
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AMPK-ULK1",
+    "MTORC1-ULK1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DAL2016",
+   "LOF2011",
+   "SONH2026",
+   "HOS2009"
+  ]
+ }
+}

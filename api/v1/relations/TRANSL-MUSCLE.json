@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "TRANSL-MUSCLE",
+  "claim": "Protein synthesis activates Muscle growth",
+  "source": {
+   "name": "Protein synthesis",
+   "entity": "protein-synthesis"
+  },
+  "target": {
+   "name": "Muscle growth",
+   "entity": "muscle-growth"
+  },
+  "effect": "activates",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "days",
+  "compartment": "outcome",
+  "species": [
+   "mouse",
+   "human"
+  ],
+  "mechanism": "Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.",
+  "mechanism_beginner": "Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.",
+  "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
+  "boundary": "DRU2009 is direct human evidence: rapamycin blocked the contraction-induced rise in muscle protein synthesis in volunteers.",
+  "note": "Rare non-molecular badge in the output branch - DRU2009 is H, a human study.",
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "established",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "BOD2001",
+    "ROM2001",
+    "DRU2009"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/TRANSL-MUSCLE.json"
+ }
+}

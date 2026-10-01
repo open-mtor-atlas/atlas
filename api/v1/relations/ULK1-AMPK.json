@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ULK1-AMPK",
+  "claim": "ULK1 inhibits AMPK",
+  "source": {
+   "name": "ULK1",
+   "entity": "ulk1"
+  },
+  "target": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "ULK1 phosphorylates AMPK back, damping the signal that activated it - a negative feedback loop that stops autophagy running away.",
+  "mechanism_beginner": "ULK1 tags AMPK back and calms it down – a feedback loop that keeps cleanup from running out of control.",
+  "context": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
+  "boundary": null,
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "LOF2011"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AMPK.json"
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "THO2009",
+  "title": "An ATP-competitive mammalian target of rapamycin inhibitor reveals rapamycin-resistant functions of mTORC1",
+  "authors": "Thoreen CC; Kang SA; Chang JW; Liu Q; Zhang Jianming; Gao Y; Reichling LJ; Sim T; Sabatini DM; Gray NS",
+  "year": 2009,
+  "journal": "Journal of Biological Chemistry",
+  "doi": "10.1074/jbc.M900301200",
+  "pmid": "19150980",
+  "pmcid": "PMC2658096",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse/human cells",
+  "peer_reviewed": true,
+  "finding": "Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosphorylation and autophagy suppression. This reframed a decade of rapamycin experiments and launched the search for complete inhibitors.",
+  "url": "https://mtor-atlas.org/study/THO2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/THO2009.json",
+  "abstract_excerpt": "The mammalian target of rapamycin (mTOR) kinase is the catalytic subunit of two functionally distinct complexes, mTORC1 and mTORC2, that coordinately promote cell growth, proliferation, and survival. Rapamycin is a potent allosteric mTORC1 inhibitor with clinical applications as an immunosuppressant and anti-cancer agent. Here we find that Torin1, a highly potent and selective ATP-competitive mTOR inhibitor that directly inhibits both complexes, impairs cell growth and proliferation to a far greater degree than rapamycin.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Torin1 (ATP-competitive mTOR inhibitor)",
+   "target": "mTORC1 (rapamycin-resistant outputs, 4E-BP)",
+   "species": "Mouse/human cells",
+   "effect": "Torin1 reveals rapamycin-resistant functions of mTORC1 (e.g. 4E-BP1 phosphorylation, autophagy)"
+  },
+  "entities": [
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "atp-competitive-mtor-inhibitors",
+    "name": "ATP-competitive mTOR inhibitors",
+    "type": "Drug"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TORIN-MTORC1",
+    "TORIN-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H2"
+  ],
+  "related_studies": [
+   "FEL2009",
+   "CHR2009",
+   "LAB2015",
+   "HSI2012"
+  ]
+ }
+}

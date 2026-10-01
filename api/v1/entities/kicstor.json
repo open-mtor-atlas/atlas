@@ -1,0 +1,72 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "kicstor",
+  "name": "KICSTOR",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "description": "A lysosomal scaffold complex (composed of KAPTIN, ITFG2, C12orf66, and SZT2) that recruits GATOR1 to the lysosomal surface. Required for amino-acid-deprivation-dependent suppression of mTORC1; without KICSTOR, GATOR1 cannot reach the Rag GTPases and mTORC1 remains inappropriately active during starvation.",
+  "study_count": 0,
+  "relation_count": 1,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/kicstor.json",
+  "description_beginner": "A docking complex on the lysosome that helps station the GATOR1 'brake' where it can reach and switch off mTORC1. Without it, GATOR1 can't do its job, so mTORC1 stays on even when nutrients are scarce.",
+  "studies": [],
+  "relations": [
+   {
+    "id": "KICSTOR-GATOR1",
+    "claim": "KICSTOR required-for GATOR1",
+    "source": {
+     "name": "KICSTOR",
+     "entity": "kicstor"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "required-for",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "KICSTOR is the dock that holds GATOR1 on the lysosomal surface. Without it, GATOR1 cannot reach its target and nutrient control of mTORC1 is lost.",
+    "mechanism_beginner": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WOL2017",
+      "PEN2017"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/KICSTOR-GATOR1.json"
+   }
+  ]
+ }
+}

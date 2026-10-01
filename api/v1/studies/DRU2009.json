@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DRU2009",
+  "title": "Rapamycin administration in humans blocks the contraction-induced increase in skeletal muscle protein synthesis",
+  "authors": "Drummond MJ; Rasmussen BB et al.",
+  "year": 2009,
+  "journal": "Journal of Physiology",
+  "doi": "10.1113/jphysiol.2008.163816",
+  "pmid": "19188252",
+  "pmcid": "PMC2678224",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, controlled trial",
+  "peer_reviewed": true,
+  "finding": "Rapamycin given before resistance exercise completely blocked the normal post-exercise increase in human muscle protein synthesis.",
+  "url": "https://mtor-atlas.org/study/DRU2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DRU2009.json",
+  "abstract_excerpt": "Muscle protein synthesis and mTORC1 signalling are concurrently stimulated following muscle contraction in humans. In an effort to determine whether mTORC1 signalling is essential for regulating muscle protein synthesis in humans, we treated subjects with a potent mTORC1 inhibitor (rapamycin) prior to performing a series of high-intensity muscle contractions. Here we show that rapamycin treatment blocks the early (1-2 h) acute contraction-induced increase ( approximately 40%) in human muscle protein synthesis.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (pre-exercise)",
+   "target": "mTORC1",
+   "species": "Human – controlled trial",
+   "effect": "Rapamycin blocks the contraction-induced increase in human skeletal muscle protein synthesis",
+   "dose": "Rapamycin, single oral dose before a bout of high-intensity resistance exercise (exact mg not captured; full text not retrievable via PMC).",
+   "sample_size": "Small human controlled trial (full text unavailable; abstract-level).",
+   "effect_size": "Rapamycin blocked the early (1-2 h) ~40% contraction-induced increase in human muscle protein synthesis; downstream mTORC1 signaling (S6K1) blunted.",
+   "limitations": "Small sample; full text not retrievable via PMC, so dose/n taken from abstract only."
+  },
+  "entities": [
+   {
+    "id": "muscle-growth",
+    "name": "Muscle growth",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "resistance-exercise-mechanical-load",
+    "name": "Resistance exercise / mechanical load",
+    "type": "Intervention"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TRANSL-MUSCLE",
+    "LOAD-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H3"
+  ],
+  "related_studies": [
+   "BOD2001",
+   "MOE2025",
+   "ROM2001",
+   "DOR2006"
+  ]
+ }
+}

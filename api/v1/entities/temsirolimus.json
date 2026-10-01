@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "temsirolimus",
+  "name": "Temsirolimus",
+  "type": "Drug",
+  "synonyms": [],
+  "description": "Intravenous rapamycin ester (CCI-779); mTOR inhibitor approved for advanced renal cell carcinoma.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/temsirolimus.json",
+  "description_beginner": "An injectable, water-soluble version of rapamycin. It's an approved mTOR-blocking treatment for advanced kidney cancer.",
+  "studies": [
+   {
+    "sid": "HUD2007",
+    "title": "Temsirolimus, interferon alfa, or both for advanced renal-cell carcinoma",
+    "authors": "Hudes G et al.",
+    "year": 2007,
+    "journal": "New England Journal of Medicine",
+    "doi": "10.1056/NEJMoa066838",
+    "pmid": "17538086",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase III RCT (n=626)",
+    "peer_reviewed": true,
+    "finding": "Temsirolimus alone extended median overall survival to 10.9 months versus 7.3 months with interferon alfa in poor-prognosis metastatic kidney cancer; rash, hyperglycemia, and hyperlipidemia were more common with temsirolimus.",
+    "url": "https://mtor-atlas.org/study/HUD2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HUD2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TEM-MTORC1",
+    "claim": "Temsirolimus inhibits mTORC1",
+    "source": {
+     "name": "Temsirolimus",
+     "entity": "temsirolimus"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "allosteric-inhibition",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "lyso",
+    "species": [
+     "human"
+    ],
+    "mechanism": "Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.",
+    "mechanism_beginner": "Temsirolimus is the IV version of rapamycin, and the first mTOR-blocking drug shown to help patients live longer in a controlled trial.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "HUD2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-MTORC1.json"
+   },
+   {
+    "id": "TEM-RCC",
+    "claim": "Temsirolimus inhibits Renal cell carcinoma (RCC)",
+    "source": {
+     "name": "Temsirolimus",
+     "entity": "temsirolimus"
+    },
+    "target": {
+     "name": "Renal cell carcinoma (RCC)",
+     "entity": "renal-cell-carcinoma-rcc"
+    },
+    "effect": "inhibits",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "In poor-prognosis renal cancer, temsirolimus improved overall survival against interferon - the hardest endpoint there is.",
+    "mechanism_beginner": "In hard-to-treat kidney cancer, temsirolimus helped patients live longer compared with an older drug.",
+    "context": null,
+    "boundary": "Poor-prognosis patients specifically; the combination arm did not beat temsirolimus alone.",
+    "note": "Overall survival, not a surrogate. Worth pointing at.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "HUD2007"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-RCC.json"
+   }
+  ]
+ }
+}

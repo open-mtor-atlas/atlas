@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "redd1-ddit4",
+  "name": "REDD1 (DDIT4)",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Hypoxia-induced protein that suppresses mTORC1 through the TSC complex - the mechanism by which low oxygen and low growth factors share a single brake.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/redd1-ddit4.json",
+  "description_beginner": "A protein switched on by low oxygen that suppresses mTORC1 by acting through the TSC brake complex - the shared mechanism by which both low oxygen and weak growth-factor signals apply the same brake.",
+  "studies": [
+   {
+    "sid": "BRU2004",
+    "title": "Regulation of mTOR function in response to hypoxia by REDD1 and the TSC1/TSC2 tumor suppressor complex",
+    "authors": "Brugarolas J; Kaelin WG et al.",
+    "year": 2004,
+    "journal": "Genes & development",
+    "doi": "10.1101/gad.1256804",
+    "pmid": "15545625",
+    "pmcid": "PMC534650",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Hypoxia inhibits mTOR via REDD1-dependent activation of the TSC1/2 complex.",
+    "url": "https://mtor-atlas.org/study/BRU2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRU2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "HYPOXIA-REDD1",
+    "claim": "Hypoxia activates REDD1 (DDIT4)",
+    "source": {
+     "name": "Hypoxia",
+     "entity": "hypoxia"
+    },
+    "target": {
+     "name": "REDD1 (DDIT4)",
+     "entity": "redd1-ddit4"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Low oxygen induces REDD1 transcriptionally over hours, slower than AMPK. REDD1 protein is short-lived, so the signal lasts only as long as hypoxia keeps the gene switched on.",
+    "mechanism_beginner": "Low oxygen quickly switches on the gene for REDD1 – slower to kick in than AMPK, but longer-lasting.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "note": "Thin - one supporting study.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BRU2004"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/HYPOXIA-REDD1.json"
+   },
+   {
+    "id": "REDD1-TSC",
+    "claim": "REDD1 (DDIT4) activates TSC1/TSC2",
+    "source": {
+     "name": "REDD1 (DDIT4)",
+     "entity": "redd1-ddit4"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "REDD1 works through the TSC complex, not around it - hypoxia and growth factors therefore converge on the same brake.",
+    "mechanism_beginner": "REDD1 acts through the TSC brake, so low oxygen and low growth-factor signals end up hitting the very same switch.",
+    "context": null,
+    "boundary": null,
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BRU2004"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/REDD1-TSC.json"
+   }
+  ]
+ }
+}

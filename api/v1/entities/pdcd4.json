@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.0",
+  "corpus_snapshot": "2026-10-01T10:57:31+0200",
+  "source_commit": "96784d713f2c2659aaf33d5743d5fe716d05e23b",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pdcd4",
+  "name": "PDCD4",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "description": "Translation inhibitor that blocks the eIF4A helicase. S6K1 marks it for degradation, giving mTORC1 a second, 4E-BP-independent route to raising protein synthesis.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pdcd4.json",
+  "description_beginner": "A protein that blocks the translation helper eIF4A. mTORC1's downstream partner S6K1 tags it for destruction, giving the pathway a second way - separate from 4E-BP1 - to boost protein production.",
+  "studies": [
+   {
+    "sid": "DOR2006",
+    "title": "S6K1- and betaTRCP-mediated degradation of PDCD4 promotes protein translation and cell growth",
+    "authors": "Dorrello NV; Pagano M et al.",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1130276",
+    "pmid": "17053147",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "S6K1 triggers betaTRCP-mediated degradation of the tumour suppressor PDCD4 to promote translation.",
+    "url": "https://mtor-atlas.org/study/DOR2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DOR2006.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "PDCD4-TRANSL",
+    "claim": "PDCD4 inhibits Protein synthesis",
+    "source": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "target": {
+     "name": "Protein synthesis",
+     "entity": "protein-synthesis"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "PDCD4 blocks the eIF4A helicase, so mRNAs with structured 5' ends cannot be unwound and translated.",
+    "mechanism_beginner": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
+    "context": null,
+    "boundary": "SOURCING FLAG (2026-09-04): the mechanism stated here is correct and canonical, but no study currently in this corpus demonstrates it. Treat as an unsourced canonical step until Yang 2003 or Suzuki 2008 is added.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DOR2006"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
+   },
+   {
+    "id": "S6K1-PDCD4",
+    "claim": "S6K1 inhibits PDCD4",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "S6K1 tags PDCD4 for destruction. PDCD4 is itself a translation inhibitor, so removing it is a second, parallel way mTORC1 lifts a brake on protein synthesis.",
+    "mechanism_beginner": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "note": "Thin - one supporting study.",
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DOR2006"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+   }
+  ]
+ }
+}
