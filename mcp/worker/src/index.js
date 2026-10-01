@@ -1,0 +1,75 @@
+// Remote MCP server for Oliver's mTOR Atlas, for Cloudflare Workers.
+//
+// Same tools as the npm package (../../tools.js), served over the MCP
+// Streamable HTTP transport at /mcp, so web assistants (ChatGPT, Grok,
+// Claude.ai) can connect by URL. Stateless: every POST gets a fresh server
+// object; the Atlas data cache lives at module level and is reused while the
+// Worker instance stays warm. Read-only, no secrets, no auth.
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { Atlas } from '../../lib.js';
+import { createServer, VERSION } from '../../tools.js';
+
+const CORS = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept, authorization, mcp-session-id, mcp-protocol-version, last-event-id',
+  'access-control-expose-headers': 'mcp-session-id, mcp-protocol-version',
+  'access-control-max-age': '86400',
+};
+
+let atlas = null;
+const getAtlas = (env) => (atlas ??= new Atlas(env?.ATLAS_API_BASE || undefined));
+
+function withCors(res) {
+  const h = new Headers(res.headers);
+  for (const [k, v] of Object.entries(CORS)) h.set(k, v);
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
+}
+
+const json = (obj, status = 200) => new Response(JSON.stringify(obj, null, 2), {
+  status, headers: { 'content-type': 'application/json; charset=utf-8', ...CORS },
+});
+
+const INFO = {
+  name: "Oliver's mTOR Atlas MCP server",
+  version: VERSION,
+  mcp_endpoint: '/mcp',
+  transport: 'streamable-http (stateless)',
+  auth: 'none (public, read-only)',
+  docs: 'https://mtor-atlas.org/api/#mcp',
+  source: 'https://github.com/open-mtor-atlas/atlas/tree/main/mcp',
+  data: 'https://mtor-atlas.org/api/v1/ (CC BY 4.0, doi:10.5281/zenodo.22059963)',
+};
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
+
+    if (url.pathname === '/' || url.pathname === '') {
+      return request.method === 'GET' ? json(INFO) : json({ error: 'Use POST /mcp' }, 405);
+    }
+    if (url.pathname === '/health') return json({ ok: true, version: VERSION });
+
+    if (url.pathname === '/mcp' || url.pathname === '/mcp/') {
+      if (request.method !== 'POST') {
+        // Stateless server: no standalone SSE stream (GET) and no sessions to end (DELETE).
+        return json({ jsonrpc: '2.0', error: { code: -32000, message: 'Method not allowed. Use POST.' }, id: null }, 405);
+      }
+      const server = createServer(getAtlas(env));
+      const transport = new WebStandardStreamableHTTPServerTransport({
+        sessionIdGenerator: undefined,
+        enableJsonResponse: true,
+      });
+      await server.connect(transport);
+      try {
+        return withCors(await transport.handleRequest(request));
+      } finally {
+        // The response body is already complete (enableJsonResponse), so closing is safe.
+        transport.close?.();
+        server.close?.();
+      }
+    }
+    return json({ error: 'Not found', see: '/' }, 404);
+  },
+};

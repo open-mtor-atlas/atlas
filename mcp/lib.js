@@ -6,14 +6,14 @@
 // Nothing is invented or inferred: every returned object is an API record or a
 // subset of one, and every study carries its evidence code WITH its label and
 // the note that the code describes the kind of study, not its quality.
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
+// No top-level Node imports: the same file runs in Node (npm package) and in
+// Cloudflare Workers (remote server). Local-folder reading is loaded lazily.
 
 export const DEFAULT_BASE = 'https://mtor-atlas.org/api/v1';
 const TTL_MS = 60 * 60 * 1000;
 
 export class Atlas {
-  constructor(base = process.env.ATLAS_API_BASE || DEFAULT_BASE) {
+  constructor(base = globalThis.process?.env?.ATLAS_API_BASE || DEFAULT_BASE) {
     this.base = base.replace(/\/+$/, '');
     this.cache = new Map();
   }
@@ -25,6 +25,8 @@ export class Atlas {
     if (hit && Date.now() - hit.t < TTL_MS) return hit.v;
     let v;
     if (this.isLocal()) {
+      const { readFile } = await import('node:fs/promises');
+      const path = await import('node:path');
       const root = this.base.replace(/^file:\/\//, '');
       v = JSON.parse(await readFile(path.join(root, rel), 'utf-8'));
     } else {

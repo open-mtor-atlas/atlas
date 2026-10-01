@@ -1,0 +1,13 @@
+# Cloudflare Worker: remote MCP server for Oliver's mTOR Atlas.
+# Deploy:  cd mcp/worker && npm install && npx wrangler login && npx wrangler deploy
+name = "mtor-atlas-mcp"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[observability]
+enabled = true
+
+# [vars]
+# ATLAS_API_BASE = "https://mtor-atlas.org/api/v1"   # default, override only for testing

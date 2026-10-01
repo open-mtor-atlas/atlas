@@ -1,11 +1,33 @@
+// Smoke test: connects to the server and calls every tool once.
+//   node test.js                          stdio server (index.js), live data
+//   node test.js --worker                 the Cloudflare Worker code, run in-process
+//   node test.js --url https://…/mcp      a deployed remote server
+//   ATLAS_API_BASE=/path/to/dist/api/v1   read a local build instead of the live site
 import { fileURLToPath } from 'node:url';
-// Smoke test: starts the server over stdio and calls every tool once.
-//   ATLAS_API_BASE=/path/to/dist/api/v1 node test.js   (local build)
-//   node test.js                                       (live site)
+import { readFileSync } from 'node:fs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { VERSION } from './tools.js';
 
-const t = new StdioClientTransport({ command: process.execPath, args: [fileURLToPath(new URL('./index.js', import.meta.url))], env: { ...process.env } });
+const here = (f) => new URL(f, import.meta.url);
+const pkg = JSON.parse(readFileSync(here('./package.json'), 'utf-8'));
+const sj = JSON.parse(readFileSync(here('./server.json'), 'utf-8'));
+const versions = [VERSION, pkg.version, sj.version, ...(sj.packages ?? []).map((p) => p.version)];
+if (new Set(versions).size !== 1) { console.error('VERSION MISMATCH tools.js/package.json/server.json:', versions); process.exit(1); }
+
+const argv = process.argv.slice(2);
+let t;
+if (argv[0] === '--worker') {
+  const worker = (await import('./worker/src/index.js')).default;
+  const env = { ATLAS_API_BASE: process.env.ATLAS_API_BASE };
+  t = new StreamableHTTPClientTransport(new URL('https://worker.test/mcp'),
+    { fetch: (u, init) => worker.fetch(new Request(u, init), env) });
+} else if (argv[0] === '--url') {
+  t = new StreamableHTTPClientTransport(new URL(argv[1]));
+} else {
+  t = new StdioClientTransport({ command: process.execPath, args: [fileURLToPath(here('./index.js'))], env: { ...process.env } });
+}
 const c = new Client({ name: 'atlas-test', version: '0' });
 await c.connect(t);
 const tools = (await c.listTools()).tools.map((x) => x.name);
