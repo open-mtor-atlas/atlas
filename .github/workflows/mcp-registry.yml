@@ -1,0 +1,28 @@
+# Publishes mcp/server.json to the official MCP Registry
+# (registry.modelcontextprotocol.io) under io.github.open-mtor-atlas/*.
+# Run by hand: GitHub -> Actions -> "Publish MCP server to registry" -> Run workflow.
+# Publish the npm package (npm publish in mcp/) first, with the same version
+# as in server.json.
+name: Publish MCP server to registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mcp-publisher
+        run: |
+          curl -sL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --version || true
+      - name: Log in (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish
+        working-directory: mcp
+        run: ../mcp-publisher publish
