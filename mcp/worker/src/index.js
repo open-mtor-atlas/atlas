@@ -51,6 +51,16 @@ export default {
     }
     if (url.pathname === '/health') return json({ ok: true, version: VERSION });
 
+    // Domain verification for the OpenAI Plugins Directory (ChatGPT, Codex).
+    // The token comes from the OpenAI dashboard and is set as a Worker
+    // variable/secret OPENAI_APPS_CHALLENGE; it must be returned verbatim.
+    if (url.pathname === '/.well-known/openai-apps-challenge') {
+      const token = env?.OPENAI_APPS_CHALLENGE;
+      return token
+        ? new Response(token, { headers: { 'content-type': 'text/plain; charset=utf-8', ...CORS } })
+        : json({ error: 'Not configured' }, 404);
+    }
+
     if (url.pathname === '/mcp' || url.pathname === '/mcp/') {
       if (request.method !== 'POST') {
         // Stateless server: no standalone SSE stream (GET) and no sessions to end (DELETE).
