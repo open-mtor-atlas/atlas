@@ -9,7 +9,7 @@ import {
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.2.0';
+export const VERSION = '1.2.1';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
@@ -28,12 +28,12 @@ export function createServer(atlas) {
   const Code = z.enum(CODE_ORDER);
 
   server.registerTool('atlas_about', {
-    title: 'About the Atlas', annotations: RO,
+    title: 'About the Atlas', annotations: { ...RO, title: 'About the Atlas' },
     description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite. Call first when citing.',
   }, async () => ok(await atlas.meta()));
 
   server.registerTool('search_studies', {
-    title: 'Search studies', annotations: RO,
+    title: 'Search studies', annotations: { ...RO, title: 'Search studies' },
     description: 'Search the curated studies by keywords (title, finding, authors, journal, model system), optionally filtered by evidence code, a linked entity (gene, drug, disease...) and year range. Returns summary records with evidence codes and URLs.',
     inputSchema: {
       query: z.string().optional().describe('Keywords, e.g. "rapamycin lifespan mice". Omit to list by filters only.'),
@@ -46,13 +46,13 @@ export function createServer(atlas) {
   }, async (a) => ok(await searchStudies(atlas, a)));
 
   server.registerTool('get_study', {
-    title: 'Get one study', annotations: RO,
+    title: 'Get one study', annotations: { ...RO, title: 'Get one study' },
     description: 'Full record for one study by Atlas ID (e.g. "SAB1994"): abstract excerpt, extracted findings, linked entities, the relations it supports or contradicts, related open questions.',
     inputSchema: { sid: z.string().describe('Atlas study ID, e.g. "SAB1994"') },
   }, async ({ sid }) => { const s = await atlas.one('studies', sid.toUpperCase()); return s ? ok(s) : missing(`Study ${sid}`); });
 
   server.registerTool('search_entities', {
-    title: 'Search entities', annotations: RO,
+    title: 'Search entities', annotations: { ...RO, title: 'Search entities' },
     description: 'Find genes/proteins, complexes, drugs, diseases, processes, nutrients and outcomes by name or synonym.',
     inputSchema: {
       query: z.string().describe('Name or synonym, e.g. "raptor", "sirolimus"'),
@@ -62,7 +62,7 @@ export function createServer(atlas) {
   }, async (a) => ok(await searchEntities(atlas, a)));
 
   server.registerTool('get_entity', {
-    title: 'Get one entity', annotations: RO,
+    title: 'Get one entity', annotations: { ...RO, title: 'Get one entity' },
     description: 'One entity (gene/protein, complex, drug, disease, process...) with its linked studies as short cards (first studies_limit) and every pathway relation it takes part in as a one-line claim. Accepts an id, a name or a synonym. For more studies use search_studies with entity=...',
     inputSchema: {
       entity: z.string().describe('e.g. "mTORC1", "Rheb", "rapamycin"'),
@@ -74,7 +74,7 @@ export function createServer(atlas) {
   });
 
   server.registerTool('find_relations', {
-    title: 'Find pathway relations', annotations: RO,
+    title: 'Find pathway relations', annotations: { ...RO, title: 'Find pathway relations' },
     description: 'Signed, evidence-linked pathway relations (claims such as "Rheb activates mTORC1"). Filter by an entity on either end, by source/target, effect, contested status or minimum strength of the best supporting evidence.',
     inputSchema: {
       entity: z.string().optional().describe('Entity on either end of the relation'),
@@ -88,31 +88,31 @@ export function createServer(atlas) {
   }, async (a) => ok(await findRelations(atlas, a)));
 
   server.registerTool('get_relation', {
-    title: 'Get one relation', annotations: RO,
+    title: 'Get one relation', annotations: { ...RO, title: 'Get one relation' },
     description: 'One pathway relation by ID (e.g. "RHEB-MTORC1"): mechanism, boundary conditions, confidence, supporting and conflicting studies.',
     inputSchema: { id: z.string() },
   }, async ({ id }) => { const r = await atlas.one('relations', id.toUpperCase()); return r ? ok(r) : missing(`Relation ${id}`); });
 
   server.registerTool('evidence_between', {
-    title: 'Evidence between two entities', annotations: RO,
+    title: 'Evidence between two entities', annotations: { ...RO, title: 'Evidence between two entities' },
     description: 'Direct curated relations between two entities (either direction) with full cards for the supporting and conflicting studies. Use to answer "what is the evidence that A acts on B?".',
     inputSchema: { a: z.string(), b: z.string() },
   }, async (a) => ok(await evidenceBetween(atlas, a)));
 
   server.registerTool('find_contradictions', {
-    title: 'Find contested claims', annotations: RO,
+    title: 'Find contested claims', annotations: { ...RO, title: 'Find contested claims' },
     description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. Optionally limited to one entity.',
     inputSchema: { entity: z.string().optional(), limit: z.number().int().min(1).max(50).default(20) },
   }, async (a) => ok(await findContradictions(atlas, a)));
 
   server.registerTool('list_questions', {
-    title: 'List open questions', annotations: RO,
+    title: 'List open questions', annotations: { ...RO, title: 'List open questions' },
     description: 'The Atlas\'s open questions (evidence gaps with testable hypotheses) and frontier questions.',
     inputSchema: { kind: z.enum(['open-question', 'frontier']).optional() },
   }, async (a) => ok(await listQuestions(atlas, a)));
 
   server.registerTool('get_question', {
-    title: 'Get one question', annotations: RO,
+    title: 'Get one question', annotations: { ...RO, title: 'Get one question' },
     description: 'One open or frontier question by ID (e.g. "H1", "F2"): the gap, what changed, what is still open, how it could be tested, linked studies.',
     inputSchema: { id: z.string() },
   }, async ({ id }) => { const q = await atlas.one('questions', id.toUpperCase()); return q ? ok(q) : missing(`Question ${id}`); });
