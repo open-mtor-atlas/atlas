@@ -29,7 +29,7 @@ export function createServer(atlas) {
 
   server.registerTool('atlas_about', {
     title: 'About the Atlas', annotations: { ...RO, title: 'About the Atlas' },
-    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite. Call first when citing.',
+    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite the dataset.',
   }, async () => ok(await atlas.meta()));
 
   server.registerTool('search_studies', {
@@ -63,7 +63,7 @@ export function createServer(atlas) {
 
   server.registerTool('get_entity', {
     title: 'Get one entity', annotations: { ...RO, title: 'Get one entity' },
-    description: 'One entity (gene/protein, complex, drug, disease, process...) with its linked studies as short cards (first studies_limit) and every pathway relation it takes part in as a one-line claim. Accepts an id, a name or a synonym. For more studies use search_studies with entity=...',
+    description: 'One entity (gene/protein, complex, drug, disease, process...) with its linked studies as short cards (first studies_limit) and every pathway relation it takes part in as a one-line claim. Accepts an id, a name or a synonym.',
     inputSchema: {
       entity: z.string().describe('e.g. "mTORC1", "Rheb", "rapamycin"'),
       studies_limit: z.number().int().min(0).max(50).default(25),
@@ -95,7 +95,7 @@ export function createServer(atlas) {
 
   server.registerTool('evidence_between', {
     title: 'Evidence between two entities', annotations: { ...RO, title: 'Evidence between two entities' },
-    description: 'Direct curated relations between two entities (either direction) with full cards for the supporting and conflicting studies. Use to answer "what is the evidence that A acts on B?".',
+    description: 'Direct curated relations between two entities (either direction) with full cards for the supporting and conflicting studies. Answers questions such as "what is the evidence that A acts on B?".',
     inputSchema: { a: z.string(), b: z.string() },
   }, async (a) => ok(await evidenceBetween(atlas, a)));
 
