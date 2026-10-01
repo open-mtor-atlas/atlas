@@ -31,6 +31,11 @@ A mechanistic paper is not "worse" than a trial. The code says what kind of clai
 
 Built and maintained independently by Oliver, a high-school student, together with his father Petr. Not affiliated with any lab, company, or institution. Feedback on the evidence grading, missing studies, or anything that looks wrong is very welcome - please open an issue. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Programmatic access
+
+- **JSON API** (read-only, no key): https://mtor-atlas.org/api/ - studies with evidence codes, entities, signed pathway relations with supporting and conflicting studies, open questions. OpenAPI 3.1: https://mtor-atlas.org/api/openapi.json
+- **MCP server** for AI assistants: source and install instructions in [`mcp/`](mcp/).
+
 ## Citing this dataset
 
 If you use this dataset, please cite it via its Zenodo record: https://doi.org/10.5281/zenodo.22059963
