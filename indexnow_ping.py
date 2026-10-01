@@ -102,12 +102,35 @@ def url_to_file(src, url):
     return path if os.path.isfile(path) else None
 
 
+HASH_VERSION = "content-v2"   # zmena definice hashe = tichy rebase stavu, nic se neposila
+
+MAIN_RX = re.compile(r"<main\b[^>]*>.*?</main>", re.S | re.I)
+SHARE_BTN_RX = re.compile(r'<a\b[^>]*class="[^"]*\boma-btn\b[^"]*"[^>]*>.*?</a>', re.S | re.I)
+HEAD_RXS = [
+    re.compile(r"<title\b[^>]*>.*?</title>", re.S | re.I),
+    re.compile(r'<meta[^>]+name="description"[^>]*>', re.I),
+    re.compile(r'<link[^>]+rel="canonical"[^>]*>', re.I),
+    re.compile(r'<meta[^>]+name="robots"[^>]*>', re.I),
+    re.compile(r'<script[^>]+type="application/ld\+json"[^>]*>.*?</script>', re.S | re.I),
+]
+
+
 def content_hash(path):
+    """Hash jen skutecneho obsahu stranky: <main> bez sdilecich/follow tlacitek,
+    plus title, description, canonical, robots a JSON-LD. Hlavicka, patička,
+    navigace, nazvy JS/CSS souboru a text tlacitek se nepocitaji, takze
+    celowebova zmena sablony nebo copy v CTA nepingne 800 stranek."""
     text = open(path, encoding="utf-8", errors="replace").read()
     for rx in VOLATILE:
         text = rx.sub("", text)
     text = text.replace("\r\n", "\n")
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    m = MAIN_RX.search(text)
+    if not m:
+        return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    parts = [SHARE_BTN_RX.sub("", m.group(0))]
+    for rx in HEAD_RXS:
+        parts.extend(rx.findall(text[:m.start()]) + rx.findall(text[m.end():]))
+    return hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
 
 
 def load_state():
@@ -180,10 +203,17 @@ def main():
         print(f"  ! {missing} URL ze sitemap nema soubor v {src} (hash 'nofile')")
 
     old = load_state()
+    if old is not None and old.get("__hash_version__") != HASH_VERSION and not ALL:
+        print("IndexNow: zmenila se definice hashe, stav prepocitan, nic neposilam.")
+        if not DRY:
+            current["__hash_version__"] = HASH_VERSION
+            save_state(current)
+        return
     if old is None and not ALL:
         print("IndexNow: stavovy soubor neexistuje, zakladam ho a nic neposilam "
               "(Bing web zna cely). Plny ping: --all.")
         if not DRY:
+            current["__hash_version__"] = HASH_VERSION
             save_state(current)
         return
 
@@ -192,7 +222,7 @@ def main():
         changed, removed = list(urls), []
     else:
         changed = [u for u in urls if old.get(u) != current[u]]
-        removed = [u for u in old if u not in current]
+        removed = [u for u in old if u not in current and u != "__hash_version__"]
     to_send = changed + removed
     print(f"IndexNow: {len(changed)} novych/zmenenych, {len(removed)} odstranenych, "
           f"{len(urls) - len(changed)} beze zmeny.")
@@ -208,6 +238,7 @@ def main():
         print("DRY RUN -- nothing sent, state not changed.")
         return
     if send(to_send):
+        current["__hash_version__"] = HASH_VERSION
         save_state(current)
         print("IndexNow: stav ulozen.")
     else:
