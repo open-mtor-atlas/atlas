@@ -20,7 +20,9 @@ const argv = process.argv.slice(2);
 let t;
 if (argv[0] === '--worker') {
   const worker = (await import('./worker/src/index.js')).default;
-  const env = { ATLAS_API_BASE: process.env.ATLAS_API_BASE };
+  // Fake Analytics Engine binding: collects the anonymous usage data points.
+  globalThis.__usage = [];
+  const env = { ATLAS_API_BASE: process.env.ATLAS_API_BASE, USAGE: { writeDataPoint: (p) => globalThis.__usage.push(p) } };
   t = new StreamableHTTPClientTransport(new URL('https://worker.test/mcp'),
     { fetch: (u, init) => worker.fetch(new Request(u, init), env) });
 } else if (argv[0] === '--url') {
@@ -65,5 +67,16 @@ for (const [name, args] of calls) {
   console.log((r.isError ? 'ERR ' : 'ok  ') + name.padEnd(20) + JSON.stringify(args).slice(0, 60).padEnd(62) + summary);
 }
 await c.close();
+if (globalThis.__usage) {
+  const pts = globalThis.__usage;
+  const toolCalls = pts.filter((p) => p.blobs[0] === 'tools/call');
+  const init = pts.find((p) => p.blobs[0] === 'initialize');
+  const bad = toolCalls.length !== calls.length
+    || init?.blobs[2] !== 'atlas-test'
+    || toolCalls.find((p) => p.blobs[1] === 'get_study' && p.blobs[4] === 'tool-error') === undefined
+    || JSON.stringify(pts).includes('rapamycin');   // tool arguments must never be recorded
+  console.log(`usage points: ${pts.length} (tools/call ${toolCalls.length}), e.g. ${JSON.stringify(toolCalls[1]?.blobs)}` + (bad ? '  <-- USAGE CHECK FAILED' : ''));
+  if (bad) fail++;
+}
 console.log(fail ? `FAILED ${fail}` : 'ALL OK');
 process.exit(fail ? 1 : 0);

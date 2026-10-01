@@ -11,5 +11,11 @@ workers_dev = true
 # Cloudflare dashboard still shows aggregate request counts and errors.
 enabled = false
 
+# Anonymous usage counts: method, tool name, client kind, outcome, duration.
+# No IPs, no raw User-Agent, no tool arguments. Query with ../usage.mjs.
+[[analytics_engine_datasets]]
+binding = "USAGE"
+dataset = "mtor_atlas_mcp_usage"
+
 # [vars]
 # ATLAS_API_BASE = "https://mtor-atlas.org/api/v1"   # default, override only for testing

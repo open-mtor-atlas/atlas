@@ -41,6 +41,52 @@ const INFO = {
   data: 'https://mtor-atlas.org/api/v1/ (CC BY 4.0, doi:10.5281/zenodo.22059963)',
 };
 
+
+// ---- Anonymous usage counts (Cloudflare Workers Analytics Engine) ----------
+// One data point per JSON-RPC message: day-level counts of which method/tool
+// was used, by which kind of client, and whether it succeeded. Never stored:
+// IP address, raw User-Agent, tool arguments, results, or anything that
+// identifies a person. Skipped silently when the USAGE binding is absent
+// (local tests, or Analytics Engine not enabled on the account).
+const clean = (v, max = 48) => String(v ?? '').toLowerCase().replace(/[^a-z0-9 ./_-]/g, '').trim().slice(0, max) || '-';
+
+// Coarse client family from the User-Agent; the raw header is never stored.
+function uaFamily(ua) {
+  const u = (ua || '').toLowerCase();
+  const known = [
+    ['claude', 'claude'], ['anthropic', 'claude'], ['openai', 'openai'], ['chatgpt', 'openai'],
+    ['grok', 'xai'], ['xai', 'xai'], ['perplexity', 'perplexity'], ['cursor', 'cursor'],
+    ['windsurf', 'windsurf'], ['vscode', 'vscode'], ['mcp-inspector', 'inspector'],
+    ['python', 'python'], ['node', 'node'], ['undici', 'node'], ['curl', 'curl'], ['mozilla', 'browser'],
+  ];
+  for (const [needle, fam] of known) if (u.includes(needle)) return fam;
+  return u ? 'other' : '-';
+}
+
+function recordUsage(env, messages, replies, ua, ms) {
+  const ds = env?.USAGE;
+  if (!ds?.writeDataPoint) return;
+  const byId = new Map((replies || []).map((r) => [r?.id, r]));
+  const fam = uaFamily(ua);
+  for (const m of messages) {
+    if (!m || typeof m.method !== 'string') continue;
+    const tool = m.method === 'tools/call' ? clean(m.params?.name) : '-';
+    const client = m.method === 'initialize' ? clean(m.params?.clientInfo?.name) : '-';
+    const r = byId.get(m.id);
+    const outcome = m.id === undefined ? 'notification'
+      : !r ? 'no-reply'
+      : r.error ? 'error'
+      : r.result?.isError ? 'tool-error' : 'ok';
+    try {
+      ds.writeDataPoint({
+        indexes: [clean(m.method)],
+        blobs: [clean(m.method), tool, client, fam, outcome],
+        doubles: [1, ms],
+      });
+    } catch { /* counting must never break a request */ }
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -72,8 +118,24 @@ export default {
         enableJsonResponse: true,
       });
       await server.connect(transport);
+      const t0 = Date.now();
+      // Read the JSON-RPC message(s) for the usage counter before the transport consumes the body.
+      let messages = [];
       try {
-        return withCors(await transport.handleRequest(request));
+        const body = await request.clone().json();
+        messages = Array.isArray(body) ? body : [body];
+      } catch { /* malformed body: the transport answers with a JSON-RPC error */ }
+      try {
+        const res = await transport.handleRequest(request);
+        if (env?.USAGE && messages.length) {
+          let replies = [];
+          try {
+            const out = await res.clone().json();
+            replies = Array.isArray(out) ? out : [out];
+          } catch { /* 202 Accepted for notifications has no body */ }
+          recordUsage(env, messages, replies, request.headers.get('user-agent'), Date.now() - t0);
+        }
+        return withCors(res);
       } finally {
         // The response body is already complete (enableJsonResponse), so closing is safe.
         transport.close?.();
