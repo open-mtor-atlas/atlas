@@ -8,6 +8,7 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { Atlas } from '../../lib.js';
 import { createServer, VERSION } from '../../tools.js';
+import { usageReport } from './usage-sql.js';
 
 const CORS = {
   'access-control-allow-origin': '*',
@@ -37,6 +38,7 @@ const INFO = {
   transport: 'streamable-http (stateless)',
   auth: 'none (public, read-only)',
   docs: 'https://mtor-atlas.org/api/#mcp',
+  usage_stats: '/stats?days=30 (anonymous aggregate counts)',
   source: 'https://github.com/open-mtor-atlas/atlas/tree/main/mcp',
   data: 'https://mtor-atlas.org/api/v1/ (CC BY 4.0, doi:10.5281/zenodo.22059963)',
 };
@@ -96,6 +98,27 @@ export default {
       return request.method === 'GET' ? json(INFO) : json({ error: 'Use POST /mcp' }, 405);
     }
     if (url.pathname === '/health') return json({ ok: true, version: VERSION });
+
+    // Public aggregate usage counts (no per-request rows, nothing about people).
+    // Needs the secret CF_API_TOKEN (Account Analytics: Read); cached for 10 minutes.
+    if (url.pathname === '/stats') {
+      if (!env?.CF_API_TOKEN) return json({ error: 'Usage stats not configured' }, 404);
+      const days = Math.max(1, Math.min(90, Number(url.searchParams.get('days')) || 30));
+      const cacheKey = new Request(`https://stats.cache/${days}`);
+      const cache = globalThis.caches?.default;
+      const hit = cache && await cache.match(cacheKey);
+      if (hit) return withCors(hit);
+      try {
+        const report = await usageReport(env.CF_ACCOUNT_ID, env.CF_API_TOKEN, days);
+        const res = new Response(JSON.stringify(report, null, 2), {
+          headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=600' },
+        });
+        if (cache) await cache.put(cacheKey, res.clone());
+        return withCors(res);
+      } catch (e) {
+        return json({ error: 'Stats query failed', detail: String(e.message || e).slice(0, 200) }, 502);
+      }
+    }
 
     // Domain verification for the OpenAI Plugins Directory (ChatGPT, Codex).
     // The token comes from the OpenAI dashboard and is set as a Worker
