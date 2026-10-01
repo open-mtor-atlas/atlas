@@ -139,6 +139,27 @@ def entity_pages():
     return out
 
 
+_PLANNED = None
+
+
+def planned_entity_pages():
+    """Cesty entitnich stranek, ktere build_pages.py v tomto deployi postavi:
+    stejne pravidlo (>= PAGE_THRESHOLD studii), stejny TYPE_DIR a slugify."""
+    global _PLANNED
+    if _PLANNED is None:
+        _PLANNED = set()
+        for x in json.load(open(os.path.join(DATA, "entities_baked.json"), encoding="utf-8")):
+            st = x.get("studies")
+            if isinstance(st, str):
+                try:
+                    st = json.loads(st.replace("'", '"'))
+                except Exception:
+                    st = [t.strip(" '\"") for t in st.strip("[]").split(",") if t.strip()]
+            if len(st or []) >= BP.PAGE_THRESHOLD:
+                _PLANNED.add("%s/%s" % (BP.TYPE_DIR.get(x["type"], "entity"), BP.slugify(x["name"])))
+    return _PLANNED
+
+
 def check_challenges(routes, pw_nodes, pw_edges, studies, gaps, ents, lesson_slugs):
     """15 -- Research Challenges (2026-09-01).
 
@@ -1194,6 +1215,12 @@ def main():
             if os.path.isdir(target):
                 target = os.path.join(target, "index.html")
             if not os.path.exists(target):
+                # 2026-10-01: stranku entity vyrobi build_pages.py az POZDEJI
+                # ve stejnem deployi (build_academy -> verify_academy bezi pred
+                # nim). Nova entita, ktera prave prekrocila PAGE_THRESHOLD, by
+                # jinak zastavila deploy, i kdyz jeji stranka za par kroku vznikne.
+                if path.strip("/") in planned_entity_pages():
+                    continue
                 bad(rel, "odkaz na neexistujici cil %s" % u)
 
     if problems:
