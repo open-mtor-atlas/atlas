@@ -148,6 +148,7 @@ DATASET_REF = {
         "https://doi.org/10.5281/zenodo.22059963",
         "https://bio.tools/olivers_mtor_atlas",
         "https://fairsharing.org/8905",
+        "https://doi.org/10.25504/FAIRsharing.691885",
     ],
     "creator": {"@type": "Person", "name": "Oliver Barton",
                 "url": "https://orcid.org/0009-0008-2025-2148",
@@ -2133,6 +2134,9 @@ def data_page(studies, entities):
         {"@type": "PropertyValue", "propertyID": "FAIRsharing",
          "value": "FAIRsharing.org8905",
          "url": "https://fairsharing.org/8905"},
+        {"@type": "PropertyValue", "propertyID": "FAIRsharing DOI",
+         "value": "10.25504/FAIRsharing.691885",
+         "url": "https://doi.org/10.25504/FAIRsharing.691885"},
     ]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -2173,6 +2177,8 @@ Zenodo</td></tr>
 <tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.22916413">10.5281/zenodo.22916413</a>
 &mdash; the v2.0.0 snapshot, for citing the exact state of the corpus this
 version archived</td></tr>
+<tr><td>FAIRsharing DOI</td><td><a href="https://doi.org/10.25504/FAIRsharing.691885">10.25504/FAIRsharing.691885</a>
+&mdash; resolves to the FAIRsharing registry record above</td></tr>
 <tr><td>Curator ORCID</td><td><a href="https://orcid.org/0009-0008-2025-2148">0009-0008-2025-2148</a>
 (Oliver Barton)</td></tr>
 <tr><td>License</td><td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
