@@ -7,7 +7,9 @@ compatibility_flags = ["nodejs_compat"]
 workers_dev = true
 
 [observability]
-enabled = true
+# Off: the server keeps no request logs (see the privacy note on mtor-atlas.org/privacy/).
+# Cloudflare dashboard still shows aggregate request counts and errors.
+enabled = false
 
 # [vars]
 # ATLAS_API_BASE = "https://mtor-atlas.org/api/v1"   # default, override only for testing

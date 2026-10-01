@@ -4,12 +4,12 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import {
-  CODE_ORDER, searchStudies, searchEntities, resolveEntity, findRelations,
+  CODE_ORDER, searchStudies, searchEntities, getEntity, findRelations,
   evidenceBetween, findContradictions, listQuestions,
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.1.0';
+export const VERSION = '1.2.0';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
@@ -40,7 +40,8 @@ export function createServer(atlas) {
       evidence_code: z.array(Code).optional().describe('Keep only these evidence codes, e.g. ["H","S"] for human evidence.'),
       entity: z.string().optional().describe('Only studies linked to this entity (name, synonym or id), e.g. "Rheb".'),
       year_from: z.number().int().optional(), year_to: z.number().int().optional(),
-      limit: z.number().int().min(1).max(100).default(20),
+      limit: z.number().int().min(1).max(50).default(20),
+      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
     },
   }, async (a) => ok(await searchStudies(atlas, a)));
 
@@ -62,11 +63,14 @@ export function createServer(atlas) {
 
   server.registerTool('get_entity', {
     title: 'Get one entity', annotations: RO,
-    description: 'One entity with all its studies and every pathway relation it takes part in. Accepts an id, a name or a synonym.',
-    inputSchema: { entity: z.string().describe('e.g. "mTORC1", "Rheb", "rapamycin"') },
-  }, async ({ entity }) => {
-    const e = await resolveEntity(atlas, entity);
-    return e ? ok(await atlas.one('entities', e.id)) : missing(`Entity "${entity}"`);
+    description: 'One entity (gene/protein, complex, drug, disease, process...) with its linked studies as short cards (first studies_limit) and every pathway relation it takes part in as a one-line claim. Accepts an id, a name or a synonym. For more studies use search_studies with entity=...',
+    inputSchema: {
+      entity: z.string().describe('e.g. "mTORC1", "Rheb", "rapamycin"'),
+      studies_limit: z.number().int().min(0).max(50).default(25),
+    },
+  }, async ({ entity, studies_limit }) => {
+    const e = await getEntity(atlas, entity, { studies_limit });
+    return e ? ok(e) : missing(`Entity "${entity}"`);
   });
 
   server.registerTool('find_relations', {
@@ -78,7 +82,8 @@ export function createServer(atlas) {
       effect: z.enum(['activates', 'inhibits', 'binds', 'recruits', 'required-for', 'context-dependent', 'no-effect']).optional(),
       contested_only: z.boolean().optional().describe('Only relations marked contested or with conflicting studies'),
       strongest_at_least: Code.optional().describe('Keep relations whose best supporting study is at least this code in the order S > H > A > M'),
-      limit: z.number().int().min(1).max(121).default(50),
+      limit: z.number().int().min(1).max(50).default(20),
+      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
     },
   }, async (a) => ok(await findRelations(atlas, a)));
 
@@ -97,7 +102,7 @@ export function createServer(atlas) {
   server.registerTool('find_contradictions', {
     title: 'Find contested claims', annotations: RO,
     description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. Optionally limited to one entity.',
-    inputSchema: { entity: z.string().optional(), limit: z.number().int().min(1).max(121).default(50) },
+    inputSchema: { entity: z.string().optional(), limit: z.number().int().min(1).max(50).default(20) },
   }, async (a) => ok(await findContradictions(atlas, a)));
 
   server.registerTool('list_questions', {

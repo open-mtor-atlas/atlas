@@ -75,7 +75,14 @@ function score(q, fields) {
 export const CODE_ORDER = ['S', 'H', 'A', 'M', 'R', 'PP', 'RT'];
 
 // ------------------------------------------------------------------ queries
-export async function searchStudies(atlas, { query, evidence_code, entity, year_from, year_to, limit = 20 }) {
+/** One page of results, with the offset for the next page when there is one. */
+function page(rows, offset = 0, limit = 20) {
+  const results = rows.slice(offset, offset + limit);
+  const next = offset + results.length;
+  return { total_matches: rows.length, offset, results, next_offset: next < rows.length ? next : null };
+}
+
+export async function searchStudies(atlas, { query, evidence_code, entity, year_from, year_to, limit = 20, offset = 0 }) {
   let rows = await atlas.list('studies');
   if (evidence_code?.length) rows = rows.filter((s) => evidence_code.includes(s.evidence?.code));
   if (year_from) rows = rows.filter((s) => Number(s.year) >= year_from);
@@ -91,7 +98,7 @@ export async function searchStudies(atlas, { query, evidence_code, entity, year_
     [s.authors, 1], [s.journal, 1], [s.model_system, 1], [s.category, 1]]), s])
     .filter(([sc]) => sc > 0)
     .sort((a, b) => b[0] - a[0] || Number(b[1].year ?? 0) - Number(a[1].year ?? 0));
-  return { total_matches: scored.length, results: scored.slice(0, limit).map(([, s]) => s) };
+  return page(scored.map(([, s]) => s), offset, limit);
 }
 
 export async function resolveEntity(atlas, q) {
@@ -116,7 +123,7 @@ function touches(r, id, name) {
   return [r.source, r.target].some((x) => (id && x.entity === id) || norm(x.name) === norm(name));
 }
 
-export async function findRelations(atlas, { entity, source, target, effect, contested_only, strongest_at_least, limit = 50 }) {
+export async function findRelations(atlas, { entity, source, target, effect, contested_only, strongest_at_least, limit = 20, offset = 0 }) {
   let rows = await atlas.list('relations');
   const pick = async (q) => { const e = await resolveEntity(atlas, q); return { id: e?.id ?? null, name: e?.name ?? q }; };
   if (entity) { const e = await pick(entity); rows = rows.filter((r) => touches(r, e.id, e.name)); }
@@ -128,7 +135,7 @@ export async function findRelations(atlas, { entity, source, target, effect, con
     const lim = CODE_ORDER.indexOf(strongest_at_least);
     rows = rows.filter((r) => { const c = CODE_ORDER.indexOf(r.evidence.strongest?.code); return c >= 0 && c <= lim; });
   }
-  return { total_matches: rows.length, results: rows.slice(0, limit) };
+  return page(rows, offset, limit);
 }
 
 async function studyCards(atlas, sids) {
@@ -158,8 +165,8 @@ export async function evidenceBetween(atlas, { a, b }) {
   };
 }
 
-export async function findContradictions(atlas, { entity, limit = 50 }) {
-  const { results } = await findRelations(atlas, { entity, contested_only: true, limit });
+export async function findContradictions(atlas, { entity, limit = 20 }) {
+  const { results, total_matches } = await findRelations(atlas, { entity, contested_only: true, limit });
   const out = [];
   for (const r of results) {
     out.push({ id: r.id, claim: r.claim, contested: r.contested, consensus: r.confidence.consensus,
@@ -167,7 +174,32 @@ export async function findContradictions(atlas, { entity, limit = 50 }) {
       supporting_studies: await studyCards(atlas, r.evidence.supporting),
       conflicting_studies: await studyCards(atlas, r.evidence.conflicting) });
   }
-  return { total: out.length, results: out };
+  return { total: total_matches, returned: out.length, results: out };
+}
+
+/**
+ * One entity, compact: its own fields, the first `studies_limit` linked studies
+ * as short cards, and every relation as a one-line claim. The full API record of
+ * a hub such as mTORC1 is ~160 kB, too big for one tool answer.
+ */
+export async function getEntity(atlas, q, { studies_limit = 25 } = {}) {
+  const e = await resolveEntity(atlas, q);
+  if (!e) return null;
+  const full = await atlas.one('entities', e.id);
+  if (!full) return null;
+  const { studies = [], relations = [], ...own } = full;
+  return {
+    ...own,
+    studies: studies.slice(0, studies_limit).map((s) => ({
+      sid: s.sid, title: s.title, year: s.year, evidence_code: s.evidence?.code, url: s.url })),
+    studies_shown: Math.min(studies.length, studies_limit),
+    relations: relations.map((r) => ({
+      id: r.id, claim: r.claim, effect: r.effect, contested: r.contested,
+      strongest_evidence: r.evidence?.strongest?.code ?? null })),
+    note: studies.length > studies_limit
+      ? `Showing ${studies_limit} of ${studies.length} studies. Use search_studies with entity="${own.name}" (and offset) for the rest, get_study or get_relation for details.`
+      : 'Use get_study or get_relation for full records.',
+  };
 }
 
 export async function listQuestions(atlas, { kind }) {
