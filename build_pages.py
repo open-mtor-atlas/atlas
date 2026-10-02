@@ -2199,6 +2199,18 @@ version archived</td></tr>
 attribution</td></tr>
 </table>
 
+<h2 id="sustainability">Sustainability and preservation</h2>
+<p>The Atlas is an independent curation project without institutional
+funding. Its preservation does not depend on this website staying online.
+Each release is deposited on Zenodo as a versioned, citable snapshot
+(v1.0.0, v2.0.0, v2.0.1) under a concept DOI that always points to the
+latest version, and the accompanying analysis is deposited as a preprint
+on Figshare. The full corpus is also published as open CSV and JSON files
+(see the downloads above) under CC BY 4.0, so anyone can keep a copy or
+build on it. A released version is never edited afterwards: corrections go
+into a new version, and every change to the method is logged with its date
+at <a href="/changelog/">/changelog/</a>.</p>
+
 <h2>Cite this resource</h2>
 <p>If you use this dataset, please cite it as:</p>
 <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;
