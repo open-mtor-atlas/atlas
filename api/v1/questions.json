@@ -2,13 +2,13 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-02T22:56:57+0200",
-  "source_commit": "7f2ed4b5cce3ce23355fe1645c6ba70d129b787f",
+  "corpus_snapshot": "2026-10-02T23:09:48+0200",
+  "source_commit": "6e4f665f5c1677288975e62bc2ad9aad95d5cd12",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
  },
- "count": 15,
+ "count": 17,
  "data": [
   {
    "id": "H1",
@@ -326,9 +326,9 @@
    "title": "Does mTORC1 carry information in the pattern of its activity over time, not its average level?",
    "category": "Framing gap",
    "evidence_stands_at": "Mechanism in cells",
-   "gap": "Almost the entire literature reports mTORC1 as a level — phospho-S6K or phospho-4E-BP1 at one time point, in a lysate, after a step change in nutrients. But a real cell never sees a step: it sees amino-acid pulses after meals, insulin pulses, growth-factor pulses, mechanical load during exercise, and a circadian rhythm underneath all of it. If the pathway responds to the shape of that input rather than to its mean, then a single-time-point measurement is not an underpowered measurement of the right thing. It is a measurement of the wrong thing.",
-   "gap_beginner": "Nearly every study measures mTOR activity the way you would read a thermometer once: a single number, from a single moment, usually right after the cell was given a sudden jolt of nutrients. But real cells never get a sudden jolt. They get meals, exercise, sleep and waking — a rhythm. If what matters is the rhythm rather than the average, then the standard measurement is not just imprecise. It is answering a different question from the one being asked.",
-   "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Nature 2025, structural basis for mTORC1 activation on the lysosomal membrane). A multi-step process has intermediate states, and intermediate states are what let a pathway distinguish a brief pulse from a sustained one.",
+   "gap": "Much of the literature reports mTORC1 as a level: phospho-S6K or phospho-4E-BP1 at one or a few time points, in a lysate, after a step change in nutrients. Live reporters such as TORCAR and AIMTOR and a growing number of time-resolved studies are changing that, but they are still the minority. A real cell rarely sees a clean step. It sees amino-acid pulses after meals, insulin and growth-factor pulses, mechanical load during exercise, and a circadian rhythm underneath all of it. If the pathway responds to the shape of that input and not only to its mean, an endpoint measurement captures part of the answer and misses the rest. That is a hypothesis, and the experiment below is designed so that it can fail.",
+   "gap_beginner": "Much of the mTOR literature measures activity the way you would read a thermometer once: one number, from one moment, often right after the cell was given a sudden jolt of nutrients. That approach has taught us a lot, but real cells rarely get a single jolt. They get meals, exercise, sleep and waking, a rhythm. The hypothesis here is that the rhythm itself carries information. If it does, a single reading misses part of the answer. If it does not, the single reading is good enough, and that would be worth showing too.",
+   "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Nature 2025, structural basis for mTORC1 activation on the lysosomal membrane). A multi-step process has intermediate states, and intermediate states are one way a pathway could in principle tell a brief pulse from a sustained one. Whether mTORC1 actually uses them that way has not been tested.",
    "still_open": "Whether any downstream output actually reads pulse duration or frequency rather than integrated activity. The cleanest version: do autophagy and cap-dependent translation have different temporal filters, so that the same total mTORC1 activity delivered as one long pulse or several short ones produces different amounts of each? We have not found that comparison published in a mammalian cell.",
    "why_it_matters": "If true, it reframes intermittent dosing from a way of lowering exposure into a way of choosing which outputs you engage, and it puts feeding, exercise and circadian timing inside the pharmacology rather than beside it.",
    "how_to_test": "Optogenetic or chemogenetic control of mTORC1 activity in single cells, delivering matched total activity in different temporal patterns — one sustained pulse against several brief ones — with simultaneous live readouts of autophagic flux and of cap-dependent translation. The discriminating result is a divergence between the two outputs under equal integrated activity. A negative result is equally informative and would justify the field's steady-state convention.",
@@ -342,11 +342,11 @@
   {
    "id": "F2",
    "kind": "frontier",
-   "title": "Is mTORC1 one pathway or several separable outputs — and which of them carries ageing?",
+   "title": "How can the same mTORC1 activity produce different outputs — and which of them carries ageing?",
    "category": "Framing gap",
    "evidence_stands_at": "Lifespan in mice",
-   "gap": "The field asks how much mTORC1 to inhibit, and lately which complex to spare. It rarely asks which of mTORC1's outputs needs inhibiting at all. Yet the outputs behave differently: the 4E-BP1 arm and the S6K1 arm separate in muscle, where activating 4E-BP1 rescues a sarcopenia model and deleting S6K1 does not; bi-steric inhibitors reactivate 4E-BP1 where rapalogs cannot; and lysosomal localisation and mTORC1 activity can be uncoupled, so different substrates need not move together.",
-   "gap_beginner": "Most of the argument is about how hard to press the brake, and recently about which of the two brakes to press. Hardly anyone asks which of the things the brake controls actually needs slowing. And those things do come apart: in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
+   "gap": "The field asks how much mTORC1 to inhibit, and lately which complex to spare. It rarely asks how one activity state is turned into several different outputs, or which of them needs inhibiting at all. Yet the outputs behave differently. Phosphorylation sites differ in intrinsic substrate quality, so partial inhibition by rapamycin or starvation removes poor substrates first and leaves good ones phosphorylated (KAN2013). TFEB is reached by a RagC/D-dependent route that S6K1 and 4E-BP1 do not need (NAP2020). In muscle, the 4E-BP1 arm and the S6K1 arm separate: activating 4E-BP1 rescues a sarcopenia model and deleting S6K1 does not. Bi-steric inhibitors reactivate 4E-BP1 where rapalogs cannot. Amplitude, duration and location are each candidate ways a cell could select among outputs; ageing is one place where the choice would matter.",
+   "gap_beginner": "The same amount of mTORC1 activity does not have to give the same result. Each of the enzyme's targets has its own sensitivity: some stay switched on when mTORC1 is only partly blocked, others switch off first (Kang 2013). One target, TFEB, is reached by a separate route the others do not need (Napolitano 2020). Most of the argument about ageing is about how hard to press the brake. Hardly anyone asks which of these outputs actually needs slowing, and in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
    "changed_since_written": "Substrate selectivity has moved from a curiosity to a stated paradigm shift in the 2026 review literature, on the back of results showing that where mTORC1 sits and which substrates it reaches are not the same variable as how active it is. On the therapeutic side, bi-steric inhibitors are the first tool that changes the output profile rather than only the output amount (Mahauad-Fernandez, Cell Chem Biol 2025, PMID 40803322), and they have now been through a human phase 1 (Schram, Clin Cancer Res 2025, PMID 41056387).",
    "still_open": "Which outputs are required for geroprotection. No lifespan experiment has compared mTORC1 outputs at matched mTORC1 activity. Single-output genetics exists - S6K1 deletion extends female mouse lifespan (SEL2009) and 4E-BP mediates dietary-restriction lifespan extension in flies (ZID2009) - but there is no 4E-BP1-arm-only ITP cohort, no S6K1-arm-only cohort at matched mTORC1 activity, and no bi-steric lifespan data in any species.",
    "why_it_matters": "It would change what a geroprotective drug is supposed to do. Sparing mTORC2 is a question about avoiding harm; choosing outputs is a question about where the benefit lives, and it may explain why deeper inhibition is not reliably better.",
@@ -365,8 +365,8 @@
    "title": "Is mTOR signalling decided by where the complex is active, rather than by how much of it is active?",
    "category": "Framing gap",
    "evidence_stands_at": "Mechanism in cells",
-   "gap": "The lysosome is usually described as the place mTORC1 sits. The structural work of 2025 describes something else: a signalling platform where Rag and Ragulator, Rheb, and direct membrane engagement have to be assembled in order, and where substrate access depends on that assembly. If access is positional, then two cells with identical total mTORC1 activity can be running different programmes, and no lysate will tell them apart.",
-   "gap_beginner": "The lysosome is normally described as mTOR's parking space. Newer structural work describes it more like a workbench: what the enzyme can reach depends on how it is docked. If that is right, two cells with the same amount of activity can be doing completely different jobs — and grinding them up to measure the total would hide exactly that.",
+   "gap": "The lysosome is usually described as the place mTORC1 sits. The 2025 structures show that full activation there is a stepwise assembly: Rag and Ragulator bring the complex to the membrane, Rheb brings it closer, and direct membrane contacts by mTOR and Raptor complete activation. Structure alone does not show that position changes what the kinase phosphorylates. There is functional evidence that at least one substrate depends on the route, though: TFEB phosphorylation requires amino-acid activation of RagC/D and is insensitive to Rheb activity, unlike S6K1 and 4E-BP1 (NAP2020). If access is positional more generally, two cells with identical total mTORC1 activity can be running different programmes, and no lysate will tell them apart.",
+   "gap_beginner": "The lysosome is normally described as mTOR's parking space. There are reasons to think it is more like a workbench, where what the enzyme can reach depends on where and how it is docked. One of its targets, TFEB, is only switched off by mTORC1 when a particular docking route through the Rag proteins is active, while other targets do not need that route (Napolitano 2020). If location matters more broadly, two cells with the same amount of activity could be doing different jobs, and grinding them up to measure the total would hide exactly that.",
    "changed_since_written": "Structures published in 2025 resolved both the assembly on the lysosomal membrane and the dynamic regulation by amino acids through the GATOR2, Sestrin2 and CASTOR1 interfaces (Nature 2025). The authors are explicit that how nutrient binding is converted into GATOR2 activation remains unresolved — so the mechanism is now detailed enough to generate positional predictions, and those predictions are untested.",
    "still_open": "Whether substrate identity actually depends on location in a living cell, as opposed to in a reconstituted system. The specific unanswered question: does the same amount of active mTORC1 produce a different substrate profile when it is tethered to the lysosome than when it is tethered elsewhere?",
    "why_it_matters": "It decides whether pathway-activity biomarkers can mean anything. A blood panel reports how much, and if the biology runs on where, the panel is measuring a quantity the cell does not use.",
@@ -417,6 +417,44 @@
    ],
    "url": "https://mtor-atlas.org/questions/frontier/which-human-ageing-phenotypes-are-causally-reversible/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F5.json"
+  },
+  {
+   "id": "F6",
+   "kind": "frontier",
+   "title": "Can different combinations of inputs give the same average mTORC1 activity but a different time course — and a different outcome?",
+   "category": "Framing gap",
+   "evidence_stands_at": "Mechanism in cells",
+   "gap": "mTORC1 integrates amino acids through the Rag GTPases, growth factors and insulin through AKT and TSC2, energy through AMPK, and lysosomal and stress signals besides. Most studies vary one input at a time and read the result at steady state. Two different input combinations could therefore be reported as producing the same mTORC1 activity while producing different kinetics: a fast transient against a slow plateau, or a steady level against an oscillation. An averaged readout would call them identical.",
+   "gap_beginner": "mTOR listens to several things at once: food (amino acids), hormones like insulin, the cell's energy level, and stress. Experiments usually change one of these at a time and read the answer once. But two different mixes of signals could give the same average reading while one produces a quick spike and the other a slow, steady rise. If the cell responds to the shape and not only the average, those two mixes would do different things, and a single reading could not tell them apart.",
+   "changed_since_written": "The inputs are now well mapped at the molecular level (Goul, Peruzzo and Zoncu, Nat Rev Mol Cell Biol 2023, doi:10.1038/s41580-023-00641-8). In mouse liver, the rise of mTORC1 after a meal needs dietary protein, while insulin's AKT-TSC2 route explains the insulin response but not the feeding response (KAL2026), so two physiological inputs reach the same complex by routes that can be separated. Live reporters and single-cell imaging of mTORC1, AMPK and AKT signalling make it possible to record kinetics rather than end points.",
+   "still_open": "Whether input combinations matched for average mTORC1 activity produce distinguishable time courses in single cells, and whether those time courses lead to different outputs such as TFEB localisation, autophagic flux or protein synthesis. We have not found a study that matches the average and compares the dynamics directly.",
+   "why_it_matters": "If inputs are encoded in the time course, then what a cell registers about its nutrient state is partly lost in a steady-state measurement, and diet composition and meal timing could matter in ways a single fasted or fed sample would not show.",
+   "how_to_test": "In cells carrying a live mTORC1 reporter, titrate amino acids against insulin or growth factors to find several combinations that give the same time-averaged reporter signal. Record single-cell kinetics for each, together with TFEB localisation and a translation readout. Different kinetics with different outputs at equal average supports the idea. Identical kinetics, or different kinetics with identical outputs, argue against it.",
+   "related_questions": [
+    "H1",
+    "H5"
+   ],
+   "url": "https://mtor-atlas.org/questions/frontier/do-different-inputs-give-the-same-average-but-different-dynamics/",
+   "api_url": "https://mtor-atlas.org/api/v1/questions/F6.json"
+  },
+  {
+   "id": "F7",
+   "kind": "frontier",
+   "title": "Does how long mTOR is inhibited decide which complex is inhibited — and how are mTORC1 and mTORC2 coupled in time?",
+   "category": "Framing gap",
+   "evidence_stands_at": "Lifespan in mice",
+   "gap": "Rapamycin is usually described as an mTORC1 inhibitor, and acutely it is. With prolonged exposure it also blocks assembly of new mTORC2 in many cell types and reduces AKT signalling (SAR2006), and in mice chronic rapamycin impairs glucose homeostasis through mTORC2 disruption (LAM2012). The duration of exposure, not only the dose, therefore decides which complex is affected. The two complexes are also coupled through feedback: S6K1 downstream of mTORC1 dampens insulin signalling upstream of mTORC2, so blocking mTORC1 can first raise AKT activity before longer exposure lowers it. Most work on mTOR dynamics is about mTORC1; the time course of mTORC2 and of this coupling is rarely measured.",
+   "gap_beginner": "Rapamycin is called an mTORC1 drug, and at first it is. Given for longer, it also starts to take apart the second complex, mTORC2, in many cell types, and in mice that is linked to the drug's effect on blood sugar. So how long the drug stays on may decide which of the two complexes it hits. The two complexes also talk to each other through feedback, so switching one off changes the other with a delay. Almost all the work on mTOR timing looks at mTORC1 alone.",
+   "changed_since_written": "Alternative regimens given every few days or weekly spared glucose tolerance and the immune system that daily dosing impaired, while still inhibiting mTORC1 (ARR2015), and intermittent dosing extends lifespan in female C57BL/6J mice (Arriola Apelo, J Gerontol A 2016, PMID 27091134). Human trials now sample over time after a dose: RAP PAC draws blood out to 168 hours after a weekly dose (NCT05949658), and RESTOR compares daily with intermittent dosing (NCT06658093). They will measure the time course of inhibition, though not necessarily of each complex separately.",
+   "still_open": "How quickly mTORC2 falls and recovers in tissues under weekly against daily dosing in vivo, how much this differs between tissues, and whether the early rise in AKT signalling after mTORC1 inhibition matters for the outcomes measured. Whether mTORC2 activity has its own dynamics, such as pulses or a daily rhythm, that carry information is largely unexplored.",
+   "why_it_matters": "It would turn the mTORC2-sparing argument for intermittent dosing from a plausible rationale into a measured time course, and it brings the second complex into a question that has so far been asked almost only about mTORC1.",
+   "how_to_test": "In mice on daily against intermittent rapamycin at a matched weekly dose, sample liver, muscle and fat at several times after dosing. Read mTORC1 substrates (S6, 4E-BP1) and mTORC2 substrates (AKT S473, the SGK1 target NDRG1) together with mTORC2 assembly by Rictor co-immunoprecipitation. The prediction is a lag: mTORC2 loss appears only after a threshold exposure time and recovers between intermittent doses. No lag, or no recovery, would weaken the timing explanation for why intermittent dosing is better tolerated.",
+   "related_questions": [
+    "H2",
+    "H3"
+   ],
+   "url": "https://mtor-atlas.org/questions/frontier/does-duration-of-inhibition-decide-which-complex-is-hit/",
+   "api_url": "https://mtor-atlas.org/api/v1/questions/F7.json"
   }
  ]
 }
