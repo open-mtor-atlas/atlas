@@ -3,7 +3,7 @@
   "role": "Creator & Curator — Prague, Czech Republic — Age 15",
   "bio_paragraphs": [
     "I am a high school student in Prague with a self-directed research interest in mTOR signaling, longevity biology, and evidence-based science curation. I built Oliver's mTOR Atlas myself, with help from AI along the way, to create the kind of resource I wished existed when I began reading primary literature on the pathway: one structured database that holds studies, mechanisms, interventions, and honest evidence grades side by side, rather than scattered across dozens of review articles and pathway maps.",
-    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b> — most of the literature treats mTORC1/mTORC2 activity as fixed rather than something that shifts over time in a real cell. I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. See {{RESEARCH_FOCUS_LINK}} in About for the frontier questions and studies behind it."
+    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b>. Much of the literature reads mTORC1/mTORC2 activity at a single moment, which can miss how it changes over time in a real cell. I am interested in whether the <b>pattern of activity over time and where in the cell it happens, not just its average level</b>, help decide outcomes like autophagy or growth. See {{RESEARCH_FOCUS_LINK}} in About for the frontier questions and studies behind it."
   ],
   "email_obfuscated": "oliver.barton1113(at)gmail.com",
   "bluesky": "https://bsky.app/profile/oliver-barton.bsky.social",
@@ -11,23 +11,45 @@
   "orcid": "https://orcid.org/0009-0008-2025-2148",
   "photo": "/img/people/misc-7cff05feef.jpg",
   "research_focus_intro": [
-    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b>. Most of the literature treats mTORC1/mTORC2 activity as fixed — a level, measured once, usually right after a nutrient jolt in a dish. Real cells never see a jolt like that: they see meals, exercise, sleep and waking, a rhythm underneath everything else.",
-    "I am interested in whether the <b>pattern of activity over time — not just its average level</b> — is what actually shapes outcomes like autophagy or growth. If it is, a lot of the field's single-time-point measurements are answering a different question than the one being asked. This section collects the frontier questions this raises, the studies that motivate them, and what is currently running or newly published that bears on them."
+    "My current focus is <b>mTOR regulation under dynamic rather than steady-state conditions</b>. Much of the mTOR literature still relies on endpoint measurements: mTORC1 activity read as a level, at one or a few time points, often after a step change in nutrients in a dish. That design has answered a great deal, but it can miss how activity changes over time. Real cells see meals, exercise, sleep and waking, a rhythm underneath everything else.",
+    "The question I keep coming back to is whether mTOR carries information not only in <b>how much</b> activity there is, but in <b>when and where</b> it happens: its amplitude, duration, timing and location in the cell. And if it does, whether that is what decides outcomes like autophagy or growth. This is a hypothesis, not an established result. If it holds, some single-time-point measurements are answering a narrower question than the one being asked. If it does not, the steady-state convention is justified, and that is worth knowing too.",
+    "Ageing and intermittent rapamycin dosing are where this would matter first in practice, so they appear here as applications rather than as the question itself. This section collects the frontier questions, the studies that motivate them, the labs working on them, and what is currently running or newly published that bears on them."
   ],
-  "frontier_questions_intro": "Five open framing questions in the Atlas grow directly out of this — not gaps in what has been measured, but questions about whether the standard way of measuring mTOR is even asking the right thing:",
+  "frontier_questions_intro": "Six open framing questions in the Atlas grow out of this. The first four ask how the signal is built and read: time, place, inputs and outputs. The last two ask what that means for dosing a drug in a whole organism. They are not gaps in what has been measured, but questions about whether the standard way of measuring mTOR captures the right quantity:",
   "frontier_questions": [
     {
       "id": "F1",
       "slug": "does-mtorc1-encode-information-in-dynamics-not-average-activity",
       "title": "Does mTORC1 carry information in the pattern of its activity over time, not its average level?",
-      "gap_beginner": "Nearly every study measures mTOR activity the way you would read a thermometer once: a single number, from a single moment, usually right after the cell was given a sudden jolt of nutrients. But real cells never get a sudden jolt. They get meals, exercise, sleep and waking — a rhythm. If what matters is the rhythm rather than the average, then the standard measurement is not just imprecise. It is answering a different question from the one being asked.",
+      "gap_beginner": "Much of the mTOR literature measures activity the way you would read a thermometer once: one number, from one moment, often right after the cell was given a sudden jolt of nutrients. That approach has taught us a lot, but real cells rarely get a single jolt. They get meals, exercise, sleep and waking, a rhythm. The hypothesis here is that the rhythm itself carries information. If it does, a single reading misses part of the answer. If it does not, the single reading is good enough, and that would be worth showing too.",
       "primary": true
     },
     {
       "id": "F3",
       "slug": "is-mtor-signalling-decided-by-where-not-how-much",
       "title": "Is mTOR signalling decided by where the complex is active, rather than by how much of it is active?",
-      "gap_beginner": "The lysosome is normally described as mTOR's parking space. Newer structural work describes it more like a workbench: what the enzyme can reach depends on how it is docked. If that is right, two cells with the same amount of activity can be doing completely different jobs — and grinding them up to measure the total would hide exactly that.",
+      "gap_beginner": "The lysosome is normally described as mTOR's parking space. There are reasons to think it is more like a workbench, where what the enzyme can reach depends on where and how it is docked. One of its targets, TFEB, is only switched off by mTORC1 when a particular docking route through the Rag proteins is active, while other targets do not need that route (Napolitano 2020). If location matters more broadly, two cells with the same amount of activity could be doing different jobs, and grinding them up to measure the total would hide exactly that.",
+      "primary": false
+    },
+    {
+      "id": "F6",
+      "slug": "do-different-inputs-give-the-same-average-but-different-dynamics",
+      "title": "Can different combinations of inputs give the same average mTORC1 activity but a different time course — and a different outcome?",
+      "gap_beginner": "mTOR listens to several things at once: food (amino acids), hormones like insulin, the cell's energy level, and stress. Experiments usually change one of these at a time and read the answer once. But two different mixes of signals could give the same average reading while one produces a quick spike and the other a slow, steady rise. If the cell responds to the shape and not only the average, those two mixes would do different things, and a single reading could not tell them apart.",
+      "primary": false
+    },
+    {
+      "id": "F2",
+      "slug": "which-mtorc1-outputs-actually-carry-ageing",
+      "title": "How can the same mTORC1 activity produce different outputs — and which of them carries ageing?",
+      "gap_beginner": "The same amount of mTORC1 activity does not have to give the same result. Each of the enzyme's targets has its own sensitivity: some stay switched on when mTORC1 is only partly blocked, others switch off first (Kang 2013). One target, TFEB, is reached by a separate route the others do not need (Napolitano 2020). Most of the argument about ageing is about how hard to press the brake. Hardly anyone asks which of these outputs actually needs slowing, and in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
+      "primary": false
+    },
+    {
+      "id": "F7",
+      "slug": "does-duration-of-inhibition-decide-which-complex-is-hit",
+      "title": "Does how long mTOR is inhibited decide which complex is inhibited — and how are mTORC1 and mTORC2 coupled in time?",
+      "gap_beginner": "Rapamycin is called an mTORC1 drug, and at first it is. Given for longer, it also starts to take apart the second complex, mTORC2, in many cell types, and in mice that is linked to the drug's effect on blood sugar. So how long the drug stays on may decide which of the two complexes it hits. The two complexes also talk to each other through feedback, so switching one off changes the other with a delay. Almost all the work on mTOR timing looks at mTORC1 alone.",
       "primary": false
     },
     {
@@ -35,20 +57,6 @@
       "slug": "must-inhibition-match-the-bodys-own-rhythm",
       "title": "Does the timing of mTOR inhibition have to match the body's own pulses — feeding, exercise, sleep?",
       "gap_beginner": "Giving the drug once a week instead of daily is usually explained as a way to lower the dose and avoid side effects. But if the pathway cares about rhythm, the question is not how often you give it — it is whether the gaps in the drug line up with the moments the body actually needs the pathway on, like after a meal or after exercise. Nobody has tested that alignment.",
-      "primary": false
-    },
-    {
-      "id": "F2",
-      "slug": "which-mtorc1-outputs-actually-carry-ageing",
-      "title": "Is mTORC1 one pathway or several separable outputs — and which of them carries ageing?",
-      "gap_beginner": "Most of the argument is about how hard to press the brake, and recently about which of the two brakes to press. Hardly anyone asks which of the things the brake controls actually needs slowing. And those things do come apart: in muscle, fixing one downstream branch rescues the problem while removing another does nothing.",
-      "primary": false
-    },
-    {
-      "id": "F5",
-      "slug": "which-human-ageing-phenotypes-are-causally-reversible",
-      "title": "Which human ageing phenotypes are causally reversible by mTOR modulation — and is it the same mechanism in each tissue?",
-      "gap_beginner": "Asking whether a drug makes people live longer cannot be answered in any reasonable amount of time, and aiming at it has crowded out better questions. Ageing is not one thing: the immune system, muscle, metabolism and the brain each age in their own way, and a drug might reach some of them and miss others entirely.",
       "primary": false
     }
   ],
@@ -130,7 +138,33 @@
       "tier": "D - Mechanistic/Review",
       "pyramid": "5 - Mechanistic / In Vitro",
       "doi_url": "https://doi.org/10.1038/ncb2204",
-      "why": "The spatial counterpart to Menétrey 2014, one storey up: with nutrients available lysosomes move out to the cell periphery and mTORC1 is active there; starvation pulls them into a cluster around the nucleus, output falls and autophagy is released. Where the compartment sits, not how much of it there is, carries the signal — and it sets the rate of autophagy directly."
+      "why": "The spatial counterpart to Menon 2014, one storey up: with nutrients available lysosomes move out to the cell periphery and mTORC1 is active there; starvation pulls them into a cluster around the nucleus, output falls and autophagy is released. Where the compartment sits, and not only how much mTORC1 is active, shapes the signal — and it sets the rate of autophagy directly."
+    },
+    {
+      "sid": "KAN2013",
+      "year": 2013,
+      "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+      "authors": [
+        "Kang SA",
+        "Sabatini DM"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1126/science.1236566",
+      "why": "The clearest evidence that one mTORC1 activity state does not mean one output. Each phosphorylation site has its own intrinsic substrate quality: good substrates stay phosphorylated under partial inhibition by rapamycin or starvation, poor ones drop out first, and changing a few residues moves a site between the two. If amplitude selects outputs this way, duration and timing could too, which is what this focus asks."
+    },
+    {
+      "sid": "NAP2020",
+      "year": 2020,
+      "title": "A substrate-specific mTORC1 pathway underlies Birt-Hogg-Dube syndrome",
+      "authors": [
+        "Napolitano G",
+        "Ballabio A"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1038/s41586-020-2444-0",
+      "why": "The best evidence that how mTORC1 is activated decides what it reaches: TFEB phosphorylation requires amino-acid activation of RagC/D and ignores Rheb, while S6K1 and 4E-BP1 do not depend on that route. It is the concrete anchor for the question of whether place, and not only amount, selects outputs."
     },
     {
       "title": "Molecular logic of mTORC1 signalling as a metabolic rheostat",
@@ -224,6 +258,19 @@
       "pyramid": "5 - Mechanistic / In Vitro"
     },
     {
+      "sid": "SAR2006",
+      "year": 2006,
+      "title": "Prolonged rapamycin treatment inhibits mTORC2 assembly and Akt/PKB",
+      "authors": [
+        "Sarbassov DD",
+        "Sabatini DM"
+      ],
+      "tier": "D - Mechanistic/Review",
+      "pyramid": "5 - Mechanistic / In Vitro",
+      "doi_url": "https://doi.org/10.1016/j.molcel.2006.03.029",
+      "why": "Time decides the target: short rapamycin exposure hits only mTORC1, longer exposure also blocks assembly of new mTORC2 in many cell types and lowers AKT signalling. It is the reason the duration of inhibition, and not only the dose, belongs in the dynamics question, and the mechanistic root of the case for intermittent dosing."
+    },
+    {
       "sid": "ARR2015",
       "year": 2015,
       "title": "Alternative rapamycin treatment regimens mitigate the impact of rapamycin on glucose homeostasis and the immune system",
@@ -234,7 +281,7 @@
       "tier": "C - Animal",
       "pyramid": "4 - Animal Study",
       "doi_url": "https://doi.org/10.1111/acel.12405",
-      "why": "One of two studies in this corpus that hold the compound constant and vary only when it is given (the other, OKA2013, varies the time of day): weekly or every-fifth-day rapamycin spared glucose tolerance, beta-cell function and the immune system that daily dosing impaired, while still inhibiting mTORC1. Read the scope honestly — this is organismal pharmacology rather than cell-level signalling, and it measured side effects, not benefit. It belongs here because it is the same claim in a different register: the pattern, not the average, decided the outcome."
+      "why": "One of two studies in this corpus that hold the compound constant and vary only when it is given (the other, OKA2013, varies the time of day): weekly or every-fifth-day rapamycin spared glucose tolerance, beta-cell function and the immune system that daily dosing impaired, while still inhibiting mTORC1. Read the scope honestly — this is organismal pharmacology rather than cell-level signalling, and it measured side effects, not benefit. It belongs here because it makes a related point in a different register: how the drug was spread out in time, and not only whether it was given, changed the outcome. Total exposure also differed between schedules, so this does not separate pattern from amount."
     },
     {
       "sid": "ZHO2015",
@@ -472,18 +519,6 @@
           "country": "France",
           "cc": "fr",
           "why": "A 2026 preprint from the lab reports that mTORC1 sets the tempo at which dormant neural stem cells in the adult zebrafish brain move toward activation."
-        },
-        {
-          "lab": "Scadden Lab",
-          "url": "https://scaddenlab.com/",
-          "pis": [
-            "Scadden DT"
-          ],
-          "institution": "Massachusetts General Hospital & Harvard Stem Cell Institute",
-          "city": "Boston, MA",
-          "country": "USA",
-          "cc": "us",
-          "why": "Imaged mTORC1 activity in leukaemia cells inside live mice and found that inhibiting mTORC1 at one particular moment during chemotherapy kills more cancer cells."
         }
       ]
     },
@@ -530,7 +565,7 @@
       ]
     },
     {
-      "group": "Rhythm and dosing in the whole organism",
+      "group": "Rhythm, dosing and applications in the whole organism",
       "items": [
         {
           "lab": "Kondratov Lab",
@@ -579,6 +614,18 @@
           "country": "UK",
           "cc": "gb",
           "why": "Showed that a brief course of rapamycin in early adulthood gives lasting protection against ageing, and that intermittent rapamycin feeding keeps the lifespan benefit."
+        },
+        {
+          "lab": "Scadden Lab",
+          "url": "https://scaddenlab.com/",
+          "pis": [
+            "Scadden DT"
+          ],
+          "institution": "Massachusetts General Hospital & Harvard Stem Cell Institute",
+          "city": "Boston, MA",
+          "country": "USA",
+          "cc": "us",
+          "why": "An application of temporal control rather than a test of the encoding question: imaged mTORC1 activity in leukaemia cells inside live mice and found that inhibiting mTORC1 at one particular moment during chemotherapy kills more cancer cells."
         }
       ]
     }
