@@ -352,6 +352,15 @@ if errorlevel 1 (
   exit /b 1
 )
 
+REM  2026-10-02: Lab map (mapa pracovist autoru) se pregeneruje z author_bios_baked.json
+REM  (lab_name + lab_url). Nova jmena i nova mesta se zaradi sama; mesto bez souradnic se
+REM  zkusi geokodovat (Nominatim) a ulozi do atlas_data\lab_geo.json. Medailonek bez lab_name
+REM  se jen vypise jako VAROVANI - deploy nezastavuje, ale lab_name je povinny u kazdeho noveho autora.
+echo.
+echo === Rebuild Lab map ===
+py build_lab_map.py
+if errorlevel 1 echo    build_lab_map.py failed - Lab map is stale, deploy continues
+
 echo.
 echo === Build /answers/ + /glossary/ ===
 REM  generate.py byl v deploy.bat uveden JEN v seznamu pro `git add` a nikdy se
@@ -657,6 +666,7 @@ REM  build artifact, add it here in the same commit.
 git add index.html
 if exist "build_evidence_audit.py" git add build_evidence_audit.py
 if exist "build_timing_page.py" git add build_timing_page.py
+if exist "build_lab_map.py" git add build_lab_map.py
 if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.json
 if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
 if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
@@ -699,7 +709,7 @@ REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
 REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
 REM  one that this particular run did not touch costs nothing.
 echo    including pipeline data and reports
-for %%F in (gaps_baked.json frontier_baked.json relations_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json) do (
+for %%F in (gaps_baked.json frontier_baked.json relations_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json lab_geo.json lab_map_template.html) do (
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
