@@ -228,6 +228,21 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
   });
   ok(D.querySelectorAll(".pw-n").length === model.nodes.length,
     "level switch does NOT rebuild the graph");
+  // The V2 host hides the whole inspector via .pw-insp:has(.pw-empty), its
+  // idle-panel marker. Until 2026-10-02 "none in this model" used that class,
+  // so 54 of 91 nodes (Everolimus, FLCN...) opened an invisible panel.
+  {
+    let clicked = 0;
+    const leaked = model.nodes.filter((n) => {
+      const g = D.querySelector(`.pw-n[data-nid="${w.CSS.escape(n.id)}"]`);
+      if (!g) return false;
+      clicked++;
+      realClick(w, D.getElementById("pwCanvas"), g.querySelector(".nb") || g);
+      return !!D.getElementById("pwInsp").querySelector(".pw-empty");
+    }).map((n) => n.id);
+    ok(clicked >= 30, `clicked ${clicked} visible nodes for the .pw-empty check`);
+    ok(leaked.length === 0, `no node panel carries .pw-empty (${leaked.slice(0, 5).join(", ")})`);
+  }
 
   console.log("— guided routes —");
   reduceMotion = true;
