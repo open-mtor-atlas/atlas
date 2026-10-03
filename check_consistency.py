@@ -19,7 +19,12 @@ Kontroluje:
      neni -- web, API i MCP ho tise zahodi (2026-10-03: NCT0583 u H2/H5)
 
     py check_consistency.py            # vypis
-    py check_consistency.py --strict   # exit 1, kdyz neco najde (pro rucni kontrolu)
+    py check_consistency.py --strict   # exit 1, kdyz zustane nalez mimo vyjimky
+
+Od 2026-10-03 je --strict BRANA v deploy.bat. Vedome prijaty nalez (typicky
+falesny poplach kontroly B) patri do consistency_allow.json: kod, misto, kus
+textu nalezu a DUVOD. Vyjimka, ktera uz nic nezachyti, se hlasi jako "stale"
+a v --strict take shodi deploy, aby se seznam nezanasel.
 """
 import json, os, re, sys
 
@@ -123,8 +128,31 @@ for where, sid in refs:
     if sid not in studies:
         warn("F", where, "odkaz na %s, ktera neni v korpusu (web/API ji zahodi)" % sid)
 
-print("check_consistency: %d nalezu" % len(out))
-for line in sorted(out):
+# Vyjimky: vedome prijate nalezy s duvodem (consistency_allow.json)
+allow_path = os.path.join(HERE, "consistency_allow.json")
+allow = load("consistency_allow.json") if os.path.exists(allow_path) else []
+for a in allow:
+    if not (a.get("code") and a.get("where") and a.get("reason")):
+        sys.exit("consistency_allow.json: kazda vyjimka potrebuje code, where a reason: %r" % a)
+used, allowed, remaining = set(), [], []
+for line in out:
+    code, where = line[:1], line[3:41].strip()
+    hit = next((i for i, a in enumerate(allow)
+                if a["code"] == code and a["where"] == where and a.get("match", "") in line), None)
+    if hit is None:
+        remaining.append(line)
+    else:
+        used.add(hit); allowed.append((line, allow[hit]["reason"]))
+stale = [a for i, a in enumerate(allow) if i not in used]
+
+print("check_consistency: %d nalezu, %d v povolenych vyjimkach, %d neplatnych vyjimek"
+      % (len(remaining), len(allowed), len(stale)))
+for line in sorted(remaining):
     print("  " + line)
-if "--strict" in sys.argv and out:
+for line, why in sorted(allowed):
+    print("  [povoleno] " + line + "  -- " + why)
+for a in stale:
+    print("  [stale] vyjimka %s %s uz nic nezachytava -- smaz ji z consistency_allow.json"
+          % (a["code"], a["where"]))
+if "--strict" in sys.argv and (remaining or stale):
     sys.exit(1)

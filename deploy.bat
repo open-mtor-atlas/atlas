@@ -312,11 +312,19 @@ if errorlevel 1 (
 )
 
 echo.
-echo === Cross-layer consistency check (warning only) ===
+echo === Cross-layer consistency gate ===
 REM  Pridano 2026-09-29 po vedeckem auditu. Hleda absolutni formulace, beginner
-REM  texty bez kvalifikatoru (pohlavi, druh), studii v supporting i conflicting
-REM  a kody studii, ktere v korpusu nejsou. Deploy NEZASTAVUJE, jen vypise.
-py check_consistency.py
+REM  texty bez kvalifikatoru (pohlavi, druh), studii v supporting i conflicting,
+REM  kody studii, ktere v korpusu nejsou, osirele studie a odkazy, ktere by web,
+REM  API i MCP tise zahodily. Od 2026-10-03 je to BRANA: deploy se zastavi.
+REM  Vedome prijaty nalez patri do consistency_allow.json i s duvodem.
+py check_consistency.py --strict
+if errorlevel 1 (
+  echo.
+  echo ABORTED: check_consistency.py found cross-layer problems - see the list above.
+  echo Fix the data, or add a reasoned exception to consistency_allow.json. NOT deploying.
+  exit /b 1
+)
 
 echo.
 echo === Rebuild the context + Scenario Lab overlay ===
@@ -738,7 +746,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
