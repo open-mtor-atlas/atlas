@@ -3053,8 +3053,30 @@ def main():
 
     # Které entity stránku DOSTANOU. Musí se spočítat PŘED generováním, jinak
     # se odkazuje na adresy, které nikdy nevzniknou.
+    #
+    # 2026-10-03: stránku dostane i entita pod PAGE_THRESHOLD, pokud je uzlem
+    # mapy dráhy (pathway/model.json) s aspoň jednou interakcí. Do té doby
+    # 29 uzlů (Grb10, DEPTOR, PRAS40, REDD1, KICSTOR...) v tabulce interakcí
+    # na /pathway/ nevedlo nikam -- hrana s citacemi existovala, stránka uzlu
+    # ne. Práh 3 studií je kvalitativní brána pro entity vytažené z korpusu;
+    # uzel dráhy prošel kurací hrany (>=1 studie na hranu), takže tu bránu
+    # už splnil jinak. V2 přebírá seznam stránek z existence těchto adresářů
+    # (Atlas_v2/scripts/sync_data.py), takže tím vzniknou i tam.
+    _pm_path = os.path.join(HERE, "pathway", "model.json")
+    _pm_nodes = set()
+    if os.path.exists(_pm_path):
+        for _i in json.load(open(_pm_path, encoding="utf-8")).get("interactions", []):
+            _pm_nodes.add(_i["source"].lower())
+            _pm_nodes.add(_i["target"].lower())
+
+    def gets_page(x):
+        if len(x["studies"]) >= PAGE_THRESHOLD:
+            return True
+        node = ENTITY_NAME_TO_NODE_ID.get(x["name"], x["name"])
+        return node.lower() in _pm_nodes
+
     haspage = {(TYPE_DIR.get(x["type"], "entity"), slugify(x["name"]))
-               for x in entities if len(x["studies"]) >= PAGE_THRESHOLD}
+               for x in entities if gets_page(x)}
 
     urls = []
 
@@ -3067,7 +3089,7 @@ def main():
 
     made, skipped, seen = 0, 0, {}
     for x in entities:
-        if len(x["studies"]) < PAGE_THRESHOLD:
+        if not gets_page(x):
             skipped += 1
             continue
         url, d, slug, page = entity_page(x, by_sid, entities, haspage)

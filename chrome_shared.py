@@ -144,6 +144,8 @@ _explain_cache = None
 # v modelu uzel pod jiným jménem.
 ENTITY_NAME_TO_NODE_ID = {
     "Caloric restriction": "Fasting / caloric restriction",
+    # 2026-10-03: entita v Airtable se jmenuje "FoxO", uzel v modelu "FOXO1/3".
+    "FoxO": "FOXO1/3",
 }
 
 

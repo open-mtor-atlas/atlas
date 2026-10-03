@@ -18,7 +18,7 @@ import datetime
 from zoneinfo import ZoneInfo
 
 from chrome_shared import (static_footer_html, MODE_TOGGLE_CSS, mode_toggle_html,
-                            tier_badge_by_code, tier_css, TIER_LABEL, TIER_REVIEW,
+                            tier_badge_by_code, tier_bits, tier_css, TIER_LABEL, TIER_REVIEW,
                             THEME_FOUC_SCRIPT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,6 +56,69 @@ TIER_MEANING = {}
 for _k, _v in TIER_LABEL.items():
     TIER_MEANING[_v[0]] = _v[1]
 TIER_MEANING[TIER_REVIEW[0]] = TIER_REVIEW[1]
+
+# 2026-10-03: the study counts on the answer pages and in the glossary were
+# typed in by hand on 2026-08-22 and had fallen to about half the live numbers
+# (rapamycin "38" against 77, mTORC1 "75" against 176). They are now read from
+# the same baked data build_pages.py uses, so an entity page and the answer
+# that links to it cannot disagree again. An entity name that is not in the
+# data raises instead of printing a stale or zero count.
+_DATA = os.path.join(HERE, "atlas_data")
+with open(os.path.join(_DATA, "studies_baked.json"), encoding="utf-8") as _f:
+    _STUDIES = {_s["sid"]: _s for _s in json.load(_f)}
+with open(os.path.join(_DATA, "entities_baked.json"), encoding="utf-8") as _f:
+    _ENTITIES = {_e["name"].lower(): _e for _e in json.load(_f)}
+CODE_ORDER = ["S", "H", "A", "M", "R", "PP", "RT"]
+
+
+def _sids(*names):
+    out = set()
+    for name in names:
+        ent = _ENTITIES.get(name.lower())
+        if ent is None:
+            raise KeyError("generate.py: entity {!r} not in entities_baked.json".format(name))
+        out.update(ent.get("studies") or [])
+    return out
+
+
+def N(*names):
+    """Number of distinct studies linked to the named entities (live)."""
+    return len(_sids(*names))
+
+
+def code_counts(*names):
+    counts = {}
+    for sid in _sids(*names):
+        st = _STUDIES.get(sid)
+        if st is None:
+            continue
+        code = tier_bits(st.get("tier"), st.get("pyramid"))[0]
+        counts[code] = counts.get(code, 0) + 1
+    return counts
+
+
+def N_human(*names):
+    c = code_counts(*names)
+    return c.get("H", 0) + c.get("S", 0)
+
+
+_CODE_WORD = {"S": ("synthesis of human data", "syntheses of human data"),
+              "H": ("human", "human"), "A": ("animal", "animal"),
+              "M": ("molecular", "molecular"), "R": ("review", "reviews"),
+              "PP": ("preprint", "preprints"), "RT": ("registered trial", "registered trials")}
+
+
+def breakdown(*names):
+    """'19 animal, 19 molecular, 3 reviews, ...' from live data, largest first."""
+    c = code_counts(*names)
+    parts = sorted(((n, code) for code, n in c.items() if n),
+                   key=lambda x: (-x[0], CODE_ORDER.index(x[1])))
+    return ", ".join("{} {}".format(n, _CODE_WORD[code][0 if n == 1 else 1])
+                     for n, code in parts)
+
+
+def cnt_span(name):
+    return '<span style="color:var(--muted-count,#7C7569)">{}</span>'.format(N(name))
 
 STYLE = """:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
 --teal:#A31F34;--amber:#A56827}
@@ -344,6 +407,24 @@ def ev_table(rows):
     return "".join(out)
 
 
+def ev_table_live(*names):
+    """ev_table() from live data. Rows are in display codes already, so they
+    must not pass through LEGACY_CODE (where "A" would turn into S)."""
+    c = code_counts(*names)
+    out = ['<table class="ev"><tr><th>Evidence</th><th>What it means</th>'
+           '<th>Studies</th></tr>']
+    for code in CODE_ORDER:
+        if c.get(code):
+            out.append(
+                '<tr><td data-l="Evidence">{b}</td>'
+                '<td data-l="Meaning">{m}</td><td data-l="Studies">{n}</td></tr>'.format(
+                    b=tier_badge_by_code(code), m=TIER_MEANING[code], n=c[code]
+                )
+            )
+    out.append("</table>")
+    return "".join(out)
+
+
 def cite(code, tier, text):
     return (
         '<li><a href="/study/{code}/">{code}</a> {b} – {text}</li>'
@@ -400,7 +481,7 @@ def add(slug, title, description, h1, tldr, sections, related_links, faq_a):
 add(
     slug="rapamycin-lifespan-humans",
     title="Does Rapamycin Extend Lifespan in Humans? | Oliver's mTOR Atlas",
-    description="38 rapamycin studies labelled by the kind of study behind each – what's proven in mice, what's only measured as biomarkers in humans, and what's still an open question.",
+    description="{} rapamycin studies labelled by the kind of study behind each – what's proven in mice, what's only measured as biomarkers in humans, and what's still an open question.".format(N("Rapamycin")),
     h1="Does rapamycin extend lifespan in humans?",
     tldr=(
         "Short answer: we don't know yet, and no study has directly tested it. What's well "
@@ -411,9 +492,9 @@ add(
         "cardiovascular, and skin parameters, not a mortality outcome."
     ),
     sections=[
-        ("The evidence, by study type", ev_table([("A", 1), ("B", 7), ("C", 14), ("D", 15)]) +
+        ("The evidence, by study type", ev_table_live("Rapamycin") +
          "<p>Rapamycin is the most-studied intervention in this Atlas for its effect on the "
-         "mTOR pathway (38 studies total).</p>"),
+         "mTOR pathway (" + str(N("Rapamycin")) + " studies total).</p>"),
         ("What each kind of study actually shows", "<ul>" + "".join([
             cite("LEE2024", "A", "the first systematic review of rapamycin/rapalogs in "
                  "humans specifically for aging; found improvements in immune, "
@@ -448,7 +529,7 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "the full open question</a>.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
                   '<a href="/outcome/longevity/">Longevity</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
@@ -467,7 +548,7 @@ add(
 add(
     slug="mtorc1-vs-mtorc2",
     title="mTORC1 vs mTORC2: What's the Difference? | Oliver's mTOR Atlas",
-    description="mTOR forms two distinct complexes with different jobs and different drug sensitivity. What each does, backed by 89 evidence-graded studies.",
+    description="mTOR forms two distinct complexes with different jobs and different drug sensitivity. What each does, backed by {} studies, each labelled by the kind of study behind it.".format(N("mTORC1", "mTORC2")),
     h1="mTORC1 vs mTORC2 – what's the difference?",
     tldr=(
         "mTOR (the protein) forms two separate complexes that do different jobs. "
@@ -481,11 +562,11 @@ add(
         "source of the insulin-resistance side effect seen with daily dosing."
     ),
     sections=[
-        ("Side by side", ev_table([("B", 13), ("C", 17), ("D", 43)]) +
-         "<p><strong>mTORC1</strong> – 75 studies total. \"mTOR Complex 1; regulates protein "
+        ("Side by side", ev_table_live("mTORC1") +
+         "<p><strong>mTORC1</strong> – " + str(N("mTORC1")) + " studies total. \"mTOR Complex 1; regulates protein "
          "synthesis, autophagy, and growth in response to nutrients and growth factors.\"</p>"
-         + ev_table([("B", 1), ("C", 2), ("D", 11)]) +
-         "<p><strong>mTORC2</strong> – 14 studies total. \"mTOR Complex 2; phosphorylates "
+         + ev_table_live("mTORC2") +
+         "<p><strong>mTORC2</strong> – " + str(N("mTORC2")) + " studies total. \"mTOR Complex 2; phosphorylates "
          "Akt/PKB, affects cell survival and glucose metabolism.\" mTORC2 "
          + "".join([cite("THO2009", "D", "rapamycin does NOT fully block mTORC1 either – "
              "using Torin1 (which jams the active site directly), this study showed "
@@ -503,15 +584,15 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "the full open question</a>.</p>"),
     ],
-    related_links='<a href="/gene/mtor/">mTOR <span style="color:var(--muted-count,#7C7569)">62</span></a>'
-                  '<a href="/complex/mtorc1/">mTORC1 <span style="color:var(--muted-count,#7C7569)">75</span></a>'
-                  '<a href="/complex/mtorc2/">mTORC2 <span style="color:var(--muted-count,#7C7569)">14</span></a>'
+    related_links='<a href="/gene/mtor/">mTOR ' + cnt_span("mTOR") + '</a>'
+                  '<a href="/complex/mtorc1/">mTORC1 ' + cnt_span("mTORC1") + '</a>'
+                  '<a href="/complex/mtorc2/">mTORC2 ' + cnt_span("mTORC2") + '</a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
     faq_a=(
         "mTORC1 regulates protein synthesis, autophagy, and growth, and is rapamycin's "
-        "direct target (75 studies in the Atlas). mTORC2 phosphorylates Akt/PKB and "
+        "direct target (" + str(N("mTORC1")) + " studies in the Atlas). mTORC2 phosphorylates Akt/PKB and "
         "affects cell survival and glucose metabolism, and is NOT directly blocked by "
-        "rapamycin – only indirectly, with chronic dosing (14 studies in the Atlas). "
+        "rapamycin – only indirectly, with chronic dosing (" + str(N("mTORC2")) + " studies in the Atlas). "
         "The mTORC2 disruption is the likely mechanism behind rapamycin's insulin-"
         "resistance side effect."
     ),
@@ -583,8 +664,8 @@ add(
          '<a href="/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/">'
          "mTORC1-selective, mTORC2-sparing dosing</a>.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
-                  '<a href="/drug/everolimus/">Everolimus <span style="color:var(--muted-count,#7C7569)">14</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
+                  '<a href="/drug/everolimus/">Everolimus ' + cnt_span("Everolimus") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
@@ -661,7 +742,7 @@ add(
          '<a href="/question/muscle-sparing-pulsed-mtorc1-inhibition/">pulsed dosing</a> '
          "track directly.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
@@ -682,38 +763,56 @@ add(
 add(
     slug="autophagy-required-lifespan",
     title="Is Autophagy Required for Rapamycin's Lifespan Benefit? | Oliver's mTOR Atlas",
-    description="Autophagy is mTORC1's best-known downstream effect on longevity – but is it actually required for the lifespan extension, or just correlated with it? The Atlas's open question.",
+    description="Raising autophagy is enough to extend mouse lifespan, and worms and flies need it for the benefit of TOR inhibition. Whether mammals need it for rapamycin's effect has never been tested.",
     h1="Is autophagy actually required for the lifespan benefit of mTOR inhibition?",
     tldr=(
-        "Autophagy – the cell's recycling process, suppressed by active mTORC1 and switched "
-        "on when mTORC1 is inhibited – is the textbook explanation for how rapamycin "
-        "extends lifespan. But \"autophagy goes up when you give rapamycin, and rapamycin "
-        "extends lifespan\" is a correlation, not proof that autophagy is the mechanism. "
-        "This is one of the Atlas's ten flagged open questions: an evidence gap, not a "
-        "settled fact."
+        "Short answer: in worms and flies, yes. In mammals, nobody has tested it. "
+        "Blocking autophagy genes cancels the lifespan gain from TOR inhibition or dietary "
+        "restriction in <em>C. elegans</em>, and rapamycin extends fly lifespan through "
+        "autophagy. In mice the evidence runs one way only: turning autophagy up is "
+        "enough to make them live longer, but no study has turned it off in mice given "
+        "rapamycin to see whether the benefit goes away. Being enough (sufficiency) and "
+        "being needed (necessity) are different claims, and in a mammal only the first "
+        "has been shown."
     ),
     sections=[
-        ("What's actually established", "<ul>" + "".join([
+        ("Shown in mice: raising autophagy is enough", "<ul>" + "".join([
+            cite("PYO2013", "C", "mice carrying extra copies of the autophagy gene Atg5 "
+                 "lived about 17% longer (median) and were leaner and more "
+                 "insulin-sensitive. No drug was involved: higher autophagy on its own "
+                 "was enough."),
+        ]) + "</ul><p>A second mouse line points the same way. A Beclin 1 knock-in "
+             "(F121A) that keeps autophagy running higher also extended lifespan "
+             "(Fernandez et al., Nature 2018, PMID 29849149). That paper is not in this "
+             "corpus, which is why it carries no evidence badge.</p>"
+             "<p>Two Alzheimer's mouse studies add a weaker strand. They are about disease "
+             "markers, not lifespan:</p><ul>" + "".join([
             cite("SPI2010", "C", "long-term rapamycin prevented memory deficits and "
-                 "lowered toxic amyloid-beta in an Alzheimer's mouse model – one of "
-                 "several disease-model studies where an autophagy-linked benefit tracks "
-                 "with mTORC1 inhibition."),
-            cite("CAC2010", "C", "revealed a vicious cycle: amyloid-beta raises mTOR "
-                 "activity, and high mTOR in turn blocks the autophagy needed to clear "
-                 "amyloid and tau – so the disease feeds itself, and rapamycin breaks "
-                 "the loop at the mTOR step."),
-        ]) + "</ul><p>18 studies in the Atlas touch autophagy directly (9 animal, 9 "
-             "mechanistic/in vitro) – a substantial mechanistic case that autophagy "
-             "<em>changes</em> when mTORC1 is inhibited.</p>"),
-        ("What's actually missing", "<p>What is missing is the causal experiment in a mammal. "
-         "It has been done in flies (BJE2010) and worms (HAN2008), where blocking "
-         "autophagy genes abolishes the lifespan extension from rapamycin or TOR "
-         "inhibition, but no study blocks autophagy in mice given rapamycin and asks "
-         "whether the lifespan benefit disappears. If it does, autophagy "
-         "is required. If lifespan extends anyway, something else in the mTORC1 pathway is "
-         "doing the work and autophagy is a correlated side effect, not the mechanism. This "
-         "exact experiment is the Atlas's flagged evidence gap – read the full breakdown, "
-         "including the proposed test, on the open question page: "
+                 "lowered amyloid-beta in PDAPP mice, and the benefit tracked with higher "
+                 "autophagy in neurons. That is a correlation."),
+            cite("CAC2010", "C", "in 3xTg-AD mice rapamycin lowered both amyloid and tau, "
+                 "and the drop in amyloid needed autophagy to be switched on. That is "
+                 "necessity, but for an amyloid readout, not for a longer life."),
+        ]) + "</ul>"),
+        ("Shown in worms and flies: autophagy is needed", "<ul>" + "".join([
+            cite("HAN2008", "C", "in <em>C. elegans</em>, blocking autophagy genes "
+                 "abolished the lifespan extension from both dietary restriction and TOR "
+                 "inhibition. The same paper is careful about the limit: autophagy alone "
+                 "did not make worms without DAF-16/FOXO live longer."),
+            cite("MEL2003", "C", "worms lacking the autophagy gene bec-1 lost the "
+                 "lifespan benefit of reduced insulin-like signalling."),
+            cite("BJE2010", "C", "rapamycin extended fly lifespan through autophagy "
+                 "and through reduced translation. Even in flies, autophagy is one part "
+                 "of the mechanism, not the whole of it."),
+        ]) + "</ul>"),
+        ("What's missing", "<p>The causal experiment in a mammal. Nobody has blocked "
+         "autophagy in mice given rapamycin and asked whether the lifespan benefit "
+         "disappears. If it does, autophagy is required. If lifespan still extends, "
+         "something else downstream of mTORC1 is doing the work, and higher autophagy is "
+         "a companion of the benefit rather than its cause. "
+         + str(N("Autophagy")) + " studies in the Atlas are linked to autophagy ("
+         + breakdown("Autophagy") + "); none of them is this experiment. The open part, "
+         "with a proposed test, has its own page: "
          '<a href="/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/">'
          "Is autophagy actually required for the mammalian lifespan benefit?</a></p>"),
         ("Why this matters beyond biology trivia", "<p>If autophagy isn't strictly "
@@ -722,21 +821,20 @@ add(
          "longevity benefit rapamycin does – an assumption a lot of \"autophagy-boosting\" "
          "supplement marketing quietly skips over.</p>"),
     ],
-    related_links='<a href="/process/autophagy/">Autophagy <span style="color:var(--muted-count,#7C7569)">18</span></a>'
+    related_links='<a href="/process/autophagy/">Autophagy ' + cnt_span("Autophagy") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
     faq_a=(
-        "Not proven – it's one of the Atlas's flagged open questions. Autophagy reliably "
-        "increases when mTORC1 is inhibited, and several disease-model studies (SPI2010, "
-        "CAC2010) show autophagy-linked benefits tracking with mTOR inhibition. In flies "
-        "(BJE2010) and worms (HAN2008), blocking autophagy genes abolishes the lifespan "
-        "extension from rapamycin or TOR inhibition. But no study has done the causal "
-        "experiment in a mammal: blocking autophagy in mice given rapamycin, to see "
-        "whether the lifespan benefit survives. Until that's done, autophagy's role in "
-        "mammals is not confirmed as required."
+        "In worms and flies, yes: blocking autophagy genes abolishes the lifespan "
+        "extension from TOR inhibition or dietary restriction in C. elegans (HAN2008, "
+        "MEL2003), and rapamycin extends fly lifespan through autophagy and reduced "
+        "translation (BJE2010). In mammals it has not been tested. Raising autophagy is "
+        "enough to extend mouse lifespan (Atg5 overexpression, PYO2013; Beclin 1 F121A "
+        "knock-in, Fernandez 2018), but no study has blocked autophagy in mice given "
+        "rapamycin to see whether the benefit survives. Sufficiency is shown in mammals; "
+        "necessity is not."
     ),
 )
-
 # ---------------------------------------------------------------------------
 # 6. Rapamycin dosing for longevity
 # ---------------------------------------------------------------------------
@@ -793,7 +891,7 @@ add(
                  "and its primary metabolic endpoint showed no significant change."),
         ]) + "</ul>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>',
     faq_a=(
@@ -815,7 +913,7 @@ add(
 add(
     slug="what-is-mtor",
     title="What Is mTOR? The Basics | Oliver's mTOR Atlas",
-    description="mTOR in plain language: what it is, what it does, and how a soil bacterium from Easter Island led to its discovery – with the Atlas's 62 mTOR-specific studies behind it.",
+    description="mTOR in plain language: what it is, what it does, and how a soil bacterium from Easter Island led to its discovery – with the Atlas's {} mTOR-specific studies behind it.".format(N("mTOR")),
     h1="What is mTOR?",
     tldr=(
         "mTOR (mechanistic target of rapamycin, also written FRAP1 in older literature) is "
@@ -861,7 +959,7 @@ add(
          "extend lifespan in "
          "laboratory animals across species.</p>"),
     ],
-    related_links='<a href="/gene/mtor/">mTOR <span style="color:var(--muted-count,#7C7569)">62</span></a>'
+    related_links='<a href="/gene/mtor/">mTOR ' + cnt_span("mTOR") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>'
                   '<a href="/complex/mtorc2/">mTORC2</a>'
                   '<a href="/drug/rapamycin/">Rapamycin</a>',
@@ -887,10 +985,10 @@ add(
     tldr=(
         "They're often mentioned together as geroprotector candidates, but they work "
         "differently and have very different evidence behind them in this Atlas. Rapamycin "
-        "directly and potently inhibits mTORC1 (its primary target) and has 38 "
+        "directly and potently inhibits mTORC1 (its primary target) and has " + str(N("Rapamycin")) + " "
         "evidence-labelled studies here, including a systematic review of human data. Metformin "
         "inhibits mTORC1 only indirectly – mainly by activating AMPK, though it also acts "
-        "on mTORC1 through AMPK-independent routes – and has just 3 studies in the Atlas, "
+        "on mTORC1 through AMPK-independent routes – and has just " + str(N("Metformin")) + " studies in the Atlas, "
         "none of them a randomized trial for a longevity endpoint."
     ),
     sections=[
@@ -924,14 +1022,14 @@ add(
          "covered on the "
          '<a href="/answers/rapamycin-side-effects/">side-effects answer page</a>.</p>'),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
-                  '<a href="/drug/metformin/">Metformin <span style="color:var(--muted-count,#7C7569)">3</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
+                  '<a href="/drug/metformin/">Metformin ' + cnt_span("Metformin") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
-        "Rapamycin directly and potently inhibits mTORC1 (38 studies in the Atlas, "
+        "Rapamycin directly and potently inhibits mTORC1 (" + str(N("Rapamycin")) + " studies in the Atlas, "
         "including one systematic review of human data). Metformin inhibits mTORC1 mostly "
         "indirectly, via AMPK activation (though some of its action is AMPK-independent), "
-        "and has only 3 studies in the Atlas – the human evidence (BAN2014) is a "
+        "and has only " + str(N("Metformin")) + " studies in the Atlas – the human evidence (BAN2014) is a "
         "retrospective observational study of diabetic patients, not a randomized trial "
         "for a longevity endpoint. Metformin has a longer safety track record as an "
         "approved diabetes drug; rapamycin's mechanism and animal dose-response are "
@@ -966,9 +1064,9 @@ add(
                  "aging-relevant effects."),
         ]) + "</ul>"),
         ("Where everolimus has its own, separate evidence base", "<p>Despite the shared "
-         "mechanism, everolimus has been studied far more extensively than sirolimus in "
-         "oncology specifically – it has 14 studies in the Atlas, 11 of them direct human "
-         "trials, versus fewer human oncology trials for sirolimus itself.</p><ul>" + "".join([
+         "mechanism, everolimus is the rapalog most tested in oncology trials – it has "
+         + str(N("Everolimus")) + " studies in the Atlas, " + str(N_human("Everolimus")) + " of them human studies or syntheses of human "
+         "data, most of them in cancer and tuberous sclerosis.</p><ul>" + "".join([
             cite("BAS2012", "B", "a phase 3 RCT (n=724) showing everolimus added to "
                  "endocrine therapy roughly doubles progression-free survival in "
                  "hormone-resistant advanced breast cancer."),
@@ -989,8 +1087,8 @@ add(
          "and for tuberous sclerosis complex (and, as Zortress, in transplantation), where its more predictable pharmacokinetics matter for precise dosing "
          "against tumors.</p>"),
     ],
-    related_links='<a href="/drug/rapamycin/">Rapamycin <span style="color:var(--muted-count,#7C7569)">38</span></a>'
-                  '<a href="/drug/everolimus/">Everolimus <span style="color:var(--muted-count,#7C7569)">14</span></a>'
+    related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
+                  '<a href="/drug/everolimus/">Everolimus ' + cnt_span("Everolimus") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
         "No – sirolimus is rapamycin itself, while everolimus is a semi-synthetic "
@@ -999,7 +1097,7 @@ add(
         "allosterically inhibit mTORC1 through the same core mechanism. Sirolimus is "
         "mainly used for transplant immunosuppression and is the molecule tested in most "
         "aging/longevity studies; everolimus is mainly used in oncology and for tuberous "
-        "sclerosis complex, where 11 of its 14 Atlas studies are direct human trials."
+        "sclerosis complex, where " + str(N_human("Everolimus")) + " of its " + str(N("Everolimus")) + " Atlas studies come from people (human studies or syntheses of human data)."
     ),
 )
 
@@ -1056,9 +1154,9 @@ add(
          "aging needs to reckon with a drug class whose clearest, best-proven human "
          "benefit so far is in treating cancers that mTOR hyperactivation helps drive.</p>"),
     ],
-    related_links='<a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex <span style="color:var(--muted-count,#7C7569)">5</span></a>'
-                  '<a href="/disease/breast-cancer/">Breast cancer <span style="color:var(--muted-count,#7C7569)">3</span></a>'
-                  '<a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) <span style="color:var(--muted-count,#7C7569)">3</span></a>'
+    related_links='<a href="/disease/tuberous-sclerosis-complex/">Tuberous sclerosis complex ' + cnt_span("Tuberous sclerosis complex") + '</a>'
+                  '<a href="/disease/breast-cancer/">Breast cancer ' + cnt_span("Breast cancer") + '</a>'
+                  '<a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC) ' + cnt_span("Renal cell carcinoma (RCC)") + '</a>'
                   '<a href="/drug/everolimus/">Everolimus</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
@@ -1082,20 +1180,20 @@ print("Loaded {} answer page definitions".format(len(PAGES)))
 # ===========================================================================
 
 GLOSSARY = [
-    ("mTOR", "/gene/mtor/", "62",
+    ("mTOR", "/gene/mtor/", "mTOR",
      "Mechanistic target of rapamycin. A serine/threonine kinase that acts as a cell's "
      "central growth-vs-conservation switch, integrating nutrient availability, growth "
      "factor signals, and energy status. Forms two distinct complexes, mTORC1 and mTORC2."),
-    ("mTORC1", "/complex/mtorc1/", "75",
+    ("mTORC1", "/complex/mtorc1/", "mTORC1",
      "mTOR Complex 1. Regulates protein synthesis, autophagy, and cell growth in response "
      "to nutrients and growth factors. This is the complex rapamycin directly and "
      "potently inhibits."),
-    ("mTORC2", "/complex/mtorc2/", "14",
+    ("mTORC2", "/complex/mtorc2/", "mTORC2",
      "mTOR Complex 2. Phosphorylates Akt/PKB and affects cell survival and glucose "
      "metabolism. Not directly blocked by rapamycin – only reached indirectly, with "
      "chronic dosing, which is the likely source of rapamycin's insulin-resistance "
      "side effect."),
-    ("Rapamycin (Sirolimus)", "/drug/rapamycin/", "38",
+    ("Rapamycin (Sirolimus)", "/drug/rapamycin/", "Rapamycin",
      "The founding mTOR inhibitor, first isolated in 1975 from a soil bacterium on Rapa "
      "Nui (Easter Island). Binds the protein FKBP12 and allosterically blocks mTORC1. "
      "The most consistently lifespan-extending drug in laboratory animal studies."),
@@ -1103,26 +1201,26 @@ GLOSSARY = [
      "Any chemical analog of rapamycin engineered from the same core structure – "
      "everolimus, temsirolimus, and ridaforolimus are the main examples. All share "
      "rapamycin's FKBP12-dependent, mTORC1-selective mechanism."),
-    ("Everolimus", "/drug/everolimus/", "14",
+    ("Everolimus", "/drug/everolimus/", "Everolimus",
      "A semi-synthetic rapalog with better oral bioavailability and a shorter half-life "
      "than rapamycin itself. Used clinically in oncology (breast cancer, pancreatic "
      "neuroendocrine tumors, kidney cancer), for tuberous sclerosis complex, and to "
      "prevent organ-transplant rejection (as Zortress)."),
-    ("Metformin", "/drug/metformin/", "3",
+    ("Metformin", "/drug/metformin/", "Metformin",
      "A widely used antidiabetic drug that activates AMPK and inhibits mTORC1 indirectly "
      "— though part of its action bypasses AMPK entirely. Frequently proposed as a "
      "geroprotector candidate alongside rapamycin, with a weaker evidence base in "
      "this Atlas."),
-    ("Resveratrol", "/drug/resveratrol/", "3",
+    ("Resveratrol", "/drug/resveratrol/", "Resveratrol",
      "A plant polyphenol popularized as a sirtuin activator and \"calorie-restriction "
      "mimetic.\" Failed to extend lifespan in the Interventions Testing Program's mouse "
      "studies and showed no metabolic benefit in a human RCT."),
-    ("Autophagy", "/process/autophagy/", "18",
+    ("Autophagy", "/process/autophagy/", "Autophagy",
      "The cell's internal recycling process – breaking down and reusing damaged proteins "
      "and organelles. Suppressed by active mTORC1 and switched on when mTORC1 is "
      "inhibited. Widely proposed, but not proven, as the mechanism behind rapamycin's "
      "lifespan benefit."),
-    ("Cellular senescence", "/process/cellular-senescence/", "3",
+    ("Cellular senescence", "/process/cellular-senescence/", "Cellular senescence",
      "A state in which a cell permanently stops dividing but stays alive, secreting "
      "inflammatory signals (the SASP). Senescent cells accumulate with age and drive "
      "age-related disease; mTOR both promotes the senescent state and powers its "
@@ -1131,7 +1229,7 @@ GLOSSARY = [
      "A protein complex (TSC1, TSC2 and TBC1D7) that acts as the principal brake on mTORC1, integrating "
      "signals about cellular stress and growth-factor availability. Loss-of-function "
      "mutations in either gene cause tuberous sclerosis complex."),
-    ("Tuberous sclerosis complex", "/disease/tuberous-sclerosis-complex/", "5",
+    ("Tuberous sclerosis complex", "/disease/tuberous-sclerosis-complex/", "Tuberous sclerosis complex",
      "A genetic disorder caused by TSC1/TSC2 mutations that leaves mTORC1 active "
      "without its growth-factor brake (nutrients still gate it), causing benign tumors in the brain, kidney, and elsewhere. The "
      "clearest human proof-of-concept that mTOR hyperactivation alone can drive tumor "
@@ -1194,6 +1292,9 @@ GLOSSARY = [
      "mark for how good the work is: S = synthesis of human data, H = human study, "
      "A = animal model, M = molecular (cells, biochemistry, structure), R = review. "
      "Every study and claim carries one, visible as a badge next to its citation. "
+     "Two outlined markers sit beside these: PP, a preprint not yet peer-reviewed, "
+     "and RT, a registered trial with no results yet. They say how complete the "
+     "record is, not which system a finding comes from. "
      "Until September 2026 these codes ran A\u2013D; they were renamed because a "
      "lettered ladder reads as a school grade whatever the caption says."),
 ]
@@ -1220,7 +1321,7 @@ def glossary_page():
     dl = ['<dl class="gloss">']
     for term, url, count, definition in GLOSSARY:
         name_html = ('<a href="{}">{}</a>'.format(url, esc(term)) if url else esc(term))
-        count_html = (' <span class="cnt">({} studies in the Atlas)</span>'.format(count)
+        count_html = (' <span class="cnt">({} studies in the Atlas)</span>'.format(N(count))
                       if count else "")
         dl.append("<dt>{}{}</dt><dd>{}</dd>".format(name_html, count_html, definition))
     dl.append("</dl>")

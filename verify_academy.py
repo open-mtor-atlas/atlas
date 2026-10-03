@@ -667,7 +667,7 @@ def main():
     gaps = set()
     gp = os.path.join(DATA, "gaps_baked.json")
     if os.path.exists(gp):
-        gaps = {BP.slugify(g["title"]) for g in json.load(open(gp, encoding="utf-8"))}
+        gaps = {g.get("slug") or BP.slugify(g["title"]) for g in json.load(open(gp, encoding="utf-8"))}
 
     by_slug = {l["slug"]: l for l in lessons}
 

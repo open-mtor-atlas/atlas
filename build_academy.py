@@ -161,7 +161,10 @@ def load():
     gp = os.path.join(DATA, "gaps_baked.json")
     if os.path.exists(gp):
         for g in json.load(open(gp, encoding="utf-8")):
-            gaps[slugify(g["title"])] = g["title"]
+            # URL_Slug (Airtable) zamyka adresu karty po prejmenovani -- stejne
+            # pravidlo jako build_pages.gap_page a Atlas_v2 (slug ?? slugify(title)).
+            # Bez toho 2026-10-03 spadl deploy, kdyz H2/H6/H7/H10 dostaly nove nazvy.
+            gaps[g.get("slug") or slugify(g["title"])] = g["title"]
 
     return lessons, modules, by_sid, ent_url, routes, gaps, pw, challenges
 
