@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Process by which immune T cells commit to effector versus regulatory fates; directly controlled by mTOR complex activity.",
-  "study_count": 1,
+  "study_count": 9,
   "relation_count": 0,
-  "url": null,
+  "url": "https://mtor-atlas.org/process/t-cell-differentiation/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/t-cell-differentiation.json",
   "description_beginner": "How immune T cells decide what kind of cell to become - an attacking (effector) cell or a peacekeeping (regulatory) cell. mTOR activity is one of the switches that helps make this decision.",
   "studies": [
@@ -40,6 +40,174 @@
     "finding": "T cells lacking mTOR fail to become normal effector cells and default toward regulatory T cells, showing mTOR is a master switch for immune cell fate.",
     "url": "https://mtor-atlas.org/study/DEL2009/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/DEL2009.json"
+   },
+   {
+    "sid": "SIL2026",
+    "title": "Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion",
+    "authors": "Sillito F; Armbrecht E; O'Neill AT; McIntyre A; Nyatondo M; Holler A; Callender LA; Henson SM; Stauss H; Chakraverty R",
+    "year": 2026,
+    "journal": "Journal of Immunology",
+    "doi": "10.1093/jimmun/vkag206",
+    "pmid": "42566506",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse CD4+ T cells, adoptive transfer tumor model",
+    "peer_reviewed": true,
+    "finding": "Enforced RHEB overexpression (mTORC1 hyperactivation) in therapeutic CD4+ T cells boosts initial proliferation/persistence after adoptive transfer, but drives cells toward an exhausted phenotype (co-inhibitory receptors, impaired re-proliferation on rechallenge) -- a double-edged sword for CAR/TCR-T cell engineering, distinct from the CD8 response to the same manipulation.",
+    "url": "https://mtor-atlas.org/study/SIL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIL2026.json"
+   },
+   {
+    "sid": "CHI2012",
+    "title": "Regulation and function of mTOR signalling in T cell fate decisions",
+    "authors": "Chi H",
+    "year": 2012,
+    "journal": "Nature reviews. Immunology",
+    "doi": "10.1038/nri3198",
+    "pmid": "22517423",
+    "pmcid": "PMC3417069",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of mTOR signalling in T-cell fate decisions.",
+    "url": "https://mtor-atlas.org/study/CHI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHI2012.json"
+   },
+   {
+    "sid": "WANG2026",
+    "title": "Amino acid homeostasis by CORVET/HOPS: A metabolic and stress resilience checkpoint for T cells",
+    "authors": "Wang J; Ni Z; Zhang Xinxin; He L; Cheng X; Huang L; Ye H; Li P; Zhao TJ; Du X",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2601318123",
+    "pmid": "42647134",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells (conditional VPS18 / VPS11 knockout, in vitro and in vivo)",
+    "peer_reviewed": true,
+    "finding": "Identifies the CORVET and HOPS endolysosomal tethering complexes as upstream suppliers of intracellular amino acids in activated T cells, acquired via macropinocytosis. Loss of the core subunits VPS18 or VPS11 starves the cell of amino acids, switches on the integrated stress response and shuts down mTORC1; enforced mTORC1 activity rescues the proliferative defect while BIM deletion rescues survival, separating the two failure modes. Places vesicular nutrient acquisition upstream of the canonical lysosomal amino-acid-sensing arm of mTORC1.",
+    "url": "https://mtor-atlas.org/study/WANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026.json"
+   },
+   {
+    "sid": "KIN2026",
+    "title": "TCR-mTORC1 signaling promotes epigenetic stabilization of Foxp3 expression in regulatory T cells via TET protein translation",
+    "authors": "Kinoshita T; Hori S et al.",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.2612904123",
+    "pmid": "42809396",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse; in vitro-induced regulatory T cells (iTreg)",
+    "peer_reviewed": true,
+    "finding": "Sustained TCR signaling activates mTORC1, which boosts translation of the TET2 (and likely TET3) DNA-demethylation enzymes; this demethylates the Foxp3 TSDR enhancer and epigenetically locks in stable Foxp3 expression in regulatory T cells. In vivo mTORC1 inactivation increases methylated-TSDR Foxp3+ T cells, confirming the pathway's physiological relevance.",
+    "url": "https://mtor-atlas.org/study/KIN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIN2026.json"
+   },
+   {
+    "sid": "SIN2013",
+    "title": "Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation",
+    "authors": "Sinclair LV; Cantrell DA et al.",
+    "year": 2013,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2556",
+    "pmid": "23525088",
+    "pmcid": "PMC3672957",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse T cells",
+    "peer_reviewed": true,
+    "finding": "Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.",
+    "url": "https://mtor-atlas.org/study/SIN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2013.json"
+   },
+   {
+    "sid": "DEL2011",
+    "title": "The kinase mTOR regulates the differentiation of helper T cells through the selective activation of signaling by mTORC1 and mTORC2",
+    "authors": "Delgoffe GM; Powell JD et al.",
+    "year": 2011,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2005",
+    "pmid": "21358638",
+    "pmcid": "PMC3077821",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 and mTORC2 selectively program distinct CD4 helper T-cell lineages.",
+    "url": "https://mtor-atlas.org/study/DEL2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEL2011.json"
+   },
+   {
+    "sid": "XU2026B",
+    "title": "The role of mTORC2/RICTOR in immune cells and inflammatory diseases.",
+    "authors": "Xu J; Zhong W; Xin F; Xu F; Zheng Z; Guo F",
+    "year": 2026,
+    "journal": "Inflammation Research",
+    "doi": "10.1007/s00011-026-02365-9",
+    "pmid": "42752901",
+    "pmcid": "PMC13586041",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review of immune cell subsets (T cells, B cells, macrophages, dendritic cells, NK cells) and mouse conditional-knockout models",
+    "peer_reviewed": true,
+    "finding": "mTORC2/RICTOR signaling (via AKT, SGK1, PKC) shapes Th1/Th2 differentiation, Treg stability, memory T cell formation, BCR signaling and plasma cell survival, and macrophage/DC/NK function; its role in tissue inflammation is context-dependent (exacerbating osteoarthritis and pancreatitis but restraining pro-inflammatory polarization in colorectal cancer), and dual mTORC1/2 inhibitors (e.g. AZD2014) show early but complicated promise.",
+    "url": "https://mtor-atlas.org/study/XU2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/XU2026B.json"
+   },
+   {
+    "sid": "ZEN2013",
+    "title": "mTORC1 couples immune signals and metabolic programming to establish T(reg)-cell function",
+    "authors": "Zeng H; Chi H et al.",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature12297",
+    "pmid": "23812589",
+    "pmcid": "PMC3759242",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 couples immune signals and metabolism to establish regulatory T-cell function.",
+    "url": "https://mtor-atlas.org/study/ZEN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2013.json"
    }
   ],
   "relations": []

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,41 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2026.json",
   "abstract_excerpt": "Targeting metabolic dependencies of leukemic stem cells (LSC) may open avenues to improve outcomes of patients suffering from acute myeloid leukemia (AML). LSCs rely heavily on an active tricarboxylic acid (TCA) cycle and mitochondrial oxidative phosphorylation whereas healthy hematopoietic stem and progenitor cells (HSPCs) possess more metabolic flexibility. Here, we identify the TCA cycle enzyme isocitrate dehydrogenase 3 (IDH3) as a critical and selective regulator of LSC maintenance.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "IDH3A knockdown (shRNA); BCL2 inhibition with venetoclax",
+   "target": "IDH3A-citrate-AMPK-mTORC1 axis",
+   "species": "Human AML patient samples, bone marrow organoids, xenograft mice",
+   "effect": "IDH3A loss raised intracellular citrate, activated AMPK and suppressed mTORC1 and translation, sensitising leukemic stem cells to venetoclax."
+  },
+  "entities": [
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "STRESS-AMPK"
+   ],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "HAL2026",
+   "SPA2023",
+   "BOD2001",
+   "DOR2006"
+  ]
  }
 }

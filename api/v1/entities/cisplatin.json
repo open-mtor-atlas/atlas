@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,12 +14,34 @@
   "type": "Drug",
   "synonyms": [],
   "description": "Platinum-based chemotherapeutic whose tolerance is modulated by mTOR-dependent cytoprotective autophagy.",
-  "study_count": 0,
+  "study_count": 1,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/cisplatin.json",
   "description_beginner": "A platinum-based chemotherapy drug that kills cancer cells by damaging their DNA. Cells can survive it by switching on autophagy - digesting their own parts for spare material - and because mTOR controls autophagy, blocking or boosting mTOR changes how well the drug works.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "RAO2026",
+    "title": "An SLC7A5-dependent nutrient-sensing circuit overcomes cisplatin tolerance via mTOR-autophagy signaling.",
+    "authors": "Rao P; Zhang T; Li Ju et al.",
+    "year": 2026,
+    "journal": "Biochemical and Biophysical Research Communications",
+    "doi": "10.1016/j.bbrc.2026.154478",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines (genome-wide CRISPR-Cas9 screen)",
+    "peer_reviewed": true,
+    "finding": "A genome-wide CRISPR screen found that mTOR inhibition promotes cisplatin tolerance by activating cytoprotective autophagy — the opposite of the canonical view. SLC7A5 integrates this mTOR-autophagy axis, and leucine supplementation resensitises SLC7A5-expressing tumour cells to cisplatin.",
+    "url": "https://mtor-atlas.org/study/RAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2026.json"
+   }
+  ],
   "relations": []
  }
 }

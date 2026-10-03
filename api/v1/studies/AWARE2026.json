@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,24 +30,36 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/AWARE2026.json",
   "abstract_excerpt": "Carriers of the apolipoprotein E4 (APOE4) allele often develop cerebrovascular dysfunction and broader systemic alterations decades before the onset of Alzheimer's disease (AD) pathology or clinical symptoms. Early interventions that can improve these functions may help delay or slow AD progression. In this study, we repurposed rapamycin (sirolimus), an FDA-approved medication with anti-aging properties, to target APOE4 associated multisystem dysfunction.",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "Low-dose rapamycin (sirolimus) 1 mg/day for 4 weeks",
+   "target": "mTORC1 (systemic), with cerebral blood flow as primary readout",
+   "species": "Human (cognitively normal adults 45-65, APOE4 carriers vs non-carriers)",
+   "effect": "Increased cerebral blood flow (>15% across multiple regions) and improved metabolic/inflammatory profiles in APOE4 carriers only; genotype-dependent, uncontrolled pilot."
+  },
   "entities": [
    {
     "id": "rapamycin",
     "name": "Rapamycin",
     "type": "Drug"
+   },
+   {
+    "id": "alzheimers-disease",
+    "name": "Alzheimer's disease",
+    "type": "Disease"
    }
   ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
-  "questions": [],
+  "questions": [
+   "H8"
+  ],
   "related_studies": [
-   "BAR2023",
-   "BCH2026",
-   "BIT2016",
-   "BJE2010"
+   "BAB2025",
+   "CAC2010",
+   "LEE2026",
+   "NOR2026"
   ]
  }
 }

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,49 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/NOB2005.json",
   "abstract_excerpt": "During the evolution of metazoans and the rise of systemic hormonal regulation, the insulin-controlled class 1 phosphatidylinositol 3OH-kinase (PI3K) pathway was merged with the primordial amino acid-driven mammalian target of rapamycin (mTOR) pathway to control the growth and development of the organism. Insulin regulates mTOR function through a recently described canonical signaling pathway, which is initiated by the activation of class 1 PI3K. However, how the amino acid input is integrated with that of the insulin signaling pathway is unclear.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Amino acid stimulation; hVps34 knockdown and pharmacological PI3K inhibition",
+   "target": "Class 3 PI3K (hVps34) -> mTOR/raptor",
+   "species": "Human cell lines",
+   "effect": "Amino acids signal to mTOR/raptor through hVps34, a route separate from insulin and class 1 PI3K"
+  },
+  "entities": [
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "vps34-pik3c3",
+    "name": "Vps34 (PIK3C3)",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "BYF2005",
+   "ANA2019",
+   "AYL2015",
+   "BAR2016"
+  ]
  }
 }

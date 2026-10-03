@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -28,12 +28,14 @@
     "GU2017",
     "SAX2015",
     "LEE2010",
-    "LAM2012"
+    "LAM2012",
+    "SANG2026"
    ],
    "revision_log": [
     "2026-08-30: The evidence basis previously read 'supported ONLY by tier-D mechanistic studies and links to ZERO aging/longevity outcomes'. That was already false when displayed: LEE2010 had been added after the July 2026 external review, but this card had not been updated.",
     "2026-09-21: Scope clarified as a mechanism-attribution gap. An earlier beginner-register version said 'nothing equivalent has been shown in a mammal', which overstated the gap.",
-    "2026-09-29: 'the most pharmacologically specific nodes' and 'most precise, most drug-friendly' softened, because no comparative analysis supports them. The Lamming 2012 result is now qualified as female mice."
+    "2026-09-29: 'the most pharmacologically specific nodes' and 'most precise, most drug-friendly' softened, because no comparative analysis supports them. The Lamming 2012 result is now qualified as female mice.",
+    "2026-10-03: SANG2026 added - human-cell chemoproteomics identifying PKM2 as a methionine sensor acting through GATOR2 to mTORC1, complementing the SAMTOR/GATOR1 arm but not addressing the ageing contribution."
    ],
    "url": "https://mtor-atlas.org/question/sensor-selective-geroprotection-without-the-metabolic-penalty/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H1.json"
@@ -59,12 +61,18 @@
     "CAS2009",
     "LV2026",
     "CHU2019",
-    "PYO2013"
+    "PYO2013",
+    "KEL2024",
+    "COR2018",
+    "KEL2026"
    ],
    "revision_log": [
     "2026-08-30: The basis asserted that 'external work shows rapamycin still suppresses SASP in Nrf2-KO fibroblasts WITHOUT activating autophagy'. No study in the corpus supported it and no PMID was recorded, so the claim was withdrawn.",
     "2026-09-04: 'no study tests whether...' scoped to this corpus.",
-    "2026-09-29: The MK2/ZFP36L1 mechanism had been attributed to LAB2015; LAB2015 shows IL1A translation, and MK2/ZFP36L1 is Herranz 2015."
+    "2026-09-29: The MK2/ZFP36L1 mechanism had been attributed to LAB2015; LAB2015 shows IL1A translation, and MK2/ZFP36L1 is Herranz 2015.",
+    "2026-10-03: KEL2024 added - shows in primary human cells that rapamycin's anti-senescence effect required reactivation of PINK1/Parkin-p62 mitophagy, suggesting the senescence and mitochondrial-quality-control arms overlap (cell culture only).",
+    "2026-10-03: COR2018 added - in nfkb1-/- mice, rapamycin improved frailty, memory and tissue architecture and lowered senescence markers but did not extend lifespan or reduce inflammaging, so healthspan benefit and senescence suppression were uncoupled from survival in this inflammatory model (mouse only).",
+    "2026-10-03: KEL2026 added - rapamycin and other mTOR inhibitors lowered DNA lesion burden and senescence in human T cells under genotoxic stress ex vivo, and low-dose rapamycin reduced p21 in immune cells of older adults versus placebo, adding genoprotection as a candidate arm of senescence suppression (human cells; p21 marker only, no clinical endpoint)."
    ],
    "url": "https://mtor-atlas.org/question/suppression-of-senescence-sasp-geroconversion-not-just-autophagy-is-the-mediator-of-rapamycins-healthspan-benefit/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H10.json"
@@ -90,13 +98,18 @@
     "KEN2016",
     "THO2009",
     "MOE2025",
+    "NCT05835999",
     "MEN2023",
-    "SCH2025"
+    "SCH2025",
+    "MARCHANT2026",
+    "WAN2026"
    ],
    "revision_log": [
     "2026-07-09: Bi-steric inhibitor evidence added (revised 2026-07-29).",
     "2026-08-30: The opening sentence previously read 'Longevity comes from mTORC1 but chronic rapamycin's harm comes from mTORC2 disruption', and the ARR2015 clause read 'inhibited mTORC1 only'. Both were more certain than the experiments support, which is a preferential separation.",
-    "2026-09-29: The Lamming 2012 result is now qualified as female mice."
+    "2026-09-29: The Lamming 2012 result is now qualified as female mice.",
+    "2026-10-03: MARCHANT2026 added - shows in mice that constitutive skeletal-muscle mTORC1 activation raises inflammatory markers but is not sufficient to impair glucose tolerance, weakening the assumed mTORC1-to-glucose-intolerance link at the centre of this question (mouse, muscle-specific genetic model).",
+    "2026-10-03: WAN2026 added - shows in Drosophila that lowering the rapamycin-resistant 4E-BP/TOP-translation arm of mTORC1 output extends lifespan without a reproductive cost, supporting the arm-selective premise of this question while saying nothing about mTORC2 sparing or glucose tolerance (fly genetics)."
    ],
    "url": "https://mtor-atlas.org/question/mtorc1-selective-mtorc2-sparing-dosing-captures-longevity-without-insulin-resistance/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H2.json"
@@ -119,11 +132,15 @@
     "DRU2009",
     "ROM2001",
     "MOE2025",
-    "BIT2016"
+    "BIT2016",
+    "BEN2008",
+    "LAP2026"
    ],
    "revision_log": [
     "2026-08-30: Dose qualifier added from the BIT2016 full text (the 126 ppm dietary arm benefited both sexes).",
-    "2026-09-29: 'the leading longevity lever' softened."
+    "2026-09-29: 'the leading longevity lever' softened.",
+    "2026-10-03: BEN2008 added - muscle-specific raptor knockout mice developed progressive dystrophy and lower oxidative capacity, while rictor knockout muscle was normal; mouse, lifelong total genetic loss rather than partial pharmacological inhibition.",
+    "2026-10-03: LAP2026 added - in sedentary mice, blocking feeding-induced (AKT-TSC2) muscle mTORC1 activation removed postprandial protein synthesis without loss of muscle size and with improved endurance, suggesting the feeding arm is dispensable for mass (mouse, genetic, not aged, not pharmacological)."
    ],
    "url": "https://mtor-atlas.org/question/muscle-sparing-pulsed-mtorc1-inhibition/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H3.json"
@@ -145,11 +162,15 @@
    "studies": [
     "BJE2010",
     "HAN2008",
-    "PYO2013"
+    "PYO2013",
+    "EIS2016",
+    "EIS2009"
    ],
    "revision_log": [
     "2026-09-04: The basis previously read 'No study tests whether...', an absence claim about the whole literature; now scoped to this corpus.",
-    "2026-09-21: MEL2003 was cited as the worm evidence. It tested bec-1 in daf-2 mutants (the insulin/IGF-1 pathway, not TOR and not dietary restriction), so it did not support the claim; HAN2008 replaced it."
+    "2026-09-21: MEL2003 was cited as the worm evidence. It tested bec-1 in daf-2 mutants (the insulin/IGF-1 pathway, not TOR and not dietary restriction), so it did not support the claim; HAN2008 replaced it.",
+    "2026-10-03: EIS2016 added - mouse evidence that cardiomyocyte Atg5 is required for spermidine-induced cardioprotection and lifespan extension, addressing the necessity-of-autophagy question for a geroprotector other than rapamycin.",
+    "2026-10-03: EIS2009 added - invertebrate necessity evidence that autophagy is required for a lifespan-extending intervention, leaving the mammalian necessity question and the rapamycin-specific case untouched (yeast, fly, worm and human immune cells; no mammalian lifespan data)."
    ],
    "url": "https://mtor-atlas.org/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H4.json"
@@ -177,14 +198,19 @@
     "BAS2012",
     "YAO2011",
     "LEE2024",
-    "BOU2020"
+    "NCT05835999",
+    "BOU2020",
+    "KAN2013",
+    "SIN2026"
    ],
    "revision_log": [
     "2026-07-09: AIMTOR (BOU2020) biosensor added as a candidate readout.",
     "2026-08-30: The basis previously cited RADIANT-3 (YAO2011) as 'PFS 5% vs 2%'. Those were the grade 3/4 hyperglycaemia rates from the adverse-event table, not a progression-free-survival result.",
     "2026-09-04: Trial acronyms paired with Atlas study codes inline.",
     "2026-09-23: The hypothesis was split in two (it was previously one).",
-    "2026-09-29: 'Every trial missed' limited to clinical and functional healthspan endpoints; the immune-response surrogates that were met (MAN2014, MAN2018) are now named."
+    "2026-09-29: 'Every trial missed' limited to clinical and functional healthspan endpoints; the immune-response surrogates that were met (MAN2014, MAN2018) are now named.",
+    "2026-10-03: KAN2013 added - shows in human and mouse cell lines that individual mTORC1 phosphorylation sites differ in intrinsic substrate quality and therefore in their sensitivity to rapamycin and starvation, which constrains how a substrate-phosphorylation panel can be read as a pharmacodynamic marker (cell lines, not human blood).",
+    "2026-10-03: SIN2026 added - a randomised crossover trial in 63 healthy young adults found no change in whole-blood LC3B-II autophagic flux after 4 weeks of reduced (10%) vs average (20%) protein intake, showing a human flux assay is feasible but did not respond to moderate protein restriction (human, PBMCs only; mTORC1 not measured)."
    ],
    "url": "https://mtor-atlas.org/question/a-sensor-autophagy-biomarker-panel-as-a-surrogate-endpoint-for-human-trials/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H5.json"
@@ -210,11 +236,13 @@
     "FOK2014",
     "WUX2013",
     "BIT2016",
-    "HAR2014"
+    "HAR2014",
+    "STR2022"
    ],
    "revision_log": [
     "2026-08-30: BIT2016 qualified by dose arm: the female harm signal belongs to the high-dose injection arm only.",
-    "2026-09-29: WUX2013 is a genetic mTOR hypomorph and is no longer grouped with the rapamycin studies."
+    "2026-09-29: WUX2013 is a genetic mTOR hypomorph and is no longer grouped with the rapamycin studies.",
+    "2026-10-03: STR2022 added - shows the direction of sex dimorphism depends on which drug is tested, with a male-specific gain for rapamycin plus acarbose and a female-specific gain for captopril, without any exposure-matching data (genetically heterogeneous mice, three sites)."
    ],
    "url": "https://mtor-atlas.org/question/sex-dimorphism-in-mtor-longevity-responses-is-pervasive-and-sometimes-direction-flipping/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H6.json"
@@ -241,12 +269,18 @@
     "ARA2009",
     "ZEN2013",
     "LV2026",
-    "LEE2024"
+    "LEE2024",
+    "JIN2026C",
+    "WEI2008",
+    "CHE2009"
    ],
    "revision_log": [
     "2026-08-30: The basis previously read 'ARA2009 mTOR drives memory-CD8 differentiation ... so over-inhibition would blunt immunity', which reversed the paper's finding; ARA2009 supports this hypothesis.",
     "2026-09-23: The basis previously ended 'and no human trial has hit a durable clinical immune endpoint'. A phase 3 trial did test one and missed it, which is a negative result rather than an absence of one.",
-    "2026-09-29: The phase 2b result (laboratory-confirmed infections, 10 mg RTB101) was attributed to MAN2018; it is reported in MAN2021. MAN2018 is the phase 2a combination trial with self-reported infections."
+    "2026-09-29: The phase 2b result (laboratory-confirmed infections, 10 mg RTB101) was attributed to MAN2018; it is reported in MAN2021. MAN2018 is the phase 2a combination trial with self-reported infections.",
+    "2026-10-03: JIN2026C added - in aged Ldlr-/- mice, triweekly rapamycin for 8 weeks shifted CD8 T cells toward central memory, enriched Tregs and lowered Tfh, germinal-centre B cells and antibody levels; mouse only, no infection challenge measured.",
+    "2026-10-03: WEI2008 added - gives the mechanistic basis for reading mTOR inhibition's immune effect per compartment rather than as net suppression, showing opposed NF-kB and STAT3 arms in mouse and human monocytes with protection against lethal Listeria in mice (mouse and human cells, not a human dosing study).",
+    "2026-10-03: CHE2009 added - in old mice, rapamycin restored haematopoietic stem cell self-renewal and enabled effective vaccination against lethal influenza, a mouse precedent for immune rejuvenation; net infection balance in humans is not addressed (mouse only)."
    ],
    "url": "https://mtor-atlas.org/question/low-dose-mtor-inhibition-rejuvenates-the-aging-immune-system-without-net-immunosuppression/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H7.json"
@@ -276,13 +310,17 @@
     "HUA2013",
     "LAM2012",
     "SAR2006",
-    "LEE2024"
+    "LEE2024",
+    "AWARE2026",
+    "MEI2008"
    ],
    "revision_log": [
     "2026-08-30: SAX2026 (TRON trial) added as human evidence. HAL2012 had been cited as a 'cognitive downside signal'; it reports the opposite and moved to the benefit side.",
     "2026-09-05: The mTORC2-memory leg previously cited LAM2012 and LEE2024, neither of which establishes it, and was flagged as an editorial extrapolation. HUA2013 now sources it.",
     "2026-09-23: The card previously claimed no human cognitive-ageing or neurodegeneration outcome. Two 2025 trials reported null cognitive results, and in both the drug was not shown to reach the brain. The title was changed accordingly (URL kept).",
-    "2026-09-29: Title changed to 'has not been shown to reach the brain' and 'in mice'; SPI2010 no longer described as 'autophagy-dependent'; the beginner text no longer says the mTORC2 study is missing; CSF biomarker rises in Gonzales 2025 added."
+    "2026-09-29: Title changed to 'has not been shown to reach the brain' and 'in mice'; SPI2010 no longer described as 'autophagy-dependent'; the beginner text no longer says the mTORC2 study is missing; CSF biomarker rises in Gonzales 2025 added.",
+    "2026-10-03: AWARE2026 added - human single-arm pilot (n=23) showing 1 mg/day sirolimus for 4 weeks raised cerebral blood flow in APOE4 carriers only; a CNS-level physiological effect in humans, but brain mTORC1 inhibition was not demonstrated.",
+    "2026-10-03: MEI2008 added - in neuronal Tsc1-knockout mice both rapamycin and RAD001 reached brain tissue and reduced phospho-S6 (mouse, high-dose developmental disease model; says nothing about human geroscience dosing)."
    ],
    "url": "https://mtor-atlas.org/question/brain-penetrant-mtor-inhibition-clears-neurodegenerative-aggregates-in-models-but-has-zero-human-cognitive-aging-endpoint-and-mtorc2-is-needed-for-memory/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H8.json"

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -18,7 +18,7 @@
    "KOG1"
   ],
   "description": "Defining subunit of mTORC1; scaffold that presents substrates (S6K1, 4E-BP1) to mTOR. Its presence is what makes a complex 'mTORC1'.",
-  "study_count": 10,
+  "study_count": 19,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/raptor/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/raptor.json",
@@ -233,6 +233,195 @@
     "finding": "3.2-angstrom cryo-EM structure of Raptor bound to Rag-Ragulator, showing how Raptor reads out the nutrient-dependent nucleotide state of the Rag GTPases: one part of Raptor senses RagA's nucleotide state, a separate 'claw' senses RagC's, and both have to be in the correct nutrient-signalling combination before Raptor is allowed to dock. Mutating the contact points blocks mTORC1 from reaching the lysosome and inhibits its signalling, which is the functional evidence behind the structural claim. Combined with a separate structure of mTORC1 bound to its activator Rheb, the paper builds a model of the complete, active mTORC1 sitting on the lysosome. Boundary: cryo-EM of a complex reconstituted from purified human proteins, not a live-cell measurement.",
     "url": "https://mtor-atlas.org/study/ROG2019/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ROG2019.json"
+   },
+   {
+    "sid": "BEN2008",
+    "title": "Skeletal muscle-specific ablation of raptor, but not of rictor, causes metabolic changes and results in muscle dystrophy",
+    "authors": "Bentzinger CF; Rueegg MA et al.",
+    "year": 2008,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2008.10.002",
+    "pmid": "19046572",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (muscle raptor/rictor KO)",
+    "peer_reviewed": true,
+    "finding": "In mice, muscle-specific raptor loss (not rictor) causes dystrophy, showing mTORC1 is essential for muscle homeostasis.",
+    "url": "https://mtor-atlas.org/study/BEN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BEN2008.json"
+   },
+   {
+    "sid": "EVA2026",
+    "title": "PTEN regulates microtubule polymerization via mTORC2, but not mTORC1, in peripheral sensory neurons",
+    "authors": "Evans S; Reglewski J; Rose H; Lewis C; Nayak A; Minsky C; McNeil E; Knowles B; Wang W; Li M; Luikart BW; Hong J",
+    "year": 2026,
+    "journal": "eNeuro",
+    "doi": "10.1523/ENEURO.0116-26.2026",
+    "pmid": "42642329",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse peripheral sensory neuron cultures (Pten-KO with Raptor or Rictor co-deletion, both sexes)",
+    "peer_reviewed": true,
+    "finding": "Uses Raptor (mTORC1) versus Rictor (mTORC2) co-deletion on a Pten-knockout background to ask which complex carries the growth signal to the microtubule cytoskeleton. Suppressing mTORC2 — but not mTORC1 — returns the accelerated microtubule polymerisation and neuronal hypertrophy of Pten-KO neurons to wild-type levels, and the effect is confined to the axonal growth cone rather than the proximal axon shaft. A clean genetic dissection on the comparatively thin mTORC2 side of the pathway.",
+    "url": "https://mtor-atlas.org/study/EVA2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/EVA2026.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Ktistakis NT et al.",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "BAR2016",
+    "title": "Tor forms a dimer through an N-terminal helical solenoid with a complex topology",
+    "authors": "Baretic D; Williams RL et al.",
+    "year": 2016,
+    "journal": "Nature communications",
+    "doi": "10.1038/ncomms11016",
+    "pmid": "27072897",
+    "pmcid": "PMC4833857",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM shows TOR dimerizes through an N-terminal helical solenoid, informing mTORC1 architecture.",
+    "url": "https://mtor-atlas.org/study/BAR2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2016.json"
+   },
+   {
+    "sid": "ANA2019",
+    "title": "Architecture of human Rag GTPase heterodimers and their complex with mTORC1",
+    "authors": "Anandapadamanaban M; Williams RL et al.",
+    "year": 2019,
+    "journal": "Science",
+    "doi": "10.1126/science.aax3939",
+    "pmid": "31601764",
+    "pmcid": "PMC6795536",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Structures of Rag GTPase heterodimers with mTORC1 explain nucleotide-state-dependent recruitment.",
+    "url": "https://mtor-atlas.org/study/ANA2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ANA2019.json"
+   },
+   {
+    "sid": "AYL2015",
+    "title": "Architecture of human mTOR complex 1",
+    "authors": "Aylett CH; Maier T et al.",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aaa3870",
+    "pmid": "26678875",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM architecture of human mTORC1 reveals its dimeric organization and active site access.",
+    "url": "https://mtor-atlas.org/study/AYL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/AYL2015.json"
+   },
+   {
+    "sid": "NOB2005",
+    "title": "Amino acids mediate mTOR/raptor signaling through activation of class 3 phosphatidylinositol 3OH-kinase",
+    "authors": "Nobukuni T; Joaquin M; Roccio M; Dann SG; Kim SY; Gulati P; Byfield MP; Backer JM; Natt F; Bos JL; Zwartkruis FJ; Thomas G",
+    "year": 2005,
+    "journal": "Proc Natl Acad Sci U S A",
+    "doi": "10.1073/pnas.0506925102",
+    "pmid": "16176982",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines",
+    "peer_reviewed": true,
+    "finding": "The companion paper to BYF2005, from a different laboratory: the amino acid input to mTORC1 is separate from the insulin input and runs through class 3 PI3K (hVps34), not through class 1 PI3K. Historically important because it states that the amino acid branch is the older one and that insulin signalling was grafted onto it. Boundary: cell lines, pharmacological and knockdown evidence; the later Rag/Ragulator account describes a different route to the same target and the two have never been fully reconciled.",
+    "url": "https://mtor-atlas.org/study/NOB2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOB2005.json"
+   },
+   {
+    "sid": "SEN2010",
+    "title": "mTORC1 controls fasting-induced ketogenesis and its modulation by ageing",
+    "authors": "Sengupta S; Sabatini DM et al.",
+    "year": 2010,
+    "journal": "Nature",
+    "doi": "10.1038/nature09584",
+    "pmid": "21179166",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse/cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 controls fasting-induced hepatic ketogenesis via PPARalpha, and this is blunted with age.",
+    "url": "https://mtor-atlas.org/study/SEN2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SEN2010.json"
+   },
+   {
+    "sid": "NOJ2003",
+    "title": "The mammalian target of rapamycin (mTOR) partner, raptor, binds the mTOR substrates p70 S6 kinase and 4E-BP1 through their TOR signaling (TOS) motif",
+    "authors": "Nojima H; Yonezawa K et al.",
+    "year": 2003,
+    "journal": "The Journal of biological chemistry",
+    "doi": "10.1074/jbc.C200665200",
+    "pmid": "12604610",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro",
+    "peer_reviewed": true,
+    "finding": "Raptor binds mTOR substrates via their TOS motifs, acting as the substrate-presenting scaffold of mTORC1.",
+    "url": "https://mtor-atlas.org/study/NOJ2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOJ2003.json"
    }
   ],
   "relations": [
@@ -269,12 +458,15 @@
     "evidence": {
      "kind": "Direct biochemical",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "HARA2002",
-      "KIM2002"
+      "KIM2002",
+      "BEN2008",
+      "SEN2010",
+      "NOJ2003"
      ],
      "conflicting": []
     },

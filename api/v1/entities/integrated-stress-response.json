@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Pathway/Complex",
   "synonyms": [],
   "description": "Conserved response to unfolded protein, amino-acid and other stresses. Reaches mTORC1 by more than one route: ATF4-induced REDD1 acts through the TSC complex, while ATF4-induced Sestrin2 acts on GATOR2. It is not a single brake, and it is not the AMPK one.",
-  "study_count": 1,
+  "study_count": 4,
   "relation_count": 1,
-  "url": null,
+  "url": "https://mtor-atlas.org/complex/integrated-stress-response/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/integrated-stress-response.json",
   "description_beginner": "The cell's general-purpose alarm system for problems like misfolded proteins or amino-acid shortage. It suppresses mTORC1 by more than one route: one of them (REDD1) works through the TSC brake, another (Sestrin2) works on GATOR2. So it is not one single brake, and it is not the AMPK one.",
   "studies": [
@@ -40,6 +40,69 @@
     "finding": "Transcription factor Spalt-related (Salr) is a novel mTORC1 inhibitor in Drosophila activated by the integrated stress response, restricting anabolic growth and lipid storage during nutrient stress. Salr responds to a distinct, ISR-driven cue, acting convergently with FoxO rather than downstream of it.",
     "url": "https://mtor-atlas.org/study/DEN2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2026.json"
+   },
+   {
+    "sid": "WANG2026",
+    "title": "Amino acid homeostasis by CORVET/HOPS: A metabolic and stress resilience checkpoint for T cells",
+    "authors": "Wang J; Ni Z; Zhang Xinxin; He L; Cheng X; Huang L; Ye H; Li P; Zhao TJ; Du X",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2601318123",
+    "pmid": "42647134",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells (conditional VPS18 / VPS11 knockout, in vitro and in vivo)",
+    "peer_reviewed": true,
+    "finding": "Identifies the CORVET and HOPS endolysosomal tethering complexes as upstream suppliers of intracellular amino acids in activated T cells, acquired via macropinocytosis. Loss of the core subunits VPS18 or VPS11 starves the cell of amino acids, switches on the integrated stress response and shuts down mTORC1; enforced mTORC1 activity rescues the proliferative defect while BIM deletion rescues survival, separating the two failure modes. Places vesicular nutrient acquisition upstream of the canonical lysosomal amino-acid-sensing arm of mTORC1.",
+    "url": "https://mtor-atlas.org/study/WANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026.json"
+   },
+   {
+    "sid": "DEMMINGS2026",
+    "title": "ATF4 activates a transcriptional program that chronically suppresses mTOR activity and promotes neurodegeneration in Parkinson disease models",
+    "authors": "Demmings MD; Kane EA; Tennyson EC; Hurley K; Zhao J; Cruickshanks NA; Ciz V; Krupa JM; Pasternak SH; Cregan SP",
+    "year": 2026,
+    "journal": "Cell Reports",
+    "doi": "10.1016/j.celrep.2026.117832",
+    "pmid": "42599806",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (neurotoxin and alpha-synucleinopathy PD models) and cultured neurons",
+    "peer_reviewed": true,
+    "finding": "Chronic integrated-stress-response signalling through ATF4 coordinately upregulates SESN2, DDIT4 and Trib3, which together suppress BOTH mTORC1 and mTORC2; this sustained mTOR inhibition drives dopaminergic neuron death via the pro-apoptotic BCL-2 family protein PUMA. Defines a maladaptive ISR/ATF4-to-mTOR axis in Parkinson disease models — a case where LESS mTOR activity is harmful, opposite to the usual longevity framing.",
+    "url": "https://mtor-atlas.org/study/DEMMINGS2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEMMINGS2026.json"
+   },
+   {
+    "sid": "LU2026",
+    "title": "Mathematical Modeling of Dietary Timing- and Protein Quality-Responsive Liver Circadian Clock and its Function on Ribosome Biogenesis",
+    "authors": "Lu L; Levy JL; Anthony TG; Androulakis IP",
+    "year": 2026,
+    "journal": "Physiological Genomics",
+    "doi": "10.1152/physiolgenomics.00152.2026",
+    "pmid": "42647400",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Semi-mechanistic computational model of mammalian liver (peripheral clock, mTORC1, GCN2-ISR, ribosome biogenesis)",
+    "peer_reviewed": true,
+    "finding": "Builds a semi-mechanistic model in which liver mTORC1 and GCN2-ISR signalling are driven by RHYTHMS in dietary essential amino acid availability rather than by a fixed nutrient level. Simulations show the two pathways jointly set metabolic entrainability and are required to keep the peripheral clock and ribosome biogenesis synchronised under nutrient stress, and predict individualised recovery trajectories after a transient dietary disruption. A worked example of treating mTORC1 activity as a time-varying pattern whose shape — not just its average — determines the downstream growth output.",
+    "url": "https://mtor-atlas.org/study/LU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LU2026.json"
    }
   ],
   "relations": [

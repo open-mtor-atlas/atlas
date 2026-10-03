@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,34 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/KIN2026.json",
   "abstract_excerpt": "Regulatory T (Treg) cell differentiation and function rely on stable expression of the master transcription factor Foxp3. While Foxp3 expression is epigenetically stabilized through DNA demethylation of an enhancer (the Treg-specific demethylated region, TSDR), the mechanisms underlying this process remain unclear. Here, we show that strong and sustained T cell receptor (TCR) signaling promotes TSDR demethylation, stabilizes Foxp3 expression, and confers suppressive activity in in vitro-induced Treg (iTreg) cells through activation of mTORC1.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "mTORC1 inactivation (genetic/pharmacological) and TET2/TET3 deficiency in TCR-stimulated iTreg cells",
+   "target": "mTORC1 -> translational control of TET2/TET3 -> Foxp3 TSDR demethylation",
+   "species": "Mouse (in vitro-induced regulatory T cells, with in vivo confirmation)",
+   "effect": "TCR-driven mTORC1 raises TET2/TET3 translation to demethylate the Foxp3 TSDR enhancer and epigenetically stabilize Foxp3 expression; mTORC1 inactivation increases methylated-TSDR Foxp3+ T cells."
+  },
+  "entities": [
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "CHI2012",
+   "DEL2009",
+   "DEL2011",
+   "SIL2026"
+  ]
  }
 }

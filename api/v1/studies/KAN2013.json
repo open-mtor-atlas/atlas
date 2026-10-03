@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -36,12 +36,54 @@
    "species": "Human and mouse cell lines; in vitro",
    "effect": "Site-intrinsic substrate quality predicts which mTORC1 outputs are rapamycin- and starvation-resistant"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "MTORC1-4EBP1",
+    "MTORC1-S6K1",
+    "RAPA-MTORC1"
+   ],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H5"
+  ],
+  "related_studies": [
+   "THO2009",
+   "ABU2017",
+   "DAL2016",
+   "ESP2026"
+  ]
  }
 }

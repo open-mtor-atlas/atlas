@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Rapamycin's docking protein. Rapamycin first binds FKBP12; only the FKBP12-rapamycin pair can grab mTOR. This is why rapamycin is an 'allosteric' (indirect) inhibitor - it works through a chaperone, not by blocking the active site.",
-  "study_count": 2,
+  "study_count": 3,
   "relation_count": 2,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/fkbp12/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/fkbp12.json",
   "description_beginner": "The 'docking protein' rapamycin needs to work. Rapamycin first grabs onto this protein, and only that combined pair can then latch onto and block mTOR - which is why rapamycin is called an indirect ('allosteric') inhibitor rather than one that blocks mTOR's active site directly.",
   "studies": [
@@ -61,6 +61,27 @@
     "finding": "Solved the crystal structure of the mTOR kinase itself. Revealed why the active site is so hard to reach - it sits in a deep recess guarded by the FRB domain, which acts as a 'gatekeeper' letting substrates in. This structure explains at the atomic level exactly how FKBP12-rapamycin blocks access, and why activating cancer mutations cluster where they do.",
     "url": "https://mtor-atlas.org/study/YAN2013/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/YAN2013.json"
+   },
+   {
+    "sid": "AYL2015",
+    "title": "Architecture of human mTOR complex 1",
+    "authors": "Aylett CH; Maier T et al.",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aaa3870",
+    "pmid": "26678875",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM architecture of human mTORC1 reveals its dimeric organization and active site access.",
+    "url": "https://mtor-atlas.org/study/AYL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/AYL2015.json"
    }
   ],
   "relations": [
@@ -104,7 +125,8 @@
       "SAB1994",
       "SAB1995",
       "CHU1992",
-      "BRO1994"
+      "BRO1994",
+      "AYL2015"
      ],
      "conflicting": []
     },

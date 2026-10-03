@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,41 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/COR2018.json",
   "abstract_excerpt": "Increased activation of the major pro-inflammatory NF-κB pathway leads to numerous age-related diseases, including chronic liver disease (CLD). Rapamycin, an inhibitor of mTOR, extends lifespan and healthspan, potentially via suppression of inflammaging, a process which is partially dependent on NF-κB signalling. However, it is unknown if rapamycin has beneficial effects in the context of compromised NF-κB signalling, such as that which occurs in several age-related chronic diseases.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Dietary rapamycin",
+   "target": "mTOR (mTORC1)",
+   "species": "Mouse (nfkb1-/-, enhanced NF-kB activity)",
+   "effect": "Rapamycin reduced frailty and senescence markers and improved memory and coordination, but did not extend lifespan or reduce inflammaging."
+  },
+  "entities": [
+   {
+    "id": "age-related-pathology",
+    "name": "Age-related pathology",
+    "type": "Outcome"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "nf-b",
+    "name": "NF-κB",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H10"
+  ],
+  "related_studies": [
+   "LEE2010",
+   "WEI2008",
+   "ZHOU2026B",
+   "CAR2017"
+  ]
  }
 }

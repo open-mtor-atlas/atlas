@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,8 +30,18 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/KUS2026.json",
   "abstract_excerpt": "CASTOR1 senses arginine and regulates mammalian target of rapamycin complex 1 (mTORC1), a central metabolic signaling molecule. This study aimed to elucidate the roles of CASTOR1 in humoral immune responses. We analyzed human B cell transcriptomes from healthy controls and patients with systemic lupus erythematosus (SLE) via correlation analysis and gene set variation analysis using our database, Immune Cell Gene Expression Atlas from the University of Tokyo (ImmuNexUT).",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "Whole-body and B cell-specific Castor1 knockout; human B cell transcriptomics",
+   "target": "CASTOR1-mTORC1 in B cells",
+   "species": "Mouse; human (SLE patient transcriptomes)",
+   "effect": "Castor1 loss expanded plasma cells and caused lupus-like autoimmunity in mice; lower CASTOR1 in plasmablasts correlated with higher SLE activity."
+  },
   "entities": [
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
    {
     "id": "castor1",
     "name": "CASTOR1",
@@ -49,7 +59,10 @@
   },
   "questions": [],
   "related_studies": [
-   "CHA2016"
+   "CHA2016",
+   "VAL2022",
+   "WOLF2017",
+   "CHE2009"
   ]
  }
 }

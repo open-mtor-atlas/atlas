@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -18,7 +18,7 @@
    "insulin receptor substrate"
   ],
   "description": "Insulin receptor substrate proteins - the adaptors that carry the signal from the insulin/IGF-1 receptor to PI3K. S6K1 phosphorylates and represses them, which is the pathway's principal negative feedback loop: sustained mTORC1 activity deafens the cell to insulin, and blocking mTOR restores insulin signalling and raises Akt activity.",
-  "study_count": 3,
+  "study_count": 5,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/irs-1-irs-2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/irs-1-irs-2.json",
@@ -86,6 +86,48 @@
     "finding": "S6K1 deletion protects mice from age- and diet-induced obesity and enhances insulin sensitivity.",
     "url": "https://mtor-atlas.org/study/UMX2004/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/UMX2004.json"
+   },
+   {
+    "sid": "ORE2006",
+    "title": "mTOR inhibition induces upstream receptor tyrosine kinase signaling and activates Akt",
+    "authors": "O'Reilly KE; Rosen N et al.",
+    "year": 2006,
+    "journal": "Cancer research",
+    "doi": "10.1158/0008-5472.CAN-05-2925",
+    "pmid": "16452206",
+    "pmcid": "PMC3193604",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cancer cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibition relieves feedback and activates upstream RTK-PI3K-Akt signalling.",
+    "url": "https://mtor-atlas.org/study/ORE2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ORE2006.json"
+   },
+   {
+    "sid": "GIN2026",
+    "title": "Inferring feedback regulation from static snapshots of a single signal",
+    "authors": "Ginzberg M; Tan C; Patel N; Kafri R",
+    "year": 2026,
+    "journal": "Biochemistry and Biophysics Reports",
+    "doi": "10.1016/j.bbrep.2026.102747",
+    "pmid": "42643853",
+    "pmcid": "PMC13505498",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mammalian cultured cells (fixed-cell single-cell imaging, ergodic rate analysis)",
+    "peer_reviewed": true,
+    "finding": "Introduces AoF (Assay of Feedback), a perturbation-free single-cell imaging method that reconstructs how a signal CHANGES OVER TIME from fixed-cell snapshots, using DNA content and Geminin to order cells along the cell cycle. Applied to Akt phosphorylation, it uncovers a negative feedback loop that is active only in a narrow window at the G1/S transition; biochemistry points to mTORC1/S6K1-dependent inhibitory phosphorylation of IRS1 as the likely source, though the authors state this edge is not uniquely established. Directly relevant to the question of whether mTOR pathway activity is better described as a time-varying pattern than a fixed level.",
+    "url": "https://mtor-atlas.org/study/GIN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GIN2026.json"
    }
   ],
   "relations": [
@@ -174,7 +216,8 @@
      "supporting": [
       "HAR2004",
       "SHA2004",
-      "UMX2004"
+      "UMX2004",
+      "ORE2006"
      ],
      "conflicting": []
     },

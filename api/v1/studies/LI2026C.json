@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,39 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/LI2026C.json",
   "abstract_excerpt": "Tuberous sclerosis complex (TSC) is a genetic neurodevelopmental disorder characterized by focal brain malformations called cortical tubers, which are associated with severe, intractable epilepsy. Tubers are thought to result from somatic second-hit mutations that disrupt the TSC1 or TSC2 genes in neural progenitor cells, driving hyperactive mTORC1 signalling. Glial abnormalities are commonly observed in tubers; however, whether glia actively cause disease or merely result from chronic seizure activity has remained unclear.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "TSC2 loss-of-function (hyperactive mTORC1) in human iPSC brain organoids",
+   "target": "mTORC1",
+   "species": "Human iPSC-derived brain organoids plus resected patient cortical tuber tissue",
+   "effect": "Hyperactive mTORC1 cell-autonomously biases neural progenitors toward enlarged, pro-inflammatory reactive astrocytes (reduced glutamate transporters, raised cytokines and APOE/CLU), independent of seizures."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "EHN2008",
+   "LIP2017",
+   "MA2005",
+   "MEI2008"
+  ]
  }
 }

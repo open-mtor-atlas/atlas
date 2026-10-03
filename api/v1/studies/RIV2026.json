@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,12 +30,27 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/RIV2026.json",
   "abstract_excerpt": "Activated PI3K-delta syndrome (APDS) is a rare inborn error of immunity characterized by variable immune dysregulation, recurrent infections, and increased risk of malignancy. Clinical management is challenging. Rapamycin has been widely used off-label to control immune dysregulation, while the selective PI3Kδ inhibitor leniolisib has recently become available as a disease-specific targeted therapy. Real-world data on these treatment approaches remain limited.",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "Rapamycin (off-label) and/or leniolisib (PI3Kdelta inhibitor)",
+   "target": "PI3Kdelta / mTOR",
+   "species": "Human (retrospective registry, 95 APDS patients)",
+   "effect": "Both drugs were associated with similar response rates for lymphoproliferation (67% vs 64%); treatment-limiting adverse events occurred only with rapamycin."
+  },
   "entities": [
    {
     "id": "rapamycin",
     "name": "Rapamycin",
     "type": "Drug"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
    }
   ],
   "relations": {
@@ -44,10 +59,10 @@
   },
   "questions": [],
   "related_studies": [
-   "AWARE2026",
-   "BAR2023",
-   "BCH2026",
-   "BIT2016"
+   "CHEN2026B",
+   "CHE2009",
+   "CHI2012",
+   "DEL2011"
   ]
  }
 }

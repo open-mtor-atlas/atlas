@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,44 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2026.json",
   "abstract_excerpt": "mTOR inhibitors including everolimus and temsirolimus have been approved by US FDA for treatment of clear cell renal cell carcinoma (ccRCC) in clinic. However, resistance to these drugs has been inevitable and the underlying mechanism remains poorly understood. Histone modifier ZMYND8 paradoxically acts as a transcription coactivator or corepressor.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "SPOP or NEK7 inhibition, including a NEK7-targeting PROTAC combined with everolimus",
+   "target": "SPOP-ZMYND8-ZHX2-NEK7 axis driving p70S6K activation",
+   "species": "Human ccRCC cell lines; mouse xenografts",
+   "effect": "SPOP-driven ZMYND8 ubiquitination induces NEK7, which activates p70S6K independently of mTOR and confers mTOR-inhibitor resistance; NEK7 degradation restored everolimus sensitivity."
+  },
+  "entities": [
+   {
+    "id": "renal-cell-carcinoma-rcc",
+    "name": "Renal cell carcinoma (RCC)",
+    "type": "Disease"
+   },
+   {
+    "id": "everolimus",
+    "name": "Everolimus",
+    "type": "Drug"
+   },
+   {
+    "id": "temsirolimus",
+    "name": "Temsirolimus",
+    "type": "Drug"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "HUD2007",
+   "MOT2008",
+   "OKA2013",
+   "GUE2007"
+  ]
  }
 }

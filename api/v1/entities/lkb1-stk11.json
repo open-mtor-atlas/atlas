@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "A serine/threonine kinase that activates AMPK and acts upstream of mTOR to regulate cellular energy sensing, autophagy, and metabolism.",
-  "study_count": 1,
+  "study_count": 4,
   "relation_count": 1,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/lkb1-stk11/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/lkb1-stk11.json",
   "description_beginner": "An enzyme that switches on AMPK and, through it, helps regulate the cell's energy sensing, cleanup (autophagy), and metabolism - sitting upstream of the mTOR pathway.",
   "studies": [
@@ -40,6 +40,69 @@
     "finding": "LKB1/AMPK deficiency exacerbates trichloroethylene-induced liver injury by impairing mTOR-regulated mitophagy and causing mitochondrial DNA leakage; rapamycin and AMPK activation are protective, nominating the LKB1/AMPK/mTOR axis as a candidate therapeutic target in mice; no human data.",
     "url": "https://mtor-atlas.org/study/ZHU2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZHU2026.json"
+   },
+   {
+    "sid": "YAN2026B",
+    "title": "Hepassocin prevents age-related liver senescence and facilitates liver regeneration by activating AMPK",
+    "authors": "Yang Y; et al.; Yang X",
+    "year": 2026,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "doi": "10.1038/s41392-026-02773-7",
+    "pmid": "42736285",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Aged mice (12-month-old) and Hepassocin(Fgl1)-knockout mice, partial-hepatectomy liver regeneration model; correlative human liver tissue (aged vs young)",
+    "peer_reviewed": true,
+    "finding": "Hepassocin (HPS/FGL1), a hepatokine, activates AMPK via an ANXA2-ERK-p90RSK-LKB1 cascade, restraining mTOR activity. Aged HPS-knockout mice show reduced LKB1/AMPK activation and elevated mTOR activity, impaired autophagy, exacerbated cellular senescence, and severely compromised liver regeneration after partial hepatectomy. AMPK agonist AICAR or exogenous HPS rescued the aging/regeneration phenotype.",
+    "url": "https://mtor-atlas.org/study/YAN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YAN2026B.json"
+   },
+   {
+    "sid": "FOR2010",
+    "title": "Metformin inhibits hepatic gluconeogenesis in mice independently of the LKB1/AMPK pathway via a decrease in hepatic energy state",
+    "authors": "Foretz M; Hebrard S; Andreelli F; Viollet B et al.",
+    "year": 2010,
+    "journal": "The Journal of Clinical Investigation",
+    "doi": "10.1172/JCI40671",
+    "pmid": "20577053",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (liver-specific AMPK-null and LKB1-null); primary hepatocytes",
+    "peer_reviewed": true,
+    "finding": "The paper that broke the simple 'metformin works through AMPK' story. Metformin still suppressed hepatic glucose production in mice and hepatocytes lacking AMPK or LKB1, acting instead through a fall in hepatic energy charge. Any claim that metformin's benefit is AMPK-mediated has to answer this result.",
+    "url": "https://mtor-atlas.org/study/FOR2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FOR2010.json"
+   },
+   {
+    "sid": "SHW2004",
+    "title": "The tumor suppressor LKB1 kinase directly activates AMP-activated kinase and regulates apoptosis in response to energy stress",
+    "authors": "Shaw RJ; Kosmatka M; Bardeesy N; Cantley LC et al.",
+    "year": 2004,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.0308061100",
+    "pmid": "14985505",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "LKB1-null MEFs; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The paper that identified LKB1 as the upstream kinase for AMPK: LKB1 directly phosphorylates AMPK-alpha on Thr172, and LKB1-null cells cannot activate AMPK under energy stress. This is the canonical source for the LKB1 -> AMPK step that gates the whole energy-sensing arm upstream of mTORC1.",
+    "url": "https://mtor-atlas.org/study/SHW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHW2004.json"
    }
   ],
   "relations": [

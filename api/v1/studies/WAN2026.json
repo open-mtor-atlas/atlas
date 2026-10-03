@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,53 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2026.json",
   "abstract_excerpt": "Mechanistic target of rapamycin complex 1 (mTORC1) senses nutrient availability to orchestrate metabolic processes that are crucial for physiological homeostasis and ageing. mTORC1 preferentially regulates the translation of 5'-terminal oligopyrimidine (TOP) motif-containing mRNAs (which encode mainly ribosomal proteins) through the 4E-BP translational repressor; however, this function of mTORC1 is resistant to rapamycin inhibition.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "genetic ablation of Lsp2 in Drosophila; essential amino acid feeding; rapamycin comparison",
+   "target": "mTORC1 output to TOP-motif mRNA translation via 4E-BP",
+   "species": "Drosophila melanogaster",
+   "effect": "Loss of Lsp2 selectively reduced TOP mRNA translation in a 4E-BP-dependent way and robustly extended lifespan without impairing reproduction."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "5top-mrna",
+    "name": "5'TOP mRNA",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "MTORC1-LONGEVITY"
+   ],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H2"
+  ],
+  "related_studies": [
+   "FAN2026",
+   "PLEDGER2026",
+   "HSI2012",
+   "ZID2009"
+  ]
  }
 }

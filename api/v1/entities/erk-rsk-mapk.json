@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -21,9 +21,9 @@
    "Ras-MAPK"
   ],
   "description": "The Ras-MAPK growth-signalling arm. ERK and its effector RSK phosphorylate TSC2 and inactivate the TSC complex, so MAPK signalling converges on the same brake that Akt releases (MA2005). This is the third major upstream input to mTORC1 alongside PI3K/Akt and AMPK, and it is a route to mTORC1 activation that PI3K inhibitors do not close. mTORC1 inhibition also feeds back to activate MAPK (CAR2008).",
-  "study_count": 2,
-  "relation_count": 2,
-  "url": null,
+  "study_count": 4,
+  "relation_count": 3,
+  "url": "https://mtor-atlas.org/gene/erk-rsk-mapk/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/erk-rsk-mapk.json",
   "description_beginner": "A separate growth-signaling chain that reaches mTORC1 through its own route. Two of its members disable the TSC brake, the same brake that Akt also releases - so this is a third major way to switch mTORC1 on, one that drugs blocking PI3K don't touch. mTORC1 can also feed back and switch this chain on.",
   "studies": [
@@ -68,6 +68,48 @@
     "finding": "mTORC1 inhibition activates the MAPK pathway via a PI3K-dependent feedback loop in cancer.",
     "url": "https://mtor-atlas.org/study/CAR2008/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/CAR2008.json"
+   },
+   {
+    "sid": "ALI2020",
+    "title": "ERK2 phosphorylates PFAS to mediate posttranslational control of de novo purine synthesis",
+    "authors": "Ali ES; Sahu U; Villa E; O'Hara BP; Gao P; Beaudet C; Wood AW; Asara JM; Ben-Sahra I",
+    "year": 2020,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2020.05.001",
+    "pmid": "32485148",
+    "pmcid": "PMC7306006",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cells; tumor",
+    "peer_reviewed": true,
+    "finding": "The Atlas records several routes by which mTORC1 drives purine synthesis. This study shows mTORC1 is not the only growth pathway with that power: RAS-ERK signalling stimulates purine synthesis directly and within minutes, because ERK2 - but not ERK1 - phosphorylates the purine synthesis enzyme PFAS at Thr619. Cells expressing a PFAS that cannot be phosphorylated make fewer purines, form fewer colonies and grow smaller tumors. Two points bound the mTOR claim: the control is posttranslational, so it acts far faster than transcription or translation, and it is a parallel input, so purine synthesis in a RAS-driven tumor is not read out from mTORC1 activity alone.",
+    "url": "https://mtor-atlas.org/study/ALI2020/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2020.json"
+   },
+   {
+    "sid": "SUN2026B",
+    "title": "Phosphorylation of OTUB1 promotes autophagy initiation under starvation",
+    "authors": "Sun L; Lian J et al.",
+    "year": 2026,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-026-76796-7",
+    "pmid": "42736303",
+    "pmcid": "PMC13574767",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (Western diet / MASLD model); cultured cells (starvation)",
+    "peer_reviewed": true,
+    "finding": "Under starvation, ERK phosphorylates the deubiquitinase OTUB1 at S118, which stabilizes it by letting it out-compete TRIM29 for binding to ANXA2. Stabilized OTUB1 upregulates DEPTOR, a natural mTOR inhibitor, which suppresses mTOR and triggers autophagy. In mice, restoring this fasting-triggered ERK-OTUB1-DEPTOR-mTOR axis countered the mTOR-activating effect of a Western diet and eased MASLD (fatty liver disease) progression, giving a mechanistic account of how fasting benefits the liver.",
+    "url": "https://mtor-atlas.org/study/SUN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SUN2026B.json"
    }
   ],
   "relations": [
@@ -161,6 +203,52 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-MAPK.json"
+   },
+   {
+    "id": "ERK-NUCL",
+    "claim": "ERK / RSK (MAPK) activates Nucleotide synthesis",
+    "source": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "target": {
+     "name": "Nucleotide synthesis",
+     "entity": "nucleotide-synthesis"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "human cells",
+     "mouse xenograft"
+    ],
+    "mechanism": "ERK2 directly phosphorylates the purine-making enzyme PFAS within minutes, speeding de novo purine synthesis. This growth signal for DNA and RNA building blocks runs in parallel to mTORC1's own routes.",
+    "mechanism_beginner": "ERK2 switches on an enzyme that makes purines.",
+    "context": null,
+    "boundary": "Human cancer cell lines and xenograft tumours; ERK2, not ERK1; post-translational and parallel to mTORC1. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ALI2020"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-NUCL.json"
    }
   ]
  }

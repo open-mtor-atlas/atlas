@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Cap-binding protein that recruits the ribosome to an mRNA. Held hostage by 4E-BP1 until mTORC1 phosphorylates the latter - the rate-limiting step of cap-dependent translation.",
-  "study_count": 4,
+  "study_count": 7,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/eif4e/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/eif4e.json",
@@ -103,6 +103,69 @@
     "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
     "url": "https://mtor-atlas.org/study/HSI2012/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json"
+   },
+   {
+    "sid": "GIN1999",
+    "title": "Regulation of 4E-BP1 phosphorylation: a novel two-step mechanism",
+    "authors": "Gingras AC; Sonenberg N et al.",
+    "year": 1999,
+    "journal": "Genes & development",
+    "doi": "10.1101/gad.13.11.1422",
+    "pmid": "10364159",
+    "pmcid": "PMC316780",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "4E-BP1 is phosphorylated by an ordered, priming two-step mechanism that controls its release of eIF4E.",
+    "url": "https://mtor-atlas.org/study/GIN1999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GIN1999.json"
+   },
+   {
+    "sid": "FIN2002",
+    "title": "Mammalian cell size is controlled by mTOR and its downstream targets S6K1 and 4EBP1/eIF4E",
+    "authors": "Fingar DC; Blenis J et al.",
+    "year": 2002,
+    "journal": "Genes & development",
+    "doi": "10.1101/gad.995802",
+    "pmid": "12080086",
+    "pmcid": "PMC186342",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTOR controls mammalian cell size through its downstream translational targets S6K1 and 4E-BP1/eIF4E.",
+    "url": "https://mtor-atlas.org/study/FIN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FIN2002.json"
+   },
+   {
+    "sid": "BRU1997",
+    "title": "Phosphorylation of the translational repressor PHAS-I by the mammalian target of rapamycin",
+    "authors": "Brunn GJ; Abraham RT et al.",
+    "year": 1997,
+    "journal": "Science",
+    "doi": "10.1126/science.277.5322.99",
+    "pmid": "9204908",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293; in vitro",
+    "peer_reviewed": true,
+    "finding": "mTOR directly phosphorylates 4E-BP1 (PHAS-I), releasing eIF4E and establishing mTOR's role in translational control.",
+    "url": "https://mtor-atlas.org/study/BRU1997/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRU1997.json"
    }
   ],
   "relations": [
@@ -145,7 +208,8 @@
      "supporting": [
       "MAX2009",
       "THO2012",
-      "SCH2003"
+      "SCH2003",
+      "FIN2002"
      ],
      "conflicting": []
     },

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,34 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/CAR2017.json",
   "abstract_excerpt": "Mammalian target of rapamycin complex 1 (mTORC1) and cell senescence are intimately linked to each other and to organismal aging. Inhibition of mTORC1 is the best-known intervention to extend lifespan, and recent evidence suggests that clearance of senescent cells can also improve health and lifespan. Enhanced mTORC1 activity drives characteristic phenotypes of senescence, although the underlying mechanisms responsible for increased activity are not well understood.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Senescence induction (oxidative stress, replicative exhaustion, oncogene activation); serum and amino-acid starvation; correction of membrane depolarisation and cilia defects",
+   "target": "mTORC1 growth-factor and amino-acid sensing inputs",
+   "species": "Human fibroblasts",
+   "effect": "Senescent human fibroblasts keep mTORC1 constitutively active and starvation-resistant, and restoring pathway sensitivity killed the cells, suggesting persistent mTORC1 signalling supports senescent-cell survival."
+  },
+  "entities": [
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "CHE2009",
+   "CHEN2026C",
+   "CHU2019",
+   "COR2018"
+  ]
  }
 }

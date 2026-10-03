@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,46 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/ARI2015.json",
   "abstract_excerpt": "Chaperone-mediated autophagy (CMA), a selective form of degradation of cytosolic proteins in lysosomes, contributes to maintenance of proteostasis and to the cellular adaptation to stress. CMA substrates are delivered by a cytosolic chaperone to the lysosomal surface, where, upon unfolding, they are internalized through a membrane translocation complex. The molecular components that participate in CMA substrate targeting and translocation are well characterized, but those involved in CMA regulation remain mostly unknown.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Genetic and pharmacological manipulation of mTORC2, PHLPP1 and Akt",
+   "target": "Lysosomal mTORC2/PHLPP1/Akt axis; chaperone-mediated autophagy",
+   "species": "Mouse and rat liver; NIH3T3 cells",
+   "effect": "mTORC2 inhibits chaperone-mediated autophagy via lysosomal Akt, while PHLPP1 counteracts it."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "chaperone-mediated-autophagy",
+    "name": "Chaperone-mediated autophagy",
+    "type": "Biological process"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "MTORC2-AKT"
+   ],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "CHEN2026C",
+   "DAL2012",
+   "FEL2009",
+   "GAN2011"
+  ]
  }
 }

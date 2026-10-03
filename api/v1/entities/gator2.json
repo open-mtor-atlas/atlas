@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Pathway/Complex",
   "synonyms": [],
   "description": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.",
-  "study_count": 2,
+  "study_count": 4,
   "relation_count": 3,
-  "url": null,
+  "url": "https://mtor-atlas.org/complex/gator2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/gator2.json",
   "description_beginner": "A relay switch that reactivates mTORC1. Amino-acid sensors like Sestrin2 and CASTOR1 work by inhibiting it (when nutrients are scarce) or releasing it (when nutrients return), and it in turn keeps GATOR1 - mTORC1's main brake - in check.",
   "studies": [
@@ -61,6 +61,48 @@
     "finding": "Identified CASTOR1 as the direct arginine sensor: when arginine binds CASTOR1, it lets go of GATOR2, switching mTORC1 on. Together with Sestrin2 (leucine) this built the picture of mTORC1 as a cell that literally tastes individual amino acids.",
     "url": "https://mtor-atlas.org/study/CHA2016/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2016.json"
+   },
+   {
+    "sid": "SANG2026",
+    "title": "\"Trojan\" Methionine Probe Reveals PKM2 as a Methionine-Sensing Protein in the mTORC1 Pathway",
+    "authors": "Sang Z; Zheng Y; Wang X; Wu C; Zhao J; Wang JJ; Sui S; Wang J",
+    "year": 2026,
+    "journal": "Journal of the American Chemical Society",
+    "doi": "10.1021/jacs.6c06772",
+    "pmid": "42677553",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (chemoproteomics / photoaffinity probe)",
+    "peer_reviewed": true,
+    "finding": "Identifies PKM2 as a direct methionine sensor for mTORC1. A photoaffinity methionine analogue plus chemoproteomics showed that PKM2 binds free methionine through a distinct recognition pocket — independently of its glycolytic enzyme activity — and transduces methionine availability to mTORC1 via the GATOR2 complex. Complements SAMTOR (GU2017), which reads the methionine metabolite SAM rather than methionine itself, and suggests a route to a pharmacological \"methionine pseudostarvation\" state.",
+    "url": "https://mtor-atlas.org/study/SANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SANG2026.json"
+   },
+   {
+    "sid": "VAL2022",
+    "title": "Structure of the nutrient-sensing hub GATOR2",
+    "authors": "Valenstein ML; Rogala KB; Saxton RA; Chantranupong L; Sabatini DM et al.",
+    "year": 2022,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-04939-z",
+    "pmid": "35831510",
+    "pmcid": "PMC9464592",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 complex (cryo-EM)",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of human GATOR2: a 1.1 MDa, two-fold symmetric cage built on an octagonal scaffold decorated with eight pairs of WD40 beta-propellers, and a map of where Sestrin2 and CASTOR1 dock. It substantially advances the GATOR2 side of the sensor module, though how GATOR2 inhibits GATOR1 is still not fully settled.",
+    "url": "https://mtor-atlas.org/study/VAL2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2022.json"
    }
   ],
   "relations": [

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -36,12 +36,48 @@
    "species": "Mouse (muscle raptor/rictor KO)",
    "effect": "In mice, raptor loss (not rictor) causes progressive muscular dystrophy and metabolic changes – mTORC1 essential for muscle"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "mitochondrial-biogenesis",
+    "name": "Mitochondrial biogenesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "MTORC1-MITO",
+    "RAPTOR-MTORC1"
+   ],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H3"
+  ],
+  "related_studies": [
+   "CUN2007",
+   "SRI2026",
+   "GUE2006",
+   "EVA2026"
+  ]
  }
 }

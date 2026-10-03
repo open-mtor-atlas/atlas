@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -40,7 +40,28 @@
    "effect_size": "Median survival increased by 22% for males (p=0.02) and 19% for females (p=0.047); overall median survival 30.3 months for mTOR Δ/Δ vs 26.2 months for WT (p=0.0057)",
    "limitations": "Higher euthanasia rate for mTOR Δ/Δ mice due to severe infections (37% vs 17% WT, p<0.01); exacerbated age-dependent decrease in trabecular bone volume and increased age-dependent infections (mouth, eye, skin) in mTOR Δ/Δ mice"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
@@ -48,6 +69,11 @@
   "questions": [
    "H6"
   ],
-  "related_studies": []
+  "related_studies": [
+   "LAP2012",
+   "LIU2020",
+   "ARI2015",
+   "BAT2022"
+  ]
  }
 }

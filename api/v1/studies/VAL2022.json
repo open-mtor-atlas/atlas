@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -31,11 +31,28 @@
   "abstract_excerpt": "Mechanistic target of rapamycin complex 1 (mTORC1) controls growth by regulating anabolic and catabolic processes in response to environmental cues, including nutrients. Amino acids signal to mTORC1 through the Rag GTPases, which are regulated by several protein complexes, including GATOR1 and GATOR2. GATOR2, which has five components (WDR24, MIOS, WDR59, SEH1L and SEC13), is required for amino acids to activate mTORC1 and interacts with the leucine and arginine sensors SESN2 and CASTOR1, respectively.",
   "abstract_truncated": true,
   "extracted_findings": {
-   "target": "GATOR2 complex architecture; Sestrin2/CASTOR1 binding sites",
-   "species": "Human protein complex",
-   "effect": "Defines GATOR2 as a 1.1 MDa cage-like complex and maps the sensor-binding interfaces"
+   "intervention": "None (structural study)",
+   "target": "GATOR2 complex (with Sestrin2 and CASTOR1 binding sites)",
+   "species": "Recombinant human protein, cryo-EM",
+   "effect": "Structure of GATOR2 as a two-fold symmetric cage; maps where the leucine and arginine sensors dock"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "gator2",
+    "name": "GATOR2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "castor1",
+    "name": "CASTOR1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [
     "GATOR2-GATOR1"
@@ -43,6 +60,11 @@
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "CHA2016",
+   "WOLF2017",
+   "BAR2013",
+   "KUS2026"
+  ]
  }
 }

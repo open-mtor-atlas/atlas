@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,8 +14,8 @@
   "type": "Nutrient/Metabolite",
   "synonyms": [],
   "description": "Universal methyl donor whose level reports methionine availability. SAM binds SAMTOR, which otherwise inhibits mTORC1 through the GATOR1-KICSTOR complex.",
-  "study_count": 1,
-  "relation_count": 1,
+  "study_count": 2,
+  "relation_count": 2,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/s-adenosylmethionine-sam.json",
   "description_beginner": "A universal 'methyl donor' molecule whose level reflects how much of the amino acid methionine is available. It binds the sensor SAMTOR, which would otherwise keep mTORC1 suppressed.",
@@ -40,6 +40,27 @@
     "finding": "Extended nutrient sensing beyond amino acids to METABOLITES: SAMTOR reads S-adenosylmethionine (SAM), the cell's methyl-donor currency, linking methionine and one-carbon metabolism to mTORC1. Relevant to why methionine restriction affects aging.",
     "url": "https://mtor-atlas.org/study/GU2017/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/GU2017.json"
+   },
+   {
+    "sid": "VIL2021",
+    "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+    "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+    "year": 2021,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2021.03.009",
+    "pmid": "33756106",
+    "pmcid": "PMC8141029",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+    "url": "https://mtor-atlas.org/study/VIL2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json"
    }
   ],
   "relations": [
@@ -87,6 +108,52 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/SAM-SAMTOR.json"
+   },
+   {
+    "id": "MTORC1-SAM",
+    "claim": "mTORC1 activates S-adenosylmethionine (SAM)",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "S-adenosylmethionine (SAM)",
+     "entity": "s-adenosylmethionine-sam"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "human cells",
+     "mouse xenograft"
+    ],
+    "mechanism": "Active mTORC1, acting through the transcription factor c-MYC, raises production of MAT2A, the enzyme that makes SAM, so a growing cell makes more of its main methyl donor.",
+    "mechanism_beginner": "mTORC1 tells the cell to make more SAM.",
+    "context": null,
+    "boundary": "Human cell lines and mouse xenograft tumours; acts through c-MYC on MAT2A. Together with SAM-SAMTOR this forms a loop whose behaviour in normal tissue is untested. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "VIL2021"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-SAM.json"
    }
   ]
  }

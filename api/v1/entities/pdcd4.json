@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,8 +14,8 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Translation inhibitor that blocks the eIF4A helicase. S6K1 marks it for degradation, giving mTORC1 a second, 4E-BP-independent route to raising protein synthesis.",
-  "study_count": 1,
-  "relation_count": 2,
+  "study_count": 2,
+  "relation_count": 3,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/pdcd4.json",
   "description_beginner": "A protein that blocks the translation helper eIF4A. mTORC1's downstream partner S6K1 tags it for destruction, giving the pathway a second way - separate from 4E-BP1 - to boost protein production.",
@@ -40,6 +40,27 @@
     "finding": "S6K1 triggers betaTRCP-mediated degradation of the tumour suppressor PDCD4 to promote translation.",
     "url": "https://mtor-atlas.org/study/DOR2006/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/DOR2006.json"
+   },
+   {
+    "sid": "WANG2026B",
+    "title": "Pdcd4-Rictor interaction suppresses mTORC2-PFKFB3 axis and tumorigenesis in NSCLC.",
+    "authors": "Wang Q; Xin Y; Zokaei E et al.",
+    "year": 2026,
+    "journal": "Neoplasia",
+    "doi": "10.1016/j.neo.2026.101354",
+    "pmid": "42648032",
+    "pmcid": "PMC13544097",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "NSCLC cell lines; mouse xenograft; human tumour tissue",
+    "peer_reviewed": true,
+    "finding": "Pdcd4 binds Rictor via residues R105/K108/R110 to disrupt mTORC2 assembly and kinase activity, lowering PFKFB3 levels and suppressing glycolysis and NSCLC tumour growth.",
+    "url": "https://mtor-atlas.org/study/WANG2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026B.json"
    }
   ],
   "relations": [
@@ -132,6 +153,52 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+   },
+   {
+    "id": "PDCD4-MTORC2",
+    "claim": "PDCD4 inhibits mTORC2",
+    "source": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "target": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "effect": "inhibits",
+    "type": "complex-disassembly",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "human cells",
+     "mouse"
+    ],
+    "mechanism": "PDCD4 binds the mTORC2 subunit Rictor through three basic residues, which stops mTORC2 from assembling properly and lowers its kinase activity.",
+    "mechanism_beginner": "PDCD4 grabs Rictor and keeps mTORC2 from working.",
+    "context": null,
+    "boundary": "Human NSCLC cell lines and mouse xenografts; not shown in normal tissue. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WANG2026B"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-MTORC2.json"
    }
   ]
  }

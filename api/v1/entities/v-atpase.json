@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Vacuolar H+-ATPase; senses lysosomal amino acids from the inside and relays the signal to Ragulator-Rag to activate mTORC1.",
-  "study_count": 1,
+  "study_count": 4,
   "relation_count": 1,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/v-atpase/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/v-atpase.json",
   "description_beginner": "A proton pump on the lysosome that helps sense how many amino acids are inside, then passes that information along to the Ragulator-Rag system to help switch mTORC1 on.",
   "studies": [
@@ -40,6 +40,69 @@
     "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
     "url": "https://mtor-atlas.org/study/ZON2011/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Ktistakis NT et al.",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "ABU2017",
+    "title": "Lysosomal metabolomics reveals V-ATPase- and mTOR-dependent regulation of amino acid efflux from lysosomes",
+    "authors": "Abu-Remaileh M; Wyant GA; Kim C; Laqtom NN; Abbasi M; Chan SH; Freinkman E; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aan6298",
+    "pmid": "29074583",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (HEK293)",
+    "peer_reviewed": true,
+    "finding": "Turns the lysosome from a place where mTORC1 is switched on into something mTORC1 also controls: inhibiting mTOR strongly reduces the efflux of most essential amino acids out of the lysosome, so the organelle becomes a store rather than a source. Measured directly by rapidly isolating lysosomes and profiling their contents, which is why the claim is about concentrations inside the organelle and not inferred from signalling readouts. Boundary: one human cell line, acute pharmacological inhibition.",
+    "url": "https://mtor-atlas.org/study/ABU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ABU2017.json"
    }
   ],
   "relations": [

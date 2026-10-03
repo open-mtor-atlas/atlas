@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,39 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/NOL2026.json",
   "abstract_excerpt": "Rapamycin is a macrolide compound originally identified for its antifungal activity and subsequently recognized as a potent inhibitor of the mechanistic target of rapamycin (mTOR), a conserved signaling kinase that integrates nutrient availability, growth factor signals, and cellular stress responses to regulate cell growth and metabolism. This review examines rapamycin across biological and medical fields, covering its discovery, chemical and pharmacological properties, and the central role of mTOR as its primary molecular target.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "none (narrative review of rapamycin and rapalogs)",
+   "target": "mTOR signalling",
+   "species": "not applicable (review spanning preclinical and clinical literature)",
+   "effect": "Argues that mTOR inhibition is a unifying strategy across chronic disease and healthspan, while setting out the limitations and adverse effects of the approach."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "ALS2026",
+   "BAN2014",
+   "BAR2023",
+   "BIT2016"
+  ]
  }
 }

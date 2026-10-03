@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Nutrient/Metabolite",
   "synonyms": [],
   "description": "Branched-chain essential amino acid and the best-characterised nutrient input to mTORC1. Free leucine binds Sestrin2, releasing the GATOR2 brake; a competing model has leucyl-tRNA synthetase as the sensor instead.",
-  "study_count": 6,
+  "study_count": 11,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/nutrient/leucine/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/leucine.json",
@@ -145,6 +145,111 @@
     "finding": "TORCAR, the first genetically encoded FRET reporter of mTORC1 activity, lets mTORC1 be watched in living cells as it changes. It showed mTORC1 activity not only at the lysosome but also in the cytosol, nucleus and at the plasma membrane; growth factor spread activity widely, while a leucine surrogate kept it at the lysosome and nucleus. A growth-factor-induced calcium transient contributed to mTORC1 activity. The earliest live reader of mTORC1 held in the atlas.",
     "url": "https://mtor-atlas.org/study/ZHO2015/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2015.json"
+   },
+   {
+    "sid": "SIN2013",
+    "title": "Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation",
+    "authors": "Sinclair LV; Cantrell DA et al.",
+    "year": 2013,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2556",
+    "pmid": "23525088",
+    "pmcid": "PMC3672957",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse T cells",
+    "peer_reviewed": true,
+    "finding": "Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.",
+    "url": "https://mtor-atlas.org/study/SIN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2013.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Ktistakis NT et al.",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "RAO2026",
+    "title": "An SLC7A5-dependent nutrient-sensing circuit overcomes cisplatin tolerance via mTOR-autophagy signaling.",
+    "authors": "Rao P; Zhang T; Li Ju et al.",
+    "year": 2026,
+    "journal": "Biochemical and Biophysical Research Communications",
+    "doi": "10.1016/j.bbrc.2026.154478",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines (genome-wide CRISPR-Cas9 screen)",
+    "peer_reviewed": true,
+    "finding": "A genome-wide CRISPR screen found that mTOR inhibition promotes cisplatin tolerance by activating cytoprotective autophagy — the opposite of the canonical view. SLC7A5 integrates this mTOR-autophagy axis, and leucine supplementation resensitises SLC7A5-expressing tumour cells to cisplatin.",
+    "url": "https://mtor-atlas.org/study/RAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2026.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "DAL2016",
+    "title": "A systems study reveals concurrent activation of AMPK and mTOR by amino acids",
+    "authors": "Dalle Pezze P; Ruf S; Sonntag AG; Langelaar-Makkinje M; Hall P; Heberle AM; Razquin Navas P; van Eunen K; Tölle RC; Schwarz JJ; Wiese H; Warscheid B; Deitersen J; Stork B; Fäßler E; Schäuble S; Hahn U; Horvatovich P; Shanley DP; Thedieck K",
+    "year": 2016,
+    "journal": "Nature Communications",
+    "doi": "10.1038/ncomms13254",
+    "pmid": "27869123",
+    "pmcid": "PMC5121333",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; amino acid re-addition time courses, quantitative proteomics and dynamic modelling",
+    "peer_reviewed": true,
+    "finding": "Adding amino acids back to starved cells switched on AMPK, PI3K and mTORC2 acutely and independently of mTORC1, at the same time as mTOR. AMPK activation ran through CaMKK-beta and, under amino acid sufficiency, AMPK kept autophagy going via ULK1. So the textbook picture of AMPK and mTORC1 as simple opposites does not hold in the first minutes after feeding - which matters for how the AMPK-ULK1 feedback arm behaves over time.",
+    "url": "https://mtor-atlas.org/study/DAL2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2016.json"
    }
   ],
   "relations": [
@@ -226,12 +331,13 @@
     "evidence": {
      "kind": "Structural",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "WOL2015",
-      "SAX2015"
+      "SAX2015",
+      "SHIM2026"
      ],
      "conflicting": []
     },

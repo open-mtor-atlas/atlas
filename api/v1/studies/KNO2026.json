@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,38 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/KNO2026.json",
   "abstract_excerpt": "Despite widespread recommendations for higher protein intake during aging, increasing evidence suggests that dietary protein restriction (PR) promotes metabolic health, healthspan, and lifespan across diverse organisms. Mechanistic studies further demonstrate that restriction of specific amino acids, particularly methionine, isoleucine, and valine, recapitulates many of the benefits of PR, highlighting the specific amino acid composition of the diet as a key determinant of aging.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "None (narrative review) — synthesizes dietary protein restriction and restriction of methionine/isoleucine/valine",
+   "target": "Nutrient-sensing pathways including mTORC1",
+   "species": "Cross-species (yeast, worm, fly, rodent, human)",
+   "effect": "Protein restriction and restriction of specific essential amino acids improve metabolic health, healthspan and lifespan, with amino-acid composition (not just quantity) as a key determinant."
+  },
+  "entities": [
+   {
+    "id": "leucine-bcaa-restriction",
+    "name": "Leucine/BCAA restriction",
+    "type": "Intervention"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "macronutrient-ratio",
+    "name": "Macronutrient ratio",
+    "type": "Intervention"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "BAB2025",
+   "SIN2026",
+   "SOL2014"
+  ]
  }
 }

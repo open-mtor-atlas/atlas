@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,24 +30,41 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/KEL2026.json",
   "abstract_excerpt": "mTOR inhibitors such as rapamycin are among the most robust life-extending interventions known, yet the mechanisms underlying their geroprotective effects in humans remain incompletely understood. At non-immunosuppressive doses, these drugs are senomorphic, that is, they mitigate cellular senescence, but whether they protect genome stability itself has been unclear. Given that DNA damage is a major driver of immune ageing, and immune decline accelerates whole-organism ageing, we tested whether mTOR inhibition enhances genome stability.",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "Rapamycin and other mTOR inhibitors (ex vivo); low-dose oral rapamycin vs placebo (older adults)",
+   "target": "mTOR; DNA damage-induced senescence (p21)",
+   "species": "Human (T cells ex vivo; older adults in vivo)",
+   "effect": "mTOR inhibition reduced DNA lesion burden and senescence in T cells, and low-dose rapamycin lowered immune-cell p21 versus placebo."
+  },
   "entities": [
    {
     "id": "rapamycin",
     "name": "Rapamycin",
     "type": "Drug"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
    }
   ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
-  "questions": [],
+  "questions": [
+   "H10"
+  ],
   "related_studies": [
-   "AWARE2026",
-   "BAR2023",
-   "BCH2026",
-   "BIT2016"
+   "CHE2009",
+   "JIN2026C",
+   "CAR2017",
+   "CHEN2026C"
   ]
  }
 }

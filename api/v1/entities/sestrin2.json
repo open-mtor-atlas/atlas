@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Direct intracellular leucine sensor and a NEGATIVE regulator of mTORC1. When leucine is scarce, Sestrin2 binds and inhibits GATOR2, so GATOR1 stays active and keeps mTORC1 switched off. Leucine binding (~20 uM affinity) releases GATOR2 - the pathway is switched on by removing a brake, not by adding a signal. Sestrin2 does not act on the Rag GTPases directly; it works two steps upstream, through GATOR2 and GATOR1.",
-  "study_count": 2,
+  "study_count": 7,
   "relation_count": 3,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/sestrin2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/sestrin2.json",
   "description_beginner": "The main sensor that directly detects leucine inside the cell, and a brake on mTORC1. When leucine is scarce, it holds down GATOR2, which keeps GATOR1 active and mTORC1 switched off. Leucine coming back releases GATOR2, so this is a brake being lifted, not a new 'go' signal being added - and it works two steps upstream of the Rag GTPases, not directly on them.",
   "studies": [
@@ -61,6 +61,111 @@
     "finding": "An early study linking Sestrin, later identified as a leucine sensor in mammals, to age-associated pathology in flies (fat accumulation, mitochondrial dysfunction, muscle and cardiac decline), prevented by TOR inhibition or AMPK activation. Sestrin sits in a negative feedback loop: TOR activity drives Sestrin expression, and Sestrin inhibits TOR back.",
     "url": "https://mtor-atlas.org/study/LEE2010/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/LEE2010.json"
+   },
+   {
+    "sid": "DEMMINGS2026",
+    "title": "ATF4 activates a transcriptional program that chronically suppresses mTOR activity and promotes neurodegeneration in Parkinson disease models",
+    "authors": "Demmings MD; Kane EA; Tennyson EC; Hurley K; Zhao J; Cruickshanks NA; Ciz V; Krupa JM; Pasternak SH; Cregan SP",
+    "year": 2026,
+    "journal": "Cell Reports",
+    "doi": "10.1016/j.celrep.2026.117832",
+    "pmid": "42599806",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (neurotoxin and alpha-synucleinopathy PD models) and cultured neurons",
+    "peer_reviewed": true,
+    "finding": "Chronic integrated-stress-response signalling through ATF4 coordinately upregulates SESN2, DDIT4 and Trib3, which together suppress BOTH mTORC1 and mTORC2; this sustained mTOR inhibition drives dopaminergic neuron death via the pro-apoptotic BCL-2 family protein PUMA. Defines a maladaptive ISR/ATF4-to-mTOR axis in Parkinson disease models — a case where LESS mTOR activity is harmful, opposite to the usual longevity framing.",
+    "url": "https://mtor-atlas.org/study/DEMMINGS2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEMMINGS2026.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Ktistakis NT et al.",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "WOLF2017",
+    "title": "The Dawn of the Age of Amino Acid Sensors for the mTORC1 Pathway",
+    "authors": "Wolfson RL; Sabatini DM et al.",
+    "year": 2017,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2017.07.001",
+    "pmid": "28768171",
+    "pmcid": "PMC5560103",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of the newly discovered amino-acid sensors feeding into mTORC1.",
+    "url": "https://mtor-atlas.org/study/WOLF2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WOLF2017.json"
+   },
+   {
+    "sid": "VAL2022",
+    "title": "Structure of the nutrient-sensing hub GATOR2",
+    "authors": "Valenstein ML; Rogala KB; Saxton RA; Chantranupong L; Sabatini DM et al.",
+    "year": 2022,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-04939-z",
+    "pmid": "35831510",
+    "pmcid": "PMC9464592",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 complex (cryo-EM)",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of human GATOR2: a 1.1 MDa, two-fold symmetric cage built on an octagonal scaffold decorated with eight pairs of WD40 beta-propellers, and a map of where Sestrin2 and CASTOR1 dock. It substantially advances the GATOR2 side of the sensor module, though how GATOR2 inhibits GATOR1 is still not fully settled.",
+    "url": "https://mtor-atlas.org/study/VAL2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2022.json"
    }
   ],
   "relations": [
@@ -97,12 +202,13 @@
     "evidence": {
      "kind": "Structural",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "WOL2015",
-      "SAX2015"
+      "SAX2015",
+      "SHIM2026"
      ],
      "conflicting": []
     },

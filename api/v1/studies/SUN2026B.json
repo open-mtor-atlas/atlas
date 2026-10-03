@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,44 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/SUN2026B.json",
   "abstract_excerpt": "Eukaryotes initiate autophagy in response to environmental challenges such as nutrient deprivation. However, the mechanisms governing autophagy initiation remain incompletely understood. Here, we demonstrated that OTUB1 phosphorylation plays a key role in starvation-induced autophagy initiation. Specifically, ERK phosphorylates OTUB1 at S118 during starvation. This phosphorylation enables competitive binding of ANXA2 to OTUB1, disrupting its interaction with TRIM29 and enhancing OTUB1 stability. Stabilized OTUB1 upregulated DEPTOR, thereby inhibiting mTOR and inducing autophagy.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Starvation/fasting; OTUB1 S118 phosphomutants; Western diet in mice",
+   "target": "ERK-OTUB1-DEPTOR-mTOR-autophagy axis",
+   "species": "Cultured cells; mouse (Western diet MASLD model)",
+   "effect": "ERK-phosphorylated OTUB1 stabilises DEPTOR, inhibiting mTOR and initiating autophagy; restoring the axis eased MASLD in mice."
+  },
+  "entities": [
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "deptor",
+    "name": "DEPTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   },
+   {
+    "id": "erk-rsk-mapk",
+    "name": "ERK / RSK (MAPK)",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "PET2009",
+   "ALI2020",
+   "CAR2008",
+   "MA2005"
+  ]
  }
 }

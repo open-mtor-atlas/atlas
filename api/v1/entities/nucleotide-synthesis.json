@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,8 +14,8 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "De novo purine and pyrimidine production. mTORC1 matches supply to demand here, which is why proliferating cells are so dependent on it.",
-  "study_count": 4,
-  "relation_count": 2,
+  "study_count": 6,
+  "relation_count": 3,
   "url": "https://mtor-atlas.org/process/nucleotide-synthesis/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/nucleotide-synthesis.json",
   "description_beginner": "Building the raw materials (DNA/RNA letters) from scratch. mTORC1 ramps this up to match how fast a cell is dividing, which is a big part of why rapidly growing cells depend on mTOR so heavily.",
@@ -103,6 +103,48 @@
     "finding": "Quantitative phosphoproteomics show mTORC1 activates de novo pyrimidine synthesis.",
     "url": "https://mtor-atlas.org/study/ROB2013/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ROB2013.json"
+   },
+   {
+    "sid": "ALI2020",
+    "title": "ERK2 phosphorylates PFAS to mediate posttranslational control of de novo purine synthesis",
+    "authors": "Ali ES; Sahu U; Villa E; O'Hara BP; Gao P; Beaudet C; Wood AW; Asara JM; Ben-Sahra I",
+    "year": 2020,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2020.05.001",
+    "pmid": "32485148",
+    "pmcid": "PMC7306006",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cells; tumor",
+    "peer_reviewed": true,
+    "finding": "The Atlas records several routes by which mTORC1 drives purine synthesis. This study shows mTORC1 is not the only growth pathway with that power: RAS-ERK signalling stimulates purine synthesis directly and within minutes, because ERK2 - but not ERK1 - phosphorylates the purine synthesis enzyme PFAS at Thr619. Cells expressing a PFAS that cannot be phosphorylated make fewer purines, form fewer colonies and grow smaller tumors. Two points bound the mTOR claim: the control is posttranslational, so it acts far faster than transcription or translation, and it is a parallel input, so purine synthesis in a RAS-driven tumor is not read out from mTORC1 activity alone.",
+    "url": "https://mtor-atlas.org/study/ALI2020/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2020.json"
+   },
+   {
+    "sid": "ALI2022",
+    "title": "The mTORC1-SLC4A7 axis stimulates bicarbonate import to enhance de novo nucleotide synthesis",
+    "authors": "Ali ES; Lipońska A; O'Hara BP; Amici DR; Torno MD; Gao P; Asara JM; Yap MF; Mendillo ML; Ben-Sahra I",
+    "year": 2022,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2022.06.008",
+    "pmid": "35772404",
+    "pmcid": "PMC9444906",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "Building a nucleotide needs a carbon donor, and cells get it from bicarbonate dissolved in their surroundings. This study shows mTORC1 does not just switch on the nucleotide enzymes - it also arranges the delivery of the raw material. Through S6K and the translation factor eIF4B, mTORC1 selectively increases translation of the mRNA for SLC4A7, a sodium-bicarbonate cotransporter, so more bicarbonate is pulled into the cell. Removing SLC4A7 from cells with hyperactive mTORC1 cut flux through both de novo purine and pyrimidine synthesis and slowed cell and tumor growth, without changing intracellular pH - so the transporter matters as a supply line, not as a pH regulator. A fourth distinct route by which mTORC1 feeds nucleotide synthesis, alongside CAD (BEN2013), the mitochondrial folate cycle (BEN2016) and demand coupling (VAL2017).",
+    "url": "https://mtor-atlas.org/study/ALI2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2022.json"
    }
   ],
   "relations": [
@@ -144,7 +186,8 @@
      },
      "supporting": [
       "VAL2017",
-      "BEN2016"
+      "BEN2016",
+      "ALI2022"
      ],
      "conflicting": []
     },
@@ -190,13 +233,60 @@
      },
      "supporting": [
       "BEN2013",
-      "ROB2013"
+      "ROB2013",
+      "ALI2022"
      ],
      "conflicting": []
     },
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-NUCL.json"
+   },
+   {
+    "id": "ERK-NUCL",
+    "claim": "ERK / RSK (MAPK) activates Nucleotide synthesis",
+    "source": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "target": {
+     "name": "Nucleotide synthesis",
+     "entity": "nucleotide-synthesis"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "human cells",
+     "mouse xenograft"
+    ],
+    "mechanism": "ERK2 directly phosphorylates the purine-making enzyme PFAS within minutes, speeding de novo purine synthesis. This growth signal for DNA and RNA building blocks runs in parallel to mTORC1's own routes.",
+    "mechanism_beginner": "ERK2 switches on an enzyme that makes purines.",
+    "context": null,
+    "boundary": "Human cancer cell lines and xenograft tumours; ERK2, not ERK1; post-translational and parallel to mTORC1. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ALI2020"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-NUCL.json"
    }
   ]
  }

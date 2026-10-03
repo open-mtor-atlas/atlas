@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -31,11 +31,27 @@
   "abstract_excerpt": "Tuberous sclerosis (TSC) is a tumor syndrome caused by mutation in TSC1 or TSC2 genes. TSC tumorigenesis is not always accompanied by loss of heterozygosity (LOH). Recently, extracellular signal-regulated kinase (Erk) has been found activated in TSC lesions lacking TSC1 or TSC2 LOH. Here, we show that Erk may play a critical role in TSC progression through posttranslational inactivation of TSC2. Erk-dependent phosphorylation leads to TSC1-TSC2 dissociation and markedly impairs TSC2 ability to inhibit mTOR signaling, cell proliferation, and oncogenic transformation.",
   "abstract_truncated": true,
   "extracted_findings": {
-   "target": "ERK -> TSC2 (Ser664) -> mTORC1",
-   "species": "Mammalian cells",
-   "effect": "ERK phosphorylates TSC2 and inactivates the TSC complex, activating mTORC1 independently of Akt"
+   "intervention": "ERK activation; ERK-nonphosphorylatable TSC2 mutant",
+   "target": "ERK -> TSC2 -> mTORC1",
+   "species": "Mammalian cells; TSC2+/- tumour cells",
+   "effect": "ERK phosphorylates TSC2, splits TSC1-TSC2 and weakens its brake on mTORC1, promoting proliferation and transformation"
   },
   "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   },
    {
     "id": "erk-rsk-mapk",
     "name": "ERK / RSK (MAPK)",
@@ -50,7 +66,10 @@
   },
   "questions": [],
   "related_studies": [
-   "CAR2008"
+   "ALI2020",
+   "CAR2008",
+   "SUN2026B",
+   "EHN2008"
   ]
  }
 }

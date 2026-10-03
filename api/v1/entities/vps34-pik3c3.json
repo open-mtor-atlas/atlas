@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -19,12 +19,55 @@
    "VPS34"
   ],
   "description": "The class III phosphatidylinositol 3-kinase and the main source of PI(3)P (class II PI3Ks make local pools of it too). It has two jobs that meet in the Atlas: it is required to build the autophagosome, and it was reported as a nutrient-regulated input to mTORC1 that runs separately from the insulin/class I PI3K route (BYF2005, NOB2005). The relationship between that input and the later Rag/Ragulator account of amino acid sensing is unresolved.",
-  "study_count": 0,
+  "study_count": 2,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/vps34-pik3c3.json",
   "description_beginner": "An enzyme that tags membranes with a small chemical label. Cells need it to build the bag that swallows worn-out parts during autophagy, and some experiments say it also helps tell mTOR that amino acids are around, by a different route than insulin uses.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "BYF2005",
+    "title": "hVps34 is a nutrient-regulated lipid kinase required for activation of p70 S6 kinase",
+    "authors": "Byfield MP; Murray JT; Backer JM",
+    "year": 2005,
+    "journal": "J Biol Chem",
+    "doi": "10.1074/jbc.M507201200",
+    "pmid": "16049009",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and hamster cell lines (HeLa, CHO)",
+    "peer_reviewed": true,
+    "finding": "Opens a second, non-canonical route by which amino acids reach mTORC1. The class III PI 3-kinase hVps34 is switched off by amino acid or glucose starvation and by AMPK activation, and is required for S6K1 and 4E-BP1 phosphorylation, yet it sits outside the insulin/class I PI3K input (it does not affect Akt or TSC2 phosphorylation). Boundary: cell lines and knockdown/overexpression only; the step is nutrient-regulated but the sensor itself is not identified.",
+    "url": "https://mtor-atlas.org/study/BYF2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BYF2005.json"
+   },
+   {
+    "sid": "NOB2005",
+    "title": "Amino acids mediate mTOR/raptor signaling through activation of class 3 phosphatidylinositol 3OH-kinase",
+    "authors": "Nobukuni T; Joaquin M; Roccio M; Dann SG; Kim SY; Gulati P; Byfield MP; Backer JM; Natt F; Bos JL; Zwartkruis FJ; Thomas G",
+    "year": 2005,
+    "journal": "Proc Natl Acad Sci U S A",
+    "doi": "10.1073/pnas.0506925102",
+    "pmid": "16176982",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines",
+    "peer_reviewed": true,
+    "finding": "The companion paper to BYF2005, from a different laboratory: the amino acid input to mTORC1 is separate from the insulin input and runs through class 3 PI3K (hVps34), not through class 1 PI3K. Historically important because it states that the amino acid branch is the older one and that insulin signalling was grafted onto it. Boundary: cell lines, pharmacological and knockdown evidence; the later Rag/Ragulator account describes a different route to the same target and the two have never been fully reconciled.",
+    "url": "https://mtor-atlas.org/study/NOB2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOB2005.json"
+   }
+  ],
   "relations": []
  }
 }

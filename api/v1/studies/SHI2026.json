@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,44 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/SHI2026.json",
   "abstract_excerpt": "Dietary restriction (DR) protects against metabolic disease, extends lifespan, and is associated with remodeling of tissue reactive oxygen species (ROS). ROS control biological adaptation through reversible oxidation of protein cysteines, yet the targets of DR-initiated redox signaling are unknown. Here we generate OxiDR, a tissue-resolved atlas of the cysteine redox proteome that quantifies oxidation state under DR.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Dietary restriction; ATG5 Cys19 redox-dead mutation",
+   "target": "ATG5 Cys19 oxidation; autophagy",
+   "species": "Human cell lines and mice",
+   "effect": "Oxidation of ATG5 Cys19 was required for nutrient-restriction-induced autophagy; mice lacking it developed tissue pathology and early death."
+  },
+  "entities": [
+   {
+    "id": "atg5",
+    "name": "Atg5",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "caloric-restriction",
+    "name": "Caloric restriction",
+    "type": "Intervention"
+   },
+   {
+    "id": "reactive-oxygen-species",
+    "name": "Reactive oxygen species",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "EIS2016",
+   "PYO2013",
+   "CHE2008",
+   "JIN2026"
+  ]
  }
 }

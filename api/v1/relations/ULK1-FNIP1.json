@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ULK1-FNIP1",
+  "claim": "ULK1 inhibits FLCN / FNIP1/2",
+  "source": {
+   "name": "ULK1",
+   "entity": "ulk1"
+  },
+  "target": {
+   "name": "FLCN / FNIP1/2",
+   "entity": "flcn-fnip1-2"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+  "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+  "context": null,
+  "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+  "note": null,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "ESP2026"
+   ],
+   "conflicting": []
+  },
+  "reviewed": "2026-07-29",
+  "updated": "2026-07-29",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
+ }
+}

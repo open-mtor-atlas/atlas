@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,41 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/EIS2009.json",
   "abstract_excerpt": "Ageing results from complex genetically and epigenetically programmed processes that are elicited in part by noxious or stressful events that cause programmed cell death. Here, we report that administration of spermidine, a natural polyamine whose intracellular concentration declines during human ageing, markedly extended the lifespan of yeast, flies and worms, and human immune cells. In addition, spermidine administration potently inhibited oxidative stress in ageing mice.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "spermidine administration; depletion of endogenous polyamines; autophagy gene disruption",
+   "target": "autophagy, via histone acetyltransferase inhibition and histone H3 deacetylation",
+   "species": "yeast, Drosophila, C. elegans, human immune cells, and ageing mice for oxidative stress only",
+   "effect": "Spermidine extended lifespan in yeast, flies and worms and raised autophagy, and the longevity benefit was lost when autophagy was disabled."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "spermidine",
+    "name": "Spermidine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H4"
+  ],
+  "related_studies": [
+   "EIS2016",
+   "BJE2010",
+   "HAN2008",
+   "LIU2020"
+  ]
  }
 }

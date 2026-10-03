@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Cap-dependent translation - the main output mTORC1 exists to control, and the step where a signalling decision becomes physical growth.",
-  "study_count": 6,
+  "study_count": 15,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/process/protein-synthesis/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/protein-synthesis.json",
@@ -145,6 +145,195 @@
     "finding": "mTORC1 inhibition does not restore ribosome biogenesis but redistributes limited ribosomes away from highly-translated 5'TOP mRNAs toward survival-essential transcripts, defining a 'translational fitness' mechanism that lets cancer cells survive ribosome biogenesis deficiency.",
     "url": "https://mtor-atlas.org/study/FAN2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/FAN2026.json"
+   },
+   {
+    "sid": "VIL2021",
+    "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+    "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+    "year": 2021,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2021.03.009",
+    "pmid": "33756106",
+    "pmcid": "PMC8141029",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+    "url": "https://mtor-atlas.org/study/VIL2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json"
+   },
+   {
+    "sid": "SPA2023",
+    "title": "Continuous sensing of nutrients and growth factors by the mTORC1-TFEB axis",
+    "authors": "Sparta B; Albeck JG et al.",
+    "year": 2023,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.74903",
+    "pmid": "37698461",
+    "pmcid": "PMC10547473",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MCF10A cells (live single-cell imaging, fluorescent TFEB fusions)",
+    "peer_reviewed": true,
+    "finding": "Live imaging of single MCF10A cells shows mTORC1-TFEB signalling adjusts continuously to amino acids and insulin, given alone, one after another or together; at physiological amino acid levels TFEB, AMPK and AKT activity fluctuate in step, and these graded changes track protein synthesis rate through a distributed set of mTORC1 effectors.",
+    "url": "https://mtor-atlas.org/study/SPA2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SPA2023.json"
+   },
+   {
+    "sid": "LIP2015",
+    "title": "The Circadian Protein BMAL1 Regulates Translation in Response to S6K1-Mediated Phosphorylation",
+    "authors": "Lipton JO; Yuan ED; Boyle LM; Ebrahimi-Fakhari D; Kwiatkowski E; Nathan A; Güttler T; Davis F; Asara JM; Sahin M",
+    "year": 2015,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2015.04.002",
+    "pmid": "25981667",
+    "pmcid": "PMC4447213",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse tissues and cultured cells",
+    "peer_reviewed": true,
+    "finding": "S6K1, a main output of mTORC1, phosphorylates the clock protein BMAL1 rhythmically, and that phosphorylation lets BMAL1 join the translation machinery and drive protein synthesis. Protein synthesis rates oscillated over the day in a BMAL1-dependent way. A direct molecular bridge between mTORC1 output and the 24-hour clock.",
+    "url": "https://mtor-atlas.org/study/LIP2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LIP2015.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "WAN2026",
+    "title": "Lsp2 links mTORC1 to TOP mRNA translation and lifespan in Drosophila",
+    "authors": "Wang J; Cai Z; Gu J; Xiong S; Yi J; Yang M; Chang K; Ning X; Wen Y; Yan Y; Lu J; Wang Y; Zhai Z",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11029-x",
+    "pmid": "42778591",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila melanogaster — Lsp2 genetic ablation, lifespan assay, translatomic (ribosome profiling) analysis",
+    "peer_reviewed": true,
+    "finding": "Identifies Lsp2, a Drosophila fat-body storage protein, as an amino-acid-induced feedback activator of mTORC1 that specifically boosts translation of TOP-motif mRNAs (mostly ribosomal proteins) via 4E-BP — a rapamycin-resistant arm of mTORC1 output. Genetic loss of Lsp2 reduces TOP mRNA translation and robustly extends lifespan without cost to reproduction, revealing a rapamycin-independent route from mTORC1 activity to organismal longevity.",
+    "url": "https://mtor-atlas.org/study/WAN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2026.json"
+   },
+   {
+    "sid": "DEM2026",
+    "title": "IDH3 regulates citrate homeostasis to control metabolic fitness and venetoclax resistance of AML stem cells",
+    "authors": "Demir A; Mönnig M; Aroua N; Besiridou E; Schmidt V; et al.; Raffel S",
+    "year": 2026,
+    "journal": "Blood",
+    "doi": "10.1182/blood.2026034181",
+    "pmid": "42752592",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human AML patient samples, bone marrow organoids, xenograft mice",
+    "peer_reviewed": true,
+    "finding": "IDH3A loss in AML leukemic stem cells reduces TCA cycle flux and raises intracellular citrate, activating AMPK and suppressing mTORC1 (lowering translation), which sensitizes cells to BCL2 inhibition by venetoclax - nominating the IDH3A-citrate-AMPK-mTORC1 axis as a target to overcome venetoclax/azacitidine resistance.",
+    "url": "https://mtor-atlas.org/study/DEM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2026.json"
+   },
+   {
+    "sid": "TIW2026",
+    "title": "Firefox, a protein encoded by circular RNA circPVT1, is essential for MYC-driven oncogenesis",
+    "authors": "Tiwari A, Paithane U, Tashiro K, Hall B, Friedlein J, Saraswat M, Saulnier O, Barbosa K, Trinh Q, Bagchi A, et al.",
+    "year": 2026,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.353355.125",
+    "pmid": "42618323",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MYC-amplified cancer cell lines; xenograft mouse models",
+    "peer_reviewed": true,
+    "finding": "A micropeptide (Firefox/FFX) encoded by the circular RNA circPVT1 stimulates AKT-mTORC1 signaling and cap-dependent translation to sustain MYC protein abundance and transcriptional output. FFX depletion reduces MYC levels and impairs tumor growth in MYC-amplified xenograft models, identifying an mTORC1-linked vulnerability in MYC-driven cancers.",
+    "url": "https://mtor-atlas.org/study/TIW2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TIW2026.json"
+   },
+   {
+    "sid": "LAP2026",
+    "title": "Feeding-Induced Muscle mTORC1 Signaling Regulates Postprandial Protein Synthesis and Endurance but Not Muscle Size",
+    "authors": "Lapp SC; Kalafut KC; Cissé MY; Tighanimine K; Rosenthal DM; Doxsey W; Hui S; Inouye KE; Morrow CE; Cormerais Y; Manning BD",
+    "year": 2026,
+    "journal": "JCI insight",
+    "doi": "10.1172/jci.insight.210523",
+    "pmid": "42720990",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "SkM-TSC2-5A knock-in mice (AKT-phosphorylation-resistant TSC2, skeletal muscle-specific) vs SkM-TSC2-WT littermates, both sexes",
+    "peer_reviewed": true,
+    "finding": "Using a mouse model expressing an AKT-nonphosphorylatable TSC2 mutant specifically in skeletal muscle, the Manning lab genetically separated feeding-induced from contraction-induced mTORC1 activation. AKT-mediated TSC2 phosphorylation is required for feeding (but not contraction) to activate muscle mTORC1 and drive postprandial protein synthesis — yet mice lacking this feeding-induced signal have normal muscle mass and myofiber size, and instead show improved maximal endurance capacity with a modest rise in mitochondrial content. The finding dissociates mTORC1's role in postprandial anabolism from its role in maintaining steady-state muscle mass, and is a directly relevant data point for whether the pattern/source of mTORC1 activation (feeding vs. mechanical) — not just its average level — shapes downstream outcomes.",
+    "url": "https://mtor-atlas.org/study/LAP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAP2026.json"
+   },
+   {
+    "sid": "HAL2026",
+    "title": "5-Fluorouracil-based chemotherapy disrupts autophagy flux and protein synthesis in cultured myotubes: a role for mTORC1 signaling",
+    "authors": "Halle JL; Zhang Q; Jenkins T; Carson JA",
+    "year": 2026,
+    "journal": "American Journal of Physiology-Cell Physiology",
+    "doi": "10.1152/ajpcell.00321.2026",
+    "pmid": "42734427",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C2C12 mouse myotubes (in vitro), with and without CT26 colon-tumor-cell-conditioned media",
+    "peer_reviewed": true,
+    "finding": "FOLFOX and oxaliplatin disrupted mTORC1/AMPK regulation of autophagy flux and protein synthesis in cultured myotubes; the effect was not easily reversible on drug withdrawal. Rapamycin (but not metformin) restored autophagy flux and AMPK phosphorylation, though without restoring protein synthesis.",
+    "url": "https://mtor-atlas.org/study/HAL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAL2026.json"
    }
   ],
   "relations": [
@@ -282,7 +471,9 @@
       "ROM2001",
       "DRU2009"
      ],
-     "conflicting": []
+     "conflicting": [
+      "LAP2026"
+     ]
     },
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",

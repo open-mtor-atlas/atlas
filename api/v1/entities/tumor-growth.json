@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "The shared endpoint of the pathway's oncogenic lesions, and the outcome every mTOR inhibitor trial in this Atlas was actually measuring.",
-  "study_count": 5,
+  "study_count": 11,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/process/tumor-growth/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tumor-growth.json",
@@ -124,6 +124,132 @@
     "finding": "In syngeneic TP53-mutant HNSCC mouse models, the mTOR inhibitor everolimus reprogrammed the immune-cold tumor microenvironment: it increased CD8+ T cell and dendritic cell infiltration, reduced Tregs and HIF-1α/VEGFA-driven MDSC recruitment, boosted TNF-α/CXCL10 chemokine signaling, and reduced PD-1/PD-L1 expression — restoring T-cell cytotoxic competence and suppressing tumor growth.",
     "url": "https://mtor-atlas.org/study/NAT2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/NAT2026.json"
+   },
+   {
+    "sid": "VIL2021",
+    "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+    "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+    "year": 2021,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2021.03.009",
+    "pmid": "33756106",
+    "pmcid": "PMC8141029",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+    "url": "https://mtor-atlas.org/study/VIL2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json"
+   },
+   {
+    "sid": "ZHANG2026",
+    "title": "Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.",
+    "authors": "Zhang C; Chao X; Williams SN; Wei X; DiGirolamo A; et al.",
+    "year": 2026,
+    "journal": "The Journal of clinical investigation",
+    "doi": "10.1172/JCI206334",
+    "pmid": "42560776",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse + Human (HCC)",
+    "peer_reviewed": true,
+    "finding": "TSC1 loss drives non-canonical mTORC1-mediated TFEB nuclear translocation, promoting hepatocyte-to-biliary plasticity and spontaneous aggressive HCC in mice; Tsc1/Tfeb double knockout rescues the phenotype.",
+    "url": "https://mtor-atlas.org/study/ZHANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026.json"
+   },
+   {
+    "sid": "INO2006",
+    "title": "TSC2 integrates Wnt and energy signals via a coordinated phosphorylation by AMPK and GSK3 to regulate cell growth",
+    "authors": "Inoki K; Guan KL et al.",
+    "year": 2006,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2006.06.055",
+    "pmid": "16959574",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "TSC2 integrates Wnt and energy signals through coordinated AMPK and GSK3 phosphorylation.",
+    "url": "https://mtor-atlas.org/study/INO2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/INO2006.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "OKI2021",
+    "title": "Imaging dynamic mTORC1 pathway activity in vivo reveals marked shifts that support time-specific inhibitor therapy in AML",
+    "authors": "Oki T; Scadden DT et al.",
+    "year": 2021,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-020-20491-8",
+    "pmid": "33431855",
+    "pmcid": "PMC7801403",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse AML model; intravital imaging of bone marrow with fluorescent probes",
+    "peer_reviewed": true,
+    "finding": "Fluorescent probes imaged in the bone marrow of live mice show mTORC1 activity in AML cells falls as the disease progresses but is high at the moment of maximal chemotherapy response, where it is induced rather than selected; inhibiting mTORC1 at that time improved killing of AML cells.",
+    "url": "https://mtor-atlas.org/study/OKI2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/OKI2021.json"
+   },
+   {
+    "sid": "TIW2026",
+    "title": "Firefox, a protein encoded by circular RNA circPVT1, is essential for MYC-driven oncogenesis",
+    "authors": "Tiwari A, Paithane U, Tashiro K, Hall B, Friedlein J, Saraswat M, Saulnier O, Barbosa K, Trinh Q, Bagchi A, et al.",
+    "year": 2026,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.353355.125",
+    "pmid": "42618323",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MYC-amplified cancer cell lines; xenograft mouse models",
+    "peer_reviewed": true,
+    "finding": "A micropeptide (Firefox/FFX) encoded by the circular RNA circPVT1 stimulates AKT-mTORC1 signaling and cap-dependent translation to sustain MYC protein abundance and transcriptional output. FFX depletion reduces MYC levels and impairs tumor growth in MYC-amplified xenograft models, identifying an mTORC1-linked vulnerability in MYC-driven cancers.",
+    "url": "https://mtor-atlas.org/study/TIW2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TIW2026.json"
    }
   ],
   "relations": [
@@ -161,13 +287,16 @@
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "HSI2010",
       "HSI2012",
-      "VAL2017"
+      "VAL2017",
+      "INO2006",
+      "FER2026",
+      "OKI2021"
      ],
      "conflicting": []
     },

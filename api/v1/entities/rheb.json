@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Small GTPase that directly activates mTORC1 when in its GTP-bound state; held inactive by TSC1/TSC2.",
-  "study_count": 10,
+  "study_count": 14,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/rheb/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/rheb.json",
@@ -229,6 +229,90 @@
     "finding": "3.2-angstrom cryo-EM structure of Raptor bound to Rag-Ragulator, showing how Raptor reads out the nutrient-dependent nucleotide state of the Rag GTPases: one part of Raptor senses RagA's nucleotide state, a separate 'claw' senses RagC's, and both have to be in the correct nutrient-signalling combination before Raptor is allowed to dock. Mutating the contact points blocks mTORC1 from reaching the lysosome and inhibits its signalling, which is the functional evidence behind the structural claim. Combined with a separate structure of mTORC1 bound to its activator Rheb, the paper builds a model of the complete, active mTORC1 sitting on the lysosome. Boundary: cryo-EM of a complex reconstituted from purified human proteins, not a live-cell measurement.",
     "url": "https://mtor-atlas.org/study/ROG2019/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ROG2019.json"
+   },
+   {
+    "sid": "SIL2026",
+    "title": "Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion",
+    "authors": "Sillito F; Armbrecht E; O'Neill AT; McIntyre A; Nyatondo M; Holler A; Callender LA; Henson SM; Stauss H; Chakraverty R",
+    "year": 2026,
+    "journal": "Journal of Immunology",
+    "doi": "10.1093/jimmun/vkag206",
+    "pmid": "42566506",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse CD4+ T cells, adoptive transfer tumor model",
+    "peer_reviewed": true,
+    "finding": "Enforced RHEB overexpression (mTORC1 hyperactivation) in therapeutic CD4+ T cells boosts initial proliferation/persistence after adoptive transfer, but drives cells toward an exhausted phenotype (co-inhibitory receptors, impaired re-proliferation on rechallenge) -- a double-edged sword for CAR/TCR-T cell engineering, distinct from the CD8 response to the same manipulation.",
+    "url": "https://mtor-atlas.org/study/SIL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIL2026.json"
+   },
+   {
+    "sid": "DEL2011",
+    "title": "The kinase mTOR regulates the differentiation of helper T cells through the selective activation of signaling by mTORC1 and mTORC2",
+    "authors": "Delgoffe GM; Powell JD et al.",
+    "year": 2011,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2005",
+    "pmid": "21358638",
+    "pmcid": "PMC3077821",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 and mTORC2 selectively program distinct CD4 helper T-cell lineages.",
+    "url": "https://mtor-atlas.org/study/DEL2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEL2011.json"
+   },
+   {
+    "sid": "DEM2014",
+    "title": "Regulation of TORC1 in response to amino acid starvation via lysosomal recruitment of TSC2",
+    "authors": "Demetriades C; Teleman AA et al.",
+    "year": 2014,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2014.01.024",
+    "pmid": "24529380",
+    "pmcid": "PMC4346203",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Amino-acid starvation recruits TSC2 to the lysosome to inhibit Rheb and TORC1.",
+    "url": "https://mtor-atlas.org/study/DEM2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2014.json"
+   },
+   {
+    "sid": "SHA2004",
+    "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+    "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.08.026",
+    "pmid": "15380067",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+    "url": "https://mtor-atlas.org/study/SHA2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
    }
   ],
   "relations": [
@@ -265,13 +349,15 @@
     "evidence": {
      "kind": "Structural",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "INOK2003",
       "SAU2003",
-      "YAN2017"
+      "YAN2017",
+      "CUI2025",
+      "DEL2011"
      ],
      "conflicting": []
     },

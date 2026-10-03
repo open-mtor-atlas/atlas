@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,8 +30,23 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/NIC2023.json",
   "abstract_excerpt": "Cell growth is regulated by the mammalian/mechanistic target of rapamycin complex 1 (mTORC1), which functions both as a nutrient sensor and a master controller of virtually all biosynthetic pathways. This ensures that cells are metabolically active only when conditions are optimal for growth. Notably, although mTORC1 is known to regulate fatty acid biosynthesis, how and whether the cellular lipid biosynthetic capacity signals back to fine-tune mTORC1 activity remains poorly understood.",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "FASN downregulation/inhibition; malonyl-CoA",
+   "target": "mTOR catalytic pocket (mTORC1)",
+   "species": "Yeast and mammalian cells",
+   "effect": "Malonyl-CoA binds the mTOR ATP-binding pocket as a competitive inhibitor, so reduced fatty-acid synthesis capacity dampens mTORC1 activity."
+  },
   "entities": [
+   {
+    "id": "lipid-synthesis",
+    "name": "Lipid synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
    {
     "id": "malonyl-coa",
     "name": "Malonyl-CoA",
@@ -43,6 +58,11 @@
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "GUR2017",
+   "PET2011",
+   "POR2008",
+   "SHI2014"
+  ]
  }
 }

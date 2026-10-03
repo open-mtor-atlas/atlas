@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,51 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/EIS2016.json",
   "abstract_excerpt": "Aging is associated with an increased risk of cardiovascular disease and death. Here we show that oral supplementation of the natural polyamine spermidine extends the lifespan of mice and exerts cardioprotective effects, reducing cardiac hypertrophy and preserving diastolic function in old mice. Spermidine feeding enhanced cardiac autophagy, mitophagy and mitochondrial respiration, and it also improved the mechano-elastical properties of cardiomyocytes in vivo, coinciding with increased titin phosphorylation and suppressed subclinical inflammation.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Oral spermidine supplementation (with cardiomyocyte Atg5 knockout as genetic test)",
+   "target": "Autophagy/mitophagy (Atg5-dependent)",
+   "species": "Mouse (plus Dahl salt-sensitive rat model and a human dietary questionnaire cohort)",
+   "effect": "Spermidine extends mouse lifespan and is cardioprotective in an autophagy-dependent manner; the human arm is observational dietary correlation only."
+  },
+  "entities": [
+   {
+    "id": "cardiac-aging",
+    "name": "Cardiac aging",
+    "type": "Outcome"
+   },
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "atg5",
+    "name": "Atg5",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "spermidine",
+    "name": "Spermidine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
-  "questions": [],
-  "related_studies": []
+  "questions": [
+   "H4"
+  ],
+  "related_studies": [
+   "EIS2009",
+   "PYO2013",
+   "SHI2026",
+   "BAR2023"
+  ]
  }
 }

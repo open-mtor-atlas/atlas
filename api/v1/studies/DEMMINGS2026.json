@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -31,14 +31,53 @@
   "abstract_excerpt": "The integrated stress response (ISR) enables cells to adapt to diverse cellular stresses, but during chronic or unresolved stress it becomes maladaptive and is implicated in neurodegenerative diseases, including Parkinson disease (PD). The mechanisms underlying maladaptive ISR-driven neurodegeneration, however, remain poorly defined. Here, we find a critical pathway by which chronic ISR activation promotes neurodegeneration in neurotoxin and alpha-synucleinopathy models of PD in vitro and in vivo.",
   "abstract_truncated": true,
   "extracted_findings": {
-   "target": "ATF4 / SESN2 / DDIT4 (REDD1) / TRIB3 / mTORC1 / mTORC2"
+   "intervention": "Chronic integrated stress response / ATF4 activation (neurotoxin and alpha-synuclein models)",
+   "target": "ATF4 -> SESN2, DDIT4, TRIB3 -> mTORC1 and mTORC2",
+   "species": "Mouse Parkinson disease models; cultured neurons",
+   "effect": "Sustained ATF4 signalling suppresses both mTOR complexes and drives dopaminergic neuron death via PUMA"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "integrated-stress-response",
+    "name": "Integrated stress response",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "parkinsons-disease",
+    "name": "Parkinson's disease",
+    "type": "Disease"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "redd1-ddit4",
+    "name": "REDD1 (DDIT4)",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "BRU2004",
+   "DEN2026",
+   "LU2026",
+   "WANG2026"
+  ]
  }
 }

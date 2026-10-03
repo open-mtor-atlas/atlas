@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,11 +30,21 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/DAB2026.json",
   "abstract_excerpt": "B-cell precursor acute lymphoblastic leukemia (BCP-ALL) is characterized by impaired B-cell maturation and poor prognosis in relapsed/refractory (R/R) cases. While CD20-targeted immunotherapies offer clinical benefit, their efficacy is limited by low and heterogeneous CD20 expression on BCP-ALL cells. In this study, we demonstrate that overexpression of wild-type IKZF1, a tumor suppressor frequently mutated in high-risk BCP-ALL, upregulates CD20 and promotes leukemic B cell maturation.",
   "abstract_truncated": true,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "mTORC1 inhibitors; wild-type IKZF1 overexpression; anti-CD20 monoclonal antibody combination",
+   "target": "mTORC1, with CD20 induction via the AKT-FOXO1 axis",
+   "species": "human BCP-ALL cell lines, patient-derived models and in vivo models",
+   "effect": "mTORC1 inhibition raised CD20 and promoted B-lineage maturation, improving anti-CD20 antibody efficacy including in IKZF1-deleted models."
+  },
   "entities": [
    {
     "id": "foxo",
     "name": "FoxO",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
     "type": "Gene/Protein"
    },
    {
@@ -50,7 +60,9 @@
   "questions": [],
   "related_studies": [
    "BRU1999",
-   "DEN2026"
+   "KUB2018",
+   "DEN2026",
+   "HAN2008"
   ]
  }
 }

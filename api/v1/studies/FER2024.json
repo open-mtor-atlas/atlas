@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,8 +30,24 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/FER2024.json",
   "abstract_excerpt": "Amino acid (AA) availability is a robust determinant of cell growth through controlling mechanistic/mammalian target of rapamycin complex 1 (mTORC1) activity. According to the predominant model in the field, AA sufficiency drives the recruitment and activation of mTORC1 on the lysosomal surface by the heterodimeric Rag GTPases, from where it coordinates the majority of cellular processes. Importantly, however, the teleonomy of the proposed lysosomal regulation of mTORC1 and where mTORC1 acts on its effector proteins remain enigmatic.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Pharmacological and genetic perturbation of lysosomal amino-acid sensing (Rag pathway) and lysosomal proteolysis",
+   "target": "Lysosomal vs non-lysosomal mTORC1 pools",
+   "species": "Human cells (HEK293)",
+   "effect": "Lysosomal mTORC1 is fed by local lysosomal proteolysis and cytoplasmic mTORC1 by external amino acids, and the two phosphorylate distinct substrates."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [
     "LYSO-MTORC1"
@@ -39,6 +55,11 @@
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "ABU2017",
+   "ARI2015",
+   "BAR2012",
+   "BETZ2013"
+  ]
  }
 }

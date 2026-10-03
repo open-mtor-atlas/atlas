@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,7 +30,12 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/TIW2026.json",
   "abstract_excerpt": null,
   "abstract_truncated": false,
-  "extracted_findings": null,
+  "extracted_findings": {
+   "intervention": "Depletion of the circPVT1-encoded micropeptide (FFX)",
+   "target": "AKT-mTORC1 signalling and cap-dependent translation, sustaining MYC",
+   "species": "Human MYC-amplified cancer cell lines; mouse xenografts",
+   "effect": "The micropeptide sustains AKT-mTORC1 signalling and cap-dependent translation; depleting it lowered MYC protein and impaired xenograft tumour growth."
+  },
   "entities": [
    {
     "id": "akt-pkb",
@@ -41,6 +46,16 @@
     "id": "mtorc1",
     "name": "mTORC1",
     "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
    }
   ],
   "relations": {
@@ -49,10 +64,10 @@
   },
   "questions": [],
   "related_studies": [
-   "BRU1999",
-   "CAN2002",
-   "DAL2012",
-   "FEL2009"
+   "HSI2012",
+   "VIL2021",
+   "NAT2026",
+   "LAP2026"
   ]
  }
 }

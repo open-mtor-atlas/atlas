@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Disease",
   "synonyms": [],
   "description": "Genetic disorder from TSC1/TSC2 loss causing constitutive mTOR activation and benign tumors in brain, kidney, and elsewhere, as well as epilepsy, often the presenting problem, and TSC-associated neuropsychiatric disorders. Everolimus shrinks these tumors (EXIST trials) and is also approved for TSC-associated seizures - the clearest randomised human evidence that blocking mTOR helps a human disease driven by mTOR overactivation.",
-  "study_count": 6,
+  "study_count": 11,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/disease/tuberous-sclerosis-complex/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tuberous-sclerosis-complex.json",
@@ -145,6 +145,111 @@
     "finding": "In mouse models of tuberous sclerosis, where mTOR is stuck on, the circadian clock ran abnormally: poor timekeeping in constant conditions and exaggerated responses to phase resetting. mTOR raised BMAL1 levels by changing its translation, degradation and location; genetically lowering BMAL1 rescued the behavioural rhythm defects. Constant, unpatterned mTOR activity disturbs a rhythm downstream.",
     "url": "https://mtor-atlas.org/study/LIP2017/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/LIP2017.json"
+   },
+   {
+    "sid": "LI2026C",
+    "title": "mTORC1 drives cell-autonomous astrocyte reactivity in tuberous sclerosis",
+    "authors": "Li TL; Blair JD; Yoo T; Grant GA; Hockemeyer D; Porter BE; Bateup HS",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11054-w",
+    "pmid": "42778607",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human iPSC-derived brain organoids (TSC2-mutant); resected cortical tuber tissue from TSC patients",
+    "peer_reviewed": true,
+    "finding": "Using human brain organoids carrying TSC2 loss-of-function mutations plus patient-derived cortical tuber tissue, shows that hyperactive mTORC1 signaling drives neural progenitors to differentiate into enlarged, pro-inflammatory reactive astrocytes in a cell-autonomous manner (downregulated glutamate transporters, elevated inflammatory cytokines and AD-risk genes APOE/CLU) — independent of seizure activity. Positions glial dysfunction as a primary driver of TSC pathology, not merely a downstream consequence.",
+    "url": "https://mtor-atlas.org/study/LI2026C/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LI2026C.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "MEI2008",
+    "title": "Response of a neuronal model of tuberous sclerosis to mammalian target of rapamycin (mTOR) inhibitors: effects on mTORC1 and Akt signaling lead to improved survival and function",
+    "authors": "Meikle L; Kwiatkowski DJ et al.",
+    "year": 2008,
+    "journal": "The Journal of neuroscience",
+    "doi": "10.1523/JNEUROSCI.0955-08.2008",
+    "pmid": "18495876",
+    "pmcid": "PMC2633923",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (Tsc1 neuronal KO)",
+    "peer_reviewed": true,
+    "finding": "mTOR inhibition rescues a neuronal tuberous-sclerosis model, supporting rapamycin for TSC neurology.",
+    "url": "https://mtor-atlas.org/study/MEI2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MEI2008.json"
+   },
+   {
+    "sid": "EHN2008",
+    "title": "Reversal of learning deficits in a Tsc2+/- mouse model of tuberous sclerosis",
+    "authors": "Ehninger D; Silva AJ et al.",
+    "year": 2008,
+    "journal": "Nature medicine",
+    "doi": "10.1038/nm1788",
+    "pmid": "18568033",
+    "pmcid": "PMC2664098",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (Tsc2+/-)",
+    "peer_reviewed": true,
+    "finding": "Rapamycin reverses learning and memory deficits in a Tsc2+/- tuberous sclerosis model.",
+    "url": "https://mtor-atlas.org/study/EHN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/EHN2008.json"
+   },
+   {
+    "sid": "MA2005",
+    "title": "Phosphorylation and functional inactivation of TSC2 by Erk implications for tuberous sclerosis and cancer pathogenesis",
+    "authors": "Ma L; Chen Z; Erdjument-Bromage H; Tempst P; Pandolfi PP",
+    "year": 2005,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2005.02.031",
+    "pmid": "15851026",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The MAPK input to mTORC1. In mammalian cells, ERK phosphorylates TSC2 and inactivates the TSC complex, so growth signalling through Ras/ERK converges on the same brake that Akt releases. This is the third major upstream arm alongside PI3K/Akt and AMPK. Its practical significance is that it offers a route to mTORC1 activation that PI3K inhibitors do not close - though that inference is mechanistic; no human data here.",
+    "url": "https://mtor-atlas.org/study/MA2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MA2005.json"
    }
   ],
   "relations": [
@@ -186,7 +291,8 @@
      },
      "supporting": [
       "KRU2010",
-      "BIS2013"
+      "BIS2013",
+      "GAO2026B"
      ],
      "conflicting": []
     },

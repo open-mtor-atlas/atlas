@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,12 +14,76 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Large neutral amino acid transporter 1, which imports leucine and is a key upstream input into mTORC1 nutrient sensing.",
-  "study_count": 0,
+  "study_count": 3,
   "relation_count": 0,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/slc7a5-lat1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/slc7a5-lat1.json",
   "description_beginner": "A doorway in the cell membrane that carries large amino acids, leucine among them, into the cell. Since mTORC1 measures leucine to judge whether there is enough raw material to grow, this transporter is one of the taps feeding that decision.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "SIN2013",
+    "title": "Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation",
+    "authors": "Sinclair LV; Cantrell DA et al.",
+    "year": 2013,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2556",
+    "pmid": "23525088",
+    "pmcid": "PMC3672957",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse T cells",
+    "peer_reviewed": true,
+    "finding": "Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.",
+    "url": "https://mtor-atlas.org/study/SIN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2013.json"
+   },
+   {
+    "sid": "RAO2026",
+    "title": "An SLC7A5-dependent nutrient-sensing circuit overcomes cisplatin tolerance via mTOR-autophagy signaling.",
+    "authors": "Rao P; Zhang T; Li Ju et al.",
+    "year": 2026,
+    "journal": "Biochemical and Biophysical Research Communications",
+    "doi": "10.1016/j.bbrc.2026.154478",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines (genome-wide CRISPR-Cas9 screen)",
+    "peer_reviewed": true,
+    "finding": "A genome-wide CRISPR screen found that mTOR inhibition promotes cisplatin tolerance by activating cytoprotective autophagy — the opposite of the canonical view. SLC7A5 integrates this mTOR-autophagy axis, and leucine supplementation resensitises SLC7A5-expressing tumour cells to cisplatin.",
+    "url": "https://mtor-atlas.org/study/RAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2026.json"
+   },
+   {
+    "sid": "NAZ2026",
+    "title": "Collagen I promotes cancer cell survival via amino acid import and mTORC1/S6 activation",
+    "authors": "Nazemi M; Yanes B; Vancauwenberghe E; Oyelade I; Walker H; Rainero E",
+    "year": 2026,
+    "journal": "PLoS Biology",
+    "doi": "10.1371/journal.pbio.3003555",
+    "pmid": "42758789",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human breast and pancreatic cancer cell lines (2D/3D culture)",
+    "peer_reviewed": true,
+    "finding": "Collagen I drives alpha2beta1 integrin-dependent mTORC1/S6 activation and membrane localization of the LAT1-4F2hc amino acid transporter, sustaining essential amino acid supply and cancer cell survival in nutrient-poor, collagen-rich tumor stroma; LAT1-4F2hc is upregulated in basal-like breast/pancreatic tumors and correlates with poor prognosis.",
+    "url": "https://mtor-atlas.org/study/NAZ2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NAZ2026.json"
+   }
+  ],
   "relations": []
  }
 }

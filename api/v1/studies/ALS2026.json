@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,34 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/ALS2026.json",
   "abstract_excerpt": "Males and females are known to have dramatically different health and lifespan trajectories, but the underlying basis for these differences is yet to be fully elucidated. In the nematode model system, most aging studies have been conducted with hermaphrodites, and little is known about male-specific responses to pro-longevity mutations. Several previous studies have used the auxin-inducible degron system to degrade the DAF-2/IGF-1 receptor in hermaphrodites, finding that both ubiquitous and tissue-specific degradation can extend lifespan.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Auxin-inducible degron degradation of the DAF-2/IGF-1 receptor, ubiquitous or germline-specific",
+   "target": "Insulin/IGF-1 receptor signalling (DAF-2)",
+   "species": "Caenorhabditis elegans, males",
+   "effect": "Ubiquitous DAF-2 degradation raised male median lifespan by more than 440% and prolonged late-life reproductive function, while germline-specific degradation shortened male lifespan."
+  },
+  "entities": [
+   {
+    "id": "growth-hormone-igf-1-axis",
+    "name": "Growth hormone / IGF-1 axis",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "BRO1996",
+   "DUR2026",
+   "FON2010",
+   "LIST2026"
+  ]
  }
 }

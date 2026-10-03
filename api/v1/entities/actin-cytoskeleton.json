@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Cell shape and motility machinery. The original TOR2 phenotype in yeast, and the mammalian mTORC2 function that showed the second complex is acutely rapamycin-insensitive (JAC2004, SAR2004); the two-complex model itself came from biochemistry (LOE2002).",
-  "study_count": 3,
+  "study_count": 4,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/process/actin-cytoskeleton/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/actin-cytoskeleton.json",
@@ -82,6 +82,27 @@
     "finding": "Defined two distinct TOR complexes, only one rapamycin-sensitive, founding the TORC1/TORC2 paradigm.",
     "url": "https://mtor-atlas.org/study/LOE2002/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/LOE2002.json"
+   },
+   {
+    "sid": "HUA2013",
+    "title": "mTORC2 controls actin polymerization required for consolidation of long-term memory",
+    "authors": "Huang W; Zhu PJ; Zhang S; Zhou H; Stoica L; Galiano M; Krnjevic K; Roman G; Costa-Mattioli M",
+    "year": 2013,
+    "journal": "Nature Neuroscience",
+    "doi": "10.1038/nn.3351",
+    "pmid": "23455608",
+    "pmcid": "PMC3615448",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Conditional Rictor-knockout mice (postnatal forebrain) and Drosophila",
+    "peer_reviewed": null,
+    "finding": "Conditional deletion of Rictor in the postnatal mouse forebrain reduced mTORC2 activity and selectively impaired long-term memory and the late phase of hippocampal LTP, with a comparable long-term-memory deficit in dTORC2-deficient flies. Hippocampal actin polymerisation was reduced, and restoring it rescued both L-LTP and long-term memory; a compound that raised mTORC2 activity converted early LTP into late LTP and enhanced memory. This is the loss-of-function AND rescue evidence that mTORC2 is required for memory consolidation - the arm chronic rapamycin also disrupts, and the study Open Question H8 needs for its mTORC2 liability leg, which until 2026-09-05 rested on no supporting study at all.",
+    "url": "https://mtor-atlas.org/study/HUA2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HUA2013.json"
    }
   ],
   "relations": [
@@ -119,13 +140,14 @@
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "JAC2004",
       "SAR2004",
-      "LOE2002"
+      "LOE2002",
+      "HUA2013"
      ],
      "conflicting": []
     },

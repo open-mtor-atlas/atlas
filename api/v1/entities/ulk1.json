@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,8 +14,8 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Initiator of autophagy; target of mTORC1 inhibition and AMPK activation.",
-  "study_count": 5,
-  "relation_count": 4,
+  "study_count": 9,
+  "relation_count": 5,
   "url": "https://mtor-atlas.org/gene/ulk1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json",
   "description_beginner": "The kick-starter protein for autophagy (cellular cleanup). mTORC1 normally holds it back; when mTORC1 is switched off (or AMPK switches on), it's released and cleanup begins.",
@@ -124,6 +124,90 @@
     "finding": "Adding amino acids back to starved cells switched on AMPK, PI3K and mTORC2 acutely and independently of mTORC1, at the same time as mTOR. AMPK activation ran through CaMKK-beta and, under amino acid sufficiency, AMPK kept autophagy going via ULK1. So the textbook picture of AMPK and mTORC1 as simple opposites does not hold in the first minutes after feeding - which matters for how the AMPK-ULK1 feedback arm behaves over time.",
     "url": "https://mtor-atlas.org/study/DAL2016/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2016.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "KAM2000",
+    "title": "Tor-mediated induction of autophagy via an Apg1 protein kinase complex",
+    "authors": "Kamada Y; Funakoshi T; Shintani T; Nagano K; Ohsumi M; Ohsumi Y",
+    "year": 2000,
+    "journal": "J Cell Biol",
+    "doi": "10.1083/jcb.150.6.1507",
+    "pmid": "10995454",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Saccharomyces cerevisiae (yeast)",
+    "peer_reviewed": true,
+    "finding": "The founding experiment of the whole TOR-to-autophagy axis. Starvation or rapamycin raises the kinase activity of Apg1 (the yeast counterpart of ULK1), and TOR keeps autophagy off by holding Apg13 hyperphosphorylated so that it cannot bind and activate Apg1. Boundary: yeast only, and the mammalian version of the same step (ULK1-ATG13-FIP200) was shown separately nine years later.",
+    "url": "https://mtor-atlas.org/study/KAM2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAM2000.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "HAL2026",
+    "title": "5-Fluorouracil-based chemotherapy disrupts autophagy flux and protein synthesis in cultured myotubes: a role for mTORC1 signaling",
+    "authors": "Halle JL; Zhang Q; Jenkins T; Carson JA",
+    "year": 2026,
+    "journal": "American Journal of Physiology-Cell Physiology",
+    "doi": "10.1152/ajpcell.00321.2026",
+    "pmid": "42734427",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C2C12 mouse myotubes (in vitro), with and without CT26 colon-tumor-cell-conditioned media",
+    "peer_reviewed": true,
+    "finding": "FOLFOX and oxaliplatin disrupted mTORC1/AMPK regulation of autophagy flux and protein synthesis in cultured myotubes; the effect was not easily reversible on drug withdrawal. Rapamycin (but not metformin) restored autophagy flux and AMPK phosphorylation, though without restoring protein synthesis.",
+    "url": "https://mtor-atlas.org/study/HAL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAL2026.json"
    }
   ],
   "relations": [
@@ -165,7 +249,8 @@
      },
      "supporting": [
       "EGA2010",
-      "KIM2011"
+      "KIM2011",
+      "DAL2016"
      ],
      "conflicting": []
     },
@@ -312,6 +397,51 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AUTOPHAGY.json"
+   },
+   {
+    "id": "ULK1-FNIP1",
+    "claim": "ULK1 inhibits FLCN / FNIP1/2",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+    "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+    "context": null,
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
    }
   ]
  }

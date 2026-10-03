@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,8 +30,39 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/GOL2022.json",
   "abstract_excerpt": "Amino acid availability controls mTORC1 activity via a heterodimeric Rag GTPase complex that functions as a scaffold at the lysosomal surface, bringing together mTORC1 with its activators and effectors. Mammalian cells express four Rag proteins (RagA-D) that form dimers composed of RagA/B bound to RagC/D. Traditionally, the Rag paralogue pairs (RagA/B and RagC/D) are referred to as functionally redundant, with the four dimer combinations used interchangeably in most studies.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Cell lines engineered to express single Rag heterodimers; amino-acid withdrawal",
+   "target": "Rag GTPase paralogues (RagA/B, RagC/D), mTORC1 substrate selection, TFEB/TFE3",
+   "species": "Human cell lines",
+   "effect": "RagD promotes phosphorylation of lysosomal substrates TFEB/TFE3 through tighter LAMTOR binding, while RagB-expressing cells keep mTORC1 lysosomal and active even during starvation."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
   "relations": {
    "supports": [
     "MTORC1-TFEB",
@@ -40,6 +71,11 @@
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "CUI2023",
+   "SAN2010",
+   "ZON2011",
+   "HON2026"
+  ]
  }
 }

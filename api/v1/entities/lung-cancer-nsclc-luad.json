@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,12 +14,55 @@
   "type": "Disease",
   "synonyms": [],
   "description": "Non-small cell lung cancer including lung adenocarcinoma, in which PI3K-AKT-mTOR and mTORC2 signalling are frequently dysregulated.",
-  "study_count": 0,
+  "study_count": 2,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/lung-cancer-nsclc-luad.json",
   "description_beginner": "The most common form of lung cancer, including the adenocarcinoma subtype. The PI3K-AKT-mTOR growth pathway is often stuck in the 'on' position in these tumours, which is why mTOR is studied as a target here.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "WANG2026B",
+    "title": "Pdcd4-Rictor interaction suppresses mTORC2-PFKFB3 axis and tumorigenesis in NSCLC.",
+    "authors": "Wang Q; Xin Y; Zokaei E et al.",
+    "year": 2026,
+    "journal": "Neoplasia",
+    "doi": "10.1016/j.neo.2026.101354",
+    "pmid": "42648032",
+    "pmcid": "PMC13544097",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "NSCLC cell lines; mouse xenograft; human tumour tissue",
+    "peer_reviewed": true,
+    "finding": "Pdcd4 binds Rictor via residues R105/K108/R110 to disrupt mTORC2 assembly and kinase activity, lowering PFKFB3 levels and suppressing glycolysis and NSCLC tumour growth.",
+    "url": "https://mtor-atlas.org/study/WANG2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026B.json"
+   },
+   {
+    "sid": "ZHOU2026",
+    "title": "TET1-mediated DNA demethylation and transcription activation of MRPS17 induces lung adenocarcinoma through PI3K-AKT-mTOR pathway.",
+    "authors": "Zhou N; Song L; Wu Y et al.",
+    "year": 2026,
+    "journal": "Journal of Molecular Histology",
+    "doi": "10.1007/s10735-026-10862-8",
+    "pmid": "42665721",
+    "pmcid": "PMC13525032",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human LUAD cell lines; mouse xenograft",
+    "peer_reviewed": true,
+    "finding": "TET1 demethylates the MRPS17 promoter to drive MRPS17 overexpression in lung adenocarcinoma, activating PI3K-AKT-mTOR signalling and increasing proliferation, migration and invasion. MRPS17 knockdown induces apoptosis and suppresses tumour growth in vitro and in vivo.",
+    "url": "https://mtor-atlas.org/study/ZHOU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHOU2026.json"
+   }
+  ],
   "relations": []
  }
 }

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,8 +30,19 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/SWA2026.json",
   "abstract_excerpt": "Medulloblastoma is the most common pediatric brain cancer, but current treatments are largely non-specific, often causing developmental side effects. Genomic sequencing identified the RNA helicase DDX3X as one of the most frequently mutated genes in this cancer and a potential treatment target, yet its role in tumor progression remains elusive.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "rapamycin (TOR inactivation) in yeast carrying medulloblastoma-associated ded1-mam mutations; 5' UTR reporter assays",
+   "target": "TORC1-dependent translational control via the RNA helicase Ded1 / DDX3X",
+   "species": "Saccharomyces cerevisiae with medulloblastoma-relevant reporter assays",
+   "effect": "The mutant grew substantially better than wild type under rapamycin and selectively raised translation of unstructured-5'UTR transcripts after TOR inhibition, rather than raising bulk translation."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []

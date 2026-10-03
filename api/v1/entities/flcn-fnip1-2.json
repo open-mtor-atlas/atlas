@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -20,8 +20,8 @@
    "FNIP1/2"
   ],
   "description": "Folliculin and its binding partners FNIP1/2; act as a GTPase-activating protein (GAP) for RagC/D, switching the Rag heterodimer into the configuration that recruits mTORC1 to the lysosome. FLCN-FNIP complements the GATOR1/GATOR2 arm by regulating the RagC/D half of the cycle. Loss of FLCN causes Birt-Hogg-Dube syndrome through a SUBSTRATE-SPECIFIC defect rather than blanket mTORC1 hyperactivation: canonical outputs (S6K1, 4E-BP1) are largely preserved, while TFEB and TFE3 escape phosphorylation and accumulate in the nucleus (NAP2020).",
-  "study_count": 3,
-  "relation_count": 1,
+  "study_count": 7,
+  "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/flcn-fnip1-2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/flcn-fnip1-2.json",
   "description_beginner": "A protein complex that helps switch the Rag GTPases into the right configuration to bring mTORC1 to the lysosome - working alongside, but through a different route than, the GATOR1/GATOR2 system. Losing it causes a genetic disease (Birt-Hogg-Dube syndrome) not because mTORC1 goes generally haywire, but because a couple of its specific outputs (TFEB and TFE3) stop being properly turned off.",
@@ -88,6 +88,90 @@
     "finding": "In BHD patient-derived kidney cancer cells, FLCN loss causes constitutive nuclear TFEB localization and mTORC1 hyperactivation, but leaves bulk autophagy flux and LC3 lipidation unaffected; however, the autophagy receptor SQSTM1/p62 accumulates in enlarged puncta, a finding replicated in a Norwegian cohort of BHD patient kidney tumors, showing p62 accumulation is dissociable from bulk autophagic flux.",
     "url": "https://mtor-atlas.org/study/ULL2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ULL2026.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "CAO2026",
+    "title": "Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome",
+    "authors": "Cao ZL; Zhao SC; Lin F; Liu YH; Hong XT; Hong LY; Xu LQ; Li FP; Yu HY; Yao WG; Chen WY",
+    "year": 2026,
+    "journal": "Frontiers in Oncology",
+    "doi": "10.3389/fonc.2026.1848740",
+    "pmid": "42558438",
+    "pmcid": "PMC13437482",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative synthesis (human genetics + mouse mechanistic data)",
+    "peer_reviewed": true,
+    "finding": "Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic 'global mTORC1 hyperactivation' model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation, while haploinsufficiency alone is sufficient for lung and skin lesions -- resolving the 'mTORC1 paradox' via gene dosage and signaling timing. Narrative synthesis of human genetics and mouse mechanistic data.",
+    "url": "https://mtor-atlas.org/study/CAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAO2026.json"
+   },
+   {
+    "sid": "CUI2023",
+    "title": "Structure of the lysosomal mTORC1-TFEB-Rag-Ragulator megacomplex",
+    "authors": "Cui Z; Napolitano G; de Araujo MEG; Esposito A; Monfregola J; Huber LA; Ballabio A; Hurley JH",
+    "year": 2023,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-05652-7",
+    "pmid": "36697823",
+    "pmcid": "PMC9931586",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution)",
+    "peer_reviewed": true,
+    "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way no other mTORC1 substrate does. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
+    "url": "https://mtor-atlas.org/study/CUI2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json"
    }
   ],
   "relations": [
@@ -137,6 +221,51 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/FLCN-RAG.json"
+   },
+   {
+    "id": "ULK1-FNIP1",
+    "claim": "ULK1 inhibits FLCN / FNIP1/2",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+    "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+    "context": null,
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
    }
   ]
  }

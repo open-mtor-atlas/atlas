@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,44 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/KAM2000.json",
   "abstract_excerpt": "Autophagy is a membrane trafficking to vacuole/lysosome induced by nutrient starvation. In Saccharomyces cerevisiae, Tor protein, a phosphatidylinositol kinase-related kinase, is involved in the repression of autophagy induction by a largely unknown mechanism. Here, we show that the protein kinase activity of Apg1 is enhanced by starvation or rapamycin treatment. In addition, we have also found that Apg13, which binds to and activates Apg1, is hyperphosphorylated in a Tor-dependent manner, reducing its affinity to Apg1.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Nitrogen starvation; rapamycin",
+   "target": "Tor - Apg13 - Apg1 (ULK1 orthologue) kinase complex",
+   "species": "Saccharomyces cerevisiae",
+   "effect": "Tor keeps Apg13 hyperphosphorylated, preventing Apg1 activation; starvation or rapamycin raises Apg1 kinase activity and induces autophagy."
+  },
+  "entities": [
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "DAL2016",
+   "HAL2026",
+   "HOS2009",
+   "KIM2011"
+  ]
  }
 }

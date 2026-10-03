@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "mTORC1-dependent process of skeletal muscle fiber enlargement (hypertrophy); driven by growth factors and exercise, blocked by rapamycin.",
-  "study_count": 3,
+  "study_count": 6,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/process/muscle-growth/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/muscle-growth.json",
@@ -82,6 +82,69 @@
     "finding": "Shows IGF-1 drives muscle fiber hypertrophy through Akt, via both the mTOR and GSK3 branches, in cultured myotubes, establishing mTOR as a central node for muscle growth signaling.",
     "url": "https://mtor-atlas.org/study/ROM2001/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ROM2001.json"
+   },
+   {
+    "sid": "ANC2026",
+    "title": "Strengthening Muscle for Healthy Ageing: Innovative Treatments for Sarcopenia",
+    "authors": "Ancel S; Le Moal E; Wang YX; Blau HM",
+    "year": 2026,
+    "journal": "Nature reviews. Drug discovery",
+    "doi": "10.1038/s41573-026-01514-3",
+    "pmid": "42706321",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": null,
+    "peer_reviewed": true,
+    "finding": "A major pharma-facing review (Blau lab, Stanford/Sanford Burnham) surveying emerging drug strategies for sarcopenia — the age-related loss of muscle mass/strength with no approved therapy. Among the pleiotropic mechanisms discussed, mTORC1 inhibitors are highlighted specifically for their ability to restore impaired autophagy in aging muscle, alongside NAD-related molecules, urolithin A, myostatin inhibitors, SARMs, and 15-PGDH ('gerozyme') inhibitors. Useful high-level context for where mTORC1 modulation sits among competing anti-sarcopenia strategies, though it does not itself address dynamic/temporal mTOR activity.",
+    "url": "https://mtor-atlas.org/study/ANC2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ANC2026.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "LAP2026",
+    "title": "Feeding-Induced Muscle mTORC1 Signaling Regulates Postprandial Protein Synthesis and Endurance but Not Muscle Size",
+    "authors": "Lapp SC; Kalafut KC; Cissé MY; Tighanimine K; Rosenthal DM; Doxsey W; Hui S; Inouye KE; Morrow CE; Cormerais Y; Manning BD",
+    "year": 2026,
+    "journal": "JCI insight",
+    "doi": "10.1172/jci.insight.210523",
+    "pmid": "42720990",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "SkM-TSC2-5A knock-in mice (AKT-phosphorylation-resistant TSC2, skeletal muscle-specific) vs SkM-TSC2-WT littermates, both sexes",
+    "peer_reviewed": true,
+    "finding": "Using a mouse model expressing an AKT-nonphosphorylatable TSC2 mutant specifically in skeletal muscle, the Manning lab genetically separated feeding-induced from contraction-induced mTORC1 activation. AKT-mediated TSC2 phosphorylation is required for feeding (but not contraction) to activate muscle mTORC1 and drive postprandial protein synthesis — yet mice lacking this feeding-induced signal have normal muscle mass and myofiber size, and instead show improved maximal endurance capacity with a modest rise in mitochondrial content. The finding dissociates mTORC1's role in postprandial anabolism from its role in maintaining steady-state muscle mass, and is a directly relevant data point for whether the pattern/source of mTORC1 activation (feeding vs. mechanical) — not just its average level — shapes downstream outcomes.",
+    "url": "https://mtor-atlas.org/study/LAP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAP2026.json"
    }
   ],
   "relations": [
@@ -127,7 +190,9 @@
       "ROM2001",
       "DRU2009"
      ],
-     "conflicting": []
+     "conflicting": [
+      "LAP2026"
+     ]
     },
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Master transcription factor for lysosome biogenesis and autophagy. mTORC1 phosphorylates TFEB to trap it in the cytosol; when mTORC1 is off, TFEB enters the nucleus and turns on the cell's recycling program.",
-  "study_count": 5,
+  "study_count": 13,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/gene/tfeb/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tfeb.json",
@@ -124,6 +124,174 @@
     "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way no other mTORC1 substrate does. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
     "url": "https://mtor-atlas.org/study/CUI2023/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "ZHANG2026",
+    "title": "Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.",
+    "authors": "Zhang C; Chao X; Williams SN; Wei X; DiGirolamo A; et al.",
+    "year": 2026,
+    "journal": "The Journal of clinical investigation",
+    "doi": "10.1172/JCI206334",
+    "pmid": "42560776",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse + Human (HCC)",
+    "peer_reviewed": true,
+    "finding": "TSC1 loss drives non-canonical mTORC1-mediated TFEB nuclear translocation, promoting hepatocyte-to-biliary plasticity and spontaneous aggressive HCC in mice; Tsc1/Tfeb double knockout rescues the phenotype.",
+    "url": "https://mtor-atlas.org/study/ZHANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026.json"
+   },
+   {
+    "sid": "HON2026",
+    "title": "Structure and function of TM6SF1 reveals role in mTORC1 signaling",
+    "authors": "Hong S; Li X et al.",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2622424123",
+    "pmid": "42735304",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure; HEK293 cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of TM6SF1 identifies it as a lysosomal cholesterol-binding protein that directly engages LAMTOR1 (Ragulator) to regulate mTORC1 signaling in a cholesterol-dependent manner.",
+    "url": "https://mtor-atlas.org/study/HON2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HON2026.json"
+   },
+   {
+    "sid": "ZAU2026",
+    "title": "mTORC1-TFEB/TFE3 signaling is associated with bile acid diversification during hepatic metabolic adaptation",
+    "authors": "Zaufel A; Sun W; Pastore N; Taschler U; Wagner C; Hackl H; Sommer J; Silbert-Wagner D; Hengstler JG; Begher-Tibbe B; Stauber R; Kolb D; Troetzmueller M; Gottschalk B; Thorsheim C; Stange EL; Hornef MW; Pivovarova-Ramich O; Pfeiffer AFH; Matchett KP; Loft A; Herzig S; Henderson NC; Ballabio A; Arany Z; Wolfrum C; Fickert P; Moustafa T",
+    "year": 2026,
+    "journal": "Science Advances",
+    "doi": "10.1126/sciadv.aee1905",
+    "pmid": "42789715",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (liver-specific genetic mTORC1/TFEB manipulation, rapamycin treatment, dietary protein restriction); correlative human MASLD patient cohort",
+    "peer_reviewed": true,
+    "finding": "Establishes a new mTORC1-TFEB/TFE3 signaling axis controlling hepatic bile acid metabolism. Depending on mTORC1 signaling state, mice show coordinated shifts in bile-acid species (non-12-OH vs 12-OH) via altered enzyme expression and cholesterol trafficking; these shifts are reversed by mTORC1 pathway deletion or rapamycin treatment. Dietary protein restriction (which inhibits mTORC1) produces a similar bile-acid shift in mice and correlates with improved metabolic outcomes in human MASLD patients, linking mTORC1 nutrient sensing directly to bile-acid homeostasis and fatty liver disease.",
+    "url": "https://mtor-atlas.org/study/ZAU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZAU2026.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "SPA2023",
+    "title": "Continuous sensing of nutrients and growth factors by the mTORC1-TFEB axis",
+    "authors": "Sparta B; Albeck JG et al.",
+    "year": 2023,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.74903",
+    "pmid": "37698461",
+    "pmcid": "PMC10547473",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MCF10A cells (live single-cell imaging, fluorescent TFEB fusions)",
+    "peer_reviewed": true,
+    "finding": "Live imaging of single MCF10A cells shows mTORC1-TFEB signalling adjusts continuously to amino acids and insulin, given alone, one after another or together; at physiological amino acid levels TFEB, AMPK and AKT activity fluctuate in step, and these graded changes track protein synthesis rate through a distributed set of mTORC1 effectors.",
+    "url": "https://mtor-atlas.org/study/SPA2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SPA2023.json"
+   },
+   {
+    "sid": "CAO2026",
+    "title": "Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome",
+    "authors": "Cao ZL; Zhao SC; Lin F; Liu YH; Hong XT; Hong LY; Xu LQ; Li FP; Yu HY; Yao WG; Chen WY",
+    "year": 2026,
+    "journal": "Frontiers in Oncology",
+    "doi": "10.3389/fonc.2026.1848740",
+    "pmid": "42558438",
+    "pmcid": "PMC13437482",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative synthesis (human genetics + mouse mechanistic data)",
+    "peer_reviewed": true,
+    "finding": "Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic 'global mTORC1 hyperactivation' model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation, while haploinsufficiency alone is sufficient for lung and skin lesions -- resolving the 'mTORC1 paradox' via gene dosage and signaling timing. Narrative synthesis of human genetics and mouse mechanistic data.",
+    "url": "https://mtor-atlas.org/study/CAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAO2026.json"
+   },
+   {
+    "sid": "GOL2022",
+    "title": "A Rag GTPase dimer code defines the regulation of mTORC1 by amino acids",
+    "authors": "Gollwitzer P; Grützmacher N; Wilhelm S; Kümmel D; Demetriades C",
+    "year": 2022,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/s41556-022-00976-y",
+    "pmid": "36097072",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (genetically modified Rag-paralogue cell lines)",
+    "peer_reviewed": true,
+    "finding": "The four mammalian Rag GTPase paralogues are not functionally interchangeable: RagC/D determines substrate specificity (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding), while RagA/B determines the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even upon starvation). Author correction issued 2023 (PMID 36536178, no change to conclusions).",
+    "url": "https://mtor-atlas.org/study/GOL2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GOL2022.json"
    }
   ],
   "relations": [
@@ -168,9 +336,12 @@
       "SET2012",
       "MAR2012",
       "SET2011",
-      "GOL2022"
+      "GOL2022",
+      "CUI2023"
      ],
-     "conflicting": []
+     "conflicting": [
+      "ZHANG2026"
+     ]
     },
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",

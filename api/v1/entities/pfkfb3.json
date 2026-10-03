@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,12 +14,55 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "6-phosphofructo-2-kinase/fructose-2,6-bisphosphatase 3, a rate-limiting glycolytic regulator controlled downstream of mTORC2.",
-  "study_count": 0,
+  "study_count": 2,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/pfkfb3.json",
   "description_beginner": "A control enzyme for glycolysis, the fast way cells burn sugar. It sets the pace of that pathway, and mTORC2 sits upstream of it deciding how much of it the cell makes.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "WANG2026B",
+    "title": "Pdcd4-Rictor interaction suppresses mTORC2-PFKFB3 axis and tumorigenesis in NSCLC.",
+    "authors": "Wang Q; Xin Y; Zokaei E et al.",
+    "year": 2026,
+    "journal": "Neoplasia",
+    "doi": "10.1016/j.neo.2026.101354",
+    "pmid": "42648032",
+    "pmcid": "PMC13544097",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "NSCLC cell lines; mouse xenograft; human tumour tissue",
+    "peer_reviewed": true,
+    "finding": "Pdcd4 binds Rictor via residues R105/K108/R110 to disrupt mTORC2 assembly and kinase activity, lowering PFKFB3 levels and suppressing glycolysis and NSCLC tumour growth.",
+    "url": "https://mtor-atlas.org/study/WANG2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026B.json"
+   },
+   {
+    "sid": "PAU2025",
+    "title": "Transient APC/C inactivation by mTOR boosts glycolysis during cell cycle entry",
+    "authors": "Paul D; Cappell SD et al.",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09328-w",
+    "pmid": "40739344",
+    "pmcid": "PMC12488482",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells entering the cell cycle after mitogen stimulation",
+    "peer_reviewed": true,
+    "finding": "After mitogen stimulation, mTOR quickly phosphorylates the APC/C adaptor CDH1, partly releasing it and briefly inactivating APC/C; the glycolytic enzyme PFKFB3 accumulates and glycolysis rises, until a delayed phosphatase restores APC/C. This incoherent feed-forward loop produces a pulse of glycolysis that cell cycle entry requires.",
+    "url": "https://mtor-atlas.org/study/PAU2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PAU2025.json"
+   }
+  ],
   "relations": []
  }
 }

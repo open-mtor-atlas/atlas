@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,51 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json",
   "abstract_excerpt": "Lysosomal adaptation to environmental changes is critical for cellular and metabolic homeostasis and requires coordination by the mTORC1 kinase, which conveys nutritional and stress signals into distinct, substrate-specific outputs. The FLCN-FNIP complex (FLCN:FNIP) serves as a crucial regulator of lysosomal function by selectively controlling the ability of mTORC1 to inhibit transcription factor EB (TFEB), a master regulator of catabolic programs and a known oncogene. Yet how FLCN:FNIP activity is regulated has remained unclear.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "Genetic and pharmacological perturbation of v-ATPase, TBK1/ULK1, TAX1BP1 and FNIP1 (S296 phospho-mutants); lysosomal stress",
+   "target": "v-ATPase - TBK1/ULK1 - FNIP1 S296 - FLCN:FNIP - TFEB",
+   "species": "Human cell lines; follicular lymphoma patient samples",
+   "effect": "Lysosomal stress recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting FLCN and driving TFEB nuclear translocation; recurrent ATP6V1B2 mutations hyperactivate this axis and promote lymphoma cell proliferation."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "flcn-fnip1-2",
+    "name": "FLCN / FNIP1/2",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "ULK1-FNIP1"
+   ],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "ABU2017",
+   "MAN2016",
+   "ZON2011",
+   "CAO2026"
+  ]
  }
 }

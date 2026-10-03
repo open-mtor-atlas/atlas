@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -17,12 +17,55 @@
    "LAMP2A-dependent autophagy"
   ],
   "description": "A selective form of autophagy in which a cytosolic chaperone delivers single proteins to the lysosomal surface, where they unfold and are pulled in through a LAMP2A translocation complex. No vesicle is formed, which is what distinguishes it from macroautophagy. Regulated at the lysosome by an mTORC2/PHLPP1/Akt axis (ARI2015), so mTOR's relationship to autophagy here runs through a different complex than the canonical mTORC1-ULK1 step.",
-  "study_count": 0,
+  "study_count": 2,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/chaperone-mediated-autophagy.json",
   "description_beginner": "A tidier kind of recycling: instead of wrapping a whole chunk of the cell in a bag, a helper protein carries one damaged protein at a time to the lysosome and threads it through a gate in the wall.",
-  "studies": [],
+  "studies": [
+   {
+    "sid": "CHEN2026C",
+    "title": "Impaired Chaperone-Mediated Autophagy Accelerates Intervertebral Disc Degeneration by Inducing MIDN Accumulation to Target TSC2 for Proteasomal Degradation",
+    "authors": "Chen Xianglong; Gao H; Wu W; Shi P; Chen Yuhang; Zhang A; Cheng Z; Wu W; Yu Z; Zhang Y",
+    "year": 2026,
+    "journal": "Advanced Science",
+    "doi": "10.1002/advs.77428",
+    "pmid": "42658647",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human nucleus pulposus cells; rat caudal needle-puncture model",
+    "peer_reviewed": true,
+    "finding": "Loss of chaperone-mediated autophagy lets its substrate midnolin (MIDN) accumulate; MIDN binds TSC2 and drives its proteasomal degradation independently of ubiquitination, de-repressing mTORC1 and causing senescence, SASP and matrix loss in disc cells. MIDN knockdown, LAMP2A overexpression or rapamycin each blocked the degeneration - a new upstream route to mTORC1 hyperactivation.",
+    "url": "https://mtor-atlas.org/study/CHEN2026C/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026C.json"
+   },
+   {
+    "sid": "ARI2015",
+    "title": "Lysosomal mTORC2/PHLPP1/Akt regulate chaperone-mediated autophagy",
+    "authors": "Arias E; Koga H; Diaz A; Mocholi E; Patel B; Cuervo AM",
+    "year": 2015,
+    "journal": "Mol Cell",
+    "doi": "10.1016/j.molcel.2015.05.030",
+    "pmid": "26118642",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse liver, rat liver, cell lines (NIH 3T3)",
+    "peer_reviewed": true,
+    "finding": "Extends the mTOR-autophagy relationship to a third form of autophagy that the Atlas otherwise does not cover, and reverses two of its usual terms. Here it is mTORC2, not mTORC1, that sits on the lysosomal membrane, and it inhibits chaperone-mediated autophagy through Akt, while the phosphatase PHLPP1 counteracts it; the balance controls assembly and disassembly of the translocation complex that pulls single proteins into the lysosome. Boundary: mechanism in cells and rodent liver; the claim that restoring this axis helps in ageing or disease is proposed, not tested here.",
+    "url": "https://mtor-atlas.org/study/ARI2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ARI2015.json"
+   }
+  ],
   "relations": []
  }
 }

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -31,14 +31,50 @@
   "abstract_excerpt": "Sarcopenia, the age-related loss of skeletal muscle mass and function, lacks FDA-approved pharmacotherapy. The mechanistic target of rapamycin complex 1 (mTORC1), activated by leucine via Sestrin2, is the master regulator of muscle protein synthesis, but L-leucine suffers from rapid catabolism and poor bioavailability. Here, we report D-leucine methyl ester hydrochloride (DLMEH), a metabolically stabilized prodrug incorporating D-stereoisomer conversion, methyl esterification, and hydrochloride salt formation.",
   "abstract_truncated": true,
   "extracted_findings": {
-   "species": "Rat (in vivo); human primary myotubes"
+   "intervention": "D-leucine methyl ester hydrochloride (DLMEH) versus L-leucine; Sestrin2 siRNA knockdown; rapamycin co-treatment",
+   "target": "Sestrin2-dependent mTORC1 activation and muscle protein synthesis",
+   "species": "Rat (in vivo); human primary myotubes",
+   "effect": "DLMEH bound Sestrin2 with leucine-equivalent affinity and raised mTORC1-dependent protein synthesis, preserving muscle mass, grip strength and endurance in the rat atrophy model."
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "muscle-growth",
+    "name": "Muscle growth",
+    "type": "Biological process"
+   },
+   {
+    "id": "leucine",
+    "name": "Leucine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "LEU-SESN2"
+   ],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "MAN2016",
+   "SAX2015",
+   "DRU2009",
+   "LAP2026"
+  ]
  }
 }

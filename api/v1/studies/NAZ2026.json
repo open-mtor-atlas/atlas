@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,49 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/NAZ2026.json",
   "abstract_excerpt": "Invasive breast and pancreatic cancer cells thrive within a collagen I-rich, poorly perfused extracellular matrix (ECM) network, necessitating robust metabolic adaptation to endure nutrient deficiency, such as glucose starvation. Here we demonstrate that collagen I is critical for the survival and growth of breast and pancreatic cancer cells. Mechanistically, collagen I promotes alpha2 beta1 integrin-dependent S6 phosphorylation by the mammalian target of rapamycin complex 1 (mTORC1) and drives the membrane localisation of the (LAT1)-4F2hc amino acid transporter.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "collagen I matrix exposure; alpha2beta1 integrin inhibition; LAT1-4F2hc inhibition; glucose starvation",
+   "target": "mTORC1 / S6 phosphorylation and the LAT1-4F2hc amino acid transporter",
+   "species": "human breast and pancreatic cancer cell lines in 2D and 3D culture",
+   "effect": "Collagen I raised integrin-dependent mTORC1 activity and membrane LAT1-4F2hc, sustaining amino acid supply and cancer cell survival, and blocking either step reduced growth and invasion."
+  },
+  "entities": [
+   {
+    "id": "itga2-integrin-alpha-2",
+    "name": "ITGA2 (Integrin alpha-2)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "slc7a5-lat1",
+    "name": "SLC7A5 (LAT1)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "breast-cancer",
+    "name": "Breast cancer",
+    "type": "Disease"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "REN2026",
+   "RAO2026",
+   "SIN2013",
+   "BAS2012"
+  ]
  }
 }

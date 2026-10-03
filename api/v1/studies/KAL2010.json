@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -31,11 +31,33 @@
   "abstract_excerpt": "Dysfunctional mTORC1 signaling is associated with a number of human pathologies owing to its central role in controlling cell growth, proliferation, and metabolism. Regulation of mTORC1 is achieved by the integration of multiple inputs, including those of mitogens, nutrients, and energy. It is thought that agents that increase the cellular AMP/ATP ratio, such as the antidiabetic biguanides metformin and phenformin, inhibit mTORC1 through AMPK activation of TSC1/2-dependent or -independent mechanisms.",
   "abstract_truncated": true,
   "extracted_findings": {
-   "target": "Metformin -> Rag GTPases -> mTORC1 (AMPK-independent)",
-   "species": "Mammalian cells",
-   "effect": "Metformin inhibits mTORC1 without AMPK or TSC1/2, in a Rag GTPase-dependent manner"
+   "intervention": "Metformin and phenformin (biguanides)",
+   "target": "mTORC1 via Rag GTPases (AMPK- and TSC-independent)",
+   "species": "Mammalian cells (AMPK-null and TSC1/2-null); preclinical models",
+   "effect": "Biguanides inhibit mTORC1 without AMPK or TSC1/2; the effect requires the Rag GTPases"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "metformin",
+    "name": "Metformin",
+    "type": "Drug"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [
     "METFORMIN-MTORC1"
@@ -43,6 +65,11 @@
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "FOR2010",
+   "HOW2017",
+   "ZHO2001",
+   "BAN2014"
+  ]
  }
 }

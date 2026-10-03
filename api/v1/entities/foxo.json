@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Forkhead box O transcription factors (FOXO1/3/4) that act as key downstream targets of PI3K/Akt and mTOR signalling; they are excluded from the nucleus by Akt, with an mTORC2/SGK contribution, so catalytic or mTORC2-directed inhibition promotes nuclear entry and transcription of stress-response and longevity genes, whereas rapamycin can raise Akt activity through feedback relief and leave them cytoplasmic.",
-  "study_count": 3,
+  "study_count": 5,
   "relation_count": 0,
   "url": "https://mtor-atlas.org/gene/foxo/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/foxo.json",
@@ -82,6 +82,48 @@
     "finding": "Akt phosphorylates the Forkhead transcription factor FKHRL1 (a FOXO family member), driving its cytoplasmic retention via 14-3-3 binding and blocking Fas-ligand-driven apoptosis — the discovery that placed FOXO transcription factors downstream of Akt/PI3K survival signalling.",
     "url": "https://mtor-atlas.org/study/BRU1999/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/BRU1999.json"
+   },
+   {
+    "sid": "HAN2008",
+    "title": "A role for autophagy in the extension of lifespan by dietary restriction in C. elegans",
+    "authors": "Hansen M; Chandra A; Mitic LL; Onken B; Driscoll M; Kenyon C",
+    "year": 2008,
+    "journal": "PLoS Genet",
+    "doi": "10.1371/journal.pgen.0040024",
+    "pmid": "18282106",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans",
+    "peer_reviewed": true,
+    "finding": "Makes autophagy a necessary step between dietary restriction and a longer life, not a side effect of it: blocking autophagy genes abolishes the lifespan extension produced both by dietary restriction and by TOR inhibition. The paper is equally careful about what autophagy cannot do on its own, because autophagy still runs in animals lacking DAF-16/FOXO and yet those animals are not long-lived. Boundary: worms; necessity was shown, sufficiency was not.",
+    "url": "https://mtor-atlas.org/study/HAN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2008.json"
+   },
+   {
+    "sid": "KUB2018",
+    "title": "In Vivo Decoding Mechanisms of the Temporal Patterns of Blood Insulin by the Insulin-AKT Pathway in the Liver",
+    "authors": "Kubota H; Uda S; Matsuzaki F; Yamauchi Y; Kuroda S",
+    "year": 2018,
+    "journal": "Cell Systems",
+    "doi": "10.1016/j.cels.2018.05.013",
+    "pmid": "29960883",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat liver in vivo (hyperinsulinemic-euglycemic clamp with different insulin time patterns) plus mathematical model",
+    "peer_reviewed": true,
+    "finding": "The in-vivo follow-up to KUB2012. In rat liver, all temporal patterns of blood insulin were encoded at the insulin receptor, and downstream molecules decoded them selectively through AKT: S6K read the additional (pulse-like) secretion, G6Pase the basal secretion via FoxO1, GSK3-beta all of it. Modelling tied the selectivity to network structure, sensitivity and time constants. Shows that pattern decoding is not only a cell-culture effect.",
+    "url": "https://mtor-atlas.org/study/KUB2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2018.json"
    }
   ],
   "relations": []

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -30,13 +30,44 @@
   "api_url": "https://mtor-atlas.org/api/v1/studies/ABU2017.json",
   "abstract_excerpt": "The lysosome degrades and recycles macromolecules, signals to the cytosol and nucleus, and is implicated in many diseases. Here, we describe a method for the rapid isolation of mammalian lysosomes and use it to quantitatively profile lysosomal metabolites under various cell states. Under nutrient-replete conditions, many lysosomal amino acids are in rapid exchange with those in the cytosol.",
   "abstract_truncated": true,
-  "extracted_findings": null,
-  "entities": [],
+  "extracted_findings": {
+   "intervention": "v-ATPase inhibition; mTOR inhibition; nutrient starvation",
+   "target": "Lysosomal amino-acid efflux, mTOR pathway",
+   "species": "Human HEK293 cells",
+   "effect": "Inhibiting mTOR strongly reduced lysosomal efflux of most essential amino acids, converting the lysosome into a depot for them."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
    "supports": [],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "KAN2013",
+   "THO2009",
+   "ESP2026",
+   "MAN2016"
+  ]
  }
 }

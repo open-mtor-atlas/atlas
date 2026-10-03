@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,9 +14,9 @@
   "type": "Drug",
   "synonyms": [],
   "description": "ATP-competitive ('active-site') mTOR inhibitor. Unlike rapamycin, it blocks the kinase active site directly and so fully inhibits BOTH complexes - the tool that revealed rapamycin-resistant functions of mTORC1.",
-  "study_count": 1,
+  "study_count": 3,
   "relation_count": 0,
-  "url": null,
+  "url": "https://mtor-atlas.org/drug/torin1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/torin1.json",
   "description_beginner": "A lab-only drug that blocks mTOR directly at its 'engine room' (the active site), so - unlike rapamycin - it shuts down both mTOR complexes completely. It was a key tool for discovering what rapamycin-resistant mTOR functions look like.",
   "studies": [
@@ -40,6 +40,48 @@
     "finding": "Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosphorylation and autophagy suppression. This reframed a decade of rapamycin experiments and launched the search for complete inhibitors.",
     "url": "https://mtor-atlas.org/study/THO2009/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/THO2009.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "ABU2017",
+    "title": "Lysosomal metabolomics reveals V-ATPase- and mTOR-dependent regulation of amino acid efflux from lysosomes",
+    "authors": "Abu-Remaileh M; Wyant GA; Kim C; Laqtom NN; Abbasi M; Chan SH; Freinkman E; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aan6298",
+    "pmid": "29074583",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (HEK293)",
+    "peer_reviewed": true,
+    "finding": "Turns the lysosome from a place where mTORC1 is switched on into something mTORC1 also controls: inhibiting mTOR strongly reduces the efflux of most essential amino acids out of the lysosome, so the organelle becomes a store rather than a source. Measured directly by rapidly isolating lysosomes and profiling their contents, which is why the claim is about concentrations inside the organelle and not inferred from signalling readouts. Boundary: one human cell line, acute pharmacological inhibition.",
+    "url": "https://mtor-atlas.org/study/ABU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ABU2017.json"
    }
   ],
   "relations": []

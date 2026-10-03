@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -36,12 +36,46 @@
    "species": "Mammalian cells",
    "effect": "Upon amino-acid starvation the Rag GTPases recruit TSC2 to the lysosome to inactivate TORC1"
   },
-  "entities": [],
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
   "relations": {
-   "supports": [],
+   "supports": [
+    "TSC-MTORC1",
+    "RAG-TSC"
+   ],
    "conflicts_with": []
   },
   "questions": [],
-  "related_studies": []
+  "related_studies": [
+   "SAN2010",
+   "CUI2025",
+   "ROG2019",
+   "SHA2004"
+  ]
  }
 }

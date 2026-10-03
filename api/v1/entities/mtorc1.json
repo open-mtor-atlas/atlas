@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T09:01:04+0200",
-  "source_commit": "43f52665059e85c5d5ce61ead401af6019cca849",
+  "corpus_snapshot": "2026-10-03T13:38:49+0200",
+  "source_commit": "58be2cdc482ba2d1fdd6fb2ce9a0c863c86ed9af",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -18,8 +18,8 @@
    "mTOR complex-1"
   ],
   "description": "mTOR Complex 1; regulates protein synthesis, autophagy, and growth in response to nutrients and growth factors.",
-  "study_count": 92,
-  "relation_count": 38,
+  "study_count": 176,
+  "relation_count": 39,
   "url": "https://mtor-atlas.org/complex/mtorc1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/mtorc1.json",
   "description_beginner": "The first of the two mTOR complexes, and the one most people mean when they just say 'mTOR.' It controls protein-building, cellular cleanup, and growth in response to nutrients and growth-factor signals.",
@@ -1955,6 +1955,1770 @@
     "finding": "A mathematical model of how mTORC1 could tune the circadian clock. It suggests mTORC1 raises clock amplitude by controlling BMAL1 translation and shortens the period by controlling where BMAL1 sits in the cell, and that both levels are needed for robust oscillation. A model, not a measurement - it proposes mechanisms for RAM2018's observations rather than testing them.",
     "url": "https://mtor-atlas.org/study/GUE2020/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/GUE2020.json"
+   },
+   {
+    "sid": "VIL2021",
+    "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+    "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+    "year": 2021,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2021.03.009",
+    "pmid": "33756106",
+    "pmcid": "PMC8141029",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+    "url": "https://mtor-atlas.org/study/VIL2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json"
+   },
+   {
+    "sid": "SIL2026",
+    "title": "Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion",
+    "authors": "Sillito F; Armbrecht E; O'Neill AT; McIntyre A; Nyatondo M; Holler A; Callender LA; Henson SM; Stauss H; Chakraverty R",
+    "year": 2026,
+    "journal": "Journal of Immunology",
+    "doi": "10.1093/jimmun/vkag206",
+    "pmid": "42566506",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse CD4+ T cells, adoptive transfer tumor model",
+    "peer_reviewed": true,
+    "finding": "Enforced RHEB overexpression (mTORC1 hyperactivation) in therapeutic CD4+ T cells boosts initial proliferation/persistence after adoptive transfer, but drives cells toward an exhausted phenotype (co-inhibitory receptors, impaired re-proliferation on rechallenge) -- a double-edged sword for CAR/TCR-T cell engineering, distinct from the CD8 response to the same manipulation.",
+    "url": "https://mtor-atlas.org/study/SIL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIL2026.json"
+   },
+   {
+    "sid": "KOR2011",
+    "title": "Lysosomal positioning coordinates cellular nutrient responses",
+    "authors": "Korolchuk VI; Saiki S; Lichtenberg M; Siddiqi FH; Roberts EA; Imarisio S; Jahreiss L; Sarkar S; Futter M; Menzies FM; O'Kane CJ; Deretic V; Rubinsztein DC",
+    "year": 2011,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/ncb2204",
+    "pmid": "21394080",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Where the lysosome sits inside the cell helps decide whether mTORC1 is on. With nutrients available, lysosomes move to the cell periphery, physically close to the plasma-membrane signalling modules, and mTORC1 is active there; starvation changes intracellular pH and pulls lysosomes into a cluster around the nucleus, where mTORC1 output falls and autophagy is released. Lysosomal position also sets the rate of autophagosome-lysosome fusion, so one variable acts at both the initiation and the termination end of autophagic flux. This added a spatial axis to mTORC1 regulation that Rag/Ragulator recruitment alone does not account for.",
+    "url": "https://mtor-atlas.org/study/KOR2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KOR2011.json"
+   },
+   {
+    "sid": "CHEN2026C",
+    "title": "Impaired Chaperone-Mediated Autophagy Accelerates Intervertebral Disc Degeneration by Inducing MIDN Accumulation to Target TSC2 for Proteasomal Degradation",
+    "authors": "Chen Xianglong; Gao H; Wu W; Shi P; Chen Yuhang; Zhang A; Cheng Z; Wu W; Yu Z; Zhang Y",
+    "year": 2026,
+    "journal": "Advanced Science",
+    "doi": "10.1002/advs.77428",
+    "pmid": "42658647",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human nucleus pulposus cells; rat caudal needle-puncture model",
+    "peer_reviewed": true,
+    "finding": "Loss of chaperone-mediated autophagy lets its substrate midnolin (MIDN) accumulate; MIDN binds TSC2 and drives its proteasomal degradation independently of ubiquitination, de-repressing mTORC1 and causing senescence, SASP and matrix loss in disc cells. MIDN knockdown, LAMP2A overexpression or rapamycin each blocked the degeneration - a new upstream route to mTORC1 hyperactivation.",
+    "url": "https://mtor-atlas.org/study/CHEN2026C/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026C.json"
+   },
+   {
+    "sid": "SAC2011",
+    "title": "Rac1 regulates the activity of mTORC1 and mTORC2 and controls cellular size",
+    "authors": "Saci A; Carpenter CL et al.",
+    "year": 2011,
+    "journal": "Molecular cell",
+    "doi": "10.1016/j.molcel.2011.03.017",
+    "pmid": "21474067",
+    "pmcid": "PMC3750737",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Rac1 binds and regulates both mTORC1 and mTORC2, controlling their localization and cell growth.",
+    "url": "https://mtor-atlas.org/study/SAC2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAC2011.json"
+   },
+   {
+    "sid": "FER2024",
+    "title": "Spatial and functional separation of mTORC1 signalling in response to different amino acid sources",
+    "authors": "Fernandes SA; Angelidaki DD; Nüchel J; Pan J; Gollwitzer P; Elkis Y; Artoni F; Wilhelm S; Kovacevic-Sarmiento M; Demetriades C",
+    "year": 2024,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/s41556-024-01523-7",
+    "pmid": "39385049",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (HEK293)",
+    "peer_reviewed": true,
+    "finding": "mTORC1 regulation and downstream substrate phosphorylation are spatially separated: lysosomal mTORC1 (fed by local lysosomal proteolysis) and cytoplasmic mTORC1 (fed by exogenous amino acids) phosphorylate distinct substrates depending on amino acid source, challenging the single lysosomal-hub model.",
+    "url": "https://mtor-atlas.org/study/FER2024/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2024.json"
+   },
+   {
+    "sid": "SZW2021",
+    "title": "Regulation and metabolic functions of mTORC1 and mTORC2",
+    "authors": "Szwed A; Jacinto E et al.",
+    "year": 2021,
+    "journal": "Physiological reviews",
+    "doi": "10.1152/physrev.00026.2020",
+    "pmid": "33599151",
+    "pmcid": "PMC8424549",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Comprehensive review of the regulation and metabolic functions of mTORC1 and mTORC2.",
+    "url": "https://mtor-atlas.org/study/SZW2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SZW2021.json"
+   },
+   {
+    "sid": "GOU2023",
+    "title": "The molecular basis of nutrient sensing and signalling by mTORC1 in metabolism regulation and disease",
+    "authors": "Goul C; Zoncu R et al.",
+    "year": 2023,
+    "journal": "Nature reviews. Molecular cell biology",
+    "doi": "10.1038/s41580-023-00641-8",
+    "pmid": "37612414",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Authoritative review of the molecular basis of nutrient sensing and signalling by mTORC1 in disease.",
+    "url": "https://mtor-atlas.org/study/GOU2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GOU2023.json"
+   },
+   {
+    "sid": "EFE2012",
+    "title": "Regulation of mTORC1 by the Rag GTPases is necessary for neonatal autophagy and survival",
+    "authors": "Efeyan A; Sabatini DM et al.",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11745",
+    "pmid": "23263183",
+    "pmcid": "PMC4000705",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (RagA GTP knock-in)",
+    "peer_reviewed": true,
+    "finding": "Rag-GTPase control of mTORC1 is essential for neonatal autophagy and survival to fasting.",
+    "url": "https://mtor-atlas.org/study/EFE2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/EFE2012.json"
+   },
+   {
+    "sid": "SCI2014",
+    "title": "Mammalian target of rapamycin signaling in cardiac physiology and disease",
+    "authors": "Sciarretta S; Sadoshima J et al.",
+    "year": 2014,
+    "journal": "Circulation research",
+    "doi": "10.1161/CIRCRESAHA.114.302022",
+    "pmid": "24481845",
+    "pmcid": "PMC3995130",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of mTOR signalling in cardiac physiology and disease.",
+    "url": "https://mtor-atlas.org/study/SCI2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCI2014.json"
+   },
+   {
+    "sid": "WANG2026",
+    "title": "Amino acid homeostasis by CORVET/HOPS: A metabolic and stress resilience checkpoint for T cells",
+    "authors": "Wang J; Ni Z; Zhang Xinxin; He L; Cheng X; Huang L; Ye H; Li P; Zhao TJ; Du X",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2601318123",
+    "pmid": "42647134",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells (conditional VPS18 / VPS11 knockout, in vitro and in vivo)",
+    "peer_reviewed": true,
+    "finding": "Identifies the CORVET and HOPS endolysosomal tethering complexes as upstream suppliers of intracellular amino acids in activated T cells, acquired via macropinocytosis. Loss of the core subunits VPS18 or VPS11 starves the cell of amino acids, switches on the integrated stress response and shuts down mTORC1; enforced mTORC1 activity rescues the proliferative defect while BIM deletion rescues survival, separating the two failure modes. Places vesicular nutrient acquisition upstream of the canonical lysosomal amino-acid-sensing arm of mTORC1.",
+    "url": "https://mtor-atlas.org/study/WANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026.json"
+   },
+   {
+    "sid": "BEN2008",
+    "title": "Skeletal muscle-specific ablation of raptor, but not of rictor, causes metabolic changes and results in muscle dystrophy",
+    "authors": "Bentzinger CF; Rueegg MA et al.",
+    "year": 2008,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2008.10.002",
+    "pmid": "19046572",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (muscle raptor/rictor KO)",
+    "peer_reviewed": true,
+    "finding": "In mice, muscle-specific raptor loss (not rictor) causes dystrophy, showing mTORC1 is essential for muscle homeostasis.",
+    "url": "https://mtor-atlas.org/study/BEN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BEN2008.json"
+   },
+   {
+    "sid": "SRI2026",
+    "title": "Nutrient/TOR signaling controls adipose mitochondrial transcription factor A (TFAM) to regulate organismal growth in Drosophila",
+    "authors": "Sriskanthadevan-Pirahas S et al.",
+    "year": 2026,
+    "journal": "FEBS Lett",
+    "doi": "10.1002/1873-3468.70427",
+    "pmid": "42572502",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila (larvae, fat body)",
+    "peer_reviewed": true,
+    "finding": "In Drosophila larvae, nutrient/TOR signaling in the fat body (a key nutrient-sensing tissue) post-transcriptionally suppresses the mitochondrial transcription factor TFAM, and this TOR→TFAM axis in fat-body tissue controls whole-body developmental growth — a mechanistic link between nutrient sensing and interorgan growth control via mitochondrial bioenergetics.",
+    "url": "https://mtor-atlas.org/study/SRI2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SRI2026.json"
+   },
+   {
+    "sid": "ORE2006",
+    "title": "mTOR inhibition induces upstream receptor tyrosine kinase signaling and activates Akt",
+    "authors": "O'Reilly KE; Rosen N et al.",
+    "year": 2006,
+    "journal": "Cancer research",
+    "doi": "10.1158/0008-5472.CAN-05-2925",
+    "pmid": "16452206",
+    "pmcid": "PMC3193604",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cancer cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibition relieves feedback and activates upstream RTK-PI3K-Akt signalling.",
+    "url": "https://mtor-atlas.org/study/ORE2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ORE2006.json"
+   },
+   {
+    "sid": "VEL2026",
+    "title": "Anticipatory metabolic regulation drives the distinct and improved metabolic state of caloric restriction compared to Fasting-Refeeding cycles.",
+    "authors": "Velingkaar N; Astafev AA; Prabahar A; Maravillas MA; Trokhimenko E; Rom JB; Asi GJ; Piontkivska H; Jiang P; Kondratov RV",
+    "year": 2026,
+    "journal": "Cell Reports",
+    "doi": "10.1016/j.celrep.2026.118022",
+    "pmid": "42752091",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "Comparing caloric restriction (CR, one meal/day) to a fasting-refeeding-fasting (FRF) regimen with matched food intake and fasting duration, CR engages anticipatory, circadian-clock-aligned metabolic control (hepatic mTOR signaling, ketogenesis, metabolic gene coordination), whereas FRF responses track direct nutrient/gastric-emptying cues and disrupt circadian rhythmicity. CR improved glucose and fatty-acid metabolism; FRF caused glucose intolerance and hepatic fat accumulation.",
+    "url": "https://mtor-atlas.org/study/VEL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VEL2026.json"
+   },
+   {
+    "sid": "YAN2026B",
+    "title": "Hepassocin prevents age-related liver senescence and facilitates liver regeneration by activating AMPK",
+    "authors": "Yang Y; et al.; Yang X",
+    "year": 2026,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "doi": "10.1038/s41392-026-02773-7",
+    "pmid": "42736285",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Aged mice (12-month-old) and Hepassocin(Fgl1)-knockout mice, partial-hepatectomy liver regeneration model; correlative human liver tissue (aged vs young)",
+    "peer_reviewed": true,
+    "finding": "Hepassocin (HPS/FGL1), a hepatokine, activates AMPK via an ANXA2-ERK-p90RSK-LKB1 cascade, restraining mTOR activity. Aged HPS-knockout mice show reduced LKB1/AMPK activation and elevated mTOR activity, impaired autophagy, exacerbated cellular senescence, and severely compromised liver regeneration after partial hepatectomy. AMPK agonist AICAR or exogenous HPS rescued the aging/regeneration phenotype.",
+    "url": "https://mtor-atlas.org/study/YAN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YAN2026B.json"
+   },
+   {
+    "sid": "JAN2010",
+    "title": "Effective and selective targeting of leukemia cells using a TORC1/2 kinase inhibitor",
+    "authors": "Janes MR; Fruman DA et al.",
+    "year": 2010,
+    "journal": "Nature medicine",
+    "doi": "10.1038/nm.2091",
+    "pmid": "20072130",
+    "pmcid": "PMC4017764",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Leukemia cells; mouse",
+    "peer_reviewed": true,
+    "finding": "The ATP-competitive TORC1/2 inhibitor PP242 selectively kills leukemia cells, with much weaker effects on the proliferation and function of normal lymphocytes.",
+    "url": "https://mtor-atlas.org/study/JAN2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JAN2010.json"
+   },
+   {
+    "sid": "KAL2026",
+    "title": "Dietary protein governs the role of insulin signaling in the postprandial regulation of hepatic mTORC1.",
+    "authors": "Kalafut KC; Cormerais Y; Cissé MY; Lapp SC; Inouye KE; Hotamışlıgil GS; Manning BD",
+    "year": 2026,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-026-77216-6",
+    "pmid": "42811030",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse, liver-specific AKT/TSC2 genetic models",
+    "peer_reviewed": true,
+    "finding": "In liver-specific mouse genetic models, AKT-mediated TSC2 phosphorylation is the main route by which insulin induces hepatic mTORC1, but is dispensable for feeding-induced activation; postprandial mTORC1 activation instead requires dietary protein, and hepatic mTORC1 signalling is not elevated in diet-induced obesity despite impaired insulin/glucose homeostasis.",
+    "url": "https://mtor-atlas.org/study/KAL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAL2026.json"
+   },
+   {
+    "sid": "ZHANG2026",
+    "title": "Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.",
+    "authors": "Zhang C; Chao X; Williams SN; Wei X; DiGirolamo A; et al.",
+    "year": 2026,
+    "journal": "The Journal of clinical investigation",
+    "doi": "10.1172/JCI206334",
+    "pmid": "42560776",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse + Human (HCC)",
+    "peer_reviewed": true,
+    "finding": "TSC1 loss drives non-canonical mTORC1-mediated TFEB nuclear translocation, promoting hepatocyte-to-biliary plasticity and spontaneous aggressive HCC in mice; Tsc1/Tfeb double knockout rescues the phenotype.",
+    "url": "https://mtor-atlas.org/study/ZHANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026.json"
+   },
+   {
+    "sid": "SANG2026",
+    "title": "\"Trojan\" Methionine Probe Reveals PKM2 as a Methionine-Sensing Protein in the mTORC1 Pathway",
+    "authors": "Sang Z; Zheng Y; Wang X; Wu C; Zhao J; Wang JJ; Sui S; Wang J",
+    "year": 2026,
+    "journal": "Journal of the American Chemical Society",
+    "doi": "10.1021/jacs.6c06772",
+    "pmid": "42677553",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (chemoproteomics / photoaffinity probe)",
+    "peer_reviewed": true,
+    "finding": "Identifies PKM2 as a direct methionine sensor for mTORC1. A photoaffinity methionine analogue plus chemoproteomics showed that PKM2 binds free methionine through a distinct recognition pocket — independently of its glycolytic enzyme activity — and transduces methionine availability to mTORC1 via the GATOR2 complex. Complements SAMTOR (GU2017), which reads the methionine metabolite SAM rather than methionine itself, and suggests a route to a pharmacological \"methionine pseudostarvation\" state.",
+    "url": "https://mtor-atlas.org/study/SANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SANG2026.json"
+   },
+   {
+    "sid": "KIN2026",
+    "title": "TCR-mTORC1 signaling promotes epigenetic stabilization of Foxp3 expression in regulatory T cells via TET protein translation",
+    "authors": "Kinoshita T; Hori S et al.",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.2612904123",
+    "pmid": "42809396",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse; in vitro-induced regulatory T cells (iTreg)",
+    "peer_reviewed": true,
+    "finding": "Sustained TCR signaling activates mTORC1, which boosts translation of the TET2 (and likely TET3) DNA-demethylation enzymes; this demethylates the Foxp3 TSDR enhancer and epigenetically locks in stable Foxp3 expression in regulatory T cells. In vivo mTORC1 inactivation increases methylated-TSDR Foxp3+ T cells, confirming the pathway's physiological relevance.",
+    "url": "https://mtor-atlas.org/study/KIN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIN2026.json"
+   },
+   {
+    "sid": "KNO2026",
+    "title": "The hallmarks of protein and amino acid restriction in aging and longevity",
+    "authors": "Knopf BA; Lamming DW",
+    "year": 2026,
+    "journal": "Cell Press Blue",
+    "doi": "10.1016/j.cpblue.2026.100079",
+    "pmid": "42639474",
+    "pmcid": "PMC13501984",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Cross-species review (yeast, worm, fly, rodent, human)",
+    "peer_reviewed": true,
+    "finding": "Defines the \"hallmarks\" of dietary protein restriction (PR) through the lens of aging: PR and restriction of specific essential amino acids — especially methionine, isoleucine and valine — improve metabolic health, healthspan and lifespan across organisms, with amino-acid composition (not just protein quantity) acting as a key determinant via nutrient-sensing pathways including mTORC1.",
+    "url": "https://mtor-atlas.org/study/KNO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KNO2026.json"
+   },
+   {
+    "sid": "KIM2019",
+    "title": "mTOR as a central hub of nutrient signalling and cell growth",
+    "authors": "Kim J; Guan KL et al.",
+    "year": 2019,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/s41556-018-0205-1",
+    "pmid": "30602761",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review: mTOR as a central hub of nutrient signalling and cell growth.",
+    "url": "https://mtor-atlas.org/study/KIM2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2019.json"
+   },
+   {
+    "sid": "VAL2019",
+    "title": "Molecular logic of mTORC1 signalling as a metabolic rheostat",
+    "authors": "Valvezan AJ; Manning BD et al.",
+    "year": 2019,
+    "journal": "Nature metabolism",
+    "doi": "10.1038/s42255-019-0038-7",
+    "pmid": "32694720",
+    "pmcid": "PMC12569966",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review framing mTORC1 as a metabolic rheostat coupling growth signals to metabolism.",
+    "url": "https://mtor-atlas.org/study/VAL2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2019.json"
+   },
+   {
+    "sid": "HON2026",
+    "title": "Structure and function of TM6SF1 reveals role in mTORC1 signaling",
+    "authors": "Hong S; Li X et al.",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2622424123",
+    "pmid": "42735304",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure; HEK293 cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of TM6SF1 identifies it as a lysosomal cholesterol-binding protein that directly engages LAMTOR1 (Ragulator) to regulate mTORC1 signaling in a cholesterol-dependent manner.",
+    "url": "https://mtor-atlas.org/study/HON2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HON2026.json"
+   },
+   {
+    "sid": "HU2026",
+    "title": "Novel mTORC1 Booster LAPTM4A Potentiates Pathological Cardiac Hypertrophy",
+    "authors": "Hu Y; Li W; Hu M; Tian S; Zhou S; Liu J; Cheng X; Zhang C; Zuo Y; Zhang J; Liu D; Hu Y; Chen Y; Li X; Luo L; Yang H; Bai L; Liu H; Ferdinandy P; Chiong M; Troncoso MF; Wen J; Cai J; Zhang XJ; She ZG; Zhang X; Li H",
+    "year": 2026,
+    "journal": "Circulation",
+    "doi": "10.1161/CIRCULATIONAHA.126.080371",
+    "pmid": "42770220",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat cardiomyocytes (adenoviral overexpression/knockdown); mouse cardiomyocyte-specific AAV9 overexpression and knockout, transverse aortic constriction (TAC) model",
+    "peer_reviewed": true,
+    "finding": "Identifies LAPTM4A, a lysosomal transmembrane protein, as a novel booster of mTORC1 signaling in cardiomyocytes: LAPTM4A binds NEDD4L, driving K63-linked ubiquitination of AKT and downstream mTORC1-p70S6K/4EBP1-mediated protein synthesis, without affecting lysosomal autophagy. Cardiomyocyte-specific LAPTM4A deletion attenuated TAC-induced hypertrophy/fibrosis in mice; an FDA-approved-drug screen identified magnolol as a LAPTM4A suppressor with cardioprotective effect in vivo.",
+    "url": "https://mtor-atlas.org/study/HU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HU2026.json"
+   },
+   {
+    "sid": "LI2026C",
+    "title": "mTORC1 drives cell-autonomous astrocyte reactivity in tuberous sclerosis",
+    "authors": "Li TL; Blair JD; Yoo T; Grant GA; Hockemeyer D; Porter BE; Bateup HS",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11054-w",
+    "pmid": "42778607",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human iPSC-derived brain organoids (TSC2-mutant); resected cortical tuber tissue from TSC patients",
+    "peer_reviewed": true,
+    "finding": "Using human brain organoids carrying TSC2 loss-of-function mutations plus patient-derived cortical tuber tissue, shows that hyperactive mTORC1 signaling drives neural progenitors to differentiate into enlarged, pro-inflammatory reactive astrocytes in a cell-autonomous manner (downregulated glutamate transporters, elevated inflammatory cytokines and AD-risk genes APOE/CLU) — independent of seizure activity. Positions glial dysfunction as a primary driver of TSC pathology, not merely a downstream consequence.",
+    "url": "https://mtor-atlas.org/study/LI2026C/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LI2026C.json"
+   },
+   {
+    "sid": "BAT2022",
+    "title": "mTOR substrate phosphorylation in growth control",
+    "authors": "Battaglioni S; Hall MN et al.",
+    "year": 2022,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2022.04.013",
+    "pmid": "35580586",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review cataloguing direct mTOR substrates and how mTORC1/2 achieve substrate specificity.",
+    "url": "https://mtor-atlas.org/study/BAT2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAT2022.json"
+   },
+   {
+    "sid": "CHEN2026B",
+    "title": "IGF2BP3-Mediated m6A Modification of OLR1 mRNA Promotes Immune Evasion in CRC via the PI3K/AKT/mTOR Pathway",
+    "authors": "Chen W",
+    "year": 2026,
+    "journal": "Journal of Immunotherapy",
+    "doi": "10.1097/CJI.0000000000000613",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "CRC cell lines (human); TCGA dataset",
+    "peer_reviewed": true,
+    "finding": "IGF2BP3 stabilizes OLR1 via m6A RNA modification, activating PI3K/AKT/mTOR signaling which suppresses CD8+ T cell anti-tumor activity and drives immune evasion in colorectal cancer.",
+    "url": "https://mtor-atlas.org/study/CHEN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026B.json"
+   },
+   {
+    "sid": "DEMMINGS2026",
+    "title": "ATF4 activates a transcriptional program that chronically suppresses mTOR activity and promotes neurodegeneration in Parkinson disease models",
+    "authors": "Demmings MD; Kane EA; Tennyson EC; Hurley K; Zhao J; Cruickshanks NA; Ciz V; Krupa JM; Pasternak SH; Cregan SP",
+    "year": 2026,
+    "journal": "Cell Reports",
+    "doi": "10.1016/j.celrep.2026.117832",
+    "pmid": "42599806",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (neurotoxin and alpha-synucleinopathy PD models) and cultured neurons",
+    "peer_reviewed": true,
+    "finding": "Chronic integrated-stress-response signalling through ATF4 coordinately upregulates SESN2, DDIT4 and Trib3, which together suppress BOTH mTORC1 and mTORC2; this sustained mTOR inhibition drives dopaminergic neuron death via the pro-apoptotic BCL-2 family protein PUMA. Defines a maladaptive ISR/ATF4-to-mTOR axis in Parkinson disease models — a case where LESS mTOR activity is harmful, opposite to the usual longevity framing.",
+    "url": "https://mtor-atlas.org/study/DEMMINGS2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEMMINGS2026.json"
+   },
+   {
+    "sid": "BETZ2013",
+    "title": "Where is mTOR and what is it doing there?",
+    "authors": "Betz C; Hall MN et al.",
+    "year": 2013,
+    "journal": "The Journal of cell biology",
+    "doi": "10.1083/jcb.201306041",
+    "pmid": "24385483",
+    "pmcid": "PMC3840941",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of where mTOR localizes and its compartmentalized functions.",
+    "url": "https://mtor-atlas.org/study/BETZ2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BETZ2013.json"
+   },
+   {
+    "sid": "BYF2005",
+    "title": "hVps34 is a nutrient-regulated lipid kinase required for activation of p70 S6 kinase",
+    "authors": "Byfield MP; Murray JT; Backer JM",
+    "year": 2005,
+    "journal": "J Biol Chem",
+    "doi": "10.1074/jbc.M507201200",
+    "pmid": "16049009",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and hamster cell lines (HeLa, CHO)",
+    "peer_reviewed": true,
+    "finding": "Opens a second, non-canonical route by which amino acids reach mTORC1. The class III PI 3-kinase hVps34 is switched off by amino acid or glucose starvation and by AMPK activation, and is required for S6K1 and 4E-BP1 phosphorylation, yet it sits outside the insulin/class I PI3K input (it does not affect Akt or TSC2 phosphorylation). Boundary: cell lines and knockdown/overexpression only; the step is nutrient-regulated but the sensor itself is not identified.",
+    "url": "https://mtor-atlas.org/study/BYF2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BYF2005.json"
+   },
+   {
+    "sid": "SU2026",
+    "title": "LncRNA DLX6-AS1 promotes necroptosis through PI3K/AKT/mTOR signaling pathway in myocardial ischemia/reperfusion injury mice",
+    "authors": "Su Y; Mu L; Wang L; Li T; Zhang Q; Zhang Jun",
+    "year": 2026,
+    "journal": "Scientific Reports",
+    "doi": "10.1038/s41598-026-50371-y",
+    "pmid": "42601357",
+    "pmcid": "PMC13476243",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse; Rat H9c2 cells",
+    "peer_reviewed": true,
+    "finding": "LncRNA DLX6-AS1 activates PI3K/AKT/mTOR signaling to promote necroptosis in myocardial ischemia-reperfusion injury; inhibiting DLX6-AS1 suppresses necroptosis and protects cardiomyocytes.",
+    "url": "https://mtor-atlas.org/study/SU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SU2026.json"
+   },
+   {
+    "sid": "ROD2011",
+    "title": "mTOR kinase inhibition causes feedback-dependent biphasic regulation of AKT signaling",
+    "authors": "Rodrik-Outmezguine VS; Rosen N et al.",
+    "year": 2011,
+    "journal": "Cancer discovery",
+    "doi": "10.1158/2159-8290.CD-11-0085",
+    "pmid": "22140653",
+    "pmcid": "PMC3227125",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cancer cells",
+    "peer_reviewed": true,
+    "finding": "mTOR kinase inhibition triggers feedback-dependent biphasic AKT reactivation, informing resistance.",
+    "url": "https://mtor-atlas.org/study/ROD2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROD2011.json"
+   },
+   {
+    "sid": "PRE2021",
+    "title": "G3BPs tether the TSC complex to lysosomes and suppress mTORC1 signaling",
+    "authors": "Prentzell MT; Rehbein U; Cadena Sandoval M; De Meulemeester AS; Baumeister R; et al.; Carroll B; Demetriades C; Korolchuk VI; Nellist M; Palm W; Sampson JR; Teleman AA; Opitz CA; Thedieck K",
+    "year": 2021,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2020.12.024",
+    "pmid": "33497611",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cells; breast cancer patient data; zebrafish",
+    "peer_reviewed": true,
+    "finding": "Adds a physical brake upstream of mTORC1. G3BP1 and G3BP2, known until then as core stress-granule proteins, also sit on the cytoplasmic face of the lysosome and are what holds the TSC complex there; without them TSC cannot reach its target and mTORC1 becomes over-responsive to amino acids and insulin. Loss of G3BP1 reproduces TSC-like hyperactivity phenotypes: faster mTORC1-driven motility in breast cancer cells, with low G3BP1 correlating with worse patient outcome, and disturbed neuronal development in zebrafish. Relevant to the Atlas because it is a lysosomal tethering step that the canonical Rheb/TSC diagram does not show.",
+    "url": "https://mtor-atlas.org/study/PRE2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PRE2021.json"
+   },
+   {
+    "sid": "ZAU2026",
+    "title": "mTORC1-TFEB/TFE3 signaling is associated with bile acid diversification during hepatic metabolic adaptation",
+    "authors": "Zaufel A; Sun W; Pastore N; Taschler U; Wagner C; Hackl H; Sommer J; Silbert-Wagner D; Hengstler JG; Begher-Tibbe B; Stauber R; Kolb D; Troetzmueller M; Gottschalk B; Thorsheim C; Stange EL; Hornef MW; Pivovarova-Ramich O; Pfeiffer AFH; Matchett KP; Loft A; Herzig S; Henderson NC; Ballabio A; Arany Z; Wolfrum C; Fickert P; Moustafa T",
+    "year": 2026,
+    "journal": "Science Advances",
+    "doi": "10.1126/sciadv.aee1905",
+    "pmid": "42789715",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (liver-specific genetic mTORC1/TFEB manipulation, rapamycin treatment, dietary protein restriction); correlative human MASLD patient cohort",
+    "peer_reviewed": true,
+    "finding": "Establishes a new mTORC1-TFEB/TFE3 signaling axis controlling hepatic bile acid metabolism. Depending on mTORC1 signaling state, mice show coordinated shifts in bile-acid species (non-12-OH vs 12-OH) via altered enzyme expression and cholesterol trafficking; these shifts are reversed by mTORC1 pathway deletion or rapamycin treatment. Dietary protein restriction (which inhibits mTORC1) produces a similar bile-acid shift in mice and correlates with improved metabolic outcomes in human MASLD patients, linking mTORC1 nutrient sensing directly to bile-acid homeostasis and fatty liver disease.",
+    "url": "https://mtor-atlas.org/study/ZAU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZAU2026.json"
+   },
+   {
+    "sid": "KIM2008",
+    "title": "Regulation of TORC1 by Rag GTPases in nutrient response",
+    "authors": "Kim E; Guan KL et al.",
+    "year": 2008,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/ncb1753",
+    "pmid": "18604198",
+    "pmcid": "PMC2711503",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Rag GTPases mediate amino-acid signalling to TORC1 (parallel discovery to Sancak 2008).",
+    "url": "https://mtor-atlas.org/study/KIM2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2008.json"
+   },
+   {
+    "sid": "SIN2013",
+    "title": "Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation",
+    "authors": "Sinclair LV; Cantrell DA et al.",
+    "year": 2013,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2556",
+    "pmid": "23525088",
+    "pmcid": "PMC3672957",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse T cells",
+    "peer_reviewed": true,
+    "finding": "Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.",
+    "url": "https://mtor-atlas.org/study/SIN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2013.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Ktistakis NT et al.",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "SHIMADA2026",
+    "title": "Sexual Dimorphism in Placental mTORC1 Signaling, Amino Acid Transport, and Mitochondrial Respiration at Term.",
+    "authors": "Shimada H; Sakuragi T; Zaegel V et al.",
+    "year": 2026,
+    "journal": "Antioxidants",
+    "doi": "10.3390/antiox15080977",
+    "pmid": "42650242",
+    "pmcid": "PMC13509233",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human placenta at term (n=46)",
+    "peer_reviewed": true,
+    "finding": "In 46 term placentas, male placentas showed higher mTORC1 signalling (increased S6RP phosphorylation, reduced 4E-BP1), greater System A amino acid transport and higher mitochondrial respiratory capacity than female placentas, and male pregnancies had a higher birth-weight-to-placental-weight ratio. Observational: a cross-sectional association at a single timepoint, with no intervention and no randomisation, so the direction of the relationship between mTORC1 signalling and growth is not established here and residual confounding by maternal and obstetric factors cannot be excluded.",
+    "url": "https://mtor-atlas.org/study/SHIMADA2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIMADA2026.json"
+   },
+   {
+    "sid": "YUX2010",
+    "title": "Termination of autophagy and reformation of lysosomes regulated by mTOR",
+    "authors": "Yu L; Lenardo MJ et al.",
+    "year": 2010,
+    "journal": "Nature",
+    "doi": "10.1038/nature09076",
+    "pmid": "20526321",
+    "pmcid": "PMC2920749",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Reactivation of mTOR terminates autophagy and drives autophagic lysosome reformation (ALR).",
+    "url": "https://mtor-atlas.org/study/YUX2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YUX2010.json"
+   },
+   {
+    "sid": "DEL2011",
+    "title": "The kinase mTOR regulates the differentiation of helper T cells through the selective activation of signaling by mTORC1 and mTORC2",
+    "authors": "Delgoffe GM; Powell JD et al.",
+    "year": 2011,
+    "journal": "Nature immunology",
+    "doi": "10.1038/ni.2005",
+    "pmid": "21358638",
+    "pmcid": "PMC3077821",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 and mTORC2 selectively program distinct CD4 helper T-cell lineages.",
+    "url": "https://mtor-atlas.org/study/DEL2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEL2011.json"
+   },
+   {
+    "sid": "GUE2022",
+    "title": "TORC1 and PKA activity towards ribosome biogenesis oscillates in synchrony with the budding yeast cell cycle",
+    "authors": "Guerra P; Milias-Argeitis A et al.",
+    "year": 2022,
+    "journal": "Journal of Cell Science",
+    "doi": "10.1242/jcs.260378",
+    "pmid": "35975715",
+    "pmcid": "PMC9658999",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae), time-lapse single-cell microscopy",
+    "peer_reviewed": true,
+    "finding": "Tracking the localisation of two TORC1 and PKA targets by time-lapse microscopy in hundreds of yeast cells shows that TORC1/PKA activity towards ribosome biogenesis rises and falls in step with the cell cycle even when outside conditions stay constant; mutations in upstream regulators suggest internal metabolic signals partly drive the oscillation.",
+    "url": "https://mtor-atlas.org/study/GUE2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUE2022.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "SPA2023",
+    "title": "Continuous sensing of nutrients and growth factors by the mTORC1-TFEB axis",
+    "authors": "Sparta B; Albeck JG et al.",
+    "year": 2023,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.74903",
+    "pmid": "37698461",
+    "pmcid": "PMC10547473",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MCF10A cells (live single-cell imaging, fluorescent TFEB fusions)",
+    "peer_reviewed": true,
+    "finding": "Live imaging of single MCF10A cells shows mTORC1-TFEB signalling adjusts continuously to amino acids and insulin, given alone, one after another or together; at physiological amino acid levels TFEB, AMPK and AKT activity fluctuate in step, and these graded changes track protein synthesis rate through a distributed set of mTORC1 effectors.",
+    "url": "https://mtor-atlas.org/study/SPA2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SPA2023.json"
+   },
+   {
+    "sid": "GAR2009",
+    "title": "Ku-0063794 is a specific inhibitor of the mammalian target of rapamycin (mTOR)",
+    "authors": "Garcia-Martinez JM; Alessi DR et al.",
+    "year": 2009,
+    "journal": "The Biochemical journal",
+    "doi": "10.1042/BJ20090489",
+    "pmid": "19402821",
+    "pmcid": "PMC2708931",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro; cells",
+    "peer_reviewed": true,
+    "finding": "Ku-0063794 is a specific ATP-competitive mTOR inhibitor blocking mTORC1 and mTORC2.",
+    "url": "https://mtor-atlas.org/study/GAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2009.json"
+   },
+   {
+    "sid": "CAO2026",
+    "title": "Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome",
+    "authors": "Cao ZL; Zhao SC; Lin F; Liu YH; Hong XT; Hong LY; Xu LQ; Li FP; Yu HY; Yao WG; Chen WY",
+    "year": 2026,
+    "journal": "Frontiers in Oncology",
+    "doi": "10.3389/fonc.2026.1848740",
+    "pmid": "42558438",
+    "pmcid": "PMC13437482",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative synthesis (human genetics + mouse mechanistic data)",
+    "peer_reviewed": true,
+    "finding": "Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic 'global mTORC1 hyperactivation' model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation, while haploinsufficiency alone is sufficient for lung and skin lesions -- resolving the 'mTORC1 paradox' via gene dosage and signaling timing. Narrative synthesis of human genetics and mouse mechanistic data.",
+    "url": "https://mtor-atlas.org/study/CAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAO2026.json"
+   },
+   {
+    "sid": "NAZ2026",
+    "title": "Collagen I promotes cancer cell survival via amino acid import and mTORC1/S6 activation",
+    "authors": "Nazemi M; Yanes B; Vancauwenberghe E; Oyelade I; Walker H; Rainero E",
+    "year": 2026,
+    "journal": "PLoS Biology",
+    "doi": "10.1371/journal.pbio.3003555",
+    "pmid": "42758789",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human breast and pancreatic cancer cell lines (2D/3D culture)",
+    "peer_reviewed": true,
+    "finding": "Collagen I drives alpha2beta1 integrin-dependent mTORC1/S6 activation and membrane localization of the LAT1-4F2hc amino acid transporter, sustaining essential amino acid supply and cancer cell survival in nutrient-poor, collagen-rich tumor stroma; LAT1-4F2hc is upregulated in basal-like breast/pancreatic tumors and correlates with poor prognosis.",
+    "url": "https://mtor-atlas.org/study/NAZ2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NAZ2026.json"
+   },
+   {
+    "sid": "MARCHANT2026",
+    "title": "Constitutive mTORC1 Activation in Skeletal Muscle Increases Inflammation but is not Sufficient to Impair Glucose Tolerance.",
+    "authors": "Marchant ED; Kalenta H; Kilroe SP; May J; Martini WZ; Weldon KS et al.",
+    "year": 2026,
+    "journal": "Function (Oxford, England)",
+    "doi": "10.1152/function.039.2026",
+    "pmid": "42468920",
+    "pmcid": "PMC13459988",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "Constitutive mTORC1 activation in mouse skeletal muscle (via GATOR1 complex KO) increases inflammatory markers but is not sufficient to impair glucose tolerance, indicating that additional metabolic inputs beyond muscle mTORC1 hyperactivation are required to drive glucose intolerance.",
+    "url": "https://mtor-atlas.org/study/MARCHANT2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MARCHANT2026.json"
+   },
+   {
+    "sid": "ANA2019",
+    "title": "Architecture of human Rag GTPase heterodimers and their complex with mTORC1",
+    "authors": "Anandapadamanaban M; Williams RL et al.",
+    "year": 2019,
+    "journal": "Science",
+    "doi": "10.1126/science.aax3939",
+    "pmid": "31601764",
+    "pmcid": "PMC6795536",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Structures of Rag GTPase heterodimers with mTORC1 explain nucleotide-state-dependent recruitment.",
+    "url": "https://mtor-atlas.org/study/ANA2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ANA2019.json"
+   },
+   {
+    "sid": "OKI2021",
+    "title": "Imaging dynamic mTORC1 pathway activity in vivo reveals marked shifts that support time-specific inhibitor therapy in AML",
+    "authors": "Oki T; Scadden DT et al.",
+    "year": 2021,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-020-20491-8",
+    "pmid": "33431855",
+    "pmcid": "PMC7801403",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse AML model; intravital imaging of bone marrow with fluorescent probes",
+    "peer_reviewed": true,
+    "finding": "Fluorescent probes imaged in the bone marrow of live mice show mTORC1 activity in AML cells falls as the disease progresses but is high at the moment of maximal chemotherapy response, where it is induced rather than selected; inhibiting mTORC1 at that time improved killing of AML cells.",
+    "url": "https://mtor-atlas.org/study/OKI2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/OKI2021.json"
+   },
+   {
+    "sid": "HOX2019",
+    "title": "The PI3K-AKT network at the interface of oncogenic signalling and cancer metabolism",
+    "authors": "Hoxhaj G; Manning BD et al.",
+    "year": 2019,
+    "journal": "Nature reviews. Cancer",
+    "doi": "10.1038/s41568-019-0216-7",
+    "pmid": "31686003",
+    "pmcid": "PMC7314312",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of the PI3K-AKT-mTOR network at the interface of oncogenic signalling and metabolism.",
+    "url": "https://mtor-atlas.org/study/HOX2019/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HOX2019.json"
+   },
+   {
+    "sid": "SUX2017",
+    "title": "Hybrid Structure of the RagA/C-Ragulator mTORC1 Activation Complex",
+    "authors": "Su MY; Hurley JH et al.",
+    "year": 2017,
+    "journal": "Molecular cell",
+    "doi": "10.1016/j.molcel.2017.10.016",
+    "pmid": "29107538",
+    "pmcid": "PMC5722659",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Hybrid structure",
+    "peer_reviewed": true,
+    "finding": "Hybrid structural model of the RagA/C-Ragulator mTORC1 activation complex.",
+    "url": "https://mtor-atlas.org/study/SUX2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SUX2017.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "DIB2013",
+    "title": "Signal integration by mTORC1 coordinates nutrient input with biosynthetic output",
+    "authors": "Dibble CC; Manning BD et al.",
+    "year": 2013,
+    "journal": "Nature cell biology",
+    "doi": "10.1038/ncb2763",
+    "pmid": "23728461",
+    "pmcid": "PMC3743096",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review: mTORC1 integrates nutrient input with biosynthetic output.",
+    "url": "https://mtor-atlas.org/study/DIB2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DIB2013.json"
+   },
+   {
+    "sid": "WAN2026",
+    "title": "Lsp2 links mTORC1 to TOP mRNA translation and lifespan in Drosophila",
+    "authors": "Wang J; Cai Z; Gu J; Xiong S; Yi J; Yang M; Chang K; Ning X; Wen Y; Yan Y; Lu J; Wang Y; Zhai Z",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11029-x",
+    "pmid": "42778591",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila melanogaster — Lsp2 genetic ablation, lifespan assay, translatomic (ribosome profiling) analysis",
+    "peer_reviewed": true,
+    "finding": "Identifies Lsp2, a Drosophila fat-body storage protein, as an amino-acid-induced feedback activator of mTORC1 that specifically boosts translation of TOP-motif mRNAs (mostly ribosomal proteins) via 4E-BP — a rapamycin-resistant arm of mTORC1 output. Genetic loss of Lsp2 reduces TOP mRNA translation and robustly extends lifespan without cost to reproduction, revealing a rapamycin-independent route from mTORC1 activity to organismal longevity.",
+    "url": "https://mtor-atlas.org/study/WAN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2026.json"
+   },
+   {
+    "sid": "MEI2008",
+    "title": "Response of a neuronal model of tuberous sclerosis to mammalian target of rapamycin (mTOR) inhibitors: effects on mTORC1 and Akt signaling lead to improved survival and function",
+    "authors": "Meikle L; Kwiatkowski DJ et al.",
+    "year": 2008,
+    "journal": "The Journal of neuroscience",
+    "doi": "10.1523/JNEUROSCI.0955-08.2008",
+    "pmid": "18495876",
+    "pmcid": "PMC2633923",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (Tsc1 neuronal KO)",
+    "peer_reviewed": true,
+    "finding": "mTOR inhibition rescues a neuronal tuberous-sclerosis model, supporting rapamycin for TSC neurology.",
+    "url": "https://mtor-atlas.org/study/MEI2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MEI2008.json"
+   },
+   {
+    "sid": "DEM2026",
+    "title": "IDH3 regulates citrate homeostasis to control metabolic fitness and venetoclax resistance of AML stem cells",
+    "authors": "Demir A; Mönnig M; Aroua N; Besiridou E; Schmidt V; et al.; Raffel S",
+    "year": 2026,
+    "journal": "Blood",
+    "doi": "10.1182/blood.2026034181",
+    "pmid": "42752592",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human AML patient samples, bone marrow organoids, xenograft mice",
+    "peer_reviewed": true,
+    "finding": "IDH3A loss in AML leukemic stem cells reduces TCA cycle flux and raises intracellular citrate, activating AMPK and suppressing mTORC1 (lowering translation), which sensitizes cells to BCL2 inhibition by venetoclax - nominating the IDH3A-citrate-AMPK-mTORC1 axis as a target to overcome venetoclax/azacitidine resistance.",
+    "url": "https://mtor-atlas.org/study/DEM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2026.json"
+   },
+   {
+    "sid": "AYL2015",
+    "title": "Architecture of human mTOR complex 1",
+    "authors": "Aylett CH; Maier T et al.",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aaa3870",
+    "pmid": "26678875",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM architecture of human mTORC1 reveals its dimeric organization and active site access.",
+    "url": "https://mtor-atlas.org/study/AYL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/AYL2015.json"
+   },
+   {
+    "sid": "DEM2014",
+    "title": "Regulation of TORC1 in response to amino acid starvation via lysosomal recruitment of TSC2",
+    "authors": "Demetriades C; Teleman AA et al.",
+    "year": 2014,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2014.01.024",
+    "pmid": "24529380",
+    "pmcid": "PMC4346203",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Amino-acid starvation recruits TSC2 to the lysosome to inhibit Rheb and TORC1.",
+    "url": "https://mtor-atlas.org/study/DEM2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2014.json"
+   },
+   {
+    "sid": "WOLF2017",
+    "title": "The Dawn of the Age of Amino Acid Sensors for the mTORC1 Pathway",
+    "authors": "Wolfson RL; Sabatini DM et al.",
+    "year": 2017,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2017.07.001",
+    "pmid": "28768171",
+    "pmcid": "PMC5560103",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of the newly discovered amino-acid sensors feeding into mTORC1.",
+    "url": "https://mtor-atlas.org/study/WOLF2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WOLF2017.json"
+   },
+   {
+    "sid": "NIC2023",
+    "title": "Malonyl-CoA is a conserved endogenous ATP-competitive mTORC1 inhibitor",
+    "authors": "Nicastro R; Brohée L; Alba J; Nüchel J; Figlia G; Kipschull S; Gollwitzer P; Romero-Pozuelo J; Fernandes SA; Lamprakis A; Vanni S; Teleman AA; De Virgilio C; Demetriades C",
+    "year": 2023,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/s41556-023-01198-6",
+    "pmid": "37563253",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Yeast and mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Malonyl-CoA, an intermediate of fatty-acid biosynthesis, binds the mTOR catalytic pocket directly and acts as a conserved ATP-competitive inhibitor of mTORC1; when fatty acid synthase is downregulated, rising malonyl-CoA feeds back to dampen mTORC1 activity, linking lipogenic capacity to overall biosynthetic output.",
+    "url": "https://mtor-atlas.org/study/NIC2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NIC2023.json"
+   },
+   {
+    "sid": "CAR2017",
+    "title": "Persistent mTORC1 signaling in cell senescence results from defects in amino acid and growth factor sensing",
+    "authors": "Carroll B; Nelson G; Rabanal-Ruiz Y; Kucheryavenko O; Dunhill-Turner NA; Chesterman CC; Zahari Q; Zhang T; Conduit SE; Mitchell CA; Maddocks ODK; Lovat P; von Zglinicki T; Korolchuk VI",
+    "year": 2017,
+    "journal": "The Journal of cell biology",
+    "doi": "10.1083/jcb.201610113",
+    "pmid": "28566325",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human fibroblasts made senescent by stress, replicative exhaustion or oncogene activation",
+    "peer_reviewed": true,
+    "finding": "Explains why mTORC1 stays switched on in senescent cells. In human fibroblasts rendered senescent three different ways, mTORC1 is constitutively active and no longer responds to serum or amino acid withdrawal. The defect is upstream, not in mTORC1 itself: it is driven in part by depolarisation of the senescent plasma membrane, which leads to primary cilia defects and a failure to shut off growth-factor signalling, while increased autophagy and high intracellular amino acid levels may act to support the nutrient arm. Correcting these inputs restored sensitivity of the pathway and killed the cells, which frames persistent mTORC1 signalling as a survival dependency of senescent cells rather than a by-product of senescence.",
+    "url": "https://mtor-atlas.org/study/CAR2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAR2017.json"
+   },
+   {
+    "sid": "WUL2006",
+    "title": "TOR signaling in growth and metabolism",
+    "authors": "Wullschleger S; Hall MN et al.",
+    "year": 2006,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2006.01.016",
+    "pmid": "16469695",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Landmark review synthesizing TOR signalling in growth and metabolism across organisms.",
+    "url": "https://mtor-atlas.org/study/WUL2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WUL2006.json"
+   },
+   {
+    "sid": "GOL2022",
+    "title": "A Rag GTPase dimer code defines the regulation of mTORC1 by amino acids",
+    "authors": "Gollwitzer P; Grützmacher N; Wilhelm S; Kümmel D; Demetriades C",
+    "year": 2022,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/s41556-022-00976-y",
+    "pmid": "36097072",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (genetically modified Rag-paralogue cell lines)",
+    "peer_reviewed": true,
+    "finding": "The four mammalian Rag GTPase paralogues are not functionally interchangeable: RagC/D determines substrate specificity (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding), while RagA/B determines the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even upon starvation). Author correction issued 2023 (PMID 36536178, no change to conclusions).",
+    "url": "https://mtor-atlas.org/study/GOL2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GOL2022.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "SHE2018",
+    "title": "Architecture of the human GATOR1 and GATOR1-Rag GTPases complexes",
+    "authors": "Shen K; Sabatini DM et al.",
+    "year": 2018,
+    "journal": "Nature",
+    "doi": "10.1038/nature26158",
+    "pmid": "29590090",
+    "pmcid": "PMC5975964",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structures of GATOR1 and GATOR1-Rag complexes reveal GAP and inhibitory-clamp mechanisms.",
+    "url": "https://mtor-atlas.org/study/SHE2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHE2018.json"
+   },
+   {
+    "sid": "ZON2010",
+    "title": "mTOR: from growth signal integration to cancer, diabetes and ageing",
+    "authors": "Zoncu R; Sabatini DM et al.",
+    "year": 2010,
+    "journal": "Nature reviews. Molecular cell biology",
+    "doi": "10.1038/nrm3025",
+    "pmid": "21157483",
+    "pmcid": "PMC3390257",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Authoritative review of mTOR from growth-signal integration to disease.",
+    "url": "https://mtor-atlas.org/study/ZON2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2010.json"
+   },
+   {
+    "sid": "SEN2010",
+    "title": "mTORC1 controls fasting-induced ketogenesis and its modulation by ageing",
+    "authors": "Sengupta S; Sabatini DM et al.",
+    "year": 2010,
+    "journal": "Nature",
+    "doi": "10.1038/nature09584",
+    "pmid": "21179166",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse/cells",
+    "peer_reviewed": true,
+    "finding": "mTORC1 controls fasting-induced hepatic ketogenesis via PPARalpha, and this is blunted with age.",
+    "url": "https://mtor-atlas.org/study/SEN2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SEN2010.json"
+   },
+   {
+    "sid": "GIN2026",
+    "title": "Inferring feedback regulation from static snapshots of a single signal",
+    "authors": "Ginzberg M; Tan C; Patel N; Kafri R",
+    "year": 2026,
+    "journal": "Biochemistry and Biophysics Reports",
+    "doi": "10.1016/j.bbrep.2026.102747",
+    "pmid": "42643853",
+    "pmcid": "PMC13505498",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mammalian cultured cells (fixed-cell single-cell imaging, ergodic rate analysis)",
+    "peer_reviewed": true,
+    "finding": "Introduces AoF (Assay of Feedback), a perturbation-free single-cell imaging method that reconstructs how a signal CHANGES OVER TIME from fixed-cell snapshots, using DNA content and Geminin to order cells along the cell cycle. Applied to Akt phosphorylation, it uncovers a negative feedback loop that is active only in a narrow window at the G1/S transition; biochemistry points to mTORC1/S6K1-dependent inhibitory phosphorylation of IRS1 as the likely source, though the authors state this edge is not uniquely established. Directly relevant to the question of whether mTOR pathway activity is better described as a time-varying pattern than a fixed level.",
+    "url": "https://mtor-atlas.org/study/GIN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GIN2026.json"
+   },
+   {
+    "sid": "KIM2012",
+    "title": "SH3BP4 is a negative regulator of amino acid-Rag GTPase-mTORC1 signaling",
+    "authors": "Kim YM; Kim DH et al.",
+    "year": 2012,
+    "journal": "Molecular cell",
+    "doi": "10.1016/j.molcel.2012.04.007",
+    "pmid": "22575674",
+    "pmcid": "PMC3389276",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "SH3BP4 negatively regulates amino-acid-Rag-GTPase-mTORC1 signalling.",
+    "url": "https://mtor-atlas.org/study/KIM2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2012.json"
+   },
+   {
+    "sid": "PAN2013",
+    "title": "Amino acid deprivation inhibits TORC1 through a GTPase-activating protein complex for the Rag family GTPase Gtr1",
+    "authors": "Panchaud N; De Virgilio C et al.",
+    "year": 2013,
+    "journal": "Science signaling",
+    "doi": "10.1126/scisignal.2004112",
+    "pmid": "23716719",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Yeast",
+    "peer_reviewed": true,
+    "finding": "The SEACIT complex is a GAP for the Rag/Gtr GTPases mediating amino-acid inhibition of TORC1.",
+    "url": "https://mtor-atlas.org/study/PAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PAN2013.json"
+   },
+   {
+    "sid": "LAP2026",
+    "title": "Feeding-Induced Muscle mTORC1 Signaling Regulates Postprandial Protein Synthesis and Endurance but Not Muscle Size",
+    "authors": "Lapp SC; Kalafut KC; Cissé MY; Tighanimine K; Rosenthal DM; Doxsey W; Hui S; Inouye KE; Morrow CE; Cormerais Y; Manning BD",
+    "year": 2026,
+    "journal": "JCI insight",
+    "doi": "10.1172/jci.insight.210523",
+    "pmid": "42720990",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "SkM-TSC2-5A knock-in mice (AKT-phosphorylation-resistant TSC2, skeletal muscle-specific) vs SkM-TSC2-WT littermates, both sexes",
+    "peer_reviewed": true,
+    "finding": "Using a mouse model expressing an AKT-nonphosphorylatable TSC2 mutant specifically in skeletal muscle, the Manning lab genetically separated feeding-induced from contraction-induced mTORC1 activation. AKT-mediated TSC2 phosphorylation is required for feeding (but not contraction) to activate muscle mTORC1 and drive postprandial protein synthesis — yet mice lacking this feeding-induced signal have normal muscle mass and myofiber size, and instead show improved maximal endurance capacity with a modest rise in mitochondrial content. The finding dissociates mTORC1's role in postprandial anabolism from its role in maintaining steady-state muscle mass, and is a directly relevant data point for whether the pattern/source of mTORC1 activation (feeding vs. mechanical) — not just its average level — shapes downstream outcomes.",
+    "url": "https://mtor-atlas.org/study/LAP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAP2026.json"
+   },
+   {
+    "sid": "ALI2022",
+    "title": "The mTORC1-SLC4A7 axis stimulates bicarbonate import to enhance de novo nucleotide synthesis",
+    "authors": "Ali ES; Lipońska A; O'Hara BP; Amici DR; Torno MD; Gao P; Asara JM; Yap MF; Mendillo ML; Ben-Sahra I",
+    "year": 2022,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2022.06.008",
+    "pmid": "35772404",
+    "pmcid": "PMC9444906",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "Building a nucleotide needs a carbon donor, and cells get it from bicarbonate dissolved in their surroundings. This study shows mTORC1 does not just switch on the nucleotide enzymes - it also arranges the delivery of the raw material. Through S6K and the translation factor eIF4B, mTORC1 selectively increases translation of the mRNA for SLC4A7, a sodium-bicarbonate cotransporter, so more bicarbonate is pulled into the cell. Removing SLC4A7 from cells with hyperactive mTORC1 cut flux through both de novo purine and pyrimidine synthesis and slowed cell and tumor growth, without changing intracellular pH - so the transporter matters as a supply line, not as a pH regulator. A fourth distinct route by which mTORC1 feeds nucleotide synthesis, alongside CAD (BEN2013), the mitochondrial folate cycle (BEN2016) and demand coupling (VAL2017).",
+    "url": "https://mtor-atlas.org/study/ALI2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2022.json"
+   },
+   {
+    "sid": "THE2026",
+    "title": "mTORC1 supports progression toward activation competence in quiescent adult neural stem cells",
+    "authors": "Thetiot M; Bally-Cuif L et al.",
+    "year": 2026,
+    "journal": "bioRxiv",
+    "doi": "10.64898/2026.05.04.722648",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "PP",
+     "label": "Preprint, not peer-reviewed",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Preprint",
+    "model_system": "Adult zebrafish pallium neural stem cells; in situ analysis and single-cell RNA-seq",
+    "peer_reviewed": false,
+    "finding": "In the adult zebrafish brain, mTORC1 activity is enriched during a long quiescence phase in which neural stem cells become able to activate; perturbing mTORC1 changes how cells progress through this phase, setting the tempo of the move towards activation while preserving stemness. Preprint, not peer-reviewed.",
+    "url": "https://mtor-atlas.org/study/THE2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/THE2026.json"
+   },
+   {
+    "sid": "GOB2016",
+    "title": "Amino Acid Sensing by mTORC1: Intracellular Transporters Mark the Spot",
+    "authors": "Goberdhan DC; Harris AL et al.",
+    "year": 2016,
+    "journal": "Cell metabolism",
+    "doi": "10.1016/j.cmet.2016.03.013",
+    "pmid": "27076075",
+    "pmcid": "PMC5067300",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review: intracellular amino-acid transporters mark the site of mTORC1 activation.",
+    "url": "https://mtor-atlas.org/study/GOB2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GOB2016.json"
+   },
+   {
+    "sid": "ABR2026",
+    "title": "Molecular switches of SQSTM1: the impact of post-translational modifications on autophagy and neurodegeneration",
+    "authors": "Abrar F; Martin DDO",
+    "year": 2026,
+    "journal": "Autophagy",
+    "doi": "10.1080/15548627.2026.2711593",
+    "pmid": "42560011",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Comprehensive review of how post-translational modifications (phosphorylation, ubiquitination, acetylation, S-acylation, S-nitrosylation) tune SQSTM1/p62's role as the autophagy cargo-receptor hub -- relevant to neurodegenerative disease (Alzheimer's, ALS, Huntington's) where SQSTM1 regulation goes awry.",
+    "url": "https://mtor-atlas.org/study/ABR2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ABR2026.json"
+   },
+   {
+    "sid": "LU2026",
+    "title": "Mathematical Modeling of Dietary Timing- and Protein Quality-Responsive Liver Circadian Clock and its Function on Ribosome Biogenesis",
+    "authors": "Lu L; Levy JL; Anthony TG; Androulakis IP",
+    "year": 2026,
+    "journal": "Physiological Genomics",
+    "doi": "10.1152/physiolgenomics.00152.2026",
+    "pmid": "42647400",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Semi-mechanistic computational model of mammalian liver (peripheral clock, mTORC1, GCN2-ISR, ribosome biogenesis)",
+    "peer_reviewed": true,
+    "finding": "Builds a semi-mechanistic model in which liver mTORC1 and GCN2-ISR signalling are driven by RHYTHMS in dietary essential amino acid availability rather than by a fixed nutrient level. Simulations show the two pathways jointly set metabolic entrainability and are required to keep the peripheral clock and ribosome biogenesis synchronised under nutrient stress, and predict individualised recovery trajectories after a transient dietary disruption. A worked example of treating mTORC1 activity as a time-varying pattern whose shape — not just its average — determines the downstream growth output.",
+    "url": "https://mtor-atlas.org/study/LU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LU2026.json"
+   },
+   {
+    "sid": "ZEN2013",
+    "title": "mTORC1 couples immune signals and metabolic programming to establish T(reg)-cell function",
+    "authors": "Zeng H; Chi H et al.",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature12297",
+    "pmid": "23812589",
+    "pmcid": "PMC3759242",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 couples immune signals and metabolism to establish regulatory T-cell function.",
+    "url": "https://mtor-atlas.org/study/ZEN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2013.json"
+   },
+   {
+    "sid": "WUX2013",
+    "title": "Increased mammalian lifespan and a segmental and tissue-specific slowing of aging after genetic reduction of mTOR expression",
+    "authors": "Wu JJ; Finkel T et al.",
+    "year": 2013,
+    "journal": "Cell reports",
+    "doi": "10.1016/j.celrep.2013.07.030",
+    "pmid": "23994476",
+    "pmcid": "PMC3784301",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (mTOR hypomorph)",
+    "peer_reviewed": true,
+    "finding": "Genetically reduced mTOR increases mouse lifespan with tissue-specific slowing of aging.",
+    "url": "https://mtor-atlas.org/study/WUX2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WUX2013.json"
+   },
+   {
+    "sid": "ZHO2009",
+    "title": "Pharmacological inhibition of mTORC1 suppresses anatomical, cellular, and behavioral abnormalities in neural-specific Pten knock-out mice",
+    "authors": "Zhou J; Parada LF et al.",
+    "year": 2009,
+    "journal": "The Journal of neuroscience",
+    "doi": "10.1523/JNEUROSCI.5685-08.2009",
+    "pmid": "19211884",
+    "pmcid": "PMC3904448",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (Pten KO)",
+    "peer_reviewed": true,
+    "finding": "In neural Pten-knockout mice, rapamycin prevented and reversed neuronal hypertrophy and improved a subset of the PTEN-associated abnormal behaviours.",
+    "url": "https://mtor-atlas.org/study/ZHO2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2009.json"
+   },
+   {
+    "sid": "KAL2010",
+    "title": "Metformin, independent of AMPK, inhibits mTORC1 in a rag GTPase-dependent manner",
+    "authors": "Kalender A; Selvaraj A; Thomas G; Kozma SC et al.",
+    "year": 2010,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2010.03.014",
+    "pmid": "20444419",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells (AMPK-null and TSC1/2-null)",
+    "peer_reviewed": true,
+    "finding": "Metformin inhibits mTORC1 even in cells lacking AMPK or TSC1/TSC2, and the effect requires the Rag GTPases instead. Together with Foretz 2010 this places a large part of metformin's action outside the AMPK axis it is usually credited to.",
+    "url": "https://mtor-atlas.org/study/KAL2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAL2010.json"
+   },
+   {
+    "sid": "NOB2005",
+    "title": "Amino acids mediate mTOR/raptor signaling through activation of class 3 phosphatidylinositol 3OH-kinase",
+    "authors": "Nobukuni T; Joaquin M; Roccio M; Dann SG; Kim SY; Gulati P; Byfield MP; Backer JM; Natt F; Bos JL; Zwartkruis FJ; Thomas G",
+    "year": 2005,
+    "journal": "Proc Natl Acad Sci U S A",
+    "doi": "10.1073/pnas.0506925102",
+    "pmid": "16176982",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines",
+    "peer_reviewed": true,
+    "finding": "The companion paper to BYF2005, from a different laboratory: the amino acid input to mTORC1 is separate from the insulin input and runs through class 3 PI3K (hVps34), not through class 1 PI3K. Historically important because it states that the amino acid branch is the older one and that insulin signalling was grafted onto it. Boundary: cell lines, pharmacological and knockdown evidence; the later Rag/Ragulator account describes a different route to the same target and the two have never been fully reconciled.",
+    "url": "https://mtor-atlas.org/study/NOB2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOB2005.json"
+   },
+   {
+    "sid": "MA2005",
+    "title": "Phosphorylation and functional inactivation of TSC2 by Erk implications for tuberous sclerosis and cancer pathogenesis",
+    "authors": "Ma L; Chen Z; Erdjument-Bromage H; Tempst P; Pandolfi PP",
+    "year": 2005,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2005.02.031",
+    "pmid": "15851026",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The MAPK input to mTORC1. In mammalian cells, ERK phosphorylates TSC2 and inactivates the TSC complex, so growth signalling through Ras/ERK converges on the same brake that Akt releases. This is the third major upstream arm alongside PI3K/Akt and AMPK. Its practical significance is that it offers a route to mTORC1 activation that PI3K inhibitors do not close - though that inference is mechanistic; no human data here.",
+    "url": "https://mtor-atlas.org/study/MA2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MA2005.json"
    }
   ],
   "relations": [
@@ -1991,11 +3755,12 @@
     "evidence": {
      "kind": "Direct biochemical",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
-      "GWI2008"
+      "GWI2008",
+      "YAN2026B"
      ],
      "conflicting": []
     },
@@ -2045,7 +3810,8 @@
       "BAS2012",
       "KRU2010",
       "BIS2013",
-      "IYE2012"
+      "IYE2012",
+      "MEI2008"
      ],
      "conflicting": []
     },
@@ -2093,7 +3859,8 @@
       "SAB1994",
       "SAB1995",
       "CHU1992",
-      "BRO1994"
+      "BRO1994",
+      "AYL2015"
      ],
      "conflicting": []
     },
@@ -2140,7 +3907,9 @@
      "supporting": [
       "SAN2010",
       "ZON2011",
-      "FER2024"
+      "FER2024",
+      "KOR2011",
+      "CUI2025"
      ],
      "conflicting": []
     },
@@ -2233,7 +4002,12 @@
      "supporting": [
       "BUR1998",
       "HARA2002",
-      "FEL2009"
+      "FEL2009",
+      "GIN1999",
+      "KAN2013",
+      "HAR1998",
+      "BRU1997",
+      "NOJ2003"
      ],
      "conflicting": []
     },
@@ -2327,7 +4101,10 @@
       "HAR2009",
       "LAM2012",
       "ROB2012",
-      "VEL2003"
+      "VEL2003",
+      "HAN2008",
+      "POW2006",
+      "WAN2026"
      ],
      "conflicting": []
     },
@@ -2414,12 +4191,13 @@
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "CUN2007",
-      "MOR2013"
+      "MOR2013",
+      "BEN2008"
      ],
      "conflicting": []
     },
@@ -2465,7 +4243,8 @@
      },
      "supporting": [
       "VAL2017",
-      "BEN2016"
+      "BEN2016",
+      "ALI2022"
      ],
      "conflicting": []
     },
@@ -2604,7 +4383,10 @@
      "supporting": [
       "BUR1998",
       "CHU1992",
-      "HOL2005"
+      "HOL2005",
+      "KAN2013",
+      "HAR1998",
+      "NOJ2003"
      ],
      "conflicting": []
     },
@@ -2645,11 +4427,13 @@
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
-      "LAB2015"
+      "LAB2015",
+      "CHEN2026C",
+      "NAR2011"
      ],
      "conflicting": []
     },
@@ -2744,9 +4528,12 @@
       "SET2012",
       "MAR2012",
       "SET2011",
-      "GOL2022"
+      "GOL2022",
+      "CUI2023"
      ],
-     "conflicting": []
+     "conflicting": [
+      "ZHANG2026"
+     ]
     },
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
@@ -2786,13 +4573,16 @@
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "HSI2010",
       "HSI2012",
-      "VAL2017"
+      "VAL2017",
+      "INO2006",
+      "FER2026",
+      "OKI2021"
      ],
      "conflicting": []
     },
@@ -2927,14 +4717,20 @@
     "evidence": {
      "kind": "Direct biochemical",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "SAN2008",
       "SAN2010",
       "LAW2018",
-      "GOL2022"
+      "GOL2022",
+      "EFE2012",
+      "CUI2025",
+      "NAR2011",
+      "KIM2008",
+      "ANA2019",
+      "KIM2012"
      ],
      "conflicting": []
     },
@@ -2975,12 +4771,15 @@
     "evidence": {
      "kind": "Direct biochemical",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "HARA2002",
-      "KIM2002"
+      "KIM2002",
+      "BEN2008",
+      "SEN2010",
+      "NOJ2003"
      ],
      "conflicting": []
     },
@@ -3021,13 +4820,15 @@
     "evidence": {
      "kind": "Structural",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "INOK2003",
       "SAU2003",
-      "YAN2017"
+      "YAN2017",
+      "CUI2025",
+      "DEL2011"
      ],
      "conflicting": []
     },
@@ -3165,7 +4966,11 @@
      "supporting": [
       "TEE2003",
       "INOK2003",
-      "KRU2010"
+      "KRU2010",
+      "CHEN2026C",
+      "ZHANG2026",
+      "DEM2014",
+      "SEN2010"
      ],
      "conflicting": []
     },
@@ -3206,15 +5011,19 @@
     "evidence": {
      "kind": "Structural",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "CHU1992",
       "BRO1994",
       "SAB1994",
       "SAB1995",
-      "CHO1996"
+      "CHO1996",
+      "MEI2008",
+      "KAN2013",
+      "FIN2002",
+      "BRU1997"
      ],
      "conflicting": []
     },
@@ -3398,7 +5207,10 @@
      "supporting": [
       "THO2009",
       "FEL2009",
-      "CHR2009"
+      "CHR2009",
+      "JAN2010",
+      "ROD2011",
+      "GAR2009"
      ],
      "conflicting": []
     },
@@ -3723,6 +5535,52 @@
     "reviewed": "2026-07-29",
     "updated": "2026-07-29",
     "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-HIF1A.json"
+   },
+   {
+    "id": "MTORC1-SAM",
+    "claim": "mTORC1 activates S-adenosylmethionine (SAM)",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "S-adenosylmethionine (SAM)",
+     "entity": "s-adenosylmethionine-sam"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "human cells",
+     "mouse xenograft"
+    ],
+    "mechanism": "Active mTORC1, acting through the transcription factor c-MYC, raises production of MAT2A, the enzyme that makes SAM, so a growing cell makes more of its main methyl donor.",
+    "mechanism_beginner": "mTORC1 tells the cell to make more SAM.",
+    "context": null,
+    "boundary": "Human cell lines and mouse xenograft tumours; acts through c-MYC on MAT2A. Together with SAM-SAMTOR this forms a loop whose behaviour in normal tissue is untested. Single study.",
+    "note": null,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "VIL2021"
+     ],
+     "conflicting": []
+    },
+    "reviewed": "2026-07-29",
+    "updated": "2026-07-29",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-SAM.json"
    }
   ]
  }
