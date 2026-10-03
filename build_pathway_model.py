@@ -945,7 +945,7 @@ ROUTE_STEPS = {
  "open": [
   {"interaction": "LEU-LARS",
    "what": "Two labs proposed two different leucine sensors, and the field has not fully closed the question.",
-   "why": "Sestrin2 binds leucine with an affinity in the range over which intracellular leucine actually fluctuates. LARS, a leucyl-tRNA synthetase, was independently proposed to moonlight as a leucine sensor acting on the Rag GTPases. Both could operate, but they cannot both be the dominant sensor in one cell, and the two proposals have not been reconciled – it is also possible that which one dominates depends on the cell type.",
+   "why": "Sestrin2 binds leucine with an affinity in the range over which intracellular leucine actually fluctuates. LARS, a leucyl-tRNA synthetase, was independently proposed to moonlight as a leucine sensor acting on the Rag GTPases. Both could operate in the same cell; their relative contribution has not been measured side by side, the two proposals have not been reconciled, and which one dominates may depend on the cell type.",
    "changed": "Nothing in the cell. What changes is how much weight you should put on either arrow.",
    "consequence": "This map draws both, and marks LARS as contested with a dashed line and an amber halo.",
    "certainty": "Contested consensus, LOW mechanistic confidence, human relevance untested. The LARS model has not reproduced cleanly across labs.",
