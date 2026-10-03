@@ -10,37 +10,102 @@
 // Cloudflare Workers (remote server). Local-folder reading is loaded lazily.
 
 export const DEFAULT_BASE = 'https://mtor-atlas.org/api/v1';
-const TTL_MS = 60 * 60 * 1000;
+
+// One build at a time (2026-10-03). Every API file carries the build it came
+// from (meta.source_commit, meta.corpus_snapshot). Two things could otherwise
+// hand a client a mix of builds after a deploy:
+//   1. this server's own cache, which used to keep each file for an hour on
+//      its own clock, so studies.json could be one build and entities.json
+//      the next;
+//   2. the CDN in front of GitHub Pages, which caches each URL separately for
+//      up to 10 minutes (cache-control: max-age=600).
+// So the cache now belongs to one build: meta.json is re-checked every
+// META_TTL_MS, and a new commit there drops everything cached. A file whose
+// commit differs from the current build is never mixed in silently: an older
+// copy is re-fetched past the CDN cache, a newer one means a deploy happened
+// and the whole cache moves to it.
+const META_TTL_MS = 5 * 60 * 1000;
+const STALE_RETRIES = 2;
+const RETRY_DELAY_MS = 1500;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const buildOf = (v) => {
+  const m = v?.meta ?? v;          // meta.json has the fields at top level
+  if (!m?.source_commit) return null;
+  // "2026-10-03T21:39:25+0200" -> epoch ms; the offset changes with daylight
+  // saving, so the strings themselves must not be compared.
+  const t = Date.parse(String(m.corpus_snapshot ?? '').replace(/([+-]\d\d)(\d\d)$/, '$1:$2'));
+  return { commit: m.source_commit, snapshot: Number.isFinite(t) ? t : 0 };
+};
 
 export class Atlas {
   constructor(base = globalThis.process?.env?.ATLAS_API_BASE || DEFAULT_BASE) {
     this.base = base.replace(/\/+$/, '');
     this.cache = new Map();
+    this.build = null;        // { commit, snapshot } the cache belongs to
+    this.metaAt = 0;          // when meta.json was last checked
   }
 
   isLocal() { return !/^https?:\/\//i.test(this.base); }
 
+  async fetchJson(rel, bust) {
+    const url = `${this.base}/${rel}` + (bust ? `?build=${encodeURIComponent(bust)}` : '');
+    const res = await fetch(url, { headers: { accept: 'application/json' }, cache: 'no-store' });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`Atlas API ${res.status} for ${rel}`);
+    return res.json();
+  }
+
+  adopt(build) {
+    if (this.build?.commit !== build.commit) this.cache.clear();
+    this.build = build;
+  }
+
+  /** Re-read meta.json at most every META_TTL_MS; a new build empties the cache. */
+  async syncBuild() {
+    if (this.isLocal() || Date.now() - this.metaAt < META_TTL_MS) return;
+    const meta = await this.fetchJson('meta.json', this.build ? String(Date.now()) : null);
+    this.metaAt = Date.now();
+    const b = buildOf(meta);
+    if (b && (!this.build || b.snapshot >= this.build.snapshot)) this.adopt(b);
+    if (meta) this.cache.set('meta.json', meta);
+  }
+
   async raw(rel) {
-    const hit = this.cache.get(rel);
-    if (hit && Date.now() - hit.t < TTL_MS) return hit.v;
-    let v;
     if (this.isLocal()) {
+      if (this.cache.has(rel)) return this.cache.get(rel);
       const { readFile } = await import('node:fs/promises');
       const path = await import('node:path');
       const root = this.base.replace(/^file:\/\//, '');
-      v = JSON.parse(await readFile(path.join(root, rel), 'utf-8'));
-    } else {
-      const res = await fetch(`${this.base}/${rel}`, { headers: { accept: 'application/json' } });
-      if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`Atlas API ${res.status} for ${rel}`);
-      v = await res.json();
+      const v = JSON.parse(await readFile(path.join(root, rel), 'utf-8'));
+      this.cache.set(rel, v);
+      return v;
     }
-    this.cache.set(rel, { t: Date.now(), v });
+    await this.syncBuild();
+    if (this.cache.has(rel)) return this.cache.get(rel);
+    let v = await this.fetchJson(rel);
+    for (let i = 0; v && i <= STALE_RETRIES; i++) {
+      const b = buildOf(v);
+      if (!b || !this.build || b.commit === this.build.commit) break;
+      if (b.snapshot > this.build.snapshot) {      // a deploy happened since meta was read
+        this.adopt(b); this.metaAt = Date.now(); this.cache.delete('meta.json');
+        break;
+      }
+      if (i === STALE_RETRIES) break;               // still an old CDN copy: give up, see below
+      await sleep(RETRY_DELAY_MS);
+      v = await this.fetchJson(rel, this.build.commit);   // query string = separate CDN cache key
+    }
+    const b = buildOf(v);
+    // Only cache what belongs to the current build; a stubborn stale copy is
+    // returned once (better than failing the tool call) but never kept.
+    if (v && (!b || !this.build || b.commit === this.build.commit)) this.cache.set(rel, v);
     return v;
   }
 
   async list(name) { return (await this.raw(`${name}.json`))?.data ?? []; }
-  async meta() { return this.raw('meta.json'); }
+  async meta() {
+    if (!this.isLocal()) { await this.syncBuild(); if (this.cache.has('meta.json')) return this.cache.get('meta.json'); }
+    return this.raw('meta.json');
+  }
   async one(kind, id) {
     if (!/^[A-Za-z0-9._-]+$/.test(id)) return null;   // no path tricks
     try { return (await this.raw(`${kind}/${id}.json`))?.data ?? null; }

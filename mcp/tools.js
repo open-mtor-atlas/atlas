@@ -9,7 +9,7 @@ import {
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.2.1';
+export const VERSION = '1.2.2';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
