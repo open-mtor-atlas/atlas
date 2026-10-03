@@ -13,6 +13,10 @@ Kontroluje:
      registru nezkracuje
   C  stejna studie v supporting i conflicting jedne hrany
   D  kod studie zminovany v textu, ktery v korpusu neexistuje
+  E  osirela studie: neni na zadne hrane, u zadne entity ani v zadne otazce
+     (pridano 2026-10-03 -- 91 ze 126 studii pridanych od srpna takhle zustalo)
+  F  odkaz na studii v datovych polich (hrana, entita, otazka), ktera v korpusu
+     neni -- web, API i MCP ho tise zahodi (2026-10-03: NCT0583 u H2/H5)
 
     py check_consistency.py            # vypis
     py check_consistency.py --strict   # exit 1, kdyz neco najde (pro rucni kontrolu)
@@ -88,6 +92,36 @@ for where, t in texts:
     for sid in set(SID_RE.findall(t)):
         if sid not in studies and not sid.startswith(("NCT", "PMID", "ATP", "ADP", "AMP")):
             warn("D", where, "kod %s neni v korpusu" % sid)
+
+# E
+linked = set()
+for i in model["interactions"]:
+    linked.update(i["evidence"]["supporting"]); linked.update(i["evidence"]["conflicting"])
+for e in ents:
+    linked.update(e.get("studies") or [])
+for g in gaps:
+    linked.update(g.get("studies") or [])
+orphans = sorted(studies - linked)
+for sid in orphans:
+    warn("E", "study " + sid, "osirela: zadna hrana, entita ani otazka")
+# F
+refs = []
+for i in model["interactions"]:
+    for k in ("supporting", "conflicting"):
+        refs += [("edge %s.%s" % (i["id"], k), x) for x in i["evidence"][k]]
+try:
+    for r in load("atlas_data/relations_baked.json")["edges"]:
+        refs += [("relation %s.st" % r["id"], x) for x in r.get("st") or []]
+        refs += [("relation %s.cf" % r["id"], x) for x in r.get("cf") or []]
+except (OSError, KeyError):
+    pass
+for e in ents:
+    refs += [("entity " + e["name"], x) for x in e.get("studies") or []]
+for g in gaps:
+    refs += [("gap %s.studies" % g["id"], x) for x in g.get("studies") or []]
+for where, sid in refs:
+    if sid not in studies:
+        warn("F", where, "odkaz na %s, ktera neni v korpusu (web/API ji zahodi)" % sid)
 
 print("check_consistency: %d nalezu" % len(out))
 for line in sorted(out):

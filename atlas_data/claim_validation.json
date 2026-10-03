@@ -1,11 +1,11 @@
 [
  {
   "severity": "WARN",
-  "rule": "R2 observational-missing-caveat",
-  "where": "study:RIV2026",
-  "excerpt": "In a 95-patient ESID registry of Activated PI3Kδ Syndrome (APDS), rapamycin and the targeted PI3Kδ inhibitor leniolisib produced comparable overall response rates for lymphoproliferation (67% vs 64%), but treatment-limiting adverse events occurred only in the rapamycin-treated group; lymphoma cases",
-  "message": "Observational study with no confounding/association caveat in the text.",
-  "suggested": "Add: 'observational; confounding by indication not excluded'."
+  "rule": "R3 mechanistic-as-clinical",
+  "where": "study:BOB2026",
+  "excerpt": "Frames mTOR as a dynamic, context-dependent signaling hub integrating nutrient sensing, proteostasis, autophagy and stress adaptation across the hallmarks of aging; surveys geroprotective interventions (autophagy activation, dietary restriction, exercise, senotherapeutics) that partly converge on mT",
+  "message": "Tier D - Mechanistic/Review (Narrative Review) but the text uses clinical language 'in humans'.",
+  "suggested": "Scope to the model organism/system, or add 'no human data'."
  },
  {
   "severity": "WARN",
@@ -14,6 +14,14 @@
   "excerpt": "Influential review proposing that dietary restriction and reduced nutrient-sensing signalling (mTOR, GH/IGF-1) may slow ageing through similar, evolutionarily conserved mechanisms. Lifespan extension is shown in yeast, invertebrates, rodents and rhesus monkeys; in humans the evidence is limited to p",
   "message": "Tier D - Mechanistic/Review (Narrative Review) but the text uses clinical language 'in humans'.",
   "suggested": "Scope to the model organism/system, or add 'no human data'."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R3b unscoped-causal-claim",
+  "where": "study:VEL2026",
+  "excerpt": "Comparing caloric restriction (CR, one meal/day) to a fasting-refeeding-fasting (FRF) regimen with matched food intake and fasting duration, CR engages anticipatory, circadian-clock-aligned metabolic control (hepatic mTOR signaling, ketogenesis, metabolic gene coordination), whereas FRF responses tr",
+  "message": "Causal verb in a non-human study with no species/system scope in the sentence.",
+  "suggested": "Name the model explicitly ('in mice', 'in these cells')."
  },
  {
   "severity": "WARN",

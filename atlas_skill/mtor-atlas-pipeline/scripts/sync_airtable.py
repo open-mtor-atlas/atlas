@@ -72,7 +72,7 @@ def gaps_js():
     arr = []
     for r in sorted(rows, key=lambda r: r["fields"].get("Gap_ID", "")):
         f = r["fields"]
-        codes = re.findall(r"[A-Z]{2,}[0-9]{4}|NCT[0-9]+", f.get("Supporting_Studies", "") or "")
+        codes = re.findall(r"\bNCT[0-9]{8}\b|\b[A-Z]{2,}[0-9]{4}[A-Z]?\b", f.get("Supporting_Studies", "") or "")
         arr.append({
             "id": f.get("Gap_ID", ""),
             "type": f.get("Type", ""),
