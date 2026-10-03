@@ -192,7 +192,7 @@ w.PathwayApp.boot(host, "pathway/model.json").then(async () => {
     ok(/Mechanism/.test(insp), `${id}: inspector shows mechanism`);
     ok(/Confidence — three separate things/.test(insp), `${id}: inspector separates the three confidences`);
     ok(/Supporting evidence/.test(insp), `${id}: inspector cites evidence`);
-    ok(/reviewed \d{4}-\d{2}-\d{2}/.test(insp), `${id}: inspector shows review date`);
+    ok(/reviewed \d{4}-\d{2}-\d{2}|not yet reviewed by a curator/.test(insp), `${id}: inspector shows review state`);
   });
   ok(inspected === 5, "all sampled arrows were clickable");
 

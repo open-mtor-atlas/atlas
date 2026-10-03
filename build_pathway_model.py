@@ -1672,9 +1672,14 @@ def main():
                 "human_relevance": hr,
                 "consensus": cons,
             },
-            "review": {"reviewer": e.get("reviewed_by") or CURATOR,
-                       "reviewed": e.get("reviewed_on") or REVIEW_DATE,
-                       "updated": e.get("reviewed_on") or REVIEW_DATE},
+            # 2026-10-03: no fallback date or reviewer any more. Until then every
+            # edge claimed "reviewed 2026-07-29 by the curation team", including
+            # edges created that day that nobody had reviewed (Status=Proposed,
+            # Reviewed_By empty). Only Airtable Reviewed_On/Reviewed_By count.
+            "review": {"reviewer": e.get("reviewed_by") or None,
+                       "reviewed": e.get("reviewed_on") or None,
+                       "updated": e.get("reviewed_on") or None,
+                       "status": e.get("status") or "Proposed"},
         })
 
     ix = {i["id"]: i for i in interactions}
