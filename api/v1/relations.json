@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T19:43:10+0200",
-  "source_commit": "e492aa6feb7f2dced4b7fea994871c9ef89f2415",
+  "corpus_snapshot": "2026-10-03T20:00:10+0200",
+  "source_commit": "4668631ac2c8f105143854508e30d9bf109ed595",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -2359,10 +2359,10 @@
     "mammalian cells"
    ],
    "mechanism": "mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.",
-   "mechanism_beginner": "mTORC1 keeps old, \"senescent\" cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.",
+   "mechanism_beginner": "mTORC1 keeps old, \"senescent\" cells pumping out inflammatory signals, and blocking it calms that output down without making those cells young again. Whether mTORC1 also helps push cells into senescence in the first place is a separate question this arrow does not answer.",
    "context": null,
-   "boundary": "Single-study edge in this corpus, and a scoped one: LAB2015 measures the secretome of senescent cells, not whether mTORC1 drives cells into senescence. That is why this arrow lands on the secretory programme and not on senescence itself.",
-   "note": "Thin - one supporting study.",
+   "boundary": "Three studies, all in cells or a rat disease model. LAB2015 and NAR2011 measure the secretory output of cells that are already senescent (IL1A translation; IL-6/IL-8 production fuelled by mTOR at the TASCC). CHEN2026C (human disc cells, rat needle-puncture model) shows mTORC1 hyperactivation after TSC2 loss together with senescence and SASP, both blocked by rapamycin - a disease-model result, not a general demonstration that mTORC1 drives cells into senescence. That is why this arrow lands on the secretory programme and not on senescence itself.",
+   "note": "The arrow means mTORC1 sustains the secretory output (SASP) of senescent cells. Whether mTORC1 also pushes cells into senescence in the first place (geroconversion) is a separate and weaker claim that this edge does not make.",
    "contested": false,
    "confidence": {
     "mechanistic": "medium",
@@ -2776,7 +2776,7 @@
   },
   {
    "id": "MTORC2-PROSTATE",
-   "claim": "mTORC2 activates Prostate cancer",
+   "claim": "mTORC2 required-for Prostate cancer",
    "source": {
     "name": "mTORC2",
     "entity": "mtorc2"
@@ -2785,7 +2785,7 @@
     "name": "Prostate cancer",
     "entity": "prostate-cancer"
    },
-   "effect": "activates",
+   "effect": "required-for",
    "type": "functional-consequence",
    "directness": "indirect",
    "timescale": "chronic",
@@ -2793,11 +2793,11 @@
    "species": [
     "mouse"
    ],
-   "mechanism": "Prostate tumours driven by Pten loss need mTORC2 specifically - normal prostate does not. A real therapeutic window, at least in mice.",
-   "mechanism_beginner": "Prostate tumours caused by losing a specific tumour-suppressor gene specifically need mTORC2 to grow – normal prostate tissue doesn't, at least in mice.",
+   "mechanism": "Prostate cancer driven by Pten loss needs mTORC2 to develop; normal prostate does not. A real therapeutic window, at least in mice.",
+   "mechanism_beginner": "Prostate tumours caused by losing a specific tumour-suppressor gene (Pten) need mTORC2 to develop – normal prostate tissue doesn't, at least in mice.",
    "context": null,
-   "boundary": "Single-study edge in this corpus (GUE2009). Shown in Pten-null mouse prostate only: mTORC2 is required for growth of tumours in that genetic background, while normal prostate epithelium is not dependent on it. Mouse only - not tested in another species in this corpus, and not shown in human prostate cancer.",
-   "note": "The arrow means mTORC2 is required for the growth of Pten-loss-driven prostate tumours in mice. It does not claim that mTORC2 causes prostate cancer, and it says nothing about human disease.",
+   "boundary": "Single-study edge in this corpus (GUE2009). Shown in Pten-null mouse prostate only: mTORC2 (Rictor) is required for tumours to develop in that genetic background, while normal prostate epithelium is not dependent on it. Mouse only - not tested in another species in this corpus, and not shown in human prostate cancer.",
+   "note": "The arrow means mTORC2 is required for Pten-loss-driven prostate cancer to develop in mice. It does not claim that mTORC2 causes prostate cancer, and it says nothing about human disease.",
    "contested": false,
    "confidence": {
     "mechanistic": "medium",
@@ -3167,8 +3167,8 @@
    "species": [
     "human cells"
    ],
-   "mechanism": "Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.",
-   "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their \"on\" shape. The anchoring is the better-established of the two jobs.",
+   "mechanism": "Ragulator does two jobs on the Rags. It tethers the Rag heterodimer to the lysosomal surface, and it acts as an unusual exchange factor: first reported as a GEF for RagA/B (BAR2012), its exchange activity was later placed on RagC, where releasing GTP unlocks the inactive state (SHE2018B). Loading RagA with GTP is done by arginine-bound SLC38A9 (see SLC38A9-RAG).",
+   "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome and also helps flip them into their \"on\" shape, together with a second protein, SLC38A9. Both jobs are shown in biochemical experiments.",
    "context": null,
    "boundary": null,
    "note": null,
@@ -3186,7 +3186,8 @@
     },
     "supporting": [
      "BAR2012",
-     "SAN2010"
+     "SAN2010",
+     "SHE2018B"
     ],
     "conflicting": []
    },
@@ -3589,8 +3590,8 @@
    "species": [
     "mammalian cells"
    ],
-   "mechanism": "The pathway's principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
-   "mechanism_beginner": "This is the pathway's main self-limiting \"off switch\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
+   "mechanism": "One of the pathway's major negative feedback loops, and the best studied. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is a major reason blocking mTORC1 paradoxically RAISES Akt activity (the Grb10 arm adds to it). Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
+   "mechanism_beginner": "This is one of the pathway's main self-limiting \"off switches\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
    "context": null,
    "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
    "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
@@ -4050,11 +4051,11 @@
    "species": [
     "human cells"
    ],
-   "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.",
-   "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and tells the Rag proteins there's enough.",
+   "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside. Arginine-bound SLC38A9 acts as an exchange factor that loads RagA with GTP, switching the Rag dimer on (SHE2018B); it also pumps essential amino acids, including leucine, back out into the cytosol.",
+   "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and then flips RagA into its \"on\" shape, telling the Rag proteins there's enough.",
    "context": null,
    "boundary": null,
-   "note": "Four independent studies - one of the best-supported edges in the sensor branch.",
+   "note": "Five independent studies - one of the best-supported edges in the sensor branch.",
    "contested": false,
    "confidence": {
     "mechanistic": "high",
@@ -4071,7 +4072,8 @@
      "REB2015",
      "WAN2015",
      "JUN2015",
-     "WYA2017"
+     "WYA2017",
+     "SHE2018B"
     ],
     "conflicting": []
    },

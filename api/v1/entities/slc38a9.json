@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T19:43:10+0200",
-  "source_commit": "e492aa6feb7f2dced4b7fea994871c9ef89f2415",
+  "corpus_snapshot": "2026-10-03T20:00:10+0200",
+  "source_commit": "4668631ac2c8f105143854508e30d9bf109ed595",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Lysosomal amino-acid transporter and signaling component; acts as an arginine sensor on the lysosomal membrane. Works together with v-ATPase and Ragulator to relay luminal arginine availability to the Rag GTPases and thereby recruit mTORC1. Loss of SLC38A9 impairs arginine-dependent mTORC1 activation.",
-  "study_count": 6,
+  "study_count": 7,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/slc38a9/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/slc38a9.json",
@@ -145,6 +145,27 @@
     "finding": "Review of the newly discovered amino-acid sensors feeding into mTORC1.",
     "url": "https://mtor-atlas.org/study/WOLF2017/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/WOLF2017.json"
+   },
+   {
+    "sid": "SHE2018B",
+    "title": "Ragulator and SLC38A9 activate the Rag GTPases through noncanonical GEF mechanisms",
+    "authors": "Shen K; Sabatini DM",
+    "year": 2018,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.1811727115",
+    "pmid": "30181260",
+    "pmcid": "PMC6156610",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Purified recombinant proteins; HEK293 cells",
+    "peer_reviewed": true,
+    "finding": "Ragulator and SLC38A9 each act as an unusual guanine-nucleotide exchange factor on the Rag heterodimer, and together they push it into its active state. Ragulator triggers GTP release from RagC, which unlocks the inactive configuration; arginine-bound SLC38A9 converts RagA from the GDP- to the GTP-loaded state. Boundary: purified proteins and cultured human cells. This is the biochemistry of the switch, not a measurement in tissue.",
+    "url": "https://mtor-atlas.org/study/SHE2018B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHE2018B.json"
    }
   ],
   "relations": [
@@ -167,11 +188,11 @@
     "species": [
      "human cells"
     ],
-    "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.",
-    "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and tells the Rag proteins there's enough.",
+    "mechanism": "SLC38A9 sits in the lysosomal membrane and reads arginine on the inside. Arginine-bound SLC38A9 acts as an exchange factor that loads RagA with GTP, switching the Rag dimer on (SHE2018B); it also pumps essential amino acids, including leucine, back out into the cytosol.",
+    "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and then flips RagA into its \"on\" shape, telling the Rag proteins there's enough.",
     "context": null,
     "boundary": null,
-    "note": "Four independent studies - one of the best-supported edges in the sensor branch.",
+    "note": "Five independent studies - one of the best-supported edges in the sensor branch.",
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -188,7 +209,8 @@
       "REB2015",
       "WAN2015",
       "JUN2015",
-      "WYA2017"
+      "WYA2017",
+      "SHE2018B"
      ],
      "conflicting": []
     },
