@@ -71,28 +71,28 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "902785"
+    "contentSize": "905428"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1100438"
+    "contentSize": "1103535"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "73519"
+    "contentSize": "73532"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "98111"
+    "contentSize": "98124"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -344,7 +344,7 @@ a{overflow-wrap:anywhere}
 
 <h1>About Oliver's mTOR Atlas</h1>
 <p class="summary">A curated, evidence-graded database of mTOR pathway
-research -- 436 studies and 162 cross-linked entities
+research -- 437 studies and 162 cross-linked entities
 (77 with their own page), each claim traced to a primary
 source and labelled by the kind of study behind it. This page explains who
 curates it, how a study earns a place, what those labels do and don't
@@ -469,10 +469,13 @@ absent.</p>
 <p>An automated job screens PubMed for new candidate mTOR studies and
 relevant conferences once daily, but the <em>corpus</em>
 changes only when a human accepts a candidate -- typically a handful of
-papers a month, sometimes none. The exact timestamp of the live corpus is
-printed in the footer of every page, and every count on this site,
-including the ones above, is computed from that snapshot rather than
-typed in by hand.</p>
+papers a month, sometimes none. The exact snapshot of the live corpus
+(timestamp, dataset version and source commit) is published in the
+machine-readable metadata at <a href="https://mtor-atlas.org/api/v1/meta.json">/api/v1/meta.json</a>,
+and every count on this site, including the ones above, is computed from
+that snapshot rather than typed in by hand. The date in each page footer
+is when that page was last rebuilt, so it can be earlier than the snapshot
+if the page's content did not change.</p>
 
 <h2>Corrections log</h2>
 <p>Every change to the method itself (how studies are selected, graded or read), with its date and the reason, is public at <a href="https://mtor-atlas.org/changelog/">/changelog/</a>.</p>
@@ -495,7 +498,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-03 19:42 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-03 19:59 Prague time</div>
 </footer>
 </div>
 </body>

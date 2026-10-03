@@ -2072,10 +2072,13 @@ absent.</p>
 <p>An automated job screens PubMed for new candidate mTOR studies and
 relevant conferences once daily, but the <em>corpus</em>
 changes only when a human accepts a candidate -- typically a handful of
-papers a month, sometimes none. The exact timestamp of the live corpus is
-printed in the footer of every page, and every count on this site,
-including the ones above, is computed from that snapshot rather than
-typed in by hand.</p>
+papers a month, sometimes none. The exact snapshot of the live corpus
+(timestamp, dataset version and source commit) is published in the
+machine-readable metadata at <a href="{SITE}/api/v1/meta.json">/api/v1/meta.json</a>,
+and every count on this site, including the ones above, is computed from
+that snapshot rather than typed in by hand. The date in each page footer
+is when that page was last rebuilt, so it can be earlier than the snapshot
+if the page's content did not change.</p>
 
 <h2>Corrections log</h2>
 <p>Every change to the method itself (how studies are selected, graded or read), with its date and the reason, is public at <a href="{SITE}/changelog/">/changelog/</a>.</p>

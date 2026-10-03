@@ -71,28 +71,28 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "902785"
+    "contentSize": "905428"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1100438"
+    "contentSize": "1103535"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "73519"
+    "contentSize": "73532"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "98111"
+    "contentSize": "98124"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -396,11 +396,11 @@ full interaction reference table below.</p>
 <p>GTP-loaded RagA/B binds Raptor directly, dragging the whole mTORC1 complex out of the cytosol and onto the lysosomal surface.</p>
 <p><em>mTORC1&#x27;s location changes, and only its location. Its kinase activity at this moment is essentially unchanged. Recruitment is not activation – these are two different claims and this map draws them differently on purpose.</em> mTORC1 is now at the surface where the Rheb pool that switches it on in this route is waiting. Meeting Rheb is the event that actually switches it on.</p>
 <p class="tier-why">Certainty: Directly demonstrated and reproduced across labs; the corpus evidence is cell-line biochemistry, so human relevance is graded plausible rather than established.</p>
-<p class="summary">If you take one thing from this route, take this: amino acids alone cannot make a cell grow. Starve a cell of growth factors, flood it with leucine, and mTORC1 will sit on the lysosome doing nothing. The nutrient arm answers &#x27;are the parts available?&#x27; – it does not answer &#x27;am I allowed to build?&#x27;</p></li><li class="step">
+<p class="summary">If you take one thing from this route, take this: in the canonical model, amino acids on their own are not enough to drive growth. Starve a cell of growth factors, flood it with leucine, and mTORC1 is pulled to the lysosome but stays largely off, because without growth-factor input TSC keeps most Rheb in its GDP-bound state. The nutrient arm answers &#x27;are the parts available?&#x27; – it does not answer &#x27;am I allowed to build?&#x27;</p></li><li class="step">
 <p class="step-what"><strong>7. Rheb switches mTORC1 on – and nutrients do not control Rheb.</strong>
 <a class="step-jump" href="#int-rheb-mtorc1">mechanism &darr;</a></p>
 <p>GTP-loaded Rheb binds mTORC1 and physically realigns its active site into a catalytically competent conformation. This is an allosteric activation, a different kind of event from everything upstream in this route.</p>
-<p><em>mTORC1 becomes an active kinase. Now, and only now, S6K1 and 4E-BP1 start getting phosphorylated.</em> The cell builds. And because Rheb is controlled by the TSC complex, which is controlled by Akt, AMPK and ERK, the growth-factor and energy arms all converge on this single step.</p>
+<p><em>mTORC1 becomes an active kinase. Now, and only now, S6K1 and 4E-BP1 start getting phosphorylated.</em> The cell builds. And because Rheb is controlled by the TSC complex, which integrates inputs from Akt, AMPK, ERK and other kinases, the growth-factor and energy arms all converge on this single step.</p>
 <p class="tier-why">Certainty: Structurally resolved and mechanistically secure. Cited evidence is mammalian cell work, so human relevance is graded plausible.</p>
 <p class="summary">This is coincidence detection, and it is the answer to why the pathway is built the way it is. Two independent conditions – nutrients supplying location, growth factors supplying activation – must both be satisfied at the same place and the same time. A cell that grew on either signal alone would build without materials or build when told not to. The lysosome is where the cell checks both answers against each other.</p></li>
 </ol>
@@ -1458,7 +1458,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/senescence-associated-secretory-phenotype-sasp/">Senescence-associated secretory phenotype (SASP)</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC1 keeps old, &quot;senescent&quot; cells pumping out inflammatory signals, and blocking it calms that output down. It does not turn healthy cells senescent, and it does not make senescent cells young again.</span><span class="lv-student">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span><span class="lv-research">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC1 keeps old, &quot;senescent&quot; cells pumping out inflammatory signals, and blocking it calms that output down without making those cells young again. Whether mTORC1 also helps push cells into senescence in the first place is a separate question this arrow does not answer.</span><span class="lv-student">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span><span class="lv-research">mTORC1 sustains the inflammatory secretory output of cells that are already senescent, by promoting IL1A translation. Inhibiting it quietens that output without reversing the proliferative arrest.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LAB2015/">LAB2015</a>, <a href="https://mtor-atlas.org/study/CHEN2026C/">CHEN2026C</a>, <a href="https://mtor-atlas.org/study/NAR2011/">NAR2011</a></td>
 </tr><tr id="int-mtorc1-srebp">
@@ -1527,10 +1527,10 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUR2017/">GUR2017</a></td>
 </tr><tr id="int-mtorc2-prostate">
 <td data-l="Source"><a href="/complex/mtorc2/">mTORC2</a></td>
-<td data-l="Effect">activates</td>
+<td data-l="Effect">required-for</td>
 <td data-l="Target"><span>Prostate cancer</span></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Prostate tumours caused by losing a specific tumour-suppressor gene specifically need mTORC2 to grow – normal prostate tissue doesn&#x27;t, at least in mice.</span><span class="lv-student">Prostate tumours driven by Pten loss need mTORC2 specifically - normal prostate does not. A real therapeutic window, at least in mice.</span><span class="lv-research">Prostate tumours driven by Pten loss need mTORC2 specifically - normal prostate does not. A real therapeutic window, at least in mice.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Prostate tumours caused by losing a specific tumour-suppressor gene (Pten) need mTORC2 to develop – normal prostate tissue doesn&#x27;t, at least in mice.</span><span class="lv-student">Prostate cancer driven by Pten loss needs mTORC2 to develop; normal prostate does not. A real therapeutic window, at least in mice.</span><span class="lv-research">Prostate cancer driven by Pten loss needs mTORC2 to develop; normal prostate does not. A real therapeutic window, at least in mice.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2009/">GUE2009</a></td>
 </tr><tr id="int-mtorc2-sgk1">
@@ -1594,9 +1594,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/rag-gtpases/">Rag GTPases</a></td>
 <td data-l="Type">scaffolding</td>
-<td data-l="Mechanism"><span class="lv-beginner">Ragulator anchors the Rag proteins to the lysosome, and is also reported to help flip them into their &quot;on&quot; shape. The anchoring is the better-established of the two jobs.</span><span class="lv-student">Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.</span><span class="lv-research">Ragulator tethers the Rag GTPases to the lysosome. It was first reported as a GEF for RagA/B (BAR2012); later work places its exchange activity on RagC, with SLC38A9 acting as the arginine-gated GEF that loads RagA with GTP.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Ragulator anchors the Rag proteins to the lysosome and also helps flip them into their &quot;on&quot; shape, together with a second protein, SLC38A9. Both jobs are shown in biochemical experiments.</span><span class="lv-student">Ragulator does two jobs on the Rags. It tethers the Rag heterodimer to the lysosomal surface, and it acts as an unusual exchange factor: first reported as a GEF for RagA/B (BAR2012), its exchange activity was later placed on RagC, where releasing GTP unlocks the inactive state (SHE2018B). Loading RagA with GTP is done by arginine-bound SLC38A9 (see SLC38A9-RAG).</span><span class="lv-research">Ragulator does two jobs on the Rags. It tethers the Rag heterodimer to the lysosomal surface, and it acts as an unusual exchange factor: first reported as a GEF for RagA/B (BAR2012), its exchange activity was later placed on RagC, where releasing GTP unlocks the inactive state (SHE2018B). Loading RagA with GTP is done by arginine-bound SLC38A9 (see SLC38A9-RAG).</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/BAR2012/">BAR2012</a>, <a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/BAR2012/">BAR2012</a>, <a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a>, <a href="https://mtor-atlas.org/study/SHE2018B/">SHE2018B</a></td>
 </tr><tr id="int-rapa-fkbp12">
 <td data-l="Source"><a href="/drug/rapamycin/">Rapamycin</a></td>
 <td data-l="Effect">binds</td>
@@ -1666,7 +1666,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/gene/irs-1-irs-2/">IRS-1 / IRS-2</a></td>
 <td data-l="Type">degradation</td>
-<td data-l="Mechanism"><span class="lv-beginner">This is the pathway&#x27;s main self-limiting &quot;off switch&quot;: strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.</span><span class="lv-student">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span><span class="lv-research">The pathway&#x27;s principal negative feedback loop. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the main reason blocking mTORC1 paradoxically RAISES Akt activity. Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">This is one of the pathway&#x27;s main self-limiting &quot;off switches&quot;: strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.</span><span class="lv-student">One of the pathway&#x27;s major negative feedback loops, and the best studied. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is a major reason blocking mTORC1 paradoxically RAISES Akt activity (the Grb10 arm adds to it). Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span><span class="lv-research">One of the pathway&#x27;s major negative feedback loops, and the best studied. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is a major reason blocking mTORC1 paradoxically RAISES Akt activity (the Grb10 arm adds to it). Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2004/">HAR2004</a>, <a href="https://mtor-atlas.org/study/SHA2004/">SHA2004</a>, <a href="https://mtor-atlas.org/study/UMX2004/">UMX2004</a>, <a href="https://mtor-atlas.org/study/ORE2006/">ORE2006</a></td>
 </tr><tr id="int-s6k1-longevity">
@@ -1746,9 +1746,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/rag-gtpases/">Rag GTPases</a></td>
 <td data-l="Type">binding</td>
-<td data-l="Mechanism"><span class="lv-beginner">SLC38A9 sits in the lysosome&#x27;s wall, senses arginine inside, and tells the Rag proteins there&#x27;s enough.</span><span class="lv-student">SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.</span><span class="lv-research">SLC38A9 sits in the lysosomal membrane and reads arginine on the inside, then signals sufficiency to the Rag complex; it also pumps essential amino acids, including leucine, back out into the cytosol.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">SLC38A9 sits in the lysosome&#x27;s wall, senses arginine inside, and then flips RagA into its &quot;on&quot; shape, telling the Rag proteins there&#x27;s enough.</span><span class="lv-student">SLC38A9 sits in the lysosomal membrane and reads arginine on the inside. Arginine-bound SLC38A9 acts as an exchange factor that loads RagA with GTP, switching the Rag dimer on (SHE2018B); it also pumps essential amino acids, including leucine, back out into the cytosol.</span><span class="lv-research">SLC38A9 sits in the lysosomal membrane and reads arginine on the inside. Arginine-bound SLC38A9 acts as an exchange factor that loads RagA with GTP, switching the Rag dimer on (SHE2018B); it also pumps essential amino acids, including leucine, back out into the cytosol.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/REB2015/">REB2015</a>, <a href="https://mtor-atlas.org/study/WAN2015/">WAN2015</a>, <a href="https://mtor-atlas.org/study/JUN2015/">JUN2015</a>, <a href="https://mtor-atlas.org/study/WYA2017/">WYA2017</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/REB2015/">REB2015</a>, <a href="https://mtor-atlas.org/study/WAN2015/">WAN2015</a>, <a href="https://mtor-atlas.org/study/JUN2015/">JUN2015</a>, <a href="https://mtor-atlas.org/study/WYA2017/">WYA2017</a>, <a href="https://mtor-atlas.org/study/SHE2018B/">SHE2018B</a></td>
 </tr><tr id="int-srebp-lipid">
 <td data-l="Source"><span>SREBP1 / SREBP2</span></td>
 <td data-l="Effect">activates</td>
@@ -2078,7 +2078,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-03 19:42 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-03 19:59 Prague time</div>
 </footer>
 </div>
 </body>
