@@ -791,7 +791,7 @@
   function inspectLoops() {
     S.sel = null; S.selKind = "loops";
     var h = "<h4>" + M.loops.length + " feedback loops</h4>"
-      + '<p class="pw-empty">mTOR is not a one-way cascade. A loop does not have a direction so much as a '
+      + '<p class="pw-lede">mTOR is not a one-way cascade. A loop does not have a direction so much as a '
       + "<em>set point</em>, and its behaviour depends on the relative strength of each arm — which is "
       + "cell-type dependent. Detected automatically from the curated interactions, so this list cannot "
       + "disagree with the arrows it is built from.</p>";
@@ -863,7 +863,11 @@
       if (e.source === id) outs.push(e);
     });
     function list(arr, dir) {
-      if (!arr.length) return '<p class="pw-empty">none in this model</p>';
+      /* NOT .pw-empty: the V2 host hides the whole inspector with
+         .pw-insp:has(.pw-empty) (its marker for the idle intro panel), so any
+         node with no inputs or no outputs - Everolimus, FLCN, 54 of 91 - opened
+         a panel nobody could see. .pw-lede has identical styling. */
+      if (!arr.length) return '<p class="pw-lede">none in this model</p>';
       return arr.map(function (e) {
         var other = dir === "in" ? nodeById(e.source) : nodeById(e.target);
         return '<button class="pw-ev" data-eid="' + esc(e.id) + '" type="button">'
@@ -1858,7 +1862,7 @@
       if (!n) {
         if (S.mode !== "explorer") setMode("explorer");
         setInsp('<h4>Not in the mechanism model yet</h4>'
-          + '<p class="pw-empty">&#8220;' + esc(name) + '&#8221; is tracked in the Atlas corpus '
+          + '<p class="pw-lede">&#8220;' + esc(name) + '&#8221; is tracked in the Atlas corpus '
           + 'but does not yet have a curated node here — either the evidence for a specific '
           + 'mechanistic link is too thin, or it has not been curated yet. See the Entity Browser '
           + 'for what the corpus itself says about it.</p>');
