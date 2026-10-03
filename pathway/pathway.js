@@ -850,7 +850,10 @@
       + studyRows(e.evidence.supporting, "Supporting evidence")
       + studyRows(e.evidence.conflicting, "Conflicting evidence")
       + '<div class="k">Curation</div><p style="font-size:11.5px;color:var(--ink-soft)">'
-      + esc(e.id) + " · reviewed " + esc(e.review.reviewed) + " by " + esc(e.review.reviewer) + "</p>";
+      + esc(e.id) + " · " + (e.review && e.review.reviewed
+          ? "reviewed " + esc(e.review.reviewed) + (e.review.reviewer ? " by " + esc(e.review.reviewer) : "")
+          : "not yet reviewed by a curator (status: " + esc((e.review && e.review.status) || "Proposed") + ")")
+      + "</p>";
     setInsp(h);
   }
 

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-03T19:07:14+0200",
-  "source_commit": "537a49ce1c7a5ae18d1d29b9e4510ff939ca2231",
+  "corpus_snapshot": "2026-10-03T19:30:33+0200",
+  "source_commit": "c6ce329c56882345f759e24628355be871af3a3e",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -190,6 +190,8 @@
    "hypothesis_beginner": "Two different claims that were being treated as one. The easier one: blood tests can show the drug is hitting the pathway, which helps pick a dose. The hard one, still unmet: a blood test that stands in for living longer or healthier, well enough that a regulator would accept it instead of waiting.",
    "how_to_test": "Back-test the panel across the animal longevity studies in the corpus (does it separate lifespan-extending from null interventions?), then validate prospectively against EVERLAST's daily-vs-weekly arms. The mTORC1-vs-mTORC2 substrate-phosphorylation arm can now build directly on AIMTOR (BOU2020) rather than needing de novo assay development.",
    "studies": [
+    "MAN2014",
+    "MAN2018",
     "MOE2025",
     "MAN2021",
     "POU2013",
@@ -210,7 +212,8 @@
     "2026-09-23: The hypothesis was split in two (it was previously one).",
     "2026-09-29: 'Every trial missed' limited to clinical and functional healthspan endpoints; the immune-response surrogates that were met (MAN2014, MAN2018) are now named.",
     "2026-10-03: KAN2013 added - shows in human and mouse cell lines that individual mTORC1 phosphorylation sites differ in intrinsic substrate quality and therefore in their sensitivity to rapamycin and starvation, which constrains how a substrate-phosphorylation panel can be read as a pharmacodynamic marker (cell lines, not human blood).",
-    "2026-10-03: SIN2026 added - a randomised crossover trial in 63 healthy young adults found no change in whole-blood LC3B-II autophagic flux after 4 weeks of reduced (10%) vs average (20%) protein intake, showing a human flux assay is feasible but did not respond to moderate protein restriction (human, PBMCs only; mTORC1 not measured)."
+    "2026-10-03: SIN2026 added - a randomised crossover trial in 63 healthy young adults found no change in whole-blood LC3B-II autophagic flux after 4 weeks of reduced (10%) vs average (20%) protein intake, showing a human flux assay is feasible but did not respond to moderate protein restriction (human, PBMCs only; mTORC1 not measured).",
+    "2026-10-03: MAN2014 and MAN2018 added to Supporting_Studies. They were named in the basis on 2026-09-29 as the two met endpoints but never linked, so the card cited evidence the reader could not open (validate_claims.py R10)."
    ],
    "url": "https://mtor-atlas.org/question/a-sensor-autophagy-biomarker-panel-as-a-surrogate-endpoint-for-human-trials/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H5.json"
