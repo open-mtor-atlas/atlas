@@ -1154,25 +1154,39 @@
      being enough. That is why the propagation stays deliberately naive and is
      never shown alone. No numbers anywhere. */
   var PROP_SIGN = { "activates": 1, "required-for": 1, "recruits": 1, "inhibits": -1 };
+  /* Weakest link of a route decides how much it can be trusted: established 3,
+     emerging 2, contested 1. Added 2026-10-04 after a single-study edge
+     (PDCD4-MTORC2, emerging) opened a second four-step route from mTORC1 to Akt
+     with the opposite sign and turned the rapamycin prediction into "ambiguous".
+     Rule: two equally short routes that disagree are settled by the route whose
+     weakest arrow is better supported; if they are equally supported, the map
+     still cannot say. */
+  var PROP_CONS = { "established": 3, "emerging": 2, "contested": 1 };
   function propagate(targets) {
     var out = {};
     M.interactions.forEach(function (e) {
       var sg = PROP_SIGN[e.effect];
       if (sg == null) return;
-      (out[e.source] = out[e.source] || []).push({ t: e.target, s: sg });
+      var c = PROP_CONS[(e.confidence || {}).consensus] || 2;
+      (out[e.source] = out[e.source] || []).push({ t: e.target, s: sg, c: c });
     });
     var st = {}, q = [];
     Object.keys(targets).forEach(function (n) {
-      st[n] = { s: targets[n], d: 0, path: [n] }; q.push(n);
+      st[n] = { s: targets[n], d: 0, w: 3, path: [n] }; q.push(n);
     });
     while (q.length) {
       var n = q.shift(), cur = st[n];
       (out[n] || []).forEach(function (o) {
         var ns = cur.s === 0 ? 0 : cur.s * o.s;
+        var nw = Math.min(cur.w, o.c);
         var prev = st[o.t];
-        if (!prev) { st[o.t] = { s: ns, d: cur.d + 1, path: cur.path.concat(o.t) }; q.push(o.t); }
-        /* two equally short paths that disagree: the map itself cannot say */
-        else if (prev.d === cur.d + 1 && prev.s !== ns) prev.s = 0;
+        if (!prev) { st[o.t] = { s: ns, d: cur.d + 1, w: nw, path: cur.path.concat(o.t) }; q.push(o.t); }
+        else if (prev.d === cur.d + 1) {
+          if (prev.s === ns) prev.w = Math.max(prev.w, nw);
+          else if (nw > prev.w) { prev.s = ns; prev.w = nw; prev.path = cur.path.concat(o.t); }
+          /* equally supported routes that disagree: the map itself cannot say */
+          else if (nw === prev.w) prev.s = 0;
+        }
       });
     }
     return st;
@@ -1210,7 +1224,7 @@
       + '<p class="pw-scn-q">' + esc(sc.question) + "</p>"
       + "<p>" + esc(sc.brief) + "</p>"
       + '<table class="pw-scn-t"><thead><tr><th scope="col">Readout</th>'
-      + '<th scope="col" title="Plain sign propagation over the curated arrows">Map predicts</th>'
+      + '<th scope="col" title="Sign propagation over the curated arrows; where two equally short routes disagree, the one whose weakest arrow is better supported wins">Map predicts</th>'
       + '<th scope="col">Literature</th><th scope="col"><span class="pw-sr">Agreement</span></th></tr></thead><tbody>';
     var miss = 0;
     sc.readouts.forEach(function (r, i) {

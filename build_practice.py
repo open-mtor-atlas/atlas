@@ -503,6 +503,32 @@ def _short(txt, n=210):
     return cut + "&hellip;"
 
 
+OPT_MAX_WORDS = 22
+
+
+def _opt(txt, maxw=OPT_MAX_WORDS):
+    """Kratka podoba omezeni pro MOZNOST v Paper Autopsy (review 4. 10. 2026,
+    bod 12: stredoskolak nema soutezit v rychlosti cteni anglickeho odstavce).
+    Bere cele vety, dokud se vejdou do maxw slov; prvni veta se vezme vzdy
+    (a pripadne zkrati), kratka uvodni veta typu "The epistasis is solid." se
+    doplni dalsi. Plne zneni zustava ve vysvetleni po odpovedi."""
+    txt = re.sub(r"\s+", " ", (txt or "").strip())
+    sents = re.split(r"(?<=[.;])\s+(?=[A-Z0-9])", txt)
+    out = []
+    for s in sents:
+        have = len(" ".join(out).split())
+        if out and have >= 8 and have + len(s.split()) > maxw:
+            break
+        out.append(s)
+        if len(" ".join(out).split()) >= maxw:
+            break
+    res = " ".join(out)
+    w = res.split()
+    if len(w) > maxw:
+        res = " ".join(w[:maxw]).rstrip(",;:-") + "&hellip;"
+    return res
+
+
 def gen_autopsy(pw, meta, studies, sid_scope):
     """Paper Autopsy: ke kteremu vysledku patri KTERE omezeni.
 
@@ -539,12 +565,12 @@ def gen_autopsy(pw, meta, studies, sid_scope):
         # Ruzne studie mivaji doslova stejnou vetu o omezeni ("Small sample.").
         # Rozptylovac se stejnym TEXTEM by udelal otazku bez jedine spravne
         # odpovedi -- proto se deduplikuje podle vysledneho retezce, ne podle SID.
-        right_txt = _short(st["ai_limitations"])
+        right_txt = _opt(st["ai_limitations"])
         dis, seen_txt = [], {right_txt}
         for src in (others, pool):
             for k in range(len(src)):
                 x = src[(i * 7 + k * 13) % len(src)]
-                t = _short(x["ai_limitations"])
+                t = _opt(x["ai_limitations"])
                 if t in seen_txt:
                     continue
                 seen_txt.add(t)
@@ -555,7 +581,7 @@ def gen_autopsy(pw, meta, studies, sid_scope):
                 break
         if len(dis) < 3:
             continue
-        opts = [right_txt] + [_short(x["ai_limitations"]) for x in dis[:3]]
+        opts = [right_txt] + [_opt(x["ai_limitations"]) for x in dis[:3]]
         kinds = [kind] + [weakness_kind(x["ai_limitations"]) for x in dis[:3]]
         idx = list(range(4))
         RNG.shuffle(idx)
@@ -585,11 +611,11 @@ def gen_autopsy(pw, meta, studies, sid_scope):
         pool = [x for x in edges if x["id"] != it["id"]]
         if len(pool) < 3:
             continue
-        right_txt = _short(it["boundary"])
+        right_txt = _opt(it["boundary"])
         picks, seen_txt = [], {right_txt}
         for k in range(len(pool)):
             x = pool[(i * 5 + k * 11) % len(pool)]
-            t = _short(x["boundary"])
+            t = _opt(x["boundary"])
             if t in seen_txt:
                 continue
             seen_txt.add(t)
@@ -598,7 +624,7 @@ def gen_autopsy(pw, meta, studies, sid_scope):
                 break
         if len(picks) < 3:
             continue
-        opts = [right_txt] + [_short(x["boundary"]) for x in picks[:3]]
+        opts = [right_txt] + [_opt(x["boundary"]) for x in picks[:3]]
         kinds = [weakness_kind(it["boundary"])] + [weakness_kind(x["boundary"]) for x in picks[:3]]
         idx = list(range(4))
         RNG.shuffle(idx)

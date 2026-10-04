@@ -57,8 +57,9 @@ PRAVIDLA
       nejvyssi hodnost (PI se nezkousi); maxRank < pocet hodnosti; QUAL_JS ani
       place() nesahaji na XP; kazda hra z qual.mix ma dost polozek; sdileci
       texty nesou svou promennou.
-  Upozorneni (ne nalez): moznosti delsi nez 25 slov -- seznam pro prepsani
-      (review 4. 10. 2026, bod 12).
+  P19 Zadna moznost odpovedi nema vic nez 25 slov (review 4. 10. 2026,
+      bod 12): stredoskolak nema soutezit v rychlosti cteni. Generovane
+      moznosti Paper Autopsy zkracuje _opt(); rucni text se musi prepsat.
 
     py verify_practice.py          # 0 = cisto, 1 = nalezy
 """
@@ -496,10 +497,8 @@ def main():
             if n > 25:
                 longs.append((n, it["id"]))
                 break
-    if longs:
-        longs.sort(reverse=True)
-        print("Upozorneni: %d polozek ma moznost delsi nez 25 slov (nejdelsi: %s)"
-              % (len(longs), ", ".join("%s (%d)" % (i, n) for n, i in longs[:8])))
+    for n, i in sorted(longs, reverse=True):
+        bad("item %s" % i, "moznost ma %d slov, limit je 25 (P19)" % n)
 
     # ---- vysledek ----------------------------------------------------------
     c = bank["counts"]
@@ -510,7 +509,7 @@ def main():
         for p in PROBLEMS:
             print("  ! " + p)
         return 1
-    print("Cisto -- vsech osmnact pravidel prosslo.")
+    print("Cisto -- vsech devatenact pravidel prosslo.")
     return 0
 
 
