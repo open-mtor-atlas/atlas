@@ -70,5 +70,28 @@
       });
     });
   }
+  /* "You chose the tempting answer": proc je zvolena spatna moznost lakava,
+     jen tam, kde to data opravdu vedi -- rucni whyWrong, sousedni stitek ve
+     Frontieru, druh slabiny u Paper Autopsy. Jinde nic (radsi nic nez obecna
+     fraze). */
+  var FR = ['Established', 'Emerging', 'Contested', 'Open'];
+  function atlasTempt(item, chosen){
+    if(chosen === item.answer || chosen < 0) return '';
+    if(item.whyWrong && item.whyWrong[chosen])
+      return '<b>You chose the tempting answer.</b> ' + item.whyWrong[chosen];
+    if(item.game === 'frontier' && Math.abs(chosen - item.answer) === 1)
+      return '<b>One step off.</b> You called it ' + FR[chosen] + '; the Atlas curates it as ' + FR[item.answer] +
+             '. The difference is how much independent evidence stands behind the step.';
+    /* Druh slabiny (optKinds) je jen klicova slova pro odznak Methods Reader
+       -- na vety typu "jde o delku studie" neni dost presny, tak se tu
+       nepouziva. */
+    if(item.game === 'autopsy')
+      return '<b>You chose the tempting answer.</b> That limitation is real, but it belongs to another ' +
+             'record in the Atlas. Look again at what this particular design leaves out.';
+    if(item.game === 'sources')
+      return '<b>That study is in the Atlas,</b> but it stands behind a different claim.';
+    return '';
+  }
   window.atlasNext = atlasNext; window.atlasShare = atlasShare; window.atlasDisagree = atlasDisagree;
+  window.atlasTempt = atlasTempt;
 })();

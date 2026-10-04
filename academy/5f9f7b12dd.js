@@ -53,7 +53,7 @@
     var lk = document.getElementById('paLocked');
     if(lk){
       lk.innerHTML = locked.length ? '<b>' + locked.length + ' ' + esc(CFG.copy.lockedNote) + ':</b> ' +
-        locked.join(', ') + '. <a href="/academy/qual/">Already work on mTOR? Take the Qualifying Exam &rarr;</a>' : '';
+        locked.join(', ') + '. <a href="/academy/qual/">Think you can reason like an mTOR researcher? Take the Qualifying Exam &rarr;</a>' : '';
       lk.hidden = !locked.length;
     }
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
@@ -192,7 +192,9 @@
       msg += ' You were confident &mdash; that is the combination worth slowing down for.';
     if(ok && p !== null && p < CFG.confidence.sureThreshold)
       msg += ' You had it and did not trust it.';
+    var tempt = (!ok && window.atlasTempt) ? window.atlasTempt(item, chosen) : '';
     document.getElementById('paFb').innerHTML =
+      (tempt ? '<p class="pa-tempt">' + tempt + '</p>' : '') +
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + esc2(item.explain) +
       (item.sid ? ' <span class="pa-sub">' + esc(item.sid) + '</span>' : '') +
       '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
