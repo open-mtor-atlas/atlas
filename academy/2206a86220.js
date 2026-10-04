@@ -21,7 +21,8 @@ window.PA = (function(){
                  limitsOk:0, sprintOk:0, answered:0,
                  autopsyOk:0, autopsyKinds:[], sampleOk:0, sampleFalseReject:0,
                  openOk:0, openFalse:0, sourceOk:0, sourceWeakening:[], discriminating:0},
-            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
+            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null,
+            lsn:{}, placed:null};
   }
   function read(){
     var o;
@@ -150,6 +151,9 @@ window.PA = (function(){
     var lv = noteLevel(item.id);
     S.xp += xp;
     S.met.answered++;
+    /* kolik odpovedi padlo na polozky jedne lekce -- "Check yourself on
+       lesson N" v atlasNext() zmizi, jakmile jich je dost */
+    if(item.lesson) S.lsn[item.lesson] = (S.lsn[item.lesson] || 0) + 1;
     bumpMastery(item.nodes, ok, sure);
     pushBrier(p, ok);
     if(ok){
@@ -477,6 +481,18 @@ window.PA = (function(){
     return null;
   }
   function reset(){ S = blank(); save(); }
+  /* Qualifying Exam: zarazeni jen ZVEDA hodnost, nikdy ji nesnizi, a nesaha
+     na XP -- XP zustava soucet skutecnych odpovedi, takze sdileny pocet XP
+     nelze nafouknout zkouskou. Hodnost nad maxRank (PI) se nezkousi. */
+  function place(rank, info){
+    var top = (D.cfg.qual && D.cfg.qual.maxRank) || 5;
+    rank = Math.max(1, Math.min(top, rank|0));
+    var up = rank > S.rank;
+    if(up) S.rank = rank;
+    S.placed = {rank:rank, score:info.score, n:info.n, brier:info.brier, d:today(), raised:up};
+    save();
+    return up;
+  }
 
   return {boot:boot, state:state, data:data, save:save, today:today,
           mastery:mastery, masteredCount:masteredCount, record:record,
@@ -487,5 +503,5 @@ window.PA = (function(){
           readingLevel:readingLevel, weakestFirst:weakestFirst,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
-          reset:reset, track:track};
+          reset:reset, track:track, place:place};
 })();

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-04T19:58:12+0200",
-  "source_commit": "d1dfde5ef17b3fb70aa37dba4992d0840b2cf04f",
+  "corpus_snapshot": "2026-10-04T20:32:57+0200",
+  "source_commit": "559e18f0cca14ad13b71b38cfb276c73d1e132e6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -261,12 +261,14 @@
    "timescale": "hours",
    "compartment": "mito",
    "species": [
+    "mammalian cells",
+    "C. elegans",
     "mouse"
    ],
-   "mechanism": "The LKB1-AMPK axis keeps damaged mitochondria being cleared; lose it and mitochondrial DNA leaks into the cytosol and inflames the cell.",
-   "mechanism_beginner": "The energy-sensing pathway keeps damaged mitochondria cleared out; lose it, and their broken contents leak out and inflame the cell.",
+   "mechanism": "AMPK can promote the clearance of damaged mitochondria, in part by phosphorylating ULK1: cells whose ULK1 cannot be phosphorylated by AMPK show defective mitophagy under starvation. How much AMPK contributes depends on the cell type and on the kind of energy stress.",
+   "mechanism_beginner": "The cell's energy sensor can help clear out damaged mitochondria, partly by switching on an autophagy starter kinase. How much it matters depends on the cell and on the kind of stress.",
    "context": null,
-   "boundary": "Single-study edge in this corpus (ZHU2026), and that study is a toxicology model rather than a dedicated test of this step. Treat as indicative.",
+   "boundary": "Two studies of different kinds: EGA2010 (cells and C. elegans, AMPK-site mutant of ULK1) and ZHU2026 (mouse toxicology model, where LKB1/AMPK loss also went with mitochondrial DNA leakage and liver inflammation; that downstream link is shown only there). The upstream step is disputed: Park, Lee and Kim (Nat Commun 2023, PMID 37225695, outside this corpus) report that under energy stress AMPK restrains ULK1 activation; see AMPK-ULK1.",
    "note": null,
    "contested": false,
    "confidence": {
@@ -281,6 +283,7 @@
      "label": "Animal model"
     },
     "supporting": [
+     "EGA2010",
      "ZHU2026"
     ],
     "conflicting": []

@@ -316,12 +316,42 @@
     });
   }
 
-  function redraw(){ drawMap(); paintNode(); paintBadges(); paintCal(); paintHead(); }
+  function redraw(){ drawMap(); paintNode(); paintBadges(); paintCal(); paintHead(); paintCan(); }
   function paintHead(){
     var el = document.getElementById('paRank2'); if(!el) return;
     var r = PA.rankDef(S.rank);
     el.innerHTML = '<span class="pa-rk">Rank ' + r.n + '</span> <b>' + esc(r.name) + '</b> &middot; ' +
-      S.xp + ' XP &middot; ' + S.met.answered + ' judgements';
+      S.xp + ' XP &middot; ' + S.met.answered + ' judgements' +
+      (S.placed ? ' &middot; <span class="pa-sub">placed by the Qualifying Exam (' + S.placed.score +
+                  '/' + S.placed.n + ')</span>' : '') +
+      (S.xp > 0 && window.atlasShare ? ' <button type="button" class="pa-cbtn" id="paShareP">Challenge someone on Bluesky</button>' : '');
+    var b = document.getElementById('paShareP');
+    if(b) b.addEventListener('click', function(){
+      window.atlasShare(CFG.copy.shareArena.replace('{xp}', S.xp.toLocaleString('en-US')).replace('{rank}', r.name),
+                        'https://mtor-atlas.org/academy/practice/', 'academy-progress');
+    });
+  }
+
+  /* "You can now" -- co student umi, ne kolik ma bodu (review 4. 10., bod 9).
+     Cile lekce (learningObjectives) se ukazou, jakmile je aspon 60 % uzlu,
+     ktere lekce zavadi, na urovni "mastered". Mizi zase s decayem: je to
+     stav, ne trofej. */
+  function paintCan(){
+    var box = document.getElementById('paCan'); if(!box) return;
+    var rows = [], k, L, i, m, have;
+    var ks = Object.keys(D.lessons).sort(function(a,b){ return D.lessons[a].n < D.lessons[b].n ? -1 : 1; });
+    for(i=0;i<ks.length;i++){
+      k = ks[i]; L = D.lessons[k];
+      if(!L.nodes || !L.nodes.length || !L.obj || !L.obj.length) continue;
+      have = 0;
+      for(m=0;m<L.nodes.length;m++) if(PA.mastery(L.nodes[m]) >= CFG.mastery.masteredFrom) have++;
+      if(have / L.nodes.length < 0.6) continue;
+      for(m=0;m<L.obj.length;m++)
+        rows.push('<li><span>Lesson ' + esc(L.n) + ' &middot; ' + esc(L.t) + '</span>' + L.obj[m] + '</li>');
+    }
+    box.innerHTML = rows.length ? '<ul class="pa-can">' + rows.join('') + '</ul>' :
+      '<p class="pa-note">Nothing here yet. When you have mastered most of the pathway nodes a lesson ' +
+      'introduces, what that lesson teaches you to do appears here &mdash; and fades again if you stop practising.</p>';
   }
 
   wireTools(); redraw();

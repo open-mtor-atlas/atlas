@@ -38,16 +38,24 @@
 
   function paintTiles(){
     var wrap = document.getElementById('paTiles'); if(!wrap) return;
-    var html = '', i, g, on;
+    /* Zamcene hry uz nejsou sede dlazdice stejne velikosti jako hratelne:
+       novacek videl osm rovnocennych voleb, z toho pet nehratelnych
+       (externi review 4. 10. 2026, bod 8). Ted jeden radek pod nimi. */
+    var html = '', locked = [], i, g;
     for(i=0;i<CFG.games.length;i++){
       g = CFG.games[i];
-      on = S.rank >= g.rank;
-      html += '<button class="pa-tile" type="button" data-game="' + g.id + '"' +
-              (on ? '' : ' disabled') + ' aria-pressed="false">' +
-              '<span class="pa-skill">' + esc(g.skill) + (on ? '' : ' &middot; rank ' + g.rank) + '</span>' +
+      if(S.rank < g.rank){ locked.push(esc(g.name) + ' <i>(rank ' + g.rank + ')</i>'); continue; }
+      html += '<button class="pa-tile" type="button" data-game="' + g.id + '" aria-pressed="false">' +
+              '<span class="pa-skill">' + esc(g.skill) + '</span>' +
               '<h3>' + esc(g.name) + '</h3><p>' + esc(g.blurb) + '</p></button>';
     }
     wrap.innerHTML = html;
+    var lk = document.getElementById('paLocked');
+    if(lk){
+      lk.innerHTML = locked.length ? '<b>' + locked.length + ' ' + esc(CFG.copy.lockedNote) + ':</b> ' +
+        locked.join(', ') + '. <a href="/academy/qual/">Already work on mTOR? Take the Qualifying Exam &rarr;</a>' : '';
+      lk.hidden = !locked.length;
+    }
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
       b.addEventListener('click', function(){ start(b.getAttribute('data-game')); });
     });
@@ -56,6 +64,31 @@
     var wrap = document.getElementById('paTiles'); if(!wrap) return;
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
       b.setAttribute('aria-pressed', String(b.getAttribute('data-game') === id));
+    });
+  }
+
+  /* ---------------- your next step ---------------- */
+  function lessonList(){
+    var out = [], k;
+    for(k in D.lessons) out.push({slug:k, n:D.lessons[k].n, t:D.lessons[k].t,
+                                  url:D.lessons[k].u, min:D.lessons[k].min});
+    out.sort(function(a,b){ return a.n < b.n ? -1 : 1; });
+    return out;
+  }
+  function paintNext(){
+    var box = document.getElementById('paNextStep'); if(!box || !window.atlasNext) return;
+    var st = window.atlasNext({lessons:lessonList(), pa:S, practice:'/academy/practice/',
+                               check:CFG.next.checkAfterLesson, rankReady:PA.rankReady()});
+    box.innerHTML = '<div><p class="pa-rk">' + st.kick + '</p><p class="pa-nt">' + st.title + '</p>' +
+      '<p class="pa-note">' + st.meta + '</p></div>' +
+      '<a class="pa-cbtn pa-ngo" href="' + st.href + '">' + st.label + '</a>';
+    box.hidden = false;
+    var a = box.querySelector('a');
+    a.addEventListener('click', function(ev){
+      PA.track('next_step', {step: st.game || (st.lesson ? 'lesson-practice' : 'link')});
+      if(st.game === 'exam' && PA.rankReady()){ ev.preventDefault(); startExam(); return; }
+      if(st.game){ ev.preventDefault(); start(st.game); return; }
+      if(st.lesson){ ev.preventDefault(); fromLesson = st.lesson; paintFrom(); startLesson(st.lesson); }
     });
   }
 
@@ -163,7 +196,11 @@
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + esc2(item.explain) +
       (item.sid ? ' <span class="pa-sub">' + esc(item.sid) + '</span>' : '') +
       '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
+      (item.game === 'frontier' ? '<div class="pa-disbox" id="paDis"></div>' : '') +
       '<div class="pa-tools" style="margin-top:16px"><button id="paNext" type="button">Next &rarr;</button></div>';
+    if(item.game === 'frontier' && window.atlasDisagree)
+      window.atlasDisagree(document.getElementById('paDis'), item.id,
+                           (item.options[chosen]||'').replace(/<[^>]+>/g,'').split(' ')[0], CFG.copy.disagree);
     document.getElementById('paNext').addEventListener('click', after);
     document.getElementById('paNext').focus();
     paintRank(); paintWorld();
@@ -201,7 +238,16 @@
       lessonOutro() +
       '<div class="pa-tools" style="margin-top:16px">' +
       '<button id="paBack" type="button">Back to the games</button>' +
-      '<button id="paMap" type="button">See your pathway &rarr;</button></div></div>');
+      '<button id="paMap" type="button">See your pathway &rarr;</button>' +
+      (S.xp > 0 ? '<button id="paShare" type="button">Challenge someone on Bluesky</button>' : '') +
+      '</div></div>');
+    var sh = document.getElementById('paShare');
+    if(sh) sh.addEventListener('click', function(){
+      window.atlasShare(CFG.copy.shareArena.replace('{xp}', S.xp.toLocaleString('en-US'))
+                          .replace('{rank}', PA.rankDef(S.rank).name),
+                        'https://mtor-atlas.org/academy/practice/', 'academy-practice');
+    });
+    paintNext();
     document.getElementById('paBack').addEventListener('click', function(){
       board.hidden = true; pressTile(''); paintRank(); });
     document.getElementById('paMap').addEventListener('click', function(){
@@ -629,8 +675,15 @@
     return true;
   }
 
-  paintRank(); paintTiles(); paintWorld();
+  paintRank(); paintTiles(); paintWorld(); paintNext();
   fromLesson = lessonSlug();
+  var gm = /[?&]game=([a-z]+)/.exec(location.search || '');
+  if(gm && !fromLesson){
+    var gid = gm[1], gdef = null, gi;
+    for(gi=0;gi<CFG.games.length;gi++) if(CFG.games[gi].id === gid) gdef = CFG.games[gi];
+    if(gid === 'exam' && PA.rankReady()) startExam();
+    else if(gdef && S.rank >= gdef.rank) start(gid);
+  }
   if(fromLesson){
     paintFrom();
     if(!startLesson(fromLesson)){

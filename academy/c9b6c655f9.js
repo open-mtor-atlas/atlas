@@ -60,6 +60,8 @@
      petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
      Pak se poradi obraci a Practice Arena jde dopredu. */
   var box = document.getElementById('acResumeText');
+  var fh = document.getElementById('acFirst');
+  if(fh && started) fh.hidden = true;
   if(box && started){
     var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
                     next.n + ' &rarr;</a>';
@@ -69,6 +71,15 @@
     var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Practice Arena &middot; ' +
                     D.games + ' games</a>';
     var first = (done >= 5 && pa) ? (dailyPri + lessonBtn) : (lessonPri + (pa ? dailyBtn : ''));
+    /* Od 4. 10. 2026 vede primarni tlacitko tam, kam ukazuje atlasNext() --
+       stejne doporuceni jako "Your next step" v Arene, aby si homepage a hra
+       neodporovaly. Druhe tlacitko zustava na Arenu / lekci. */
+    if(window.atlasNext){
+      var st = window.atlasNext({lessons:D.lessons, pa:pa, practice:D.practice,
+                                 check:(D.next && D.next.check) || 3, rankReady:false});
+      first = '<a class="ac-cta" href="' + st.href + '">' + st.title + ' &rarr;</a>' +
+              (st.href.indexOf(D.practice) === 0 ? lessonBtn : (pa ? dailyBtn : ''));
+    }
     var meta = [];
     if(pa && pa.xp) meta.push('<b>' + pa.xp + '</b> XP');
     meta.push('<b>' + done + '</b> of ' + D.lessons.length + ' lessons read');
