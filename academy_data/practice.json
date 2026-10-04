@@ -70,7 +70,7 @@
    "level": "Intermediate",
    "phase": "B",
    "brier": 0.2,
-   "blurb": "Reading data: what a result does and does not support.",
+   "blurb": "Interpretation: what a result does and does not support.",
    "unlocks": [
     "autopsy",
     "sources"
@@ -86,7 +86,7 @@
    "level": "Intermediate — Research",
    "phase": "B",
    "brier": 0.16,
-   "blurb": "Judgement: how strong is this evidence, really.",
+   "blurb": "Design: which experiment would tell two explanations apart.",
    "unlocks": [
     "frontier",
     "calibration-curve"
@@ -102,7 +102,7 @@
    "level": "Research",
    "phase": "B",
    "brier": 0.13,
-   "blurb": "Design: what would you measure first, and why that.",
+   "blurb": "Choice: which question is worth doing next, and why that one.",
    "unlocks": [
     "challenges"
    ]
@@ -399,7 +399,7 @@
   "phaseB": "Ranks 4 to 6 are about judgement rather than recall: what a result does not show, which study a claim stands on, and how settled the field actually is.",
   "lockedNote": "more games open as you rank up",
   "shareArena": "I've reached {xp} XP ({rank}) in the mTOR Practice Arena on Oliver's mTOR Atlas. Can you beat me?",
-  "shareQual": "I scored {score}/{n} on the mTOR Qualifying Exam on Oliver's mTOR Atlas and placed as {rank}. Can you beat me?",
+  "shareQual": "Think you can reason like an mTOR researcher? I scored {score}/{n} on the mTOR Qualifying Exam on Oliver's mTOR Atlas and placed as {rank}. Can you beat me?",
   "disagree": "I'd call this differently"
  },
  "next": {
@@ -432,8 +432,8 @@
    }
   ],
   "expert": {
-   "label": "Already work on mTOR?",
-   "text": "Skip the climb. Ten hard questions, five minutes, placed at the rank your answers earn.",
+   "label": "Think you can reason like an mTOR researcher?",
+   "text": "Ten hard questions, five minutes, placed at the rank your answers earn.",
    "href": "/academy/qual/"
   }
  },
@@ -465,7 +465,49 @@
    }
   ],
   "maxRank": 5,
-  "sureFrom": 0.9
+  "sureFrom": 0.9,
+  "hero": {
+   "title": "Think you can reason like an mTOR researcher?",
+   "lede": "Ten hard questions, about five minutes, no account. You don't need to know everything. You need to know what the evidence actually allows you to claim.",
+   "goal": "Can you make Postdoc?"
+  },
+  "categories": {
+   "frontier": {
+    "name": "Where the field stands",
+    "fix": "Open Questions: where the field is still arguing, and why",
+    "href": "/questions/"
+   },
+   "autopsy": {
+    "name": "Reading a paper's design",
+    "fix": "Lesson 10 · How to read an mTOR paper",
+    "href": "/academy/core/how-to-read-an-mtor-paper/"
+   },
+   "sources": {
+    "name": "Tracing a claim to its study",
+    "fix": "Lesson 10 · How to read an mTOR paper",
+    "href": "/academy/core/how-to-read-an-mtor-paper/"
+   },
+   "hand": {
+    "name": "Experimental design",
+    "fix": "",
+    "href": ""
+   }
+  },
+  "calibNote": "Calibration on ten answers is a rough reading. The Arena measures it properly, over your last fifty judgements.",
+  "firstWeek": {
+   "title": "Your first week as a postdoc",
+   "text": "Your PI hands you a question the field has not closed, a limited budget and competing hypotheses. Commit to one, say what would change your mind, buy the experiments, and see how far the evidence gets you.",
+   "links": [
+    {
+     "label": "Is Rheb an ON/OFF switch?",
+     "href": "/academy/research-challenges/is-rheb-an-on-off-switch/"
+    },
+    {
+     "label": "Why rapamycin does not switch mTORC1 off",
+     "href": "/academy/research-challenges/why-doesnt-rapamycin-switch-mtor-off/"
+    }
+   ]
+  }
  },
  "handItems": [
   {
@@ -487,7 +529,13 @@
     "Repeat the experiment in a second cell line"
    ],
    "answer": 1,
-   "explain": "The feedback hypothesis names a route: S6K1 normally restrains IRS-1, so the AKT rise should need IRS-1 and the receptor above it. Cutting that route tests the hypothesis directly; a drug acting on AKT itself would survive it. Phospho-S6 only shows the drug reached mTORC1, and a higher dose or another cell line changes the size of the effect without telling the two explanations apart. ORE2006 blocked the IGF-1 receptor for exactly this reason."
+   "explain": "The feedback hypothesis names a route: S6K1 normally restrains IRS-1, so the AKT rise should need IRS-1 and the receptor above it. Cutting that route tests the hypothesis directly; a drug acting on AKT itself would survive it. Phospho-S6 only shows the drug reached mTORC1, and a higher dose or another cell line changes the size of the effect without telling the two explanations apart. ORE2006 blocked the IGF-1 receptor for exactly this reason.",
+   "whyWrong": [
+    "A bigger rise at a higher dose fits both explanations equally well, so it cannot tell them apart.",
+    null,
+    "A sensible control, but it only shows the drug reached mTORC1, and both explanations predict that.",
+    "Seeing the rise in another line makes it more believable, not more explained: both hypotheses survive it."
+   ]
   },
   {
    "id": "hd:frb-control",
@@ -507,7 +555,13 @@
     "Show that the effect reverses after the drug is washed out"
    ],
    "answer": 2,
-   "explain": "Rapamycin acts by bringing FKBP12 onto the FRB domain of mTOR (CHO1996 solved that interface). A point mutant there keeps the kinase working but makes it blind to the drug, so an effect that disappears in those cells must run through mTOR. Dose&ndash;response, a second batch and washout all describe the drug, not its target."
+   "explain": "Rapamycin acts by bringing FKBP12 onto the FRB domain of mTOR (CHO1996 solved that interface). A point mutant there keeps the kinase working but makes it blind to the drug, so an effect that disappears in those cells must run through mTOR. Dose&ndash;response, a second batch and washout all describe the drug, not its target.",
+   "whyWrong": [
+    "A clean dose-response describes the drug's potency, not which protein it acts through.",
+    "A second batch rules out a contaminated vial, not an off-target action of the molecule itself.",
+    null,
+    "Most drug effects reverse on washout, on-target or not."
+   ]
   },
   {
    "id": "hd:chronic-mtorc2",
@@ -527,7 +581,13 @@
     "The antibody loses sensitivity in cells treated for long"
    ],
    "answer": 0,
-   "explain": "mTORC2 is not acutely sensitive to rapamycin, but over many hours the drug&ndash;FKBP12 complex can bind free mTOR and keep it from joining new mTORC2 (SAR2006). Cell types differ in how strongly this happens, which is why a timecourse, not one time point, decides what a rapamycin experiment shows about mTORC2."
+   "explain": "mTORC2 is not acutely sensitive to rapamycin, but over many hours the drug&ndash;FKBP12 complex can bind free mTOR and keep it from joining new mTORC2 (SAR2006). Cell types differ in how strongly this happens, which is why a timecourse, not one time point, decides what a rapamycin experiment shows about mTORC2.",
+   "whyWrong": [
+    null,
+    "Total AKT is usually unchanged in these experiments; what drops is the phosphorylation, not the protein.",
+    "Ser473 is the mTORC2 site; S6K1 does not put it there.",
+    "An antibody artefact would not depend on cell type the way this effect does."
+   ]
   },
   {
    "id": "hd:itp-scope",
@@ -546,7 +606,13 @@
     "The effect is not confined to one inbred strain"
    ],
    "answer": 2,
-   "explain": "HAR2009 used three test sites and genetically mixed mice, which is why it supports a mammalian, late-onset and not strain-specific effect. Nothing in it measures human lifespan, human dosing or human tolerability; that step needs human data the study does not have."
+   "explain": "HAR2009 used three test sites and genetically mixed mice, which is why it supports a mammalian, late-onset and not strain-specific effect. Nothing in it measures human lifespan, human dosing or human tolerability; that step needs human data the study does not have.",
+   "whyWrong": [
+    "That one the study does carry: rapamycin extended lifespan in mice, which are mammals.",
+    "Treatment started late in life, so late onset is exactly what it tested.",
+    null,
+    "The mice were genetically mixed and tested at three sites, so this one it carries too."
+   ]
   }
  ]
 }

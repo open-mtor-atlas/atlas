@@ -419,6 +419,10 @@ def main():
             bad(w, "vysvetleni kratsi nez 12 slov (P16)")
         if h.get("lesson") not in les_slugs:
             bad(w, "lekce %r neexistuje (P16)" % h.get("lesson"))
+        ww = h.get("whyWrong") or []
+        if len(ww) != len(h.get("options") or []) or ww[h.get("answer", 0)] is not None \
+                or any(not x for i, x in enumerate(ww) if i != h.get("answer")):
+            bad(w, "whyWrong musi mit text u kazde spatne moznosti a null u spravne (P16)")
 
     # ---- P17: next step / prvni hodina ---------------------------------------
     nx = bank["cfg"].get("next") or {}

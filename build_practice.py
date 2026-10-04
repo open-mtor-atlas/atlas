@@ -252,6 +252,9 @@ def gen_hand(cfg, meta):
             "prompt": h["prompt"], "options": list(h["options"]),
             "answer": h["answer"], "explain": h["explain"],
             "lesson": h["lesson"], "sid": h.get("sid", ""),
+            # zpetna vazba ke kazde spatne moznosti ("you chose the tempting
+            # answer"), review 4. 10. 2026; null u spravne odpovedi
+            "whyWrong": list(h.get("whyWrong") or []),
         })
     return out
 
@@ -908,7 +911,7 @@ html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
 .pa-next .pa-nt{font-size:18px;font-weight:700;margin:4px 0}
 .pa-next .pa-note{margin:0}
 a.pa-cbtn{display:inline-flex;align-items:center;text-decoration:none}
-.pa-ngo{text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;
+.pa-ngo,.pa-cbtn.pa-ngo{text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;
   background:var(--teal);color:var(--on-teal,#fff);border-color:var(--teal)}
 .pa-body .pa-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);margin:0}
@@ -925,6 +928,16 @@ a.pa-cbtn{display:inline-flex;align-items:center;text-decoration:none}
 .pa-can li span{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
   letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:2px}
 .pa-qres{font-size:clamp(28px,5vw,40px);font-weight:700;margin:6px 0 4px}
+.pa-tempt{margin:0 0 10px;font-size:14px;line-height:1.55;padding:10px 14px;border:1px dashed var(--line);border-radius:3px}
+.ql-dots{display:inline-flex;gap:4px;vertical-align:middle;margin-right:8px}
+.ql-dot{display:inline-block;width:7px;height:7px;border-radius:50%;border:1px solid var(--soft)}
+.ql-dot.done{background:var(--soft)}
+.ql-dot.now{background:var(--teal);border-color:var(--teal)}
+.ql-cats{list-style:none;padding:0;margin:10px 0 6px;max-width:440px}
+.ql-cats li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ql-cats b{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.ql-week{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.ql-week a{font-weight:600}
 .pa-tile[disabled]:hover{border-color:var(--line)}
 
 .pa-board{border:1px solid var(--line);border-radius:3px;margin:0 0 30px}
@@ -1792,7 +1805,30 @@ NEXT_JS = """
       });
     });
   }
+  /* "You chose the tempting answer": proc je zvolena spatna moznost lakava,
+     jen tam, kde to data opravdu vedi -- rucni whyWrong, sousedni stitek ve
+     Frontieru, druh slabiny u Paper Autopsy. Jinde nic (radsi nic nez obecna
+     fraze). */
+  var FR = ['Established', 'Emerging', 'Contested', 'Open'];
+  function atlasTempt(item, chosen){
+    if(chosen === item.answer || chosen < 0) return '';
+    if(item.whyWrong && item.whyWrong[chosen])
+      return '<b>You chose the tempting answer.</b> ' + item.whyWrong[chosen];
+    if(item.game === 'frontier' && Math.abs(chosen - item.answer) === 1)
+      return '<b>One step off.</b> You called it ' + FR[chosen] + '; the Atlas curates it as ' + FR[item.answer] +
+             '. The difference is how much independent evidence stands behind the step.';
+    /* Druh slabiny (optKinds) je jen klicova slova pro odznak Methods Reader
+       -- na vety typu "jde o delku studie" neni dost presny, tak se tu
+       nepouziva. */
+    if(item.game === 'autopsy')
+      return '<b>You chose the tempting answer.</b> That limitation is real, but it belongs to another ' +
+             'record in the Atlas. Look again at what this particular design leaves out.';
+    if(item.game === 'sources')
+      return '<b>That study is in the Atlas,</b> but it stands behind a different claim.';
+    return '';
+  }
   window.atlasNext = atlasNext; window.atlasShare = atlasShare; window.atlasDisagree = atlasDisagree;
+  window.atlasTempt = atlasTempt;
 })();
 </script>
 """
@@ -1860,7 +1896,7 @@ PRACTICE_JS = """
     var lk = document.getElementById('paLocked');
     if(lk){
       lk.innerHTML = locked.length ? '<b>' + locked.length + ' ' + esc(CFG.copy.lockedNote) + ':</b> ' +
-        locked.join(', ') + '. <a href="/academy/qual/">Already work on mTOR? Take the Qualifying Exam &rarr;</a>' : '';
+        locked.join(', ') + '. <a href="/academy/qual/">Think you can reason like an mTOR researcher? Take the Qualifying Exam &rarr;</a>' : '';
       lk.hidden = !locked.length;
     }
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
@@ -1999,7 +2035,9 @@ PRACTICE_JS = """
       msg += ' You were confident &mdash; that is the combination worth slowing down for.';
     if(ok && p !== null && p < CFG.confidence.sureThreshold)
       msg += ' You had it and did not trust it.';
+    var tempt = (!ok && window.atlasTempt) ? window.atlasTempt(item, chosen) : '';
     document.getElementById('paFb').innerHTML =
+      (tempt ? '<p class="pa-tempt">' + tempt + '</p>' : '') +
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + esc2(item.explain) +
       (item.sid ? ' <span class="pa-sub">' + esc(item.sid) + '</span>' : '') +
       '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
@@ -3243,6 +3281,12 @@ QUAL_JS = """
     return '<div class="pa-bhead"><span class="pa-t">Qualifying Exam</span>' +
            '<span class="pa-prog">' + prog + '</span></div>';
   }
+  /* postup bez skore: kolik otazek uz je za tebou, ne kolik spravne */
+  function dots(i, n){
+    var s = '', k;
+    for(k=0;k<n;k++) s += '<i class="ql-dot' + (k < i ? ' done' : (k === i ? ' now' : '')) + '"></i>';
+    return '<span class="ql-dots" aria-hidden="true">' + s + '</span>';
+  }
   function pick(){
     var by = {}, i, it, g, out = [];
     for(i=0;i<D.items.length;i++){ it = D.items[i]; g = it.hand ? 'hand' : it.game; (by[g] = by[g] || []).push(it); }
@@ -3259,7 +3303,8 @@ QUAL_JS = """
   }
   function intro(){
     var ranks = CFG.ranks, top = ranks[Q.maxRank-1], pi = ranks[ranks.length-1];
-    show(head(Q.size + ' questions') + '<div class="pa-body">' +
+    show(head(Q.size + ' questions &middot; ~5 min') + '<div class="pa-body">' +
+      '<p class="pa-rk">The goal</p><p class="pa-qres">' + Q.hero.goal + '</p>' +
       '<p class="pa-q">Ten questions. For each one, say how sure you are.</p>' +
       '<p class="pa-note">A mix of four kinds: where the field actually stands on a pathway step, which ' +
       'limit of a real paper matters, which study in the Atlas a claim stands on, and hand-written ' +
@@ -3282,7 +3327,7 @@ QUAL_JS = """
     for(i=0;i<it.options.length;i++)
       opts += '<button class="pa-opt" type="button" data-i="' + i + '"><span class="pa-k">' + L[i] +
               '</span><span>' + it.options[i] + '</span></button>';
-    show(head((qi+1) + ' / ' + set.length + ' &middot; ' + (SKILL[it.game] || '')) + '<div class="pa-body">' +
+    show(head(dots(qi, set.length) + ' ' + (qi+1) + ' / ' + set.length + ' &middot; ' + (SKILL[it.game] || '')) + '<div class="pa-body">' +
       (it.stem ? '<div class="pa-stem">' + it.stem + '</div>' : '') +
       '<p class="pa-q">' + it.prompt + '</p>' + (it.sub ? '<p class="pa-sub">' + it.sub + '</p>' : '') +
       '<div class="pa-opts">' + opts + '</div>' +
@@ -3311,7 +3356,7 @@ QUAL_JS = """
   }
   function grade(it, chosen, p){
     var ok = chosen === it.answer;
-    res.push({ok:ok, p:p, game:it.game});
+    res.push({ok:ok, p:p, game:it.hand ? 'hand' : it.game, lesson:it.lesson || ''});
     board.querySelectorAll('.pa-opt').forEach(function(b){
       var i = parseInt(b.getAttribute('data-i'), 10); b.disabled = true;
       if(i === it.answer) b.setAttribute('data-state', 'right');
@@ -3320,7 +3365,9 @@ QUAL_JS = """
     document.getElementById('qlConf').innerHTML = '';
     var msg = ok ? 'Correct.' : 'Not this one.';
     if(!ok && p >= Q.sureFrom) msg += ' At ' + Math.round(p*100) + ' % sure, this is the one to remember.';
+    var tempt = (!ok && window.atlasTempt) ? window.atlasTempt(it, chosen) : '';
     document.getElementById('qlFb').innerHTML =
+      (tempt ? '<p class="pa-tempt">' + tempt + '</p>' : '') +
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + (it.explain || '') +
       (it.sid ? ' <span class="pa-sub">' + it.sid + '</span>' : '') + '</div>' +
       (it.game === 'frontier' ? '<div class="pa-disbox" id="qlDis"></div>' : '') +
@@ -3357,16 +3404,41 @@ QUAL_JS = """
     PA.track('qual_finished', {score: ok, of: n, brier: Math.round(brier*100)/100, placed: pl.rank, raised: raised ? 1 : 0});
     var line = 'Right on ' + ok + ' of ' + n + '.';
     line += over ? ' Certain (90 % or more) on ' + over + ' you got wrong.' : ' Not once certain and wrong.';
+    /* Po kategoriich jen pocty, zadne "Strong/Excellent": ze dvou az ctyr
+       otazek se ziadne hodnoceni dovednosti udelat neda (review 4. 10. 2026). */
+    var cats = {}, order = [], g, weak = null, wr = 2;
+    for(i=0;i<n;i++){
+      g = res[i].game;
+      if(!cats[g]){ cats[g] = {ok:0, n:0, lesson:''}; order.push(g); }
+      cats[g].n++; if(res[i].ok) cats[g].ok++;
+      else if(res[i].lesson && !cats[g].lesson) cats[g].lesson = res[i].lesson;
+    }
+    var rows = order.map(function(c){
+      var r = cats[c].ok / cats[c].n;
+      if(r < 1 && r < wr){ wr = r; weak = c; }
+      return '<li><span>' + (Q.categories[c] ? Q.categories[c].name : c) + '</span><b>' +
+             cats[c].ok + ' / ' + cats[c].n + '</b></li>';
+    }).join('');
+    var fix = '';
+    if(weak){
+      var C = Q.categories[weak] || {}, href = C.href, lab = C.fix;
+      if(!href && cats[weak].lesson){ href = '/academy/core/' + cats[weak].lesson + '/'; lab = 'The lesson behind the question you missed'; }
+      if(href) fix = '<p class="pa-note"><b>One thing to work on:</b> ' + (C.name || weak) + '. <a href="' + href + '">' + lab + ' &rarr;</a></p>';
+    }
+    var fw = Q.firstWeek;
+    var week = fw ? '<div class="ql-week"><p class="pa-rk">' + fw.title + '</p><p class="pa-note">' + fw.text + '</p><p>' +
+      fw.links.map(function(l){ return '<a href="' + l.href + '">' + l.label + ' &rarr;</a>'; }).join('<br>') + '</p></div>' : '';
     show(head('Result') + '<div class="pa-body">' +
       '<p class="pa-rk">Placed as</p><p class="pa-qres">' + R.name + '</p>' +
       '<p class="pa-q">' + ok + ' / ' + n + ' &middot; Brier ' + brier.toFixed(2) + '</p>' +
-      '<p class="pa-note">' + line + (pl.why ? ' ' + pl.why : '') + '</p>' +
+      '<p class="pa-note">' + line + (pl.why ? ' ' + pl.why : '') + ' ' + Q.calibNote + '</p>' +
+      '<ul class="ql-cats">' + rows + '</ul>' + fix +
       '<p class="pa-note">' + (raised ? 'Your Arena rank is now <b>' + R.name + '</b>, and the games up to that rank are open. Your XP is unchanged: it counts only answers given in the Arena.' :
         'Your Arena rank stays <b>' + PA.rankDef(S.rank).name + '</b>: placement never lowers a rank.') + '</p>' +
       '<div class="pa-tools" style="margin-top:16px">' +
       '<button class="pa-cbtn pa-ngo" id="qlShare" type="button">Challenge someone on Bluesky</button>' +
       '<a class="pa-cbtn" href="/academy/practice/" style="text-decoration:none">Go to the Arena &rarr;</a>' +
-      '<button class="pa-cbtn" id="qlAgain" type="button">Another set</button></div></div>');
+      '<button class="pa-cbtn" id="qlAgain" type="button">Another set</button></div>' + week + '</div>');
     document.getElementById('qlShare').addEventListener('click', function(){
       window.atlasShare(CFG.copy.shareQual.replace('{score}', ok).replace('{n}', n).replace('{rank}', R.name),
                         'https://mtor-atlas.org/academy/qual/', 'academy-qual');
@@ -3393,12 +3465,13 @@ def qual_page(bank):
     url = SITE + "/academy/qual/"
     q = cfg["qual"]
     top = cfg["ranks"][q["maxRank"] - 1]["name"]
+    hero = q["hero"]
     body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy &middot; Qualifying Exam</p>'
-            '<h1>Can you make %s?</h1>'
-            '<p class="ac-lede">For people who already work on mTOR. Ten hard questions on where the '
-            'field stands, what a paper can and cannot carry, and how you would test a claim. You are '
-            'placed by how many you get right and by how well your confidence matches your accuracy. '
-            'About five minutes, no account.</p></div>' % e(top)]
+            '<h1>%s</h1>'
+            '<p class="ac-lede">%s</p>'
+            '<p class="ac-lede"><b>%s</b> Nine of ten with good calibration makes %s. You are placed '
+            'by how many you get right and by how well your confidence matches your accuracy.</p></div>'
+            % (e(hero["title"]), e(hero["lede"]), e(hero["goal"]), e(top))]
     body.append('<div class="pa-board" id="qlBoard" hidden></div>')
     # bez JS: co zkouska je a tri ukazkove polozky s odpovedi
     sample, seen = [], set()
