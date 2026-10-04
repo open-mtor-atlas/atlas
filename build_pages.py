@@ -3460,6 +3460,13 @@ def main():
                     f'{_n} free courses, lectures and readings elsewhere (MITx, Coursera, '
                     f'iBiology, FutureLearn), each with level, certificate and how much '
                     f'mTOR it covers\n')
+            for _sub, _txt in (("practice", "Practice Arena: short games on the pathway "
+                                "model, scored on calibration rather than speed"),
+                               ("qual", "Qualifying Exam: ten hard questions for people who "
+                                "work on mTOR, placed by accuracy and calibration")):
+                if os.path.exists(os.path.join(HERE, "academy", _sub, "index.html")):
+                    academy_section += (f'- [{_txt.split(":")[0]}](https://mtor-atlas.org/'
+                                        f'academy/{_sub}/): {_txt.split(": ", 1)[1]}\n')
         except Exception as exc:
             print("  ! llms.txt: sekce Academy přeskočena (%s)" % exc)
 

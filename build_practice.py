@@ -182,6 +182,12 @@ def gen_sprint(pw, meta):
             continue
         if it["effect"] not in EFFECT_WORD:
             continue
+        # Sprint je sedesatisekundovy dril bez kalibrace: co se v nem drilluje,
+        # student si odnese jako fakt. Proto jen hrany s consensus
+        # "established". Emerging/contested hrany patri do Frontieru, kde se
+        # o jistote uvazuje (externi review Academy 4. 10. 2026, AMPK-MITOPHAGY).
+        if (it.get("confidence") or {}).get("consensus") != "established":
+            continue
         pool = "core" if meta[s]["pool"] == "core" and meta[t]["pool"] == "core" else "route"
         out.append({
             "id": "sp:%s" % it["id"], "game": "sprint", "diff": 1,
@@ -229,6 +235,24 @@ def gen_quiz(les, meta):
                 "answer": q["answer"], "explain": q.get("explain", ""),
                 "lesson": l["slug"],
             })
+    return out
+
+
+def gen_hand(cfg, meta):
+    """Rucne psane expertni polozky z practice.json "handItems" (externi review
+    4. 10. 2026, bod 5). Hra "quiz", aby se dostaly do Daily 5, setu z lekce
+    i do rank-up boardu; priznak hand je oznaci pro Qualifying Exam."""
+    out = []
+    for h in cfg.get("handItems") or []:
+        nodes = list(h["nodes"])
+        pool = "core" if all(meta.get(n, {}).get("pool") == "core" for n in nodes) else "route"
+        out.append({
+            "id": h["id"], "game": "quiz", "hand": True, "diff": h.get("diff", 3),
+            "nodes": nodes, "pool": pool,
+            "prompt": h["prompt"], "options": list(h["options"]),
+            "answer": h["answer"], "explain": h["explain"],
+            "lesson": h["lesson"], "sid": h.get("sid", ""),
+        })
     return out
 
 
@@ -757,7 +781,8 @@ def build_bank(cfg, les, pw, studies=None, gaps=None):
     fit_labels(meta)
     _, oedges = open_ids(pw)
     models, pert = gen_pert(les, pw, meta)
-    items = (gen_sprint(pw, meta) + gen_quiz(les, meta) + gen_predict(les, meta)
+    items = (gen_sprint(pw, meta) + gen_quiz(les, meta) + gen_hand(cfg, meta)
+             + gen_predict(les, meta)
              + gen_limits(les) + pert
              + gen_autopsy(pw, meta, studies, None)
              + gen_sources(pw, meta, studies)
@@ -777,6 +802,11 @@ def build_bank(cfg, les, pw, studies=None, gaps=None):
             "n": l["id"][1:], "t": l["title"], "c": n,
             "u": "/academy/%s/%s/" % (l.get("module", "core"), slug),
             "nx": l.get("nextLesson") or "",
+            "min": l.get("estimatedTime") or 0,
+            # "You can now" na /academy/progress/: cile lekce se ukazou, az
+            # student zvladne vetsinu uzlu, ktere lekce zavadi (review bod 9).
+            "obj": list(l.get("learningObjectives") or []),
+            "nodes": sorted(nid for nid in meta if meta[nid]["lesson"] == slug),
         }
 
     bands = pw.get("bands") or []
@@ -843,6 +873,32 @@ html[data-theme="dark"] .pa-tint{--pa-tint:rgba(108,168,178,.16)}
 .pa-tile .pa-skill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--soft)}
 .pa-tile[disabled]{opacity:.5;cursor:not-allowed}
+.pa-locked{margin:-16px 0 30px;font-size:13px;color:var(--soft);line-height:1.6}
+.pa-locked i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px}
+.pa-next{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;
+  border:1px solid var(--teal);border-left-width:4px;border-radius:3px;padding:16px 20px;margin:0 0 22px}
+.pa-next .pa-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);margin:0}
+.pa-next .pa-nt{font-size:18px;font-weight:700;margin:4px 0}
+.pa-next .pa-note{margin:0}
+a.pa-cbtn{display:inline-flex;align-items:center;text-decoration:none}
+.pa-ngo{text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;
+  background:var(--teal);color:var(--on-teal,#fff);border-color:var(--teal)}
+.pa-body .pa-rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soft);margin:0}
+.pa-disbox{margin-top:12px}
+.pa-dis{background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--soft);
+  text-decoration:underline;cursor:pointer;min-height:32px}
+.pa-dis:hover{color:var(--teal)}
+.pa-dislab{display:block;font-size:13px;color:var(--soft);margin:0 0 6px}
+.pa-disrow{display:flex;gap:8px;flex-wrap:wrap}
+.pa-disrow input{flex:1 1 220px;min-height:40px;padding:6px 10px;font:inherit;font-size:14px;
+  border:1px solid var(--line);border-radius:3px;background:none;color:var(--ink)}
+.pa-can{list-style:none;padding:0;margin:0 0 8px}
+.pa-can li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.55}
+.pa-can li span{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:2px}
+.pa-qres{font-size:clamp(28px,5vw,40px);font-weight:700;margin:6px 0 4px}
 .pa-tile[disabled]:hover{border-color:var(--line)}
 
 .pa-board{border:1px solid var(--line);border-radius:3px;margin:0 0 30px}
@@ -1137,7 +1193,8 @@ window.PA = (function(){
                  limitsOk:0, sprintOk:0, answered:0,
                  autopsyOk:0, autopsyKinds:[], sampleOk:0, sampleFalseReject:0,
                  openOk:0, openFalse:0, sourceOk:0, sourceWeakening:[], discriminating:0},
-            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null};
+            lv:{}, bg:{}, day:{d:0, ids:[], done:0}, st:{n:0,d:0}, snaps:[], exam:null,
+            lsn:{}, placed:null};
   }
   function read(){
     var o;
@@ -1266,6 +1323,9 @@ window.PA = (function(){
     var lv = noteLevel(item.id);
     S.xp += xp;
     S.met.answered++;
+    /* kolik odpovedi padlo na polozky jedne lekce -- "Check yourself on
+       lesson N" v atlasNext() zmizi, jakmile jich je dost */
+    if(item.lesson) S.lsn[item.lesson] = (S.lsn[item.lesson] || 0) + 1;
     bumpMastery(item.nodes, ok, sure);
     pushBrier(p, ok);
     if(ok){
@@ -1593,6 +1653,18 @@ window.PA = (function(){
     return null;
   }
   function reset(){ S = blank(); save(); }
+  /* Qualifying Exam: zarazeni jen ZVEDA hodnost, nikdy ji nesnizi, a nesaha
+     na XP -- XP zustava soucet skutecnych odpovedi, takze sdileny pocet XP
+     nelze nafouknout zkouskou. Hodnost nad maxRank (PI) se nezkousi. */
+  function place(rank, info){
+    var top = (D.cfg.qual && D.cfg.qual.maxRank) || 5;
+    rank = Math.max(1, Math.min(top, rank|0));
+    var up = rank > S.rank;
+    if(up) S.rank = rank;
+    S.placed = {rank:rank, score:info.score, n:info.n, brier:info.brier, d:today(), raised:up};
+    save();
+    return up;
+  }
 
   return {boot:boot, state:state, data:data, save:save, today:today,
           mastery:mastery, masteredCount:masteredCount, record:record,
@@ -1603,11 +1675,101 @@ window.PA = (function(){
           readingLevel:readingLevel, weakestFirst:weakestFirst,
           itemById:itemById, modelById:modelById, shuffle:shuffle,
           snapshotBack:snapshotBack, exportBlob:exportBlob, importBlob:importBlob,
-          reset:reset, track:track};
+          reset:reset, track:track, place:place};
 })();
 </script>
 """
 
+
+
+# ---------------------------------------------------------------- next js ---
+# Sdileny kus pro Arenu, Qualifying Exam, Progress i homepage Academy:
+#  * atlasNext(o)      -- JEDNO doporuceni "Your next step" (review 4. 10., bod 8)
+#  * atlasShare(...)   -- vyzva na Bluesky ("Can you beat me?"), GA4 bluesky_cta
+#  * atlasDisagree(..) -- "I'd call this differently" u Frontier polozek; jde jako
+#                         GA4 correction_report, stejny kontrakt jako na
+#                         /author/ strankach (report_text, page_path, page_type),
+#                         takze ho denni kontrola (krok 0f) chyti bez zmeny.
+# Bez localStorage zapisu: cte jen to, co uz ulozila Arena a lekce.
+
+NEXT_JS = """
+<script>
+(function(){
+  var DAY = 86400000;
+  function today(){ return Math.floor(Date.now()/DAY); }
+  function readJSON(key){
+    try { return JSON.parse(localStorage.getItem(key)||'null'); } catch(err){ return null; }
+  }
+  function track(name, p){
+    try { if(typeof gtag === 'function') gtag('event', name, p||{}); } catch(err){}
+  }
+  /* o = {lessons:[{slug,n,t,url,min}], pa, practice, check, rankReady} */
+  function atlasNext(o){
+    var read = readJSON('atlas-academy-progress') || {};
+    var pa = o.pa || null, L = o.lessons || [], i, last = null, nextL = null;
+    for(i=0;i<L.length;i++){
+      if(read[L[i].slug] === 'done') last = L[i];
+      else if(!nextL) nextL = L[i];
+    }
+    var answered = pa && pa.met ? (pa.met.answered||0) : 0;
+    if(!last && !answered && L.length){
+      return {kick:'Start here', title:'Lesson ' + L[0].n + ' &middot; ' + L[0].t,
+              meta: L[0].min + ' min. The games and challenges all point back at the lessons.',
+              href:L[0].url, label:'Read lesson ' + L[0].n + ' &rarr;'};
+    }
+    if(last && ((pa && pa.lsn && pa.lsn[last.slug]) || 0) < (o.check||3)){
+      return {kick:'Your next step', title:'Check yourself on lesson ' + last.n,
+              meta:'A few questions from &ldquo;' + last.t + '&rdquo;. Predict before you look; about five minutes.',
+              href:o.practice + '?lesson=' + last.slug, lesson:last.slug,
+              label:'Practise lesson ' + last.n + ' &rarr;'};
+    }
+    if(o.rankReady){
+      return {kick:'Your next step', title:'Take the rank-up board',
+              meta:'Eight mixed questions. Three in four right moves you up a rank.',
+              href:o.practice + '?game=exam', game:'exam', label:'Take the board &rarr;'};
+    }
+    if(pa && answered && !(pa.day && pa.day.d === today() && pa.day.done)){
+      return {kick:'Your next step', title:'Daily 5',
+              meta:'Two you have seen, two new, one a level up. Three minutes.',
+              href:o.practice + '?game=daily', game:'daily', label:'Play the Daily 5 &rarr;'};
+    }
+    if(nextL){
+      return {kick:'Your next step', title:'Lesson ' + nextL.n + ' &middot; ' + nextL.t,
+              meta: nextL.min ? nextL.min + ' min' : 'The next lesson in the course.',
+              href:nextL.url, label:'Read lesson ' + nextL.n + ' &rarr;'};
+    }
+    return {kick:'Your next step', title:'A Research Challenge',
+            meta:'You have read every lesson. Spend a research budget on a question the field has not closed.',
+            href:'/academy/research-challenges/', label:'Investigate &rarr;'};
+  }
+  function atlasShare(text, url, where){
+    track('bluesky_cta', {cta:'challenge', page_type: where || 'academy'});
+    var u = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(text + ' ' + url);
+    try { window.open(u, '_blank', 'noopener'); } catch(err){ location.href = u; }
+  }
+  /* box = element, kam se tlacitko vlozi; ref = id polozky; chose = popisek volby */
+  function atlasDisagree(box, ref, chose, label){
+    if(!box) return;
+    var path = location.pathname + '#' + ref + (chose ? ':chose-' + String(chose).toLowerCase().replace(/[^a-z]+/g,'-') : '');
+    box.innerHTML = '<button type="button" class="pa-dis">' + (label || "I'd call this differently") + '</button>';
+    box.querySelector('button').addEventListener('click', function(){
+      track('correction_open', {page_path: path, page_type: 'academy-frontier'});
+      box.innerHTML = '<label class="pa-dislab" for="paDisTxt">How would you call it, and why? ' +
+        'Sent anonymously to the curators, exactly as typed (max. 100 characters).</label>' +
+        '<div class="pa-disrow"><input id="paDisTxt" type="text" maxlength="100" autocomplete="off">' +
+        '<button type="button" class="pa-cbtn" id="paDisGo">Send</button></div>';
+      var inp = document.getElementById('paDisTxt'); inp.focus();
+      document.getElementById('paDisGo').addEventListener('click', function(){
+        var t = (inp.value||'').trim(); if(!t) { inp.focus(); return; }
+        track('correction_report', {report_text: t.slice(0,100), page_path: path, page_type: 'academy-frontier'});
+        box.innerHTML = '<p class="pa-note">Thank you. A curator reads every one of these against the studies behind the label.</p>';
+      });
+    });
+  }
+  window.atlasNext = atlasNext; window.atlasShare = atlasShare; window.atlasDisagree = atlasDisagree;
+})();
+</script>
+"""
 
 # ------------------------------------------------------------- practice js ---
 # Ovladac stranky /academy/practice/. Vsechno, co tenhle skript dela, ma v HTML
@@ -1657,16 +1819,24 @@ PRACTICE_JS = """
 
   function paintTiles(){
     var wrap = document.getElementById('paTiles'); if(!wrap) return;
-    var html = '', i, g, on;
+    /* Zamcene hry uz nejsou sede dlazdice stejne velikosti jako hratelne:
+       novacek videl osm rovnocennych voleb, z toho pet nehratelnych
+       (externi review 4. 10. 2026, bod 8). Ted jeden radek pod nimi. */
+    var html = '', locked = [], i, g;
     for(i=0;i<CFG.games.length;i++){
       g = CFG.games[i];
-      on = S.rank >= g.rank;
-      html += '<button class="pa-tile" type="button" data-game="' + g.id + '"' +
-              (on ? '' : ' disabled') + ' aria-pressed="false">' +
-              '<span class="pa-skill">' + esc(g.skill) + (on ? '' : ' &middot; rank ' + g.rank) + '</span>' +
+      if(S.rank < g.rank){ locked.push(esc(g.name) + ' <i>(rank ' + g.rank + ')</i>'); continue; }
+      html += '<button class="pa-tile" type="button" data-game="' + g.id + '" aria-pressed="false">' +
+              '<span class="pa-skill">' + esc(g.skill) + '</span>' +
               '<h3>' + esc(g.name) + '</h3><p>' + esc(g.blurb) + '</p></button>';
     }
     wrap.innerHTML = html;
+    var lk = document.getElementById('paLocked');
+    if(lk){
+      lk.innerHTML = locked.length ? '<b>' + locked.length + ' ' + esc(CFG.copy.lockedNote) + ':</b> ' +
+        locked.join(', ') + '. <a href="/academy/qual/">Already work on mTOR? Take the Qualifying Exam &rarr;</a>' : '';
+      lk.hidden = !locked.length;
+    }
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
       b.addEventListener('click', function(){ start(b.getAttribute('data-game')); });
     });
@@ -1675,6 +1845,31 @@ PRACTICE_JS = """
     var wrap = document.getElementById('paTiles'); if(!wrap) return;
     wrap.querySelectorAll('.pa-tile').forEach(function(b){
       b.setAttribute('aria-pressed', String(b.getAttribute('data-game') === id));
+    });
+  }
+
+  /* ---------------- your next step ---------------- */
+  function lessonList(){
+    var out = [], k;
+    for(k in D.lessons) out.push({slug:k, n:D.lessons[k].n, t:D.lessons[k].t,
+                                  url:D.lessons[k].u, min:D.lessons[k].min});
+    out.sort(function(a,b){ return a.n < b.n ? -1 : 1; });
+    return out;
+  }
+  function paintNext(){
+    var box = document.getElementById('paNextStep'); if(!box || !window.atlasNext) return;
+    var st = window.atlasNext({lessons:lessonList(), pa:S, practice:'/academy/practice/',
+                               check:CFG.next.checkAfterLesson, rankReady:PA.rankReady()});
+    box.innerHTML = '<div><p class="pa-rk">' + st.kick + '</p><p class="pa-nt">' + st.title + '</p>' +
+      '<p class="pa-note">' + st.meta + '</p></div>' +
+      '<a class="pa-cbtn pa-ngo" href="' + st.href + '">' + st.label + '</a>';
+    box.hidden = false;
+    var a = box.querySelector('a');
+    a.addEventListener('click', function(ev){
+      PA.track('next_step', {step: st.game || (st.lesson ? 'lesson-practice' : 'link')});
+      if(st.game === 'exam' && PA.rankReady()){ ev.preventDefault(); startExam(); return; }
+      if(st.game){ ev.preventDefault(); start(st.game); return; }
+      if(st.lesson){ ev.preventDefault(); fromLesson = st.lesson; paintFrom(); startLesson(st.lesson); }
     });
   }
 
@@ -1782,7 +1977,11 @@ PRACTICE_JS = """
       '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + esc2(item.explain) +
       (item.sid ? ' <span class="pa-sub">' + esc(item.sid) + '</span>' : '') +
       '<span class="pa-xpgain">+' + res.xp + ' XP' + badgeLine(res.badges) + '</span></div>' +
+      (item.game === 'frontier' ? '<div class="pa-disbox" id="paDis"></div>' : '') +
       '<div class="pa-tools" style="margin-top:16px"><button id="paNext" type="button">Next &rarr;</button></div>';
+    if(item.game === 'frontier' && window.atlasDisagree)
+      window.atlasDisagree(document.getElementById('paDis'), item.id,
+                           (item.options[chosen]||'').replace(/<[^>]+>/g,'').split(' ')[0], CFG.copy.disagree);
     document.getElementById('paNext').addEventListener('click', after);
     document.getElementById('paNext').focus();
     paintRank(); paintWorld();
@@ -1820,7 +2019,16 @@ PRACTICE_JS = """
       lessonOutro() +
       '<div class="pa-tools" style="margin-top:16px">' +
       '<button id="paBack" type="button">Back to the games</button>' +
-      '<button id="paMap" type="button">See your pathway &rarr;</button></div></div>');
+      '<button id="paMap" type="button">See your pathway &rarr;</button>' +
+      (S.xp > 0 ? '<button id="paShare" type="button">Challenge someone on Bluesky</button>' : '') +
+      '</div></div>');
+    var sh = document.getElementById('paShare');
+    if(sh) sh.addEventListener('click', function(){
+      window.atlasShare(CFG.copy.shareArena.replace('{xp}', S.xp.toLocaleString('en-US'))
+                          .replace('{rank}', PA.rankDef(S.rank).name),
+                        'https://mtor-atlas.org/academy/practice/', 'academy-practice');
+    });
+    paintNext();
     document.getElementById('paBack').addEventListener('click', function(){
       board.hidden = true; pressTile(''); paintRank(); });
     document.getElementById('paMap').addEventListener('click', function(){
@@ -2248,8 +2456,15 @@ PRACTICE_JS = """
     return true;
   }
 
-  paintRank(); paintTiles(); paintWorld();
+  paintRank(); paintTiles(); paintWorld(); paintNext();
   fromLesson = lessonSlug();
+  var gm = /[?&]game=([a-z]+)/.exec(location.search || '');
+  if(gm && !fromLesson){
+    var gid = gm[1], gdef = null, gi;
+    for(gi=0;gi<CFG.games.length;gi++) if(CFG.games[gi].id === gid) gdef = CFG.games[gi];
+    if(gid === 'exam' && PA.rankReady()) startExam();
+    else if(gdef && S.rank >= gdef.rank) start(gid);
+  }
   if(fromLesson){
     paintFrom();
     if(!startLesson(fromLesson)){
@@ -2591,12 +2806,42 @@ PROGRESS_JS = """
     });
   }
 
-  function redraw(){ drawMap(); paintNode(); paintBadges(); paintCal(); paintHead(); }
+  function redraw(){ drawMap(); paintNode(); paintBadges(); paintCal(); paintHead(); paintCan(); }
   function paintHead(){
     var el = document.getElementById('paRank2'); if(!el) return;
     var r = PA.rankDef(S.rank);
     el.innerHTML = '<span class="pa-rk">Rank ' + r.n + '</span> <b>' + esc(r.name) + '</b> &middot; ' +
-      S.xp + ' XP &middot; ' + S.met.answered + ' judgements';
+      S.xp + ' XP &middot; ' + S.met.answered + ' judgements' +
+      (S.placed ? ' &middot; <span class="pa-sub">placed by the Qualifying Exam (' + S.placed.score +
+                  '/' + S.placed.n + ')</span>' : '') +
+      (S.xp > 0 && window.atlasShare ? ' <button type="button" class="pa-cbtn" id="paShareP">Challenge someone on Bluesky</button>' : '');
+    var b = document.getElementById('paShareP');
+    if(b) b.addEventListener('click', function(){
+      window.atlasShare(CFG.copy.shareArena.replace('{xp}', S.xp.toLocaleString('en-US')).replace('{rank}', r.name),
+                        'https://mtor-atlas.org/academy/practice/', 'academy-progress');
+    });
+  }
+
+  /* "You can now" -- co student umi, ne kolik ma bodu (review 4. 10., bod 9).
+     Cile lekce (learningObjectives) se ukazou, jakmile je aspon 60 % uzlu,
+     ktere lekce zavadi, na urovni "mastered". Mizi zase s decayem: je to
+     stav, ne trofej. */
+  function paintCan(){
+    var box = document.getElementById('paCan'); if(!box) return;
+    var rows = [], k, L, i, m, have;
+    var ks = Object.keys(D.lessons).sort(function(a,b){ return D.lessons[a].n < D.lessons[b].n ? -1 : 1; });
+    for(i=0;i<ks.length;i++){
+      k = ks[i]; L = D.lessons[k];
+      if(!L.nodes || !L.nodes.length || !L.obj || !L.obj.length) continue;
+      have = 0;
+      for(m=0;m<L.nodes.length;m++) if(PA.mastery(L.nodes[m]) >= CFG.mastery.masteredFrom) have++;
+      if(have / L.nodes.length < 0.6) continue;
+      for(m=0;m<L.obj.length;m++)
+        rows.push('<li><span>Lesson ' + esc(L.n) + ' &middot; ' + esc(L.t) + '</span>' + L.obj[m] + '</li>');
+    }
+    box.innerHTML = rows.length ? '<ul class="pa-can">' + rows.join('') + '</ul>' :
+      '<p class="pa-note">Nothing here yet. When you have mastered most of the pathway nodes a lesson ' +
+      'introduces, what that lesson teaches you to do appears here &mdash; and fades again if you stop practising.</p>';
   }
 
   wireTools(); redraw();
@@ -2789,7 +3034,7 @@ def payload(bank):
     Stejny vzorec jako ac-rcdata u Research Challenges: zadny fetch, stranka je
     jeden soubor a funguje i offline."""
     slim = {k: bank[k] for k in ("v", "cfg", "nodes", "items", "models", "wire",
-                                 "map", "counts", "lessons")}
+                                 "map", "counts", "lessons", "frontierHelp")}
     txt = json.dumps(slim, ensure_ascii=False, separators=(",", ":"))
     # </script> uvnitr dat by ukoncilo blok drive, nez ma -- stejna past jako
     # v build_academy.py u rc_lab_data().
@@ -2829,7 +3074,9 @@ def practice_page(bank):
     for g in cfg["games"]:
         tiles.append('<div class="pa-tile"><span class="pa-skill">%s</span><h3>%s</h3><p>%s</p></div>'
                      % (e(g["skill"]), e(g["name"]), e(g["blurb"])))
+    body.append('<div class="pa-next" id="paNextStep" hidden></div>')
     body.append('<div class="pa-tiles" id="paTiles">%s</div>' % "".join(tiles))
+    body.append('<p class="pa-locked" id="paLocked" hidden></p>')
     body.append('<div class="pa-from" id="paFrom" hidden></div>')
     body.append('<div class="pa-board" id="paBoard" hidden></div>')
 
@@ -2869,7 +3116,7 @@ def practice_page(bank):
                       "not show. Points reward calibration, not speed.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
                       extra_css=ACADEMY_CSS + PRACTICE_CSS,
-                      extra_body=payload(bank) + ENGINE_JS + PRACTICE_JS,
+                      extra_body=payload(bank) + ENGINE_JS + NEXT_JS + PRACTICE_JS,
                       level_switch=False)
 
 
@@ -2903,6 +3150,10 @@ def progress_page(bank):
                 '<p class="pa-note">%s</p></div></div></div>'
                 % (len(bank["nodes"]), bank["counts"]["atlas"], static_map(bank),
                    e(cfg["copy"]["progressLede"])))
+
+    body.append('<h2>What you can now do</h2><div id="paCan"><p class="pa-note">When you have '
+                'mastered most of the pathway nodes a lesson introduces, what that lesson teaches you '
+                'to do appears here. XP counts answers; this list counts abilities.</p></div>')
 
     body.append('<h2>Calibration</h2><div id="paCal"><p class="pa-note">Every answer you give with a '
                 'confidence level feeds one number: how well your certainty matches your accuracy. '
@@ -2939,9 +3190,239 @@ def progress_page(bank):
                       "untested, gold ones you can predict, and open questions never fill in.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
                       extra_css=ACADEMY_CSS + PRACTICE_CSS,
-                      extra_body=payload(bank) + ENGINE_JS + PROGRESS_JS,
+                      extra_body=payload(bank) + ENGINE_JS + NEXT_JS + PROGRESS_JS,
                       robots="index, follow")
 
+
+
+# --------------------------------------------------------------- qual js ---
+# Qualifying Exam (/academy/qual/): zkratka pro lidi, kteri mTOR delaji.
+# Deset tezkych polozek z Frontier / Paper Autopsy / Find the Evidence /
+# rucnich polozek, jistota 50-99 % u kazde, zarazeni podle skore A kalibrace.
+# Zadne XP, zadny odznak, PI se nezkousi (rozhodnuti 4. 10. 2026).
+
+QUAL_JS = """
+<script>
+(function(){
+  var D = PA.boot('pa-data'); if(!D) return;
+  var S = PA.state(), CFG = D.cfg, Q = CFG.qual;
+  var board = document.getElementById('qlBoard');
+  var fall = document.getElementById('qlFallback'); if(fall) fall.hidden = true;
+  var set = [], qi = 0, res = [];
+  var SKILL = {frontier:'Where the field stands', autopsy:'What the design cannot carry',
+               sources:'Which study it stands on', quiz:'Experimental design'};
+
+  function show(html){ board.innerHTML = html; board.hidden = false; }
+  function head(prog){
+    return '<div class="pa-bhead"><span class="pa-t">Qualifying Exam</span>' +
+           '<span class="pa-prog">' + prog + '</span></div>';
+  }
+  function pick(){
+    var by = {}, i, it, g, out = [];
+    for(i=0;i<D.items.length;i++){ it = D.items[i]; g = it.hand ? 'hand' : it.game; (by[g] = by[g] || []).push(it); }
+    for(g in Q.mix){
+      var pool = PA.shuffle((by[g] || []).slice()), n = Q.mix[g], take = [], used = {};
+      if(g === 'frontier'){
+        /* ruzne stitky, aby se nedalo uspet tipovanim "established" */
+        for(i=0;i<pool.length && take.length<n;i++) if(!used[pool[i].label]){ used[pool[i].label] = 1; take.push(pool[i]); }
+      }
+      for(i=0;i<pool.length && take.length<n;i++) if(take.indexOf(pool[i]) < 0) take.push(pool[i]);
+      out = out.concat(take);
+    }
+    return PA.shuffle(out);
+  }
+  function intro(){
+    var ranks = CFG.ranks, top = ranks[Q.maxRank-1], pi = ranks[ranks.length-1];
+    show(head(Q.size + ' questions') + '<div class="pa-body">' +
+      '<p class="pa-q">Ten questions. For each one, say how sure you are.</p>' +
+      '<p class="pa-note">A mix of four kinds: where the field actually stands on a pathway step, which ' +
+      'limit of a real paper matters, which study in the Atlas a claim stands on, and hand-written ' +
+      'experimental-design questions. You are scored on how many you get right <em>and</em> on ' +
+      'calibration (Brier score: 0 is perfect, always answering 50 % gives 0.25).</p>' +
+      '<p class="pa-note">The highest place the exam can give is <b>' + top.name + '</b>, and only with ' +
+      'good calibration. <b>' + pi.name + '</b> is not examined: it is earned in the Arena. ' +
+      'Placement can raise your Arena rank, never lower it, and it adds no XP.</p>' +
+      '<div class="pa-tools" style="margin-top:16px"><button class="pa-cbtn pa-ngo" id="qlGo" type="button">Start &rarr;</button></div></div>');
+    document.getElementById('qlGo').addEventListener('click', begin);
+  }
+  function begin(){
+    set = pick(); qi = 0; res = [];
+    PA.track('qual_started', {rank: S.rank});
+    ask();
+  }
+  function ask(){
+    if(qi >= set.length) return result();
+    var it = set[qi], opts = '', i, L = 'ABCDEFGH';
+    for(i=0;i<it.options.length;i++)
+      opts += '<button class="pa-opt" type="button" data-i="' + i + '"><span class="pa-k">' + L[i] +
+              '</span><span>' + it.options[i] + '</span></button>';
+    show(head((qi+1) + ' / ' + set.length + ' &middot; ' + (SKILL[it.game] || '')) + '<div class="pa-body">' +
+      (it.stem ? '<div class="pa-stem">' + it.stem + '</div>' : '') +
+      '<p class="pa-q">' + it.prompt + '</p>' + (it.sub ? '<p class="pa-sub">' + it.sub + '</p>' : '') +
+      '<div class="pa-opts">' + opts + '</div>' +
+      (it.game === 'frontier' ? '<p class="pa-note">' + D.frontierHelp + '</p>' : '') +
+      '<div id="qlConf"></div><div id="qlFb"></div></div>');
+    var chosen = -1;
+    board.querySelectorAll('.pa-opt').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(document.getElementById('qlFb').innerHTML) return;
+        chosen = parseInt(b.getAttribute('data-i'), 10);
+        board.querySelectorAll('.pa-opt').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+        var c = document.getElementById('qlConf');
+        if(!c.innerHTML){
+          c.innerHTML = '<div class="pa-conf"><span class="pa-clab">How sure are you?</span>' +
+            '<div class="pa-slider"><input type="range" id="qlP" min="50" max="99" value="70" step="1" ' +
+            'aria-label="Confidence in percent"><output id="qlPo">70%</output>' +
+            '<button class="pa-cbtn" id="qlSubmit" type="button">Submit</button></div></div>';
+          var r = document.getElementById('qlP'), o = document.getElementById('qlPo');
+          r.addEventListener('input', function(){ o.textContent = r.value + '%'; });
+          document.getElementById('qlSubmit').addEventListener('click', function(){
+            grade(it, chosen, parseInt(r.value, 10) / 100);
+          });
+        }
+      });
+    });
+  }
+  function grade(it, chosen, p){
+    var ok = chosen === it.answer;
+    res.push({ok:ok, p:p, game:it.game});
+    board.querySelectorAll('.pa-opt').forEach(function(b){
+      var i = parseInt(b.getAttribute('data-i'), 10); b.disabled = true;
+      if(i === it.answer) b.setAttribute('data-state', 'right');
+      else if(i === chosen) b.setAttribute('data-state', 'wrong');
+    });
+    document.getElementById('qlConf').innerHTML = '';
+    var msg = ok ? 'Correct.' : 'Not this one.';
+    if(!ok && p >= Q.sureFrom) msg += ' At ' + Math.round(p*100) + ' % sure, this is the one to remember.';
+    document.getElementById('qlFb').innerHTML =
+      '<div class="pa-fb" data-ok="' + (ok?1:0) + '"><b>' + msg + '</b> ' + (it.explain || '') +
+      (it.sid ? ' <span class="pa-sub">' + it.sid + '</span>' : '') + '</div>' +
+      (it.game === 'frontier' ? '<div class="pa-disbox" id="qlDis"></div>' : '') +
+      '<div class="pa-tools" style="margin-top:16px"><button id="qlNext" type="button">' +
+      (qi + 1 < set.length ? 'Next &rarr;' : 'See your result &rarr;') + '</button></div>';
+    if(it.game === 'frontier' && window.atlasDisagree)
+      window.atlasDisagree(document.getElementById('qlDis'), it.id,
+                           (it.options[chosen] || '').replace(/<[^>]+>/g, '').split(' ')[0], CFG.copy.disagree);
+    var nx = document.getElementById('qlNext');
+    nx.addEventListener('click', function(){ qi++; ask(); });
+    nx.focus();
+  }
+  function place(score, brier){
+    var r = 1, i, why = '';
+    for(i=0;i<Q.placement.length;i++) if(score >= Q.placement[i].min){ r = Q.placement[i].rank; break; }
+    var byScore = r;
+    while(r > 1 && PA.rankDef(r).brier && brier > PA.rankDef(r).brier) r--;
+    if(r < byScore)
+      why = 'Your score alone would place you as ' + PA.rankDef(byScore).name + '; ' +
+            PA.rankDef(byScore).name + ' needs a Brier score of ' + PA.rankDef(byScore).brier +
+            ' or lower, and yours was ' + brier.toFixed(2) + '.';
+    return {rank: r, why: why};
+  }
+  function result(){
+    var n = res.length, ok = 0, b = 0, over = 0, i;
+    for(i=0;i<n;i++){
+      if(res[i].ok) ok++;
+      b += Math.pow(res[i].p - (res[i].ok ? 1 : 0), 2);
+      if(!res[i].ok && res[i].p >= Q.sureFrom) over++;
+    }
+    var brier = n ? b / n : 0.25;
+    var pl = place(ok, brier), R = PA.rankDef(pl.rank);
+    var raised = PA.place(pl.rank, {score: ok, n: n, brier: Math.round(brier*1000)/1000});
+    PA.track('qual_finished', {score: ok, of: n, brier: Math.round(brier*100)/100, placed: pl.rank, raised: raised ? 1 : 0});
+    var line = 'Right on ' + ok + ' of ' + n + '.';
+    line += over ? ' Certain (90 % or more) on ' + over + ' you got wrong.' : ' Not once certain and wrong.';
+    show(head('Result') + '<div class="pa-body">' +
+      '<p class="pa-rk">Placed as</p><p class="pa-qres">' + R.name + '</p>' +
+      '<p class="pa-q">' + ok + ' / ' + n + ' &middot; Brier ' + brier.toFixed(2) + '</p>' +
+      '<p class="pa-note">' + line + (pl.why ? ' ' + pl.why : '') + '</p>' +
+      '<p class="pa-note">' + (raised ? 'Your Arena rank is now <b>' + R.name + '</b>, and the games up to that rank are open. Your XP is unchanged: it counts only answers given in the Arena.' :
+        'Your Arena rank stays <b>' + PA.rankDef(S.rank).name + '</b>: placement never lowers a rank.') + '</p>' +
+      '<div class="pa-tools" style="margin-top:16px">' +
+      '<button class="pa-cbtn pa-ngo" id="qlShare" type="button">Challenge someone on Bluesky</button>' +
+      '<a class="pa-cbtn" href="/academy/practice/" style="text-decoration:none">Go to the Arena &rarr;</a>' +
+      '<button class="pa-cbtn" id="qlAgain" type="button">Another set</button></div></div>');
+    document.getElementById('qlShare').addEventListener('click', function(){
+      window.atlasShare(CFG.copy.shareQual.replace('{score}', ok).replace('{n}', n).replace('{rank}', R.name),
+                        'https://mtor-atlas.org/academy/qual/', 'academy-qual');
+    });
+    document.getElementById('qlAgain').addEventListener('click', begin);
+  }
+  intro();
+})();
+</script>
+"""
+
+
+def qual_payload(bank):
+    items = [i for i in bank["items"]
+             if i.get("hand") or i["game"] in ("frontier", "autopsy", "sources")]
+    slim = {"v": bank["v"], "cfg": bank["cfg"], "items": items,
+            "frontierHelp": bank["frontierHelp"], "nodes": {}, "lessons": {}}
+    txt = json.dumps(slim, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return '<script type="application/json" id="pa-data">%s</script>' % txt
+
+
+def qual_page(bank):
+    cfg = bank["cfg"]
+    url = SITE + "/academy/qual/"
+    q = cfg["qual"]
+    top = cfg["ranks"][q["maxRank"] - 1]["name"]
+    body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy &middot; Qualifying Exam</p>'
+            '<h1>Can you make %s?</h1>'
+            '<p class="ac-lede">For people who already work on mTOR. Ten hard questions on where the '
+            'field stands, what a paper can and cannot carry, and how you would test a claim. You are '
+            'placed by how many you get right and by how well your confidence matches your accuracy. '
+            'About five minutes, no account.</p></div>' % e(top)]
+    body.append('<div class="pa-board" id="qlBoard" hidden></div>')
+    # bez JS: co zkouska je a tri ukazkove polozky s odpovedi
+    sample, seen = [], set()
+    for it in bank["items"]:
+        g = "hand" if it.get("hand") else it["game"]
+        if g in ("frontier", "autopsy", "hand") and g not in seen:
+            seen.add(g)
+            sample.append(it)
+    fb = ['<div class="pa-fallback" id="qlFallback"><h2>What the exam asks</h2>'
+          '<p class="pa-note">The exam needs JavaScript to score and place you. Here are three of the '
+          'kinds of question it draws from, with answers.</p>']
+    for it in sample:
+        opts = "".join('<li>%s</li>' % o for o in it["options"])
+        fb.append('<details><summary>%s</summary>%s<ol class="pa-note" type="A">%s</ol>'
+                  '<p class="pa-ans"><b>Answer: %s.</b> %s</p></details>'
+                  % (it["prompt"], ('<p class="pa-note">%s</p>' % it["stem"]) if it.get("stem") else "",
+                     opts, "ABCDEFGH"[it["answer"]], it.get("explain") or ""))
+    fb.append('</div>')
+    body.append("".join(fb))
+    body.append('<h2>How placement works</h2>'
+                '<p class="pa-note">%s</p>'
+                % " ".join("%d or more right: %s%s." % (p["min"], e(cfg["ranks"][p["rank"] - 1]["name"]),
+                                                       (" if your Brier score is %s or lower"
+                                                        % cfg["ranks"][p["rank"] - 1]["brier"])
+                                                       if cfg["ranks"][p["rank"] - 1].get("brier") else "")
+                           for p in q["placement"]))
+    body.append('<p class="pa-note">%s is not examined. It is earned in the <a href="%s/academy/practice/">'
+                'Practice Arena</a>, where the rank-up boards also check calibration. Where you disagree '
+                'with how the Atlas labels a pathway step, say so under the answer: a curator checks every '
+                'report against the studies behind the label.</p>'
+                % (e(cfg["ranks"][-1]["name"]), SITE))
+    ld = {"@context": "https://schema.org", "@type": "LearningResource",
+          "name": "mTOR Qualifying Exam", "url": url, "inLanguage": "en",
+          "learningResourceType": "Quiz", "educationalLevel": "Graduate and research",
+          "description": "Ten hard questions on mTOR signalling evidence, scored on accuracy and "
+                         "calibration, built on the Oliver's mTOR Atlas corpus.",
+          "isPartOf": dict(DATASET_REF),
+          "license": "https://creativecommons.org/licenses/by/4.0/"}
+    bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"), ("Academy", SITE + "/academy/"),
+                        ("Qualifying Exam", None)])
+    crumb = ('<a href="%s/">Oliver\'s mTOR Atlas</a> &middot; <a href="%s/academy/">Academy</a> '
+             '&middot; Qualifying Exam' % (SITE, SITE))
+    from build_academy import ACADEMY_CSS
+    return url, shell("Qualifying Exam | mTOR Academy",
+                      "Ten hard questions for people who work on mTOR: where the field stands, what a "
+                      "paper can carry, how to test a claim. Scored on accuracy and calibration.",
+                      url, [ld, bc], "".join(body), crumb, active_tab="learn",
+                      extra_css=ACADEMY_CSS + PRACTICE_CSS,
+                      extra_body=qual_payload(bank) + ENGINE_JS + NEXT_JS + QUAL_JS,
+                      level_switch=False)
 
 # ------------------------------------------------------------------- main ---
 
@@ -2949,7 +3430,7 @@ def build(verbose=True):
     cfg, les, pw, studies, gaps = load()
     bank = build_bank(cfg, les, pw, studies, gaps)
     urls = []
-    for fn, sub in ((practice_page, "practice"), (progress_page, "progress")):
+    for fn, sub in ((practice_page, "practice"), (progress_page, "progress"), (qual_page, "qual")):
         url, page = fn(bank)
         write(os.path.join(ACADEMY_DIR, sub, "index.html"), page)
         urls.append((url, "0.8"))

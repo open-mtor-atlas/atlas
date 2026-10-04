@@ -323,8 +323,8 @@
    "name": "Falsifier",
    "phase": "B",
    "metric": "discriminating",
-  "pending": true,
-  "pendingNote": "needs Research Challenges",
+   "pending": true,
+   "pendingNote": "needs Research Challenges",
    "tiers": [
     3
    ],
@@ -365,14 +365,14 @@
    "id": "limits",
    "name": "What It Doesn't Show",
    "rank": 2,
-   "blurb": "One result, four readings. Which one the evidence will not carry?",
+   "blurb": "One experiment from a lesson, four conclusions. Which one does it not prove?",
    "skill": "Limits of evidence"
   },
   {
    "id": "autopsy",
    "name": "Paper Autopsy",
    "rank": 4,
-   "blurb": "One real result, four readings. Which one the paper cannot carry?",
+   "blurb": "One real paper. Which limit of its design (sample, species, dose, length) matters here?",
    "skill": "Reading methods"
   },
   {
@@ -396,6 +396,157 @@
   "noJs": "This page needs JavaScript for scoring and for saving progress in this browser. The practice questions themselves are below in full, with answers — the page is readable and usable without it.",
   "storageNote": "Progress lives in this browser only. No account, nothing sent anywhere. Export it if you want to move it.",
   "openNote": "Open questions never reach full mastery. That is not a bug in the game — the field has not closed them.",
-  "phaseB": "Ranks 4 to 6 are about judgement rather than recall: what a result does not show, which study a claim stands on, and how settled the field actually is."
- }
+  "phaseB": "Ranks 4 to 6 are about judgement rather than recall: what a result does not show, which study a claim stands on, and how settled the field actually is.",
+  "lockedNote": "more games open as you rank up",
+  "shareArena": "I've reached {xp} XP ({rank}) in the mTOR Practice Arena on Oliver's mTOR Atlas. Can you beat me?",
+  "shareQual": "I scored {score}/{n} on the mTOR Qualifying Exam on Oliver's mTOR Atlas and placed as {rank}. Can you beat me?",
+  "disagree": "I'd call this differently"
+ },
+ "next": {
+  "_comment": "Jedno doporuceni 'Your next step' (Arena i homepage Academy). Pravidla se vyhodnocuji v tomto poradi; prvni, ktere plati, vyhraje. Externi review 4. 10. 2026, bod 8.",
+  "checkAfterLesson": 3,
+  "firstHour": [
+   {
+    "verb": "Read",
+    "what": "Lesson 01 · What is mTOR?",
+    "min": 15,
+    "href": "/academy/core/what-is-mtor/"
+   },
+   {
+    "verb": "Practise",
+    "what": "the questions from lesson 01 — predict before you look",
+    "min": 5,
+    "href": "/academy/practice/?lesson=what-is-mtor"
+   },
+   {
+    "verb": "Open the paper",
+    "what": "behind the prediction you just made (SAN2007)",
+    "min": 10,
+    "href": "/study/SAN2007/"
+   },
+   {
+    "verb": "Come back tomorrow",
+    "what": "for the Daily 5 — two old, two new, one a level up",
+    "min": 3,
+    "href": "/academy/practice/?game=daily"
+   }
+  ],
+  "expert": {
+   "label": "Already work on mTOR?",
+   "text": "Skip the climb. Ten hard questions, five minutes, placed at the rank your answers earn.",
+   "href": "/academy/qual/"
+  }
+ },
+ "qual": {
+  "_comment": "Qualifying Exam /academy/qual/ — zkratka pro odborniky. Zarazeni na hodnost podle skore a kalibrace; PI se nezkousi, ziska se jen v Arene. Zadne XP za polozky, zadny odznak.",
+  "size": 10,
+  "mix": {
+   "frontier": 4,
+   "autopsy": 2,
+   "sources": 2,
+   "hand": 2
+  },
+  "placement": [
+   {
+    "min": 9,
+    "rank": 5
+   },
+   {
+    "min": 7,
+    "rank": 4
+   },
+   {
+    "min": 5,
+    "rank": 3
+   },
+   {
+    "min": 3,
+    "rank": 2
+   }
+  ],
+  "maxRank": 5,
+  "sureFrom": 0.9
+ },
+ "handItems": [
+  {
+   "id": "hd:feedback-vs-offtarget",
+   "lesson": "feedback-regulation",
+   "diff": 3,
+   "nodes": [
+    "Rapamycin",
+    "S6K1",
+    "IRS-1 / IRS-2",
+    "Akt/PKB"
+   ],
+   "sid": "ORE2006",
+   "prompt": "Rapamycin raises AKT Ser473 phosphorylation in a cancer cell line. Which experiment best separates released S6K1&ndash;IRS-1 feedback from a direct off-target action of the drug on AKT?",
+   "options": [
+    "Repeat at ten times the dose and check that the rise gets larger",
+    "Remove the upstream route (knock down IRS-1, or block IGF-1R/PI3K) and repeat: if released feedback is the cause, the rise should largely disappear",
+    "Blot for phospho-S6 to confirm that mTORC1 was inhibited",
+    "Repeat the experiment in a second cell line"
+   ],
+   "answer": 1,
+   "explain": "The feedback hypothesis names a route: S6K1 normally restrains IRS-1, so the AKT rise should need IRS-1 and the receptor above it. Cutting that route tests the hypothesis directly; a drug acting on AKT itself would survive it. Phospho-S6 only shows the drug reached mTORC1, and a higher dose or another cell line changes the size of the effect without telling the two explanations apart. ORE2006 blocked the IGF-1 receptor for exactly this reason."
+  },
+  {
+   "id": "hd:frb-control",
+   "lesson": "what-is-mtor",
+   "diff": 3,
+   "nodes": [
+    "Rapamycin",
+    "FKBP12",
+    "mTORC1"
+   ],
+   "sid": "CHO1996",
+   "prompt": "You want to show that an effect of rapamycin goes through mTOR rather than through some other target of the drug. Which control is the strongest?",
+   "options": [
+    "A full dose&ndash;response curve",
+    "A second batch of rapamycin from another supplier",
+    "Express an mTOR whose FRB domain cannot bind FKBP12&ndash;rapamycin: if those cells no longer show the effect, it goes through mTOR",
+    "Show that the effect reverses after the drug is washed out"
+   ],
+   "answer": 2,
+   "explain": "Rapamycin acts by bringing FKBP12 onto the FRB domain of mTOR (CHO1996 solved that interface). A point mutant there keeps the kinase working but makes it blind to the drug, so an effect that disappears in those cells must run through mTOR. Dose&ndash;response, a second batch and washout all describe the drug, not its target."
+  },
+  {
+   "id": "hd:chronic-mtorc2",
+   "lesson": "mtorc1-vs-mtorc2",
+   "diff": 3,
+   "nodes": [
+    "Rapamycin",
+    "mTORC2",
+    "Akt/PKB"
+   ],
+   "sid": "SAR2006",
+   "prompt": "An hour of rapamycin leaves AKT Ser473 phosphorylation untouched; a day of rapamycin lowers it in some cell types but not in others. What best explains this?",
+   "options": [
+    "Prolonged rapamycin can block assembly of new mTORC2, and how much depends on the cell type",
+    "Rapamycin slowly degrades AKT protein",
+    "S6K1 phosphorylates Ser473 directly, so its loss shows up only late",
+    "The antibody loses sensitivity in cells treated for long"
+   ],
+   "answer": 0,
+   "explain": "mTORC2 is not acutely sensitive to rapamycin, but over many hours the drug&ndash;FKBP12 complex can bind free mTOR and keep it from joining new mTORC2 (SAR2006). Cell types differ in how strongly this happens, which is why a timecourse, not one time point, decides what a rapamycin experiment shows about mTORC2."
+  },
+  {
+   "id": "hd:itp-scope",
+   "lesson": "how-to-read-an-mtor-paper",
+   "diff": 3,
+   "nodes": [
+    "Rapamycin",
+    "mTORC1"
+   ],
+   "sid": "HAR2009",
+   "prompt": "Genetically heterogeneous mice given rapamycin from late middle age live longer on average. Which conclusion does that result NOT carry?",
+   "options": [
+    "Inhibiting mTORC1 with a drug can extend lifespan in a mammal",
+    "Treatment started late in life can still have an effect",
+    "The same benefit will appear in people at doses they tolerate well",
+    "The effect is not confined to one inbred strain"
+   ],
+   "answer": 2,
+   "explain": "HAR2009 used three test sites and genetically mixed mice, which is why it supports a mammalian, late-onset and not strain-specific effect. Nothing in it measures human lifespan, human dosing or human tolerability; that step needs human data the study does not have."
+  }
+ ]
 }

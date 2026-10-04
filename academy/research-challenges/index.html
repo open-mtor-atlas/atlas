@@ -297,6 +297,19 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
   letter-spacing:.03em;text-decoration:none}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+.ac-first[hidden]{display:none}
+.ac-firstlist{margin:0;padding:0;list-style:none;counter-reset:fh;border-top:1px solid var(--line)}
+.ac-firstlist li{counter-increment:fh;border-bottom:1px solid var(--line)}
+.ac-firstlist a{display:flex;gap:10px;align-items:baseline;padding:12px 4px;text-decoration:none;
+  color:var(--ink);font-size:15px;line-height:1.45;min-height:44px}
+.ac-firstlist a:before{content:counter(fh);font-family:'IBM Plex Mono',monospace;font-size:12px;
+  color:var(--teal);min-width:1.4em}
+.ac-firstlist a:hover b{color:var(--teal)}
+.ac-firstlist i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);
+  white-space:nowrap}
+.ac-expert{margin:16px 0 0;font-size:14px;color:var(--soft);line-height:1.6}
+.ac-expert b{color:var(--ink)}
+.ac-expert a{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;white-space:nowrap}
 
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
@@ -1000,7 +1013,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-04 19:57 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-04 20:32 Prague time</div>
 </footer>
 </div>
 </body>

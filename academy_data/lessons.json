@@ -106,7 +106,7 @@
     {
      "prompt": "If nutrients are abundant but growth-factor signalling is low, what would you expect mTOR signalling to do? Explain your reasoning before revealing.",
      "hint": "Ask yourself what each input is evidence <em>of</em>, from the cell's point of view.",
-     "reveal": "The usual expectation is that the two inputs are not additive but closer to a requirement pair: nutrient availability tells the cell it <em>could</em> build, growth-factor signalling tells it that the organism is asking it to. In the standard model, mTORC1 output stays low when either one is missing, because the growth-factor and amino-acid branches converge on different steps of the same activation mechanism — which is the subject of Lesson 03. If you predicted 'partly on', that is also a reasonable reading: the branches are not perfect AND-gates, and in real cells the result depends on cell type and on how low 'low' is."
+     "reveal": "The usual expectation is that the two inputs are not additive but closer to a requirement pair: nutrient availability tells the cell it <em>could</em> build, growth-factor signalling tells it that the organism is asking it to. In the standard model, mTORC1 output falls well below its full level when either one is missing, because the growth-factor and amino-acid branches converge on different steps of the same activation mechanism — which is the subject of Lesson 03. If you predicted 'partly on', that is also a reasonable reading: the branches are not perfect AND-gates, and in real cells the result depends on cell type and on how low 'low' is."
     }
    ],
    "openQuestions": [],
@@ -131,12 +131,12 @@
      "prompt": "A cell has abundant amino acids but almost no growth-factor signalling. In the standard model, what happens to mTORC1 output?",
      "options": [
       "It stays high &mdash; nutrients are the dominant input and override the rest",
-      "It stays low &mdash; the two branches reach mTORC1 by different routes and neither alone is sufficient",
+      "It falls well below the level seen with both inputs &mdash; the two branches reach mTORC1 by different routes and neither alone gives full activation",
       "It is unchanged, because mTORC1 responds only to oxygen",
       "It rises and then oscillates with a fixed period"
      ],
      "answer": 1,
-     "explain": "Nutrients tell the cell it <em>could</em> build; growth factors tell it the organism is asking it to. The two branches converge on different steps, which is why the pathway behaves more like a requirement pair than a sum."
+     "explain": "Nutrients tell the cell it <em>could</em> build; growth factors tell it the organism is asking it to. The two branches converge on different steps, which is why the pathway behaves more like a requirement pair than a sum. In real cells the drop is large but rarely to zero, and how large depends on the cell type."
     },
     {
      "level": "hard",
@@ -320,7 +320,7 @@
      "prompt": "A cell is sitting in medium rich in amino acids, but insulin and other growth-factor signalling have been withdrawn. Predict what happens to mTORC1 output before you look.",
      "options": [
       "Output stays high &mdash; amino acids are the input mTORC1 was built to read, and they are abundant",
-      "Output stays low &mdash; something inside the complex keeps it restrained until a growth-factor signal releases it",
+      "Output falls well below normal &mdash; partly because something inside the complex keeps it restrained until a growth-factor signal releases it",
       "Output rises above normal &mdash; removing one input relieves competition for the kinase",
       "Output oscillates &mdash; the two inputs alternate control of the complex"
      ],
@@ -330,7 +330,7 @@
       "method": "Biochemistry in human cells: the mTORC1-associated protein PRAS40 was identified and its behaviour followed with and without insulin signalling.",
       "readout": "PRAS40 acts as an inhibitor sitting inside mTORC1. Without insulin, PRAS40 binds raptor and restrains substrate access; insulin-driven AKT phosphorylation of PRAS40 relieves that restraint, while Rheb-GTP supplies the activation. The paper concludes that insulin works through both inputs together."
      },
-     "explain": "This is one of the mechanisms behind the behaviour you predicted. Growth-factor signalling does not add a push to a complex that nutrients have already started &mdash; it removes a restraint that was holding the complex closed. So a cell with plenty of amino acids and no hormone signal has the material and not the permission, and its output stays low. Lesson 07 follows the same branch further and finds a second brake outside the complex.",
+     "explain": "This is one of the mechanisms behind the behaviour you predicted. Growth-factor signalling does not add a push to a complex that nutrients have already started &mdash; it removes a restraint that was holding the complex closed. So a cell with plenty of amino acids and no hormone signal has the material and not the permission, and its output falls well below normal. Lesson 07 follows the same branch further and finds a second brake outside the complex.",
      "shows": [
       "That an inhibitory subunit inside mTORC1 links insulin signalling directly to the complex's activity in these cells",
       "That insulin acts partly by relieving an inhibitory subunit inside mTORC1, alongside raising Rheb-GTP"

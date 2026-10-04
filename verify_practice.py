@@ -48,6 +48,17 @@ PRAVIDLA
       odebirat (zadny .filter(/continue/return false), jen .sort(); hintFor()
       nesmi sahat na S.xp, S.seen ani volat record()/scoreItem()/calibBand()
       -- hint je text, ne branka.
+  P16 Rucni polozky (practice.json handItems): SID v korpusu, ctyri ruzne
+      moznosti, index odpovedi v rozsahu, vysvetleni >= 12 slov, lekce existuje.
+  P17 "Your next step"/prvni hodina: kazdy odkaz v next.firstHour miri na
+      existujici lekci, studii nebo hru; atlasNext() je v Arene i na homepage
+      a nic nezapisuje do localStorage.
+  P18 Qualifying Exam: stranka existuje a ma bezJS blok; zarazeni nikdy nedava
+      nejvyssi hodnost (PI se nezkousi); maxRank < pocet hodnosti; QUAL_JS ani
+      place() nesahaji na XP; kazda hra z qual.mix ma dost polozek; sdileci
+      texty nesou svou promennou.
+  Upozorneni (ne nalez): moznosti delsi nez 25 slov -- seznam pro prepsani
+      (review 4. 10. 2026, bod 12).
 
     py verify_practice.py          # 0 = cisto, 1 = nalezy
 """
@@ -96,6 +107,10 @@ def main():
                     bad(w, "efekt neodpovida modelu (%s vs %s)" % (want, i2["effect"]))
                 if [i2["source"], i2["target"]] != it["nodes"]:
                     bad(w, "smer hrany neodpovida modelu")
+                if (i2.get("confidence") or {}).get("consensus") != "established":
+                    bad(w, "sprint drilluje hranu, ktera neni established "
+                           "(consensus %r) -- patri do Frontieru (P2)"
+                           % (i2.get("confidence") or {}).get("consensus"))
         if it["options"] and not (0 <= it["answer"] < len(it["options"])):
             if it["game"] != "pert":
                 bad(w, "index spravne odpovedi je mimo rozsah")
@@ -389,6 +404,103 @@ def main():
                 bad("engine", "hintFor() sahá na %r -- hint je jen text, nesmi ovlivnit "
                               "skore ani stav (P15)" % banned)
 
+    # ---- P16: rucni polozky --------------------------------------------------
+    les_slugs = {l["slug"] for l in les}
+    for h in bank["cfg"].get("handItems") or []:
+        w = "handItem %s" % h.get("id")
+        if h.get("sid") and h["sid"] not in by_sid:
+            bad(w, "SID %r neni v korpusu (P16)" % h["sid"])
+        if len(h.get("options") or []) != 4 or len(set(h["options"])) != 4:
+            bad(w, "potrebuje ctyri ruzne moznosti (P16)")
+        if not (0 <= h.get("answer", -1) < len(h.get("options") or [])):
+            bad(w, "index odpovedi mimo rozsah (P16)")
+        if len(re.sub(r"<[^>]+>", " ", h.get("explain", "")).split()) < 12:
+            bad(w, "vysvetleni kratsi nez 12 slov (P16)")
+        if h.get("lesson") not in les_slugs:
+            bad(w, "lekce %r neexistuje (P16)" % h.get("lesson"))
+
+    # ---- P17: next step / prvni hodina ---------------------------------------
+    nx = bank["cfg"].get("next") or {}
+    for s in nx.get("firstHour") or []:
+        href = s.get("href", "")
+        m = re.match(r"^/academy/core/([a-z0-9-]+)/$", href)
+        if m:
+            if m.group(1) not in les_slugs:
+                bad("next.firstHour", "lekce %r neexistuje (P17)" % m.group(1))
+            continue
+        m = re.match(r"^/study/([A-Z0-9]+)/$", href)
+        if m:
+            if m.group(1) not in by_sid:
+                bad("next.firstHour", "studie %r neni v korpusu (P17)" % m.group(1))
+            continue
+        m = re.match(r"^/academy/practice/\?(lesson|game)=([a-z0-9-]+)$", href)
+        if m:
+            ok = (m.group(2) in les_slugs) if m.group(1) == "lesson" else \
+                 (m.group(2) in {g["id"] for g in bank["cfg"]["games"]})
+            if not ok:
+                bad("next.firstHour", "deep link %r nevede nikam (P17)" % href)
+            continue
+        bad("next.firstHour", "neznamy tvar odkazu %r (P17)" % href)
+    src = open(os.path.join(HERE, "build_practice.py"), encoding="utf-8").read()
+    nj = BPR.NEXT_JS
+    if "localStorage.setItem" in nj:
+        bad("NEXT_JS", "atlasNext/atlasShare/atlasDisagree nesmi zapisovat do localStorage (P17)")
+    for page in ("practice", "progress", "qual"):
+        p = os.path.join(HERE, "academy", page, "index.html")
+        if os.path.exists(p) and "window.atlasNext" not in open(p, encoding="utf-8").read():
+            bad("academy/%s" % page, "chybi NEXT_JS (P17)")
+    home = os.path.join(HERE, "academy", "index.html")
+    if os.path.exists(home):
+        h = open(home, encoding="utf-8").read()
+        if "window.atlasNext" not in h or 'id="acFirst"' not in h:
+            bad("academy home", "chybi atlasNext nebo blok Your first hour (P17)")
+
+    # ---- P18: Qualifying Exam -----------------------------------------------
+    q = bank["cfg"].get("qual") or {}
+    nr = len(bank["cfg"]["ranks"])
+    if not q:
+        bad("practice.json", "chybi blok qual (P18)")
+    else:
+        if q.get("maxRank", nr) >= nr:
+            bad("qual", "maxRank musi byt pod nejvyssi hodnosti -- PI se nezkousi (P18)")
+        for p in q.get("placement") or []:
+            if p["rank"] > q.get("maxRank", 0):
+                bad("qual", "zarazeni %r prekracuje maxRank (P18)" % p)
+        for g, n in (q.get("mix") or {}).items():
+            have = sum(1 for i in bank["items"] if (i.get("hand") and g == "hand")
+                       or (not i.get("hand") and i["game"] == g))
+            if have < n:
+                bad("qual", "hra %r ma %d polozek, mix chce %d (P18)" % (g, have, n))
+        qj = BPR.QUAL_JS
+        if re.search(r"S\.xp\s*[+\-*/]?=", qj):
+            bad("QUAL_JS", "zkouska nesmi menit XP (P18)")
+        pl = re.search(r"function place\(rank, info\)\{(.*?)\n  \}", BPR.ENGINE_JS, re.S)
+        if not pl or re.search(r"S\.xp\s*[+\-*/]?=", pl.group(1)):
+            bad("engine", "place() chybi nebo sahá na XP (P18)")
+        qp = os.path.join(HERE, "academy", "qual", "index.html")
+        if not os.path.exists(qp):
+            bad("academy/qual", "stranka neexistuje (P18)")
+        else:
+            qh = open(qp, encoding="utf-8").read()
+            if 'id="qlFallback"' not in qh or "<details>" not in qh:
+                bad("academy/qual", "chybi bezJS blok s ukazkovymi polozkami (P18)")
+    cp = bank["cfg"]["copy"]
+    if "{xp}" not in cp.get("shareArena", "") or "{score}" not in cp.get("shareQual", ""):
+        bad("copy", "sdileci text nenese {xp}/{score} (P18)")
+
+    # ---- upozorneni: dlouhe moznosti ------------------------------------------
+    longs = []
+    for it in bank["items"]:
+        for o in it.get("options") or []:
+            n = len(re.sub(r"<[^>]+>|&[a-z]+;", " ", str(o)).split())
+            if n > 25:
+                longs.append((n, it["id"]))
+                break
+    if longs:
+        longs.sort(reverse=True)
+        print("Upozorneni: %d polozek ma moznost delsi nez 25 slov (nejdelsi: %s)"
+              % (len(longs), ", ".join("%s (%d)" % (i, n) for n, i in longs[:8])))
+
     # ---- vysledek ----------------------------------------------------------
     c = bank["counts"]
     print("Practice Arena: %d polozek, %d wire puzzlu, %d uzlu (core %d, route %d) z %d"
@@ -398,7 +510,7 @@ def main():
         for p in PROBLEMS:
             print("  ! " + p)
         return 1
-    print("Cisto -- vsech patnact pravidel prosslo.")
+    print("Cisto -- vsech osmnact pravidel prosslo.")
     return 0
 
 

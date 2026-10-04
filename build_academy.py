@@ -626,6 +626,19 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
   letter-spacing:.03em;text-decoration:none}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
+.ac-first[hidden]{display:none}
+.ac-firstlist{margin:0;padding:0;list-style:none;counter-reset:fh;border-top:1px solid var(--line)}
+.ac-firstlist li{counter-increment:fh;border-bottom:1px solid var(--line)}
+.ac-firstlist a{display:flex;gap:10px;align-items:baseline;padding:12px 4px;text-decoration:none;
+  color:var(--ink);font-size:15px;line-height:1.45;min-height:44px}
+.ac-firstlist a:before{content:counter(fh);font-family:'IBM Plex Mono',monospace;font-size:12px;
+  color:var(--teal);min-width:1.4em}
+.ac-firstlist a:hover b{color:var(--teal)}
+.ac-firstlist i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);
+  white-space:nowrap}
+.ac-expert{margin:16px 0 0;font-size:14px;color:var(--soft);line-height:1.6}
+.ac-expert b{color:var(--ink)}
+.ac-expert a{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;white-space:nowrap}
 
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
@@ -2051,6 +2064,8 @@ HOME_JS = """
      petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
      Pak se poradi obraci a Practice Arena jde dopredu. */
   var box = document.getElementById('acResumeText');
+  var fh = document.getElementById('acFirst');
+  if(fh && started) fh.hidden = true;
   if(box && started){
     var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
                     next.n + ' &rarr;</a>';
@@ -2060,6 +2075,15 @@ HOME_JS = """
     var dailyPri  = '<a class="ac-cta" href="' + D.practice + '">Practice Arena &middot; ' +
                     D.games + ' games</a>';
     var first = (done >= 5 && pa) ? (dailyPri + lessonBtn) : (lessonPri + (pa ? dailyBtn : ''));
+    /* Od 4. 10. 2026 vede primarni tlacitko tam, kam ukazuje atlasNext() --
+       stejne doporuceni jako "Your next step" v Arene, aby si homepage a hra
+       neodporovaly. Druhe tlacitko zustava na Arenu / lekci. */
+    if(window.atlasNext){
+      var st = window.atlasNext({lessons:D.lessons, pa:pa, practice:D.practice,
+                                 check:(D.next && D.next.check) || 3, rankReady:false});
+      first = '<a class="ac-cta" href="' + st.href + '">' + st.title + ' &rarr;</a>' +
+              (st.href.indexOf(D.practice) === 0 ? lessonBtn : (pa ? dailyBtn : ''));
+    }
     var meta = [];
     if(pa && pa.xp) meta.push('<b>' + pa.xp + '</b> XP');
     meta.push('<b>' + done + '</b> of ' + D.lessons.length + ' lessons read');
@@ -3160,7 +3184,9 @@ def academy_home(modules, lessons_by_slug, challenges):
                 'role="img" aria-label="Miniature map of the pathway">%s%s'
                 '<text class="m-c" id="acMiniCap" x="0" y="156">%d nodes to uncover</text>'
                 '</svg></div>' % (dots, rects, len(pay["nodes"])))
+        pay["next"] = {"check": cfg["next"]["checkAfterLesson"]}
         pay["lessons"] = [{"slug": r["lesson"], "n": r["n"], "min": r["minutes"],
+                           "t": lessons_by_slug[r["lesson"]]["title"],
                            "url": "%s/academy/%s/%s/" % (SITE, mod["slug"], r["lesson"])}
                           for r in published]
         pay["practice"] = SITE + "/academy/practice/"
@@ -3182,6 +3208,22 @@ def academy_home(modules, lessons_by_slug, challenges):
                    ('<a class="ac-cta ac-quiet" href="%s/academy/practice/">Or try one game &rarr;</a>'
                     % SITE) if has_practice else "",
                    mini))
+
+    # ---- prvni hodina + vstup pro odborniky (review 4. 10. 2026, bod 8) ----
+    # Jedna doporucena trasa pro prvni navstevu misto ctyr rovnocennych voleb.
+    # Data jsou v practice.json "next"; HOME_JS blok skryje, jakmile clovek
+    # zacal (precetl lekci nebo odpovedel v Arene).
+    if has_practice and cfg.get("next"):
+        nx = cfg["next"]
+        rows = "".join('<li><a href="%s%s"><b>%s</b> %s <i>&middot; %d min</i></a></li>'
+                       % (SITE, s["href"], e(s["verb"]), e(s["what"]), s["min"])
+                       for s in nx["firstHour"])
+        body.append('<div class="ac-first" id="acFirst"><p class="ac-sechead">Your first hour</p>'
+                    '<ol class="ac-firstlist">%s</ol></div>' % rows)
+        ex = nx.get("expert")
+        if ex:
+            body.append('<p class="ac-expert"><b>%s</b> %s <a href="%s%s">Take the Qualifying Exam &rarr;</a></p>'
+                        % (e(ex["label"]), e(ex["text"]), SITE, ex["href"]))
 
     # ---- ctyri vstupy -----------------------------------------------------
     body.append('<p class="ac-sechead">Four ways in</p><div class="ac-ways">')
@@ -3274,7 +3316,7 @@ def academy_home(modules, lessons_by_slug, challenges):
                       "and research challenges built on the Atlas's own evidence-graded studies.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
                       extra_css=ACADEMY_CSS,
-                      extra_body=PROGRESS_JS + payload + (HOME_JS if has_practice else ""))
+                      extra_body=PROGRESS_JS + payload + ((build_practice.NEXT_JS + HOME_JS) if has_practice else ""))
 
 
 _PRACTICE_BANK = []          # [] = jeste nenacteno, [None] = nacteni selhalo
