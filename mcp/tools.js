@@ -22,7 +22,7 @@ How to use it well:
 /** A fresh MCP server with all Atlas tools, reading through `atlas`. */
 export function createServer(atlas) {
   const server = new McpServer({ name: 'mtor-atlas', version: VERSION }, { instructions: INSTRUCTIONS });
-  const RO = { readOnlyHint: true, openWorldHint: false, idempotentHint: true };
+  const RO = { readOnlyHint: true, destructiveHint: false, openWorldHint: false, idempotentHint: true };
   const ok = (obj) => ({ content: [{ type: 'text', text: JSON.stringify(obj, null, 1) }] });
   const missing = (what) => ({ content: [{ type: 'text', text: `${what} not found in the Atlas.` }], isError: true });
   const Code = z.enum(CODE_ORDER);

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mtor-atlas",
-  "version": "1.2.0",
+  "version": "1.2.4",
   "description": "Read-only access to Oliver's mTOR Atlas: evidence-labelled mTOR studies, entities, pathway claims with supporting and contradicting studies, and open questions.",
   "author": { "name": "Oliver's mTOR Atlas", "url": "https://mtor-atlas.org" },
   "homepage": "https://mtor-atlas.org/api/#mcp",
@@ -15,7 +15,7 @@
         "shortDescription": "mTOR research with evidence",
         "longDescription": "Oliver's mTOR Atlas is a hand-curated corpus of research on the mTOR signalling pathway and its role in growth, metabolism, ageing, cancer and longevity. Every study is linked to genes, complexes, drugs, diseases and processes, and carries a code for the kind of study behind the finding: synthesis of human data, human study, animal model, molecular/in vitro, review, preprint or registered trial. The code names the system a result was established in; it is not a quality grade.\n\nWith this plugin the assistant can search studies by keyword, evidence code, linked entity and year; look up genes, drugs, diseases and processes with their studies and pathway relations; read pathway claims such as \"Rheb activates mTORC1\" with mechanism, conditions, confidence and the studies that support or contradict them; get the evidence between two entities in one call; list contested claims with both sides; and browse open questions and testable hypotheses.\n\nAnswers include study IDs, DOIs and PubMed IDs plus the dataset version and snapshot date, so results can be checked and cited (dataset DOI 10.5281/zenodo.22059963). \"Not in the Atlas\" means not in this curated corpus, not unknown to science. Read-only, no account needed, data CC BY 4.0. Not medical advice.",
         "developerName": "Oliver's mTOR Atlas",
-        "category": "Research",
+        "category": "Scientific Research",
         "capabilities": [
           "Search curated mTOR studies by keyword, evidence code, entity and year",
           "Show supporting and contradicting studies for a pathway claim",
@@ -24,6 +24,7 @@
           "Return study IDs, DOIs and dataset version for citation"
         ],
         "websiteURL": "https://mtor-atlas.org",
+        "supportURL": "https://github.com/open-mtor-atlas/atlas/issues",
         "privacyPolicyURL": "https://mtor-atlas.org/privacy/",
         "termsOfServiceURL": "https://mtor-atlas.org/terms/",
         "defaultPrompt": [
