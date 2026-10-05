@@ -1056,6 +1056,12 @@ def main():
         picks = [it for it in fl_items if it.get("pick")]
         if fl_items and not 3 <= len(picks) <= 6:
             bad("free-courses", "My pick ma %d polozek, cekam 3 az 6 (pravidlo 24b)" % len(picks))
+        # Where to start a My pick nesmi vest kazde jinam (2026-10-05): kazdy pick
+        # musi byt i krokem jedne ze dvou cest.
+        path_urls = {st.get("url") for o in fl.get("order") or [] for st in o.get("steps") or []}
+        for it in picks:
+            if it.get("url") not in path_urls:
+                bad("free-courses", "My pick %r neni v zadne ceste Where to start (pravidlo 24b)" % it.get("label"))
         if picks and not (fl.get("pickNote") or "").strip():
             bad("free-courses", "chybi `pickNote` k oznaceni My pick (pravidlo 24b)")
 
