@@ -967,6 +967,10 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-fccert{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
   background:var(--ac-tint);border-radius:3px;padding:4px 7px;align-self:flex-start}
 .ac-fccert.paid{color:var(--ink)}
+.ac-fcav{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 22%;
+  border:1px solid var(--line);background:var(--ac-tint)}
+.ac-fclogo{display:inline-block;border-radius:8px;background-color:#fff;background-size:cover;
+  background-position:center}
 .ac-res.ac-pick{border-top:3px solid var(--teal)}
 .ac-fcpick{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
   text-transform:uppercase;font-weight:600;color:#fff;background:var(--teal);border-radius:10px;
@@ -3025,6 +3029,37 @@ for(var i=0;i<btns.length;i++){btns[i].addEventListener('click',function(){set(t
 })();</script>"""
 
 
+def _fc_avatar(av, provider):
+    """Fotka hlavniho recnika (person:<slug> -> /img/people/<slug>-thumb.jpg, tytez
+    portrety jako medailonky autoru) nebo logo instituce (logo:<key>). Loga jsou
+    vlozena jako data URI v CSS strance (viz _fc_logo_css), aby nezavisela na tom,
+    jestli V2 sync_assets prenasi adresar img/logos. 2026-10-05."""
+    kind, _, key = (av or "").partition(":")
+    if kind == "person":
+        name = provider.split(" · ")[0]
+        return ('<img class="ac-fcav" src="/img/people/%s-thumb.jpg" width="40" height="40" '
+                'alt="%s" loading="lazy">' % (e(key), e(name)))
+    if kind == "logo":
+        org = provider.split(" · ")[-1]
+        return '<span class="ac-fcav ac-fclogo ac-lg-%s" role="img" aria-label="%s"></span>' % (e(key), e(org))
+    return None
+
+
+def _fc_logo_css(cfg):
+    import base64
+    keys = sorted({it["avatar"].split(":", 1)[1] for g in cfg["groups"] for it in g["items"]
+                   if (it.get("avatar") or "").startswith("logo:")})
+    here = os.path.dirname(os.path.abspath(__file__))
+    out = []
+    for k in keys:
+        fp = os.path.join(here, "img", "logos", k + ".png")
+        if not os.path.exists(fp):
+            raise SystemExit("free-courses: chybi logo img/logos/%s.png" % k)
+        b = base64.b64encode(open(fp, "rb").read()).decode("ascii")
+        out.append(".ac-lg-%s{background-image:url(data:image/png;base64,%s)}" % (k, b))
+    return "<style>%s</style>" % "".join(out) if out else ""
+
+
 def further_page(modules):
     """/academy/free-courses/ -- bezplatne kurzy a prednasky jinde (2026-09-28).
 
@@ -3100,10 +3135,10 @@ def further_page(modules):
                             for l in cfg["levels"])
             paid = "$" in it["cert"] or "paid" in it["cert"]
             icon = _FC_ICON[_FC_KIND.get(it["kind"], "doc")]
+            av = _fc_avatar(it.get("avatar"), it["provider"])
             body.append(
                 '<div class="ac-way ac-res%s" data-level="%s"%s>%s'
-                '<div class="ac-fctop"><span class="ac-fcico" aria-hidden="true">'
-                '<svg viewBox="0 0 24 24" width="22" height="22">%s</svg></span>'
+                '<div class="ac-fctop">%s'
                 '<span class="ac-kind">%s<br><i>%s</i></span></div>'
                 '<h3><a href="%s" target="_blank" rel="noopener">%s</a></h3>'
                 '<p>%s</p>'
@@ -3117,7 +3152,8 @@ def further_page(modules):
                 % (" ac-pick" if it.get("pick") else "", " ".join(it["level"]),
                    ' data-pick="1"' if it.get("pick") else "",
                    '<span class="ac-fcpick">My pick</span>' if it.get("pick") else "",
-                   icon, e(it["kind"]), e(it["provider"]),
+                   av or ('<span class="ac-fcico" aria-hidden="true"><svg viewBox="0 0 24 24" '
+                          'width="22" height="22">%s</svg></span>' % icon), e(it["kind"]), e(it["provider"]),
                    e(it["url"]), e(it["label"]), prose(it["says"]),
                    it.get("depth", 1), e(it["mtor"]), e(lvl), pills, e(it["time"]),
                    " paid" if paid else "", e(it["cert"]), e(it["url"])))
@@ -3150,7 +3186,7 @@ def further_page(modules):
                       "cell signalling, biochemistry and ageing. Each one marked with its level, "
                       "certificate and how much mTOR it contains.",
                       url, [ld, bc], "".join(body), crumb, active_tab="learn",
-                      extra_css=ACADEMY_CSS, extra_body=FC_JS)
+                      extra_css=ACADEMY_CSS, extra_body=_fc_logo_css(cfg) + FC_JS)
 
 
 def academy_home(modules, lessons_by_slug, challenges):

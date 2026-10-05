@@ -1043,6 +1043,15 @@ def main():
                         bad("free-courses", "polozka %r nema %s (pravidlo 24)" % (who, key))
         if not fl_items:
             bad("free-courses", "furtherLearning bez jedine polozky")
+        # Avatar (2026-10-05): fotka recnika nebo logo instituce musi existovat.
+        for it in fl_items:
+            kind, _, key = (it.get("avatar") or "").partition(":")
+            fp = {"person": os.path.join("img", "people", key + "-thumb.jpg"),
+                  "logo": os.path.join("img", "logos", key + ".png")}.get(kind)
+            if not fp:
+                bad("free-courses", "polozka %r nema avatar person:/logo: (pravidlo 24c)" % it.get("label"))
+            elif not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), fp)):
+                bad("free-courses", "polozka %r: chybi soubor %s (pravidlo 24c)" % (it.get("label"), fp))
         # My pick (2026-10-05): kratky vyber, ne druha stupnice kvality.
         picks = [it for it in fl_items if it.get("pick")]
         if fl_items and not 3 <= len(picks) <= 6:
