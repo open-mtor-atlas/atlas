@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-04T21:00:31+0200",
-  "source_commit": "a36b92e37aac36df2c052312dc4d40899f431d7f",
+  "corpus_snapshot": "2026-10-05T07:56:24+0200",
+  "source_commit": "6ba5bcd45c56c430f4794b6ef389c28eaf1629ac",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Outcome",
   "synonyms": [],
   "description": "Lifespan extension; the key outcome tracked across mTOR-targeting interventions.",
-  "study_count": 54,
+  "study_count": 55,
   "relation_count": 7,
   "url": "https://mtor-atlas.org/outcome/longevity/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/longevity.json",
@@ -1153,6 +1153,27 @@
     "finding": "Genetically reduced mTOR increases mouse lifespan with tissue-specific slowing of aging.",
     "url": "https://mtor-atlas.org/study/WUX2013/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/WUX2013.json"
+   },
+   {
+    "sid": "ARR2016",
+    "title": "Intermittent Administration of Rapamycin Extends the Life Span of Female C57BL/6J Mice",
+    "authors": "Arriola Apelo SI; Pumper CP; Baar EL; Cummings NE; Lamming DW",
+    "year": 2016,
+    "journal": "The journals of gerontology. Series A, Biological sciences and medical sciences",
+    "doi": "10.1093/gerona/glw064",
+    "pmid": "27091134",
+    "pmcid": "PMC4906329",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (C57BL/6J, treatment started in late life)",
+    "peer_reviewed": true,
+    "finding": "Intermittent rapamycin (2 mg/kg every 5 days), started as late as 20 months of age, extended the lifespan of female C57BL/6J mice. This is the same regimen that in ARR2015 spared glucose homeostasis and the immune system compared with daily dosing, so read together the two studies suggest the lifespan benefit can be separated from many of rapamycin's side effects. SCOPE: the abstract reports lifespan extension in females; it does not report side-effect measurements in this aged cohort, so the separability claim rests on combining this study with ARR2015 (a different, young male cohort). Full-text numbers not yet extracted.",
+    "url": "https://mtor-atlas.org/study/ARR2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ARR2016.json"
    }
   ],
   "relations": [
@@ -1274,7 +1295,7 @@
     "mechanism": "Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.",
     "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
     "context": null,
-    "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper.",
+    "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
     "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
     "contested": false,
     "confidence": {
@@ -1292,7 +1313,8 @@
       "HAR2009",
       "BIT2016",
       "KHA2014",
-      "CHE2009"
+      "CHE2009",
+      "ARR2016"
      ],
      "conflicting": []
     },
