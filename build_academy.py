@@ -996,8 +996,20 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
   border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink)}
 .ac-fcfilter button:hover{border-color:var(--teal)}
 .ac-fcfilter button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
-.ac-fchead{display:flex;align-items:baseline;gap:10px;margin:34px 0 2px}
-.ac-fchead h2{margin:0;font-size:19px}
+.ac-fchead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:0;
+  padding:16px 0 14px 26px;position:relative;cursor:pointer;list-style:none;
+  border-bottom:1px solid var(--line)}
+.ac-fchead::-webkit-details-marker{display:none}
+.ac-fchead::before{content:"";position:absolute;left:4px;top:23px;width:7px;height:7px;
+  border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);
+  transform:rotate(-45deg);transition:transform .15s}
+details[open]>.ac-fchead::before{transform:rotate(45deg);top:21px}
+.ac-fchead:hover h2{color:var(--teal)}
+.ac-fchead:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ac-fcgroup{margin:0}
+.ac-fcgroup[open]>.ac-fcgrid{margin:16px 0 26px}
+.ac-fchead h2{margin:0;font-size:19px;border:0;padding:0}
+.ac-fchead .ac-fcblurb{flex-basis:100%;margin:2px 0 0}
 .ac-fccount{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);
   border:1px solid var(--teal);border-radius:10px;padding:1px 7px}
 .ac-fcblurb{color:var(--soft);font-size:14.5px;margin:4px 0 14px}
@@ -3006,7 +3018,8 @@ function set(lv){
     cards[j].hidden = lv==='pick' ? !cards[j].hasAttribute('data-pick')
                     : lv!=='all' && ls.indexOf(' '+lv+' ')<0;}
   var gs=document.querySelectorAll('.ac-fcgroup');
-  for(var k=0;k<gs.length;k++){gs[k].hidden=!gs[k].querySelector('.ac-res:not([hidden])');}
+  for(var k=0;k<gs.length;k++){gs[k].hidden=!gs[k].querySelector('.ac-res:not([hidden])');
+    if(lv!=='all') gs[k].open=true;}
 }
 for(var i=0;i<btns.length;i++){btns[i].addEventListener('click',function(){set(this.getAttribute('data-lv'));});}
 })();</script>"""
@@ -3038,8 +3051,8 @@ def further_page(modules):
 
     body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy &middot; Beyond the Atlas</p>'
             '<h1>%s</h1><p class="ac-lede">%s</p></div>' % (e(cfg["title"]), prose(cfg["lede"]))]
-    body.append('<p class="ac-checked">Links checked %s</p>' % checked)
-    body.append('<p class="ac-note">%s</p>' % prose(cfg["note"]))
+    # 2026-10-05: radek "Links checked" a poznamka `note` se uz nevykresluji (Petr:
+    # "tohle vyhod"). `checked` zustava v datech kvuli pravidlu 24 ve verify_academy.
 
     # ---- dve cesty -------------------------------------------------------
     body.append('<section class="ac-section"><h2 id="where-to-start">Where to start</h2>'
@@ -3074,9 +3087,11 @@ def further_page(modules):
 
     items_ld = []
     for g in cfg["groups"]:
-        body.append('<section class="ac-section ac-fcgroup"><div class="ac-fchead">'
-                    '<h2 id="%s">%s</h2><span class="ac-fccount">%d</span></div>'
-                    '<p class="ac-fcblurb">%s</p><div class="ac-ways ac-fcgrid">'
+        # 2026-10-05: sekce jsou rozbalovaci <details> (stranka byla prilis dlouha).
+        # Bez JS funguje nativne; obsah je v HTML i zabaleny, takze crawler ho vidi.
+        body.append('<details class="ac-section ac-fcgroup"><summary class="ac-fchead">'
+                    '<h2 id="%s">%s</h2><span class="ac-fccount">%d</span>'
+                    '<span class="ac-fcblurb">%s</span></summary><div class="ac-ways ac-fcgrid">'
                     % (e(g["id"]), e(g["title"]), len(g["items"]), prose(g.get("blurb", ""))))
         for it in g["items"]:
             lvl = " to ".join(lv[x]["label"] for x in it["level"])
@@ -3112,7 +3127,7 @@ def further_page(modules):
                                           "name": it["provider"].split(" · ")[-1]},
                              "educationalLevel": lvl, "isAccessibleForFree": True,
                              "inLanguage": "en"})
-        body.append("</div></section>")
+        body.append("</div></details>")
 
     body.append('<div class="ac-nextbar">'
                 '<a class="ac-cta ac-quiet" href="%s/academy/">&larr; Academy</a>'

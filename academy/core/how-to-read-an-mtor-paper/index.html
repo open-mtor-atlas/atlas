@@ -793,8 +793,20 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
   border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink)}
 .ac-fcfilter button:hover{border-color:var(--teal)}
 .ac-fcfilter button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
-.ac-fchead{display:flex;align-items:baseline;gap:10px;margin:34px 0 2px}
-.ac-fchead h2{margin:0;font-size:19px}
+.ac-fchead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:0;
+  padding:16px 0 14px 26px;position:relative;cursor:pointer;list-style:none;
+  border-bottom:1px solid var(--line)}
+.ac-fchead::-webkit-details-marker{display:none}
+.ac-fchead::before{content:"";position:absolute;left:4px;top:23px;width:7px;height:7px;
+  border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);
+  transform:rotate(-45deg);transition:transform .15s}
+details[open]>.ac-fchead::before{transform:rotate(45deg);top:21px}
+.ac-fchead:hover h2{color:var(--teal)}
+.ac-fchead:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ac-fcgroup{margin:0}
+.ac-fcgroup[open]>.ac-fcgrid{margin:16px 0 26px}
+.ac-fchead h2{margin:0;font-size:19px;border:0;padding:0}
+.ac-fchead .ac-fcblurb{flex-basis:100%;margin:2px 0 0}
 .ac-fccount{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);
   border:1px solid var(--teal);border-radius:10px;padding:1px 7px}
 .ac-fcblurb{color:var(--soft);font-size:14.5px;margin:4px 0 14px}
@@ -911,7 +923,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-05 10:55 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-05 11:11 Prague time</div>
 </footer>
 <script>
 /* Academy progress. One localStorage key, same defensive pattern as the SPA's
