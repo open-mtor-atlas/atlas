@@ -803,7 +803,8 @@ def check_modules_prose(findings):
         # /academy/free-courses/ (2026-09-28): popisky cizich kurzu jsou nase
         # proza -- tvrzeni typu "this course proves" by proslo jinak bez kontroly.
         blobs += [("free.lede", fl.get("lede") or ""), ("free.note", fl.get("note") or ""),
-                  ("free.certNote", fl.get("certNote") or "")]
+                  ("free.certNote", fl.get("certNote") or ""),
+                  ("free.pickNote", fl.get("pickNote") or "")]
         blobs += [("free.order%d" % i, o.get("says") or "")
                   for i, o in enumerate(fl.get("order") or [])]
         for g in fl.get("groups") or []:

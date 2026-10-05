@@ -1043,6 +1043,12 @@ def main():
                         bad("free-courses", "polozka %r nema %s (pravidlo 24)" % (who, key))
         if not fl_items:
             bad("free-courses", "furtherLearning bez jedine polozky")
+        # My pick (2026-10-05): kratky vyber, ne druha stupnice kvality.
+        picks = [it for it in fl_items if it.get("pick")]
+        if fl_items and not 3 <= len(picks) <= 6:
+            bad("free-courses", "My pick ma %d polozek, cekam 3 az 6 (pravidlo 24b)" % len(picks))
+        if picks and not (fl.get("pickNote") or "").strip():
+            bad("free-courses", "chybi `pickNote` k oznaceni My pick (pravidlo 24b)")
 
     # 6/7/8 vygenerovane stranky
     pages = []

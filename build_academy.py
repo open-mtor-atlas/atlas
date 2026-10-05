@@ -967,6 +967,10 @@ html[data-level="research"] .ac-qzrec[data-lv="research"]{display:inline-block}
 .ac-fccert{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--soft);
   background:var(--ac-tint);border-radius:3px;padding:4px 7px;align-self:flex-start}
 .ac-fccert.paid{color:var(--ink)}
+.ac-res.ac-pick{border-top:3px solid var(--teal)}
+.ac-fcpick{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:600;color:#fff;background:var(--teal);border-radius:10px;
+  padding:2px 8px;align-self:flex-start;margin:0 0 -2px}
 .ac-checked{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);margin:0 0 18px}
 .ac-fcpaths{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
 .ac-fcpath{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:3px;
@@ -2999,7 +3003,8 @@ function set(lv){
   for(var i=0;i<btns.length;i++){btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-lv')===lv?'true':'false');}
   var cards=document.querySelectorAll('.ac-res');
   for(var j=0;j<cards.length;j++){var ls=' '+cards[j].getAttribute('data-level')+' ';
-    cards[j].hidden = lv!=='all' && ls.indexOf(' '+lv+' ')<0;}
+    cards[j].hidden = lv==='pick' ? !cards[j].hasAttribute('data-pick')
+                    : lv!=='all' && ls.indexOf(' '+lv+' ')<0;}
   var gs=document.querySelectorAll('.ac-fcgroup');
   for(var k=0;k<gs.length;k++){gs[k].hidden=!gs[k].querySelector('.ac-res:not([hidden])');}
 }
@@ -3054,12 +3059,15 @@ def further_page(modules):
                 '<div><span class="ac-fclv">%s</span></div>'
                 '<div><span class="ac-fcdepth" data-d="3"><i></i><i></i><i></i></span> '
                 'how much of it is about mTOR: three bars means all of it, one bar means '
-                'useful background</div></div><p>%s</p>'
+                'useful background</div>'
+                '<div><span class="ac-fcpick">My pick</span> %s</div></div><p>%s</p>'
                 '<div class="ac-fcfilter" id="acFcFilter" role="group" aria-label="Filter by level" hidden>'
-                '<span>Show</span><button type="button" data-lv="all" aria-pressed="true">All</button>%s</div>'
+                '<span>Show</span><button type="button" data-lv="all" aria-pressed="true">All</button>%s'
+                '<button type="button" data-lv="pick" aria-pressed="false">My picks</button></div>'
                 '</section>'
                 % ("".join('<span class="ac-fcpill on">%s</span> %s &nbsp; '
                            % (e(l["label"]), prose(l["says"])) for l in cfg["levels"]),
+                   prose(cfg["pickNote"]),
                    prose(cfg["certNote"]),
                    "".join('<button type="button" data-lv="%s" aria-pressed="false">%s</button>'
                            % (e(l["id"]), e(l["label"])) for l in cfg["levels"])))
@@ -3078,7 +3086,7 @@ def further_page(modules):
             paid = "$" in it["cert"] or "paid" in it["cert"]
             icon = _FC_ICON[_FC_KIND.get(it["kind"], "doc")]
             body.append(
-                '<div class="ac-way ac-res" data-level="%s">'
+                '<div class="ac-way ac-res%s" data-level="%s"%s>%s'
                 '<div class="ac-fctop"><span class="ac-fcico" aria-hidden="true">'
                 '<svg viewBox="0 0 24 24" width="22" height="22">%s</svg></span>'
                 '<span class="ac-kind">%s<br><i>%s</i></span></div>'
@@ -3091,7 +3099,10 @@ def further_page(modules):
                 '<span class="ac-fctime">%s</span></span>'
                 '<span class="ac-fccert%s">%s</span></div>'
                 '<a class="ac-go" href="%s" target="_blank" rel="noopener">Open &rarr;</a></div>'
-                % (" ".join(it["level"]), icon, e(it["kind"]), e(it["provider"]),
+                % (" ac-pick" if it.get("pick") else "", " ".join(it["level"]),
+                   ' data-pick="1"' if it.get("pick") else "",
+                   '<span class="ac-fcpick">My pick</span>' if it.get("pick") else "",
+                   icon, e(it["kind"]), e(it["provider"]),
                    e(it["url"]), e(it["label"]), prose(it["says"]),
                    it.get("depth", 1), e(it["mtor"]), e(lvl), pills, e(it["time"]),
                    " paid" if paid else "", e(it["cert"]), e(it["url"])))
