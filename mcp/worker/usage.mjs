@@ -18,7 +18,7 @@ const table = (title, rows) => {
   for (const row of rows) console.log('  ' + Object.values(row).map((v, i) => String(v).padEnd(i ? 10 : 28)).join(''));
 };
 console.log(`mTOR Atlas MCP usage, last ${days} days: ${r.totals.tool_calls} tool calls, ${r.totals.connections} connections`);
-table('Tool calls by tool (calls, errors, avg ms)', r.by_tool);
+table('Tool calls by tool (calls, errors, tool_errors, avg ms)', r.by_tool);
 table('Connections (initialize) by client name', r.by_client_name);
 table('Tool calls by client family (User-Agent)', r.by_client_family);
 table('Per day (connections, tool calls)', r.by_day);

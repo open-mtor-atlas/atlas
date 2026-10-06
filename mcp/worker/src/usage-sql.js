@@ -2,6 +2,8 @@
 // recordUsage() in index.js. Shared by the Worker's /stats endpoint and by
 // ../usage.mjs. Only aggregates leave this module: counts per tool, per
 // client name, per client family and per day.
+// errors      = the server answered with a protocol-level error (invalid request or arguments).
+// tool_errors = the tool ran and reported a failure, mostly "not found" for an unknown id.
 export const DATASET = 'mtor_atlas_mcp_usage';
 
 export function usageQueries(days) {
@@ -9,7 +11,8 @@ export function usageQueries(days) {
   return {
     by_tool: `
       SELECT blob2 AS tool, SUM(_sample_interval) AS calls,
-             SUM(if(blob5 != 'ok', _sample_interval, 0)) AS errors, ROUND(AVG(double2)) AS avg_ms
+             SUM(if(blob5 = 'error', _sample_interval, 0)) AS errors,
+             SUM(if(blob5 = 'tool-error', _sample_interval, 0)) AS tool_errors, ROUND(AVG(double2)) AS avg_ms
       FROM ${DATASET} WHERE blob1 = 'tools/call' AND ${since} GROUP BY tool ORDER BY calls DESC`,
     by_client_name: `
       SELECT blob3 AS client, SUM(_sample_interval) AS connections
