@@ -486,6 +486,17 @@ def render(cfg, m):
       'Citation</a>. Corrections are welcome and are logged; see '
       '<a href="%s/about/">About &amp; Methodology</a>.</p>' % (SITE, SITE))
 
+    # Odkaz na landing page práce (2026-10-06). Není to jen zdvořilost: Scholar
+    # objevuje stránky crawlem a landing page musí být dosažitelná prostými
+    # HTML odkazy. Tahle stránka je od homepage na dva kliky, takže odtud je
+    # paper na tři -- hluboko pod limitem deseti z inclusion guidelines.
+    A('<p>The write-up of this audit is a preprint: '
+      '<a href="%s/evidence/audit/paper/"><em>Ten percent human: an '
+      'evidence-graded audit of the mTOR literature and the pathway\'s '
+      'translational gap</em></a> (PDF, DOI, how to cite). It is a fixed '
+      'snapshot; the numbers on this page are recomputed on every build and '
+      'will drift from it as the corpus grows.</p>' % SITE)
+
     return "\n".join(P)
 
 

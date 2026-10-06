@@ -400,7 +400,8 @@ def topbar_html(active_tab=None):
 
 
 def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
-          extra_css="", extra_body="", level_switch=False, robots="index, follow"):
+          extra_css="", extra_body="", level_switch=False, robots="index, follow",
+          extra_head=""):
     """Jedna šablona pro všechny stránky. Obsah je v HTML, ne v JS -- to je
     celý bod. Styl je inline, aby stránka nezávisela na dalším requestu.
 
@@ -420,7 +421,15 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
 
     `active_tab` (přidáno 2026-08-22): id z SITE_TABS, který se v horní
     navigaci zvýrazní jako aktivní -- volitelné, viz volání v jednotlivých
-    *_page() funkcích níž."""
+    *_page() funkcích níž.
+
+    `extra_head` (přidáno 2026-10-06 kvůli build_paper_page.py): volitelný
+    blok vložený do <head> hned za JSON-LD. Vznikl kvůli Highwire tagům
+    (citation_title, citation_pdf_url, ...), které Google Scholar čte jen
+    z <head> landing page a které nedávají smysl na žádné jiné stránce.
+    Vkládá se BEZ vlastního newline, takže prázdná hodnota negeneruje ani
+    prázdný řádek a všech ~460 dosavadních stránek zůstává bajt po bajtu
+    stejných; volající si newline přinese na začátku svého řetězce."""
     blocks = jsonld if isinstance(jsonld, list) else [jsonld]
     ld_html = "\n".join(
         '<script type="application/ld+json">\n'
@@ -463,7 +472,7 @@ def shell(title, desc, canonical, jsonld, body, breadcrumb, active_tab=None,
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-{ld_html}
+{ld_html}{extra_head}
 <link rel="stylesheet" href="/assets/type.css?v={TYPE_CSS_VERSION}">
 <style>
 :root{{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);
@@ -3348,6 +3357,13 @@ def main():
     # na /authors/ má práh 3+ studie a odkazovala tak jen na 49 z 226 profilů.
     pathway_events_lines += (
         f'  <url><loc>{SITE}/authors/all/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n')
+    # /evidence/audit/paper/ (2026-10-06) -- landing page práce pro Google
+    # Scholar. Stejný případ jako /evidence/audit/ výš: staví ji
+    # build_paper_page.py, ne tenhle skript, takže se URL přidává napevno,
+    # aby se sitemapa nelišila mezi prvním a druhým během.
+    pathway_events_lines += (
+        f'  <url><loc>{SITE}/evidence/audit/paper/</loc><changefreq>monthly</changefreq>'
+        f'<priority>0.6</priority></url>\n')
     write(os.path.join(HERE, "sitemap-home.xml"),
           '<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
