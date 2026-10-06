@@ -1002,7 +1002,7 @@ def study_page(s, ent_by_sid, haspage, by_sid):
         ld["abstract"] = s["abstract"]
 
     rows = [("Evidence type", f'{tier_badge(s.get("tier"), s.get("pyramid"))} {e(label)}'),
-            ("Study type", e(s.get("pyramid") or s.get("category") or "—")),
+            ("Study type", e(re.sub(r"^\d+\s*-\s*", "", s.get("pyramid") or "") or s.get("category") or "—")),
             ("Model system", e(s.get("model") or s.get("ai_species") or "—")),
             ("Journal", e(s.get("journal") or "—")),
             ("Year", e(s.get("year") or "—")),
