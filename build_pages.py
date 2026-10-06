@@ -2100,8 +2100,6 @@ Atlas". The dataset is archived and citable via Zenodo, concept DOI
 Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>
 and <a href="https://fairsharing.org/8905">FAIRsharing</a>)
 and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
-
-<p><a class="cta" href="{SITE}/#view=about">Open the interactive About tab</a></p>
 """
     return url, shell(
         "About & Methodology | Oliver's mTOR Atlas",
@@ -3504,7 +3502,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 - [mTOR conferences & meetings](https://mtor-atlas.org/events/): upcoming and past conferences relevant to mTOR, autophagy and longevity research
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
-- [Data & Citation](https://mtor-atlas.org/data/): bio.tools/FAIRsharing registration, dataset DOI, ORCID, license, how to cite
+- [Data & Citation](https://mtor-atlas.org/data/): dataset DOI https://doi.org/10.5281/zenodo.22059963, bio.tools/FAIRsharing registration, ORCID, license, how to cite
 - [Evidence audit](https://mtor-atlas.org/evidence/audit/): what the corpus is actually built on -- share of human evidence, how much of the pathway has any human data behind it, how many links rest on a single paper, how much carries a recorded boundary condition; every figure recomputed from the corpus on each build
 - [Timing](https://mtor-atlas.org/pathway/timing/): how mTOR interventions were delivered over time -- acute, intermittent, chronic, withdrawal-tested -- and which pathway links are known to depend on duration; plus time inside the cell: how each study reads the signal (snapshot, time course, live single cells, cell cycle, 24-hour clock, model) and which negative feedback loops on the map have ever been followed in time
 - [Does the pattern matter more than the average?](https://mtor-atlas.org/pathway/timing/pattern/): the open question of whether the pattern of mTORC1 activity over time, not just its average level, decides outcomes like autophagy or growth -- what has been measured, what has only been modelled, and what no study in the atlas has done yet
@@ -3522,7 +3520,7 @@ Publication timelines for the scientists most represented in the corpus.
 {author_lines}
 
 ## Machine-readable
-- [Data & Citation](https://mtor-atlas.org/data/): DOI, ORCID, license, bio.tools/FAIRsharing registration, citation string
+- [Data & Citation](https://mtor-atlas.org/data/): dataset DOI https://doi.org/10.5281/zenodo.22059963, ORCID, license, bio.tools/FAIRsharing registration, citation string
 - [Data exports (CSV/JSON)](https://mtor-atlas.org/data/exports/): the full corpus as flat files, regenerated on every deploy
 - [Corrections log](https://mtor-atlas.org/changelog/): every change to the method (selection, grading, reading of evidence), with date and reason
 - [Sitemap index](https://mtor-atlas.org/sitemap.xml)
