@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-06T22:34:13+0200",
-  "source_commit": "68b7d8e616579f4fed0765fda4afbdf8e0073fb7",
+  "corpus_snapshot": "2026-10-07T10:46:27+0200",
+  "source_commit": "bc49e4d074440531841c8154e2c0914e41595896",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -18,7 +18,7 @@
    "AY-22989"
   ],
   "description": "Sirolimus; mTORC1 inhibitor that acts as a complex with FKBP12. With chronic dosing it can also disrupt mTORC2 assembly in some cell types and tissues (SAR2006; mouse liver in LAM2012), a time- and cell-type-dependent effect. Immunosuppressant; extends lifespan in mice.",
-  "study_count": 78,
+  "study_count": 79,
   "relation_count": 5,
   "url": "https://mtor-atlas.org/drug/rapamycin/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/rapamycin.json",
@@ -1661,6 +1661,27 @@
     "finding": "Intermittent rapamycin (2 mg/kg every 5 days), started as late as 20 months of age, extended the lifespan of female C57BL/6J mice. This is the same regimen that in ARR2015 spared glucose homeostasis and the immune system compared with daily dosing, so read together the two studies suggest the lifespan benefit can be separated from many of rapamycin's side effects. SCOPE: the abstract reports lifespan extension in females; it does not report side-effect measurements in this aged cohort, so the separability claim rests on combining this study with ARR2015 (a different, young male cohort). Full-text numbers not yet extracted.",
     "url": "https://mtor-atlas.org/study/ARR2016/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ARR2016.json"
+   },
+   {
+    "sid": "LAI2026",
+    "title": "Sex-stratified immune patterns across the canine lifespan and short-term responses to geroprotective interventions",
+    "authors": "Lai M; Xu F; Xu Y; Mironenkov A; Jin Y; Zhang S; Pan J; Li M; Deng B; Zhu JK; Lyu YX",
+    "year": 2026,
+    "journal": "Biogerontology",
+    "doi": "10.1007/s10522-026-10518-w",
+    "pmid": "42837017",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Dog (intact laboratory Beagles: 80-dog cross-sectional cohort ages 1-11; 24 young dogs for a 90-day intervention arm)",
+    "peer_reviewed": true,
+    "finding": "In 24 young Beagles given a 90-day course of rapamycin, the SGLT2 inhibitor canagliflozin, or dietary restriction, rapamycin produced the broadest shift in blood cytokines of the three, while a separate cross-sectional cohort of 80 Beagles aged 1-11 showed that immune aging in dogs is non-linear and sex-stratified rather than a steady decline. Dogs are an increasingly used translational model for geroscience because of their size and lifespan diversity, so this adds a rare canine data point to the rapamycin-immune-aging picture; the authors flag the intervention findings as exploratory given small group sizes and endpoint-only measurements.",
+    "url": "https://mtor-atlas.org/study/LAI2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAI2026.json"
    }
   ],
   "relations": [
@@ -1829,11 +1850,11 @@
     "context": null,
     "boundary": "Strictly time- and cell-type-dependent: absent acutely, present after prolonged exposure, and the sensitivity varies between cell lines. LAM2012 shows the same loss of mTORC2 signalling in mouse liver in vivo, so this is not a cell-culture-only phenomenon. Treating this edge as unconditional is a common error.",
     "note": "THE key context-dependent edge. Should render dashed with an explicit 'chronic only' label.",
-    "contested": true,
+    "contested": false,
     "confidence": {
-     "mechanistic": "low",
+     "mechanistic": "medium",
      "human_relevance": "plausible",
-     "consensus": "contested"
+     "consensus": "established"
     },
     "evidence": {
      "kind": "Pharmacological",

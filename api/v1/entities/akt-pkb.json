@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-06T22:34:13+0200",
-  "source_commit": "68b7d8e616579f4fed0765fda4afbdf8e0073fb7",
+  "corpus_snapshot": "2026-10-07T10:46:27+0200",
+  "source_commit": "bc49e4d074440531841c8154e2c0914e41595896",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -918,7 +918,7 @@
     "mechanism": "Akt phosphorylates TSC2, disabling the complex. Growth-factor signalling works by removing a brake, not by pressing an accelerator.",
     "mechanism_beginner": "Akt tags TSC2 to disable it. Growth signals work by releasing a brake, not by pressing a gas pedal.",
     "context": null,
-    "boundary": null,
+    "boundary": "In mouse liver, Akt phosphorylation of TSC2 is the main route by which insulin switches on mTORC1, but feeding activates hepatic mTORC1 without it; that response needs dietary protein instead (KAL2026). The biochemical mechanism itself was shown in cultured human cells (INO2002).",
     "note": null,
     "contested": false,
     "confidence": {
@@ -1041,7 +1041,7 @@
     "api_url": "https://mtor-atlas.org/api/v1/relations/PI3K-AKT.json"
    },
    {
-    "id": "MTORC2-AKT-FOXO",
+    "id": "AKT-FOXO",
     "claim": "Akt/PKB inhibits FOXO1/3",
     "source": {
      "name": "Akt/PKB",
@@ -1062,7 +1062,7 @@
     ],
     "mechanism": "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
     "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
-    "context": null,
+    "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
     "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
     "note": null,
     "contested": false,
@@ -1086,7 +1086,7 @@
     },
     "reviewed": null,
     "updated": null,
-    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-AKT-FOXO.json"
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-FOXO.json"
    }
   ]
  }
