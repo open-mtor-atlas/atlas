@@ -222,6 +222,19 @@ if defined AIRTABLE_TOKEN (
 )
 
 echo.
+echo === Refresh lab lineage from Airtable (Lab_Lineage, Published only) ===
+REM  2026-10-07: rodokmen laboratori pro /field/lineage/ ve V2. sync_lab_lineage.py
+REM  pece atlas_data\lab_lineage_baked.json jen ze zaznamu se zaskrtnutym Published
+REM  (dva zdroje) a bez internich poznamek. Selhani deploy NEZASTAVI: zustane
+REM  posledni commitnuty soubor a mapa ukaze stav z minula.
+if defined AIRTABLE_TOKEN (
+  py sync_lab_lineage.py --write
+  if errorlevel 1 echo    sync_lab_lineage.py failed - lineage map keeps the last committed data
+) else (
+  echo    AIRTABLE_TOKEN not set - skipping lineage refresh
+)
+
+echo.
 echo === Rebuild Deep-search chunk index - best effort ===
 py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
@@ -717,7 +730,7 @@ REM  Written by: bake_from_mcp.py, backfill_pmids.py, normalize_entities.py,
 REM  build_chunk_index.py. `git add` on an unchanged file is a no-op, so listing
 REM  one that this particular run did not touch costs nothing.
 echo    including pipeline data and reports
-for %%F in (gaps_baked.json frontier_baked.json relations_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json lab_geo.json lab_map_template.html) do (
+for %%F in (gaps_baked.json frontier_baked.json relations_baked.json pmid_map.json pmid_map.csv pmid_report.md entities_auto.json entities_review.csv relation_candidates.csv relation_candidates_new.csv PHASE6_normalize_report.md studies_enriched.jsonl studies_enriched.csv author_bios_baked.json oliver_bio_baked.json author_allowlist.json lab_geo.json lab_map_template.html lab_lineage_baked.json) do (
   if exist "atlas_data\%%F" git add "atlas_data\%%F"
 )
 if exist "atlas_fulltext\chunks.jsonl" git add atlas_fulltext\chunks.jsonl
@@ -746,7 +759,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py sync_lab_lineage.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
