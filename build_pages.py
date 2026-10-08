@@ -1508,7 +1508,10 @@ def author_page(key, bio, studies):
         body.append(f'<p class="meta">{" &middot; ".join(extras)}</p>')
 
     if ordered:
-        body.append("<h2>Milestones in the Atlas</h2><table class=\"st\">"
+        body.append("<h2>Milestones in the Atlas</h2>"
+                    "<p class=\"meta\">A selection, not a full bibliography: only papers that "
+                    "meet the Atlas <a href=\"/about/#how-a-study-gets-in\">inclusion criteria</a>.</p>"
+                    "<table class=\"st\">"
                     "<tr><th>Study</th><th>Year</th><th>Evidence</th><th>Finding</th></tr>")
         for s in ordered:
             if not s.get("sid"):
@@ -1990,7 +1993,7 @@ articles.</p>
 <p>There is no editorial board and no second reviewer.</p>
 <p><strong>Contact:</strong> oliver.barton1113(at)gmail.com &middot; Bluesky: <a href="https://bsky.app/profile/oliver-barton.bsky.social">@oliver-barton.bsky.social</a>.</p>
 {research_focus_html}
-<h2>How a study gets in</h2>
+<h2 id="how-a-study-gets-in">How a study gets in</h2>
 <p>Every study passes through the same four steps before it's added:</p>
 <ol>
 <li><strong>Source</strong> -- candidates are found via PubMed, prioritizing
