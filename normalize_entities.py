@@ -375,7 +375,7 @@ def main():
                 atoms[k]["hgnc"] = r
             if i % 10 == 0:
                 print("   %d/%d" % (i, len(cands)))
-        json.dump(cache, open(HGNC_CACHE, "w", encoding="utf-8"),
+        json.dump(cache, open(HGNC_CACHE, "w", encoding="utf-8", newline="\n"),
                   ensure_ascii=False, indent=1)
     else:
         print("\n(HGNC přeskočeno -- spusť s --hgnc pro ověření symbolů)")
@@ -429,7 +429,7 @@ def main():
         "species_unmapped": sorted({r["raw"] for r in species_rows
                                     if "UNMAPPED" in r["mapped"]}),
     }
-    json.dump(auto, open(AUTO_JSON, "w", encoding="utf-8"),
+    json.dump(auto, open(AUTO_JSON, "w", encoding="utf-8", newline="\n"),
               ensure_ascii=False, indent=1)
 
     # --- návrhy hran ---
@@ -485,7 +485,7 @@ def main():
         lines += ["", "Nenamapováno (doplň pravidlo do SPECIES_MAP):", ""]
         for u in auto["species_unmapped"][:15]:
             lines.append("- `%s`" % u)
-    open(REPORT_MD, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    open(REPORT_MD, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
 
     print("""
 Hotovo.

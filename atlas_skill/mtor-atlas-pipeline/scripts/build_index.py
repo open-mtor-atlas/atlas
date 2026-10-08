@@ -49,7 +49,7 @@ def main():
     keep = ["airtable_id","Study_ID","Title","Authors","Year","Journal","Category",
             "Model","Related_Entities","Evidence_Tier","Pyramid_Level","Peer_Reviewed",
             "DOI","PMID","PMCID","fulltext_pmc_available","Abstract_PubMed","Key_Finding"]
-    with open(os.path.join(IDX,"meta.jsonl"),"w",encoding="utf-8") as f:
+    with open(os.path.join(IDX,"meta.jsonl"),"w",encoding="utf-8", newline="\n") as f:
         for d in docs:
             f.write(json.dumps({k:d.get(k,"") for k in keep}, ensure_ascii=False)+"\n")
     print(f"[build] done -> {IDX}")

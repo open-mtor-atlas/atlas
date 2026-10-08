@@ -109,7 +109,7 @@ def main():
         if not secs:
             man[sid] = dict(sid=sid, pmcid=pmcid, license=lic, sections=0, chunks=0, status="no-xml-body")
             time.sleep(1); continue
-        with open(os.path.join(RAW, f"{sid}_{pmcid}.xml"), "w", encoding="utf-8") as f:
+        with open(os.path.join(RAW, f"{sid}_{pmcid}.xml"), "w", encoding="utf-8", newline="\n") as f:
             f.write(xml)
         n = 0
         with open(CHUNKS, "a", encoding="utf-8") as f:

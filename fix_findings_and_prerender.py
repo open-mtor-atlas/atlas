@@ -222,7 +222,7 @@ def main():
         print("--dry-run: nothing written.")
         return
     tmp = HTML + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(h)
     if open(tmp, encoding="utf-8").read() != h:
         sys.exit("ABORT: verification read-back mismatch, index.html untouched.")

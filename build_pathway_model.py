@@ -1920,7 +1920,7 @@ def main():
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
         json.dump(model, f, ensure_ascii=False, indent=1)
         f.flush(); os.fsync(f.fileno())
 

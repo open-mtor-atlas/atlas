@@ -2805,7 +2805,7 @@ def patch_home(n_pages):
     if DRY:
         return "dry-run"
     tmp = p + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(h)
         f.flush()
         os.fsync(f.fileno())
@@ -2895,7 +2895,7 @@ def patch_spa_links():
     if DRY:
         return "dry-run (%s)" % ", ".join(done)
     tmp = p + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(h); f.flush(); os.fsync(f.fileno())
     chk = open(tmp, encoding="utf-8").read()
     if len(chk) != len(h) or not chk.rstrip().endswith("</html>") or len(h) < orig_len:
@@ -2952,7 +2952,7 @@ def write(path, content):
             pass
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
         f.flush()
         os.fsync(f.fileno())
@@ -2986,7 +2986,7 @@ def patch_dataset_meta(version, date_modified):
         return "dry-run"
     h2 = h[:m.start(2)] + new_block + h[m.end(2):]
     tmp = p + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(h2)
         f.flush()
         os.fsync(f.fileno())
@@ -3030,7 +3030,7 @@ def patch_dataset_distribution(distribution):
         return "dry-run"
     h2 = h[:m.start(2)] + new_block + h[m.end(2):]
     tmp = p + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(h2)
         f.flush()
         os.fsync(f.fileno())

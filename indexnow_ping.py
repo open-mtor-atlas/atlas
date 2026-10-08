@@ -146,7 +146,7 @@ def load_state():
 
 def save_state(state):
     tmp = STATE_FILE + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(state, f, indent=0, sort_keys=True)
     os.replace(tmp, STATE_FILE)
 

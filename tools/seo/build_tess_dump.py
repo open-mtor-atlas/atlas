@@ -86,7 +86,7 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "atlas-academy.json")
     tmp = out_path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(entries, f, indent=2, ensure_ascii=False)
         f.write("\n")
         f.flush()

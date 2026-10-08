@@ -43,7 +43,7 @@ def write_verified(path, content, expect_suffix="</html>", attempts=5):
     for attempt in range(1, attempts + 1):
         tmp = path + ".tmp%d" % os.getpid()
         try:
-            with open(tmp, "w", encoding="utf-8") as f:
+            with open(tmp, "w", encoding="utf-8", newline="\n") as f:
                 f.write(content)
                 f.flush()
                 os.fsync(f.fileno())

@@ -34,7 +34,7 @@ def main():
         offset = data.get("offset")
         if not offset:
             break
-    with open(OUT, "w", encoding="utf-8") as fh:
+    with open(OUT, "w", encoding="utf-8", newline="\n") as fh:
         for r in rows:
             f = r["fields"]
             fh.write(json.dumps({k: f.get(k, "") for k in FIELDS}, ensure_ascii=False) + "\n")

@@ -103,7 +103,7 @@ def main():
             h, c2 = re.subn(r"const ATLAS_GAPS = \[.*?\];", gjs, h, count=1, flags=re.S)
         print(f"ATLAS_GAPS: {'updated' if c2 else 'NOT FOUND'}")
 
-    with open(HTML, "w", encoding="utf-8") as f:
+    with open(HTML, "w", encoding="utf-8", newline="\n") as f:
         f.write(h); f.flush(); os.fsync(f.fileno())
     print("index.html rewritten. Commit & deploy to publish.")
 

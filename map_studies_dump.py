@@ -73,7 +73,7 @@ def main():
     for attempt in range(1, 6):
         tmp = OUT + ".tmp%d" % os.getpid()
         try:
-            with open(tmp, "w", encoding="utf-8") as f:
+            with open(tmp, "w", encoding="utf-8", newline="\n") as f:
                 f.write(content)
                 f.flush()
                 os.fsync(f.fileno())

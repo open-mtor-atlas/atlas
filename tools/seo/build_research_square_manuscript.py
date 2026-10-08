@@ -414,7 +414,7 @@ def render_manuscript_md(stats):
     )
     path = os.path.join(OUT_DIR, "manuscript.md")
     tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
         f.flush()
         os.fsync(f.fileno())
@@ -560,7 +560,7 @@ re-generate this checklist if these have changed since.)
     )
     path = os.path.join(OUT_DIR, "submission-checklist.md")
     tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
         f.flush()
         os.fsync(f.fileno())

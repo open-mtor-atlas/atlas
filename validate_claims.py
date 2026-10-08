@@ -1030,7 +1030,7 @@ def main():
                 print("  fix : %s" % f["suggested"])
 
     if JSON_OUT:
-        json.dump(findings, open(JSON_OUT, "w", encoding="utf-8"),
+        json.dump(findings, open(JSON_OUT, "w", encoding="utf-8", newline="\n"),
                   ensure_ascii=False, indent=1)
         print("\nwrote %s" % JSON_OUT)
 

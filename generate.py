@@ -1437,7 +1437,7 @@ def sitemap_answers_xml():
 def write(rel_path, content):
     fp = os.path.join(OUT, rel_path)
     os.makedirs(os.path.dirname(fp), exist_ok=True)
-    with open(fp, "w", encoding="utf-8") as f:
+    with open(fp, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
         f.flush()
         os.fsync(f.fileno())

@@ -84,7 +84,7 @@ def main():
         top = dict(sorted(vec.items(), key=lambda kv: -kv[1])[:TOPTERMS])
         out_chunks.append({"sid": sid, "section": section, "text": text, "w": top})
 
-    json.dump({"idf": idf, "chunks": out_chunks}, open(OUT, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump({"idf": idf, "chunks": out_chunks}, open(OUT, "w", encoding="utf-8", newline="\n"), ensure_ascii=False)
     print(f"[index] wrote {OUT} ({os.path.getsize(OUT)//1024} KB, {len(idf)} terms)")
 
 if __name__ == "__main__":

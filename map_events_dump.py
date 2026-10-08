@@ -134,7 +134,7 @@ def main():
         sys.exit("events_baked.json NOT written -- do not proceed to bake/deploy")
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
         json.dump(out, f, ensure_ascii=False)
     print("wrote %d events to %s (source total: %s)" % (
         len(out), OUT, d.get("metadata", {}).get("totalRecordCount")))
