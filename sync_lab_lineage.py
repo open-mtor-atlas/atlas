@@ -53,6 +53,12 @@ F = {
     "pmids": "fld0WhAFaGCS8DKPd",
     "urls": "fld0aHstyzB9rdGXg",
     "verification": "fldoG86vDb0mwHuAF",
+    # 8. 10. 2026: rok založení mentorovy laboratoře pro časový pohled
+    # /field/lineage/ (Low confidence se kreslí jako odhad).
+    "mentor_lab_start": "fld431Do013xNLQeY",
+    "mentor_lab_end": "fldPi5gbLmzfMRfcW",
+    "mentor_lab_src": "fldqJ3DDL1xzaG8bE",
+    "mentor_lab_conf": "fld6IQMimFB03oEoK",
 }
 F_PUBLISHED = "fldwr0dSQRnh6NGKO"
 
@@ -122,6 +128,11 @@ def bake(recs):
         e["pmids"] = pmid_list(e["pmids"])
         e["urls"] = url_list(e["urls"])
         e["kind"] = "staff" if e["role"] == "Research scientist" else "trainee"
+        for k in ("mentor_lab_start", "mentor_lab_end"):
+            m = re.match(r"\d{4}", e[k])
+            e[k] = int(m.group(0)) if m else ""
+        e["mentor_lab_src"] = (url_list(e["mentor_lab_src"]) or [""])[0] if e["mentor_lab_start"] else ""
+        e["mentor_lab_conf"] = e["mentor_lab_conf"].lower() if e["mentor_lab_start"] else ""
         edges.append({k: v for k, v in e.items() if v not in ("", [])})
     edges.sort(key=lambda e: (e["id"].lower(), e["trainee"].lower()))
     return edges, skipped
