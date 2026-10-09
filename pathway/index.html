@@ -110,7 +110,7 @@
    "evidence-based research"
   ],
   "version": "2.0.1",
-  "dateModified": "2026-10-08"
+  "dateModified": "2026-10-09"
  }
 }
 </script>
@@ -389,7 +389,7 @@ full interaction reference table below.</p>
 <a class="step-jump" href="#int-ragulator-rag">mechanism &darr;</a></p>
 <p>The Rags are not free-floating. Ragulator is lipid-anchored to the lysosome and clamps the Rag heterodimer to that surface, so everything the Rags do, they do at one specific place.</p>
 <p><em>Nothing about the Rags&#x27; activity changes here. What is fixed is their address.</em> Because the Rags are on the lysosome, whatever they recruit arrives on the lysosome too.</p>
-<p class="tier-why">Certainty: The tethering role is well established. Ragulator has also been reported as a GEF for RagA/B; that assignment is less secure than the tethering function, and the model records the tethering claim rather than the GEF claim.</p>
+<p class="tier-why">Certainty: The tethering role is well established. Its GEF activity is a separate question. The original report (2012) assigned it to RagA/B; later biochemistry (SHE2018B) found an unusual GEF activity toward RagC instead, with SLC38A9 acting on RagA. That GEF role rests on fewer independent studies than the tethering function, and how much each activity matters in different nutrient states is open.</p>
 <p class="summary">This is the step that makes the rest of the pathway make sense. Signalling here is not chemistry in free solution – it is a set of mechanisms for putting particular molecules in particular places. Location is the regulated variable.</p></li><li class="step">
 <p class="step-what"><strong>6. The Rags recruit mTORC1 to the lysosome. They do not switch it on.</strong>
 <a class="step-jump" href="#int-rag-mtorc1">mechanism &darr;</a></p>
@@ -455,7 +455,7 @@ full interaction reference table below.</p>
 <p>Serine phosphorylation of IRS-1 creates a degradation signal. The adaptor that connected the receptor to PI3K is removed.</p>
 <p><em>IRS-1 protein levels fall. The input arm of this very route is dismantled.</em> PI3K recruitment drops, Akt activity falls, and the growth signal decays – even though the hormone is still present.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, multiple supporting studies. Cell-line evidence, so human relevance graded plausible, though the clinical consequence is well documented.</p>
-<p class="summary">This is negative feedback, and it is the most clinically consequential loop in the pathway. Block mTORC1 with a rapalog and you also block this loop – so IRS-1 survives, PI3K/Akt reactivate, and the tumour you were treating gets a growth signal back. A large part of why rapalog monotherapy underperforms is visible in this single arrow. Note which way round the loop runs: it is mTORC1 ACTIVITY that destroys IRS-1, so the loop is a mechanism of insulin resistance under nutrient excess – the drug relieves it.</p></li><li class="step">
+<p class="summary">This is negative feedback, and one of the best-characterised and most clinically important loops in the pathway (Grb10 and the MAPK reroute are parallel ones). Block mTORC1 with a rapalog and you also block this loop – so IRS-1 survives, PI3K/Akt reactivate, and the tumour you were treating gets a growth signal back. A large part of why rapalog monotherapy underperforms is visible in this single arrow. Note which way round the loop runs: it is mTORC1 ACTIVITY that destroys IRS-1, so the loop is a mechanism of insulin resistance under nutrient excess – the drug relieves it.</p></li><li class="step">
 <p class="step-what"><strong>8. IRS-1 recruits PI3K – closing the loop back to step one.</strong>
 <a class="step-jump" href="#int-irs1-pi3k">mechanism &darr;</a></p>
 <p>IRS-1 is the scaffold that brings PI3K to the activated receptor. Its abundance sets how much signal gets through.</p>
@@ -470,7 +470,7 @@ full interaction reference table below.</p>
 <h2>Why doesn&#x27;t rapamycin switch mTOR off completely?</h2>
 <p class="meta">Rapamycin – what it actually blocks</p>
 <p class="summary">Rapamycin was the drug that discovered this pathway, and for a decade it was treated as *the* mTOR inhibitor. But cells treated with rapamycin keep doing some of the things mTORC1 drives. Why does a drug that clearly hits mTOR fail to stop all of its outputs?</p>
-<p>The drug is a two-part molecule: rapamycin alone does nothing, rapamycin+FKBP12 blocks mTORC1 – but only partially, which is why 4E-BP1 stays half-phosphorylated. The dashed arrow to mTORC2 is the one everyone gets wrong: it does not exist acutely, only after days of exposure. That single time-dependence separates the benefit from the side effect.</p>
+<p>The drug is a two-part molecule: rapamycin alone does nothing, rapamycin+FKBP12 blocks mTORC1 – but only partially, which is why much of 4E-BP1's phosphorylation persists. The dashed arrow to mTORC2 is the one everyone gets wrong: it does not exist acutely, only after days of exposure. That single time-dependence separates the benefit from the side effect.</p>
 <ol class="step-list">
 <li class="step">
 <p class="step-what"><strong>1. Rapamycin binds FKBP12 – and on its own, does nothing to mTOR.</strong>
@@ -506,9 +506,9 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>6. Losing mTORC2 is one route to insulin resistance.</strong>
 <a class="step-jump" href="#int-mtorc2-insulinres">mechanism &darr;</a></p>
 <p>mTORC2 phosphorylates Akt on S473. Reduce that and insulin signalling degrades, which in mice produces measurable glucose intolerance.</p>
-<p><em>Whole-body glucose handling worsens – an organism-level consequence, not a cellular one.</em> This is the leading mechanistic explanation for the dysglycaemia seen in patients on rapalogs.</p>
+<p><em>Whole-body glucose handling worsens – an organism-level consequence, not a cellular one.</em> In mice this is a leading mechanistic explanation for rapamycin-induced glucose intolerance. Whether it explains the dysglycaemia seen in patients on rapalogs is not settled.</p>
 <p class="tier-why">Certainty: Mouse data (A – animal), medium mechanistic confidence. In humans the relative contributions of mTORC2 loss, S6K1–IRS-1 feedback and direct beta-cell effects are unresolved – so attributing the clinical side effect to this one mechanism overstates what is known.</p>
-<p class="summary">The most common serious side effect of the drug may be caused by the arm the textbook says the drug does not hit. If chronic rapamycin does reach mTORC2, then the &#x27;selective mTORC1 inhibitor&#x27; framing is not just imprecise, it is clinically misleading.</p></li><li class="step">
+<p class="summary">mTORC2 disruption is one plausible contributor to the metabolic side effects of rapalogs, and in mice it is a well-supported one. Its share in people is unresolved, alongside S6K1–IRS-1 feedback and direct beta-cell effects. Either way, &#x27;selective mTORC1 inhibitor&#x27; describes acute treatment, and stretching it to chronic therapy is imprecise.</p></li><li class="step">
 <p class="step-what"><strong>7. And still, rapamycin extends lifespan in mice.</strong>
 <a class="step-jump" href="#int-rapa-longevity">mechanism &darr;</a></p>
 <p>Reproducibly, across genetically heterogeneous strains, at multiple independent sites, including when started late in life.</p>
@@ -675,7 +675,7 @@ full interaction reference table below.</p>
 <li class="step">
 <p class="step-what"><strong>1. Lose the TSC brake and mTORC1 runs unopposed.</strong>
 <a class="step-jump" href="#int-tsc-mtorc1">mechanism &darr;</a></p>
-<p>TSC never touches mTORC1 – it acts on Rheb. This arrow is a deliberate two-step compression, drawn as one link so the clinical story reads cleanly.</p>
+<p>TSC does not directly inhibit mTORC1. Its canonical target is Rheb, whose GTP state controls mTORC1 activation. This arrow is a deliberate two-step compression, drawn as one link so the clinical story reads cleanly.</p>
 <p><em>Without TSC, Rheb stays GTP-loaded and mTORC1 stays on even when no growth factor says it should. Note what this does not mean: TSC2-null cells still need amino acids and still respond to energy stress, so the input that has been lost is the growth-factor one, not every input.</em> Growth signalling becomes constitutive rather than conditional.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, and this is the one place in the whole map where human genetics establishes causality: TSC1/TSC2 loss causes disease in people.</p>
 <p class="summary">Every other arm of this pathway is inferred from cells and mice. This one is inferred from patients. That difference is why tuberous sclerosis is the setting where mTOR inhibitors work best – the drug is aimed at the actual cause.</p></li><li class="step">
@@ -922,7 +922,7 @@ full interaction reference table below.</p>
 <p><em>Nothing. This is uncertainty propagating along a chain.</em> Metformin&#x27;s mTOR-lowering effect is real and reproducible; its mechanism is not settled, and the two facts are often conflated.</p>
 <p class="tier-why">Certainty: Contested, low mechanistic confidence, indirect. Cited across mammalian cells and mice.</p>
 <p class="summary">Uncertainty compounds along a path, and no pathway diagram shows that. If a route has three steps at medium confidence, the endpoint is not medium confidence. The Atlas grades each step but cannot yet grade a PATH – a genuine limitation of this design, worth naming.</p></li><li class="step">
-<p class="step-what"><strong>7. Whether chronic rapamycin hits mTORC2 rests on a single study in this corpus.</strong>
+<p class="step-what"><strong>7. Whether chronic rapamycin hits mTORC2 rests on two studies in this corpus: cell lines (SAR2006) and mouse liver (LAM2012). No study here tests it directly in people.</strong>
 <a class="step-jump" href="#int-rapa-mtorc2">mechanism &darr;</a></p>
 <p>Prolonged exposure was reported to disrupt mTORC2 assembly in some cell types. It is not the acute, direct inhibition seen with mTORC1, and it is not universal.</p>
 <p><em>Nothing acutely. Over weeks, possibly a great deal.</em> The textbook claim &#x27;rapamycin inhibits mTORC1 but not mTORC2&#x27; is a statement about acute treatment being applied to chronic therapy.</p>
@@ -1027,7 +1027,7 @@ full interaction reference table below.</p>
 <a class="step-jump" href="#int-mtorc1-mapk">mechanism &darr;</a></p>
 <p>mTORC1 inhibition activates ERK in a PI3K-dependent manner. CAR2008 traces it through the same S6K1–PI3K–Ras relay that carries the IRS-1 escape, so this is a second OUTPUT of one feedback circuit rather than a separate circuit.</p>
 <p><em>ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.</em> The drug now faces two reroutes with a shared root. Because they share it, blocking PI3K upstream can close both – while blocking only the IRS-1 arm leaves the MAPK output open.</p>
-<p class="tier-why">Certainty: High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that the pathway&#x27;s most clinically consequential feedback was missing from the graph.</p>
+<p class="tier-why">Certainty: High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that one of the pathway&#x27;s most clinically important feedback arms was missing from the graph.</p>
 <p class="summary">Redundancy is the theme of this pathway and it cuts both ways. The same architecture that makes the cell robust makes the tumour robust. This is the mechanistic rationale for combining mTOR inhibition with MEK inhibition rather than escalating the mTOR dose.</p></li><li class="step">
 <p class="step-what"><strong>11. So build a drug that occupies the site instead of obstructing it.</strong>
 <a class="step-jump" href="#int-torin-mtorc1">mechanism &darr;</a></p>
@@ -2078,7 +2078,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-08 16:01 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-09 09:40 Prague time</div>
 </footer>
 </div>
 </body>
