@@ -1961,7 +1961,7 @@ def about_page(studies, entities, bio=None):
     bc = breadcrumb_ld([("Oliver's mTOR Atlas", SITE + "/"),
                         ("About & Methodology", None)])
 
-    # 2026-09-27: My research focus zila kratce primo tady jako sekce
+    # 2026-09-27: Oliver's research focus zila kratce primo tady jako sekce
     # (#research-focus) -- Petr chtel misto toho VLASTNI stranku v About
     # submenu, ne kotvu v prostred jineho dokumentu (stejny duvod, proc uz
     # drive dostala vlastni stranku Methodology, viz split_methodology()
@@ -1973,7 +1973,7 @@ def about_page(studies, entities, bio=None):
     research_focus_html = ""
     if bio:
         research_focus_html = (
-            f'\n<p><a href="{SITE}/about/research-focus/">My research focus &rarr;</a> '
+            f'\n<p><a href="{SITE}/about/research-focus/">Oliver\'s research focus &rarr;</a> '
             f'&mdash; the studies he is watching most closely right now, the frontier questions '
             f'they grow out of, and clinical trials or preprints not yet in the graded corpus.</p>\n')
 
