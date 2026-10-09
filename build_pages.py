@@ -1874,8 +1874,23 @@ def events_page(events):
         sections.append(f'<h2>Upcoming ({len(upcoming)})</h2>'
                          + "".join(block(ev) for ev in upcoming))
     if past:
-        sections.append(f'<h2>Past ({len(past)})</h2>'
-                         + "".join(block(ev) for ev in past))
+        # A meeting that has happened is not dropped, only filed under its year:
+        # the Past list is split into per-year subheadings, newest first, so it
+        # stays readable as the history grows. Upcoming stays one chronological
+        # run -- a year heading would sort nothing there.
+        sections.append(f'<h2>Past ({len(past)})</h2>')
+        years = sorted({(ev.get("start") or "")[:4] for ev in past
+                        if (ev.get("start") or "")}, reverse=True)
+        for year in years:
+            in_year = [ev for ev in past
+                       if (ev.get("start") or "").startswith(year)]
+            sections.append(f'<h3 class="ev-year">{e(year)} '
+                             f'<span>({len(in_year)})</span></h3>'
+                             + "".join(block(ev) for ev in in_year))
+        undated = [ev for ev in past if not (ev.get("start") or "")]
+        if undated:
+            sections.append('<h3 class="ev-year">Undated</h3>'
+                             + "".join(block(ev) for ev in undated))
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "mTOR conferences & meetings | Oliver's mTOR Atlas", "url": url,
@@ -1892,6 +1907,9 @@ events alongside the Atlas's own study corpus.</p>
 {"".join(sections)}
 """
     extra_css = """
+h3.ev-year{font-family:var(--font-mono);font-size:13px;letter-spacing:.09em;
+  margin:30px 0 16px;font-weight:600}
+h3.ev-year span{font-weight:400;color:var(--soft)}
 .ev-block{margin:0 0 28px;padding-bottom:22px;border-bottom:1px solid var(--line)}
 .ev-block:last-child{border-bottom:none}
 .ev-block h3{margin:0 0 6px;font-size:18px}
