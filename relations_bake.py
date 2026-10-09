@@ -79,6 +79,14 @@ F = {
     "note":      "fld7EsGhaQpq2wsL3",   # Public_Note (Curator_Note je interní, sem nejde)
     "reviewed_by": "fldEtYjqttqLnyMOo",
     "reviewed_on": "fldPmuUDe0FMVqucp",
+    # 2026-10-09: kontrola vazby vedcem MIMO kuratorsky tym ("Checked by").
+    # Vnitrni kontrola kuratora zustava v Reviewed_By/Reviewed_On.
+    # Check_Note je interni a do bake nejde.
+    "checked_by": "fldjzsjJhnZ4NikQG",
+    "checked_aff": "fldhsjginok94wYP6",
+    "checked_on": "fldyoWgjJABvTG9Be",
+    "check_outcome": "fldUEmizcX4mBvO2X",
+    "check_consent": "fldXEbhgCUTlsKHic",
 }
 F_STUDY_SID = "fldnmqtOHZ0luHRiI"
 F_ENTITY_NAME = "fldh3zgrLDjLi1szC"
@@ -190,6 +198,13 @@ def normalize(records, sid_by_rec=None, entity_by_rec=None):
             "context": _name(g("context")) or "",
             "reviewed_by": _name(g("reviewed_by")) or "",
             "reviewed_on": _name(g("reviewed_on")) or "",
+            # Bez vyslovneho souhlasu se o externi kontrole nepublikuje nic.
+            "checked": ({"by": _name(g("checked_by")).strip(),
+                         "affiliation": (_name(g("checked_aff")) or "").strip() or None,
+                         "date": _name(g("checked_on")) or None,
+                         "outcome": _name(g("check_outcome")) or None}
+                        if g("check_consent") and (_name(g("checked_by")) or "").strip()
+                        else None),
         }
         derived = set()
         if TIMEDEP_TAG.get(timedep):

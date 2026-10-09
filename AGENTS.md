@@ -85,7 +85,8 @@ port the steps deliberately; do not improvise a partial pipeline.
    `atlas_data/author_bios_baked.json` (author profiles),
    `atlas_data/oliver_bio_baked.json` (Oliver's bio, `focus_studies`,
    `thanks[]`, `on_the_horizon`), `data/branches.json`,
-   `academy_data/*.json`.
+   `academy_data/*.json`, `atlas_data/drug_pipeline.json` (/pipeline/ page,
+   hand-curated, every status sourced and dated).
 2. **Pathway edges** come only from Airtable `Relations`
    (`sync_relations.py`). Pathway nodes live in code
    (`build_pathway_model.py`). After touching edges, run

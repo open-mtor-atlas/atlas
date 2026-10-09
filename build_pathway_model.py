@@ -1680,6 +1680,9 @@ def main():
                        "reviewed": e.get("reviewed_on") or None,
                        "updated": e.get("reviewed_on") or None,
                        "status": e.get("status") or "Proposed"},
+            # 2026-10-09: "Checked by" = vedec mimo kuratorsky tym, jen se
+            # souhlasem (Check_Consent v Airtable). None = nikdo zvenku.
+            "checked": e.get("checked") or None,
         })
 
     ix = {i["id"]: i for i in interactions}

@@ -202,7 +202,11 @@ def curation_state(edges):
     # nerecenzovaná jako Proposed. Recenzovaná je jen Confirmed.
     return {"counts": dict(c), "total": len(edges),
             "unreviewed": len(edges) - c.get("Confirmed", 0),
-            "proposed": c.get("Proposed", 0), "contested": c.get("Contested", 0)}
+            "proposed": c.get("Proposed", 0), "contested": c.get("Contested", 0),
+            # 2026-10-09: kontrola vedcem mimo projekt, jen se souhlasem
+            # (relations_bake.py dava "checked" jen pri Check_Consent).
+            "checked": sorted(((x["id"], x["checked"]) for x in edges if x.get("checked")),
+                              key=lambda t: (t[1].get("date") or "", t[0]))}
 
 
 def null_results(studies, edges):
@@ -450,6 +454,21 @@ def render(cfg, m):
       'reviewed or not, names the studies it stands on, so the claim can be checked '
       'against the papers rather than taken on trust.</div>'
       % (cur["unreviewed"], cur["total"], cur["contested"], cur["proposed"]))
+    chk = cur["checked"]
+    A('<p><b>Checked by a researcher outside the project: %d of %d links.</b> '
+      'When a scientist whose own work supports a link checks it, their name is '
+      'listed here and on the link\'s page, only with their permission.</p>' % (len(chk), cur["total"]))
+    if chk:
+        A('<ul>')
+        for rid, c in chk:
+            who = e(c.get("by") or "")
+            if c.get("affiliation"):
+                who += ", " + e(c["affiliation"])
+            A('<li><a href="/relation/%s/">%s</a>: %s%s%s</li>'
+              % (e(rid), e(rid), who,
+                 (" &middot; " + e(c["date"][:7])) if c.get("date") else "",
+                 (" &middot; " + e(c["outcome"].lower())) if c.get("outcome") else ""))
+        A('</ul>')
 
     # --- 8. what this does not measure ---
     A('<h2 id="limits">What this audit does not measure</h2>')
@@ -596,6 +615,7 @@ def _report(m):
     print("na jediné studii:  %d (%.0f %%)" % (sng["n"], sng["pct"]))
     print("s hranicí platnosti: %d (%.0f %%)" % (bnd["n"], bnd["pct"]))
     print("nerecenzováno:     %d z %d" % (cur["unreviewed"], cur["total"]))
+    print("checked by (ext.): %d" % len(cur["checked"]))
     print("null results:      %d studií, %d hran se znaménkem no-effect"
           % (m["nulls"]["studies"], m["nulls"]["edges"]))
 

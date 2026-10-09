@@ -1,0 +1,155 @@
+{
+  "_readme": "Curated by hand (strategy A9, 2026-10-09). Rendered at /pipeline/ by Atlas_v2 (src/pages/pipeline.astro, synced by scripts/sync_data.py). Rules: no ranking of companies, no investment language, every status line has a source and a checked date; re-check monthly in the daily check. 'atlas_studies' lists only SIDs that exist in studies_baked.json.",
+  "as_of": "2026-10-09",
+  "intro": "Drugs that act on mTOR and are in clinical or late preclinical development, with what the Atlas's own evidence says about the reason each one exists. The common thread is one problem: rapamycin and its relatives block mTORC1, but with long exposure they also block mTORC2, and in mice the insulin resistance rapamycin causes is traced to that second hit (LAM2012).",
+  "groups": [
+    {
+      "id": "selective",
+      "title": "Selective mTORC1 inhibitors",
+      "note": "Built to block mTORC1 without touching mTORC2.",
+      "items": [
+        {
+          "name": "AV078",
+          "sponsor": "Aeovian Pharmaceuticals (Berkeley, USA)",
+          "kind": "Selective mTORC1 inhibitor that reaches the brain",
+          "stage": "Phase 2",
+          "status": "Phase 1 in healthy adults completed (89 participants). A placebo-controlled phase 2 in tuberous sclerosis complex with drug-resistant epilepsy is registered, not yet recruiting, 42 planned participants. The company raised a $55 million Series B in December 2025 to fund that phase 2.",
+          "trials": ["NCT06205381", "NCT07680322"],
+          "atlas_studies": [],
+          "atlas_says": "No study on AV078 is in the Atlas yet. The reason a brain-penetrant mTORC1 inhibitor is tried in tuberous sclerosis is covered: everolimus shrinks TSC brain and kidney tumours in randomised trials (FRA2013, BIS2013), while a 2026 trial found no clear benefit on cognition (SAX2026).",
+          "related_studies": ["FRA2013", "BIS2013", "SAX2026"],
+          "sources": [
+            {"title": "ClinicalTrials.gov NCT07680322", "url": "https://clinicaltrials.gov/study/NCT07680322"},
+            {"title": "ClinicalTrials.gov NCT06205381", "url": "https://clinicaltrials.gov/study/NCT06205381"},
+            {"title": "Business Wire, 16 Dec 2025: Aeovian raises $55 million", "url": "https://www.businesswire.com/news/home/20251216261885/en/"}
+          ],
+          "checked": "2026-10-09"
+        },
+        {
+          "name": "RMC-5552",
+          "sponsor": "Revolution Medicines (Redwood City, USA)",
+          "kind": "Bi-steric mTORC1-selective inhibitor (binds both the rapamycin site and the kinase site)",
+          "stage": "Phase 1, no development reported",
+          "status": "First-in-human dose-escalation trial in advanced solid tumours completed. A phase 1 trial in recurrent glioblastoma was terminated in April 2026 because the drug was no longer provided by the sponsor. AdisInsight lists no development reported as of May 2026.",
+          "trials": ["NCT04774952", "NCT05557292"],
+          "atlas_studies": ["SCH2025", "MEN2023"],
+          "atlas_says": "In the phase 1 trial (57 patients, no comparison arm) high blood sugar caused by treatment was uncommon (4%) and not dose-limiting (SCH2025). That fits the idea that sparing mTORC2 avoids metabolic side effects, but an uncontrolled trial cannot show it. The preclinical basis, its sister compound RMC-6272 in breast cancer models, is MEN2023.",
+          "related_studies": ["LAM2012"],
+          "sources": [
+            {"title": "ClinicalTrials.gov NCT04774952", "url": "https://clinicaltrials.gov/study/NCT04774952"},
+            {"title": "ClinicalTrials.gov NCT05557292", "url": "https://clinicaltrials.gov/study/NCT05557292"},
+            {"title": "AdisInsight: RMC-5552", "url": "https://adisinsight.springer.com/drugs/800055305"}
+          ],
+          "checked": "2026-10-09"
+        },
+        {
+          "name": "TOR-101",
+          "sponsor": "Tornado Therapeutics (a Cambrian Bio company)",
+          "kind": "Selective mTORC1 inhibitor from a rapalog portfolio licensed from Novartis",
+          "stage": "Before phase 1",
+          "status": "Cambrian Bio lists TOR-101 as \"Phase 1 Prepared\" for healthspan and intrinsic capacity, and says its platform received up to $30.8 million from ARPA-H's PROSPR programme. No TOR-101 trial was found on ClinicalTrials.gov.",
+          "trials": [],
+          "atlas_studies": [],
+          "atlas_says": "No study on TOR-101 is in the Atlas. The case for an mTORC1-only drug in ageing rests on mouse work: chronic rapamycin also disrupts mTORC2 and causes insulin resistance, while lowering mTORC1 alone extended lifespan in female mice without it (LAM2012).",
+          "related_studies": ["LAM2012", "SAR2006"],
+          "sources": [
+            {"title": "Cambrian Bio pipeline", "url": "https://www.cambrianbio.com/pipeline"}
+          ],
+          "checked": "2026-10-09"
+        },
+        {
+          "name": "DL001",
+          "sponsor": "Academic (University of Wisconsin-Madison, Buck Institute)",
+          "kind": "Rapamycin analogue about 40 times more selective for mTORC1 than rapamycin",
+          "stage": "Preclinical",
+          "status": "Published in mice in 2019: inhibited mTORC1 without impairing glucose homeostasis and with reduced or no effects on lipid metabolism and the immune system. No clinical trial found.",
+          "trials": [],
+          "atlas_studies": [],
+          "atlas_says": "Not yet in the Atlas.",
+          "related_studies": ["LAM2012"],
+          "sources": [
+            {"title": "Schreiber et al., Nat Commun 2019", "url": "https://doi.org/10.1038/s41467-019-11174-0"}
+          ],
+          "checked": "2026-10-09"
+        }
+      ]
+    },
+    {
+      "id": "rapalogs-ageing",
+      "title": "Approved rapalogs tested against ageing",
+      "note": "Sirolimus (rapamycin) and everolimus are approved drugs. These trials ask whether a dose or schedule exists that helps older people without the side effects.",
+      "items": [
+        {
+          "name": "Everolimus, EVERLAST",
+          "sponsor": "University of Wisconsin-Madison, funded by the National Institute on Aging",
+          "kind": "Rapalog (inhibits mTORC1; with long exposure also mTORC2)",
+          "stage": "Phase 2, completed",
+          "status": "106 participants aged 55 to 80 with insulin resistance, 24 weeks of daily 0.5 mg or weekly 5 mg everolimus against placebo. Primary outcome: insulin sensitivity. Completed July 2026; no results posted yet.",
+          "trials": ["NCT05835999"],
+          "atlas_studies": [],
+          "atlas_says": "The Atlas has no result yet. The daily-versus-weekly comparison follows mouse work in which intermittent rapamycin largely spared glucose control and the immune system while still inhibiting mTORC1 (ARR2015) and, started late in life, extended female lifespan (ARR2016).",
+          "related_studies": ["ARR2015", "ARR2016", "LAM2012"],
+          "sources": [
+            {"title": "ClinicalTrials.gov NCT05835999", "url": "https://clinicaltrials.gov/study/NCT05835999"}
+          ],
+          "checked": "2026-10-09"
+        },
+        {
+          "name": "Sirolimus and everolimus, RAP PAC",
+          "sponsor": "University of Wisconsin-Madison, funded by the NIH and the National Institute on Aging",
+          "kind": "Rapalogs, once-weekly dosing",
+          "stage": "Phase 1, recruiting",
+          "status": "Dose-finding: 5, 10 or 15 mg once a week for 6 weeks in adults aged 55 to 89, measuring drug levels, mTOR signalling in blood and muscle, and side effects. Primary completion expected March 2027.",
+          "trials": ["NCT05949658"],
+          "atlas_studies": [],
+          "atlas_says": "This is the trial behind the open question of which weekly dose inhibits mTORC1 in older people while sparing mTORC2. See the Atlas page on rapamycin for the human studies so far.",
+          "related_studies": [],
+          "link": {"title": "Rapamycin in the Atlas", "url": "/drug/rapamycin/"},
+          "sources": [
+            {"title": "ClinicalTrials.gov NCT05949658", "url": "https://clinicaltrials.gov/study/NCT05949658"}
+          ],
+          "checked": "2026-10-09"
+        }
+      ]
+    },
+    {
+      "id": "stopped",
+      "title": "Stopped or failed",
+      "note": "Kept here on purpose. A failure is information.",
+      "items": [
+        {
+          "name": "RTB101 (dactolisib, BEZ235)",
+          "sponsor": "resTORbio (licensed from Novartis)",
+          "kind": "Described by the sponsor as a TORC1 inhibitor; chemically BEZ235, a catalytic PI3K/mTOR inhibitor",
+          "stage": "Phase 3, failed (2019)",
+          "status": "PROTECTOR 1 randomised 1,024 adults aged 65 and over to RTB101 10 mg or placebo daily for 16 weeks. It did not reduce clinically symptomatic respiratory illness, and development for that use stopped in November 2019.",
+          "trials": [],
+          "atlas_studies": ["MAN2018", "MAN2021"],
+          "atlas_says": "The phase 2a with low-dose BEZ235 plus everolimus was associated with fewer infections (MAN2018). The phase 3 moved the antiviral-gene biomarker but not the clinical outcome (MAN2021). The Atlas uses it as the clearest case of a biomarker that did not become a benefit.",
+          "related_studies": ["MAN2014"],
+          "sources": [
+            {"title": "resTORbio press release via BioSpace, 15 Nov 2019", "url": "https://www.biospace.com/restorbio-announces-that-the-phase-3-protector-1-trial-of-rtb101-in-clinically-symptomatic-respiratory-illness-did-not-meet-the-primary-endpoint"}
+          ],
+          "checked": "2026-10-09"
+        },
+        {
+          "name": "SPN-820 (NV-5138)",
+          "sponsor": "Supernus Pharmaceuticals (from Navitor Pharmaceuticals)",
+          "kind": "The opposite direction: an mTORC1 activator, binding Sestrin2, developed for depression",
+          "stage": "Phase 2b, failed (2025)",
+          "status": "In about 250 adults with treatment-resistant depression, 4 weeks of SPN-820 did not beat placebo on the MADRS depression scale (change -12.3 versus -11.9). Announced February 2025.",
+          "trials": ["NCT05066672"],
+          "atlas_studies": [],
+          "atlas_says": "No clinical study of NV-5138 is in the Atlas. It appears only as a laboratory tool for switching mTORC1 on (RAUCH2026).",
+          "related_studies": ["RAUCH2026"],
+          "sources": [
+            {"title": "Psychiatric Times, 20 Feb 2025", "url": "https://www.psychiatrictimes.com/view/spn-820-fails-to-meet-primary-endpoint-in-study-of-adults-with-treatment-resistant-depression"},
+            {"title": "ClinicalTrials.gov NCT05066672", "url": "https://clinicaltrials.gov/study/NCT05066672"}
+          ],
+          "checked": "2026-10-09"
+        }
+      ]
+    }
+  ],
+  "approved_note": "Already approved and not listed above: sirolimus (transplant rejection, lymphangioleiomyomatosis), everolimus (several cancers, tuberous sclerosis tumours and seizures, transplant), temsirolimus (kidney cancer) and nab-sirolimus (PEComa). See the drug pages in the Atlas."
+}

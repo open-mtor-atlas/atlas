@@ -692,6 +692,8 @@ if exist "atlas_fulltext\chunk_index.json" git add atlas_fulltext\chunk_index.js
 if exist "atlas_data\studies_baked.json" git add atlas_data\studies_baked.json
 if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
 if exist "atlas_data\events_baked.json" git add atlas_data\events_baked.json
+REM  2026-10-09: rucne kurovany JSON pro /pipeline/ (Atlas_v2 sync_data.py ho cte z origin/main).
+if exist "atlas_data\drug_pipeline.json" git add atlas_data\drug_pipeline.json
 
 REM  2026-08-15: author/, condition/, question/ + sitemap-authors.xml,
 REM  sitemap-questions.xml, llms.txt, atlas_data\author_bios_baked.json were

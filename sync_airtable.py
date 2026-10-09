@@ -110,6 +110,9 @@ def fetch_studies():
             # nesynchronizovana data od neklasifikovane studie.
             "readout": list(f.get("Signal_Readout") or []),
             "readout_evidence": g(f, "Signal_Readout_Evidence"),
+            # 9. 10. 2026 (strategie dosahu A11): Oliverova vlastni poznamka ke
+            # studii, v prvni osobe. Pise ji jen Oliver; prazdne = nic se neukaze.
+            "oliver_note": g(f, "Oliver_Note"), "oliver_note_date": g(f, "Oliver_Note_Date"),
         })
     return arr
 
