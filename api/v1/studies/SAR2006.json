@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T16:24:44+0200",
-  "source_commit": "4d329380fafe7e45eadcf2d9e3436d29071183b9",
+  "corpus_snapshot": "2026-10-10T17:17:37+0200",
+  "source_commit": "b8a9a0b35b60b4998394d5576dce632659cfaef7",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -27,7 +27,7 @@
   "category": "Mechanism",
   "model_system": "Multiple human/mouse cell lines",
   "peer_reviewed": true,
-  "finding": "The molecular explanation for rapamycin's dark side. Short-term rapamycin only hits mTORC1, but LONG-term treatment also strips down mTORC2 in many cells, cutting Akt signaling. This is the mechanistic root of the insulin-resistance side effect later shown in mice (see Lamming 2012) - crucial for anyone dosing rapamycin for longevity.",
+  "finding": "The molecular explanation for rapamycin's dark side. Short-term rapamycin only hits mTORC1, but prolonged treatment can also inhibit the assembly of NEW mTORC2 in susceptible cell types, reducing mTORC2 abundance and cutting Akt signaling over time. The wording matters: this is prevention of new assembly, not the dismantling of complexes already built, and the response depends on cell context and length of exposure. This is the mechanistic root of the insulin-resistance side effect later shown in mice (see Lamming 2012) - crucial for anyone dosing rapamycin for longevity.",
   "url": "https://mtor-atlas.org/study/SAR2006/",
   "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2006.json",
   "abstract_excerpt": "The drug rapamycin has important uses in oncology, cardiology, and transplantation medicine, but its clinically relevant molecular effects are not understood. When bound to FKBP12, rapamycin interacts with and inhibits the kinase activity of a multiprotein complex composed of mTOR, mLST8, and raptor (mTORC1). The distinct complex of mTOR, mLST8, and rictor (mTORC2) does not interact with FKBP12-rapamycin and is not thought to be rapamycin sensitive. mTORC2 phosphorylates and activates Akt/PKB, a key regulator of cell survival.",
@@ -37,6 +37,11 @@
    "target": "mTORC2 / Akt",
    "species": "Multiple human/mouse cell lines",
    "effect": "Prolonged rapamycin inhibits mTORC2 assembly and Akt/PKB in some cells – mTORC2 is not always rapamycin-insensitive"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
   },
   "entities": [
    {
