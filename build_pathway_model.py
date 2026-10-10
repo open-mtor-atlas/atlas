@@ -1899,6 +1899,28 @@ def main():
     for n in nodes:
         n.update(coords.get(n["id"], {"x": 700, "y": 400}))
 
+    # ---- nekauzalni typy vazeb -------------------------------------------
+    # Re-audit 2026-10-10: MTORC1-RCC ma Interaction_Type = association, ale
+    # Sign = activates, a SEST povrchu si z `effect` skladalo vetu
+    # "mTORC1 activates Renal cell carcinoma (RCC)" -- staticka tabulka,
+    # stranky obou podpurnych studii, ctyri academy stranky a sipka na mape.
+    # Oprava z 10. 10. zasahla jen `claim` a nadpis stranky vazby, takze
+    # tvrzeni zustalo ulozene kauzalne a jen se na jednom miste jinak
+    # vypisovalo. Proto se to resi TADY, v jedinem bode, odkud to cte
+    # model.json: nekauzalni typ dostane nekauzalni `effect`, a kurátorské
+    # znaménko z Airtable zustava dohledatelne v `sign_curatorial`.
+    # `clinical-outcome` se ZAMERNE nemeni -- tam je smer efektu vysledkem
+    # studie ("everolimus inhibits breast cancer"), ne kauzalni domnenkou.
+    NON_CAUSAL_TYPES = {"association", "correlation", "co-occurrence"}
+    NON_CAUSAL_EFFECT = "associated-with"
+    for _i in interactions:
+        if (_i.get("type") or "") in NON_CAUSAL_TYPES:
+            _sign = _i.get("effect")
+            if _sign and _sign != NON_CAUSAL_EFFECT:
+                _i["sign_curatorial"] = _sign
+            _i["effect"] = NON_CAUSAL_EFFECT
+            _i["causal"] = False
+
     # ---- pocty do textu tras ---------------------------------------------
     # A21 (audit 2026-10-10): trasa "open" o sobe tvrdila, ze jeji cisla jsou
     # pocitana z modelu, ale byla zapsana natvrdo v retezci -- a uz se

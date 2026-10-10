@@ -38,7 +38,7 @@
   "@type": "Dataset",
   "name": "Oliver's mTOR Atlas",
   "url": "https://mtor-atlas.org/",
-  "description": "A curated, evidence-graded database of mTOR pathway research in which every claim carries its source, the conditions it was measured under, and the point where its validity ends. Over 350 peer-reviewed primary studies, each labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus named knowledge gaps and testable hypotheses — what the literature has tested and failed to show, and what it has not tested at all.",
+  "description": "A curated, evidence-graded database of mTOR pathway research in which every claim carries its source, the conditions it was measured under, and the point where its validity ends. Over 350 published studies, each labelled by the kind of study behind it (S = synthesis of human data, H = human study, A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge graph of genes, diseases and interventions, plus named knowledge gaps and testable hypotheses — what the literature has tested and failed to show, and what it has not tested at all.",
   "identifier": "https://doi.org/10.5281/zenodo.22059963",
   "sameAs": [
    "https://doi.org/10.5281/zenodo.22059963",
@@ -71,14 +71,14 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "922534"
+    "contentSize": "923088"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1122893"
+    "contentSize": "1123447"
    },
    {
     "@type": "DataDownload",
@@ -1253,7 +1253,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/gator1/">GATOR1</a></td>
 <td data-l="Type">binding</td>
-<td data-l="Mechanism"><span class="lv-beginner">GATOR2 shuts down GATOR1 – a brake acting on another brake. That double-negative is part of why the switch flips on so sharply, though exactly how isn&#x27;t fully worked out yet.</span><span class="lv-student">Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.</span><span class="lv-research">Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Everyone agrees GATOR2 holds GATOR1 back when amino acids are around. Exactly how it does it is not settled by the work this Atlas holds, and the gap is left visible on purpose.</span><span class="lv-student">Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.</span><span class="lv-research">Released GATOR2 suppresses GATOR1 - a double negative. Two brakes in series is why the sensors can flip mTORC1 on so sharply.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/BAR2013/">BAR2013</a>, <a href="https://mtor-atlas.org/study/PAR2014/">PAR2014</a>, <a href="https://mtor-atlas.org/study/VAL2022/">VAL2022</a></td>
 </tr><tr id="int-gln-rag">
@@ -1359,7 +1359,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Type">signal-relay</td>
 <td data-l="Mechanism"><span class="lv-beginner">Metformin shifts the cell&#x27;s energy balance and switches AMPK on – its best-known route to affecting this pathway.</span><span class="lv-student">Metformin shifts the cell&#x27;s energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.</span><span class="lv-research">Metformin shifts the cell&#x27;s energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/ZHO2001/">ZHO2001</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/ZHO2001/">ZHO2001</a> <span class="tier-why">(conflicting: KAL2010)</span></td>
 </tr><tr id="int-metformin-mtorc1">
 <td data-l="Source"><a href="/drug/metformin/">Metformin</a></td>
 <td data-l="Effect">inhibits</td>
@@ -1442,7 +1442,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/MAJ2004/">MAJ2004</a></td>
 </tr><tr id="int-mtorc1-rcc">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
-<td data-l="Effect">activates</td>
+<td data-l="Effect">is associated with</td>
 <td data-l="Target"><a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC)</a></td>
 <td data-l="Type">association</td>
 <td data-l="Mechanism"><span class="lv-beginner">Many kidney cancers carry changes that leave mTORC1 stuck &quot;on&quot;, which is why this cancer responds to mTOR-blocking drugs at all. In one large trial, people with advanced kidney cancer lived longer on temsirolimus; in another, everolimus slowed the cancer&#x27;s growth for a few months. Responding to the drug is not proof that mTORC1 started the cancer.</span><span class="lv-student">Renal cancers frequently carry lesions that leave mTORC1 constitutively active, which is why this tissue responds to mTOR inhibitors. In two phase III trials in metastatic RCC, temsirolimus extended overall survival versus interferon alfa in poor-prognosis patients (HUD2007), and everolimus extended progression-free survival versus placebo after VEGF-targeted therapy (MOT2008). That the tumour responds to the drug is not the same as mTORC1 initiating the cancer.</span><span class="lv-research">Renal cancers frequently carry lesions that leave mTORC1 constitutively active, which is why this tissue responds to mTOR inhibitors. In two phase III trials in metastatic RCC, temsirolimus extended overall survival versus interferon alfa in poor-prognosis patients (HUD2007), and everolimus extended progression-free survival versus placebo after VEGF-targeted therapy (MOT2008). That the tumour responds to the drug is not the same as mTORC1 initiating the cancer.</span></td>
@@ -1885,7 +1885,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span><span class="lv-student">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span><span class="lv-research">Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Reduced nutrient and energy availability is expected to lower mTORC1 through the amino-acid and energy arms at once - the sensors detect scarcity and AMPK detects the falling energy charge. Note what supports that expectation here, because it is less than the claim&#x27;s reputation suggests. No study in this corpus measures mTORC1 under fasting or energy restriction. The single supporting study, SOL2014, fed mice ad libitum across 25 diets and concluded that the macronutrient RATIO, not caloric intake, set lifespan and cardiometabolic health; the mTOR link in it is a correlation between a lower protein-to-carbohydrate ratio and lower hepatic mTOR activation. So the supported variable is dietary protein, not calories, and the measurement is associative rather than interventional.</span><span class="lv-student">Reduced nutrient and energy availability is expected to lower mTORC1 through the amino-acid and energy arms at once - the sensors detect scarcity and AMPK detects the falling energy charge. Note what supports that expectation here, because it is less than the claim&#x27;s reputation suggests. No study in this corpus measures mTORC1 under fasting or energy restriction. The single supporting study, SOL2014, fed mice ad libitum across 25 diets and concluded that the macronutrient RATIO, not caloric intake, set lifespan and cardiometabolic health; the mTOR link in it is a correlation between a lower protein-to-carbohydrate ratio and lower hepatic mTOR activation. So the supported variable is dietary protein, not calories, and the measurement is associative rather than interventional.</span><span class="lv-research">Reduced nutrient and energy availability is expected to lower mTORC1 through the amino-acid and energy arms at once - the sensors detect scarcity and AMPK detects the falling energy charge. Note what supports that expectation here, because it is less than the claim&#x27;s reputation suggests. No study in this corpus measures mTORC1 under fasting or energy restriction. The single supporting study, SOL2014, fed mice ad libitum across 25 diets and concluded that the macronutrient RATIO, not caloric intake, set lifespan and cardiometabolic health; the mTOR link in it is a correlation between a lower protein-to-carbohydrate ratio and lower hepatic mTOR activation. So the supported variable is dietary protein, not calories, and the measurement is associative rather than interventional.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/SOL2014/">SOL2014</a></td>
 </tr><tr id="int-cr-longevity">
@@ -2004,8 +2004,8 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/complex/ragulator/">Ragulator</a></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/cgas-sting-pathway/">cGAS-STING pathway</a></td>
-<td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.</span><span class="lv-student">Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.</span><span class="lv-research">Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.</span></td>
+<td data-l="Type">degradation</td>
+<td data-l="Mechanism"><span class="lv-beginner">Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.</span><span class="lv-student">Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.</span><span class="lv-research">Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LV2026/">LV2026</a></td>
 </tr><tr id="int-cgassting-senescence">
@@ -2081,7 +2081,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 17:17 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 19:43 Prague time</div>
 </footer>
 </div>
 </body>

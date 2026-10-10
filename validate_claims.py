@@ -604,15 +604,31 @@ def check_index(findings):
             for k in ("basis", "hyp", "exp", "title"):
                 scan_absolute(findings, "gap:%s.%s" % (g.get("id"), k), g.get(k))
 
-    # -- ATLAS_RELATIONS
-    m = re.search(r"const ATLAS_RELATIONS = (\[.*?\]);", h, re.S)
-    if m:
+    # -- ATLAS_EDGES
+    # Re-audit 2026-10-10: tahle vetev R5 nikdy nebezela. Hledala
+    # `const ATLAS_RELATIONS`, ktere v index.html neexistuje -- pole se jmenuje
+    # ATLAS_EDGES (127 zaznamu, stejne klice mech/ctx/note). Absolutni jazyk
+    # v proze vazeb tedy nebyl nikdy kontrolovany.
+    m = re.search(r"const ATLAS_EDGES = (\[.*?\]);", h, re.S)
+    if not m:
+        # Nikdy tise neprojit: prave takhle se ta vetev dva mesice tvarila,
+        # ze je v poradku, kdyz hledala neexistujici nazev pole.
+        add(findings, "ERROR", "R5 absolute-language", "index.html", "",
+            "ATLAS_EDGES array not found in index.html, so relation prose was not "
+            "checked for absolute language at all.",
+            "Zkontrolovat nazev pole v index.html a regex v teto funkci.")
+    else:
         try:
-            for r in json.loads(m.group(1)):
+            edges = json.loads(m.group(1))
+        except Exception as exc:
+            add(findings, "ERROR", "R5 absolute-language", "index.html", "",
+                "ATLAS_EDGES array failed to parse (%s), so relation prose was not "
+                "checked for absolute language." % exc,
+                "Opravit JSON v ATLAS_EDGES; dokud neprojde, tahle brana nic nekontroluje.")
+        else:
+            for r in edges:
                 for k in ("mech", "ctx", "note"):
                     scan_absolute(findings, "relation:%s.%s" % (r.get("id"), k), r.get(k))
-        except Exception:
-            pass
 
     # -- ATLAS_ENTITIES
     m = re.search(r"const ATLAS_ENTITIES = (\[.*?\]);", h, re.S)
@@ -1072,8 +1088,24 @@ def check_edge_direction(findings, h):
 # o prvenstvi v oboru.
 PRIORITY = re.compile(
     r"\b(?:"
-    r"the first(?!\s+(?:place|step|steps|half|minute|minutes|hour|hours|thing|things|"
-    r"few|time\b|line\b|author))"
+    # "the first" ma dve uplne jine uziti a jen jedno je tvrzeni o prvenstvi.
+    # Ordinalni uziti = poloha v posloupnosti, planu nebo textu ("prvni ze dvou
+    # duvodu", "prvni predspecifikovana analyza", "prvni krok"). To se
+    # neflaguje -- re-audit 2026-10-10 vecer odhalil tri takove falesne
+    # poplachy v jedne boundary u EVE-IMMUNE, kde "the first prespecified
+    # analysis" je nazev analyzy ze statistickeho planu. Seznam nize je proto
+    # seznam ordinalnich kontextu; tvrzeni o prvenstvi v literature
+    # ("the first to show", "the first study") jim neprojde.
+    # Vyzaduje nasledujici slovo: samotne "the first" na konci vety je vzdy
+    # ordinalni ("not from the first"). A pripousti cislo mezi tim
+    # ("the first 90 minutes").
+    r"the first(?=\s+\w)(?!\s+(?:\d[\d.,]*\s+)?(?:place|step|steps|stage|half|part|parts|minute|minutes|"
+    r"hour|hours|day|days|week|weeks|thing|things|few|time\b|times\b|line\b|lines\b|"
+    r"author|authors|one\b|two\b|three\b|of\s+(?:two|three|the\s+two|the\s+three)|"
+    r"reason|reasons|analysis|analyses|endpoint|endpoints|arm\b|arms\b|cohort|"
+    r"sentence|sentences|clause|paragraph|column|row|rows|entry|item|items|"
+    r"question|questions|draft|version|round|pass\b|attempt|attempts|helix|"
+    r"prespecified|pre-specified|interim|sensitivity|planned))"
     r"|first (?:ever|study|trial|evidence|demonstration)"
     r"|the only(?:\s+[\w-]+){0,5}?\s+(?:study|studies|trial|trials|paper|papers|evidence|"
     r"demonstration|comparison|case|example|report|reports|measurement)"

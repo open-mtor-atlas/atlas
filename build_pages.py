@@ -138,7 +138,7 @@ DATASET_REF = {
     "description": (
         "A curated, evidence-graded database of mTOR pathway research in which every "
         "claim carries its source, the conditions it was measured under, and the point "
-        "where its validity ends. Over 350 peer-reviewed primary studies, each labelled "
+        "where its validity ends. Over 350 published studies, each labelled "
         "by the kind of study behind it (S = synthesis of human data, H = human study, "
         "A = animal model, M = molecular/in-vitro, R = review), linked to a knowledge "
         "graph of genes, diseases and interventions, plus named knowledge gaps and "
@@ -282,6 +282,31 @@ def registry_url(r):
     if re.match(r"^ISRCTN\d+$", r, re.I):
         return "https://www.isrctn.com/" + r.upper()
     return ""
+
+
+_TAG_RE = re.compile(r"</?[a-zA-Z][a-zA-Z0-9-]*(?:\s[^<>]*)?/?>")
+
+
+def _strip_tags(x):
+    """Odstrani HTML tagy, ale NE vedecky zapis. Re-audit 2026-10-10: vzor
+    r"<[^>]+>" sezere jakykoli usek od '<' do nasledujiciho '>', takze
+    'p < 0.001) ... (p > 0.05' zmizi cele. Ve V2 to u SEL2009 smazalo sexovou
+    specificitu z publikovaneho pole. Tag musi zacinat pismenem (pripadne po
+    '/'), takze '< 0.001' i '<0.001' zustanou. Drz synchronne s plain()
+    v Atlas_v2/src/lib/data.ts."""
+    return _TAG_RE.sub("", x or "")
+
+
+def _effect_label(i):
+    """Popisek znamenka do staticke tabulky /pathway/. Re-audit 2026-10-10:
+    tabulka vypisovala `effect` surove, takze zaznam typu association
+    (MTORC1-RCC) se cetl jako "mTORC1 | activates | RCC". Nekauzalni vazba
+    dostane slovni formu bez smeru. Model uz nese effect 'associated-with'
+    a causal False; ctou se obe, aby to fungovalo i na starsim modelu."""
+    eff = i.get("effect", "") or ""
+    if i.get("causal") is False or eff == "associated-with":
+        return "is associated with"
+    return eff
 
 
 def slugify(s):
@@ -1342,7 +1367,7 @@ def gap_page(g, studies_by_sid):
     ld = {"@context": "https://schema.org", "@type": "FAQPage",
           "mainEntity": [
               {"@type": "Question", "name": q,
-               "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a)}}
+               "acceptedAnswer": {"@type": "Answer", "text": _strip_tags(a)}}
               for q, a in qa if a]}
 
     body = [f"<h1>{e(g['title'])}</h1>",
@@ -1826,7 +1851,7 @@ def pathway_page(model, entities, haspage):
         mech_beginner = i.get("mechanism_beginner") or mech
         rows.append(f"""<tr id="int-{slugify(i["id"])}">
 <td data-l="Source">{node_link(i["source"])}</td>
-<td data-l="Effect">{e(i.get("effect", ""))}</td>
+<td data-l="Effect">{e(_effect_label(i))}</td>
 <td data-l="Target">{node_link(i["target"])}</td>
 <td data-l="Type">{e(i.get("type", ""))}</td>
 <td data-l="Mechanism"><span class="lv-beginner">{e(mech_beginner)}</span>\
@@ -2464,7 +2489,7 @@ def frontier_question_page(f, gaps):
     ld = {"@context": "https://schema.org", "@type": "FAQPage",
           "mainEntity": [{"@type": "Question", "name": q,
                           "acceptedAnswer": {"@type": "Answer",
-                                             "text": re.sub(r"<[^>]+>", "", a)}}
+                                             "text": _strip_tags(a)}}
                          for q, a in qa if a]}
 
     meta = e(f.get("type") or "Frontier question")
@@ -3561,7 +3586,7 @@ def main():
 > The mTOR pathway, mapped by what the evidence can actually carry. Every claim \
 carries its source, the conditions it was measured under, and the point where its \
 validity ends -- species, sex, dose, nutrient state, duration. {len(studies)} \
-peer-reviewed primary studies labelled by study type (S = synthesis of human data, \
+published studies labelled by study type (S = synthesis of human data, \
 H = human study, A = animal model, M = molecular/in vitro, R = review), linked to \
 a knowledge graph of genes, drugs, diseases and outcomes, plus a layer of named \
 knowledge gaps and testable hypotheses: what the literature has tested and failed \

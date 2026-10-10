@@ -70,6 +70,18 @@ PW_PATH = os.path.join(HERE, "pathway", "model.json")
 
 # Deterministicky mix: banka se nesmi menit mezi buildy, jinak by se studentovi
 # rozpadly ulozene stavy (polozky se pamatuji podle id).
+def _verb(it):
+    """Sloveso do kvizove vety. Re-audit 2026-10-10: tri otazky v Practice
+    Arene skladaly vetu jako 'inhibits' nebo jinak 'activates', takze
+    asociacni vazba (MTORC1-RCC) se ucila jako kauzalni aktivace. Nekauzalni
+    typ ted dostane 'is associated with'. Model uz nese effect
+    'associated-with' a causal False (build_pathway_model.py), tahle funkce
+    cte obojí, aby fungovala i na starsim modelu."""
+    if it.get("causal") is False or (it.get("effect") or "") == "associated-with":
+        return "is associated with"
+    return "inhibits" if it.get("effect") == "inhibits" else "activates"
+
+
 RNG = random.Random(20260905)
 
 
@@ -697,7 +709,7 @@ def gen_sources(pw, meta, studies):
             "pool": "core" if meta[it["source"]]["pool"] == "core" and meta[it["target"]]["pool"] == "core" else "route",
             "prompt": "Which study in the Atlas is this claim standing on?",
             "sub": "%s %s %s" % (meta[it["source"]]["label"],
-                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 _verb(it),
                                  meta[it["target"]]["label"]),
             "stem": _short(it.get("mechanism"), 260),
             "options": [label(opts[k]) for k in idx],
@@ -721,7 +733,7 @@ def gen_sources(pw, meta, studies):
             "nodes": [it["source"], it["target"]], "pool": "core",
             "prompt": "One of these does not agree with the others. Which study conflicts with this step?",
             "sub": "%s %s %s" % (meta[it["source"]]["label"],
-                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 _verb(it),
                                  meta[it["target"]]["label"]),
             "stem": _short(it.get("mechanism"), 240),
             "options": [label(opts[k]) for k in idx],
@@ -761,7 +773,7 @@ def gen_frontier(pw, meta, gaps):
             "pool": "core" if meta[it["source"]]["pool"] == "core" and meta[it["target"]]["pool"] == "core" else "route",
             "prompt": "How settled is this, as the field stands?",
             "sub": "%s %s %s" % (meta[it["source"]]["label"],
-                                 "inhibits" if it["effect"] == "inhibits" else "activates",
+                                 _verb(it),
                                  meta[it["target"]]["label"]),
             "stem": _short(it.get("mechanism"), 240),
             "options": list(FRONTIER_LABELS),

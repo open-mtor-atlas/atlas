@@ -55,7 +55,15 @@ TYPES = {
 EFFECTS = {"activates", "inhibits", "required-for", "recruits", "binds", "context-dependent",
            # 2026-09-29 audit: a tested-and-null relationship must be drawable, otherwise
            # the map reads more positive than the corpus (Airtable Relations.Sign already has it).
-           "no-effect"}
+           "no-effect",
+           # Re-audit 2026-10-10: nekauzalni vazba (type=association) nesmi
+           # nest kauzalni znamenko, takze ma vlastni hodnotu. Viz
+           # NON_CAUSAL_TYPES nize a build_pathway_model.py.
+           "associated-with"}
+# Typy vazeb, ktere netvrdi kauzalitu, a znamenka, ktera u nich smi stat.
+# Drz synchronne s NON_CAUSAL_TYPES v build_pathway_model.py.
+NON_CAUSAL_TYPES = {"association", "correlation", "co-occurrence"}
+NON_CAUSAL_EFFECTS = {"associated-with"}
 TIMESCALES = {"seconds", "minutes", "hours", "days", "chronic", "constitutive"}
 DIRECTNESS = {"direct", "indirect", "unresolved"}
 MECH = {"high", "medium", "low"}
@@ -134,7 +142,14 @@ _selftest_in_human()
 # vysledku nepozna -- studie s opacnym vysledkem (SOL2014) patri do
 # Conflicting_Studies a hlida ji kurator, ne tohle pravidlo.
 OUTCOME_MEASURES = {
-    "Longevity": r"lifespan|life span|life-span|longevity|survival|mortality",
+    # Re-audit 2026-10-10: samotne "survival" chytalo i "progression-free
+    # survival" a "disease-free survival", takze studie s ciste PFS endpointem
+    # (MOT2008) prochazela jako dukaz o delce zivota. PFS/DFS jsou vylouceny
+    # pres negativni lookbehind; "overall survival" a holé "survival" projdou.
+    "Longevity": (r"lifespan|life span|life-span|longevity|mortality"
+                  r"|(?<!progression-free )(?<!progression free )(?<!disease-free )"
+                  r"(?<!disease free )(?<!event-free )(?<!event free )"
+                  r"(?<!relapse-free )(?<!relapse free )survival"),
     "Muscle growth": (r"hypertroph|muscle mass|muscle size|muscle growth|fib(?:er|re) size|"
                       r"cross-sectional|lean mass|atroph|myotube (?:size|diameter)|muscle weight"),
     "Tumor growth": r"tumou?r|cancer|carcinoma|leuka?emia|lymphoma|xenograft|oncogen|neoplas",
@@ -192,6 +207,21 @@ def main():
             E("%s: unknown type %r" % (iid, i["type"]))
         if i["effect"] not in EFFECTS:
             E("%s: unknown effect %r" % (iid, i["effect"]))
+        # R-NONCAUSAL (re-audit 2026-10-10): typ vazby, ktery netvrdi kauzalitu,
+        # nesmi nest kauzalni znamenko. MTORC1-RCC melo type=association a
+        # Sign=activates, a sest povrchu si z toho skladalo vetu "mTORC1
+        # activates Renal cell carcinoma (RCC)" -- vcetne stranek studii,
+        # academy kvizu a sipky na mape. Oprava ze stejneho dne zasahla jen
+        # `claim` a nadpis, takze data zustala kauzalni. Tohle pravidlo hlida,
+        # ze se to nevrati. `clinical-outcome` zamerne NENI nekauzalni: tam je
+        # smer efektu vysledkem studie, ne domnenkou.
+        if i["type"] in NON_CAUSAL_TYPES and i["effect"] not in NON_CAUSAL_EFFECTS:
+            E("%s: type %r makes no causal claim, but effect is %r - a non-causal "
+              "relation must not carry a causal sign (expected one of %s)"
+              % (iid, i["type"], i["effect"], sorted(NON_CAUSAL_EFFECTS)))
+        if i["type"] in NON_CAUSAL_TYPES and i.get("causal") is not False:
+            E("%s: type %r is non-causal but the record does not set causal=false, "
+              "so a consumer reading the data cannot tell" % (iid, i["type"]))
         if i["timescale"] not in TIMESCALES:
             E("%s: unknown timescale %r" % (iid, i["timescale"]))
         if i["directness"] not in DIRECTNESS:
