@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T17:17:37+0200",
-  "source_commit": "b8a9a0b35b60b4998394d5576dce632659cfaef7",
+  "corpus_snapshot": "2026-10-10T19:43:41+0200",
+  "source_commit": "f0d3f3bebaca1eb913ed5ffcef7fa284f1b28a98",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -20,18 +20,20 @@
    "entity": "cgas-sting-pathway"
   },
   "effect": "inhibits",
-  "type": "signal-relay",
-  "directness": "indirect",
+  "type": "degradation",
+  "directness": "direct",
   "timescale": "chronic",
   "compartment": "cytosol",
   "species": [
    "mouse"
   ],
-  "mechanism": "Age-related decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling in macrophages, and this loss of restraint is sufficient to unleash cGAS-mediated paracrine inflammatory signalling; restoring Lamtor5 in aged mice reverses the phenotype.",
+  "mechanism": "Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.",
   "mechanism_beginner": null,
   "context": null,
-  "boundary": "One mouse study (LV2026), A – animal. Exactly how reduced mTORC1 output in a macrophage permits cGAS activation is not resolved here, and no human data exist for this specific link.",
+  "boundary": "One mouse study (LV2026), A - animal, and no human data for this link. The abstract reports no mTORC1 or mTORC2 measurement for the cGAS step, so whether mTORC1 signalling contributes at all is untested here rather than established. Macrophage-specific: the conditional knockout is myeloid, and the ageing phenotypes are read out at the organismal level, which is a long inferential chain from one protein interaction.",
   "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
   "contested": false,
   "confidence": {
    "mechanistic": "medium",

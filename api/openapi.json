@@ -803,7 +803,16 @@
       ]
      },
      "contested": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Deprecated alias of consensus_contested, kept for compatibility. Read consensus_contested or curation_contested instead - they are different axes."
+     },
+     "consensus_contested": {
+      "type": "boolean",
+      "description": "True when the FIELD is divided about this claim (Consensus = contested)."
+     },
+     "curation_contested": {
+      "type": "boolean",
+      "description": "True when the Atlas curation status is Contested, i.e. flagged for review. A record can be one without the other, so these two counts need not agree."
      },
      "confidence": {
       "type": "object",

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T17:17:37+0200",
-  "source_commit": "b8a9a0b35b60b4998394d5576dce632659cfaef7",
+  "corpus_snapshot": "2026-10-10T19:43:41+0200",
+  "source_commit": "f0d3f3bebaca1eb913ed5ffcef7fa284f1b28a98",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -485,6 +485,8 @@
     "context": null,
     "boundary": "Two studies of different kinds: EGA2010 (cells and C. elegans, AMPK-site mutant of ULK1) and ZHU2026 (mouse toxicology model, where LKB1/AMPK loss also went with mitochondrial DNA leakage and liver inflammation; that downstream link is shown only there). The upstream step is disputed: Park, Lee and Kim (Nat Commun 2023, PMID 37225695, outside this corpus) report that under energy stress AMPK restrains ULK1 activation; see AMPK-ULK1.",
     "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "medium",
@@ -536,6 +538,8 @@
     "context": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
     "boundary": null,
     "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -587,6 +591,8 @@
     "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
     "boundary": null,
     "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -638,6 +644,8 @@
     "context": null,
     "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. Park, Lee and Kim (Nat Commun 2023, PMID 37225695, outside this corpus) report that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
     "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+    "consensus_contested": true,
+    "curation_contested": false,
     "contested": true,
     "confidence": {
      "mechanistic": "medium",
@@ -690,6 +698,8 @@
     "context": null,
     "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
     "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -740,6 +750,8 @@
     "context": null,
     "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
     "note": null,
+    "consensus_contested": true,
+    "curation_contested": false,
     "contested": true,
     "confidence": {
      "mechanistic": "low",
@@ -755,7 +767,9 @@
      "supporting": [
       "ZHO2001"
      ],
-     "conflicting": []
+     "conflicting": [
+      "KAL2010"
+     ]
     },
     "reviewed": null,
     "updated": null,
@@ -790,6 +804,8 @@
     "context": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
     "boundary": "SOURCING FLAG (2026-09-29): the AMP/ADP binding to the gamma subunit described here is canonical, but no study currently in this corpus demonstrates it; GWI2008 and ZHO2001 show the downstream consequences. Treat as an unsourced canonical step until a primary paper is added.",
     "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -842,6 +858,8 @@
     "context": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
     "boundary": null,
     "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "high",

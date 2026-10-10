@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T17:17:37+0200",
-  "source_commit": "b8a9a0b35b60b4998394d5576dce632659cfaef7",
+  "corpus_snapshot": "2026-10-10T19:43:41+0200",
+  "source_commit": "f0d3f3bebaca1eb913ed5ffcef7fa284f1b28a98",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -27,19 +27,21 @@
   "species": [
    "mouse"
   ],
-  "mechanism": "Reduced nutrient and energy availability lowers mTORC1 signalling through the amino-acid and energy arms simultaneously – the sensors detect scarcity, and AMPK detects the falling energy charge.",
+  "mechanism": "Reduced nutrient and energy availability is expected to lower mTORC1 through the amino-acid and energy arms at once - the sensors detect scarcity and AMPK detects the falling energy charge. Note what supports that expectation here, because it is less than the claim's reputation suggests. No study in this corpus measures mTORC1 under fasting or energy restriction. The single supporting study, SOL2014, fed mice ad libitum across 25 diets and concluded that the macronutrient RATIO, not caloric intake, set lifespan and cardiometabolic health; the mTOR link in it is a correlation between a lower protein-to-carbohydrate ratio and lower hepatic mTOR activation. So the supported variable is dietary protein, not calories, and the measurement is associative rather than interventional.",
   "mechanism_beginner": null,
   "context": null,
-  "boundary": "Supporting evidence here is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge, not to this one. SOL2014 found macronutrient RATIO mattered more than total intake in mice, so 'caloric restriction' may be the wrong variable name.",
+  "boundary": "Supporting evidence is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge. That leaves SOL2014, which is an ad-libitum 25-diet study whose own title states that the ratio of macronutrients, not caloric intake, dictates the outcome, and whose mTOR observation is correlative and confined to liver. Re-audit 2026-10-10: consensus was downgraded from established to emerging and the evidence kind from genetic epistasis to correlative, because neither matched what SOL2014 actually did. The edge is retained because the mechanistic expectation is sound and well motivated by the sensor arms, but it is an expectation, not a measured result in this corpus.",
   "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
   "contested": false,
   "confidence": {
    "mechanistic": "medium",
    "human_relevance": "plausible",
-   "consensus": "established"
+   "consensus": "emerging"
   },
   "evidence": {
-   "kind": "Genetic epistasis",
+   "kind": "Correlative",
    "strongest": {
     "code": "A",
     "label": "Animal model"

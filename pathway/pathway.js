@@ -158,6 +158,8 @@
   };
   var MARK = {
     "activates": "pwArrowA", "inhibits": "pwBar", "required-for": "pwChev",
+    // Re-audit 2026-10-10: nekauzalni vazba nesmi dostat aktivacni sipku.
+    "associated-with": "pwAssoc",
     "recruits": "pwChev", "binds": "pwDot", "context-dependent": "pwQ",
     /* 2026-09-29: tested and null. Drawn so a negative result is visible on the map
        instead of being absent from it. */
@@ -367,6 +369,9 @@
        `context-stroke` would be tidier but is not universally supported; a
        marker inheriting `color` from its referencing path is. */
     d += '<marker id="pwArrowA" ' + head + ' refX="9" refY="5"><path d="M0.5,1 L9.5,5 L0.5,9 Z" fill="currentColor"/></marker>';
+    // Nekauzalni (association): prazdny krouzek, zadna hrot sipky - smer
+    // tvrzeni neni znamy, takze ho mapa nesmi naznacovat.
+    d += '<marker id="pwAssoc" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.4"/></marker>';
     d += '<marker id="pwBar" ' + head + ' refX="5" refY="5"><path d="M5,0.6 L5,9.4" stroke="currentColor" stroke-width="2.8" fill="none"/></marker>';
     d += '<marker id="pwChev" ' + head + ' refX="8" refY="5"><path d="M1,1 L8,5 L1,9" stroke="currentColor" stroke-width="1.9" fill="none"/></marker>';
     d += '<marker id="pwDot" ' + head + ' refX="5" refY="5"><circle cx="5" cy="5" r="3.4" fill="currentColor"/></marker>';
@@ -465,7 +470,10 @@
 
   function sentence(e) {
     return nodeById(e.source).label + " " + (VERB[e.type] || e.type) + " " + nodeById(e.target).label
-      + " — net effect: " + e.effect + " (" + e.directness + ", " + e.timescale + ")";
+      + (e.causal === false
+           ? " — association, direction of effect not established ("
+             + e.directness + ", " + e.timescale + ")"
+           : " — net effect: " + e.effect + " (" + e.directness + ", " + e.timescale + ")");
   }
 
   /* ==== camera ========================================================= */
@@ -840,7 +848,7 @@
     var A = nodeById(e.source), B = nodeById(e.target);
     var h = '<h4>' + esc(A.label) + " <span style=\"color:var(--ink-soft)\">" + esc(VERB[e.type] || e.type)
       + "</span> " + esc(B.label) + "</h4>"
-      + '<div class="pw-verb">' + esc(e.type) + " · net effect " + esc(e.effect) + "</div>"
+      + '<div class="pw-verb">' + esc(e.type) + (e.causal === false ? " · association, no direction of effect" : " · net effect " + esc(e.effect)) + "</div>"
       + '<div class="pw-chips">'
       + '<span class="pw-chip"><b>where</b> ' + esc(M.compIx[e.compartment].name) + "</span>"
       + '<span class="pw-chip"><b>when</b> ' + esc(e.timescale) + "</span>"
@@ -1034,7 +1042,9 @@
       interaction: eid,
       what: A.label + " " + (VERB[e.type] || e.type) + " " + B.label + ".",
       why: forLevel(e.mechanism_beginner, e.mechanism),
-      changed: "The net effect on " + B.label + " is: " + e.effect
+      changed: (e.causal === false
+        ? "This is an association with " + B.label + ", not a demonstrated direction of effect"
+        : "The net effect on " + B.label + " is: " + e.effect)
         + ". " + (e.type === "recruitment" || e.type === "localisation"
           ? "Note that this changes where " + B.label + " is, not whether it is switched on."
           : e.type === "phosphorylation"
