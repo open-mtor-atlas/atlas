@@ -1086,7 +1086,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "phosphorylation",
+          "variable_label": "Phosphorylation of the protein",
+          "measured": "S6K1 phosphorylation falls; cultured mouse and human cells, hours of drug."
         },
         {
           "node": "4E-BP1",
@@ -1095,7 +1098,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "inhibitory_activity",
+          "variable_label": "Activity of an inhibitor (a brake)",
+          "measured": "Shown as the brake's activity. What was measured is 4E-BP1 phosphorylation, which largely persists on rapamycin, so the brake is only partly engaged; cultured cells, hours."
         },
         {
           "node": "Autophagy",
@@ -1103,7 +1109,10 @@
           "why": "Rapamycin only weakly induces autophagy; suppression of autophagy is one of the rapamycin-resistant mTORC1 functions.",
           "studies": [
             "THO2009"
-          ]
+          ],
+          "variable": "process_rate",
+          "variable_label": "Rate of a cellular process",
+          "measured": "Partly up: autophagy is induced only weakly, far less than with Torin1; cultured cells, hours."
         },
         {
           "node": "Protein synthesis",
@@ -1112,7 +1121,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "process_rate",
+          "variable_label": "Rate of a cellular process",
+          "measured": "Partly down: cap-dependent translation largely continues; cultured cells."
         },
         {
           "node": "IRS-1 / IRS-2",
@@ -1121,7 +1133,10 @@
           "studies": [
             "ORE2006",
             "HAR2004"
-          ]
+          ],
+          "variable": "protein_abundance",
+          "variable_label": "Amount of the protein",
+          "measured": "IRS-1 expression rises in cancer cell lines over hours of mTOR inhibition (ORE2006)."
         },
         {
           "node": "Akt/PKB",
@@ -1129,7 +1144,10 @@
           "why": "Akt is activated in cancer cell lines and in patient tumours on the rapamycin analogue RAD001, a likely reason for its modest anti-tumour effect. The map gets this right only because the feedback arrows are curated.",
           "studies": [
             "ORE2006"
-          ]
+          ],
+          "variable": "kinase_activity",
+          "variable_label": "Kinase activity (read out as substrate phosphorylation)",
+          "measured": "Akt activation rises in cancer cell lines and in patient tumour biopsies on RAD001 (ORE2006)."
         },
         {
           "node": "mTORC2",
@@ -1138,7 +1156,10 @@
           "studies": [
             "SAR2006",
             "LAM2012"
-          ]
+          ],
+          "variable": "kinase_activity",
+          "variable_label": "Kinase activity (read out as substrate phosphorylation)",
+          "measured": "No acute change. Applies to the acute window only: prolonged exposure reduces mTORC2 assembly in many cell lines (SAR2006) and mTORC2 signalling in mouse liver (LAM2012)."
         }
       ],
       "cluster": "scenario",
@@ -1226,7 +1247,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "phosphorylation",
+          "variable_label": "Phosphorylation of the protein",
+          "measured": "S6K1 phosphorylation falls; cultured cells, hours."
         },
         {
           "node": "4E-BP1",
@@ -1235,7 +1259,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "inhibitory_activity",
+          "variable_label": "Activity of an inhibitor (a brake)",
+          "measured": "Shown as the brake's activity. What was measured is 4E-BP1 phosphorylation, which is lost on Torin1, so the brake is fully engaged; cultured cells, hours."
         },
         {
           "node": "Protein synthesis",
@@ -1244,7 +1271,10 @@
           "studies": [
             "THO2009",
             "FEL2009"
-          ]
+          ],
+          "variable": "process_rate",
+          "variable_label": "Rate of a cellular process",
+          "measured": "Cap-dependent translation, cell growth and proliferation fall; cultured cells."
         },
         {
           "node": "Autophagy",
@@ -1252,7 +1282,10 @@
           "why": "Autophagy is strongly induced, unlike with rapamycin.",
           "studies": [
             "THO2009"
-          ]
+          ],
+          "variable": "process_rate",
+          "variable_label": "Rate of a cellular process",
+          "measured": "Autophagy is strongly induced; cultured cells, hours."
         },
         {
           "node": "Akt/PKB",
@@ -1262,7 +1295,10 @@
             "FEL2009",
             "THO2009",
             "ROD2011"
-          ]
+          ],
+          "variable": "phosphorylation",
+          "variable_label": "Phosphorylation of the protein",
+          "measured": "Akt S473 phosphorylation by mTORC2 falls early; T308 recovers over hours as feedback is relieved (ROD2011), so the 'down' holds for the early window."
         }
       ],
       "cluster": "scenario",
@@ -1358,7 +1394,10 @@
           "studies": [
             "INOK2003",
             "GAR2003"
-          ]
+          ],
+          "variable": "kinase_activity",
+          "variable_label": "Kinase activity (read out as substrate phosphorylation)",
+          "measured": "Read out as phosphorylation of mTORC1 substrates, constitutively high in cells without TSC function; chronic (genetic)."
         },
         {
           "node": "S6K1",
@@ -1367,7 +1406,10 @@
           "studies": [
             "INO2002",
             "SHA2004"
-          ]
+          ],
+          "variable": "phosphorylation",
+          "variable_label": "Phosphorylation of the protein",
+          "measured": "S6K1 phosphorylation is high and no longer needs insulin; cells without TSC1 or TSC2."
         },
         {
           "node": "IRS-1 / IRS-2",
@@ -1376,7 +1418,10 @@
           "studies": [
             "HAR2004",
             "SHA2004"
-          ]
+          ],
+          "variable": "protein_abundance",
+          "variable_label": "Amount of the protein",
+          "measured": "IRS-1 and IRS-2 protein are depleted (repressed expression plus inhibitory phosphorylation by S6K1); cells without TSC1 or TSC2."
         },
         {
           "node": "Akt/PKB",
@@ -1385,7 +1430,10 @@
           "studies": [
             "SHA2004",
             "HAR2004"
-          ]
+          ],
+          "variable": "kinase_activity",
+          "variable_label": "Kinase activity (read out as substrate phosphorylation)",
+          "measured": "Akt's response to insulin and IGF-1 is blunted; cells without TSC1 or TSC2."
         },
         {
           "node": "Tumor growth",
@@ -1394,7 +1442,10 @@
           "studies": [
             "HAR2004",
             "SHA2004"
-          ]
+          ],
+          "variable": "lesion_phenotype",
+          "variable_label": "Kind of lesion in tissue",
+          "measured": "Mixed: growth goes up, but TSC lesions are largely benign. Linking that to the switched-off Akt arm is the authors' interpretation, not a measurement."
         }
       ],
       "cluster": "scenario",

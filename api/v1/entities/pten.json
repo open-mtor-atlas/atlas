@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-09T20:59:35+0200",
-  "source_commit": "72c07a8f6b6aacc5b55764c407748a1aac539c2b",
+  "corpus_snapshot": "2026-10-10T09:05:28+0200",
+  "source_commit": "73a85abe4b818e907a69a1a3aa938d12f89b7b75",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -119,7 +119,7 @@
     },
     "effect": "inhibits",
     "type": "dephosphorylation",
-    "directness": "direct",
+    "directness": "indirect",
     "timescale": "seconds",
     "compartment": "pm",
     "species": [
@@ -128,8 +128,8 @@
     "mechanism": "PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.",
     "mechanism_beginner": "PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.",
     "context": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically. It dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking PI3K's activity.",
-    "boundary": "The cancer genetics here is mouse work (GUE2009). The biochemical step itself, PTEN dephosphorylating PIP3, has no dedicated paper in this corpus.",
-    "note": "MAJ2004 was removed from this edge on 2026-09-21: it used Akt-transgenic mice and never manipulated PTEN, so it could not support this step and should not have been setting the edge's tier and species.",
+    "boundary": "The arrow is drawn PTEN -> PI3K for readability, but PTEN does not act on the PI3K enzyme. It dephosphorylates PIP3, PI3K's lipid product, so the effect on PI3K signalling is indirect. The canonical biochemical demonstration (Maehama & Dixon, J Biol Chem 1998, PMID 9593664: PTEN dephosphorylates PtdIns(3,4,5)P3 at the 3-position) sits outside this corpus; the cancer-genetics support in-corpus is mouse (GUE2009).",
+    "note": "2026-10-09: Causal directness changed direct -> indirect to match the prose. PTEN removes PI3K's product (PIP3) rather than acting on PI3K itself, so 'direct' was inconsistent with the mechanism and context text. Interaction type stays 'dephosphorylation' (what PTEN does to PIP3).",
     "contested": false,
     "confidence": {
      "mechanistic": "high",
@@ -150,6 +150,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/PTEN-PI3K/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/PTEN-PI3K.json"
    }

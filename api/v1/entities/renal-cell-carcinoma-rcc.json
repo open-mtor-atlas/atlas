@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-09T20:59:35+0200",
-  "source_commit": "72c07a8f6b6aacc5b55764c407748a1aac539c2b",
+  "corpus_snapshot": "2026-10-10T09:05:28+0200",
+  "source_commit": "73a85abe4b818e907a69a1a3aa938d12f89b7b75",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -171,6 +171,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/EVE-RCC/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-RCC.json"
    },
@@ -193,11 +196,11 @@
     "species": [
      "human"
     ],
-    "mechanism": "Renal cancers frequently carry lesions that leave mTORC1 constitutively active - which is why this tissue responds to mTOR inhibitors at all, and why an exceptional responder could be traced to TSC1 loss.",
-    "mechanism_beginner": "Many kidney cancers carry mutations that leave mTORC1 stuck \"on\" – that's why this cancer type responds to mTOR-blocking drugs at all, though it doesn't prove mTORC1 causes the cancer.",
+    "mechanism": "Renal cancers frequently carry lesions that leave mTORC1 constitutively active, which is why this tissue responds to mTOR inhibitors. In two phase III trials in metastatic RCC, temsirolimus extended overall survival versus interferon alfa in poor-prognosis patients (HUD2007), and everolimus extended progression-free survival versus placebo after VEGF-targeted therapy (MOT2008). That the tumour responds to the drug is not the same as mTORC1 initiating the cancer.",
+    "mechanism_beginner": "Many kidney cancers carry changes that leave mTORC1 stuck \"on\", which is why this cancer responds to mTOR-blocking drugs at all. In one large trial, people with advanced kidney cancer lived longer on temsirolimus; in another, everolimus slowed the cancer's growth for a few months. Responding to the drug is not proof that mTORC1 started the cancer.",
     "context": null,
-    "boundary": "Correlative plus one n-of-1 genomic case (IYE2012); not a demonstration that mTORC1 activation initiates RCC.",
-    "note": "Replaces TUMOR-RCC, which asserted 'Tumor growth activates RCC' - a category error, since RCC is an instance of tumour growth, not a downstream target.",
+    "boundary": "Correlative, plus two randomised human trials showing the tumour responds to mTOR inhibitors: overall survival in poor-prognosis first-line RCC with temsirolimus (HUD2007), progression-free survival only after VEGF-targeted therapy with everolimus (MOT2008). This is response to treatment, not a demonstration that mTORC1 activation initiates RCC. The bladder-cancer responder case IYE2012 was removed from this edge on 2026-10-09 as a citation-population mismatch (it describes bladder, not kidney).",
+    "note": "Replaces TUMOR-RCC, which asserted 'Tumor growth activates RCC' - a category error, since RCC is an instance of tumour growth, not a downstream target. 2026-10-09: IYE2012 (metastatic bladder cancer) removed as a supporting study and from the mechanism text; it was a citation-population mismatch. Human relevance now rests on the two RCC phase III trials MOT2008 and HUD2007. 2026-10-09 (later): corrected 'both trials extended survival' - only HUD2007 showed overall survival; MOT2008 (RECORD-1) showed progression-free survival.",
     "contested": false,
     "confidence": {
      "mechanistic": "low",
@@ -211,7 +214,6 @@
       "label": "Human study"
      },
      "supporting": [
-      "IYE2012",
       "MOT2008",
       "HUD2007"
      ],
@@ -220,6 +222,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/MTORC1-RCC/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-RCC.json"
    },
@@ -267,6 +272,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/TEM-RCC/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/TEM-RCC.json"
    }

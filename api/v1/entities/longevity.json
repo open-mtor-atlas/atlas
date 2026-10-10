@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-09T20:59:35+0200",
-  "source_commit": "72c07a8f6b6aacc5b55764c407748a1aac539c2b",
+  "corpus_snapshot": "2026-10-10T09:05:28+0200",
+  "source_commit": "73a85abe4b818e907a69a1a3aa938d12f89b7b75",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -1242,6 +1242,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/4EBP1-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-LONGEVITY.json"
    },
@@ -1265,7 +1268,7 @@
      "multiple species"
     ],
     "mechanism": "Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.",
-    "mechanism_beginner": "Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the most universal anti-ageing effects known.",
+    "mechanism_beginner": "Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the best-replicated anti-ageing effects in laboratory animals. In mice, how big the effect is depends on sex, strain, diet and when treatment starts, and it has not been shown in people.",
     "context": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
     "boundary": "No human hard-endpoint evidence. This is the Atlas's flagged 'human endpoint desert'.",
     "note": "Links to ATLAS_FINDINGS human-endpoint desert.",
@@ -1295,6 +1298,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/MTORC1-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-LONGEVITY.json"
    },
@@ -1346,6 +1352,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/RAPA-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/RAPA-LONGEVITY.json"
    },
@@ -1368,11 +1377,11 @@
     "species": [
      "mouse"
     ],
-    "mechanism": "Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. It also protects against diet-induced obesity. Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.",
+    "mechanism": "Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. A separate study found that S6K1 loss protects against diet-induced obesity (UMX2004, which did not measure lifespan). Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.",
     "mechanism_beginner": "Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.",
     "context": null,
     "boundary": "Female mice only in SEL2009 - the lifespan extension was not significant in males.",
-    "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps.",
+    "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps. 2026-10-10: UMX2004 no longer cited as support for the lifespan arrow; it measured obesity and insulin sensitivity, not lifespan.",
     "contested": false,
     "confidence": {
      "mechanistic": "medium",
@@ -1386,14 +1395,16 @@
       "label": "Animal model"
      },
      "supporting": [
-      "SEL2009",
-      "UMX2004"
+      "SEL2009"
      ],
      "conflicting": []
     },
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/S6K1-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-LONGEVITY.json"
    },
@@ -1417,11 +1428,11 @@
      "rhesus",
      "mouse"
     ],
-    "mechanism": "Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.",
-    "mechanism_beginner": null,
+    "mechanism": "Caloric restriction improved health and survival in rhesus monkeys (MAT2017). In mice fed one of 25 diets ad libitum, lowering calories by diluting the food did not extend lifespan, while a lower protein-to-carbohydrate ratio did (SOL2014). That study is carried as conflicting evidence on which variable matters: calories, or protein.",
+    "mechanism_beginner": "Eating less improved health and survival in monkeys. But in mice that could eat as much as they wanted, cutting calories by watering down the food did not make them live longer; eating less protein compared with carbohydrate did. So whether it is the calories or the protein that counts is still open.",
     "context": null,
     "boundary": "No human lifespan data exists. Effect direction is reproducible across several species; effect size and even the responsible variable (calories versus composition) are not settled.",
-    "note": null,
+    "note": "2026-10-10: SOL2014 moved from supporting to conflicting. Full text: 'energy restriction achieved by dietary dilution in ad libitum-fed animals does not extend life-span'; lifespan tracked the protein:carbohydrate ratio, not calorie intake. It cannot support a calories-extend-life arrow.",
     "contested": false,
     "confidence": {
      "mechanistic": "medium",
@@ -1435,14 +1446,18 @@
       "label": "Animal model"
      },
      "supporting": [
-      "MAT2017",
-      "SOL2014"
+      "MAT2017"
      ],
-     "conflicting": []
+     "conflicting": [
+      "SOL2014"
+     ]
     },
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/CR-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/CR-LONGEVITY.json"
    },
@@ -1490,6 +1505,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/FOXO-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/FOXO-LONGEVITY.json"
    },
@@ -1505,7 +1523,7 @@
      "entity": "longevity"
     },
     "effect": "inhibits",
-    "type": "signal-relay",
+    "type": "functional-consequence",
     "directness": "indirect",
     "timescale": "chronic",
     "compartment": "outcome",
@@ -1516,7 +1534,7 @@
     "mechanism_beginner": "Less growth-hormone signalling, longer life in mice.",
     "context": null,
     "boundary": "Mouse only. A lifelong GH-receptor-antagonist transgenic (LIST2026; an earlier study of the same line did not detect extension) and a tamoxifen-inducible whole-body Ghr knockout started at 12 months (DUR2026). mTOR signalling was not measured in either, so the route through PI3K-Akt-mTOR is inferred, not shown here.",
-    "note": null,
+    "note": "2026-10-10: Interaction type signal-relay -> functional-consequence. The target is a lifespan outcome, not a signalling node, and mTOR signalling was not measured in either study.",
     "contested": false,
     "confidence": {
      "mechanistic": "medium",
@@ -1538,6 +1556,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/GHIGF1-LONGEVITY/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/GHIGF1-LONGEVITY.json"
    }

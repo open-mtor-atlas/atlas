@@ -858,6 +858,27 @@
        "null"
       ]
      },
+     "review_status": {
+      "type": "string",
+      "enum": [
+       "reviewed",
+       "unreviewed"
+      ],
+      "description": "unreviewed = no named curator has signed this relation off yet. Missing review is never treated as reviewed."
+     },
+     "reviewer": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "curation_status": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Curation state (Proposed, Contested, Confirmed). Not the same as confidence.consensus, which describes agreement in the field."
+     },
      "api_url": {
       "type": "string"
      }
@@ -894,7 +915,8 @@
       "type": [
        "number",
        "null"
-      ]
+      ],
+      "description": "Editorial confidence 0-1: the curator's judgement of how likely the hypothesis is to hold. Set by hand, not computed, not a calibrated probability."
      },
      "evidence_stands_at": {
       "type": [

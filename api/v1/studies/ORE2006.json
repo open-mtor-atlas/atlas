@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-09T20:59:35+0200",
-  "source_commit": "72c07a8f6b6aacc5b55764c407748a1aac539c2b",
+  "corpus_snapshot": "2026-10-10T09:05:28+0200",
+  "source_commit": "73a85abe4b818e907a69a1a3aa938d12f89b7b75",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -23,9 +23,9 @@
    "note": "this describes the kind of study, not its quality"
   },
   "category": "Mechanism",
-  "model_system": "Cancer cells",
+  "model_system": "Cancer cell lines + patient tumours treated with the rapamycin derivative RAD001 (everolimus)",
   "peer_reviewed": true,
-  "finding": "mTORC1 inhibition relieves feedback and activates upstream RTK-PI3K-Akt signalling.",
+  "finding": "mTORC1 inhibition relieves feedback and activates upstream RTK-PI3K-Akt signalling. The Akt activation was demonstrated both in cancer cell lines and in patient tumours treated with RAD001 (everolimus), so this record carries a human pharmacodynamic component, not only in-vitro data. [2026-10-09: patient-tumour component surfaced in model/species fields; evidence code kept at M/D under the claim-type rule because the supported claim is mechanistic, but flagged for Oliver to decide whether a human-PD tag is warranted.]",
   "url": "https://mtor-atlas.org/study/ORE2006/",
   "api_url": "https://mtor-atlas.org/api/v1/studies/ORE2006.json",
   "abstract_excerpt": "Stimulation of the insulin and insulin-like growth factor I (IGF-I) receptor activates the phosphoinositide-3-kinase/Akt/mTOR pathway causing pleiotropic cellular effects including an mTOR-dependent loss in insulin receptor substrate-1 expression leading to feedback down-regulation of signaling through the pathway. In model systems, tumors exhibiting mutational activation of phosphoinositide-3-kinase/Akt kinase, a common event in cancers, are hypersensitive to mTOR inhibitors, including rapamycin.",
@@ -33,8 +33,8 @@
   "extracted_findings": {
    "intervention": "mTOR inhibition (rapamycin)",
    "target": "mTOR / IRS-1 / Akt / RTK",
-   "species": "Cancer cells",
-   "effect": "mTOR inhibition relieves feedback and induces upstream RTK signaling → activates Akt (a resistance mechanism)"
+   "species": "Cancer cell lines and patient tumours (RAD001/everolimus-treated)",
+   "effect": "mTOR inhibition relieves S6K1-IRS1 feedback and induces upstream RTK signalling, activating Akt (a resistance mechanism). Shown in cancer cell lines AND confirmed in patient tumours treated with RAD001 - a human pharmacodynamic readout, not only cell culture."
   },
   "entities": [
    {

@@ -517,6 +517,19 @@
      not the whole canvas. Outcomes and inputs are one scroll away rather
      than competing for attention with the mechanism on first paint. */
   function frameCore() {
+    // A16 (audit 2026-10-07): na telefonu dava pohled na cele jadro uzly
+    // vysoke ~8 px, na ktere nejde trefit prstem. Uzky displej proto zacina
+    // priblizenim na mTORC1 a jeho bezprostredni okoli; zbytek je o pinch
+    // / tlacitko "fit" daleko a uzly jdou vybrat i pres hledani.
+    if (window.matchMedia && window.matchMedia("(max-width:640px)").matches) {
+      var hub = nodeById("mTORC1");
+      if (hub) {
+        var rr = aspect(), ww = M.meta.canvas.w * 0.42, hh = ww / rr;
+        S.cam = { x: hub.x - ww / 2, y: hub.y - hh / 2, w: ww, h: hh };
+        applyCam();
+        return;
+      }
+    }
     var band = M.bands.filter(function (b) {
       return ["pm", "cytosol", "lyso"].indexOf(b.compartment) >= 0;
     });
@@ -1238,7 +1251,10 @@
         + "</td>"
         + '<td><span class="pw-scn-g">' + SCN_NODE_BADGE[r.literature] + "</span> " + esc(SCN_WORD[r.literature]) + "</td>"
         + '<td class="pw-scn-v">' + (ok ? "matches" : "<b>differs</b>") + "</td></tr>"
-        + '<tr class="pw-scn-why ' + (ok ? "ok" : "miss") + '"><td colspan="4">' + esc(r.why)
+        + '<tr class="pw-scn-why ' + (ok ? "ok" : "miss") + '"><td colspan="4">'
+        // A17 (audit 2026-10-07): co se u vystupu meri, v jakem modelu a case
+        + (r.measured ? '<span class="pw-scn-var"><b>' + esc(r.variable_label || r.variable || "Measured") + ':</b> ' + esc(r.measured) + '</span> ' : "")
+        + esc(r.why)
         + ' <button class="pw-linkbtn" data-scnwhy="' + i + '" type="button">studies (' + r.studies.length + ")</button></td></tr>";
     });
     h += "</tbody></table>"
@@ -1263,6 +1279,7 @@
       b.addEventListener("click", function () {
         var r = sc.readouts[+b.dataset.scnwhy];
         setInsp("<h4>" + esc(nodeLabel(r.node)) + " — " + esc(sc.label) + "</h4>"
+          + (r.measured ? "<p><b>" + esc(r.variable_label || "Measured") + ":</b> " + esc(r.measured) + "</p>" : "")
           + "<p>" + esc(r.why) + "</p>" + studyRows(r.studies, "Studies"));
       });
     });

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-09T20:59:35+0200",
-  "source_commit": "72c07a8f6b6aacc5b55764c407748a1aac539c2b",
+  "corpus_snapshot": "2026-10-10T09:05:28+0200",
+  "source_commit": "73a85abe4b818e907a69a1a3aa938d12f89b7b75",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -383,6 +383,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/EIF4E-TRANSL/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/EIF4E-TRANSL.json"
    },
@@ -430,6 +433,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/PDCD4-TRANSL/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
    },
@@ -451,29 +457,28 @@
     "compartment": "outcome",
     "species": [
      "mouse",
-     "human"
+     "mouse myotubes"
     ],
-    "mechanism": "Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.",
-    "mechanism_beginner": "Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.",
+    "mechanism": "Sustained protein synthesis is what physically builds muscle; in mice, Akt/mTOR signalling is necessary and sufficient for hypertrophy (BOD2001). In people, blocking mTOR blunts the short-term rise in muscle protein synthesis after exercise (DRU2009); whether that changes how much muscle is gained over months was not measured.",
+    "mechanism_beginner": "Ongoing protein-building is what physically builds muscle; in mice, the signals that drive it are needed for muscle growth and are enough to cause it. In people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise, but how much muscle is gained over months under the drug was not measured.",
     "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
-    "boundary": "DRU2009 is direct human evidence: rapamycin blocked the contraction-induced rise in muscle protein synthesis in volunteers.",
-    "note": "Rare non-molecular badge in the output branch - DRU2009 is H, a human study.",
+    "boundary": "Mouse (BOD2001) and cultured myotubes (ROM2001). The human study DRU2009 is cited on the step before this one (LOAD-MTORC1): rapamycin blocked the rise in muscle protein synthesis 1-2 h after one bout of contractions (and also blocked ERK1/2). It did not measure muscle growth, so it is not evidence for this arrow.",
+    "note": "2026-10-10: DRU2009 moved off this arrow. It measured short-term protein synthesis, not muscle growth, and stays cited on LOAD-MTORC1. Human relevance plausible.",
     "contested": false,
     "confidence": {
      "mechanistic": "high",
-     "human_relevance": "established",
+     "human_relevance": "plausible",
      "consensus": "established"
     },
     "evidence": {
      "kind": "Genetic epistasis",
      "strongest": {
-      "code": "H",
-      "label": "Human study"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "BOD2001",
-      "ROM2001",
-      "DRU2009"
+      "ROM2001"
      ],
      "conflicting": [
       "LAP2026"
@@ -482,6 +487,9 @@
     "reviewed": null,
     "updated": null,
     "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/TRANSL-MUSCLE/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/TRANSL-MUSCLE.json"
    }
