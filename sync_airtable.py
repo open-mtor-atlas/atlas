@@ -84,6 +84,15 @@ def fetch_studies():
             "category": g(f, "Category"), "model": g(f, "Model"), "finding": g(f, "Key_Finding"),
             "tier": g(f, "Evidence_Tier"), "pyramid": g(f, "Pyramid_Level"), "peer": g(f, "Peer_Reviewed"),
             "doi": g(f, "DOI"), "abstract": g(f, "Abstract (PubMed)"),
+            # N12: registracni cislo patri sem, ne do DOI. Musi zustat
+            # namapovane i v map_studies_dump.py::MAP, jinak ho MCP cesta
+            # pri pristim bake tise smaze (past PMID/PMCID z 8/2026).
+            "registry_id": g(f, "Registry_ID"),
+            # A14: stav kontroly extrahovanych AI_* poli. Prazdno =
+            # neskontrolovano, nikdy "v poradku". Drz synchronne s
+            # map_studies_dump.py::MAP.
+            "extraction_review": g(f, "Extraction_Review"),
+            "extraction_reviewed_by": g(f, "Extraction_Reviewed_By"),
             "pmid": g(f, "PMID"), "pmcid": g(f, "PMCID"),
             "ai_intervention": g(f, "AI_Intervention"), "ai_target": g(f, "AI_Target"),
             "ai_species": g(f, "AI_Species"), "ai_effect": g(f, "AI_Effect"),

@@ -71,14 +71,14 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "921884"
+    "contentSize": "922534"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1122243"
+    "contentSize": "1122893"
    },
    {
     "@type": "DataDownload",
@@ -247,6 +247,9 @@ a{overflow-wrap:anywhere}
 
 @media (max-width:560px){
   /* two-column key/value tables stay tabular but tighten up */
+  /* A14: provenience tabulky Extracted findings */
+  p.ef-provenance{font-size:.9rem;line-height:1.55;max-width:62ch;opacity:.85;
+    border-left:3px solid var(--line-strong,#bbb);padding-left:12px;margin:10px 0 14px}
   table.kv td{padding:7px 8px 7px 0}
   table.kv td:first-child{width:38%}
 
@@ -357,7 +360,7 @@ full interaction reference table below.</p>
 <section class="route-block" id="route-aa">
 <h2>How does a cell know it has enough raw material to grow?</h2>
 <p class="meta">Amino acids → mTORC1</p>
-<p class="summary">A cell cannot start building unless the amino acids are actually present. But amino acids are small molecules with no receptor on the cell surface – so how does the cell measure something it cannot bind from outside?</p>
+<p class="summary">A cell cannot start building unless the amino acids are actually present. But reading an amino acid is not like reading a hormone: the sensors on this route sit inside the cell, on and around the lysosome. So how does a cell turn the amount of a small molecule in its own cytosol into a decision to grow?</p>
 <p>Follow the highlighted spine: leucine switches off a brake (Sestrin2), which switches off a second brake (GATOR2 on GATOR1), which frees the Rag GTPases to drag mTORC1 to the lysosome. Nothing here activates the kinase – the amino-acid route only decides <em>where</em> mTORC1 sits. Rheb does the switching on.</p>
 <ol class="step-list">
 <li class="step">
@@ -406,7 +409,7 @@ full interaction reference table below.</p>
 </ol>
 <p><strong>Key paper:</strong> <a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a> &mdash; Reframed nutrient sensing from a chemistry problem into a GEOGRAPHY problem. The Rag–Ragulator complex does not switch mTORC1 on; it moves mTORC1 to the lysosomal surface. Everything about amino-acid sensing turned out to be about location, which is why the answer had eluded people looking for a classical receptor. SAN2008 had already shown the Rags carry the amino-acid signal; this paper said where.</p>
 <p class="tier-why"><strong>Evidence base:</strong> Structural biology and genetic epistasis in human cell lines, plus imaging of mTORC1 translocation. Cell-line work throughout – this arm has no human genetic or clinical evidence in this corpus, which is why almost every step is graded human-relevance *plausible* rather than established.</p>
-<p class="tier-why"><strong>Still unresolved:</strong> How GATOR2 actually inhibits GATOR1 catalytically is still unresolved. Whether Sestrin2&#x27;s ~20 µM leucine affinity is the operating setpoint in real tissue is untested. And the LARS and glutamine arms remain contested – reproduced in some labs, not others.</p>
+<p class="tier-why"><strong>Still unresolved:</strong> How GATOR2 actually inhibits GATOR1 catalytically is still unresolved. Whether Sestrin2&#x27;s ~20 µM leucine affinity is the operating setpoint in real tissue is untested. And the LARS and glutamine arms remain contested – reproduced in some labs, not others. Scope note: this route follows the intracellular and lysosomal sensors only. Cell-surface amino-acid sensing has also been reported – the taste receptor T1R1/T1R3 signals amino-acid availability to mTORC1 and its knockdown blunts that signal (Wauson, Mol Cell 2012, PMID 22959271) – and that arm is not mapped here.</p>
 </section><section class="route-block" id="route-gf">
 <h2>How does a cell learn that it is allowed to grow?</h2>
 <p class="meta">Growth factors → mTORC1</p>
@@ -882,7 +885,7 @@ full interaction reference table below.</p>
 </section><section class="route-block" id="route-open">
 <h2>Where does this pathway stop being known?</h2>
 <p class="meta">The contested, the unresolved and the untested</p>
-<p class="summary">Every pathway diagram looks equally confident everywhere. This one is not, and it records where. So: which parts of mTOR biology are contested between labs, which have a mechanism nobody has resolved, and which have never been tested in a human at all?</p>
+<p class="summary">Every pathway diagram looks equally confident everywhere. This one is not, and it records where. So: which parts of mTOR biology does this Atlas record as contested between labs, which carry a mechanism it cannot resolve from the work it holds, and which have no in-human evidence in this corpus at all?</p>
 <p>Every other route shows you what the Atlas holds. This one walks the weakest links on purpose: the interactions this Atlas grades as contested, the ones carrying low mechanistic confidence, and the ones with no human evidence in this corpus. Read it as a guide to reading evidence, not as a confession – and read it as a statement about what has been curated here, not about what the field has done.</p>
 <ol class="step-list">
 <li class="step">
@@ -939,7 +942,7 @@ full interaction reference table below.</p>
 <p>Lowering mTOR signalling extends lifespan in yeast, worms, flies and mice – reproducibly, multi-site, in genetically heterogeneous strains.</p>
 <p><em>In those organisms, median and sometimes maximum lifespan.</em> In humans: unknown. Not disputed, not negative – simply never measured.</p>
 <p class="tier-why">Certainty: Human relevance UNTESTED. That grade is arithmetic, not pessimism: no human lifespan trial of any mTOR-lowering intervention exists or could have completed.</p>
-<p class="summary">Thirteen interactions in this map carry human relevance untested, and every longevity edge is one of them. This is the single most important calibration in the Atlas, because it is the claim most likely to be repeated without its qualifier. Robust in four species is a strong result; it is not a human result.</p></li><li class="step">
+<p class="summary">Seventeen interactions in this map carry human relevance untested, and every longevity edge is one of them. This is the single most important calibration in the Atlas, because it is the claim most likely to be repeated without its qualifier. Robust in four species is a strong result; it is not a human result.</p></li><li class="step">
 <p class="step-what"><strong>10. The same gap, for the drug specifically.</strong>
 <a class="step-jump" href="#int-rapa-longevity">mechanism &darr;</a></p>
 <p>Rapamycin extends mouse lifespan reproducibly, including when started late in life.</p>
@@ -960,7 +963,7 @@ full interaction reference table below.</p>
 <p class="summary">End on that. The route has been about where the pathway stops being known, and the most common failure is not a missing experiment – it is a qualifier lost in transmission. Sex, strain, dose, duration, species: five words that turn a true claim into a false one when dropped, and no pathway diagram has room for them. Which is why this Atlas puts them in the grade instead.</p></li>
 </ol>
 
-<p class="tier-why"><strong>Evidence base:</strong> Deliberately the weakest evidence in the Atlas, and the grading is the point: 7 interactions are typed contested, 8 carry low mechanistic confidence, 13 have human relevance untested. Those counts are computed from the model, so this route cannot drift from the data it is complaining about.</p>
+<p class="tier-why"><strong>Evidence base:</strong> Deliberately the weakest evidence in the Atlas, and the grading is the point: 7 interactions are typed contested, 7 carry low mechanistic confidence, 17 have human relevance untested. Those counts are substituted from the built model at bake time, so this route cannot drift from the data it is complaining about.</p>
 <p class="tier-why"><strong>Still unresolved:</strong> That is the entire route. But the meta-unknown is worth stating: gaps here are computed against THIS corpus, not against the literature. A gap may mean nobody has done the experiment, or it may mean the Atlas has not yet found the paper – and an external review already caught one case of the second kind. Treat every step as a hypothesis about the evidence, testable by finding the study that closes it.</p>
 </section><section class="route-block" id="route-cancer">
 <h2>Why does a pathway we understand this well only half work as a drug target?</h2>
@@ -1577,7 +1580,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/gene/pten/">PTEN</a></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/gene/pi3k/">PI3K</a></td>
-<td data-l="Type">dephosphorylation</td>
+<td data-l="Type">functional-consequence</td>
 <td data-l="Mechanism"><span class="lv-beginner">PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.</span><span class="lv-student">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span><span class="lv-research">PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2009/">GUE2009</a></td>
@@ -2078,7 +2081,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 12:09 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 17:17 Prague time</div>
 </footer>
 </div>
 </body>

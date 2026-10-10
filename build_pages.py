@@ -259,11 +259,29 @@ EXTERNAL_IDS = {
 # ---------------------------------------------------------------- helpers ---
 
 def src_url(d):
-    """Registrovana studie nese misto DOI cislo NCT; doi.org ho nezna (404)."""
+    """Odkaz na zdroj z identifikatoru.
+
+    Od 2026-10-10 (nalez N12) nese registracni cislo vlastni pole
+    Registry_ID a do DOI patri jen tvar 10.xxxx/... Vetev NCT tu zustava
+    jako zachrana pro pripad, ze by se registracni cislo znovu objevilo
+    v poli DOI -- rozbity odkaz na doi.org je horsi nez tenhle fallback.
+    """
     d = (d or "").strip()
     if re.match(r"^NCT\d+$", d, re.I):
         return "https://clinicaltrials.gov/study/" + d.upper()
     return "https://doi.org/" + d
+
+
+def registry_url(r):
+    """Odkaz do registru klinickych studii z pole Registry_ID."""
+    r = (r or "").strip()
+    if not r:
+        return ""
+    if re.match(r"^NCT\d+$", r, re.I):
+        return "https://clinicaltrials.gov/study/" + r.upper()
+    if re.match(r"^ISRCTN\d+$", r, re.I):
+        return "https://www.isrctn.com/" + r.upper()
+    return ""
 
 
 def slugify(s):
@@ -589,6 +607,9 @@ a{{overflow-wrap:anywhere}}
 
 @media (max-width:560px){{
   /* two-column key/value tables stay tabular but tighten up */
+  /* A14: provenience tabulky Extracted findings */
+  p.ef-provenance{{font-size:.9rem;line-height:1.55;max-width:62ch;opacity:.85;
+    border-left:3px solid var(--line-strong,#bbb);padding-left:12px;margin:10px 0 14px}}
   table.kv td{{padding:7px 8px 7px 0}}
   table.kv td:first-child{{width:38%}}
 
@@ -1002,6 +1023,11 @@ def study_page(s, ent_by_sid, haspage, by_sid):
     if s.get("doi"):
         ids.append({"@type": "PropertyValue", "propertyID": "DOI", "value": s["doi"]})
         ld["sameAs"] = src_url(s["doi"])
+    if s.get("registry_id"):
+        ids.append({"@type": "PropertyValue", "propertyID": "ClinicalTrials.gov",
+                    "value": s["registry_id"]})
+        if not ld.get("sameAs") and registry_url(s["registry_id"]):
+            ld["sameAs"] = registry_url(s["registry_id"])
     if s.get("pmid"):
         ids.append({"@type": "PropertyValue", "propertyID": "PMID", "value": s["pmid"]})
     if ids:
@@ -1022,6 +1048,11 @@ def study_page(s, ent_by_sid, haspage, by_sid):
     links = []
     if s.get("doi"):
         links.append(f'<a href="{e(src_url(s["doi"]))}">{"ClinicalTrials.gov" if s["doi"].upper().startswith("NCT") else "DOI"} {e(s["doi"])}</a>')
+    # N12: registrovana studie bez publikace nema DOI, ale ma registracni cislo.
+    if s.get("registry_id") and not (s.get("doi") or "").upper().startswith("NCT"):
+        _ru = registry_url(s["registry_id"])
+        _lbl = f'ClinicalTrials.gov {e(s["registry_id"])}' if _ru else e(s["registry_id"])
+        links.append(f'<a href="{e(_ru)}">{_lbl}</a>' if _ru else f'<span>{_lbl}</span>')
     if s.get("pmid"):
         links.append(f'<a href="https://pubmed.ncbi.nlm.nih.gov/{e(s["pmid"])}/">'
                      f'PMID {e(s["pmid"])}</a>')
@@ -1061,7 +1092,24 @@ def study_page(s, ent_by_sid, haspage, by_sid):
                  ("Dose", "ai_dose"), ("Sample size", "ai_samplesize"),
                  ("Effect size", "ai_effectsize"), ("Limitations", "ai_limitations")]
     if any(s.get(f) for _, f in ef_fields):
-        body.append("<h2>Extracted findings</h2><table class=\"kv\">")
+        body.append("<h2>Extracted findings</h2>")
+        # A14 (audit 2026-10-10): rict nahlas, ze tahle tabulka je
+        # AI-asistovana extrakce a jaky ma stav kontroly. Prazdno =
+        # neskontrolovano; "Reviewed" bez jmena zastavi validator (R17).
+        _exr = (s.get("extraction_review") or "").strip()
+        _exby = (s.get("extraction_reviewed_by") or "").strip()
+        if _exr.lower() in ("reviewed", "corrected") and _exby:
+            _note = ("These fields were extracted from the paper with AI assistance and "
+                     "then checked against the source: %s. Where an extracted field and "
+                     "the curated summary above disagree, the curated summary stands."
+                     % e(_exby))
+        else:
+            _note = ("These fields were extracted from the paper with AI assistance and "
+                     "have <strong>not</strong> been checked against the source. Read them "
+                     "as a pointer into the paper, not as curated claims; where they "
+                     "disagree with the curated summary above, the curated summary stands.")
+        body.append(f'<p class="ef-provenance">{_note}</p>')
+        body.append("<table class=\"kv\">")
         for k, f in ef_fields:
             if s.get(f):
                 body.append(f"<tr><td><strong>{e(k)}</strong></td><td>{e(s[f])}</td></tr>")

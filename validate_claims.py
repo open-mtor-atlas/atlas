@@ -38,6 +38,13 @@ PRAVIDLA (viz RULES nize)
   R13 nulovy vysledek citovany jako podpora / titulek odporuje znamenku
   R14 verejny text porad popisuje kody jako zebricek A-D, ackoli od
       2026-09-07 jsou to S/H/A/M/R a znaci TYP studie, ne znamku
+  R15 identifikator ulozeny v poli pro jiny typ identifikatoru
+      (registracni cislo NCT v poli DOI), nebo zadny trvaly identifikator
+  R16 tvrzeni o prvenstvi nebo vylucnosti (first / only / never) bez
+      ohraniceni -- bud doprovodit rozsahem, ve kterem plati, nebo
+      prepsat na pozitivni popis toho, co studie ukazala
+  R17 extrahovana pole oznacena jako zkontrolovana bez toho, kdo je
+      zkontroloval
 
   POZOR pri pridavani pravidla: cislo se bere z identifikatoru predavaneho
   do add(), ne z tohoto seznamu -- ten byl do 2026-09-07 utnuty u R6, takze
@@ -50,6 +57,9 @@ import os, re, sys, json, html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STUDIES = os.path.join(HERE, "atlas_data", "studies_baked.json")
+GAPS_BAKED = os.path.join(HERE, "atlas_data", "gaps_baked.json")
+FRONTIER = os.path.join(HERE, "atlas_data", "frontier_baked.json")
+PW_MODEL = os.path.join(HERE, "pathway", "model.json")
 INDEX = os.path.join(HERE, "index.html")
 
 STRICT = "--strict" in sys.argv
@@ -182,6 +192,47 @@ def check_studies(findings):
 
         # R5 -- absolute language anywhere
         scan_absolute(findings, where, blob)
+
+        # R15 -- typ identifikatoru musi odpovidat poli, ve kterem lezi.
+        # Pridano 2026-10-10 po nalezu N12: NCT05835999 lezelo v poli DOI,
+        # takze API i OpenAPI schema vydavaly registracni cislo za DOI a
+        # doi.org z nej delal 404. Registracni cislo ma od te doby vlastni
+        # pole Registry_ID. Pravidlo neodmita registrovanou studii jako
+        # takovou -- kriteria zarazeni NCT jako trvaly identifikator uznavaji.
+        doi = (s.get("doi") or "").strip()
+        reg = (s.get("registry_id") or "").strip()
+        if doi:
+            if re.match(r"^(NCT|ISRCTN|EudraCT)", doi, re.I):
+                add(findings, "ERROR", "R15 identifier-in-wrong-field", where, doi,
+                    "Pole DOI nese registracni cislo %r, ne DOI. API ho pak exportuje "
+                    "jako doi a doi.org na nem vraci 404." % doi,
+                    "Presun hodnotu do pole Registry_ID a DOI nech prazdne, "
+                    "dokud studie nema publikaci.")
+            elif not re.match(r"^10\.\d{4,9}/", doi):
+                add(findings, "WARN", "R15 doi-syntax", where, doi,
+                    "Pole DOI nese %r, co nema tvar DOI (10.xxxx/...)." % doi,
+                    "Oprav DOI, nebo hodnotu presun do pole, kam patri.")
+        if reg and not re.match(r"^(NCT\d+|ISRCTN\d+|EudraCT\s*\S+)$", reg, re.I):
+            add(findings, "WARN", "R15 registry-syntax", where, reg,
+                "Registry_ID nese %r, co neodpovida znamemu tvaru registracniho cisla." % reg,
+                "Zkontroluj hodnotu proti registru.")
+        # R17 -- "zkontrolovano" potrebuje kontrolujiciho.
+        # A14 (audit 2026-10-10): extrahovana AI_* pole se zobrazuji jako
+        # "Extracted findings"; bez stavu kontroly ctenar nepozna, ze je
+        # nikdo neporovnal se zdrojem. Stav Reviewed bez jmena by ten problem
+        # jen prebarvil na opacny.
+        exr = (s.get("extraction_review") or "").strip().lower()
+        exby = (s.get("extraction_reviewed_by") or "").strip()
+        if exr in ("reviewed", "corrected") and not exby:
+            add(findings, "ERROR", "R17 review-without-reviewer", where, exr,
+                "Extraction_Review=%r, ale Extraction_Reviewed_By je prazdne." % exr,
+                "Doplnit, kdo extrahovana pole porovnal se zdrojem, nebo stav vratit "
+                "na Unreviewed.")
+
+        if not doi and not reg and not (s.get("pmid") or "").strip():
+            add(findings, "ERROR", "R15 no-permanent-identifier", where, sid,
+                "Zaznam nema zadny trvaly identifikator (DOI, PMID ani Registry_ID).",
+                "Kriteria zarazeni trvaly identifikator vyzaduji -- doplnit, nebo zaznam vyradit.")
 
         # R7 -- Evidence_Tier must agree with Pyramid_Level.
         # Pridano 2026-07-29 po externim review. Tier a pyramida jsou dve osy,
@@ -998,9 +1049,122 @@ def check_edge_direction(findings, h):
                     "Check the direction. If the study points the other way, move it "
                     "to Conflicting_Studies or scope the edge by species/context.")
 
+# --- R16: tvrzeni o prvenstvi / vylucnosti -----------------------------------
+# Pridano 2026-10-10 (nalez A21). R5 chyta "proves / definitive / settles",
+# ale TRIDA "first / only / never" hlidana nebyla vubec -- a prave do ni
+# patrily dva major nalezy auditu 2026-10-10: H2 datovala prvni savci in vivo
+# ucinnost bi-sterika do 2026, ackoli MEN2023 ji mel uz 2023, a TRI2026 psal
+# "the only six completed human clinical trials" o seznamu, ktery je vysledkem
+# kriterii zarazeni jednoho prehledu. Tvrzeni o prvenstvi je overitelne jen
+# proti prohledane literature; bez zaznamu o tom hledani je to domnenka.
+#
+# Tvrzeni PROJDE, kdyz je ve stejne vete ohraniceno jednim z tehle zpusobu:
+#   - epistemicka vyhrada ("to our knowledge", "as far as we know")
+#   - rozsah na vlastni korpus ("in this corpus", "in this Atlas")
+#   - pripsani autorum zdroje ("the authors describe it as the first ...")
+#   - casove omezeni ("so far", "to date")
+#   - vyslovne popreni prvenstvi ("not the first", "is not the only")
+# "the first" se pocita jen tam, kde jde o PRVENSTVI, ne o poradi nebo idiom:
+# "the first step", "in the first place", "the first minutes", "the first half"
+# jsou poloha v sekvenci. "the only" se pocita jen u literaturnich podstatnych
+# jmen -- "the only variable", "the only route in this section" nebo "the only
+# independent predictor" jsou popis designu a statisticky vysledek, ne tvrzeni
+# o prvenstvi v oboru.
+PRIORITY = re.compile(
+    r"\b(?:"
+    r"the first(?!\s+(?:place|step|steps|half|minute|minutes|hour|hours|thing|things|"
+    r"few|time\b|line\b|author))"
+    r"|first (?:ever|study|trial|evidence|demonstration)"
+    r"|the only(?:\s+[\w-]+){0,5}?\s+(?:study|studies|trial|trials|paper|papers|evidence|"
+    r"demonstration|comparison|case|example|report|reports|measurement)"
+    r"|the sole|no other|has never been|have never been"
+    r"|nobody has|no one has|no study has"
+    r")", re.I)
+BOUNDED = re.compile(
+    r"(to our knowledge|as far as we know|so far|to date|in this corpus|"
+    r"in the corpus|in our corpus|in this collection|in this atlas|this atlas|"
+    r"in this section|in this map|the authors (?:describe|state|call|report)|"
+    r"describ(?:ed|es) (?:by )?(?:its|the) authors|the paper describes it as|"
+    r"its authors describe|not the first|is not the only|among the|one of the|"
+    r"of the (?:studies|trials) (?:included|held)|included in|eligibility criteri)", re.I)
+# Vyjimka jen s pisemnym duvodem: {("kde", "zachycene slovo"): "proc je to v poradku"}
+PRIORITY_EXEMPT = {
+    # Tahle veta NETVRDI absenci -- vysvetluje, ze absence je v tomhle
+    # Atlasu dvojznacna ("nobody has done the experiment, OR the Atlas has
+    # not yet found the paper"). Je to prave ten disclaimer, ktery R16
+    # jinde vymaha, takze flagovat ho by tlacilo text k opaku.
+    ("route:open.journey.unknowns", "nobody has"):
+        "meta-veta o dvojznacnosti absence, scopuje se sama v te same vete",
+}
+
+def _sentence_around(text, pos):
+    a = max(text.rfind(".", 0, pos), text.rfind("?", 0, pos), text.rfind("!", 0, pos))
+    b = min([x for x in (text.find(".", pos), text.find("?", pos), text.find("!", pos))
+             if x != -1] or [len(text)])
+    return text[a + 1:b + 1]
+
+def scan_priority(findings, where, text):
+    if not text:
+        return
+    text = str(text)
+    for m in PRIORITY.finditer(text):
+        word = m.group(0)
+        if (where, word.lower()) in PRIORITY_EXEMPT:
+            continue
+        sent = _sentence_around(text, m.start())
+        if BOUNDED.search(sent):
+            continue
+        # POZOR: generické negated() se tu ZÁMĚRNĚ nepoužívá. Kouká 70 znaků
+        # dozadu na negaci, což je správné u R5 ("not proven" je opatrné
+        # použití), ale u tvrzení o prvenství to dává falešné průchody:
+        # ve větě F5 stálo "no placebo arm, n=6, men only - but it is the
+        # first human functional phenotype...", a to "no" celé zjištění
+        # umlčelo, přitom s prvenstvím nemá nic společného. Popření prvenství
+        # ("not the first", "is not the only") pokrývá BOUNDED výše.
+        add(findings, "ERROR", "R16 unbounded-priority-claim", where, sent.strip(),
+            "Tvrzeni o prvenstvi/vylucnosti (%r) bez ohraniceni. Overit se da jen "
+            "proti prohledane literature, a ta tady zaznamenana neni." % word,
+            "Doprovod rozsahem, ve kterem to plati ('in this corpus', 'to our "
+            "knowledge', pripis autorum zdroje), nebo prepis na pozitivni popis "
+            "toho, co studie skutecne ukazala.")
+
+def check_priority_claims(findings):
+    """R16 napric vsemi verejnymi vrstvami, ne jen studiemi.
+
+    Revision_Log se ZAMERNE neskenuje: je to append-only historie oprav a
+    cituje v ni stara, uz opravena tvrzeni. Curator_Note je interni.
+    """
+    for st in json.load(open(STUDIES, encoding="utf-8")):
+        scan_priority(findings, "study:%s.finding" % st.get("sid"), st.get("finding"))
+    if os.path.exists(GAPS_BAKED):
+        g = json.load(open(GAPS_BAKED, encoding="utf-8"))
+        for x in (g if isinstance(g, list) else list(g.values())):
+            for k in ("title", "basis", "hyp", "exp", "changed", "open_now",
+                      "basis_beginner", "hyp_beginner"):
+                scan_priority(findings, "gap:%s.%s" % (x.get("id"), k), x.get(k))
+    if os.path.exists(FRONTIER):
+        for x in json.load(open(FRONTIER, encoding="utf-8")):
+            for k in ("title", "gap", "changed", "open_now", "exp", "why",
+                      "gap_beginner"):
+                scan_priority(findings, "frontier:%s.%s" % (x.get("id"), k), x.get(k))
+    if os.path.exists(PW_MODEL):
+        m = json.load(open(PW_MODEL, encoding="utf-8"))
+        for ed in m.get("interactions", []):
+            for k in ("mechanism", "mechanism_beginner", "teaching_note", "note",
+                      "boundary", "context_note"):
+                scan_priority(findings, "edge:%s.%s" % (ed.get("id"), k), ed.get(k))
+        for r in (m.get("routes") or []):
+            if not isinstance(r, dict):
+                continue
+            for k, v in (r.get("journey") or {}).items():
+                if isinstance(v, str):
+                    scan_priority(findings, "route:%s.journey.%s" % (r.get("id"), k), v)
+
+
 def main():
     findings = []
     n = check_studies(findings)
+    check_priority_claims(findings)
     check_index(findings)
     h = open(INDEX, encoding="utf-8").read()
     check_gap_regression_rules(findings, h)

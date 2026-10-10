@@ -70,28 +70,57 @@ CONSENSUS = {"established", "emerging", "contested"}
 # Smíšené práce ("human; mouse") projdou, protože aspoň jedna položka je
 # in-human. Viz test v _selftest_in_human() níže.
 _IN_VITRO_QUALIFIERS = ("cell", "line", "organoid", "in vitro", "ipsc",
-                        "xenograft", "tissue explant", "lysate", "recombinant")
+                        "xenograft", "tissue explant", "lysate", "recombinant",
+                        "derived", "extract", "homogenate")
+# N05 (audit 2026-10-10): jmeno zivocisneho druhu v tokenu polozku
+# diskvalifikuje. Bez toho vracelo in_human_species("adult mice") True,
+# protoze "adult" stalo v _HUMAN_WORDS samo za sebe -- jedna falesna
+# pozitivita (lidske bunky) byla vymenena za jinou (dospela mys).
+_ANIMAL_WORDS = ("mouse", "mice", "murine", "rat", "zebrafish",
+                 "fly", "flies", "drosophila", "worm", "elegans", "yeast",
+                 "monkey", "macaque", "rhesus", "marmoset", "dog", "canine",
+                 "beagle", "pig", "porcine", "rabbit", "hamster", "killifish",
+                 "chicken", "bovine", "sheep", "naked mole")
 _HUMAN_WORDS = ("human", "patient", "participant", "volunteer", "adult")
 
 def in_human_species(sp):
-    """True jen když aspoň jedna položka species popisuje člověka samotného."""
+    """True jen kdyz aspon jedna polozka species popisuje cloveka samotneho."""
     import re as _re
     for tok in _re.split(r"[;,/]| and ", (sp or "").lower()):
         tok = tok.strip()
         if not tok:
             continue
-        if any(w in tok for w in _HUMAN_WORDS) and not any(q in tok for q in _IN_VITRO_QUALIFIERS):
+        if any(w in tok for w in _HUMAN_WORDS) \
+           and not any(q in tok for q in _IN_VITRO_QUALIFIERS) \
+           and not any(a in tok for a in _ANIMAL_WORDS):
             return True
     return False
 
 def _selftest_in_human():
+    # Lidsky material, ne pozorovani v clovece:
     assert not in_human_species("human cells")
     assert not in_human_species("human cell lines; mouse")
     assert not in_human_species("human iPSC-derived neurons")
+    assert not in_human_species("human liver extract")        # N05
+    assert not in_human_species("human-derived neurons")      # N05
+    # Zvire s vekovym pridavkem -- regrese N05:
+    assert not in_human_species("adult mice")                 # N05
+    assert not in_human_species("adult zebrafish")            # N05
+    assert not in_human_species("mouse")
+    # Pozorovani v clovece:
     assert in_human_species("human")
     assert in_human_species("human; mouse")
     assert in_human_species("patients, mouse")
-    assert not in_human_species("mouse")
+    assert in_human_species("older adults")
+    # VEDOME ROZHODNUTI: vzorek odebrany zivemu pacientovi se POCITA za
+    # lidskou evidenci -- ORE2006 (parove nadorove biopsie) a CAR2008
+    # (biopsie 10 pacientu) maji lidskou experimentalni slozku, kterou
+    # audit 2026-10-10 vyslovne nechce smazat kodem studie.
+    assert in_human_species("patient tumour biopsies")
+    # ZBYVAJICI DIRA, vedome nezalepena seznamem slov: nazev bunecneho typu
+    # bez slova "cell" projde dal ("primary human myoblasts", "human
+    # hepatocytes"). Spravna oprava je strukturovane pole species +
+    # experimental_material + oznaceni in-human slozky, ne delsi seznam.
 _selftest_in_human()
 
 

@@ -128,7 +128,7 @@
     "translocation": "relocates",
     "scaffolding": "tethers",
     "phosphorylation": "phosphorylates",
-    "dephosphorylation": "reverses the lipid signal read by",
+    "dephosphorylation": "dephosphorylates",
     "gap-activity": "acts as a GAP on",
     "gef-activity": "acts as a GEF on",
     "complex-assembly": "assembles into",

@@ -28,6 +28,13 @@ MAP = {
     'fldlsktpNFL3Dt5tj': 'pyramid',
     'fldgxdypgVYKM0l1e': 'peer',
     'fldpLul0CsatnyUuo': 'doi',
+    # N12 (audit 2026-10-10): NCT cislo bylo ulozene v poli DOI, takze API
+    # exportovalo registracni cislo jako DOI. Drz synchronne se
+    # sync_airtable.py::fetch_studies -- jinak jedna cesta pole smaze.
+    'fldTHKDT4I8dxpgYV': 'registry_id',
+    # A14 (audit 2026-10-10): stav kontroly extrahovanych AI_* poli.
+    'fldeeSZYGcwgf59p8': 'extraction_review',
+    'fld7BA8VlHdb4PeiM': 'extraction_reviewed_by',
     'fldJLD0FAgqKVp6tZ': 'abstract',
     # PMID/PMCID must stay in this map. sync_airtable.py (the AIRTABLE_TOKEN
     # path used by deploy.bat) has always emitted "pmid"/"pmcid", but this MCP

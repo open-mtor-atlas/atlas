@@ -247,6 +247,9 @@ table.aud th{font-weight:600;background:var(--card)}
 table.aud td.num,table.aud th.num{text-align:right;font-variant-numeric:tabular-nums}
 .aud-bar{display:block;height:7px;border-radius:4px;background:var(--teal);
   min-width:2px;margin-top:4px}
+.aud-note{border-left:3px solid var(--teal);padding:10px 0 10px 14px;
+  margin:16px 0;font-size:.93rem;line-height:1.55;max-width:62ch}
+.aud-note code{font-size:.9em}
 .aud-caveat{border-left:3px solid var(--amber,#c8892a);padding:10px 0 10px 14px;
   margin:20px 0;background:transparent}
 .aud-caveat b{display:block;margin-bottom:4px}
@@ -310,7 +313,13 @@ def render(cfg, m):
     A('<p><strong>%d of %d studies &mdash; %.1f&nbsp;%% &mdash; are human evidence.</strong> '
       'Almost everything else is animal, cellular or theoretical%s. That is the single most '
       'important number on this page, and it is a fact about this collection, not a '
-      'measurement of the field.</p>'
+      'measurement of the field. Read it as a count of study LABELS: each record '
+      'carries one code for the kind of study it mainly is, so a paper that mixes a '
+      'human component with animal or cell work is counted once, under its main code. '
+      'ORE2006 and CAR2008 are the clearest examples -- both include patient material '
+      'alongside experimental work, and a single code hides that. The number is '
+      'therefore a floor on human experimental components, not an exhaustive count '
+      'of them.</p>'
       % (mix["human"], mix["n"], mix["human_pct"],
          (" (the %d off-ladder records are preprints and registered trials, which can "
           "include human studies not yet reported)" % mix["off_ladder"]) if mix["off_ladder"] else ""))
@@ -357,9 +366,15 @@ def render(cfg, m):
 
     # --- 4. single-study links ---
     A('<h2 id="single-study-links">How much rests on one paper</h2>')
-    A('<p>A link cited by one study is not wrong. It is unreplicated, which is a '
-      'different thing, and it is the first place to look when a result fails to '
-      'reproduce.</p>')
+    # N10 (audit 2026-10-10): "unreplicated" byl prestrelek. Jedna podpurna
+    # prace V TOMHLE KORPUSU nedokazuje, ze v oboru replikace neexistuje --
+    # ani ze ta jedna prace neobsahuje nekolik nezavislych experimentu.
+    A('<p>A link cited by one study is not wrong. It is supported by one indexed '
+      'publication in this corpus, which is a different thing, and it is the first '
+      'place to look when a result fails to reproduce. Note what that count is not: '
+      'it counts publications indexed here, so it does not establish that the field '
+      'holds no replication, and a single paper often carries several independent '
+      'experiments.</p>')
     A('<p><strong>%d of %d links (%.0f&nbsp;%%) are carried by a single paper in this '
       'corpus.</strong> Some of those papers are definitive structures; others are one '
       'result nobody has repeated. The Atlas does not currently distinguish the two, '
@@ -439,6 +454,22 @@ def render(cfg, m):
       'the link as disputed, which is a statement about the literature, not about '
       'review; <em>Confirmed</em> means a reviewer has checked the claim against the '
       'cited papers.</p>')
+    # N10 (audit 2026-10-10): tahle tabulka a pole `contested` v API pocitaly
+    # DVE RUZNA pole (Status vs. Consensus) a ctenar se u obou dozvedel, ze
+    # znamenaji spornou biologii -- proto stranka hlasila 8 a API 7. Neni to
+    # chyba v aritmetice, je to rozpor dvou reprezentaci. Definice se ted
+    # jmenuji spolu s polem, ze ktereho pochazeji.
+    A('<div class="aud-note"><b>Two different axes, counted from two different '
+      'fields.</b> The table below counts the curation field <em>Status</em>: how far '
+      'a link has got through this project\'s own review. The API\'s '
+      '<code>contested</code> flag and its <code>contested_relations</code> count come '
+      'from a different field, <em>Consensus</em>, which records the state of agreement '
+      'in the literature. A link can be awaiting review while the underlying biology is '
+      'settled, and it can be disputed in the field while nobody here has reviewed it, '
+      'so the two numbers are not expected to match and neither is the number of '
+      'disputed claims on its own. Where they disagree for a specific link, the reason '
+      'is written on that link\'s own page rather than averaged away -- GLN-RAG is the '
+      'current case.</div>')
     A('<table class="aud"><thead><tr><th>State</th><th class="num">Links</th>'
       '<th class="num">Share</th></tr></thead><tbody>')
     for k in sorted(cur["counts"], key=lambda x: -cur["counts"][x]):
@@ -449,7 +480,8 @@ def render(cfg, m):
       'reader &mdash; and they are displayed anyway.</b> That count includes the %d '
       '<em>Contested</em> links as well as the %d <em>Proposed</em> ones. There is no '
       'second reader on this project, so both states here mean drafted and cited by the '
-      'curator, not independently verified. The map does not hide those links behind their status, because hiding '
+      'curator, not independently verified. Both counts in this sentence come from the '
+      'curation field <em>Status</em>, not from the literature-consensus field. The map does not hide those links behind their status, because hiding '
       'most of the pathway would be a worse answer than labelling it. Every link, '
       'reviewed or not, names the studies it stands on, so the claim can be checked '
       'against the papers rather than taken on trust.</div>'

@@ -185,6 +185,9 @@ a{overflow-wrap:anywhere}
 
 @media (max-width:560px){
   /* two-column key/value tables stay tabular but tighten up */
+  /* A14: provenience tabulky Extracted findings */
+  p.ef-provenance{font-size:.9rem;line-height:1.55;max-width:62ch;opacity:.85;
+    border-left:3px solid var(--line-strong,#bbb);padding-left:12px;margin:10px 0 14px}
   table.kv td{padding:7px 8px 7px 0}
   table.kv td:first-child{width:38%}
 
@@ -233,6 +236,9 @@ table.aud th{font-weight:600;background:var(--card)}
 table.aud td.num,table.aud th.num{text-align:right;font-variant-numeric:tabular-nums}
 .aud-bar{display:block;height:7px;border-radius:4px;background:var(--teal);
   min-width:2px;margin-top:4px}
+.aud-note{border-left:3px solid var(--teal);padding:10px 0 10px 14px;
+  margin:16px 0;font-size:.93rem;line-height:1.55;max-width:62ch}
+.aud-note code{font-size:.9em}
 .aud-caveat{border-left:3px solid var(--amber,#c8892a);padding:10px 0 10px 14px;
   margin:20px 0;background:transparent}
 .aud-caveat b{display:block;margin-bottom:4px}
@@ -311,7 +317,7 @@ table.aud td.num,table.aud th.num{text-align:right;font-variant-numeric:tabular-
 <tr><td>M &mdash; molecular / in vitro / review</td><td class="num">266</td><td class="num">60.2&nbsp;%</td><td><span class="aud-bar" style="width:60.2%"></span></td></tr>
 <tr><td>Off the ladder (preprint, registered trial)</td><td class="num">6</td><td class="num">1.4&nbsp;%</td><td><span class="aud-bar" style="width:1.4%"></span></td></tr>
 </tbody></table>
-<p><strong>46 of 442 studies &mdash; 10.4&nbsp;% &mdash; are human evidence.</strong> Almost everything else is animal, cellular or theoretical (the 6 off-ladder records are preprints and registered trials, which can include human studies not yet reported). That is the single most important number on this page, and it is a fact about this collection, not a measurement of the field.</p>
+<p><strong>46 of 442 studies &mdash; 10.4&nbsp;% &mdash; are human evidence.</strong> Almost everything else is animal, cellular or theoretical (the 6 off-ladder records are preprints and registered trials, which can include human studies not yet reported). That is the single most important number on this page, and it is a fact about this collection, not a measurement of the field. Read it as a count of study LABELS: each record carries one code for the kind of study it mainly is, so a paper that mixes a human component with animal or cell work is counted once, under its main code. ORE2006 and CAR2008 are the clearest examples -- both include patient material alongside experimental work, and a single code hides that. The number is therefore a floor on human experimental components, not an exhaustive count of them.</p>
 <h2 id="does-it-reach-people">Is this corpus&rsquo;s human share rising over time?</h2>
 <p>If the pathway were maturing towards clinical use, the share of human work would rise over time. Here is what the corpus shows, by five-year window.</p>
 <table class="aud"><thead><tr><th>Period</th><th class="num">Studies</th><th class="num">Human</th><th class="num">Share</th><th>&nbsp;</th></tr></thead><tbody>
@@ -335,7 +341,7 @@ table.aud td.num,table.aud th.num{text-align:right;font-variant-numeric:tabular-
 </tbody></table>
 <p><strong>14 of 127 links (11&nbsp;%) have any human evidence behind them; 77 (61&nbsp;%) rest on mechanistic or review papers alone.</strong> This is the quantified form of what the Atlas elsewhere calls the human endpoint desert.</p>
 <h2 id="single-study-links">How much rests on one paper</h2>
-<p>A link cited by one study is not wrong. It is unreplicated, which is a different thing, and it is the first place to look when a result fails to reproduce.</p>
+<p>A link cited by one study is not wrong. It is supported by one indexed publication in this corpus, which is a different thing, and it is the first place to look when a result fails to reproduce. Note what that count is not: it counts publications indexed here, so it does not establish that the field holds no replication, and a single paper often carries several independent experiments.</p>
 <p><strong>53 of 127 links (42&nbsp;%) are carried by a single paper in this corpus.</strong> Some of those papers are definitive structures; others are one result nobody has repeated. The Atlas does not currently distinguish the two, and that is itself a gap.</p>
 <p class="aud-ids">4EBP1-LONGEVITY, 4EBP1-MITO, BISTERIC-MTORC1, CGASSTING-SENESCENCE, CR-LONGEVITY, CR-MTORC1, DEPTOR-MTOR, ERK-NUCL, ERK-TSC, EVE-BREAST, EVE-IMMUNE, EVE-PNET, EVE-RCC, FOXO-LONGEVITY, GLN-MTORC1-ARF1, GLN-RAG, HYPOXIA-REDD1, ISR-SALR, LARS-RAG, LEU-LARS, LKB1-AMPK, METFORMIN-AMPK, METFORMIN-MTORC1, MITODYS-MTORC1, MTORC1-HIF1A, MTORC1-MAPK, MTORC1-PGC1A, MTORC1-PROSTATE, MTORC1-ROS, MTORC1-SAM, MTORC2-LIPID, MTORC2-MAM, MTORC2-PROSTATE, MTORC2-SGK1, PDCD4-MTORC2, PDCD4-TRANSL, PTEN-PI3K, RAG-TSC, RAGULATOR-CGASSTING, RAPA-LAM, REDD1-TSC, ROS-MTORC1, S6K1-LONGEVITY, S6K1-PDCD4, SALR-MTORC1, SAM-SAMTOR, SAMTOR-GATOR1, SESN2-AGING, TBC1D7-TSC, TEM-MTORC1, TEM-RCC, ULK1-AMPK, ULK1-FNIP1</p>
 <h2 id="boundary-layer">How much carries its boundary</h2>
@@ -369,11 +375,12 @@ table.aud td.num,table.aud th.num{text-align:right;font-variant-numeric:tabular-
 <p>The corpus holds <strong>5 studies whose curated category is <code>Negative_result</code></strong> (JIB2026, MAN2021, MIL2011, POU2013, STR2012). The label marks studies whose headline result was null; a trial with a null pre-registered primary endpoint may carry another category (MOE2025, the PEARL trial, is filed as Human). The pathway map also has a dedicated sign for a tested-and-null link (<code>no-effect</code>), and it is currently used <strong>0 times</strong>. That gap is real: null relationships are being recorded at the level of the study but not yet at the level of the map.</p>
 <h2 id="curation-state">Who has checked this</h2>
 <p>Each link in the map has a curation state. <em>Proposed</em> means it was drafted and cited but has not been signed off by a second reader; <em>Contested</em> means the Atlas records the direction, mechanism or scope of the link as disputed, which is a statement about the literature, not about review; <em>Confirmed</em> means a reviewer has checked the claim against the cited papers.</p>
+<div class="aud-note"><b>Two different axes, counted from two different fields.</b> The table below counts the curation field <em>Status</em>: how far a link has got through this project's own review. The API's <code>contested</code> flag and its <code>contested_relations</code> count come from a different field, <em>Consensus</em>, which records the state of agreement in the literature. A link can be awaiting review while the underlying biology is settled, and it can be disputed in the field while nobody here has reviewed it, so the two numbers are not expected to match and neither is the number of disputed claims on its own. Where they disagree for a specific link, the reason is written on that link's own page rather than averaged away -- GLN-RAG is the current case.</div>
 <table class="aud"><thead><tr><th>State</th><th class="num">Links</th><th class="num">Share</th></tr></thead><tbody>
 <tr><td>Proposed</td><td class="num">119</td><td class="num">94&nbsp;%</td></tr>
 <tr><td>Contested</td><td class="num">8</td><td class="num">6&nbsp;%</td></tr>
 </tbody></table>
-<div class="aud-caveat"><b>127 of 127 links have not been reviewed by a second reader &mdash; and they are displayed anyway.</b> That count includes the 8 <em>Contested</em> links as well as the 119 <em>Proposed</em> ones. There is no second reader on this project, so both states here mean drafted and cited by the curator, not independently verified. The map does not hide those links behind their status, because hiding most of the pathway would be a worse answer than labelling it. Every link, reviewed or not, names the studies it stands on, so the claim can be checked against the papers rather than taken on trust.</div>
+<div class="aud-caveat"><b>127 of 127 links have not been reviewed by a second reader &mdash; and they are displayed anyway.</b> That count includes the 8 <em>Contested</em> links as well as the 119 <em>Proposed</em> ones. There is no second reader on this project, so both states here mean drafted and cited by the curator, not independently verified. Both counts in this sentence come from the curation field <em>Status</em>, not from the literature-consensus field. The map does not hide those links behind their status, because hiding most of the pathway would be a worse answer than labelling it. Every link, reviewed or not, names the studies it stands on, so the claim can be checked against the papers rather than taken on trust.</div>
 <p><b>Checked by a researcher outside the project: 0 of 127 links.</b> When a scientist whose own work supports a link checks it, their name is listed here and on the link's page, only with their permission.</p>
 <h2 id="limits">What this audit does not measure</h2>
 <ul>
@@ -395,7 +402,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 12:09 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 17:17 Prague time</div>
 </footer>
 </div>
 </body>

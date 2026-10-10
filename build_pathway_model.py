@@ -68,28 +68,57 @@ REVIEW_DATE = "2026-07-29"
 # Smíšené práce ("human; mouse") projdou, protože aspoň jedna položka je
 # in-human. Viz test v _selftest_in_human() níže.
 _IN_VITRO_QUALIFIERS = ("cell", "line", "organoid", "in vitro", "ipsc",
-                        "xenograft", "tissue explant", "lysate", "recombinant")
+                        "xenograft", "tissue explant", "lysate", "recombinant",
+                        "derived", "extract", "homogenate")
+# N05 (audit 2026-10-10): jmeno zivocisneho druhu v tokenu polozku
+# diskvalifikuje. Bez toho vracelo in_human_species("adult mice") True,
+# protoze "adult" stalo v _HUMAN_WORDS samo za sebe -- jedna falesna
+# pozitivita (lidske bunky) byla vymenena za jinou (dospela mys).
+_ANIMAL_WORDS = ("mouse", "mice", "murine", "rat", "zebrafish",
+                 "fly", "flies", "drosophila", "worm", "elegans", "yeast",
+                 "monkey", "macaque", "rhesus", "marmoset", "dog", "canine",
+                 "beagle", "pig", "porcine", "rabbit", "hamster", "killifish",
+                 "chicken", "bovine", "sheep", "naked mole")
 _HUMAN_WORDS = ("human", "patient", "participant", "volunteer", "adult")
 
 def in_human_species(sp):
-    """True jen když aspoň jedna položka species popisuje člověka samotného."""
+    """True jen kdyz aspon jedna polozka species popisuje cloveka samotneho."""
     import re as _re
     for tok in _re.split(r"[;,/]| and ", (sp or "").lower()):
         tok = tok.strip()
         if not tok:
             continue
-        if any(w in tok for w in _HUMAN_WORDS) and not any(q in tok for q in _IN_VITRO_QUALIFIERS):
+        if any(w in tok for w in _HUMAN_WORDS) \
+           and not any(q in tok for q in _IN_VITRO_QUALIFIERS) \
+           and not any(a in tok for a in _ANIMAL_WORDS):
             return True
     return False
 
 def _selftest_in_human():
+    # Lidsky material, ne pozorovani v clovece:
     assert not in_human_species("human cells")
     assert not in_human_species("human cell lines; mouse")
     assert not in_human_species("human iPSC-derived neurons")
+    assert not in_human_species("human liver extract")        # N05
+    assert not in_human_species("human-derived neurons")      # N05
+    # Zvire s vekovym pridavkem -- regrese N05:
+    assert not in_human_species("adult mice")                 # N05
+    assert not in_human_species("adult zebrafish")            # N05
+    assert not in_human_species("mouse")
+    # Pozorovani v clovece:
     assert in_human_species("human")
     assert in_human_species("human; mouse")
     assert in_human_species("patients, mouse")
-    assert not in_human_species("mouse")
+    assert in_human_species("older adults")
+    # VEDOME ROZHODNUTI: vzorek odebrany zivemu pacientovi se POCITA za
+    # lidskou evidenci -- ORE2006 (parove nadorove biopsie) a CAR2008
+    # (biopsie 10 pacientu) maji lidskou experimentalni slozku, kterou
+    # audit 2026-10-10 vyslovne nechce smazat kodem studie.
+    assert in_human_species("patient tumour biopsies")
+    # ZBYVAJICI DIRA, vedome nezalepena seznamem slov: nazev bunecneho typu
+    # bez slova "cell" projde dal ("primary human myoblasts", "human
+    # hepatocytes"). Spravna oprava je strukturovane pole species +
+    # experimental_material + oznaceni in-human slozky, ne delsi seznam.
 _selftest_in_human()
 
 
@@ -1037,7 +1066,7 @@ ROUTE_STEPS = {
    "changed": "In those organisms, median and sometimes maximum lifespan.",
    "consequence": "In humans: unknown. Not disputed, not negative – simply never measured.",
    "certainty": "Human relevance UNTESTED. That grade is arithmetic, not pessimism: no human lifespan trial of any mTOR-lowering intervention exists or could have completed.",
-   "matters": "Thirteen interactions in this map carry human relevance untested, and every longevity edge is one of them. This is the single most important calibration in the Atlas, because it is the claim most likely to be repeated without its qualifier. Robust in four species is a strong result; it is not a human result."},
+   "matters": "{n_untested_word} interactions in this map carry human relevance untested, and every longevity edge is one of them. This is the single most important calibration in the Atlas, because it is the claim most likely to be repeated without its qualifier. Robust in four species is a strong result; it is not a human result."},
   {"interaction": "RAPA-LONGEVITY",
    "what": "The same gap, for the drug specifically.",
    "why": "Rapamycin extends mouse lifespan reproducibly, including when started late in life.",
@@ -1419,10 +1448,10 @@ ROUTE_JOURNEY = {
  },
  "open": {
   "title": "Where does this pathway stop being known?",
-  "question": "Every pathway diagram looks equally confident everywhere. This one is not, and it records where. So: which parts of mTOR biology are contested between labs, which have a mechanism nobody has resolved, and which have never been tested in a human at all?",
+  "question": "Every pathway diagram looks equally confident everywhere. This one is not, and it records where. So: which parts of mTOR biology does this Atlas record as contested between labs, which carry a mechanism it cannot resolve from the work it holds, and which have no in-human evidence in this corpus at all?",
   "breakthrough": {"synthesis": ["WOL2015", "SAX2015", "HOW2017", "SAR2006"],
     "why": "There is no breakthrough here by construction – this route is about the absence of one. The papers listed are instead the clearest examples of live disagreement: WOL2015 and SAX2015 established Sestrin2 as a leucine sensor, which competes with the LARS model that this map still carries as contested; HOW2017 showed metformin's mTORC1 inhibition is dose-dependent and mechanistically plural, undermining the tidy AMPK story; SAR2006 in cell lines and LAM2012 in mouse liver show that chronic rapamycin disrupts mTORC2, while how much that matters in people is still argued. Each is good work whose conclusion the field has not closed."},
-  "evidence": "Deliberately the weakest evidence in the Atlas, and the grading is the point: 7 interactions are typed contested, 8 carry low mechanistic confidence, 13 have human relevance untested. Those counts are computed from the model, so this route cannot drift from the data it is complaining about.",
+  "evidence": "Deliberately the weakest evidence in the Atlas, and the grading is the point: {n_contested} interactions are typed contested, {n_lowmech} carry low mechanistic confidence, {n_untested} have human relevance untested. Those counts are substituted from the built model at bake time, so this route cannot drift from the data it is complaining about.",
   "unknowns": "That is the entire route. But the meta-unknown is worth stating: gaps here are computed against THIS corpus, not against the literature. A gap may mean nobody has done the experiment, or it may mean the Atlas has not yet found the paper – and an external review already caught one case of the second kind. Treat every step as a hypothesis about the evidence, testable by finding the study that closes it.",
  },
  "cancer": {
@@ -1435,11 +1464,11 @@ ROUTE_JOURNEY = {
  },
  "aa": {
   "title": "How does a cell know it has enough raw material to grow?",
-  "question": "A cell cannot start building unless the amino acids are actually present. But amino acids are small molecules with no receptor on the cell surface – so how does the cell measure something it cannot bind from outside?",
+  "question": "A cell cannot start building unless the amino acids are actually present. But reading an amino acid is not like reading a hormone: the sensors on this route sit inside the cell, on and around the lysosome. So how does a cell turn the amount of a small molecule in its own cytosol into a decision to grow?",
   "breakthrough": {"sid": "SAN2010",
     "why": "Reframed nutrient sensing from a chemistry problem into a GEOGRAPHY problem. The Rag–Ragulator complex does not switch mTORC1 on; it moves mTORC1 to the lysosomal surface. Everything about amino-acid sensing turned out to be about location, which is why the answer had eluded people looking for a classical receptor. SAN2008 had already shown the Rags carry the amino-acid signal; this paper said where."},
   "evidence": "Structural biology and genetic epistasis in human cell lines, plus imaging of mTORC1 translocation. Cell-line work throughout – this arm has no human genetic or clinical evidence in this corpus, which is why almost every step is graded human-relevance *plausible* rather than established.",
-  "unknowns": "How GATOR2 actually inhibits GATOR1 catalytically is still unresolved. Whether Sestrin2's ~20 µM leucine affinity is the operating setpoint in real tissue is untested. And the LARS and glutamine arms remain contested – reproduced in some labs, not others.",
+  "unknowns": "How GATOR2 actually inhibits GATOR1 catalytically is still unresolved. Whether Sestrin2's ~20 µM leucine affinity is the operating setpoint in real tissue is untested. And the LARS and glutamine arms remain contested – reproduced in some labs, not others. Scope note: this route follows the intracellular and lysosomal sensors only. Cell-surface amino-acid sensing has also been reported – the taste receptor T1R1/T1R3 signals amino-acid availability to mTORC1 and its knockdown blunts that signal (Wauson, Mol Cell 2012, PMID 22959271) – and that arm is not mapped here.",
  },
  "gf": {
   "title": "How does a cell learn that it is allowed to grow?",
@@ -1870,6 +1899,41 @@ def main():
     for n in nodes:
         n.update(coords.get(n["id"], {"x": 700, "y": 400}))
 
+    # ---- pocty do textu tras ---------------------------------------------
+    # A21 (audit 2026-10-10): trasa "open" o sobe tvrdila, ze jeji cisla jsou
+    # pocitana z modelu, ale byla zapsana natvrdo v retezci -- a uz se
+    # rozesla: text rikal 8 hran s nizkou mechanistickou jistotou (bylo 7) a
+    # 13 hran s netestovanou lidskou relevanci (bylo 17). Presne ten typ
+    # tvrzeni, ktery stranka jinde vytyka ostatnim. Ted se substituuji.
+    _NUMWORD = {11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen",
+                15: "Fifteen", 16: "Sixteen", 17: "Seventeen", 18: "Eighteen",
+                19: "Nineteen", 20: "Twenty"}
+    _conf = lambda f, v: sum(1 for i in interactions
+                             if (i.get("confidence") or {}).get(f) == v)
+    _counts = {
+        "n_contested": _conf("consensus", "contested"),
+        "n_lowmech": _conf("mechanistic", "low"),
+        "n_untested": _conf("human_relevance", "untested"),
+    }
+    _counts["n_untested_word"] = _NUMWORD.get(_counts["n_untested"],
+                                              str(_counts["n_untested"]))
+
+    def _fill(obj):
+        """Doplni {n_*} v textech tras. Neznamy placeholder zastavi bake."""
+        if isinstance(obj, str):
+            if "{n_" not in obj:
+                return obj
+            try:
+                return obj.format(**_counts)
+            except KeyError as exc:
+                problems.append("route text uses unknown placeholder %s" % exc)
+                return obj
+        if isinstance(obj, dict):
+            return {k: _fill(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [_fill(v) for v in obj]
+        return obj
+
     # ---- trasy: migrace 7 stávajících ------------------------------------
     routes = []
     for r in old_routes:
@@ -1882,12 +1946,12 @@ def main():
             # neztratila orientace v dráze.
             "name": (j or {}).get("title", r["name"]),
             "territory": r["name"],
-            "journey": j or {},
+            "journey": _fill(j or {}),
             "summary": r["sub"],
             "story": r["story"],
             "interactions": r["edges"],
             "spine": r.get("steps", []),
-            "steps": ROUTE_STEPS.get(r["id"], []),
+            "steps": _fill(ROUTE_STEPS.get(r["id"], [])),
         })
     # Nové trasy stejnou cestou jako migrované – jinak by šly obejít branky.
     for nr in NEW_ROUTES:
@@ -1901,12 +1965,12 @@ def main():
             "id": nr["id"],
             "name": (j or {}).get("title", nr["id"]),
             "territory": nr["territory"],
-            "journey": j or {},
+            "journey": _fill(j or {}),
             "summary": nr["story"],
             "story": nr["story"],
             "interactions": nr["interactions"],
             "spine": nr["spine"],
-            "steps": ROUTE_STEPS.get(nr["id"], []),
+            "steps": _fill(ROUTE_STEPS.get(nr["id"], [])),
         })
 
     for rid, steps in ROUTE_STEPS.items():
