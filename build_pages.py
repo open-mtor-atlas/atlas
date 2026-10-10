@@ -28,6 +28,8 @@ odvozuje z Entity_Name; když se entita v Airtable přejmenuje, PŘIDEJ starý s
 do LEGACY_SLUGS níž, nikdy negeneruj jinou adresu potichu.
 """
 
+# A13 (audit 2026-10-07): conf u otázek je kurátorský odhad, ne pravděpodobnost.
+CONF_TIP = ("The curator's judgement of how likely this hypothesis is to hold, given the studies in the Atlas. Set by hand, not computed from data, and not a calibrated probability.")
 import os, sys, json, re, html, shutil, unicodedata, datetime, hashlib, io
 from zoneinfo import ZoneInfo
 
@@ -1297,7 +1299,7 @@ def gap_page(g, studies_by_sid):
 
     body = [f"<h1>{e(g['title'])}</h1>",
             f'<p class="meta">{e(kind)}'
-            + (f' · confidence {e(round(conf*100))}%' if conf is not None else "")
+            + (f' · <abbr title="{e(CONF_TIP)}">editorial confidence</abbr> {e(round(conf*100))}%' if conf is not None else "")
             + (f' · evidence stands at: {e(g["tier"])}' if g.get("tier") else "")
             + f' · Atlas ID <code>{e(g["id"])}</code></p>']
     lv_needed = False
@@ -2370,7 +2372,7 @@ def questions_page(gaps):
     for g, slug in items:
         kind = GAP_TYPE_LABEL.get(g.get("type"), g.get("type") or "Open question")
         conf = g.get("conf")
-        conf_html = f' \u00b7 confidence {e(round(conf * 100))}%' if conf is not None else ""
+        conf_html = f' \u00b7 <abbr title="{e(CONF_TIP)}">editorial confidence</abbr> {e(round(conf * 100))}%' if conf is not None else ""
         synopsis = (g.get("basis_beginner") or g.get("basis") or "")[:220]
         body.append(
             f'<div style="margin:0 0 20px"><h3 style="margin:0 0 4px">'
@@ -2676,9 +2678,10 @@ links rest on a single paper, and how much of what is claimed carries a recorded
 boundary &mdash; see the <a href="{SITE}/evidence/audit/"><strong>evidence
 audit</strong></a>.</p>
 <table class="kv">
-<tr><th>Evidence</th><th>Studies</th><th>Share of corpus</th></tr>
+<tr><th>Evidence</th><th>Studies</th><th>Share of coded studies</th></tr>
 {rows}
 </table>
+<p class="meta">Percentages are of the {total} studies that carry an S/H/A/M/R code. The corpus holds {len(studies)} records in all; the other {len(studies) - total} are preprints (PP) or registered trials (RT), which carry a publication-status marker instead of a code.</p>
 <h2>What each code means</h2>
 <ul>
 <li><strong>S \u2014 synthesis of human data:</strong> a formal synthesis of

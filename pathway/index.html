@@ -71,28 +71,28 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "920518"
+    "contentSize": "921884"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1120883"
+    "contentSize": "1122243"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "73736"
+    "contentSize": "73650"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "98328"
+    "contentSize": "98091"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -110,7 +110,7 @@
    "evidence-based research"
   ],
   "version": "2.0.1",
-  "dateModified": "2026-10-09"
+  "dateModified": "2026-10-10"
  }
 }
 </script>
@@ -369,10 +369,10 @@ full interaction reference table below.</p>
 <p class="summary">This is where the pathway&#x27;s logic starts being counter-intuitive. The cell does not detect food and then send a &#x27;grow&#x27; signal. It detects food and stops sending a &#x27;do not grow&#x27; signal. Most nutrient inputs drawn in this map work that way – count the double negatives yourself rather than taking the word &#x27;almost every&#x27; on trust – and it is the reason the pathway is so hard to read off a diagram of arrows.</p></li><li class="step">
 <p class="step-what"><strong>2. GATOR2 is released – the first brake comes off.</strong>
 <a class="step-jump" href="#int-sesn2-gator2">mechanism &darr;</a></p>
-<p>Sestrin2 and GATOR2 are mutually exclusive binding partners: leucine-bound Sestrin2 lets go, and free GATOR2 becomes able to act on GATOR1.</p>
-<p><em>GATOR2 goes from sequestered to available. Its availability, not its abundance, is what the cell regulates.</em> Available GATOR2 now inhibits GATOR1. Count the negatives as you go – you are two into a chain of them.</p>
+<p>Without leucine, Sestrin2 binds GATOR2 and holds it in check. Leucine binding to Sestrin2 disrupts that interaction (WOL2015), so the two competing states are Sestrin2 bound to leucine and Sestrin2 bound to GATOR2. Released GATOR2 becomes able to act on GATOR1.</p>
+<p><em>GATOR2 goes from held by Sestrin2 to free. In this step the cell changes how much GATOR2 is free, not how much GATOR2 it makes.</em> Available GATOR2 now inhibits GATOR1. Count the negatives as you go – you are two into a chain of them.</p>
 <p class="tier-why">Certainty: Mechanistically solid and reproduced. Structures of the GATOR2 cage and its sensor-binding surfaces exist; the cited corpus evidence here is cell-line biochemistry, so human relevance is plausible rather than demonstrated.</p>
-<p class="summary">Regulation by sequestration rather than by synthesis is fast and cheap – no transcription, no translation, no degradation. It lets the cell respond to a meal in seconds instead of hours. Evolution reaches for this trick whenever speed matters.</p></li><li class="step">
+<p class="summary">Regulation by sequestration rather than by synthesis is fast and cheap – no transcription, no translation, no degradation. It lets the cell respond to leucine within minutes rather than hours. Evolution reaches for this trick whenever speed matters.</p></li><li class="step">
 <p class="step-what"><strong>3. GATOR2 shuts down GATOR1 – the second brake comes off.</strong>
 <a class="step-jump" href="#int-gator2-gator1">mechanism &darr;</a></p>
 <p>GATOR1 is the machine that switches the Rag GTPases off. GATOR2 inhibits it. So inhibiting GATOR1 means the Rags stop being switched off.</p>
@@ -422,10 +422,10 @@ full interaction reference table below.</p>
 <p class="summary">The cell&#x27;s answer to &#x27;am I allowed to grow?&#x27; does not arrive as a molecule entering the cytosol. It arrives as a change in membrane chemistry. That is why this arm is reversed by a phosphatase rather than switched off by degradation.</p></li><li class="step">
 <p class="step-what"><strong>2. PIP3 recruits Akt to the membrane – and recruitment is not activation.</strong>
 <a class="step-jump" href="#int-pi3k-akt">mechanism &darr;</a></p>
-<p>Akt has a domain that binds PIP3. Arriving at the membrane puts it where two kinases can reach it, but arriving is not the same as being switched on: PDK1 must phosphorylate T308 and mTORC2 must phosphorylate S473.</p>
-<p><em>Akt&#x27;s location changes. Its activity changes only once the two phosphorylations happen.</em> Full growth-factor signalling therefore depends on mTORC2 being functional – which is why mTOR sits on both sides of this pathway.</p>
-<p class="tier-why">Certainty: High mechanistic confidence, well replicated, cell-line evidence.</p>
-<p class="summary">The same distinction as in the nutrient arm, appearing again: getting a protein to a place is a different act from switching it on. A diagram with one arrow from PI3K to Akt hides three events and one dependency on the other mTOR complex.</p></li><li class="step">
+<p>Akt has a domain that binds PIP3. Arriving at the membrane puts it where two kinases can reach it, but arriving is not the same as being switched on. PDK1 phosphorylates T308 in the activation loop, the step central to switching Akt on. mTORC2 phosphorylates S473, which raises activity further and changes which substrates Akt reaches.</p>
+<p><em>Akt&#x27;s location changes first. Its activity rises with T308 phosphorylation; S473 adds to it, and how much S473 matters depends on the substrate.</em> Some Akt outputs depend on mTORC2 more than others. In mice lacking rictor or mLST8, insulin signalling to FOXO3 was lost while signalling to TSC2 and GSK3-beta was kept (GUE2006). Losing mTORC2 therefore weakens part of Akt&#x27;s output rather than switching Akt off, and the branch through TSC2 toward mTORC1 largely keeps working. mTOR still sits on both sides of this pathway, but the upstream dependency is partial.</p>
+<p class="tier-why">Certainty: High mechanistic confidence, well replicated; cell-line and knockout-mouse evidence (GUE2006, JAC2006).</p>
+<p class="summary">The same distinction as in the nutrient arm, appearing again: getting a protein to a place is a different act from switching it on. A diagram with one arrow from PI3K to Akt hides three events and a partial, substrate-dependent reliance on the other mTOR complex.</p></li><li class="step">
 <p class="step-what"><strong>3. Akt phosphorylates the TSC complex and takes the brake off.</strong>
 <a class="step-jump" href="#int-akt-tsc">mechanism &darr;</a></p>
 <p>TSC1/TSC2 is the pathway&#x27;s master brake. Akt phosphorylation inhibits it – partly by changing its activity, substantially by moving it away from where its target sits.</p>
@@ -547,15 +547,15 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>4. In muscle, that translation supports hypertrophy.</strong>
 <a class="step-jump" href="#int-transl-muscle">mechanism &darr;</a></p>
 <p>Load-driven growth requires mTORC1: Raptor-null muscle is dystrophic, and rapamycin blocks overload-induced hypertrophy.</p>
-<p><em>Muscle fibres grow – over days, not minutes.</em> This is one of the few places where the pathway&#x27;s output has been tested in people.</p>
-<p class="tier-why">Certainty: The strongest human evidence in this route: DRU2009 is an H – human – interventional study showing rapamycin blocks the contraction-induced increase in muscle protein synthesis. Human relevance established, not merely plausible.</p>
-<p class="summary">Worth pausing on, because it is rare. Most of this map is graded human-relevance plausible on cell-line evidence. Here a human intervention closes the loop. It also carries a caveat: mTORC1 activation is NECESSARY for healthy hypertrophy but not sufficient – constitutive activation alone does not build good muscle.</p></li><li class="step">
+<p><em>Muscle fibres grow – over days, not minutes.</em> The step just before this one has been tested in people; this one has not.</p>
+<p class="tier-why">Certainty: Mouse genetics and pharmacology (BOD2001) and cultured myotubes (ROM2001); human relevance plausible. The human study in this area, DRU2009, measured protein synthesis 1–2 h after one bout of exercise, not muscle growth, so it supports the previous step rather than this arrow.</p>
+<p class="summary">Worth pausing on, because the human evidence sits one step upstream of where it is usually quoted. A human intervention shows mTORC1 is needed for the acute rise in protein synthesis; that more synthesis becomes more muscle over weeks is shown in mice. It also carries a caveat: mTORC1 activation is NECESSARY for healthy hypertrophy but not sufficient – constitutive activation alone does not build good muscle.</p></li><li class="step">
 <p class="step-what"><strong>5. At the same time, mTORC1 is holding recycling down.</strong>
 <a class="step-jump" href="#int-mtorc1-ulk1">mechanism &darr;</a></p>
 <p>Phosphorylation of ULK1 on S757 blocks the AMPK–ULK1 interaction, preventing autophagy initiation.</p>
-<p><em>Autophagy is suppressed while building proceeds.</em> The two arms are reciprocal by design: the cell does not build and demolish simultaneously.</p>
+<p><em>Autophagy is suppressed while building proceeds.</em> The two arms move in opposite directions: when mTORC1 is active, building goes up and autophagy initiation goes down.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, replicated; cell-line evidence.</p>
-<p class="summary">This is the answer to what mTORC1 firing actually DOES, stated properly: it is not one action but a coordinated switch between two mutually exclusive programmes. Any account that lists only the build side has described half a switch.</p></li><li class="step">
+<p class="summary">This is the answer to what mTORC1 firing actually DOES, stated properly: it is not one action but a coordinated shift that pushes building up and recycling down at the same time. Cells usually run both programmes to some degree; mTORC1 sets the balance between them rather than choosing one. Any account that lists only the build side has described half a switch.</p></li><li class="step">
 <p class="step-what"><strong>6. Release mTORC1 and autophagy resumes.</strong>
 <a class="step-jump" href="#int-ulk1-autophagy">mechanism &darr;</a></p>
 <p>Unblocked ULK1 nucleates autophagosome formation, and TFEB – released from mTORC1 phosphorylation – transcribes the genes to sustain it.</p>
@@ -734,7 +734,7 @@ full interaction reference table below.</p>
 <li class="step">
 <p class="step-what"><strong>1. You lift something heavy, and mTORC1 activity rises in the muscle.</strong>
 <a class="step-jump" href="#int-load-mtorc1">mechanism &darr;</a></p>
-<p>Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so mTORC1 is not merely present during the response, it is required for it.</p>
+<p>Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so mTORC1 signalling is needed for the acute response, not merely present during it. Rapamycin also blunted ERK1/2 in the same volunteers, so the block is not attributable to mTORC1 alone.</p>
 <p><em>A physical force has become a molecular signal. The muscle has committed to building.</em> Everything downstream is the pathway you already know, running on a stimulus that is not a hormone.</p>
 <p class="tier-why">Certainty: The strongest evidence in this entire section: a human interventional study (DRU2009, H – human), supported by rodent genetics and pharmacology (BOD2001). Human relevance ESTABLISHED, not plausible.</p>
 <p class="summary">Pause on what kind of evidence this is. Almost every other step in this Atlas says &#x27;we showed this in cells and infer it in people&#x27;. Here someone gave a drug to humans, removed the pathway, and the response disappeared. That is an interruption experiment in a person, and it is worth far more than any amount of correlative human data.</p></li><li class="step">
@@ -790,7 +790,7 @@ full interaction reference table below.</p>
 <a class="step-jump" href="#int-transl-muscle">mechanism &darr;</a></p>
 <p>Repeated bouts of elevated synthesis, exceeding breakdown, produce hypertrophy. Raptor-null muscle is dystrophic; rapamycin blocks overload-induced growth.</p>
 <p><em>Fibre cross-sectional area increases.</em> The adaptation that the training was for.</p>
-<p class="tier-why">Certainty: Human relevance established, supported by mouse genetics and human pharmacology. Timescale: days – this is the slowest step in the route by two orders of magnitude.</p>
+<p class="tier-why">Certainty: Mouse genetics and pharmacology (BOD2001) and cultured myotubes; human relevance plausible. The human study in this route (DRU2009) measured the acute protein-synthesis step, not growth. Timescale: days – this is the slowest step in the route by two orders of magnitude.</p>
 <p class="summary">One honest limit to end on. mTORC1 activation is NECESSARY for healthy hypertrophy but not SUFFICIENT: constitutively activating mTORC1 in muscle does not produce good muscle, it produces inflammation and dysfunction. The signal has to be intermittent. That is a general lesson about this pathway – it is a switch that is meant to be thrown, not held.</p></li>
 </ol>
 <p><strong>Key paper:</strong> <a href="https://mtor-atlas.org/study/DRU2009/">DRU2009</a> &mdash; Did the interruption experiment in people. Human volunteers were given rapamycin before resistance exercise, and the contraction-induced rise in muscle protein synthesis was blocked. Almost everything else in this Atlas is inferred from cells or mice; this placed mTORC1 causally inside a human physiological response. BOD2001 had established the pathway&#x27;s necessity in rodent muscle, but necessity in a person is a different claim.</p>
@@ -873,7 +873,7 @@ full interaction reference table below.</p>
 <a class="step-jump" href="#int-cr-longevity">mechanism &darr;</a></p>
 <p>Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</p>
 <p><em>Median and in some studies maximum lifespan increase.</em> The molecular sequence you just walked is the leading mechanistic account of why.</p>
-<p class="tier-why">Certainty: Medium mechanistic confidence, INDIRECT, rhesus and mouse. Human relevance UNTESTED – there is no human lifespan data. The two large rhesus studies famously disagreed depending on the control diet, and SOL2014 found macronutrient RATIO mattered more than total calories.</p>
+<p class="tier-why">Certainty: Medium mechanistic confidence, INDIRECT, rhesus and mouse. Human relevance UNTESTED – there is no human lifespan data. The two large rhesus studies famously disagreed depending on the control diet, and in SOL2014, cutting calories by diluting the food did not extend lifespan in freely fed mice, while a lower protein-to-carbohydrate ratio did. Which variable carries the effect is not settled.</p>
 <p class="summary">The route asked what happens and in what order. It can answer that with reasonable confidence for the first few hours in a cell, and it cannot answer it at all for a human lifetime. The gap between those two ends of the same arrow is the single most important thing to carry away from this section – and the reason the Atlas grades human relevance separately from mechanism.</p></li>
 </ol>
 
@@ -1017,17 +1017,17 @@ full interaction reference table below.</p>
 <p><em>IRS-1 protein accumulates. The adaptor that couples receptors to PI3K comes back.</em> PI3K signalling recovers – driven by the drug, not despite it.</p>
 <p class="tier-why">Certainty: High mechanistic confidence, multiple supporting studies, cell-line evidence. ROD2011 additionally showed mTOR kinase inhibition produces biphasic Akt regulation through exactly this kind of feedback.</p>
 <p class="summary">This is the sentence that reframes the whole route. The drug does not merely fail to finish the job – it actively removes one of the tumour&#x27;s own restraints. Any therapy that interrupts a negative feedback loop is partly self-defeating, and this loop was there all along in the growth-factor route.</p></li><li class="step">
-<p class="step-what"><strong>9. PI3K and Akt reactivate. The tumour has escaped.</strong>
+<p class="step-what"><strong>9. PI3K and Akt reactivate, which can give the tumour a way around the drug.</strong>
 <a class="step-jump" href="#int-irs1-pi3k">mechanism &darr;</a></p>
 <p>Restored IRS-1 recruits PI3K to receptors that are still present, regenerating PIP3 and reactivating Akt.</p>
-<p><em>The upstream arm recovers while mTORC1 remains partly inhibited – the worst of both worlds, since Akt has many targets besides mTORC1.</em> Progression resumes. Clinically, this is one mechanism behind rapalogs delaying progression without clearly extending survival.</p>
+<p><em>The upstream arm recovers while mTORC1 remains partly inhibited – the worst of both worlds, since Akt has many targets besides mTORC1.</em> Where this happens it can blunt the drug&#x27;s effect. It is one proposed reason why rapalogs have had modest effects in many solid tumours, though not the only one, and in some settings they did extend survival (temsirolimus in poor-prognosis kidney cancer, HUD2007).</p>
 <p class="tier-why">Certainty: High mechanistic confidence, cell-line evidence; ORE2006 showed the parallel arm in which mTOR inhibition raises receptor tyrosine kinase signalling directly.</p>
-<p class="summary">The escape route is not a mutation. It requires no new genetic event and no selection time – it is the pathway&#x27;s normal homeostatic wiring responding correctly to the drug. That is why resistance appears fast and why combination strategies target the loop rather than the kinase.</p></li><li class="step">
+<p class="summary">This escape route needs no mutation. It requires no new genetic event and no selection time – it is the pathway&#x27;s normal homeostatic wiring responding to the drug. That is why this kind of adaptive resistance can appear quickly, as seen in patient tumours after RAD001 (ORE2006), and why some combination strategies target the loop rather than the kinase. Whether it decides clinical outcome in a given patient has not been shown.</p></li><li class="step">
 <p class="step-what"><strong>10. There is a second escape, through MAPK.</strong>
 <a class="step-jump" href="#int-mtorc1-mapk">mechanism &darr;</a></p>
 <p>mTORC1 inhibition activates ERK in a PI3K-dependent manner. CAR2008 traces it through the same S6K1–PI3K–Ras relay that carries the IRS-1 escape, so this is a second OUTPUT of one feedback circuit rather than a separate circuit.</p>
 <p><em>ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.</em> The drug now faces two reroutes with a shared root. Because they share it, blocking PI3K upstream can close both – while blocking only the IRS-1 arm leaves the MAPK output open.</p>
-<p class="tier-why">Certainty: High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that one of the pathway&#x27;s most clinically important feedback arms was missing from the graph.</p>
+<p class="tier-why">Certainty: High mechanistic confidence. CAR2008 combines cell lines, a mouse prostate model and tumour biopsies from patients treated with RAD001, in which MAPK activation depended on the dosing schedule. This paper sat in the Atlas corpus with zero edges until an external review flagged that one of the pathway&#x27;s most clinically important feedback arms was missing from the graph.</p>
 <p class="summary">Redundancy is the theme of this pathway and it cuts both ways. The same architecture that makes the cell robust makes the tumour robust. This is the mechanistic rationale for combining mTOR inhibition with MEK inhibition rather than escalating the mTOR dose.</p></li><li class="step">
 <p class="step-what"><strong>11. So build a drug that occupies the site instead of obstructing it.</strong>
 <a class="step-jump" href="#int-torin-mtorc1">mechanism &darr;</a></p>
@@ -1038,9 +1038,9 @@ full interaction reference table below.</p>
 <p class="step-what"><strong>12. The current attempt: deep inhibition of mTORC1 only.</strong>
 <a class="step-jump" href="#int-bisteric-mtorc1">mechanism &darr;</a></p>
 <p>A bivalent molecule engages both an FKBP12-dependent site and the active site, achieving the depth of an active-site inhibitor with selectivity for mTORC1 over mTORC2.</p>
-<p><em>In principle: 4E-BP1 actually suppressed, without the mTORC2-dependent metabolic toxicity.</em> RMC-5552 has completed a phase 1 trial in advanced solid tumours – the newest clinical evidence anywhere in this Atlas.</p>
+<p><em>In principle: 4E-BP1 actually suppressed, without the mTORC2-dependent metabolic toxicity.</em> RMC-5552 has completed a phase 1 trial in advanced solid tumours. Further clinical development has not been reported since (see the drug pipeline page).</p>
 <p class="tier-why">Certainty: One phase 1 trial (SCH2025, 2025). H – human – but phase 1 reports safety and pharmacodynamics, not efficacy. Consensus graded emerging, on a single study. Directness is indirect because, like rapalogs, the mechanism still requires FKBP12.</p>
-<p class="summary">This is the honest answer to the route&#x27;s question, and it is not a failure story. A weakness identified in cell culture in 2009 became a molecular design constraint, then a compound, then a trial in 2025. The pathway was not too complicated to drug – it was drugged with a molecule discovered before anyone knew what it did, and it has taken this long to build one aimed at what we now know. Whether closing the 4E-BP1 escape produces survival benefit is genuinely unanswered, and that is what the current trials are for.</p></li>
+<p class="summary">This is the honest answer to the route&#x27;s question, and it is not a failure story. A weakness identified in cell culture in 2009 became a molecular design constraint, then a compound, then a trial in 2025. The pathway was first drugged with a molecule discovered before anyone knew what it did, and it has taken this long to build one aimed at what we now know. Whether closing the 4E-BP1 escape improves survival is unanswered; a phase 1 trial is not designed to test it.</p></li>
 </ol>
 
 <p class="tier-why"><strong>Evidence base:</strong> Cell-line pharmacology and biochemistry for the escape mechanisms; H – randomised trials – for the clinical outcomes; one phase 1 trial (SCH2025, 2025) for the newest drug class. Note the asymmetry that runs through this route: the mechanism is cell-line evidence, the disappointment is human evidence.</p>
@@ -1338,7 +1338,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/ampk/">AMPK</a></td>
 <td data-l="Type">phosphorylation</td>
-<td data-l="Mechanism"><span class="lv-beginner">LKB1 is the kinase that switches AMPK on in the first place; without it, the whole low-energy alarm system goes silent.</span><span class="lv-student">LKB1 is the kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; without it the whole energy-stress arm is deaf.</span><span class="lv-research">LKB1 is the kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; without it the whole energy-stress arm is deaf.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">LKB1 is the main switch that turns AMPK on when energy runs low; in cells without it, AMPK no longer responds to low energy. A second kinase can still switch AMPK on when calcium rises, so AMPK is not completely silent.</span><span class="lv-student">LKB1 is the main kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; in LKB1-null cells AMPK no longer responds to energy stress (SHW2004). It is not the only upstream kinase: CaMKK2 phosphorylates the same site when calcium rises, and LKB1-deficient cells keep some basal AMPK activity (Hawley 2005, PMID 16054095; Woods 2005, PMID 16054096; outside this corpus).</span><span class="lv-research">LKB1 is the main kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; in LKB1-null cells AMPK no longer responds to energy stress (SHW2004). It is not the only upstream kinase: CaMKK2 phosphorylates the same site when calcium rises, and LKB1-deficient cells keep some basal AMPK activity (Hawley 2005, PMID 16054095; Woods 2005, PMID 16054096; outside this corpus).</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/SHW2004/">SHW2004</a></td>
 </tr><tr id="int-lyso-mtorc1">
@@ -1362,7 +1362,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Metformin can also block mTORC1 through a completely separate route that doesn&#x27;t need AMPK at all – a route often left out of the simple &quot;metformin works via AMPK&quot; story.</span><span class="lv-student">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span><span class="lv-research">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Metformin can also block mTORC1 through a separate route that doesn&#x27;t need AMPK – a route often left out of the simple &quot;metformin works via AMPK&quot; story. This was shown in cells and mice, often at doses higher than patients take, and how much each route matters in people is not known.</span><span class="lv-student">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span><span class="lv-research">Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the &#x27;metformin works via AMPK&#x27; summary.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/KAL2010/">KAL2010</a></td>
 </tr><tr id="int-mlst8-mtorc2">
@@ -1402,7 +1402,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the most universal anti-ageing effects known.</span><span class="lv-student">Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.</span><span class="lv-research">Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the best-replicated anti-ageing effects in laboratory animals. In mice, how big the effect is depends on sex, strain, diet and when treatment starts, and it has not been shown in people.</span><span class="lv-student">Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.</span><span class="lv-research">Lowering mTORC1 activity extends lifespan across yeast, worms, flies and mice - one of the most conserved interventions in ageing biology, alongside dietary restriction.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2009/">HAR2009</a>, <a href="https://mtor-atlas.org/study/LAM2012/">LAM2012</a>, <a href="https://mtor-atlas.org/study/ROB2012/">ROB2012</a>, <a href="https://mtor-atlas.org/study/VEL2003/">VEL2003</a>, <a href="https://mtor-atlas.org/study/HAN2008/">HAN2008</a>, <a href="https://mtor-atlas.org/study/POW2006/">POW2006</a>, <a href="https://mtor-atlas.org/study/WAN2026/">WAN2026</a></td>
 </tr><tr id="int-mtorc1-mapk">
@@ -1442,9 +1442,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/disease/renal-cell-carcinoma-rcc/">Renal cell carcinoma (RCC)</a></td>
 <td data-l="Type">association</td>
-<td data-l="Mechanism"><span class="lv-beginner">Many kidney cancers carry mutations that leave mTORC1 stuck &quot;on&quot; – that&#x27;s why this cancer type responds to mTOR-blocking drugs at all, though it doesn&#x27;t prove mTORC1 causes the cancer.</span><span class="lv-student">Renal cancers frequently carry lesions that leave mTORC1 constitutively active - which is why this tissue responds to mTOR inhibitors at all, and why an exceptional responder could be traced to TSC1 loss.</span><span class="lv-research">Renal cancers frequently carry lesions that leave mTORC1 constitutively active - which is why this tissue responds to mTOR inhibitors at all, and why an exceptional responder could be traced to TSC1 loss.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Many kidney cancers carry changes that leave mTORC1 stuck &quot;on&quot;, which is why this cancer responds to mTOR-blocking drugs at all. In one large trial, people with advanced kidney cancer lived longer on temsirolimus; in another, everolimus slowed the cancer&#x27;s growth for a few months. Responding to the drug is not proof that mTORC1 started the cancer.</span><span class="lv-student">Renal cancers frequently carry lesions that leave mTORC1 constitutively active, which is why this tissue responds to mTOR inhibitors. In two phase III trials in metastatic RCC, temsirolimus extended overall survival versus interferon alfa in poor-prognosis patients (HUD2007), and everolimus extended progression-free survival versus placebo after VEGF-targeted therapy (MOT2008). That the tumour responds to the drug is not the same as mTORC1 initiating the cancer.</span><span class="lv-research">Renal cancers frequently carry lesions that leave mTORC1 constitutively active, which is why this tissue responds to mTOR inhibitors. In two phase III trials in metastatic RCC, temsirolimus extended overall survival versus interferon alfa in poor-prognosis patients (HUD2007), and everolimus extended progression-free survival versus placebo after VEGF-targeted therapy (MOT2008). That the tumour responds to the drug is not the same as mTORC1 initiating the cancer.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/IYE2012/">IYE2012</a>, <a href="https://mtor-atlas.org/study/MOT2008/">MOT2008</a>, <a href="https://mtor-atlas.org/study/HUD2007/">HUD2007</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/MOT2008/">MOT2008</a>, <a href="https://mtor-atlas.org/study/HUD2007/">HUD2007</a></td>
 </tr><tr id="int-mtorc1-s6k1">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Effect">activates</td>
@@ -1482,9 +1482,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/tumor-growth/">Tumor growth</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Hyperactive mTORC1 pushes cells to build a specific set of growth- and spread-promoting proteins – the tumour becomes hooked on that programme.</span><span class="lv-student">Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).</span><span class="lv-research">Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">In mouse tumour models and cancer cells where the pathway is already over-active, hyperactive mTORC1 pushes cells to build a specific set of growth- and spread-promoting proteins, and the tumour becomes dependent on that programme.</span><span class="lv-student">Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).</span><span class="lv-research">Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/HSI2010/">HSI2010</a>, <a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/VAL2017/">VAL2017</a>, <a href="https://mtor-atlas.org/study/INO2006/">INO2006</a>, <a href="https://mtor-atlas.org/study/FER2026/">FER2026</a>, <a href="https://mtor-atlas.org/study/OKI2021/">OKI2021</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/HSI2010/">HSI2010</a>, <a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/VAL2017/">VAL2017</a>, <a href="https://mtor-atlas.org/study/INO2006/">INO2006</a>, <a href="https://mtor-atlas.org/study/FER2026/">FER2026</a></td>
 </tr><tr id="int-mtorc1-ulk1">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Effect">inhibits</td>
@@ -1522,7 +1522,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/lipid-synthesis/">Lipid synthesis</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow – shown in cells and mice, not measured in patients.</span><span class="lv-student">In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.</span><span class="lv-research">In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow. The cause-and-effect part was shown in mice; in people with liver cancer, the study only found that more fat-making went together with higher mTORC2 activity.</span><span class="lv-student">In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.</span><span class="lv-research">In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUR2017/">GUR2017</a></td>
 </tr><tr id="int-mtorc2-prostate">
@@ -1625,7 +1625,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/drug/rapamycin/">Rapamycin</a></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/mtorc2/">mTORC2</a></td>
-<td data-l="Type">complex-disassembly</td>
+<td data-l="Type">complex-assembly</td>
 <td data-l="Mechanism"><span class="lv-beginner">Rapamycin doesn&#x27;t touch mTORC2 right away, but over days it stops new mTORC2 from being built.</span><span class="lv-student">Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.</span><span class="lv-research">Rapamycin does not touch mTORC2 in the short term - but over days it traps free mTOR and prevents new mTORC2 from being assembled.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/SAR2006/">SAR2006</a>, <a href="https://mtor-atlas.org/study/LAM2012/">LAM2012</a></td>
@@ -1674,9 +1674,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.</span><span class="lv-student">Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. It also protects against diet-induced obesity. Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.</span><span class="lv-research">Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. It also protects against diet-induced obesity. Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.</span><span class="lv-student">Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. A separate study found that S6K1 loss protects against diet-induced obesity (UMX2004, which did not measure lifespan). Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.</span><span class="lv-research">Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. A separate study found that S6K1 loss protects against diet-induced obesity (UMX2004, which did not measure lifespan). Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/SEL2009/">SEL2009</a>, <a href="https://mtor-atlas.org/study/UMX2004/">UMX2004</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/SEL2009/">SEL2009</a></td>
 </tr><tr id="int-s6k1-nucl">
 <td data-l="Source"><a href="/gene/s6k1/">S6K1</a></td>
 <td data-l="Effect">activates</td>
@@ -1786,7 +1786,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">allosteric-inhibition</td>
-<td data-l="Mechanism"><span class="lv-beginner">Temsirolimus is the IV version of rapamycin, and the first mTOR-blocking drug shown to help patients live longer in a controlled trial.</span><span class="lv-student">Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.</span><span class="lv-research">Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Temsirolimus is the IV version of rapamycin and, as far as we know, the first mTOR-blocking drug shown to help patients live longer in a controlled trial (in advanced kidney cancer).</span><span class="lv-student">Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.</span><span class="lv-research">Temsirolimus is the intravenous rapamycin analogue, and, to our knowledge, the first mTOR inhibitor to show an overall-survival benefit in a randomised trial.</span></td>
 <td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HUD2007/">HUD2007</a></td>
 </tr><tr id="int-tem-rcc">
@@ -1810,9 +1810,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/muscle-growth/">Muscle growth</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Ongoing protein-building is what physically builds muscle – and in people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise. That is the measurement that exists; how much muscle is gained over months under the drug was not measured.</span><span class="lv-student">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span><span class="lv-research">Sustained cap-dependent translation is what physically builds muscle. Blocking mTOR in humans blunts the protein-synthesis response to exercise.</span></td>
-<td data-l="Evidence"><span class="tier t-H" title="Human study — this describes the kind of study, not its quality" aria-label="Evidence type H: Human study — this describes the kind of study, not its quality">H</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/BOD2001/">BOD2001</a>, <a href="https://mtor-atlas.org/study/ROM2001/">ROM2001</a>, <a href="https://mtor-atlas.org/study/DRU2009/">DRU2009</a> <span class="tier-why">(conflicting: LAP2026)</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Ongoing protein-building is what physically builds muscle; in mice, the signals that drive it are needed for muscle growth and are enough to cause it. In people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise, but how much muscle is gained over months under the drug was not measured.</span><span class="lv-student">Sustained protein synthesis is what physically builds muscle; in mice, Akt/mTOR signalling is necessary and sufficient for hypertrophy (BOD2001). In people, blocking mTOR blunts the short-term rise in muscle protein synthesis after exercise (DRU2009); whether that changes how much muscle is gained over months was not measured.</span><span class="lv-research">Sustained protein synthesis is what physically builds muscle; in mice, Akt/mTOR signalling is necessary and sufficient for hypertrophy (BOD2001). In people, blocking mTOR blunts the short-term rise in muscle protein synthesis after exercise (DRU2009); whether that changes how much muscle is gained over months was not measured.</span></td>
+<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/BOD2001/">BOD2001</a>, <a href="https://mtor-atlas.org/study/ROM2001/">ROM2001</a> <span class="tier-why">(conflicting: LAP2026)</span></td>
 </tr><tr id="int-tsc-mtorc1">
 <td data-l="Source"><a href="/gene/tsc1-tsc2/">TSC1/TSC2</a></td>
 <td data-l="Effect">inhibits</td>
@@ -1890,9 +1890,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span><span class="lv-student">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span><span class="lv-research">Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Eating less improved health and survival in monkeys. But in mice that could eat as much as they wanted, cutting calories by watering down the food did not make them live longer; eating less protein compared with carbohydrate did. So whether it is the calories or the protein that counts is still open.</span><span class="lv-student">Caloric restriction improved health and survival in rhesus monkeys (MAT2017). In mice fed one of 25 diets ad libitum, lowering calories by diluting the food did not extend lifespan, while a lower protein-to-carbohydrate ratio did (SOL2014). That study is carried as conflicting evidence on which variable matters: calories, or protein.</span><span class="lv-research">Caloric restriction improved health and survival in rhesus monkeys (MAT2017). In mice fed one of 25 diets ad libitum, lowering calories by diluting the food did not extend lifespan, while a lower protein-to-carbohydrate ratio did (SOL2014). That study is carried as conflicting evidence on which variable matters: calories, or protein.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/MAT2017/">MAT2017</a>, <a href="https://mtor-atlas.org/study/SOL2014/">SOL2014</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/MAT2017/">MAT2017</a> <span class="tier-why">(conflicting: SOL2014)</span></td>
 </tr><tr id="int-torin-mtorc1">
 <td data-l="Source"><a href="/drug/atp-competitive-mtor-inhibitors/">ATP-competitive mTOR inhibitors</a></td>
 <td data-l="Effect">inhibits</td>
@@ -2025,7 +2025,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/complex/growth-hormone-igf-1-axis/">Growth hormone / IGF-1 axis</a></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
-<td data-l="Type">signal-relay</td>
+<td data-l="Type">functional-consequence</td>
 <td data-l="Mechanism"><span class="lv-beginner">Less growth-hormone signalling, longer life in mice.</span><span class="lv-student">Growth hormone / IGF-1 signalling acts as a brake on lifespan: mice whose GH signalling is blocked, either lifelong or from middle age, live longer and are less frail in old age.</span><span class="lv-research">Growth hormone / IGF-1 signalling acts as a brake on lifespan: mice whose GH signalling is blocked, either lifelong or from middle age, live longer and are less frail in old age.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/LIST2026/">LIST2026</a>, <a href="https://mtor-atlas.org/study/DUR2026/">DUR2026</a></td>
@@ -2041,7 +2041,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Source"><a href="/gene/pdcd4/">PDCD4</a></td>
 <td data-l="Effect">inhibits</td>
 <td data-l="Target"><a href="/complex/mtorc2/">mTORC2</a></td>
-<td data-l="Type">complex-disassembly</td>
+<td data-l="Type">complex-assembly</td>
 <td data-l="Mechanism"><span class="lv-beginner">PDCD4 grabs Rictor and keeps mTORC2 from working.</span><span class="lv-student">PDCD4 binds the mTORC2 subunit Rictor through three basic residues, which stops mTORC2 from assembling properly and lowers its kinase activity.</span><span class="lv-research">PDCD4 binds the mTORC2 subunit Rictor through three basic residues, which stops mTORC2 from assembling properly and lowers its kinase activity.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/WANG2026B/">WANG2026B</a></td>
@@ -2078,7 +2078,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-09 20:59 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 09:04 Prague time</div>
 </footer>
 </div>
 </body>

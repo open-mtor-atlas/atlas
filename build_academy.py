@@ -2455,7 +2455,10 @@ def model_block(ex, pw, ent_url):
                            "note": prose(v.get("note") or "")}
                        for k, v in ex["states"].items()}}
 
-    return ('<div class="ac-model">%s<div class="ac-mdctl">%s</div>%s'
+    # A20 (audit 2026-10-07): SVG_DEFS (marker #acArrow) uz vklada stranka
+    # lekce i research challenge na zacatek tela; druha kopie tady davala
+    # duplicitni id="acArrow" na 12 strankach.
+    return ('<div class="ac-model"><div class="ac-mdctl">%s</div>%s'
             '<p class="ac-mdcap">%s</p>'
             '<div class="ac-mdout"><p class="ac-mdreadout">%s</p>'
             '<p class="ac-mdnote">%s</p></div>'
@@ -2463,7 +2466,7 @@ def model_block(ex, pw, ent_url):
             '<dl class="ac-mdkey">%s</dl>'
             '<p class="ac-mdteach">%s</p>%s'
             '<script type="application/json" class="ac-mddata">%s</script></div>'
-            % (SVG_DEFS, "".join(ctl), svg, prose(ex["caption"]),
+            % ("".join(ctl), svg, prose(ex["caption"]),
                e(st0.get("readout") or ""), prose(st0.get("note") or ""),
                "".join(rows),
                "This is a simplified teaching model with a fixed set of states, not a "

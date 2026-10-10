@@ -46,8 +46,11 @@ const INFO = {
 
 // ---- Anonymous usage counts (Cloudflare Workers Analytics Engine) ----------
 // One data point per JSON-RPC message: day-level counts of which method/tool
-// was used, by which kind of client, and whether it succeeded. Never stored:
-// IP address, raw User-Agent, tool arguments, results, or anything that
+// was used, by which kind of client, and whether it succeeded. Since 2026-10-10
+// the tool arguments (search term, study ID; max 200 characters, e-mail-like
+// strings removed) are stored too, in blob6, and are NOT part of the public
+// /stats output: they are read only with usage.mjs --queries and an account token.
+// Never stored: IP address, raw User-Agent, results, or anything that
 // identifies a person. Skipped silently when the USAGE binding is absent
 // (local tests, or Analytics Engine not enabled on the account).
 const clean = (v, max = 48) => String(v ?? '').toLowerCase().replace(/[^a-z0-9 ./_-]/g, '').trim().slice(0, max) || '-';
@@ -65,6 +68,15 @@ function uaFamily(ua) {
   return u ? 'other' : '-';
 }
 
+// Tool arguments as short text for the private query log. Strips e-mail-like strings
+// and control characters, caps the length. Probe calls with invented tool names get none.
+function argText(a) {
+  if (a == null || typeof a !== 'object') return '';
+  let t;
+  try { t = JSON.stringify(a); } catch { return ''; }
+  return t.replace(/[\u0000-\u001f]/g, ' ').replace(/[^\s"']+@[^\s"']+/g, '[email]').slice(0, 200);
+}
+
 function recordUsage(env, messages, replies, ua, ms) {
   const ds = env?.USAGE;
   if (!ds?.writeDataPoint) return;
@@ -73,6 +85,7 @@ function recordUsage(env, messages, replies, ua, ms) {
   for (const m of messages) {
     if (!m || typeof m.method !== 'string') continue;
     const tool = m.method === 'tools/call' ? clean(m.params?.name) : '-';
+    const args = m.method === 'tools/call' && !tool.startsWith('_') ? argText(m.params?.arguments) : '';
     const client = m.method === 'initialize' ? clean(m.params?.clientInfo?.name) : '-';
     const r = byId.get(m.id);
     const outcome = m.id === undefined ? 'notification'
@@ -82,7 +95,7 @@ function recordUsage(env, messages, replies, ua, ms) {
     try {
       ds.writeDataPoint({
         indexes: [clean(m.method)],
-        blobs: [clean(m.method), tool, client, fam, outcome],
+        blobs: [clean(m.method), tool, client, fam, outcome, args],
         doubles: [1, ms],
       });
     } catch { /* counting must never break a request */ }

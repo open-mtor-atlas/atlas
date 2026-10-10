@@ -19,7 +19,8 @@ CO KONTROLUJE
   4. Kalibrace  – tvrzení nesmí být silnější než evidence:
        * human_relevance = "established" vyžaduje aspoň jednu studii s ULOŽENÝM
          tierem A/B (zobrazuje se jako S = přehled lidských dat, H = lidská
-         studie) NEBO species obsahující human.
+         studie) NEBO species s položkou popisující člověka samotného
+         (in_human_species: "human cells" / linie / organoidy NESTAČÍ, A11).
        * mechanistic = "high" nesmí stát na jediné correlative studii.
        * consensus = "established" se nesmí kombinovat s mechanistic = "low".
        * directness = "direct" u typu signal-relay je protimluv.
@@ -62,11 +63,66 @@ HUMREL = {"established", "plausible", "untested"}
 CONSENSUS = {"established", "emerging", "contested"}
 
 
+# A11 (audit 2026-10-07): "human" v poli species nestačí. Lidské buňky,
+# linie, organoidy nebo xenografty jsou lidský MATERIÁL, ne pozorování
+# v člověku. Za lidský model se počítá jen položka species, která obsahuje
+# "human"/"patient"/"participant" a NEOBSAHUJE kvalifikátor buněk/materiálu.
+# Smíšené práce ("human; mouse") projdou, protože aspoň jedna položka je
+# in-human. Viz test v _selftest_in_human() níže.
+_IN_VITRO_QUALIFIERS = ("cell", "line", "organoid", "in vitro", "ipsc",
+                        "xenograft", "tissue explant", "lysate", "recombinant")
+_HUMAN_WORDS = ("human", "patient", "participant", "volunteer", "adult")
+
+def in_human_species(sp):
+    """True jen když aspoň jedna položka species popisuje člověka samotného."""
+    import re as _re
+    for tok in _re.split(r"[;,/]| and ", (sp or "").lower()):
+        tok = tok.strip()
+        if not tok:
+            continue
+        if any(w in tok for w in _HUMAN_WORDS) and not any(q in tok for q in _IN_VITRO_QUALIFIERS):
+            return True
+    return False
+
+def _selftest_in_human():
+    assert not in_human_species("human cells")
+    assert not in_human_species("human cell lines; mouse")
+    assert not in_human_species("human iPSC-derived neurons")
+    assert in_human_species("human")
+    assert in_human_species("human; mouse")
+    assert in_human_species("patients, mouse")
+    assert not in_human_species("mouse")
+_selftest_in_human()
+
+
+# R-OUTCOME (2026-10-10, pruchod vsech hran po auditu 2026-10-07):
+# studie citovana jako PODPORA hrany na vystup (delka zivota, rust svalu,
+# rust nadoru, patologie stari) musi ten vystup sama merit. Opakovana chyba:
+# studie podpira sousedni krok nebo meri neco jineho -- IYE2012 (mechyr u RCC),
+# DRU2009 (synteza bilkovin 1-2 h, ne rust svalu), UMX2004 (obezita, ne delka
+# zivota), OKI2021. Test je jazykovy (nazev + nalez + extrahovany efekt +
+# abstrakt studie): chyti studii, ktera vystup vubec nezminuje. Smer
+# vysledku nepozna -- studie s opacnym vysledkem (SOL2014) patri do
+# Conflicting_Studies a hlida ji kurator, ne tohle pravidlo.
+OUTCOME_MEASURES = {
+    "Longevity": r"lifespan|life span|life-span|longevity|survival|mortality",
+    "Muscle growth": (r"hypertroph|muscle mass|muscle size|muscle growth|fib(?:er|re) size|"
+                      r"cross-sectional|lean mass|atroph|myotube (?:size|diameter)|muscle weight"),
+    "Tumor growth": r"tumou?r|cancer|carcinoma|leuka?emia|lymphoma|xenograft|oncogen|neoplas",
+    "Age-related pathology": r"age-related|aging|ageing|patholog|degenerat",
+}
+# Vyjimka jen s pisemnym duvodem: {("EDGE-ID", "SID"): "proc studie vystup meri, i kdyz to text nerika"}.
+OUTCOME_EXEMPT = {}
+
+def _study_text(s):
+    return " ".join(str(s.get(k) or "") for k in ("title", "finding", "ai_effect", "abstract"))
+
 def main():
     strict = "--strict" in sys.argv
     m = json.load(open(os.path.join(ROOT, "pathway", "model.json"), encoding="utf-8"))
     studies = json.load(open(os.path.join(ROOT, "atlas_data", "studies_baked.json"), encoding="utf-8"))
     sid_tier = {s.get("sid"): (s.get("tier") or "").strip().upper()[:1] for s in studies}
+    sid_rec = {s.get("sid"): s for s in studies}
 
     errors, warnings = [], []
     E = errors.append
@@ -130,10 +186,10 @@ def main():
             if sid not in sid_tier:
                 E("%s: cites SID %s which is not in the corpus" % (iid, sid))
         tiers = {sid_tier.get(s, "?") for s in sup}
-        sp = " ".join(i.get("species", [])).lower()
+        sp = "; ".join(i.get("species", [])).lower()
 
         # kalibrace
-        if c.get("human_relevance") == "established" and not (tiers & {"A", "B"}) and "human" not in sp:
+        if c.get("human_relevance") == "established" and not (tiers & {"A", "B"}) and not in_human_species(sp):
             E("%s: human_relevance=established but no human-level study (stored tier "
               "A/B, displayed S/H) and no human model "
               "(this is exactly finding F4 – do not let clinical language rest on cell-line data)" % iid)
@@ -152,6 +208,16 @@ def main():
             W("%s: association with mechanistic confidence above low" % iid)
         if not (i.get("mechanism") or "").strip():
             E("%s: empty mechanism text" % iid)
+        pat = OUTCOME_MEASURES.get(i.get("target"))
+        if pat:
+            for sid in sup:
+                if (iid, sid) in OUTCOME_EXEMPT or sid not in sid_rec:
+                    continue
+                if not re.search(pat, _study_text(sid_rec[sid]), re.I):
+                    E("%s: R-OUTCOME supporting study %s never mentions the outcome '%s' "
+                      "(title/finding/effect/abstract) - it probably supports a neighbouring "
+                      "step; move it there, or add a reasoned entry to OUTCOME_EXEMPT"
+                      % (iid, sid, i.get("target")))
         if c.get("consensus") == "contested" and not (i.get("boundary") or "").strip():
             W("%s: contested but no boundary conditions stated" % iid)
 

@@ -451,3 +451,16 @@
   .pw-scn-t th,.pw-scn-t td{padding:5px 4px;}
   .pw-scn-v{white-space:normal;}
 }
+/* A17: co se u vystupu Scenario Lab meri */
+.pw-scn-var{display:block;margin:0 0 4px;font-size:.92em}
+/* A15/A16 (audit 2026-10-07): telefon.
+   - segmentovy prepinac (#pwEvid2 = 415 px, nowrap) roztahoval stranku na 431 px
+     i na 320 px displeji -> smi se zalomit;
+   - mapa byla az pod 379 px ovladani (zacatek ~1120 px) -> na uzkem displeji jde
+     mapa hned pod prepinac rezimu, ovladani (hledani, filtry) pod ni. */
+@media (max-width:640px){
+  .pw-seg{flex-wrap:wrap;max-width:100%}
+  .pw-seg button{flex:1 1 auto}
+  .pw-panelwrap{display:flex;flex-direction:column}
+  .pw-panelwrap > .pw-stage{order:-1;margin-top:0}
+}

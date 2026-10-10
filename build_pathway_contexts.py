@@ -796,6 +796,84 @@ def validate(doc):
     return errors
 
 
+# --- A17 (audit 2026-10-07): CO SE U VYSTUPU VLASTNE MERI -------------------
+# "up/down/partial" je nejednoznacne: u 4E-BP1 "up" znamena vic aktivni brzdu,
+# ktera se meri jako MENE fosforylace. Kazdy vystup proto nese promennou
+# (variable) a vetu, co bylo zmereno, v jakem modelu a za jak dlouho
+# (measured). "partial" ma v measured vzdy smer. Jen to, co nese abstrakt
+# nebo zduvodneni vystupu; zadna konkretni mista, ktera nejsou v citaci.
+READOUT_VARIABLES = {
+    "phosphorylation": "Phosphorylation of the protein",
+    "kinase_activity": "Kinase activity (read out as substrate phosphorylation)",
+    "inhibitory_activity": "Activity of an inhibitor (a brake)",
+    "protein_abundance": "Amount of the protein",
+    "process_rate": "Rate of a cellular process",
+    "lesion_phenotype": "Kind of lesion in tissue",
+}
+READOUT_MEASURE = {
+    ("scn-rapamycin-acute", "S6K1"): ("phosphorylation",
+        "S6K1 phosphorylation falls; cultured mouse and human cells, hours of drug."),
+    ("scn-rapamycin-acute", "4E-BP1"): ("inhibitory_activity",
+        "Shown as the brake's activity. What was measured is 4E-BP1 phosphorylation, which largely "
+        "persists on rapamycin, so the brake is only partly engaged; cultured cells, hours."),
+    ("scn-rapamycin-acute", "Autophagy"): ("process_rate",
+        "Partly up: autophagy is induced only weakly, far less than with Torin1; cultured cells, hours."),
+    ("scn-rapamycin-acute", "Protein synthesis"): ("process_rate",
+        "Partly down: cap-dependent translation largely continues; cultured cells."),
+    ("scn-rapamycin-acute", "IRS-1 / IRS-2"): ("protein_abundance",
+        "IRS-1 expression rises in cancer cell lines over hours of mTOR inhibition (ORE2006)."),
+    ("scn-rapamycin-acute", "Akt/PKB"): ("kinase_activity",
+        "Akt activation rises in cancer cell lines and in patient tumour biopsies on RAD001 (ORE2006)."),
+    ("scn-rapamycin-acute", "mTORC2"): ("kinase_activity",
+        "No acute change. Applies to the acute window only: prolonged exposure reduces mTORC2 assembly "
+        "in many cell lines (SAR2006) and mTORC2 signalling in mouse liver (LAM2012)."),
+    ("scn-torin1", "S6K1"): ("phosphorylation",
+        "S6K1 phosphorylation falls; cultured cells, hours."),
+    ("scn-torin1", "4E-BP1"): ("inhibitory_activity",
+        "Shown as the brake's activity. What was measured is 4E-BP1 phosphorylation, which is lost on "
+        "Torin1, so the brake is fully engaged; cultured cells, hours."),
+    ("scn-torin1", "Protein synthesis"): ("process_rate",
+        "Cap-dependent translation, cell growth and proliferation fall; cultured cells."),
+    ("scn-torin1", "Autophagy"): ("process_rate",
+        "Autophagy is strongly induced; cultured cells, hours."),
+    ("scn-torin1", "Akt/PKB"): ("phosphorylation",
+        "Akt S473 phosphorylation by mTORC2 falls early; T308 recovers over hours as feedback is "
+        "relieved (ROD2011), so the 'down' holds for the early window."),
+    ("scn-tsc2-loss", "mTORC1"): ("kinase_activity",
+        "Read out as phosphorylation of mTORC1 substrates, constitutively high in cells without TSC "
+        "function; chronic (genetic)."),
+    ("scn-tsc2-loss", "S6K1"): ("phosphorylation",
+        "S6K1 phosphorylation is high and no longer needs insulin; cells without TSC1 or TSC2."),
+    ("scn-tsc2-loss", "IRS-1 / IRS-2"): ("protein_abundance",
+        "IRS-1 and IRS-2 protein are depleted (repressed expression plus inhibitory phosphorylation "
+        "by S6K1); cells without TSC1 or TSC2."),
+    ("scn-tsc2-loss", "Akt/PKB"): ("kinase_activity",
+        "Akt's response to insulin and IGF-1 is blunted; cells without TSC1 or TSC2."),
+    ("scn-tsc2-loss", "Tumor growth"): ("lesion_phenotype",
+        "Mixed: growth goes up, but TSC lesions are largely benign. Linking that to the switched-off "
+        "Akt arm is the authors' interpretation, not a measurement."),
+}
+
+
+def attach_readout_measures(doc, errors):
+    for c in doc.get("scenarios", []):
+        for r in c.get("readouts", []):
+            key = (c["id"], r["node"])
+            if key not in READOUT_MEASURE:
+                errors.append(c["id"] + ": readout " + r["node"] + " has no measured variable (A17)")
+                continue
+            var, measured = READOUT_MEASURE[key]
+            if var not in READOUT_VARIABLES:
+                errors.append(c["id"] + ": readout " + r["node"] + " bad variable " + var)
+            r["variable"] = var
+            r["variable_label"] = READOUT_VARIABLES[var]
+            r["measured"] = measured
+    used = {(c["id"], r["node"]) for c in doc.get("scenarios", []) for r in c.get("readouts", [])}
+    for k in READOUT_MEASURE:
+        if k not in used:
+            errors.append("READOUT_MEASURE entry for unknown readout %s / %s" % k)
+
+
 def write_atomic(path, text):
     # LF only, atomic replace -- same CRLF/partial-write trap as the other
     # scripts that rewrite repo files on the OneDrive-synced Windows mount.
@@ -809,7 +887,9 @@ def write_atomic(path, text):
 
 if __name__ == "__main__":
     doc = build()
-    errs = validate(doc)
+    errs = []
+    attach_readout_measures(doc, errs)   # A17
+    errs += validate(doc)
     if errs:
         print("VALIDATION FAILED:")
         for e in errs:

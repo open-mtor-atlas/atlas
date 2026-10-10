@@ -28,6 +28,15 @@ export function usageQueries(days) {
   };
 }
 
+// Private query log: the arguments of real tool calls (not probes), newest first.
+// Deliberately NOT part of usageReport(), so the public /stats never shows it.
+export function queriesSql(days) {
+  return `
+    SELECT timestamp, blob2 AS tool, blob4 AS family, blob5 AS outcome, blob6 AS args
+    FROM ${DATASET} WHERE blob1 = 'tools/call' AND NOT startsWith(blob2, '__') AND blob6 != ''
+      AND timestamp > NOW() - INTERVAL '${days}' DAY ORDER BY timestamp DESC LIMIT 1000`;
+}
+
 export async function runSql(accountId, token, sql) {
   const r = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics_engine/sql`, {
     method: 'POST', headers: { authorization: `Bearer ${token}` }, body: sql,

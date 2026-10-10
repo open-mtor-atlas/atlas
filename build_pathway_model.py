@@ -61,6 +61,38 @@ REVIEW_DATE = "2026-07-29"
 # místo v buňce" – vstupy a fenotypy dostanou jiný vizuální jazyk, aby
 # nikdo nezískal dojem, že "Longevity" je organela.
 # ---------------------------------------------------------------------------
+# A11 (audit 2026-10-07): "human" v poli species nestačí. Lidské buňky,
+# linie, organoidy nebo xenografty jsou lidský MATERIÁL, ne pozorování
+# v člověku. Za lidský model se počítá jen položka species, která obsahuje
+# "human"/"patient"/"participant" a NEOBSAHUJE kvalifikátor buněk/materiálu.
+# Smíšené práce ("human; mouse") projdou, protože aspoň jedna položka je
+# in-human. Viz test v _selftest_in_human() níže.
+_IN_VITRO_QUALIFIERS = ("cell", "line", "organoid", "in vitro", "ipsc",
+                        "xenograft", "tissue explant", "lysate", "recombinant")
+_HUMAN_WORDS = ("human", "patient", "participant", "volunteer", "adult")
+
+def in_human_species(sp):
+    """True jen když aspoň jedna položka species popisuje člověka samotného."""
+    import re as _re
+    for tok in _re.split(r"[;,/]| and ", (sp or "").lower()):
+        tok = tok.strip()
+        if not tok:
+            continue
+        if any(w in tok for w in _HUMAN_WORDS) and not any(q in tok for q in _IN_VITRO_QUALIFIERS):
+            return True
+    return False
+
+def _selftest_in_human():
+    assert not in_human_species("human cells")
+    assert not in_human_species("human cell lines; mouse")
+    assert not in_human_species("human iPSC-derived neurons")
+    assert in_human_species("human")
+    assert in_human_species("human; mouse")
+    assert in_human_species("patients, mouse")
+    assert not in_human_species("mouse")
+_selftest_in_human()
+
+
 COMPARTMENTS = [
     {
         "id": "input", "name": "Inputs", "short": "IN", "physical": False,
@@ -529,11 +561,11 @@ ROUTE_STEPS = {
    "matters": "The cell's answer to 'am I allowed to grow?' does not arrive as a molecule entering the cytosol. It arrives as a change in membrane chemistry. That is why this arm is reversed by a phosphatase rather than switched off by degradation."},
   {"interaction": "PI3K-AKT",
    "what": "PIP3 recruits Akt to the membrane – and recruitment is not activation.",
-   "why": "Akt has a domain that binds PIP3. Arriving at the membrane puts it where two kinases can reach it, but arriving is not the same as being switched on: PDK1 must phosphorylate T308 and mTORC2 must phosphorylate S473.",
-   "changed": "Akt's location changes. Its activity changes only once the two phosphorylations happen.",
-   "consequence": "Full growth-factor signalling therefore depends on mTORC2 being functional – which is why mTOR sits on both sides of this pathway.",
-   "certainty": "High mechanistic confidence, well replicated, cell-line evidence.",
-   "matters": "The same distinction as in the nutrient arm, appearing again: getting a protein to a place is a different act from switching it on. A diagram with one arrow from PI3K to Akt hides three events and one dependency on the other mTOR complex."},
+   "why": "Akt has a domain that binds PIP3. Arriving at the membrane puts it where two kinases can reach it, but arriving is not the same as being switched on. PDK1 phosphorylates T308 in the activation loop, the step central to switching Akt on. mTORC2 phosphorylates S473, which raises activity further and changes which substrates Akt reaches.",
+   "changed": "Akt's location changes first. Its activity rises with T308 phosphorylation; S473 adds to it, and how much S473 matters depends on the substrate.",
+   "consequence": "Some Akt outputs depend on mTORC2 more than others. In mice lacking rictor or mLST8, insulin signalling to FOXO3 was lost while signalling to TSC2 and GSK3-beta was kept (GUE2006). Losing mTORC2 therefore weakens part of Akt's output rather than switching Akt off, and the branch through TSC2 toward mTORC1 largely keeps working. mTOR still sits on both sides of this pathway, but the upstream dependency is partial.",
+   "certainty": "High mechanistic confidence, well replicated; cell-line and knockout-mouse evidence (GUE2006, JAC2006).",
+   "matters": "The same distinction as in the nutrient arm, appearing again: getting a protein to a place is a different act from switching it on. A diagram with one arrow from PI3K to Akt hides three events and a partial, substrate-dependent reliance on the other mTOR complex."},
   {"interaction": "AKT-TSC",
    "what": "Akt phosphorylates the TSC complex and takes the brake off.",
    "why": "TSC1/TSC2 is the pathway's master brake. Akt phosphorylation inhibits it – partly by changing its activity, substantially by moving it away from where its target sits.",
@@ -697,16 +729,16 @@ ROUTE_STEPS = {
    "what": "In muscle, that translation supports hypertrophy.",
    "why": "Load-driven growth requires mTORC1: Raptor-null muscle is dystrophic, and rapamycin blocks overload-induced hypertrophy.",
    "changed": "Muscle fibres grow – over days, not minutes.",
-   "consequence": "This is one of the few places where the pathway's output has been tested in people.",
-   "certainty": "The strongest human evidence in this route: DRU2009 is an H – human – interventional study showing rapamycin blocks the contraction-induced increase in muscle protein synthesis. Human relevance established, not merely plausible.",
-   "matters": "Worth pausing on, because it is rare. Most of this map is graded human-relevance plausible on cell-line evidence. Here a human intervention closes the loop. It also carries a caveat: mTORC1 activation is NECESSARY for healthy hypertrophy but not sufficient – constitutive activation alone does not build good muscle."},
+   "consequence": "The step just before this one has been tested in people; this one has not.",
+   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes (ROM2001); human relevance plausible. The human study in this area, DRU2009, measured protein synthesis 1–2 h after one bout of exercise, not muscle growth, so it supports the previous step rather than this arrow.",
+   "matters": "Worth pausing on, because the human evidence sits one step upstream of where it is usually quoted. A human intervention shows mTORC1 is needed for the acute rise in protein synthesis; that more synthesis becomes more muscle over weeks is shown in mice. It also carries a caveat: mTORC1 activation is NECESSARY for healthy hypertrophy but not sufficient – constitutive activation alone does not build good muscle."},
   {"interaction": "MTORC1-ULK1",
    "what": "At the same time, mTORC1 is holding recycling down.",
    "why": "Phosphorylation of ULK1 on S757 blocks the AMPK–ULK1 interaction, preventing autophagy initiation.",
    "changed": "Autophagy is suppressed while building proceeds.",
-   "consequence": "The two arms are reciprocal by design: the cell does not build and demolish simultaneously.",
+   "consequence": "The two arms move in opposite directions: when mTORC1 is active, building goes up and autophagy initiation goes down.",
    "certainty": "High mechanistic confidence, replicated; cell-line evidence.",
-   "matters": "This is the answer to what mTORC1 firing actually DOES, stated properly: it is not one action but a coordinated switch between two mutually exclusive programmes. Any account that lists only the build side has described half a switch."},
+   "matters": "This is the answer to what mTORC1 firing actually DOES, stated properly: it is not one action but a coordinated shift that pushes building up and recycling down at the same time. Cells usually run both programmes to some degree; mTORC1 sets the balance between them rather than choosing one. Any account that lists only the build side has described half a switch."},
   {"interaction": "ULK1-AUTOPHAGY",
    "what": "Release mTORC1 and autophagy resumes.",
    "why": "Unblocked ULK1 nucleates autophagosome formation, and TFEB – released from mTORC1 phosphorylation – transcribes the genes to sustain it.",
@@ -786,7 +818,7 @@ ROUTE_STEPS = {
  "exercise": [
   {"interaction": "LOAD-MTORC1",
    "what": "You lift something heavy, and mTORC1 activity rises in the muscle.",
-   "why": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so mTORC1 is not merely present during the response, it is required for it.",
+   "why": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so mTORC1 signalling is needed for the acute response, not merely present during it. Rapamycin also blunted ERK1/2 in the same volunteers, so the block is not attributable to mTORC1 alone.",
    "changed": "A physical force has become a molecular signal. The muscle has committed to building.",
    "consequence": "Everything downstream is the pathway you already know, running on a stimulus that is not a hormone.",
    "certainty": "The strongest evidence in this entire section: a human interventional study (DRU2009, H – human), supported by rodent genetics and pharmacology (BOD2001). Human relevance ESTABLISHED, not plausible.",
@@ -852,7 +884,7 @@ ROUTE_STEPS = {
    "why": "Repeated bouts of elevated synthesis, exceeding breakdown, produce hypertrophy. Raptor-null muscle is dystrophic; rapamycin blocks overload-induced growth.",
    "changed": "Fibre cross-sectional area increases.",
    "consequence": "The adaptation that the training was for.",
-   "certainty": "Human relevance established, supported by mouse genetics and human pharmacology. Timescale: days – this is the slowest step in the route by two orders of magnitude.",
+   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes; human relevance plausible. The human study in this route (DRU2009) measured the acute protein-synthesis step, not growth. Timescale: days – this is the slowest step in the route by two orders of magnitude.",
    "matters": "One honest limit to end on. mTORC1 activation is NECESSARY for healthy hypertrophy but not SUFFICIENT: constitutively activating mTORC1 in muscle does not produce good muscle, it produces inflammation and dysfunction. The signal has to be intermittent. That is a general lesson about this pathway – it is a switch that is meant to be thrown, not held."},
  ],
 
@@ -939,7 +971,7 @@ ROUTE_STEPS = {
    "why": "Caloric restriction improved health and survival in rhesus monkeys, and macronutrient composition altered lifespan in mice.",
    "changed": "Median and in some studies maximum lifespan increase.",
    "consequence": "The molecular sequence you just walked is the leading mechanistic account of why.",
-   "certainty": "Medium mechanistic confidence, INDIRECT, rhesus and mouse. Human relevance UNTESTED – there is no human lifespan data. The two large rhesus studies famously disagreed depending on the control diet, and SOL2014 found macronutrient RATIO mattered more than total calories.",
+   "certainty": "Medium mechanistic confidence, INDIRECT, rhesus and mouse. Human relevance UNTESTED – there is no human lifespan data. The two large rhesus studies famously disagreed depending on the control diet, and in SOL2014, cutting calories by diluting the food did not extend lifespan in freely fed mice, while a lower protein-to-carbohydrate ratio did. Which variable carries the effect is not settled.",
    "matters": "The route asked what happens and in what order. It can answer that with reasonable confidence for the first few hours in a cell, and it cannot answer it at all for a human lifetime. The gap between those two ends of the same arrow is the single most important thing to carry away from this section – and the reason the Atlas grades human relevance separately from mechanism."},
  ],
  "open": [
@@ -1086,18 +1118,18 @@ ROUTE_STEPS = {
    "certainty": "High mechanistic confidence, multiple supporting studies, cell-line evidence. ROD2011 additionally showed mTOR kinase inhibition produces biphasic Akt regulation through exactly this kind of feedback.",
    "matters": "This is the sentence that reframes the whole route. The drug does not merely fail to finish the job – it actively removes one of the tumour's own restraints. Any therapy that interrupts a negative feedback loop is partly self-defeating, and this loop was there all along in the growth-factor route."},
   {"interaction": "IRS1-PI3K",
-   "what": "PI3K and Akt reactivate. The tumour has escaped.",
+   "what": "PI3K and Akt reactivate, which can give the tumour a way around the drug.",
    "why": "Restored IRS-1 recruits PI3K to receptors that are still present, regenerating PIP3 and reactivating Akt.",
    "changed": "The upstream arm recovers while mTORC1 remains partly inhibited – the worst of both worlds, since Akt has many targets besides mTORC1.",
-   "consequence": "Progression resumes. Clinically, this is one mechanism behind rapalogs delaying progression without clearly extending survival.",
+   "consequence": "Where this happens it can blunt the drug's effect. It is one proposed reason why rapalogs have had modest effects in many solid tumours, though not the only one, and in some settings they did extend survival (temsirolimus in poor-prognosis kidney cancer, HUD2007).",
    "certainty": "High mechanistic confidence, cell-line evidence; ORE2006 showed the parallel arm in which mTOR inhibition raises receptor tyrosine kinase signalling directly.",
-   "matters": "The escape route is not a mutation. It requires no new genetic event and no selection time – it is the pathway's normal homeostatic wiring responding correctly to the drug. That is why resistance appears fast and why combination strategies target the loop rather than the kinase."},
+   "matters": "This escape route needs no mutation. It requires no new genetic event and no selection time – it is the pathway's normal homeostatic wiring responding to the drug. That is why this kind of adaptive resistance can appear quickly, as seen in patient tumours after RAD001 (ORE2006), and why some combination strategies target the loop rather than the kinase. Whether it decides clinical outcome in a given patient has not been shown."},
   {"interaction": "MTORC1-MAPK",
    "what": "There is a second escape, through MAPK.",
    "why": "mTORC1 inhibition activates ERK in a PI3K-dependent manner. CAR2008 traces it through the same S6K1–PI3K–Ras relay that carries the IRS-1 escape, so this is a second OUTPUT of one feedback circuit rather than a separate circuit.",
    "changed": "ERK activity rises, which additionally phosphorylates and inhibits TSC2, feeding back toward mTORC1.",
    "consequence": "The drug now faces two reroutes with a shared root. Because they share it, blocking PI3K upstream can close both – while blocking only the IRS-1 arm leaves the MAPK output open.",
-   "certainty": "High mechanistic confidence, cell-line and mouse evidence (CAR2008). This paper sat in the Atlas corpus with zero edges until an external review flagged that one of the pathway's most clinically important feedback arms was missing from the graph.",
+   "certainty": "High mechanistic confidence. CAR2008 combines cell lines, a mouse prostate model and tumour biopsies from patients treated with RAD001, in which MAPK activation depended on the dosing schedule. This paper sat in the Atlas corpus with zero edges until an external review flagged that one of the pathway's most clinically important feedback arms was missing from the graph.",
    "matters": "Redundancy is the theme of this pathway and it cuts both ways. The same architecture that makes the cell robust makes the tumour robust. This is the mechanistic rationale for combining mTOR inhibition with MEK inhibition rather than escalating the mTOR dose."},
   {"interaction": "TORIN-MTORC1",
    "what": "So build a drug that occupies the site instead of obstructing it.",
@@ -1110,9 +1142,9 @@ ROUTE_STEPS = {
    "what": "The current attempt: deep inhibition of mTORC1 only.",
    "why": "A bivalent molecule engages both an FKBP12-dependent site and the active site, achieving the depth of an active-site inhibitor with selectivity for mTORC1 over mTORC2.",
    "changed": "In principle: 4E-BP1 actually suppressed, without the mTORC2-dependent metabolic toxicity.",
-   "consequence": "RMC-5552 has completed a phase 1 trial in advanced solid tumours – the newest clinical evidence anywhere in this Atlas.",
+   "consequence": "RMC-5552 has completed a phase 1 trial in advanced solid tumours. Further clinical development has not been reported since (see the drug pipeline page).",
    "certainty": "One phase 1 trial (SCH2025, 2025). H – human – but phase 1 reports safety and pharmacodynamics, not efficacy. Consensus graded emerging, on a single study. Directness is indirect because, like rapalogs, the mechanism still requires FKBP12.",
-   "matters": "This is the honest answer to the route's question, and it is not a failure story. A weakness identified in cell culture in 2009 became a molecular design constraint, then a compound, then a trial in 2025. The pathway was not too complicated to drug – it was drugged with a molecule discovered before anyone knew what it did, and it has taken this long to build one aimed at what we now know. Whether closing the 4E-BP1 escape produces survival benefit is genuinely unanswered, and that is what the current trials are for."},
+   "matters": "This is the honest answer to the route's question, and it is not a failure story. A weakness identified in cell culture in 2009 became a molecular design constraint, then a compound, then a trial in 2025. The pathway was first drugged with a molecule discovered before anyone knew what it did, and it has taken this long to build one aimed at what we now know. Whether closing the 4E-BP1 escape improves survival is unanswered; a phase 1 trial is not designed to test it."},
  ],
  "aa": [
   {"interaction": "LEU-SESN2",
@@ -1124,11 +1156,11 @@ ROUTE_STEPS = {
    "matters": "This is where the pathway's logic starts being counter-intuitive. The cell does not detect food and then send a 'grow' signal. It detects food and stops sending a 'do not grow' signal. Most nutrient inputs drawn in this map work that way – count the double negatives yourself rather than taking the word 'almost every' on trust – and it is the reason the pathway is so hard to read off a diagram of arrows."},
   {"interaction": "SESN2-GATOR2",
    "what": "GATOR2 is released – the first brake comes off.",
-   "why": "Sestrin2 and GATOR2 are mutually exclusive binding partners: leucine-bound Sestrin2 lets go, and free GATOR2 becomes able to act on GATOR1.",
-   "changed": "GATOR2 goes from sequestered to available. Its availability, not its abundance, is what the cell regulates.",
+   "why": "Without leucine, Sestrin2 binds GATOR2 and holds it in check. Leucine binding to Sestrin2 disrupts that interaction (WOL2015), so the two competing states are Sestrin2 bound to leucine and Sestrin2 bound to GATOR2. Released GATOR2 becomes able to act on GATOR1.",
+   "changed": "GATOR2 goes from held by Sestrin2 to free. In this step the cell changes how much GATOR2 is free, not how much GATOR2 it makes.",
    "consequence": "Available GATOR2 now inhibits GATOR1. Count the negatives as you go – you are two into a chain of them.",
    "certainty": "Mechanistically solid and reproduced. Structures of the GATOR2 cage and its sensor-binding surfaces exist; the cited corpus evidence here is cell-line biochemistry, so human relevance is plausible rather than demonstrated.",
-   "matters": "Regulation by sequestration rather than by synthesis is fast and cheap – no transcription, no translation, no degradation. It lets the cell respond to a meal in seconds instead of hours. Evolution reaches for this trick whenever speed matters."},
+   "matters": "Regulation by sequestration rather than by synthesis is fast and cheap – no transcription, no translation, no degradation. It lets the cell respond to leucine within minutes rather than hours. Evolution reaches for this trick whenever speed matters."},
   {"interaction": "GATOR2-GATOR1",
    "what": "GATOR2 shuts down GATOR1 – the second brake comes off.",
    "why": "GATOR1 is the machine that switches the Rag GTPases off. GATOR2 inhibits it. So inhibiting GATOR1 means the Rags stop being switched off.",
@@ -1636,7 +1668,7 @@ def main():
         # myších lifespan dat), nikdy zvýšit nad to, co dovolují citace.
         # Airtable pole Human_Relevance_Claim je proto NÁROK, ne výsledek.
         tiers_here = {sid_tier.get(s, "?") for s in e["st"]}
-        human_sp = "human" in e["sp"].lower()
+        human_sp = in_human_species(e["sp"])  # A11: lidské buňky nestačí
         ceiling = "established" if (tiers_here & {"A", "B"}) or human_sp else "plausible"
         rank = {"untested": 0, "plausible": 1, "established": 2}
         if rank[hr] > rank[ceiling]:

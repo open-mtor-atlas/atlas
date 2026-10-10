@@ -74,7 +74,9 @@ if (globalThis.__usage) {
   const bad = toolCalls.length !== calls.length
     || init?.blobs[2] !== 'atlas-test'
     || toolCalls.find((p) => p.blobs[1] === 'get_study' && p.blobs[4] === 'tool-error') === undefined
-    || JSON.stringify(pts).includes('rapamycin');   // tool arguments must never be recorded
+    || JSON.stringify(pts.map((p) => [p.indexes, p.blobs.slice(0, 5)])).includes('rapamycin')   // arguments only in blob6 (private query log)
+    || !toolCalls.some((p) => (p.blobs[5] || '').includes('rapamycin'))                          // ... and they must be there
+    || pts.some((p) => p.blobs[0] !== 'tools/call' && p.blobs[5]);                              // never for other messages
   console.log(`usage points: ${pts.length} (tools/call ${toolCalls.length}), e.g. ${JSON.stringify(toolCalls[1]?.blobs)}` + (bad ? '  <-- USAGE CHECK FAILED' : ''));
   if (bad) fail++;
 }

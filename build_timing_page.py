@@ -98,6 +98,37 @@ def load_edges():
     return relations_bake.atlas_edges()
 
 
+
+# A18 (audit 2026-10-07): regimen_evidence NENÍ vždy citace. Pole nese zdrojový
+# štítek na konci: "(Abstract)" = doslovná věta z abstraktu PubMedu,
+# "(AI_Dose)" = strojově vytažené shrnutí režimu (parafráze, s článkem
+# neověřená), cokoli jiného = kurátorská poznámka z metadat studie.
+# Na stránce se to musí rozlišit, jinak čtenář bere parafrázi za citaci.
+_PROV = (
+    ("(Abstract)", "quote", "Quoted from the PubMed abstract"),
+    ("(AI_Dose)", "extract", "Machine-extracted regimen summary, not a quotation; not yet checked against the paper"),
+)
+
+def regimen_provenance(ev):
+    """(kind, label, text bez koncového štítku)."""
+    t = (ev or "").strip()
+    for tag, kind, label in _PROV:
+        if t.endswith(tag):
+            return kind, label, t[: -len(tag)].strip()
+    import re as _re
+    m = _re.search(r"\(([A-Za-z_ ]+)\)\s*$", t)
+    if m:
+        return "note", "Curator note derived from the study record (%s)" % m.group(1), t[: m.start()].strip()
+    return "note", "Curator note", t
+
+def regimen_html(ev, e, maxlen=None):
+    kind, label, txt = regimen_provenance(ev)
+    if maxlen and len(txt) > maxlen:
+        txt = txt[:maxlen].rstrip() + "\u2026"
+    cls = "tm-quote" if kind == "quote" else "tm-quote tm-extract"
+    return ('<p class="%s">%s</p><p class="tm-prov">%s</p>' % (cls, e(txt), e(label)))
+
+
 def compute():
     st, ed = load_studies(), load_edges()
 
@@ -161,6 +192,8 @@ table.tm td.num,table.tm th.num{text-align:right;font-variant-numeric:tabular-nu
 .tm-quote{font-size:.9rem;line-height:1.55;opacity:.9;margin:8px 0 0;
   padding-left:12px;border-left:2px solid var(--line)}
 .tm-meta{font-size:.83rem;opacity:.75;margin-top:6px}
+.tm-extract{font-style:italic}
+.tm-prov{font-size:.78rem;opacity:.7;margin:2px 0 0;padding-left:14px}
 .tm-caveat{border-left:3px solid var(--amber,#c8892a);padding:10px 0 10px 14px;margin:20px 0}
 .tm-caveat b{display:block;margin-bottom:4px}
 .tm-ids{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;
@@ -186,8 +219,9 @@ def render(m):
 
     A(pv_style())  # uvnitř .wrap kvůli V2 (sync_prose), viz INTERAKTIVNÍ VRSTVA
     A('<h1>Timing: the axis the pathway maps leave out</h1>')
-    A('<p class="tm-lead">Every pathway map treats a link as a fact that either '
-      'holds or does not. None of them record <em>when</em>. Yet rapamycin given '
+    A('<p class="tm-lead">The pathway databases we checked (Reactome, KEGG and '
+      'SIGNOR, 2026) describe a link as a fact that either holds or does not; we '
+      'found no field in them for <em>when</em> it holds. Yet rapamycin given '
       'once a week and the same rapamycin given every day are not the same '
       'intervention, and at least one link in this map does not exist at all '
       'under short exposure and appears after a long one.</p>')
@@ -198,7 +232,7 @@ def render(m):
       'property of a claim.</p>')
 
     A('<div class="tm-figure">')
-    A(_fig(len(cls), "studies with a recorded regimen, each quoting the sentence that shows it"))
+    A(_fig(len(cls), "studies with a recorded regimen, each with the source line it rests on"))
     A(_fig(len(by_reg.get("Intermittent", [])), "tested an intermittent schedule rather than continuous dosing"))
     A(_fig(len(m["stops"]), "included stopping the intervention and watching what happened next"))
     A(_fig("%d of %d" % (td.get("Not tested", 0), n_edges), "pathway links carry no recorded time dependence in this Atlas"))
@@ -250,7 +284,7 @@ def render(m):
         for s in m["sched"]:
             A('<div class="tm-card"><h3>%s &mdash; %s (%s)</h3>'
               % (study_link(s), e(s.get("title") or "")[:120], e(str(s.get("year") or ""))))
-            A('<p class="tm-quote">%s</p>' % e(s.get("regimen_evidence") or ""))
+            A(regimen_html(s.get("regimen_evidence"), e))
             if s.get("exposure"):
                 A('<p class="tm-meta">Exposure window: %s</p>' % e(s["exposure"]))
             A('</div>')
@@ -270,8 +304,8 @@ def render(m):
           '<th>Window</th></tr></thead><tbody>')
         for s in sorted(m["stops"], key=lambda x: x["sid"]):
             A('<tr><td>%s</td><td>%s</td><td>%s</td></tr>'
-              % (study_link(s), e((s.get("regimen_evidence") or "")[:200]),
-                 e(s.get("exposure") or "&mdash;")))
+              % (study_link(s), regimen_html(s.get("regimen_evidence"), e, 200),
+                 e(s.get("exposure")) if s.get("exposure") else "&mdash;"))
         A('</tbody></table>')
     rev = m["td_edges"].get("Reversible on withdrawal", [])
     if rev:
@@ -339,11 +373,14 @@ def render(m):
     A('<h2 id="method">Method</h2>')
     A('<p>Figures are recomputed on every build by <code>build_timing_page.py</code> '
       'from the study corpus and the pathway links. A regimen is only recorded '
-      'when a sentence in the source states it, and that sentence is stored '
-      'verbatim alongside the classification, so every entry on this page can be '
-      'checked against the paper rather than taken on trust. Studies where the '
-      'evidence did not settle the question were left blank rather than assigned '
-      'a plausible value.</p>')
+      'when a stored line supports it, and that line is shown with its source. '
+      'Three kinds are kept apart: a sentence <em>quoted</em> from the PubMed '
+      'abstract; a <em>machine-extracted regimen summary</em> (a paraphrase of '
+      'the methods, not yet checked against the paper); and a <em>curator note</em> '
+      'derived from the study record, for example that a review gave no '
+      'intervention. Only the first is a quotation. Studies where the evidence '
+      'did not settle the question were left blank rather than assigned a '
+      'plausible value.</p>')
     A('<p>The schedule comparison above is derived, not curated: it lists studies '
       'whose intermittent arm ran alongside a daily one in the same experiment.</p>')
     A('<p>Data are CC&nbsp;BY&nbsp;4.0 &mdash; see <a href="%s/data/">Data &amp; '
