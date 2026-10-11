@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,23 @@
   "name": "p62/SQSTM1",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Autophagy cargo receptor and mTORC1-activating scaffold on lysosomes; elevated p62 accumulation indicates impaired autophagic flux.",
+  "description": "Autophagy cargo receptor and mTORC1-activating scaffold on lysosomes. Its accumulation is NOT a reliable flux readout: in FLCN-null kidney cancer cells p62 accumulates in enlarged puncta while bulk autophagy flux and LC3 lipidation are unaffected, and the same pattern was recapitulated in patient tumour samples (Ullern 2026, PMID 42569319). p62 level is dissociable from bulk autophagic flux, so it needs a flux measurement beside it, exactly as LC3-II does.",
   "study_count": 5,
   "relation_count": 0,
   "url": "https://mtor-atlas.org/gene/p62-sqstm1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/p62-sqstm1.json",
-  "description_beginner": "A protein that both helps mTORC1 switch on at the lysosome and gets swept up and destroyed during cellular cleanup (autophagy). When autophagy isn't working properly, it piles up - so scientists use it as a marker of blocked cleanup.",
+  "description_beginner": "A protein that both helps mTORC1 switch on at the lysosome and normally gets swept up and destroyed during cellular cleanup. Scientists often read a pile-up of it as 'cleanup is broken', but that shortcut fails: in one kidney cancer it piles up while cleanup is running perfectly well. A pile-up is a question, not an answer.",
+  "reading_levels": null,
+  "external_refs": [
+   {
+    "pmid": "42569319",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/42569319/"
+   }
+  ],
   "studies": [
    {
     "sid": "MA2026",

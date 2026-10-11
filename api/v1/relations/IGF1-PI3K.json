@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -27,10 +27,10 @@
   "species": [
    "mammalian cells"
   ],
-  "mechanism": "Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.",
-  "mechanism_beginner": "Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.",
+  "mechanism": "IGF-1 docks on the IGF-1 receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3. Growth hormone does not use this receptor: it signals through its own receptor and JAK2/STAT5b, and reaches this arm mostly by inducing hepatic IGF-1. The node is drawn as one axis because the Atlas's lifespan evidence comes from interventions that lower the whole axis at once.",
+  "mechanism_beginner": "IGF-1 latches onto its own receptor and switches on PI3K, which builds a signalling lipid. Growth hormone works one step further back: it does not land on this receptor itself, it makes the liver release IGF-1, which then does. Insulin takes a receptor of its own into the same arm.",
   "context": null,
-  "boundary": null,
+  "boundary": "Compressed on purpose: growth hormone and IGF-1 are one node here, but they are not one molecule and they do not share a receptor. GH signals GHR-JAK2-STAT5b and acts on this arm largely by inducing hepatic IGF-1; patients with a homozygous STAT5b mutation have GH insensitivity with low IGF-1 and low IGFBP-3 (Kofoed 2003, PMID 13679528, outside this corpus). The dwarf-mouse lifespan evidence on this axis lowers GH and IGF-1 together, so it does not tell the two apart. Insulin enters the same arm through its own receptor and is drawn separately (INS-PI3K).",
   "note": null,
   "consensus_contested": false,
   "curation_contested": false,
@@ -52,6 +52,16 @@
    ],
    "conflicting": []
   },
+  "external_refs": [
+   {
+    "pmid": "13679528",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/13679528/"
+   }
+  ],
   "reviewed": null,
   "updated": null,
   "checked": null,

@@ -685,6 +685,40 @@
          "null"
         ]
        },
+       "reading_levels": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "properties": {
+         "beginner": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "student": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "research": {
+          "type": [
+           "string",
+           "null"
+          ]
+         }
+        },
+        "description": "The three reading levels the pathway map carries for this entity. Added 2026-10-10: the website rendered these and the API did not, so an API or MCP consumer saw less of the Atlas than a reader of the site."
+       },
+       "external_refs": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/ExternalRef"
+        },
+        "description": "Papers cited in this entity's description prose."
+       },
        "studies": {
         "type": "array",
         "items": {
@@ -700,6 +734,33 @@
       }
      }
     ]
+   },
+   "ExternalRef": {
+    "type": "object",
+    "required": [
+     "pmid",
+     "cited_in",
+     "in_corpus"
+    ],
+    "properties": {
+     "pmid": {
+      "type": "string"
+     },
+     "cited_in": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Which prose fields of this record cite the paper."
+     },
+     "in_corpus": {
+      "type": "boolean",
+      "description": "False means the Atlas names this paper in its prose but does not hold it as a study, so it carries no evidence code and never appears in evidence.supporting or evidence.conflicting. Several of the Atlas's own corrections rest on papers like this."
+     },
+     "url": {
+      "type": "string"
+     }
+    }
    },
    "NodeRef": {
     "type": "object",
@@ -874,6 +935,13 @@
        }
       }
      },
+     "external_refs": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ExternalRef"
+      },
+      "description": "Papers cited in this relation's prose. Added 2026-10-10: a PMID written into a boundary or mechanism had no machine-readable form, so a paper that reverses a relation's direction was visible only to a human reading the text."
+     },
      "reviewed": {
       "type": [
        "string",
@@ -1017,6 +1085,13 @@
       "items": {
        "type": "string"
       }
+     },
+     "external_refs": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ExternalRef"
+      },
+      "description": "Papers cited in this question's prose, most often in changed_since_written - the field recording what moved in the outside literature since the question was set."
      },
      "url": {
       "type": "string"

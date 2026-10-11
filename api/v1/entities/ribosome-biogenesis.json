@@ -1,0 +1,179 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ribosome-biogenesis",
+  "name": "Ribosome biogenesis",
+  "type": "Biological process",
+  "synonyms": [
+   "rRNA synthesis",
+   "ribosome assembly",
+   "nucleolar function"
+  ],
+  "description": "Making new ribosomes: rRNA transcription by RNA polymerase I, 5S and tRNA transcription by RNA polymerase III, and the translation of ribosomal-protein mRNAs. Distinct from how efficiently existing ribosomes work. Added 2026-10-10 after an audit found the Atlas had no node for it, although the 5'TOP mRNA entity already asserted that this output is canonical for mTORC1.",
+  "study_count": 3,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/process/ribosome-biogenesis/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/ribosome-biogenesis.json",
+  "description_beginner": "Building new ribosomes, the machines that make proteins. This is different from making the ribosomes a cell already has work faster. A growing cell has to do both, and mTORC1 has a say in each.",
+  "reading_levels": {
+   "beginner": "Building new protein factories.",
+   "student": "Making new ribosomes: rRNA by Pol I, 5S and tRNA by Pol III, plus the ribosomal-protein mRNAs.",
+   "research": "Distinct from translational efficiency. The two polymerase steps that carry most of this output are not measured by any study in this corpus: mTOR controls Pol I through TIF-IA and Pol III through Maf1, both outside the corpus, so read this node as the existence of the output rather than as its mechanism."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "GUE2022",
+    "title": "TORC1 and PKA activity towards ribosome biogenesis oscillates in synchrony with the budding yeast cell cycle",
+    "authors": "Guerra P; Milias-Argeitis A et al.",
+    "year": 2022,
+    "journal": "Journal of Cell Science",
+    "doi": "10.1242/jcs.260378",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "35975715",
+    "pmcid": "PMC9658999",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae), time-lapse single-cell microscopy",
+    "peer_reviewed": true,
+    "finding": "Tracking the localisation of two TORC1 and PKA targets by time-lapse microscopy in hundreds of yeast cells shows that TORC1/PKA activity towards ribosome biogenesis rises and falls in step with the cell cycle even when outside conditions stay constant; mutations in upstream regulators suggest internal metabolic signals partly drive the oscillation.",
+    "url": "https://mtor-atlas.org/study/GUE2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUE2022.json"
+   },
+   {
+    "sid": "FAN2026",
+    "title": "mTOR inactivation governs adaptive survival to ribosome biogenesis deficiency",
+    "authors": "Fan W; Liu H; Yang L; Sinha N; Catipovic M; Dong D; Easawaran H; Green R; Laiho M",
+    "year": 2026,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.353708.126",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42575690",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines (functional genomics/CRISPR screens)",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibition does not restore ribosome biogenesis but redistributes limited ribosomes away from highly-translated 5'TOP mRNAs toward survival-essential transcripts, defining a 'translational fitness' mechanism that lets cancer cells survive ribosome biogenesis deficiency.",
+    "url": "https://mtor-atlas.org/study/FAN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FAN2026.json"
+   },
+   {
+    "sid": "HSI2012",
+    "title": "The translational landscape of mTOR signalling steers cancer initiation and metastasis",
+    "authors": "Hsieh AC; Liu Yi; Edlind MP; Ingolia NT; Janes MR; Sher A; et al.; Ruggero D",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature10912",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22367541",
+    "pmcid": "PMC3663483",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse models + human prostate cancer",
+    "peer_reviewed": true,
+    "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
+    "url": "https://mtor-atlas.org/study/HSI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-RIBOBIO",
+    "claim": "mTORC1 activates Ribosome biogenesis",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "Ribosome biogenesis",
+     "entity": "ribosome-biogenesis"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "species": [
+     "budding yeast",
+     "human cells"
+    ],
+    "mechanism": "TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome's own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).",
+    "mechanism_beginner": "A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. That was followed through the cell cycle in yeast, and in mammalian cells the programme mTORC1 controls turns out to be dominated by the ribosome's own parts. The link runs in both directions: block ribosome building and the cell turns mTOR down to cope.",
+    "context": null,
+    "boundary": "The two polymerase steps that carry most of this output are NOT measured by any study in this corpus. mTOR controls rRNA transcription through RNA polymerase I via TIF-IA (Mayer 2004, PMID 15004009, outside this corpus) and tRNA and 5S transcription through RNA polymerase III via Maf1 (Shor 2010, PMID 20233713, outside this corpus). Until those are curated here the edge rests on a yeast cell-cycle study, a mammalian ribosome-profiling study and a reverse-direction survival study, so read it as the existence of the output rather than as its mechanism.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GUE2022",
+      "HSI2012",
+      "FAN2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "15004009",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15004009/"
+     },
+     {
+      "pmid": "20233713",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20233713/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-RIBOBIO/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-RIBOBIO.json"
+   }
+  ]
+ }
+}

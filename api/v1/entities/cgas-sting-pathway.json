@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,18 @@
   "name": "cGAS-STING pathway",
   "type": "Pathway/Complex",
   "synonyms": [],
-  "description": "An innate immune sensing pathway triggered by cytosolic DNA; drives inflammatory senescence signaling and is activated downstream of mTOR dysfunction in aging immune cells.",
+  "description": "An innate immune sensing pathway triggered by cytosolic DNA; drives inflammatory senescence signaling. In aging mouse macrophages it is held in check by the Ragulator subunit Lamtor5, which binds cGAS directly and routes it for ESCRT-mediated degradation; whether mTORC1 or mTORC2 signalling contributes to this step is untested, because the one study behind it measured neither.",
   "study_count": 1,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/complex/cgas-sting-pathway/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/cgas-sting-pathway.json",
-  "description_beginner": "An immune alarm system that detects DNA where it shouldn't be (in the cell's main fluid, not the nucleus). It drives inflammatory 'senescence' signaling and gets switched on when mTOR signaling goes wrong in aging immune cells.",
+  "description_beginner": "An immune alarm system that detects DNA where it shouldn't be (in the cell's main fluid, not the nucleus). It drives inflammatory 'senescence' signaling. In old mice, a protein called Lamtor5 normally grabs the alarm sensor and sends it to be destroyed; as Lamtor5 declines with age, the sensor survives and the alarm stays on. Lamtor5 is part of a complex that also activates mTOR, but nobody has yet measured whether mTOR itself is involved in this particular step.",
+  "reading_levels": {
+   "beginner": "An immune alarm system that goes off when it detects DNA where it shouldn't be – floating loose in the cell, not tucked inside the nucleus.",
+   "student": "Innate-immune DNA-sensing pathway (cGAS binds cytosolic DNA, signals through STING) driving an inflammatory secretory programme; in aged mouse macrophages kept in check by the Ragulator subunit Lamtor5, which binds cGAS directly and routes it for degradation.",
+   "research": "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages the Ragulator subunit Lamtor5 binds cGAS directly and routes it for ESCRT-mediated degradation; its age-related decline leaves cGAS stabilised, which is sufficient to trigger cGAS-mediated paracrine inflammatory senescence, and restoring Lamtor5 reverses the phenotype (LV2026). Lamtor5 sits in the complex that recruits mTORC1 to the lysosome, but LV2026 measured no mTORC1 or mTORC2 readout for the cGAS step, so whether mTOR signalling contributes at all is untested rather than established. Single mouse study – human relevance of the Lamtor5–cGAS/STING link is untested."
+  },
+  "external_refs": [],
   "studies": [
    {
     "sid": "LV2026",
@@ -88,6 +94,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -140,6 +147,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,

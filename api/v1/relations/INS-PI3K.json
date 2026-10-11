@@ -1,0 +1,70 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "INS-PI3K",
+  "claim": "Insulin activates PI3K",
+  "source": {
+   "name": "Insulin",
+   "entity": "insulin"
+  },
+  "target": {
+   "name": "PI3K",
+   "entity": "pi3k"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "minutes",
+  "compartment": "pm",
+  "species": [
+   "human",
+   "mammalian cells",
+   "Drosophila"
+  ],
+  "mechanism": "Insulin binds the insulin receptor, which phosphorylates IRS proteins; those recruit PI3K, which makes PIP3 and so starts the arm that reaches mTORC1 through Akt. The step is also where the pathway's best-known feedback lands: S6K1 depletes IRS1/2 and the cell goes deaf to insulin (SHA2004).",
+  "mechanism_beginner": "Insulin lands on its own receptor on the cell surface. The message is passed inward by IRS proteins to PI3K, which builds a signalling lipid, and that is the beginning of the route to mTORC1. This is also the step that breaks when the pathway is overactive for too long.",
+  "context": null,
+  "boundary": "Insulin and IGF-1 share this receptor arm; growth hormone does not, and is kept separate for that reason. The amplitude and the time pattern of the insulin signal are not interchangeable: KUB2012 shows the AKT pathway multiplexes insulin's temporal pattern, so a single arrow understates what the cell reads. Cell and genetic work, plus human physiology for the insulin-resistance end of it.",
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "HAR2004",
+    "GAR2003",
+    "SAU2003",
+    "SAN2007",
+    "SHA2004"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/INS-PI3K/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/INS-PI3K.json"
+ }
+}

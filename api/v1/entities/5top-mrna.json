@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -15,10 +15,16 @@
   "synonyms": [],
   "description": "Class of mRNAs with a 5' terminal oligopyrimidine tract encoding ribosomal proteins and translation factors; their translation is a canonical output of mTORC1 signaling.",
   "study_count": 3,
-  "relation_count": 0,
+  "relation_count": 1,
   "url": "https://mtor-atlas.org/process/5top-mrna/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/5top-mrna.json",
   "description_beginner": "A group of messenger RNAs (the templates cells read to build proteins) that mostly encode the protein-building machinery itself. Turning their translation on is one of mTORC1's classic, best-established jobs.",
+  "reading_levels": {
+   "beginner": "The messages that build the factory parts.",
+   "student": "mRNAs with a 5' terminal oligopyrimidine tract, encoding ribosomal proteins and translation factors.",
+   "research": "Ribosome profiling showed the mTORC1 response here is transcript-selective rather than uniform, which is why 'mTORC1 increases protein synthesis' is a summary that hides the actual biology: the output is transcript choice."
+  },
+  "external_refs": [],
   "studies": [
    {
     "sid": "PLEDGER2026",
@@ -90,6 +96,63 @@
     "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2026.json"
    }
   ],
-  "relations": []
+  "relations": [
+   {
+    "id": "MTORC1-TOPMRNA",
+    "claim": "mTORC1 activates 5'TOP mRNA",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "5'TOP mRNA",
+     "entity": "5top-mrna"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "species": [
+     "human cells",
+     "Drosophila"
+    ],
+    "mechanism": "mTORC1 raises translation of the 5'TOP class of mRNAs, which encode ribosomal proteins and translation factors. Ribosome profiling showed the effect is selective rather than uniform: mTORC1 does not turn all translation up equally, it shifts which transcripts get translated.",
+    "mechanism_beginner": "When mTORC1 is on, the cell does not simply make more of every protein. It preferentially makes the parts of its own protein-making machinery, from a particular class of messages marked at one end.",
+    "context": null,
+    "boundary": "The selectivity is from ribosome profiling in cancer cell lines (HSI2012); the lifespan link is Drosophila only (WAN2026); PLEDGER2026 shows the same arm being repressed in chronically activated human CD8+ T cells. No human in vivo measurement of 5'TOP translation under an mTOR inhibitor in this corpus. Which of the 5'TOP transcripts matter for which phenotype is not resolved.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "HSI2012",
+      "WAN2026",
+      "PLEDGER2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-TOPMRNA/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TOPMRNA.json"
+   }
+  ]
  }
 }

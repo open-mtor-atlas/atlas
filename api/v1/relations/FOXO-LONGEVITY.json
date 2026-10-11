@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,7 +13,7 @@
   "claim": "FOXO1/3 activates Longevity",
   "source": {
    "name": "FOXO1/3",
-   "entity": null
+   "entity": "foxo"
   },
   "target": {
    "name": "Longevity",
@@ -27,10 +27,10 @@
   "species": [
    "C. elegans"
   ],
-  "mechanism": "TOR signalling and rapamycin influence lifespan partly through the SKN-1/Nrf and DAF-16/FoxO transcriptional programmes.",
+  "mechanism": "Genetic TORC1 inhibition in C. elegans extends lifespan through BOTH SKN-1/Nrf and DAF-16/FoxO, which activate protective genes and raise stress resistance. Rapamycin does NOT work the same way: it triggers a similar protective response but extends worm lifespan dependent on SKN-1 and NOT on DAF-16, apparently by interfering with TORC2 alongside TORC1 (ROB2012). This FoxO arrow therefore holds for the genetic arm, not for the drug.",
   "mechanism_beginner": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
   "context": null,
-  "boundary": "C. elegans only. DAF-16 is the FOXO orthologue; mapping worm lifespan genetics onto mammalian FOXO1/3 is an inference, not a demonstration.",
+  "boundary": "An invertebrate result, and the two arms must not be merged. ROB2012's title reads 'TOR signaling and rapamycin influence longevity by regulating SKN-1/Nrf and DAF-16/FoxO', but its own abstract splits them: the DAF-16/FoxO requirement belongs to genetic TORC1 inhibition, while the rapamycin effect is SKN-1-dependent and DAF-16-INDEPENDENT. Not shown in mammals in this corpus.",
   "note": null,
   "consensus_contested": false,
   "curation_contested": false,
@@ -51,6 +51,7 @@
    ],
    "conflicting": []
   },
+  "external_refs": [],
   "reviewed": null,
   "updated": null,
   "checked": null,

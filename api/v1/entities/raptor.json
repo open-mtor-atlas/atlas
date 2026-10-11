@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -17,12 +17,27 @@
    "RPTOR",
    "KOG1"
   ],
-  "description": "Defining subunit of mTORC1; scaffold that presents substrates (S6K1, 4E-BP1) to mTOR. Its presence is what makes a complex 'mTORC1'.",
+  "description": "Defining subunit of mTORC1: its presence is what makes a complex 'mTORC1', and it is the scaffold that presents substrates (S6K1, 4E-BP1) to mTOR via their TOS motifs. It is also a direct AMPK substrate - AMPK phosphorylates Raptor on two conserved serines, inducing 14-3-3 binding, and that step is required for energy stress to inhibit mTORC1 independently of TSC2 (Gwinn 2008, PMID 18439900). So Raptor is both the substrate-presenting scaffold and one of the two arms by which energy stress reaches mTORC1.",
   "study_count": 19,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/raptor/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/raptor.json",
-  "description_beginner": "The defining building block of mTORC1 - it's what makes an mTOR complex 'mTORC1' rather than mTORC2. It acts as a scaffold that presents mTORC1's targets (like S6K1 and 4E-BP1) to the mTOR enzyme.",
+  "description_beginner": "The defining building block of mTORC1 - it is what makes an mTOR complex 'mTORC1' rather than mTORC2. It holds mTORC1's targets in place so the enzyme can reach them. It is also a brake pedal in its own right: when energy runs low, AMPK tags Raptor directly, and that alone is enough to slow mTORC1 down even if the TSC brake is missing.",
+  "reading_levels": {
+   "beginner": "The part that makes mTOR into mTORC1.",
+   "student": "Substrate-presenting subunit defining mTORC1 and its lysosomal targeting.",
+   "research": "Recognises TOS motifs; the AMPK phosphorylation site and the Rag-binding surface both sit here, so Raptor is where location and inhibition converge."
+  },
+  "external_refs": [
+   {
+    "pmid": "18439900",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18439900/"
+   }
+  ],
   "studies": [
    {
     "sid": "KIM2002",
@@ -510,6 +525,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,

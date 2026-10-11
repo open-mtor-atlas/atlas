@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,23 @@
   "name": "GADD45alpha",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Stress-inducible DNA repair protein regulated downstream of the mTOR-TFEB axis; restoration of its expression by TFEB activation confers protection against nephrotoxicity.",
+  "description": "Stress-inducible DNA repair protein regulated downstream of the mTOR-TFEB axis. Astragaloside IV reactivated TFEB by inhibiting mTOR, which restored GADD45alpha expression along with renal function, pathology, autophagic flux and DNA repair in a mouse model of tacrolimus nephrotoxicity; the effects were reversed by TFEB knockdown (GAO2026, PMID 42438242). Mouse in vivo plus cell work, not a human finding.",
   "study_count": 1,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/gadd45alpha.json",
   "description_beginner": "A stress-response, DNA-repair protein controlled downstream of the mTOR-TFEB signaling chain. Restoring its levels - by activating TFEB - has helped protect against drug-induced kidney damage in animal studies.",
+  "reading_levels": null,
+  "external_refs": [
+   {
+    "pmid": "42438242",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/42438242/"
+   }
+  ],
   "studies": [
    {
     "sid": "GAO2026",
@@ -32,12 +43,12 @@
     "pmid": "42438242",
     "pmcid": null,
     "evidence": {
-     "code": "M",
-     "label": "Molecular — cells, biochemistry, structure",
+     "code": "A",
+     "label": "Animal model",
      "note": "this describes the kind of study, not its quality"
     },
     "category": "Mechanism",
-    "model_system": "In vitro (renal cell lines)",
+    "model_system": "Mouse (tacrolimus-induced chronic nephrotoxicity model) + renal cell lines",
     "peer_reviewed": true,
     "finding": "Astragaloside IV protects against tacrolimus-induced nephrotoxicity by inhibiting mTOR to activate TFEB and restore autophagy, nominating the mTOR-TFEB-GADD45alpha axis as a calcineurin-independent candidate therapeutic target (preclinical; no human data) in TICN.",
     "url": "https://mtor-atlas.org/study/GAO2026/",

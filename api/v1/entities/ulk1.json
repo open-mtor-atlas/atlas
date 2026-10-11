@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,18 @@
   "name": "ULK1",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Initiator of autophagy; target of mTORC1 inhibition and AMPK activation.",
+  "description": "Initiator of autophagy and a direct mTORC1 substrate: mTORC1 phosphorylates ULK1 at S757 to hold it back. The AMPK arm is contested rather than settled - the classic reading is that AMPK phosphorylates ULK1 at other sites to switch autophagy on directly, but under glucose starvation and mitochondrial energy stress AMPK has been reported to inhibit ULK1 activation while protecting the machinery from degradation. See the AMPK-ULK1 link for which effect dominates under which kind of energy stress.",
   "study_count": 9,
   "relation_count": 5,
   "url": "https://mtor-atlas.org/gene/ulk1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json",
-  "description_beginner": "The kick-starter protein for autophagy (cellular cleanup). mTORC1 normally holds it back; when mTORC1 is switched off (or AMPK switches on), it's released and cleanup begins.",
+  "description_beginner": "The kick-starter protein for autophagy (cellular cleanup). mTORC1 normally holds it back, and when mTORC1 switches off it is released and cleanup begins. What AMPK does to it is still argued over: the long-standing view is that AMPK switches it on, but newer work says that in a sharp energy crisis AMPK holds it back instead while keeping it safe.",
+  "reading_levels": {
+   "beginner": "The switch that starts self-digestion.",
+   "student": "Autophagy-initiating kinase, inhibited by mTORC1 and activated by AMPK.",
+   "research": "mTORC1 phosphorylates S757 to block the AMPK–ULK1 interaction; ULK1 also feeds back to phosphorylate and dampen AMPK, making this a closed loop rather than a switch."
+  },
+  "external_refs": [],
   "studies": [
    {
     "sid": "LOF2011",
@@ -274,6 +280,16 @@
      ],
      "conflicting": []
     },
+    "external_refs": [
+     {
+      "pmid": "37225695",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37225695/"
+     }
+    ],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -329,6 +345,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -381,6 +398,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -435,6 +453,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -487,6 +506,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -15,10 +15,16 @@
   "synonyms": [],
   "description": "Forkhead box O transcription factors (FOXO1/3/4) that act as key downstream targets of PI3K/Akt and mTOR signalling; they are excluded from the nucleus by Akt, with an mTORC2/SGK contribution, so catalytic or mTORC2-directed inhibition promotes nuclear entry and transcription of stress-response and longevity genes, whereas rapamycin can raise Akt activity through feedback relief and leave them cytoplasmic.",
   "study_count": 5,
-  "relation_count": 0,
+  "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/foxo/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/foxo.json",
   "description_beginner": "A family of 'stress-response' gene switches that Akt normally keeps locked out of the nucleus. When Akt activity drops they move into the nucleus and turn on genes linked to stress resistance and longevity. Rapamycin does not reliably do this: by releasing a feedback loop it can even raise Akt activity, leaving these switches outside the nucleus.",
+  "reading_levels": {
+   "beginner": "The stress-resistance programme mTOR switches off.",
+   "student": "Transcription factors excluded from the nucleus by Akt, opposing much of the mTORC1 programme.",
+   "research": "mTORC2 is required for signalling to Akt–FOXO but not to S6K1 (GUE2006), which is the genetic evidence that this arm belongs to mTORC2 rather than mTORC1. In C. elegans, TOR and rapamycin extend lifespan through SKN-1/Nrf and DAF-16/FoxO (ROB2012) – invertebrate evidence, not human."
+  },
+  "external_refs": [],
   "studies": [
    {
     "sid": "DEN2026",
@@ -136,6 +142,116 @@
     "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2018.json"
    }
   ],
-  "relations": []
+  "relations": [
+   {
+    "id": "FOXO-LONGEVITY",
+    "claim": "FOXO1/3 activates Longevity",
+    "source": {
+     "name": "FOXO1/3",
+     "entity": "foxo"
+    },
+    "target": {
+     "name": "Longevity",
+     "entity": "longevity"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": "outcome",
+    "species": [
+     "C. elegans"
+    ],
+    "mechanism": "Genetic TORC1 inhibition in C. elegans extends lifespan through BOTH SKN-1/Nrf and DAF-16/FoxO, which activate protective genes and raise stress resistance. Rapamycin does NOT work the same way: it triggers a similar protective response but extends worm lifespan dependent on SKN-1 and NOT on DAF-16, apparently by interfering with TORC2 alongside TORC1 (ROB2012). This FoxO arrow therefore holds for the genetic arm, not for the drug.",
+    "mechanism_beginner": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
+    "context": null,
+    "boundary": "An invertebrate result, and the two arms must not be merged. ROB2012's title reads 'TOR signaling and rapamycin influence longevity by regulating SKN-1/Nrf and DAF-16/FoxO', but its own abstract splits them: the DAF-16/FoxO requirement belongs to genetic TORC1 inhibition, while the rapamycin effect is SKN-1-dependent and DAF-16-INDEPENDENT. Not shown in mammals in this corpus.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "ROB2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/FOXO-LONGEVITY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/FOXO-LONGEVITY.json"
+   },
+   {
+    "id": "AKT-FOXO",
+    "claim": "Akt/PKB inhibits FOXO1/3",
+    "source": {
+     "name": "Akt/PKB",
+     "entity": "akt-pkb"
+    },
+    "target": {
+     "name": "FOXO1/3",
+     "entity": "foxo"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "nucleus",
+    "species": [
+     "mouse",
+     "mammalian cells"
+    ],
+    "mechanism": "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
+    "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
+    "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
+    "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GUE2006",
+      "JAC2006",
+      "BRU1999"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/AKT-FOXO/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-FOXO.json"
+   }
+  ]
  }
 }

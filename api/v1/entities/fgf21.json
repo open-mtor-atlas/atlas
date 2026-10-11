@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,23 @@
   "name": "FGF21",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Fibroblast growth factor 21, a metabolic hormone that activates AMPK/mTOR signaling to regulate glucose metabolism and wound healing.",
+  "description": "Fibroblast growth factor 21, a metabolic hormone regulating glucose metabolism. The one study in this Atlas does not show it activating mTOR: engineered FGF21-overexpressing exosomes activated AMPK and SUPPRESSED mTOR signalling while upregulating PFKFB3, reprogramming fibroblast glycolysis and accelerating wound closure in mice (Chen 2026, PMID 42551612). That is an engineered exosome preparation, not the endogenous hormone, and the direction of the mTOR effect should not be generalised from it.",
   "study_count": 1,
   "relation_count": 0,
   "url": null,
   "api_url": "https://mtor-atlas.org/api/v1/entities/fgf21.json",
-  "description_beginner": "A hormone released mostly by the liver that helps regulate blood sugar and metabolism. It works partly by activating the AMPK/mTOR signaling chain, and has also been shown to help wounds heal.",
+  "description_beginner": "A hormone released mostly by the liver that helps regulate blood sugar and metabolism. In the one study here, an engineered version packaged into cell-derived vesicles switched AMPK on and mTOR DOWN, which pushed skin cells to burn glucose faster and helped wounds close in mice. That is a lab-built preparation, so it does not tell us what the body's own FGF21 does to mTOR.",
+  "reading_levels": null,
+  "external_refs": [
+   {
+    "pmid": "42551612",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/42551612/"
+   }
+  ],
   "studies": [
    {
     "sid": "CHEN2026",

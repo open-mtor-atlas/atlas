@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,27 @@
   "name": "v-ATPase",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Vacuolar H+-ATPase; senses lysosomal amino acids from the inside and relays the signal to Ragulator-Rag to activate mTORC1.",
+  "description": "Vacuolar H+-ATPase. Necessary for amino acids to activate mTORC1, and it makes extensive amino-acid-sensitive contacts with Ragulator, but it is not itself the sensor: the Atlas assigns that role to SLC38A9, Sestrin2 and SAMTOR for their respective inputs. ATP hydrolysis by the pump is required for amino acids to regulate the v-ATPase-Ragulator interaction, which is the evidence the signal begins inside the lysosomal lumen (Zoncu 2011, PMID 22053050).",
   "study_count": 4,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/v-atpase/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/v-atpase.json",
-  "description_beginner": "A proton pump on the lysosome that helps sense how many amino acids are inside, then passes that information along to the Ragulator-Rag system to help switch mTORC1 on.",
+  "description_beginner": "A proton pump on the lysosome. Amino acids cannot switch mTORC1 on without it, and it touches the Ragulator machinery in a way that changes with amino-acid levels - but it is not the thing that reads the amino acids. Other proteins do the reading; this one has to be working for the message to get out.",
+  "reading_levels": {
+   "beginner": "The pump the sensing machinery is built on.",
+   "student": "Lysosomal proton pump physically and functionally coupled to Ragulator.",
+   "research": "Required for amino-acid signalling; inhibitor experiments cannot fully separate the signalling role from loss of lysosomal acidification."
+  },
+  "external_refs": [
+   {
+    "pmid": "22053050",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/22053050/"
+   }
+  ],
   "studies": [
    {
     "sid": "ZON2011",
@@ -158,6 +173,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,

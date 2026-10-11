@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -15,10 +15,16 @@
   "synonyms": [],
   "description": "Phosphoinositide 3-kinase; produces signaling lipids downstream of growth-factor receptors; activates Akt and heads the growth-factor arm of the mTOR pathway. It is not upstream of everything: amino-acid sensing at the lysosome, AMPK-mediated energy stress and Ras-MAPK reach mTORC1 by routes that bypass it.",
   "study_count": 20,
-  "relation_count": 5,
+  "relation_count": 6,
   "url": "https://mtor-atlas.org/gene/pi3k/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/pi3k.json",
   "description_beginner": "An enzyme that produces signaling lipids right after a growth-factor receptor is switched on. It activates Akt and sits at the top of the growth-signal branch of the mTOR pathway. Nutrients and the cell's energy level reach mTORC1 by other routes that do not pass through it.",
+  "reading_levels": {
+   "beginner": "Makes the membrane signal that pulls Akt in.",
+   "student": "Class I PI3K phosphorylates PIP2 to PIP3 at the plasma membrane.",
+   "research": "p110/p85 heterodimer; PIK3CA is one of the most frequently mutated oncogenes in human cancer. Its output is a lipid, not a phosphoprotein – which is why PTEN reverses it."
+  },
+  "external_refs": [],
   "studies": [
    {
     "sid": "CAN2002",
@@ -501,10 +507,10 @@
     "species": [
      "mammalian cells"
     ],
-    "mechanism": "Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.",
-    "mechanism_beginner": "Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.",
+    "mechanism": "IGF-1 docks on the IGF-1 receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3. Growth hormone does not use this receptor: it signals through its own receptor and JAK2/STAT5b, and reaches this arm mostly by inducing hepatic IGF-1. The node is drawn as one axis because the Atlas's lifespan evidence comes from interventions that lower the whole axis at once.",
+    "mechanism_beginner": "IGF-1 latches onto its own receptor and switches on PI3K, which builds a signalling lipid. Growth hormone works one step further back: it does not land on this receptor itself, it makes the liver release IGF-1, which then does. Insulin takes a receptor of its own into the same arm.",
     "context": null,
-    "boundary": null,
+    "boundary": "Compressed on purpose: growth hormone and IGF-1 are one node here, but they are not one molecule and they do not share a receptor. GH signals GHR-JAK2-STAT5b and acts on this arm largely by inducing hepatic IGF-1; patients with a homozygous STAT5b mutation have GH insensitivity with low IGF-1 and low IGFBP-3 (Kofoed 2003, PMID 13679528, outside this corpus). The dwarf-mouse lifespan evidence on this axis lowers GH and IGF-1 together, so it does not tell the two apart. Insulin enters the same arm through its own receptor and is drawn separately (INS-PI3K).",
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -526,6 +532,16 @@
      ],
      "conflicting": []
     },
+    "external_refs": [
+     {
+      "pmid": "13679528",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/13679528/"
+     }
+    ],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -579,6 +595,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -632,6 +649,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -663,8 +681,8 @@
     "mechanism": "PIP3 made by PI3K binds SIN1 and releases its hold on the kinase site - so growth-factor signalling switches mTORC2 on, not only mTORC1.",
     "mechanism_beginner": "The same lipid signal that switches Akt on also switches mTORC2 on – so growth-factor signals hit both complexes.",
     "context": null,
-    "boundary": "Single-study edge in this corpus.",
-    "note": "Thin - one supporting study for a step drawn as canonical.",
+    "boundary": "Growth-factor dependence of mTORC2 assembly and activity, shown in mammalian cells. The ribosome requirement (ZIN2011) means the readout is not a clean separation of PI3K input from translational state.",
+    "note": "Drawn as canonical because four independent studies in this corpus support it; the open part is how much of the effect is PI3K input versus ribosome association.",
     "consensus_contested": false,
     "curation_contested": false,
     "contested": false,
@@ -687,6 +705,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -739,6 +758,16 @@
      ],
      "conflicting": []
     },
+    "external_refs": [
+     {
+      "pmid": "9593664",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9593664/"
+     }
+    ],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -747,6 +776,65 @@
     "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/PTEN-PI3K/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/PTEN-PI3K.json"
+   },
+   {
+    "id": "INS-PI3K",
+    "claim": "Insulin activates PI3K",
+    "source": {
+     "name": "Insulin",
+     "entity": "insulin"
+    },
+    "target": {
+     "name": "PI3K",
+     "entity": "pi3k"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "pm",
+    "species": [
+     "human",
+     "mammalian cells",
+     "Drosophila"
+    ],
+    "mechanism": "Insulin binds the insulin receptor, which phosphorylates IRS proteins; those recruit PI3K, which makes PIP3 and so starts the arm that reaches mTORC1 through Akt. The step is also where the pathway's best-known feedback lands: S6K1 depletes IRS1/2 and the cell goes deaf to insulin (SHA2004).",
+    "mechanism_beginner": "Insulin lands on its own receptor on the cell surface. The message is passed inward by IRS proteins to PI3K, which builds a signalling lipid, and that is the beginning of the route to mTORC1. This is also the step that breaks when the pathway is overactive for too long.",
+    "context": null,
+    "boundary": "Insulin and IGF-1 share this receptor arm; growth hormone does not, and is kept separate for that reason. The amplitude and the time pattern of the insulin signal are not interchangeable: KUB2012 shows the AKT pathway multiplexes insulin's temporal pattern, so a single arrow understates what the cell reads. Cell and genetic work, plus human physiology for the insulin-resistance end of it.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "consensus": "established"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAR2004",
+      "GAR2003",
+      "SAU2003",
+      "SAN2007",
+      "SHA2004"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/INS-PI3K/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/INS-PI3K.json"
    }
   ]
  }

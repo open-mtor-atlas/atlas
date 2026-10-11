@@ -1,0 +1,84 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MTORC1-RIBOBIO",
+  "claim": "mTORC1 activates Ribosome biogenesis",
+  "source": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "target": {
+   "name": "Ribosome biogenesis",
+   "entity": "ribosome-biogenesis"
+  },
+  "effect": "activates",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "hours",
+  "compartment": "nucleus",
+  "species": [
+   "budding yeast",
+   "human cells"
+  ],
+  "mechanism": "TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome's own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).",
+  "mechanism_beginner": "A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. That was followed through the cell cycle in yeast, and in mammalian cells the programme mTORC1 controls turns out to be dominated by the ribosome's own parts. The link runs in both directions: block ribosome building and the cell turns mTOR down to cope.",
+  "context": null,
+  "boundary": "The two polymerase steps that carry most of this output are NOT measured by any study in this corpus. mTOR controls rRNA transcription through RNA polymerase I via TIF-IA (Mayer 2004, PMID 15004009, outside this corpus) and tRNA and 5S transcription through RNA polymerase III via Maf1 (Shor 2010, PMID 20233713, outside this corpus). Until those are curated here the edge rests on a yeast cell-cycle study, a mammalian ribosome-profiling study and a reverse-direction survival study, so read it as the existence of the output rather than as its mechanism.",
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "established"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "GUE2022",
+    "HSI2012",
+    "FAN2026"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [
+   {
+    "pmid": "15004009",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/15004009/"
+   },
+   {
+    "pmid": "20233713",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/20233713/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/MTORC1-RIBOBIO/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-RIBOBIO.json"
+ }
+}

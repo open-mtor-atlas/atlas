@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-10T20:31:33+0200",
-  "source_commit": "f9d877b2cb0a49c4318d515d45ae9d3bde5f36e0",
+  "corpus_snapshot": "2026-10-11T09:14:08+0200",
+  "source_commit": "ccc9393fbe267f62ff1ccc635e0c02270cc72d7a",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -13,12 +13,27 @@
   "name": "REDD1 (DDIT4)",
   "type": "Gene/Protein",
   "synonyms": [],
-  "description": "Hypoxia-induced protein that suppresses mTORC1 through the TSC complex - the mechanism by which low oxygen and low growth factors share a single brake.",
+  "description": "Hypoxia- and glucocorticoid-induced protein that suppresses mTORC1. The route is tissue-dependent: the original cell-culture model runs through the TSC complex, but in mouse skeletal muscle in vivo REDD1-mediated inhibition is independent of TSC2/14-3-3 binding and runs through Akt and PRAS40 instead (Britto 2014, PMID 25315696). So low oxygen and weak growth-factor signals do not necessarily share a single brake.",
   "study_count": 2,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/redd1-ddit4/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/redd1-ddit4.json",
-  "description_beginner": "A protein switched on by low oxygen that suppresses mTORC1 by acting through the TSC brake complex - the shared mechanism by which both low oxygen and weak growth-factor signals apply the same brake.",
+  "description_beginner": "A protein switched on by low oxygen or by stress hormones, which then puts the brakes on mTORC1. Which brake it pulls depends on the tissue: in cell culture it acts through the TSC complex, but in mouse muscle it bypasses TSC entirely and works through Akt and PRAS40.",
+  "reading_levels": {
+   "beginner": "A stress-made brake amplifier.",
+   "student": "Hypoxia-induced protein that promotes TSC-dependent mTORC1 inhibition.",
+   "research": "Proposed to release TSC2 from 14-3-3 sequestration; short half-life makes it a transient rather than a maintained signal."
+  },
+  "external_refs": [
+   {
+    "pmid": "25315696",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/25315696/"
+   }
+  ],
   "studies": [
    {
     "sid": "BRU2004",
@@ -111,6 +126,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
@@ -163,6 +179,7 @@
      ],
      "conflicting": []
     },
+    "external_refs": [],
     "reviewed": null,
     "updated": null,
     "checked": null,
