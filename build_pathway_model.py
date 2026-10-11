@@ -187,6 +187,13 @@ NODES = {
     "Growth hormone / IGF-1 axis": ("input", "hormone", "The 'there is food and it is safe to grow' hormone signal.",
                                     "Endocrine input acting through receptor tyrosine kinases, IRS proteins and PI3K.",
                                     "Compressed here into one node; the axis spans GH→hepatic IGF-1→IGF1R/InsR→IRS→PI3K, and dwarf-mouse longevity phenotypes sit on it."),
+    # Doplneno 11. 10. 2026 (nalez BIO-02 doplnkoveho pruchodu): Atlas mel jediny
+    # uzel pro rustove faktory a jeho hrana psala "Insulin and IGF-1 dock on their
+    # receptor" -- pritom inzulin vlastni uzel nemel a rustovy hormon ten receptor
+    # nepouziva vubec.
+    "Insulin": ("input", "hormone", "The after-a-meal hormone.",
+                "Pancreatic peptide hormone reaching mTORC1 through its own receptor, IRS proteins, PI3K and Akt.",
+                "Distinct from the GH/IGF-1 node: insulin binds InsR directly, while GH acts through GHR-JAK2-STAT5b and reaches this arm largely by inducing hepatic IGF-1. The AKT pathway multiplexes the temporal pattern of the insulin signal, so amplitude and time course are not interchangeable."),
     "Energy & cellular stress": ("input", "stress", "Running out of fuel.",
                                  "Rising AMP:ATP ratio and other stresses that activate AMPK.",
                                  "AMP and ADP binding to the AMPK γ-subunit plus LKB1-dependent T172 phosphorylation; also covers glucose withdrawal sensed via aldolase/lysosomal AXIN–LKB1."),
@@ -410,6 +417,16 @@ NODES = {
     "Protein synthesis": ("outcome", "process", "Making new proteins.",
                           "Cap-dependent translation, the most direct mTORC1 output.",
                           "Controlled through 4E-BP/eIF4E and S6K1/PDCD4/eIF4A arms; ribosome-profiling shows the response is transcript-selective, not uniform."),
+    # Doplneno 11. 10. 2026 (nalez BIO-01, gradovany jako Critical): biogeneze
+    # ribozomu v Atlasu nebyla na zadne vrstve -- 0 entit, 0 hran, a Pol I, TIF-IA
+    # ani Maf1 se nevyskytovaly nikde. Ctenar si z toho odnesl, ze mTORC1 ladi jen
+    # vykonnost existujicich ribozomu, ne jejich pocet.
+    "Ribosome biogenesis": ("nucleus", "process", "Building new protein factories.",
+                            "Making new ribosomes: rRNA by Pol I, 5S and tRNA by Pol III, plus the ribosomal-protein mRNAs.",
+                            "Distinct from translational efficiency. The two polymerase steps that carry most of this output are not measured by any study in this corpus: mTOR controls Pol I through TIF-IA and Pol III through Maf1, both outside the corpus, so read this node as the existence of the output rather than as its mechanism."),
+    "5'TOP mRNA": ("cytosol", "process", "The messages that build the factory parts.",
+                   "mRNAs with a 5' terminal oligopyrimidine tract, encoding ribosomal proteins and translation factors.",
+                   "Ribosome profiling showed the mTORC1 response here is transcript-selective rather than uniform, which is why 'mTORC1 increases protein synthesis' is a summary that hides the actual biology: the output is transcript choice."),
     "Lipid synthesis": ("outcome", "process", "Making fat and membrane.",
                         "SREBP-driven lipogenesis downstream of both complexes.",
                         "mTORC1 acts via SREBP; mTORC2 contributes independently in liver, which is why hepatic Rictor loss and hepatic Raptor loss give different lipid phenotypes."),
@@ -471,8 +488,8 @@ NODES = {
     # below for the two interactions that connect it in.
     "cGAS-STING pathway": ("cytosol", "complex",
         "An immune alarm system that goes off when it detects DNA where it shouldn't be – floating loose in the cell, not tucked inside the nucleus.",
-        "Innate-immune DNA-sensing pathway (cGAS binds cytosolic DNA, signals through STING) driving an inflammatory secretory programme; normally kept in check by lysosomal mTORC1 signalling.",
-        "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages, decline of the Ragulator subunit Lamtor5 impairs mTORC1 signalling, and this loss of restraint is sufficient to trigger cGAS-mediated paracrine inflammatory senescence; restoring Lamtor5 reverses the phenotype (LV2026). Single mouse study – human relevance of the Lamtor5–cGAS/STING link is untested."),
+        "Innate-immune DNA-sensing pathway (cGAS binds cytosolic DNA, signals through STING) driving an inflammatory secretory programme; in aged mouse macrophages kept in check by the Ragulator subunit Lamtor5, which binds cGAS directly and routes it for degradation.",
+        "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages the Ragulator subunit Lamtor5 binds cGAS directly and routes it for ESCRT-mediated degradation; its age-related decline leaves cGAS stabilised, which is sufficient to trigger cGAS-mediated paracrine inflammatory senescence, and restoring Lamtor5 reverses the phenotype (LV2026). Lamtor5 sits in the complex that recruits mTORC1 to the lysosome, but LV2026 measured no mTORC1 or mTORC2 readout for the cGAS step, so whether mTOR signalling contributes at all is untested rather than established. Single mouse study – human relevance of the Lamtor5–cGAS/STING link is untested."),
 }
 
 # ---------------------------------------------------------------------------

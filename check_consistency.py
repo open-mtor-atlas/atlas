@@ -17,6 +17,10 @@ Kontroluje:
      (pridano 2026-10-03 -- 91 ze 126 studii pridanych od srpna takhle zustalo)
   F  odkaz na studii v datovych polich (hrana, entita, otazka), ktera v korpusu
      neni -- web, API i MCP ho tise zahodi (2026-10-03: NCT0583 u H2/H5)
+  G  odborny text nese vyhradu a beginner text nema ani jednu (2026-10-11).
+     Blok B hlida jen slova o druhu a pohlavi, takze propustil entitu
+     Alzheimer's disease, kde odborny text dostal celou klinickou vyhradu
+     a beginner verze zustala bez ni.
 
     py check_consistency.py            # vypis
     py check_consistency.py --strict   # exit 1, kdyz zustane nalez mimo vyjimky
@@ -39,9 +43,64 @@ ABSOLUTE = [r"\bthe single most\b", r"\bthe one thing\b", r"\bthe entire (?:mTOR
             r"\bfounding paper\b", r"\bbirth of the field\b"]
 QUALIFIERS = [  # (v odbornem textu, co musi byt i v beginner textu)
     (r"\bfemales?\b", r"\bfemales?\b|\bwomen\b|\bgirls?\b"),
+    # 2026-10-11: pridano \bmales?\b. Pohlavne specificky vysledek se nesmi
+    # zobecnit v zadnem smeru -- RAPA-LONGEVITY je samci, S6K1-LONGEVITY samice.
+    (r"\bmales?\b", r"\bmales?\b|\bmen\b|\bboys?\b"),
     (r"\b(?:Drosophila|flies)\b", r"\bfl(?:y|ies)\b|\binsects?\b"),
-    (r"\bin mice\b", r"\bmice\b|\bmouse\b|\banimals?\b|\brodents?\b"),
-    (r"\bcell line\b|\bcultured cells\b", r"\bcell line\b|\bcells? in a dish\b|\bcultured\b|\bin cells\b"),
+    # 2026-10-11: vzor \bin mice\b minul "in mouse models", "in a mouse model"
+    # i "in mouse skeletal muscle" -- presne formulace, ktere v korpusu jsou.
+    (r"\bmice\b|\bin (?:a |the )?mouse\b|\bmurine\b",
+     r"\bmice\b|\bmouse\b|\banimals?\b|\brodents?\b"),
+    (r"\brats?\b", r"\brats?\b|\banimals?\b|\brodents?\b"),
+    (r"\bC\.\s?elegans\b|\bnematodes?\b", r"\bworms?\b|\bC\.\s?elegans\b|\bnematodes?\b"),
+    (r"\byeast\b|\bS\.\s?cerevisiae\b|\bS\.\s?pombe\b", r"\byeast\b|\bfungus\b|\bsingle-celled\b"),
+    (r"\bzebrafish\b", r"\bzebrafish\b|\bfish\b"),
+    (r"\bmacaques?\b|\bmarmosets?\b|\bnon-human primates?\b",
+     r"\bmonkeys?\b|\bmacaques?\b|\bmarmosets?\b|\bprimates?\b|\banimals?\b"),
+    (r"\bcell line\b|\bcultured cells\b|\bin vitro\b",
+     r"\bcell line\b|\bcells? in a dish\b|\bcultured\b|\bin cells\b|\blab dish\b|\bin the lab\b"),
+]
+
+# Kontrola G (2026-10-11): VYHRADA SE V BEGINNER REGISTRU NEZKRACUJE.
+#
+# Blok B hlida jen to, ze se do beginner textu prenesou slova o druhu a
+# pohlavi. Nestaci to: 10. 10. 2026 dostala entita Alzheimer's disease do
+# odborneho textu celou klinickou vyhradu ("clinically unproven in people...
+# not shown to help patients") a beginner verze zustala bez ni -- a blok B
+# to propustil, protoze slovo "mice" v obou bylo. Presne ten nalez, kvuli
+# kteremu se ten text opravoval (DIS-02), tedy prezil v beginner vrstve.
+#
+# Pravidlo je stejne jako pravidlo 14 v verify_academy.py: zkratit
+# zacatecnikovi vyklad je v poradku, zkratit mu vyhrady ne. Tahle kontrola
+# nemuze overit, ze beginner text rika spravnou vec -- zadna regule to
+# neumi. Dela jen jednu vec: kdyz odborny text nese vyhradu a beginner
+# NEMA ANI JEDNU, oznaci ten par k precteni.
+HEDGES = [
+    # Zamerne UZKE. Prvni verze 11. 10. 2026 brala i \bdependent\b a \bdepends on\b
+    # a vystrelila 20x na slozeninach typu "cap-dependent translation" nebo
+    # "mTORC1-dependent" -- to nejsou vyhrady, to jsou technicke termity.
+    # Brana, ktera pri prvnim spusteni vyda 20 falesnych poplachu, se umlci,
+    # takze tady plati presnost pred zachytem. Rozsah platnosti (druh, pohlavi,
+    # bunecna linie) uz hlida blok B, tady jde jen o VYSLOVNE NE-TVRZENI.
+    r"\bnot shown\b|\bunproven\b|\bnot proven\b|\bnot established\b|\bnot settled\b",
+    r"\buntested\b|\bnot tested\b|\bnever (?:been )?(?:measured|tested|shown)\b",
+    r"\bno (?:human|clinical|direct|published|survival) (?:data|evidence|trial|endpoint)\b",
+    r"\bno evidence\b|\bnot measured\b|\bnot resolved\b|\bnot addressed\b",
+    r"\bcontested\b|\bdisputed\b|\bunsettled\b|\bcontradict",
+    r"\bpoints the other way\b|\bthe other direction\b",
+    r"\bphase 1\b|\bphase 2\b|\bopen-label\b|\buncontrolled\b",
+    r"\bsingle study\b|\bone study\b|\bsingle (?:mouse|human|trial)\b|\bn\s?=\s?\d",
+    r"\bdoes not (?:mean|establish|show|prove)\b|\bcaution\b|\bcaveat\b",
+]
+# Beginner protihodnoty: prosta rec pro totez, zamerne siroke. Cilem je
+# zachytit par, ktery vyhradu NEMA VUBEC, ne vnucovat formulaci -- karta H4
+# rika "that's only been directly shown in flies and worms" a to je platna
+# vyhrada, jen jinymi slovy.
+HEDGES_BEGINNER = HEDGES + [
+    r"\bnot\b|\bno one\b|\bnobody\b|\bnever\b|\bn't\b|\bwithout\b",
+    r"\bdon't know\b|\bstill\b|\bso far\b|\byet\b|\bassumed?\b|\bthought\b",
+    r"\bjust one\b|\bonly\b|\bsmall\b|\bearly\b|\bquestion\b|\bargu|\bdebat",
+    r"\bmay\b|\bmight\b|\bwhether\b|\bunclear\b|\bunknown\b|\bseems?\b",
 ]
 SID_RE = re.compile(r"\b[A-Z][A-Z]{1,7}20\d\d[A-Z]?\b|\b[A-Z][A-Z]{1,7}19\d\d[A-Z]?\b")
 
@@ -87,6 +146,16 @@ for where, full, beg in pairs:
     for need, ok in QUALIFIERS:
         if re.search(need, full, re.I) and not re.search(ok, beg, re.I):
             warn("B", where, "beginner nema kvalifikator odpovidajici /%s/" % need)
+# G -- vyhrada se v beginner registru nezkracuje (2026-10-11)
+def _hedges(text, pats):
+    return sum(1 for pat in pats if re.search(pat, text, re.I))
+for where, full, beg in pairs:
+    if not beg:
+        continue
+    n_full = _hedges(full, HEDGES)
+    if n_full and not _hedges(beg, HEDGES_BEGINNER):
+        warn("G", where, "odborny text nese %d vyhrad, beginner ani jednu" % n_full)
+
 # C
 for i in model["interactions"]:
     both = set(i["evidence"]["supporting"]) & set(i["evidence"]["conflicting"])

@@ -14,13 +14,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="All 91 nodes and 127 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta name="description" content="All 94 nodes and 130 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <link rel="canonical" href="https://mtor-atlas.org/pathway/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="All 91 nodes and 127 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta property="og:description" content="All 94 nodes and 130 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <meta property="og:url" content="https://mtor-atlas.org/pathway/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -71,28 +71,28 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "923088"
+    "contentSize": "923113"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1123447"
+    "contentSize": "1123472"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "73650"
+    "contentSize": "81514"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "98091"
+    "contentSize": "106225"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -110,7 +110,7 @@
    "evidence-based research"
   ],
   "version": "2.0.1",
-  "dateModified": "2026-10-10"
+  "dateModified": "2026-10-11"
  }
 }
 </script>
@@ -349,7 +349,7 @@ table.int-table td[data-l="Mechanism"]{max-width:420px}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>The mTOR pathway, node by node</h1>
 <p class="summary">The same curated model behind the Atlas's interactive
-pathway map (91 nodes, 127 interactions,
+pathway map (94 nodes, 130 interactions,
 11 guided routes, 13 feedback loops), written
 out as text: eleven guided walks through the network, each followed by the
 full interaction reference table below.</p>
@@ -1049,7 +1049,7 @@ full interaction reference table below.</p>
 <p class="tier-why"><strong>Evidence base:</strong> Cell-line pharmacology and biochemistry for the escape mechanisms; H – randomised trials – for the clinical outcomes; one phase 1 trial (SCH2025, 2025) for the newest drug class. Note the asymmetry that runs through this route: the mechanism is cell-line evidence, the disappointment is human evidence.</p>
 <p class="tier-why"><strong>Still unresolved:</strong> Which tumours depend on mTOR remains largely unpredictable from genotype – the single largest open problem here. Whether closing the 4E-BP1 escape translates into survival benefit is exactly what the bi-steric trials are testing and is not yet answered. And why rapalogs delay progression without clearly extending overall survival in several indications has no accepted explanation, with the feedback arms as leading suspects.</p>
 </section>
-<h2 id="interactions">All 127 interactions</h2>
+<h2 id="interactions">All 130 interactions</h2>
 <p class="summary">Every modelled interaction in the network: source,
 direction of effect, target, mechanism, the closest-to-human evidence behind
 it, and the studies that support it. Rows are the same interactions the
@@ -1285,7 +1285,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/gene/pi3k/">PI3K</a></td>
 <td data-l="Type">signal-relay</td>
-<td data-l="Mechanism"><span class="lv-beginner">Insulin and IGF-1 latch onto their receptor and switch on PI3K, which builds a signalling lipid.</span><span class="lv-student">Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.</span><span class="lv-research">Insulin and IGF-1 dock on their receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">IGF-1 latches onto its own receptor and switches on PI3K, which builds a signalling lipid. Growth hormone works one step further back: it does not land on this receptor itself, it makes the liver release IGF-1, which then does. Insulin takes a receptor of its own into the same arm.</span><span class="lv-student">IGF-1 docks on the IGF-1 receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3. Growth hormone does not use this receptor: it signals through its own receptor and JAK2/STAT5b, and reaches this arm mostly by inducing hepatic IGF-1. The node is drawn as one axis because the Atlas&#x27;s lifespan evidence comes from interventions that lower the whole axis at once.</span><span class="lv-research">IGF-1 docks on the IGF-1 receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3. Growth hormone does not use this receptor: it signals through its own receptor and JAK2/STAT5b, and reaches this arm mostly by inducing hepatic IGF-1. The node is drawn as one axis because the Atlas&#x27;s lifespan evidence comes from interventions that lower the whole axis at once.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/CAN2002/">CAN2002</a>, <a href="https://mtor-atlas.org/study/ROM2001/">ROM2001</a></td>
 </tr><tr id="int-irs1-pi3k">
@@ -1349,7 +1349,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">required-for</td>
 <td data-l="Target"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Type">localisation</td>
-<td data-l="Mechanism"><span class="lv-beginner">In the amino-acid route, mTORC1 only works while it&#x27;s sitting on the lysosome, because that is where its activator waits – move it somewhere else and amino acids stop being able to reach it.</span><span class="lv-student">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.</span><span class="lv-research">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. Force it elsewhere and amino acids stop mattering. The requirement is stated for this route, not for every pool of mTOR in the cell.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">In the amino-acid route, mTORC1 has to travel to the lysosome before it can work, because its activator Rheb waits there. Getting it there and switching it on are two different steps: when researchers glued mTORC1 to the lysosome so it no longer had to be delivered, amino acids stopped making any difference, but the activator was still needed.</span><span class="lv-student">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. SAN2010 showed what happens when you take the first step away: anchoring mTORC1 to the lysosome permanently makes the pathway amino-acid insensitive and independent of Rag and Ragulator, but still dependent on Rheb. Recruitment and activation are two steps, and that experiment separates them. The requirement is stated for this route, not for every pool of mTOR in the cell.</span><span class="lv-research">In the canonical nutrient-dependent route, mTORC1 has to reach the lysosomal surface to be switched on, because that is where Rheb is waiting. SAN2010 showed what happens when you take the first step away: anchoring mTORC1 to the lysosome permanently makes the pathway amino-acid insensitive and independent of Rag and Ragulator, but still dependent on Rheb. Recruitment and activation are two steps, and that experiment separates them. The requirement is stated for this route, not for every pool of mTOR in the cell.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/SAN2010/">SAN2010</a>, <a href="https://mtor-atlas.org/study/ZON2011/">ZON2011</a>, <a href="https://mtor-atlas.org/study/FER2024/">FER2024</a>, <a href="https://mtor-atlas.org/study/KOR2011/">KOR2011</a>, <a href="https://mtor-atlas.org/study/CUI2025/">CUI2025</a></td>
 </tr><tr id="int-metformin-ampk">
@@ -1501,7 +1501,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/actin-cytoskeleton/">Actin cytoskeleton</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">mTORC2&#x27;s first known job was shaping the cell&#x27;s internal skeleton – noticed precisely because rapamycin didn&#x27;t block it.</span><span class="lv-student">One of the first functions assigned to mTORC2 was shaping the cell&#x27;s skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.</span><span class="lv-research">One of the first functions assigned to mTORC2 was shaping the cell&#x27;s skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">mTORC2&#x27;s first known job was shaping the cell&#x27;s internal skeleton. It was found in yeast first, as the original TOR2 phenotype, and then in mammalian cells - where it stood out precisely because rapamycin didn&#x27;t block it.</span><span class="lv-student">One of the first functions assigned to mTORC2 was shaping the cell&#x27;s skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.</span><span class="lv-research">One of the first functions assigned to mTORC2 was shaping the cell&#x27;s skeleton. In yeast it was the original TOR2 phenotype; in mammalian cells it showed that the second complex is acutely rapamycin-insensitive.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/JAC2004/">JAC2004</a>, <a href="https://mtor-atlas.org/study/SAR2004/">SAR2004</a>, <a href="https://mtor-atlas.org/study/LOE2002/">LOE2002</a>, <a href="https://mtor-atlas.org/study/HUA2013/">HUA2013</a></td>
 </tr><tr id="int-mtorc2-akt">
@@ -1989,7 +1989,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/outcome/longevity/">Longevity</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.</span><span class="lv-student">TOR signalling and rapamycin influence lifespan partly through the SKN-1/Nrf and DAF-16/FoxO transcriptional programmes.</span><span class="lv-research">TOR signalling and rapamycin influence lifespan partly through the SKN-1/Nrf and DAF-16/FoxO transcriptional programmes.</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.</span><span class="lv-student">Genetic TORC1 inhibition in C. elegans extends lifespan through BOTH SKN-1/Nrf and DAF-16/FoxO, which activate protective genes and raise stress resistance. Rapamycin does NOT work the same way: it triggers a similar protective response but extends worm lifespan dependent on SKN-1 and NOT on DAF-16, apparently by interfering with TORC2 alongside TORC1 (ROB2012). This FoxO arrow therefore holds for the genetic arm, not for the drug.</span><span class="lv-research">Genetic TORC1 inhibition in C. elegans extends lifespan through BOTH SKN-1/Nrf and DAF-16/FoxO, which activate protective genes and raise stress resistance. Rapamycin does NOT work the same way: it triggers a similar protective response but extends worm lifespan dependent on SKN-1 and NOT on DAF-16, apparently by interfering with TORC2 alongside TORC1 (ROB2012). This FoxO arrow therefore holds for the genetic arm, not for the drug.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/ROB2012/">ROB2012</a></td>
 </tr><tr id="int-mtorc1-hif1a">
@@ -2072,6 +2072,30 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Mechanism"><span class="lv-beginner">Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.</span><span class="lv-student">Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.</span><span class="lv-research">Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2006/">GUE2006</a>, <a href="https://mtor-atlas.org/study/JAC2006/">JAC2006</a>, <a href="https://mtor-atlas.org/study/BRU1999/">BRU1999</a></td>
+</tr><tr id="int-ins-pi3k">
+<td data-l="Source"><a href="/gene/insulin/">Insulin</a></td>
+<td data-l="Effect">activates</td>
+<td data-l="Target"><a href="/gene/pi3k/">PI3K</a></td>
+<td data-l="Type">signal-relay</td>
+<td data-l="Mechanism"><span class="lv-beginner">Insulin lands on its own receptor on the cell surface. The message is passed inward by IRS proteins to PI3K, which builds a signalling lipid, and that is the beginning of the route to mTORC1. This is also the step that breaks when the pathway is overactive for too long.</span><span class="lv-student">Insulin binds the insulin receptor, which phosphorylates IRS proteins; those recruit PI3K, which makes PIP3 and so starts the arm that reaches mTORC1 through Akt. The step is also where the pathway&#x27;s best-known feedback lands: S6K1 depletes IRS1/2 and the cell goes deaf to insulin (SHA2004).</span><span class="lv-research">Insulin binds the insulin receptor, which phosphorylates IRS proteins; those recruit PI3K, which makes PIP3 and so starts the arm that reaches mTORC1 through Akt. The step is also where the pathway&#x27;s best-known feedback lands: S6K1 depletes IRS1/2 and the cell goes deaf to insulin (SHA2004).</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2004/">HAR2004</a>, <a href="https://mtor-atlas.org/study/GAR2003/">GAR2003</a>, <a href="https://mtor-atlas.org/study/SAU2003/">SAU2003</a>, <a href="https://mtor-atlas.org/study/SAN2007/">SAN2007</a>, <a href="https://mtor-atlas.org/study/SHA2004/">SHA2004</a></td>
+</tr><tr id="int-mtorc1-ribobio">
+<td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
+<td data-l="Effect">activates</td>
+<td data-l="Target"><a href="/process/ribosome-biogenesis/">Ribosome biogenesis</a></td>
+<td data-l="Type">functional-consequence</td>
+<td data-l="Mechanism"><span class="lv-beginner">A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. That was followed through the cell cycle in yeast, and in mammalian cells the programme mTORC1 controls turns out to be dominated by the ribosome&#x27;s own parts. The link runs in both directions: block ribosome building and the cell turns mTOR down to cope.</span><span class="lv-student">TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span><span class="lv-research">TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2022/">GUE2022</a>, <a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/FAN2026/">FAN2026</a></td>
+</tr><tr id="int-mtorc1-topmrna">
+<td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
+<td data-l="Effect">activates</td>
+<td data-l="Target"><a href="/process/5top-mrna/">5&#x27;TOP mRNA</a></td>
+<td data-l="Type">functional-consequence</td>
+<td data-l="Mechanism"><span class="lv-beginner">When mTORC1 is on, the cell does not simply make more of every protein. It preferentially makes the parts of its own protein-making machinery, from a particular class of messages marked at one end.</span><span class="lv-student">mTORC1 raises translation of the 5&#x27;TOP class of mRNAs, which encode ribosomal proteins and translation factors. Ribosome profiling showed the effect is selective rather than uniform: mTORC1 does not turn all translation up equally, it shifts which transcripts get translated.</span><span class="lv-research">mTORC1 raises translation of the 5&#x27;TOP class of mRNAs, which encode ribosomal proteins and translation factors. Ribosome profiling showed the effect is selective rather than uniform: mTORC1 does not turn all translation up equally, it shifts which transcripts get translated.</span></td>
+<td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/WAN2026/">WAN2026</a>, <a href="https://mtor-atlas.org/study/PLEDGER2026/">PLEDGER2026</a></td>
 </tr></table>
 
 <footer class="oma-footer">
@@ -2081,7 +2105,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-10 20:31 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-11 09:13 Prague time</div>
 </footer>
 </div>
 </body>

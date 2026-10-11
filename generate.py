@@ -733,7 +733,9 @@ add(
         ("Why the dose distinction matters", "<p>Nearly everything people cite as "
          "\"rapamycin's side effects\" – mouth sores, hyperlipidemia, poor wound healing – "
          "comes from the transplant-immunosuppression literature, where the drug is dosed "
-         "continuously and at levels that fully occupy mTORC1 (and, over time, mTORC2). "
+         "continuously and at a level that saturates FKBP12-rapamycin binding, which "
+         "still leaves the rapamycin-resistant arm of mTORC1 running, and over time "
+         "also disrupts mTORC2. "
          "The aging-research community's central bet is that much lower, often intermittent "
          "dosing keeps enough benefit while avoiding that profile – a bet the Atlas's open "
          "question on "
@@ -985,7 +987,8 @@ add(
     tldr=(
         "They're often mentioned together as geroprotector candidates, but they work "
         "differently and have very different evidence behind them in this Atlas. Rapamycin "
-        "directly and potently inhibits mTORC1 (its primary target) and has " + str(N("Rapamycin")) + " "
+        "inhibits mTORC1 at one step, through FKBP12, though not completely \u2013 part of "
+        "the complex's output keeps running. It has " + str(N("Rapamycin")) + " "
         "evidence-labelled studies here, including a systematic review of human data. Metformin "
         "inhibits mTORC1 only indirectly – mainly by activating AMPK, though it also acts "
         "on mTORC1 through AMPK-independent routes – and has just " + str(N("Metformin")) + " studies in the Atlas, "
@@ -1026,7 +1029,7 @@ add(
                   '<a href="/drug/metformin/">Metformin ' + cnt_span("Metformin") + '</a>'
                   '<a href="/complex/mtorc1/">mTORC1</a>',
     faq_a=(
-        "Rapamycin directly and potently inhibits mTORC1 (" + str(N("Rapamycin")) + " studies in the Atlas, "
+        "Rapamycin inhibits mTORC1 at one step, through FKBP12, though not completely (" + str(N("Rapamycin")) + " studies in the Atlas, "
         "including one systematic review of human data). Metformin inhibits mTORC1 mostly "
         "indirectly, via AMPK activation (though some of its action is AMPK-independent), "
         "and has only " + str(N("Metformin")) + " studies in the Atlas – the human evidence (BAN2014) is a "
