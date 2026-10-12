@@ -3176,7 +3176,7 @@ def practice_page(bank):
     ld = {"@context": "https://schema.org", "@type": "LearningResource",
           "name": "mTOR Practice Arena", "url": url, "inLanguage": "en",
           "learningResourceType": "Quiz",
-          "educationalLevel": "Secondary and undergraduate",
+          "educationalLevel": "Beginner",
           "description": "Practice games built on the Oliver's mTOR Atlas pathway model: predict "
                          "perturbations, rebuild routes, and name what a result does not show.",
           "isPartOf": dict(DATASET_REF),
@@ -3517,7 +3517,7 @@ def qual_page(bank):
                 % (e(cfg["ranks"][-1]["name"]), SITE))
     ld = {"@context": "https://schema.org", "@type": "LearningResource",
           "name": "mTOR Qualifying Exam", "url": url, "inLanguage": "en",
-          "learningResourceType": "Quiz", "educationalLevel": "Graduate and research",
+          "learningResourceType": "Quiz", "educationalLevel": "Advanced",
           "description": "Ten hard questions on mTOR signalling evidence, scored on accuracy and "
                          "calibration, built on the Oliver's mTOR Atlas corpus.",
           "isPartOf": dict(DATASET_REF),

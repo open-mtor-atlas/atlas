@@ -72,6 +72,23 @@ ALLOWED_INLINE = re.compile(
     r"</?(?:strong|em|code|sub|sup)>|<a href=\"[^\"<>]*\">|</a>")
 TAG_RE = re.compile(r"<[^>]+>")
 
+# TeSS (ELIXIR) prijima jen Beginner / Intermediate / Advanced jako competency level.
+# Stranky si nechavaji vlastni popisky urovne; do JSON-LD jde preklad (2026-10-12).
+TESS_LEVEL = {"Foundation": "Beginner", "Core": "Intermediate", "Intermediate": "Intermediate",
+              "Research": "Advanced", "Secondary": "Beginner",
+              "Secondary and undergraduate": "Beginner", "Graduate and research": "Advanced"}
+
+
+def tess_level(x):
+    return TESS_LEVEL.get(x, x)
+
+
+def ld_desc(t):
+    """Text pro JSON-LD description: bez tagu a HTML entit (&mdash; atd.)."""
+    import html as _h
+    t = re.sub(r"&#?\w*$", "", TAG_RE.sub("", t))  # entita preriznuta pri [:300]
+    return _h.unescape(t).strip()
+
 
 # ------------------------------------------------------------------ prose ---
 
@@ -2794,7 +2811,8 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
         "@context": "https://schema.org",
         "@type": ["LearningResource", "TrainingMaterial"],
         "name": title, "headline": title, "url": url, "inLanguage": "en",
-        "educationalLevel": les["level"],
+        "description": ld_desc(desc),
+        "educationalLevel": tess_level(les["level"]),
         "learningResourceType": "e-learning",
         "timeRequired": "PT%dM" % les["estimatedTime"],
         "teaches": les.get("concepts") or [],
@@ -2978,8 +2996,9 @@ def prereq_page(modules, module, first_slug):
 
     ld = {"@context": "https://schema.org", "@type": "LearningResource",
           "name": cfg["title"], "url": url, "inLanguage": "en",
+          "description": ld_desc(cfg["lede"])[:300],
           "learningResourceType": "prerequisite guide",
-          "educationalLevel": "Secondary",
+          "educationalLevel": tess_level("Secondary"),
           "isPartOf": {"@type": "Course", "name": "%s – mTOR Academy" % module["title"],
                        "url": "%s/academy/%s/" % (SITE, module["slug"])},
           "about": dict(DATASET_REF),
@@ -4131,7 +4150,8 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
     ld = {"@context": "https://schema.org",
           "@type": ["LearningResource", "TrainingMaterial"],
           "name": ch["title"], "headline": ch["title"], "url": url, "inLanguage": "en",
-          "educationalLevel": ch["level"], "learningResourceType": "e-learning",
+          "description": ld_desc(desc),
+          "educationalLevel": tess_level(ch["level"]), "learningResourceType": "e-learning",
           "timeRequired": "PT%dM" % ch["estimatedTime"],
           "teaches": ch["researchSkills"],
           "keywords": ch["researchSkills"],
