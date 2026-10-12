@@ -176,16 +176,6 @@ if not "%LOCAL_BAT%"=="%REMOTE_BAT%" (
 :bat_check_done
 
 echo.
-echo === Stamping last-updated timestamp ===
-py stamp_updated.py
-if errorlevel 1 (
-  echo.
-  echo ABORTED: stamp_updated.py failed or refused to run - see message above.
-  pause
-  exit /b 1
-)
-
-echo.
 echo === optional: Refresh ATLAS_STUDIES/ATLAS_GAPS from Airtable ===
 if defined AIRTABLE_TOKEN (
   py sync_airtable.py
@@ -219,6 +209,33 @@ if defined AIRTABLE_TOKEN (
   )
 ) else (
   echo    AIRTABLE_TOKEN not set - skipping edge refresh
+)
+
+echo.
+echo === Pre-flight: hrany vs. kurovane uzly, a nasazuje se vsechno, co se spousti ===
+REM  11. 10. 2026. Dve veci se daly poznat hned, a hlasily se az po 10-20
+REM  minutach prace:
+REM
+REM  1) "node not curated: Insulin" -- hrana z Airtable ukazuje na uzel, ktery
+REM     neni v tabulce NODES v build_pathway_model.py. Hlasilo se az tam, tedy
+REM     po build_academy.py, obou verifikacich a build_data_exports.py.
+REM     Overeno 10. 10. 2026: deploy spadl presne takhle na tri nove hrany.
+REM  2) Novy pomocny modul (atlas_wording.py) lezel na disku, validate_claims.py
+REM     i check_consistency.py ho importovaly, ale nebyl ani tracked, ani
+REM     v seznamu pro `git add` nize. Deploy by pushnul obe brany importujici
+REM     modul, co na origin neni, a na cistem klonu by spadly na ImportError.
+REM
+REM  Stejna trida chyby: jedna vec musi byt na dvou mistech a nic nehlasi,
+REM  kdyz je jen na jednom. Preflight obe porovna.
+REM  MUSI bezet AZ ZA sync_relations.py (cte uz synchronizovane ATLAS_EDGES)
+REM  a PRED build_academy.py, aby se usetrila prave ta prace, ktera sla do kose.
+py preflight_deploy.py --strict
+if errorlevel 1 (
+  echo.
+  echo ABORTED: pre-flight nasel problem - viz vypis vys. Nic se nezmenilo
+  echo krome uz provedenych syncu; oprav nalez a spust deploy.bat znovu.
+  pause
+  exit /b 1
 )
 
 echo.
@@ -298,16 +315,48 @@ if errorlevel 1 echo    build_data_exports.py failed - data/exports/ may be stal
 echo.
 echo === Rebuild the pathway model ===
 REM  Pridano 2026-09-07. build_pathway_model.py TU NIKDY NEBYLO -- jen v
-REM  komentarich -- pritom stamp_updated.py vys posune ATLAS_UPDATED na dnesek
-REM  a verify_index_html.py pak porovna pathway\model.json meta.generated proti
-REM  nemu a pri starsim modelu deploy ZASTAVI hlaskou "run build_pathway_model.py".
+REM  komentarich -- pritom stamp_updated.py posouval ATLAS_UPDATED na dnesek
+REM  a verify_index_html.py pak porovnal pathway\model.json meta.generated proti
+REM  nemu a pri starsim modelu deploy ZASTAVIL hlaskou "run build_pathway_model.py".
 REM  Kazdy deploy v jiny den nez posledni rucni build modelu tedy spadl. Stejna
 REM  trida chyby jako u stamp_type_version.py a build_data_exports.py vyse.
+REM  11. 10. 2026: stamp_updated.py uz NENI nad timhle krokem, ale POD nim --
+REM  duvod je v komentari u nej. Tenhle krok je tedy ted pred stampem, ne za.
 py build_pathway_model.py
 if errorlevel 1 (
   echo.
   echo ABORTED: build_pathway_model.py failed - /pathway/ by se nasadilo stale
   echo a verify_index_html.py by deploy stejne zastavil.
+  exit /b 1
+)
+
+echo.
+echo === Stamping last-updated timestamp and the counts in index.html ===
+REM  11. 10. 2026: tenhle krok byl az do dneska NAHORE, pred sync_airtable.py.
+REM  stamp_updated.py ale nestampuje jen ATLAS_UPDATED -- refresh_counts() cte
+REM  atlas_data\studies_baked.json a pathway\model.json a pocty z nich zapise
+REM  do markupu, ktery vidi crawler bez JS. Nahore jsou oba soubory jeste
+REM  z PREDCHOZIHO behu, takze index.html dostal stare pocty a teprve dalsi
+REM  deploy je srovnal. Dokud se pocty nemenily, nikdo si toho nevsiml; jakmile
+REM  se zmenily, chytil to az verify_index_html.py na konci ("baked count #1
+REM  reads 91, data says 94") a deploy spadl. Kazda zmena dat tedy potrebovala
+REM  dva behy -- prvni spadl, druhy prosel. Overeno 10. 10. 2026 na trech
+REM  novych hranach.
+REM
+REM  Odted se stampuje AZ TADY: za sync_airtable.py, sync_relations.py
+REM  i build_pathway_model.py, tedy az jsou OBA zdroje poctu finalni.
+REM  Zamerne PRED branami nize: kdyz brana deploy zastavi, index.html
+REM  a pathway\model.json zustanou navzajem v souladu misto rozjeteho stavu,
+REM  ktery by pak hlasil ten samy count mismatch.
+REM  build_pages.py a prerender_tabs.js nize ctou ATLAS_UPDATED, takze jim to
+REM  porad predchazi. Nic za timto bodem uz studies_baked.json ani model.json
+REM  neprepisuje (build_pathway_contexts.py to ma vyslovne v docstringu,
+REM  stamp_pathway_version.py je jen hashuje pro cache-busting).
+py stamp_updated.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: stamp_updated.py failed or refused to run - see message above.
+  pause
   exit /b 1
 )
 
@@ -761,7 +810,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py sync_lab_lineage.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (atlas_wording.py preflight_deploy.py report_external_refs.py build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py sync_lab_lineage.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
