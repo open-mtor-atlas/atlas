@@ -825,7 +825,15 @@
       "type": [
        "string",
        "null"
-      ]
+      ],
+      "description": "Where in the cell the step happens (lyso, cytosol, nucleus, pm, mito, ...). Null when the step has no cellular location, such as a step that ends in an outcome."
+     },
+     "map_band": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The band the step is drawn in on the pathway map. Equals compartment for cellular steps; also takes the values outcome and autophagy, which are map bands, not places in the cell."
      },
      "species": {
       "type": "array",

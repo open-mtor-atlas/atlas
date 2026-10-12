@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-12T08:59:49+0200",
-  "source_commit": "7ac85e0509ba0e1721b0146d755b6a52b3932d45",
+  "corpus_snapshot": "2026-10-12T09:24:32+0200",
+  "source_commit": "31dba57b7f3505715af021bde34630a6347aa844",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -67,11 +67,12 @@
     "directness": "direct",
     "timescale": "chronic",
     "compartment": "cytosol",
+    "map_band": "cytosol",
     "species": [
      "mouse"
     ],
     "mechanism": "Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.",
-    "mechanism_beginner": null,
+    "mechanism_beginner": "Lamtor5 belongs to Ragulator, the lysosome complex that switches mTORC1 on, but this link does not run through mTORC1 as far as the source shows. Lamtor5 grabs the inflammation sensor cGAS and sends it for disposal. When Lamtor5 falls with age in immune cells called macrophages, cGAS builds up and drives inflammation that spreads to neighbouring cells; in mice, moving such macrophages into young animals sped up their ageing. This is one mouse study, so it is not known whether the same happens in people, or whether mTORC1 plays any part.",
     "context": null,
     "boundary": "One mouse study (LV2026), A - animal, and no human data for this link. The abstract reports no mTORC1 or mTORC2 measurement for the cGAS step, so whether mTORC1 signalling contributes at all is untested here rather than established. Macrophage-specific: the conditional knockout is myeloid, and the ageing phenotypes are read out at the organismal level, which is a long inferential chain from one protein interaction.",
     "note": null,
@@ -119,12 +120,13 @@
     "type": "functional-consequence",
     "directness": "indirect",
     "timescale": "days",
-    "compartment": "outcome",
+    "compartment": null,
+    "map_band": "outcome",
     "species": [
      "mouse"
     ],
     "mechanism": "cGAS-STING activation in aged macrophages drives a paracrine inflammatory senescence programme that spreads the phenotype to neighbouring cells, contributing to systemic ageing.",
-    "mechanism_beginner": null,
+    "mechanism_beginner": "In aged immune cells called macrophages, cGAS-STING switches on an inflammatory programme that spreads to neighbouring cells, so the ageing effect does not stay in the cell where it started. This comes from a single mouse study, and whether the same spread happens in human tissue has not been tested.",
     "context": null,
     "boundary": "Single mouse study; the human magnitude of this effect, and whether the same paracrine spread occurs in human tissue, are untested.",
     "note": null,
