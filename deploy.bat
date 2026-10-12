@@ -257,42 +257,6 @@ py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
 echo.
-echo === Build the Academy ^(/academy/^) ===
-REM  MUSI bezet PRED build_pages.py: zapisuje academy_data\_sid_to_lesson.json,
-REM  ze ktereho build_pages.py sklada blok "Learn the biology" na strankach studii.
-REM  Obracene poradi znamena, ze se novy/zmeneny odkaz projevi az pri PRISTIM deployi.
-py build_academy.py
-if errorlevel 1 (
-  echo.
-  echo ABORTED: build_academy.py failed - /academy/ by se nasadilo stale nebo rozbite.
-  exit /b 1
-)
-
-echo.
-echo === Academy integrity gate ===
-REM  Lekce odkazuji napric vsemi vrstvami najednou (studie, entity nad prahem,
-REM  open questions, guided routes). Tahle brana chyti odkaz do prazdna DRIV,
-REM  nez na nej nekdo klikne na zivem webu.
-py verify_academy.py
-if errorlevel 1 (
-  echo.
-  echo ABORTED: verify_academy.py found broken Academy references. NOT deploying.
-  exit /b 1
-)
-
-echo.
-echo === Practice Arena integrity gate ===
-REM  Practice Arena generuje polozky z pathway\model.json a z lekci. Tahle
-REM  brana kontroluje, ze zadna polozka netvrdi nic, co v modelu neni, ze
-REM  zadna nelezi mimo pokryti lekci a ze obe stranky maji ekvivalent bez JS.
-py verify_practice.py
-if errorlevel 1 (
-  echo.
-  echo ABORTED: verify_practice.py found invented or out-of-syllabus practice items.
-  exit /b 1
-)
-
-echo.
 echo === Refresh data/exports/ (CSV/JSON downloads + manifest.json) ===
 REM  tools\seo\build_data_exports.py existed since 2026-09-02 but was never
 REM  actually called from here -- an orphan script, same class of bug as
@@ -385,6 +349,48 @@ if errorlevel 1 (
   echo.
   echo ABORTED: check_consistency.py found cross-layer problems - see the list above.
   echo Fix the data, or add a reasoned exception to consistency_allow.json. NOT deploying.
+  exit /b 1
+)
+
+echo.
+echo === Build the Academy ^(/academy/^) ===
+REM  11. 10. 2026: tenhle trojblok (Academy, jeji brana, Practice Arena brana) bezel
+REM  PRED build_pathway_model.py. Academy ale cte pathway\model.json (build_academy
+REM  konci chybou, kdyz lekce odkazuje na uzel ci hranu, ktera v modelu neni) a Practice
+REM  Arena z nej generuje polozky. Verifikovalo se tedy proti modelu o jeden deploy
+REM  starsimu: novy uzel nebo hrana se do kontroly dostaly az pri PRISTIM behu.
+REM  Ted bezi az za modelem a za jeho branami, ale porad PRED build_pages.py (viz nize).
+REM  MUSI bezet PRED build_pages.py: zapisuje academy_data\_sid_to_lesson.json,
+REM  ze ktereho build_pages.py sklada blok "Learn the biology" na strankach studii.
+REM  Obracene poradi znamena, ze se novy/zmeneny odkaz projevi az pri PRISTIM deployi.
+py build_academy.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_academy.py failed - /academy/ by se nasadilo stale nebo rozbite.
+  exit /b 1
+)
+
+echo.
+echo === Academy integrity gate ===
+REM  Lekce odkazuji napric vsemi vrstvami najednou (studie, entity nad prahem,
+REM  open questions, guided routes). Tahle brana chyti odkaz do prazdna DRIV,
+REM  nez na nej nekdo klikne na zivem webu.
+py verify_academy.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: verify_academy.py found broken Academy references. NOT deploying.
+  exit /b 1
+)
+
+echo.
+echo === Practice Arena integrity gate ===
+REM  Practice Arena generuje polozky z pathway\model.json a z lekci. Tahle
+REM  brana kontroluje, ze zadna polozka netvrdi nic, co v modelu neni, ze
+REM  zadna nelezi mimo pokryti lekci a ze obe stranky maji ekvivalent bez JS.
+py verify_practice.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: verify_practice.py found invented or out-of-syllabus practice items.
   exit /b 1
 )
 
