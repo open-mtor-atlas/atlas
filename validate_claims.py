@@ -58,6 +58,13 @@ import os, re, sys, json, html
 HERE = os.path.dirname(os.path.abspath(__file__))
 STUDIES = os.path.join(HERE, "atlas_data", "studies_baked.json")
 GAPS_BAKED = os.path.join(HERE, "atlas_data", "gaps_baked.json")
+# 2026-10-11: ATLAS_EDGES v index.html nese jen 16 ze 30 poli hrany, takze
+# tahle brana z nej NEMOHLA skenovat mech_beginner (123 neprazdnych), teach
+# (43) ani context (18) -- ta pole tam nejsou. Overeno testem: veta
+# "Rapamycin proves that mTOR inhibition extends human lifespan" vlozena do
+# mech_beginner prosla obema branami, protoze validate_claims to pole necte
+# a check_consistency ma disjunktni slovnik. Cteme proto plnou reprezentaci.
+RELATIONS_BAKED = os.path.join(HERE, "atlas_data", "relations_baked.json")
 FRONTIER = os.path.join(HERE, "atlas_data", "frontier_baked.json")
 PW_MODEL = os.path.join(HERE, "pathway", "model.json")
 INDEX = os.path.join(HERE, "index.html")
@@ -72,20 +79,9 @@ if "--json" in sys.argv:
 # ---------------------------------------------------------------- vocabularies
 
 # Absolutni jazyk. Klic = regex, hodnota = navrhovana nahrada.
-ABSOLUTE = {
-    r"\bprove[sd]?\b": "show / support",
-    r"\bproven\b": "supported",
-    r"\bproof\b": "evidence",
-    r"\bdefinitiv(e|ely)\b": "landmark / strongest available",
-    r"\bconclusiv(e|ely)\b": "consistent with",
-    r"\bunequivocal(ly)?\b": "clear",
-    r"\bbeyond doubt\b": "well supported",
-    r"\bsettle[sd]?\b": "address / weigh in on",
-    r"\bestablishes? (that|beyond)\b": "supports that",
-    r"\bdirect (clinical )?confirmation\b": "evidence consistent with",
-    r"\bempirically confirming\b": "consistent with",
-    r"\bguarantee[sd]?\b": "makes likely",
-}
+# 2026-10-11: oba seznamy zakazanych formulaci zily zvlast a jejich prekryv
+# byl nulovy (viz atlas_wording.py). Odted je zdroj jeden.
+from atlas_wording import FORBIDDEN as ABSOLUTE, scan as scan_wording
 
 # Slabsi, ale kontextove citliva slovesa -- flagujeme jen u slabych designu.
 CAUSAL = {
@@ -155,15 +151,13 @@ def negated(text, start):
 
 
 def scan_absolute(findings, where, text, sev="ERROR"):
-    if not text:
-        return
-    for pat, fix in ABSOLUTE.items():
-        for m in re.finditer(pat, text, re.I):
-            if negated(text, m.start()):
-                continue
-            add(findings, sev, "R5 absolute-language", where, text,
-                "Absolute claim word %r -- stronger than any single study licenses." % m.group(0),
-                "Replace with: %s" % fix)
+    # Vzory i kontrola negace jsou v atlas_wording.py, aby obe brany
+    # posuzovaly stejna slova stejne. Negovane uziti se nehlasi -- to je
+    # prave to opatrne uziti.
+    for word, fix, _pos in scan_wording(text):
+        add(findings, sev, "R5 absolute-language", where, text,
+            "Absolute claim word %r -- stronger than any single study licenses." % word,
+            "Replace with: %s" % fix)
 
 
 # ---------------------------------------------------------------- rules
@@ -628,6 +622,28 @@ def check_index(findings):
         else:
             for r in edges:
                 for k in ("mech", "ctx", "note"):
+                    scan_absolute(findings, "relation:%s.%s" % (r.get("id"), k), r.get(k))
+
+    # Plna reprezentace hran: pole, ktera ATLAS_EDGES nenese. Bez tohohle bloku
+    # zustavala beginner veta hrany -- tedy vrstva, kde prestreleni uskodi
+    # nejvic -- neskenovana. Kdyz soubor chybi, hlasime to jako ERROR; ticho by
+    # znamenalo, ze brana nekontroluje a nikdo to nepozna.
+    if not os.path.exists(RELATIONS_BAKED):
+        add(findings, "ERROR", "R5 absolute-language", "relations_baked.json", "",
+            "atlas_data/relations_baked.json chybi, takze mech_beginner, teach a "
+            "context zadne hrany nebyly zkontrolovany.",
+            "Spustit sync_relations.py --write.")
+    else:
+        try:
+            baked = json.load(open(RELATIONS_BAKED, encoding="utf-8")).get("edges") or []
+        except Exception as exc:
+            add(findings, "ERROR", "R5 absolute-language", "relations_baked.json", "",
+                "relations_baked.json se nepodarilo precist (%s), takze mech_beginner, "
+                "teach a context nebyly zkontrolovany." % exc,
+                "Opravit soubor nebo znovu spustit sync_relations.py --write.")
+        else:
+            for r in baked:
+                for k in ("mech_beginner", "teach", "context"):
                     scan_absolute(findings, "relation:%s.%s" % (r.get("id"), k), r.get(k))
 
     # -- ATLAS_ENTITIES

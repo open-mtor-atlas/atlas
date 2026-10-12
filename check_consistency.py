@@ -36,11 +36,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def load(p):
     return json.load(open(os.path.join(HERE, p), encoding="utf-8"))
 
-ABSOLUTE = [r"\bthe single most\b", r"\bthe one thing\b", r"\bthe entire (?:mTOR )?field\b",
-            r"\bthe whole story of\b", r"\bonly at the lysosome\b", r"\bis only switched on here\b",
-            r"(?<!one of )(?<!among )\bthe most (?:conserved|reliable|important|precise|drug-friendly|pharmacologically)\b",
-            r"\bpioneer(?:ed)? of\b", r"\bthe leading longevity\b", r"\bthe best-known way\b",
-            r"\bfounding paper\b", r"\bbirth of the field\b"]
+# 2026-10-11: oba seznamy zakazanych formulaci zily zvlast a jejich prekryv
+# byl nulovy. Jeden zdroj je atlas_wording.py; tahle brana ho pouziva jako
+# seznam vzoru (nazvy nahrad nepotrebuje, jen hlasi nalez).
+from atlas_wording import scan as scan_wording
+
 QUALIFIERS = [  # (v odbornem textu, co musi byt i v beginner textu)
     (r"\bfemales?\b", r"\bfemales?\b|\bwomen\b|\bgirls?\b"),
     # 2026-10-11: pridano \bmales?\b. Pohlavne specificky vysledek se nesmi
@@ -132,10 +132,8 @@ for g in gaps:
 
 # A
 for where, t in texts:
-    for pat in ABSOLUTE:
-        m = re.search(pat, t, re.I)
-        if m:
-            warn("A", where, "absolutni formulace: '%s'" % m.group(0))
+    for word, fix, _ in scan_wording(t):
+        warn("A", where, "absolutni formulace: '%s' -- misto toho: %s" % (word, fix))
 # B
 pairs = [("edge " + i["id"], i.get("mechanism") or "", i.get("mechanism_beginner") or "") for i in model["interactions"]]
 pairs += [("entity " + e["name"], e.get("desc") or "", e.get("desc_beginner") or "") for e in ents]
