@@ -21,14 +21,23 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   AI-assisted deep-extraction fields: intervention, target, species,
   effect, dose, sample size, effect size, and limitations. `atlas_url`
   links back to the full record page.
+- **relations.csv / relations.json** -- 130 signed pathway
+  links (source, effect, target) with mechanism, boundary conditions,
+  supporting and conflicting study IDs (`sid`, semicolon-separated),
+  `source_id` / `target_id` (the entity `id` from entities.csv),
+  evidence grades, `curation_status` and `review_status`. A
+  `review_status` of `unreviewed` means no named curator has signed the
+  link off yet.
 - **entities.csv / entities.json** -- 163 pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a
   plain-language description, synonyms, how many studies link to each,
-  and `atlas_url` when the entity has its own page (entities linked
-  from fewer than 3 studies don't get a standalone page
-  on the live site and so have no `atlas_url` here).
+  a stable `id` (the same identifier the Atlas API uses), `has_page`
+  and `atlas_url`. An entity has its own page when at least
+  3 studies link to it or when it is a node of the
+  pathway map; the other entities are catalogue entries only, with
+  `has_page` false and an empty `atlas_url`.
 
 ## License & citation
 
