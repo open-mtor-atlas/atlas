@@ -3182,6 +3182,27 @@ def main():
     haspage = {(TYPE_DIR.get(x["type"], "entity"), slugify(x["name"]))
                for x in entities if gets_page(x)}
 
+    # Brana (audit 2026-10-12): export entit (data/exports/entities.json) musi
+    # souhlasit se strankami, ktere tenhle build opravdu vytvori. Export bezi
+    # pred build_pages.py a pravidlo ma zduplikovane, proto ho kontrolujeme zde.
+    _exp = os.path.join(HERE, "data", "exports", "entities.json")
+    if os.path.exists(_exp):
+        _bad = []
+        for _r in json.load(open(_exp, encoding="utf-8")):
+            _ex = next((x for x in entities if x["name"] == _r["name"]), None)
+            if _ex is None:
+                _bad.append(f"{_r['name']}: v exportu, ne v entitach")
+                continue
+            _key = (TYPE_DIR.get(_ex["type"], "entity"), slugify(_ex["name"]))
+            _want = f"https://mtor-atlas.org/{_key[0]}/{_key[1]}/" if _key in haspage else ""
+            if _r.get("id") != _key[1] or _r.get("atlas_url") != _want:
+                _bad.append(f"{_r['name']}: export id/url={_r.get('id')!r}/{_r.get('atlas_url')!r}, stranka={_want!r}")
+        if _bad:
+            print("CHYBA: export entit nesouhlasi se strankami (spust tools/seo/build_data_exports.py):")
+            for _b in _bad[:20]:
+                print("  -", _b)
+            sys.exit(1)
+
     urls = []
 
     for s in studies:

@@ -120,25 +120,106 @@ def build_studies_export(studies):
     return rows, fieldnames
 
 
+def _pathway_nodes():
+    """Uzly mapy drahy (pathway/model.json), male pismena. Stejny zdroj jako
+    build_pages.py::gets_page -- entita pod prahem 3 studii dostane stranku,
+    pokud je uzlem mapy."""
+    nodes = set()
+    pm = os.path.join(HERE, "pathway", "model.json")
+    if os.path.exists(pm):
+        with open(pm, encoding="utf-8") as fh:
+            for i in json.load(fh).get("interactions", []):
+                nodes.add(i["source"].lower())
+                nodes.add(i["target"].lower())
+    return nodes
+
+
+def _name_to_node():
+    # Jediny zdroj mapovani jmeno entity -> uzel mapy je chrome_shared.py.
+    sys.path.insert(0, HERE)
+    from chrome_shared import ENTITY_NAME_TO_NODE_ID
+    return ENTITY_NAME_TO_NODE_ID
+
+
+def entity_gets_page(x, nodes, name_to_node):
+    """Stejne pravidlo jako build_pages.py::gets_page (studii >= prah NEBO
+    uzel mapy). Drive export pouzival jen prah, takze 23 entit, ktere stranku
+    maji diky mape, melo atlas_url prazdne."""
+    if len(x.get("studies") or []) >= PAGE_THRESHOLD:
+        return True
+    node = name_to_node.get(x["name"], x["name"])
+    return node.lower() in nodes
+
+
 def build_entities_export(entities):
     rows = []
+    nodes = _pathway_nodes()
+    name_to_node = _name_to_node()
     for x in entities:
         n = len(x.get("studies") or [])
         d = TYPE_DIR.get(x["type"], "entity")
         slug = slugify(x["name"])
-        has_page = n >= PAGE_THRESHOLD
+        has_page = entity_gets_page(x, nodes, name_to_node)
         row = {
+            # Stabilni identifikator = stejne id jako v API (slugify(name)).
+            "id": slug,
             "name": x.get("name") or "",
             "type": x.get("type") or "",
             "description": x.get("desc") or "",
             "description_beginner": x.get("desc_beginner") or "",
             "synonyms": x.get("synonyms") or "",
             "n_linked_studies": n,
+            "has_page": "true" if has_page else "false",
             "atlas_url": f"{SITE}/{d}/{slug}/" if has_page else "",
         }
         rows.append(row)
-    fieldnames = ["name", "type", "description", "description_beginner",
-                  "synonyms", "n_linked_studies", "atlas_url"]
+    fieldnames = ["id", "name", "type", "description", "description_beginner",
+                  "synonyms", "n_linked_studies", "has_page", "atlas_url"]
+    return rows, fieldnames
+
+
+def build_relations_export():
+    """Hrany drahy (jen publikovane) ze stejneho zdroje jako web:
+    atlas_data/relations_baked.json. Spojitelne se studiemi pres SID a
+    s entitami pres source_id / target_id (= slugify(nazvu), jako v API)."""
+    edges = load("relations_baked.json")["edges"]
+    # Uzel mapy se muze jmenovat jinak nez entita (FOXO1/3 vs FoxO); id entity
+    # bereme pres stejne mapovani, jake pouziva build_pages.py.
+    node_to_entity = {v: k for k, v in _name_to_node().items()}
+    ent = lambda n: slugify(node_to_entity.get(n, n))
+    rows = []
+    for e in edges:
+        if not e.get("published", True):
+            continue
+        rows.append({
+            "id": e["id"],
+            "source": e.get("s") or "",
+            "source_id": ent(e.get("s") or ""),
+            "target": e.get("t") or "",
+            "target_id": ent(e.get("t") or ""),
+            "effect": e.get("sign") or "",
+            "type": e.get("type") or "",
+            "directness": e.get("directness") or "",
+            "timescale": e.get("ts") or "",
+            "compartment": e.get("comp") or "",
+            "species": e.get("sp") or "",
+            "mechanism": e.get("mech") or "",
+            "mechanism_beginner": e.get("mech_beginner") or "",
+            "boundary": e.get("ctx") or "",
+            "supporting_studies": ";".join(e.get("st") or []),
+            "conflicting_studies": ";".join(e.get("cf") or []),
+            "human_relevance": e.get("hr") or "",
+            "consensus": e.get("cons") or "",
+            "curation_status": e.get("status") or "",
+            "review_status": "reviewed" if e.get("reviewed_by") else "unreviewed",
+            "atlas_url": f"{SITE}/relation/{e['id']}/",
+        })
+    fieldnames = ["id", "source", "source_id", "target", "target_id", "effect",
+                  "type", "directness", "timescale", "compartment", "species",
+                  "mechanism", "mechanism_beginner", "boundary",
+                  "supporting_studies", "conflicting_studies",
+                  "human_relevance", "consensus", "curation_status",
+                  "review_status", "atlas_url"]
     return rows, fieldnames
 
 
@@ -176,6 +257,9 @@ def main():
     write_json(os.path.join(OUT, "studies.json"), study_rows)
     write_csv(os.path.join(OUT, "entities.csv"), entity_rows, entity_fields)
     write_json(os.path.join(OUT, "entities.json"), entity_rows)
+    rel_rows, rel_fields = build_relations_export()
+    write_csv(os.path.join(OUT, "relations.csv"), rel_rows, rel_fields)
+    write_json(os.path.join(OUT, "relations.json"), rel_rows)
 
     readme = f"""# Oliver's mTOR Atlas -- data exports
 
@@ -200,14 +284,23 @@ downloaded copy, check {SITE}/data/ for the current version.
   AI-assisted deep-extraction fields: intervention, target, species,
   effect, dose, sample size, effect size, and limitations. `atlas_url`
   links back to the full record page.
+- **relations.csv / relations.json** -- {len(rel_rows)} signed pathway
+  links (source, effect, target) with mechanism, boundary conditions,
+  supporting and conflicting study IDs (`sid`, semicolon-separated),
+  `source_id` / `target_id` (the entity `id` from entities.csv),
+  evidence grades, `curation_status` and `review_status`. A
+  `review_status` of `unreviewed` means no named curator has signed the
+  link off yet.
 - **entities.csv / entities.json** -- {len(entity_rows)} pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a
   plain-language description, synonyms, how many studies link to each,
-  and `atlas_url` when the entity has its own page (entities linked
-  from fewer than {PAGE_THRESHOLD} studies don't get a standalone page
-  on the live site and so have no `atlas_url` here).
+  a stable `id` (the same identifier the Atlas API uses), `has_page`
+  and `atlas_url`. An entity has its own page when at least
+  {PAGE_THRESHOLD} studies link to it or when it is a node of the
+  pathway map; the other entities are catalogue entries only, with
+  `has_page` false and an empty `atlas_url`.
 
 ## License & citation
 
@@ -238,7 +331,8 @@ Full details: {SITE}/data/ and {SITE}/CITATION.cff.
 
     manifest = []
     for fn, fmt in [("studies.csv", "text/csv"), ("studies.json", "application/json"),
-                    ("entities.csv", "text/csv"), ("entities.json", "application/json")]:
+                    ("entities.csv", "text/csv"), ("entities.json", "application/json"),
+                    ("relations.csv", "text/csv"), ("relations.json", "application/json")]:
         p = os.path.join(OUT, fn)
         manifest.append({
             "name": fn,
@@ -250,7 +344,7 @@ Full details: {SITE}/data/ and {SITE}/CITATION.cff.
     write_verified_text(os.path.join(OUT, "manifest.json"),
                          json.dumps(manifest, indent=2) + "\n")
 
-    print(f"Wrote {len(study_rows)} studies + {len(entity_rows)} entities to {OUT}")
+    print(f"Wrote {len(study_rows)} studies + {len(entity_rows)} entities + {len(rel_rows)} relations to {OUT}")
     for m in manifest:
         print(f"  {m['name']:16s} {m['contentSize']:>8d} bytes  {m['sha256'][:12]}...")
 

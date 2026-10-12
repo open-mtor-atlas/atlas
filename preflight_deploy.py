@@ -183,9 +183,27 @@ def check_manifest():
                  % (len(entries), len(needed)))
 
 
+# ---------------------------------------------------------------------------
+# 3) Kategorie studie a vrstva dukazu se nesmi rozchazet (audit 2026-10-12,
+#    KAL2026: kategorie Animal, ale vrstva "Mechanistic/Review")
+# ---------------------------------------------------------------------------
+def check_category_tier():
+    import json
+    path = os.path.join(ROOT, "atlas_data", "studies_baked.json")
+    if not os.path.exists(path):
+        return
+    for st in json.load(io.open(path, encoding="utf-8")):
+        cat, tier = st.get("category"), (st.get("tier") or "")
+        if cat == "Animal" and not tier.startswith("C"):
+            problems.append("%s: kategorie Animal, ale vrstva '%s' (ma byt C - Animal)" % (st.get("sid"), tier))
+        if cat == "Human" and tier[:1] not in ("A", "B"):
+            problems.append("%s: kategorie Human, ale vrstva '%s' (ma byt A nebo B)" % (st.get("sid"), tier))
+
+
 def main():
     check_curated_nodes()
     check_manifest()
+    check_category_tier()
     for n in notes:
         print("  " + n)
     if problems:
