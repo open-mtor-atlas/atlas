@@ -12,7 +12,7 @@ workers_dev = true
 enabled = false
 
 # Anonymous usage counts: method, tool name, client kind, outcome, duration.
-# No IPs, no raw User-Agent, no tool arguments. Query with ../usage.mjs.
+# No IPs, no raw User-Agent. Tool arguments are stored (blob6, max 200 chars) since 10 Oct 2026 and never shown by /stats. Query with ../usage.mjs.
 [[analytics_engine_datasets]]
 binding = "USAGE"
 dataset = "mtor_atlas_mcp_usage"

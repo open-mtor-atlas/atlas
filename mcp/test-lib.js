@@ -193,6 +193,14 @@ check('tool: find_contradictions pages', !tc.err && tc.j.returned === 2 && tc.j.
 const te = await call('search_entities', { query: 'raptor' });
 check('tool: search_entities labels matches', !te.err && te.j.results[0].match_field === 'name' && te.j.results.find((r) => r.id === 'energy-cellular-stress').match_field === 'description');
 check('tool: unknown study is still an error', (await call('get_study', { sid: 'NOPE0000' })).err === true);
+// Tolerant input (1.3.1): aliases, numbers sent as text, limits above the maximum.
+check('get_study accepts study_id and id as aliases of sid', /TST001/i.test((await call('get_study', { study_id: 'tst001' })).j) && /TST002/.test((await call('get_study', { id: 'TST002' })).j)); // the synthetic Atlas has no study files: the id reaching the lookup is the proof
+check('get_study without any id is a clear error', (await call('get_study', {})).err === true);
+check('get_entity accepts id as alias of entity', (await call('get_entity', { id: 'raptor' })).err === false);
+const tl = await call('list_questions', { kind: 'frontier', limit: '2' });
+check('limit sent as text is accepted', !tl.err && tl.j.total_matches === 1 && tl.j.results.length === 1, tl.j);
+const tb = await call('search_entities', { query: 'raptor', limit: 1000 });
+check('limit above the maximum is capped, not an error', !tb.err && tb.j.results.length >= 1, tb.j);
 await c.close();
 
 console.log(fail ? `FAILED ${fail}` : 'ALL OK'); process.exit(fail ? 1 : 0);

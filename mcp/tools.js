@@ -9,7 +9,7 @@ import {
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.3.0';
+export const VERSION = '1.3.1';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
@@ -26,6 +26,10 @@ export function createServer(atlas) {
   const ok = (obj) => ({ content: [{ type: 'text', text: JSON.stringify(obj, null, 1) }] });
   const missing = (what) => ({ content: [{ type: 'text', text: `${what} not found in the Atlas.` }], isError: true });
   const Code = z.enum(CODE_ORDER);
+  // Clients often send numbers as text ("2") or ask for more than the maximum.
+  // Accept the text form and cap the value instead of failing the call.
+  const Int = (min, def) => { const t = z.coerce.number().int().min(min); return def === undefined ? t.optional() : t.default(def); };
+  const cap = (a, max) => ({ ...a, limit: Math.min(a.limit, max) });
 
   server.registerTool('atlas_about', {
     title: 'About the Atlas', annotations: { ...RO, title: 'About the Atlas' },
@@ -39,17 +43,25 @@ export function createServer(atlas) {
       query: z.string().optional().describe('Keywords, e.g. "rapamycin lifespan mice". Omit to list by filters only.'),
       evidence_code: z.array(Code).optional().describe('Keep only these evidence codes, e.g. ["H","S"] for human evidence.'),
       entity: z.string().optional().describe('Only studies linked to this entity (name, synonym or id), e.g. "Rheb".'),
-      year_from: z.number().int().optional(), year_to: z.number().int().optional(),
-      limit: z.number().int().min(1).max(50).default(20),
-      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+      year_from: Int(-10000), year_to: Int(-10000),
+      limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
     },
-  }, async (a) => ok(await searchStudies(atlas, a)));
+  }, async (a) => ok(await searchStudies(atlas, cap(a, 50))));
 
   server.registerTool('get_study', {
     title: 'Get one study', annotations: { ...RO, title: 'Get one study' },
     description: 'Full record for one study by Atlas ID (e.g. "SAB1994"): abstract excerpt, extracted findings, linked entities, the relations it supports or contradicts, related open questions.',
-    inputSchema: { sid: z.string().describe('Atlas study ID, e.g. "SAB1994"') },
-  }, async ({ sid }) => { const s = await atlas.one('studies', sid.toUpperCase()); return s ? ok(s) : missing(`Study ${sid}`); });
+    inputSchema: {
+      sid: z.string().optional().describe('Atlas study ID, e.g. "SAB1994"'),
+      study_id: z.string().optional().describe('Alias of sid.'),
+      id: z.string().optional().describe('Alias of sid.'),
+    },
+  }, async (a) => {
+    const sid = a.sid || a.study_id || a.id;
+    if (!sid) return missing('Study (pass sid, e.g. "SAB1994")');
+    const s = await atlas.one('studies', sid.toUpperCase()); return s ? ok(s) : missing(`Study ${sid}`);
+  });
 
   server.registerTool('search_entities', {
     title: 'Search entities', annotations: { ...RO, title: 'Search entities' },
@@ -58,20 +70,23 @@ export function createServer(atlas) {
       query: z.string().describe('Name or synonym, e.g. "raptor", "sirolimus"'),
       type: z.string().optional().describe('Optional type filter, e.g. "Drug", "Gene/Protein", "Disease"'),
       match: z.enum(['any', 'name']).default('any').describe('"any" also searches descriptions; "name" searches names and synonyms only.'),
-      limit: z.number().int().min(1).max(100).default(20),
-      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+      limit: Int(1, 20).describe('Maximum 100; a larger value is capped at 100.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
     },
-  }, async (a) => ok(await searchEntities(atlas, a)));
+  }, async (a) => ok(await searchEntities(atlas, cap(a, 100))));
 
   server.registerTool('get_entity', {
     title: 'Get one entity', annotations: { ...RO, title: 'Get one entity' },
     description: 'One entity (gene/protein, complex, drug, disease, process...) with its linked studies as short cards (first studies_limit) and every pathway relation it takes part in as a one-line claim. Accepts an id, a name or a synonym.',
     inputSchema: {
-      entity: z.string().describe('e.g. "mTORC1", "Rheb", "rapamycin"'),
-      studies_limit: z.number().int().min(0).max(50).default(25),
+      entity: z.string().optional().describe('e.g. "mTORC1", "Rheb", "rapamycin"'),
+      id: z.string().optional().describe('Alias of entity.'),
+      studies_limit: Int(0, 25).describe('Maximum 50; a larger value is capped at 50.'),
     },
-  }, async ({ entity, studies_limit }) => {
-    const e = await getEntity(atlas, entity, { studies_limit });
+  }, async (a) => {
+    const entity = a.entity || a.id;
+    if (!entity) return missing('Entity (pass entity, e.g. "Rheb")');
+    const e = await getEntity(atlas, entity, { studies_limit: Math.min(a.studies_limit, 50) });
     return e ? ok(e) : missing(`Entity "${entity}"`);
   });
 
@@ -84,10 +99,10 @@ export function createServer(atlas) {
       effect: z.enum(['activates', 'inhibits', 'binds', 'recruits', 'required-for', 'context-dependent', 'no-effect']).optional(),
       contested_only: z.boolean().optional().describe('Only relations marked contested or with conflicting studies'),
       strongest_at_least: Code.optional().describe('Keep relations whose best supporting study is at least this code in the order S > H > A > M'),
-      limit: z.number().int().min(1).max(50).default(20),
-      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+      limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
     },
-  }, async (a) => ok(await findRelations(atlas, a)));
+  }, async (a) => ok(await findRelations(atlas, cap(a, 50))));
 
   server.registerTool('get_relation', {
     title: 'Get one relation', annotations: { ...RO, title: 'Get one relation' },
@@ -112,10 +127,10 @@ export function createServer(atlas) {
       only_contested: z.boolean().default(false).describe('Keep only relations the Atlas flags contested, not those that merely carry conflicting studies.'),
       brief: z.boolean().default(false).describe('Shorten the long boundary and note text (text_truncated is set); get_relation has the full text.'),
       dedupe: z.boolean().default(true).describe('Send a repeated study in full only once. Pass false for a full card every time.'),
-      limit: z.number().int().min(1).max(50).default(20),
-      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+      limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
     },
-  }, async (a) => ok(await findContradictions(atlas, a)));
+  }, async (a) => ok(await findContradictions(atlas, cap(a, 50))));
 
   server.registerTool('list_questions', {
     title: 'List open questions', annotations: { ...RO, title: 'List open questions' },
@@ -123,10 +138,10 @@ export function createServer(atlas) {
     inputSchema: {
       kind: z.enum(['open-question', 'frontier']).optional(),
       brief: z.boolean().default(true).describe('Shorten still_open; false returns the full text.'),
-      limit: z.number().int().min(1).max(50).default(20),
-      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+      limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
     },
-  }, async (a) => ok(await listQuestions(atlas, a)));
+  }, async (a) => ok(await listQuestions(atlas, cap(a, 50))));
 
   server.registerTool('get_question', {
     title: 'Get one question', annotations: { ...RO, title: 'Get one question' },
