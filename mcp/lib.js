@@ -118,26 +118,55 @@ const norm = (s) => String(s ?? '').toLowerCase().normalize('NFKD')
   .replace(/[̀-ͯ]/g, '').replace(/α/g, 'alpha').replace(/β/g, 'beta');
 const tokens = (q) => norm(q).split(/[^a-z0-9]+/).filter((t) => t.length > 1);
 
-/** Simple AND-of-tokens match with a field-weighted score. */
-function score(q, fields) {
-  const ts = tokens(q);
-  if (!ts.length) return 1;
-  let total = 0;
+// Search indexes are built once per list. The list array itself is the key, so
+// an index lives exactly as long as the cached build it was made from: a new
+// build replaces the array and the old index is garbage-collected with it.
+const memos = new WeakMap();
+function memo(rows, key, build) {
+  let m = memos.get(rows);
+  if (!m) { m = new Map(); memos.set(rows, m); }
+  if (!m.has(key)) m.set(key, build());
+  return m.get(key);
+}
+
+/** Normalise the searchable fields of one record once: [text, weight, name]. Empty fields stay as null so positions are stable. */
+const prepare = (fields) => fields.map(([text, w, name]) => {
+  const n = norm(text);
+  return n ? { n, words: new Set(n.split(/[^a-z0-9]+/)), w, name } : null;
+});
+
+/**
+ * AND-of-tokens match with a field-weighted score: every token must hit some
+ * field, a whole-word hit counts double a substring hit. `field` is the
+ * weakest (last-listed) field that was needed to satisfy all tokens, so a
+ * result that only matches in a description says so.
+ */
+function scoreIdx(ts, pf) {
+  if (!ts.length) return { score: 1, field: null };
+  let total = 0, weakest = -1;
   for (const t of ts) {
-    let best = 0;
-    for (const [text, w] of fields) {
-      const n = norm(text);
-      if (!n) continue;
-      if (new RegExp(`(^|[^a-z0-9])${t}([^a-z0-9]|$)`).test(n)) best = Math.max(best, 2 * w);
-      else if (n.includes(t)) best = Math.max(best, w);
-    }
-    if (!best) return 0;
-    total += best;
+    let best = 0, at = -1;
+    pf.forEach((f, i) => {
+      if (!f) return;
+      const s = f.words.has(t) ? 2 * f.w : f.n.includes(t) ? f.w : 0;
+      if (s > best) { best = s; at = i; }
+    });
+    if (!best) return { score: 0, field: null };
+    total += best; weakest = Math.max(weakest, at);
   }
-  return total;
+  return { score: total, field: pf[weakest]?.name ?? null };
 }
 
 export const CODE_ORDER = ['S', 'H', 'A', 'M', 'R', 'PP', 'RT'];
+
+/** Shorten long prose at a sentence boundary when possible. Never alters text that already fits. */
+function clip(text, max = 240) {
+  if (typeof text !== 'string' || text.length <= max) return { text, truncated: false };
+  const cut = text.slice(0, max);
+  const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('; '));
+  const out = end >= 60 ? cut.slice(0, end + 1) : cut.slice(0, Math.max(cut.lastIndexOf(' '), 1));
+  return { text: `${out} ...`, truncated: true };
+}
 
 // ------------------------------------------------------------------ queries
 /** One page of results, with the offset for the next page when there is one. */
@@ -147,48 +176,75 @@ function page(rows, offset = 0, limit = 20) {
   return { total_matches: rows.length, offset, results, next_offset: next < rows.length ? next : null };
 }
 
+const studyIndex = (all) => memo(all, 'search', () => all.map((s) => ({
+  s, pf: prepare([[s.title, 3, 'title'], [s.finding, 2, 'finding'], [s.sid, 3, 'sid'],
+    [s.authors, 1, 'authors'], [s.journal, 1, 'journal'], [s.model_system, 1, 'model_system'], [s.category, 1, 'category']]),
+})));
+
+const entityIndex = (all) => memo(all, 'search', () => all.map((e) => ({
+  e, nm: norm(e.name), syn: (e.synonyms ?? []).map(norm),
+  // name, synonyms, description: in this order, so slice(0, 2) is "names only"
+  pf: prepare([[e.name, 3, 'name'], [(e.synonyms ?? []).join(' '), 2, 'synonym'], [e.description, 1, 'description']]),
+})));
+
 export async function searchStudies(atlas, { query, evidence_code, entity, year_from, year_to, limit = 20, offset = 0 }) {
-  let rows = await atlas.list('studies');
-  if (evidence_code?.length) rows = rows.filter((s) => evidence_code.includes(s.evidence?.code));
-  if (year_from) rows = rows.filter((s) => Number(s.year) >= year_from);
-  if (year_to) rows = rows.filter((s) => Number(s.year) <= year_to);
+  let ix = studyIndex(await atlas.list('studies'));
+  if (evidence_code?.length) ix = ix.filter((x) => evidence_code.includes(x.s.evidence?.code));
+  if (year_from) ix = ix.filter((x) => Number(x.s.year) >= year_from);
+  if (year_to) ix = ix.filter((x) => Number(x.s.year) <= year_to);
   if (entity) {
     const e = await resolveEntity(atlas, entity);
-    if (!e) return { note: `No entity matching "${entity}" in the Atlas.`, results: [] };
+    if (!e) return { note: `No entity matching "${entity}" in the Atlas.`, total_matches: 0, offset, results: [], next_offset: null };
     const full = await atlas.one('entities', e.id);
     const keep = new Set((full?.studies ?? []).map((s) => s.sid));
-    rows = rows.filter((s) => keep.has(s.sid));
+    ix = ix.filter((x) => keep.has(x.s.sid));
   }
-  const scored = rows.map((s) => [score(query, [[s.title, 3], [s.finding, 2], [s.sid, 3],
-    [s.authors, 1], [s.journal, 1], [s.model_system, 1], [s.category, 1]]), s])
+  const ts = tokens(query);
+  const scored = ix.map((x) => [scoreIdx(ts, x.pf).score, x.s])
     .filter(([sc]) => sc > 0)
     .sort((a, b) => b[0] - a[0] || Number(b[1].year ?? 0) - Number(a[1].year ?? 0));
   return page(scored.map(([, s]) => s), offset, limit);
 }
 
 export async function resolveEntity(atlas, q) {
-  const all = await atlas.list('entities');
+  const ix = entityIndex(await atlas.list('entities'));
   const n = norm(q);
-  return all.find((e) => e.id === q) ||
-    all.find((e) => norm(e.name) === n) ||
-    all.find((e) => (e.synonyms ?? []).some((s) => norm(s) === n)) ||
-    all.map((e) => [score(q, [[e.name, 3], [(e.synonyms ?? []).join(' '), 2]]), e])
-      .filter(([s]) => s > 0).sort((a, b) => b[0] - a[0])[0]?.[1] || null;
+  const exact = ix.find((x) => x.e.id === q) || ix.find((x) => x.nm === n) || ix.find((x) => x.syn.includes(n));
+  if (exact) return exact.e;
+  const ts = tokens(q);
+  return ix.map((x) => [scoreIdx(ts, x.pf.slice(0, 2)).score, x.e])
+    .filter(([s]) => s > 0).sort((a, b) => b[0] - a[0])[0]?.[1] || null;
 }
 
-export async function searchEntities(atlas, { query, type, limit = 20 }) {
-  let rows = await atlas.list('entities');
-  if (type) rows = rows.filter((e) => norm(e.type) === norm(type));
-  const scored = rows.map((e) => [score(query, [[e.name, 3], [(e.synonyms ?? []).join(' '), 2], [e.description, 1]]), e])
-    .filter(([s]) => s > 0).sort((a, b) => b[0] - a[0] || b[1].study_count - a[1].study_count);
-  return { total_matches: scored.length, results: scored.slice(0, limit).map(([, e]) => e) };
+/**
+ * `match: "any"` (default) also searches descriptions, so a hit can be a
+ * passing mention; every result says where it matched (`match_field`).
+ * `match: "name"` keeps only names and synonyms.
+ */
+export async function searchEntities(atlas, { query, type, match = 'any', limit = 20, offset = 0 }) {
+  const ix = entityIndex(await atlas.list('entities'));
+  const ts = tokens(query);
+  const depth = match === 'name' ? 2 : 3;
+  const scored = [];
+  for (const x of ix) {
+    if (type && norm(x.e.type) !== norm(type)) continue;
+    const r = scoreIdx(ts, x.pf.slice(0, depth));
+    if (r.score > 0) scored.push([r, x.e]);
+  }
+  scored.sort((a, b) => b[0].score - a[0].score || b[1].study_count - a[1].study_count);
+  const out = page(scored.map(([r, e]) => ({ ...e, match_field: r.field })), offset, limit);
+  if (out.results.some((e) => e.match_field === 'description')) {
+    out.note = 'match_field "description" means the term only appears in the description, not in the name or a synonym. Pass match="name" to keep names and synonyms only.';
+  }
+  return out;
 }
 
 function touches(r, id, name) {
   return [r.source, r.target].some((x) => (id && x.entity === id) || norm(x.name) === norm(name));
 }
 
-export async function findRelations(atlas, { entity, source, target, effect, contested_only, strongest_at_least, limit = 20, offset = 0 }) {
+/** All relations matching the filters, unpaged. */
+async function selectRelations(atlas, { entity, source, target, effect, contested_only, strongest_at_least }) {
   let rows = await atlas.list('relations');
   const pick = async (q) => { const e = await resolveEntity(atlas, q); return { id: e?.id ?? null, name: e?.name ?? q }; };
   if (entity) { const e = await pick(entity); rows = rows.filter((r) => touches(r, e.id, e.name)); }
@@ -200,18 +256,42 @@ export async function findRelations(atlas, { entity, source, target, effect, con
     const lim = CODE_ORDER.indexOf(strongest_at_least);
     rows = rows.filter((r) => { const c = CODE_ORDER.indexOf(r.evidence.strongest?.code); return c >= 0 && c <= lim; });
   }
-  return page(rows, offset, limit);
+  return rows;
+}
+
+export async function findRelations(atlas, opts) {
+  const { limit = 20, offset = 0 } = opts;
+  return page(await selectRelations(atlas, opts), offset, limit);
 }
 
 async function studyCards(atlas, sids) {
-  const all = new Map((await atlas.list('studies')).map((s) => [s.sid, s]));
-  return sids.map((sid) => all.get(sid)).filter(Boolean).map((s) => ({
+  const all = await atlas.list('studies');
+  const bySid = memo(all, 'bySid', () => new Map(all.map((s) => [s.sid, s])));
+  return sids.map((sid) => bySid.get(sid)).filter(Boolean).map((s) => ({
     sid: s.sid, title: s.title, year: s.year, journal: s.journal, evidence: s.evidence,
     model_system: s.model_system, finding: s.finding, doi: s.doi, pmid: s.pmid, url: s.url,
   }));
 }
 
-export async function evidenceBetween(atlas, { a, b }) {
+/**
+ * Within one answer, a study that shows up again (as support for one claim and
+ * evidence against another, say) is sent in full once; later appearances keep
+ * the sid, title, evidence code with its label and the url, and say where the
+ * full card is.
+ */
+function dedupeCards(entries, listKeys, labelOf) {
+  const first = new Map();
+  for (const e of entries) {
+    for (const k of listKeys) {
+      e[k] = e[k].map((c) => {
+        if (!first.has(c.sid)) { first.set(c.sid, labelOf(e)); return c; }
+        return { sid: c.sid, title: c.title, year: c.year, evidence: c.evidence, url: c.url, full_card_in: first.get(c.sid) };
+      });
+    }
+  }
+}
+
+export async function evidenceBetween(atlas, { a, b, dedupe = true }) {
   const ea = await resolveEntity(atlas, a), eb = await resolveEntity(atlas, b);
   const rows = await atlas.list('relations');
   const hit = (x, e, q) => (e && x.entity === e.id) || norm(x.name) === norm(e?.name ?? q);
@@ -222,6 +302,7 @@ export async function evidenceBetween(atlas, { a, b }) {
       supporting_studies: await studyCards(atlas, r.evidence.supporting),
       conflicting_studies: await studyCards(atlas, r.evidence.conflicting) });
   }
+  if (dedupe) dedupeCards(out, ['supporting_studies', 'conflicting_studies'], (e) => e.relation.id);
   return {
     resolved: { a: ea?.name ?? null, b: eb?.name ?? null },
     direct_relations: out,
@@ -230,16 +311,79 @@ export async function evidenceBetween(atlas, { a, b }) {
   };
 }
 
-export async function findContradictions(atlas, { entity, limit = 20 }) {
-  const { results, total_matches } = await findRelations(atlas, { entity, contested_only: true, limit });
-  const out = [];
-  for (const r of results) {
-    out.push({ id: r.id, claim: r.claim, contested: r.contested, consensus: r.confidence.consensus,
-      boundary: r.boundary, note: r.note,
-      supporting_studies: await studyCards(atlas, r.evidence.supporting),
-      conflicting_studies: await studyCards(atlas, r.evidence.conflicting) });
+/** Other relation ids named in a relation's note or boundary text ("See LEU-LARS"), if they exist in the Atlas. */
+function mentionedRelations(r, byId) {
+  const text = `${r.note ?? ''} ${r.boundary ?? ''}`;
+  const seen = new Set();
+  for (const m of text.match(/\b[A-Z0-9]+(?:-[A-Z0-9]+)+\b/g) ?? []) {
+    if (m !== r.id && byId.has(m)) seen.add(m);
   }
-  return { total: total_matches, returned: out.length, results: out };
+  return [...seen].map((id) => ({ id, claim: byId.get(id).claim, contested: !!byId.get(id).contested }));
+}
+
+/**
+ * Relations that are flagged contested or carry conflicting studies.
+ * `breakdown` says how the total splits, so it can be compared with the
+ * Atlas's own contested count. `only_contested` keeps just the flagged ones.
+ */
+export async function findContradictions(atlas, { entity, limit = 20, offset = 0, only_contested = false, brief = false, dedupe = true }) {
+  const flagged = await selectRelations(atlas, { entity, contested_only: true });
+  const breakdown = {
+    flagged_contested: flagged.filter((r) => r.contested).length,
+    conflicting_studies_only: flagged.filter((r) => !r.contested).length,
+  };
+  const p = page(only_contested ? flagged.filter((r) => r.contested) : flagged, offset, limit);
+  const all = await atlas.list('relations');
+  const byId = memo(all, 'byId', () => new Map(all.map((r) => [r.id, r])));
+  const out = [];
+  for (const r of p.results) {
+    const conflicting = await studyCards(atlas, r.evidence.conflicting);
+    const boundary = brief ? clip(r.boundary) : { text: r.boundary, truncated: false };
+    const note = brief ? clip(r.note) : { text: r.note, truncated: false };
+    const item = {
+      id: r.id, claim: r.claim,
+      status: r.contested ? 'contested' : 'conflicting-studies-only',
+      contested: r.contested, consensus: r.confidence?.consensus,
+      boundary: boundary.text, note: note.text,
+      supporting_studies: await studyCards(atlas, r.evidence.supporting),
+      conflicting_studies: conflicting,
+    };
+    if (boundary.truncated || note.truncated) item.text_truncated = true;
+    if (r.contested && !conflicting.length) {
+      item.conflicting_studies_missing = true;
+      item.data_note = 'Marked contested, but the Atlas lists no conflicting study on this relation, so the other side is not in the structured data. Check mentioned_relations and the boundary and note text.';
+    }
+    const mentioned = mentionedRelations(r, byId);
+    if (mentioned.length) item.mentioned_relations = mentioned;
+    out.push(item);
+  }
+  if (dedupe) dedupeCards(out, ['supporting_studies', 'conflicting_studies'], (e) => e.id);
+  const res = { total: p.total_matches, returned: out.length, offset: p.offset, next_offset: p.next_offset, breakdown, results: out };
+  if (brief && out.some((x) => x.text_truncated)) res.note = 'boundary and note are shortened (text_truncated). Use get_relation for the full text, or pass brief=false.';
+  return res;
+}
+
+/**
+ * Atlas metadata plus three counts computed here from relations.json. The
+ * Atlas's own `counts.contested_relations` counts the relations it flags;
+ * find_contradictions also returns relations that only carry conflicting
+ * studies, so its total is larger.
+ */
+export async function atlasAbout(atlas) {
+  const meta = await atlas.meta();
+  if (!meta) return meta;
+  try {
+    const rels = await atlas.list('relations');
+    const withConflict = (r) => (r.evidence?.conflicting?.length ?? 0) > 0;
+    return { ...meta, derived_counts: {
+      relations_marked_contested: rels.filter((r) => r.contested).length,
+      relations_with_conflicting_studies: rels.filter(withConflict).length,
+      relations_contested_or_conflicting: rels.filter((r) => r.contested || withConflict(r)).length,
+      note: 'Computed by this server from relations.json. counts.contested_relations is the Atlas\'s own figure; find_contradictions covers relations_contested_or_conflicting.',
+    } };
+  } catch {
+    return meta;
+  }
 }
 
 /**
@@ -267,9 +411,17 @@ export async function getEntity(atlas, q, { studies_limit = 25 } = {}) {
   };
 }
 
-export async function listQuestions(atlas, { kind }) {
+/** Paged. `brief` (default) shortens `still_open`; get_question has the full text. */
+export async function listQuestions(atlas, { kind, brief = true, limit = 20, offset = 0 }) {
   let rows = await atlas.list('questions');
   if (kind) rows = rows.filter((q) => q.kind === kind);
-  return rows.map((q) => ({ id: q.id, kind: q.kind, title: q.title, category: q.category,
-    evidence_stands_at: q.evidence_stands_at, still_open: q.still_open, url: q.url }));
+  const out = page(rows, offset, limit);
+  out.results = out.results.map((q) => {
+    const open = brief ? clip(q.still_open) : { text: q.still_open, truncated: false };
+    return { id: q.id, kind: q.kind, title: q.title, category: q.category,
+      evidence_stands_at: q.evidence_stands_at, still_open: open.text,
+      ...(open.truncated ? { still_open_truncated: true } : {}), url: q.url };
+  });
+  if (out.results.some((q) => q.still_open_truncated)) out.note = 'still_open is shortened (still_open_truncated). Use get_question for the full text, or pass brief=false.';
+  return out;
 }

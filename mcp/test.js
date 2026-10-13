@@ -40,6 +40,7 @@ const calls = [
   ['search_studies', { entity: 'Rheb', limit: 3 }],
   ['get_study', { sid: 'sab1994' }],
   ['search_entities', { query: 'sirolimus' }],
+  ['search_entities', { query: 'raptor', match: 'name', limit: 5 }],
   ['get_entity', { entity: 'Rheb' }],
   ['find_relations', { entity: 'Rheb' }],
   ['find_relations', { strongest_at_least: 'H', limit: 3 }],
@@ -47,7 +48,9 @@ const calls = [
   ['evidence_between', { a: 'mTORC1', b: 'Rheb' }],
   ['evidence_between', { a: 'Golgi', b: 'mTORC1' }],
   ['find_contradictions', { limit: 3 }],
+  ['find_contradictions', { limit: 3, offset: 3, only_contested: true, brief: true }],
   ['list_questions', {}],
+  ['list_questions', { kind: 'frontier', limit: 2, offset: 1, brief: false }],
   ['get_question', { id: 'H1' }],
   ['get_study', { sid: 'NOPE0000' }],
 ];

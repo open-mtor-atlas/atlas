@@ -4,12 +4,12 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import {
-  CODE_ORDER, searchStudies, searchEntities, getEntity, findRelations,
+  CODE_ORDER, atlasAbout, searchStudies, searchEntities, getEntity, findRelations,
   evidenceBetween, findContradictions, listQuestions,
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.2.2';
+export const VERSION = '1.3.0';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
@@ -29,8 +29,8 @@ export function createServer(atlas) {
 
   server.registerTool('atlas_about', {
     title: 'About the Atlas', annotations: { ...RO, title: 'About the Atlas' },
-    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite the dataset.',
-  }, async () => ok(await atlas.meta()));
+    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite the dataset. derived_counts adds figures computed from the relations (flagged contested, with conflicting studies, either) so they can be compared with find_contradictions.',
+  }, async () => ok(await atlasAbout(atlas)));
 
   server.registerTool('search_studies', {
     title: 'Search studies', annotations: { ...RO, title: 'Search studies' },
@@ -53,11 +53,13 @@ export function createServer(atlas) {
 
   server.registerTool('search_entities', {
     title: 'Search entities', annotations: { ...RO, title: 'Search entities' },
-    description: 'Find genes/proteins, complexes, drugs, diseases, processes, nutrients and outcomes by name or synonym.',
+    description: 'Find genes/proteins, complexes, drugs, diseases, processes, nutrients and outcomes by name or synonym. Each result says where it matched (match_field: name, synonym or description); use match="name" to leave out description-only hits.',
     inputSchema: {
       query: z.string().describe('Name or synonym, e.g. "raptor", "sirolimus"'),
       type: z.string().optional().describe('Optional type filter, e.g. "Drug", "Gene/Protein", "Disease"'),
+      match: z.enum(['any', 'name']).default('any').describe('"any" also searches descriptions; "name" searches names and synonyms only.'),
       limit: z.number().int().min(1).max(100).default(20),
+      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
     },
   }, async (a) => ok(await searchEntities(atlas, a)));
 
@@ -95,20 +97,35 @@ export function createServer(atlas) {
 
   server.registerTool('evidence_between', {
     title: 'Evidence between two entities', annotations: { ...RO, title: 'Evidence between two entities' },
-    description: 'Direct curated relations between two entities (either direction) with full cards for the supporting and conflicting studies. Answers questions such as "what is the evidence that A acts on B?".',
-    inputSchema: { a: z.string(), b: z.string() },
+    description: 'Direct curated relations between two entities (either direction) with full cards for the supporting and conflicting studies. Answers questions such as "what is the evidence that A acts on B?". A study that repeats within the answer is sent in full once and afterwards as a short card with full_card_in.',
+    inputSchema: {
+      a: z.string(), b: z.string(),
+      dedupe: z.boolean().default(true).describe('Send a repeated study in full only once. Pass false for a full card every time.'),
+    },
   }, async (a) => ok(await evidenceBetween(atlas, a)));
 
   server.registerTool('find_contradictions', {
     title: 'Find contested claims', annotations: { ...RO, title: 'Find contested claims' },
-    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. Optionally limited to one entity.',
-    inputSchema: { entity: z.string().optional(), limit: z.number().int().min(1).max(50).default(20) },
+    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. status says which; breakdown splits the total. A contested relation with no conflicting study listed is flagged conflicting_studies_missing and shows related relations named in its text. Paged: pass next_offset as offset for the rest. Optionally limited to one entity.',
+    inputSchema: {
+      entity: z.string().optional(),
+      only_contested: z.boolean().default(false).describe('Keep only relations the Atlas flags contested, not those that merely carry conflicting studies.'),
+      brief: z.boolean().default(false).describe('Shorten the long boundary and note text (text_truncated is set); get_relation has the full text.'),
+      dedupe: z.boolean().default(true).describe('Send a repeated study in full only once. Pass false for a full card every time.'),
+      limit: z.number().int().min(1).max(50).default(20),
+      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+    },
   }, async (a) => ok(await findContradictions(atlas, a)));
 
   server.registerTool('list_questions', {
     title: 'List open questions', annotations: { ...RO, title: 'List open questions' },
-    description: 'The Atlas\'s open questions (evidence gaps with testable hypotheses) and frontier questions.',
-    inputSchema: { kind: z.enum(['open-question', 'frontier']).optional() },
+    description: 'The Atlas\'s open questions (evidence gaps with testable hypotheses) and frontier questions. Paged. By default still_open is shortened at a sentence boundary (still_open_truncated); get_question has the full text, or pass brief=false.',
+    inputSchema: {
+      kind: z.enum(['open-question', 'frontier']).optional(),
+      brief: z.boolean().default(true).describe('Shorten still_open; false returns the full text.'),
+      limit: z.number().int().min(1).max(50).default(20),
+      offset: z.number().int().min(0).default(0).describe('For the next page: pass next_offset from the previous answer.'),
+    },
   }, async (a) => ok(await listQuestions(atlas, a)));
 
   server.registerTool('get_question', {

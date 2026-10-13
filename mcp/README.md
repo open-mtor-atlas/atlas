@@ -26,14 +26,18 @@ Claude Code: `claude mcp add mtor-atlas -- npx -y mtor-atlas-mcp`
 
 | Tool | What it answers |
 |---|---|
-| `atlas_about` | Dataset version, corpus snapshot, counts, evidence codes, how to cite |
+| `atlas_about` | Dataset version, corpus snapshot, counts, evidence codes, how to cite; `derived_counts` for contested and conflicting relations |
 | `search_studies` | Studies by keywords, evidence code, linked entity, year |
 | `get_study` | One study with its entities, relations and open questions |
-| `search_entities` / `get_entity` | Genes, drugs, diseases… with their studies and relations |
+| `search_entities` / `get_entity` | Genes, drugs, diseases… with their studies and relations. Each hit says where it matched (`match_field`); `match="name"` skips description-only hits |
 | `find_relations` / `get_relation` | Pathway claims ("Rheb activates mTORC1") with mechanism, boundary conditions and confidence |
 | `evidence_between` | "What is the evidence that A acts on B?" with both supporting and conflicting studies |
-| `find_contradictions` | Contested claims, with both sides of the evidence |
-| `list_questions` / `get_question` | Open evidence gaps and testable hypotheses |
+| `find_contradictions` | Contested claims, with both sides of the evidence. Paged (`offset`), `status` and `breakdown` explain the total, `only_contested`, `brief` |
+| `list_questions` / `get_question` | Open evidence gaps and testable hypotheses. `list_questions` is paged and shortens `still_open` unless `brief=false`; `get_question` has the full text |
+
+## Answer size
+
+Long text and repeated records are kept short by default. `list_questions` cuts `still_open` at a sentence boundary and sets `still_open_truncated`; `find_contradictions` and `evidence_between` send a study in full the first time it appears in an answer and afterwards as a short card (sid, title, evidence code with its label, url) with `full_card_in`. Pass `brief=false` or `dedupe=false` to get everything. Every list tool takes `limit` and `offset`; pass `next_offset` back as `offset` for the next page.
 
 ## Reading the evidence codes
 
