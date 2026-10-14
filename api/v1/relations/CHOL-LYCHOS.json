@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-14T09:19:17+0200",
+  "source_commit": "68841c1f111f43f630ec9577ad40acee295d6e5c",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "CHOL-LYCHOS",
+  "claim": "Cholesterol activates LYCHOS (GPR155)",
+  "source": {
+   "name": "Cholesterol",
+   "entity": "cholesterol"
+  },
+  "target": {
+   "name": "LYCHOS (GPR155)",
+   "entity": "lychos-gpr155"
+  },
+  "effect": "activates",
+  "type": "binding",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "map_band": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "Cholesterol binds the amino-terminal permease-like region of LYCHOS, and that is the step the sensing depends on: mutating the binding site impairs mTORC1 activation while leaving the protein in place (SHI2022). Occupancy switches LYCHOS into the state that holds GATOR1, so the sterol is read where it accumulates, on the lysosome, rather than at the cell surface.",
+  "mechanism_beginner": "Cholesterol itself sticks to the sensor. That is what tells the sensor there is plenty about: break the spot where it sticks and the growth signal no longer goes through, even though the sensor is still there. The reading is taken at the lysosome, where cholesterol arrives, not at the outside of the cell.",
+  "context": null,
+  "boundary": "Single-study edge in this corpus (SHI2022): human cell lines, photoaffinity and mutational biochemistry. The binding site was later resolved by cryo-EM outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976; Li 2025, PMID 41058362). What is shown is that occupancy of the site is required for cholesterol-driven mTORC1 activation in cultured cells; no dose-response in tissue, no animal or human endpoint, and no measurement of how this route divides the signal with the SLC38A9-NPC1 complex (CAS2017).",
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "consensus": "emerging"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SHI2022"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [
+   {
+    "pmid": "39358511",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/39358511/"
+   },
+   {
+    "pmid": "39824976",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/39824976/"
+   },
+   {
+    "pmid": "41058362",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41058362/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/CHOL-LYCHOS/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/CHOL-LYCHOS.json"
+ }
+}

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-13T15:57:29+0200",
-  "source_commit": "44dee809a895274a453eb96bd76f7543445a8390",
+  "corpus_snapshot": "2026-10-14T09:19:17+0200",
+  "source_commit": "68841c1f111f43f630ec9577ad40acee295d6e5c",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -15,7 +15,7 @@
   "synonyms": [],
   "description": "Negative regulator of the Rag GTPases (a GAP); switches mTORC1 OFF when amino acids are scarce. Tumor suppressor - mutated in some cancers.",
   "study_count": 7,
-  "relation_count": 4,
+  "relation_count": 5,
   "url": "https://mtor-atlas.org/complex/gator1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/gator1.json",
   "description_beginner": "The main 'off switch' for mTORC1 in the amino-acid sensing system - it acts on the Rag GTPases to shut mTORC1 down when nutrients run low. It's a tumor suppressor, and it's found mutated in some cancers.",
@@ -408,6 +408,77 @@
     "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/SAMTOR-GATOR1/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/SAMTOR-GATOR1.json"
+   },
+   {
+    "id": "LYCHOS-GATOR1",
+    "claim": "LYCHOS (GPR155) inhibits GATOR1",
+    "source": {
+     "name": "LYCHOS (GPR155)",
+     "entity": "lychos-gpr155"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When lysosomal cholesterol is high, cholesterol binds the permease-like region of LYCHOS and LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop. Sequestering GATOR1, which is the GTPase-activating protein for the Rag GTPases, keeps that brake off the Rags, so mTORC1 is recruited to the lysosome in a cholesterol- and Rag-dependent way. Mutating the cholesterol-binding site impairs mTORC1 activation (SHI2022).",
+    "mechanism_beginner": "Cholesterol is a building block the cell needs to grow, so the lysosome keeps track of how much it has. When there is plenty, it sticks to a sensor protein called LYCHOS, which then holds on to GATOR1, the brake that would otherwise stop mTORC1 being pulled to the lysosome. Brake held out of the way, the growth switch gets to work.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus: human cell lines and biochemistry (SHI2022), with the binding interface supported by later cryo-EM structures outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976). No animal or human endpoint, and no measurement of how much of lysosomal cholesterol sensing runs through this route as against the SLC38A9-NPC1 complex (CAS2017), which is a separate cholesterol input to the same machinery.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SHI2022"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "39358511",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39358511/"
+     },
+     {
+      "pmid": "39824976",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39824976/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/LYCHOS-GATOR1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LYCHOS-GATOR1.json"
    }
   ]
  }

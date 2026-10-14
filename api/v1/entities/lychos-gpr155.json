@@ -1,0 +1,210 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-14T09:19:17+0200",
+  "source_commit": "68841c1f111f43f630ec9577ad40acee295d6e5c",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lychos-gpr155",
+  "name": "LYCHOS (GPR155)",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "GPR155",
+   "LYCHOS",
+   "lysosomal cholesterol signalling protein"
+  ],
+  "description": "A lysosomal transmembrane protein that reports cholesterol sufficiency to mTORC1. Cholesterol binds its amino-terminal permease-like region; at high cholesterol LYCHOS binds GATOR1 through a cytoplasm-facing loop, and sequestering GATOR1 removes the brake on the Rag GTPases, so mTORC1 is recruited to the lysosome (SHI2022). Structurally it is a fusion of a plant PIN-auxin-transporter-like domain with a class B2-like GPCR domain, with the cholesterol site between the two. Evidence is human cell lines and structures; no organismal or human endpoint. It is one of at least two cholesterol routes into this machinery, alongside the SLC38A9-NPC1 complex (CAS2017).",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/gene/lychos-gpr155/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lychos-gpr155.json",
+  "description_beginner": "Cholesterol is a building block the cell needs in order to grow, so mTORC1 checks how much of it the lysosome holds. LYCHOS is the protein doing the checking: cholesterol sticks to it, and it then grabs hold of GATOR1, the brake on the switch that pulls mTORC1 to the lysosome. With the brake held out of the way, growth signalling goes ahead. This was worked out in human cells in the dish, not in animals or people.",
+  "reading_levels": {
+   "beginner": "The lysosome's cholesterol gauge.",
+   "student": "Lysosomal transmembrane sensor that reports cholesterol sufficiency by binding and sequestering GATOR1.",
+   "research": "A fusion of a plant PIN-auxin-transporter-like domain with a class B2-like GPCR domain, with the cholesterol site between the two (Bayly-Jones 2024, outside this corpus). Note the double negative the map has to carry: what LYCHOS does to GATOR1 is inhibitory, and the consequence for mTORC1 is activating, so the route matters more than the arrow. Evidence is human cell lines and structures -- no animal or human endpoint."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SHI2022",
+    "title": "Lysosomal GPCR-like protein LYCHOS signals cholesterol sufficiency to mTORC1",
+    "authors": "Shin HR; Citron YR; Wang L; Tribouillard L; Goul CS; Stipp R; Sugasawa Y; Jain A; Samson N; Lim CY; Davis OB; Castaneda-Carpio D; Qian M; Nomura DK; Perera RM; Park E; Covey DF; Laplante M; Evers AS; Zoncu R",
+    "year": 2022,
+    "journal": "Science",
+    "doi": "10.1126/science.abg6621",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "36007018",
+    "pmcid": "PMC10023259",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (HEK293T, lysosomal proteomics); cholesterol-binding and GATOR1-binding assays",
+    "peer_reviewed": true,
+    "finding": "Identifies LYCHOS (previously annotated GPR155) as a lysosomal cholesterol sensor for mTORC1. Cholesterol binds the amino-terminal permease-like region; mutating that site impairs mTORC1 activation. At high cholesterol LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop, and by sequestering GATOR1 it promotes cholesterol- and Rag-dependent recruitment of mTORC1 to the lysosome. Boundary: human cell lines and biochemistry, not an organismal phenotype.",
+    "url": "https://mtor-atlas.org/study/SHI2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHI2022.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "CHOL-LYCHOS",
+    "claim": "Cholesterol activates LYCHOS (GPR155)",
+    "source": {
+     "name": "Cholesterol",
+     "entity": "cholesterol"
+    },
+    "target": {
+     "name": "LYCHOS (GPR155)",
+     "entity": "lychos-gpr155"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Cholesterol binds the amino-terminal permease-like region of LYCHOS, and that is the step the sensing depends on: mutating the binding site impairs mTORC1 activation while leaving the protein in place (SHI2022). Occupancy switches LYCHOS into the state that holds GATOR1, so the sterol is read where it accumulates, on the lysosome, rather than at the cell surface.",
+    "mechanism_beginner": "Cholesterol itself sticks to the sensor. That is what tells the sensor there is plenty about: break the spot where it sticks and the growth signal no longer goes through, even though the sensor is still there. The reading is taken at the lysosome, where cholesterol arrives, not at the outside of the cell.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus (SHI2022): human cell lines, photoaffinity and mutational biochemistry. The binding site was later resolved by cryo-EM outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976; Li 2025, PMID 41058362). What is shown is that occupancy of the site is required for cholesterol-driven mTORC1 activation in cultured cells; no dose-response in tissue, no animal or human endpoint, and no measurement of how this route divides the signal with the SLC38A9-NPC1 complex (CAS2017).",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SHI2022"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "39358511",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39358511/"
+     },
+     {
+      "pmid": "39824976",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39824976/"
+     },
+     {
+      "pmid": "41058362",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41058362/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/CHOL-LYCHOS/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/CHOL-LYCHOS.json"
+   },
+   {
+    "id": "LYCHOS-GATOR1",
+    "claim": "LYCHOS (GPR155) inhibits GATOR1",
+    "source": {
+     "name": "LYCHOS (GPR155)",
+     "entity": "lychos-gpr155"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When lysosomal cholesterol is high, cholesterol binds the permease-like region of LYCHOS and LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop. Sequestering GATOR1, which is the GTPase-activating protein for the Rag GTPases, keeps that brake off the Rags, so mTORC1 is recruited to the lysosome in a cholesterol- and Rag-dependent way. Mutating the cholesterol-binding site impairs mTORC1 activation (SHI2022).",
+    "mechanism_beginner": "Cholesterol is a building block the cell needs to grow, so the lysosome keeps track of how much it has. When there is plenty, it sticks to a sensor protein called LYCHOS, which then holds on to GATOR1, the brake that would otherwise stop mTORC1 being pulled to the lysosome. Brake held out of the way, the growth switch gets to work.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus: human cell lines and biochemistry (SHI2022), with the binding interface supported by later cryo-EM structures outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976). No animal or human endpoint, and no measurement of how much of lysosomal cholesterol sensing runs through this route as against the SLC38A9-NPC1 complex (CAS2017), which is a separate cholesterol input to the same machinery.",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SHI2022"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "39358511",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39358511/"
+     },
+     {
+      "pmid": "39824976",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39824976/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/LYCHOS-GATOR1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LYCHOS-GATOR1.json"
+   }
+  ]
+ }
+}

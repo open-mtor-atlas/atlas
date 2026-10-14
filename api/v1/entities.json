@@ -2,13 +2,13 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-13T15:57:29+0200",
-  "source_commit": "44dee809a895274a453eb96bd76f7543445a8390",
+  "corpus_snapshot": "2026-10-14T09:19:17+0200",
+  "source_commit": "68841c1f111f43f630ec9577ad40acee295d6e5c",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
  },
- "count": 163,
+ "count": 165,
  "data": [
   {
    "id": "mam-ermitochondria-contacts",
@@ -855,6 +855,21 @@
    "api_url": "https://mtor-atlas.org/api/v1/entities/lung-cancer-nsclc-luad.json"
   },
   {
+   "id": "lychos-gpr155",
+   "name": "LYCHOS (GPR155)",
+   "type": "Gene/Protein",
+   "synonyms": [
+    "GPR155",
+    "LYCHOS",
+    "lysosomal cholesterol signalling protein"
+   ],
+   "description": "A lysosomal transmembrane protein that reports cholesterol sufficiency to mTORC1. Cholesterol binds its amino-terminal permease-like region; at high cholesterol LYCHOS binds GATOR1 through a cytoplasm-facing loop, and sequestering GATOR1 removes the brake on the Rag GTPases, so mTORC1 is recruited to the lysosome (SHI2022). Structurally it is a fusion of a plant PIN-auxin-transporter-like domain with a class B2-like GPCR domain, with the cholesterol site between the two. Evidence is human cell lines and structures; no organismal or human endpoint. It is one of at least two cholesterol routes into this machinery, alongside the SLC38A9-NPC1 complex (CAS2017).",
+   "study_count": 1,
+   "relation_count": 2,
+   "url": "https://mtor-atlas.org/gene/lychos-gpr155/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/lychos-gpr155.json"
+  },
+  {
    "id": "gator2",
    "name": "GATOR2",
    "type": "Pathway/Complex",
@@ -1228,6 +1243,23 @@
    "api_url": "https://mtor-atlas.org/api/v1/entities/slc15a3.json"
   },
   {
+   "id": "cholesterol",
+   "name": "Cholesterol",
+   "type": "Nutrient/Metabolite",
+   "synonyms": [
+    "cholesterol",
+    "CHL",
+    "sterol",
+    "lysosomal cholesterol",
+    "LDL-derived cholesterol"
+   ],
+   "description": "A membrane sterol that mTORC1 treats as a nutrient input, read at the lysosome rather than at the cell surface. Two routes into the same machinery are described: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports cholesterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry. How the two routes divide the signal, and whether either matters at the level of an organism, is not measured in this corpus.",
+   "study_count": 2,
+   "relation_count": 1,
+   "url": "https://mtor-atlas.org/nutrient/cholesterol/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/cholesterol.json"
+  },
+  {
    "id": "tnks2-tankyrase-2",
    "name": "TNKS2 (Tankyrase-2)",
    "type": "Gene/Protein",
@@ -1431,7 +1463,7 @@
    "type": "Gene/Protein",
    "synonyms": [],
    "description": "Lysosomal amino-acid transporter and signaling component; acts as an arginine sensor on the lysosomal membrane. Works together with v-ATPase and Ragulator to relay luminal arginine availability to the Rag GTPases and thereby recruit mTORC1. Loss of SLC38A9 impairs arginine-dependent mTORC1 activation.",
-   "study_count": 7,
+   "study_count": 8,
    "relation_count": 1,
    "url": "https://mtor-atlas.org/gene/slc38a9/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/slc38a9.json"
@@ -1845,7 +1877,7 @@
    "synonyms": [],
    "description": "Negative regulator of the Rag GTPases (a GAP); switches mTORC1 OFF when amino acids are scarce. Tumor suppressor - mutated in some cancers.",
    "study_count": 7,
-   "relation_count": 4,
+   "relation_count": 5,
    "url": "https://mtor-atlas.org/complex/gator1/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/gator1.json"
   },

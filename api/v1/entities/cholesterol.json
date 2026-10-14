@@ -1,0 +1,164 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-14T09:19:17+0200",
+  "source_commit": "68841c1f111f43f630ec9577ad40acee295d6e5c",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "cholesterol",
+  "name": "Cholesterol",
+  "type": "Nutrient/Metabolite",
+  "synonyms": [
+   "cholesterol",
+   "CHL",
+   "sterol",
+   "lysosomal cholesterol",
+   "LDL-derived cholesterol"
+  ],
+  "description": "A membrane sterol that mTORC1 treats as a nutrient input, read at the lysosome rather than at the cell surface. Two routes into the same machinery are described: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports cholesterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry. How the two routes divide the signal, and whether either matters at the level of an organism, is not measured in this corpus.",
+  "study_count": 2,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/nutrient/cholesterol/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/cholesterol.json",
+  "description_beginner": "Cholesterol is a fat the cell needs as a building material for its membranes, so it makes sense that the cell checks how much it has before deciding to grow. The checking happens at the lysosome, the recycling compartment, not at the cell's outer surface. There are two known ways the message gets through, and nobody has measured how much of the work each one does.",
+  "reading_levels": {
+   "beginner": "A building block the cell counts before it grows.",
+   "student": "Membrane sterol read at the lysosome, not at the cell surface; reported to reach mTORC1 through LYCHOS and through SLC38A9.",
+   "research": "Two routes are described into the same machinery: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports sterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry; how the two divide the signal is not measured here. Drawn on the input band with the amino acids because it is a nutrient the cell counts -- the sensing step itself happens in the lysosomal lumen."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SHI2022",
+    "title": "Lysosomal GPCR-like protein LYCHOS signals cholesterol sufficiency to mTORC1",
+    "authors": "Shin HR; Citron YR; Wang L; Tribouillard L; Goul CS; Stipp R; Sugasawa Y; Jain A; Samson N; Lim CY; Davis OB; Castaneda-Carpio D; Qian M; Nomura DK; Perera RM; Park E; Covey DF; Laplante M; Evers AS; Zoncu R",
+    "year": 2022,
+    "journal": "Science",
+    "doi": "10.1126/science.abg6621",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "36007018",
+    "pmcid": "PMC10023259",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (HEK293T, lysosomal proteomics); cholesterol-binding and GATOR1-binding assays",
+    "peer_reviewed": true,
+    "finding": "Identifies LYCHOS (previously annotated GPR155) as a lysosomal cholesterol sensor for mTORC1. Cholesterol binds the amino-terminal permease-like region; mutating that site impairs mTORC1 activation. At high cholesterol LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop, and by sequestering GATOR1 it promotes cholesterol- and Rag-dependent recruitment of mTORC1 to the lysosome. Boundary: human cell lines and biochemistry, not an organismal phenotype.",
+    "url": "https://mtor-atlas.org/study/SHI2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHI2022.json"
+   },
+   {
+    "sid": "CAS2017",
+    "title": "Lysosomal cholesterol activates mTORC1 via an SLC38A9-Niemann-Pick C1 signaling complex",
+    "authors": "Castellano BM; Thelen AM; Moldavski O; Feltes M; van der Welle REN; Mydock-McGrane L; Jiang X; van Eijkeren RJ; Davis OB; Louie SM; Perera RM; Covey DF; Nomura DK; Ory DS; Zoncu R",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aag1417",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28336668",
+    "pmcid": "PMC5823611",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (HEK293T), CHO cells, NPC patient fibroblasts",
+    "peer_reviewed": true,
+    "finding": "Establishes lysosomal cholesterol as a nutrient input that drives mTORC1 recruitment and activation at the lysosomal surface. SLC38A9 is required for cholesterol-driven mTORC1 activation through conserved cholesterol-responsive motifs, and does so independently of its arginine-sensing function; NPC1, which exports cholesterol from the lysosome, binds SLC38A9 and restrains mTORC1 through its sterol transport function. Boundary: cell lines and patient-derived fibroblasts, no organismal endpoint.",
+    "url": "https://mtor-atlas.org/study/CAS2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAS2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "CHOL-LYCHOS",
+    "claim": "Cholesterol activates LYCHOS (GPR155)",
+    "source": {
+     "name": "Cholesterol",
+     "entity": "cholesterol"
+    },
+    "target": {
+     "name": "LYCHOS (GPR155)",
+     "entity": "lychos-gpr155"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Cholesterol binds the amino-terminal permease-like region of LYCHOS, and that is the step the sensing depends on: mutating the binding site impairs mTORC1 activation while leaving the protein in place (SHI2022). Occupancy switches LYCHOS into the state that holds GATOR1, so the sterol is read where it accumulates, on the lysosome, rather than at the cell surface.",
+    "mechanism_beginner": "Cholesterol itself sticks to the sensor. That is what tells the sensor there is plenty about: break the spot where it sticks and the growth signal no longer goes through, even though the sensor is still there. The reading is taken at the lysosome, where cholesterol arrives, not at the outside of the cell.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus (SHI2022): human cell lines, photoaffinity and mutational biochemistry. The binding site was later resolved by cryo-EM outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976; Li 2025, PMID 41058362). What is shown is that occupancy of the site is required for cholesterol-driven mTORC1 activation in cultured cells; no dose-response in tissue, no animal or human endpoint, and no measurement of how this route divides the signal with the SLC38A9-NPC1 complex (CAS2017).",
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SHI2022"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "39358511",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39358511/"
+     },
+     {
+      "pmid": "39824976",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39824976/"
+     },
+     {
+      "pmid": "41058362",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41058362/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/CHOL-LYCHOS/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/CHOL-LYCHOS.json"
+   }
+  ]
+ }
+}
