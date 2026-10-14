@@ -14,13 +14,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas</title>
-<meta name="description" content="All 94 nodes and 130 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta name="description" content="All 96 nodes and 132 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <link rel="canonical" href="https://mtor-atlas.org/pathway/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Oliver's mTOR Atlas">
 <meta property="og:title" content="The mTOR pathway, node by node | Oliver&#x27;s mTOR Atlas">
-<meta property="og:description" content="All 94 nodes and 130 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
+<meta property="og:description" content="All 96 nodes and 132 interactions of the curated mTOR pathway model, as eleven guided routes plus a full evidence-graded interaction table -- the static, crawlable form of the Atlas&#x27;s interactive pathway map.">
 <meta property="og:url" content="https://mtor-atlas.org/pathway/">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -71,42 +71,42 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "925132"
+    "contentSize": "929096"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1126861"
+    "contentSize": "1131733"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "85774"
+    "contentSize": "88158"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "115689"
+    "contentSize": "118439"
    },
    {
     "@type": "DataDownload",
     "name": "relations.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/relations.csv",
-    "contentSize": "109578"
+    "contentSize": "112694"
    },
    {
     "@type": "DataDownload",
     "name": "relations.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/relations.json",
-    "contentSize": "167376"
+    "contentSize": "171382"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -124,7 +124,7 @@
    "evidence-based research"
   ],
   "version": "2.0.1",
-  "dateModified": "2026-10-13"
+  "dateModified": "2026-10-14"
  }
 }
 </script>
@@ -363,7 +363,7 @@ table.int-table td[data-l="Mechanism"]{max-width:420px}
 <div class="lvsw" role="group" aria-label="Reading level"><span class="lvsw-label">Reading level</span><div class="lvsw-btns" id="lvsw"><button type="button" data-lv="beginner">Beginner</button><button type="button" data-lv="student" aria-pressed="true">Student</button><button type="button" data-lv="research">Research</button></div></div><script>(function(){var KEY='atlas-level',LEVELS=['beginner','student','research'];function saved(){try{var v=localStorage.getItem(KEY);return LEVELS.indexOf(v)>-1?v:'student';}catch(e){return 'student';}}function apply(l){if(l==='student')document.documentElement.removeAttribute('data-level');else document.documentElement.setAttribute('data-level',l);document.querySelectorAll('#lvsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lv===l));});}var lv=saved();apply(lv);document.querySelectorAll('#lvsw button').forEach(function(b){b.addEventListener('click',function(){lv=b.dataset.lv;try{localStorage.setItem(KEY,lv);}catch(e){}apply(lv);});});})();</script>
 <h1>The mTOR pathway, node by node</h1>
 <p class="summary">The same curated model behind the Atlas's interactive
-pathway map (94 nodes, 130 interactions,
+pathway map (96 nodes, 132 interactions,
 11 guided routes, 13 feedback loops), written
 out as text: eleven guided walks through the network, each followed by the
 full interaction reference table below.</p>
@@ -1063,7 +1063,7 @@ full interaction reference table below.</p>
 <p class="tier-why"><strong>Evidence base:</strong> Cell-line pharmacology and biochemistry for the escape mechanisms; H – randomised trials – for the clinical outcomes; one phase 1 trial (SCH2025, 2025) for the newest drug class. Note the asymmetry that runs through this route: the mechanism is cell-line evidence, the disappointment is human evidence.</p>
 <p class="tier-why"><strong>Still unresolved:</strong> Which tumours depend on mTOR remains largely unpredictable from genotype – the single largest open problem here. Whether closing the 4E-BP1 escape translates into survival benefit is exactly what the bi-steric trials are testing and is not yet answered. And why rapalogs delay progression without clearly extending overall survival in several indications has no accepted explanation, with the feedback arms as leading suspects.</p>
 </section>
-<h2 id="interactions">All 130 interactions</h2>
+<h2 id="interactions">All 132 interactions</h2>
 <p class="summary">Every modelled interaction in the network: source,
 direction of effect, target, mechanism, the closest-to-human evidence behind
 it, and the studies that support it. Rows are the same interactions the
@@ -2110,6 +2110,22 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Mechanism"><span class="lv-beginner">When mTORC1 is on, the cell does not simply make more of every protein. It preferentially makes the parts of its own protein-making machinery, from a particular class of messages marked at one end.</span><span class="lv-student">mTORC1 raises translation of the 5&#x27;TOP class of mRNAs, which encode ribosomal proteins and translation factors. Ribosome profiling showed the effect is selective rather than uniform: mTORC1 does not turn all translation up equally, it shifts which transcripts get translated.</span><span class="lv-research">mTORC1 raises translation of the 5&#x27;TOP class of mRNAs, which encode ribosomal proteins and translation factors. Ribosome profiling showed the effect is selective rather than uniform: mTORC1 does not turn all translation up equally, it shifts which transcripts get translated.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
 <td data-l="Studies"><a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/WAN2026/">WAN2026</a>, <a href="https://mtor-atlas.org/study/PLEDGER2026/">PLEDGER2026</a></td>
+</tr><tr id="int-chol-lychos">
+<td data-l="Source"><a href="/nutrient/cholesterol/">Cholesterol</a></td>
+<td data-l="Effect">activates</td>
+<td data-l="Target"><a href="/gene/lychos-gpr155/">LYCHOS (GPR155)</a></td>
+<td data-l="Type">binding</td>
+<td data-l="Mechanism"><span class="lv-beginner">Cholesterol itself sticks to the sensor. That is what tells the sensor there is plenty about: break the spot where it sticks and the growth signal no longer goes through, even though the sensor is still there. The reading is taken at the lysosome, where cholesterol arrives, not at the outside of the cell.</span><span class="lv-student">Cholesterol binds the amino-terminal permease-like region of LYCHOS, and that is the step the sensing depends on: mutating the binding site impairs mTORC1 activation while leaving the protein in place (SHI2022). Occupancy switches LYCHOS into the state that holds GATOR1, so the sterol is read where it accumulates, on the lysosome, rather than at the cell surface.</span><span class="lv-research">Cholesterol binds the amino-terminal permease-like region of LYCHOS, and that is the step the sensing depends on: mutating the binding site impairs mTORC1 activation while leaving the protein in place (SHI2022). Occupancy switches LYCHOS into the state that holds GATOR1, so the sterol is read where it accumulates, on the lysosome, rather than at the cell surface.</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/SHI2022/">SHI2022</a></td>
+</tr><tr id="int-lychos-gator1">
+<td data-l="Source"><a href="/gene/lychos-gpr155/">LYCHOS (GPR155)</a></td>
+<td data-l="Effect">inhibits</td>
+<td data-l="Target"><a href="/complex/gator1/">GATOR1</a></td>
+<td data-l="Type">binding</td>
+<td data-l="Mechanism"><span class="lv-beginner">Cholesterol is a building block the cell needs to grow, so the lysosome keeps track of how much it has. When there is plenty, it sticks to a sensor protein called LYCHOS, which then holds on to GATOR1, the brake that would otherwise stop mTORC1 being pulled to the lysosome. Brake held out of the way, the growth switch gets to work.</span><span class="lv-student">When lysosomal cholesterol is high, cholesterol binds the permease-like region of LYCHOS and LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop. Sequestering GATOR1, which is the GTPase-activating protein for the Rag GTPases, keeps that brake off the Rags, so mTORC1 is recruited to the lysosome in a cholesterol- and Rag-dependent way. Mutating the cholesterol-binding site impairs mTORC1 activation (SHI2022).</span><span class="lv-research">When lysosomal cholesterol is high, cholesterol binds the permease-like region of LYCHOS and LYCHOS binds GATOR1 through a conserved cytoplasm-facing loop. Sequestering GATOR1, which is the GTPase-activating protein for the Rag GTPases, keeps that brake off the Rags, so mTORC1 is recruited to the lysosome in a cholesterol- and Rag-dependent way. Mutating the cholesterol-binding site impairs mTORC1 activation (SHI2022).</span></td>
+<td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/SHI2022/">SHI2022</a></td>
 </tr></table>
 
 <footer class="oma-footer">
@@ -2119,7 +2135,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-13 15:57 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-14 09:18 Prague time</div>
 </footer>
 </div>
 </body>
