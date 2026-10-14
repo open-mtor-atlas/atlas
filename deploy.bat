@@ -256,6 +256,37 @@ echo === Rebuild Deep-search chunk index - best effort ===
 py atlas_fulltext\build_chunk_index.py
 if errorlevel 1 echo    build_chunk_index.py failed - deploying existing chunk_index.json if present
 
+
+echo.
+echo === Rebuild the pathway model ===
+REM  Pridano 2026-09-07. build_pathway_model.py TU NIKDY NEBYLO -- jen v
+REM  komentarich -- pritom stamp_updated.py posouval ATLAS_UPDATED na dnesek
+REM  a verify_index_html.py pak porovnal pathway\model.json meta.generated proti
+REM  nemu a pri starsim modelu deploy ZASTAVIL hlaskou "run build_pathway_model.py".
+REM  Kazdy deploy v jiny den nez posledni rucni build modelu tedy spadl. Stejna
+REM  trida chyby jako u stamp_type_version.py a build_data_exports.py (ten je
+REM  od 14. 10. 2026 POD timhle krokem, ne nad nim -- duvod v komentari u nej).
+REM  11. 10. 2026: stamp_updated.py uz NENI nad timhle krokem, ale POD nim --
+REM  duvod je v komentari u nej. Tenhle krok je tedy ted pred stampem, ne za.
+py build_pathway_model.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: build_pathway_model.py failed - /pathway/ by se nasadilo stale
+  echo a verify_index_html.py by deploy stejne zastavil.
+  exit /b 1
+)
+
+REM  14. 10. 2026: tenhle blok byl az do dneska NAD build_pathway_model.py.
+REM  build_data_exports.py ale cte pathway\model.json, aby u kazde entity
+REM  rozhodl atlas_url podle stejneho pravidla jako build_pages.gets_page
+REM  (>=3 studie NEBO uzel mapy). Kdyz bezel pred prestavbou modelu, cetl
+REM  model o jeden deploy stary -- u nove entity, ktera stranku ma jen diky
+REM  tomu, ze je uzlem mapy, pak export rekl has_page=false a build_pages
+REM  stranku vygeneroval, a jeho brana deploy zastavila. Stalo se 14. 10.
+REM  u uzlu Cholesterol a LYCHOS (GPR155). Dokud se uzly nemenily, obe
+REM  kopie souhlasily a chyba byla neviditelna -- stejna trida jako
+REM  stamp_updated.py 11. 10. Musi zustat NAD build_pages.py: ten cte
+REM  manifest.json uz pri importu (DATASET_REF.distribution).
 echo.
 echo === Refresh data/exports/ (CSV/JSON downloads + manifest.json) ===
 REM  tools\seo\build_data_exports.py existed since 2026-09-02 but was never
@@ -275,24 +306,6 @@ REM  downloads and their JSON-LD listing. Best effort: a failure here means
 REM  stale exports, not a broken site, so it does not abort the deploy.
 py tools\seo\build_data_exports.py
 if errorlevel 1 echo    build_data_exports.py failed - data/exports/ may be stale, deploy continues
-
-echo.
-echo === Rebuild the pathway model ===
-REM  Pridano 2026-09-07. build_pathway_model.py TU NIKDY NEBYLO -- jen v
-REM  komentarich -- pritom stamp_updated.py posouval ATLAS_UPDATED na dnesek
-REM  a verify_index_html.py pak porovnal pathway\model.json meta.generated proti
-REM  nemu a pri starsim modelu deploy ZASTAVIL hlaskou "run build_pathway_model.py".
-REM  Kazdy deploy v jiny den nez posledni rucni build modelu tedy spadl. Stejna
-REM  trida chyby jako u stamp_type_version.py a build_data_exports.py vyse.
-REM  11. 10. 2026: stamp_updated.py uz NENI nad timhle krokem, ale POD nim --
-REM  duvod je v komentari u nej. Tenhle krok je tedy ted pred stampem, ne za.
-py build_pathway_model.py
-if errorlevel 1 (
-  echo.
-  echo ABORTED: build_pathway_model.py failed - /pathway/ by se nasadilo stale
-  echo a verify_index_html.py by deploy stejne zastavil.
-  exit /b 1
-)
 
 echo.
 echo === Stamping last-updated timestamp and the counts in index.html ===
