@@ -184,6 +184,12 @@ NODES = {
     "S-adenosylmethionine (SAM)": ("input", "nut", "Reports how much methyl-donor the cell has.",
                                    "Methionine-derived metabolite read by SAMTOR – the cell's methionine proxy.",
                                    "SAM binds SAMTOR (Kd ~7 µM); links one-carbon metabolism to mTORC1 independently of the leucine and arginine arms."),
+    # Doplneno 14. 10. 2026 (nalez F-02 externiho auditu): cholesterol je treti
+    # nutrientni vstup do lysozomalni masinerie a v Atlasu nebyl vubec -- ani jako
+    # entita, ani jako uzel, pritom na nem visi dve nezavisle trasy.
+    "Cholesterol": ("input", "nut", "A building block the cell counts before it grows.",
+                    "Membrane sterol read at the lysosome, not at the cell surface; reported to reach mTORC1 through LYCHOS and through SLC38A9.",
+                    "Two routes are described into the same machinery: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports sterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry; how the two divide the signal is not measured here. Drawn on the input band with the amino acids because it is a nutrient the cell counts -- the sensing step itself happens in the lysosomal lumen."),
     "Growth hormone / IGF-1 axis": ("input", "hormone", "The 'there is food and it is safe to grow' hormone signal.",
                                     "Endocrine input acting through receptor tyrosine kinases, IRS proteins and PI3K.",
                                     "Compressed here into one node; the axis spans GH→hepatic IGF-1→IGF1R/InsR→IRS→PI3K, and dwarf-mouse longevity phenotypes sit on it."),
@@ -351,6 +357,10 @@ NODES = {
     "SLC38A9": ("lyso", "protein", "A lysosomal arginine sensor and exporter.",
                 "Transceptor: arginine-regulated component of the Rag–Ragulator machinery that also effluxes leucine.",
                 "Its cytosolic N-terminus binds Rag–Ragulator arginine-dependently; the transport and signalling functions are separable and both matter."),
+    # Doplneno 14. 10. 2026 (nalez F-02 externiho auditu).
+    "LYCHOS (GPR155)": ("lyso", "protein", "The lysosome's cholesterol gauge.",
+                        "Lysosomal transmembrane sensor that reports cholesterol sufficiency by binding and sequestering GATOR1.",
+                        "A fusion of a plant PIN-auxin-transporter-like domain with a class B2-like GPCR domain, with the cholesterol site between the two (Bayly-Jones 2024, outside this corpus). Note the double negative the map has to carry: what LYCHOS does to GATOR1 is inhibitory, and the consequence for mTORC1 is activating, so the route matters more than the arrow. Evidence is human cell lines and structures -- no animal or human endpoint."),
     "FLCN / FNIP1/2": ("lyso", "complex", "The switch that decides which substrates mTORC1 gets.",
                        "GAP for RagC/D; required for mTORC1 to phosphorylate TFEB.",
                        "Folliculin is a *positive* regulator of the RagC/D arm despite being a tumour suppressor in Birt–Hogg–Dubé – the substrate-selective mTORC1 pathway explains the apparent contradiction."),
