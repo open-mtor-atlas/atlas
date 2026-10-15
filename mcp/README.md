@@ -27,13 +27,14 @@ Claude Code: `claude mcp add mtor-atlas -- npx -y mtor-atlas-mcp`
 | Tool | What it answers |
 |---|---|
 | `atlas_about` | Dataset version, corpus snapshot, counts, evidence codes, how to cite; `derived_counts` for contested and conflicting relations |
-| `search_studies` | Studies by keywords, evidence code, linked entity, year |
-| `get_study` | One study with its entities, relations and open questions |
+| `search_studies` | Studies by keywords, evidence code, linked entity, year. Also finds a study by PMID or DOI, by a synonym of a linked entity ("sirolimus"), by an author's full name ("Claudio De Virgilio") and by words from the abstract excerpt |
+| `get_study` | One study (by Atlas ID, PMID, DOI or PMCID) with its entities, relations and open questions |
+| `search_authors` / `get_author` | People: profiled authors by full name, author-list form, ORCID or lab, with their studies; plus matching names in author lists without a profile |
 | `search_entities` / `get_entity` | Genes, drugs, diseases… with their studies and relations. Each hit says where it matched (`match_field`); `match="name"` skips description-only hits |
 | `find_relations` / `get_relation` | Pathway claims ("Rheb activates mTORC1") with mechanism, boundary conditions and confidence |
 | `evidence_between` | "What is the evidence that A acts on B?" with both supporting and conflicting studies |
 | `find_contradictions` | Contested claims, with both sides of the evidence. Paged (`offset`), `status` and `breakdown` explain the total, `only_contested`, `brief` |
-| `list_questions` / `get_question` | Open evidence gaps and testable hypotheses. `list_questions` is paged and shortens `still_open` unless `brief=false`; `get_question` has the full text |
+| `list_questions` / `get_question` | Open evidence gaps and testable hypotheses. `list_questions` takes an optional `query`, is paged and shortens `still_open` unless `brief=false`; `get_question` has the full text |
 
 ## Answer size
 

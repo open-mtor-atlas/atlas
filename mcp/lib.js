@@ -102,6 +102,11 @@ export class Atlas {
   }
 
   async list(name) { return (await this.raw(`${name}.json`))?.data ?? []; }
+  /** A list that an older Atlas build may not have yet (authors, search-index: 15 Oct 2026). Missing = []. */
+  async optList(name) {
+    try { return await this.list(name); }
+    catch (e) { if (e?.code === 'ENOENT') return []; throw e; }
+  }
   async meta() {
     if (!this.isLocal()) { await this.syncBuild(); if (this.cache.has('meta.json')) return this.cache.get('meta.json'); }
     return this.raw('meta.json');
@@ -114,9 +119,37 @@ export class Atlas {
 }
 
 // ------------------------------------------------------------------ helpers
-const norm = (s) => String(s ?? '').toLowerCase().normalize('NFKD')
-  .replace(/[̀-ͯ]/g, '').replace(/α/g, 'alpha').replace(/β/g, 'beta');
-const tokens = (q) => norm(q).split(/[^a-z0-9]+/).filter((t) => t.length > 1);
+// British spellings fold into US ones on both sides (text and query), so
+// "ageing" finds the 61 studies that say "aging" (before: 20). 15 Oct 2026.
+const SPELL = [[/ageing/g, 'aging'], [/tumour/g, 'tumor'], [/signalling/g, 'signaling'], [/haem/g, 'hem'],
+  [/behaviour/g, 'behavior'], [/oestr/g, 'estr'], [/ischaem/g, 'ischem'], [/oedema/g, 'edema']];
+const norm = (s) => {
+  let n = String(s ?? '').toLowerCase().normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '').replace(/α/g, 'alpha').replace(/β/g, 'beta');
+  for (const [re, to] of SPELL) n = n.replace(re, to);
+  return n;
+};
+// Latin species names in a query map to the words model_system uses
+// ("Mus musculus" found nothing; model_system says "Mouse").
+const LATIN = [['mus musculus', 'mouse'], ['rattus norvegicus', 'rat'], ['saccharomyces cerevisiae', 'yeast'],
+  ['schizosaccharomyces pombe', 'yeast'], ['homo sapiens', 'human'], ['caenorhabditis elegans', 'elegans'],
+  ['drosophila melanogaster', 'drosophila'], ['danio rerio', 'zebrafish']];
+const tokens = (q) => {
+  let n = norm(q);
+  for (const [a, b] of LATIN) n = n.split(a).join(b);
+  return n.split(/[^a-z0-9]+/).filter((t) => t.length > 1);
+};
+// A query word also matches its singular ("amino acids" found 22 studies,
+// "amino acid" 45; substring matching only ever helped the singular).
+const IRREGULAR = { mice: 'mouse', mouse: 'mice', analyses: 'analysis', children: 'child' };
+function variants(t) {
+  const v = [t];
+  if (IRREGULAR[t]) v.push(IRREGULAR[t]);
+  if (t.length > 4 && t.endsWith('ies')) v.push(t.slice(0, -3) + 'y');
+  else if (t.length > 4 && /(ss|x|ch|sh)es$/.test(t)) v.push(t.slice(0, -2));
+  else if (t.length > 3 && t.endsWith('s') && !/(ss|us|is)$/.test(t)) v.push(t.slice(0, -1));
+  return v;
+}
 
 // Search indexes are built once per list. The list array itself is the key, so
 // an index lives exactly as long as the cached build it was made from: a new
@@ -146,11 +179,13 @@ function scoreIdx(ts, pf) {
   let total = 0, weakest = -1;
   for (const t of ts) {
     let best = 0, at = -1;
-    pf.forEach((f, i) => {
-      if (!f) return;
-      const s = f.words.has(t) ? 2 * f.w : f.n.includes(t) ? f.w : 0;
-      if (s > best) { best = s; at = i; }
-    });
+    for (const v of variants(t)) {
+      pf.forEach((f, i) => {
+        if (!f) return;
+        const s = f.words.has(v) ? 2 * f.w : f.n.includes(v) ? f.w : 0;
+        if (s > best) { best = s; at = i; }
+      });
+    }
     if (!best) return { score: 0, field: null };
     total += best; weakest = Math.max(weakest, at);
   }
@@ -176,10 +211,77 @@ function page(rows, offset = 0, limit = 20) {
   return { total_matches: rows.length, offset, results, next_offset: next < rows.length ? next : null };
 }
 
-const studyIndex = (all) => memo(all, 'search', () => all.map((s) => ({
-  s, pf: prepare([[s.title, 3, 'title'], [s.finding, 2, 'finding'], [s.sid, 3, 'sid'],
-    [s.authors, 1, 'authors'], [s.journal, 1, 'journal'], [s.model_system, 1, 'model_system'], [s.category, 1, 'category']]),
-})));
+/**
+ * The study index. Until 1.3.1 it held only the summary record, so a study was
+ * not found by its PMID or DOI, by a synonym of a linked entity ("sirolimus"),
+ * by an entity that the title does not name (303 of 447 studies), by the full
+ * name of a profiled author ("Claudio De Virgilio" vs "De Virgilio C") or by a
+ * word from its abstract. search-index.json (Atlas API, 15 Oct 2026) carries
+ * the missing links; without it the index falls back to the summary fields.
+ */
+async function studyIndex(atlas) {
+  const all = await atlas.list('studies');
+  const extra = await atlas.optList('search-index');
+  const ents = extra.length ? await atlas.list('entities') : [];
+  return memo(all, 'search', () => {
+    const bySid = new Map(extra.map((x) => [x.sid, x]));
+    const eText = new Map(ents.map((e) => [e.id, [e.name, ...(e.synonyms ?? [])].join(' ')]));
+    const ix = all.map((s) => {
+      const x = bySid.get(s.sid) ?? {};
+      return { s, pf: prepare([[s.title, 3, 'title'], [s.finding, 2, 'finding'], [s.sid, 3, 'sid'],
+        [[s.pmid, s.pmcid, s.doi, s.registry_id].filter(Boolean).join(' '), 3, 'identifier'],
+        [[s.authors, ...(x.author_names ?? [])].filter(Boolean).join('; '), 1, 'authors'],
+        [s.journal, 1, 'journal'], [s.model_system, 1, 'model_system'], [s.category, 1, 'category'],
+        [(x.entities ?? []).map((id) => eText.get(id)).filter(Boolean).join(' ; '), 1, 'linked_entity'],
+        [x.text, 0.5, 'abstract']]) };
+    });
+    ix.full = extra.length > 0;
+    return ix;
+  });
+}
+
+/** A query that is a study identifier: PMID, DOI (bare, doi: or doi.org URL), PMCID, trial registry id. */
+function idQuery(q) {
+  const v = String(q ?? '').trim();
+  let m;
+  if ((m = v.match(/^(?:pmid:?\s*)?(\d{5,9})$/i))) return { field: 'pmid', value: m[1], label: 'PMID' };
+  if ((m = v.match(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*)?(10\.\d{4,9}\/\S+)$/i))) return { field: 'doi', value: m[1].toLowerCase(), label: 'DOI' };
+  if (/^PMC\d+$/i.test(v)) return { field: 'pmcid', value: v.toUpperCase(), label: 'PMCID' };
+  if (/^(NCT\d{8}|ISRCTN\d+)$/i.test(v)) return { field: 'registry_id', value: v.toUpperCase(), label: 'registry id' };
+  return null;
+}
+const idOf = (s, field) => (field === 'doi' ? String(s.doi ?? '').toLowerCase() : String(s[field] ?? '').toUpperCase());
+
+/** A study by Atlas ID, PMID, DOI, PMCID or registry id; null when the corpus does not hold it. */
+export async function findStudy(atlas, q) {
+  const all = await atlas.list('studies');
+  const v = String(q ?? '').trim();
+  const sid = all.find((s) => s.sid === v.toUpperCase());
+  if (sid) return sid;
+  const id = idQuery(v);
+  return id ? all.find((s) => idOf(s, id.field) === id.value.toUpperCase() || idOf(s, id.field) === id.value) ?? null : null;
+}
+
+/**
+ * Author-name forms of a query that names a person by given name and surname.
+ * Study author lists use "Surname Initials" ("Sabatini DM"), so "David
+ * Sabatini" is tried as "sabatini d". Several people can share that form.
+ */
+function nameForms(ts) {
+  if (ts.length < 2 || ts.length > 5 || ts.some((t) => /\d/.test(t))) return [];
+  const esc = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const out = [];
+  for (let i = 1; i < ts.length; i++) {
+    const sur = ts.slice(i).join(' ');
+    out.push({ form: `${sur} ${ts[0][0]}`, re: new RegExp(`(^|[;,])\\s*${esc(sur)} ${ts[0][0]}[a-z]*(?=[\\s;,.]|$)`) });
+  }
+  return out;
+}
+
+const SEARCHED = 'title, finding, authors (as written in the paper\'s author list, e.g. "De Virgilio C", plus the full names of authors with a profile), '
+  + 'PMID / DOI / PMCID / registry id, linked entities with their synonyms, journal, model system, category and the abstract excerpt';
+const NOT_FOUND = 'Not found here means not in this curated corpus, not that the work does not exist. '
+  + 'Before saying a person or paper is not in the Atlas, check search_authors / get_author for people and get_study with a PMID or DOI for papers.';
 
 const entityIndex = (all) => memo(all, 'search', () => all.map((e) => ({
   e, nm: norm(e.name), syn: (e.synonyms ?? []).map(norm),
@@ -188,7 +290,16 @@ const entityIndex = (all) => memo(all, 'search', () => all.map((e) => ({
 })));
 
 export async function searchStudies(atlas, { query, evidence_code, entity, year_from, year_to, limit = 20, offset = 0 }) {
-  let ix = studyIndex(await atlas.list('studies'));
+  const id = idQuery(query);
+  if (id) {
+    const hit = await findStudy(atlas, query);
+    const out = page(hit ? [hit] : [], 0, 1);
+    out.matched_as = id.label;
+    if (!hit) out.note = `No study with ${id.label} ${id.value} in the Atlas. ${NOT_FOUND}`;
+    return out;
+  }
+  const full = await studyIndex(atlas);
+  let ix = full;
   if (evidence_code?.length) ix = ix.filter((x) => evidence_code.includes(x.s.evidence?.code));
   if (year_from) ix = ix.filter((x) => Number(x.s.year) >= year_from);
   if (year_to) ix = ix.filter((x) => Number(x.s.year) <= year_to);
@@ -203,7 +314,87 @@ export async function searchStudies(atlas, { query, evidence_code, entity, year_
   const scored = ix.map((x) => [scoreIdx(ts, x.pf).score, x.s])
     .filter(([sc]) => sc > 0)
     .sort((a, b) => b[0] - a[0] || Number(b[1].year ?? 0) - Number(a[1].year ?? 0));
-  return page(scored.map(([, s]) => s), offset, limit);
+  let out = page(scored.map(([, s]) => s), offset, limit);
+  if (!out.total_matches && ts.length) {
+    // "David Sabatini" -> author list form "Sabatini D…"
+    for (const f of nameForms(ts)) {
+      const hits = ix.filter((x) => f.re.test(norm(x.s.authors))).map((x) => x.s)
+        .sort((a, b) => Number(b.year ?? 0) - Number(a.year ?? 0));
+      if (hits.length) {
+        out = page(hits, offset, limit);
+        out.matched_as = `author "${f.form}…"`;
+        out.note = `Matched as an author in the author-list form "${f.form}…" (surname + first initial). `
+          + 'Several people can share that form; search_authors / get_author tell them apart where the Atlas has a profile.';
+        return out;
+      }
+    }
+  }
+  if (!out.total_matches) {
+    out.note = `No study matched all the words. Searched: ${SEARCHED}. ${NOT_FOUND}`
+      + (full.full ? '' : ' (search-index.json was not available, so linked entities, profiled author names and abstracts were not searched.)');
+  }
+  return out;
+}
+
+// ------------------------------------------------------------------ authors
+/** Corpus author forms ("Panchaud N") -> study ids, from the author lists as the website builds them. */
+const authorListIndex = (all) => memo(all, 'authorList', () => {
+  const idx = new Map();
+  for (const s of all) {
+    for (const part of String(s.authors ?? '').split(';')) {
+      const name = part.replace(/\s*et al\.?\s*$/i, '').trim();
+      if (name) { if (!idx.has(name)) idx.set(name, []); idx.get(name).push(s.sid); }
+    }
+  }
+  return idx;
+});
+
+/**
+ * People. `results` are authors with a profile page (full name, corpus form,
+ * ORCID, lab, their studies); `in_author_lists` are names that appear in study
+ * author lists without a profile.
+ */
+export async function searchAuthors(atlas, { query, limit = 20, offset = 0 }) {
+  const au = await atlas.optList('authors');
+  const ts = tokens(query);
+  const forms = nameForms(ts);
+  const ix = memo(au, 'search', () => au.map((a) => ({ a, nc: norm(a.corpus_name),
+    pf: prepare([[a.name, 3, 'name'], [a.corpus_name, 3, 'corpus_name'], [a.orcid, 3, 'orcid'], [a.lab, 1, 'lab'], [a.role, 0.5, 'role']]) })));
+  const scored = [];
+  for (const x of ix) {
+    const r = scoreIdx(ts, x.pf);
+    if (r.score > 0) scored.push([r.score, r.field, x.a]);
+    else if (forms.some((f) => f.re.test(x.nc))) scored.push([1, 'corpus_name', x.a]);
+  }
+  scored.sort((a, b) => b[0] - a[0] || b[2].studies.length - a[2].studies.length);
+  const out = page(scored.map(([, field, a]) => ({ ...a, study_count: a.studies.length, match_field: field })), offset, limit);
+  const profiled = new Set(au.map((a) => a.corpus_name));
+  const loose = [];
+  for (const [name, sids] of authorListIndex(await atlas.list('studies'))) {
+    if (profiled.has(name)) continue;
+    const n = norm(name);
+    if (scoreIdx(ts, prepare([[name, 1, 'n']])).score > 0 || forms.some((f) => f.re.test(n))) loose.push({ corpus_name: name, studies: sids });
+  }
+  loose.sort((a, b) => b.studies.length - a.studies.length);
+  out.in_author_lists = loose.slice(0, 20);
+  if (loose.length > 20) out.in_author_lists_total = loose.length;
+  out.note = 'results = people with a profile page. in_author_lists = the same words in study author lists (form "Surname Initials") '
+    + 'without a profile; one such form can stand for several people. Some author lists are shortened to first and last author ("et al."), '
+    + 'so a middle author may be missing.' + (au.length ? '' : ' authors.json was not available, so no profiles were searched.');
+  return out;
+}
+
+/** One profiled author by id, full name, corpus form or ORCID, with study cards. */
+export async function getAuthor(atlas, q) {
+  const au = await atlas.optList('authors');
+  const n = norm(q).trim();
+  let a = au.find((x) => x.id === q || x.orcid === q || norm(x.name) === n || norm(x.corpus_name) === n);
+  if (!a) {
+    const r = await searchAuthors(atlas, { query: q, limit: 2 });
+    if (r.total_matches === 1) a = r.results[0];
+  }
+  if (!a) return null;
+  return { ...a, study_count: a.studies.length, study_cards: await studyCards(atlas, a.studies) };
 }
 
 export async function resolveEntity(atlas, q) {
@@ -412,9 +603,16 @@ export async function getEntity(atlas, q, { studies_limit = 25 } = {}) {
 }
 
 /** Paged. `brief` (default) shortens `still_open`; get_question has the full text. */
-export async function listQuestions(atlas, { kind, brief = true, limit = 20, offset = 0 }) {
+export async function listQuestions(atlas, { kind, query, brief = true, limit = 20, offset = 0 }) {
   let rows = await atlas.list('questions');
   if (kind) rows = rows.filter((q) => q.kind === kind);
+  if (query) {
+    const ts = tokens(query);
+    const ix = memo(rows, 'search', () => rows.map((q) => ({ q, pf: prepare([[q.id, 3, 'id'], [q.title, 3, 'title'],
+      [q.category, 1, 'category'], [q.evidence_stands_at, 1, 'evidence_stands_at'],
+      [[q.gap, q.still_open, q.hypothesis, q.changed_since_written, q.how_to_test].filter(Boolean).join(' '), 1, 'text']]) })));
+    rows = ix.map((x) => [scoreIdx(ts, x.pf).score, x.q]).filter(([sc]) => sc > 0).sort((a, b) => b[0] - a[0]).map(([, q]) => q);
+  }
   const out = page(rows, offset, limit);
   out.results = out.results.map((q) => {
     const open = brief ? clip(q.still_open) : { text: q.still_open, truncated: false };

@@ -5,17 +5,18 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import {
   CODE_ORDER, atlasAbout, searchStudies, searchEntities, getEntity, findRelations,
-  evidenceBetween, findContradictions, listQuestions,
+  evidenceBetween, findContradictions, listQuestions, findStudy, searchAuthors, getAuthor,
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.3.1';
+export const VERSION = '1.3.2';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
 - Every study has an evidence code: S synthesis of human data, H human study, A animal model, M molecular/in vitro, R review, PP preprint, RT registered trial. The code describes the KIND of study, not its quality. Do not present an M finding as if it were shown in people.
 - A relation is a claim (source -> effect -> target) with supporting and conflicting studies, boundary conditions, a consensus flag and a human-relevance grade. Quote the boundary when you use a relation.
 - "Not in the Atlas" means not in this curated corpus, not "not known". Say so.
+- An empty search is not proof that something is missing. Look up a person with search_authors or get_author, and a paper with get_study by PMID or DOI, before saying the Atlas does not have it.
 - Cite the study or relation 'url' fields, and the dataset (doi:10.5281/zenodo.22059963) with the dataset_version and corpus_snapshot from atlas_about.`;
 
 
@@ -38,9 +39,9 @@ export function createServer(atlas) {
 
   server.registerTool('search_studies', {
     title: 'Search studies', annotations: { ...RO, title: 'Search studies' },
-    description: 'Search the curated studies by keywords (title, finding, authors, journal, model system), optionally filtered by evidence code, a linked entity (gene, drug, disease...) and year range. Returns summary records with evidence codes and URLs.',
+    description: 'Search the curated studies by keywords, optionally filtered by evidence code, a linked entity (gene, drug, disease...) and year range. Searches title, finding, authors (author-list form "Sabatini DM" and full names of profiled authors), PMID, DOI, PMCID, linked entities and their synonyms, journal, model system and the abstract excerpt. A query that is a PMID or DOI returns that study. Returns summary records with evidence codes and URLs.',
     inputSchema: {
-      query: z.string().optional().describe('Keywords, e.g. "rapamycin lifespan mice". Omit to list by filters only.'),
+      query: z.string().optional().describe('Keywords, e.g. "rapamycin lifespan mice", a person ("Claudio De Virgilio"), a PMID or a DOI. Omit to list by filters only.'),
       evidence_code: z.array(Code).optional().describe('Keep only these evidence codes, e.g. ["H","S"] for human evidence.'),
       entity: z.string().optional().describe('Only studies linked to this entity (name, synonym or id), e.g. "Rheb".'),
       year_from: Int(-10000), year_to: Int(-10000),
@@ -51,16 +52,18 @@ export function createServer(atlas) {
 
   server.registerTool('get_study', {
     title: 'Get one study', annotations: { ...RO, title: 'Get one study' },
-    description: 'Full record for one study by Atlas ID (e.g. "SAB1994"): abstract excerpt, extracted findings, linked entities, the relations it supports or contradicts, related open questions.',
+    description: 'Full record for one study by Atlas ID (e.g. "SAB1994"), PMID, DOI or PMCID: abstract excerpt, extracted findings, linked entities, the relations it supports or contradicts, related open questions.',
     inputSchema: {
-      sid: z.string().optional().describe('Atlas study ID, e.g. "SAB1994"'),
+      sid: z.string().optional().describe('Atlas study ID ("SAB1994"), PMID ("23716719"), DOI or PMCID'),
       study_id: z.string().optional().describe('Alias of sid.'),
       id: z.string().optional().describe('Alias of sid.'),
     },
   }, async (a) => {
     const sid = a.sid || a.study_id || a.id;
     if (!sid) return missing('Study (pass sid, e.g. "SAB1994")');
-    const s = await atlas.one('studies', sid.toUpperCase()); return s ? ok(s) : missing(`Study ${sid}`);
+    const hit = await findStudy(atlas, sid);
+    const s = hit && await atlas.one('studies', hit.sid);
+    return s ? ok(s) : missing(`Study ${sid} (looked up as Atlas ID, PMID, DOI and PMCID)`);
   });
 
   server.registerTool('search_entities', {
@@ -137,6 +140,7 @@ export function createServer(atlas) {
     description: 'The Atlas\'s open questions (evidence gaps with testable hypotheses) and frontier questions. Paged. By default still_open is shortened at a sentence boundary (still_open_truncated); get_question has the full text, or pass brief=false.',
     inputSchema: {
       kind: z.enum(['open-question', 'frontier']).optional(),
+      query: z.string().optional().describe('Keywords to find questions by their title, gap, hypothesis or what is still open, e.g. "rapamycin immune".'),
       brief: z.boolean().default(true).describe('Shorten still_open; false returns the full text.'),
       limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
       offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
@@ -148,6 +152,30 @@ export function createServer(atlas) {
     description: 'One open or frontier question by ID (e.g. "H1", "F2"): the gap, what changed, what is still open, how it could be tested, linked studies.',
     inputSchema: { id: z.string() },
   }, async ({ id }) => { const q = await atlas.one('questions', id.toUpperCase()); return q ? ok(q) : missing(`Question ${id}`); });
+
+  server.registerTool('search_authors', {
+    title: 'Search authors', annotations: { ...RO, title: 'Search authors' },
+    description: 'People in the Atlas by full name ("Claudio De Virgilio"), author-list form ("De Virgilio C"), ORCID or lab. results are authors with a profile page (full name, ORCID, lab, their study IDs); in_author_lists are matching names in study author lists without a profile.',
+    inputSchema: {
+      query: z.string().describe('A name, ORCID or lab, e.g. "Sabatini", "Claudio De Virgilio", "Fribourg"'),
+      limit: Int(1, 20).describe('Maximum 50; a larger value is capped at 50.'),
+      offset: Int(0, 0).describe('For the next page: pass next_offset from the previous answer.'),
+    },
+  }, async (a) => ok(await searchAuthors(atlas, cap(a, 50))));
+
+  server.registerTool('get_author', {
+    title: 'Get one author', annotations: { ...RO, title: 'Get one author' },
+    description: 'One profiled author by profile id ("claudio-de-virgilio"), full name, author-list form or ORCID: lab, role, profile URL and short cards of their studies in the Atlas.',
+    inputSchema: {
+      author: z.string().optional().describe('e.g. "Claudio De Virgilio", "De Virgilio C", "claudio-de-virgilio"'),
+      id: z.string().optional().describe('Alias of author.'),
+    },
+  }, async (a) => {
+    const q = a.author || a.id;
+    if (!q) return missing('Author (pass author, e.g. "Claudio De Virgilio")');
+    const r = await getAuthor(atlas, q);
+    return r ? ok(r) : missing(`Author "${q}" with a profile page (search_authors also lists names in author lists without a profile)`);
+  });
 
   return server;
 }
