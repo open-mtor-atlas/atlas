@@ -1375,6 +1375,10 @@ def gap_page(g, studies_by_sid):
             + (f' · <abbr title="{e(CONF_TIP)}">editorial confidence</abbr> {e(round(conf*100))}%' if conf is not None else "")
             + (f' · evidence stands at: {e(g["tier"])}' if g.get("tier") else "")
             + f' · Atlas ID <code>{e(g["id"])}</code></p>']
+    if conf is not None:
+        body.append('<p class="meta">Editorial confidence is the curator\'s judgement of how likely the '
+                    'hypothesis is to hold, given the studies in the Atlas. It is set by hand, not '
+                    'computed from data, and it is not a calibrated probability.</p>')
     lv_needed = False
     if g.get("basis_beginner"):
         body.append(f'<h2>The gap</h2><p class="summary">{g["basis_beginner"]}</p>')
@@ -1444,9 +1448,14 @@ def build_author_index(studies):
     sync with the JS version or a name matches in the SPA but not here."""
     idx = {}
     for s in studies:
+        # Jedno jmeno se v seznamu autoru jedne studie muze objevit vickrat
+        # (dva ruzni lide "Hu Y" u HU2026). JS verze to hlida mnozinou
+        # seenInStudy; bez ni se studie pocitala u autora dvakrat.
+        seen = set()
         for part in (s.get("authors") or "").split(";"):
             name = re.sub(r"\s*et al\.?\s*$", "", part, flags=re.I).strip()
-            if name:
+            if name and name not in seen:
+                seen.add(name)
                 idx.setdefault(name, []).append(s)
     return idx
 
@@ -2474,7 +2483,7 @@ def questions_page(gaps):
 # Zrcadlo: Atlas_v2/src/pages/questions/frontier.astro -- kdo meni jedno,
 # musi i druhe, jinak se parita rozejde.
 
-def frontier_question_page(f, gaps):
+def frontier_question_page(f, gaps, corpus_sids=None):
     """Jedna frontier otazka = jedna stranka. Stejna stavba jako gap_page:
     gap -> what changed -> what is still open -> how it could be tested.
     Zrcadlo: Atlas_v2/src/pages/questions/frontier/[slug].astro."""
@@ -2510,6 +2519,45 @@ def frontier_question_page(f, gaps):
                        ("Why it matters", "why")):
         if f.get(key):
             body.append("<h2>%s</h2><p>%s</p>" % (label, e(f[key])))
+    # Evidence behind the question (15. 10. 2026, externi audit M-02): strojove
+    # citelna stopa. Zrcadlo: Atlas_v2/src/pages/questions/frontier/[slug].astro.
+    refs = f.get("refs") or []
+    gs = f.get("gap_status")
+    if gs or refs or f.get("relation_note"):
+        body.append("<h2>Evidence behind this question</h2>")
+        if gs:
+            body.append('<p><strong>%s.</strong> %s <span class="meta">(checked %s)</span></p>'
+                        % (e(gs.get("label") or ""), e(gs.get("basis") or ""),
+                           e(gs.get("checked") or "")))
+        if f.get("relation_note"):
+            body.append('<p class="meta"><em>How it relates to the other frontier questions:</em> %s</p>'
+                        % e(f["relation_note"]))
+        for role, title in (("direct", "Direct evidence for a premise"),
+                            ("related", "Related evidence"),
+                            ("inference", "Indirect mechanistic inference"),
+                            ("assumption", "Assumption not yet verified")):
+            rs = [r for r in refs if r.get("role") == role]
+            if not rs:
+                continue
+            lis = []
+            for r in rs:
+                sid = r.get("sid")
+                if sid and (corpus_sids is None or sid in corpus_sids):
+                    href, tag = "/study/%s/" % sid, " (<code>%s</code>)" % e(sid)
+                elif r.get("pmid"):
+                    href, tag = "https://pubmed.ncbi.nlm.nih.gov/%s/" % r["pmid"], " (PMID %s, not in the Atlas corpus)" % e(r["pmid"])
+                elif r.get("doi"):
+                    href, tag = "https://doi.org/%s" % r["doi"], " (not in the Atlas corpus)"
+                elif r.get("registry"):
+                    href, tag = "https://clinicaltrials.gov/study/%s" % r["registry"], " (registered trial, not in the Atlas corpus)"
+                else:
+                    href, tag = None, ""
+                name = ('<a href="%s">%s</a>' % (e(href), e(r["label"]))) if href else e(r["label"])
+                lis.append("<li>%s%s &mdash; %s</li>" % (name, tag, e(r.get("supports") or "")))
+            body.append("<h3>%s</h3><ul>%s</ul>" % (title, "".join(lis)))
+        if refs:
+            body.append('<p class="meta">The grouping is the curator\'s reading of how each paper is used here. '
+                        'It has not been checked by a second reader.</p>')
     rel = [gap_by_id[i] for i in (f.get("related") or []) if i in gap_by_id]
     if rel:
         items = "".join(
@@ -3305,7 +3353,8 @@ def main():
             write(os.path.join(HERE, "questions", "frontier", "index.html"), frontier_html)
             urls.append(("about", frontier_url))
             for fq in frontier:
-                fq_url, fq_html = frontier_question_page(fq, gaps)
+                fq_url, fq_html = frontier_question_page(
+                    fq, gaps, {s["sid"] for s in studies})
                 write(os.path.join(HERE, "questions", "frontier", fq["slug"], "index.html"),
                       fq_html)
                 urls.append(("question", fq_url))

@@ -1193,8 +1193,14 @@ def check_priority_claims(findings):
     if os.path.exists(FRONTIER):
         for x in json.load(open(FRONTIER, encoding="utf-8")):
             for k in ("title", "gap", "changed", "open_now", "exp", "why",
-                      "gap_beginner"):
+                      "gap_beginner", "relation_note"):
                 scan_priority(findings, "frontier:%s.%s" % (x.get("id"), k), x.get(k))
+            # Strukturovane reference a stav mezery (15. 10. 2026): tez verejny text.
+            scan_priority(findings, "frontier:%s.gap_status.basis" % x.get("id"),
+                          (x.get("gap_status") or {}).get("basis"))
+            for i, r in enumerate(x.get("refs") or []):
+                scan_priority(findings, "frontier:%s.refs[%d].supports" % (x.get("id"), i),
+                              r.get("supports"))
     if os.path.exists(PW_MODEL):
         m = json.load(open(PW_MODEL, encoding="utf-8"))
         for ed in m.get("interactions", []):

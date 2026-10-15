@@ -209,11 +209,61 @@ def curation_state(edges):
                               key=lambda t: (t[1].get("date") or "", t[0]))}
 
 
+NEGATIVE_RESULTS = os.path.join(HERE, "atlas_data", "negative_results.json")
+
+
+def negative_mapping(neg, edges):
+    """Ke kazde Negative_result studii: jake tvrzeni se testovalo a proc z toho je
+    / neni nulova hrana (atlas_data/negative_results.json, rucne vedeny).
+    Vraci (entries, problems). Externi audit 2026-10-15 (M-04): pet negativnich
+    studii, zadna hrana se znamenkem no-effect -- bez zaznamu nebylo poznat, jestli
+    je to mezera, nebo spravne rozhodnuti."""
+    problems = []
+    try:
+        doc = json.load(open(NEGATIVE_RESULTS, encoding="utf-8"))
+        entries = doc.get("entries", [])
+    except (OSError, ValueError) as ex:
+        return [], ["negative_results.json: %s" % ex]
+    by_sid = {x.get("sid"): x for x in entries}
+    edge_by_id = {x["id"]: x for x in edges}
+    for s in neg:
+        sid = s.get("sid")
+        x = by_sid.get(sid)
+        if not x:
+            problems.append("Negative_result studie %s nema zaznam v negative_results.json "
+                            "(testovane tvrzeni + proc neni / je nulova hrana)" % sid)
+            continue
+        for k in ("tested_claim", "model", "endpoint", "reason"):
+            if not (x.get(k) or "").strip():
+                problems.append("negative_results.json: %s nema pole %s" % (sid, k))
+        rid = x.get("relation")
+        if rid:
+            ed = edge_by_id.get(rid)
+            if not ed:
+                problems.append("negative_results.json: %s odkazuje na neexistujici hranu %s" % (sid, rid))
+            else:
+                role = x.get("relation_role")
+                cited = (ed.get("cf") or []) if role == "conflicting_study" else (ed.get("st") or [])
+                if sid not in cited:
+                    problems.append("negative_results.json: hrana %s necituje %s jako %s"
+                                    % (rid, sid, role))
+        if x.get("null_edge") and not any(e_.get("sign") == "no-effect" and sid in (e_.get("st") or [])
+                                          for e_ in edges):
+            problems.append("negative_results.json: %s hlasi null_edge, ale zadna hrana no-effect ji necituje" % sid)
+    known = {s.get("sid") for s in neg}
+    for sid in by_sid:
+        if sid not in known:
+            problems.append("negative_results.json: %s uz neni Negative_result" % sid)
+    return entries, problems
+
+
 def null_results(studies, edges):
     neg = [s for s in studies if s.get("category") == "Negative_result"]
     no_effect = [x for x in edges if x.get("sign") == "no-effect"]
+    entries, problems = negative_mapping(neg, edges)
     return {"studies": len(neg), "edges": len(no_effect),
-            "study_ids": sorted(s["sid"] for s in neg if s.get("sid"))}
+            "study_ids": sorted(s["sid"] for s in neg if s.get("sid")),
+            "mapping": entries, "mapping_problems": problems}
 
 
 def compute(cfg):
@@ -445,6 +495,26 @@ def render(cfg, m):
       % (nul["studies"],
          (" (" + e(", ".join(nul["study_ids"])) + ")") if nul["study_ids"] else "",
          nul["edges"]))
+    if nul.get("mapping"):
+        A('<p>Why that gap is smaller than it looks: for each of those studies the table '
+          'below states the claim that was actually tested. A no-effect link is only '
+          'created when the test was of a link between two nodes of the map; a null result '
+          'about a compound that is not on the map, or about a clinical outcome, is '
+          'recorded here instead.</p>')
+        rows = []
+        for x in nul["mapping"]:
+            rel = ('<a href="%s/relation/%s/">%s</a> (%s)'
+                   % (SITE, e(x["relation"]), e(x["relation"]),
+                      "conflicting study" if x.get("relation_role") == "conflicting_study" else "supporting study")
+                   ) if x.get("relation") else "none"
+            rows.append('<tr><td data-l="Study"><a href="%s/study/%s/">%s</a></td>'
+                        '<td data-l="Claim tested">%s</td><td data-l="Model">%s</td>'
+                        '<td data-l="Edge">%s</td><td data-l="Why">%s</td></tr>'
+                        % (SITE, e(x["sid"]), e(x["sid"]), e(x["tested_claim"]),
+                           e(x["model"]), rel, e(x["reason"])))
+        A('<div class="tbl-wrap"><table class="atlas-table"><thead><tr><th>Study</th>'
+          '<th>Claim tested</th><th>Model</th><th>Edge</th><th>Why</th></tr></thead>'
+          '<tbody>%s</tbody></table></div>' % "".join(rows))
 
     # --- 7. curation state ---
     A('<h2 id="curation-state">Who has checked this</h2>')
@@ -603,7 +673,7 @@ def build(cfg, dry_run=False):
     # Sanity: shell() vkládá GA4 i canonical. Kdyby to někdo z šablony vyndal,
     # nová stránka by tiše přestala měřit -- proto to kontrolujeme tady, ne až
     # v analytice za měsíc.
-    problems = []
+    problems = list(m["nulls"].get("mapping_problems") or [])
     if m["boundary"]["orphans"]:
         problems.append(
             "ruční boundary tag bez věty v Context_Note u hran: %s -- pravidlo u "
