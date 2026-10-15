@@ -357,6 +357,80 @@
      }
     }
    }
+  },
+  "/authors.json": {
+   "get": {
+    "operationId": "listAuthors",
+    "summary": "People with a profile page: full name, the name as it appears in study author lists, ORCID, lab and their studies",
+    "responses": {
+     "200": {
+      "description": "List of profiled authors",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Author"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/search-index.json": {
+   "get": {
+    "operationId": "getSearchIndex",
+    "summary": "Per study: linked entity ids, profiled authors and abstract/extracted text, for local search",
+    "responses": {
+     "200": {
+      "description": "One entry per study",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/SearchIndexEntry"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
   }
  },
  "components": {
@@ -759,6 +833,104 @@
      },
      "url": {
       "type": "string"
+     }
+    }
+   },
+   "Author": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "corpus_name",
+     "studies",
+     "url"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string",
+      "description": "Full name, as on the profile page."
+     },
+     "corpus_name": {
+      "type": "string",
+      "description": "The same person as written in study author lists (surname + initials, e.g. \"De Virgilio C\"). Search authors by this form or by name."
+     },
+     "orcid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "lab": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "lab_url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "role": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "studies": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Study IDs shown on the profile page (verified against PubMed where the corpus name is shared by several people)."
+     },
+     "url": {
+      "type": "string"
+     }
+    }
+   },
+   "SearchIndexEntry": {
+    "type": "object",
+    "required": [
+     "sid",
+     "entities",
+     "authors",
+     "author_names"
+    ],
+    "properties": {
+     "sid": {
+      "type": "string"
+     },
+     "entities": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Ids of the entities linked to the study (see /entities.json for names and synonyms)."
+     },
+     "authors": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Ids of profiled authors of the study (see /authors.json)."
+     },
+     "author_names": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "text": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Abstract excerpt and AI-assisted extracted fields, joined. For matching only; the curated finding in the study record takes precedence."
      }
     }
    },
