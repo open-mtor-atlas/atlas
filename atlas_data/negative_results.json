@@ -1,0 +1,55 @@
+{
+ "_about": "Tested claim behind every study filed as Negative_result, and why it is or is not a no-effect edge on the pathway map. Edited by hand in the repo (not in Airtable). build_evidence_audit.py stops the deploy when a Negative_result study has no entry here, or when an entry names an edge that does not cite the study. Added 2026-10-15 after an external audit noted that five negative studies exist but no relation has the no-effect sign.",
+ "entries": [
+  {
+   "sid": "MAN2021",
+   "tested_claim": "Low-dose TORC1 inhibition with RTB101 reduces clinically symptomatic respiratory illness in adults aged 65 and older.",
+   "model": "Phase 2b and phase 3 randomised trials in older adults (phase 3 n=1024)",
+   "endpoint": "Clinically symptomatic respiratory illness (26% vs 25%, p=0.65 in phase 3); antiviral gene expression still rose.",
+   "relation": "EVE-IMMUNE",
+   "relation_role": "conflicting_study",
+   "null_edge": false,
+   "reason": "Recorded as conflicting evidence on EVE-IMMUNE. A separate no-effect edge would misstate the tested link: the trial tested a drug (RTB101, not rapamycin-like) against a clinical outcome, not an interaction between two pathway nodes."
+  },
+  {
+   "sid": "STR2012",
+   "tested_claim": "Resveratrol, green tea extract, curcumin, oxaloacetic acid or medium-chain triglyceride oil extends lifespan in genetically heterogeneous mice.",
+   "model": "Mouse, genetically heterogeneous (Interventions Testing Program, three sites)",
+   "endpoint": "Lifespan",
+   "relation": null,
+   "relation_role": null,
+   "null_edge": false,
+   "reason": "None of the tested compounds is a node of the pathway map, so there is no edge that could carry a no-effect sign."
+  },
+  {
+   "sid": "MIL2011",
+   "tested_claim": "Resveratrol or simvastatin extends lifespan in genetically heterogeneous mice (negative arms of a study in which rapamycin extended lifespan).",
+   "model": "Mouse, genetically heterogeneous (Interventions Testing Program, three sites)",
+   "endpoint": "Lifespan",
+   "relation": null,
+   "relation_role": null,
+   "null_edge": false,
+   "reason": "The negative arms concern compounds that are not nodes of the pathway map. The positive rapamycin arm of the same study is evidence for lifespan edges, not a null result."
+  },
+  {
+   "sid": "POU2013",
+   "tested_claim": "Four weeks of high-dose resveratrol improves insulin sensitivity, substrate metabolism or body composition in obese men.",
+   "model": "Humans, randomised placebo-controlled trial, obese men (n=24)",
+   "endpoint": "Insulin sensitivity, blood pressure, body composition",
+   "relation": null,
+   "relation_role": null,
+   "null_edge": false,
+   "reason": "Resveratrol is not a node of the pathway map, and the tested link (compound to metabolic outcome in people) is not a step between two mapped nodes."
+  },
+  {
+   "sid": "JIB2026",
+   "tested_claim": "Rapamycin co-exposure protects a mouse spermatogonial cell line (GC6-spg) from cisplatin-induced damage.",
+   "model": "GC6-spg spermatogonial cell line, in vitro",
+   "endpoint": "Cell damage after cisplatin",
+   "relation": null,
+   "relation_role": null,
+   "null_edge": false,
+   "reason": "One cell line and a cell-damage endpoint, not a pathway step. It limits a protective claim made in female fertility models; it is not a tested-and-null pathway link."
+  }
+ ]
+}
