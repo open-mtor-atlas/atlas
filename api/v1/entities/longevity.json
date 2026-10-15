@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -1340,6 +1340,11 @@
     "mechanism_beginner": "Keeping 4E-BP switched on extends lifespan in fruit flies on a restricted diet, by protecting their mitochondria.",
     "context": null,
     "boundary": "Fly only, and only under dietary restriction - the effect was not seen on a full diet.",
+    "boundary_tags": [
+     "diet-dependent",
+     "single-species",
+     "single-study"
+    ],
     "note": "Boundary condition matters more than the headline here.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1394,6 +1399,7 @@
     "mechanism_beginner": "Turning mTORC1 down extends lifespan in yeast, worms, flies and mice – one of the best-replicated anti-ageing effects in laboratory animals. In mice, how big the effect is depends on sex, strain, diet and when treatment starts, and it has not been shown in people.",
     "context": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
     "boundary": "No human hard-endpoint evidence. This is the Atlas's flagged 'human endpoint desert'.",
+    "boundary_tags": [],
     "note": "Links to ATLAS_FINDINGS human-endpoint desert.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1454,6 +1460,11 @@
     "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
     "context": null,
     "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
+    "boundary_tags": [
+     "dose-dependent",
+     "sex-specific",
+     "single-species"
+    ],
     "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1512,6 +1523,11 @@
     "mechanism_beginner": "Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.",
     "context": null,
     "boundary": "Female mice only in SEL2009 - the lifespan extension was not significant in males.",
+    "boundary_tags": [
+     "sex-specific",
+     "single-species",
+     "single-study"
+    ],
     "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps. 2026-10-10: UMX2004 no longer cited as support for the lifespan arrow; it measured obesity and insulin sensitivity, not lifespan.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1567,6 +1583,9 @@
     "mechanism_beginner": "Eating less improved health and survival in monkeys. But in mice that could eat as much as they wanted, cutting calories by watering down the food did not make them live longer; eating less protein compared with carbohydrate did. So whether it is the calories or the protein that counts is still open.",
     "context": null,
     "boundary": "No human lifespan data exists. Effect direction is reproducible across several species; effect size and even the responsible variable (calories versus composition) are not settled.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": "2026-10-10: SOL2014 moved from supporting to conflicting. Full text: 'energy restriction achieved by dietary dilution in ad libitum-fed animals does not extend life-span'; lifespan tracked the protein:carbohydrate ratio, not calorie intake. It cannot support a calories-extend-life arrow.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1623,6 +1642,9 @@
     "mechanism_beginner": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
     "context": null,
     "boundary": "An invertebrate result, and the two arms must not be merged. ROB2012's title reads 'TOR signaling and rapamycin influence longevity by regulating SKN-1/Nrf and DAF-16/FoxO', but its own abstract splits them: the DAF-16/FoxO requirement belongs to genetic TORC1 inhibition, while the rapamycin effect is SKN-1-dependent and DAF-16-INDEPENDENT. Not shown in mammals in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -1677,6 +1699,7 @@
     "mechanism_beginner": "Less growth-hormone signalling, longer life in mice.",
     "context": null,
     "boundary": "Mouse only. A lifelong GH-receptor-antagonist transgenic (LIST2026; an earlier study of the same line did not detect extension) and a tamoxifen-inducible whole-body Ghr knockout started at 12 months (DUR2026). mTOR signalling was not measured in either, so the route through PI3K-Akt-mTOR is inferred, not shown here.",
+    "boundary_tags": [],
     "note": "2026-10-10: Interaction type signal-relay -> functional-consequence. The target is a lifespan outcome, not a signalling node, and mTOR signalling was not measured in either study.",
     "consensus_contested": false,
     "curation_contested": false,

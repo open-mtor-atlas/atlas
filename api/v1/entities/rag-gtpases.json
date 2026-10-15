@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -591,6 +591,7 @@
     "mechanism_beginner": "FLCN helps set the other half of the Rag pair (RagC/D) into its working shape: it makes RagC/D break down its bound GTP, the cell's energy-carrying molecule. So 'activates' here means it sets the state of that one half, not that it switches on every Rag. Its direct job is mainly to control one group of outputs (TFEB and TFE3) rather than the whole pathway, but in kidney and lung, losing FLCN can still end up over-activating mTORC1 through a feedback loop.",
     "context": null,
     "boundary": "FLCN's direct effect is substrate-specific: losing it blocks mTORC1 phosphorylation of TFEB/TFE3 while leaving S6K1 and 4E-BP1 largely intact in the short term (NAP2020). That is not the whole of Birt-Hogg-Dube, though. Constitutively active TFEB/TFE3 drive a feedback loop that hyperactivates mTORC1, and in kidney and lung that mTORC1 hyperactivation is itself a key driver of cyst and tumour formation (Di Malta 2023, EMBO Mol Med, PMID 36987696; Ferniani 2026, FER2026 in corpus; Cao 2026, JCI, PMID 41697734, 3 BHD patient lungs + mouse). So the regulation is tissue- and time-dependent, not a flat absence of hyperactivation.",
+    "boundary_tags": [],
     "note": "2026-10-10: beginner text still said FLCN 'only changes one specific output (TFEB), not the whole pathway', the overstatement that audit A02 corrected in the expert layer. Now matches the boundary: direct effect substrate-specific (TFEB/TFE3), feedback hyperactivation of mTORC1 in kidney and lung.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -664,6 +665,7 @@
     "mechanism_beginner": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
     "context": null,
     "boundary": "Human cell biochemistry with cancer genomics (BAR2013) and a cryo-EM structure (SHE2018). GAP activity is shown on purified and cellular Rags; the cited studies do not test it in whole animals or in people.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -719,6 +721,11 @@
     "mechanism_beginner": "Glutamine can switch on mTORC1 partly just by being burned for fuel: burning it makes a molecule that helps the Rag proteins pull mTORC1 to the lysosome.",
     "context": null,
     "boundary": "Cell-type dependent, and deliberately narrow: the separate claim that glutamine can reach mTORC1 without the Rags is carried by its own edge rather than folded in here.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study",
+     "tissue-specific"
+    ],
     "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence. 2026-10-10: this edge's curation status (Contested) and its field consensus (emerging) deliberately differ, and the evidence-audit page now labels the two dimensions separately instead of presenting either count as the number of disputed claims.",
     "consensus_contested": false,
     "curation_contested": true,
@@ -773,6 +780,10 @@
     "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
     "context": null,
     "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study"
+    ],
     "note": "See LEU-LARS.",
     "consensus_contested": true,
     "curation_contested": true,
@@ -827,6 +838,7 @@
     "mechanism_beginner": "The switched-on Rag proteins grab mTORC1 and drag it to the lysosome. This moves it into place; it doesn't turn it on by itself.",
     "context": null,
     "boundary": "Rag paralogues are not interchangeable: RagC/D sets substrate specificity downstream (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding, while both Rags are involved for non-lysosomal substrates like S6K), and RagA/B sets the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even when starved) — GOL2022.",
+    "boundary_tags": [],
     "note": "The conceptual crux of the whole route: teach recruitment vs activation as two separate ideas.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -890,6 +902,7 @@
     "mechanism_beginner": "Ragulator anchors the Rag proteins to the lysosome and also helps flip them into their \"on\" shape, together with a second protein, SLC38A9. Both jobs are shown in biochemical experiments.",
     "context": null,
     "boundary": "Human cells, Drosophila and purified recombinant proteins (BAR2012, SAN2010, SHE2018B). The exchange activity was first assigned to RagA/B and later to RagC, so the exact step is still being refined. Whole-animal and human relevance are not tested here.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -946,6 +959,7 @@
     "mechanism_beginner": "SLC38A9 sits in the lysosome's wall, senses arginine inside, and then flips RagA into its \"on\" shape, telling the Rag proteins there's enough.",
     "context": null,
     "boundary": "Mammalian cell studies and purified-protein work (REB2015, WAN2015, JUN2015, WYA2017, SHE2018B). Cell and biochemical evidence; whole-animal and human relevance are not tested here.",
+    "boundary_tags": [],
     "note": "Five independent studies - one of the best-supported edges in the sensor branch.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1004,6 +1018,9 @@
     "mechanism_beginner": "Without amino acids, the Rags bring the TSC brake to the lysosome.",
     "context": null,
     "boundary": "Mammalian cell lines under acute amino-acid withdrawal; the contribution of this route in tissues is not established. Single study.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,

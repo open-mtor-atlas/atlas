@@ -809,6 +809,67 @@
      }
     ]
    },
+   "QuestionReference": {
+    "type": "object",
+    "required": [
+     "role",
+     "label",
+     "supports",
+     "in_corpus"
+    ],
+    "properties": {
+     "role": {
+      "type": "string",
+      "enum": [
+       "direct",
+       "related",
+       "inference",
+       "assumption"
+      ],
+      "description": "direct = direct evidence for a premise; related = related evidence; inference = indirect mechanistic inference; assumption = a premise with no verified citation yet."
+     },
+     "label": {
+      "type": "string"
+     },
+     "supports": {
+      "type": "string"
+     },
+     "sid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "doi": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "registry": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "in_corpus": {
+      "type": "boolean",
+      "description": "True when the Atlas holds the paper as a study (sid is set)."
+     },
+     "url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
    "ExternalRef": {
     "type": "object",
     "required": [
@@ -1043,6 +1104,13 @@
        "null"
       ]
      },
+     "boundary_tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Machine-readable limits on where the relation holds, e.g. sex-specific, dose-dependent, cell-line-only, tissue-specific, nutrient-state-dependent, single-study, single-species, direction-contested. An empty list means no tag has been recorded; it does NOT mean the relation holds without limits. The free-text boundary is the complete statement and is present on every relation."
+     },
      "contested": {
       "type": "boolean",
       "description": "Deprecated alias of consensus_contested, kept for compatibility. Read consensus_contested or curation_contested instead - they are different axes."
@@ -1265,6 +1333,41 @@
       "items": {
        "type": "string"
       }
+     },
+     "relation_note": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Frontier questions only. How this question relates to the other frontier questions, so overlapping questions are not read as variants of one."
+     },
+     "gap_status": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Frontier questions only. Whether the claimed gap in the literature has been confirmed by a logged search. status is probable-gap, partly-answered or not-documented; basis says what was searched.",
+      "properties": {
+       "status": {
+        "type": "string"
+       },
+       "label": {
+        "type": "string"
+       },
+       "basis": {
+        "type": "string"
+       },
+       "checked": {
+        "type": "string"
+       }
+      }
+     },
+     "references": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/QuestionReference"
+      },
+      "description": "Frontier questions only. The papers the question rests on, each with the role it plays. The role is the curator's reading and has not been checked by a second reader."
      },
      "external_refs": {
       "type": "array",

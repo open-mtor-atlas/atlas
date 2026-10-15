@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -190,6 +190,10 @@
     "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
     "context": null,
     "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": true,
     "curation_contested": true,
@@ -247,6 +251,10 @@
     "mechanism_beginner": "Metformin can also block mTORC1 through a separate route that doesn't need AMPK – a route often left out of the simple \"metformin works via AMPK\" story. This was shown in cells and mice, often at doses higher than patients take, and how much each route matters in people is not known.",
     "context": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
     "boundary": "Runs in parallel with METFORMIN-AMPK, not instead of it. The relative weight of the two routes in humans is unresolved.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study"
+    ],
     "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK. 2026-10-10: beginner text given the dose and species caveat that the expert text carries.",
     "consensus_contested": true,
     "curation_contested": true,

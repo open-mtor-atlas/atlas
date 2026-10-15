@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -1873,6 +1873,7 @@
     "mechanism_beginner": "Rapamycin doesn't work alone – it first has to team up with a helper protein called FKBP12.",
     "context": null,
     "boundary": "X-ray crystallography and in vitro work on bovine, rat and mouse material (CHO1996, BRO1994, SAB1995). Describes drug binding in purified systems; it says nothing about dose or effect in patients.",
+    "boundary_tags": [],
     "note": "The molecular-glue concept - genuinely surprising to newcomers.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1929,6 +1930,10 @@
     "mechanism_beginner": "In a clinical trial, rapamycin stabilised lung function in a rare lung disease while patients kept taking it – the decline came back once they stopped.",
     "context": null,
     "boundary": "Benefit is suppressive: lung function declined again after withdrawal.",
+    "boundary_tags": [
+     "reversible-on-withdrawal",
+     "single-study"
+    ],
     "note": "Added 2026-07-29. EVE-LAM previously carried this claim on a trial whose endpoint was renal angiomyolipoma.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1983,6 +1988,11 @@
     "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
     "context": null,
     "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
+    "boundary_tags": [
+     "dose-dependent",
+     "sex-specific",
+     "single-species"
+    ],
     "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -2041,6 +2051,10 @@
     "mechanism_beginner": "Rapamycin doesn't touch mTORC2 right away, but over days it stops new mTORC2 from being built.",
     "context": null,
     "boundary": "Strictly time- and cell-type-dependent: absent acutely, present after prolonged exposure, and the sensitivity varies between cell lines. LAM2012 shows the same loss of mTORC2 signalling in mouse liver in vivo, so this is not a cell-culture-only phenomenon. Treating this edge as unconditional is a common error.",
+    "boundary_tags": [
+     "time-dependent",
+     "tissue-specific"
+    ],
     "note": "THE key context-dependent edge. Should render dashed with an explicit 'chronic only' label. 2026-10-09: Interaction type changed complex-disassembly -> complex-assembly. Prolonged rapamycin prevents assembly of NEW mTORC2 (SAR2006); it does not disassemble existing complexes, so 'disassembly' was the wrong mechanism word. Sign stays 'inhibits' (it inhibits assembly).",
     "consensus_contested": false,
     "curation_contested": false,
@@ -2096,6 +2110,7 @@
     "mechanism_beginner": "Rapamycin, carried by its helper protein FKBP12, jams part of mTORC1 – it blocks some of what mTORC1 does but not all of it.",
     "context": null,
     "boundary": "Directness is graded indirect because the mechanism requires FKBP12, as for everolimus and the bi-sterics. Acute effect only; the chronic effect on mTORC2 is the separate RAPA-MTORC2 edge.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,

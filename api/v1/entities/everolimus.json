@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -541,6 +541,9 @@
     "mechanism_beginner": "Adding everolimus to hormone therapy roughly doubled the time before certain advanced breast cancers got worse.",
     "context": null,
     "boundary": "Progression-free survival, in combination with exemestane - overall survival was not significantly improved.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": "Say PFS, not survival. The distinction is the whole argument of this Atlas.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -595,6 +598,12 @@
     "mechanism_beginner": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
     "context": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
     "boundary": "Dose-dependent and duration-dependent: this is not the immunosuppressive regimen. The corpus supports an improved vaccine response under one regimen, not improved immune function in general. MAN2021 is recorded as conflicting for two reasons, and the earlier wording here got the first one wrong. Its phase 3 arm tested RTB101 monotherapy - a different drug, ATP-competitive rather than rapamycin-like - and found no reduction in clinically symptomatic respiratory illness. But the same paper's phase 2b part 2 DID include everolimus: 115 participants were randomised to RTB101 10 mg plus everolimus 0.1 mg daily, and that arm did not reach significance in the first prespecified analysis of the primary endpoint. So the randomised everolimus-containing evidence in MAN2021 points away from benefit as well, at a different dose and in a different population from MAN2014, rather than being irrelevant to this edge. Note also that the positive RTB101 10 mg result in that paper comes from a second prespecified analysis pooling parts 1 and 2, not from the first.",
+    "boundary_tags": [
+     "direction-contested",
+     "dose-dependent",
+     "single-study",
+     "time-dependent"
+    ],
     "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
     "consensus_contested": true,
     "curation_contested": true,
@@ -651,6 +660,9 @@
     "mechanism_beginner": "In another trial, everolimus shrank kidney growths in patients with tuberous sclerosis or a related lung disease, working in 42% of patients versus 0% on placebo.",
     "context": null,
     "boundary": "Scope: the endpoint was the kidney lesion, not LAM lung disease, which is why this arrow lands on the angiomyolipoma and not on LAM. The evidence that mTOR inhibition treats the lung disease itself is the MILES trial with sirolimus - see the RAPA-LAM edge.",
+    "boundary_tags": [
+     "tissue-specific"
+    ],
     "note": "Rescoped 2026-07-29: this edge previously read as though everolimus had been shown to treat LAM.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -706,6 +718,7 @@
     "mechanism_beginner": "Everolimus is rapamycin with a small chemical tweak that makes it easier to take as a pill – same mechanism, better drug.",
     "context": null,
     "boundary": "Clinical evidence from phase 3 trials of everolimus in specific diseases (kidney cancer, breast cancer, pancreatic neuroendocrine tumours, TSC and LAM) at the doses used for those diseases. It does not speak to low-dose use in healthy ageing.",
+    "boundary_tags": [],
     "note": "Six trials behind one arrow. They establish the clinical effect of the drug; the allosteric mechanism itself rests on the rapamycin biochemistry.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -766,6 +779,9 @@
     "mechanism_beginner": "In a trial, everolimus more than doubled the time before advanced pancreatic neuroendocrine tumours got worse.",
     "context": null,
     "boundary": "One phase 3 trial (RADIANT-3, n=410) in advanced pancreatic neuroendocrine tumours. The result applies to that disease, stage and dose, and it is a progression-free survival result.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -820,6 +836,9 @@
     "mechanism_beginner": "In a clinical trial, everolimus roughly doubled the time before advanced kidney cancer got worse, after other treatments had stopped working.",
     "context": null,
     "boundary": "Second-line setting, after VEGF-targeted therapy - not first-line.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -874,6 +893,9 @@
     "mechanism_beginner": "In patients with the genetic disease tuberous sclerosis, everolimus shrank both brain and kidney tumours. It works one step downstream of the mutation: it replaces the brake the mutation removed, so the tumours shrink while the drug is given and regrow when it stops. The mutation itself is untouched.",
     "context": null,
     "boundary": "Lesions regrow when the drug is stopped - this is suppression, not cure.",
+    "boundary_tags": [
+     "reversible-on-withdrawal"
+    ],
     "note": "The purest case in the Atlas: known gene, known pathway, matched drug, randomised evidence.",
     "consensus_contested": false,
     "curation_contested": false,

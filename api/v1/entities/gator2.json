@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Pathway/Complex",
   "synonyms": [],
   "description": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.",
-  "study_count": 4,
+  "study_count": 6,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/complex/gator2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/gator2.json",
@@ -117,6 +117,52 @@
     "finding": "Cryo-EM structure of human GATOR2: a 1.1 MDa, two-fold symmetric cage built on an octagonal scaffold decorated with eight pairs of WD40 beta-propellers, and a map of where Sestrin2 and CASTOR1 dock. It substantially advances the GATOR2 side of the sensor module, though how GATOR2 inhibits GATOR1 is still not fully settled.",
     "url": "https://mtor-atlas.org/study/VAL2022/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2022.json"
+   },
+   {
+    "sid": "VAL2025",
+    "title": "Structural basis for the dynamic regulation of mTORC1 by amino acids",
+    "authors": "Valenstein ML; Wranik M; Lalgudi PV; Linde-Garelli KY; Choi Y; Chivukula RR; Sabatini DM; Rogala KB",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09428-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "40836086",
+    "pmcid": "PMC12507694",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 with Sestrin2 or CASTOR1 (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structures of a stabilised GATOR2 cage bound to the leucine sensor Sestrin2 or the arginine sensor CASTOR1, plus a structure of leucine-free (apo) Sestrin2, a form that had not been resolved before. The two sensors sit on separate, non-overlapping sites on GATOR2, and mutating those sites selectively blunts mTORC1's response to one amino acid but not the other. When leucine or arginine binds, each sensor changes shape and lets go of GATOR2; while a sensor is attached it holds the mobile WDR24 beta-propeller of GATOR2 in place, a domain needed for nutrient-dependent mTORC1 activation. This shows physically how 'amino acid present' is passed to GATOR2. Boundary: purified human proteins and HEK293T cells — a structural and biochemical model, not a measurement in animals or people. The authors note that some features seen in the Sestrin2 complex may be induced by GATOR2 binding rather than by loss of leucine.",
+    "url": "https://mtor-atlas.org/study/VAL2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2025.json"
+   },
+   {
+    "sid": "JAN2025",
+    "title": "Structural basis for mTORC1 regulation by the CASTOR1-GATOR2 complex",
+    "authors": "Jansen RM; Maghe C; Tapia K; Wu S; Yang S; Ren X; Zoncu R; Hurley JH",
+    "year": 2025,
+    "journal": "Nature Structural & Molecular Biology",
+    "doi": "10.1038/s41594-025-01635-0",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "40715445",
+    "pmcid": "PMC12477443",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 with an arginine-free (apo-locked) CASTOR1 mutant (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of human GATOR2 bound to the arginine-free state of CASTOR1 (3.89 A overall, 3.02-3.72 A after local refinement). Two MIOS beta-propellers of the GATOR2 cage each grip one subunit of the CASTOR1 dimer through a negatively charged surface far from the arginine pocket. Comparing with earlier CASTOR1 structures, arginine binding makes a loop in CASTOR1 fold over that surface, so CASTOR1 can no longer hold GATOR2 and the signal passes on to mTORC1. In HEK293T cells, point mutations on either side of the interface weakened the CASTOR1-GATOR2 interaction, and CASTOR1 mutants could not restore arginine-dependent control of S6K1 phosphorylation. Boundary: purified human proteins, an arginine-free state mimicked by a mutant CASTOR1, and HEK293T cells — a structural and biochemical model, not a measurement in animals or people.",
+    "url": "https://mtor-atlas.org/study/JAN2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JAN2025.json"
    }
   ],
   "relations": [
@@ -143,7 +189,8 @@
     "mechanism": "Arginine-free CASTOR1 binds GATOR2 and inhibits it, so the pathway stays off until arginine is available.",
     "mechanism_beginner": "Without arginine, CASTOR1 holds onto GATOR2 and keeps the pathway switched off.",
     "context": null,
-    "boundary": "Human cell biochemistry and structure (CHA2016, SAX2016). The binding is shown in cells; there is no whole-animal or human test in the cited studies.",
+    "boundary": "Human cell biochemistry and structure (CHA2016, SAX2016), plus 2025 cryo-EM structures of CASTOR1 bound to GATOR2 (VAL2025, JAN2025). The binding is shown in cells and in purified proteins; there is no whole-animal or human test in the cited studies.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -161,7 +208,9 @@
      },
      "supporting": [
       "CHA2016",
-      "SAX2016"
+      "SAX2016",
+      "VAL2025",
+      "JAN2025"
      ],
      "conflicting": []
     },
@@ -199,6 +248,7 @@
     "mechanism_beginner": "Everyone agrees GATOR2 holds GATOR1 back when amino acids are around. Exactly how it does it is not settled by the work this Atlas holds, and the gap is left visible on purpose.",
     "context": null,
     "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+    "boundary_tags": [],
     "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -254,7 +304,8 @@
     "mechanism": "When leucine is scarce, free Sestrin2 clamps onto GATOR2 and blocks it, keeping the whole pathway switched off.",
     "mechanism_beginner": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
     "context": null,
-    "boundary": "Mammalian cell studies (CHA2014, PAR2014, WOL2015). Shows leucine sensing in cultured cells; the importance of this sensor in whole animals and people is not tested by these studies.",
+    "boundary": "Mammalian cell studies (CHA2014, PAR2014, WOL2015) and a cryo-EM structure of the Sestrin2-GATOR2 complex (VAL2025). Shows leucine sensing in cultured cells and where the sensor docks on GATOR2; the importance of this sensor in whole animals and people is not tested by these studies.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -273,7 +324,8 @@
      "supporting": [
       "CHA2014",
       "PAR2014",
-      "WOL2015"
+      "WOL2015",
+      "VAL2025"
      ],
      "conflicting": []
     },

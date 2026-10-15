@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -24,6 +24,117 @@
    "H2",
    "H3",
    "H4"
+  ],
+  "relation_note": "Amplitude, duration (F1) and location (F3) are each a candidate way for a cell to select among outputs.",
+  "gap_status": {
+   "status": "not-documented",
+   "label": "Gap not yet confirmed by a logged literature search",
+   "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+   "checked": "2026-10-15"
+  },
+  "studies": [
+   "KAN2013",
+   "NAP2020",
+   "SEL2009",
+   "ZID2009",
+   "SCH2025"
+  ],
+  "references": [
+   {
+    "role": "direct",
+    "label": "Kang et al. 2013",
+    "supports": "Phosphorylation sites differ in how sensitive they are to mTORC1 inhibition and starvation, so partial inhibition removes poor substrates first.",
+    "sid": "KAN2013",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/KAN2013/"
+   },
+   {
+    "role": "direct",
+    "label": "Napolitano et al. 2020",
+    "supports": "TFEB is phosphorylated by a RagC/D-dependent route that S6K1 and 4E-BP1 do not need.",
+    "sid": "NAP2020",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/NAP2020/"
+   },
+   {
+    "role": "related",
+    "label": "Selman et al. 2009",
+    "supports": "S6K1 deletion extends lifespan in female mice, a single-output manipulation.",
+    "sid": "SEL2009",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/SEL2009/"
+   },
+   {
+    "role": "related",
+    "label": "Zid et al. 2009",
+    "supports": "4E-BP mediates lifespan extension under dietary restriction in flies.",
+    "sid": "ZID2009",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/ZID2009/"
+   },
+   {
+    "role": "related",
+    "label": "Mahauad-Fernandez et al. 2025",
+    "supports": "Bi-steric inhibitors are designed to add suppression of 4E-BP1 phosphorylation to mTORC1 selectivity.",
+    "sid": null,
+    "pmid": "40803322",
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40803322/"
+   },
+   {
+    "role": "related",
+    "label": "Schram et al. 2025",
+    "supports": "Phase 1 human trial of a bi-steric mTORC1 inhibitor in advanced solid tumours. It says nothing about lifespan.",
+    "sid": "SCH2025",
+    "pmid": "41056387",
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/SCH2025/"
+   },
+   {
+    "role": "assumption",
+    "label": "4E-BP1 and S6K1 arms in muscle",
+    "supports": "The text says activating 4E-BP1 rescues a sarcopenia model while deleting S6K1 does not. No citation is given yet.",
+    "sid": null,
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": null
+   }
+  ],
+  "external_refs": [
+   {
+    "pmid": "40803322",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40803322/"
+   },
+   {
+    "pmid": "41056387",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41056387/"
+   }
   ],
   "url": "https://mtor-atlas.org/questions/frontier/which-mtorc1-outputs-actually-carry-ageing/",
   "api_url": "https://mtor-atlas.org/api/v1/questions/F2.json"

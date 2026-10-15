@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "VAL2025",
+  "title": "Structural basis for the dynamic regulation of mTORC1 by amino acids",
+  "authors": "Valenstein ML; Wranik M; Lalgudi PV; Linde-Garelli KY; Choi Y; Chivukula RR; Sabatini DM; Rogala KB",
+  "year": 2025,
+  "journal": "Nature",
+  "doi": "10.1038/s41586-025-09428-7",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "40836086",
+  "pmcid": "PMC12507694",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human GATOR2 with Sestrin2 or CASTOR1 (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+  "peer_reviewed": true,
+  "finding": "Cryo-EM structures of a stabilised GATOR2 cage bound to the leucine sensor Sestrin2 or the arginine sensor CASTOR1, plus a structure of leucine-free (apo) Sestrin2, a form that had not been resolved before. The two sensors sit on separate, non-overlapping sites on GATOR2, and mutating those sites selectively blunts mTORC1's response to one amino acid but not the other. When leucine or arginine binds, each sensor changes shape and lets go of GATOR2; while a sensor is attached it holds the mobile WDR24 beta-propeller of GATOR2 in place, a domain needed for nutrient-dependent mTORC1 activation. This shows physically how 'amino acid present' is passed to GATOR2. Boundary: purified human proteins and HEK293T cells — a structural and biochemical model, not a measurement in animals or people. The authors note that some features seen in the Sestrin2 complex may be induced by GATOR2 binding rather than by loss of leucine.",
+  "url": "https://mtor-atlas.org/study/VAL2025/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2025.json",
+  "abstract_excerpt": null,
+  "abstract_truncated": false,
+  "extracted_findings": {
+   "intervention": "None (structural study); sensor-site mutants for validation",
+   "target": "GATOR2 complex with Sestrin2 and CASTOR1 binding sites; WDR24 beta-propeller",
+   "species": "Human proteins (cryo-EM); HEK293T cells (mutant validation)",
+   "effect": "Sestrin2 and CASTOR1 occupy distinct sites on GATOR2 and restrict its WDR24 propeller; amino-acid binding changes each sensor's shape and releases it from GATOR2"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "gator2",
+    "name": "GATOR2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "castor1",
+    "name": "CASTOR1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ARG-CASTOR1",
+    "CASTOR1-GATOR2",
+    "LEU-SESN2",
+    "SESN2-GATOR2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "VAL2022",
+   "CHA2016",
+   "JAN2025",
+   "WOLF2017"
+  ]
+ }
+}

@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Direct intracellular leucine sensor and a NEGATIVE regulator of mTORC1. When leucine is scarce, Sestrin2 binds and inhibits GATOR2, so GATOR1 stays active and keeps mTORC1 switched off. Leucine binding (~20 uM affinity) releases GATOR2 - the pathway is switched on by removing a brake, not by adding a signal. Sestrin2 does not act on the Rag GTPases directly; it works two steps upstream, through GATOR2 and GATOR1.",
-  "study_count": 7,
+  "study_count": 8,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/gene/sestrin2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/sestrin2.json",
@@ -186,6 +186,29 @@
     "finding": "Cryo-EM structure of human GATOR2: a 1.1 MDa, two-fold symmetric cage built on an octagonal scaffold decorated with eight pairs of WD40 beta-propellers, and a map of where Sestrin2 and CASTOR1 dock. It substantially advances the GATOR2 side of the sensor module, though how GATOR2 inhibits GATOR1 is still not fully settled.",
     "url": "https://mtor-atlas.org/study/VAL2022/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2022.json"
+   },
+   {
+    "sid": "VAL2025",
+    "title": "Structural basis for the dynamic regulation of mTORC1 by amino acids",
+    "authors": "Valenstein ML; Wranik M; Lalgudi PV; Linde-Garelli KY; Choi Y; Chivukula RR; Sabatini DM; Rogala KB",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09428-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "40836086",
+    "pmcid": "PMC12507694",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 with Sestrin2 or CASTOR1 (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structures of a stabilised GATOR2 cage bound to the leucine sensor Sestrin2 or the arginine sensor CASTOR1, plus a structure of leucine-free (apo) Sestrin2, a form that had not been resolved before. The two sensors sit on separate, non-overlapping sites on GATOR2, and mutating those sites selectively blunts mTORC1's response to one amino acid but not the other. When leucine or arginine binds, each sensor changes shape and lets go of GATOR2; while a sensor is attached it holds the mobile WDR24 beta-propeller of GATOR2 in place, a domain needed for nutrient-dependent mTORC1 activation. This shows physically how 'amino acid present' is passed to GATOR2. Boundary: purified human proteins and HEK293T cells — a structural and biochemical model, not a measurement in animals or people. The authors note that some features seen in the Sestrin2 complex may be induced by GATOR2 binding rather than by loss of leucine.",
+    "url": "https://mtor-atlas.org/study/VAL2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2025.json"
    }
   ],
   "relations": [
@@ -213,7 +236,8 @@
     "mechanism": "Leucine binds a pocket inside Sestrin2 with roughly 20 uM affinity - close to the concentration at which cells actually feel leucine coming and going. The bound sensor can no longer hold GATOR2, so leucine effectively switches the brake off.",
     "mechanism_beginner": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
     "context": null,
-    "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested. SHIM2026 is a 2026 rat study (dexamethasone-induced muscle atrophy, not an ageing model) with human myotubes; it tests a leucine-mimetic prodrug and supports Sestrin2-dependent mTORC1 activation, not the 20 uM leucine setpoint.",
+    "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested. VAL2025 (2025 cryo-EM) shows the leucine-induced shape change in Sestrin2 that releases GATOR2, again in purified protein and cultured cells. SHIM2026 is a 2026 rat study (dexamethasone-induced muscle atrophy, not an ageing model) with human myotubes; it tests a leucine-mimetic prodrug and supports Sestrin2-dependent mTORC1 activation, not the 20 uM leucine setpoint.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -232,7 +256,8 @@
      "supporting": [
       "WOL2015",
       "SAX2015",
-      "SHIM2026"
+      "SHIM2026",
+      "VAL2025"
      ],
      "conflicting": []
     },
@@ -270,6 +295,10 @@
     "mechanism_beginner": "The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.",
     "context": null,
     "boundary": "Fly only, and the readout is age-related pathology: survival was never measured. No mammalian sensor-to-ageing evidence exists in this corpus.",
+    "boundary_tags": [
+     "single-species",
+     "single-study"
+    ],
     "note": "Added 2026-07-29. Gap H1 previously asserted the sensors link to ZERO ageing outcomes, which was true of the corpus but not of the literature.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -323,7 +352,8 @@
     "mechanism": "When leucine is scarce, free Sestrin2 clamps onto GATOR2 and blocks it, keeping the whole pathway switched off.",
     "mechanism_beginner": "When there's no leucine, Sestrin2 grabs onto GATOR2 and holds the whole growth pathway shut.",
     "context": null,
-    "boundary": "Mammalian cell studies (CHA2014, PAR2014, WOL2015). Shows leucine sensing in cultured cells; the importance of this sensor in whole animals and people is not tested by these studies.",
+    "boundary": "Mammalian cell studies (CHA2014, PAR2014, WOL2015) and a cryo-EM structure of the Sestrin2-GATOR2 complex (VAL2025). Shows leucine sensing in cultured cells and where the sensor docks on GATOR2; the importance of this sensor in whole animals and people is not tested by these studies.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -342,7 +372,8 @@
      "supporting": [
       "CHA2014",
       "PAR2014",
-      "WOL2015"
+      "WOL2015",
+      "VAL2025"
      ],
      "conflicting": []
     },

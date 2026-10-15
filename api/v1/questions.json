@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -423,7 +423,7 @@
    "still_open": "Necessity, still untested in any mammal. The mammalian evidence runs one way only: raising autophagy extends life (Becn1-F121A knock-in, Fernandez, Nature 2018, PMID 29849149; Atg5 overexpression, +17.2% median, Pyo, Nat Commun 2013, PMID 23939249). Sufficiency is shown; necessity is not.",
    "hypothesis": "Autophagy is necessary: rapamycin will FAIL to extend lifespan in autophagy-deficient (e.g. inducible Atg7-KO) mice.",
    "hypothesis_beginner": "Educated guess: autophagy is actually required – mice that can't perform autophagy should get no lifespan benefit from rapamycin, even though the drug still works everywhere else.",
-   "how_to_test": "Occlusion rather than ablation. Does rapamycin still extend lifespan in Becn1-F121A mice, which carry ENHANCED basal autophagy and are healthy? Note the wording: the cited work reports enhanced basal autophagy, not a demonstrated saturation ceiling, so the experiment cannot be read as adding rapamycin on top of a maximum. Define the three questions separately before running it, because they are different estimands and one design does not answer all three: NECESSITY (does blocking autophagy abolish the benefit), SUFFICIENCY (does raising autophagy alone reproduce it) and MEDIATED FRACTION (what share of the benefit runs through autophagy, which needs a mediation model, not a survival comparison). Read the result with care: additivity is only suggestive, not decisive. If rapamycin adds nothing on top of enhanced autophagy, that is consistent with autophagy carrying much of the benefit; but two interventions can be additive or non-additive for reasons unrelated to a shared mechanism (Gkioni, Nature Aging 2025, PMID 40437307), so the experiment narrows the question rather than settling the share. Use validated autophagic-flux measures rather than inferring flux from a genotype. Supporting designs: tissue-restricted Atg7 deletion, which survives into old age (Yuan, Aging Cell 2020, PMID 32212304), and autophagy-hypomorphic rather than null backgrounds. One caveat on the Becn1 line: its longevity phenotype is abolished by a chronic high-phosphate diet (Shi, FASEB J 2020, PMID 31908069), so diet must be controlled.",
+   "how_to_test": "PRIMARY ROUTE (necessity). Test whether blocking autophagy removes the benefit in a way an animal can survive for a lifespan study: tissue-restricted Atg7 deletion, which survives into old age (Yuan, Aging Cell 2020, PMID 32212304), or an autophagy-hypomorphic rather than null background. Whole-body inducible Atg7 deletion is not a usable design, because those mice die within months (see the card's update). Even the feasible designs answer a narrower question than the card title: necessity in one tissue, or under partial impairment, not necessity in the whole animal. Chronic rapamycin also inhibits mTORC2, so a failure in an autophagy-deficient animal would not by itself implicate autophagy. SECONDARY EXPERIMENT (occlusion, not ablation). Does rapamycin still extend lifespan in Becn1-F121A mice, which carry ENHANCED basal autophagy and are healthy? This cannot test necessity, which is why it is secondary. The cited work reports enhanced basal autophagy, not a demonstrated saturation ceiling, so the experiment cannot be read as adding rapamycin on top of a maximum. Define the three questions separately before running either design, because they are different estimands and one design does not answer all three: NECESSITY (does blocking autophagy abolish the benefit), SUFFICIENCY (does raising autophagy alone reproduce it) and MEDIATED FRACTION (what share of the benefit runs through autophagy, which needs a mediation model, not a survival comparison). Read the result with care: additivity is only suggestive, not decisive. If rapamycin adds nothing on top of enhanced autophagy, that is consistent with autophagy carrying much of the benefit; but two interventions can be additive or non-additive for reasons unrelated to a shared mechanism (Gkioni, Nature Aging 2025, PMID 40437307), so the experiment narrows the question rather than settling the share. Use validated autophagic-flux measures rather than inferring flux from a genotype. One caveat on the Becn1 line: its longevity phenotype is abolished by a chronic high-phosphate diet (Shi, FASEB J 2020, PMID 31908069), so diet must be controlled.",
    "studies": [
     "BJE2010",
     "HAN2008",
@@ -504,7 +504,8 @@
     "2026-10-03: EIS2016 added - mouse evidence that cardiomyocyte Atg5 is required for spermidine-induced cardioprotection and lifespan extension, addressing the necessity-of-autophagy question for a geroprotector other than rapamycin.",
     "2026-10-03: EIS2009 added - invertebrate necessity evidence that autophagy is required for a lifespan-extending intervention, leaving the mammalian necessity question and the rapamycin-specific case untouched (yeast, fly, worm and human immune cells; no mammalian lifespan data).",
     "2026-10-07: KEL2026 (Kell 2026, PMID 41524558) added to What_Changed - in human T cells rapamycin's anti-senescence effect was shown to bypass autophagy. Mechanism in cells only; the necessity-for-lifespan question is unchanged. Added because the card otherwise leaves the impression that no evidence separates a geroprotective rapamycin effect from autophagy (revision of all 17 cards against the literature).",
-    "2026-10-10: Audit A07 (remaining work). The proposed test described Becn1-F121A mice as carrying 'maximal basal autophagy'. Fernandez 2018 reports ENHANCED basal autophagy; enhanced is not an experimentally established maximum, and the saturation assumption was doing real work in how the result would be read. Corrected, and necessity, sufficiency and mediated fraction are now named as three separate estimands to be defined in advance, with validated flux measures rather than flux inferred from a genotype."
+    "2026-10-10: Audit A07 (remaining work). The proposed test described Becn1-F121A mice as carrying 'maximal basal autophagy'. Fernandez 2018 reports ENHANCED basal autophagy; enhanced is not an experimentally established maximum, and the saturation assumption was doing real work in how the result would be read. Corrected, and necessity, sufficiency and mediated fraction are now named as three separate estimands to be defined in advance, with validated flux measures rather than flux inferred from a genotype.",
+    "2026-10-15: External audit. The Becn1-F121A occlusion experiment was listed first although it cannot test necessity. It is now labelled secondary, and the primary route is tissue-restricted or hypomorphic autophagy impairment, with the limit that this answers a narrower question than the card title."
    ],
    "url": "https://mtor-atlas.org/question/is-autophagy-actually-required-for-the-mammalian-lifespan-benefit/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/H4.json"
@@ -942,13 +943,79 @@
    "evidence_stands_at": "Mechanism in cells",
    "gap": "Much of the literature reports mTORC1 as a level: phospho-S6K or phospho-4E-BP1 at one or a few time points, in a lysate, after a step change in nutrients. Live reporters such as TORCAR and AIMTOR and a growing number of time-resolved studies are changing that, but they are still the minority. A real cell rarely sees a clean step. It sees amino-acid pulses after meals, insulin and growth-factor pulses, mechanical load during exercise, and a circadian rhythm underneath all of it. If the pathway responds to the shape of that input and not only to its mean, an endpoint measurement captures part of the answer and misses the rest. That is a hypothesis, and the experiment below is designed so that it can fail.",
    "gap_beginner": "Much of the mTOR literature measures activity the way you would read a thermometer once: one number, from one moment, often right after the cell was given a sudden jolt of nutrients. That approach has taught us a lot, but real cells rarely get a single jolt. They get meals, exercise, sleep and waking, a rhythm. The hypothesis here is that the rhythm itself carries information. If it does, a single reading misses part of the answer. If it does not, the single reading is good enough, and that would be worth showing too.",
-   "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Nature 2025, structural basis for mTORC1 activation on the lysosomal membrane). A multi-step process has intermediate states, and intermediate states are one way a pathway could in principle tell a brief pulse from a sustained one. Whether mTORC1 actually uses them that way has not been tested.",
+   "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Cui et al., Nature 2025; CUI2025). A multi-step process has intermediate states, and intermediate states are one way a pathway could in principle tell a brief pulse from a sustained one. Whether mTORC1 actually uses them that way has not been tested.",
    "still_open": "Whether any downstream output actually reads pulse duration or frequency rather than integrated activity. The cleanest version: do autophagy and cap-dependent translation have different temporal filters, so that the same total mTORC1 activity delivered as one long pulse or several short ones produces different amounts of each? We have not found that comparison published in a mammalian cell.",
    "why_it_matters": "If true, it reframes intermittent dosing from a way of lowering exposure into a way of choosing which outputs you engage, and it puts feeding, exercise and circadian timing inside the pharmacology rather than beside it.",
    "how_to_test": "Optogenetic or chemogenetic control of mTORC1 activity in single cells, delivering matched total activity in different temporal patterns — one sustained pulse against several brief ones — with simultaneous live readouts of autophagic flux and of cap-dependent translation. The discriminating result is a divergence between the two outputs under equal integrated activity. A negative result would also be informative: within the cell types, readouts and range of patterns tested, it would support treating average activity as sufficient. It would not by itself settle the question for other tissues or for patterns outside the range tested.",
    "related_questions": [
     "H3",
     "H2"
+   ],
+   "relation_note": "The parent question. F6 tests it on the input side, F4 asks what it would mean for dosing schedules, and F7 is a separate question about which complex is inhibited as exposure lengthens.",
+   "gap_status": {
+    "status": "not-documented",
+    "label": "Gap not yet confirmed by a logged literature search",
+    "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "CUI2025"
+   ],
+   "references": [
+    {
+     "role": "inference",
+     "label": "Cui et al. 2025",
+     "supports": "Activation on the lysosomal membrane is a multi-step process. Intermediate states could in principle let a pathway tell a brief pulse from a sustained input; this paper does not test that.",
+     "sid": "CUI2025",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/CUI2025/"
+    },
+    {
+     "role": "related",
+     "label": "TORCAR (Zhou, Li, Zhang 2016, protocol)",
+     "supports": "A genetically encoded FRET reporter that follows mTORC1 activity in single living cells over time.",
+     "sid": null,
+     "pmid": "27925667",
+     "doi": "10.1002/cpch.11",
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/27925667/"
+    },
+    {
+     "role": "assumption",
+     "label": "AIMTOR reporter",
+     "supports": "Named in the text as a live reporter. No PubMed record was found for this name on 2026-10-15, so the citation is still to be added.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    },
+    {
+     "role": "assumption",
+     "label": "Time-resolved mTORC1 studies",
+     "supports": "The text says such studies are a growing minority; no list of them is given yet.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    }
+   ],
+   "external_refs": [
+    {
+     "pmid": "27925667",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/27925667/"
+    }
    ],
    "url": "https://mtor-atlas.org/questions/frontier/does-mtorc1-encode-information-in-dynamics-not-average-activity/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F1.json"
@@ -970,6 +1037,117 @@
     "H3",
     "H4"
    ],
+   "relation_note": "Amplitude, duration (F1) and location (F3) are each a candidate way for a cell to select among outputs.",
+   "gap_status": {
+    "status": "not-documented",
+    "label": "Gap not yet confirmed by a logged literature search",
+    "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "KAN2013",
+    "NAP2020",
+    "SEL2009",
+    "ZID2009",
+    "SCH2025"
+   ],
+   "references": [
+    {
+     "role": "direct",
+     "label": "Kang et al. 2013",
+     "supports": "Phosphorylation sites differ in how sensitive they are to mTORC1 inhibition and starvation, so partial inhibition removes poor substrates first.",
+     "sid": "KAN2013",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/KAN2013/"
+    },
+    {
+     "role": "direct",
+     "label": "Napolitano et al. 2020",
+     "supports": "TFEB is phosphorylated by a RagC/D-dependent route that S6K1 and 4E-BP1 do not need.",
+     "sid": "NAP2020",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/NAP2020/"
+    },
+    {
+     "role": "related",
+     "label": "Selman et al. 2009",
+     "supports": "S6K1 deletion extends lifespan in female mice, a single-output manipulation.",
+     "sid": "SEL2009",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/SEL2009/"
+    },
+    {
+     "role": "related",
+     "label": "Zid et al. 2009",
+     "supports": "4E-BP mediates lifespan extension under dietary restriction in flies.",
+     "sid": "ZID2009",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/ZID2009/"
+    },
+    {
+     "role": "related",
+     "label": "Mahauad-Fernandez et al. 2025",
+     "supports": "Bi-steric inhibitors are designed to add suppression of 4E-BP1 phosphorylation to mTORC1 selectivity.",
+     "sid": null,
+     "pmid": "40803322",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40803322/"
+    },
+    {
+     "role": "related",
+     "label": "Schram et al. 2025",
+     "supports": "Phase 1 human trial of a bi-steric mTORC1 inhibitor in advanced solid tumours. It says nothing about lifespan.",
+     "sid": "SCH2025",
+     "pmid": "41056387",
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/SCH2025/"
+    },
+    {
+     "role": "assumption",
+     "label": "4E-BP1 and S6K1 arms in muscle",
+     "supports": "The text says activating 4E-BP1 rescues a sarcopenia model while deleting S6K1 does not. No citation is given yet.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    }
+   ],
+   "external_refs": [
+    {
+     "pmid": "40803322",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40803322/"
+    },
+    {
+     "pmid": "41056387",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": true,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/41056387/"
+    }
+   ],
    "url": "https://mtor-atlas.org/questions/frontier/which-mtorc1-outputs-actually-carry-ageing/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F2.json"
   },
@@ -981,7 +1159,7 @@
    "evidence_stands_at": "Mechanism in cells",
    "gap": "The lysosome is usually described as the place mTORC1 sits. The 2025 structures show that full activation there is a stepwise assembly: Rag and Ragulator bring the complex to the membrane, Rheb brings it closer, and direct membrane contacts by mTOR and Raptor complete activation. Structure alone does not show that position changes what the kinase phosphorylates. There is functional evidence that at least one substrate depends on the route, though: TFEB phosphorylation requires amino-acid activation of RagC/D and is insensitive to Rheb activity, unlike S6K1 and 4E-BP1 (NAP2020). If access is positional more generally, two cells with identical total mTORC1 activity can be running different programmes, and no lysate will tell them apart.",
    "gap_beginner": "The lysosome is normally described as mTOR's parking space. There are reasons to think it is more like a workbench, where what the enzyme can reach depends on where and how it is docked. One of its targets, TFEB, is only switched off by mTORC1 when a particular docking route through the Rag proteins is active, while other targets do not need that route (Napolitano 2020). If location matters more broadly, two cells with the same amount of activity could be doing different jobs, and grinding them up to measure the total would hide exactly that.",
-   "changed_since_written": "Structures published in 2025 resolved both the assembly on the lysosomal membrane and the dynamic regulation by amino acids through the GATOR2, Sestrin2 and CASTOR1 interfaces (Nature 2025). The authors are explicit that how nutrient binding is converted into GATOR2 activation remains unresolved — so the mechanism is now detailed enough to generate positional predictions, and those predictions are untested.",
+   "changed_since_written": "Structures published in 2025 resolved both the assembly on the lysosomal membrane (Cui et al., CUI2025) and the dynamic regulation by amino acids through the GATOR2, Sestrin2 and CASTOR1 interfaces (Valenstein et al., VAL2025; Jansen et al., JAN2025). Sestrin2 and CASTOR1 sit on separate sites of GATOR2 and let go of it when their amino acid binds, so the physical hand-off from sensor to GATOR2 is now defined in detail. The VAL2025 authors name the structures of KICSTOR and SAMTOR as still missing. The mechanism is now detailed enough to generate positional predictions, and those predictions are untested.",
    "still_open": "Whether substrate identity actually depends on location in a living cell, as opposed to in a reconstituted system. The specific unanswered question: does the same amount of active mTORC1 produce a different substrate profile when it is tethered to the lysosome than when it is tethered elsewhere?",
    "why_it_matters": "It decides whether pathway-activity biomarkers can mean anything. A blood panel reports how much, and if the biology runs on where, the panel is measuring a quantity the cell does not use.",
    "how_to_test": "Forced relocalisation. Tether active mTORC1 to the lysosomal membrane, to the trans-Golgi and to the plasma membrane at matched activity, and read the substrate profile at each — S6K1, 4E-BP1, ULK1, TFEB. A differing profile at equal activity establishes that position is an independent variable; an identical profile retires the idea.",
@@ -989,6 +1167,66 @@
     "H5",
     "H1"
    ],
+   "relation_note": null,
+   "gap_status": {
+    "status": "not-documented",
+    "label": "Gap not yet confirmed by a logged literature search",
+    "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "NAP2020",
+    "CUI2025",
+    "VAL2025",
+    "JAN2025"
+   ],
+   "references": [
+    {
+     "role": "direct",
+     "label": "Napolitano et al. 2020",
+     "supports": "TFEB phosphorylation needs amino-acid activation of RagC/D and is insensitive to Rheb activity, unlike S6K1 and 4E-BP1. This is the functional evidence that a substrate depends on the route.",
+     "sid": "NAP2020",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/NAP2020/"
+    },
+    {
+     "role": "related",
+     "label": "Cui et al. 2025",
+     "supports": "Full activation on the lysosomal membrane is a stepwise assembly (Rag-Ragulator, then Rheb, then direct membrane contacts by mTOR and Raptor). A reconstituted structure, not a measurement in a living cell.",
+     "sid": "CUI2025",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/CUI2025/"
+    },
+    {
+     "role": "related",
+     "label": "Valenstein et al. 2025",
+     "supports": "Sestrin2 and CASTOR1 occupy separate sites on GATOR2 and release it when their amino acid binds. Purified proteins and HEK293T cells.",
+     "sid": "VAL2025",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/VAL2025/"
+    },
+    {
+     "role": "related",
+     "label": "Jansen et al. 2025",
+     "supports": "Structure of GATOR2 bound to arginine-free CASTOR1, showing how arginine releases it. Purified proteins and HEK293T cells.",
+     "sid": "JAN2025",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/JAN2025/"
+    }
+   ],
+   "external_refs": [],
    "url": "https://mtor-atlas.org/questions/frontier/is-mtor-signalling-decided-by-where-not-how-much/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F3.json"
   },
@@ -1008,6 +1246,108 @@
     "H3",
     "H2",
     "H7"
+   ],
+   "relation_note": "The dosing-schedule form of F1.",
+   "gap_status": {
+    "status": "probable-gap",
+    "label": "Probable gap",
+    "basis": "One logged PubMed search, October 2026 (rapamycin or everolimus combined with time-of-day, circadian or chronotherapy) found no lifespan study that varied the phase of dosing. PubMed only; preprints and trial registries were not searched.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "OKA2013",
+    "ARR2016"
+   ],
+   "references": [
+    {
+     "role": "related",
+     "label": "Okazaki et al. 2013",
+     "supports": "Everolimus given when tumour mTOR activity peaked improved survival of tumour-bearing mice. A tumour model, not an ageing model.",
+     "sid": "OKA2013",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/OKA2013/"
+    },
+    {
+     "role": "related",
+     "label": "Ozturk et al. 2018",
+     "supports": "Everolimus toxicity to the immune system depended on time of day in mice.",
+     "sid": null,
+     "pmid": "29400578",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/29400578/"
+    },
+    {
+     "role": "related",
+     "label": "Ozturk et al. 2021",
+     "supports": "Everolimus toxicity to the testes depended on time of day in mice.",
+     "sid": null,
+     "pmid": "34242751",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/34242751/"
+    },
+    {
+     "role": "related",
+     "label": "Elliehausen et al. 2025",
+     "supports": "Weekly and thrice-weekly rapamycin both preserved hypertrophy and grip strength in exercising mice; schedule mattered for glucose, not muscle.",
+     "sid": null,
+     "pmid": "40704394",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40704394/"
+    },
+    {
+     "role": "related",
+     "label": "Arriola Apelo et al. 2016",
+     "supports": "Intermittent rapamycin dosing extended lifespan in female C57BL/6J mice.",
+     "sid": "ARR2016",
+     "pmid": "27091134",
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/ARR2016/"
+    }
+   ],
+   "external_refs": [
+    {
+     "pmid": "29400578",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/29400578/"
+    },
+    {
+     "pmid": "34242751",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/34242751/"
+    },
+    {
+     "pmid": "40704394",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40704394/"
+    },
+    {
+     "pmid": "27091134",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": true,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/27091134/"
+    }
    ],
    "url": "https://mtor-atlas.org/questions/frontier/must-inhibition-match-the-bodys-own-rhythm/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F4.json"
@@ -1029,6 +1369,108 @@
     "H7",
     "H8"
    ],
+   "relation_note": null,
+   "gap_status": {
+    "status": "partly-answered",
+    "label": "Partly answered",
+    "basis": "Human trials exist in blood, brain, muscle and heart (see the references). The open part is placebo-controlled replication and measured target engagement.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "MAN2021",
+    "MOE2025"
+   ],
+   "references": [
+    {
+     "role": "direct",
+     "label": "Mannick et al. 2021",
+     "supports": "RTB101 (not rapamycin) upregulated interferon-induced antiviral genes and met the phase 2b infection endpoint, but did not reduce symptomatic respiratory illness in phase 3.",
+     "sid": "MAN2021",
+     "pmid": "33977284",
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/MAN2021/"
+    },
+    {
+     "role": "direct",
+     "label": "Gonzales et al. 2025",
+     "supports": "Rapamycin was undetectable in cerebrospinal fluid, with no cognitive change.",
+     "sid": null,
+     "pmid": "40394335",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40394335/"
+    },
+    {
+     "role": "related",
+     "label": "Svensson et al. 2025 (preprint)",
+     "supports": "No change in cerebral glucose metabolism on FDG-PET. Preprint; identifier still to be added.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    },
+    {
+     "role": "direct",
+     "label": "Moel et al. 2025",
+     "supports": "48 weeks of intermittent rapamycin raised lean mass in women.",
+     "sid": "MOE2025",
+     "pmid": "40188830",
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/MOE2025/"
+    },
+    {
+     "role": "direct",
+     "label": "Moody et al. 2025",
+     "supports": "Six men aged 70 to 76 on 1 mg rapamycin daily for eight weeks showed improved cardiac MRI flow measures and skin endothelial function. Open-label, no placebo arm, men only.",
+     "sid": null,
+     "pmid": "40971115",
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40971115/"
+    }
+   ],
+   "external_refs": [
+    {
+     "pmid": "33977284",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": true,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/33977284/"
+    },
+    {
+     "pmid": "40394335",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40394335/"
+    },
+    {
+     "pmid": "40188830",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": true,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40188830/"
+    },
+    {
+     "pmid": "40971115",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": false,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/40971115/"
+    }
+   ],
    "url": "https://mtor-atlas.org/questions/frontier/which-human-ageing-phenotypes-are-causally-reversible/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F5.json"
   },
@@ -1048,6 +1490,53 @@
     "H1",
     "H5"
    ],
+   "relation_note": "The input-side version of F1: F1 asks whether outputs read the pattern, F6 asks whether different input combinations with the same average produce different patterns in the first place.",
+   "gap_status": {
+    "status": "not-documented",
+    "label": "Gap not yet confirmed by a logged literature search",
+    "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "GOU2023",
+    "KAL2026"
+   ],
+   "references": [
+    {
+     "role": "related",
+     "label": "Goul, Peruzzo and Zoncu 2023",
+     "supports": "Review of how amino acids, growth factors, energy and stress signals reach mTORC1.",
+     "sid": "GOU2023",
+     "pmid": null,
+     "doi": "10.1038/s41580-023-00641-8",
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/GOU2023/"
+    },
+    {
+     "role": "related",
+     "label": "Kalafut et al. 2026",
+     "supports": "In mouse liver the post-meal rise of mTORC1 needs dietary protein, while insulin's AKT-TSC2 route explains the insulin response but not the feeding response.",
+     "sid": "KAL2026",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/KAL2026/"
+    },
+    {
+     "role": "assumption",
+     "label": "Live reporters of mTORC1, AMPK and AKT",
+     "supports": "The text says single-cell imaging makes kinetics recordable. No citation is given yet.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    }
+   ],
+   "external_refs": [],
    "url": "https://mtor-atlas.org/questions/frontier/do-different-inputs-give-the-same-average-but-different-dynamics/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F6.json"
   },
@@ -1066,6 +1555,108 @@
    "related_questions": [
     "H2",
     "H3"
+   ],
+   "relation_note": "Separate from F1, F4 and F6: it concerns which complex is inhibited as exposure lengthens, not the decoding of pulse patterns.",
+   "gap_status": {
+    "status": "not-documented",
+    "label": "Gap not yet confirmed by a logged literature search",
+    "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+    "checked": "2026-10-15"
+   },
+   "studies": [
+    "SAR2006",
+    "LAM2012",
+    "ARR2015",
+    "ARR2016"
+   ],
+   "references": [
+    {
+     "role": "direct",
+     "label": "Sarbassov et al. 2006",
+     "supports": "Prolonged rapamycin treatment blocks assembly of new mTORC2 and reduces Akt signalling in many cell types.",
+     "sid": "SAR2006",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/SAR2006/"
+    },
+    {
+     "role": "direct",
+     "label": "Lamming et al. 2012",
+     "supports": "Chronic rapamycin impairs glucose homeostasis in mice through mTORC2 disruption.",
+     "sid": "LAM2012",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/LAM2012/"
+    },
+    {
+     "role": "related",
+     "label": "Arriola Apelo et al. 2015",
+     "supports": "Regimens given every few days or weekly spared glucose tolerance and the immune system that daily dosing impaired, while still inhibiting mTORC1.",
+     "sid": "ARR2015",
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/ARR2015/"
+    },
+    {
+     "role": "related",
+     "label": "Arriola Apelo et al. 2016",
+     "supports": "Intermittent rapamycin dosing extended lifespan in female C57BL/6J mice.",
+     "sid": "ARR2016",
+     "pmid": "27091134",
+     "doi": null,
+     "registry": null,
+     "in_corpus": true,
+     "url": "https://mtor-atlas.org/study/ARR2016/"
+    },
+    {
+     "role": "related",
+     "label": "RAP PAC (NCT05949658)",
+     "supports": "Human trial that draws blood out to 168 hours after a weekly dose. Registered; no results cited.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": "NCT05949658",
+     "in_corpus": false,
+     "url": "https://clinicaltrials.gov/study/NCT05949658"
+    },
+    {
+     "role": "related",
+     "label": "RESTOR (NCT06658093)",
+     "supports": "Human trial comparing daily with intermittent dosing. Registered; no results cited.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": "NCT06658093",
+     "in_corpus": false,
+     "url": "https://clinicaltrials.gov/study/NCT06658093"
+    },
+    {
+     "role": "assumption",
+     "label": "S6K1 feedback on insulin signalling",
+     "supports": "The text says blocking mTORC1 can first raise AKT activity through relief of S6K1 feedback. No citation is given yet.",
+     "sid": null,
+     "pmid": null,
+     "doi": null,
+     "registry": null,
+     "in_corpus": false,
+     "url": null
+    }
+   ],
+   "external_refs": [
+    {
+     "pmid": "27091134",
+     "cited_in": [
+      "references"
+     ],
+     "in_corpus": true,
+     "url": "https://pubmed.ncbi.nlm.nih.gov/27091134/"
+    }
    ],
    "url": "https://mtor-atlas.org/questions/frontier/does-duration-of-inhibition-decide-which-complex-is-hit/",
    "api_url": "https://mtor-atlas.org/api/v1/questions/F7.json"

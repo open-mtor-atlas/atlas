@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -957,6 +957,7 @@
     "mechanism_beginner": "Akt tags PRAS40, which then gets pulled away from mTORC1 – a second way insulin releases a brake.",
     "context": null,
     "boundary": "Three 2007 studies in cultured mammalian cells. Not tested in whole animals or in people, and how much this branch adds beside Akt's route through TSC2 is not measured.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -1013,6 +1014,10 @@
     "mechanism_beginner": "Akt tags TSC2 to disable it. Growth signals work by releasing a brake, not by pressing a gas pedal.",
     "context": null,
     "boundary": "In mouse liver, Akt phosphorylation of TSC2 is the main route by which insulin switches on mTORC1, but feeding activates hepatic mTORC1 without it; that response needs dietary protein instead (KAL2026). The biochemical mechanism itself was shown in cultured human cells (INO2002).",
+    "boundary_tags": [
+     "nutrient-state-dependent",
+     "tissue-specific"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -1069,6 +1074,7 @@
     "mechanism_beginner": "mTORC2 adds the final activating tag to Akt – the same step that long-term use of the drug rapamycin eventually disrupts. In mice, that disruption is a major reason long-term rapamycin raises blood sugar.",
     "context": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
     "boundary": "Mammalian cell studies, cancer cells and one mouse and rat liver study (ARI2015). Ser473 phosphorylation is shown in cells. The glucose consequence of losing it comes from mouse work (LAM2012) and has not been measured in people.",
+    "boundary_tags": [],
     "note": "Bridge edge between the growth-factor route and the rapamycin route.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -1129,6 +1135,7 @@
     "mechanism_beginner": "That lipid pulls Akt to the cell membrane, where it gets switched on.",
     "context": "PIP3 recruits Akt; recruitment alone does not activate it. Full activation additionally needs PDK1 (T308) and mTORC2 (S473), so the strength of this link depends on the activity of both of those.",
     "boundary": "Mammalian cell study (LIU2015) plus a review (CAN2002). Cell biochemistry; not tested in whole animals or in people by the cited sources.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -1185,6 +1192,7 @@
     "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
     "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
     "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,

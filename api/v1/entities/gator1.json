@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -220,6 +220,7 @@
     "mechanism_beginner": "GATOR1 forces the Rag proteins into their \"off\" shape, so they can no longer hold onto mTORC1.",
     "context": null,
     "boundary": "Human cell biochemistry with cancer genomics (BAR2013) and a cryo-EM structure (SHE2018). GAP activity is shown on purified and cellular Rags; the cited studies do not test it in whole animals or in people.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -275,6 +276,7 @@
     "mechanism_beginner": "Everyone agrees GATOR2 holds GATOR1 back when amino acids are around. Exactly how it does it is not settled by the work this Atlas holds, and the gap is left visible on purpose.",
     "context": null,
     "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
+    "boundary_tags": [],
     "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -331,6 +333,7 @@
     "mechanism_beginner": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
     "context": null,
     "boundary": "Mammalian cell genetics (WOL2017, PEN2017). The dependency is shown in cultured cells; whole-animal and human relevance are not tested in the cited work.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -386,6 +389,9 @@
     "mechanism_beginner": "When methionine is low, SAMTOR teams up with GATOR1 to help keep mTORC1 switched off.",
     "context": null,
     "boundary": "One biochemical study in human cells (GU2017). A single study in cell culture; the consensus is emerging, not settled.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": "Only one supporting study in the corpus.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -440,6 +446,9 @@
     "mechanism_beginner": "Cholesterol is a building block the cell needs to grow, so the lysosome keeps track of how much it has. When there is plenty, it sticks to a sensor protein called LYCHOS, which then holds on to GATOR1, the brake that would otherwise stop mTORC1 being pulled to the lysosome. Brake held out of the way, the growth switch gets to work.",
     "context": null,
     "boundary": "Single-study edge in this corpus: human cell lines and biochemistry (SHI2022), with the binding interface supported by later cryo-EM structures outside this corpus (Bayly-Jones 2024, PMID 39358511; Zhao 2025, PMID 39824976). No animal or human endpoint, and no measurement of how much of lysosomal cholesterol sensing runs through this route as against the SLC38A9-NPC1 complex (CAS2017), which is a separate cholesterol input to the same machinery.",
+    "boundary_tags": [
+     "single-study"
+    ],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,

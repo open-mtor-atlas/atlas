@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -14,7 +14,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Direct cytosolic arginine sensor for the mTORC1 pathway; arginine binding releases its inhibition of GATOR2.",
-  "study_count": 4,
+  "study_count": 6,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/castor1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/castor1.json",
@@ -117,6 +117,52 @@
     "finding": "Cryo-EM structure of human GATOR2: a 1.1 MDa, two-fold symmetric cage built on an octagonal scaffold decorated with eight pairs of WD40 beta-propellers, and a map of where Sestrin2 and CASTOR1 dock. It substantially advances the GATOR2 side of the sensor module, though how GATOR2 inhibits GATOR1 is still not fully settled.",
     "url": "https://mtor-atlas.org/study/VAL2022/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2022.json"
+   },
+   {
+    "sid": "VAL2025",
+    "title": "Structural basis for the dynamic regulation of mTORC1 by amino acids",
+    "authors": "Valenstein ML; Wranik M; Lalgudi PV; Linde-Garelli KY; Choi Y; Chivukula RR; Sabatini DM; Rogala KB",
+    "year": 2025,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-025-09428-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "40836086",
+    "pmcid": "PMC12507694",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 with Sestrin2 or CASTOR1 (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structures of a stabilised GATOR2 cage bound to the leucine sensor Sestrin2 or the arginine sensor CASTOR1, plus a structure of leucine-free (apo) Sestrin2, a form that had not been resolved before. The two sensors sit on separate, non-overlapping sites on GATOR2, and mutating those sites selectively blunts mTORC1's response to one amino acid but not the other. When leucine or arginine binds, each sensor changes shape and lets go of GATOR2; while a sensor is attached it holds the mobile WDR24 beta-propeller of GATOR2 in place, a domain needed for nutrient-dependent mTORC1 activation. This shows physically how 'amino acid present' is passed to GATOR2. Boundary: purified human proteins and HEK293T cells — a structural and biochemical model, not a measurement in animals or people. The authors note that some features seen in the Sestrin2 complex may be induced by GATOR2 binding rather than by loss of leucine.",
+    "url": "https://mtor-atlas.org/study/VAL2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2025.json"
+   },
+   {
+    "sid": "JAN2025",
+    "title": "Structural basis for mTORC1 regulation by the CASTOR1-GATOR2 complex",
+    "authors": "Jansen RM; Maghe C; Tapia K; Wu S; Yang S; Ren X; Zoncu R; Hurley JH",
+    "year": 2025,
+    "journal": "Nature Structural & Molecular Biology",
+    "doi": "10.1038/s41594-025-01635-0",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "40715445",
+    "pmcid": "PMC12477443",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human GATOR2 with an arginine-free (apo-locked) CASTOR1 mutant (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of human GATOR2 bound to the arginine-free state of CASTOR1 (3.89 A overall, 3.02-3.72 A after local refinement). Two MIOS beta-propellers of the GATOR2 cage each grip one subunit of the CASTOR1 dimer through a negatively charged surface far from the arginine pocket. Comparing with earlier CASTOR1 structures, arginine binding makes a loop in CASTOR1 fold over that surface, so CASTOR1 can no longer hold GATOR2 and the signal passes on to mTORC1. In HEK293T cells, point mutations on either side of the interface weakened the CASTOR1-GATOR2 interaction, and CASTOR1 mutants could not restore arginine-dependent control of S6K1 phosphorylation. Boundary: purified human proteins, an arginine-free state mimicked by a mutant CASTOR1, and HEK293T cells — a structural and biochemical model, not a measurement in animals or people.",
+    "url": "https://mtor-atlas.org/study/JAN2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JAN2025.json"
    }
   ],
   "relations": [
@@ -143,7 +189,8 @@
     "mechanism": "Cytosolic arginine binds CASTOR1 and breaks its grip on GATOR2 - the same trick as leucine/Sestrin2, but for a different amino acid.",
     "mechanism_beginner": "Arginine sticks to CASTOR1 the same way leucine sticks to Sestrin2 – the same trick, for a different amino acid.",
     "context": null,
-    "boundary": "Human cells and structural work (CHA2016, SAX2016). Shows how arginine is sensed in cells. Whether this sensor matters for arginine supply in a whole animal or a person is not tested here.",
+    "boundary": "Human cells and structural work (CHA2016, SAX2016, VAL2025, JAN2025). The 2025 structures show how arginine binding changes CASTOR1 so that it lets go of GATOR2. Shows how arginine is sensed in cells and in purified proteins. Whether this sensor matters for arginine supply in a whole animal or a person is not tested here.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -161,7 +208,9 @@
      },
      "supporting": [
       "CHA2016",
-      "SAX2016"
+      "SAX2016",
+      "VAL2025",
+      "JAN2025"
      ],
      "conflicting": []
     },
@@ -198,7 +247,8 @@
     "mechanism": "Arginine-free CASTOR1 binds GATOR2 and inhibits it, so the pathway stays off until arginine is available.",
     "mechanism_beginner": "Without arginine, CASTOR1 holds onto GATOR2 and keeps the pathway switched off.",
     "context": null,
-    "boundary": "Human cell biochemistry and structure (CHA2016, SAX2016). The binding is shown in cells; there is no whole-animal or human test in the cited studies.",
+    "boundary": "Human cell biochemistry and structure (CHA2016, SAX2016), plus 2025 cryo-EM structures of CASTOR1 bound to GATOR2 (VAL2025, JAN2025). The binding is shown in cells and in purified proteins; there is no whole-animal or human test in the cited studies.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -216,7 +266,9 @@
      },
      "supporting": [
       "CHA2016",
-      "SAX2016"
+      "SAX2016",
+      "VAL2025",
+      "JAN2025"
      ],
      "conflicting": []
     },

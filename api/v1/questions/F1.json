@@ -2,8 +2,8 @@
  "meta": {
   "api_version": "1.0.0",
   "dataset_version": "2.0.1",
-  "corpus_snapshot": "2026-10-15T21:11:36+0200",
-  "source_commit": "c5fe3866bc4ae4ca0e11e03a7785ad54509b214b",
+  "corpus_snapshot": "2026-10-15T21:44:28+0200",
+  "source_commit": "4ce9cbb72a2c4ddd6d1d893d6ab295b84fdf5e41",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas. doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -16,13 +16,79 @@
   "evidence_stands_at": "Mechanism in cells",
   "gap": "Much of the literature reports mTORC1 as a level: phospho-S6K or phospho-4E-BP1 at one or a few time points, in a lysate, after a step change in nutrients. Live reporters such as TORCAR and AIMTOR and a growing number of time-resolved studies are changing that, but they are still the minority. A real cell rarely sees a clean step. It sees amino-acid pulses after meals, insulin and growth-factor pulses, mechanical load during exercise, and a circadian rhythm underneath all of it. If the pathway responds to the shape of that input and not only to its mean, an endpoint measurement captures part of the answer and misses the rest. That is a hypothesis, and the experiment below is designed so that it can fail.",
   "gap_beginner": "Much of the mTOR literature measures activity the way you would read a thermometer once: one number, from one moment, often right after the cell was given a sudden jolt of nutrients. That approach has taught us a lot, but real cells rarely get a single jolt. They get meals, exercise, sleep and waking, a rhythm. The hypothesis here is that the rhythm itself carries information. If it does, a single reading misses part of the answer. If it does not, the single reading is good enough, and that would be worth showing too.",
-  "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Nature 2025, structural basis for mTORC1 activation on the lysosomal membrane). A multi-step process has intermediate states, and intermediate states are one way a pathway could in principle tell a brief pulse from a sustained one. Whether mTORC1 actually uses them that way has not been tested.",
+  "changed_since_written": "Two things made this askable rather than merely sayable. Live single-cell reporters of mTORC1 activity now resolve minutes rather than hours, so the shape of a response can be observed rather than inferred from lysates. And the 2025 structural work showed that activation on the lysosomal membrane is a multi-step spatial process — Rag and Ragulator, then Rheb, then direct membrane engagement of mTOR and Raptor — rather than a single binary switch (Cui et al., Nature 2025; CUI2025). A multi-step process has intermediate states, and intermediate states are one way a pathway could in principle tell a brief pulse from a sustained one. Whether mTORC1 actually uses them that way has not been tested.",
   "still_open": "Whether any downstream output actually reads pulse duration or frequency rather than integrated activity. The cleanest version: do autophagy and cap-dependent translation have different temporal filters, so that the same total mTORC1 activity delivered as one long pulse or several short ones produces different amounts of each? We have not found that comparison published in a mammalian cell.",
   "why_it_matters": "If true, it reframes intermittent dosing from a way of lowering exposure into a way of choosing which outputs you engage, and it puts feeding, exercise and circadian timing inside the pharmacology rather than beside it.",
   "how_to_test": "Optogenetic or chemogenetic control of mTORC1 activity in single cells, delivering matched total activity in different temporal patterns — one sustained pulse against several brief ones — with simultaneous live readouts of autophagic flux and of cap-dependent translation. The discriminating result is a divergence between the two outputs under equal integrated activity. A negative result would also be informative: within the cell types, readouts and range of patterns tested, it would support treating average activity as sufficient. It would not by itself settle the question for other tissues or for patterns outside the range tested.",
   "related_questions": [
    "H3",
    "H2"
+  ],
+  "relation_note": "The parent question. F6 tests it on the input side, F4 asks what it would mean for dosing schedules, and F7 is a separate question about which complex is inhibited as exposure lengthens.",
+  "gap_status": {
+   "status": "not-documented",
+   "label": "Gap not yet confirmed by a logged literature search",
+   "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+   "checked": "2026-10-15"
+  },
+  "studies": [
+   "CUI2025"
+  ],
+  "references": [
+   {
+    "role": "inference",
+    "label": "Cui et al. 2025",
+    "supports": "Activation on the lysosomal membrane is a multi-step process. Intermediate states could in principle let a pathway tell a brief pulse from a sustained input; this paper does not test that.",
+    "sid": "CUI2025",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/CUI2025/"
+   },
+   {
+    "role": "related",
+    "label": "TORCAR (Zhou, Li, Zhang 2016, protocol)",
+    "supports": "A genetically encoded FRET reporter that follows mTORC1 activity in single living cells over time.",
+    "sid": null,
+    "pmid": "27925667",
+    "doi": "10.1002/cpch.11",
+    "registry": null,
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/27925667/"
+   },
+   {
+    "role": "assumption",
+    "label": "AIMTOR reporter",
+    "supports": "Named in the text as a live reporter. No PubMed record was found for this name on 2026-10-15, so the citation is still to be added.",
+    "sid": null,
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": null
+   },
+   {
+    "role": "assumption",
+    "label": "Time-resolved mTORC1 studies",
+    "supports": "The text says such studies are a growing minority; no list of them is given yet.",
+    "sid": null,
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": null
+   }
+  ],
+  "external_refs": [
+   {
+    "pmid": "27925667",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/27925667/"
+   }
   ],
   "url": "https://mtor-atlas.org/questions/frontier/does-mtorc1-encode-information-in-dynamics-not-average-activity/",
   "api_url": "https://mtor-atlas.org/api/v1/questions/F1.json"
