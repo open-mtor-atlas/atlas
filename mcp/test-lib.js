@@ -4,7 +4,7 @@
 // mTOR biology). Run: node test-lib.js
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
-import { Atlas, searchStudies, searchEntities, resolveEntity, findContradictions, listQuestions, atlasAbout, evidenceBetween } from './lib.js';
+import { Atlas, searchStudies, searchEntities, resolveEntity, findContradictions, listQuestions, atlasAbout, evidenceBetween, searchAuthors, getAuthor, findStudy } from './lib.js';
 import { createServer } from './tools.js';
 
 // ------------------------------------------------------------- synthetic data
@@ -55,6 +55,7 @@ globalThis.fetch = async (url) => {
   const wrap = (data) => ({ status: 200, ok: true, json: async () => ({ meta: site.meta, data }) });
   if (rel_ === 'meta.json') return { status: 200, ok: true, json: async () => ({ ...site.meta }) };
   if (['studies.json', 'entities.json', 'relations.json', 'questions.json'].includes(rel_)) return wrap(site[rel_.replace('.json', '')]);
+  if (['authors.json', 'search-index.json'].includes(rel_) && site[rel_]) return wrap(site[rel_]);
   const m = rel_.match(/^(entities|relations|questions)\/(.+)\.json$/);
   const hit = m && site[m[1]].find((x) => x.id === m[2]);
   if (hit) return wrap(m[1] === 'entities' ? { ...hit, studies: studies.slice(0, 3), relations: [] } : hit);
@@ -174,6 +175,37 @@ check('boundary is complete by default', lr(await findContradictions(at, {})).bo
 const bf = lr(await findContradictions(at, { brief: true }));
 check('brief shortens boundary and says so', bf.boundary.length < 300 && bf.text_truncated === true && /get_relation/.test((await findContradictions(at, { brief: true })).note));
 
+// ------------------- 9. search beyond the summary record (1.3.2, 15 Oct 2026)
+at = fresh();
+check('a missing search-index.json is fetched once per build', (await searchStudies(at, { query: 'leucine' }), await searchStudies(at, { query: 'leucine' }), fetches.filter((f) => f === 'search-index.json').length === 1), fetches);
+check('PMID query returns exactly that study', (await searchStudies(at, { query: '9000003' })).results.map((s) => s.sid).join() === 'TST003');
+check('DOI query (doi.org URL, any case) returns that study', (await searchStudies(at, { query: 'https://doi.org/10.0000/TEST.4' })).results.map((s) => s.sid).join() === 'TST004');
+const miss = await searchStudies(at, { query: '9999999' });
+check('unknown PMID: empty with a note', miss.total_matches === 0 && /No study with PMID 9999999/.test(miss.note), miss);
+check('findStudy by sid, PMID, DOI', (await Promise.all(['tst002', '9000002', '10.0000/test.2'].map((q) => findStudy(at, q)))).every((s) => s?.sid === 'TST002'));
+const nothing = await searchStudies(at, { query: 'qqqzzz' });
+check('no match explains what was searched and that search-index was missing', /Searched:/.test(nothing.note) && /search-index\.json was not available/.test(nothing.note), nothing.note);
+// a person named with given name first: author lists say "Tester 5"? no -- use a realistic form
+site = { ...site, studies: [...studies, study(8, { authors: 'Panchaud N; De Virgilio C et al.' }), study(9, { authors: 'Sabatini DM; Kim DH' })] };
+at = new Atlas('https://x.test/api/v1'); fetches = [];
+const fb = await searchStudies(at, { query: 'David Sabatini' });
+check('full name falls back to the author-list form "sabatini d"', fb.results.map((s) => s.sid).join() === 'TST009' && /sabatini d/.test(fb.matched_as), fb);
+check('the fallback does not fire for unrelated words', (await searchStudies(at, { query: 'David Smith' })).total_matches === 0);
+// with search-index.json and authors.json present
+site = { ...site, entities: [...entities, entity('rapamycin', 'Rapamycin', { type: 'Drug', synonyms: ['Sirolimus'] })],
+  'search-index.json': [{ sid: 'TST008', entities: ['rapamycin'], authors: ['claudio-de-virgilio'], author_names: ['Claudio De Virgilio'], text: 'We identified Iml1 with Npr2 and Npr3.' }],
+  'authors.json': [{ id: 'claudio-de-virgilio', name: 'Claudio De Virgilio', corpus_name: 'De Virgilio C', orcid: '0000-0001-8826-4323', lab: 'University of Fribourg', lab_url: null, role: null, studies: ['TST008'], url: 'https://example.test/author/claudio-de-virgilio/' }] };
+at = new Atlas('https://x.test/api/v1'); fetches = [];
+check('full name of a profiled author finds the study', (await searchStudies(at, { query: 'Claudio De Virgilio' })).results.map((s) => s.sid).join() === 'TST008');
+check('synonym of a linked entity finds the study', (await searchStudies(at, { query: 'sirolimus' })).results.map((s) => s.sid).includes('TST008'));
+check('a word from the abstract finds the study', (await searchStudies(at, { query: 'Npr2' })).results.map((s) => s.sid).join() === 'TST008');
+check('plural and British spelling fold', (await searchStudies(at, { query: 'leucines' })).total_matches === (await searchStudies(at, { query: 'leucine' })).total_matches);
+const sa = await searchAuthors(at, { query: 'Fribourg' });
+check('search_authors by lab', sa.results[0]?.id === 'claudio-de-virgilio' && sa.results[0].study_count === 1, sa);
+check('search_authors lists author-list names without a profile', (await searchAuthors(at, { query: 'Panchaud' })).in_author_lists.map((x) => x.corpus_name).join() === 'Panchaud N');
+check('get_author by corpus form and by ORCID', (await getAuthor(at, 'De Virgilio C'))?.study_cards?.[0]?.sid === 'TST008' && (await getAuthor(at, '0000-0001-8826-4323'))?.id === 'claudio-de-virgilio');
+check('list_questions query filters and ranks', (await listQuestions(at, { query: 'Lifespan mice' })).results.map((q) => q.id).join() === 'H2');
+
 // -------------------------------------- the tools themselves (schemas, defaults)
 const [ct, st] = InMemoryTransport.createLinkedPair();
 const server = createServer(fresh());
@@ -193,6 +225,7 @@ check('tool: find_contradictions pages', !tc.err && tc.j.returned === 2 && tc.j.
 const te = await call('search_entities', { query: 'raptor' });
 check('tool: search_entities labels matches', !te.err && te.j.results[0].match_field === 'name' && te.j.results.find((r) => r.id === 'energy-cellular-stress').match_field === 'description');
 check('tool: unknown study is still an error', (await call('get_study', { sid: 'NOPE0000' })).err === true);
+check('tool: search_authors and get_author are registered', 'query' in listed.search_authors && 'author' in listed.get_author && 'query' in listed.list_questions);
 // Tolerant input (1.3.1): aliases, numbers sent as text, limits above the maximum.
 check('get_study accepts study_id and id as aliases of sid', /TST001/i.test((await call('get_study', { study_id: 'tst001' })).j) && /TST002/.test((await call('get_study', { id: 'TST002' })).j)); // the synthetic Atlas has no study files: the id reaching the lookup is the proof
 check('get_study without any id is a clear error', (await call('get_study', {})).err === true);

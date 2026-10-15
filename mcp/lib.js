@@ -104,8 +104,17 @@ export class Atlas {
   async list(name) { return (await this.raw(`${name}.json`))?.data ?? []; }
   /** A list that an older Atlas build may not have yet (authors, search-index: 15 Oct 2026). Missing = []. */
   async optList(name) {
-    try { return await this.list(name); }
-    catch (e) { if (e?.code === 'ENOENT') return []; throw e; }
+    // A missing file is remembered for the current build (the cache is
+    // emptied when a new build arrives), so it is not re-fetched per search.
+    const rel = `${name}.json`;
+    try {
+      const v = await this.raw(rel);
+      if (v == null) { this.cache.set(rel, { data: [] }); return []; }
+      return v.data ?? [];
+    } catch (e) {
+      if (e?.code === 'ENOENT') { this.cache.set(rel, { data: [] }); return []; }
+      throw e;
+    }
   }
   async meta() {
     if (!this.isLocal()) { await this.syncBuild(); if (this.cache.has('meta.json')) return this.cache.get('meta.json'); }
@@ -223,7 +232,8 @@ async function studyIndex(atlas) {
   const all = await atlas.list('studies');
   const extra = await atlas.optList('search-index');
   const ents = extra.length ? await atlas.list('entities') : [];
-  return memo(all, 'search', () => {
+  // keyed also by the search-index size: the same list with and without it are different indexes
+  return memo(all, `search:${extra.length}`, () => {
     const bySid = new Map(extra.map((x) => [x.sid, x]));
     const eText = new Map(ents.map((e) => [e.id, [e.name, ...(e.synonyms ?? [])].join(' ')]));
     const ix = all.map((s) => {
