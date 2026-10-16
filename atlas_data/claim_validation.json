@@ -57,6 +57,38 @@
  },
  {
   "severity": "WARN",
+  "rule": "R15 entity-citation",
+  "where": "entity:alpha-synuclein (SNCA).desc",
+  "excerpt": "ARI2015",
+  "message": "Popis entity cituje studii, ktera mezi studiemi teto entity neni (ARI2015: Lysosomal mTORC2/PHLPP1/Akt regulate chaperone-mediated autophagy).",
+  "suggested": "Overit, ze citace patri k tvrzeni; jinak ji zmenit na spravne SID nebo studii k entite pripojit."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R15 entity-citation",
+  "where": "entity:LYCHOS (GPR155).desc",
+  "excerpt": "CAS2017",
+  "message": "Popis entity cituje studii, ktera mezi studiemi teto entity neni (CAS2017: Lysosomal cholesterol activates mTORC1 via an SLC38A9-Niemann-Pick C1 ).",
+  "suggested": "Overit, ze citace patri k tvrzeni; jinak ji zmenit na spravne SID nebo studii k entite pripojit."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R15 entity-citation",
+  "where": "entity:FLCN / FNIP1/2.desc",
+  "excerpt": "NAP2020",
+  "message": "Popis entity cituje studii, ktera mezi studiemi teto entity neni (NAP2020: A substrate-specific mTORC1 pathway underlies Birt-Hogg-Dubé syndrome.).",
+  "suggested": "Overit, ze citace patri k tvrzeni; jinak ji zmenit na spravne SID nebo studii k entite pripojit."
+ },
+ {
+  "severity": "WARN",
+  "rule": "R16 doi-without-pmid",
+  "where": "studies_baked.json",
+  "excerpt": "MUT2026, TAN2024, THE2026",
+  "message": "3 studii ma DOI, ale ne PMID.",
+  "suggested": "Dohledat PMID v PubMedu (shoda DOI <-> PMID) a doplnit."
+ },
+ {
+  "severity": "WARN",
   "rule": "R10 code-not-in-supporting-list",
   "where": "gap:H7",
   "excerpt": "KAH2000",
