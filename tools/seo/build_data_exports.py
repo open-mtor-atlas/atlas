@@ -57,7 +57,7 @@ TYPE_DIR = {
 
 STUDY_FIELDS = [
     ("sid", "sid"), ("title", "title"), ("authors", "authors"),
-    ("year", "year"), ("journal", "journal"), ("tier", "tier"),
+    ("year", "year"), ("journal", "journal"), ("legacy_tier", "tier"),
     ("pyramid", "pyramid"), ("category", "category"), ("model", "model"),
     ("peer_reviewed", "peer"), ("doi", "doi"), ("pmid", "pmid"),
     ("pmcid", "pmcid"), ("finding", "finding"), ("abstract", "abstract"),
@@ -110,13 +110,27 @@ def sha256_of(path):
     return h.hexdigest()
 
 
+def _tier_bits():
+    sys.path.insert(0, HERE)
+    from chrome_shared import tier_bits
+    return tier_bits
+
+
 def build_studies_export(studies):
+    tier_bits = _tier_bits()
     rows = []
     for s in studies:
         row = {out_key: (s.get(in_key) or "") for out_key, in_key in STUDY_FIELDS}
+        # Zobrazovany evidencni kod (S/H/A/M/R/PP/RT) -- stejna funkce jako web
+        # a API (chrome_shared.tier_bits); `legacy_tier` je jen puvodni ulozene
+        # pismeno A-D a NEODPOVIDA zobrazenym kodum (A-D: B = H, C = A, D = M/R).
+        code, label, _c, _o = tier_bits(s.get("tier"), s.get("pyramid"))
+        row["evidence_code"] = code
+        row["evidence_label"] = label
         row["atlas_url"] = f"{SITE}/study/{s['sid']}/"
         rows.append(row)
-    fieldnames = [k for k, _ in STUDY_FIELDS] + ["atlas_url"]
+    fieldnames = ["sid", "evidence_code", "evidence_label"] + \
+        [k for k, _ in STUDY_FIELDS if k != "sid"] + ["atlas_url"]
     return rows, fieldnames
 
 
@@ -273,12 +287,13 @@ downloaded copy, check {SITE}/data/ for the current version.
 
 - **studies.csv / studies.json** -- {len(study_rows)} hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
-  (`sid`), title, authors, year, journal, `tier` -- the stored study-type
-  value, still recorded with its original letters (A = systematic
-  review/meta-analysis, B = human trial, C = animal model, D =
-  mechanistic/in-vitro/review). The site displays these as S / H / A / M
-  respectively, with R split out of D for narrative reviews (see the
-  `pyramid` column); the codes name the KIND of study, not its quality.
+  (`sid`), `evidence_code` and `evidence_label` (the displayed study
+  type: S synthesis of human data, H human study, A animal model, M
+  molecular/in vitro, R narrative review, PP preprint, RT registered
+  trial -- the code names the KIND of study, not its quality), title,
+  authors, year, journal, `legacy_tier` (the letter stored until September 2026, kept
+  only for backward compatibility; it does NOT match the displayed codes:
+  B = H, C = A, D = M or R, A = S -- use `evidence_code`), `pyramid`.
   Then study category and model system, DOI/PMID/PMCID, the
   curated one-line finding, the PubMed abstract, and (where extracted)
   AI-assisted deep-extraction fields: intervention, target, species,
@@ -301,6 +316,25 @@ downloaded copy, check {SITE}/data/ for the current version.
   {PAGE_THRESHOLD} studies link to it or when it is a node of the
   pathway map; the other entities are catalogue entries only, with
   `has_page` false and an empty `atlas_url`.
+
+## Data dictionary (studies)
+
+| Column | Meaning |
+|---|---|
+| `sid` | Atlas study ID, stable key (joins to `supporting_studies` / `conflicting_studies` in relations) |
+| `evidence_code`, `evidence_label` | Displayed study type (S, H, A, M, R, PP, RT); design, not quality |
+| `legacy_tier` | Letter stored until September 2026 (plus Preprint, Registered trial); superseded by `evidence_code` |
+| `pyramid` | Finer study-design label; splits narrative reviews out of M |
+| `category`, `model` | Curated topic and model system |
+| `peer_reviewed` | Peer-review flag of the source record |
+| `finding` | Curated one-line finding |
+| `abstract` | PubMed abstract |
+| `ai_*` | AI-assisted extraction fields (may be empty; not independently verified) |
+| `atlas_url` | Record page on the Atlas |
+
+`snapshot.json` (next to the data files) records the dataset version, the
+export date, record counts, the evidence-code distribution and the sha256 of
+every file, so a result computed from these files can be tied to one snapshot.
 
 ## License & citation
 
@@ -329,6 +363,17 @@ Full details: {SITE}/data/ and {SITE}/CITATION.cff.
 """
     write_verified_text(os.path.join(OUT, "README.md"), readme)
 
+    # Kontrola: rozdeleni evidencnich kodu v exportu = nezavisly vypocet nad
+    # studies_baked.json (stejny zdroj, jako pocita web a API). Jinak build padne.
+    from collections import Counter
+    tb = _tier_bits()
+    dist_src = Counter(tb(s.get("tier"), s.get("pyramid"))[0] for s in studies)
+    dist_exp = Counter(r["evidence_code"] for r in study_rows)
+    assert dist_src == dist_exp and sum(dist_exp.values()) == len(studies), \
+        f"evidence distribution mismatch: {dist_src} vs {dist_exp}"
+    assert all(r["evidence_code"] in ("S", "H", "A", "M", "R", "PP", "RT")
+               for r in study_rows), "unknown evidence_code in studies export"
+
     manifest = []
     for fn, fmt in [("studies.csv", "text/csv"), ("studies.json", "application/json"),
                     ("entities.csv", "text/csv"), ("entities.json", "application/json"),
@@ -343,6 +388,27 @@ Full details: {SITE}/data/ and {SITE}/CITATION.cff.
         })
     write_verified_text(os.path.join(OUT, "manifest.json"),
                          json.dumps(manifest, indent=2) + "\n")
+
+    ver = ""
+    cff = os.path.join(HERE, "CITATION.cff")
+    if os.path.exists(cff):
+        m = re.search(r'^version:\s*"?([^"\n]+)"?', open(cff, encoding="utf-8").read(), re.M)
+        ver = m.group(1).strip() if m else ""
+    snapshot = {
+        "dataset_version": ver,
+        "generated": datetime.date.today().isoformat(),
+        "doi_concept": "10.5281/zenodo.22059963",
+        "counts": {"studies": len(study_rows), "entities": len(entity_rows),
+                   "relations": len(rel_rows)},
+        "studies_by_evidence_code": {k: dist_exp[k] for k in
+                                     ("S", "H", "A", "M", "R", "PP", "RT")},
+        "files": {m["name"]: {"bytes": m["contentSize"], "sha256": m["sha256"]}
+                  for m in manifest},
+        "note": "Source commit is reported by the Atlas API meta (source_commit); "
+                "it is not known when this file is generated.",
+    }
+    write_verified_text(os.path.join(OUT, "snapshot.json"),
+                        json.dumps(snapshot, indent=2) + "\n")
 
     print(f"Wrote {len(study_rows)} studies + {len(entity_rows)} entities + {len(rel_rows)} relations to {OUT}")
     for m in manifest:
