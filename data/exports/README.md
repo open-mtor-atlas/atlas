@@ -10,12 +10,13 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 
 - **studies.csv / studies.json** -- 449 hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
-  (`sid`), title, authors, year, journal, `tier` -- the stored study-type
-  value, still recorded with its original letters (A = systematic
-  review/meta-analysis, B = human trial, C = animal model, D =
-  mechanistic/in-vitro/review). The site displays these as S / H / A / M
-  respectively, with R split out of D for narrative reviews (see the
-  `pyramid` column); the codes name the KIND of study, not its quality.
+  (`sid`), `evidence_code` and `evidence_label` (the displayed study
+  type: S synthesis of human data, H human study, A animal model, M
+  molecular/in vitro, R narrative review, PP preprint, RT registered
+  trial -- the code names the KIND of study, not its quality), title,
+  authors, year, journal, `legacy_tier` (the letter stored until September 2026, kept
+  only for backward compatibility; it does NOT match the displayed codes:
+  B = H, C = A, D = M or R, A = S -- use `evidence_code`), `pyramid`.
   Then study category and model system, DOI/PMID/PMCID, the
   curated one-line finding, the PubMed abstract, and (where extracted)
   AI-assisted deep-extraction fields: intervention, target, species,
@@ -38,6 +39,25 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   3 studies link to it or when it is a node of the
   pathway map; the other entities are catalogue entries only, with
   `has_page` false and an empty `atlas_url`.
+
+## Data dictionary (studies)
+
+| Column | Meaning |
+|---|---|
+| `sid` | Atlas study ID, stable key (joins to `supporting_studies` / `conflicting_studies` in relations) |
+| `evidence_code`, `evidence_label` | Displayed study type (S, H, A, M, R, PP, RT); design, not quality |
+| `legacy_tier` | Letter stored until September 2026 (plus Preprint, Registered trial); superseded by `evidence_code` |
+| `pyramid` | Finer study-design label; splits narrative reviews out of M |
+| `category`, `model` | Curated topic and model system |
+| `peer_reviewed` | Peer-review flag of the source record |
+| `finding` | Curated one-line finding |
+| `abstract` | PubMed abstract |
+| `ai_*` | AI-assisted extraction fields (may be empty; not independently verified) |
+| `atlas_url` | Record page on the Atlas |
+
+`snapshot.json` (next to the data files) records the dataset version, the
+export date, record counts, the evidence-code distribution and the sha256 of
+every file, so a result computed from these files can be tied to one snapshot.
 
 ## License & citation
 
