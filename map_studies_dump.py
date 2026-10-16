@@ -32,6 +32,8 @@ MAP = {
     # exportovalo registracni cislo jako DOI. Drz synchronne se
     # sync_airtable.py::fetch_studies -- jinak jedna cesta pole smaze.
     'fldTHKDT4I8dxpgYV': 'registry_id',
+    # SEO_Title (2026-10-16): kratky titulek pro <title>. Drz synchronne se sync_airtable.py.
+    'flddDbsCWfemGDMqu': 'seo_title',
     # A14 (audit 2026-10-10): stav kontroly extrahovanych AI_* poli.
     'fldeeSZYGcwgf59p8': 'extraction_review',
     'fld7BA8VlHdb4PeiM': 'extraction_reviewed_by',

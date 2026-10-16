@@ -506,6 +506,10 @@ add(
                  "trial confirms the mouse findings."),
             cite("KRA2018", "B", "low-dose rapamycin was tolerable in older adults over "
                  "8+ weeks, with only minor adverse events."),
+            cite("MAN2014", "B", "older volunteers given low-dose everolimus (a rapalog) "
+                 "before a flu shot made about 20% more antibody, and fewer of their T "
+                 "cells carried the exhaustion marker PD-1 – a lab marker of immune "
+                 "ageing, not a lifespan or infection outcome."),
             cite("HAR2009", "C", "rapamycin fed starting at 600 days of age (late-middle-age "
                  "for a mouse) extended both median and maximal lifespan in both sexes "
                  "(age at 90% mortality rose 14% in females and 9% in males)."),
@@ -1080,6 +1084,10 @@ add(
                  "everolimus shrinks SEGA brain tumors by ≥50% in over a third of "
                  "patients – a genetic disease where mTORC1 is held on regardless of hormones, "
                  "though nutrients still gate it."),
+            cite("MAN2014", "B", "outside oncology: in older volunteers, low-dose everolimus "
+                 "before an influenza vaccine raised the antibody response by about 20%. "
+                 "This is an immune marker, and the Atlas's later RTB101 trial (MAN2021) "
+                 "did not turn a similar idea into fewer infections."),
         ]) + "</ul>"),
         ("The practical difference", "<p>The two drugs aren't interchangeable in clinical "
          "practice, even though they share a mechanism: sirolimus is mainly used for "
@@ -1088,7 +1096,13 @@ add(
          "malignant PEComa, and is the molecule most of the aging/longevity mouse and "
          "human trials in this Atlas actually test. Everolimus is mainly used in oncology "
          "and for tuberous sclerosis complex (and, as Zortress, in transplantation), where its more predictable pharmacokinetics matter for precise dosing "
-         "against tumors.</p>"),
+         "against tumors.</p><ul>" + "".join([
+            cite("MCC2011", "B", "the trial behind sirolimus's approval for "
+                 "lymphangioleiomyomatosis (LAM): in 89 women over 12 months, lung function "
+                 "(FEV1) held steady on sirolimus and fell by about 12 ml a month on "
+                 "placebo. The benefit faded after the drug was stopped, so it is "
+                 "continuous treatment."),
+        ]) + "</ul>"),
     ],
     related_links='<a href="/drug/rapamycin/">Rapamycin ' + cnt_span("Rapamycin") + '</a>'
                   '<a href="/drug/everolimus/">Everolimus ' + cnt_span("Everolimus") + '</a>'

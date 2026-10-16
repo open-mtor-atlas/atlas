@@ -88,6 +88,10 @@ def fetch_studies():
             # namapovane i v map_studies_dump.py::MAP, jinak ho MCP cesta
             # pri pristim bake tise smaze (past PMID/PMCID z 8/2026).
             "registry_id": g(f, "Registry_ID"),
+            # SEO_Title (16. 10. 2026): kratky titulek pro <title>/og:title studie.
+            # Prazdne = web pouzije automaticky zkraceny Title. Drz synchronne s
+            # map_studies_dump.py::MAP.
+            "seo_title": g(f, "SEO_Title"),
             # A14: stav kontroly extrahovanych AI_* poli. Prazdno =
             # neskontrolovano, nikdy "v poradku". Drz synchronne s
             # map_studies_dump.py::MAP.
