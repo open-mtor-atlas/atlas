@@ -655,6 +655,37 @@ def check_index(findings):
         except Exception:
             pass
 
+    # -- R15 (audit 2026-10-16): rucne vepsana ID studii v popisech entit musi
+    # existovat a mit entitu mezi svymi studiemi. U PXR zbyl odkaz (KUS2026) na
+    # nesouvisejici studii o lupusu; ctenar kliknul jinam, nez popis tvrdil.
+    try:
+        _studs = {s["sid"]: s for s in json.load(open(STUDIES, encoding="utf-8"))}
+        _ents = json.load(open(os.path.join(HERE, "atlas_data", "entities_baked.json"),
+                               encoding="utf-8"))
+        for e in _ents:
+            linked = set(e.get("studies") or [])
+            for fld in ("desc", "desc_beginner"):
+                for sid in sorted(set(re.findall(r"\(([A-Z]{2,}\d{4})\)", e.get(fld) or ""))):
+                    if sid not in _studs:
+                        add(findings, "ERROR", "R15 entity-citation", "entity:%s.%s" % (e["name"], fld),
+                            sid, "Popis entity cituje ID studie, ktere v korpusu neexistuje.",
+                            "Opravit ID nebo citaci odstranit.")
+                    elif sid not in linked:
+                        add(findings, "WARN", "R15 entity-citation", "entity:%s.%s" % (e["name"], fld),
+                            sid, "Popis entity cituje studii, ktera mezi studiemi teto entity neni "
+                                 "(%s: %s)." % (sid, (_studs[sid].get("title") or "")[:70]),
+                            "Overit, ze citace patri k tvrzeni; jinak ji zmenit na spravne SID "
+                            "nebo studii k entite pripojit.")
+        # DOI bez PMID: ne chyba (DOI vede k clanku), ale nechat videt.
+        _nopmid = sorted(s["sid"] for s in _studs.values() if s.get("doi") and not s.get("pmid"))
+        if _nopmid:
+            add(findings, "WARN", "R16 doi-without-pmid", "studies_baked.json", ", ".join(_nopmid),
+                "%d studii ma DOI, ale ne PMID." % len(_nopmid),
+                "Dohledat PMID v PubMedu (shoda DOI <-> PMID) a doplnit.")
+    except Exception as exc:
+        add(findings, "ERROR", "R15 entity-citation", "entities_baked.json", "",
+            "Kontrola citaci v popisech entit selhala (%s)." % exc, None)
+
     # -- hand-written prose (skip the baked data lines)
     for i, line in enumerate(h.split("\n"), 1):
         if len(line) > 4000:
