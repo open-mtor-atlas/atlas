@@ -280,7 +280,7 @@ HEAD_TMPL = """<!DOCTYPE html>
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="https://mtor-atlas.org/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
