@@ -51,7 +51,7 @@ record the server returns repeats this, so a code never travels without its mean
 ## Cite
 
 Barton O. *Oliver's mTOR Atlas.* doi:[10.5281/zenodo.22059963](https://doi.org/10.5281/zenodo.22059963).
-Give the `dataset_version` and `corpus_snapshot` returned by `atlas_about`.
+Give the `dataset_version`, `corpus_snapshot` and `source_commit` returned by `atlas_about`. A version ending in `+unreleased` means the live data have changed since the latest archived Zenodo release (`archived_release`), so that release's version DOI does not contain them.
 
 ## Configuration
 

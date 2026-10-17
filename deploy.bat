@@ -276,6 +276,24 @@ if errorlevel 1 (
   exit /b 1
 )
 
+echo.
+echo === Release status (dataset_version vs. archived Zenodo release) ===
+REM  17. 10. 2026, externi audit (BLOCKING): API hlasilo dataset_version 2.0.1,
+REM  ale zivy obsah (450 studii) uz neodpovidal nemennemu archivu v2.0.1 (428).
+REM  release_status.py porovna otisk zivych dat s otiskem release v
+REM  atlas_data\releases.json a zapise atlas_data\release_status.json:
+REM  "2.0.1" jen pri shode, jinak "2.0.1+unreleased". Cte ho build_data_exports,
+REM  build_pages (Data ^& Citation, JSON-LD) i Atlas_v2 (API meta). Musi bezet
+REM  AZ PO build_pathway_model.py (otiskuje model.json) a PRED exporty.
+REM  Nesoulad CITATION.cff vs. releases.json deploy ZASTAVI.
+py release_status.py
+if errorlevel 1 (
+  echo.
+  echo ABORTED: release_status.py - CITATION.cff a atlas_data\releases.json nesouhlasi.
+  echo Po nove release dopln zaznam do releases.json: py release_status.py --ref vX.Y.Z
+  exit /b 1
+)
+
 REM  14. 10. 2026: tenhle blok byl az do dneska NAD build_pathway_model.py.
 REM  build_data_exports.py ale cte pathway\model.json, aby u kazde entity
 REM  rozhodl atlas_url podle stejneho pravidla jako build_pages.gets_page
@@ -762,6 +780,11 @@ if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
 if exist "atlas_data\events_baked.json" git add atlas_data\events_baked.json
 REM  2026-10-09: rucne kurovany JSON pro /pipeline/ (Atlas_v2 sync_data.py ho cte z origin/main).
 if exist "atlas_data\drug_pipeline.json" git add atlas_data\drug_pipeline.json
+REM  2026-10-17: verzovani datasetu (externi audit, BLOCKING) - viz krok Release status.
+if exist "release_status.py" git add release_status.py
+if exist "atlas_data\releases.json" git add atlas_data\releases.json
+if exist "atlas_data\release_status.json" git add atlas_data\release_status.json
+if exist "RELEASE_CHECKLIST.md" git add RELEASE_CHECKLIST.md
 
 REM  2026-08-15: author/, condition/, question/ + sitemap-authors.xml,
 REM  sitemap-questions.xml, llms.txt, atlas_data\author_bios_baked.json were

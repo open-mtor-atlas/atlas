@@ -17,7 +17,7 @@ How to use it well:
 - A relation is a claim (source -> effect -> target) with supporting and conflicting studies, boundary conditions, a consensus flag and a human-relevance grade. Quote the boundary when you use a relation.
 - "Not in the Atlas" means not in this curated corpus, not "not known". Say so.
 - An empty search is not proof that something is missing. Look up a person with search_authors or get_author, and a paper with get_study by PMID or DOI, before saying the Atlas does not have it.
-- Cite the study or relation 'url' fields, and the dataset (doi:10.5281/zenodo.22059963) with the dataset_version and corpus_snapshot from atlas_about.`;
+- Cite the study or relation 'url' fields, and the dataset (doi:10.5281/zenodo.22059963) with the dataset_version, corpus_snapshot and source_commit from atlas_about. A dataset_version ending in "+unreleased" means the live data are newer than the archived Zenodo version; do not cite that version DOI for them.`;
 
 
 /** A fresh MCP server with all Atlas tools, reading through `atlas`. */

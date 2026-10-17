@@ -92,6 +92,13 @@ def _read_citation_version():
     return m.group(1) if m else "unknown"
 
 
+# Stav verze datasetu (release_status.py, 17. 10. 2026): je zivy obsah shodny
+# s posledni archivovanou release, nebo uz je za ni?
+sys.path.insert(0, HERE)
+import release_status as _rs
+_RELEASE = _rs.load_status()
+
+
 # --- SEO P0 Ukol 3 (2026-09-02): data exports -- DATASET_REF.distribution ---
 
 
@@ -170,13 +177,16 @@ DATASET_REF = {
     "inLanguage": "en",
     "keywords": ["mTOR", "mTORC1", "mTORC2", "autophagy", "rapamycin", "longevity",
                  "aging biology", "TSC complex", "evidence-based research"],
-    # "version" is the last formally cut Zenodo release (tag v2.0.1, DOI
-    # 10.5281/zenodo.23090261) -- NOT the live corpus size, which changes
+    # 17. 10. 2026 (externi audit, BLOCKING): "version" uz neni holy
+    # `version:` z CITATION.cff. Ten jmenuje posledni archivovanou release,
+    # ale tahle stranka popisuje ZIVA data; release_status.py da "2.0.1" jen
+    # pri shode otisku obsahu s archivem, jinak "2.0.1+unreleased".
+    # Puvodni poznamka: "version" je posledni release, NE velikost korpusu, which changes
     # far more often than a release should. dateModified tracks the living
     # corpus itself (stamped at build time, same convention as the sitemap
     # <lastmod>): a reader/crawler can see the page changed even between
     # formal version bumps.
-    "version": _read_citation_version(),
+    "version": _RELEASE["dataset_version"],
     "dateModified": datetime.date.today().isoformat(),
 }
 
@@ -2276,6 +2286,15 @@ def data_page(studies, entities):
                         ("Data & Citation", None)])
 
     export_files_html = _export_files_html()
+    _lr = _RELEASE["latest_release"]
+    if _RELEASE["live_matches_release"]:
+        _live_note = (f"identical to the archived v{_lr['version']} release "
+                      f"(content fingerprint checked on every deploy)")
+    else:
+        _lc = _RELEASE["live"]["counts"]
+        _live_note = (f"the live data have changed since v{_lr['version']} "
+                      f"({_lc['studies']} studies now, {_lr['counts']['studies']} in the archive) "
+                      f"and are not yet archived; the version DOI above does not contain them")
     body = f"""<h1>Data &amp; Citation</h1>
 <p class="summary">Machine- and reviewer-facing facts about Oliver's mTOR
 Atlas as a dataset: where it is registered, how it is identified, and how
@@ -2302,9 +2321,10 @@ Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 <tr><td>Dataset DOI</td><td><a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>
 &mdash; concept DOI, always resolves to the latest archived version on
 Zenodo</td></tr>
-<tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.23090261">10.5281/zenodo.23090261</a>
-&mdash; the v2.0.1 snapshot, for citing the exact state of the corpus this
-version archived</td></tr>
+<tr><td>Version DOI</td><td><a href="https://doi.org/{_lr['version_doi']}">{_lr['version_doi']}</a>
+&mdash; the archived v{_lr['version']} release of {_lr['date']} ({_lr['counts']['studies']} studies),
+for citing exactly the state that release archived</td></tr>
+<tr><td>Live dataset</td><td><code>{_RELEASE['dataset_version']}</code> &mdash; {_live_note}</td></tr>
 <tr><td>FAIRsharing DOI</td><td><a href="https://doi.org/10.25504/FAIRsharing.691885">10.25504/FAIRsharing.691885</a>
 &mdash; resolves to the FAIRsharing registry record above</td></tr>
 <tr><td>Curator ORCID</td><td><a href="https://orcid.org/0009-0008-2025-2148">0009-0008-2025-2148</a>
@@ -2325,6 +2345,26 @@ on Figshare. The full corpus is also published as open CSV and JSON files
 build on it. A released version is never edited afterwards: corrections go
 into a new version, and every change to the method is logged with its date
 at <a href="/changelog/">/changelog/</a>.</p>
+
+<h2 id="versions">Live data and archived versions</h2>
+<p>Two different things carry the Atlas's name, and a citation should say
+which one was used.</p>
+<ul>
+<li><strong>The live dataset</strong> is what this website, the
+<a href="{SITE}/api/">API</a>, the MCP server and the downloads below serve.
+It changes with every deploy. Its version is reported as
+<code>dataset_version</code> in every API response. It is a plain release
+number (for example <code>2.0.1</code>) only when the live content is
+identical to that archived release, checked by a content fingerprint on
+every deploy. Otherwise it reads <code>{_lr['version']}+unreleased</code>,
+meaning "changed since v{_lr['version']}, not yet archived". To cite the live
+state exactly, give the <code>corpus_snapshot</code> and
+<code>source_commit</code> from the API response.</li>
+<li><strong>An archived version</strong> is an immutable Zenodo deposit
+with its own version DOI. Cite one when your analysis must be reproducible
+from a file that will never change; download it and analyse that file, not
+the live API.</li>
+</ul>
 
 <h2>Cite this resource</h2>
 <p>If you use this dataset, please cite it as:</p>

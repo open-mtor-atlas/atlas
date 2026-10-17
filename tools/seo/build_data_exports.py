@@ -389,13 +389,18 @@ Full details: {SITE}/data/ and {SITE}/CITATION.cff.
     write_verified_text(os.path.join(OUT, "manifest.json"),
                          json.dumps(manifest, indent=2) + "\n")
 
-    ver = ""
-    cff = os.path.join(HERE, "CITATION.cff")
-    if os.path.exists(cff):
-        m = re.search(r'^version:\s*"?([^"\n]+)"?', open(cff, encoding="utf-8").read(), re.M)
-        ver = m.group(1).strip() if m else ""
+    # 17. 10. 2026 (externi audit, BLOCKING): dataset_version uz neni holy
+    # `version:` z CITATION.cff. Ten jmenuje posledni archivovanou release,
+    # ale tyhle exporty jsou zive data. release_status.py rozhodne podle
+    # otisku obsahu: "2.0.1" jen pri shode s archivem, jinak "2.0.1+unreleased".
+    sys.path.insert(0, HERE)
+    import release_status
+    rs = release_status.load_status()
     snapshot = {
-        "dataset_version": ver,
+        "dataset_version": rs["dataset_version"],
+        "live_matches_release": rs["live_matches_release"],
+        "latest_release": rs["latest_release"],
+        "data_fingerprint": rs["live"]["data_fingerprint"],
         "generated": datetime.date.today().isoformat(),
         "doi_concept": "10.5281/zenodo.22059963",
         "counts": {"studies": len(study_rows), "entities": len(entity_rows),
