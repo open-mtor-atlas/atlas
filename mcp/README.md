@@ -26,7 +26,7 @@ Claude Code: `claude mcp add mtor-atlas -- npx -y mtor-atlas-mcp`
 
 | Tool | What it answers |
 |---|---|
-| `atlas_about` | Dataset version, corpus snapshot, counts, evidence codes, how to cite; `derived_counts` for contested and conflicting relations |
+| `atlas_about` | Dataset version, corpus snapshot, counts, evidence codes, how to cite; contested and conflicting relation counts (`derived_counts` only when the Atlas does not report them) |
 | `search_studies` | Studies by keywords, evidence code, linked entity, year. Also finds a study by PMID or DOI, by a synonym of a linked entity ("sirolimus"), by an author's full name ("Claudio De Virgilio") and by words from the abstract excerpt |
 | `get_study` | One study (by Atlas ID, PMID, DOI or PMCID) with its entities, relations and open questions |
 | `search_authors` / `get_author` | People: profiled authors by full name, author-list form, ORCID or lab, with their studies; plus matching names in author lists without a profile |

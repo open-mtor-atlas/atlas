@@ -81,8 +81,8 @@ check('only_contested drops conflicting-studies-only', only.total === 4 && only.
 // ------------------------- 2. contested without a counterpart is visible (point 2)
 const leu = all.results.find((r) => r.id === 'LEU-LARS');
 check('LEU-LARS flagged conflicting_studies_missing', leu.conflicting_studies_missing === true && /no conflicting study/.test(leu.data_note), leu);
-check('LEU-LARS names LEU-SESN2 as a mentioned relation', leu.mentioned_relations?.map((x) => x.id).join() === 'LEU-SESN2', leu.mentioned_relations);
-check('no self-mention, no mention when there is none', !all.results.find((r) => r.id === 'AMPK-ULK1').mentioned_relations);
+check('LEU-LARS names LEU-SESN2 as a mentioned relation', leu.named_in_text?.map((x) => x.id).join() === 'LEU-SESN2', leu.named_in_text);
+check('no self-mention, no mention when there is none', !all.results.find((r) => r.id === 'AMPK-ULK1').named_in_text);
 check('AMPK-ULK1 has both sides and no missing flag', !all.results.find((r) => r.id === 'AMPK-ULK1').conflicting_studies_missing);
 
 // -------------------------------------------- 3. entity search noise (point 3)
@@ -234,6 +234,31 @@ const tl = await call('list_questions', { kind: 'frontier', limit: '2' });
 check('limit sent as text is accepted', !tl.err && tl.j.total_matches === 1 && tl.j.results.length === 1, tl.j);
 const tb = await call('search_entities', { query: 'raptor', limit: 1000 });
 check('limit above the maximum is capped, not an error', !tb.err && tb.j.results.length >= 1, tb.j);
+
+// ------------------------------------------------ 1.3.3: clip, curation flags, counts
+{
+  const PAR = 'First sentence is short and complete. Second sentence (a long aside, with e.g. details; ' + 'and more; '.repeat(40) + ') ends later. Third one.';
+  const q2 = [{ id: 'H9', kind: 'open-question', title: 'Q', category: 'c', evidence_stands_at: 'x', still_open: PAR, url: 'u' }];
+  at = fresh(); site.questions = q2;
+  const lq = await listQuestions(at, {});
+  const so = lq.results[0].still_open;
+  check('clip: no cut inside parentheses or at ";"', lq.results[0].still_open_truncated === true && so === 'First sentence is short and complete. ...' || (!/\([^)]*$/.test(so.replace(/ \.\.\.$/, '')) && !/;/.test(so)), so);
+  const lq2 = await listQuestions((at = fresh(), site.questions = questions, at), { kind: 'open-question', limit: 1 });
+  check('clip: keeps several whole sentences up to ~320 chars', lq2.results[0].still_open.length > 100 && lq2.results[0].still_open.length <= 330 && /\. \.\.\.$/.test(lq2.results[0].still_open), lq2.results[0].still_open);
+
+  at = fresh();
+  site.relations = [...relations, rel('CUR-ONLY', { contested: false, curation_contested: true, consensus_contested: false, note: 'See LEU-LARS.' })];
+  const fc = await findContradictions(at, {});
+  const cur = fc.results.find((r) => r.id === 'CUR-ONLY');
+  check('curation-contested relation is listed with its own status', cur?.status === 'flagged-in-curation' && cur.curation_contested === true && cur.conflicting_studies_missing === true, cur);
+  check('breakdown counts curation-only relations', fc.breakdown.flagged_curation_or_consensus_only === 1 && fc.total === 6, fc.breakdown);
+  check('named_in_text present, data_note says a mention is not evidence', cur.named_in_text?.[0]?.id === 'LEU-LARS' && /not mean/.test(cur.data_note), cur);
+
+  at = fresh();
+  site.meta = { ...META, counts: { ...META.counts, contested_or_conflicting_relations: 5 } };
+  const ab = await atlasAbout(at);
+  check('atlas_about does not repeat counts the Atlas reports itself', ab.derived_counts === undefined && ab.counts.contested_or_conflicting_relations === 5, ab);
+}
 await c.close();
 
 console.log(fail ? `FAILED ${fail}` : 'ALL OK'); process.exit(fail ? 1 : 0);

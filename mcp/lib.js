@@ -203,12 +203,25 @@ function scoreIdx(ts, pf) {
 
 export const CODE_ORDER = ['S', 'H', 'A', 'M', 'R', 'PP', 'RT'];
 
-/** Shorten long prose at a sentence boundary when possible. Never alters text that already fits. */
-function clip(text, max = 240) {
+/**
+ * Shorten long prose at a sentence boundary. Never cuts inside parentheses,
+ * never at ";", never alters text that already fits. Keeps whole sentences up
+ * to `max` characters (default 320); a first sentence longer than that is cut
+ * at the last space outside parentheses.
+ */
+function clip(text, max = 320) {
   if (typeof text !== 'string' || text.length <= max) return { text, truncated: false };
-  const cut = text.slice(0, max);
-  const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('; '));
-  const out = end >= 60 ? cut.slice(0, end + 1) : cut.slice(0, Math.max(cut.lastIndexOf(' '), 1));
+  let depth = 0, lastEnd = -1, lastSpace = -1;
+  for (let i = 0; i < max; i++) {
+    const c = text[i];
+    if (c === '(' || c === '[') depth++;
+    else if (c === ')' || c === ']') depth = Math.max(0, depth - 1);
+    else if (depth === 0) {
+      if (c === ' ') lastSpace = i;
+      if ('.!?'.includes(c) && /\s/.test(text[i + 1] ?? '') && /[A-Z0-9("']/.test(text.slice(i + 1).trimStart()[0] ?? '')) lastEnd = i;
+    }
+  }
+  const out = lastEnd >= 20 ? text.slice(0, lastEnd + 1) : text.slice(0, Math.max(lastSpace, 1));
   return { text: `${out} ...`, truncated: true };
 }
 
@@ -452,7 +465,7 @@ async function selectRelations(atlas, { entity, source, target, effect, conteste
   if (source) { const e = await pick(source); rows = rows.filter((r) => r.source.entity === e.id || norm(r.source.name) === norm(e.name)); }
   if (target) { const e = await pick(target); rows = rows.filter((r) => r.target.entity === e.id || norm(r.target.name) === norm(e.name)); }
   if (effect) rows = rows.filter((r) => r.effect === effect);
-  if (contested_only) rows = rows.filter((r) => r.contested || r.evidence.conflicting.length);
+  if (contested_only) rows = rows.filter((r) => r.contested || r.curation_contested || r.consensus_contested || r.evidence.conflicting.length);
   if (strongest_at_least) {
     const lim = CODE_ORDER.indexOf(strongest_at_least);
     rows = rows.filter((r) => { const c = CODE_ORDER.indexOf(r.evidence.strongest?.code); return c >= 0 && c <= lim; });
@@ -512,7 +525,7 @@ export async function evidenceBetween(atlas, { a, b, dedupe = true }) {
   };
 }
 
-/** Other relation ids named in a relation's note or boundary text ("See LEU-LARS"), if they exist in the Atlas. */
+/** Other relation ids named in a relation's note or boundary text ("See LEU-LARS"), if they exist in the Atlas. Being named there does not mean the other relation holds the missing evidence. */
 function mentionedRelations(r, byId) {
   const text = `${r.note ?? ''} ${r.boundary ?? ''}`;
   const seen = new Set();
@@ -529,11 +542,13 @@ function mentionedRelations(r, byId) {
  */
 export async function findContradictions(atlas, { entity, limit = 20, offset = 0, only_contested = false, brief = false, dedupe = true }) {
   const flagged = await selectRelations(atlas, { entity, contested_only: true });
+  const curated = (r) => !!(r.curation_contested || r.consensus_contested);
   const breakdown = {
     flagged_contested: flagged.filter((r) => r.contested).length,
-    conflicting_studies_only: flagged.filter((r) => !r.contested).length,
+    flagged_curation_or_consensus_only: flagged.filter((r) => !r.contested && curated(r)).length,
+    conflicting_studies_only: flagged.filter((r) => !r.contested && !curated(r)).length,
   };
-  const p = page(only_contested ? flagged.filter((r) => r.contested) : flagged, offset, limit);
+  const p = page(only_contested ? flagged.filter((r) => r.contested || curated(r)) : flagged, offset, limit);
   const all = await atlas.list('relations');
   const byId = memo(all, 'byId', () => new Map(all.map((r) => [r.id, r])));
   const out = [];
@@ -543,19 +558,22 @@ export async function findContradictions(atlas, { entity, limit = 20, offset = 0
     const note = brief ? clip(r.note) : { text: r.note, truncated: false };
     const item = {
       id: r.id, claim: r.claim,
-      status: r.contested ? 'contested' : 'conflicting-studies-only',
+      status: r.contested ? 'contested' : curated(r) ? 'flagged-in-curation' : 'conflicting-studies-only',
       contested: r.contested, consensus: r.confidence?.consensus,
       boundary: boundary.text, note: note.text,
       supporting_studies: await studyCards(atlas, r.evidence.supporting),
       conflicting_studies: conflicting,
     };
+    if (r.curation_contested !== undefined) item.curation_contested = !!r.curation_contested;
+    if (r.consensus_contested !== undefined) item.consensus_contested = !!r.consensus_contested;
     if (boundary.truncated || note.truncated) item.text_truncated = true;
-    if (r.contested && !conflicting.length) {
+    if ((r.contested || curated(r)) && !conflicting.length) {
       item.conflicting_studies_missing = true;
-      item.data_note = 'Marked contested, but the Atlas lists no conflicting study on this relation, so the other side is not in the structured data. Check mentioned_relations and the boundary and note text.';
+      item.data_note = 'Flagged as contested, but the Atlas lists no conflicting study on this relation, so the other side is not in the structured data. '
+        + 'Other relations named in its note or boundary are listed in named_in_text; being named there does not mean they hold the missing evidence.';
     }
-    const mentioned = mentionedRelations(r, byId);
-    if (mentioned.length) item.mentioned_relations = mentioned;
+    const named = mentionedRelations(r, byId);
+    if (named.length) item.named_in_text = named;
     out.push(item);
   }
   if (dedupe) dedupeCards(out, ['supporting_studies', 'conflicting_studies'], (e) => e.id);
@@ -565,7 +583,7 @@ export async function findContradictions(atlas, { entity, limit = 20, offset = 0
 }
 
 /**
- * Atlas metadata plus three counts computed here from relations.json. The
+ * Atlas metadata. When the Atlas does not report contested_or_conflicting_relations itself, three counts are computed here from relations.json. The
  * Atlas's own `counts.contested_relations` counts the relations it flags;
  * find_contradictions also returns relations that only carry conflicting
  * studies, so its total is larger.
@@ -574,6 +592,8 @@ export async function atlasAbout(atlas) {
   const meta = await atlas.meta();
   if (!meta) return meta;
   try {
+    // Newer Atlas builds report these counts themselves; do not repeat them.
+    if (meta.counts?.contested_or_conflicting_relations !== undefined) return meta;
     const rels = await atlas.list('relations');
     const withConflict = (r) => (r.evidence?.conflicting?.length ?? 0) > 0;
     return { ...meta, derived_counts: {

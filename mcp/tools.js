@@ -9,7 +9,7 @@ import {
 } from './lib.js';
 
 // Keep equal to "version" in package.json and server.json (test.js checks it).
-export const VERSION = '1.3.2';
+export const VERSION = '1.3.3';
 
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
@@ -34,7 +34,7 @@ export function createServer(atlas) {
 
   server.registerTool('atlas_about', {
     title: 'About the Atlas', annotations: { ...RO, title: 'About the Atlas' },
-    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite the dataset. derived_counts adds figures computed from the relations (flagged contested, with conflicting studies, either) so they can be compared with find_contradictions.',
+    description: 'Dataset version, corpus snapshot date, counts, evidence-code legend and how to cite the dataset. When the Atlas does not report the contested and conflicting counts itself, derived_counts adds them, computed from the relations, so they can be compared with find_contradictions.',
   }, async () => ok(await atlasAbout(atlas)));
 
   server.registerTool('search_studies', {
@@ -124,7 +124,7 @@ export function createServer(atlas) {
 
   server.registerTool('find_contradictions', {
     title: 'Find contested claims', annotations: { ...RO, title: 'Find contested claims' },
-    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. status says which; breakdown splits the total. A contested relation with no conflicting study listed is flagged conflicting_studies_missing and shows related relations named in its text. Paged: pass next_offset as offset for the rest. Optionally limited to one entity.',
+    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. status says which; breakdown splits the total. A contested relation with no conflicting study listed is flagged conflicting_studies_missing; relations named in its note or boundary are shown in named_in_text (a mention is not evidence). Paged: pass next_offset as offset for the rest. Optionally limited to one entity.',
     inputSchema: {
       entity: z.string().optional(),
       only_contested: z.boolean().default(false).describe('Keep only relations the Atlas flags contested, not those that merely carry conflicting studies.'),
