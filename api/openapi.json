@@ -449,7 +449,46 @@
       "type": [
        "string",
        "null"
-      ]
+      ],
+      "description": "A plain release number (e.g. 2.0.1) only when the live data are identical to that archived Zenodo release (content fingerprint). Otherwise \"<latest release>+unreleased\": the live data have changed since that release and are not archived yet; cite corpus_snapshot and source_commit for the exact state."
+     },
+     "live_matches_release": {
+      "type": [
+       "boolean",
+       "null"
+      ],
+      "description": "True when the live data equal the archived release in archived_release."
+     },
+     "archived_release": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "The latest immutable release on Zenodo, which may be older than the live data.",
+      "properties": {
+       "version": {
+        "type": "string"
+       },
+       "version_doi": {
+        "type": "string"
+       },
+       "date": {
+        "type": "string"
+       },
+       "studies": {
+        "type": [
+         "integer",
+         "null"
+        ]
+       }
+      }
+     },
+     "data_fingerprint": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "sha256 over the served content (studies, entities, questions, relations, pathway model), without generator timestamps. Equal fingerprints mean equal data."
      },
      "corpus_snapshot": {
       "type": [
