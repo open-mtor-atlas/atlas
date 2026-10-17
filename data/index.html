@@ -96,14 +96,14 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "975422"
+    "contentSize": "975667"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1204039"
+    "contentSize": "1204284"
    },
    {
     "@type": "DataDownload",
@@ -148,7 +148,7 @@
    "TSC complex",
    "evidence-based research"
   ],
-  "version": "2.0.1",
+  "version": "2.0.1+unreleased",
   "dateModified": "2026-10-17"
  }
 }
@@ -405,8 +405,9 @@ Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 &mdash; concept DOI, always resolves to the latest archived version on
 Zenodo</td></tr>
 <tr><td>Version DOI</td><td><a href="https://doi.org/10.5281/zenodo.23090261">10.5281/zenodo.23090261</a>
-&mdash; the v2.0.1 snapshot, for citing the exact state of the corpus this
-version archived</td></tr>
+&mdash; the archived v2.0.1 release of 2026-10-01 (428 studies),
+for citing exactly the state that release archived</td></tr>
+<tr><td>Live dataset</td><td><code>2.0.1+unreleased</code> &mdash; the live data have changed since v2.0.1 (450 studies now, 428 in the archive) and are not yet archived; the version DOI above does not contain them</td></tr>
 <tr><td>FAIRsharing DOI</td><td><a href="https://doi.org/10.25504/FAIRsharing.691885">10.25504/FAIRsharing.691885</a>
 &mdash; resolves to the FAIRsharing registry record above</td></tr>
 <tr><td>Curator ORCID</td><td><a href="https://orcid.org/0009-0008-2025-2148">0009-0008-2025-2148</a>
@@ -427,6 +428,26 @@ on Figshare. The full corpus is also published as open CSV and JSON files
 build on it. A released version is never edited afterwards: corrections go
 into a new version, and every change to the method is logged with its date
 at <a href="/changelog/">/changelog/</a>.</p>
+
+<h2 id="versions">Live data and archived versions</h2>
+<p>Two different things carry the Atlas's name, and a citation should say
+which one was used.</p>
+<ul>
+<li><strong>The live dataset</strong> is what this website, the
+<a href="https://mtor-atlas.org/api/">API</a>, the MCP server and the downloads below serve.
+It changes with every deploy. Its version is reported as
+<code>dataset_version</code> in every API response. It is a plain release
+number (for example <code>2.0.1</code>) only when the live content is
+identical to that archived release, checked by a content fingerprint on
+every deploy. Otherwise it reads <code>2.0.1+unreleased</code>,
+meaning "changed since v2.0.1, not yet archived". To cite the live
+state exactly, give the <code>corpus_snapshot</code> and
+<code>source_commit</code> from the API response.</li>
+<li><strong>An archived version</strong> is an immutable Zenodo deposit
+with its own version DOI. Cite one when your analysis must be reproducible
+from a file that will never change; download it and analyse that file, not
+the live API.</li>
+</ul>
 
 <h2>Cite this resource</h2>
 <p>If you use this dataset, please cite it as:</p>
@@ -460,7 +481,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-17 23:02 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-10-17 23:29 Prague time</div>
 </footer>
 </div>
 </body>
