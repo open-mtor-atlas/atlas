@@ -239,6 +239,15 @@ if errorlevel 1 (
 )
 
 echo.
+echo === Check clinical registries for /pipeline/ (ClinicalTrials.gov) ===
+REM  2026-10-18 (audit /pipeline/): doplni do atlas_data\drug_pipeline.json datum posledni
+REM  aktualizace kazdeho registru a posune datum overeni jen tam, kde registr souhlasi
+REM  se strankou. Rozdil (zmena statusu, startu, poctu ucastniku) vypise jako WARNING
+REM  a text karty NEMENI - ten musi prepsat kurator. Selhani site deploy NEZASTAVI.
+py check_pipeline_registry.py --write
+if errorlevel 1 echo    check_pipeline_registry.py reported a problem - see above, deploy continues regardless
+
+echo.
 echo === Refresh lab lineage from Airtable (Lab_Lineage, Published only) ===
 REM  2026-10-07: rodokmen laboratori pro /field/lineage/ ve V2. sync_lab_lineage.py
 REM  pece atlas_data\lab_lineage_baked.json jen ze zaznamu se zaskrtnutym Published
@@ -852,7 +861,7 @@ REM  never in this list, and map_entities_dump.py did not exist at all -- which
 REM  is why nothing refreshed atlas_data\entities_baked.json and it sat frozen
 REM  at 120 entities from 2026-08-17 while Airtable already held 146. All three
 REM  are listed now; same lesson as the 2026-08-15 note above.
-for %%F in (atlas_wording.py preflight_deploy.py report_external_refs.py build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py sync_lab_lineage.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
+for %%F in (atlas_wording.py preflight_deploy.py check_pipeline_registry.py report_external_refs.py build_pages.py build_academy.py verify_academy.py build_practice.py verify_practice.py generate.py chrome_shared.py check_tier_palette.py check_token.py build_pathway_model.py build_pathway_contexts.py validate_pathway.py check_consistency.py consistency_allow.json CITATION.cff bake_from_mcp.py sync_airtable.py sync_relations.py sync_lab_lineage.py relations_bake.py map_relations_dump.py map_studies_dump.py map_events_dump.py map_entities_dump.py stamp_updated.py stamp_pathway_version.py stamp_type_version.py stamp_atlas_version.py normalize_entities.py backfill_pmids.py validate_claims.py verify_index_html.py verify_prerender.py reconcile_with_origin.py prerender_tabs.js finish_review_fixes.py pathway\pathway.js pathway\pathway.css pathway\model.json pathway\contexts.json .gitignore .gitattributes) do (
   if exist "%%F" git add "%%F"
 )
 
