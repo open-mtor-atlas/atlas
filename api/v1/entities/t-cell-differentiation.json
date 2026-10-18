@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Process by which immune T cells commit to effector versus regulatory fates; directly controlled by mTOR complex activity.",
-  "study_count": 9,
+  "study_count": 14,
   "relation_count": 0,
   "url": "https://mtor-atlas.org/process/t-cell-differentiation/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/t-cell-differentiation.json",
@@ -236,6 +236,121 @@
     "finding": "mTORC1 couples immune signals and metabolism to establish regulatory T-cell function.",
     "url": "https://mtor-atlas.org/study/ZEN2013/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2013.json"
+   },
+   {
+    "sid": "PEA2009",
+    "title": "Enhancing CD8 T-cell memory by modulating fatty acid metabolism",
+    "authors": "Pearce EL; Walsh MC; Cejas PJ; Harms GM; Shen H; Wang LS; Jones RG; Choi Y",
+    "year": 2009,
+    "journal": "Nature",
+    "doi": "10.1038/nature08097",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19494812",
+    "pmcid": "PMC2803086",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific TRAF6 deletion (CD4-cre), OT-I TCR-transgenic adoptive transfer, Listeria monocytogenes-OVA infection, EL4-OVA tumour vaccine model, and activated mouse CD8 T cells in vitro after IL-2 withdrawal",
+    "peer_reviewed": true,
+    "finding": "Mice whose T cells lacked the adaptor protein TRAF6 mounted a normal effector CD8 T-cell response to Listeria infection, but the antigen-specific cells vanished during contraction and almost no memory cells formed. The TRAF6-deficient cells failed to activate AMPK and mitochondrial fatty acid oxidation when the growth factor IL-2 was withdrawn. Daily metformin restored fatty acid oxidation and memory formation, and also raised memory CD8 T-cell numbers in normal mice: in a tumour vaccine model 6 of 9 metformin-treated mice survived beyond day 33 against 1 of 8 controls. Daily rapamycin (1.5 mg/kg), used as a second drug that promotes fatty acid oxidation, likewise increased memory CD8 T-cell development and recall responses. Boundary: mouse only, one bacterial infection model and one transplantable tumour; the rapamycin arm is a secondary experiment and mTOR activity itself was not measured in these cells.",
+    "url": "https://mtor-atlas.org/study/PEA2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEA2009.json"
+   },
+   {
+    "sid": "RAO2010",
+    "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+    "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+    "year": 2010,
+    "journal": "Immunity",
+    "doi": "10.1016/j.immuni.2009.10.010",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20060330",
+    "pmcid": "PMC5836496",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+    "peer_reviewed": true,
+    "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+    "url": "https://mtor-atlas.org/study/RAO2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json"
+   },
+   {
+    "sid": "MIC2011",
+    "title": "Cutting edge: distinct glycolytic and lipid oxidative metabolic programs are essential for effector and regulatory CD4+ T cell subsets",
+    "authors": "Michalek RD; Gerriets VA; Jacobs SR; Macintyre AN; MacIver NJ; Mason EF; Sullivan SA; Nichols AG; Rathmell JC",
+    "year": 2011,
+    "journal": "Journal of Immunology",
+    "doi": "10.4049/jimmunol.1003613",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21317389",
+    "pmcid": "PMC3198034",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Primary mouse CD4 T cells polarised in vitro to Th1, Th2, Th17 and inducible Treg, with rapamycin, metformin or the CPT1 inhibitor etomoxir; Glut1-transgenic and Glut1-myc knock-in mice; OVA-driven allergic asthma model with metformin",
+    "peer_reviewed": true,
+    "finding": "Comparing CD4 T cells grown under effector and regulatory conditions, the authors showed that Th1, Th2 and Th17 cells carry high surface Glut1 and are strongly glycolytic, while inducible Treg carry little Glut1, oxidise lipid at a higher rate and have more phosphorylated AMPK. Blocking lipid oxidation with etomoxir selectively suppressed Treg generation and left effector differentiation intact, whereas removing glucose blocked Th17 but not Treg. Both rapamycin and metformin raised fatty acid oxidation in stimulated CD4 T cells, and etomoxir prevented the Treg increase produced by rapamycin or TGF-beta, which ties the pro-Treg effect of mTOR inhibition to lipid oxidation. In a mouse asthma model, metformin lowered Glut1 on activated CD4 T cells and increased the proportion and number of Treg in draining lymph nodes, although airway responsiveness itself did not change significantly. Boundary: mouse cells and one mouse allergic-airway model; mTOR inhibition is pharmacological (rapamycin) and mTOR activity was not measured directly, so the mTOR arm is inferred from drug effects.",
+    "url": "https://mtor-atlas.org/study/MIC2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MIC2011.json"
+   },
+   {
+    "sid": "POL2015",
+    "title": "mTORC1 and mTORC2 selectively regulate CD8+ T cell differentiation",
+    "authors": "Pollizzi KN; Patel CH; Sun IH; Oh MH; Waickman AT; Wen J; Delgoffe GM; Powell JD",
+    "year": 2015,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI77746",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25893604",
+    "pmcid": "PMC4463194",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific deletion of Tsc2, Rheb or Rictor (and Tsc2/Rictor double knockout), OT-I adoptive transfer, vaccinia-OVA and Listeria-OVA infection, EL4 and B16-OVA tumour models, rapamycin (100 ug/kg/day) and 2-deoxyglucose in vivo, Seahorse metabolic profiling",
+    "peer_reviewed": true,
+    "finding": "By deleting Tsc2, Rheb or Rictor in T cells, this work split the CD8 response between the two mTOR complexes. Tsc2 loss left mTORC1 constitutively active: the cells were strongly glycolytic (high ECAR, high Slc2a1 and Pfk1, low spare respiratory capacity), made more IFN-gamma, TNF and granzyme B, cleared EL4 thymoma and slowed B16-OVA growth, but stayed terminally differentiated and were about two-fold fewer than wild type at day 30, with no memory. Rheb loss removed mTORC1 activity with mTORC2 intact: those cells failed as effectors but kept memory-like features and were about two-fold more numerous at day 30, yet did not respond to rechallenge, which the authors trace to metabolic defects. Rapamycin from day 5 (100 ug/kg daily) rescued survival of Tsc2-deficient cells, raised CD127 and Eomesodermin, lowered KLRG1 and T-bet and restored a recall response. Losing mTORC2 by Rictor deletion left effector function intact but increased memory cells that still responded 133 days after infection, and the Tsc2/Rictor double knockout showed that the hyperactive effector phenotype needs mTORC2. Boundary: mouse genetics with TCR-transgenic transfers and transplantable tumours; the comparison rests on genetic extremes (no TSC2, no Rheb, no Rictor) rather than graded physiological signalling, and nothing here is measured in people.",
+    "url": "https://mtor-atlas.org/study/POL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POL2015.json"
+   },
+   {
+    "sid": "GEI2016",
+    "title": "L-Arginine Modulates T Cell Metabolism and Enhances Survival and Anti-tumor Activity",
+    "authors": "Geiger R; Rieckmann JC; Wolf T; Basso C; Feng Y; Fuhrer T; Kogadeeva M; Picotti P; Meissner F; Mann M; Zamboni N; Sallusto F; Lanzavecchia A",
+    "year": 2016,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2016.09.031",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27745970",
+    "pmcid": "PMC5075284",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human primary naive CD4 and CD8 T cells with high-resolution metabolomics, proteomics and limited-proteolysis mass spectrometry, plus CRISPR knockout T-cell clones; mouse HA-TCR transgenic transfers with oral L-arginine, and B16-OVA melanoma with OT-I transfer",
+    "peer_reviewed": true,
+    "finding": "Tracking metabolites and proteins in activated human T cells, the authors found intracellular L-arginine falls sharply after activation even in 1 mM medium, because uptake and conversion to ornithine, proline and spermidine rise. Raising L-arginine shifted metabolism from glycolysis towards oxidative phosphorylation, increased oxygen consumption and spare respiratory capacity, and produced central-memory-like cells (CCR7 and CD62L high, less IFN-gamma) with greater survival capacity; blocking arginase gave the same survival gain at physiological 150 uM L-arginine. Limited-proteolysis mass spectrometry plus knockout clones identified three nuclear proteins, BAZ1B, PSIP1 and TSN, that sense L-arginine and contribute to the survival programme. In mice, oral L-arginine raised serum levels from about 160 uM to 700 uM and roughly doubled intracellular L-arginine in activated T cells, and L-arginine-treated OT-I cells slowed B16-OVA growth and extended survival. The authors report explicitly that the survival effect was independent of mTOR: L-arginine did not change S6K1 or 4E-BP phosphorylation, and rapamycin, while also improving survival, changed metabolism in an entirely different way. Boundary: mostly human T cells in culture plus mouse transfer and transplantable-tumour models; the dietary arm is a mouse supplementation experiment, not a human trial, and mTOR enters only as a negative control.",
+    "url": "https://mtor-atlas.org/study/GEI2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GEI2016.json"
    }
   ],
   "relations": []

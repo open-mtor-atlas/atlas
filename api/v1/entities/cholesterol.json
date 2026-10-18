@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -28,7 +28,7 @@
    "LDL-derived cholesterol"
   ],
   "description": "A membrane sterol that mTORC1 treats as a nutrient input, read at the lysosome rather than at the cell surface. Two routes into the same machinery are described: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports cholesterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry. How the two routes divide the signal, and whether either matters at the level of an organism, is not measured in this corpus.",
-  "study_count": 2,
+  "study_count": 3,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/nutrient/cholesterol/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/cholesterol.json",
@@ -85,6 +85,29 @@
     "finding": "Establishes lysosomal cholesterol as a nutrient input that drives mTORC1 recruitment and activation at the lysosomal surface. SLC38A9 is required for cholesterol-driven mTORC1 activation through conserved cholesterol-responsive motifs, and does so independently of its arginine-sensing function; NPC1, which exports cholesterol from the lysosome, binds SLC38A9 and restrains mTORC1 through its sterol transport function. Boundary: cell lines and patient-derived fibroblasts, no organismal endpoint.",
     "url": "https://mtor-atlas.org/study/CAS2017/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/CAS2017.json"
+   },
+   {
+    "sid": "KID2013",
+    "title": "Sterol regulatory element-binding proteins are essential for the metabolic programming of effector T cells and adaptive immunity",
+    "authors": "Kidani Y; Elsaesser H; Hock MB; Vergnes L; Williams KJ; Argus JP; Marbois BN; Komisopoulou E; Wilson EB; Osborne TF; Graeber TG; Reue K; Brooks DG; Bensinger SJ",
+    "year": 2013,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2570",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23563690",
+    "pmcid": "PMC3652626",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells with Cd4-cre-driven deletion of Scap (removing both SREBP1 and SREBP2 activity), siRNA and constitutively active SREBP constructs, rapamycin and LY294002 pretreatment, ChIP for SREBP1/2 at lipogenic promoters, GC-MS lipid measurement, Seahorse profiling, LCMV-Armstrong infection and homeostatic-proliferation transfers",
+    "peer_reviewed": true,
+    "finding": "Activating T cells switch on cholesterol and fatty acid synthesis genes within hours, and this paper showed the switch runs through PI3K and mTOR to SREBP: 100 nM rapamycin given 30 minutes before stimulation blocked the induction of the lipogenic programme, prevented processing of full-length SREBP and its accumulation in the nucleus, and reduced SREBP1 and SREBP2 occupancy at lipogenic promoters to background. Deleting Scap in T cells, which removes both SREBP1 and SREBP2 activity, left thymic and peripheral T-cell numbers normal but the cells could not blast: they entered G1 and stalled, failed to raise cholesterol and fatty acids after activation, and increased ECAR and OCR only modestly where controls rose about ten-fold and four-fold. Adding cholesterol conjugated to methyl-beta-cyclodextrin roughly doubled survival at 48 hours (21 to 45 percent) and restored growth, cell-cycle entry and ER expansion, which points to cholesterol as the limiting step. After LCMV-Armstrong infection the Scap-deficient mice had fewer virus-specific CD8 T cells with lower IFN-gamma and TNF, while homeostatic proliferation was unaffected. Boundary: mouse genetics and mouse cells; the mTOR step is shown with rapamycin pretreatment in cultured T cells, and the in vivo arm measures the consequence of losing SREBP activity rather than of inhibiting mTOR.",
+    "url": "https://mtor-atlas.org/study/KID2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KID2013.json"
    }
   ],
   "relations": [

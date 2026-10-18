@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -26,7 +26,7 @@
    "AVO3"
   ],
   "description": "Defining subunit of mTORC2 (Rapamycin-Insensitive Companion of mTOR); routes mTOR toward Akt and the cytoskeleton rather than S6K1/4E-BP1.",
-  "study_count": 11,
+  "study_count": 12,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/rictor/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/rictor.json",
@@ -290,6 +290,29 @@
     "finding": "The authors deleted rictor, an essential mTORC2 component, only in mouse liver. In fed knockout mice the liver lost Akt Ser473 phosphorylation and had lower glucokinase and SREBP1c activity, so it kept making glucose (gluconeogenesis) while glycolysis and fat synthesis fell, as if it could not sense that the animal had eaten. The mice became hyperglycaemic and hyperinsulinaemic with low blood lipids. In mTORC2-deficient hepatocytes, constitutively active Akt2 restored both glucose flux and lipogenesis, while extra glucokinase restored glucose flux but not lipogenesis, placing Akt as the main route from hepatic mTORC2 to these outputs. Boundary: Mouse liver with lifelong genetic loss of mTORC2, plus cultured mouse hepatocytes. Not a drug study and not tested in people. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/HAG2012/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/HAG2012.json"
+   },
+   {
+    "sid": "POL2015",
+    "title": "mTORC1 and mTORC2 selectively regulate CD8+ T cell differentiation",
+    "authors": "Pollizzi KN; Patel CH; Sun IH; Oh MH; Waickman AT; Wen J; Delgoffe GM; Powell JD",
+    "year": 2015,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI77746",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25893604",
+    "pmcid": "PMC4463194",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific deletion of Tsc2, Rheb or Rictor (and Tsc2/Rictor double knockout), OT-I adoptive transfer, vaccinia-OVA and Listeria-OVA infection, EL4 and B16-OVA tumour models, rapamycin (100 ug/kg/day) and 2-deoxyglucose in vivo, Seahorse metabolic profiling",
+    "peer_reviewed": true,
+    "finding": "By deleting Tsc2, Rheb or Rictor in T cells, this work split the CD8 response between the two mTOR complexes. Tsc2 loss left mTORC1 constitutively active: the cells were strongly glycolytic (high ECAR, high Slc2a1 and Pfk1, low spare respiratory capacity), made more IFN-gamma, TNF and granzyme B, cleared EL4 thymoma and slowed B16-OVA growth, but stayed terminally differentiated and were about two-fold fewer than wild type at day 30, with no memory. Rheb loss removed mTORC1 activity with mTORC2 intact: those cells failed as effectors but kept memory-like features and were about two-fold more numerous at day 30, yet did not respond to rechallenge, which the authors trace to metabolic defects. Rapamycin from day 5 (100 ug/kg daily) rescued survival of Tsc2-deficient cells, raised CD127 and Eomesodermin, lowered KLRG1 and T-bet and restored a recall response. Losing mTORC2 by Rictor deletion left effector function intact but increased memory cells that still responded 133 days after infection, and the Tsc2/Rictor double knockout showed that the hyperactive effector phenotype needs mTORC2. Boundary: mouse genetics with TCR-transgenic transfers and transplantable tumours; the comparison rests on genetic extremes (no TSC2, no Rheb, no Rictor) rather than graded physiological signalling, and nothing here is measured in people.",
+    "url": "https://mtor-atlas.org/study/POL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POL2015.json"
    }
   ],
   "relations": [
@@ -336,7 +359,8 @@
      "supporting": [
       "SAR2004",
       "JAC2004",
-      "HUA2013"
+      "HUA2013",
+      "POL2015"
      ],
      "conflicting": []
     },

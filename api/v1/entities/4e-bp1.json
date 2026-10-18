@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -27,7 +27,7 @@
    "PHAS-I"
   ],
   "description": "Translational repressor; the master effector through which mTORC1 controls protein synthesis. mTORC1 phosphorylates 4E-BP1 to release eIF4E and switch translation ON.",
-  "study_count": 19,
+  "study_count": 22,
   "relation_count": 4,
   "url": "https://mtor-atlas.org/gene/4e-bp1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/4e-bp1.json",
@@ -475,6 +475,75 @@
     "finding": "The authors compared genome-wide changes in mRNA translation caused by metformin with those caused by the mTOR inhibitors rapamycin and PP242 in cancer cells. Metformin changed gene expression at the level of translation to an extent comparable to the classic mTOR inhibitors. Its antiproliferative effect could be explained by selective suppression of translation of mRNAs encoding cell-cycle regulators, acting through the mTORC1 / 4E-BP pathway. The paper provided evidence that metformin's effect on cell growth in vitro goes through selective translational control rather than a general drop in protein synthesis. Boundary: Cultured cancer cells at drug concentrations used in vitro; does not show that metformin at clinical doses acts this way in patients. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/LAR2012/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/LAR2012.json"
+   },
+   {
+    "sid": "COS2009",
+    "title": "Translational control of long-lasting synaptic plasticity and memory",
+    "authors": "Costa-Mattioli M; Sossin WS; Klann E; Sonenberg N",
+    "year": 2009,
+    "journal": "Neuron",
+    "doi": "10.1016/j.neuron.2008.10.055",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19146809",
+    "pmcid": "PMC5154738",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative review (no new data): genetic, physiological, pharmacological and biochemical studies in rodents, Aplysia and Drosophila",
+    "peer_reviewed": true,
+    "finding": "This review gathers evidence that long-lasting synaptic plasticity and long-term memory depend on new protein synthesis, and that the step where mRNA translation starts is a main control point. It covers two arms: the mTORC1 arm (4E-BP2, eIF4E, S6K) that controls cap-dependent translation, and the eIF2alpha arm (GCN2, PKR, ATF4) that controls general translation and specific mRNAs. It also discusses how faulty translational control is linked to disorders such as fragile X syndrome and tuberous sclerosis. It is a summary of work by many labs and gives the field a shared framework rather than new data. Boundary: narrative review; the cited evidence is mainly from rodent slices, rodent behaviour and invertebrate models, not from people.",
+    "url": "https://mtor-atlas.org/study/COS2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COS2009.json"
+   },
+   {
+    "sid": "TAN2002",
+    "title": "A rapamycin-sensitive signaling pathway contributes to long-term synaptic plasticity in the hippocampus",
+    "authors": "Tang SJ; Reis G; Kang H; Gingras AC; Sonenberg N; Schuman EM",
+    "year": 2002,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.012605299",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11756682",
+    "pmcid": "PMC117583",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat and mouse hippocampal slices (field recordings, immunostaining); cultured rat hippocampal neurons; Western blot of rat hippocampus",
+    "peer_reviewed": true,
+    "finding": "The authors showed that mTOR, 4E-BP1, 4E-BP2 and eIF4E are present in rat hippocampus and sit in dendrites, close to synapses, where their staining overlapped with the postsynaptic protein PSD-95. Blocking mTOR with rapamycin in hippocampal slices reduced late-phase long-term potentiation (LTP) after high-frequency stimulation, while early-phase LTP was unaffected. Rapamycin also blocked the synaptic potentiation induced by the growth factor BDNF. This was one of the early papers to tie a rapamycin-sensitive pathway to the protein-synthesis-dependent phase of synaptic plasticity and to suggest it controls local translation at synapses. Boundary: rodent brain slices and cultured neurons; mTOR targets were localised but their phosphorylation during LTP was not reported in the abstract; no behaviour or memory test.",
+    "url": "https://mtor-atlas.org/study/TAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2002.json"
+   },
+   {
+    "sid": "GKO2013",
+    "title": "Autism-related deficits via dysregulated eIF4E-dependent translational control",
+    "authors": "Gkogkas CG; Khoutorsky A; Ran I; Rampakakis E; Nevarko T; Weatherill DB; Vasuta C; Yee S; Truitt M; Dallaire P; Major F; Lasko P; Ruggero D; Nader K; Lacaille JC; Sonenberg N",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature11628",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23172145",
+    "pmcid": "PMC4133997",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Eif4ebp2 knockout mice and betaT-Eif4e (eIF4E-overexpressing) mice; hippocampal slices and slice cultures; MEF reporter assays; icv 4EGI-1 and lentiviral shRNA",
+    "peer_reviewed": true,
+    "finding": "Mice lacking 4E-BP2, the main brain brake on eIF4E downstream of mTORC1, showed autism-like behaviours: reduced social approach in the three-chamber test, more self-grooming and marble burying, and more ultrasonic calls as pups. Polysome profiling of hippocampus showed that, of 24 autism-linked mRNAs tested, only the neuroligin 1-4 mRNAs shifted to heavier polysomes in the knockout, with no change in their mRNA levels or in global protein synthesis; eIF4E-overexpressing mice showed the same neuroligin shift. Knockout neurons had larger excitatory than inhibitory synaptic charge transfer, raising the excitation/inhibition ratio. Five days of brain infusion of 4EGI-1, which blocks eIF4E binding to eIF4G, brought cap-bound eIF4E/eIF4G and neuroligin levels back to normal and reversed the social deficit, and knocking down neuroligin 1 (but not neuroligin 2) partly restored social behaviour. Boundary: mouse genetic models (male mice for behaviour); mTOR itself was not manipulated; the link to human autism is by analogy.",
+    "url": "https://mtor-atlas.org/study/GKO2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GKO2013.json"
    }
   ],
   "relations": [

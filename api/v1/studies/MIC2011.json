@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MIC2011",
+  "title": "Cutting edge: distinct glycolytic and lipid oxidative metabolic programs are essential for effector and regulatory CD4+ T cell subsets",
+  "authors": "Michalek RD; Gerriets VA; Jacobs SR; Macintyre AN; MacIver NJ; Mason EF; Sullivan SA; Nichols AG; Rathmell JC",
+  "year": 2011,
+  "journal": "Journal of Immunology",
+  "doi": "10.4049/jimmunol.1003613",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "21317389",
+  "pmcid": "PMC3198034",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Primary mouse CD4 T cells polarised in vitro to Th1, Th2, Th17 and inducible Treg, with rapamycin, metformin or the CPT1 inhibitor etomoxir; Glut1-transgenic and Glut1-myc knock-in mice; OVA-driven allergic asthma model with metformin",
+  "peer_reviewed": true,
+  "finding": "Comparing CD4 T cells grown under effector and regulatory conditions, the authors showed that Th1, Th2 and Th17 cells carry high surface Glut1 and are strongly glycolytic, while inducible Treg carry little Glut1, oxidise lipid at a higher rate and have more phosphorylated AMPK. Blocking lipid oxidation with etomoxir selectively suppressed Treg generation and left effector differentiation intact, whereas removing glucose blocked Th17 but not Treg. Both rapamycin and metformin raised fatty acid oxidation in stimulated CD4 T cells, and etomoxir prevented the Treg increase produced by rapamycin or TGF-beta, which ties the pro-Treg effect of mTOR inhibition to lipid oxidation. In a mouse asthma model, metformin lowered Glut1 on activated CD4 T cells and increased the proportion and number of Treg in draining lymph nodes, although airway responsiveness itself did not change significantly. Boundary: mouse cells and one mouse allergic-airway model; mTOR inhibition is pharmacological (rapamycin) and mTOR activity was not measured directly, so the mTOR arm is inferred from drug effects.",
+  "url": "https://mtor-atlas.org/study/MIC2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MIC2011.json",
+  "abstract_excerpt": "Stimulated CD4(+) T lymphocytes can differentiate into effector T cell (Teff) or inducible regulatory T cell (Treg) subsets with specific immunological roles. We show that Teff and Treg require distinct metabolic programs to support these functions. Th1, Th2, and Th17 cells expressed high surface levels of the glucose transporter Glut1 and were highly glycolytic. Treg, in contrast, expressed low levels of Glut1 and had high lipid oxidation rates.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (25 nM), metformin (100 uM in vitro, 250 mg/kg daily in vivo), etomoxir (200 uM), glucose withdrawal, Glut1 transgene",
+   "target": "CD4 T-cell glycolysis versus lipid oxidation, and Teff versus Treg differentiation",
+   "species": "Mouse",
+   "effect": "Glycolysis supports effector subsets while lipid oxidation and AMPK activation support Treg; mTOR inhibition increases Treg only when lipid oxidation is available"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "metformin",
+    "name": "Metformin",
+    "type": "Drug"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "PEA2009",
+   "FOR2010",
+   "HOW2017",
+   "KAL2010"
+  ]
+ }
+}

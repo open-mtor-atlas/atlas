@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Cap-dependent translation - the main output mTORC1 exists to control, and the step where a signalling decision becomes physical growth.",
-  "study_count": 16,
+  "study_count": 19,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/process/protein-synthesis/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/protein-synthesis.json",
@@ -401,6 +401,75 @@
     "finding": "The authors made knock-in mice in which all five phosphorylatable serines of ribosomal protein S6 were replaced by alanine, so rpS6 could not be phosphorylated. Contrary to the then widely accepted model, translational control of 5'TOP mRNAs was unaffected. Fibroblasts from these mice made protein faster and divided faster, yet were smaller than wild-type cells, and rapamycin did not shrink them further, which points to rpS6 phosphorylation as a downstream effector of mTOR in cell-size control. Adult mutant mice also had smaller pancreatic beta-cells, less pancreatic insulin, low blood insulin and impaired glucose tolerance. Boundary: Mouse knock-in and mouse cells. Separates rpS6 phosphorylation from 5'TOP control in these systems; not tested in people. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/RUV2005/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/RUV2005.json"
+   },
+   {
+    "sid": "HAN2007",
+    "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+    "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+    "year": 2007,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2006.00267.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17266679",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+    "peer_reviewed": true,
+    "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+    "url": "https://mtor-atlas.org/study/HAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+   },
+   {
+    "sid": "COS2009",
+    "title": "Translational control of long-lasting synaptic plasticity and memory",
+    "authors": "Costa-Mattioli M; Sossin WS; Klann E; Sonenberg N",
+    "year": 2009,
+    "journal": "Neuron",
+    "doi": "10.1016/j.neuron.2008.10.055",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19146809",
+    "pmcid": "PMC5154738",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative review (no new data): genetic, physiological, pharmacological and biochemical studies in rodents, Aplysia and Drosophila",
+    "peer_reviewed": true,
+    "finding": "This review gathers evidence that long-lasting synaptic plasticity and long-term memory depend on new protein synthesis, and that the step where mRNA translation starts is a main control point. It covers two arms: the mTORC1 arm (4E-BP2, eIF4E, S6K) that controls cap-dependent translation, and the eIF2alpha arm (GCN2, PKR, ATF4) that controls general translation and specific mRNAs. It also discusses how faulty translational control is linked to disorders such as fragile X syndrome and tuberous sclerosis. It is a summary of work by many labs and gives the field a shared framework rather than new data. Boundary: narrative review; the cited evidence is mainly from rodent slices, rodent behaviour and invertebrate models, not from people.",
+    "url": "https://mtor-atlas.org/study/COS2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COS2009.json"
+   },
+   {
+    "sid": "GKO2013",
+    "title": "Autism-related deficits via dysregulated eIF4E-dependent translational control",
+    "authors": "Gkogkas CG; Khoutorsky A; Ran I; Rampakakis E; Nevarko T; Weatherill DB; Vasuta C; Yee S; Truitt M; Dallaire P; Major F; Lasko P; Ruggero D; Nader K; Lacaille JC; Sonenberg N",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature11628",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23172145",
+    "pmcid": "PMC4133997",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Eif4ebp2 knockout mice and betaT-Eif4e (eIF4E-overexpressing) mice; hippocampal slices and slice cultures; MEF reporter assays; icv 4EGI-1 and lentiviral shRNA",
+    "peer_reviewed": true,
+    "finding": "Mice lacking 4E-BP2, the main brain brake on eIF4E downstream of mTORC1, showed autism-like behaviours: reduced social approach in the three-chamber test, more self-grooming and marble burying, and more ultrasonic calls as pups. Polysome profiling of hippocampus showed that, of 24 autism-linked mRNAs tested, only the neuroligin 1-4 mRNAs shifted to heavier polysomes in the knockout, with no change in their mRNA levels or in global protein synthesis; eIF4E-overexpressing mice showed the same neuroligin shift. Knockout neurons had larger excitatory than inhibitory synaptic charge transfer, raising the excitation/inhibition ratio. Five days of brain infusion of 4EGI-1, which blocks eIF4E binding to eIF4G, brought cap-bound eIF4E/eIF4G and neuroligin levels back to normal and reversed the social deficit, and knocking down neuroligin 1 (but not neuroligin 2) partly restored social behaviour. Boundary: mouse genetic models (male mice for behaviour); mTOR itself was not manipulated; the link to human autism is by analogy.",
+    "url": "https://mtor-atlas.org/study/GKO2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GKO2013.json"
    }
   ],
   "relations": [

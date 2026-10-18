@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "POL2015",
+  "title": "mTORC1 and mTORC2 selectively regulate CD8+ T cell differentiation",
+  "authors": "Pollizzi KN; Patel CH; Sun IH; Oh MH; Waickman AT; Wen J; Delgoffe GM; Powell JD",
+  "year": 2015,
+  "journal": "Journal of Clinical Investigation",
+  "doi": "10.1172/JCI77746",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "25893604",
+  "pmcid": "PMC4463194",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mice with T-cell-specific deletion of Tsc2, Rheb or Rictor (and Tsc2/Rictor double knockout), OT-I adoptive transfer, vaccinia-OVA and Listeria-OVA infection, EL4 and B16-OVA tumour models, rapamycin (100 ug/kg/day) and 2-deoxyglucose in vivo, Seahorse metabolic profiling",
+  "peer_reviewed": true,
+  "finding": "By deleting Tsc2, Rheb or Rictor in T cells, this work split the CD8 response between the two mTOR complexes. Tsc2 loss left mTORC1 constitutively active: the cells were strongly glycolytic (high ECAR, high Slc2a1 and Pfk1, low spare respiratory capacity), made more IFN-gamma, TNF and granzyme B, cleared EL4 thymoma and slowed B16-OVA growth, but stayed terminally differentiated and were about two-fold fewer than wild type at day 30, with no memory. Rheb loss removed mTORC1 activity with mTORC2 intact: those cells failed as effectors but kept memory-like features and were about two-fold more numerous at day 30, yet did not respond to rechallenge, which the authors trace to metabolic defects. Rapamycin from day 5 (100 ug/kg daily) rescued survival of Tsc2-deficient cells, raised CD127 and Eomesodermin, lowered KLRG1 and T-bet and restored a recall response. Losing mTORC2 by Rictor deletion left effector function intact but increased memory cells that still responded 133 days after infection, and the Tsc2/Rictor double knockout showed that the hyperactive effector phenotype needs mTORC2. Boundary: mouse genetics with TCR-transgenic transfers and transplantable tumours; the comparison rests on genetic extremes (no TSC2, no Rheb, no Rictor) rather than graded physiological signalling, and nothing here is measured in people.",
+  "url": "https://mtor-atlas.org/study/POL2015/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/POL2015.json",
+  "abstract_excerpt": "Activation of mTOR-dependent pathways regulates the specification and differentiation of CD4+ T effector cell subsets. Herein, we show that mTOR complex 1 (mTORC1) and mTORC2 have distinct roles in the generation of CD8+ T cell effector and memory populations.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "T-cell-specific deletion of Tsc2, Rheb or Rictor; Tsc2/Rictor double deletion; rapamycin 100 ug/kg/day; 2-deoxyglucose 500 mg/kg/day",
+   "target": "mTORC1 and mTORC2 activity in CD8 T cells and the effector versus memory decision",
+   "species": "Mouse",
+   "effect": "Constitutive mTORC1 drives glycolytic effectors that cannot become memory; loss of mTORC1 blocks effector differentiation; loss of mTORC2 increases functional memory"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RICTOR-MTORC2",
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DEL2011",
+   "XU2026B",
+   "EVA2026",
+   "FAC2008"
+  ]
+ }
+}

@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -28,7 +28,7 @@
    "p70S6K"
   ],
   "description": "Direct downstream effector of mTORC1 controlling protein synthesis, and the source of the pathway's main negative feedback: S6K1 phosphorylates and represses IRS-1, uncoupling the insulin receptor from PI3K (HAR2004, SHA2004). Its deletion extends lifespan in FEMALE mice (+19% median, not significant in males; SEL2009) and protects against diet-induced obesity.",
-  "study_count": 36,
+  "study_count": 40,
   "relation_count": 5,
   "url": "https://mtor-atlas.org/gene/s6k1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/s6k1.json",
@@ -867,6 +867,98 @@
     "finding": "In mammalian cells, rapamycin selectively blocked the mitogen-induced increase in translation of 5'TOP mRNAs, which encode ribosomal proteins and elongation factors, and in parallel blocked activation of p70 S6 kinase. Using reporter mRNAs, the authors showed that an intact 5'TOP tract was required for the rapamycin effect. A dominant-interfering p70s6k reduced translation of the reporter with the intact 5'TOP but not the disrupted one, and a rapamycin-resistant p70s6k (Thr389 changed to an acidic residue) removed the inhibitory effect of rapamycin on 5'TOP translation. The authors concluded that rapamycin suppresses 5'TOP translation through p70s6k. Boundary: Cell lines with overexpressed kinase mutants and reporter mRNAs. Later genetic work (S6K knockouts, rpS6 knock-in) found 5'TOP control persisting without S6K1 or rpS6 phosphorylation, so the S6K step proposed here is not the current consensus. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/JEF1997/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/JEF1997.json"
+   },
+   {
+    "sid": "HAN2007",
+    "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+    "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+    "year": 2007,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2006.00267.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17266679",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+    "peer_reviewed": true,
+    "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+    "url": "https://mtor-atlas.org/study/HAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+   },
+   {
+    "sid": "MAJ2012",
+    "title": "Lifelong rapamycin administration ameliorates age-dependent cognitive deficits by reducing IL-1β and enhancing NMDA signaling",
+    "authors": "Majumder S; Caccamo A; Medina DX; Benavides AD; Javors MA; Kraig E; Strong R; Richardson A; Oddo S",
+    "year": 2012,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2011.00791.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22212527",
+    "pmcid": "PMC3306461",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "C57BL6/129svj mice (n=20 per group): encapsulated rapamycin in food (14 mg/kg food) from 2 to 18 months, from 15 to 18 months, or control diet; Morris water maze; brain cytokines, p-S6K, NR2B and CREB phosphorylation",
+    "peer_reviewed": true,
+    "finding": "Mice were fed rapamycin in their food either from 2 months of age or only from 15 months, when age-related memory deficits were already present, and all were tested at 18 months in a water maze (20 mice per group). Mice treated from 2 months learned the hidden-platform location faster and spent more time in the target quadrant in the memory test (28.7 vs 21.3 seconds for controls), while mice started at 15 months did no better than controls. Both rapamycin groups had lower phosphorylation of S6K in the brain, a marker of mTOR activity. The improvement in the early-treated mice went together with lower IL-1beta in brain and hippocampus and higher phosphorylation of the NMDA receptor subunit NR2B and of CREB, which the authors propose as the route. Boundary: Mice of one mixed strain, normal ageing (not an Alzheimer model); the late-start arm showed no reversal of existing deficits, and the IL-1beta and NMDA links are correlations, not tested by blocking them.",
+    "url": "https://mtor-atlas.org/study/MAJ2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAJ2012.json"
+   },
+   {
+    "sid": "RAO2010",
+    "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+    "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+    "year": 2010,
+    "journal": "Immunity",
+    "doi": "10.1016/j.immuni.2009.10.010",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20060330",
+    "pmcid": "PMC5836496",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+    "peer_reviewed": true,
+    "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+    "url": "https://mtor-atlas.org/study/RAO2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json"
+   },
+   {
+    "sid": "COT2006",
+    "title": "Hypothalamic mTOR signaling regulates food intake",
+    "authors": "Cota D; Proulx K; Smith KA; Kozma SC; Thomas G; Woods SC; Seeley RJ",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1124147",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16690869",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rats (Long-Evans): fasting/refeeding, intracerebroventricular leucine, leptin and rapamycin; hypothalamic immunostaining and Western blot",
+    "peer_reviewed": true,
+    "finding": "In rats, hypothalamic mTOR signalling (phosphorylated S6K1 and S6) changed with energy status in specific hypothalamic regions and was found in NPY and POMC neurons of the arcuate nucleus. Injecting leucine into the brain ventricles raised hypothalamic mTOR signalling and lowered food intake and body weight. Leptin also raised hypothalamic mTOR activity, and blocking mTOR with rapamycin in the brain blunted leptin's effect on reducing food intake. The authors proposed that hypothalamic mTOR acts as a fuel sensor linked to how much an animal eats. Boundary: rats, direct brain (intracerebroventricular) dosing, short-term food intake; drawn from the abstract only, so doses and effect sizes are not given here.",
+    "url": "https://mtor-atlas.org/study/COT2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COT2006.json"
    }
   ],
   "relations": [
@@ -918,7 +1010,8 @@
       "HAR1998",
       "NOJ2003",
       "POD2001",
-      "JEF1997"
+      "JEF1997",
+      "RAO2010"
      ],
      "conflicting": []
     },

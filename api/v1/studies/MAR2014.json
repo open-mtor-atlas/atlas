@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAR2014",
+  "title": "The metabolic checkpoint kinase mTOR is essential for IL-15 signaling during the development and activation of NK cells",
+  "authors": "Marcais A; Cherfils-Vicini J; Viant C; Degouve S; Viel S; Fenis A; Rabilloud J; Mayol K; Tavares A; Bienvenu J; Gangloff YG; Gilson E; Vivier E; Walzer T",
+  "year": 2014,
+  "journal": "Nature Immunology",
+  "doi": "10.1038/ni.2936",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "24973821",
+  "pmcid": "PMC4110708",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "NKp46-cre x Mtor-flox mice (NK-cell-specific mTOR deletion) plus acute TAT-Cre deletion and adoptive transfer; poly(I:C) and MCMV or influenza infection; oral rapamycin (sirolimus, 100 ug/day) with an in vivo missing-self rejection assay; Seahorse metabolic profiling; human NK cells from healthy donors stimulated with IL-2 plus rapamycin, PP242 or Ku-0063794",
+  "peer_reviewed": true,
+  "finding": "This study separated two arms of IL-15 signalling in NK cells by dose: low IL-15 mainly phosphorylated STAT5 (EC50 about 1.5 ng/ml), while higher IL-15 was needed to switch on mTOR (EC50 about 5.3 ng/ml for S6 phosphorylation), and IL-15 was the only one of many tested stimuli that strongly raised pS6. Deleting mTOR in NK cells left bone-marrow numbers normal but blocked the CD11b-low to double-positive transition, cut proliferation about three-fold and left almost no mature NK cells in the periphery, with lower CD71, glucose uptake and about half the surface CD122 and CD132, so the receptor feedback is itself mTOR-dependent. In activation, mTOR-deficient NK cells failed to grow or raise nutrient uptake after poly(I:C) and made about half as much granzyme B, while IFN-gamma production in response to IL-12 plus IL-18 stayed normal. Oral rapamycin lowered pS6 and granzyme B in vivo and made rejection of MHC-class-I-negative target cells significantly less efficient, and mTOR inhibitors also blocked IL-2-driven granzyme B induction in human NK cells. Boundary: mouse genetics and mouse in vivo pharmacology, with the human arm limited to healthy-donor NK cells stimulated in culture; the clinical implication for patients on rapalogs is inference, not a measured patient outcome.",
+  "url": "https://mtor-atlas.org/study/MAR2014/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2014.json",
+  "abstract_excerpt": "Interleukin 15 (IL-15) controls both the homeostasis and the peripheral activation of natural killer (NK) cells. The molecular basis for this duality of action remains unknown. Here we found that the metabolic checkpoint kinase mTOR was activated and boosted bioenergetic metabolism after exposure of NK cells to high concentrations of IL-15, whereas low doses of IL-15 triggered only phosphorylation of the transcription factor STAT5. mTOR stimulated the growth and nutrient uptake of NK cells and positively fed back on the receptor for IL-15.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "NK-cell-specific Mtor deletion; acute TAT-Cre deletion; oral rapamycin 100 ug/day; PP242 (1 uM) and Ku-0063794 (3 uM) in vitro; IL-15 dose titration; anti-CD122 blockade",
+   "target": "mTORC1 and mTORC2 activity in NK cells (pS6, p4E-BP1, pAkt Ser473, pmTOR Ser2448/2481) and NK cell development, metabolism and cytotoxicity",
+   "species": "Mouse and human (human NK cells in vitro)",
+   "effect": "Loss or inhibition of mTOR reduced NK cell proliferation, maturation, nutrient uptake, granzyme B and cytotoxicity, while leaving IL-12/IL-18-driven IFN-gamma intact"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-MTORC1",
+    "TORIN-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DEL2011",
+   "XU2026B",
+   "CHE2009",
+   "CHEN2026B"
+  ]
+ }
+}

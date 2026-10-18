@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZEN2008",
+  "title": "Rapamycin prevents epilepsy in a mouse model of tuberous sclerosis complex",
+  "authors": "Zeng LH; Xu L; Gutmann DH; Wong M",
+  "year": 2008,
+  "journal": "Annals of Neurology",
+  "doi": "10.1002/ana.21331",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18389497",
+  "pmcid": "PMC3937593",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mice: Tsc1(GFAP) conditional knockout (Tsc1 deleted mainly in glia) and littermate controls; rapamycin or vehicle from P14 (early) or 6 weeks (late); video-EEG, survival, histology, Western blot for phospho-S6",
+  "peer_reviewed": true,
+  "finding": "Mice lacking Tsc1 mainly in glial cells (Tsc1 GFAP conditional knockout) develop glial overgrowth, progressive epilepsy and early death. Rapamycin started at postnatal day 14, before symptoms, prevented epilepsy and premature death; started at 6 weeks, after seizures had begun, it suppressed seizures and prolonged survival. In the brain, rapamycin reversed the abnormal mTOR pathway activation (measured as phospho-S6), the astrogliosis and the neuronal disorganisation, and increased brain size, compared with vehicle-treated knockouts. The study provided evidence in mice that mTOR inhibition can act on epilepsy itself in TSC, not only on tumours, and it is part of the rationale for the later EXIST-3 seizure trial in patients. Boundary: mouse model with Tsc1 deleted mainly in glia, not the human germline mutation; seizure and survival outcomes in mice only; abstract does not state dose or schedule.",
+  "url": "https://mtor-atlas.org/study/ZEN2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2008.json",
+  "abstract_excerpt": "Tuberous sclerosis complex (TSC) represents one of the most common genetic causes of epilepsy. TSC gene inactivation leads to hyperactivation of the mammalian target of rapamycin signaling pathway, raising the intriguing possibility that mammalian target of rapamycin inhibitors might be effective in preventing or treating epilepsy in patients with TSC. Mice with conditional inactivation of the Tsc1 gene primarily in glia (Tsc1(GFAP)CKO mice) develop glial proliferation, progressive epilepsy, and premature death.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin vs vehicle, early (from P14) or late (from 6 weeks)",
+   "target": "mTORC1",
+   "species": "Mouse",
+   "effect": "Prevented (early) or suppressed (late) epilepsy and prolonged survival; reduced phospho-S6, astrogliosis, neuronal disorganisation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BAT2013",
+   "EHN2008",
+   "KWI2002",
+   "LI2026C"
+  ]
+ }
+}

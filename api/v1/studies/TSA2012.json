@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "TSA2012",
+  "title": "Autistic-like behaviour and cerebellar dysfunction in Purkinje cell Tsc1 mutant mice",
+  "authors": "Tsai PT; Hull C; Chu Y; Greene-Colozzi E; Sadowski AR; Leech JM; Steinberg J; Crawley JN; Regehr WG; Sahin M",
+  "year": 2012,
+  "journal": "Nature",
+  "doi": "10.1038/nature11310",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22763451",
+  "pmcid": "PMC3615424",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "L7Cre;Tsc1 flox mice (Purkinje-cell-specific heterozygous and homozygous Tsc1 deletion); cerebellar slice electrophysiology; behaviour; rapamycin from P7",
+  "peer_reviewed": true,
+  "finding": "Deleting one or both copies of Tsc1 only in cerebellar Purkinje cells raised phospho-S6 (a readout of mTORC1) in those cells. Both heterozygous and homozygous mutants showed autism-like behaviour: no preference for a mouse over an object or for a new mouse, more self-grooming, more pup ultrasonic calls and poorer reversal learning in a water T-maze. Purkinje cells fired fewer action potentials, both spontaneously and when driven, in a gene-dose-dependent way, while their synaptic inputs looked largely normal; homozygous mutants also lost Purkinje cells from about 2 months of age and became ataxic. Rapamycin (6 mg/kg intraperitoneally, three times a week from postnatal day 7) prevented the Purkinje cell loss and enlargement and the social, learning and motor deficits. Boundary: mouse, cell-type-specific genetic deletion; rapamycin given from early postnatal life, so this is prevention, not reversal; relevance to human autism is by analogy with TSC patients.",
+  "url": "https://mtor-atlas.org/study/TSA2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/TSA2012.json",
+  "abstract_excerpt": "Autism spectrum disorders (ASDs) are highly prevalent neurodevelopmental disorders, but the underlying pathogenesis remains poorly understood. Recent studies have implicated the cerebellum in these disorders, with post-mortem studies in ASD patients showing cerebellar Purkinje cell (PC) loss, and isolated cerebellar injury has been associated with a higher incidence of ASDs. However, the extent of cerebellar contribution to the pathogenesis of ASDs remains unclear.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Purkinje-cell-specific Tsc1 deletion; rapamycin",
+   "target": "TSC1/TSC2 -> mTORC1",
+   "species": "Mouse",
+   "effect": "Tsc1 loss in Purkinje cells caused autism-like behaviour and reduced PC excitability; rapamycin prevented the deficits"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BAT2013",
+   "EHN2008",
+   "KWI2002",
+   "LI2026C"
+  ]
+ }
+}

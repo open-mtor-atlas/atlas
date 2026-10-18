@@ -9,14 +9,14 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
  },
- "count": 487,
+ "count": 512,
  "data": [
   {
    "sid": "DEM2016",
@@ -40,6 +40,29 @@
    "finding": "Lysosomal recruitment of TSC2 is a universal response to cellular stress that inhibits mTORC1.",
    "url": "https://mtor-atlas.org/study/DEM2016/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2016.json"
+  },
+  {
+   "sid": "POL2015",
+   "title": "mTORC1 and mTORC2 selectively regulate CD8+ T cell differentiation",
+   "authors": "Pollizzi KN; Patel CH; Sun IH; Oh MH; Waickman AT; Wen J; Delgoffe GM; Powell JD",
+   "year": 2015,
+   "journal": "Journal of Clinical Investigation",
+   "doi": "10.1172/JCI77746",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "25893604",
+   "pmcid": "PMC4463194",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Mice with T-cell-specific deletion of Tsc2, Rheb or Rictor (and Tsc2/Rictor double knockout), OT-I adoptive transfer, vaccinia-OVA and Listeria-OVA infection, EL4 and B16-OVA tumour models, rapamycin (100 ug/kg/day) and 2-deoxyglucose in vivo, Seahorse metabolic profiling",
+   "peer_reviewed": true,
+   "finding": "By deleting Tsc2, Rheb or Rictor in T cells, this work split the CD8 response between the two mTOR complexes. Tsc2 loss left mTORC1 constitutively active: the cells were strongly glycolytic (high ECAR, high Slc2a1 and Pfk1, low spare respiratory capacity), made more IFN-gamma, TNF and granzyme B, cleared EL4 thymoma and slowed B16-OVA growth, but stayed terminally differentiated and were about two-fold fewer than wild type at day 30, with no memory. Rheb loss removed mTORC1 activity with mTORC2 intact: those cells failed as effectors but kept memory-like features and were about two-fold more numerous at day 30, yet did not respond to rechallenge, which the authors trace to metabolic defects. Rapamycin from day 5 (100 ug/kg daily) rescued survival of Tsc2-deficient cells, raised CD127 and Eomesodermin, lowered KLRG1 and T-bet and restored a recall response. Losing mTORC2 by Rictor deletion left effector function intact but increased memory cells that still responded 133 days after infection, and the Tsc2/Rictor double knockout showed that the hyperactive effector phenotype needs mTORC2. Boundary: mouse genetics with TCR-transgenic transfers and transplantable tumours; the comparison rests on genetic extremes (no TSC2, no Rheb, no Rictor) rather than graded physiological signalling, and nothing here is measured in people.",
+   "url": "https://mtor-atlas.org/study/POL2015/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/POL2015.json"
   },
   {
    "sid": "INOK2003",
@@ -86,6 +109,29 @@
    "finding": "Akt directly phosphorylates and inactivates TSC2, disrupting the TSC1-TSC2 complex and releasing its inhibition of mTOR - the link between growth-factor/insulin signaling and mTORC1 activation.",
    "url": "https://mtor-atlas.org/study/INO2002/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/INO2002.json"
+  },
+  {
+   "sid": "WAN2017",
+   "title": "Rapamycin inhibits the secretory phenotype of senescent cells by a Nrf2-independent mechanism",
+   "authors": "Wang Rong; Yu Z; Sunchu B; Shoaf J; Dang I; Zhao S; Caples K; Bradley L; Beaver LM; Ho E; Löhr CV; Perez VI",
+   "year": 2017,
+   "journal": "Aging Cell",
+   "doi": "10.1111/acel.12587",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "28371119",
+   "pmcid": "PMC5418203",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Mouse skin fibroblasts and WT vs Nrf2-knockout MEFs (H2O2- or bleomycin-induced senescence); human WI38 fibroblasts (replicative senescence, CRISPR Nrf2 knockout); WT and Nrf2-knockout mice given rapamycin 4 mg/kg i.p. every other day for 6 weeks",
+   "peer_reviewed": true,
+   "finding": "The authors asked whether the transcription factor Nrf2 is needed for rapamycin to hold back cellular senescence. In wild-type mouse fibroblasts exposed to hydrogen peroxide, rapamycin raised Nrf2, switched on autophagy and lowered the senescence markers p16 and p21, beta-galactosidase staining and the inflammatory secretory profile (SASP). In Nrf2-knockout cells rapamycin still lowered beta-galactosidase staining and the SASP, but no longer lowered p16 and p21 or activated autophagy; re-expressing Nrf2 restored those effects, and human WI38 cells with Nrf2 knocked out by CRISPR behaved the same way. In Nrf2-knockout mice given rapamycin (4 mg/kg every other day for 6 weeks, 8 mice per group), fat-tissue beta-galactosidase staining and pro-inflammatory cytokines fell while p16 did not, and rapamycin lowered STAT3 phosphorylation in lung tissue and WI38 cells. The study provided evidence that rapamycin's effect on the SASP can be separated from its Nrf2-dependent effect on cell-cycle arrest. Boundary: Mouse and human fibroblasts in culture plus a short 6-week dosing study in young Nrf2-knockout mice; mTOR inhibition was by rapamycin, which was given before and during the senescence trigger, so this is prevention of senescence onset rather than treatment of established senescent cells.",
+   "url": "https://mtor-atlas.org/study/WAN2017/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2017.json"
   },
   {
    "sid": "YU2026",
@@ -732,6 +778,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/KRA2018.json"
   },
   {
+   "sid": "GKO2013",
+   "title": "Autism-related deficits via dysregulated eIF4E-dependent translational control",
+   "authors": "Gkogkas CG; Khoutorsky A; Ran I; Rampakakis E; Nevarko T; Weatherill DB; Vasuta C; Yee S; Truitt M; Dallaire P; Major F; Lasko P; Ruggero D; Nader K; Lacaille JC; Sonenberg N",
+   "year": 2013,
+   "journal": "Nature",
+   "doi": "10.1038/nature11628",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "23172145",
+   "pmcid": "PMC4133997",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Eif4ebp2 knockout mice and betaT-Eif4e (eIF4E-overexpressing) mice; hippocampal slices and slice cultures; MEF reporter assays; icv 4EGI-1 and lentiviral shRNA",
+   "peer_reviewed": true,
+   "finding": "Mice lacking 4E-BP2, the main brain brake on eIF4E downstream of mTORC1, showed autism-like behaviours: reduced social approach in the three-chamber test, more self-grooming and marble burying, and more ultrasonic calls as pups. Polysome profiling of hippocampus showed that, of 24 autism-linked mRNAs tested, only the neuroligin 1-4 mRNAs shifted to heavier polysomes in the knockout, with no change in their mRNA levels or in global protein synthesis; eIF4E-overexpressing mice showed the same neuroligin shift. Knockout neurons had larger excitatory than inhibitory synaptic charge transfer, raising the excitation/inhibition ratio. Five days of brain infusion of 4EGI-1, which blocks eIF4E binding to eIF4G, brought cap-bound eIF4E/eIF4G and neuroligin levels back to normal and reversed the social deficit, and knocking down neuroligin 1 (but not neuroligin 2) partly restored social behaviour. Boundary: mouse genetic models (male mice for behaviour); mTOR itself was not manipulated; the link to human autism is by analogy.",
+   "url": "https://mtor-atlas.org/study/GKO2013/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/GKO2013.json"
+  },
+  {
    "sid": "XIA2026",
    "title": "Nutrient-sensing pathways in adult stem cells: Orchestrating homeostasis, aging, and disease",
    "authors": "Xiao T; Xie Z; Yao L; Zhao K; Zeng YA; Hu C",
@@ -870,6 +939,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2026.json"
   },
   {
+   "sid": "BER2006",
+   "title": "Rapamycin alleviates toxicity of different aggregate-prone proteins",
+   "authors": "Berger Z; Ravikumar B; Menzies FM; Oroz LG; Underwood BR; Pangalos MN; Schmitt I; Wullner U; Evert BO; O'Kane CJ; Rubinsztein DC",
+   "year": 2006,
+   "journal": "Human Molecular Genetics",
+   "doi": "10.1093/hmg/ddi458",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "16368705",
+   "pmcid": null,
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Mammalian cell lines (incl. COS cells) expressing polyglutamine- and polyalanine-expanded proteins; Drosophila expressing wild-type or mutant human tau",
+   "peer_reviewed": true,
+   "finding": "Building on their earlier work with mutant huntingtin, the authors showed in cell models that rapamycin, used as an autophagy inducer, increased the clearance of several proteins with long polyglutamine tracts and of a polyalanine-expanded protein, and reduced their toxicity. In fruit flies expressing wild-type or mutant human tau, rapamycin reduced tau toxicity, and this went with less insoluble tau. The authors argued that inducing autophagy with rapamycin could be useful across several aggregate-prone protein diseases, not only Huntington's disease. Boundary: cultured cells and Drosophila overexpressing disease proteins; drawn from the abstract only; no mammalian in vivo or human data.",
+   "url": "https://mtor-atlas.org/study/BER2006/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/BER2006.json"
+  },
+  {
    "sid": "FON2010",
    "title": "Extending healthy life span--from yeast to humans",
    "authors": "Fontana L; Partridge L; Longo VD",
@@ -1006,6 +1098,29 @@
    "finding": "In mouse kidney tumours, active phosphorylated mTOR and total mTOR protein followed a 24-hour rhythm, set by the clock through the ubiquitin ligase Fbxw7. Giving everolimus when mTOR was high improved survival compared with other dosing times. Same drug, same dose - the clock time of dosing changed the outcome.",
    "url": "https://mtor-atlas.org/study/OKA2013/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/OKA2013.json"
+  },
+  {
+   "sid": "MAJ2012",
+   "title": "Lifelong rapamycin administration ameliorates age-dependent cognitive deficits by reducing IL-1β and enhancing NMDA signaling",
+   "authors": "Majumder S; Caccamo A; Medina DX; Benavides AD; Javors MA; Kraig E; Strong R; Richardson A; Oddo S",
+   "year": 2012,
+   "journal": "Aging Cell",
+   "doi": "10.1111/j.1474-9726.2011.00791.x",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "22212527",
+   "pmcid": "PMC3306461",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "C57BL6/129svj mice (n=20 per group): encapsulated rapamycin in food (14 mg/kg food) from 2 to 18 months, from 15 to 18 months, or control diet; Morris water maze; brain cytokines, p-S6K, NR2B and CREB phosphorylation",
+   "peer_reviewed": true,
+   "finding": "Mice were fed rapamycin in their food either from 2 months of age or only from 15 months, when age-related memory deficits were already present, and all were tested at 18 months in a water maze (20 mice per group). Mice treated from 2 months learned the hidden-platform location faster and spent more time in the target quadrant in the memory test (28.7 vs 21.3 seconds for controls), while mice started at 15 months did no better than controls. Both rapamycin groups had lower phosphorylation of S6K in the brain, a marker of mTOR activity. The improvement in the early-treated mice went together with lower IL-1beta in brain and hippocampus and higher phosphorylation of the NMDA receptor subunit NR2B and of CREB, which the authors propose as the route. Boundary: Mice of one mixed strain, normal ageing (not an Alzheimer model); the late-start arm showed no reversal of existing deficits, and the IL-1beta and NMDA links are correlations, not tested by blocking them.",
+   "url": "https://mtor-atlas.org/study/MAJ2012/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/MAJ2012.json"
   },
   {
    "sid": "BO2026",
@@ -1259,6 +1374,29 @@
    "finding": "Authoritative review of the molecular basis of nutrient sensing and signalling by mTORC1 in disease.",
    "url": "https://mtor-atlas.org/study/GOU2023/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/GOU2023.json"
+  },
+  {
+   "sid": "ANI2011",
+   "title": "Rapamycin increases lifespan and inhibits spontaneous tumorigenesis in inbred female mice",
+   "authors": "Anisimov VN; Zabezhinski MA; Popovich IG; Piskunova TS; Semenchenko AV; Tyndyk ML; Yurova MN; Rosenfeld SV; Blagosklonny MV",
+   "year": 2011,
+   "journal": "Cell Cycle",
+   "doi": "10.4161/cc.10.24.18486",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "22107964",
+   "pmcid": null,
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Female 129/Sv inbred mice given rapamycin intermittently (2 weeks per month) from 2 months of age for life; survival, body weight, ageing-rate measures and spontaneous tumours",
+   "peer_reviewed": true,
+   "finding": "Female 129/Sv inbred mice received rapamycin intermittently, 2 weeks in every month, from 2 months of age for the rest of their lives. Treated mice gained less weight with age, showed a slower estimated rate of ageing, lived longer, with the gain most visible among the last survivors, and developed spontaneous tumours later. 22.9% of rapamycin-treated mice were still alive when the last control mouse died. The paper provided evidence that an intermittent rapamycin schedule can extend lifespan in a normal inbred mouse strain, adding to earlier results in genetically heterogeneous mice. Boundary: Female mice of a single inbred strain (129/Sv) only; drafted from the abstract only, so dose, group sizes and median-lifespan statistics are not given here.",
+   "url": "https://mtor-atlas.org/study/ANI2011/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/ANI2011.json"
   },
   {
    "sid": "EFE2012",
@@ -1560,6 +1698,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2026.json"
   },
   {
+   "sid": "ATK2004",
+   "title": "Randomized phase II study of multiple dose levels of CCI-779, a novel mammalian target of rapamycin kinase inhibitor, in patients with advanced refractory renal cell carcinoma",
+   "authors": "Atkins MB; Hidalgo M; Stadler WM; Logan TF; Dutcher JP; Hudes GR; Park Y; Liou SH; Marshall B; Boni JP; Dukart G; Sherman ML",
+   "year": 2004,
+   "journal": "Journal of Clinical Oncology",
+   "doi": "10.1200/jco.2004.08.185",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "14990647",
+   "pmcid": null,
+   "evidence": {
+    "code": "H",
+    "label": "Human study",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Human",
+   "model_system": "Humans: 111 patients with advanced refractory renal cell carcinoma, randomised to three weekly IV doses of temsirolimus (CCI-779)",
+   "peer_reviewed": true,
+   "finding": "In this randomised phase II trial, 111 patients with advanced renal cell carcinoma that had progressed on earlier therapy received temsirolimus (CCI-779) at 25, 75 or 250 mg as a weekly intravenous infusion. There was no control arm: randomisation compared dose levels only. The objective response rate was 7% (1 complete and 7 partial responses), with minor responses in a further 26%; median time to progression was 5.8 months and median survival 15.0 months. Neither efficacy nor toxicity differed significantly between the three doses, which supported taking the lowest dose (25 mg) forward. The commonest side effects were rash (76%), mouth sores (70%), weakness (50%) and nausea (43%); the commonest grade 3-4 events were high blood glucose (17%), low phosphate (13%), anaemia (9%) and high triglycerides (6%). Boundary: patients with advanced, previously treated kidney cancer; no placebo or active comparator, so survival figures cannot be attributed to the drug; risk-group analysis was retrospective.",
+   "url": "https://mtor-atlas.org/study/ATK2004/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/ATK2004.json"
+  },
+  {
    "sid": "BEN2008",
    "title": "Skeletal muscle-specific ablation of raptor, but not of rictor, causes metabolic changes and results in muscle dystrophy",
    "authors": "Bentzinger CF; Romanino K; Cloëtta D; Lin S; Mascarenhas JB; Oliveri F; Xia J; Casanova E; Costa CF; Brink M; Zorzato F; Hall MN; Rueegg MA",
@@ -1719,6 +1880,29 @@
    "finding": "Review of how mTOR signalling confers resistance to targeted cancer therapies.",
    "url": "https://mtor-atlas.org/study/GUR2016/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/GUR2016.json"
+  },
+  {
+   "sid": "MAR2014",
+   "title": "The metabolic checkpoint kinase mTOR is essential for IL-15 signaling during the development and activation of NK cells",
+   "authors": "Marcais A; Cherfils-Vicini J; Viant C; Degouve S; Viel S; Fenis A; Rabilloud J; Mayol K; Tavares A; Bienvenu J; Gangloff YG; Gilson E; Vivier E; Walzer T",
+   "year": 2014,
+   "journal": "Nature Immunology",
+   "doi": "10.1038/ni.2936",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "24973821",
+   "pmcid": "PMC4110708",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "NKp46-cre x Mtor-flox mice (NK-cell-specific mTOR deletion) plus acute TAT-Cre deletion and adoptive transfer; poly(I:C) and MCMV or influenza infection; oral rapamycin (sirolimus, 100 ug/day) with an in vivo missing-self rejection assay; Seahorse metabolic profiling; human NK cells from healthy donors stimulated with IL-2 plus rapamycin, PP242 or Ku-0063794",
+   "peer_reviewed": true,
+   "finding": "This study separated two arms of IL-15 signalling in NK cells by dose: low IL-15 mainly phosphorylated STAT5 (EC50 about 1.5 ng/ml), while higher IL-15 was needed to switch on mTOR (EC50 about 5.3 ng/ml for S6 phosphorylation), and IL-15 was the only one of many tested stimuli that strongly raised pS6. Deleting mTOR in NK cells left bone-marrow numbers normal but blocked the CD11b-low to double-positive transition, cut proliferation about three-fold and left almost no mature NK cells in the periphery, with lower CD71, glucose uptake and about half the surface CD122 and CD132, so the receptor feedback is itself mTOR-dependent. In activation, mTOR-deficient NK cells failed to grow or raise nutrient uptake after poly(I:C) and made about half as much granzyme B, while IFN-gamma production in response to IL-12 plus IL-18 stayed normal. Oral rapamycin lowered pS6 and granzyme B in vivo and made rejection of MHC-class-I-negative target cells significantly less efficient, and mTOR inhibitors also blocked IL-2-driven granzyme B induction in human NK cells. Boundary: mouse genetics and mouse in vivo pharmacology, with the human arm limited to healthy-donor NK cells stimulated in culture; the clinical implication for patients on rapalogs is inference, not a measured patient outcome.",
+   "url": "https://mtor-atlas.org/study/MAR2014/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2014.json"
   },
   {
    "sid": "MOR2013",
@@ -2756,6 +2940,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2019.json"
   },
   {
+   "sid": "BAT2013",
+   "title": "Excitatory/inhibitory synaptic imbalance leads to hippocampal hyperexcitability in mouse models of tuberous sclerosis",
+   "authors": "Bateup HS; Johnson CA; Denefrio CL; Saulnier JL; Kornacker K; Sabatini BL",
+   "year": 2013,
+   "journal": "Neuron",
+   "doi": "10.1016/j.neuron.2013.03.017",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "23664616",
+   "pmcid": "PMC3690324",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Tsc1 floxed mice: lentiviral Cre in dissociated hippocampal cultures (multi-electrode arrays, microarrays); CaMKIIa-Cre forebrain cKO (kainate seizures); sparse or widespread AAV-Cre in CA1 with slice electrophysiology; rapamycin in vitro and in vivo",
+   "peer_reviewed": true,
+   "finding": "Deleting Tsc1 from cultured mouse hippocampal neurons raised phospho-S6 and made the network fire more than twice as much as controls by day 14, in an epilepsy-like bursting pattern; four days of rapamycin brought activity back to control levels. Many gene-expression and synaptic changes in the knockout cultures, such as high Arc and fewer surface AMPA receptors, turned out to be secondary responses to the high activity, not direct effects of mTOR. In hippocampal CA1, Tsc1 loss in single pyramidal neurons weakened the inhibitory synaptic input they received and raised their excitation/inhibition ratio, while their intrinsic excitability was lower, not higher. Forebrain Tsc1 knockout mice had more severe kainate-induced seizures (80% died, while all controls survived), and seven days of rapamycin in vivo restored inhibition and normalised the E/I ratio. Boundary: mouse neurons, cultures and brain slices; Tsc1 deleted in excitatory neurons only; seizure test used a chemical convulsant.",
+   "url": "https://mtor-atlas.org/study/BAT2013/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/BAT2013.json"
+  },
+  {
    "sid": "LV2026",
    "title": "Age-associated decline of Lamtor5 drives immunosenescence and systemic aging via cGAS-mediated paracrine inflammation.",
    "authors": "Lv N, Tang Y, Zhang W, Zhang S, Zhang M",
@@ -2777,6 +2984,29 @@
    "finding": "Age-driven loss of Lamtor5, a key lysosomal mTOR activation complex subunit, drives macrophage immunosenescence and systemic aging phenotypes in mice by unleashing cGAS-STING paracrine inflammation; restoring Lamtor5 in aged mice rescued immunosenescence and attenuated systemic ageing phenotypes.",
    "url": "https://mtor-atlas.org/study/LV2026/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/LV2026.json"
+  },
+  {
+   "sid": "TAN2002",
+   "title": "A rapamycin-sensitive signaling pathway contributes to long-term synaptic plasticity in the hippocampus",
+   "authors": "Tang SJ; Reis G; Kang H; Gingras AC; Sonenberg N; Schuman EM",
+   "year": 2002,
+   "journal": "PNAS",
+   "doi": "10.1073/pnas.012605299",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "11756682",
+   "pmcid": "PMC117583",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Rat and mouse hippocampal slices (field recordings, immunostaining); cultured rat hippocampal neurons; Western blot of rat hippocampus",
+   "peer_reviewed": true,
+   "finding": "The authors showed that mTOR, 4E-BP1, 4E-BP2 and eIF4E are present in rat hippocampus and sit in dendrites, close to synapses, where their staining overlapped with the postsynaptic protein PSD-95. Blocking mTOR with rapamycin in hippocampal slices reduced late-phase long-term potentiation (LTP) after high-frequency stimulation, while early-phase LTP was unaffected. Rapamycin also blocked the synaptic potentiation induced by the growth factor BDNF. This was one of the early papers to tie a rapamycin-sensitive pathway to the protein-synthesis-dependent phase of synaptic plasticity and to suggest it controls local translation at synapses. Boundary: rodent brain slices and cultured neurons; mTOR targets were localised but their phosphorylation during LTP was not reported in the abstract; no behaviour or memory test.",
+   "url": "https://mtor-atlas.org/study/TAN2002/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2002.json"
   },
   {
    "sid": "VAL2019",
@@ -3101,6 +3331,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/NAP2020.json"
   },
   {
+   "sid": "HAN2007",
+   "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+   "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+   "year": 2007,
+   "journal": "Aging Cell",
+   "doi": "10.1111/j.1474-9726.2006.00267.x",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "17266679",
+   "pmcid": null,
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+   "peer_reviewed": true,
+   "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+   "url": "https://mtor-atlas.org/study/HAN2007/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+  },
+  {
    "sid": "CHEN2026B",
    "title": "IGF2BP3-Mediated m6A Modification of OLR1 mRNA Promotes Immune Evasion in CRC via the PI3K/AKT/mTOR Pathway",
    "authors": "Chen W",
@@ -3191,6 +3444,29 @@
    "finding": "The companion phase 3 RCT (n=118) to EXIST-1, targeting kidney tumors (angiomyolipomas) in tuberous sclerosis and LAM. Everolimus shrank them by >=50% in 42% of patients versus 0% on placebo. Together EXIST-1 and -2 sealed everolimus as a disease-modifying therapy across multiple TSC tumor types.",
    "url": "https://mtor-atlas.org/study/BIS2013/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/BIS2013.json"
+  },
+  {
+   "sid": "KID2013",
+   "title": "Sterol regulatory element-binding proteins are essential for the metabolic programming of effector T cells and adaptive immunity",
+   "authors": "Kidani Y; Elsaesser H; Hock MB; Vergnes L; Williams KJ; Argus JP; Marbois BN; Komisopoulou E; Wilson EB; Osborne TF; Graeber TG; Reue K; Brooks DG; Bensinger SJ",
+   "year": 2013,
+   "journal": "Nature Immunology",
+   "doi": "10.1038/ni.2570",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "23563690",
+   "pmcid": "PMC3652626",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Mouse T cells with Cd4-cre-driven deletion of Scap (removing both SREBP1 and SREBP2 activity), siRNA and constitutively active SREBP constructs, rapamycin and LY294002 pretreatment, ChIP for SREBP1/2 at lipogenic promoters, GC-MS lipid measurement, Seahorse profiling, LCMV-Armstrong infection and homeostatic-proliferation transfers",
+   "peer_reviewed": true,
+   "finding": "Activating T cells switch on cholesterol and fatty acid synthesis genes within hours, and this paper showed the switch runs through PI3K and mTOR to SREBP: 100 nM rapamycin given 30 minutes before stimulation blocked the induction of the lipogenic programme, prevented processing of full-length SREBP and its accumulation in the nucleus, and reduced SREBP1 and SREBP2 occupancy at lipogenic promoters to background. Deleting Scap in T cells, which removes both SREBP1 and SREBP2 activity, left thymic and peripheral T-cell numbers normal but the cells could not blast: they entered G1 and stalled, failed to raise cholesterol and fatty acids after activation, and increased ECAR and OCR only modestly where controls rose about ten-fold and four-fold. Adding cholesterol conjugated to methyl-beta-cyclodextrin roughly doubled survival at 48 hours (21 to 45 percent) and restored growth, cell-cycle entry and ER expansion, which points to cholesterol as the limiting step. After LCMV-Armstrong infection the Scap-deficient mice had fewer virus-specific CD8 T cells with lower IFN-gamma and TNF, while homeostatic proliferation was unaffected. Boundary: mouse genetics and mouse cells; the mTOR step is shown with rapamycin pretreatment in cultured T cells, and the in vivo arm measures the consequence of losing SREBP activity rather than of inhibiting mTOR.",
+   "url": "https://mtor-atlas.org/study/KID2013/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/KID2013.json"
   },
   {
    "sid": "GUE2020",
@@ -3494,7 +3770,7 @@
   {
    "sid": "POD2001",
    "title": "An inhibitor of mTOR reduces neoplasia and normalizes p70/S6 kinase activity in Pten+/- mice",
-   "authors": "Podsypanina K; Lee RT; Politis C; Hennessy I; Crane A; Puc J; Neshat M; Wang H; Yang L; Gibbons J; Frost P; Dreisbach V; Blenis J; Gaciong Z; Fisher P; Sawyers C; Hedrick-Ellenson L; Parsons R",
+   "authors": "Podsypanina K; Lee RT; Politis C; Hennessy I; Crane A; Puc J; Neshat M; Wang H; Yang L; Gibbons J; Frost P; Dreisbach V; Blenis J; Gaciong Z; Fisher P; Sawyers CL; Hedrick-Ellenson L; Parsons R",
    "year": 2001,
    "journal": "PNAS",
    "doi": "10.1073/pnas.171060098",
@@ -3674,6 +3950,29 @@
    "finding": "In 71 children with kaposiform haemangioendothelioma without Kasabach-Merritt phenomenon, head and neck lesions achieved a 100% 12-month radiologic response to sirolimus monotherapy versus 76% elsewhere; anatomical location was the only independent predictor of response. Observational: a matched multicentre cohort, not a randomised comparison, so confounding by indication and by lesion characteristics cannot be excluded and the association between site and response is not established as causal.",
    "url": "https://mtor-atlas.org/study/XU2026/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/XU2026.json"
+  },
+  {
+   "sid": "COS2009",
+   "title": "Translational control of long-lasting synaptic plasticity and memory",
+   "authors": "Costa-Mattioli M; Sossin WS; Klann E; Sonenberg N",
+   "year": 2009,
+   "journal": "Neuron",
+   "doi": "10.1016/j.neuron.2008.10.055",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "19146809",
+   "pmcid": "PMC5154738",
+   "evidence": {
+    "code": "R",
+    "label": "Review — secondary literature, not a new result",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Review",
+   "model_system": "Narrative review (no new data): genetic, physiological, pharmacological and biochemical studies in rodents, Aplysia and Drosophila",
+   "peer_reviewed": true,
+   "finding": "This review gathers evidence that long-lasting synaptic plasticity and long-term memory depend on new protein synthesis, and that the step where mRNA translation starts is a main control point. It covers two arms: the mTORC1 arm (4E-BP2, eIF4E, S6K) that controls cap-dependent translation, and the eIF2alpha arm (GCN2, PKR, ATF4) that controls general translation and specific mRNAs. It also discusses how faulty translational control is linked to disorders such as fragile X syndrome and tuberous sclerosis. It is a summary of work by many labs and gives the field a shared framework rather than new data. Boundary: narrative review; the cited evidence is mainly from rodent slices, rodent behaviour and invertebrate models, not from people.",
+   "url": "https://mtor-atlas.org/study/COS2009/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/COS2009.json"
   },
   {
    "sid": "KRISTIANSEN2026",
@@ -3927,6 +4226,29 @@
    "finding": "The authors identified and characterised dTOR, the fruit fly version of TOR. Genetic and biochemical experiments indicated that dTOR affects growth in a cell-autonomous way by changing the activity of the fly S6 kinase, dS6K, and so connects to the insulin signalling pathway. Unlike other insulin pathway components, partial loss of dTOR reduced growth mainly in endoreplicating tissues, which copy their DNA without dividing. The authors read this as evidence that dTOR sits on a parallel pathway that senses amino acids. Boundary: Drosophila genetics and biochemistry; the parallel amino acid pathway is an interpretation from fly phenotypes, not a direct measurement of amino acid sensing.",
    "url": "https://mtor-atlas.org/study/OLD2000/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/OLD2000.json"
+  },
+  {
+   "sid": "MIC2011",
+   "title": "Cutting edge: distinct glycolytic and lipid oxidative metabolic programs are essential for effector and regulatory CD4+ T cell subsets",
+   "authors": "Michalek RD; Gerriets VA; Jacobs SR; Macintyre AN; MacIver NJ; Mason EF; Sullivan SA; Nichols AG; Rathmell JC",
+   "year": 2011,
+   "journal": "Journal of Immunology",
+   "doi": "10.4049/jimmunol.1003613",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "21317389",
+   "pmcid": "PMC3198034",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Primary mouse CD4 T cells polarised in vitro to Th1, Th2, Th17 and inducible Treg, with rapamycin, metformin or the CPT1 inhibitor etomoxir; Glut1-transgenic and Glut1-myc knock-in mice; OVA-driven allergic asthma model with metformin",
+   "peer_reviewed": true,
+   "finding": "Comparing CD4 T cells grown under effector and regulatory conditions, the authors showed that Th1, Th2 and Th17 cells carry high surface Glut1 and are strongly glycolytic, while inducible Treg carry little Glut1, oxidise lipid at a higher rate and have more phosphorylated AMPK. Blocking lipid oxidation with etomoxir selectively suppressed Treg generation and left effector differentiation intact, whereas removing glucose blocked Th17 but not Treg. Both rapamycin and metformin raised fatty acid oxidation in stimulated CD4 T cells, and etomoxir prevented the Treg increase produced by rapamycin or TGF-beta, which ties the pro-Treg effect of mTOR inhibition to lipid oxidation. In a mouse asthma model, metformin lowered Glut1 on activated CD4 T cells and increased the proportion and number of Treg in draining lymph nodes, although airway responsiveness itself did not change significantly. Boundary: mouse cells and one mouse allergic-airway model; mTOR inhibition is pharmacological (rapamycin) and mTOR activity was not measured directly, so the mTOR arm is inferred from drug effects.",
+   "url": "https://mtor-atlas.org/study/MIC2011/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/MIC2011.json"
   },
   {
    "sid": "MADKOUR2026",
@@ -5148,6 +5470,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/BIS2008.json"
   },
   {
+   "sid": "ZEN2008",
+   "title": "Rapamycin prevents epilepsy in a mouse model of tuberous sclerosis complex",
+   "authors": "Zeng LH; Xu L; Gutmann DH; Wong M",
+   "year": 2008,
+   "journal": "Annals of Neurology",
+   "doi": "10.1002/ana.21331",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "18389497",
+   "pmcid": "PMC3937593",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Mice: Tsc1(GFAP) conditional knockout (Tsc1 deleted mainly in glia) and littermate controls; rapamycin or vehicle from P14 (early) or 6 weeks (late); video-EEG, survival, histology, Western blot for phospho-S6",
+   "peer_reviewed": true,
+   "finding": "Mice lacking Tsc1 mainly in glial cells (Tsc1 GFAP conditional knockout) develop glial overgrowth, progressive epilepsy and early death. Rapamycin started at postnatal day 14, before symptoms, prevented epilepsy and premature death; started at 6 weeks, after seizures had begun, it suppressed seizures and prolonged survival. In the brain, rapamycin reversed the abnormal mTOR pathway activation (measured as phospho-S6), the astrogliosis and the neuronal disorganisation, and increased brain size, compared with vehicle-treated knockouts. The study provided evidence in mice that mTOR inhibition can act on epilepsy itself in TSC, not only on tumours, and it is part of the rationale for the later EXIST-3 seizure trial in patients. Boundary: mouse model with Tsc1 deleted mainly in glia, not the human germline mutation; seizure and survival outcomes in mice only; abstract does not state dose or schedule.",
+   "url": "https://mtor-atlas.org/study/ZEN2008/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2008.json"
+  },
+  {
    "sid": "FER2026",
    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
@@ -5376,6 +5721,29 @@
    "finding": "Ku-0063794 is a specific ATP-competitive mTOR inhibitor blocking mTORC1 and mTORC2.",
    "url": "https://mtor-atlas.org/study/GAR2009/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2009.json"
+  },
+  {
+   "sid": "GEI2016",
+   "title": "L-Arginine Modulates T Cell Metabolism and Enhances Survival and Anti-tumor Activity",
+   "authors": "Geiger R; Rieckmann JC; Wolf T; Basso C; Feng Y; Fuhrer T; Kogadeeva M; Picotti P; Meissner F; Mann M; Zamboni N; Sallusto F; Lanzavecchia A",
+   "year": 2016,
+   "journal": "Cell",
+   "doi": "10.1016/j.cell.2016.09.031",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "27745970",
+   "pmcid": "PMC5075284",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Human primary naive CD4 and CD8 T cells with high-resolution metabolomics, proteomics and limited-proteolysis mass spectrometry, plus CRISPR knockout T-cell clones; mouse HA-TCR transgenic transfers with oral L-arginine, and B16-OVA melanoma with OT-I transfer",
+   "peer_reviewed": true,
+   "finding": "Tracking metabolites and proteins in activated human T cells, the authors found intracellular L-arginine falls sharply after activation even in 1 mM medium, because uptake and conversion to ornithine, proline and spermidine rise. Raising L-arginine shifted metabolism from glycolysis towards oxidative phosphorylation, increased oxygen consumption and spare respiratory capacity, and produced central-memory-like cells (CCR7 and CD62L high, less IFN-gamma) with greater survival capacity; blocking arginase gave the same survival gain at physiological 150 uM L-arginine. Limited-proteolysis mass spectrometry plus knockout clones identified three nuclear proteins, BAZ1B, PSIP1 and TSN, that sense L-arginine and contribute to the survival programme. In mice, oral L-arginine raised serum levels from about 160 uM to 700 uM and roughly doubled intracellular L-arginine in activated T cells, and L-arginine-treated OT-I cells slowed B16-OVA growth and extended survival. The authors report explicitly that the survival effect was independent of mTOR: L-arginine did not change S6K1 or 4E-BP phosphorylation, and rapamycin, while also improving survival, changed metabolism in an entirely different way. Boundary: mostly human T cells in culture plus mouse transfer and transplantable-tumour models; the dietary arm is a mouse supplementation experiment, not a human trial, and mTOR enters only as a negative control.",
+   "url": "https://mtor-atlas.org/study/GEI2016/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/GEI2016.json"
   },
   {
    "sid": "CAO2026",
@@ -5859,6 +6227,29 @@
    "finding": "Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated in cancers, making those tumors 'blind' to starvation and hypersensitive to rapamycin.",
    "url": "https://mtor-atlas.org/study/BAR2013/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2013.json"
+  },
+  {
+   "sid": "FIS2015",
+   "title": "Health Effects of Long-Term Rapamycin Treatment: The Impact on Mouse Health of Enteric Rapamycin Treatment from Four Months of Age throughout Life",
+   "authors": "Fischer KE; Gelfond JA; Soto VY; Han C; Someya S; Richardson A; Austad SN",
+   "year": 2015,
+   "journal": "PLoS One",
+   "doi": "10.1371/journal.pone.0126644",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "25978367",
+   "pmcid": "PMC4433347",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Male and female C57BL/6J mice fed microencapsulated rapamycin (14 ppm) or empty capsules from 4 months of age until death (40 per sex per group); repeated longitudinal health assessments from 16 months",
+   "peer_reviewed": true,
+   "finding": "Mice of both sexes were fed rapamycin in their food (14 ppm, encapsulated) from 4 months of age until death, 40 per sex per group, and the same animals were tested repeatedly for health measures from 16 months of age. Some measures improved: females had stronger grip at all ages, females kept body mass and fat longer during late-life weight loss, and sleep fragmentation fell in males (with a trend in females). Others did not change, such as stride length and age-related cochlear damage, and male rotarod performance was worse. In body mass, percent fat and resting metabolic rate, rapamycin moved males and females in opposite directions. The study showed that lifelong rapamycin in mice affects healthspan measures in a mixed and strongly sex-specific way rather than improving health across the board. Boundary: C57BL/6J mice only, one dietary dose; survival was reported in a companion paper, not in this one, and mTOR activity was not measured here.",
+   "url": "https://mtor-atlas.org/study/FIS2015/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/FIS2015.json"
   },
   {
    "sid": "VAL2025",
@@ -6781,6 +7172,52 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/SPI2010.json"
   },
   {
+   "sid": "FRA2006",
+   "title": "Rapamycin causes regression of astrocytomas in tuberous sclerosis complex",
+   "authors": "Franz DN; Leonard J; Tudor C; Chuck G; Care M; Sethuraman G; Dinopoulos A; Thomas G; Crone KR",
+   "year": 2006,
+   "journal": "Annals of Neurology",
+   "doi": "10.1002/ana.20784",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "16453317",
+   "pmcid": null,
+   "evidence": {
+    "code": "H",
+    "label": "Human study",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Human",
+   "model_system": "Humans: case series of 5 patients with TSC (4 subependymal giant cell astrocytomas, 1 pilocytic astrocytoma) treated with oral rapamycin, followed by serial MRI",
+   "peer_reviewed": true,
+   "finding": "Five people with tuberous sclerosis complex whose brain astrocytomas were growing on serial scans (four subependymal giant cell astrocytomas, one pilocytic astrocytoma) were treated with oral rapamycin at standard immunosuppressive levels (blood 5-15 ng/ml) for 2.5 to 20 months. On MRI, every lesion shrank, and one showed necrosis. In one patient the tumour grew back when treatment was interrupted and shrank again when it was restarted. Treatment was well tolerated. This small uncontrolled series was one of the early reports that mTOR inhibition can shrink TSC brain tumours in patients, and it preceded the EXIST-1 everolimus trial. Boundary: 5 patients, open-label case series without a control group; TSC-associated astrocytomas only; regression depended on continued treatment.",
+   "url": "https://mtor-atlas.org/study/FRA2006/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/FRA2006.json"
+  },
+  {
+   "sid": "COT2006",
+   "title": "Hypothalamic mTOR signaling regulates food intake",
+   "authors": "Cota D; Proulx K; Smith KA; Kozma SC; Thomas G; Woods SC; Seeley RJ",
+   "year": 2006,
+   "journal": "Science",
+   "doi": "10.1126/science.1124147",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "16690869",
+   "pmcid": null,
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Rats (Long-Evans): fasting/refeeding, intracerebroventricular leucine, leptin and rapamycin; hypothalamic immunostaining and Western blot",
+   "peer_reviewed": true,
+   "finding": "In rats, hypothalamic mTOR signalling (phosphorylated S6K1 and S6) changed with energy status in specific hypothalamic regions and was found in NPY and POMC neurons of the arcuate nucleus. Injecting leucine into the brain ventricles raised hypothalamic mTOR signalling and lowered food intake and body weight. Leptin also raised hypothalamic mTOR activity, and blocking mTOR with rapamycin in the brain blunted leptin's effect on reducing food intake. The authors proposed that hypothalamic mTOR acts as a fuel sensor linked to how much an animal eats. Boundary: rats, direct brain (intracerebroventricular) dosing, short-term food intake; drawn from the abstract only, so doses and effect sizes are not given here.",
+   "url": "https://mtor-atlas.org/study/COT2006/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/COT2006.json"
+  },
+  {
    "sid": "HUANG2026",
    "title": "Recurrent PIK3CA-E545K mutation promotes cervical cancer growth and invasion via AKT/mTOR signaling.",
    "authors": "Huang C; Zhang W; Ma X; Li X; Sun X",
@@ -7101,6 +7538,29 @@
    "finding": "The paper that broke the simple 'metformin works through AMPK' story. Metformin still suppressed hepatic glucose production in mice and hepatocytes lacking AMPK or LKB1, acting instead through a fall in hepatic energy charge. Any claim that metformin's benefit is AMPK-mediated has to answer this result.",
    "url": "https://mtor-atlas.org/study/FOR2010/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/FOR2010.json"
+  },
+  {
+   "sid": "FRE2016",
+   "title": "Adjunctive everolimus therapy for treatment-resistant focal-onset seizures associated with tuberous sclerosis (EXIST-3): a phase 3, randomised, double-blind, placebo-controlled study",
+   "authors": "French JA; Lawson JA; Yapici Z; Ikeda H; Polster T; Nabbout R; Curatolo P; de Vries PJ; Dlugos DJ; Berkowitz N; Voi M; Peyrard S; Pelov D; Franz DN",
+   "year": 2016,
+   "journal": "Lancet",
+   "doi": "10.1016/s0140-6736(16)31419-2",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "27613521",
+   "pmcid": null,
+   "evidence": {
+    "code": "H",
+    "label": "Human study",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Human",
+   "model_system": "Humans: 366 patients aged 2-65 with TSC and treatment-resistant focal-onset seizures on 1-3 antiepileptic drugs; phase 3 RCT, placebo vs low-exposure (trough 3-7 ng/mL) vs high-exposure (9-15 ng/mL) everolimus; 99 centres, 25 countries",
+   "peer_reviewed": true,
+   "finding": "EXIST-3 was a phase 3, double-blind trial in 366 patients aged 2 to 65 with tuberous sclerosis complex and focal seizures that had not responded to standard drugs. They were randomised 1:1:1 to placebo (n=119), everolimus dosed to a low blood trough of 3-7 ng/mL (n=117) or a high trough of 9-15 ng/mL (n=130), added to their existing antiepileptic drugs. For the primary endpoint, at least a 50% fall in seizure frequency during the 12-week maintenance period, the response rate was 15.1% with placebo, 28.2% with low exposure (p=0.0077) and 40.0% with high exposure (p<0.0001); median seizure reduction was 14.9%, 29.3% and 39.6%. Grade 3-4 adverse events occurred in 11%, 18% and 24%, and serious adverse events in 3%, 14% and 14% of patients, respectively. The result showed a dose-dependent effect of mTOR inhibition on seizures in TSC, beyond its known effect on TSC tumours. Boundary: patients with TSC and treatment-resistant focal-onset seizures already on 1-3 antiepileptic drugs; comparator was placebo add-on; 18-week core phase (6-week titration, 12-week maintenance), so long-term durability is not addressed here.",
+   "url": "https://mtor-atlas.org/study/FRE2016/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/FRE2016.json"
   },
   {
    "sid": "VEL2003",
@@ -8437,6 +8897,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2026.json"
   },
   {
+   "sid": "YIL2012",
+   "title": "mTORC1 in the Paneth cell niche couples intestinal stem-cell function to calorie intake",
+   "authors": "Yilmaz ÖH; Katajisto P; Lamming DW; Gültekin Y; Bauer-Rowe KE; Sengupta S; Birsoy K; Dursun A; Yilmaz VO; Selig M; Nielsen GP; Mino-Kenudson M; Zukerberg LR; Bhan AK; Deshpande V; Sabatini DM",
+   "year": 2012,
+   "journal": "Nature",
+   "doi": "10.1038/nature11163",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "22722868",
+   "pmcid": "PMC3387287",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "C57BL/6 mice on calorie restriction (60% of ad libitum intake, 4-28 weeks) or rapamycin; Lgr5-EGFP reporter mice; doxycycline-inducible Rheb transgene and inducible Tsc1 and Rictor deletion; intestinal crypt and sorted ISC/Paneth-cell organoid co-culture; Bst1 knockdown and cADPR",
+   "peer_reviewed": true,
+   "finding": "Mice kept on calorie restriction (60% of normal intake) had more intestinal stem cells and Paneth cells, the cells that form the stem-cell niche (Lgr5+ stem cells 5.6% vs 4.3% of crypt cells, Paneth cells 9.8% vs 6.7%), and their crypts were nearly twice as likely to form organoids. In co-culture, Paneth cells from restricted mice, not stem cells, carried the boost. Restriction lowered S6 and S6K1 phosphorylation in crypts, and feeding or insulin switched on mTORC1 in Paneth cells but not in stem cells; forcing mTORC1 back on during restriction (Rheb induction or Tsc1 deletion) cancelled the effect, while one week of rapamycin copied it and did not add to restriction. The niche signal ran through higher Bst1 in Paneth cells, an enzyme that makes the paracrine messenger cyclic ADP ribose, and knocking down Bst1 removed the restriction effect in culture. Boundary: Mouse intestine and ex vivo organoid assays; restriction started in young adult mice, and no lifespan or human tissue was studied.",
+   "url": "https://mtor-atlas.org/study/YIL2012/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/YIL2012.json"
+  },
+  {
    "sid": "PEN2017",
    "title": "SZT2 dictates GATOR control of mTORC1 signalling",
    "authors": "Peng M; Yin N; Li MO",
@@ -8504,6 +8987,29 @@
    "finding": "A PRISMA-guided systematic review of six completed human clinical studies that met its eligibility criteria, testing drugs that clear or calm senescent (\"zombie\") cells -- senolytics such as dasatinib+quercetin, plus senomorphic and mTOR-targeting approaches. It reported limited and heterogeneous results, a mixture of biomarker and functional outcomes, with mostly mild side effects, and judged the evidence too thin (small samples, short follow-up) to call any of it an established therapy yet. Six INCLUDED studies is not a census of every completed human senotherapeutic trial: inclusion depends on the review's search date and eligibility criteria, and those have to be stated before any field-wide coverage conclusion is drawn. Useful mainly as a rare systematic look at where human senescence-targeting trials, mTOR inhibitors included, stand -- not as proof that any one drug works.",
    "url": "https://mtor-atlas.org/study/TRI2026/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/TRI2026.json"
+  },
+  {
+   "sid": "TSA2012",
+   "title": "Autistic-like behaviour and cerebellar dysfunction in Purkinje cell Tsc1 mutant mice",
+   "authors": "Tsai PT; Hull C; Chu Y; Greene-Colozzi E; Sadowski AR; Leech JM; Steinberg J; Crawley JN; Regehr WG; Sahin M",
+   "year": 2012,
+   "journal": "Nature",
+   "doi": "10.1038/nature11310",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "22763451",
+   "pmcid": "PMC3615424",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "L7Cre;Tsc1 flox mice (Purkinje-cell-specific heterozygous and homozygous Tsc1 deletion); cerebellar slice electrophysiology; behaviour; rapamycin from P7",
+   "peer_reviewed": true,
+   "finding": "Deleting one or both copies of Tsc1 only in cerebellar Purkinje cells raised phospho-S6 (a readout of mTORC1) in those cells. Both heterozygous and homozygous mutants showed autism-like behaviour: no preference for a mouse over an object or for a new mouse, more self-grooming, more pup ultrasonic calls and poorer reversal learning in a water T-maze. Purkinje cells fired fewer action potentials, both spontaneously and when driven, in a gene-dose-dependent way, while their synaptic inputs looked largely normal; homozygous mutants also lost Purkinje cells from about 2 months of age and became ataxic. Rapamycin (6 mg/kg intraperitoneally, three times a week from postnatal day 7) prevented the Purkinje cell loss and enlargement and the social, learning and motor deficits. Boundary: mouse, cell-type-specific genetic deletion; rapamycin given from early postnatal life, so this is prevention, not reversal; relevance to human autism is by analogy with TSC patients.",
+   "url": "https://mtor-atlas.org/study/TSA2012/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/TSA2012.json"
   },
   {
    "sid": "SHA2004",
@@ -9449,6 +9955,29 @@
    "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2026B.json"
   },
   {
+   "sid": "PEA2009",
+   "title": "Enhancing CD8 T-cell memory by modulating fatty acid metabolism",
+   "authors": "Pearce EL; Walsh MC; Cejas PJ; Harms GM; Shen H; Wang LS; Jones RG; Choi Y",
+   "year": 2009,
+   "journal": "Nature",
+   "doi": "10.1038/nature08097",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "19494812",
+   "pmcid": "PMC2803086",
+   "evidence": {
+    "code": "A",
+    "label": "Animal model",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Animal",
+   "model_system": "Mice with T-cell-specific TRAF6 deletion (CD4-cre), OT-I TCR-transgenic adoptive transfer, Listeria monocytogenes-OVA infection, EL4-OVA tumour vaccine model, and activated mouse CD8 T cells in vitro after IL-2 withdrawal",
+   "peer_reviewed": true,
+   "finding": "Mice whose T cells lacked the adaptor protein TRAF6 mounted a normal effector CD8 T-cell response to Listeria infection, but the antigen-specific cells vanished during contraction and almost no memory cells formed. The TRAF6-deficient cells failed to activate AMPK and mitochondrial fatty acid oxidation when the growth factor IL-2 was withdrawn. Daily metformin restored fatty acid oxidation and memory formation, and also raised memory CD8 T-cell numbers in normal mice: in a tumour vaccine model 6 of 9 metformin-treated mice survived beyond day 33 against 1 of 8 controls. Daily rapamycin (1.5 mg/kg), used as a second drug that promotes fatty acid oxidation, likewise increased memory CD8 T-cell development and recall responses. Boundary: mouse only, one bacterial infection model and one transplantable tumour; the rapamycin arm is a secondary experiment and mTOR activity itself was not measured in these cells.",
+   "url": "https://mtor-atlas.org/study/PEA2009/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/PEA2009.json"
+  },
+  {
    "sid": "WAN2011",
    "title": "The transcription factor Myc controls metabolic reprogramming upon T lymphocyte activation",
    "authors": "Wang R; Dillon CP; Shi LZ; Milasta S; Carter R; Finkelstein D; McCormick LL; Fitzgerald P; Chi H; Munger J; Green DR",
@@ -9884,6 +10413,29 @@
    "finding": "SH3BP4 negatively regulates amino-acid-Rag-GTPase-mTORC1 signalling.",
    "url": "https://mtor-atlas.org/study/KIM2012/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2012.json"
+  },
+  {
+   "sid": "RAO2010",
+   "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+   "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+   "year": 2010,
+   "journal": "Immunity",
+   "doi": "10.1016/j.immuni.2009.10.010",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "20060330",
+   "pmcid": "PMC5836496",
+   "evidence": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Mechanism",
+   "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+   "peer_reviewed": true,
+   "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+   "url": "https://mtor-atlas.org/study/RAO2010/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json"
   },
   {
    "sid": "GU2017",
@@ -10850,6 +11402,29 @@
    "finding": "Architecture of the human mTORC2 core complex (mTOR-Rictor-SIN1-mLST8).",
    "url": "https://mtor-atlas.org/study/STU2018/",
    "api_url": "https://mtor-atlas.org/api/v1/studies/STU2018.json"
+  },
+  {
+   "sid": "PIC2014",
+   "title": "Everolimus plus exemestane for hormone-receptor-positive, human epidermal growth factor receptor-2-negative advanced breast cancer: overall survival results from BOLERO-2†",
+   "authors": "Piccart M; Hortobagyi GN; Campone M; Pritchard KI; Lebrun F; Ito Y; Noguchi S; Perez A; Rugo HS; Deleu I; Burris HA; Provencher L; Neven P; Gnant M; Shtivelband M; Wu C; Fan J; Feng W; Taran T; Baselga J",
+   "year": 2014,
+   "journal": "Annals of Oncology",
+   "doi": "10.1093/annonc/mdu456",
+   "registry_id": null,
+   "registry_url": null,
+   "pmid": "25231953",
+   "pmcid": "PMC6267855",
+   "evidence": {
+    "code": "H",
+    "label": "Human study",
+    "note": "this describes the kind of study, not its quality"
+   },
+   "category": "Human",
+   "model_system": "Humans: postmenopausal women with HR+/HER2- advanced breast cancer after nonsteroidal aromatase inhibitors; phase III RCT, everolimus + exemestane vs placebo + exemestane (2:1)",
+   "peer_reviewed": true,
+   "finding": "This is the final overall-survival report of BOLERO-2, the phase III double-blind trial (published primary analysis: BAS2012) in which postmenopausal women with hormone-receptor-positive, HER2-negative advanced breast cancer that had progressed on a nonsteroidal aromatase inhibitor received exemestane 25 mg/day plus either everolimus 10 mg/day or placebo. The primary endpoint, progression-free survival by local investigator, remained improved: median 7.8 vs 3.2 months (P < 0.0001), a 4.6-month gain. Overall survival, a key secondary endpoint, was not significantly improved: median 31.0 vs 26.6 months, hazard ratio 0.89 (95% CI 0.73-1.10), P = 0.14, at 410 deaths. Most patients went on to further treatment after the trial (84% vs 90%), with less chemotherapy in the everolimus arm (53% vs 63%), which may have diluted any survival difference. No new safety concerns were identified. Boundary: postmenopausal women with HR+/HER2- advanced breast cancer previously treated with a nonsteroidal aromatase inhibitor; comparator was exemestane plus placebo; the survival benefit of adding mTOR inhibition was not shown.",
+   "url": "https://mtor-atlas.org/study/PIC2014/",
+   "api_url": "https://mtor-atlas.org/api/v1/studies/PIC2014.json"
   },
   {
    "sid": "KUS2026",

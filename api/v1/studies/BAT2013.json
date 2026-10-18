@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAT2013",
+  "title": "Excitatory/inhibitory synaptic imbalance leads to hippocampal hyperexcitability in mouse models of tuberous sclerosis",
+  "authors": "Bateup HS; Johnson CA; Denefrio CL; Saulnier JL; Kornacker K; Sabatini BL",
+  "year": 2013,
+  "journal": "Neuron",
+  "doi": "10.1016/j.neuron.2013.03.017",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "23664616",
+  "pmcid": "PMC3690324",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Tsc1 floxed mice: lentiviral Cre in dissociated hippocampal cultures (multi-electrode arrays, microarrays); CaMKIIa-Cre forebrain cKO (kainate seizures); sparse or widespread AAV-Cre in CA1 with slice electrophysiology; rapamycin in vitro and in vivo",
+  "peer_reviewed": true,
+  "finding": "Deleting Tsc1 from cultured mouse hippocampal neurons raised phospho-S6 and made the network fire more than twice as much as controls by day 14, in an epilepsy-like bursting pattern; four days of rapamycin brought activity back to control levels. Many gene-expression and synaptic changes in the knockout cultures, such as high Arc and fewer surface AMPA receptors, turned out to be secondary responses to the high activity, not direct effects of mTOR. In hippocampal CA1, Tsc1 loss in single pyramidal neurons weakened the inhibitory synaptic input they received and raised their excitation/inhibition ratio, while their intrinsic excitability was lower, not higher. Forebrain Tsc1 knockout mice had more severe kainate-induced seizures (80% died, while all controls survived), and seven days of rapamycin in vivo restored inhibition and normalised the E/I ratio. Boundary: mouse neurons, cultures and brain slices; Tsc1 deleted in excitatory neurons only; seizure test used a chemical convulsant.",
+  "url": "https://mtor-atlas.org/study/BAT2013/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAT2013.json",
+  "abstract_excerpt": "Neural circuits are regulated by activity-dependent feedback systems that tightly control network excitability and which are thought to be crucial for proper brain development. Defects in the ability to establish and maintain network homeostasis may be central to the pathogenesis of neurodevelopmental disorders. Here, we examine the function of the tuberous sclerosis complex (TSC)-mTOR signaling pathway, a common target of mutations associated with epilepsy and autism spectrum disorder, in regulating activity-dependent processes in the mouse hippocampus.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Tsc1 deletion (lentiviral/AAV Cre, CaMKIIa-Cre); rapamycin",
+   "target": "TSC1/TSC2 -> mTORC1",
+   "species": "Mouse",
+   "effect": "Tsc1 loss weakened inhibitory synapses, raised E/I ratio and network excitability; rapamycin reversed it"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1",
+    "RAPA-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "EHN2008",
+   "KWI2002",
+   "LI2026C",
+   "LIP2017"
+  ]
+ }
+}

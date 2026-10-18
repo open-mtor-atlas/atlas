@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "WAN2017",
+  "title": "Rapamycin inhibits the secretory phenotype of senescent cells by a Nrf2-independent mechanism",
+  "authors": "Wang Rong; Yu Z; Sunchu B; Shoaf J; Dang I; Zhao S; Caples K; Bradley L; Beaver LM; Ho E; Löhr CV; Perez VI",
+  "year": 2017,
+  "journal": "Aging Cell",
+  "doi": "10.1111/acel.12587",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "28371119",
+  "pmcid": "PMC5418203",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse skin fibroblasts and WT vs Nrf2-knockout MEFs (H2O2- or bleomycin-induced senescence); human WI38 fibroblasts (replicative senescence, CRISPR Nrf2 knockout); WT and Nrf2-knockout mice given rapamycin 4 mg/kg i.p. every other day for 6 weeks",
+  "peer_reviewed": true,
+  "finding": "The authors asked whether the transcription factor Nrf2 is needed for rapamycin to hold back cellular senescence. In wild-type mouse fibroblasts exposed to hydrogen peroxide, rapamycin raised Nrf2, switched on autophagy and lowered the senescence markers p16 and p21, beta-galactosidase staining and the inflammatory secretory profile (SASP). In Nrf2-knockout cells rapamycin still lowered beta-galactosidase staining and the SASP, but no longer lowered p16 and p21 or activated autophagy; re-expressing Nrf2 restored those effects, and human WI38 cells with Nrf2 knocked out by CRISPR behaved the same way. In Nrf2-knockout mice given rapamycin (4 mg/kg every other day for 6 weeks, 8 mice per group), fat-tissue beta-galactosidase staining and pro-inflammatory cytokines fell while p16 did not, and rapamycin lowered STAT3 phosphorylation in lung tissue and WI38 cells. The study provided evidence that rapamycin's effect on the SASP can be separated from its Nrf2-dependent effect on cell-cycle arrest. Boundary: Mouse and human fibroblasts in culture plus a short 6-week dosing study in young Nrf2-knockout mice; mTOR inhibition was by rapamycin, which was given before and during the senescence trigger, so this is prevention of senescence onset rather than treatment of established senescent cells.",
+  "url": "https://mtor-atlas.org/study/WAN2017/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2017.json",
+  "abstract_excerpt": "Senescent cells contribute to age-related pathology and loss of function, and their selective removal improves physiological function and extends longevity. Rapamycin, an inhibitor of mTOR, inhibits cell senescence in vitro and increases longevity in several species. Nrf2 levels have been shown to decrease with aging and silencing Nrf2 gene induces premature senescence. Therefore, we explored whether Nrf2 is involved in the mechanism by which rapamycin delays cell senescence.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (25-250 nM in cells; 4 mg/kg i.p. every other day for 6 weeks in mice), with Nrf2 knockout / re-expression",
+   "target": "mTOR (via rapamycin); Nrf2",
+   "species": "Mouse; human cells",
+   "effect": "Rapamycin lowers SASP and beta-gal staining independently of Nrf2; lowering of p16/p21 and autophagy activation require Nrf2"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   },
+   {
+    "id": "senescence-associated-secretory-phenotype-sasp",
+    "name": "Senescence-associated secretory phenotype (SASP)",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-SENESCENCE"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "NAR2011",
+   "CHEN2026C",
+   "LAB2015",
+   "TRI2026"
+  ]
+ }
+}

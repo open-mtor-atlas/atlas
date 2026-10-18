@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -29,7 +29,7 @@
    "tuberin"
   ],
   "description": "Tuberin-hamartin tumor suppressor complex; acts as a GTPase-activating protein for Rheb; integrates growth-factor and energy signals to control mTORC1.",
-  "study_count": 39,
+  "study_count": 44,
   "relation_count": 9,
   "url": "https://mtor-atlas.org/gene/tsc1-tsc2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tsc1-tsc2.json",
@@ -937,6 +937,121 @@
     "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
     "url": "https://mtor-atlas.org/study/PEN2011/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json"
+   },
+   {
+    "sid": "YIL2012",
+    "title": "mTORC1 in the Paneth cell niche couples intestinal stem-cell function to calorie intake",
+    "authors": "Yilmaz ÖH; Katajisto P; Lamming DW; Gültekin Y; Bauer-Rowe KE; Sengupta S; Birsoy K; Dursun A; Yilmaz VO; Selig M; Nielsen GP; Mino-Kenudson M; Zukerberg LR; Bhan AK; Deshpande V; Sabatini DM",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11163",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22722868",
+    "pmcid": "PMC3387287",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C57BL/6 mice on calorie restriction (60% of ad libitum intake, 4-28 weeks) or rapamycin; Lgr5-EGFP reporter mice; doxycycline-inducible Rheb transgene and inducible Tsc1 and Rictor deletion; intestinal crypt and sorted ISC/Paneth-cell organoid co-culture; Bst1 knockdown and cADPR",
+    "peer_reviewed": true,
+    "finding": "Mice kept on calorie restriction (60% of normal intake) had more intestinal stem cells and Paneth cells, the cells that form the stem-cell niche (Lgr5+ stem cells 5.6% vs 4.3% of crypt cells, Paneth cells 9.8% vs 6.7%), and their crypts were nearly twice as likely to form organoids. In co-culture, Paneth cells from restricted mice, not stem cells, carried the boost. Restriction lowered S6 and S6K1 phosphorylation in crypts, and feeding or insulin switched on mTORC1 in Paneth cells but not in stem cells; forcing mTORC1 back on during restriction (Rheb induction or Tsc1 deletion) cancelled the effect, while one week of rapamycin copied it and did not add to restriction. The niche signal ran through higher Bst1 in Paneth cells, an enzyme that makes the paracrine messenger cyclic ADP ribose, and knocking down Bst1 removed the restriction effect in culture. Boundary: Mouse intestine and ex vivo organoid assays; restriction started in young adult mice, and no lifespan or human tissue was studied.",
+    "url": "https://mtor-atlas.org/study/YIL2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YIL2012.json"
+   },
+   {
+    "sid": "POL2015",
+    "title": "mTORC1 and mTORC2 selectively regulate CD8+ T cell differentiation",
+    "authors": "Pollizzi KN; Patel CH; Sun IH; Oh MH; Waickman AT; Wen J; Delgoffe GM; Powell JD",
+    "year": 2015,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI77746",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25893604",
+    "pmcid": "PMC4463194",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific deletion of Tsc2, Rheb or Rictor (and Tsc2/Rictor double knockout), OT-I adoptive transfer, vaccinia-OVA and Listeria-OVA infection, EL4 and B16-OVA tumour models, rapamycin (100 ug/kg/day) and 2-deoxyglucose in vivo, Seahorse metabolic profiling",
+    "peer_reviewed": true,
+    "finding": "By deleting Tsc2, Rheb or Rictor in T cells, this work split the CD8 response between the two mTOR complexes. Tsc2 loss left mTORC1 constitutively active: the cells were strongly glycolytic (high ECAR, high Slc2a1 and Pfk1, low spare respiratory capacity), made more IFN-gamma, TNF and granzyme B, cleared EL4 thymoma and slowed B16-OVA growth, but stayed terminally differentiated and were about two-fold fewer than wild type at day 30, with no memory. Rheb loss removed mTORC1 activity with mTORC2 intact: those cells failed as effectors but kept memory-like features and were about two-fold more numerous at day 30, yet did not respond to rechallenge, which the authors trace to metabolic defects. Rapamycin from day 5 (100 ug/kg daily) rescued survival of Tsc2-deficient cells, raised CD127 and Eomesodermin, lowered KLRG1 and T-bet and restored a recall response. Losing mTORC2 by Rictor deletion left effector function intact but increased memory cells that still responded 133 days after infection, and the Tsc2/Rictor double knockout showed that the hyperactive effector phenotype needs mTORC2. Boundary: mouse genetics with TCR-transgenic transfers and transplantable tumours; the comparison rests on genetic extremes (no TSC2, no Rheb, no Rictor) rather than graded physiological signalling, and nothing here is measured in people.",
+    "url": "https://mtor-atlas.org/study/POL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POL2015.json"
+   },
+   {
+    "sid": "TSA2012",
+    "title": "Autistic-like behaviour and cerebellar dysfunction in Purkinje cell Tsc1 mutant mice",
+    "authors": "Tsai PT; Hull C; Chu Y; Greene-Colozzi E; Sadowski AR; Leech JM; Steinberg J; Crawley JN; Regehr WG; Sahin M",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11310",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22763451",
+    "pmcid": "PMC3615424",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "L7Cre;Tsc1 flox mice (Purkinje-cell-specific heterozygous and homozygous Tsc1 deletion); cerebellar slice electrophysiology; behaviour; rapamycin from P7",
+    "peer_reviewed": true,
+    "finding": "Deleting one or both copies of Tsc1 only in cerebellar Purkinje cells raised phospho-S6 (a readout of mTORC1) in those cells. Both heterozygous and homozygous mutants showed autism-like behaviour: no preference for a mouse over an object or for a new mouse, more self-grooming, more pup ultrasonic calls and poorer reversal learning in a water T-maze. Purkinje cells fired fewer action potentials, both spontaneously and when driven, in a gene-dose-dependent way, while their synaptic inputs looked largely normal; homozygous mutants also lost Purkinje cells from about 2 months of age and became ataxic. Rapamycin (6 mg/kg intraperitoneally, three times a week from postnatal day 7) prevented the Purkinje cell loss and enlargement and the social, learning and motor deficits. Boundary: mouse, cell-type-specific genetic deletion; rapamycin given from early postnatal life, so this is prevention, not reversal; relevance to human autism is by analogy with TSC patients.",
+    "url": "https://mtor-atlas.org/study/TSA2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TSA2012.json"
+   },
+   {
+    "sid": "BAT2013",
+    "title": "Excitatory/inhibitory synaptic imbalance leads to hippocampal hyperexcitability in mouse models of tuberous sclerosis",
+    "authors": "Bateup HS; Johnson CA; Denefrio CL; Saulnier JL; Kornacker K; Sabatini BL",
+    "year": 2013,
+    "journal": "Neuron",
+    "doi": "10.1016/j.neuron.2013.03.017",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23664616",
+    "pmcid": "PMC3690324",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc1 floxed mice: lentiviral Cre in dissociated hippocampal cultures (multi-electrode arrays, microarrays); CaMKIIa-Cre forebrain cKO (kainate seizures); sparse or widespread AAV-Cre in CA1 with slice electrophysiology; rapamycin in vitro and in vivo",
+    "peer_reviewed": true,
+    "finding": "Deleting Tsc1 from cultured mouse hippocampal neurons raised phospho-S6 and made the network fire more than twice as much as controls by day 14, in an epilepsy-like bursting pattern; four days of rapamycin brought activity back to control levels. Many gene-expression and synaptic changes in the knockout cultures, such as high Arc and fewer surface AMPA receptors, turned out to be secondary responses to the high activity, not direct effects of mTOR. In hippocampal CA1, Tsc1 loss in single pyramidal neurons weakened the inhibitory synaptic input they received and raised their excitation/inhibition ratio, while their intrinsic excitability was lower, not higher. Forebrain Tsc1 knockout mice had more severe kainate-induced seizures (80% died, while all controls survived), and seven days of rapamycin in vivo restored inhibition and normalised the E/I ratio. Boundary: mouse neurons, cultures and brain slices; Tsc1 deleted in excitatory neurons only; seizure test used a chemical convulsant.",
+    "url": "https://mtor-atlas.org/study/BAT2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAT2013.json"
+   },
+   {
+    "sid": "ZEN2008",
+    "title": "Rapamycin prevents epilepsy in a mouse model of tuberous sclerosis complex",
+    "authors": "Zeng LH; Xu L; Gutmann DH; Wong M",
+    "year": 2008,
+    "journal": "Annals of Neurology",
+    "doi": "10.1002/ana.21331",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18389497",
+    "pmcid": "PMC3937593",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: Tsc1(GFAP) conditional knockout (Tsc1 deleted mainly in glia) and littermate controls; rapamycin or vehicle from P14 (early) or 6 weeks (late); video-EEG, survival, histology, Western blot for phospho-S6",
+    "peer_reviewed": true,
+    "finding": "Mice lacking Tsc1 mainly in glial cells (Tsc1 GFAP conditional knockout) develop glial overgrowth, progressive epilepsy and early death. Rapamycin started at postnatal day 14, before symptoms, prevented epilepsy and premature death; started at 6 weeks, after seizures had begun, it suppressed seizures and prolonged survival. In the brain, rapamycin reversed the abnormal mTOR pathway activation (measured as phospho-S6), the astrogliosis and the neuronal disorganisation, and increased brain size, compared with vehicle-treated knockouts. The study provided evidence in mice that mTOR inhibition can act on epilepsy itself in TSC, not only on tumours, and it is part of the rationale for the later EXIST-3 seizure trial in patients. Boundary: mouse model with Tsc1 deleted mainly in glia, not the human germline mutation; seizure and survival outcomes in mice only; abstract does not state dose or schedule.",
+    "url": "https://mtor-atlas.org/study/ZEN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2008.json"
    }
   ],
   "relations": [
@@ -1337,7 +1452,11 @@
       "GAO2002",
       "TEE2002",
       "KWI2002",
-      "DEY2008"
+      "DEY2008",
+      "POL2015",
+      "TSA2012",
+      "BAT2013",
+      "ZEN2008"
      ],
      "conflicting": []
     },

@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "YIL2012",
+  "title": "mTORC1 in the Paneth cell niche couples intestinal stem-cell function to calorie intake",
+  "authors": "Yilmaz ÖH; Katajisto P; Lamming DW; Gültekin Y; Bauer-Rowe KE; Sengupta S; Birsoy K; Dursun A; Yilmaz VO; Selig M; Nielsen GP; Mino-Kenudson M; Zukerberg LR; Bhan AK; Deshpande V; Sabatini DM",
+  "year": 2012,
+  "journal": "Nature",
+  "doi": "10.1038/nature11163",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22722868",
+  "pmcid": "PMC3387287",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "C57BL/6 mice on calorie restriction (60% of ad libitum intake, 4-28 weeks) or rapamycin; Lgr5-EGFP reporter mice; doxycycline-inducible Rheb transgene and inducible Tsc1 and Rictor deletion; intestinal crypt and sorted ISC/Paneth-cell organoid co-culture; Bst1 knockdown and cADPR",
+  "peer_reviewed": true,
+  "finding": "Mice kept on calorie restriction (60% of normal intake) had more intestinal stem cells and Paneth cells, the cells that form the stem-cell niche (Lgr5+ stem cells 5.6% vs 4.3% of crypt cells, Paneth cells 9.8% vs 6.7%), and their crypts were nearly twice as likely to form organoids. In co-culture, Paneth cells from restricted mice, not stem cells, carried the boost. Restriction lowered S6 and S6K1 phosphorylation in crypts, and feeding or insulin switched on mTORC1 in Paneth cells but not in stem cells; forcing mTORC1 back on during restriction (Rheb induction or Tsc1 deletion) cancelled the effect, while one week of rapamycin copied it and did not add to restriction. The niche signal ran through higher Bst1 in Paneth cells, an enzyme that makes the paracrine messenger cyclic ADP ribose, and knocking down Bst1 removed the restriction effect in culture. Boundary: Mouse intestine and ex vivo organoid assays; restriction started in young adult mice, and no lifespan or human tissue was studied.",
+  "url": "https://mtor-atlas.org/study/YIL2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/YIL2012.json",
+  "abstract_excerpt": "How adult tissue stem and niche cells respond to the nutritional state of an organism is not well understood. Here we find that Paneth cells, a key constituent of the mammalian intestinal stem-cell (ISC) niche, augment stem-cell function in response to calorie restriction. Calorie restriction acts by reducing mechanistic target of rapamycin complex 1 (mTORC1) signalling in Paneth cells, and the ISC-enhancing effects of calorie restriction can be mimicked by rapamycin.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Calorie restriction (60% of ad libitum); rapamycin; inducible Rheb overexpression; Tsc1 or Rictor deletion; Bst1 knockdown",
+   "target": "mTORC1 in Paneth cells",
+   "species": "Mouse",
+   "effect": "Lower Paneth-cell mTORC1 (by CR or rapamycin) increases intestinal stem-cell number and function via Bst1/cADPR; forced mTORC1 activity blocks it"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "caloric-restriction",
+    "name": "Caloric restriction",
+    "type": "Intervention"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "CR-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "FON2010",
+   "HAN2007",
+   "HAN2008",
+   "MAT2017"
+  ]
+ }
+}

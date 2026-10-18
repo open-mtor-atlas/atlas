@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Cellular recycling process suppressed by mTORC1 and activated upon its inhibition; linked to longevity.",
-  "study_count": 48,
+  "study_count": 50,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/process/autophagy/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/autophagy.json",
@@ -1137,6 +1137,52 @@
     "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
     "url": "https://mtor-atlas.org/study/WYA2018/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json"
+   },
+   {
+    "sid": "WAN2017",
+    "title": "Rapamycin inhibits the secretory phenotype of senescent cells by a Nrf2-independent mechanism",
+    "authors": "Wang Rong; Yu Z; Sunchu B; Shoaf J; Dang I; Zhao S; Caples K; Bradley L; Beaver LM; Ho E; Löhr CV; Perez VI",
+    "year": 2017,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.12587",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28371119",
+    "pmcid": "PMC5418203",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse skin fibroblasts and WT vs Nrf2-knockout MEFs (H2O2- or bleomycin-induced senescence); human WI38 fibroblasts (replicative senescence, CRISPR Nrf2 knockout); WT and Nrf2-knockout mice given rapamycin 4 mg/kg i.p. every other day for 6 weeks",
+    "peer_reviewed": true,
+    "finding": "The authors asked whether the transcription factor Nrf2 is needed for rapamycin to hold back cellular senescence. In wild-type mouse fibroblasts exposed to hydrogen peroxide, rapamycin raised Nrf2, switched on autophagy and lowered the senescence markers p16 and p21, beta-galactosidase staining and the inflammatory secretory profile (SASP). In Nrf2-knockout cells rapamycin still lowered beta-galactosidase staining and the SASP, but no longer lowered p16 and p21 or activated autophagy; re-expressing Nrf2 restored those effects, and human WI38 cells with Nrf2 knocked out by CRISPR behaved the same way. In Nrf2-knockout mice given rapamycin (4 mg/kg every other day for 6 weeks, 8 mice per group), fat-tissue beta-galactosidase staining and pro-inflammatory cytokines fell while p16 did not, and rapamycin lowered STAT3 phosphorylation in lung tissue and WI38 cells. The study provided evidence that rapamycin's effect on the SASP can be separated from its Nrf2-dependent effect on cell-cycle arrest. Boundary: Mouse and human fibroblasts in culture plus a short 6-week dosing study in young Nrf2-knockout mice; mTOR inhibition was by rapamycin, which was given before and during the senescence trigger, so this is prevention of senescence onset rather than treatment of established senescent cells.",
+    "url": "https://mtor-atlas.org/study/WAN2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2017.json"
+   },
+   {
+    "sid": "BER2006",
+    "title": "Rapamycin alleviates toxicity of different aggregate-prone proteins",
+    "authors": "Berger Z; Ravikumar B; Menzies FM; Oroz LG; Underwood BR; Pangalos MN; Schmitt I; Wullner U; Evert BO; O'Kane CJ; Rubinsztein DC",
+    "year": 2006,
+    "journal": "Human Molecular Genetics",
+    "doi": "10.1093/hmg/ddi458",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16368705",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (incl. COS cells) expressing polyglutamine- and polyalanine-expanded proteins; Drosophila expressing wild-type or mutant human tau",
+    "peer_reviewed": true,
+    "finding": "Building on their earlier work with mutant huntingtin, the authors showed in cell models that rapamycin, used as an autophagy inducer, increased the clearance of several proteins with long polyglutamine tracts and of a polyalanine-expanded protein, and reduced their toxicity. In fruit flies expressing wild-type or mutant human tau, rapamycin reduced tau toxicity, and this went with less insoluble tau. The authors argued that inducing autophagy with rapamycin could be useful across several aggregate-prone protein diseases, not only Huntington's disease. Boundary: cultured cells and Drosophila overexpressing disease proteins; drawn from the abstract only; no mammalian in vivo or human data.",
+    "url": "https://mtor-atlas.org/study/BER2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BER2006.json"
    }
   ],
   "relations": [

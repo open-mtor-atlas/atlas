@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Disease",
   "synonyms": [],
   "description": "Genetic disorder from TSC1/TSC2 loss causing constitutive mTOR activation and benign tumors in brain, kidney, and elsewhere, as well as epilepsy, often the presenting problem, and TSC-associated neuropsychiatric disorders. Everolimus shrinks these tumors (EXIST trials) and is also approved for TSC-associated seizures - the clearest randomised human evidence that blocking mTOR helps a human disease driven by mTOR overactivation.",
-  "study_count": 12,
+  "study_count": 17,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/disease/tuberous-sclerosis-complex/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tuberous-sclerosis-complex.json",
@@ -309,6 +309,121 @@
     "finding": "The authors built a Tsc1 knockout mouse to model tuberous sclerosis. Embryos lacking both copies of Tsc1 died at mid-gestation because the liver failed to develop. Mice with one copy often developed kidney cystadenomas and liver hemangiomas; the hemangiomas were more common, more severe and more often fatal in females. Fibroblasts lacking Tsc1 showed persistent phosphorylation of S6K and its substrate S6 that rapamycin could reverse, and S6 phosphorylation was also high in kidney tumours from the mice. The authors suggested that blocking this pathway might help control TSC tumours. Boundary: mouse model and mouse cells; the rapamycin result is in cultured cells, and treatment of the mouse tumours was not tested here.",
     "url": "https://mtor-atlas.org/study/KWI2002/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/KWI2002.json"
+   },
+   {
+    "sid": "TSA2012",
+    "title": "Autistic-like behaviour and cerebellar dysfunction in Purkinje cell Tsc1 mutant mice",
+    "authors": "Tsai PT; Hull C; Chu Y; Greene-Colozzi E; Sadowski AR; Leech JM; Steinberg J; Crawley JN; Regehr WG; Sahin M",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11310",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22763451",
+    "pmcid": "PMC3615424",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "L7Cre;Tsc1 flox mice (Purkinje-cell-specific heterozygous and homozygous Tsc1 deletion); cerebellar slice electrophysiology; behaviour; rapamycin from P7",
+    "peer_reviewed": true,
+    "finding": "Deleting one or both copies of Tsc1 only in cerebellar Purkinje cells raised phospho-S6 (a readout of mTORC1) in those cells. Both heterozygous and homozygous mutants showed autism-like behaviour: no preference for a mouse over an object or for a new mouse, more self-grooming, more pup ultrasonic calls and poorer reversal learning in a water T-maze. Purkinje cells fired fewer action potentials, both spontaneously and when driven, in a gene-dose-dependent way, while their synaptic inputs looked largely normal; homozygous mutants also lost Purkinje cells from about 2 months of age and became ataxic. Rapamycin (6 mg/kg intraperitoneally, three times a week from postnatal day 7) prevented the Purkinje cell loss and enlargement and the social, learning and motor deficits. Boundary: mouse, cell-type-specific genetic deletion; rapamycin given from early postnatal life, so this is prevention, not reversal; relevance to human autism is by analogy with TSC patients.",
+    "url": "https://mtor-atlas.org/study/TSA2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TSA2012.json"
+   },
+   {
+    "sid": "BAT2013",
+    "title": "Excitatory/inhibitory synaptic imbalance leads to hippocampal hyperexcitability in mouse models of tuberous sclerosis",
+    "authors": "Bateup HS; Johnson CA; Denefrio CL; Saulnier JL; Kornacker K; Sabatini BL",
+    "year": 2013,
+    "journal": "Neuron",
+    "doi": "10.1016/j.neuron.2013.03.017",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23664616",
+    "pmcid": "PMC3690324",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc1 floxed mice: lentiviral Cre in dissociated hippocampal cultures (multi-electrode arrays, microarrays); CaMKIIa-Cre forebrain cKO (kainate seizures); sparse or widespread AAV-Cre in CA1 with slice electrophysiology; rapamycin in vitro and in vivo",
+    "peer_reviewed": true,
+    "finding": "Deleting Tsc1 from cultured mouse hippocampal neurons raised phospho-S6 and made the network fire more than twice as much as controls by day 14, in an epilepsy-like bursting pattern; four days of rapamycin brought activity back to control levels. Many gene-expression and synaptic changes in the knockout cultures, such as high Arc and fewer surface AMPA receptors, turned out to be secondary responses to the high activity, not direct effects of mTOR. In hippocampal CA1, Tsc1 loss in single pyramidal neurons weakened the inhibitory synaptic input they received and raised their excitation/inhibition ratio, while their intrinsic excitability was lower, not higher. Forebrain Tsc1 knockout mice had more severe kainate-induced seizures (80% died, while all controls survived), and seven days of rapamycin in vivo restored inhibition and normalised the E/I ratio. Boundary: mouse neurons, cultures and brain slices; Tsc1 deleted in excitatory neurons only; seizure test used a chemical convulsant.",
+    "url": "https://mtor-atlas.org/study/BAT2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAT2013.json"
+   },
+   {
+    "sid": "FRA2006",
+    "title": "Rapamycin causes regression of astrocytomas in tuberous sclerosis complex",
+    "authors": "Franz DN; Leonard J; Tudor C; Chuck G; Care M; Sethuraman G; Dinopoulos A; Thomas G; Crone KR",
+    "year": 2006,
+    "journal": "Annals of Neurology",
+    "doi": "10.1002/ana.20784",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16453317",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans: case series of 5 patients with TSC (4 subependymal giant cell astrocytomas, 1 pilocytic astrocytoma) treated with oral rapamycin, followed by serial MRI",
+    "peer_reviewed": true,
+    "finding": "Five people with tuberous sclerosis complex whose brain astrocytomas were growing on serial scans (four subependymal giant cell astrocytomas, one pilocytic astrocytoma) were treated with oral rapamycin at standard immunosuppressive levels (blood 5-15 ng/ml) for 2.5 to 20 months. On MRI, every lesion shrank, and one showed necrosis. In one patient the tumour grew back when treatment was interrupted and shrank again when it was restarted. Treatment was well tolerated. This small uncontrolled series was one of the early reports that mTOR inhibition can shrink TSC brain tumours in patients, and it preceded the EXIST-1 everolimus trial. Boundary: 5 patients, open-label case series without a control group; TSC-associated astrocytomas only; regression depended on continued treatment.",
+    "url": "https://mtor-atlas.org/study/FRA2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FRA2006.json"
+   },
+   {
+    "sid": "ZEN2008",
+    "title": "Rapamycin prevents epilepsy in a mouse model of tuberous sclerosis complex",
+    "authors": "Zeng LH; Xu L; Gutmann DH; Wong M",
+    "year": 2008,
+    "journal": "Annals of Neurology",
+    "doi": "10.1002/ana.21331",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18389497",
+    "pmcid": "PMC3937593",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: Tsc1(GFAP) conditional knockout (Tsc1 deleted mainly in glia) and littermate controls; rapamycin or vehicle from P14 (early) or 6 weeks (late); video-EEG, survival, histology, Western blot for phospho-S6",
+    "peer_reviewed": true,
+    "finding": "Mice lacking Tsc1 mainly in glial cells (Tsc1 GFAP conditional knockout) develop glial overgrowth, progressive epilepsy and early death. Rapamycin started at postnatal day 14, before symptoms, prevented epilepsy and premature death; started at 6 weeks, after seizures had begun, it suppressed seizures and prolonged survival. In the brain, rapamycin reversed the abnormal mTOR pathway activation (measured as phospho-S6), the astrogliosis and the neuronal disorganisation, and increased brain size, compared with vehicle-treated knockouts. The study provided evidence in mice that mTOR inhibition can act on epilepsy itself in TSC, not only on tumours, and it is part of the rationale for the later EXIST-3 seizure trial in patients. Boundary: mouse model with Tsc1 deleted mainly in glia, not the human germline mutation; seizure and survival outcomes in mice only; abstract does not state dose or schedule.",
+    "url": "https://mtor-atlas.org/study/ZEN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2008.json"
+   },
+   {
+    "sid": "FRE2016",
+    "title": "Adjunctive everolimus therapy for treatment-resistant focal-onset seizures associated with tuberous sclerosis (EXIST-3): a phase 3, randomised, double-blind, placebo-controlled study",
+    "authors": "French JA; Lawson JA; Yapici Z; Ikeda H; Polster T; Nabbout R; Curatolo P; de Vries PJ; Dlugos DJ; Berkowitz N; Voi M; Peyrard S; Pelov D; Franz DN",
+    "year": 2016,
+    "journal": "Lancet",
+    "doi": "10.1016/s0140-6736(16)31419-2",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27613521",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans: 366 patients aged 2-65 with TSC and treatment-resistant focal-onset seizures on 1-3 antiepileptic drugs; phase 3 RCT, placebo vs low-exposure (trough 3-7 ng/mL) vs high-exposure (9-15 ng/mL) everolimus; 99 centres, 25 countries",
+    "peer_reviewed": true,
+    "finding": "EXIST-3 was a phase 3, double-blind trial in 366 patients aged 2 to 65 with tuberous sclerosis complex and focal seizures that had not responded to standard drugs. They were randomised 1:1:1 to placebo (n=119), everolimus dosed to a low blood trough of 3-7 ng/mL (n=117) or a high trough of 9-15 ng/mL (n=130), added to their existing antiepileptic drugs. For the primary endpoint, at least a 50% fall in seizure frequency during the 12-week maintenance period, the response rate was 15.1% with placebo, 28.2% with low exposure (p=0.0077) and 40.0% with high exposure (p<0.0001); median seizure reduction was 14.9%, 29.3% and 39.6%. Grade 3-4 adverse events occurred in 11%, 18% and 24%, and serious adverse events in 3%, 14% and 14% of patients, respectively. The result showed a dose-dependent effect of mTOR inhibition on seizures in TSC, beyond its known effect on TSC tumours. Boundary: patients with TSC and treatment-resistant focal-onset seizures already on 1-3 antiepileptic drugs; comparator was placebo add-on; 18-week core phase (6-week titration, 12-week maintenance), so long-term durability is not addressed here.",
+    "url": "https://mtor-atlas.org/study/FRE2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FRE2016.json"
    }
   ],
   "relations": [

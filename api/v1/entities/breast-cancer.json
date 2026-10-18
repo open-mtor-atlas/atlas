@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Disease",
   "synonyms": [],
   "description": "Hormone-receptor-positive advanced breast cancer becomes resistant to endocrine therapy partly by activating mTOR; adding the rapalog everolimus to exemestane delays progression (BOLERO-2: progression-free survival roughly doubled, without a significant overall-survival benefit).",
-  "study_count": 7,
+  "study_count": 8,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/disease/breast-cancer/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/breast-cancer.json",
@@ -194,6 +194,29 @@
     "finding": "Xingxiao Pill inhibited 4T1 breast cancer growth in vitro and in vivo by suppressing ErbB3/PI3K/AKT/mTOR signalling and reshaping amino acid metabolism; cinnamic acid and palmitic acid were identified as constituents that bind mTOR.",
     "url": "https://mtor-atlas.org/study/ZHANG2026C/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026C.json"
+   },
+   {
+    "sid": "PIC2014",
+    "title": "Everolimus plus exemestane for hormone-receptor-positive, human epidermal growth factor receptor-2-negative advanced breast cancer: overall survival results from BOLERO-2†",
+    "authors": "Piccart M; Hortobagyi GN; Campone M; Pritchard KI; Lebrun F; Ito Y; Noguchi S; Perez A; Rugo HS; Deleu I; Burris HA; Provencher L; Neven P; Gnant M; Shtivelband M; Wu C; Fan J; Feng W; Taran T; Baselga J",
+    "year": 2014,
+    "journal": "Annals of Oncology",
+    "doi": "10.1093/annonc/mdu456",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25231953",
+    "pmcid": "PMC6267855",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans: postmenopausal women with HR+/HER2- advanced breast cancer after nonsteroidal aromatase inhibitors; phase III RCT, everolimus + exemestane vs placebo + exemestane (2:1)",
+    "peer_reviewed": true,
+    "finding": "This is the final overall-survival report of BOLERO-2, the phase III double-blind trial (published primary analysis: BAS2012) in which postmenopausal women with hormone-receptor-positive, HER2-negative advanced breast cancer that had progressed on a nonsteroidal aromatase inhibitor received exemestane 25 mg/day plus either everolimus 10 mg/day or placebo. The primary endpoint, progression-free survival by local investigator, remained improved: median 7.8 vs 3.2 months (P < 0.0001), a 4.6-month gain. Overall survival, a key secondary endpoint, was not significantly improved: median 31.0 vs 26.6 months, hazard ratio 0.89 (95% CI 0.73-1.10), P = 0.14, at 410 deaths. Most patients went on to further treatment after the trial (84% vs 90%), with less chemotherapy in the everolimus arm (53% vs 63%), which may have diluted any survival difference. No new safety concerns were identified. Boundary: postmenopausal women with HR+/HER2- advanced breast cancer previously treated with a nonsteroidal aromatase inhibitor; comparator was exemestane plus placebo; the survival benefit of adding mTOR inhibition was not shown.",
+    "url": "https://mtor-atlas.org/study/PIC2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PIC2014.json"
    }
   ],
   "relations": [
@@ -221,9 +244,7 @@
     "mechanism_beginner": "Adding everolimus to hormone therapy roughly doubled the time before certain advanced breast cancers got worse.",
     "context": null,
     "boundary": "Progression-free survival, in combination with exemestane - overall survival was not significantly improved.",
-    "boundary_tags": [
-     "single-study"
-    ],
+    "boundary_tags": [],
     "note": "Say PFS, not survival. The distinction is the whole argument of this Atlas.",
     "consensus_contested": false,
     "curation_contested": false,
@@ -240,7 +261,8 @@
       "label": "Human study"
      },
      "supporting": [
-      "BAS2012"
+      "BAS2012",
+      "PIC2014"
      ],
      "conflicting": []
     },

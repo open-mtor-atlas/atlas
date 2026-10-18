@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Sterol regulatory element-binding proteins 1 and 2; master transcription factors for de novo lipid and cholesterol biosynthesis. mTORC1 promotes SREBP nuclear entry (via Lipin-1 and S6K1), linking nutrient sensing to the lipogenic program. SREBP1/2 are thus a major downstream metabolic output of mTORC1 alongside protein synthesis and autophagy suppression.",
-  "study_count": 6,
+  "study_count": 7,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/srebp1-srebp2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/srebp1-srebp2.json",
@@ -171,6 +171,29 @@
     "finding": "The authors deleted rictor, an essential mTORC2 component, only in mouse liver. In fed knockout mice the liver lost Akt Ser473 phosphorylation and had lower glucokinase and SREBP1c activity, so it kept making glucose (gluconeogenesis) while glycolysis and fat synthesis fell, as if it could not sense that the animal had eaten. The mice became hyperglycaemic and hyperinsulinaemic with low blood lipids. In mTORC2-deficient hepatocytes, constitutively active Akt2 restored both glucose flux and lipogenesis, while extra glucokinase restored glucose flux but not lipogenesis, placing Akt as the main route from hepatic mTORC2 to these outputs. Boundary: Mouse liver with lifelong genetic loss of mTORC2, plus cultured mouse hepatocytes. Not a drug study and not tested in people. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/HAG2012/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/HAG2012.json"
+   },
+   {
+    "sid": "KID2013",
+    "title": "Sterol regulatory element-binding proteins are essential for the metabolic programming of effector T cells and adaptive immunity",
+    "authors": "Kidani Y; Elsaesser H; Hock MB; Vergnes L; Williams KJ; Argus JP; Marbois BN; Komisopoulou E; Wilson EB; Osborne TF; Graeber TG; Reue K; Brooks DG; Bensinger SJ",
+    "year": 2013,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2570",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23563690",
+    "pmcid": "PMC3652626",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells with Cd4-cre-driven deletion of Scap (removing both SREBP1 and SREBP2 activity), siRNA and constitutively active SREBP constructs, rapamycin and LY294002 pretreatment, ChIP for SREBP1/2 at lipogenic promoters, GC-MS lipid measurement, Seahorse profiling, LCMV-Armstrong infection and homeostatic-proliferation transfers",
+    "peer_reviewed": true,
+    "finding": "Activating T cells switch on cholesterol and fatty acid synthesis genes within hours, and this paper showed the switch runs through PI3K and mTOR to SREBP: 100 nM rapamycin given 30 minutes before stimulation blocked the induction of the lipogenic programme, prevented processing of full-length SREBP and its accumulation in the nucleus, and reduced SREBP1 and SREBP2 occupancy at lipogenic promoters to background. Deleting Scap in T cells, which removes both SREBP1 and SREBP2 activity, left thymic and peripheral T-cell numbers normal but the cells could not blast: they entered G1 and stalled, failed to raise cholesterol and fatty acids after activation, and increased ECAR and OCR only modestly where controls rose about ten-fold and four-fold. Adding cholesterol conjugated to methyl-beta-cyclodextrin roughly doubled survival at 48 hours (21 to 45 percent) and restored growth, cell-cycle entry and ER expansion, which points to cholesterol as the limiting step. After LCMV-Armstrong infection the Scap-deficient mice had fewer virus-specific CD8 T cells with lower IFN-gamma and TNF, while homeostatic proliferation was unaffected. Boundary: mouse genetics and mouse cells; the mTOR step is shown with rapamycin pretreatment in cultured T cells, and the in vivo arm measures the consequence of losing SREBP activity rather than of inhibiting mTOR.",
+    "url": "https://mtor-atlas.org/study/KID2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KID2013.json"
    }
   ],
   "relations": [
@@ -197,7 +220,7 @@
     "mechanism": "mTORC1 drives the SREBP transcription factors, which turn on the genes for making fat and cholesterol - growth needs membrane, not just protein.",
     "mechanism_beginner": "mTORC1 switches on SREBP, the genes that build fat and cholesterol – a growing cell needs membrane material, not just protein.",
     "context": null,
-    "boundary": "Mammalian cell studies (POR2008, PET2011) and an emerging rather than settled consensus. Cultured cells; the size of the effect in whole animals and in people is not measured by these studies.",
+    "boundary": "Mammalian cell studies (POR2008, PET2011) and an emerging rather than settled consensus. Cultured cells; the size of the effect in whole animals and in people is not measured by these studies. KID2013 adds primary mouse T cells: rapamycin blocked SREBP processing and nuclear entry after T-cell activation, and Scap-deleted T cells could not raise sterol synthesis. Still no human tissue data.",
     "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
@@ -217,7 +240,8 @@
      "supporting": [
       "POR2008",
       "PET2011",
-      "DUV2010"
+      "DUV2010",
+      "KID2013"
      ],
      "conflicting": []
     },
@@ -275,7 +299,8 @@
       "POR2008",
       "PET2011",
       "SHI2014",
-      "DUV2010"
+      "DUV2010",
+      "KID2013"
      ],
      "conflicting": []
     },

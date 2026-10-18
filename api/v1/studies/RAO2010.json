@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "RAO2010",
+  "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+  "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+  "year": 2010,
+  "journal": "Immunity",
+  "doi": "10.1016/j.immuni.2009.10.010",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20060330",
+  "pmcid": "PMC5836496",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+  "peer_reviewed": true,
+  "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+  "url": "https://mtor-atlas.org/study/RAO2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json",
+  "abstract_excerpt": "The mechanisms underpinning integration of instructions that program naive CD8+ T cells for effector and/or memory differentiation are not well understood. Herein, we demonstrate that interleukin-12 (IL-12) enhanced and sustained antigen and costimulatory molecule (B7.1)-induced mTOR kinase activity in naive CD8+ (OT-I) T cells via phosphoinositide 3-kinase and STAT4 transcription factor pathways. Blocking mTOR activity by rapamycin reversed IL-12-induced effector functions because of loss of persistent expression of the transcription factor T-bet.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin during in vitro antigen plus IL-12 conditioning; PI3K inhibitor LY294002; insulin; 2-deoxyglucose; STAT4 deficiency; inducible T-bet",
+   "target": "mTORC1 (S6K1/S6 phosphorylation), T-bet and Eomesodermin expression in CD8 T cells",
+   "species": "Mouse",
+   "effect": "mTOR inhibition lowered sustained T-bet and effector function and raised Eomesodermin and memory-precursor features"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-S6K1",
+    "RAPA-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHI2012",
+   "DEL2009",
+   "DEL2011",
+   "GEI2016"
+  ]
+ }
+}

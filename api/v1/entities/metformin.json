@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Drug",
   "synonyms": [],
   "description": "Antidiabetic biguanide; activates AMPK (ZHO2001) and inhibits mTORC1. How much of its action actually runs through AMPK is disputed: metformin still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells, via the Rag GTPases (KAL2010). Frequently discussed as a geroprotector alongside rapamycin.",
-  "study_count": 7,
+  "study_count": 9,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/drug/metformin/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/metformin.json",
@@ -194,6 +194,52 @@
     "finding": "The authors compared genome-wide changes in mRNA translation caused by metformin with those caused by the mTOR inhibitors rapamycin and PP242 in cancer cells. Metformin changed gene expression at the level of translation to an extent comparable to the classic mTOR inhibitors. Its antiproliferative effect could be explained by selective suppression of translation of mRNAs encoding cell-cycle regulators, acting through the mTORC1 / 4E-BP pathway. The paper provided evidence that metformin's effect on cell growth in vitro goes through selective translational control rather than a general drop in protein synthesis. Boundary: Cultured cancer cells at drug concentrations used in vitro; does not show that metformin at clinical doses acts this way in patients. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/LAR2012/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/LAR2012.json"
+   },
+   {
+    "sid": "PEA2009",
+    "title": "Enhancing CD8 T-cell memory by modulating fatty acid metabolism",
+    "authors": "Pearce EL; Walsh MC; Cejas PJ; Harms GM; Shen H; Wang LS; Jones RG; Choi Y",
+    "year": 2009,
+    "journal": "Nature",
+    "doi": "10.1038/nature08097",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19494812",
+    "pmcid": "PMC2803086",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific TRAF6 deletion (CD4-cre), OT-I TCR-transgenic adoptive transfer, Listeria monocytogenes-OVA infection, EL4-OVA tumour vaccine model, and activated mouse CD8 T cells in vitro after IL-2 withdrawal",
+    "peer_reviewed": true,
+    "finding": "Mice whose T cells lacked the adaptor protein TRAF6 mounted a normal effector CD8 T-cell response to Listeria infection, but the antigen-specific cells vanished during contraction and almost no memory cells formed. The TRAF6-deficient cells failed to activate AMPK and mitochondrial fatty acid oxidation when the growth factor IL-2 was withdrawn. Daily metformin restored fatty acid oxidation and memory formation, and also raised memory CD8 T-cell numbers in normal mice: in a tumour vaccine model 6 of 9 metformin-treated mice survived beyond day 33 against 1 of 8 controls. Daily rapamycin (1.5 mg/kg), used as a second drug that promotes fatty acid oxidation, likewise increased memory CD8 T-cell development and recall responses. Boundary: mouse only, one bacterial infection model and one transplantable tumour; the rapamycin arm is a secondary experiment and mTOR activity itself was not measured in these cells.",
+    "url": "https://mtor-atlas.org/study/PEA2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEA2009.json"
+   },
+   {
+    "sid": "MIC2011",
+    "title": "Cutting edge: distinct glycolytic and lipid oxidative metabolic programs are essential for effector and regulatory CD4+ T cell subsets",
+    "authors": "Michalek RD; Gerriets VA; Jacobs SR; Macintyre AN; MacIver NJ; Mason EF; Sullivan SA; Nichols AG; Rathmell JC",
+    "year": 2011,
+    "journal": "Journal of Immunology",
+    "doi": "10.4049/jimmunol.1003613",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21317389",
+    "pmcid": "PMC3198034",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Primary mouse CD4 T cells polarised in vitro to Th1, Th2, Th17 and inducible Treg, with rapamycin, metformin or the CPT1 inhibitor etomoxir; Glut1-transgenic and Glut1-myc knock-in mice; OVA-driven allergic asthma model with metformin",
+    "peer_reviewed": true,
+    "finding": "Comparing CD4 T cells grown under effector and regulatory conditions, the authors showed that Th1, Th2 and Th17 cells carry high surface Glut1 and are strongly glycolytic, while inducible Treg carry little Glut1, oxidise lipid at a higher rate and have more phosphorylated AMPK. Blocking lipid oxidation with etomoxir selectively suppressed Treg generation and left effector differentiation intact, whereas removing glucose blocked Th17 but not Treg. Both rapamycin and metformin raised fatty acid oxidation in stimulated CD4 T cells, and etomoxir prevented the Treg increase produced by rapamycin or TGF-beta, which ties the pro-Treg effect of mTOR inhibition to lipid oxidation. In a mouse asthma model, metformin lowered Glut1 on activated CD4 T cells and increased the proportion and number of Treg in draining lymph nodes, although airway responsiveness itself did not change significantly. Boundary: mouse cells and one mouse allergic-airway model; mTOR inhibition is pharmacological (rapamycin) and mTOR activity was not measured directly, so the mTOR arm is inferred from drug effects.",
+    "url": "https://mtor-atlas.org/study/MIC2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MIC2011.json"
    }
   ],
   "relations": [
@@ -222,8 +268,7 @@
     "context": null,
     "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
     "boundary_tags": [
-     "direction-contested",
-     "single-study"
+     "direction-contested"
     ],
     "note": null,
     "consensus_contested": true,
@@ -237,11 +282,12 @@
     "evidence": {
      "kind": "Pharmacological",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
-      "ZHO2001"
+      "ZHO2001",
+      "PEA2009"
      ],
      "conflicting": [
       "KAL2010"

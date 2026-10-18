@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -29,7 +29,7 @@
    "dTOR"
   ],
   "description": "Serine/threonine kinase; central regulator of cell growth and metabolism; direct target of rapamycin.",
-  "study_count": 114,
+  "study_count": 118,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/gene/mtor/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/mtor.json",
@@ -2662,6 +2662,98 @@
     "finding": "Cells lacking the mTORC2 components mTOR, SIN1 or rictor lost phosphorylation of Akt and of conventional protein kinase C at the turn motif, a site near the end of the kinase domain. This phosphorylation did not depend on growth factors, and the authors reported the same function in yeast. Turn-motif phosphorylation helped newly made Akt and PKC fold correctly and stay stable; without it, Akt was held by the chaperone Hsp90 and protected from ubiquitin-mediated breakdown. mTORC2 controlled the Akt turn-motif and hydrophobic-motif (Ser473) sites independently in vivo and phosphorylated both directly in vitro. Boundary: Cell culture, yeast and in vitro kinase assays, with mouse tissue for the in vivo site analysis. Shows a protein-maturation role of mTORC2, not an organismal phenotype. Drafted from the abstract only.",
     "url": "https://mtor-atlas.org/study/FAC2008/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/FAC2008.json"
+   },
+   {
+    "sid": "RAO2010",
+    "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+    "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+    "year": 2010,
+    "journal": "Immunity",
+    "doi": "10.1016/j.immuni.2009.10.010",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20060330",
+    "pmcid": "PMC5836496",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+    "peer_reviewed": true,
+    "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+    "url": "https://mtor-atlas.org/study/RAO2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json"
+   },
+   {
+    "sid": "MAR2014",
+    "title": "The metabolic checkpoint kinase mTOR is essential for IL-15 signaling during the development and activation of NK cells",
+    "authors": "Marcais A; Cherfils-Vicini J; Viant C; Degouve S; Viel S; Fenis A; Rabilloud J; Mayol K; Tavares A; Bienvenu J; Gangloff YG; Gilson E; Vivier E; Walzer T",
+    "year": 2014,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2936",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "24973821",
+    "pmcid": "PMC4110708",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "NKp46-cre x Mtor-flox mice (NK-cell-specific mTOR deletion) plus acute TAT-Cre deletion and adoptive transfer; poly(I:C) and MCMV or influenza infection; oral rapamycin (sirolimus, 100 ug/day) with an in vivo missing-self rejection assay; Seahorse metabolic profiling; human NK cells from healthy donors stimulated with IL-2 plus rapamycin, PP242 or Ku-0063794",
+    "peer_reviewed": true,
+    "finding": "This study separated two arms of IL-15 signalling in NK cells by dose: low IL-15 mainly phosphorylated STAT5 (EC50 about 1.5 ng/ml), while higher IL-15 was needed to switch on mTOR (EC50 about 5.3 ng/ml for S6 phosphorylation), and IL-15 was the only one of many tested stimuli that strongly raised pS6. Deleting mTOR in NK cells left bone-marrow numbers normal but blocked the CD11b-low to double-positive transition, cut proliferation about three-fold and left almost no mature NK cells in the periphery, with lower CD71, glucose uptake and about half the surface CD122 and CD132, so the receptor feedback is itself mTOR-dependent. In activation, mTOR-deficient NK cells failed to grow or raise nutrient uptake after poly(I:C) and made about half as much granzyme B, while IFN-gamma production in response to IL-12 plus IL-18 stayed normal. Oral rapamycin lowered pS6 and granzyme B in vivo and made rejection of MHC-class-I-negative target cells significantly less efficient, and mTOR inhibitors also blocked IL-2-driven granzyme B induction in human NK cells. Boundary: mouse genetics and mouse in vivo pharmacology, with the human arm limited to healthy-donor NK cells stimulated in culture; the clinical implication for patients on rapalogs is inference, not a measured patient outcome.",
+    "url": "https://mtor-atlas.org/study/MAR2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2014.json"
+   },
+   {
+    "sid": "TAN2002",
+    "title": "A rapamycin-sensitive signaling pathway contributes to long-term synaptic plasticity in the hippocampus",
+    "authors": "Tang SJ; Reis G; Kang H; Gingras AC; Sonenberg N; Schuman EM",
+    "year": 2002,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.012605299",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11756682",
+    "pmcid": "PMC117583",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat and mouse hippocampal slices (field recordings, immunostaining); cultured rat hippocampal neurons; Western blot of rat hippocampus",
+    "peer_reviewed": true,
+    "finding": "The authors showed that mTOR, 4E-BP1, 4E-BP2 and eIF4E are present in rat hippocampus and sit in dendrites, close to synapses, where their staining overlapped with the postsynaptic protein PSD-95. Blocking mTOR with rapamycin in hippocampal slices reduced late-phase long-term potentiation (LTP) after high-frequency stimulation, while early-phase LTP was unaffected. Rapamycin also blocked the synaptic potentiation induced by the growth factor BDNF. This was one of the early papers to tie a rapamycin-sensitive pathway to the protein-synthesis-dependent phase of synaptic plasticity and to suggest it controls local translation at synapses. Boundary: rodent brain slices and cultured neurons; mTOR targets were localised but their phosphorylation during LTP was not reported in the abstract; no behaviour or memory test.",
+    "url": "https://mtor-atlas.org/study/TAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2002.json"
+   },
+   {
+    "sid": "COT2006",
+    "title": "Hypothalamic mTOR signaling regulates food intake",
+    "authors": "Cota D; Proulx K; Smith KA; Kozma SC; Thomas G; Woods SC; Seeley RJ",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1124147",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16690869",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rats (Long-Evans): fasting/refeeding, intracerebroventricular leucine, leptin and rapamycin; hypothalamic immunostaining and Western blot",
+    "peer_reviewed": true,
+    "finding": "In rats, hypothalamic mTOR signalling (phosphorylated S6K1 and S6) changed with energy status in specific hypothalamic regions and was found in NPY and POMC neurons of the arcuate nucleus. Injecting leucine into the brain ventricles raised hypothalamic mTOR signalling and lowered food intake and body weight. Leptin also raised hypothalamic mTOR activity, and blocking mTOR with rapamycin in the brain blunted leptin's effect on reducing food intake. The authors proposed that hypothalamic mTOR acts as a fuel sensor linked to how much an animal eats. Boundary: rats, direct brain (intracerebroventricular) dosing, short-term food intake; drawn from the abstract only, so doses and effect sizes are not given here.",
+    "url": "https://mtor-atlas.org/study/COT2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COT2006.json"
    }
   ],
   "relations": [

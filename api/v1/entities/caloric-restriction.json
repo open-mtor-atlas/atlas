@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Intervention",
   "synonyms": [],
   "description": "Reduced caloric intake without malnutrition; associated with lifespan extension across species.",
-  "study_count": 7,
+  "study_count": 9,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/intervention/caloric-restriction/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/caloric-restriction.json",
@@ -194,6 +194,52 @@
     "finding": "Dietary restriction selectively oxidizes a specific, tissue-resolved set of cysteines rather than oxidizing the proteome broadly. One of the most strongly oxidized is Cys19 on the core autophagy protein ATG5; this oxidation is required for ATG5 to bind ATG10 and form the ATG5-ATG12 conjugate that lipidates LC3B and builds the autophagosome. In mice lacking this redox switch, nutrient restriction fails to trigger autophagy, causing severe tissue pathology and early death -- a single oxidized cysteine gates the autophagic response to fasting.",
     "url": "https://mtor-atlas.org/study/SHI2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SHI2026.json"
+   },
+   {
+    "sid": "HAN2007",
+    "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+    "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+    "year": 2007,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2006.00267.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17266679",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+    "peer_reviewed": true,
+    "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+    "url": "https://mtor-atlas.org/study/HAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+   },
+   {
+    "sid": "YIL2012",
+    "title": "mTORC1 in the Paneth cell niche couples intestinal stem-cell function to calorie intake",
+    "authors": "Yilmaz ÖH; Katajisto P; Lamming DW; Gültekin Y; Bauer-Rowe KE; Sengupta S; Birsoy K; Dursun A; Yilmaz VO; Selig M; Nielsen GP; Mino-Kenudson M; Zukerberg LR; Bhan AK; Deshpande V; Sabatini DM",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11163",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22722868",
+    "pmcid": "PMC3387287",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C57BL/6 mice on calorie restriction (60% of ad libitum intake, 4-28 weeks) or rapamycin; Lgr5-EGFP reporter mice; doxycycline-inducible Rheb transgene and inducible Tsc1 and Rictor deletion; intestinal crypt and sorted ISC/Paneth-cell organoid co-culture; Bst1 knockdown and cADPR",
+    "peer_reviewed": true,
+    "finding": "Mice kept on calorie restriction (60% of normal intake) had more intestinal stem cells and Paneth cells, the cells that form the stem-cell niche (Lgr5+ stem cells 5.6% vs 4.3% of crypt cells, Paneth cells 9.8% vs 6.7%), and their crypts were nearly twice as likely to form organoids. In co-culture, Paneth cells from restricted mice, not stem cells, carried the boost. Restriction lowered S6 and S6K1 phosphorylation in crypts, and feeding or insulin switched on mTORC1 in Paneth cells but not in stem cells; forcing mTORC1 back on during restriction (Rheb induction or Tsc1 deletion) cancelled the effect, while one week of rapamycin copied it and did not add to restriction. The niche signal ran through higher Bst1 in Paneth cells, an enzyme that makes the paracrine messenger cyclic ADP ribose, and knocking down Bst1 removed the restriction effect in culture. Boundary: Mouse intestine and ex vivo organoid assays; restriction started in young adult mice, and no lifespan or human tissue was studied.",
+    "url": "https://mtor-atlas.org/study/YIL2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YIL2012.json"
    }
   ],
   "relations": [
@@ -220,10 +266,8 @@
     "mechanism": "Reduced nutrient and energy availability is expected to lower mTORC1 through the amino-acid and energy arms at once - the sensors detect scarcity and AMPK detects the falling energy charge. Note what supports that expectation here, because it is less than the claim's reputation suggests. No study in this corpus measures mTORC1 under fasting or energy restriction. The single supporting study, SOL2014, fed mice ad libitum across 25 diets and concluded that the macronutrient RATIO, not caloric intake, set lifespan and cardiometabolic health; the mTOR link in it is a correlation between a lower protein-to-carbohydrate ratio and lower hepatic mTOR activation. So the supported variable is dietary protein, not calories, and the measurement is associative rather than interventional.",
     "mechanism_beginner": "Eating less is expected to turn mTORC1 down, because the cell's fuel and amino-acid sensors both report scarcity. But this has not been measured here. The one study behind this arrow let mice eat freely on 25 different diets and found that the ratio of protein to carbohydrate, not the number of calories, went with health and lifespan, and lower-protein diets went with lower mTOR activity in the liver. So what has support is eating less protein, not eating less, and it is a correlation, not a test.",
     "context": null,
-    "boundary": "Supporting evidence is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge. That leaves SOL2014, which is an ad-libitum 25-diet study whose own title states that the ratio of macronutrients, not caloric intake, dictates the outcome, and whose mTOR observation is correlative and confined to liver. Re-audit 2026-10-10: consensus was downgraded from established to emerging and the evidence kind from genetic epistasis to correlative, because neither matched what SOL2014 actually did. The edge is retained because the mechanistic expectation is sound and well motivated by the sensor arms, but it is an expectation, not a measured result in this corpus.",
-    "boundary_tags": [
-     "single-study"
-    ],
+    "boundary": "Supporting evidence is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge. That leaves SOL2014, which is an ad-libitum 25-diet study whose own title states that the ratio of macronutrients, not caloric intake, dictates the outcome, and whose mTOR observation is correlative and confined to liver. Re-audit 2026-10-10: consensus was downgraded from established to emerging and the evidence kind from genetic epistasis to correlative, because neither matched what SOL2014 actually did. The edge is retained because the mechanistic expectation is sound and well motivated by the sensor arms, but it is an expectation, not a measured result in this corpus. 2026-10-18: YIL2012 added. In mouse intestine, calorie restriction lowered mTORC1 activity in Paneth cells, and rapamycin or Paneth-cell genetics reproduced the stem-cell effect, so the corpus now has one direct mTORC1 measurement under restriction. It is a single tissue in mice and does not show the same in people.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -240,7 +284,8 @@
       "label": "Animal model"
      },
      "supporting": [
-      "SOL2014"
+      "SOL2014",
+      "YIL2012"
      ],
      "conflicting": []
     },

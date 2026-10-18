@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
-  "corpus_snapshot": "2026-10-18T09:26:00+0200",
-  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "State in which a cell permanently stops dividing but stays alive, secreting inflammatory signals (the SASP). Senescent cells accumulate with age and drive age-related disease. mTOR powers the inflammatory secretions of cells that are already senescent (LAB2015, the stronger evidence); that it also promotes entry into the senescent state rests on weaker cell-culture evidence (DEM2009).",
-  "study_count": 17,
+  "study_count": 18,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/process/cellular-senescence/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/cellular-senescence.json",
@@ -424,6 +424,29 @@
     "finding": "Described a glucose checkpoint at the G1/S boundary run by AMPK. Cells arrested when glucose ran short even though amino acids were present and mTOR stayed active, so this arrest works in parallel to mTOR rather than through it. AMPK phosphorylated p53 on serine 15, which was needed for the arrest; arrested cells re-entered the cycle when glucose returned, while persistent AMPK activation pushed them into p53-dependent senescence. Boundary: worked from the abstract only (no PMC full text); cultured cells.",
     "url": "https://mtor-atlas.org/study/JON2005/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/JON2005.json"
+   },
+   {
+    "sid": "WAN2017",
+    "title": "Rapamycin inhibits the secretory phenotype of senescent cells by a Nrf2-independent mechanism",
+    "authors": "Wang Rong; Yu Z; Sunchu B; Shoaf J; Dang I; Zhao S; Caples K; Bradley L; Beaver LM; Ho E; Löhr CV; Perez VI",
+    "year": 2017,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.12587",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28371119",
+    "pmcid": "PMC5418203",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse skin fibroblasts and WT vs Nrf2-knockout MEFs (H2O2- or bleomycin-induced senescence); human WI38 fibroblasts (replicative senescence, CRISPR Nrf2 knockout); WT and Nrf2-knockout mice given rapamycin 4 mg/kg i.p. every other day for 6 weeks",
+    "peer_reviewed": true,
+    "finding": "The authors asked whether the transcription factor Nrf2 is needed for rapamycin to hold back cellular senescence. In wild-type mouse fibroblasts exposed to hydrogen peroxide, rapamycin raised Nrf2, switched on autophagy and lowered the senescence markers p16 and p21, beta-galactosidase staining and the inflammatory secretory profile (SASP). In Nrf2-knockout cells rapamycin still lowered beta-galactosidase staining and the SASP, but no longer lowered p16 and p21 or activated autophagy; re-expressing Nrf2 restored those effects, and human WI38 cells with Nrf2 knocked out by CRISPR behaved the same way. In Nrf2-knockout mice given rapamycin (4 mg/kg every other day for 6 weeks, 8 mice per group), fat-tissue beta-galactosidase staining and pro-inflammatory cytokines fell while p16 did not, and rapamycin lowered STAT3 phosphorylation in lung tissue and WI38 cells. The study provided evidence that rapamycin's effect on the SASP can be separated from its Nrf2-dependent effect on cell-cycle arrest. Boundary: Mouse and human fibroblasts in culture plus a short 6-week dosing study in young Nrf2-knockout mice; mTOR inhibition was by rapamycin, which was given before and during the senescence trigger, so this is prevention of senescence onset rather than treatment of established senescent cells.",
+    "url": "https://mtor-atlas.org/study/WAN2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2017.json"
    }
   ],
   "relations": [

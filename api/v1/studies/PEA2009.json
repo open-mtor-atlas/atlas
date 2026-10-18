@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "bec3da17fdec348d48938ded8f2733370aa9ecc5b5bc804bc7dd88cef7869ead",
+  "corpus_snapshot": "2026-10-18T10:01:14+0200",
+  "source_commit": "5eac392e90a638090972807291b1fb27e21d4a26",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "PEA2009",
+  "title": "Enhancing CD8 T-cell memory by modulating fatty acid metabolism",
+  "authors": "Pearce EL; Walsh MC; Cejas PJ; Harms GM; Shen H; Wang LS; Jones RG; Choi Y",
+  "year": 2009,
+  "journal": "Nature",
+  "doi": "10.1038/nature08097",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19494812",
+  "pmcid": "PMC2803086",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mice with T-cell-specific TRAF6 deletion (CD4-cre), OT-I TCR-transgenic adoptive transfer, Listeria monocytogenes-OVA infection, EL4-OVA tumour vaccine model, and activated mouse CD8 T cells in vitro after IL-2 withdrawal",
+  "peer_reviewed": true,
+  "finding": "Mice whose T cells lacked the adaptor protein TRAF6 mounted a normal effector CD8 T-cell response to Listeria infection, but the antigen-specific cells vanished during contraction and almost no memory cells formed. The TRAF6-deficient cells failed to activate AMPK and mitochondrial fatty acid oxidation when the growth factor IL-2 was withdrawn. Daily metformin restored fatty acid oxidation and memory formation, and also raised memory CD8 T-cell numbers in normal mice: in a tumour vaccine model 6 of 9 metformin-treated mice survived beyond day 33 against 1 of 8 controls. Daily rapamycin (1.5 mg/kg), used as a second drug that promotes fatty acid oxidation, likewise increased memory CD8 T-cell development and recall responses. Boundary: mouse only, one bacterial infection model and one transplantable tumour; the rapamycin arm is a secondary experiment and mTOR activity itself was not measured in these cells.",
+  "url": "https://mtor-atlas.org/study/PEA2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/PEA2009.json",
+  "abstract_excerpt": "CD8 T cells, which have a crucial role in immunity to infection and cancer, are maintained in constant numbers, but on antigen stimulation undergo a developmental program characterized by distinct phases encompassing the expansion and then contraction of antigen-specific effector (T(E)) populations, followed by the persistence of long-lived memory (T(M)) cells. Although this predictable pattern of CD8 T-cell responses is well established, the underlying cellular mechanisms regulating the transition to T(M) cells remain undefined.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "T-cell-specific TRAF6 deletion; daily metformin (250 mg/kg); daily rapamycin (1.5 mg/kg)",
+   "target": "CD8 T-cell fatty acid oxidation and memory formation",
+   "species": "Mouse",
+   "effect": "TRAF6 loss abolished CD8 memory formation; metformin or rapamycin increased memory CD8 T cells, and metformin improved anti-tumour vaccine protection"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "metformin",
+    "name": "Metformin",
+    "type": "Drug"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "METFORMIN-AMPK"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "MIC2011",
+   "FOR2010",
+   "HOW2017",
+   "KAL2010"
+  ]
+ }
+}
