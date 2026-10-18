@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "96ec026e523bb6af363b30e40f52e8746f3a0d01171775f046125d4a1adc4605",
-  "corpus_snapshot": "2026-10-17T23:29:45+0200",
-  "source_commit": "dc6cb85f5b11a02bb0fcf9e9f2d3b40c0635af3f",
+  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
+  "corpus_snapshot": "2026-10-18T07:29:47+0200",
+  "source_commit": "4ce6bf522fbc85cdfecac5ea3520a82cb8d0586c",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -1941,6 +1941,7 @@
    "context": null,
    "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
    "boundary_tags": [
+    "cell-line-only",
     "direction-contested",
     "single-study"
    ],
@@ -2547,7 +2548,9 @@
    "mechanism_beginner": "mTORC1 stabilises Grb10, kicking off a feedback loop that talks back to the insulin receptor.",
    "context": null,
    "boundary": "Two mammalian cell studies (HSU2011, YUX2011). Cell culture only; not tested in whole animals or in people.",
-   "boundary_tags": [],
+   "boundary_tags": [
+    "cell-line-only"
+   ],
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4783,6 +4786,7 @@
    "context": null,
    "boundary": "One Drosophila study (DEN2026). Fly only and a single study; no mammalian or human data are cited for this edge.",
    "boundary_tags": [
+    "single-species",
     "single-study"
    ],
    "note": null,
@@ -5997,7 +6001,8 @@
    "boundary": "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other.",
    "boundary_tags": [
     "direction-contested",
-    "single-study"
+    "single-study",
+    "tissue-specific"
    ],
    "note": null,
    "consensus_contested": true,
@@ -7145,7 +7150,9 @@
    "mechanism_beginner": "Less growth-hormone signalling, longer life in mice.",
    "context": null,
    "boundary": "Mouse only. A lifelong GH-receptor-antagonist transgenic (LIST2026; an earlier study of the same line did not detect extension) and a tamoxifen-inducible whole-body Ghr knockout started at 12 months (DUR2026). mTOR signalling was not measured in either, so the route through PI3K-Akt-mTOR is inferred, not shown here.",
-   "boundary_tags": [],
+   "boundary_tags": [
+    "single-species"
+   ],
    "note": "2026-10-10: Interaction type signal-relay -> functional-consequence. The target is a lifespan outcome, not a signalling node, and mTOR signalling was not measured in either study.",
    "consensus_contested": false,
    "curation_contested": false,

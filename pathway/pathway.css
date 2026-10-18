@@ -58,6 +58,8 @@
 .pw-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
 .pw-search{display:flex;align-items:center;gap:7px;border:1.5px solid var(--line-strong);background:var(--paper);
   padding:0 10px;height:38px;flex:1 1 210px;max-width:320px;}
+/* 17. 10. 2026 (externi audit, Stage 8): input ma outline:none a obal nemel zadny fokus -- klavesnice nevidela, kde je. */
+.pw-search:focus-within{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal);}
 .pw-search input{border:none;background:none;outline:none;flex:1;min-width:0;height:36px;
   font-family:'IBM Plex Mono',monospace;font-size:var(--fs-caption,13px);color:var(--ink);}
 .pw-seg{display:flex;border:1.5px solid var(--line-strong);}
