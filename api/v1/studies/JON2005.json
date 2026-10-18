@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "JON2005",
+  "title": "AMP-activated protein kinase induces a p53-dependent metabolic checkpoint",
+  "authors": "Jones RG; Plas DR; Kubek S; Buzzai M; Mu J; Xu Y; Birnbaum MJ; Thompson CB",
+  "year": 2005,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2005.03.027",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "15866171",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Proliferating mammalian cells under glucose deprivation; p53 serine-15 mutant cells",
+  "peer_reviewed": true,
+  "finding": "Described a glucose checkpoint at the G1/S boundary run by AMPK. Cells arrested when glucose ran short even though amino acids were present and mTOR stayed active, so this arrest works in parallel to mTOR rather than through it. AMPK phosphorylated p53 on serine 15, which was needed for the arrest; arrested cells re-entered the cycle when glucose returned, while persistent AMPK activation pushed them into p53-dependent senescence. Boundary: worked from the abstract only (no PMC full text); cultured cells.",
+  "url": "https://mtor-atlas.org/study/JON2005/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/JON2005.json",
+  "abstract_excerpt": "Replicative cell division is an energetically demanding process that can be executed only if cells have sufficient metabolic resources to support a doubling of cell mass. Here we show that proliferating mammalian cells have a cell-cycle checkpoint that responds to glucose availability. The glucose-dependent checkpoint occurs at the G(1)/S boundary and is regulated by AMP-activated protein kinase (AMPK). This cell-cycle arrest occurs despite continued amino acid availability and active mTOR.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Glucose deprivation; AMPK activation",
+   "target": "AMPK -> p53 (Ser15)",
+   "species": "Mammalian cell lines",
+   "effect": "AMPK imposes a reversible p53-dependent G1/S arrest; sustained activation leads to senescence"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "energy-cellular-stress",
+    "name": "Energy & cellular stress",
+    "type": "Condition"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "GWI2008",
+   "SHAW2004",
+   "ZHO2001",
+   "DEM2016"
+  ]
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CHA2007",
+  "title": "siRNA screening of the kinome identifies ULK1 as a multidomain modulator of autophagy",
+  "authors": "Chan EY; Kir S; Tooze SA",
+  "year": 2007,
+  "journal": "Journal of Biological Chemistry",
+  "doi": "10.1074/jbc.m703663200",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "17595159",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "HEK293 cells (GFP-LC3 lipidation assay, kinome siRNA library); HeLa cells; rat ULK1 constructs",
+  "peer_reviewed": true,
+  "finding": "The authors screened a kinase-targeted siRNA library in human HEK293 cells, using lipidation of the autophagy marker GFP-LC3 after amino-acid starvation as the readout. ULK1 came out of the screen: knocking it down blocked starvation-induced autophagy, while knocking down the related kinase ULK2 did not. ULK1 knockdown also blocked autophagy induced by rapamycin, which fits ULK1 acting downstream of mTOR. Overexpressed ULK1 inhibited autophagy independently of its kinase activity, and the dominant-negative effect mapped to residues 1-351, while the conserved C-terminal domain was needed for ULK1 to reach cytoplasmic structures, some of them LC3-positive. One of the early papers to place ULK1 as a required kinase for starvation-induced autophagy in mammalian cells. Boundary: Cultured human cell lines with siRNA and overexpression; no whole-animal data. The link to mTOR rests on rapamycin-induced autophagy, not on a measurement of mTORC1 acting on ULK1. Drafted from the abstract only (no PMC full text).",
+  "url": "https://mtor-atlas.org/study/CHA2007/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2007.json",
+  "abstract_excerpt": "Autophagy is a vital response to nutrient starvation. Here, we screened a kinase-specific siRNA library using an autophagy assay in human embryonic kidney 293 cells that measures lipidation of the marker protein GFP-LC3 following amino acid starvation. This screen identified ULK1 in addition to other novel candidates that could be confirmed with multiple siRNAs. Knockdown of ULK1, but not the related kinase ULK2, inhibited the autophagic response. Also, ULK1 knockdown inhibited rapamycin-induced autophagy consistent with a role downstream of mTOR.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "siRNA knockdown of ULK1 (kinome screen); ULK1 overexpression and deletion mutants; amino-acid starvation or rapamycin to induce autophagy",
+   "target": "ULK1",
+   "species": "Human cells (HEK293, HeLa)",
+   "effect": "ULK1 knockdown decreased starvation- and rapamycin-induced autophagy (GFP-LC3 lipidation); ULK2 knockdown did not"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "lc3b-map1lc3b",
+    "name": "LC3B (MAP1LC3B)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ULK1-AUTOPHAGY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SIN2026",
+   "VER2026",
+   "WYA2018",
+   "DAL2016"
+  ]
+ }
+}

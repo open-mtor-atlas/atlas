@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DEN2001",
+  "title": "Mammalian TOR: a homeostatic ATP sensor",
+  "authors": "Dennis PB; Jaeschke A; Saitoh M; Fowler B; Kozma SC; Thomas G",
+  "year": 2001,
+  "journal": "Science",
+  "doi": "10.1126/science.1063518",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "11691993",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cultured human cells (HEK293-type per MeSH 'Cell Line'); ATP lowering with 2-deoxyglucose and rotenone (per MeSH); in vitro mTOR kinase assays",
+  "peer_reviewed": true,
+  "finding": "The authors tested whether mTOR signalling responds to the cell's energy level, not only to amino acids. They reported that lowering intracellular ATP reduced signalling through the mTOR pathway, and that this happened independently of amino acid levels. Based on the kinase properties of mTOR, they proposed that mTOR itself senses ATP. Later work showed that much of the energy signal reaches mTORC1 through AMPK and TSC2, so the direct ATP-sensor model is one part of a larger picture. Boundary: cultured cells and in vitro kinase measurements; the ATP-sensor interpretation is the authors' model and has been revised by later AMPK work.",
+  "url": "https://mtor-atlas.org/study/DEN2001/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2001.json",
+  "abstract_excerpt": "The bacterial macrolide rapamycin is an efficacious anticancer agent against solid tumors. In a hypoxic environment, the increase in mass of solid tumors is dependent on the recruitment of mitogens and nutrients. When nutrient concentrations change, particularly those of essential amino acids, the mammalian Target of Rapamycin (mTOR) functions in regulatory pathways that control ribosome biogenesis and cell growth. In bacteria, ribosome biogenesis is independently regulated by amino acids and adenosine triphosphate (ATP).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Lowering intracellular ATP",
+   "target": "mTOR signalling (S6K1 readout per MeSH); mTOR kinase",
+   "species": "Human cell lines; in vitro",
+   "effect": "Lower ATP -> reduced mTOR pathway signalling"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "energy-cellular-stress",
+    "name": "Energy & cellular stress",
+    "type": "Condition"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DEM2016",
+   "GWI2008",
+   "JON2005",
+   "MEN2014"
+  ]
+ }
+}

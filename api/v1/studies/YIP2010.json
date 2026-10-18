@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "YIP2010",
+  "title": "Structure of the human mTOR complex I and its implications for rapamycin inhibition",
+  "authors": "Yip CK; Murata K; Walz T; Sabatini DM; Kang SA",
+  "year": 2010,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2010.05.017",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20542007",
+  "pmcid": "PMC2887672",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human mTORC1 purified from HEK-293T cells stably expressing FLAG-raptor; negative-stain and cryo-EM (26 A); antibody labelling; in vitro kinase assays on S6K1 and 4E-BP1 with FKBP12-rapamycin or Torin1",
+  "peer_reviewed": true,
+  "finding": "The authors purified intact, active human mTORC1 and solved its shape by cryo-electron microscopy at about 26 angstrom resolution. The complex is an obligate dimer with a rhomboid outline and a central cavity, held together by interlocking contacts between mTOR and Raptor; antibody labelling placed mLST8 at the outer 'feet' and PRAS40 next to Raptor. Exposing purified mTORC1 to FKBP12-rapamycin first added a bound density in about 10% of particles, then broke the complex apart, with virtually no intact particles left after one hour, while the ATP-competitive inhibitor Torin1 left it intact. In matching kinase assays, FKBP12-rapamycin blocked S6K1 phosphorylation quickly but 4E-BP1 phosphorylation only after at least 60 minutes, and Raptor-free mTOR still phosphorylated S6K1 (rapamycin-sensitively) but not 4E-BP1. The authors proposed that rapamycin inhibits the two substrates by different mechanisms. Boundary: Purified protein and low-resolution EM; the authors note that in cells rapamycin neither fully blocks 4E-BP1 phosphorylation nor dismantles mTORC1, so the disassembly model is an in vitro result.",
+  "url": "https://mtor-atlas.org/study/YIP2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/YIP2010.json",
+  "abstract_excerpt": "The mammalian target of rapamycin complex 1 (mTORC1) regulates cell growth in response to the nutrient and energy status of the cell, and its deregulation is common in human cancers. Little is known about the overall architecture and subunit organization of this essential signaling complex. We have determined the three-dimensional (3D) structure of the fully assembled human mTORC1 by cryo-electron microscopy (cryo-EM). Our analyses reveal that mTORC1 is an obligate dimer with an overall rhomboid shape and a central cavity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "FKBP12-rapamycin or Torin1 on purified mTORC1; Raptor-free mTOR preparations",
+   "target": "mTORC1 (mTOR-Raptor dimer)",
+   "species": "Human (protein purified from HEK-293T cells)",
+   "effect": "FKBP12-rapamycin bound mTORC1 and, over time, disassembled it; S6K1 phosphorylation fell quickly, 4E-BP1 phosphorylation only after prolonged exposure"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mlst8",
+    "name": "mLST8",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "fkbp12",
+    "name": "FKBP12",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "FKBP12-MTORC1",
+    "RAPA-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "AYL2015",
+   "CHO1996",
+   "YAN2013",
+   "BAR2016"
+  ]
+ }
+}

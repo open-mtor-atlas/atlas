@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -26,7 +26,7 @@
    "mTOR complex-1"
   ],
   "description": "mTOR Complex 1; regulates protein synthesis, autophagy, and growth in response to nutrients and growth factors.",
-  "study_count": 178,
+  "study_count": 199,
   "relation_count": 41,
   "url": "https://mtor-atlas.org/complex/mtorc1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/mtorc1.json",
@@ -4131,6 +4131,489 @@
     "finding": "An RNAi screen identified the tumor suppressor CYLD as a deubiquitinase that binds mTOR and removes non-degradative K63-linked ubiquitin chains from several of its residues, restraining both mTORC1 and mTORC2. Cells lacking CYLD show hyperactive mTORC1/2, higher protein synthesis, larger cell size and resistance to serum-starvation-induced cell death. In C. elegans, knocking down cyld-1 fully abolishes the extended lifespan of low-TORC1-activity mutants, and skin biopsies from CYLD cutaneous syndrome patients show mTORC1 hyperactivation. Preprint, not peer-reviewed.",
     "url": "https://mtor-atlas.org/study/FER2025/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/FER2025.json"
+   },
+   {
+    "sid": "GAO2002",
+    "title": "Tsc tumour suppressor proteins antagonize amino-acid-TOR signalling",
+    "authors": "Gao X; Zhang Y; Arrazola P; Hino O; Kobayashi T; Yeung RS; Ru B; Pan D",
+    "year": 2002,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb847",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12172555",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster genetics (Tsc1/Tsc2 mutants); Tsc-deficient mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the Tsc1 and Tsc2 tumour suppressors relate to TOR, the nutrient-sensing kinase. They showed that Tsc1 and Tsc2 can physically associate with TOR and act upstream of TOR in fly genetic tests. In fly and mammalian cells lacking Tsc1 or Tsc2, S6K activity rose, and this increase depended on TOR. S6K normally switches off when cells are starved of amino acids, but cells without Tsc1-Tsc2 stayed resistant to that starvation. The authors proposed that the Tsc1-Tsc2 complex restrains the TOR response to amino acids. Boundary: Drosophila and cultured mammalian cells; S6K activity is used as the readout of TOR. Later work placed amino acid sensing mainly on the Rag GTPase arm rather than through TSC, so the amino acid part of the model is not the current consensus.",
+    "url": "https://mtor-atlas.org/study/GAO2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2002.json"
+   },
+   {
+    "sid": "TEE2002",
+    "title": "Tuberous sclerosis complex-1 and -2 gene products function together to inhibit mammalian target of rapamycin (mTOR)-mediated downstream signaling",
+    "authors": "Tee AR; Fingar DC; Manning BD; Kwiatkowski DJ; Cantley LC; Blenis J",
+    "year": 2002,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.202476899",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12271141",
+    "pmcid": "PMC129715",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured mammalian cells (HEK293-type transfection system per MeSH 'Cell Line'); coexpression of TSC1/TSC2, patient-derived TSC2 mutant, rapamycin-resistant S6K1 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors coexpressed hamartin (TSC1) and tuberin (TSC2) in cultured cells and followed two main outputs of mTOR. Together, the two proteins reduced phosphorylation of 4E-BP1, so more 4E-BP1 stayed bound to the translation factor eIF4E; a TSC2 mutant found in TSC patients was defective at this. Hamartin plus tuberin also lowered S6K1 activity, but did not affect S6K1 mutants that resist rapamycin, which points to mTOR as the step being blocked. In nutrient-deprived cells, hamartin and tuberin prevented amino acids from switching S6K1 back on. The authors concluded that the TSC1-TSC2 complex acts as an inhibitor of mTOR signalling and suggested that TSC tumours may come from too much mTOR activity. Boundary: overexpression in cultured mammalian cells; the link to tumours in TSC patients is a proposal, not tested in patient tissue here.",
+    "url": "https://mtor-atlas.org/study/TEE2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TEE2002.json"
+   },
+   {
+    "sid": "KWI2002",
+    "title": "A mouse model of TSC1 reveals sex-dependent lethality from liver hemangiomas, and up-regulation of p70S6 kinase activity in Tsc1 null cells",
+    "authors": "Kwiatkowski DJ; Zhang H; Bandura JL; Heiberger KM; Glogauer M; el-Hashemite N; Onda H",
+    "year": 2002,
+    "journal": "Human Molecular Genetics",
+    "doi": "10.1093/hmg/11.5.525",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11875047",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Tsc1 knockout mice (null embryos, heterozygotes); Tsc1-null mouse embryonic fibroblasts; rapamycin treatment of cells",
+    "peer_reviewed": true,
+    "finding": "The authors built a Tsc1 knockout mouse to model tuberous sclerosis. Embryos lacking both copies of Tsc1 died at mid-gestation because the liver failed to develop. Mice with one copy often developed kidney cystadenomas and liver hemangiomas; the hemangiomas were more common, more severe and more often fatal in females. Fibroblasts lacking Tsc1 showed persistent phosphorylation of S6K and its substrate S6 that rapamycin could reverse, and S6 phosphorylation was also high in kidney tumours from the mice. The authors suggested that blocking this pathway might help control TSC tumours. Boundary: mouse model and mouse cells; the rapamycin result is in cultured cells, and treatment of the mouse tumours was not tested here.",
+    "url": "https://mtor-atlas.org/study/KWI2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KWI2002.json"
+   },
+   {
+    "sid": "COR2004",
+    "title": "Regulation of the TSC pathway by LKB1: evidence of a molecular link between tuberous sclerosis complex and Peutz-Jeghers syndrome",
+    "authors": "Corradetti MN; Inoki K; Bardeesy N; DePinho RA; Guan KL",
+    "year": 2004,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.1199104",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15231735",
+    "pmcid": "PMC443516",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HeLa (LKB1-null) and HEK293 cells; Lkb1-null mouse embryonic fibroblasts; RNAi",
+    "peer_reviewed": true,
+    "finding": "Asked why two inherited tumour syndromes, tuberous sclerosis and Peutz-Jeghers syndrome, look so alike under the microscope. Re-expressing LKB1 in LKB1-null HeLa cells raised AMPK activation-loop phosphorylation and lowered phosphorylation of S6K and 4E-BP1, while knocking LKB1 down did the opposite. The effect on mTOR outputs needed both AMPK and TSC2, placing LKB1 upstream of the TSC2-mTOR axis through AMPK. Together with Shaw et al. 2004 this is one of the two papers that tied energy stress, via LKB1 and AMPK, to TSC2. Boundary: cultured cell lines with overexpression and knockdown; the tumour-syndrome link is an interpretation, not a test in patients.",
+    "url": "https://mtor-atlas.org/study/COR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COR2004.json"
+   },
+   {
+    "sid": "SHAW2004",
+    "title": "The LKB1 tumor suppressor negatively regulates mTOR signaling",
+    "authors": "Shaw RJ; Bardeesy N; Manning BD; Lopez L; Kosmatka M; DePinho RA; Cantley LC",
+    "year": 2004,
+    "journal": "Cancer Cell",
+    "doi": "10.1016/j.ccr.2004.06.007",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15261145",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Lkb1-null mouse embryonic fibroblasts; cultured cells under low ATP; gastrointestinal polyps from Lkb1 mutant mice",
+    "peer_reviewed": true,
+    "finding": "Reported that LKB1 is needed to switch mTOR signalling off when cellular ATP falls, and that this requires AMPK and TSC2. Lkb1-null fibroblasts and the hamartomatous gut polyps of Lkb1 mutant mice showed raised signalling downstream of mTOR. The authors proposed mTOR inhibitors as a treatment idea for Peutz-Jeghers syndrome. Published alongside Corradetti et al. 2004, which reached the same LKB1-AMPK-TSC2 link independently. Boundary: worked from the abstract only (no PMC full text); cell and mouse data, the treatment suggestion was not tested here.",
+    "url": "https://mtor-atlas.org/study/SHAW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHAW2004.json"
+   },
+   {
+    "sid": "DEY2008",
+    "title": "Hypoxia regulates TSC1/2-mTOR signaling and tumor suppression through REDD1-mediated 14-3-3 shuttling",
+    "authors": "DeYoung MP; Horak P; Sofer A; Sgroi D; Ellisen LW",
+    "year": 2008,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.1617608",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18198340",
+    "pmcid": "PMC2192757",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "REDD1-/- and TSC2-/- mouse embryonic fibroblasts, human cell lines in 1% O2; xenografts in nude mice; human breast carcinoma samples",
+    "peer_reviewed": true,
+    "finding": "Explains how low oxygen turns mTORC1 off. Growth factors keep TSC2 bound to inhibitory 14-3-3 proteins; under hypoxia REDD1 releases TSC2 from 14-3-3, which frees TSC2 to inhibit mTORC1. REDD1-null cells failed to release TSC2 or to switch mTORC1 off in hypoxia, and REDD1 mutants that cannot bind 14-3-3, or TSC2 mutants that cannot bind it, broke the signal. REDD1-null cells grew into far larger tumours in mice, and REDD1 was low in a subset of human breast carcinomas (8 of 27). Boundary: cell lines and mouse xenografts under acute hypoxia (hours); the human data are expression correlations only.",
+    "url": "https://mtor-atlas.org/study/DEY2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEY2008.json"
+   },
+   {
+    "sid": "BUD2008",
+    "title": "p53 target genes sestrin1 and sestrin2 connect genotoxic stress and mTOR signaling",
+    "authors": "Budanov AV; Karin M",
+    "year": 2008,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2008.06.028",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18692468",
+    "pmcid": "PMC2758522",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; Sesn2-deficient mice challenged with DNA damage",
+    "peer_reviewed": true,
+    "finding": "Connected DNA damage to mTOR. Two p53 target genes, Sestrin1 and Sestrin2, bound and activated AMPK and steered it to phosphorylate TSC2, which raised TSC2 GAP activity and lowered mTOR signalling. Sesn2-deficient mice failed to inhibit mTOR signalling after genotoxic challenge. This describes the stress-induced arm of Sestrin biology; the later leucine-sensing role of Sestrin2 through GATOR2 is a separate mechanism. Boundary: cell lines and mice under acute genotoxic stress; no human data.",
+    "url": "https://mtor-atlas.org/study/BUD2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BUD2008.json"
+   },
+   {
+    "sid": "ALE2010",
+    "title": "ATM signals to TSC2 in the cytoplasm to regulate mTORC1 in response to ROS",
+    "authors": "Alexander A; Cai SL; Kim J; Nanez A; Sahin M; MacLean KH; Inoki K; Guan KL; Shen J; Person MD; Kusewitt D; Mills GB; Kastan MB; Walker CL",
+    "year": 2010,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.0913860107",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20160076",
+    "pmcid": "PMC2840158",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cell lines with ATM loss or ROS exposure; Atm-deficient mice treated with rapamycin",
+    "peer_reviewed": true,
+    "finding": "Described a cytoplasmic job for the DNA-damage kinase ATM. In response to raised ROS, ATM activated TSC2 through LKB1 and AMPK, which repressed mTORC1 and induced autophagy. ATM-deficient cells had high ROS and poorly controlled mTORC1, and rapamycin lowered both and delayed lymphoma formation in Atm-deficient mice. Boundary: worked from the abstract only (PMC record without retrievable text); cell lines and mice. Note that the Atlas edge ROS-MTORC1 describes the opposite sign in another context, so the effect of ROS on mTORC1 depends on source and setting.",
+    "url": "https://mtor-atlas.org/study/ALE2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALE2010.json"
+   },
+   {
+    "sid": "NES2001",
+    "title": "Enhanced sensitivity of PTEN-deficient tumors to inhibition of FRAP/mTOR",
+    "authors": "Neshat MS; Mellinghoff IK; Tran C; Stiles B; Thomas G; Petersen R; Frost P; Gibbons JJ; Wu H; Sawyers CL",
+    "year": 2001,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.171076798",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11504908",
+    "pmcid": "PMC56958",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Isogenic PTEN+/+ and PTEN-/- mouse cells and human cancer cell lines, in vitro and as tumours in mice; CCI-779",
+    "peer_reviewed": true,
+    "finding": "Tested whether tumour cells that have lost PTEN depend more on mTOR. The rapamycin analogue CCI-779 (temsirolimus) blocked growth of PTEN-null cells and tumours preferentially, and reversed the extra tumour growth caused by constitutively active Akt, placing mTOR downstream of Akt in tumour formation. PTEN loss went with higher S6 kinase activity and S6 phosphorylation. Sensitivity was not explained by how well the drug blocked S6 phosphorylation, since S6 was inhibited in sensitive and resistant lines alike. Boundary: worked from the abstract only (scanned PMC record); mouse and human cell lines and mouse tumour models, not patients.",
+    "url": "https://mtor-atlas.org/study/NES2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NES2001.json"
+   },
+   {
+    "sid": "POD2001",
+    "title": "An inhibitor of mTOR reduces neoplasia and normalizes p70/S6 kinase activity in Pten+/- mice",
+    "authors": "Podsypanina K; Lee RT; Politis C; Hennessy I; Crane A; Puc J; Neshat M; Wang H; Yang L; Gibbons J; Frost P; Dreisbach V; Blenis J; Gaciong Z; Fisher P; Sawyers C; Hedrick-Ellenson L; Parsons R",
+    "year": 2001,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.171060098",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11504907",
+    "pmcid": "PMC56959",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Pten+/- mice treated with a pharmacological mTOR inhibitor",
+    "peer_reviewed": true,
+    "finding": "Transformed cells in Pten+/- mice showed raised phosphorylated Akt and active p70 S6 kinase together with faster proliferation. Treating the mice with an mTOR inhibitor reduced neoplastic proliferation, tumour size and S6 kinase activity without changing Akt status. The authors concluded that S6K and possibly other mTOR targets contribute to tumour development downstream of PTEN loss. Boundary: worked from the abstract only (scanned PMC record); mouse model. The abstract does not name the inhibitor.",
+    "url": "https://mtor-atlas.org/study/POD2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POD2001.json"
+   },
+   {
+    "sid": "SAT2010",
+    "title": "Single amino-acid changes that confer constitutive activation of mTOR are discovered in human cancer",
+    "authors": "Sato T; Nakashima A; Guo L; Coffman K; Tamanoi F",
+    "year": 2010,
+    "journal": "Oncogene",
+    "doi": "10.1038/onc.2010.28",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20190810",
+    "pmcid": "PMC2953941",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cells expressing mTOR point mutants found in cancer genome databases; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "Screened point mutations from cancer genome databases and found two, S2215Y (large intestine adenocarcinoma) and R2505P (renal cell carcinoma), that kept mTOR signalling on even under nutrient starvation. mTORC1 purified from starved cells carrying the mutants still phosphorylated 4E-BP1 in vitro. Mutant cells had more S-phase cells (42.0% vs 28.2% for S2215Y) and resisted the shrinkage caused by amino-acid withdrawal. The mutants stayed sensitive to rapamycin. Boundary: overexpressed mutants in cultured cells; the mutations were found in tumour databases, their driver role in patients was not tested.",
+    "url": "https://mtor-atlas.org/study/SAT2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAT2010.json"
+   },
+   {
+    "sid": "DUV2010",
+    "title": "Activation of a metabolic gene regulatory network downstream of mTOR complex 1",
+    "authors": "Düvel K; Yecies JL; Menon S; Raman P; Lipovsky AI; Souza AL; Triantafellow E; Ma Q; Gorski R; Cleaver S; Vander Heiden MG; MacKeigan JP; Finan PM; Clish CB; Murphy LO; Manning BD",
+    "year": 2010,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2010.06.022",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20670887",
+    "pmcid": "PMC2946786",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- mouse embryonic fibroblasts and other cells with rapamycin; transcriptomics, metabolomics, RNAi",
+    "peer_reviewed": true,
+    "finding": "Used cells with constitutively active mTORC1 (TSC2 loss) and rapamycin to map what mTORC1 switches on besides protein synthesis. Gene expression and metabolite profiling showed that mTORC1 activation is enough to drive glycolysis, the oxidative pentose phosphate pathway and de novo lipid synthesis. This ran through a transcriptional program of HIF1alpha and SREBP1/2 target genes; SREBP1 and 2 were needed for proliferation downstream of mTORC1, and their activation required S6K1. Boundary: cultured cells, mostly mouse fibroblasts with genetic mTORC1 activation; tissue and human relevance not tested here.",
+    "url": "https://mtor-atlas.org/study/DUV2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DUV2010.json"
+   },
+   {
+    "sid": "BON2012",
+    "title": "Leucyl-tRNA synthetase controls TORC1 via the EGO complex",
+    "authors": "Bonfils G; Jaquenoud M; Bontron S; Ostrowicz C; Ungermann C; De Virgilio C",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.02.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424774",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae) genetics and biochemistry; LeuRS Cdc60 and EGO complex (Gtr1) interaction assays",
+    "peer_reviewed": true,
+    "finding": "In budding yeast, the leucyl-tRNA synthetase Cdc60 bound the Rag GTPase Gtr1, part of the EGO complex that activates TORC1, and this binding depended on leucine. The authors reported that the interaction was both necessary and sufficient to pass the leucine signal on to TORC1. When Cdc60 was busy editing wrongly charged tRNA(Leu), the interaction with Gtr1 was lost. The model is that TORC1 reads how well tRNA(Leu) is being charged as a stand-in for how much leucine the cell has. Together with Han et al. 2012 in human cells, it was one of the early papers to propose a tRNA synthetase as a leucine sensor upstream of the Rags. Boundary: Yeast only. The mammalian leucine sensor most widely accepted today is Sestrin2, and this yeast mechanism has not been reconciled with it. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/BON2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BON2012.json"
+   },
+   {
+    "sid": "GUL2008",
+    "title": "Amino acids activate mTOR complex 1 via Ca2+/CaM signaling to hVps34",
+    "authors": "Gulati P; Gaspers LD; Dann SG; Joaquin M; Nobukuni T; Natt F; Kozma SC; Thomas AP; Thomas G",
+    "year": 2008,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2008.03.002",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18460336",
+    "pmcid": "PMC2587347",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (HEK293 and HeLa per MeSH); intracellular Ca2+ imaging; hVps34 site-directed mutants; S6K1 phosphorylation readouts",
+    "peer_reviewed": true,
+    "finding": "In cultured human cells, adding amino acids raised the free calcium level inside the cell, and this rise was needed for amino acids to switch on mTORC1 and the lipid kinase hVps34. Calcium-bound calmodulin bound directly to a conserved motif in hVps34, and the authors showed this motif was needed for hVps34 lipid kinase activity and for the increase in mTORC1 signalling. The paper proposed a route from amino acids to mTORC1 that runs through class III PI3K (hVps34) rather than the class I PI3K used by insulin and growth factors. Boundary: Human cell lines only. The calcium/hVps34 route was proposed before the Rag-Ragulator-GATOR model and is not part of the current consensus amino-acid pathway. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/GUL2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUL2008.json"
+   },
+   {
+    "sid": "JEF1997",
+    "title": "Rapamycin suppresses 5'TOP mRNA translation through inhibition of p70s6k",
+    "authors": "Jefferies HB; Fumagalli S; Dennis PB; Reinhard C; Pearson RB; Thomas G",
+    "year": 1997,
+    "journal": "EMBO Journal",
+    "doi": "10.1093/emboj/16.12.3693",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9218810",
+    "pmcid": "PMC1169993",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (mouse 3T3 cells per MeSH); chimeric reporter mRNAs with intact or disrupted 5'TOP; dominant-interfering and rapamycin-resistant (T389E) p70s6k mutants",
+    "peer_reviewed": true,
+    "finding": "In mammalian cells, rapamycin selectively blocked the mitogen-induced increase in translation of 5'TOP mRNAs, which encode ribosomal proteins and elongation factors, and in parallel blocked activation of p70 S6 kinase. Using reporter mRNAs, the authors showed that an intact 5'TOP tract was required for the rapamycin effect. A dominant-interfering p70s6k reduced translation of the reporter with the intact 5'TOP but not the disrupted one, and a rapamycin-resistant p70s6k (Thr389 changed to an acidic residue) removed the inhibitory effect of rapamycin on 5'TOP translation. The authors concluded that rapamycin suppresses 5'TOP translation through p70s6k. Boundary: Cell lines with overexpressed kinase mutants and reporter mRNAs. Later genetic work (S6K knockouts, rpS6 knock-in) found 5'TOP control persisting without S6K1 or rpS6 phosphorylation, so the S6K step proposed here is not the current consensus. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/JEF1997/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JEF1997.json"
+   },
+   {
+    "sid": "LAR2012",
+    "title": "Distinct perturbation of the translatome by the antidiabetic drug metformin",
+    "authors": "Larsson O; Morita M; Topisirovic I; Alain T; Blouin MJ; Pollak M; Sonenberg N",
+    "year": 2012,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.1201689109",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22611195",
+    "pmcid": "PMC3384216",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell line (per MeSH); genome-wide polysome microarray translatome analysis comparing metformin, rapamycin and PP242",
+    "peer_reviewed": true,
+    "finding": "The authors compared genome-wide changes in mRNA translation caused by metformin with those caused by the mTOR inhibitors rapamycin and PP242 in cancer cells. Metformin changed gene expression at the level of translation to an extent comparable to the classic mTOR inhibitors. Its antiproliferative effect could be explained by selective suppression of translation of mRNAs encoding cell-cycle regulators, acting through the mTORC1 / 4E-BP pathway. The paper provided evidence that metformin's effect on cell growth in vitro goes through selective translational control rather than a general drop in protein synthesis. Boundary: Cultured cancer cells at drug concentrations used in vitro; does not show that metformin at clinical doses acts this way in patients. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/LAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAR2012.json"
+   },
+   {
+    "sid": "SCH2006",
+    "title": "The mammalian target of rapamycin (mTOR) pathway regulates mitochondrial oxygen consumption and oxidative capacity",
+    "authors": "Schieke SM; Phillips D; McCoy JP; Aponte AM; Shen RF; Balaban RS; Finkel T",
+    "year": 2006,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m603536200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16847060",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human Jurkat T cells (per MeSH); rapamycin; RNAi against TSC2, S6K1, raptor and rictor; subcellular fractionation; 2D-DIGE phosphoproteomics",
+    "peer_reviewed": true,
+    "finding": "In human cultured cells, the amount of mTOR-raptor complex correlated with overall mitochondrial activity. Disrupting the complex with rapamycin lowered mitochondrial membrane potential, oxygen consumption and ATP-synthetic capacity. mTOR and mTOR-raptor complexes were found in purified mitochondrial fractions, and rapamycin markedly changed the mitochondrial phosphoproteome. RNA interference against TSC2, S6K1, raptor or rictor led the authors to conclude that mTOR regulates mitochondrial activity independently of its previously known targets, and they proposed that mTOR activity shifts the balance between mitochondrial and non-mitochondrial ATP production. Boundary: Cultured human cell line with acute pharmacological and RNAi manipulation; the link to lifespan is a hypothesis drawn from lower organisms, not tested here. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/SCH2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2006.json"
+   },
+   {
+    "sid": "PEN2011",
+    "title": "Regulation of TFEB and V-ATPases by mTORC1",
+    "authors": "Peña-Llopis S; Vega-Rubin-de-Celis S; Schwartz JC; Wolff NC; Tran TA; Zou L; Xie XJ; Corey DR; Brugarolas J",
+    "year": 2011,
+    "journal": "EMBO Journal",
+    "doi": "10.1038/emboj.2011.257",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21804531",
+    "pmcid": "PMC3160667",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- vs Tsc2+/+ immortalized MEFs (serum-deprived, +/- rapamycin) with microarrays; Tsc1 floxed primary MEFs and mouse liver (Ad-Cre); myr-Akt prostate model with everolimus (public data); HeLa cells with TSC2/Raptor knockdown",
+    "peer_reviewed": true,
+    "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
+    "url": "https://mtor-atlas.org/study/PEN2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json"
+   },
+   {
+    "sid": "MAR2013",
+    "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+    "authors": "Martina JA; Puertollano R",
+    "year": 2013,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.201209135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23401004",
+    "pmcid": "PMC3575543",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+    "peer_reviewed": true,
+    "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+    "url": "https://mtor-atlas.org/study/MAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json"
+   },
+   {
+    "sid": "WYA2018",
+    "title": "NUFIP1 is a ribosome receptor for starvation-induced ribophagy",
+    "authors": "Wyant GA; Abu-Remaileh M; Frenkel EM; Laqtom NN; Dharamdasani V; Lewis CA; Chan SH; Heinze I; Ori A; Sabatini DM",
+    "year": 2018,
+    "journal": "Science",
+    "doi": "10.1126/science.aar2663",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29700228",
+    "pmcid": "PMC6020066",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK-293T and other human/mouse cell lines (incl. 8988T); LysoIP lysosome proteomics; CRISPR knockouts of NUFIP1, ATG7, DEPDC5 (GATOR1); Torin1, amino-acid and glucose starvation; electron microscopy",
+    "peer_reviewed": true,
+    "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
+    "url": "https://mtor-atlas.org/study/WYA2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json"
+   },
+   {
+    "sid": "YIP2010",
+    "title": "Structure of the human mTOR complex I and its implications for rapamycin inhibition",
+    "authors": "Yip CK; Murata K; Walz T; Sabatini DM; Kang SA",
+    "year": 2010,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2010.05.017",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20542007",
+    "pmcid": "PMC2887672",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human mTORC1 purified from HEK-293T cells stably expressing FLAG-raptor; negative-stain and cryo-EM (26 A); antibody labelling; in vitro kinase assays on S6K1 and 4E-BP1 with FKBP12-rapamycin or Torin1",
+    "peer_reviewed": true,
+    "finding": "The authors purified intact, active human mTORC1 and solved its shape by cryo-electron microscopy at about 26 angstrom resolution. The complex is an obligate dimer with a rhomboid outline and a central cavity, held together by interlocking contacts between mTOR and Raptor; antibody labelling placed mLST8 at the outer 'feet' and PRAS40 next to Raptor. Exposing purified mTORC1 to FKBP12-rapamycin first added a bound density in about 10% of particles, then broke the complex apart, with virtually no intact particles left after one hour, while the ATP-competitive inhibitor Torin1 left it intact. In matching kinase assays, FKBP12-rapamycin blocked S6K1 phosphorylation quickly but 4E-BP1 phosphorylation only after at least 60 minutes, and Raptor-free mTOR still phosphorylated S6K1 (rapamycin-sensitively) but not 4E-BP1. The authors proposed that rapamycin inhibits the two substrates by different mechanisms. Boundary: Purified protein and low-resolution EM; the authors note that in cells rapamycin neither fully blocks 4E-BP1 phosphorylation nor dismantles mTORC1, so the disassembly model is an in vitro result.",
+    "url": "https://mtor-atlas.org/study/YIP2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YIP2010.json"
    }
   ],
   "relations": [
@@ -4298,7 +4781,8 @@
       "SAB1995",
       "CHU1992",
       "BRO1994",
-      "AYL2015"
+      "AYL2015",
+      "YIP2010"
      ],
      "conflicting": []
     },
@@ -4480,7 +4964,8 @@
       "KAN2013",
       "HAR1998",
       "BRU1997",
-      "NOJ2003"
+      "NOJ2003",
+      "SAT2010"
      ],
      "conflicting": []
     },
@@ -4938,8 +5423,8 @@
     "evidence": {
      "kind": "Direct biochemical",
      "strongest": {
-      "code": "M",
-      "label": "Molecular — cells, biochemistry, structure"
+      "code": "A",
+      "label": "Animal model"
      },
      "supporting": [
       "BUR1998",
@@ -4947,7 +5432,9 @@
       "HOL2005",
       "KAN2013",
       "HAR1998",
-      "NOJ2003"
+      "NOJ2003",
+      "POD2001",
+      "JEF1997"
      ],
      "conflicting": []
     },
@@ -5060,7 +5547,8 @@
      },
      "supporting": [
       "POR2008",
-      "PET2011"
+      "PET2011",
+      "DUV2010"
      ],
      "conflicting": []
     },
@@ -5120,10 +5608,12 @@
       "MAR2012",
       "SET2011",
       "GOL2022",
-      "CUI2023"
+      "CUI2023",
+      "MAR2013"
      ],
      "conflicting": [
-      "ZHANG2026"
+      "ZHANG2026",
+      "PEN2011"
      ]
     },
     "external_refs": [],
@@ -5182,7 +5672,9 @@
       "HSI2012",
       "VAL2017",
       "INO2006",
-      "FER2026"
+      "FER2026",
+      "NES2001",
+      "POD2001"
      ],
      "conflicting": []
     },
@@ -5655,7 +6147,11 @@
       "CHEN2026C",
       "ZHANG2026",
       "DEM2014",
-      "SEN2010"
+      "SEN2010",
+      "GAO2002",
+      "TEE2002",
+      "KWI2002",
+      "DEY2008"
      ],
      "conflicting": []
     },
@@ -5718,7 +6214,9 @@
       "MEI2008",
       "KAN2013",
       "FIN2002",
-      "BRU1997"
+      "BRU1997",
+      "SAT2010",
+      "YIP2010"
      ],
      "conflicting": []
     },
@@ -6121,7 +6619,8 @@
      },
      "supporting": [
       "CUN2007",
-      "MOR2013"
+      "MOR2013",
+      "SCH2006"
      ],
      "conflicting": [
       "POL2008"
@@ -6331,10 +6830,8 @@
     "mechanism": "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
     "mechanism_beginner": "In one specific setting (prostate cells), mTORC1 turns on a factor usually associated with low oxygen – here it's mTORC1 driving it, not the other way around.",
     "context": null,
-    "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment.",
-    "boundary_tags": [
-     "single-study"
-    ],
+    "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment. DUV2010 adds cultured-cell evidence (Tsc2-null fibroblasts with rapamycin) that mTORC1 drives HIF1α target genes such as glycolytic enzymes; still no human tissue data.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -6351,7 +6848,8 @@
       "label": "Animal model"
      },
      "supporting": [
-      "MAJ2004"
+      "MAJ2004",
+      "DUV2010"
      ],
      "conflicting": []
     },
@@ -6542,7 +7040,8 @@
      "supporting": [
       "HSI2012",
       "WAN2026",
-      "PLEDGER2026"
+      "PLEDGER2026",
+      "JEF1997"
      ],
      "conflicting": []
     },

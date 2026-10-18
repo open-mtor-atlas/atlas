@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "WYA2018",
+  "title": "NUFIP1 is a ribosome receptor for starvation-induced ribophagy",
+  "authors": "Wyant GA; Abu-Remaileh M; Frenkel EM; Laqtom NN; Dharamdasani V; Lewis CA; Chan SH; Heinze I; Ori A; Sabatini DM",
+  "year": 2018,
+  "journal": "Science",
+  "doi": "10.1126/science.aar2663",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "29700228",
+  "pmcid": "PMC6020066",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "HEK-293T and other human/mouse cell lines (incl. 8988T); LysoIP lysosome proteomics; CRISPR knockouts of NUFIP1, ATG7, DEPDC5 (GATOR1); Torin1, amino-acid and glucose starvation; electron microscopy",
+  "peer_reviewed": true,
+  "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
+  "url": "https://mtor-atlas.org/study/WYA2018/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json",
+  "abstract_excerpt": "The lysosome degrades and recycles macromolecules, signals to the master growth regulator mTORC1 [mechanistic target of rapamycin (mTOR) complex 1], and is associated with human disease. We performed quantitative proteomic analyses of rapidly isolated lysosomes and found that nutrient levels and mTOR dynamically modulate the lysosomal proteome. Upon mTORC1 inhibition, NUFIP1 (nuclear fragile X mental retardation-interacting protein 1) redistributes from the nucleus to autophagosomes and lysosomes.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Torin1 or nutrient (amino-acid/glucose) starvation; CRISPR loss of NUFIP1, ATG7 or DEPDC5; NUFIP1 W40A (LC3B-binding) and NLS/NES mutants",
+   "target": "mTORC1 inhibition -> NUFIP1-ZNHIT3 -> LC3B -> ribosome autophagy (ribophagy)",
+   "species": "Human and mouse cell lines",
+   "effect": "mTORC1 inhibition triggered NUFIP1-dependent autophagic degradation of ribosomes, which supported starvation survival and later mTORC1 reactivation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "lc3b-map1lc3b",
+    "name": "LC3B (MAP1LC3B)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHA2007",
+   "SIN2026",
+   "VER2026",
+   "ABU2017"
+  ]
+ }
+}

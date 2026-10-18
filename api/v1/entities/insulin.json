@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -25,7 +25,7 @@
    "insulin signalling"
   ],
   "description": "Pancreatic peptide hormone; the growth-factor input that reaches mTORC1 through the insulin receptor, IRS proteins, PI3K and Akt. Added 2026-10-10 after an audit found the Atlas modelled a single 'Growth hormone / IGF-1 axis' input whose edge text described insulin docking on its receptor, while insulin itself had no node and growth hormone does not use that receptor.",
-  "study_count": 6,
+  "study_count": 10,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/insulin/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/insulin.json",
@@ -174,6 +174,98 @@
     "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
     "url": "https://mtor-atlas.org/study/SHA2004/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
+   },
+   {
+    "sid": "POT2002",
+    "title": "Akt regulates growth by directly phosphorylating Tsc2",
+    "authors": "Potter CJ; Pedraza LG; Xu T",
+    "year": 2002,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb840",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12172554",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster genetics (eye/tissue growth, Akt overexpression, Tsc2 site mutants); in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "Working in fruit flies, the authors showed that Akt directly phosphorylates the Drosophila Tsc2 protein in vitro at two conserved residues, Ser924 and Thr1518. Tsc2 with these sites mutated no longer responded to Akt signalling, and its complex with Tsc1 became more stable. Turning up Akt signalling in fly tissue increased cell size, broke up the Tsc1-Tsc2 complex and changed where the two proteins sat in the cell. Expressing a Tsc2 mutant that Akt cannot phosphorylate blocked the growth signals from Akt, which led the authors to propose Tsc2 as the key Akt target for growth in the insulin pathway. Boundary: Drosophila tissues and in vitro biochemistry with overexpressed mutant proteins; the claim that Tsc2 carries all Akt growth signals was tested in flies, not in mammals.",
+    "url": "https://mtor-atlas.org/study/POT2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POT2002.json"
+   },
+   {
+    "sid": "OLD2000",
+    "title": "Genetic and biochemical characterization of dTOR, the Drosophila homolog of the target of rapamycin",
+    "authors": "Oldham S; Montagne J; Radimerski T; Thomas G; Hafen E",
+    "year": 2000,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.845700",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11069885",
+    "pmcid": "PMC317036",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster dTOR mutants (partial and full loss), genetic interaction with insulin pathway; biochemistry of dS6K",
+    "peer_reviewed": true,
+    "finding": "The authors identified and characterised dTOR, the fruit fly version of TOR. Genetic and biochemical experiments indicated that dTOR affects growth in a cell-autonomous way by changing the activity of the fly S6 kinase, dS6K, and so connects to the insulin signalling pathway. Unlike other insulin pathway components, partial loss of dTOR reduced growth mainly in endoreplicating tissues, which copy their DNA without dividing. The authors read this as evidence that dTOR sits on a parallel pathway that senses amino acids. Boundary: Drosophila genetics and biochemistry; the parallel amino acid pathway is an interpretation from fly phenotypes, not a direct measurement of amino acid sensing.",
+    "url": "https://mtor-atlas.org/study/OLD2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/OLD2000.json"
+   },
+   {
+    "sid": "PEN2000",
+    "title": "Hypoinsulinaemia, glucose intolerance and diminished beta-cell size in S6K1-deficient mice",
+    "authors": "Pende M; Kozma SC; Jaquet M; Oorschot V; Burcelin R; Le Marchand-Brustel Y; Klumperman J; Thorens B; Thomas G",
+    "year": 2000,
+    "journal": "Nature",
+    "doi": "10.1038/35050135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11140689",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "S6K1 knockout mice; isolated muscle insulin sensitivity; pancreatic islet morphometry and insulin secretion",
+    "peer_reviewed": true,
+    "finding": "Mice lacking S6 kinase 1 had low blood insulin and were glucose intolerant. Isolated muscle from these mice did not show insulin resistance; instead, glucose-stimulated insulin secretion and pancreatic insulin content were sharply reduced. Glucose sensing and insulin production per se were intact: the defect was a smaller pancreatic endocrine mass, explained by a selective decrease in beta-cell size. The authors noted that the phenotype resembles preclinical type 2 diabetes in which poor nutrition early in life leads to low insulin. Boundary: Mouse genetic knockout with lifelong S6K1 loss. Not tested in people. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/PEN2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2000.json"
+   },
+   {
+    "sid": "RUV2005",
+    "title": "Ribosomal protein S6 phosphorylation is a determinant of cell size and glucose homeostasis",
+    "authors": "Ruvinsky I; Sharon N; Lerer T; Cohen H; Stolovich-Rain M; Nir T; Dor Y; Zisman P; Meyuhas O",
+    "year": 2005,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.351605",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16166381",
+    "pmcid": "PMC1221890",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Knock-in mice with all five rpS6 phosphorylation sites mutated to alanine (rpS6P-/-); embryonic fibroblasts; pancreatic beta-cells; glucose tolerance tests",
+    "peer_reviewed": true,
+    "finding": "The authors made knock-in mice in which all five phosphorylatable serines of ribosomal protein S6 were replaced by alanine, so rpS6 could not be phosphorylated. Contrary to the then widely accepted model, translational control of 5'TOP mRNAs was unaffected. Fibroblasts from these mice made protein faster and divided faster, yet were smaller than wild-type cells, and rapamycin did not shrink them further, which points to rpS6 phosphorylation as a downstream effector of mTOR in cell-size control. Adult mutant mice also had smaller pancreatic beta-cells, less pancreatic insulin, low blood insulin and impaired glucose tolerance. Boundary: Mouse knock-in and mouse cells. Separates rpS6 phosphorylation from 5'TOP control in these systems; not tested in people. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/RUV2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUV2005.json"
    }
   ],
   "relations": [

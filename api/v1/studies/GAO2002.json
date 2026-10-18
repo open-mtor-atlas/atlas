@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GAO2002",
+  "title": "Tsc tumour suppressor proteins antagonize amino-acid-TOR signalling",
+  "authors": "Gao X; Zhang Y; Arrazola P; Hino O; Kobayashi T; Yeung RS; Ru B; Pan D",
+  "year": 2002,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb847",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "12172555",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Drosophila melanogaster genetics (Tsc1/Tsc2 mutants); Tsc-deficient mammalian cells",
+  "peer_reviewed": true,
+  "finding": "The authors asked how the Tsc1 and Tsc2 tumour suppressors relate to TOR, the nutrient-sensing kinase. They showed that Tsc1 and Tsc2 can physically associate with TOR and act upstream of TOR in fly genetic tests. In fly and mammalian cells lacking Tsc1 or Tsc2, S6K activity rose, and this increase depended on TOR. S6K normally switches off when cells are starved of amino acids, but cells without Tsc1-Tsc2 stayed resistant to that starvation. The authors proposed that the Tsc1-Tsc2 complex restrains the TOR response to amino acids. Boundary: Drosophila and cultured mammalian cells; S6K activity is used as the readout of TOR. Later work placed amino acid sensing mainly on the Rag GTPase arm rather than through TSC, so the amino acid part of the model is not the current consensus.",
+  "url": "https://mtor-atlas.org/study/GAO2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2002.json",
+  "abstract_excerpt": "Target of Rapamycin (TOR) mediates a signalling pathway that couples amino acid availability to S6 kinase (S6K) activation, translational initiation and cell growth. Here, we show that tuberous sclerosis 1 (Tsc1) and Tsc2, tumour suppressors that are responsible for the tuberous sclerosis syndrome, antagonize this amino acid-TOR signalling pathway. We show that Tsc1 and Tsc2 can physically associate with TOR and function upstream of TOR genetically. In Drosophila melanogaster and mammalian cells, loss of Tsc1 and Tsc2 results in a TOR-dependent increase of S6K activity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Loss of Tsc1/Tsc2 (genetic)",
+   "target": "TOR-dependent S6K activity; response to amino acid starvation",
+   "species": "Drosophila melanogaster; mammalian cells",
+   "effect": "Tsc1/Tsc2 loss increases TOR-dependent S6K activity and makes it resistant to amino acid withdrawal"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DAL2012",
+   "KWI2002",
+   "MAN2002",
+   "SHA2004"
+  ]
+ }
+}

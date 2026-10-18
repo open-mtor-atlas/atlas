@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DUV2010",
+  "title": "Activation of a metabolic gene regulatory network downstream of mTOR complex 1",
+  "authors": "Düvel K; Yecies JL; Menon S; Raman P; Lipovsky AI; Souza AL; Triantafellow E; Ma Q; Gorski R; Cleaver S; Vander Heiden MG; MacKeigan JP; Finan PM; Clish CB; Murphy LO; Manning BD",
+  "year": 2010,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2010.06.022",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20670887",
+  "pmcid": "PMC2946786",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Tsc2-/- mouse embryonic fibroblasts and other cells with rapamycin; transcriptomics, metabolomics, RNAi",
+  "peer_reviewed": true,
+  "finding": "Used cells with constitutively active mTORC1 (TSC2 loss) and rapamycin to map what mTORC1 switches on besides protein synthesis. Gene expression and metabolite profiling showed that mTORC1 activation is enough to drive glycolysis, the oxidative pentose phosphate pathway and de novo lipid synthesis. This ran through a transcriptional program of HIF1alpha and SREBP1/2 target genes; SREBP1 and 2 were needed for proliferation downstream of mTORC1, and their activation required S6K1. Boundary: cultured cells, mostly mouse fibroblasts with genetic mTORC1 activation; tissue and human relevance not tested here.",
+  "url": "https://mtor-atlas.org/study/DUV2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DUV2010.json",
+  "abstract_excerpt": "Aberrant activation of the mammalian target of rapamycin complex 1 (mTORC1) is a common molecular event in a variety of pathological settings, including genetic tumor syndromes, cancer, and obesity. However, the cell-intrinsic consequences of mTORC1 activation remain poorly defined. Through a combination of unbiased genomic, metabolomic, and bioinformatic approaches, we demonstrate that mTORC1 activation is sufficient to stimulate specific metabolic pathways, including glycolysis, the oxidative arm of the pentose phosphate pathway, and de novo lipid biosynthesis.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Tsc2 loss (constitutive mTORC1); rapamycin; SREBP and S6K1 knockdown",
+   "target": "mTORC1 -> HIF1alpha, SREBP1/2 (via S6K1)",
+   "species": "Mouse embryonic fibroblasts and other cell lines",
+   "effect": "mTORC1 activates glycolysis, oxidative PPP and lipid synthesis via HIF1alpha and SREBP"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "hif-1alpha",
+    "name": "HIF-1α",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "lipid-synthesis",
+    "name": "Lipid synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "srebp1-srebp2",
+    "name": "SREBP1 / SREBP2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-SREBP",
+    "SREBP-LIPID",
+    "MTORC1-HIF1A"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "TAO2026",
+   "HAG2012",
+   "PET2011",
+   "POR2008"
+  ]
+ }
+}

@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Hypoxia-inducible factor 1-alpha, the main transcription factor for metabolic and angiogenic responses to low oxygen. Its output is partly mTORC1-dependent: in an Akt-driven mouse prostate model, mTOR inhibition reversed the lesions partly through HIF-1-dependent programmes (MAJ2004).",
-  "study_count": 3,
+  "study_count": 4,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/hif-1alpha/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/hif-1alpha.json",
@@ -102,6 +102,29 @@
     "finding": "mTOR inhibition (rapamycin/RAD001) reverses Akt-driven prostate intraepithelial neoplasia in mice.",
     "url": "https://mtor-atlas.org/study/MAJ2004/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/MAJ2004.json"
+   },
+   {
+    "sid": "DUV2010",
+    "title": "Activation of a metabolic gene regulatory network downstream of mTOR complex 1",
+    "authors": "Düvel K; Yecies JL; Menon S; Raman P; Lipovsky AI; Souza AL; Triantafellow E; Ma Q; Gorski R; Cleaver S; Vander Heiden MG; MacKeigan JP; Finan PM; Clish CB; Murphy LO; Manning BD",
+    "year": 2010,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2010.06.022",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20670887",
+    "pmcid": "PMC2946786",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- mouse embryonic fibroblasts and other cells with rapamycin; transcriptomics, metabolomics, RNAi",
+    "peer_reviewed": true,
+    "finding": "Used cells with constitutively active mTORC1 (TSC2 loss) and rapamycin to map what mTORC1 switches on besides protein synthesis. Gene expression and metabolite profiling showed that mTORC1 activation is enough to drive glycolysis, the oxidative pentose phosphate pathway and de novo lipid synthesis. This ran through a transcriptional program of HIF1alpha and SREBP1/2 target genes; SREBP1 and 2 were needed for proliferation downstream of mTORC1, and their activation required S6K1. Boundary: cultured cells, mostly mouse fibroblasts with genetic mTORC1 activation; tissue and human relevance not tested here.",
+    "url": "https://mtor-atlas.org/study/DUV2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DUV2010.json"
    }
   ],
   "relations": [
@@ -128,10 +151,8 @@
     "mechanism": "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
     "mechanism_beginner": "In one specific setting (prostate cells), mTORC1 turns on a factor usually associated with low oxygen – here it's mTORC1 driving it, not the other way around.",
     "context": null,
-    "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment.",
-    "boundary_tags": [
-     "single-study"
-    ],
+    "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment. DUV2010 adds cultured-cell evidence (Tsc2-null fibroblasts with rapamycin) that mTORC1 drives HIF1α target genes such as glycolytic enzymes; still no human tissue data.",
+    "boundary_tags": [],
     "note": null,
     "consensus_contested": false,
     "curation_contested": false,
@@ -148,7 +169,8 @@
       "label": "Animal model"
      },
      "supporting": [
-      "MAJ2004"
+      "MAJ2004",
+      "DUV2010"
      ],
      "conflicting": []
     },

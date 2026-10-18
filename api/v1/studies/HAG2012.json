@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HAG2012",
+  "title": "Hepatic mTORC2 activates glycolysis and lipogenesis through Akt, glucokinase, and SREBP1c",
+  "authors": "Hagiwara A; Cornu M; Cybulski N; Polak P; Betz C; Trapani F; Terracciano L; Heim MH; Rüegg MA; Hall MN",
+  "year": 2012,
+  "journal": "Cell Metabolism",
+  "doi": "10.1016/j.cmet.2012.03.015",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22521878",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Liver-specific rictor knockout mice (LiRiKO); primary hepatocytes with constitutively active Akt2 or glucokinase rescue",
+  "peer_reviewed": true,
+  "finding": "The authors deleted rictor, an essential mTORC2 component, only in mouse liver. In fed knockout mice the liver lost Akt Ser473 phosphorylation and had lower glucokinase and SREBP1c activity, so it kept making glucose (gluconeogenesis) while glycolysis and fat synthesis fell, as if it could not sense that the animal had eaten. The mice became hyperglycaemic and hyperinsulinaemic with low blood lipids. In mTORC2-deficient hepatocytes, constitutively active Akt2 restored both glucose flux and lipogenesis, while extra glucokinase restored glucose flux but not lipogenesis, placing Akt as the main route from hepatic mTORC2 to these outputs. Boundary: Mouse liver with lifelong genetic loss of mTORC2, plus cultured mouse hepatocytes. Not a drug study and not tested in people. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/HAG2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HAG2012.json",
+  "abstract_excerpt": "Mammalian target of rapamycin complex 2 (mTORC2) phosphorylates and activates AGC kinase family members, including Akt, SGK1, and PKC, in response to insulin/IGF1. The liver is a key organ in insulin-mediated regulation of metabolism. To assess the role of hepatic mTORC2, we generated liver-specific rictor knockout (LiRiKO) mice.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Liver-specific rictor knockout (mTORC2 loss)",
+   "target": "Hepatic Akt Ser473, glucokinase, SREBP1c; glycolysis, lipogenesis, gluconeogenesis; blood glucose, insulin, lipids",
+   "species": "Mouse",
+   "effect": "Loss of hepatic mTORC2 lowers Akt signalling, glycolysis and lipogenesis and causes hyperglycaemia and hyperinsulinaemia"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "lipid-synthesis",
+    "name": "Lipid synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "srebp1-srebp2",
+    "name": "SREBP1 / SREBP2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC2-AKT",
+    "MTORC2-LIPID"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "TAO2026",
+   "DUV2010",
+   "PET2011",
+   "POR2008"
+  ]
+ }
+}

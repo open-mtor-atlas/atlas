@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DEY2008",
+  "title": "Hypoxia regulates TSC1/2-mTOR signaling and tumor suppression through REDD1-mediated 14-3-3 shuttling",
+  "authors": "DeYoung MP; Horak P; Sofer A; Sgroi D; Ellisen LW",
+  "year": 2008,
+  "journal": "Genes & Development",
+  "doi": "10.1101/gad.1617608",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18198340",
+  "pmcid": "PMC2192757",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "REDD1-/- and TSC2-/- mouse embryonic fibroblasts, human cell lines in 1% O2; xenografts in nude mice; human breast carcinoma samples",
+  "peer_reviewed": true,
+  "finding": "Explains how low oxygen turns mTORC1 off. Growth factors keep TSC2 bound to inhibitory 14-3-3 proteins; under hypoxia REDD1 releases TSC2 from 14-3-3, which frees TSC2 to inhibit mTORC1. REDD1-null cells failed to release TSC2 or to switch mTORC1 off in hypoxia, and REDD1 mutants that cannot bind 14-3-3, or TSC2 mutants that cannot bind it, broke the signal. REDD1-null cells grew into far larger tumours in mice, and REDD1 was low in a subset of human breast carcinomas (8 of 27). Boundary: cell lines and mouse xenografts under acute hypoxia (hours); the human data are expression correlations only.",
+  "url": "https://mtor-atlas.org/study/DEY2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DEY2008.json",
+  "abstract_excerpt": "Hypoxia induces rapid and dramatic changes in cellular metabolism, in part through inhibition of target of rapamycin (TOR) kinase complex 1 (TORC1) activity. Genetic studies have shown the tuberous sclerosis tumor suppressors TSC1/2 and the REDD1 protein to be essential for hypoxia regulation of TORC1 activity in Drosophila and in mammalian cells. The molecular mechanism and physiologic significance of this effect of hypoxia remain unknown.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Hypoxia (1% O2); REDD1 and TSC2 knockout and 14-3-3-binding mutants",
+   "target": "REDD1 -> TSC2/14-3-3 -> mTORC1",
+   "species": "Mouse embryonic fibroblasts, human cell lines, nude-mouse xenografts, human tumour samples",
+   "effect": "Hypoxia inhibits mTORC1 by REDD1-driven release of TSC2 from 14-3-3; REDD1 loss promotes tumour growth"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "hypoxia",
+    "name": "Hypoxia",
+    "type": "Condition"
+   },
+   {
+    "id": "redd1-ddit4",
+    "name": "REDD1 (DDIT4)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "REDD1-TSC",
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BRU2004",
+   "DEMMINGS2026",
+   "WEN2026",
+   "INO2006"
+  ]
+ }
+}

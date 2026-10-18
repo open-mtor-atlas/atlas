@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "A serine/threonine kinase that activates AMPK and acts upstream of mTOR to regulate cellular energy sensing, autophagy, and metabolism.",
-  "study_count": 4,
+  "study_count": 7,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/lkb1-stk11/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/lkb1-stk11.json",
@@ -125,6 +125,75 @@
     "finding": "The paper that identified LKB1 as the upstream kinase for AMPK: LKB1 directly phosphorylates AMPK-alpha on Thr172, and LKB1-null cells cannot activate AMPK under energy stress. This is the canonical source for the LKB1 -> AMPK step that gates the whole energy-sensing arm upstream of mTORC1.",
     "url": "https://mtor-atlas.org/study/SHW2004/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SHW2004.json"
+   },
+   {
+    "sid": "COR2004",
+    "title": "Regulation of the TSC pathway by LKB1: evidence of a molecular link between tuberous sclerosis complex and Peutz-Jeghers syndrome",
+    "authors": "Corradetti MN; Inoki K; Bardeesy N; DePinho RA; Guan KL",
+    "year": 2004,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.1199104",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15231735",
+    "pmcid": "PMC443516",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HeLa (LKB1-null) and HEK293 cells; Lkb1-null mouse embryonic fibroblasts; RNAi",
+    "peer_reviewed": true,
+    "finding": "Asked why two inherited tumour syndromes, tuberous sclerosis and Peutz-Jeghers syndrome, look so alike under the microscope. Re-expressing LKB1 in LKB1-null HeLa cells raised AMPK activation-loop phosphorylation and lowered phosphorylation of S6K and 4E-BP1, while knocking LKB1 down did the opposite. The effect on mTOR outputs needed both AMPK and TSC2, placing LKB1 upstream of the TSC2-mTOR axis through AMPK. Together with Shaw et al. 2004 this is one of the two papers that tied energy stress, via LKB1 and AMPK, to TSC2. Boundary: cultured cell lines with overexpression and knockdown; the tumour-syndrome link is an interpretation, not a test in patients.",
+    "url": "https://mtor-atlas.org/study/COR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COR2004.json"
+   },
+   {
+    "sid": "SHAW2004",
+    "title": "The LKB1 tumor suppressor negatively regulates mTOR signaling",
+    "authors": "Shaw RJ; Bardeesy N; Manning BD; Lopez L; Kosmatka M; DePinho RA; Cantley LC",
+    "year": 2004,
+    "journal": "Cancer Cell",
+    "doi": "10.1016/j.ccr.2004.06.007",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15261145",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Lkb1-null mouse embryonic fibroblasts; cultured cells under low ATP; gastrointestinal polyps from Lkb1 mutant mice",
+    "peer_reviewed": true,
+    "finding": "Reported that LKB1 is needed to switch mTOR signalling off when cellular ATP falls, and that this requires AMPK and TSC2. Lkb1-null fibroblasts and the hamartomatous gut polyps of Lkb1 mutant mice showed raised signalling downstream of mTOR. The authors proposed mTOR inhibitors as a treatment idea for Peutz-Jeghers syndrome. Published alongside Corradetti et al. 2004, which reached the same LKB1-AMPK-TSC2 link independently. Boundary: worked from the abstract only (no PMC full text); cell and mouse data, the treatment suggestion was not tested here.",
+    "url": "https://mtor-atlas.org/study/SHAW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHAW2004.json"
+   },
+   {
+    "sid": "ALE2010",
+    "title": "ATM signals to TSC2 in the cytoplasm to regulate mTORC1 in response to ROS",
+    "authors": "Alexander A; Cai SL; Kim J; Nanez A; Sahin M; MacLean KH; Inoki K; Guan KL; Shen J; Person MD; Kusewitt D; Mills GB; Kastan MB; Walker CL",
+    "year": 2010,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.0913860107",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20160076",
+    "pmcid": "PMC2840158",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cell lines with ATM loss or ROS exposure; Atm-deficient mice treated with rapamycin",
+    "peer_reviewed": true,
+    "finding": "Described a cytoplasmic job for the DNA-damage kinase ATM. In response to raised ROS, ATM activated TSC2 through LKB1 and AMPK, which repressed mTORC1 and induced autophagy. ATM-deficient cells had high ROS and poorly controlled mTORC1, and rapamycin lowered both and delayed lymphoma formation in Atm-deficient mice. Boundary: worked from the abstract only (PMC record without retrievable text); cell lines and mice. Note that the Atlas edge ROS-MTORC1 describes the opposite sign in another context, so the effect of ROS on mTORC1 depends on source and setting.",
+    "url": "https://mtor-atlas.org/study/ALE2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALE2010.json"
    }
   ],
   "relations": [
@@ -153,8 +222,7 @@
     "context": null,
     "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
     "boundary_tags": [
-     "cell-line-only",
-     "single-study"
+     "cell-line-only"
     ],
     "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
     "consensus_contested": false,
@@ -172,7 +240,8 @@
       "label": "Molecular — cells, biochemistry, structure"
      },
      "supporting": [
-      "SHW2004"
+      "SHW2004",
+      "COR2004"
      ],
      "conflicting": []
     },

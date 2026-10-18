@@ -1,0 +1,86 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "POD2001",
+  "title": "An inhibitor of mTOR reduces neoplasia and normalizes p70/S6 kinase activity in Pten+/- mice",
+  "authors": "Podsypanina K; Lee RT; Politis C; Hennessy I; Crane A; Puc J; Neshat M; Wang H; Yang L; Gibbons J; Frost P; Dreisbach V; Blenis J; Gaciong Z; Fisher P; Sawyers C; Hedrick-Ellenson L; Parsons R",
+  "year": 2001,
+  "journal": "PNAS",
+  "doi": "10.1073/pnas.171060098",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "11504907",
+  "pmcid": "PMC56959",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Pten+/- mice treated with a pharmacological mTOR inhibitor",
+  "peer_reviewed": true,
+  "finding": "Transformed cells in Pten+/- mice showed raised phosphorylated Akt and active p70 S6 kinase together with faster proliferation. Treating the mice with an mTOR inhibitor reduced neoplastic proliferation, tumour size and S6 kinase activity without changing Akt status. The authors concluded that S6K and possibly other mTOR targets contribute to tumour development downstream of PTEN loss. Boundary: worked from the abstract only (scanned PMC record); mouse model. The abstract does not name the inhibitor.",
+  "url": "https://mtor-atlas.org/study/POD2001/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/POD2001.json",
+  "abstract_excerpt": "PTEN phosphatase acts as a tumor suppressor by negatively regulating the phosphoinositide 3-kinase (PI3K) signaling pathway. It is unclear which downstream components of this pathway are necessary for oncogenic transformation. In this report we show that transformed cells of PTEN(+/-) mice have elevated levels of phosphorylated Akt and activated p70/S6 kinase associated with an increase in proliferation. Pharmacological inactivation of mTOR/RAFT/FRAP reduced neoplastic proliferation, tumor size, and p70/S6 kinase activity, but did not affect the status of Akt.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Pharmacological mTOR inhibitor",
+   "target": "mTOR -> p70 S6K",
+   "species": "Pten+/- mice",
+   "effect": "mTOR inhibition reduces neoplasia and normalises S6K activity in Pten+/- mice"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "pten",
+    "name": "PTEN",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-S6K1",
+    "MTORC1-TUMOR"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "NES2001",
+   "EVA2026",
+   "GUE2009",
+   "MAJ2004"
+  ]
+ }
+}

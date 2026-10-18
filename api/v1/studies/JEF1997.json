@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "JEF1997",
+  "title": "Rapamycin suppresses 5'TOP mRNA translation through inhibition of p70s6k",
+  "authors": "Jefferies HB; Fumagalli S; Dennis PB; Reinhard C; Pearson RB; Thomas G",
+  "year": 1997,
+  "journal": "EMBO Journal",
+  "doi": "10.1093/emboj/16.12.3693",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "9218810",
+  "pmcid": "PMC1169993",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cell lines (mouse 3T3 cells per MeSH); chimeric reporter mRNAs with intact or disrupted 5'TOP; dominant-interfering and rapamycin-resistant (T389E) p70s6k mutants",
+  "peer_reviewed": true,
+  "finding": "In mammalian cells, rapamycin selectively blocked the mitogen-induced increase in translation of 5'TOP mRNAs, which encode ribosomal proteins and elongation factors, and in parallel blocked activation of p70 S6 kinase. Using reporter mRNAs, the authors showed that an intact 5'TOP tract was required for the rapamycin effect. A dominant-interfering p70s6k reduced translation of the reporter with the intact 5'TOP but not the disrupted one, and a rapamycin-resistant p70s6k (Thr389 changed to an acidic residue) removed the inhibitory effect of rapamycin on 5'TOP translation. The authors concluded that rapamycin suppresses 5'TOP translation through p70s6k. Boundary: Cell lines with overexpressed kinase mutants and reporter mRNAs. Later genetic work (S6K knockouts, rpS6 knock-in) found 5'TOP control persisting without S6K1 or rpS6 phosphorylation, so the S6K step proposed here is not the current consensus. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/JEF1997/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/JEF1997.json",
+  "abstract_excerpt": "Treatment of mammalian cells with the immunosuppressant rapamycin, a bacterial macrolide, selectively suppresses mitogen-induced translation of an essential class of mRNAs which contain an oligopyrimidine tract at their transcriptional start (5'TOP), most notably mRNAs encoding ribosomal proteins and elongation factors. In parallel, rapamycin blocks mitogen-induced p70 ribosomal protein S6 kinase (p70s6k) phosphorylation and activation.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin; dominant-interfering and T389E p70s6k mutants",
+   "target": "5'TOP mRNA translation; p70s6k activation",
+   "species": "Mammalian cell lines",
+   "effect": "Rapamycin inhibits 5'TOP mRNA translation and p70s6k activation; rapamycin-resistant p70s6k prevents the translational block"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "5top-mrna",
+    "name": "5'TOP mRNA",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-S6K1",
+    "MTORC1-TOPMRNA"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SHI1998",
+   "FAN2026",
+   "PLEDGER2026",
+   "RUV2005"
+  ]
+ }
+}

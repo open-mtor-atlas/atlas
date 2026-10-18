@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Organelle",
   "synonyms": [],
   "description": "The organelle on whose surface mTORC1 is activated. Nutrient signals converge here: mTORC1 must be physically recruited to the lysosomal membrane before Rheb can switch it on.",
-  "study_count": 21,
+  "study_count": 24,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/organelle/lysosome/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/lysosome.json",
@@ -516,6 +516,75 @@
     "finding": "Cryo-EM structures of human PAT1 (SLC36A1) in apo and substrate-bound states reveal a convergent binding mode for diverse zwitterionic amino acids. This is a structural study; PAT1's role in lysosomal amino acid export and mTORC1 activation comes from earlier work.",
     "url": "https://mtor-atlas.org/study/YIN2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/YIN2026.json"
+   },
+   {
+    "sid": "SAR2009",
+    "title": "A gene network regulating lysosomal biogenesis and function",
+    "authors": "Sardiello M; Palmieri M; di Ronza A; Medina DL; Valenza M; Gennarino VA; Di Malta C; Donaudy F; Embrione V; Polishchuk RS; Banfi S; Parenti G; Cattaneo E; Ballabio A",
+    "year": 2009,
+    "journal": "Science",
+    "doi": "10.1126/science.1174447",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19556463",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Promoter/expression analysis of lysosomal genes; cultured human (HeLa) and mouse cells with TFEB overexpression; lysosomal storage conditions (sucrose loading)",
+    "peer_reviewed": true,
+    "finding": "The authors found that most lysosomal genes show coordinated expression and share a promoter motif (later called the CLEAR element) that is bound and regulated by the transcription factor TFEB. Under conditions of abnormal lysosomal storage, TFEB moved from the cytoplasm to the nucleus and switched on its target genes. Overexpressing TFEB in cultured cells increased the number of lysosomes and the cells' capacity to degrade complex molecules, including glycosaminoglycans and the mutant huntingtin protein. The paper provided evidence that lysosome production is run by a transcriptional programme with TFEB at its centre, which later work tied to mTORC1 control. Boundary: Cultured cells with TFEB overexpression; mTOR was not studied in this paper. Therapeutic potential for storage and neurodegenerative disease is proposed, not tested. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/SAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2009.json"
+   },
+   {
+    "sid": "MAR2013",
+    "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+    "authors": "Martina JA; Puertollano R",
+    "year": 2013,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.201209135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23401004",
+    "pmcid": "PMC3575543",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+    "peer_reviewed": true,
+    "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+    "url": "https://mtor-atlas.org/study/MAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json"
+   },
+   {
+    "sid": "WYA2018",
+    "title": "NUFIP1 is a ribosome receptor for starvation-induced ribophagy",
+    "authors": "Wyant GA; Abu-Remaileh M; Frenkel EM; Laqtom NN; Dharamdasani V; Lewis CA; Chan SH; Heinze I; Ori A; Sabatini DM",
+    "year": 2018,
+    "journal": "Science",
+    "doi": "10.1126/science.aar2663",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29700228",
+    "pmcid": "PMC6020066",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK-293T and other human/mouse cell lines (incl. 8988T); LysoIP lysosome proteomics; CRISPR knockouts of NUFIP1, ATG7, DEPDC5 (GATOR1); Torin1, amino-acid and glucose starvation; electron microscopy",
+    "peer_reviewed": true,
+    "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
+    "url": "https://mtor-atlas.org/study/WYA2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json"
    }
   ],
   "relations": [

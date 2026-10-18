@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KWI2002",
+  "title": "A mouse model of TSC1 reveals sex-dependent lethality from liver hemangiomas, and up-regulation of p70S6 kinase activity in Tsc1 null cells",
+  "authors": "Kwiatkowski DJ; Zhang H; Bandura JL; Heiberger KM; Glogauer M; el-Hashemite N; Onda H",
+  "year": 2002,
+  "journal": "Human Molecular Genetics",
+  "doi": "10.1093/hmg/11.5.525",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "11875047",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Tsc1 knockout mice (null embryos, heterozygotes); Tsc1-null mouse embryonic fibroblasts; rapamycin treatment of cells",
+  "peer_reviewed": true,
+  "finding": "The authors built a Tsc1 knockout mouse to model tuberous sclerosis. Embryos lacking both copies of Tsc1 died at mid-gestation because the liver failed to develop. Mice with one copy often developed kidney cystadenomas and liver hemangiomas; the hemangiomas were more common, more severe and more often fatal in females. Fibroblasts lacking Tsc1 showed persistent phosphorylation of S6K and its substrate S6 that rapamycin could reverse, and S6 phosphorylation was also high in kidney tumours from the mice. The authors suggested that blocking this pathway might help control TSC tumours. Boundary: mouse model and mouse cells; the rapamycin result is in cultured cells, and treatment of the mouse tumours was not tested here.",
+  "url": "https://mtor-atlas.org/study/KWI2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KWI2002.json",
+  "abstract_excerpt": "Tuberous sclerosis (TSC) is a autosomal dominant genetic disorder caused by mutations in either TSC1 or TSC2, and characterized by benign hamartoma growth. We developed a murine model of Tsc1 disease by gene targeting. Tsc1 null embryos die at mid-gestation from a failure of liver development. Tsc1 heterozygotes develop kidney cystadenomas and liver hemangiomas at high frequency, but the incidence of kidney tumors is somewhat lower than in Tsc2 heterozygote mice. Liver hemangiomas were more common, more severe and caused higher mortality in female than in male Tsc1 heterozygotes.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Tsc1 gene targeting (null and heterozygous)",
+   "target": "Embryonic survival; kidney and liver tumours; S6K/S6 phosphorylation",
+   "species": "Mus musculus",
+   "effect": "Tsc1 loss -> embryonic lethality (null), tumours and female-biased mortality (heterozygotes), constitutive rapamycin-sensitive S6K activation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tuberous-sclerosis-complex",
+    "name": "Tuberous sclerosis complex",
+    "type": "Disease"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "EHN2008",
+   "LI2026C",
+   "LIP2017",
+   "MA2005"
+  ]
+ }
+}

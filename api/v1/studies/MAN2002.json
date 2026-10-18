@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAN2002",
+  "title": "Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/akt pathway",
+  "authors": "Manning BD; Tee AR; Logsdon MN; Blenis J; Cantley LC",
+  "year": 2002,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/s1097-2765(02)00568-3",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "12150915",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cell lines (mouse 3T3 cells, human cells) and PTEN-null tumour-derived cell lines; in vitro kinase assays",
+  "peer_reviewed": true,
+  "finding": "The authors combined biochemistry with a search for Akt consensus motifs and picked out tuberin, the TSC2 tumour suppressor protein, as a likely Akt substrate. They showed that activating PI3K leads to phosphorylation of tuberin at sites matching the Akt motif, and that Akt can phosphorylate tuberin both in vitro and in cells. Two of these sites, S939 and T1462, were regulated by PI3K, and T1462 stayed phosphorylated in tumour cell lines lacking PTEN. A tuberin mutant without the main PI3K-dependent sites blocked activation of S6K1. Together with papers from other labs in the same months, this was one of the early papers to link growth-factor signalling through Akt to the TSC complex and mTORC1 output. Boundary: cultured mammalian cells and in vitro kinase assays, with overexpressed tuberin mutants; no whole-animal or human tissue data.",
+  "url": "https://mtor-atlas.org/study/MAN2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2002.json",
+  "abstract_excerpt": "The S/T-protein kinases activated by phosphoinositide 3-kinase (PI3K) regulate a myriad of cellular processes. Here, we show that an approach using a combination of biochemistry and bioinformatics can identify substrates of these kinases. This approach identifies the tuberous sclerosis complex-2 gene product, tuberin, as a potential target of Akt/PKB. We demonstrate that, upon activation of PI3K, tuberin is phosphorylated on consensus recognition sites for PI3K-dependent S/T kinases. Moreover, Akt/PKB can phosphorylate tuberin in vitro and in vivo.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "PI3K activation; Akt/PKB kinase; phospho-site mutant tuberin (S939/T1462)",
+   "target": "TSC2 (tuberin) phosphorylation; S6K1 activation",
+   "species": "Mouse and human cell lines; in vitro",
+   "effect": "Akt phosphorylates tuberin (inhibitory); non-phosphorylatable tuberin blocks S6K1 activation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pten",
+    "name": "PTEN",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "NES2001",
+   "EVA2026",
+   "GUE2009",
+   "MAJ2004"
+  ]
+ }
+}

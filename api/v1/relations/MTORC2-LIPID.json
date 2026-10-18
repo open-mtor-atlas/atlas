@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -39,10 +39,9 @@
   "mechanism": "In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.",
   "mechanism_beginner": "mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow. The cause-and-effect part was shown in mice; in people with liver cancer, the study only found that more fat-making went together with higher mTORC2 activity.",
   "context": null,
-  "boundary": "Single-study edge in this corpus. The causal part is one mouse liver tumour model (GUR2017) that progresses from steatosis to hepatocellular carcinoma. The same paper reports that in human HCC, increased lipogenesis correlated with elevated mTORC2 activity: correlative human data, not a test of this step. Not established as a general mTORC2 function outside that setting.",
+  "boundary": "The causal part comes from mouse liver: one liver tumour model (GUR2017) that progresses from steatosis to hepatocellular carcinoma, and liver-specific Rictor knockout in otherwise normal mice (HAG2012), where loss of mTORC2 lowered lipogenesis through Akt and SREBP1c. GUR2017 also reports that in human HCC, increased lipogenesis correlated with elevated mTORC2 activity: correlative human data, not a test of this step. Not established as a general mTORC2 function outside liver.",
   "boundary_tags": [
    "single-species",
-   "single-study",
    "tissue-specific"
   ],
   "note": "The arrow means mTORC2 drove de novo lipid synthesis in one hepatic tumour model. It is not a claim that mTORC2 controls lipid synthesis generally, or in people. 2026-10-10: beginner text said 'not measured in patients'; GUR2017 (abstract, PMID 29232555) does report a correlation in human HCC. Wording corrected to correlative.",
@@ -61,7 +60,8 @@
     "label": "Animal model"
    },
    "supporting": [
-    "GUR2017"
+    "GUR2017",
+    "HAG2012"
    ],
    "conflicting": []
   },

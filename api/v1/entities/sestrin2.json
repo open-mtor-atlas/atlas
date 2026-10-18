@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Direct intracellular leucine sensor and a NEGATIVE regulator of mTORC1. When leucine is scarce, Sestrin2 binds and inhibits GATOR2, so GATOR1 stays active and keeps mTORC1 switched off. Leucine binding (~20 uM affinity) releases GATOR2 - the pathway is switched on by removing a brake, not by adding a signal. Sestrin2 does not act on the Rag GTPases directly; it works two steps upstream, through GATOR2 and GATOR1.",
-  "study_count": 8,
+  "study_count": 9,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/gene/sestrin2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/sestrin2.json",
@@ -217,6 +217,29 @@
     "finding": "Cryo-EM structures of a stabilised GATOR2 cage bound to the leucine sensor Sestrin2 or the arginine sensor CASTOR1, plus a structure of leucine-free (apo) Sestrin2, a form that had not been resolved before. The two sensors sit on separate, non-overlapping sites on GATOR2, and mutating those sites selectively blunts mTORC1's response to one amino acid but not the other. When leucine or arginine binds, each sensor changes shape and lets go of GATOR2; while a sensor is attached it holds the mobile WDR24 beta-propeller of GATOR2 in place, a domain needed for nutrient-dependent mTORC1 activation. This shows physically how 'amino acid present' is passed to GATOR2. Boundary: purified human proteins and HEK293T cells — a structural and biochemical model, not a measurement in animals or people. The authors note that some features seen in the Sestrin2 complex may be induced by GATOR2 binding rather than by loss of leucine.",
     "url": "https://mtor-atlas.org/study/VAL2025/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/VAL2025.json"
+   },
+   {
+    "sid": "BUD2008",
+    "title": "p53 target genes sestrin1 and sestrin2 connect genotoxic stress and mTOR signaling",
+    "authors": "Budanov AV; Karin M",
+    "year": 2008,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2008.06.028",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18692468",
+    "pmcid": "PMC2758522",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; Sesn2-deficient mice challenged with DNA damage",
+    "peer_reviewed": true,
+    "finding": "Connected DNA damage to mTOR. Two p53 target genes, Sestrin1 and Sestrin2, bound and activated AMPK and steered it to phosphorylate TSC2, which raised TSC2 GAP activity and lowered mTOR signalling. Sesn2-deficient mice failed to inhibit mTOR signalling after genotoxic challenge. This describes the stress-induced arm of Sestrin biology; the later leucine-sensing role of Sestrin2 through GATOR2 is a separate mechanism. Boundary: cell lines and mice under acute genotoxic stress; no human data.",
+    "url": "https://mtor-atlas.org/study/BUD2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BUD2008.json"
    }
   ],
   "relations": [

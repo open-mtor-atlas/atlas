@@ -1,0 +1,93 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SHAW2004",
+  "title": "The LKB1 tumor suppressor negatively regulates mTOR signaling",
+  "authors": "Shaw RJ; Bardeesy N; Manning BD; Lopez L; Kosmatka M; DePinho RA; Cantley LC",
+  "year": 2004,
+  "journal": "Cancer Cell",
+  "doi": "10.1016/j.ccr.2004.06.007",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "15261145",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Lkb1-null mouse embryonic fibroblasts; cultured cells under low ATP; gastrointestinal polyps from Lkb1 mutant mice",
+  "peer_reviewed": true,
+  "finding": "Reported that LKB1 is needed to switch mTOR signalling off when cellular ATP falls, and that this requires AMPK and TSC2. Lkb1-null fibroblasts and the hamartomatous gut polyps of Lkb1 mutant mice showed raised signalling downstream of mTOR. The authors proposed mTOR inhibitors as a treatment idea for Peutz-Jeghers syndrome. Published alongside Corradetti et al. 2004, which reached the same LKB1-AMPK-TSC2 link independently. Boundary: worked from the abstract only (no PMC full text); cell and mouse data, the treatment suggestion was not tested here.",
+  "url": "https://mtor-atlas.org/study/SHAW2004/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SHAW2004.json",
+  "abstract_excerpt": "Germline mutations in LKB1, TSC2, or PTEN tumor suppressor genes result in hamartomatous syndromes with shared tumor biological features. The recent observations of LKB1-mediated activation of AMP-activated protein kinase (AMPK) and AMPK inhibition of mTOR through TSC2 prompted us to examine the biochemical and biological relationship between LKB1 and mTOR regulation.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Lkb1 deletion; energy stress (low ATP)",
+   "target": "LKB1 -> AMPK -> TSC2 -> mTOR",
+   "species": "Mouse embryonic fibroblasts; Lkb1 mutant mice",
+   "effect": "Loss of LKB1 prevents repression of mTOR under low ATP and raises mTOR signalling in polyps"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "energy-cellular-stress",
+    "name": "Energy & cellular stress",
+    "type": "Condition"
+   },
+   {
+    "id": "lkb1-stk11",
+    "name": "LKB1 (STK11)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ALE2010",
+   "COR2004",
+   "GWI2008",
+   "FOR2010"
+  ]
+ }
+}

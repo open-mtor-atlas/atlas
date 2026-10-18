@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Mitochondrial respiratory capacity, supported by mTORC1.",
-  "study_count": 3,
+  "study_count": 4,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/process/oxidative-phosphorylation/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/oxidative-phosphorylation.json",
@@ -102,6 +102,29 @@
     "finding": "In 46 term placentas, male placentas showed higher mTORC1 signalling (increased S6RP phosphorylation, reduced 4E-BP1), greater System A amino acid transport and higher mitochondrial respiratory capacity than female placentas, and male pregnancies had a higher birth-weight-to-placental-weight ratio. Observational: a cross-sectional association at a single timepoint, with no intervention and no randomisation, so the direction of the relationship between mTORC1 signalling and growth is not established here and residual confounding by maternal and obstetric factors cannot be excluded.",
     "url": "https://mtor-atlas.org/study/SHIMADA2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SHIMADA2026.json"
+   },
+   {
+    "sid": "SCH2006",
+    "title": "The mammalian target of rapamycin (mTOR) pathway regulates mitochondrial oxygen consumption and oxidative capacity",
+    "authors": "Schieke SM; Phillips D; McCoy JP; Aponte AM; Shen RF; Balaban RS; Finkel T",
+    "year": 2006,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m603536200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16847060",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human Jurkat T cells (per MeSH); rapamycin; RNAi against TSC2, S6K1, raptor and rictor; subcellular fractionation; 2D-DIGE phosphoproteomics",
+    "peer_reviewed": true,
+    "finding": "In human cultured cells, the amount of mTOR-raptor complex correlated with overall mitochondrial activity. Disrupting the complex with rapamycin lowered mitochondrial membrane potential, oxygen consumption and ATP-synthetic capacity. mTOR and mTOR-raptor complexes were found in purified mitochondrial fractions, and rapamycin markedly changed the mitochondrial phosphoproteome. RNA interference against TSC2, S6K1, raptor or rictor led the authors to conclude that mTOR regulates mitochondrial activity independently of its previously known targets, and they proposed that mTOR activity shifts the balance between mitochondrial and non-mitochondrial ATP production. Boundary: Cultured human cell line with acute pharmacological and RNAi manipulation; the link to lifespan is a hypothesis drawn from lower organisms, not tested here. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/SCH2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2006.json"
    }
   ],
   "relations": [
@@ -147,7 +170,8 @@
      },
      "supporting": [
       "CUN2007",
-      "MOR2013"
+      "MOR2013",
+      "SCH2006"
      ],
      "conflicting": [
       "POL2008"

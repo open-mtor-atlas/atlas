@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Initiator of autophagy and a direct mTORC1 substrate: mTORC1 phosphorylates ULK1 at S757 to hold it back. The AMPK arm is contested rather than settled - the classic reading is that AMPK phosphorylates ULK1 at other sites to switch autophagy on directly, but under glucose starvation and mitochondrial energy stress AMPK has been reported to inhibit ULK1 activation while protecting the machinery from degradation. See the AMPK-ULK1 link for which effect dominates under which kind of energy stress.",
-  "study_count": 9,
+  "study_count": 11,
   "relation_count": 5,
   "url": "https://mtor-atlas.org/gene/ulk1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json",
@@ -240,6 +240,52 @@
     "finding": "FOLFOX and oxaliplatin disrupted mTORC1/AMPK regulation of autophagy flux and protein synthesis in cultured myotubes; the effect was not easily reversible on drug withdrawal. Rapamycin (but not metformin) restored autophagy flux and AMPK phosphorylation, though without restoring protein synthesis.",
     "url": "https://mtor-atlas.org/study/HAL2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/HAL2026.json"
+   },
+   {
+    "sid": "CHA2007",
+    "title": "siRNA screening of the kinome identifies ULK1 as a multidomain modulator of autophagy",
+    "authors": "Chan EY; Kir S; Tooze SA",
+    "year": 2007,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m703663200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17595159",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells (GFP-LC3 lipidation assay, kinome siRNA library); HeLa cells; rat ULK1 constructs",
+    "peer_reviewed": true,
+    "finding": "The authors screened a kinase-targeted siRNA library in human HEK293 cells, using lipidation of the autophagy marker GFP-LC3 after amino-acid starvation as the readout. ULK1 came out of the screen: knocking it down blocked starvation-induced autophagy, while knocking down the related kinase ULK2 did not. ULK1 knockdown also blocked autophagy induced by rapamycin, which fits ULK1 acting downstream of mTOR. Overexpressed ULK1 inhibited autophagy independently of its kinase activity, and the dominant-negative effect mapped to residues 1-351, while the conserved C-terminal domain was needed for ULK1 to reach cytoplasmic structures, some of them LC3-positive. One of the early papers to place ULK1 as a required kinase for starvation-induced autophagy in mammalian cells. Boundary: Cultured human cell lines with siRNA and overexpression; no whole-animal data. The link to mTOR rests on rapamycin-induced autophagy, not on a measurement of mTORC1 acting on ULK1. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/CHA2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2007.json"
+   },
+   {
+    "sid": "RUS2013",
+    "title": "ULK1 induces autophagy by phosphorylating Beclin-1 and activating VPS34 lipid kinase",
+    "authors": "Russell RC; Tian Y; Yuan H; Park HW; Chang YY; Kim J; Kim H; Neufeld TP; Dillin A; Guan KL",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2757",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23685627",
+    "pmcid": "PMC3885611",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Wild-type, ULK-deficient (ULK1-/- with ULK2 knockdown) and FIP200-/- MEFs; HEK293 and HeLa Beclin-1 knockdown-reconstitution lines; in vitro kinase assays with insect-cell ULK1/ULK2; C. elegans bec-1 S6A transgenic embryos",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the ULK1 kinase switches on autophagy when amino acids are withdrawn. In mouse fibroblasts, amino-acid starvation raised the lipid-kinase activity of VPS34 complexes that contain ATG14L while lowering other VPS34 complexes, and the activation needed ULK kinase activity (lost in ULK-deficient and FIP200-null cells). ULK1 directly phosphorylated Beclin-1 at serine 14 (serine 15 in human), shown with purified kinase, mass spectrometry and a phospho-specific antibody; the mTOR inhibitor Torin1 or amino-acid withdrawal raised this phosphorylation only in cells with ULK activity. Cells reconstituted with non-phosphorylatable Beclin-1 S14A did not increase autophagosomes on amino-acid starvation, and the matching worm mutant (BEC-1 S6A) failed to fully rescue autophagic clearance in C. elegans embryos. The work provided evidence for a signalling chain from mTORC1 inhibition to ULK1, Beclin-1 and the ATG14L-VPS34 complex. Boundary: Mouse and human cell lines, in vitro kinase assays and C. elegans embryos; the mTOR step relies on Torin1 (which blocks mTORC1 and mTORC2) and amino-acid withdrawal. Not tested in mammalian tissues or in people.",
+    "url": "https://mtor-atlas.org/study/RUS2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUS2013.json"
    }
   ],
   "relations": [
@@ -471,7 +517,9 @@
      "supporting": [
       "GAN2009",
       "HOS2009",
-      "EGA2010"
+      "EGA2010",
+      "CHA2007",
+      "RUS2013"
      ],
      "conflicting": []
     },

@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "COR2004",
+  "title": "Regulation of the TSC pathway by LKB1: evidence of a molecular link between tuberous sclerosis complex and Peutz-Jeghers syndrome",
+  "authors": "Corradetti MN; Inoki K; Bardeesy N; DePinho RA; Guan KL",
+  "year": 2004,
+  "journal": "Genes & Development",
+  "doi": "10.1101/gad.1199104",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "15231735",
+  "pmcid": "PMC443516",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "HeLa (LKB1-null) and HEK293 cells; Lkb1-null mouse embryonic fibroblasts; RNAi",
+  "peer_reviewed": true,
+  "finding": "Asked why two inherited tumour syndromes, tuberous sclerosis and Peutz-Jeghers syndrome, look so alike under the microscope. Re-expressing LKB1 in LKB1-null HeLa cells raised AMPK activation-loop phosphorylation and lowered phosphorylation of S6K and 4E-BP1, while knocking LKB1 down did the opposite. The effect on mTOR outputs needed both AMPK and TSC2, placing LKB1 upstream of the TSC2-mTOR axis through AMPK. Together with Shaw et al. 2004 this is one of the two papers that tied energy stress, via LKB1 and AMPK, to TSC2. Boundary: cultured cell lines with overexpression and knockdown; the tumour-syndrome link is an interpretation, not a test in patients.",
+  "url": "https://mtor-atlas.org/study/COR2004/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/COR2004.json",
+  "abstract_excerpt": "Tuberous sclerosis complex (TSC) and Peutz-Jeghers syndrome (PJS) are dominantly inherited benign tumor syndromes that share striking histopathological similarities. Here we show that LKB1, the gene mutated in PJS, acts as a tumor suppressor by activating TSC2, the gene mutated in TSC. Like TSC2, LKB1 inhibits the phosphorylation of the key translational regulators S6K and 4EBP1. Furthermore, we show that LKB1 activates TSC2 through the AMP-dependent protein kinase (AMPK), indicating that LKB1 plays a role in cell growth regulation in response to cellular energy levels.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "LKB1 re-expression and RNAi knockdown; AMPK and TSC2 dependence",
+   "target": "LKB1 -> AMPK -> TSC2 -> mTORC1",
+   "species": "Human cell lines (HeLa, HEK293), mouse embryonic fibroblasts",
+   "effect": "LKB1 activates AMPK and, through TSC2, lowers mTORC1 signalling to S6K and 4E-BP1"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "lkb1-stk11",
+    "name": "LKB1 (STK11)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LKB1-AMPK"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ALE2010",
+   "SHAW2004",
+   "FOR2010",
+   "SHW2004"
+  ]
+ }
+}

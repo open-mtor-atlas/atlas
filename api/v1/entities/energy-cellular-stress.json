@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Condition",
   "synonyms": [],
   "description": "Falling ATP, glucose withdrawal and a range of other insults. They converge on mTORC1 chiefly through two routes: AMPK, which acts on both TSC2 and raptor, and physical relocation of the TSC complex to the lysosome.",
-  "study_count": 4,
+  "study_count": 7,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/condition/energy-cellular-stress/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/energy-cellular-stress.json",
@@ -125,6 +125,75 @@
     "finding": "Spatial control of the TSC complex integrates insulin and nutrient inputs at the lysosome.",
     "url": "https://mtor-atlas.org/study/MEN2014/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/MEN2014.json"
+   },
+   {
+    "sid": "DEN2001",
+    "title": "Mammalian TOR: a homeostatic ATP sensor",
+    "authors": "Dennis PB; Jaeschke A; Saitoh M; Fowler B; Kozma SC; Thomas G",
+    "year": 2001,
+    "journal": "Science",
+    "doi": "10.1126/science.1063518",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11691993",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured human cells (HEK293-type per MeSH 'Cell Line'); ATP lowering with 2-deoxyglucose and rotenone (per MeSH); in vitro mTOR kinase assays",
+    "peer_reviewed": true,
+    "finding": "The authors tested whether mTOR signalling responds to the cell's energy level, not only to amino acids. They reported that lowering intracellular ATP reduced signalling through the mTOR pathway, and that this happened independently of amino acid levels. Based on the kinase properties of mTOR, they proposed that mTOR itself senses ATP. Later work showed that much of the energy signal reaches mTORC1 through AMPK and TSC2, so the direct ATP-sensor model is one part of a larger picture. Boundary: cultured cells and in vitro kinase measurements; the ATP-sensor interpretation is the authors' model and has been revised by later AMPK work.",
+    "url": "https://mtor-atlas.org/study/DEN2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2001.json"
+   },
+   {
+    "sid": "SHAW2004",
+    "title": "The LKB1 tumor suppressor negatively regulates mTOR signaling",
+    "authors": "Shaw RJ; Bardeesy N; Manning BD; Lopez L; Kosmatka M; DePinho RA; Cantley LC",
+    "year": 2004,
+    "journal": "Cancer Cell",
+    "doi": "10.1016/j.ccr.2004.06.007",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15261145",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Lkb1-null mouse embryonic fibroblasts; cultured cells under low ATP; gastrointestinal polyps from Lkb1 mutant mice",
+    "peer_reviewed": true,
+    "finding": "Reported that LKB1 is needed to switch mTOR signalling off when cellular ATP falls, and that this requires AMPK and TSC2. Lkb1-null fibroblasts and the hamartomatous gut polyps of Lkb1 mutant mice showed raised signalling downstream of mTOR. The authors proposed mTOR inhibitors as a treatment idea for Peutz-Jeghers syndrome. Published alongside Corradetti et al. 2004, which reached the same LKB1-AMPK-TSC2 link independently. Boundary: worked from the abstract only (no PMC full text); cell and mouse data, the treatment suggestion was not tested here.",
+    "url": "https://mtor-atlas.org/study/SHAW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHAW2004.json"
+   },
+   {
+    "sid": "JON2005",
+    "title": "AMP-activated protein kinase induces a p53-dependent metabolic checkpoint",
+    "authors": "Jones RG; Plas DR; Kubek S; Buzzai M; Mu J; Xu Y; Birnbaum MJ; Thompson CB",
+    "year": 2005,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2005.03.027",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15866171",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Proliferating mammalian cells under glucose deprivation; p53 serine-15 mutant cells",
+    "peer_reviewed": true,
+    "finding": "Described a glucose checkpoint at the G1/S boundary run by AMPK. Cells arrested when glucose ran short even though amino acids were present and mTOR stayed active, so this arrest works in parallel to mTOR rather than through it. AMPK phosphorylated p53 on serine 15, which was needed for the arrest; arrested cells re-entered the cycle when glucose returned, while persistent AMPK activation pushed them into p53-dependent senescence. Boundary: worked from the abstract only (no PMC full text); cultured cells.",
+    "url": "https://mtor-atlas.org/study/JON2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JON2005.json"
    }
   ],
   "relations": [

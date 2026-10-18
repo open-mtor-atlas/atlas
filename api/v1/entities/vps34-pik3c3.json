@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -27,9 +27,9 @@
    "VPS34"
   ],
   "description": "The class III phosphatidylinositol 3-kinase and the main source of PI(3)P (class II PI3Ks make local pools of it too). It has two jobs that meet in the Atlas: it is required to build the autophagosome, and it was reported as a nutrient-regulated input to mTORC1 that runs separately from the insulin/class I PI3K route (BYF2005, NOB2005). The relationship between that input and the later Rag/Ragulator account of amino acid sensing is unresolved.",
-  "study_count": 2,
+  "study_count": 4,
   "relation_count": 0,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/vps34-pik3c3/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/vps34-pik3c3.json",
   "description_beginner": "An enzyme that tags membranes with a small chemical label. Cells need it to build the bag that swallows worn-out parts during autophagy, and some experiments say it also helps tell mTOR that amino acids are around, by a different route than insulin uses.",
   "reading_levels": null,
@@ -80,6 +80,52 @@
     "finding": "The companion paper to BYF2005, from a different laboratory: the amino acid input to mTORC1 is separate from the insulin input and runs through class 3 PI3K (hVps34), not through class 1 PI3K. Historically important because it states that the amino acid branch is the older one and that insulin signalling was grafted onto it. Boundary: cell lines, pharmacological and knockdown evidence; the later Rag/Ragulator account describes a different route to the same target, and the two accounts are not reconciled in the work this Atlas holds.",
     "url": "https://mtor-atlas.org/study/NOB2005/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/NOB2005.json"
+   },
+   {
+    "sid": "GUL2008",
+    "title": "Amino acids activate mTOR complex 1 via Ca2+/CaM signaling to hVps34",
+    "authors": "Gulati P; Gaspers LD; Dann SG; Joaquin M; Nobukuni T; Natt F; Kozma SC; Thomas AP; Thomas G",
+    "year": 2008,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2008.03.002",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18460336",
+    "pmcid": "PMC2587347",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (HEK293 and HeLa per MeSH); intracellular Ca2+ imaging; hVps34 site-directed mutants; S6K1 phosphorylation readouts",
+    "peer_reviewed": true,
+    "finding": "In cultured human cells, adding amino acids raised the free calcium level inside the cell, and this rise was needed for amino acids to switch on mTORC1 and the lipid kinase hVps34. Calcium-bound calmodulin bound directly to a conserved motif in hVps34, and the authors showed this motif was needed for hVps34 lipid kinase activity and for the increase in mTORC1 signalling. The paper proposed a route from amino acids to mTORC1 that runs through class III PI3K (hVps34) rather than the class I PI3K used by insulin and growth factors. Boundary: Human cell lines only. The calcium/hVps34 route was proposed before the Rag-Ragulator-GATOR model and is not part of the current consensus amino-acid pathway. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/GUL2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GUL2008.json"
+   },
+   {
+    "sid": "RUS2013",
+    "title": "ULK1 induces autophagy by phosphorylating Beclin-1 and activating VPS34 lipid kinase",
+    "authors": "Russell RC; Tian Y; Yuan H; Park HW; Chang YY; Kim J; Kim H; Neufeld TP; Dillin A; Guan KL",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2757",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23685627",
+    "pmcid": "PMC3885611",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Wild-type, ULK-deficient (ULK1-/- with ULK2 knockdown) and FIP200-/- MEFs; HEK293 and HeLa Beclin-1 knockdown-reconstitution lines; in vitro kinase assays with insect-cell ULK1/ULK2; C. elegans bec-1 S6A transgenic embryos",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the ULK1 kinase switches on autophagy when amino acids are withdrawn. In mouse fibroblasts, amino-acid starvation raised the lipid-kinase activity of VPS34 complexes that contain ATG14L while lowering other VPS34 complexes, and the activation needed ULK kinase activity (lost in ULK-deficient and FIP200-null cells). ULK1 directly phosphorylated Beclin-1 at serine 14 (serine 15 in human), shown with purified kinase, mass spectrometry and a phospho-specific antibody; the mTOR inhibitor Torin1 or amino-acid withdrawal raised this phosphorylation only in cells with ULK activity. Cells reconstituted with non-phosphorylatable Beclin-1 S14A did not increase autophagosomes on amino-acid starvation, and the matching worm mutant (BEC-1 S6A) failed to fully rescue autophagic clearance in C. elegans embryos. The work provided evidence for a signalling chain from mTORC1 inhibition to ULK1, Beclin-1 and the ATG14L-VPS34 complex. Boundary: Mouse and human cell lines, in vitro kinase assays and C. elegans embryos; the mTOR step relies on Torin1 (which blocks mTORC1 and mTORC2) and amino-acid withdrawal. Not tested in mammalian tissues or in people.",
+    "url": "https://mtor-atlas.org/study/RUS2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUS2013.json"
    }
   ],
   "relations": []

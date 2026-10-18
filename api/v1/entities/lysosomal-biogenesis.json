@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "TFEB-driven expansion of the lysosomal compartment.",
-  "study_count": 3,
+  "study_count": 4,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/process/lysosomal-biogenesis/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/lysosomal-biogenesis.json",
@@ -102,6 +102,29 @@
     "finding": "Showed that TFEB drives a coordinated autophagy and lysosomal gene programme during starvation. In this paper TFEB was regulated by ERK2 phosphorylation; its control by mTORC1 at the lysosome was established in later work (SET2012).",
     "url": "https://mtor-atlas.org/study/SET2011/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SET2011.json"
+   },
+   {
+    "sid": "SAR2009",
+    "title": "A gene network regulating lysosomal biogenesis and function",
+    "authors": "Sardiello M; Palmieri M; di Ronza A; Medina DL; Valenza M; Gennarino VA; Di Malta C; Donaudy F; Embrione V; Polishchuk RS; Banfi S; Parenti G; Cattaneo E; Ballabio A",
+    "year": 2009,
+    "journal": "Science",
+    "doi": "10.1126/science.1174447",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19556463",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Promoter/expression analysis of lysosomal genes; cultured human (HeLa) and mouse cells with TFEB overexpression; lysosomal storage conditions (sucrose loading)",
+    "peer_reviewed": true,
+    "finding": "The authors found that most lysosomal genes show coordinated expression and share a promoter motif (later called the CLEAR element) that is bound and regulated by the transcription factor TFEB. Under conditions of abnormal lysosomal storage, TFEB moved from the cytoplasm to the nucleus and switched on its target genes. Overexpressing TFEB in cultured cells increased the number of lysosomes and the cells' capacity to degrade complex molecules, including glycosaminoglycans and the mutant huntingtin protein. The paper provided evidence that lysosome production is run by a transcriptional programme with TFEB at its centre, which later work tied to mTORC1 control. Boundary: Cultured cells with TFEB overexpression; mTOR was not studied in this paper. Therapeutic potential for storage and neurodegenerative disease is proposed, not tested. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/SAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2009.json"
    }
   ],
   "relations": [
@@ -148,7 +171,9 @@
      },
      "supporting": [
       "SET2011",
-      "ROC2012"
+      "ROC2012",
+      "SAR2009",
+      "PEN2011"
      ],
      "conflicting": []
     },

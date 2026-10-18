@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "TEE2002",
+  "title": "Tuberous sclerosis complex-1 and -2 gene products function together to inhibit mammalian target of rapamycin (mTOR)-mediated downstream signaling",
+  "authors": "Tee AR; Fingar DC; Manning BD; Kwiatkowski DJ; Cantley LC; Blenis J",
+  "year": 2002,
+  "journal": "PNAS",
+  "doi": "10.1073/pnas.202476899",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "12271141",
+  "pmcid": "PMC129715",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cultured mammalian cells (HEK293-type transfection system per MeSH 'Cell Line'); coexpression of TSC1/TSC2, patient-derived TSC2 mutant, rapamycin-resistant S6K1 mutants",
+  "peer_reviewed": true,
+  "finding": "The authors coexpressed hamartin (TSC1) and tuberin (TSC2) in cultured cells and followed two main outputs of mTOR. Together, the two proteins reduced phosphorylation of 4E-BP1, so more 4E-BP1 stayed bound to the translation factor eIF4E; a TSC2 mutant found in TSC patients was defective at this. Hamartin plus tuberin also lowered S6K1 activity, but did not affect S6K1 mutants that resist rapamycin, which points to mTOR as the step being blocked. In nutrient-deprived cells, hamartin and tuberin prevented amino acids from switching S6K1 back on. The authors concluded that the TSC1-TSC2 complex acts as an inhibitor of mTOR signalling and suggested that TSC tumours may come from too much mTOR activity. Boundary: overexpression in cultured mammalian cells; the link to tumours in TSC patients is a proposal, not tested in patient tissue here.",
+  "url": "https://mtor-atlas.org/study/TEE2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/TEE2002.json",
+  "abstract_excerpt": "Tuberous sclerosis complex (TSC) is an autosomal dominant genetic disorder that occurs upon mutation of either the TSC1 or TSC2 genes, which encode the protein products hamartin and tuberin, respectively. Here, we show that hamartin and tuberin function together to inhibit mammalian target of rapamycin (mTOR)-mediated signaling to eukaryotic initiation factor 4E-binding protein 1 (4E-BP1) and ribosomal protein S6 kinase 1 (S6K1).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Coexpression of TSC1 + TSC2 (and patient-derived TSC2 mutant)",
+   "target": "4E-BP1 phosphorylation, 4E-BP1-eIF4E binding, S6K1 activity",
+   "species": "Mammalian cell lines",
+   "effect": "TSC1/TSC2 coexpression decreases mTOR signalling to 4E-BP1 and S6K1"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "eif4e",
+    "name": "eIF4E",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "FIN2002",
+   "BRU1997",
+   "GIN1999",
+   "HSI2012"
+  ]
+ }
+}

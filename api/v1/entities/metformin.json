@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Drug",
   "synonyms": [],
   "description": "Antidiabetic biguanide; activates AMPK (ZHO2001) and inhibits mTORC1. How much of its action actually runs through AMPK is disputed: metformin still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells, via the Rag GTPases (KAL2010). Frequently discussed as a geroprotector alongside rapamycin.",
-  "study_count": 6,
+  "study_count": 7,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/drug/metformin/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/metformin.json",
@@ -171,6 +171,29 @@
     "finding": "Metformin inhibits mTORC1 even in cells lacking AMPK or TSC1/TSC2, and the effect requires the Rag GTPases instead. Together with Foretz 2010 this places a large part of metformin's action outside the AMPK axis it is usually credited to.",
     "url": "https://mtor-atlas.org/study/KAL2010/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/KAL2010.json"
+   },
+   {
+    "sid": "LAR2012",
+    "title": "Distinct perturbation of the translatome by the antidiabetic drug metformin",
+    "authors": "Larsson O; Morita M; Topisirovic I; Alain T; Blouin MJ; Pollak M; Sonenberg N",
+    "year": 2012,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.1201689109",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22611195",
+    "pmcid": "PMC3384216",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell line (per MeSH); genome-wide polysome microarray translatome analysis comparing metformin, rapamycin and PP242",
+    "peer_reviewed": true,
+    "finding": "The authors compared genome-wide changes in mRNA translation caused by metformin with those caused by the mTOR inhibitors rapamycin and PP242 in cancer cells. Metformin changed gene expression at the level of translation to an extent comparable to the classic mTOR inhibitors. Its antiproliferative effect could be explained by selective suppression of translation of mRNAs encoding cell-cycle regulators, acting through the mTORC1 / 4E-BP pathway. The paper provided evidence that metformin's effect on cell growth in vitro goes through selective translational control rather than a general drop in protein synthesis. Boundary: Cultured cancer cells at drug concentrations used in vitro; does not show that metformin at clinical doses acts this way in patients. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/LAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAR2012.json"
    }
   ],
   "relations": [

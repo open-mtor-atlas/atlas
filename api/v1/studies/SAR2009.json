@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SAR2009",
+  "title": "A gene network regulating lysosomal biogenesis and function",
+  "authors": "Sardiello M; Palmieri M; di Ronza A; Medina DL; Valenza M; Gennarino VA; Di Malta C; Donaudy F; Embrione V; Polishchuk RS; Banfi S; Parenti G; Cattaneo E; Ballabio A",
+  "year": 2009,
+  "journal": "Science",
+  "doi": "10.1126/science.1174447",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19556463",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Promoter/expression analysis of lysosomal genes; cultured human (HeLa) and mouse cells with TFEB overexpression; lysosomal storage conditions (sucrose loading)",
+  "peer_reviewed": true,
+  "finding": "The authors found that most lysosomal genes show coordinated expression and share a promoter motif (later called the CLEAR element) that is bound and regulated by the transcription factor TFEB. Under conditions of abnormal lysosomal storage, TFEB moved from the cytoplasm to the nucleus and switched on its target genes. Overexpressing TFEB in cultured cells increased the number of lysosomes and the cells' capacity to degrade complex molecules, including glycosaminoglycans and the mutant huntingtin protein. The paper provided evidence that lysosome production is run by a transcriptional programme with TFEB at its centre, which later work tied to mTORC1 control. Boundary: Cultured cells with TFEB overexpression; mTOR was not studied in this paper. Therapeutic potential for storage and neurodegenerative disease is proposed, not tested. Drafted from the abstract only (no PMC full text).",
+  "url": "https://mtor-atlas.org/study/SAR2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2009.json",
+  "abstract_excerpt": "Lysosomes are organelles central to degradation and recycling processes in animal cells. Whether lysosomal activity is coordinated to respond to cellular needs remains unclear. We found that most lysosomal genes exhibit coordinated transcriptional behavior and are regulated by the transcription factor EB (TFEB). Under aberrant lysosomal storage conditions, TFEB translocated from the cytoplasm to the nucleus, resulting in the activation of its target genes.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "TFEB overexpression; induction of lysosomal storage",
+   "target": "TFEB / CLEAR lysosomal gene network",
+   "species": "Human and mouse cultured cells",
+   "effect": "TFEB overexpression increased lysosomal gene expression, lysosome number and clearance of glycosaminoglycans and mutant huntingtin"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "lysosomal-biogenesis",
+    "name": "Lysosomal biogenesis",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TFEB-LYSOBIO"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SET2011",
+   "ROC2012",
+   "SET2012",
+   "ESP2026"
+  ]
+ }
+}

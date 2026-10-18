@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Phosphatase that erases PIP3 and so shuts down the PI3K arm. One of the most frequently lost tumour suppressors in human cancer, and one of the most common ways this pathway is left switched on without its growth-factor brake.",
-  "study_count": 4,
+  "study_count": 7,
   "relation_count": 1,
   "url": "https://mtor-atlas.org/gene/pten/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/pten.json",
@@ -125,6 +125,75 @@
     "finding": "In neural Pten-knockout mice, rapamycin prevented and reversed neuronal hypertrophy and improved a subset of the PTEN-associated abnormal behaviours.",
     "url": "https://mtor-atlas.org/study/ZHO2009/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2009.json"
+   },
+   {
+    "sid": "MAN2002",
+    "title": "Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/akt pathway",
+    "authors": "Manning BD; Tee AR; Logsdon MN; Blenis J; Cantley LC",
+    "year": 2002,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/s1097-2765(02)00568-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12150915",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (mouse 3T3 cells, human cells) and PTEN-null tumour-derived cell lines; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The authors combined biochemistry with a search for Akt consensus motifs and picked out tuberin, the TSC2 tumour suppressor protein, as a likely Akt substrate. They showed that activating PI3K leads to phosphorylation of tuberin at sites matching the Akt motif, and that Akt can phosphorylate tuberin both in vitro and in cells. Two of these sites, S939 and T1462, were regulated by PI3K, and T1462 stayed phosphorylated in tumour cell lines lacking PTEN. A tuberin mutant without the main PI3K-dependent sites blocked activation of S6K1. Together with papers from other labs in the same months, this was one of the early papers to link growth-factor signalling through Akt to the TSC complex and mTORC1 output. Boundary: cultured mammalian cells and in vitro kinase assays, with overexpressed tuberin mutants; no whole-animal or human tissue data.",
+    "url": "https://mtor-atlas.org/study/MAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2002.json"
+   },
+   {
+    "sid": "NES2001",
+    "title": "Enhanced sensitivity of PTEN-deficient tumors to inhibition of FRAP/mTOR",
+    "authors": "Neshat MS; Mellinghoff IK; Tran C; Stiles B; Thomas G; Petersen R; Frost P; Gibbons JJ; Wu H; Sawyers CL",
+    "year": 2001,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.171076798",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11504908",
+    "pmcid": "PMC56958",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Isogenic PTEN+/+ and PTEN-/- mouse cells and human cancer cell lines, in vitro and as tumours in mice; CCI-779",
+    "peer_reviewed": true,
+    "finding": "Tested whether tumour cells that have lost PTEN depend more on mTOR. The rapamycin analogue CCI-779 (temsirolimus) blocked growth of PTEN-null cells and tumours preferentially, and reversed the extra tumour growth caused by constitutively active Akt, placing mTOR downstream of Akt in tumour formation. PTEN loss went with higher S6 kinase activity and S6 phosphorylation. Sensitivity was not explained by how well the drug blocked S6 phosphorylation, since S6 was inhibited in sensitive and resistant lines alike. Boundary: worked from the abstract only (scanned PMC record); mouse and human cell lines and mouse tumour models, not patients.",
+    "url": "https://mtor-atlas.org/study/NES2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NES2001.json"
+   },
+   {
+    "sid": "POD2001",
+    "title": "An inhibitor of mTOR reduces neoplasia and normalizes p70/S6 kinase activity in Pten+/- mice",
+    "authors": "Podsypanina K; Lee RT; Politis C; Hennessy I; Crane A; Puc J; Neshat M; Wang H; Yang L; Gibbons J; Frost P; Dreisbach V; Blenis J; Gaciong Z; Fisher P; Sawyers C; Hedrick-Ellenson L; Parsons R",
+    "year": 2001,
+    "journal": "PNAS",
+    "doi": "10.1073/pnas.171060098",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11504907",
+    "pmcid": "PMC56959",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Pten+/- mice treated with a pharmacological mTOR inhibitor",
+    "peer_reviewed": true,
+    "finding": "Transformed cells in Pten+/- mice showed raised phosphorylated Akt and active p70 S6 kinase together with faster proliferation. Treating the mice with an mTOR inhibitor reduced neoplastic proliferation, tumour size and S6 kinase activity without changing Akt status. The authors concluded that S6K and possibly other mTOR targets contribute to tumour development downstream of PTEN loss. Boundary: worked from the abstract only (scanned PMC record); mouse model. The abstract does not name the inhibitor.",
+    "url": "https://mtor-atlas.org/study/POD2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POD2001.json"
    }
   ],
   "relations": [

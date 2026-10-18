@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAR2013",
+  "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+  "authors": "Martina JA; Puertollano R",
+  "year": 2013,
+  "journal": "Journal of Cell Biology",
+  "doi": "10.1083/jcb.201209135",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "23401004",
+  "pmcid": "PMC3575543",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+  "peer_reviewed": true,
+  "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+  "url": "https://mtor-atlas.org/study/MAR2013/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json",
+  "abstract_excerpt": "The mTORC1 complex supports cell growth and proliferation in response to energy levels, growth factors, and nutrients. The Rag guanosine triphosphatases (GTPases) activate mTORC1 in response to amino acids by promoting its redistribution to lysosomes. In this paper, we identify a novel role for Rags in controlling activation of transcription factor EB (TFEB), a master regulator of autophagic and lysosomal gene expression. Interaction of TFEB with active Rag heterodimers promoted recruitment of TFEB to lysosomes, leading to mTORC1-dependent phosphorylation and inhibition of TFEB.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "siRNA depletion of Raptor, Rags or p18; active/inactive Rag mutants; Torin1; amino-acid starvation and re-feeding; TFEB N-terminal mutants",
+   "target": "Rag GTPases -> TFEB lysosomal recruitment -> mTORC1-dependent TFEB phosphorylation",
+   "species": "Human cells",
+   "effect": "Active Rags recruited TFEB to lysosomes, which was needed for mTORC1-dependent TFEB phosphorylation and cytosolic retention; mTORC1 inhibition sent TFEB to the nucleus"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-TFEB"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ABU2017",
+   "WYA2018",
+   "KAN2013",
+   "RUS2013"
+  ]
+ }
+}

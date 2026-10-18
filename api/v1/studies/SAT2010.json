@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SAT2010",
+  "title": "Single amino-acid changes that confer constitutive activation of mTOR are discovered in human cancer",
+  "authors": "Sato T; Nakashima A; Guo L; Coffman K; Tamanoi F",
+  "year": 2010,
+  "journal": "Oncogene",
+  "doi": "10.1038/onc.2010.28",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20190810",
+  "pmcid": "PMC2953941",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cells expressing mTOR point mutants found in cancer genome databases; in vitro kinase assays",
+  "peer_reviewed": true,
+  "finding": "Screened point mutations from cancer genome databases and found two, S2215Y (large intestine adenocarcinoma) and R2505P (renal cell carcinoma), that kept mTOR signalling on even under nutrient starvation. mTORC1 purified from starved cells carrying the mutants still phosphorylated 4E-BP1 in vitro. Mutant cells had more S-phase cells (42.0% vs 28.2% for S2215Y) and resisted the shrinkage caused by amino-acid withdrawal. The mutants stayed sensitive to rapamycin. Boundary: overexpressed mutants in cultured cells; the mutations were found in tumour databases, their driver role in patients was not tested.",
+  "url": "https://mtor-atlas.org/study/SAT2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SAT2010.json",
+  "abstract_excerpt": "Mammalian target of rapamycin (mTOR) is a serine/threonine kinase that regulates a variety of cellular functions such as growth, proliferation and autophagy. In a variety of cancer cells, overactivation of mTOR has been reported. In addition, mTOR inhibitors, such as rapamycin and its derivatives, are being evaluated in clinical trials as anticancer drugs. However, no active mutants of mTOR have been identified in human cancer.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Expression of mTOR point mutants S2215Y and R2505P; rapamycin",
+   "target": "mTOR kinase / mTORC1",
+   "species": "Cultured mammalian cells",
+   "effect": "Cancer-derived mTOR mutations make mTORC1 active under starvation; still rapamycin-sensitive"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-4EBP1",
+    "RAPA-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BRU1997",
+   "FIN2002",
+   "GAR2009",
+   "GIN1999"
+  ]
+ }
+}

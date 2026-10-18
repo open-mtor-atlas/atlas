@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Biological process",
   "synonyms": [],
   "description": "Cellular recycling process suppressed by mTORC1 and activated upon its inhibition; linked to longevity.",
-  "study_count": 44,
+  "study_count": 48,
   "relation_count": 2,
   "url": "https://mtor-atlas.org/process/autophagy/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/autophagy.json",
@@ -1045,6 +1045,98 @@
     "finding": "Autophagy flux in humans is remodeled with age in a sex- and cell-type-specific way, uncoupled from autophagy-gene transcription; in adults over 70, higher PBMC autophagy flux associates with reduced physical function, and 12 weeks of mild exercise lowers PBMC flux while improving function.",
     "url": "https://mtor-atlas.org/study/MOR2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/MOR2026.json"
+   },
+   {
+    "sid": "CHA2007",
+    "title": "siRNA screening of the kinome identifies ULK1 as a multidomain modulator of autophagy",
+    "authors": "Chan EY; Kir S; Tooze SA",
+    "year": 2007,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m703663200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17595159",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells (GFP-LC3 lipidation assay, kinome siRNA library); HeLa cells; rat ULK1 constructs",
+    "peer_reviewed": true,
+    "finding": "The authors screened a kinase-targeted siRNA library in human HEK293 cells, using lipidation of the autophagy marker GFP-LC3 after amino-acid starvation as the readout. ULK1 came out of the screen: knocking it down blocked starvation-induced autophagy, while knocking down the related kinase ULK2 did not. ULK1 knockdown also blocked autophagy induced by rapamycin, which fits ULK1 acting downstream of mTOR. Overexpressed ULK1 inhibited autophagy independently of its kinase activity, and the dominant-negative effect mapped to residues 1-351, while the conserved C-terminal domain was needed for ULK1 to reach cytoplasmic structures, some of them LC3-positive. One of the early papers to place ULK1 as a required kinase for starvation-induced autophagy in mammalian cells. Boundary: Cultured human cell lines with siRNA and overexpression; no whole-animal data. The link to mTOR rests on rapamycin-induced autophagy, not on a measurement of mTORC1 acting on ULK1. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/CHA2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2007.json"
+   },
+   {
+    "sid": "RUS2013",
+    "title": "ULK1 induces autophagy by phosphorylating Beclin-1 and activating VPS34 lipid kinase",
+    "authors": "Russell RC; Tian Y; Yuan H; Park HW; Chang YY; Kim J; Kim H; Neufeld TP; Dillin A; Guan KL",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2757",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23685627",
+    "pmcid": "PMC3885611",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Wild-type, ULK-deficient (ULK1-/- with ULK2 knockdown) and FIP200-/- MEFs; HEK293 and HeLa Beclin-1 knockdown-reconstitution lines; in vitro kinase assays with insect-cell ULK1/ULK2; C. elegans bec-1 S6A transgenic embryos",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the ULK1 kinase switches on autophagy when amino acids are withdrawn. In mouse fibroblasts, amino-acid starvation raised the lipid-kinase activity of VPS34 complexes that contain ATG14L while lowering other VPS34 complexes, and the activation needed ULK kinase activity (lost in ULK-deficient and FIP200-null cells). ULK1 directly phosphorylated Beclin-1 at serine 14 (serine 15 in human), shown with purified kinase, mass spectrometry and a phospho-specific antibody; the mTOR inhibitor Torin1 or amino-acid withdrawal raised this phosphorylation only in cells with ULK activity. Cells reconstituted with non-phosphorylatable Beclin-1 S14A did not increase autophagosomes on amino-acid starvation, and the matching worm mutant (BEC-1 S6A) failed to fully rescue autophagic clearance in C. elegans embryos. The work provided evidence for a signalling chain from mTORC1 inhibition to ULK1, Beclin-1 and the ATG14L-VPS34 complex. Boundary: Mouse and human cell lines, in vitro kinase assays and C. elegans embryos; the mTOR step relies on Torin1 (which blocks mTORC1 and mTORC2) and amino-acid withdrawal. Not tested in mammalian tissues or in people.",
+    "url": "https://mtor-atlas.org/study/RUS2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUS2013.json"
+   },
+   {
+    "sid": "SET2013",
+    "title": "TFEB controls cellular lipid metabolism through a starvation-induced autoregulatory loop",
+    "authors": "Settembre C; De Cegli R; Mansueto G; Saha PK; Vetrini F; Visvikis O; Huynh T; Carissimo A; Palmer D; Klisch TJ; Wollenberg AC; Di Bernardo D; Chan L; Irazoqui JE; Ballabio A",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2718",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23604321",
+    "pmcid": "PMC3699877",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: 24 h fasting, liver-specific Tfeb knockout, liver-directed TFEB overexpression (helper-dependent adenovirus), high-fat diet and ob/ob obesity, liver Pgc1a and Atg7 deletion, Ppara knockout; HeLa cells, MEFs and primary hepatocytes; C. elegans hlh-30 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors found that fasting switches on the TFEB gene in mouse liver, muscle and kidney, and that TFEB drives its own transcription by binding CLEAR sites in its promoter, an autoregulatory loop that starvation strengthens. Liver TFEB overexpression changed 773 genes up and 611 down, with lipid catabolism as the top category, and acted largely through PGC-1alpha and PPARalpha: 74% of TFEB-induced genes failed to rise in mice lacking PPARalpha. Mice lacking liver TFEB built up liver fat and mobilised fat poorly during fasting and gained more weight on a high-fat diet, while liver TFEB overexpression prevented and halted diet-induced obesity and improved glucose tolerance in obese ob/ob mice; the lipid effect required autophagy (lost in Atg7-deleted liver). In C. elegans, the TFEB homologue HLH-30 was needed for lipid mobilisation and survival during starvation. Boundary: Mice and worms, with TFEB delivered by virus at overexpression levels. mTORC1 was not manipulated or measured; its role is inferred from earlier work. Not tested in people.",
+    "url": "https://mtor-atlas.org/study/SET2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2013.json"
+   },
+   {
+    "sid": "WYA2018",
+    "title": "NUFIP1 is a ribosome receptor for starvation-induced ribophagy",
+    "authors": "Wyant GA; Abu-Remaileh M; Frenkel EM; Laqtom NN; Dharamdasani V; Lewis CA; Chan SH; Heinze I; Ori A; Sabatini DM",
+    "year": 2018,
+    "journal": "Science",
+    "doi": "10.1126/science.aar2663",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29700228",
+    "pmcid": "PMC6020066",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK-293T and other human/mouse cell lines (incl. 8988T); LysoIP lysosome proteomics; CRISPR knockouts of NUFIP1, ATG7, DEPDC5 (GATOR1); Torin1, amino-acid and glucose starvation; electron microscopy",
+    "peer_reviewed": true,
+    "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
+    "url": "https://mtor-atlas.org/study/WYA2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json"
    }
   ],
   "relations": [
@@ -1148,7 +1240,9 @@
      "supporting": [
       "GAN2009",
       "HOS2009",
-      "EGA2010"
+      "EGA2010",
+      "CHA2007",
+      "RUS2013"
      ],
      "conflicting": []
     },

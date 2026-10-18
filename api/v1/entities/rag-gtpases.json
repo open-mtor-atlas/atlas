@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -32,7 +32,7 @@
    "RRAGB"
   ],
   "description": "Family of small GTPases that let mTORC1 sense amino acids by controlling its localization near its activator Rheb inside the cell.",
-  "study_count": 23,
+  "study_count": 25,
   "relation_count": 8,
   "url": "https://mtor-atlas.org/gene/rag-gtpases/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/rag-gtpases.json",
@@ -572,6 +572,52 @@
     "finding": "Ragulator and SLC38A9 each act as an unusual guanine-nucleotide exchange factor on the Rag heterodimer, and together they push it into its active state. Ragulator triggers GTP release from RagC, which unlocks the inactive configuration; arginine-bound SLC38A9 converts RagA from the GDP- to the GTP-loaded state. Boundary: purified proteins and cultured human cells. This is the biochemistry of the switch, not a measurement in tissue.",
     "url": "https://mtor-atlas.org/study/SHE2018B/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SHE2018B.json"
+   },
+   {
+    "sid": "BON2012",
+    "title": "Leucyl-tRNA synthetase controls TORC1 via the EGO complex",
+    "authors": "Bonfils G; Jaquenoud M; Bontron S; Ostrowicz C; Ungermann C; De Virgilio C",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.02.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424774",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae) genetics and biochemistry; LeuRS Cdc60 and EGO complex (Gtr1) interaction assays",
+    "peer_reviewed": true,
+    "finding": "In budding yeast, the leucyl-tRNA synthetase Cdc60 bound the Rag GTPase Gtr1, part of the EGO complex that activates TORC1, and this binding depended on leucine. The authors reported that the interaction was both necessary and sufficient to pass the leucine signal on to TORC1. When Cdc60 was busy editing wrongly charged tRNA(Leu), the interaction with Gtr1 was lost. The model is that TORC1 reads how well tRNA(Leu) is being charged as a stand-in for how much leucine the cell has. Together with Han et al. 2012 in human cells, it was one of the early papers to propose a tRNA synthetase as a leucine sensor upstream of the Rags. Boundary: Yeast only. The mammalian leucine sensor most widely accepted today is Sestrin2, and this yeast mechanism has not been reconciled with it. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/BON2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BON2012.json"
+   },
+   {
+    "sid": "MAR2013",
+    "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+    "authors": "Martina JA; Puertollano R",
+    "year": 2013,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.201209135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23401004",
+    "pmcid": "PMC3575543",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+    "peer_reviewed": true,
+    "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+    "url": "https://mtor-atlas.org/study/MAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json"
    }
   ],
   "relations": [

@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Phosphoinositide 3-kinase; produces signaling lipids downstream of growth-factor receptors; activates Akt and heads the growth-factor arm of the mTOR pathway. It is not upstream of everything: amino-acid sensing at the lysosome, AMPK-mediated energy stress and Ras-MAPK reach mTORC1 by routes that bypass it.",
-  "study_count": 20,
+  "study_count": 22,
   "relation_count": 6,
   "url": "https://mtor-atlas.org/gene/pi3k/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/pi3k.json",
@@ -493,6 +493,52 @@
     "finding": "PIP3 directly stimulates mTORC2 kinase activity, linking PI3K to mTORC2.",
     "url": "https://mtor-atlas.org/study/GAN2011/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/GAN2011.json"
+   },
+   {
+    "sid": "MAN2002",
+    "title": "Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/akt pathway",
+    "authors": "Manning BD; Tee AR; Logsdon MN; Blenis J; Cantley LC",
+    "year": 2002,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/s1097-2765(02)00568-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12150915",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (mouse 3T3 cells, human cells) and PTEN-null tumour-derived cell lines; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The authors combined biochemistry with a search for Akt consensus motifs and picked out tuberin, the TSC2 tumour suppressor protein, as a likely Akt substrate. They showed that activating PI3K leads to phosphorylation of tuberin at sites matching the Akt motif, and that Akt can phosphorylate tuberin both in vitro and in cells. Two of these sites, S939 and T1462, were regulated by PI3K, and T1462 stayed phosphorylated in tumour cell lines lacking PTEN. A tuberin mutant without the main PI3K-dependent sites blocked activation of S6K1. Together with papers from other labs in the same months, this was one of the early papers to link growth-factor signalling through Akt to the TSC complex and mTORC1 output. Boundary: cultured mammalian cells and in vitro kinase assays, with overexpressed tuberin mutants; no whole-animal or human tissue data.",
+    "url": "https://mtor-atlas.org/study/MAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2002.json"
+   },
+   {
+    "sid": "ZHA2000",
+    "title": "Regulation of cellular growth by the Drosophila target of rapamycin dTOR",
+    "authors": "Zhang H; Stallock JP; Ng JC; Reinhard C; Neufeld TP",
+    "year": 2000,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.835000",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11069888",
+    "pmcid": "PMC317034",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster dTOR mutants and mosaic clones; PI3K activation in vivo; in vitro dTOR kinase assays on p70S6K; S6K and cyclin E overexpression rescue",
+    "peer_reviewed": true,
+    "finding": "The authors showed that fly TOR (dTOR) is needed inside each cell for normal growth and proliferation during larval development. dTOR was also needed for the extra cell growth caused by activating PI3K signalling. As in mammalian cells, dTOR kinase activity was needed for growth factor-dependent phosphorylation of S6 kinase in vitro, and overexpressing S6 kinase rescued dTOR mutant flies to viability. dTOR loss also produced signs of amino acid starvation, such as smaller nucleoli and lipid droplet clumping in the fat body, plus a cell-type-specific cell cycle arrest that cyclin E could bypass. The authors proposed that dTOR links growth factor signalling to nutrient availability during development. Boundary: Drosophila larvae and in vitro kinase assays; rescue relied on overexpression of S6 kinase, and results are not shown in mammals here.",
+    "url": "https://mtor-atlas.org/study/ZHA2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHA2000.json"
    }
   ],
   "relations": [

@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "FAC2008",
+  "title": "The mammalian target of rapamycin complex 2 controls folding and stability of Akt and protein kinase C",
+  "authors": "Facchinetti V; Ouyang W; Wei H; Soto N; Lazorchak A; Gould C; Lowry C; Newton AC; Mao Y; Miao RQ; Sessa WC; Qin J; Zhang P; Su B; Jacinto E",
+  "year": 2008,
+  "journal": "EMBO Journal",
+  "doi": "10.1038/emboj.2008.120",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18566586",
+  "pmcid": "PMC2486276",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse embryonic fibroblasts lacking mTORC2 components (SIN1, rictor, mTOR) and human cell lines; yeast; mouse tissue; in vitro kinase assays",
+  "peer_reviewed": true,
+  "finding": "Cells lacking the mTORC2 components mTOR, SIN1 or rictor lost phosphorylation of Akt and of conventional protein kinase C at the turn motif, a site near the end of the kinase domain. This phosphorylation did not depend on growth factors, and the authors reported the same function in yeast. Turn-motif phosphorylation helped newly made Akt and PKC fold correctly and stay stable; without it, Akt was held by the chaperone Hsp90 and protected from ubiquitin-mediated breakdown. mTORC2 controlled the Akt turn-motif and hydrophobic-motif (Ser473) sites independently in vivo and phosphorylated both directly in vitro. Boundary: Cell culture, yeast and in vitro kinase assays, with mouse tissue for the in vivo site analysis. Shows a protein-maturation role of mTORC2, not an organismal phenotype. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/FAC2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/FAC2008.json",
+  "abstract_excerpt": "The target of rapamycin (TOR), as part of the rapamycin-sensitive TOR complex 1 (TORC1), regulates various aspects of protein synthesis. Whether TOR functions in this process as part of TORC2 remains to be elucidated. Here, we demonstrate that mTOR, SIN1 and rictor, components of mammalian (m)TORC2, are required for phosphorylation of Akt and conventional protein kinase C (PKC) at the turn motif (TM) site. This TORC2 function is growth factor independent and conserved from yeast to mammals.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic loss of mTOR, SIN1 or rictor (mTORC2 disruption)",
+   "target": "Akt and conventional PKC turn-motif phosphorylation, folding and stability",
+   "species": "Mouse cells, human cells, yeast",
+   "effect": "Loss of mTORC2 abolishes Akt/PKC turn-motif phosphorylation and destabilises newly synthesised Akt and PKC"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "sin1-mapkap1",
+    "name": "SIN1 / MAPKAP1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC2-AKT"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "FRI2006",
+   "JAC2006",
+   "STU2018",
+   "YAN2006"
+  ]
+ }
+}

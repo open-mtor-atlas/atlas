@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,9 +22,9 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Key autophagosome membrane marker; LC3B lipidation (LC3-II) rises when mTORC1 is inhibited, but a single LC3-II level cannot separate more autophagosomes being built from fewer being cleared; flux has to be measured against a lysosomal block (bafilomycin or chloroquine) or a turnover readout.",
-  "study_count": 2,
+  "study_count": 4,
   "relation_count": 0,
-  "url": null,
+  "url": "https://mtor-atlas.org/gene/lc3b-map1lc3b/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/lc3b-map1lc3b.json",
   "description_beginner": "A protein that gets attached to the membrane of autophagosomes (cellular cleanup sacs), so scientists use it as a marker. More of it appears when mTORC1 is blocked, but one measurement cannot tell whether more sacs are being built or fewer are being cleared away: to show real flux you have to block the lysosome as well and compare.",
   "reading_levels": null,
@@ -75,6 +75,52 @@
     "finding": "In a rigorous randomized crossover trial, 63 healthy adults completed both a normal-protein (20% energy) and a reduced-protein (10% energy) diet for 4 weeks each. Despite preclinical evidence that dietary protein restriction should activate autophagy via mTORC1 inhibition, directly measured autophagic flux in blood immune cells did not change between the two diets. This is one of the few human studies to test the protein-restriction-to-autophagy link with a dynamic, flux-based (not just steady-state marker) readout, and the negative result suggests that moderate protein reduction alone, without an accompanying caloric deficit, is not sufficient to engage autophagy in humans the way it does in some animal models.",
     "url": "https://mtor-atlas.org/study/SIN2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2026.json"
+   },
+   {
+    "sid": "CHA2007",
+    "title": "siRNA screening of the kinome identifies ULK1 as a multidomain modulator of autophagy",
+    "authors": "Chan EY; Kir S; Tooze SA",
+    "year": 2007,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m703663200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17595159",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells (GFP-LC3 lipidation assay, kinome siRNA library); HeLa cells; rat ULK1 constructs",
+    "peer_reviewed": true,
+    "finding": "The authors screened a kinase-targeted siRNA library in human HEK293 cells, using lipidation of the autophagy marker GFP-LC3 after amino-acid starvation as the readout. ULK1 came out of the screen: knocking it down blocked starvation-induced autophagy, while knocking down the related kinase ULK2 did not. ULK1 knockdown also blocked autophagy induced by rapamycin, which fits ULK1 acting downstream of mTOR. Overexpressed ULK1 inhibited autophagy independently of its kinase activity, and the dominant-negative effect mapped to residues 1-351, while the conserved C-terminal domain was needed for ULK1 to reach cytoplasmic structures, some of them LC3-positive. One of the early papers to place ULK1 as a required kinase for starvation-induced autophagy in mammalian cells. Boundary: Cultured human cell lines with siRNA and overexpression; no whole-animal data. The link to mTOR rests on rapamycin-induced autophagy, not on a measurement of mTORC1 acting on ULK1. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/CHA2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2007.json"
+   },
+   {
+    "sid": "WYA2018",
+    "title": "NUFIP1 is a ribosome receptor for starvation-induced ribophagy",
+    "authors": "Wyant GA; Abu-Remaileh M; Frenkel EM; Laqtom NN; Dharamdasani V; Lewis CA; Chan SH; Heinze I; Ori A; Sabatini DM",
+    "year": 2018,
+    "journal": "Science",
+    "doi": "10.1126/science.aar2663",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29700228",
+    "pmcid": "PMC6020066",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK-293T and other human/mouse cell lines (incl. 8988T); LysoIP lysosome proteomics; CRISPR knockouts of NUFIP1, ATG7, DEPDC5 (GATOR1); Torin1, amino-acid and glucose starvation; electron microscopy",
+    "peer_reviewed": true,
+    "finding": "The authors purified lysosomes from human cells and measured how their protein content changes when mTORC1 is switched off by nutrient starvation or by the mTOR inhibitor Torin1, defining 828 lysosome-associated proteins. One responder, NUFIP1 (with its partner ZNHIT3), moved from the nucleus to autophagosomes and lysosomes after mTORC1 inhibition, bound ribosomes from Torin1-treated cells, and bound LC3B directly through a motif lost in the W40A mutant. Without NUFIP1 or its LC3B-binding ability, starvation or Torin1 no longer depleted ribosomal proteins and rRNA, while bulk autophagy and ferritin degradation were unaffected. In cells lacking the GATOR1 subunit DEPDC5, where mTORC1 ignores amino-acid loss, starvation no longer depleted ribosomal proteins but Torin1 still did, which points to mTORC1 inhibition as the trigger. NUFIP1 loss reduced survival under starvation (rescued by nucleosides) and blunted mTORC1 reactivation after long arginine deprivation. Boundary: Human and mouse cell lines over hours of starvation; Torin1 inhibits both mTOR complexes. No tissue or whole-animal data.",
+    "url": "https://mtor-atlas.org/study/WYA2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2018.json"
    }
   ],
   "relations": []

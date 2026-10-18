@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -300,7 +300,9 @@
     "supporting": [
      "INO2002",
      "KAL2026",
-     "LAP2026"
+     "LAP2026",
+     "MAN2002",
+     "POT2002"
     ],
     "conflicting": []
    },
@@ -479,7 +481,8 @@
     },
     "supporting": [
      "INO2003",
-     "INO2006"
+     "INO2006",
+     "BUD2008"
     ],
     "conflicting": []
    },
@@ -1308,7 +1311,8 @@
      "SAB1995",
      "CHU1992",
      "BRO1994",
-     "AYL2015"
+     "AYL2015",
+     "YIP2010"
     ],
     "conflicting": []
    },
@@ -2117,8 +2121,7 @@
    "context": null,
    "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
    "boundary_tags": [
-    "cell-line-only",
-    "single-study"
+    "cell-line-only"
    ],
    "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
    "consensus_contested": false,
@@ -2136,7 +2139,8 @@
      "label": "Molecular — cells, biochemistry, structure"
     },
     "supporting": [
-     "SHW2004"
+     "SHW2004",
+     "COR2004"
     ],
     "conflicting": []
    },
@@ -2510,7 +2514,8 @@
      "KAN2013",
      "HAR1998",
      "BRU1997",
-     "NOJ2003"
+     "NOJ2003",
+     "SAT2010"
     ],
     "conflicting": []
    },
@@ -2968,8 +2973,8 @@
    "evidence": {
     "kind": "Direct biochemical",
     "strongest": {
-     "code": "M",
-     "label": "Molecular — cells, biochemistry, structure"
+     "code": "A",
+     "label": "Animal model"
     },
     "supporting": [
      "BUR1998",
@@ -2977,7 +2982,9 @@
      "HOL2005",
      "KAN2013",
      "HAR1998",
-     "NOJ2003"
+     "NOJ2003",
+     "POD2001",
+     "JEF1997"
     ],
     "conflicting": []
    },
@@ -3090,7 +3097,8 @@
     },
     "supporting": [
      "POR2008",
-     "PET2011"
+     "PET2011",
+     "DUV2010"
     ],
     "conflicting": []
    },
@@ -3150,10 +3158,12 @@
      "MAR2012",
      "SET2011",
      "GOL2022",
-     "CUI2023"
+     "CUI2023",
+     "MAR2013"
     ],
     "conflicting": [
-     "ZHANG2026"
+     "ZHANG2026",
+     "PEN2011"
     ]
    },
    "external_refs": [],
@@ -3212,7 +3222,9 @@
      "HSI2012",
      "VAL2017",
      "INO2006",
-     "FER2026"
+     "FER2026",
+     "NES2001",
+     "POD2001"
     ],
     "conflicting": []
    },
@@ -3380,8 +3392,8 @@
    "evidence": {
     "kind": "Direct biochemical",
     "strongest": {
-     "code": "M",
-     "label": "Molecular — cells, biochemistry, structure"
+     "code": "A",
+     "label": "Animal model"
     },
     "supporting": [
      "JAC2006",
@@ -3390,7 +3402,9 @@
      "LIU2015",
      "ROD2011",
      "ARI2015",
-     "GAN2011"
+     "GAN2011",
+     "FAC2008",
+     "HAG2012"
     ],
     "conflicting": []
    },
@@ -3486,10 +3500,9 @@
    "mechanism": "In an mTOR-driven mouse liver model that progresses from steatosis to hepatocellular carcinoma, hepatic mTORC2 promoted de novo fatty-acid, sphingolipid and cardiolipin synthesis, and blocking lipid synthesis prevented the tumours.",
    "mechanism_beginner": "mTORC2 also drives fat-making, which is one of the ways it is thought to help tumours grow. The cause-and-effect part was shown in mice; in people with liver cancer, the study only found that more fat-making went together with higher mTORC2 activity.",
    "context": null,
-   "boundary": "Single-study edge in this corpus. The causal part is one mouse liver tumour model (GUR2017) that progresses from steatosis to hepatocellular carcinoma. The same paper reports that in human HCC, increased lipogenesis correlated with elevated mTORC2 activity: correlative human data, not a test of this step. Not established as a general mTORC2 function outside that setting.",
+   "boundary": "The causal part comes from mouse liver: one liver tumour model (GUR2017) that progresses from steatosis to hepatocellular carcinoma, and liver-specific Rictor knockout in otherwise normal mice (HAG2012), where loss of mTORC2 lowered lipogenesis through Akt and SREBP1c. GUR2017 also reports that in human HCC, increased lipogenesis correlated with elevated mTORC2 activity: correlative human data, not a test of this step. Not established as a general mTORC2 function outside liver.",
    "boundary_tags": [
     "single-species",
-    "single-study",
     "tissue-specific"
    ],
    "note": "The arrow means mTORC2 drove de novo lipid synthesis in one hepatic tumour model. It is not a claim that mTORC2 controls lipid synthesis generally, or in people. 2026-10-10: beginner text said 'not measured in patients'; GUR2017 (abstract, PMID 29232555) does report a correlation in human HCC. Wording corrected to correlative.",
@@ -3508,7 +3521,8 @@
      "label": "Animal model"
     },
     "supporting": [
-     "GUR2017"
+     "GUR2017",
+     "HAG2012"
     ],
     "conflicting": []
    },
@@ -4381,9 +4395,7 @@
    "mechanism_beginner": "REDD1 acts through the TSC brake, so low oxygen and low growth-factor signals end up hitting the very same switch.",
    "context": null,
    "boundary": "One study in mammalian cells (BRU2004). A single study, not replicated in this corpus, and not tested in whole animals or in people.",
-   "boundary_tags": [
-    "single-study"
-   ],
+   "boundary_tags": [],
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4400,7 +4412,8 @@
      "label": "Molecular — cells, biochemistry, structure"
     },
     "supporting": [
-     "BRU2004"
+     "BRU2004",
+     "DEY2008"
     ],
     "conflicting": []
    },
@@ -5209,7 +5222,8 @@
     "supporting": [
      "POR2008",
      "PET2011",
-     "SHI2014"
+     "SHI2014",
+     "DUV2010"
     ],
     "conflicting": []
    },
@@ -5672,7 +5686,11 @@
      "CHEN2026C",
      "ZHANG2026",
      "DEM2014",
-     "SEN2010"
+     "SEN2010",
+     "GAO2002",
+     "TEE2002",
+     "KWI2002",
+     "DEY2008"
     ],
     "conflicting": []
    },
@@ -5842,7 +5860,9 @@
     "supporting": [
      "GAN2009",
      "HOS2009",
-     "EGA2010"
+     "EGA2010",
+     "CHA2007",
+     "RUS2013"
     ],
     "conflicting": []
    },
@@ -5961,7 +5981,9 @@
      "MEI2008",
      "KAN2013",
      "FIN2002",
-     "BRU1997"
+     "BRU1997",
+     "SAT2010",
+     "YIP2010"
     ],
     "conflicting": []
    },
@@ -6427,7 +6449,9 @@
     },
     "supporting": [
      "SET2011",
-     "ROC2012"
+     "ROC2012",
+     "SAR2009",
+     "PEN2011"
     ],
     "conflicting": []
    },
@@ -6596,7 +6620,8 @@
     },
     "supporting": [
      "CUN2007",
-     "MOR2013"
+     "MOR2013",
+     "SCH2006"
     ],
     "conflicting": [
      "POL2008"
@@ -6920,10 +6945,8 @@
    "mechanism": "mTOR inhibition reverses Akt-driven prostate intraepithelial neoplasia partly through HIF-1-dependent pathways, placing HIF-1α downstream of mTORC1 in this setting.",
    "mechanism_beginner": "In one specific setting (prostate cells), mTORC1 turns on a factor usually associated with low oxygen – here it's mTORC1 driving it, not the other way around.",
    "context": null,
-   "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment.",
-   "boundary_tags": [
-    "single-study"
-   ],
+   "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment. DUV2010 adds cultured-cell evidence (Tsc2-null fibroblasts with rapamycin) that mTORC1 drives HIF1α target genes such as glycolytic enzymes; still no human tissue data.",
+   "boundary_tags": [],
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6940,7 +6963,8 @@
      "label": "Animal model"
     },
     "supporting": [
-     "MAJ2004"
+     "MAJ2004",
+     "DUV2010"
     ],
     "conflicting": []
    },
@@ -7652,7 +7676,8 @@
     "supporting": [
      "HSI2012",
      "WAN2026",
-     "PLEDGER2026"
+     "PLEDGER2026",
+     "JEF1997"
     ],
     "conflicting": []
    },

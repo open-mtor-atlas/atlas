@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BUD2008",
+  "title": "p53 target genes sestrin1 and sestrin2 connect genotoxic stress and mTOR signaling",
+  "authors": "Budanov AV; Karin M",
+  "year": 2008,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2008.06.028",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18692468",
+  "pmcid": "PMC2758522",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human and mouse cell lines; Sesn2-deficient mice challenged with DNA damage",
+  "peer_reviewed": true,
+  "finding": "Connected DNA damage to mTOR. Two p53 target genes, Sestrin1 and Sestrin2, bound and activated AMPK and steered it to phosphorylate TSC2, which raised TSC2 GAP activity and lowered mTOR signalling. Sesn2-deficient mice failed to inhibit mTOR signalling after genotoxic challenge. This describes the stress-induced arm of Sestrin biology; the later leucine-sensing role of Sestrin2 through GATOR2 is a separate mechanism. Boundary: cell lines and mice under acute genotoxic stress; no human data.",
+  "url": "https://mtor-atlas.org/study/BUD2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BUD2008.json",
+  "abstract_excerpt": "The tumor suppressor p53 is activated upon genotoxic and oxidative stress and in turn inhibits cell proliferation and growth through induction of specific target genes. Cell growth is positively regulated by mTOR, whose activity is inhibited by the TSC1:TSC2 complex. Although genotoxic stress has been suggested to inhibit mTOR via p53-mediated activation of mTOR inhibitors, the precise mechanism of this link was unknown.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Sestrin1/2 overexpression and knockdown; genotoxic stress; Sesn2 knockout mice",
+   "target": "p53 -> Sestrin1/2 -> AMPK -> TSC2 -> mTOR",
+   "species": "Human and mouse cells; mice",
+   "effect": "Sestrins activate AMPK toward TSC2 and inhibit mTOR after DNA damage"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AMPK-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DEMMINGS2026",
+   "LEE2010",
+   "MAN2016",
+   "SAX2015"
+  ]
+ }
+}

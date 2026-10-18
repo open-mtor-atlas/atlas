@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BON2012",
+  "title": "Leucyl-tRNA synthetase controls TORC1 via the EGO complex",
+  "authors": "Bonfils G; Jaquenoud M; Bontron S; Ostrowicz C; Ungermann C; De Virgilio C",
+  "year": 2012,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2012.02.009",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22424774",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Budding yeast (Saccharomyces cerevisiae) genetics and biochemistry; LeuRS Cdc60 and EGO complex (Gtr1) interaction assays",
+  "peer_reviewed": true,
+  "finding": "In budding yeast, the leucyl-tRNA synthetase Cdc60 bound the Rag GTPase Gtr1, part of the EGO complex that activates TORC1, and this binding depended on leucine. The authors reported that the interaction was both necessary and sufficient to pass the leucine signal on to TORC1. When Cdc60 was busy editing wrongly charged tRNA(Leu), the interaction with Gtr1 was lost. The model is that TORC1 reads how well tRNA(Leu) is being charged as a stand-in for how much leucine the cell has. Together with Han et al. 2012 in human cells, it was one of the early papers to propose a tRNA synthetase as a leucine sensor upstream of the Rags. Boundary: Yeast only. The mammalian leucine sensor most widely accepted today is Sestrin2, and this yeast mechanism has not been reconciled with it. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/BON2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BON2012.json",
+  "abstract_excerpt": "The target of rapamycin complex 1 (TORC1) is an essential regulator of eukaryotic cell growth that responds to growth factors, energy levels, and amino acids. The mechanisms through which the preeminent amino acid leucine signals to the TORC1-regulatory Rag GTPases, which activate TORC1 within the yeast EGO complex (EGOC) or the structurally related mammalian Rag-Ragulator complex, remain elusive. We find that the leucyl-tRNA synthetase (LeuRS) Cdc60 interacts with the Rag GTPase Gtr1 of the EGOC in a leucine-dependent manner.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Leucine availability; Cdc60 (LeuRS) mutants affecting tRNA(Leu) editing",
+   "target": "Cdc60-Gtr1 interaction; TORC1 activity",
+   "species": "Saccharomyces cerevisiae",
+   "effect": "Leucine promotes LeuRS (Cdc60) binding to Gtr1, which activates TORC1; tRNA editing by Cdc60 disrupts this"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lars-leucyl-trna-synthetase",
+    "name": "LARS (leucyl-tRNA synthetase)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "leucine",
+    "name": "Leucine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "HAN2012",
+   "DAL2016",
+   "JEW2015",
+   "MAN2016"
+  ]
+ }
+}

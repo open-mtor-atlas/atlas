@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "PEN2011",
+  "title": "Regulation of TFEB and V-ATPases by mTORC1",
+  "authors": "Peña-Llopis S; Vega-Rubin-de-Celis S; Schwartz JC; Wolff NC; Tran TA; Zou L; Xie XJ; Corey DR; Brugarolas J",
+  "year": 2011,
+  "journal": "EMBO Journal",
+  "doi": "10.1038/emboj.2011.257",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "21804531",
+  "pmcid": "PMC3160667",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Tsc2-/- vs Tsc2+/+ immortalized MEFs (serum-deprived, +/- rapamycin) with microarrays; Tsc1 floxed primary MEFs and mouse liver (Ad-Cre); myr-Akt prostate model with everolimus (public data); HeLa cells with TSC2/Raptor knockdown",
+  "peer_reviewed": true,
+  "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
+  "url": "https://mtor-atlas.org/study/PEN2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json",
+  "abstract_excerpt": "Mammalian target of rapamycin (mTOR) complex 1 (mTORC1) is an important, highly conserved, regulator of cell growth. Ancient among the signals that regulate mTORC1 are nutrients. Amino acids direct mTORC1 to the surface of the late endosome/lysosome, where mTORC1 becomes receptive to other inputs. However, the interplay between endosomes and mTORC1 is poorly understood. Here, we report the discovery of a network that links mTORC1 to a critical component of the late endosome/lysosome, the V-ATPase.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Tsc2 or Tsc1 loss (genetic), rapamycin, Raptor knockdown; Tfeb knockdown",
+   "target": "mTORC1 -> TFEB -> V-ATPase genes",
+   "species": "Mouse cells and mouse liver; human HeLa cells",
+   "effect": "mTORC1 activation increased V-ATPase and lysosomal gene expression and endocytosis in a TFEB-dependent way; under low serum it increased TFEB nuclear localisation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TFEB-LYSOBIO"
+   ],
+   "conflicts_with": [
+    "MTORC1-TFEB"
+   ]
+  },
+  "questions": [],
+  "related_studies": [
+   "ESP2026",
+   "ABU2017",
+   "MAN2016",
+   "ZON2011"
+  ]
+ }
+}

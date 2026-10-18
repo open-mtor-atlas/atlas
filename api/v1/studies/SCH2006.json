@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SCH2006",
+  "title": "The mammalian target of rapamycin (mTOR) pathway regulates mitochondrial oxygen consumption and oxidative capacity",
+  "authors": "Schieke SM; Phillips D; McCoy JP; Aponte AM; Shen RF; Balaban RS; Finkel T",
+  "year": 2006,
+  "journal": "Journal of Biological Chemistry",
+  "doi": "10.1074/jbc.m603536200",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "16847060",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human Jurkat T cells (per MeSH); rapamycin; RNAi against TSC2, S6K1, raptor and rictor; subcellular fractionation; 2D-DIGE phosphoproteomics",
+  "peer_reviewed": true,
+  "finding": "In human cultured cells, the amount of mTOR-raptor complex correlated with overall mitochondrial activity. Disrupting the complex with rapamycin lowered mitochondrial membrane potential, oxygen consumption and ATP-synthetic capacity. mTOR and mTOR-raptor complexes were found in purified mitochondrial fractions, and rapamycin markedly changed the mitochondrial phosphoproteome. RNA interference against TSC2, S6K1, raptor or rictor led the authors to conclude that mTOR regulates mitochondrial activity independently of its previously known targets, and they proposed that mTOR activity shifts the balance between mitochondrial and non-mitochondrial ATP production. Boundary: Cultured human cell line with acute pharmacological and RNAi manipulation; the link to lifespan is a hypothesis drawn from lower organisms, not tested here. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/SCH2006/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2006.json",
+  "abstract_excerpt": "Metabolic rate and the subsequent production of reactive oxygen species are thought to contribute to the rate of aging in a wide range of species. The target of rapamycin (TOR) is a well conserved serine/threonine kinase that regulates cell growth in response to nutrient status. Here we demonstrate that in mammalian cells the mammalian TOR (mTOR) pathway plays a significant role in determining both resting oxygen consumption and oxidative capacity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin; RNAi against TSC2, S6K1, raptor, rictor",
+   "target": "Mitochondrial oxygen consumption, membrane potential, ATP synthesis; mitochondrial phosphoproteome",
+   "species": "Human cell line",
+   "effect": "mTOR inhibition with rapamycin lowers mitochondrial respiration and oxidative capacity"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "oxidative-phosphorylation",
+    "name": "Oxidative phosphorylation",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-OXPHOS"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CUN2007",
+   "MOR2013",
+   "SHIMADA2026",
+   "ANA2019"
+  ]
+ }
+}

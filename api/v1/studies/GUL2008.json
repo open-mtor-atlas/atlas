@@ -1,0 +1,77 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GUL2008",
+  "title": "Amino acids activate mTOR complex 1 via Ca2+/CaM signaling to hVps34",
+  "authors": "Gulati P; Gaspers LD; Dann SG; Joaquin M; Nobukuni T; Natt F; Kozma SC; Thomas AP; Thomas G",
+  "year": 2008,
+  "journal": "Cell Metabolism",
+  "doi": "10.1016/j.cmet.2008.03.002",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18460336",
+  "pmcid": "PMC2587347",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cell lines (HEK293 and HeLa per MeSH); intracellular Ca2+ imaging; hVps34 site-directed mutants; S6K1 phosphorylation readouts",
+  "peer_reviewed": true,
+  "finding": "In cultured human cells, adding amino acids raised the free calcium level inside the cell, and this rise was needed for amino acids to switch on mTORC1 and the lipid kinase hVps34. Calcium-bound calmodulin bound directly to a conserved motif in hVps34, and the authors showed this motif was needed for hVps34 lipid kinase activity and for the increase in mTORC1 signalling. The paper proposed a route from amino acids to mTORC1 that runs through class III PI3K (hVps34) rather than the class I PI3K used by insulin and growth factors. Boundary: Human cell lines only. The calcium/hVps34 route was proposed before the Rag-Ragulator-GATOR model and is not part of the current consensus amino-acid pathway. Drafted from the abstract only.",
+  "url": "https://mtor-atlas.org/study/GUL2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GUL2008.json",
+  "abstract_excerpt": "Excess levels of circulating amino acids (AAs) play a causal role in specific human pathologies, including obesity and type 2 diabetes. Moreover, obesity and diabetes are contributing factors in the development of cancer, with recent studies suggesting that this link is mediated in part by AA activation of mammalian target of rapamycin (mTOR) Complex 1. AAs appear to mediate this response through class III phosphatidylinositol 3-kinase (PI3K), or human vacuolar protein sorting 34 (hVps34), rather than through the canonical class I PI3K pathway used by growth factors and hormones.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Amino acid stimulation; Ca2+ chelation; hVps34 CaM-binding motif mutants",
+   "target": "hVps34 lipid kinase activity; mTORC1 signalling",
+   "species": "Human cell lines",
+   "effect": "Amino acids -> rise in intracellular Ca2+ -> Ca2+/CaM binds hVps34 -> increased mTORC1 signalling"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "vps34-pik3c3",
+    "name": "Vps34 (PIK3C3)",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BYF2005",
+   "NOB2005",
+   "RUS2013"
+  ]
+ }
+}

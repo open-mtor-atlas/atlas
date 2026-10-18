@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "948e62c5fe46b41f05f6e77a21f3e6a50ee3d85d10957b9e88a18412f73c7c63",
-  "corpus_snapshot": "2026-10-18T07:45:27+0200",
-  "source_commit": "25877d20269088e5425ffba439971808d0593545",
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,7 +22,7 @@
   "type": "Gene/Protein",
   "synonyms": [],
   "description": "Master transcription factor for lysosome biogenesis and autophagy. mTORC1 phosphorylates TFEB to trap it in the cytosol; when mTORC1 is off, TFEB enters the nucleus and turns on the cell's recycling program.",
-  "study_count": 13,
+  "study_count": 17,
   "relation_count": 3,
   "url": "https://mtor-atlas.org/gene/tfeb/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/tfeb.json",
@@ -332,6 +332,98 @@
     "finding": "The four mammalian Rag GTPase paralogues are not functionally interchangeable: RagC/D determines substrate specificity (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding), while RagA/B determines the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even upon starvation). Author correction issued 2023 (PMID 36536178, no change to conclusions).",
     "url": "https://mtor-atlas.org/study/GOL2022/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/GOL2022.json"
+   },
+   {
+    "sid": "SAR2009",
+    "title": "A gene network regulating lysosomal biogenesis and function",
+    "authors": "Sardiello M; Palmieri M; di Ronza A; Medina DL; Valenza M; Gennarino VA; Di Malta C; Donaudy F; Embrione V; Polishchuk RS; Banfi S; Parenti G; Cattaneo E; Ballabio A",
+    "year": 2009,
+    "journal": "Science",
+    "doi": "10.1126/science.1174447",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19556463",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Promoter/expression analysis of lysosomal genes; cultured human (HeLa) and mouse cells with TFEB overexpression; lysosomal storage conditions (sucrose loading)",
+    "peer_reviewed": true,
+    "finding": "The authors found that most lysosomal genes show coordinated expression and share a promoter motif (later called the CLEAR element) that is bound and regulated by the transcription factor TFEB. Under conditions of abnormal lysosomal storage, TFEB moved from the cytoplasm to the nucleus and switched on its target genes. Overexpressing TFEB in cultured cells increased the number of lysosomes and the cells' capacity to degrade complex molecules, including glycosaminoglycans and the mutant huntingtin protein. The paper provided evidence that lysosome production is run by a transcriptional programme with TFEB at its centre, which later work tied to mTORC1 control. Boundary: Cultured cells with TFEB overexpression; mTOR was not studied in this paper. Therapeutic potential for storage and neurodegenerative disease is proposed, not tested. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/SAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2009.json"
+   },
+   {
+    "sid": "PEN2011",
+    "title": "Regulation of TFEB and V-ATPases by mTORC1",
+    "authors": "Peña-Llopis S; Vega-Rubin-de-Celis S; Schwartz JC; Wolff NC; Tran TA; Zou L; Xie XJ; Corey DR; Brugarolas J",
+    "year": 2011,
+    "journal": "EMBO Journal",
+    "doi": "10.1038/emboj.2011.257",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21804531",
+    "pmcid": "PMC3160667",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- vs Tsc2+/+ immortalized MEFs (serum-deprived, +/- rapamycin) with microarrays; Tsc1 floxed primary MEFs and mouse liver (Ad-Cre); myr-Akt prostate model with everolimus (public data); HeLa cells with TSC2/Raptor knockdown",
+    "peer_reviewed": true,
+    "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
+    "url": "https://mtor-atlas.org/study/PEN2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json"
+   },
+   {
+    "sid": "MAR2013",
+    "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+    "authors": "Martina JA; Puertollano R",
+    "year": 2013,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.201209135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23401004",
+    "pmcid": "PMC3575543",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+    "peer_reviewed": true,
+    "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+    "url": "https://mtor-atlas.org/study/MAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json"
+   },
+   {
+    "sid": "SET2013",
+    "title": "TFEB controls cellular lipid metabolism through a starvation-induced autoregulatory loop",
+    "authors": "Settembre C; De Cegli R; Mansueto G; Saha PK; Vetrini F; Visvikis O; Huynh T; Carissimo A; Palmer D; Klisch TJ; Wollenberg AC; Di Bernardo D; Chan L; Irazoqui JE; Ballabio A",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2718",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23604321",
+    "pmcid": "PMC3699877",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: 24 h fasting, liver-specific Tfeb knockout, liver-directed TFEB overexpression (helper-dependent adenovirus), high-fat diet and ob/ob obesity, liver Pgc1a and Atg7 deletion, Ppara knockout; HeLa cells, MEFs and primary hepatocytes; C. elegans hlh-30 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors found that fasting switches on the TFEB gene in mouse liver, muscle and kidney, and that TFEB drives its own transcription by binding CLEAR sites in its promoter, an autoregulatory loop that starvation strengthens. Liver TFEB overexpression changed 773 genes up and 611 down, with lipid catabolism as the top category, and acted largely through PGC-1alpha and PPARalpha: 74% of TFEB-induced genes failed to rise in mice lacking PPARalpha. Mice lacking liver TFEB built up liver fat and mobilised fat poorly during fasting and gained more weight on a high-fat diet, while liver TFEB overexpression prevented and halted diet-induced obesity and improved glucose tolerance in obese ob/ob mice; the lipid effect required autophagy (lost in Atg7-deleted liver). In C. elegans, the TFEB homologue HLH-30 was needed for lipid mobilisation and survival during starvation. Boundary: Mice and worms, with TFEB delivered by virus at overexpression levels. mTORC1 was not manipulated or measured; its role is inferred from earlier work. Not tested in people.",
+    "url": "https://mtor-atlas.org/study/SET2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2013.json"
    }
   ],
   "relations": [
@@ -381,10 +473,12 @@
       "MAR2012",
       "SET2011",
       "GOL2022",
-      "CUI2023"
+      "CUI2023",
+      "MAR2013"
      ],
      "conflicting": [
-      "ZHANG2026"
+      "ZHANG2026",
+      "PEN2011"
      ]
     },
     "external_refs": [],
@@ -497,7 +591,9 @@
      },
      "supporting": [
       "SET2011",
-      "ROC2012"
+      "ROC2012",
+      "SAR2009",
+      "PEN2011"
      ],
      "conflicting": []
     },

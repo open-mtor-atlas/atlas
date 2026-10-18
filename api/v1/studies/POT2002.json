@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "5f19be3a121ae24c374e8f11755737a868f0442a644445a11be784f840314882",
+  "corpus_snapshot": "2026-10-18T09:26:00+0200",
+  "source_commit": "9304c606373364ffdb6e653ae63f12bd34a0d4d6",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "POT2002",
+  "title": "Akt regulates growth by directly phosphorylating Tsc2",
+  "authors": "Potter CJ; Pedraza LG; Xu T",
+  "year": 2002,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb840",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "12172554",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Drosophila melanogaster genetics (eye/tissue growth, Akt overexpression, Tsc2 site mutants); in vitro kinase assays",
+  "peer_reviewed": true,
+  "finding": "Working in fruit flies, the authors showed that Akt directly phosphorylates the Drosophila Tsc2 protein in vitro at two conserved residues, Ser924 and Thr1518. Tsc2 with these sites mutated no longer responded to Akt signalling, and its complex with Tsc1 became more stable. Turning up Akt signalling in fly tissue increased cell size, broke up the Tsc1-Tsc2 complex and changed where the two proteins sat in the cell. Expressing a Tsc2 mutant that Akt cannot phosphorylate blocked the growth signals from Akt, which led the authors to propose Tsc2 as the key Akt target for growth in the insulin pathway. Boundary: Drosophila tissues and in vitro biochemistry with overexpressed mutant proteins; the claim that Tsc2 carries all Akt growth signals was tested in flies, not in mammals.",
+  "url": "https://mtor-atlas.org/study/POT2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/POT2002.json",
+  "abstract_excerpt": "The direct mechanism by which the serine/threonine kinase Akt (also known as protein kinase B (PKB)) regulates cell growth is unknown. Here, we report that Drosophila melanogaster Akt/PKB stimulates growth by phosphorylating the tuberous sclerosis complex 2 (Tsc2) tumour suppressor and inhibiting formation of a Tsc1-Tsc2 complex. We show that Akt/PKB directly phosphorylates Drosophila Tsc2 in vitro at the conserved residues, Ser 924 and Thr 1518. Mutation of these sites renders Tsc2 insensitive to Akt/PKB signalling, increasing the stability of the Tsc1-Tsc2 complex within the cell.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Akt/PKB overexpression; Tsc2 S924/T1518 phospho-site mutants",
+   "target": "Tsc2 phosphorylation; Tsc1-Tsc2 complex; cell size",
+   "species": "Drosophila melanogaster",
+   "effect": "Akt phosphorylates Tsc2 and disrupts the Tsc1-Tsc2 complex -> increased cell growth"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "insulin",
+    "name": "Insulin",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SHA2004",
+   "KUB2012",
+   "SAN2007",
+   "GAR2003"
+  ]
+ }
+}
