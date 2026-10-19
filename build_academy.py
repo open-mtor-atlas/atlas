@@ -644,6 +644,19 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
 .ac-first[hidden]{display:none}
+.ac-illus{margin:4px 0 30px;padding:14px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ac-illus-lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--soft);margin:0 0 10px}
+.ac-illus-row{display:flex;flex-wrap:wrap;gap:14px 18px}
+.ac-ill{margin:0;width:220px}
+.ac-ill>a{display:block;border:1px solid var(--line);border-radius:3px;overflow:hidden;line-height:0}
+.ac-ill img{width:100%;height:auto;display:block;transition:opacity .15s}
+.ac-ill>a:hover img{opacity:.85}
+.ac-ill figcaption{font-size:13.5px;line-height:1.45;margin-top:6px;color:var(--ink)}
+.ac-ill figcaption a{color:var(--teal);text-decoration:none;margin-left:6px;white-space:nowrap}
+.ac-ill figcaption a:hover{text-decoration:underline}
+.ac-illus-note{font-size:13px;color:var(--soft);margin:10px 0 8px;line-height:1.5}
+@media (max-width:640px){.ac-ill{width:100%;max-width:360px}}
 .ac-poster{margin:34px 0 10px}
 .ac-poster-row{display:flex;gap:22px;align-items:flex-start;border-top:1px solid var(--line);padding-top:16px}
 .ac-poster-thumb{flex:0 0 220px;display:block;border:1px solid var(--line);border-radius:3px;
@@ -2666,6 +2679,73 @@ def exercise_card(ex, ctx):
             % (e(ex["id"]), EX_LABEL[ex["kind"]], e(ex["title"]), exercise_html(ex, ctx)))
 
 
+# ---- ilustrace pro zacatecniky v lekcich (Petr 19. 10. 2026) -------------
+# Plakaty z generatoru obrazku, zkontrolovane proti lekcim: prirazene podle
+# OBSAHU, ne podle cisla, ktere nesly (jejich "Lesson 2..5" neodpovidalo
+# poradi na webu; cislo v obrazku je prepsane na cislo lekce, kam patri).
+# V lekci jen maly nahled, kliknutim plna velikost. Obrazek je rastr, proto
+# alt nese obsah a popisek rika, ze jde o zjednoduseni.
+LESSON_ILLUSTRATIONS = {
+    "what-is-mtor": [
+        ("what-is-mtor-overview", "What is mTOR? Six panels",
+         "Six-panel overview: mTOR in the cell, the two complexes mTORC1 (mTOR, Raptor, mLST8, "
+         "PRAS40, Deptor) and mTORC2 (mTOR, Rictor, mSin1, mLST8, Protor, Deptor), the four kinds "
+         "of input (nutrients, growth factors, energy, stress), where in the cell each complex "
+         "works, what mTOR controls (build, grow, recycle) and why it matters for health."),
+    ],
+    "mtorc1-vs-mtorc2": [
+        ("mtorc1-vs-mtorc2-rapamycin", "Rapamycin and mTOR",
+         "Rapamycin from Rapa Nui binds FKBP12 first; the pair docks on the FRB domain of mTOR. "
+         "Acute rapamycin inhibits many mTORC1 outputs such as S6K but not all of them equally; "
+         "prolonged treatment can disrupt mTORC2 assembly in some cell types; as a medicine "
+         "(sirolimus) it is an immunosuppressant, not a universal ageing switch."),
+        ("mtorc1-vs-mtorc2-mtorc2", "mTORC2: survival, metabolism, cytoskeleton",
+         "mTORC2 (mTOR, Rictor, mSIN1, mLST8, with Protor and DEPTOR) responds to PI3K and "
+         "membrane phosphoinositides, phosphorylates Akt at Ser473 while PDK1 phosphorylates "
+         "Thr308, and acts through Akt, SGK and PKC on glucose handling, actin organisation "
+         "and cell survival."),
+    ],
+    "nutrient-sensing": [
+        ("nutrient-sensing-overview", "Nutrients and mTOR signalling",
+         "Amino acids are sensed through Sestrin2 (leucine), CASTOR1 (arginine) and SLC38A9 at "
+         "the lysosome; Rag GTPases bring mTORC1 to the lysosomal surface but do not switch it "
+         "on; growth factors relieve TSC restraint on Rheb, and low energy activates AMPK, "
+         "which restrains mTORC1. Both signals together let mTORC1 drive translation."),
+    ],
+    "mtor-and-autophagy": [
+        ("mtor-and-autophagy-mtorc1", "mTORC1: growth and autophagy",
+         "mTORC1 (mTOR, Raptor, mLST8; PRAS40 and DEPTOR regulate it) is activated at the "
+         "lysosome by amino acids through Rags and by growth factors through Rheb. It "
+         "phosphorylates S6K and 4E-BP1 for protein synthesis, supports lipid and nucleotide "
+         "synthesis, and phosphorylates ULK1 to hold back autophagy; when its activity falls, "
+         "ULK1 can start autophagy."),
+    ],
+}
+
+
+def illustration_block(slug):
+    items = LESSON_ILLUSTRATIONS.get(slug)
+    if not items:
+        return ""
+    figs = []
+    for base, title, alt in items:
+        for f in (base + ".png", base + "-thumb.webp"):
+            if not os.path.exists(os.path.join(HERE, "img", "academy", "lessons", f)):
+                raise SystemExit("build_academy: chybi ilustrace img/academy/lessons/%s" % f)
+        figs.append('<figure class="ac-ill"><a href="/img/academy/lessons/%s.png" '
+                    'title="Open the illustration at full size">'
+                    '<img src="/img/academy/lessons/%s-thumb.webp" width="480" height="320" '
+                    'loading="lazy" decoding="async" alt="%s"></a>'
+                    '<figcaption>%s <a href="/img/academy/lessons/%s.png">Enlarge</a></figcaption>'
+                    '</figure>' % (base, base, e(alt), e(title), base))
+    return ('<aside class="ac-illus" aria-label="Illustration for beginners">'
+            '<p class="ac-illus-lbl">Illustration for beginners</p>'
+            '<div class="ac-illus-row">%s</div>'
+            '<p class="ac-illus-note">A simplified picture of this lesson. It leaves out detail '
+            'on purpose; the text and the studies below carry the evidence.</p></aside>'
+            % "".join(figs))
+
+
 def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw):
     slug = les["slug"]
     url = "%s/academy/%s/%s/" % (SITE, module["slug"], slug)
@@ -2722,6 +2802,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
 
     body.append('<section class="ac-section ac-idea"><h2 id="idea">The core idea</h2>%s</section>'
                 % levelled(les["coreIdea"], les.get("coreIdeaBeginner")))
+    body.append(illustration_block(slug))
 
     for i, s in enumerate(les["sections"]):
         cls = "ac-section" + (" ac-cautionsec" if s["kind"] == "caution" else "")
