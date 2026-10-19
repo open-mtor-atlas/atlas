@@ -64,6 +64,23 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
 .ac-first[hidden]{display:none}
+.ac-poster{margin:34px 0 10px}
+.ac-poster-row{display:flex;gap:22px;align-items:flex-start;border-top:1px solid var(--line);padding-top:16px}
+.ac-poster-thumb{flex:0 0 220px;display:block;border:1px solid var(--line);border-radius:3px;
+  overflow:hidden;line-height:0}
+.ac-poster-thumb img{width:100%;height:auto;display:block;transition:opacity .15s}
+.ac-poster-thumb:hover img{opacity:.85}
+.ac-poster-body{flex:1;min-width:0;max-width:640px}
+.ac-poster h2{font-size:18px;line-height:1.3;margin:0 0 6px;border:0;padding:0}
+.ac-poster-body p{font-size:15px;line-height:1.55;margin:0 0 8px;color:var(--soft)}
+.ac-poster-links{display:flex;flex-wrap:wrap;gap:4px 18px}
+.ac-poster-links a{color:var(--teal);text-decoration:none;font-size:14.5px}
+.ac-poster-links a:hover{text-decoration:underline}
+.ac-poster-text summary{cursor:pointer;font-size:14.5px;color:var(--ink);padding:2px 0}
+.ac-poster-text h3{font-size:15px;margin:14px 0 6px}
+.ac-poster-text ol{margin:0 0 6px;padding-left:20px}
+.ac-poster-text li{font-size:14.5px;line-height:1.6;margin:0 0 5px;color:var(--ink)}
+@media (max-width:640px){.ac-poster-row{flex-direction:column}.ac-poster-thumb{flex-basis:auto;width:100%;max-width:360px}}
 .ac-firstlist{margin:0;padding:0;list-style:none;counter-reset:fh;border-top:1px solid var(--line)}
 .ac-firstlist li{counter-increment:fh;border-bottom:1px solid var(--line)}
 .ac-firstlist a{display:flex;gap:10px;align-items:baseline;padding:12px 4px;text-decoration:none;
