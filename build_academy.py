@@ -644,6 +644,23 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
 .ac-first[hidden]{display:none}
+.ac-poster{margin:34px 0 10px}
+.ac-poster-row{display:flex;gap:22px;align-items:flex-start;border-top:1px solid var(--line);padding-top:16px}
+.ac-poster-thumb{flex:0 0 220px;display:block;border:1px solid var(--line);border-radius:3px;
+  overflow:hidden;line-height:0}
+.ac-poster-thumb img{width:100%;height:auto;display:block;transition:opacity .15s}
+.ac-poster-thumb:hover img{opacity:.85}
+.ac-poster-body{flex:1;min-width:0;max-width:640px}
+.ac-poster h2{font-size:18px;line-height:1.3;margin:0 0 6px;border:0;padding:0}
+.ac-poster-body p{font-size:15px;line-height:1.55;margin:0 0 8px;color:var(--soft)}
+.ac-poster-links{display:flex;flex-wrap:wrap;gap:4px 18px}
+.ac-poster-links a{color:var(--teal);text-decoration:none;font-size:14.5px}
+.ac-poster-links a:hover{text-decoration:underline}
+.ac-poster-text summary{cursor:pointer;font-size:14.5px;color:var(--ink);padding:2px 0}
+.ac-poster-text h3{font-size:15px;margin:14px 0 6px}
+.ac-poster-text ol{margin:0 0 6px;padding-left:20px}
+.ac-poster-text li{font-size:14.5px;line-height:1.6;margin:0 0 5px;color:var(--ink)}
+@media (max-width:640px){.ac-poster-row{flex-direction:column}.ac-poster-thumb{flex-basis:auto;width:100%;max-width:360px}}
 .ac-firstlist{margin:0;padding:0;list-style:none;counter-reset:fh;border-top:1px solid var(--line)}
 .ac-firstlist li{counter-increment:fh;border-bottom:1px solid var(--line)}
 .ac-firstlist a{display:flex;gap:10px;align-items:baseline;padding:12px 4px;text-decoration:none;
@@ -3378,6 +3395,58 @@ def academy_home(modules, lessons_by_slug, challenges):
                 '%s</div>'
                 % (SITE, SITE, SITE, SITE, SITE,
                    ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))
+
+    # ---- plakat "The mTOR story" pro zacatecniky a ucitele (2026-10-19) ---
+    # Petr 19. 10. 2026: nejdriv velky blok nahore, pak "zmensit, at to neni
+    # dominantni, Academy ma byt sofistikovanejsi" -> maly nahled uplne dole,
+    # rozkliknuti na plnou velikost a PDF pro ucitele. Obrazek je rastr, proto
+    # vedle nej textova verze (K5 bez JS, ctecky, vyhledavace).
+    _pdf = os.path.join(HERE, "img", "academy", "mtor-story-poster-A3.pdf")
+    pdf_size = ("%.1f&nbsp;MB" % (os.path.getsize(_pdf) / 1048576.0)) if os.path.exists(_pdf) else "PDF"
+    poster_txt = [
+        ("Chapter 1 &middot; The discovery", [
+            "In the 1970s, scientists isolated a new molecule from a soil bacterium collected on Rapa Nui (Easter Island). They named it rapamycin.",
+            "Rapamycin was first studied as an antifungal drug. Researchers then noticed that it stops cell growth in many organisms.",
+            "In the 1990s, genetic studies in yeast found the genes TOR1 and TOR2 (target of rapamycin). Soon after, the mammalian version was found: mTOR. Rapamycin first binds a small protein called FKBP12, and this pair then binds the FRB domain of mTOR and blocks its activity.",
+            "mTOR turned out to be part of a large signalling network that helps cells sense their environment and decide what to do. It is not just the target of a drug; it is a central controller of how cells live.",
+        ]),
+        ("Chapter 2 &middot; The mechanism", [
+            "mTOR works in two protein complexes. mTORC1 drives protein synthesis and cell growth and holds back autophagy. mTORC2 supports cell survival, metabolism, insulin signalling through AKT and the cell's skeleton.",
+            "mTOR combines four kinds of information: nutrients such as amino acids, growth factors such as insulin, the cell's energy status (AMPK, the ATP to ADP ratio) and stress such as damage or low oxygen.",
+            "Amino acids are sensed at the surface of the lysosome, the cell's recycling centre. They signal through Rag GTPases (RagA/B and RagC/D), which bring mTORC1 to the lysosome so it can be switched on.",
+            "When conditions are good, active mTORC1 builds proteins and new cell parts. When nutrients are scarce or the cell is stressed, mTORC1 activity drops and autophagy starts: the cell breaks down damaged parts and reuses the material.",
+        ]),
+        ("Chapter 3 &middot; The future", [
+            "Altered mTOR signalling can contribute to cancer, metabolic disease such as insulin resistance, neurological disease and problems with the immune system.",
+            "Rapamycin and related drugs (rapalogs) are already used in medicine, for example to prevent rejection after organ transplants and to treat certain cancers. They also have side effects and are not suitable for every disease or patient.",
+            "In yeast, worms, flies and mice, reducing mTOR signalling can extend lifespan. In humans we still do not know whether it can safely improve healthy ageing, which tissues should be targeted, or what the long-term effects are.",
+            "Open research areas include more specific drugs, personalised medicine, healthy ageing, mTOR in the brain, and how mTOR links metabolism and immunity.",
+        ]),
+    ]
+    txt = "".join('<h3>%s</h3><ol>%s</ol>' % (h, "".join("<li>%s</li>" % e(t) for t in items))
+                  for h, items in poster_txt)
+    body.append(
+        '<section class="ac-poster" id="mtor-story" aria-labelledby="acPosterH">'
+        '<p class="ac-sechead">For beginners and teachers</p>'
+        '<div class="ac-poster-row">'
+        '<a class="ac-poster-thumb" href="/img/academy/mtor-story-poster.png" '
+        'title="Open the poster at full size">'
+        '<img src="/img/academy/mtor-story-poster-480.webp" width="480" height="320" '
+        'loading="lazy" decoding="async" alt="Thumbnail of the poster The mTOR story, '
+        'three chapters: the discovery of rapamycin and mTOR, how mTOR reads nutrients, growth '
+        'factors, energy and stress, and what it means for disease, medicine and ageing."></a>'
+        '<div class="ac-poster-body">'
+        '<h2 id="acPosterH">The mTOR story on one page</h2>'
+        '<p>A twelve-panel poster for readers meeting mTOR for the first time: from a soil '
+        'bacterium on Easter Island to the cell&rsquo;s growth-or-recycle decision and what it '
+        'means for medicine and ageing. It simplifies on purpose; the lessons carry the evidence.</p>'
+        '<p class="ac-poster-links">'
+        '<a href="/img/academy/mtor-story-poster.png">Open full size</a>'
+        '<a href="/img/academy/mtor-story-poster-A3.pdf" download>PDF for the classroom '
+        '(A3 landscape, %s)</a></p>'
+        '<details class="ac-poster-text"><summary>Read the poster as text</summary>%s</details>'
+        '</div></div></section>'
+        % (pdf_size, txt))
     if modules.get("furtherLearning"):
         body.append('<p class="ac-sechead">Beyond the Atlas</p>'
                     '<p>Free courses and lectures elsewhere, from MIT, Coursera, iBiology and others, '
