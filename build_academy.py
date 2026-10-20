@@ -2705,6 +2705,31 @@ LESSON_ILLUSTRATIONS = {
          "Thr308, and acts through Akt, SGK and PKC on glucose handling, actin organisation "
          "and cell survival."),
     ],
+    "rheb": [
+        ("rheb-overview", "Rheb: the mTORC1 switch",
+         "Rheb is a small GTPase: bound to GTP it directly stimulates mTORC1, bound to GDP it "
+         "does so poorly. Rag GTPases bring mTORC1 to the lysosome where it can meet Rheb-GTP; "
+         "recruitment alone is not activation. TSC1/TSC2 acts as a GAP that turns Rheb off, "
+         "Akt signalling relieves that brake, and which membrane pool of farnesylated Rheb "
+         "activates mTORC1 is still an open question."),
+    ],
+    "tsc-and-rheb": [
+        ("tsc-and-rheb-overview", "TSC: the mTORC1 brake",
+         "TSC1 (hamartin), TSC2 (tuberin) and TBC1D7 form a tumour-suppressor complex. TSC2 is "
+         "a GAP that speeds GTP hydrolysis on Rheb. Insulin and IGF signalling through Akt "
+         "inhibit the complex, AMPK under low energy activates it, and stress can recruit it "
+         "to the lysosome. Losing TSC1 or TSC2 raises mTORC1 signalling and is associated with "
+         "tuberous sclerosis complex."),
+    ],
+    "lysosome-platform": [
+        ("lysosome-platform-overview", "The lysosome as a signalling hub",
+         "The lysosome recycles cellular cargo and is also a platform for signalling. Sestrin2 "
+         "(leucine) and CASTOR1 (arginine) sense amino acids in the cytosol; SLC38A9 and the "
+         "v-ATPase contribute at the lysosome. Ragulator and the Rag GTPases recruit mTORC1 "
+         "to the lysosomal surface, where Rheb-GTP activates it; growth-factor and energy "
+         "signals act there through TSC and Rheb. Lysosomes also fuse with autophagosomes and "
+         "take part in TFEB-linked regulation."),
+    ],
     "nutrient-sensing": [
         ("nutrient-sensing-overview", "Nutrients and mTOR signalling",
          "Amino acids are sensed through Sestrin2 (leucine), CASTOR1 (arginine) and SLC38A9 at "
