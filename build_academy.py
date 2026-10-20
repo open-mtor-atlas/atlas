@@ -2737,6 +2737,23 @@ LESSON_ILLUSTRATIONS = {
          "on; growth factors relieve TSC restraint on Rheb, and low energy activates AMPK, "
          "which restrains mTORC1. Both signals together let mTORC1 drive translation."),
     ],
+    "growth-factor-signaling": [
+        ("growth-factor-signaling-overview", "Growth factor signalling",
+         "Insulin or IGF-1 binds a receptor tyrosine kinase, which recruits PI3K; PI3K turns "
+         "PIP2 into PIP3, a docking site for AKT. AKT needs two inputs: PDK1 phosphorylates "
+         "Thr308 and mTORC2 phosphorylates Ser473. AKT then weakens the TSC brake on Rheb by "
+         "phosphorylating TSC2, and separately phosphorylates PRAS40, a restraining partner "
+         "inside mTORC1. One phosphorylation readout does not prove cell growth."),
+    ],
+    "feedback-regulation": [
+        ("feedback-regulation-overview", "Feedback regulation",
+         "mTORC1 activates S6K1, which phosphorylates IRS-1 and weakens insulin and IGF "
+         "signalling into PI3K; mTORC1 also stabilises Grb10, a second brake at the receptor. "
+         "Inhibiting mTORC1 can release these loops so that upstream AKT signalling rises. "
+         "Feedback unfolds over time, so matched time points and several readouts are needed, "
+         "and a changed AKT Ser473 signal can come from released feedback or from altered "
+         "mTORC2 assembly after prolonged rapamycin."),
+    ],
     "mtor-and-autophagy": [
         ("mtor-and-autophagy-mtorc1", "mTORC1: growth and autophagy",
          "mTORC1 (mTOR, Raptor, mLST8; PRAS40 and DEPTOR regulate it) is activated at the "
@@ -2744,6 +2761,15 @@ LESSON_ILLUSTRATIONS = {
          "phosphorylates S6K and 4E-BP1 for protein synthesis, supports lipid and nucleotide "
          "synthesis, and phosphorylates ULK1 to hold back autophagy; when its activity falls, "
          "ULK1 can start autophagy."),
+    ],
+    "how-to-read-an-mtor-paper": [
+        ("how-to-read-an-mtor-paper-overview", "How to read an mTOR paper",
+         "A result has four parts: the model system (cells, animal or person), the "
+         "perturbation (knockout, knockdown, drug, dose, duration, diet), the readout (for "
+         "example p-S6K1, p-4E-BP1 or p-AKT Ser473 on a blot, which rarely stands for all mTOR "
+         "activity) and the claim the authors infer. A pre-registered primary endpoint is the "
+         "planned question; secondary signals generate hypotheses. The evidence code (M, A, H, "
+         "S) describes the kind of study, not its quality."),
     ],
 }
 
