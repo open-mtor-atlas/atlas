@@ -1671,6 +1671,18 @@ def changelog_page(studies):
     # tooltip not reaching the static pages). Those belong in commit
     # messages / build handover docs, not here.
     method_changes = [
+        ("2026-10-18",
+         "One-off retrospective pass adding foundational papers",
+         "The corpus had grown mostly from the daily screen of new papers, so "
+         "older work that established the pathway was thin wherever a branch "
+         "had not been revisited. A deliberate pass branch by branch added the "
+         "foundational papers that were missing: between the snapshots of 15 "
+         "and 20 October 2026 the corpus went from 449 to 518 records, and 66 "
+         "of the 69 new records were papers published between 1997 and 2018. "
+         "They were selected by the same inclusion rules (IN1 to IN5) as every "
+         "other record and graded the same way, and were attached as supporting "
+         "studies to existing pathway links; no new link was created from them. "
+         "This was a single catch-up, not a change in the normal update rate."),
         ("2026-09-23",
          "Open Questions cards rewritten around what has changed since the question was written",
          "A check of the ten cards against published human results found sentences "
@@ -2196,7 +2208,11 @@ absent.</p>
 <p>An automated job screens PubMed for new candidate mTOR studies and
 relevant conferences once daily, but the <em>corpus</em>
 changes only when a human accepts a candidate -- typically a handful of
-papers a month, sometimes none. The exact snapshot of the live corpus
+papers a month, sometimes none. Deliberate catch-up passes over older
+literature are the exception: they can add dozens of records at once,
+and each one is dated and described at
+<a href="{SITE}/changelog/">/changelog/</a> (the largest so far, in
+October 2026, added 66 papers from 1997 to 2018). The exact snapshot of the live corpus
 (timestamp, dataset version and source commit) is published in the
 machine-readable metadata at <a href="{SITE}/api/v1/meta.json">/api/v1/meta.json</a>,
 and every count on this site, including the ones above, is computed from

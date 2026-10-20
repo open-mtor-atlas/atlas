@@ -22,14 +22,14 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   AI-assisted deep-extraction fields: intervention, target, species,
   effect, dose, sample size, effect size, and limitations. `atlas_url`
   links back to the full record page.
-- **relations.csv / relations.json** -- 132 signed pathway
+- **relations.csv / relations.json** -- 138 signed pathway
   links (source, effect, target) with mechanism, boundary conditions,
   supporting and conflicting study IDs (`sid`, semicolon-separated),
   `source_id` / `target_id` (the entity `id` from entities.csv),
   evidence grades, `curation_status` and `review_status`. A
   `review_status` of `unreviewed` means no named curator has signed the
   link off yet.
-- **entities.csv / entities.json** -- 165 pathway
+- **entities.csv / entities.json** -- 169 pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a

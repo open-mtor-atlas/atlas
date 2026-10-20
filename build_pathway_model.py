@@ -126,7 +126,7 @@ COMPARTMENTS = [
     {
         "id": "input", "name": "Inputs", "short": "IN", "physical": False,
         "blurb": "Nutrients, hormones, stresses and drugs – the information the cell is trying to read. Not a cellular location.",
-        "sensing_note": "Amino acids are shown here as inputs, but they are sensed *inside* the cell: leucine by cytosolic Sestrin2, arginine by cytosolic CASTOR1 and by lysosomal SLC38A9, SAM by cytosolic SAMTOR.",
+        "sensing_note": "Amino acids are shown here as inputs, but they are sensed *inside* the cell: leucine by cytosolic Sestrin2, arginine by cytosolic CASTOR1 and by lysosomal SLC38A9, SAM by cytosolic SAMTOR, and (one 2026 study) free methionine by PKM2.",
     },
     {
         "id": "pm", "name": "Plasma membrane", "short": "PM", "physical": True,
@@ -184,6 +184,12 @@ NODES = {
     "S-adenosylmethionine (SAM)": ("input", "nut", "Reports how much methyl-donor the cell has.",
                                    "Methionine-derived metabolite read by SAMTOR – the cell's methionine proxy.",
                                    "SAM binds SAMTOR (Kd ~7 µM); links one-carbon metabolism to mTORC1 independently of the leucine and arginine arms."),
+    # Doplneno 20. 10. 2026 (externi audit: SANG2026 byl v korpusu a v H1, ale
+    # ne v grafu). Volny methionin cte PKM2, metabolit SAM cte SAMTOR --
+    # dva oddelene uzly, aby se cesty nepletly.
+    "Methionine": ("input", "nut", "An essential amino acid the cell can read directly.",
+                   "Free methionine; reported by one 2026 study to be read by PKM2, separately from its metabolite SAM (read by SAMTOR).",
+                   "Two methionine readouts now sit side by side: SAM-SAMTOR acting at GATOR1-KICSTOR, and free methionine-PKM2 acting at GATOR2 (SANG2026, human cells, single study). Their relative weight under dietary methionine restriction is untested."),
     # Doplneno 14. 10. 2026 (nalez F-02 externiho auditu): cholesterol je treti
     # nutrientni vstup do lysozomalni masinerie a v Atlasu nebyl vubec -- ani jako
     # entita, ani jako uzel, pritom na nem visi dve nezavisle trasy.
@@ -280,6 +286,13 @@ NODES = {
     "LKB1 (STK11)": ("cytosol", "protein", "The kinase that arms AMPK.",
                      "Constitutive upstream kinase phosphorylating AMPK T172.",
                      "Tumour suppressor mutated in Peutz–Jeghers syndrome and in lung adenocarcinoma; also the reason some cells cannot mount an AMPK response at all."),
+    # PKM2 a TBK1: doplneno 20. 10. 2026 (externi audit, SANG2026 a ESP2026).
+    "PKM2": ("cytosol", "protein", "A sugar-burning enzyme that may double as a methionine detector.",
+             "Glycolytic enzyme reported to bind free methionine and hold GATOR2 back when methionine is scarce.",
+             "SANG2026 (photoaffinity chemoproteomics, human cells): methionine binds a pocket separate from the catalytic site, sensing independent of enzyme activity, signal relayed via GATOR2. Single study, not replicated; whole-organism relevance untested."),
+    "TBK1": ("cytosol", "protein", "A kinase that helps stressed lysosomes call for repair.",
+             "Kinase recruited to stressed lysosomes via TAX1BP1; phosphorylates FNIP1 to release TFEB.",
+             "ESP2026: TBK1 or ULK1, recruited through TAX1BP1 downstream of the v-ATPase, phosphorylates FNIP1 S296 and inhibits FLCN, a nutrient-independent route to TFEB. Best known otherwise from innate immunity and selective autophagy."),
     "ULK1": ("cytosol", "protein", "The switch that starts self-digestion.",
              "Autophagy-initiating kinase, inhibited by mTORC1 and activated by AMPK.",
              "mTORC1 phosphorylates S757 to block the AMPK–ULK1 interaction; ULK1 also feeds back to phosphorylate and dampen AMPK, making this a closed loop rather than a switch."),
@@ -351,6 +364,9 @@ NODES = {
     "Ragulator": ("lyso", "complex", "The bolt holding the taxi to the membrane.",
                   "LAMTOR1–5 complex tethering the Rags to the lysosomal surface.",
                   "First reported as a RagA/B GEF (BAR2012); later work places its exchange activity on RagC, with SLC38A9 loading RagA with GTP. The tethering role is the better-established one; LAMTOR1 lipidation anchors the whole assembly."),
+    "TAX1BP1": ("lyso", "protein", "A connector that brings kinases to stressed lysosomes.",
+                "Autophagy adaptor linking the v-ATPase to TBK1 and ULK1 on the lysosome.",
+                "ESP2026: v-ATPase-driven recruitment of TBK1/ULK1 to lysosomes runs through TAX1BP1; recurrent ATP6V1B2 mutations in follicular lymphoma keep the route on. How the pump engages TAX1BP1 is not resolved in the abstract."),
     "v-ATPase": ("lyso", "complex", "The pump the sensing machinery is built on.",
                  "Lysosomal proton pump physically and functionally coupled to Ragulator.",
                  "Required for amino-acid signalling; inhibitor experiments cannot fully separate the signalling role from loss of lysosomal acidification."),

@@ -232,7 +232,12 @@ def render(m):
       'property of a claim.</p>')
 
     A('<div class="tm-figure">')
-    A(_fig(len(cls), "studies with a recorded regimen, each with the source line it rests on"))
+    # Audit 20. 10. 2026: "classified" zahrnuje i Not stated a Not applicable,
+    # takže hero číslo nesmí tvrdit, že u všech je režim známý. Hero = jen
+    # explicitně doložený režim; celkový počet klasifikovaných je v odstavci
+    # pod tabulkou.
+    n_explicit = len(cls) - sum(len(by_reg.get(k, [])) for k in UNKNOWN)
+    A(_fig(n_explicit, "studies with an explicitly recorded regimen, each with the source line it rests on"))
     A(_fig(len(by_reg.get("Intermittent", [])), "tested an intermittent schedule rather than continuous dosing"))
     A(_fig(len(m["stops"]), "included stopping the intervention and watching what happened next"))
     A(_fig("%d of %d" % (td.get("Not tested", 0), n_edges), "pathway links carry no recorded time dependence in this Atlas"))
@@ -257,12 +262,15 @@ def render(m):
           % (e(r), e(REGIMEN_BLURB[r]), len(rows), ex))
     A('</tbody></table>')
     nk = sum(len(by_reg.get(k, [])) for k in UNKNOWN)
-    A('<p>A further %d records sit outside that ladder: %d where an intervention '
-      'was given but the schedule is not stated, and %d where the study '
-      'administers nothing over time at all (reviews and syntheses). '
-      '%d of the %d studies in the corpus have not been classified yet.</p>'
-      % (nk, len(by_reg.get("Not stated", [])), len(by_reg.get("Not applicable", [])),
-         m["n_unclassified"], n_all))
+    A('<p>The table counts %d studies whose regimen is explicitly recorded. '
+      'In all, %d of the %d records in the corpus have been classified for '
+      'regimen status: besides those %d, %d had an intervention but the schedule '
+      'is not stated, and %d administer nothing over time at all (reviews and '
+      'syntheses). The remaining %d records have not been classified yet, so '
+      'these counts describe the classified part of the corpus, not all of it.</p>'
+      % (len(cls) - nk, len(cls), n_all, len(cls) - nk,
+         len(by_reg.get("Not stated", [])), len(by_reg.get("Not applicable", [])),
+         m["n_unclassified"]))
     # Hero a sekce "What happens when you stop" počítají podle washout; řádek
     # "Withdrawal tested" podle hlavního režimu. Rozdíl se tu vysvětluje, aby
     # čísla na stránce nesouhlasila jen zdánlivě (audit 21. 9. 2026).
@@ -911,9 +919,10 @@ def build(dry_run=False):
     n_edges = len(m["edges"])
 
     desc = ("How mTOR interventions were delivered over time, and which pathway links "
-            "depend on it: %d studies with a recorded regimen, %d that tested an "
+            "depend on it: %d studies with an explicitly recorded regimen, %d that tested an "
             "intermittent schedule, and %d of %d links with no recorded time dependence in this Atlas."
-            % (len(m["classified"]), len(m["by_reg"].get("Intermittent", [])),
+            % (len(m["classified"]) - sum(len(m["by_reg"].get(k, [])) for k in UNKNOWN),
+               len(m["by_reg"].get("Intermittent", [])),
                td.get("Not tested", 0), n_edges))
 
     today = datetime.date.today().isoformat()
