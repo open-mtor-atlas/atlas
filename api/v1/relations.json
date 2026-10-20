@@ -9,14 +9,14 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "6d445363a37ba6145969d5a5772bdb4caf70727045a22837138680158603e377",
-  "corpus_snapshot": "2026-10-20T09:26:58+0200",
-  "source_commit": "5f67f28af4ad27e4edb17ab040fe686826c652b9",
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
  },
- "count": 132,
+ "count": 138,
  "data": [
   {
    "id": "4EBP1-EIF4E",
@@ -7413,10 +7413,10 @@
    "species": [
     "human cells"
    ],
-   "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+   "mechanism": "When lysosomes are stressed, ULK1 brought in by the adaptor TAX1BP1 (TAX1BP1-ULK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. TBK1 does the same job on this route and has its own link (TBK1-FNIP1).",
    "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
-   "context": null,
-   "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+   "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB. This is separate from ULK1's better-known role starting autophagy (ULK1-AUTOPHAGY).",
+   "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route in which TBK1 is an alternative kinase. Single study, not yet replicated.",
    "boundary_tags": [
     "single-study"
    ],
@@ -7858,6 +7858,354 @@
    "curation_status": "Proposed",
    "url": "https://mtor-atlas.org/relation/LYCHOS-GATOR1/",
    "api_url": "https://mtor-atlas.org/api/v1/relations/LYCHOS-GATOR1.json"
+  },
+  {
+   "id": "MET-PKM2",
+   "claim": "Methionine inhibits PKM2",
+   "source": {
+    "name": "Methionine",
+    "entity": "methionine"
+   },
+   "target": {
+    "name": "PKM2",
+    "entity": "pkm2"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "direct",
+   "timescale": "seconds",
+   "compartment": "cytosol",
+   "map_band": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Bound PKM2 no longer holds back GATOR2, so methionine switches this brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically; it does not need PKM2's glycolytic activity. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
+   "mechanism_beginner": "Methionine sticks to PKM2 and takes it off the brake, a second methionine detector next to SAMTOR.",
+   "context": "Parallel to, not a replacement for, SAM sensing by SAMTOR (SAM-SAMTOR): the two sensors read different molecules and act on different complexes (PKM2 on GATOR2, SAMTOR on GATOR1-KICSTOR). How much each contributes when methionine is restricted in a whole animal is untested.",
+   "boundary": "One study in cultured human cells (SANG2026): photoaffinity chemoproteomics plus biochemical validation. No affinity measurement in tissue, no animal or human test, and not yet replicated by another group. The direction (methionine binding relieves PKM2's restraint on GATOR2) is taken from the authors' abstract; the full text was not accessible when this link was written.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SANG2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/MET-PKM2/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/MET-PKM2.json"
+  },
+  {
+   "id": "PKM2-GATOR2",
+   "claim": "PKM2 inhibits GATOR2",
+   "source": {
+    "name": "PKM2",
+    "entity": "pkm2"
+   },
+   "target": {
+    "name": "GATOR2",
+    "entity": "gator2"
+   },
+   "effect": "inhibits",
+   "type": "binding",
+   "directness": "unresolved",
+   "timescale": "minutes",
+   "compartment": "cytosol",
+   "map_band": "cytosol",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "When methionine is scarce, PKM2 interacts with the GATOR2 complex and keeps it from relaying the 'nutrients present' signal, so mTORC1 stays off. The authors propose that stabilising the PKM2-GATOR2 interaction would mimic methionine starvation. Same double-negative logic as Sestrin2 for leucine and CASTOR1 for arginine.",
+   "mechanism_beginner": "Without methionine, PKM2 holds GATOR2 back, so mTORC1 stays off.",
+   "context": "The methionine route via PKM2 converges on GATOR2, the same complex read by Sestrin2 (leucine) and CASTOR1 (arginine); the SAM route via SAMTOR acts one step further on, at GATOR1-KICSTOR.",
+   "boundary": "One study in cultured human cells (SANG2026). Whether PKM2 binds GATOR2 directly or through another protein, and on which subunit, is not stated in the abstract, so the step is marked unresolved. Cell and chemoproteomic data do not show that this sensor matters for mTORC1 in a whole organism. Not yet replicated.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "SANG2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/PKM2-GATOR2/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/PKM2-GATOR2.json"
+  },
+  {
+   "id": "TAX1BP1-TBK1",
+   "claim": "TAX1BP1 recruits TBK1",
+   "source": {
+    "name": "TAX1BP1",
+    "entity": "tax1bp1"
+   },
+   "target": {
+    "name": "TBK1",
+    "entity": "tbk1"
+   },
+   "effect": "recruits",
+   "type": "recruitment",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "map_band": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "TAX1BP1 acts as the adaptor that brings TBK1 onto stressed lysosomes, putting the kinase next to its substrate FNIP1.",
+   "mechanism_beginner": "TAX1BP1 brings the kinase TBK1 to the lysosome.",
+   "context": null,
+   "boundary": "One study in human cell lines (ESP2026). Full text not accessible when this link was written; the adaptor role is taken from the authors' abstract.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic loss-of-function / rescue",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ESP2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/TAX1BP1-TBK1/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-TBK1.json"
+  },
+  {
+   "id": "TAX1BP1-ULK1",
+   "claim": "TAX1BP1 recruits ULK1",
+   "source": {
+    "name": "TAX1BP1",
+    "entity": "tax1bp1"
+   },
+   "target": {
+    "name": "ULK1",
+    "entity": "ulk1"
+   },
+   "effect": "recruits",
+   "type": "recruitment",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "map_band": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "The same adaptor, TAX1BP1, can bring ULK1 instead of TBK1 to stressed lysosomes; either kinase then phosphorylates FNIP1.",
+   "mechanism_beginner": "TAX1BP1 can bring ULK1 to the lysosome instead of TBK1.",
+   "context": null,
+   "boundary": "One study in human cell lines (ESP2026). Which kinase dominates in which cell type is not stated in the abstract. Full text not accessible when this link was written.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic loss-of-function / rescue",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ESP2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/TAX1BP1-ULK1/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-ULK1.json"
+  },
+  {
+   "id": "TBK1-FNIP1",
+   "claim": "TBK1 inhibits FLCN / FNIP1/2",
+   "source": {
+    "name": "TBK1",
+    "entity": "tbk1"
+   },
+   "target": {
+    "name": "FLCN / FNIP1/2",
+    "entity": "flcn-fnip1-2"
+   },
+   "effect": "inhibits",
+   "type": "phosphorylation",
+   "directness": "direct",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "map_band": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "On the stressed lysosome, TBK1 phosphorylates FNIP1 at S296. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. ULK1 can do the same (ULK1-FNIP1).",
+   "mechanism_beginner": "TBK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+   "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB.",
+   "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route. Single study, not yet replicated.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Direct biochemical",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ESP2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/TBK1-FNIP1/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/TBK1-FNIP1.json"
+  },
+  {
+   "id": "VATPASE-TAX1BP1",
+   "claim": "v-ATPase recruits TAX1BP1",
+   "source": {
+    "name": "v-ATPase",
+    "entity": "v-atpase"
+   },
+   "target": {
+    "name": "TAX1BP1",
+    "entity": "tax1bp1"
+   },
+   "effect": "recruits",
+   "type": "recruitment",
+   "directness": "unresolved",
+   "timescale": "minutes",
+   "compartment": "lyso",
+   "map_band": "lyso",
+   "species": [
+    "human cells"
+   ],
+   "mechanism": "Lysosomal stress acting through the v-ATPase proton pump brings the adaptor TAX1BP1 to the lysosome, where it docks the kinases TBK1 and ULK1. Recurrent ATP6V1B2 mutations in this pump, found in follicular lymphoma, keep the route switched on. This route is independent of nutrients and runs in parallel to amino-acid signalling through the same pump.",
+   "mechanism_beginner": "A stressed lysosome's proton pump calls in the helper protein TAX1BP1.",
+   "context": "A stress route separate from the v-ATPase's role in amino-acid sensing (VATPASE-RAGULATOR).",
+   "boundary": "One study (ESP2026) in human cell lines and ATP6V1B2-mutant follicular lymphoma samples. How the v-ATPase recruits TAX1BP1 (direct contact or an intermediate) is not stated in the abstract, so the step is marked unresolved. Full text not accessible when this link was written.",
+   "boundary_tags": [
+    "cell-line-only",
+    "single-study"
+   ],
+   "note": null,
+   "consensus_contested": false,
+   "curation_contested": false,
+   "contested": false,
+   "confidence": {
+    "mechanistic": "medium",
+    "human_relevance": "plausible",
+    "consensus": "emerging"
+   },
+   "evidence": {
+    "kind": "Genetic loss-of-function / rescue",
+    "strongest": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure"
+    },
+    "supporting": [
+     "ESP2026"
+    ],
+    "conflicting": []
+   },
+   "external_refs": [],
+   "reviewed": null,
+   "updated": null,
+   "checked": null,
+   "review_status": "unreviewed",
+   "reviewer": null,
+   "curation_status": "Proposed",
+   "url": "https://mtor-atlas.org/relation/VATPASE-TAX1BP1/",
+   "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-TAX1BP1.json"
   }
  ]
 }

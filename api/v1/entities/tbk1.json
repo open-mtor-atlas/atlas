@@ -1,0 +1,183 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "tbk1",
+  "name": "TBK1",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "TANK-binding kinase 1",
+   "NAK"
+  ],
+  "description": "TANK-binding kinase 1, a kinase known from innate immunity and selective autophagy. In ESP2026 (human cell lines), lysosomal stress recruits TBK1 to lysosomes through the adaptor TAX1BP1, where it phosphorylates FNIP1 at S296, inhibits FLCN and lets TFEB enter the nucleus. ULK1 can do the same job, so the two act as alternative kinases on this route.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/gene/tbk1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/tbk1.json",
+  "description_beginner": "A kinase that, when lysosomes are damaged, helps switch on the cell's lysosome-building program.",
+  "reading_levels": {
+   "beginner": "A kinase that helps stressed lysosomes call for repair.",
+   "student": "Kinase recruited to stressed lysosomes via TAX1BP1; phosphorylates FNIP1 to release TFEB.",
+   "research": "ESP2026: TBK1 or ULK1, recruited through TAX1BP1 downstream of the v-ATPase, phosphorylates FNIP1 S296 and inhibits FLCN, a nutrient-independent route to TFEB. Best known otherwise from innate immunity and selective autophagy."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TAX1BP1-TBK1",
+    "claim": "TAX1BP1 recruits TBK1",
+    "source": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "target": {
+     "name": "TBK1",
+     "entity": "tbk1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "TAX1BP1 acts as the adaptor that brings TBK1 onto stressed lysosomes, putting the kinase next to its substrate FNIP1.",
+    "mechanism_beginner": "TAX1BP1 brings the kinase TBK1 to the lysosome.",
+    "context": null,
+    "boundary": "One study in human cell lines (ESP2026). Full text not accessible when this link was written; the adaptor role is taken from the authors' abstract.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TAX1BP1-TBK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-TBK1.json"
+   },
+   {
+    "id": "TBK1-FNIP1",
+    "claim": "TBK1 inhibits FLCN / FNIP1/2",
+    "source": {
+     "name": "TBK1",
+     "entity": "tbk1"
+    },
+    "target": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "On the stressed lysosome, TBK1 phosphorylates FNIP1 at S296. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. ULK1 can do the same (ULK1-FNIP1).",
+    "mechanism_beginner": "TBK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+    "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB.",
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route. Single study, not yet replicated.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TBK1-FNIP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TBK1-FNIP1.json"
+   }
+  ]
+ }
+}

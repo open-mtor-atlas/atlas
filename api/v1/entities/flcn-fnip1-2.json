@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "6d445363a37ba6145969d5a5772bdb4caf70727045a22837138680158603e377",
-  "corpus_snapshot": "2026-10-20T09:26:58+0200",
-  "source_commit": "5f67f28af4ad27e4edb17ab040fe686826c652b9",
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -29,7 +29,7 @@
   ],
   "description": "Folliculin and its binding partners FNIP1/2; act as a GTPase-activating protein (GAP) for RagC/D, switching the Rag heterodimer into the configuration that recruits mTORC1 to the lysosome. FLCN-FNIP complements the GATOR1/GATOR2 arm by regulating the RagC/D half of the cycle. The immediate effect of FLCN loss is substrate-specific: TFEB and TFE3 escape phosphorylation and accumulate in the nucleus while canonical outputs (S6K1, 4E-BP1) are largely preserved in the short term (NAP2020). Over time this is not the whole picture: constitutively active TFEB/TFE3 feed back to raise overall mTORC1 activity, and in kidney and lung that mTORC1 hyperactivation is itself a key driver of cyst and tumour formation (Di Malta 2023, PMID 36987696; Ferniani 2026; Cao 2026, PMID 41697734). So BHD involves both a substrate-specific defect and, downstream, genuine mTORC1 hyperactivation - the balance is tissue- and time-dependent.",
   "study_count": 7,
-  "relation_count": 2,
+  "relation_count": 3,
   "url": "https://mtor-atlas.org/gene/flcn-fnip1-2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/flcn-fnip1-2.json",
   "description_beginner": "A protein complex that helps switch the Rag GTPases into the right configuration to bring mTORC1 to the lysosome - working alongside, but through a different route than, the GATOR1/GATOR2 system. When it is lost (the cause of the genetic disease Birt-Hogg-Dube syndrome), the first thing that goes wrong is specific: two outputs, TFEB and TFE3, stop being switched off, while other mTORC1 jobs keep working at first. Later, those run-away outputs push overall mTORC1 activity up, and in the kidney and lung that over-activity is a major reason cysts and tumours form.",
@@ -314,10 +314,10 @@
     "species": [
      "human cells"
     ],
-    "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+    "mechanism": "When lysosomes are stressed, ULK1 brought in by the adaptor TAX1BP1 (TAX1BP1-ULK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. TBK1 does the same job on this route and has its own link (TBK1-FNIP1).",
     "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
-    "context": null,
-    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+    "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB. This is separate from ULK1's better-known role starting autophagy (ULK1-AUTOPHAGY).",
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route in which TBK1 is an alternative kinase. Single study, not yet replicated.",
     "boundary_tags": [
      "single-study"
     ],
@@ -350,6 +350,64 @@
     "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/ULK1-FNIP1/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
+   },
+   {
+    "id": "TBK1-FNIP1",
+    "claim": "TBK1 inhibits FLCN / FNIP1/2",
+    "source": {
+     "name": "TBK1",
+     "entity": "tbk1"
+    },
+    "target": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "On the stressed lysosome, TBK1 phosphorylates FNIP1 at S296. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. ULK1 can do the same (ULK1-FNIP1).",
+    "mechanism_beginner": "TBK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+    "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB.",
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route. Single study, not yet replicated.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TBK1-FNIP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TBK1-FNIP1.json"
    }
   ]
  }

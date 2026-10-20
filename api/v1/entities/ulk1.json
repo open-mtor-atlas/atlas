@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "6d445363a37ba6145969d5a5772bdb4caf70727045a22837138680158603e377",
-  "corpus_snapshot": "2026-10-20T09:26:58+0200",
-  "source_commit": "5f67f28af4ad27e4edb17ab040fe686826c652b9",
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -23,7 +23,7 @@
   "synonyms": [],
   "description": "Initiator of autophagy and a direct mTORC1 substrate: mTORC1 phosphorylates ULK1 at S757 to hold it back. The AMPK arm is contested rather than settled - the classic reading is that AMPK phosphorylates ULK1 at other sites to switch autophagy on directly, but under glucose starvation and mitochondrial energy stress AMPK has been reported to inhibit ULK1 activation while protecting the machinery from degradation. See the AMPK-ULK1 link for which effect dominates under which kind of energy stress.",
   "study_count": 11,
-  "relation_count": 5,
+  "relation_count": 6,
   "url": "https://mtor-atlas.org/gene/ulk1/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json",
   "description_beginner": "The kick-starter protein for autophagy (cellular cleanup). mTORC1 normally holds it back, and when mTORC1 switches off it is released and cleanup begins. What AMPK does to it is still argued over: the long-standing view is that AMPK switches it on, but newer work says that in a sharp energy crisis AMPK holds it back instead while keeping it safe.",
@@ -553,10 +553,10 @@
     "species": [
      "human cells"
     ],
-    "mechanism": "When lysosomes are stressed, ULK1 (or its relative TBK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus.",
+    "mechanism": "When lysosomes are stressed, ULK1 brought in by the adaptor TAX1BP1 (TAX1BP1-ULK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. TBK1 does the same job on this route and has its own link (TBK1-FNIP1).",
     "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
-    "context": null,
-    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples; a nutrient-independent lysosomal-stress route, and TBK1 can substitute for ULK1. Single study.",
+    "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB. This is separate from ULK1's better-known role starting autophagy (ULK1-AUTOPHAGY).",
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route in which TBK1 is an alternative kinase. Single study, not yet replicated.",
     "boundary_tags": [
      "single-study"
     ],
@@ -589,6 +589,64 @@
     "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/ULK1-FNIP1/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
+   },
+   {
+    "id": "TAX1BP1-ULK1",
+    "claim": "TAX1BP1 recruits ULK1",
+    "source": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The same adaptor, TAX1BP1, can bring ULK1 instead of TBK1 to stressed lysosomes; either kinase then phosphorylates FNIP1.",
+    "mechanism_beginner": "TAX1BP1 can bring ULK1 to the lysosome instead of TBK1.",
+    "context": null,
+    "boundary": "One study in human cell lines (ESP2026). Which kinase dominates in which cell type is not stated in the abstract. Full text not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TAX1BP1-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-ULK1.json"
    }
   ]
  }

@@ -1,0 +1,194 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "methionine",
+  "name": "Methionine",
+  "type": "Nutrient/Metabolite",
+  "synonyms": [
+   "Met",
+   "L-methionine"
+  ],
+  "description": "Essential sulfur-containing amino acid. The cell reads its supply in two ways: indirectly through its metabolite S-adenosylmethionine (SAM), which binds SAMTOR (GU2017), and, according to a 2026 chemoproteomic study in human cells (SANG2026), directly as free methionine bound by PKM2. Restricting methionine improves metabolic health and lifespan in animal models, as summarised in the review KNO2026, which is why these sensors matter for ageing research.",
+  "study_count": 4,
+  "relation_count": 1,
+  "url": "https://mtor-atlas.org/nutrient/methionine/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/methionine.json",
+  "description_beginner": "An essential amino acid that the body cannot make. The cell keeps track of how much it has, partly through a molecule made from it (SAM) and possibly also by sensing methionine itself.",
+  "reading_levels": {
+   "beginner": "An essential amino acid the cell can read directly.",
+   "student": "Free methionine; reported by one 2026 study to be read by PKM2, separately from its metabolite SAM (read by SAMTOR).",
+   "research": "Two methionine readouts now sit side by side: SAM-SAMTOR acting at GATOR1-KICSTOR, and free methionine-PKM2 acting at GATOR2 (SANG2026, human cells, single study). Their relative weight under dietary methionine restriction is untested."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SANG2026",
+    "title": "\"Trojan\" Methionine Probe Reveals PKM2 as a Methionine-Sensing Protein in the mTORC1 Pathway",
+    "authors": "Sang Z; Zheng Y; Wang X; Wu C; Zhao J; Wang JJ; Sui S; Wang J",
+    "year": 2026,
+    "journal": "Journal of the American Chemical Society",
+    "doi": "10.1021/jacs.6c06772",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42677553",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (chemoproteomics / photoaffinity probe)",
+    "peer_reviewed": true,
+    "finding": "Identifies PKM2 as a direct methionine sensor for mTORC1. A photoaffinity methionine analogue plus chemoproteomics showed that PKM2 binds free methionine through a distinct recognition pocket — independently of its glycolytic enzyme activity — and transduces methionine availability to mTORC1 via the GATOR2 complex. Complements SAMTOR (GU2017), which reads the methionine metabolite SAM rather than methionine itself, and suggests a route to a pharmacological \"methionine pseudostarvation\" state.",
+    "url": "https://mtor-atlas.org/study/SANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SANG2026.json"
+   },
+   {
+    "sid": "GU2017",
+    "title": "SAMTOR is an S-adenosylmethionine sensor for the mTORC1 pathway",
+    "authors": "Gu X; Orozco JM; Saxton RA; Condon KJ; Liu GY; Krawczyk PA; Scaria SM; Harper JW; Gygi SP; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aao3265",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29123071",
+    "pmcid": "PMC5747364",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Extended nutrient sensing beyond amino acids to METABOLITES: SAMTOR reads S-adenosylmethionine (SAM), the cell's methyl-donor currency, linking methionine and one-carbon metabolism to mTORC1. Relevant to why methionine restriction affects aging.",
+    "url": "https://mtor-atlas.org/study/GU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GU2017.json"
+   },
+   {
+    "sid": "VIL2021",
+    "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+    "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+    "year": 2021,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2021.03.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "33756106",
+    "pmcid": "PMC8141029",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+    "url": "https://mtor-atlas.org/study/VIL2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json"
+   },
+   {
+    "sid": "KNO2026",
+    "title": "The hallmarks of protein and amino acid restriction in aging and longevity",
+    "authors": "Knopf BA; Lamming DW",
+    "year": 2026,
+    "journal": "Cell Press Blue",
+    "doi": "10.1016/j.cpblue.2026.100079",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42639474",
+    "pmcid": "PMC13501984",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Cross-species review (yeast, worm, fly, rodent, human)",
+    "peer_reviewed": true,
+    "finding": "Defines the \"hallmarks\" of dietary protein restriction (PR) through the lens of aging: PR and restriction of specific essential amino acids — especially methionine, isoleucine and valine — improve metabolic health, healthspan and lifespan across organisms, with amino-acid composition (not just protein quantity) acting as a key determinant via nutrient-sensing pathways including mTORC1.",
+    "url": "https://mtor-atlas.org/study/KNO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KNO2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MET-PKM2",
+    "claim": "Methionine inhibits PKM2",
+    "source": {
+     "name": "Methionine",
+     "entity": "methionine"
+    },
+    "target": {
+     "name": "PKM2",
+     "entity": "pkm2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Bound PKM2 no longer holds back GATOR2, so methionine switches this brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically; it does not need PKM2's glycolytic activity. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
+    "mechanism_beginner": "Methionine sticks to PKM2 and takes it off the brake, a second methionine detector next to SAMTOR.",
+    "context": "Parallel to, not a replacement for, SAM sensing by SAMTOR (SAM-SAMTOR): the two sensors read different molecules and act on different complexes (PKM2 on GATOR2, SAMTOR on GATOR1-KICSTOR). How much each contributes when methionine is restricted in a whole animal is untested.",
+    "boundary": "One study in cultured human cells (SANG2026): photoaffinity chemoproteomics plus biochemical validation. No affinity measurement in tissue, no animal or human test, and not yet replicated by another group. The direction (methionine binding relieves PKM2's restraint on GATOR2) is taken from the authors' abstract; the full text was not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SANG2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MET-PKM2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MET-PKM2.json"
+   }
+  ]
+ }
+}

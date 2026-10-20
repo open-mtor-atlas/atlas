@@ -9,14 +9,14 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "6d445363a37ba6145969d5a5772bdb4caf70727045a22837138680158603e377",
-  "corpus_snapshot": "2026-10-20T09:26:58+0200",
-  "source_commit": "5f67f28af4ad27e4edb17ab040fe686826c652b9",
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
  },
- "count": 165,
+ "count": 169,
  "data": [
   {
    "id": "mam-ermitochondria-contacts",
@@ -167,6 +167,20 @@
    "relation_count": 0,
    "url": null,
    "api_url": "https://mtor-atlas.org/api/v1/entities/autoimmune-cytopenia.json"
+  },
+  {
+   "id": "tbk1",
+   "name": "TBK1",
+   "type": "Gene/Protein",
+   "synonyms": [
+    "TANK-binding kinase 1",
+    "NAK"
+   ],
+   "description": "TANK-binding kinase 1, a kinase known from innate immunity and selective autophagy. In ESP2026 (human cell lines), lysosomal stress recruits TBK1 to lysosomes through the adaptor TAX1BP1, where it phosphorylates FNIP1 at S296, inhibits FLCN and lets TFEB enter the nucleus. ULK1 can do the same job, so the two act as alternative kinases on this route.",
+   "study_count": 1,
+   "relation_count": 2,
+   "url": "https://mtor-atlas.org/gene/tbk1/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/tbk1.json"
   },
   {
    "id": "sgk1",
@@ -442,7 +456,7 @@
    "synonyms": [],
    "description": "Vacuolar H+-ATPase. Necessary for amino acids to activate mTORC1, and it makes extensive amino-acid-sensitive contacts with Ragulator, but it is not itself the sensor: the Atlas assigns that role to SLC38A9, Sestrin2 and SAMTOR for their respective inputs. ATP hydrolysis by the pump is required for amino acids to regulate the v-ATPase-Ragulator interaction, which is the evidence the signal begins inside the lysosomal lumen (Zoncu 2011, PMID 22053050).",
    "study_count": 5,
-   "relation_count": 1,
+   "relation_count": 2,
    "url": "https://mtor-atlas.org/gene/v-atpase/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/v-atpase.json"
   },
@@ -464,7 +478,7 @@
    "synonyms": [],
    "description": "Initiator of autophagy and a direct mTORC1 substrate: mTORC1 phosphorylates ULK1 at S757 to hold it back. The AMPK arm is contested rather than settled - the classic reading is that AMPK phosphorylates ULK1 at other sites to switch autophagy on directly, but under glucose starvation and mitochondrial energy stress AMPK has been reported to inhibit ULK1 activation while protecting the machinery from degradation. See the AMPK-ULK1 link for which effect dominates under which kind of energy stress.",
    "study_count": 11,
-   "relation_count": 5,
+   "relation_count": 6,
    "url": "https://mtor-atlas.org/gene/ulk1/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json"
   },
@@ -884,7 +898,7 @@
    "synonyms": [],
    "description": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.",
    "study_count": 6,
-   "relation_count": 3,
+   "relation_count": 4,
    "url": "https://mtor-atlas.org/complex/gator2/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/gator2.json"
   },
@@ -984,6 +998,20 @@
    "relation_count": 2,
    "url": "https://mtor-atlas.org/gene/grb10/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/grb10.json"
+  },
+  {
+   "id": "pkm2",
+   "name": "PKM2",
+   "type": "Gene/Protein",
+   "synonyms": [
+    "Pyruvate kinase M2",
+    "PKM"
+   ],
+   "description": "Pyruvate kinase M2, best known as a glycolytic enzyme. A single 2026 study (SANG2026, human cells, photoaffinity methionine probe and chemoproteomics) reports that PKM2 also binds free methionine through a pocket separate from its catalytic site and relays methionine availability to mTORC1 through the GATOR2 complex, independently of its enzyme activity. Not yet replicated, and its importance in whole animals is untested.",
+   "study_count": 1,
+   "relation_count": 2,
+   "url": "https://mtor-atlas.org/gene/pkm2/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/pkm2.json"
   },
   {
    "id": "pten",
@@ -1353,6 +1381,20 @@
    "relation_count": 41,
    "url": "https://mtor-atlas.org/complex/mtorc1/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/mtorc1.json"
+  },
+  {
+   "id": "tax1bp1",
+   "name": "TAX1BP1",
+   "type": "Gene/Protein",
+   "synonyms": [
+    "Tax1-binding protein 1",
+    "T6BP"
+   ],
+   "description": "Tax1-binding protein 1, an autophagy adaptor. In ESP2026 it is the link between the v-ATPase and the kinases TBK1 and ULK1: lysosomal stress sensed through the v-ATPase recruits TBK1/ULK1 to lysosomes via TAX1BP1.",
+   "study_count": 1,
+   "relation_count": 3,
+   "url": "https://mtor-atlas.org/gene/tax1bp1/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/tax1bp1.json"
   },
   {
    "id": "deptor",
@@ -1760,6 +1802,20 @@
    "api_url": "https://mtor-atlas.org/api/v1/entities/gadd45alpha.json"
   },
   {
+   "id": "methionine",
+   "name": "Methionine",
+   "type": "Nutrient/Metabolite",
+   "synonyms": [
+    "Met",
+    "L-methionine"
+   ],
+   "description": "Essential sulfur-containing amino acid. The cell reads its supply in two ways: indirectly through its metabolite S-adenosylmethionine (SAM), which binds SAMTOR (GU2017), and, according to a 2026 chemoproteomic study in human cells (SANG2026), directly as free methionine bound by PKM2. Restricting methionine improves metabolic health and lifespan in animal models, as summarised in the review KNO2026, which is why these sensors matter for ageing research.",
+   "study_count": 4,
+   "relation_count": 1,
+   "url": "https://mtor-atlas.org/nutrient/methionine/",
+   "api_url": "https://mtor-atlas.org/api/v1/entities/methionine.json"
+  },
+  {
    "id": "insulin-resistance",
    "name": "Insulin resistance",
    "type": "Outcome",
@@ -1816,7 +1872,7 @@
    ],
    "description": "Folliculin and its binding partners FNIP1/2; act as a GTPase-activating protein (GAP) for RagC/D, switching the Rag heterodimer into the configuration that recruits mTORC1 to the lysosome. FLCN-FNIP complements the GATOR1/GATOR2 arm by regulating the RagC/D half of the cycle. The immediate effect of FLCN loss is substrate-specific: TFEB and TFE3 escape phosphorylation and accumulate in the nucleus while canonical outputs (S6K1, 4E-BP1) are largely preserved in the short term (NAP2020). Over time this is not the whole picture: constitutively active TFEB/TFE3 feed back to raise overall mTORC1 activity, and in kidney and lung that mTORC1 hyperactivation is itself a key driver of cyst and tumour formation (Di Malta 2023, PMID 36987696; Ferniani 2026; Cao 2026, PMID 41697734). So BHD involves both a substrate-specific defect and, downstream, genuine mTORC1 hyperactivation - the balance is tissue- and time-dependent.",
    "study_count": 7,
-   "relation_count": 2,
+   "relation_count": 3,
    "url": "https://mtor-atlas.org/gene/flcn-fnip1-2/",
    "api_url": "https://mtor-atlas.org/api/v1/entities/flcn-fnip1-2.json"
   },

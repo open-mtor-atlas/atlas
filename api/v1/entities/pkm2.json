@@ -1,0 +1,183 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pkm2",
+  "name": "PKM2",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "Pyruvate kinase M2",
+   "PKM"
+  ],
+  "description": "Pyruvate kinase M2, best known as a glycolytic enzyme. A single 2026 study (SANG2026, human cells, photoaffinity methionine probe and chemoproteomics) reports that PKM2 also binds free methionine through a pocket separate from its catalytic site and relays methionine availability to mTORC1 through the GATOR2 complex, independently of its enzyme activity. Not yet replicated, and its importance in whole animals is untested.",
+  "study_count": 1,
+  "relation_count": 2,
+  "url": "https://mtor-atlas.org/gene/pkm2/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pkm2.json",
+  "description_beginner": "A sugar-burning enzyme that, according to one recent study in human cells, also works as a methionine detector for mTORC1. Nobody has repeated that result yet, and it has not been tested in animals.",
+  "reading_levels": {
+   "beginner": "A sugar-burning enzyme that may double as a methionine detector.",
+   "student": "Glycolytic enzyme reported to bind free methionine and hold GATOR2 back when methionine is scarce.",
+   "research": "SANG2026 (photoaffinity chemoproteomics, human cells): methionine binds a pocket separate from the catalytic site, sensing independent of enzyme activity, signal relayed via GATOR2. Single study, not replicated; whole-organism relevance untested."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SANG2026",
+    "title": "\"Trojan\" Methionine Probe Reveals PKM2 as a Methionine-Sensing Protein in the mTORC1 Pathway",
+    "authors": "Sang Z; Zheng Y; Wang X; Wu C; Zhao J; Wang JJ; Sui S; Wang J",
+    "year": 2026,
+    "journal": "Journal of the American Chemical Society",
+    "doi": "10.1021/jacs.6c06772",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42677553",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (chemoproteomics / photoaffinity probe)",
+    "peer_reviewed": true,
+    "finding": "Identifies PKM2 as a direct methionine sensor for mTORC1. A photoaffinity methionine analogue plus chemoproteomics showed that PKM2 binds free methionine through a distinct recognition pocket — independently of its glycolytic enzyme activity — and transduces methionine availability to mTORC1 via the GATOR2 complex. Complements SAMTOR (GU2017), which reads the methionine metabolite SAM rather than methionine itself, and suggests a route to a pharmacological \"methionine pseudostarvation\" state.",
+    "url": "https://mtor-atlas.org/study/SANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SANG2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MET-PKM2",
+    "claim": "Methionine inhibits PKM2",
+    "source": {
+     "name": "Methionine",
+     "entity": "methionine"
+    },
+    "target": {
+     "name": "PKM2",
+     "entity": "pkm2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Bound PKM2 no longer holds back GATOR2, so methionine switches this brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically; it does not need PKM2's glycolytic activity. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
+    "mechanism_beginner": "Methionine sticks to PKM2 and takes it off the brake, a second methionine detector next to SAMTOR.",
+    "context": "Parallel to, not a replacement for, SAM sensing by SAMTOR (SAM-SAMTOR): the two sensors read different molecules and act on different complexes (PKM2 on GATOR2, SAMTOR on GATOR1-KICSTOR). How much each contributes when methionine is restricted in a whole animal is untested.",
+    "boundary": "One study in cultured human cells (SANG2026): photoaffinity chemoproteomics plus biochemical validation. No affinity measurement in tissue, no animal or human test, and not yet replicated by another group. The direction (methionine binding relieves PKM2's restraint on GATOR2) is taken from the authors' abstract; the full text was not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SANG2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MET-PKM2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MET-PKM2.json"
+   },
+   {
+    "id": "PKM2-GATOR2",
+    "claim": "PKM2 inhibits GATOR2",
+    "source": {
+     "name": "PKM2",
+     "entity": "pkm2"
+    },
+    "target": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "unresolved",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When methionine is scarce, PKM2 interacts with the GATOR2 complex and keeps it from relaying the 'nutrients present' signal, so mTORC1 stays off. The authors propose that stabilising the PKM2-GATOR2 interaction would mimic methionine starvation. Same double-negative logic as Sestrin2 for leucine and CASTOR1 for arginine.",
+    "mechanism_beginner": "Without methionine, PKM2 holds GATOR2 back, so mTORC1 stays off.",
+    "context": "The methionine route via PKM2 converges on GATOR2, the same complex read by Sestrin2 (leucine) and CASTOR1 (arginine); the SAM route via SAMTOR acts one step further on, at GATOR1-KICSTOR.",
+    "boundary": "One study in cultured human cells (SANG2026). Whether PKM2 binds GATOR2 directly or through another protein, and on which subunit, is not stated in the abstract, so the step is marked unresolved. Cell and chemoproteomic data do not show that this sensor matters for mTORC1 in a whole organism. Not yet replicated.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SANG2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/PKM2-GATOR2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PKM2-GATOR2.json"
+   }
+  ]
+ }
+}

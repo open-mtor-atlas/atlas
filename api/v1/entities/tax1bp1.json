@@ -1,0 +1,241 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "tax1bp1",
+  "name": "TAX1BP1",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "Tax1-binding protein 1",
+   "T6BP"
+  ],
+  "description": "Tax1-binding protein 1, an autophagy adaptor. In ESP2026 it is the link between the v-ATPase and the kinases TBK1 and ULK1: lysosomal stress sensed through the v-ATPase recruits TBK1/ULK1 to lysosomes via TAX1BP1.",
+  "study_count": 1,
+  "relation_count": 3,
+  "url": "https://mtor-atlas.org/gene/tax1bp1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/tax1bp1.json",
+  "description_beginner": "A connector protein that brings the kinases TBK1 and ULK1 to stressed lysosomes.",
+  "reading_levels": {
+   "beginner": "A connector that brings kinases to stressed lysosomes.",
+   "student": "Autophagy adaptor linking the v-ATPase to TBK1 and ULK1 on the lysosome.",
+   "research": "ESP2026: v-ATPase-driven recruitment of TBK1/ULK1 to lysosomes runs through TAX1BP1; recurrent ATP6V1B2 mutations in follicular lymphoma keep the route on. How the pump engages TAX1BP1 is not resolved in the abstract."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TAX1BP1-TBK1",
+    "claim": "TAX1BP1 recruits TBK1",
+    "source": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "target": {
+     "name": "TBK1",
+     "entity": "tbk1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "TAX1BP1 acts as the adaptor that brings TBK1 onto stressed lysosomes, putting the kinase next to its substrate FNIP1.",
+    "mechanism_beginner": "TAX1BP1 brings the kinase TBK1 to the lysosome.",
+    "context": null,
+    "boundary": "One study in human cell lines (ESP2026). Full text not accessible when this link was written; the adaptor role is taken from the authors' abstract.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TAX1BP1-TBK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-TBK1.json"
+   },
+   {
+    "id": "TAX1BP1-ULK1",
+    "claim": "TAX1BP1 recruits ULK1",
+    "source": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The same adaptor, TAX1BP1, can bring ULK1 instead of TBK1 to stressed lysosomes; either kinase then phosphorylates FNIP1.",
+    "mechanism_beginner": "TAX1BP1 can bring ULK1 to the lysosome instead of TBK1.",
+    "context": null,
+    "boundary": "One study in human cell lines (ESP2026). Which kinase dominates in which cell type is not stated in the abstract. Full text not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TAX1BP1-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-ULK1.json"
+   },
+   {
+    "id": "VATPASE-TAX1BP1",
+    "claim": "v-ATPase recruits TAX1BP1",
+    "source": {
+     "name": "v-ATPase",
+     "entity": "v-atpase"
+    },
+    "target": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "unresolved",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Lysosomal stress acting through the v-ATPase proton pump brings the adaptor TAX1BP1 to the lysosome, where it docks the kinases TBK1 and ULK1. Recurrent ATP6V1B2 mutations in this pump, found in follicular lymphoma, keep the route switched on. This route is independent of nutrients and runs in parallel to amino-acid signalling through the same pump.",
+    "mechanism_beginner": "A stressed lysosome's proton pump calls in the helper protein TAX1BP1.",
+    "context": "A stress route separate from the v-ATPase's role in amino-acid sensing (VATPASE-RAGULATOR).",
+    "boundary": "One study (ESP2026) in human cell lines and ATP6V1B2-mutant follicular lymphoma samples. How the v-ATPase recruits TAX1BP1 (direct contact or an intermediate) is not stated in the abstract, so the step is marked unresolved. Full text not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/VATPASE-TAX1BP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-TAX1BP1.json"
+   }
+  ]
+ }
+}

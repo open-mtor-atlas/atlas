@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "6d445363a37ba6145969d5a5772bdb4caf70727045a22837138680158603e377",
-  "corpus_snapshot": "2026-10-20T09:26:58+0200",
-  "source_commit": "5f67f28af4ad27e4edb17ab040fe686826c652b9",
+  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
+  "corpus_snapshot": "2026-10-20T09:54:13+0200",
+  "source_commit": "3c5b7282740735a43e4a644aa75e57e12b224354",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -23,7 +23,7 @@
   "synonyms": [],
   "description": "Positive arm that inhibits GATOR1; the target through which amino acid sensors (Sestrin2, CASTOR1) relay their signal to mTORC1.",
   "study_count": 6,
-  "relation_count": 3,
+  "relation_count": 4,
   "url": "https://mtor-atlas.org/complex/gator2/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/gator2.json",
   "description_beginner": "A relay switch that reactivates mTORC1. Amino-acid sensors like Sestrin2 and CASTOR1 work by inhibiting it (when nutrients are scarce) or releasing it (when nutrients return), and it in turn keeps GATOR1 - mTORC1's main brake - in check.",
@@ -346,6 +346,64 @@
     "curation_status": "Proposed",
     "url": "https://mtor-atlas.org/relation/SESN2-GATOR2/",
     "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-GATOR2.json"
+   },
+   {
+    "id": "PKM2-GATOR2",
+    "claim": "PKM2 inhibits GATOR2",
+    "source": {
+     "name": "PKM2",
+     "entity": "pkm2"
+    },
+    "target": {
+     "name": "GATOR2",
+     "entity": "gator2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "unresolved",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When methionine is scarce, PKM2 interacts with the GATOR2 complex and keeps it from relaying the 'nutrients present' signal, so mTORC1 stays off. The authors propose that stabilising the PKM2-GATOR2 interaction would mimic methionine starvation. Same double-negative logic as Sestrin2 for leucine and CASTOR1 for arginine.",
+    "mechanism_beginner": "Without methionine, PKM2 holds GATOR2 back, so mTORC1 stays off.",
+    "context": "The methionine route via PKM2 converges on GATOR2, the same complex read by Sestrin2 (leucine) and CASTOR1 (arginine); the SAM route via SAMTOR acts one step further on, at GATOR1-KICSTOR.",
+    "boundary": "One study in cultured human cells (SANG2026). Whether PKM2 binds GATOR2 directly or through another protein, and on which subunit, is not stated in the abstract, so the step is marked unresolved. Cell and chemoproteomic data do not show that this sensor matters for mTORC1 in a whole organism. Not yet replicated.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "consensus": "emerging"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SANG2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/PKM2-GATOR2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PKM2-GATOR2.json"
    }
   ]
  }
