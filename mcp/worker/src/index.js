@@ -7,7 +7,7 @@
 // Worker instance stays warm. Read-only, no secrets, no auth.
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { Atlas } from '../../lib.js';
-import { createServer, VERSION } from '../../tools.js';
+import { createServer, VERSION, TOOL_NAMES } from '../../tools.js';
 import { usageReport } from './usage-sql.js';
 
 const CORS = {
@@ -77,6 +77,8 @@ function argText(a) {
   return t.replace(/[\u0000-\u001f]/g, ' ').replace(/[^\s"']+@[^\s"']+/g, '[email]').slice(0, 200);
 }
 
+const KNOWN_TOOLS = new Set(TOOL_NAMES);
+
 function recordUsage(env, messages, replies, ua, ms) {
   const ds = env?.USAGE;
   if (!ds?.writeDataPoint) return;
@@ -84,11 +86,15 @@ function recordUsage(env, messages, replies, ua, ms) {
   const fam = uaFamily(ua);
   for (const m of messages) {
     if (!m || typeof m.method !== 'string') continue;
-    const tool = m.method === 'tools/call' ? clean(m.params?.name) : '-';
-    const args = m.method === 'tools/call' && !tool.startsWith('_') ? argText(m.params?.arguments) : '';
+    // A call to a tool the server does not have is a probe (catalog check): count it under one
+    // label, so it neither adds rows to the per-tool table nor inflates the error counts.
+    const unknown = m.method === 'tools/call' && !KNOWN_TOOLS.has(m.params?.name);
+    const tool = m.method === 'tools/call' ? (unknown ? 'unknown-tool' : clean(m.params?.name)) : '-';
+    const args = m.method === 'tools/call' && !unknown ? argText(m.params?.arguments) : '';
     const client = m.method === 'initialize' ? clean(m.params?.clientInfo?.name) : '-';
     const r = byId.get(m.id);
     const outcome = m.id === undefined ? 'notification'
+      : unknown ? 'unknown-tool'
       : !r ? 'no-reply'
       : r.error ? 'error'
       : r.result?.isError ? 'tool-error' : 'ok';

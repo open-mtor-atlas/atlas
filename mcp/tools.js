@@ -11,6 +11,12 @@ import {
 // Keep equal to "version" in package.json and server.json (test.js checks it).
 export const VERSION = '1.3.3';
 
+// Names of the registered tools (test.js checks this list against listTools). The remote Worker uses it
+// to keep probes that call an invented tool name out of the per-tool usage statistics.
+export const TOOL_NAMES = ['atlas_about', 'search_studies', 'get_study', 'search_entities', 'get_entity',
+  'find_relations', 'get_relation', 'evidence_between', 'find_contradictions', 'list_questions',
+  'get_question', 'search_authors', 'get_author'];
+
 export const INSTRUCTIONS = `Oliver's mTOR Atlas is a curated, evidence-labelled corpus of mTOR research (studies, entities, signed pathway relations, open questions).
 How to use it well:
 - Every study has an evidence code: S synthesis of human data, H human study, A animal model, M molecular/in vitro, R review, PP preprint, RT registered trial. The code describes the KIND of study, not its quality. Do not present an M finding as if it were shown in people.

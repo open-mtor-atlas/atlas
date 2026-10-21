@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-import { VERSION } from './tools.js';
+import { VERSION, TOOL_NAMES } from './tools.js';
 
 const here = (f) => new URL(f, import.meta.url);
 const pkg = JSON.parse(readFileSync(here('./package.json'), 'utf-8'));
@@ -33,6 +33,7 @@ if (argv[0] === '--worker') {
 const c = new Client({ name: 'atlas-test', version: '0' });
 await c.connect(t);
 const tools = (await c.listTools()).tools.map((x) => x.name);
+if (JSON.stringify([...tools].sort()) !== JSON.stringify([...TOOL_NAMES].sort())) { console.log('TOOL_NAMES in tools.js does not match the registered tools'); process.exit(1); }
 console.log('tools:', tools.join(', '));
 const calls = [
   ['atlas_about', {}],
@@ -69,12 +70,16 @@ for (const [name, args] of calls) {
   if (!!r.isError !== expectErr) fail++;
   console.log((r.isError ? 'ERR ' : 'ok  ') + name.padEnd(20) + JSON.stringify(args).slice(0, 60).padEnd(62) + summary);
 }
+try { await c.callTool({ name: 'zzz__no_such_tool', arguments: {} }); } catch { /* expected: unknown tool */ }
 await c.close();
 if (globalThis.__usage) {
   const pts = globalThis.__usage;
   const toolCalls = pts.filter((p) => p.blobs[0] === 'tools/call');
   const init = pts.find((p) => p.blobs[0] === 'initialize');
-  const bad = toolCalls.length !== calls.length
+  const probe = toolCalls.filter((p) => p.blobs[1] === 'unknown-tool');
+  const bad = toolCalls.length !== calls.length + 1
+    || probe.length !== 1 || probe[0].blobs[4] !== 'unknown-tool' || probe[0].blobs[5] !== ''                // invented tool name: one label, no arguments
+    || JSON.stringify(pts).includes('no_such_tool')
     || init?.blobs[2] !== 'atlas-test'
     || toolCalls.find((p) => p.blobs[1] === 'get_study' && p.blobs[4] === 'tool-error') === undefined
     || JSON.stringify(pts.map((p) => [p.indexes, p.blobs.slice(0, 5)])).includes('rapamycin')   // arguments only in blob6 (private query log)
