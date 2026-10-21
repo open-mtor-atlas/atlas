@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "b5b31f75c1e7aeee0b90c33511cc155c4dc0e3b2353ce634b4d633f0e50d05ed",
-  "corpus_snapshot": "2026-10-20T11:25:52+0200",
-  "source_commit": "3c0e4dbc2c4a262d2cac5237846e704cac657fdc",
+  "data_fingerprint": "be12b2d41d71c2b2fde403ce448e2970d19c5bed647887d880cbb6c399670a14",
+  "corpus_snapshot": "2026-10-21T12:42:23+0200",
+  "source_commit": "dfbeb2a5e96b4d3622998275226545fd067914df",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -64,7 +64,7 @@
   "relations": [
    {
     "id": "MET-PKM2",
-    "claim": "Methionine inhibits PKM2",
+    "claim": "Methionine binds PKM2",
     "source": {
      "name": "Methionine",
      "entity": "methionine"
@@ -73,7 +73,7 @@
      "name": "PKM2",
      "entity": "pkm2"
     },
-    "effect": "inhibits",
+    "effect": "binds",
     "type": "binding",
     "directness": "direct",
     "timescale": "seconds",
@@ -82,8 +82,8 @@
     "species": [
      "human cells"
     ],
-    "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Bound PKM2 no longer holds back GATOR2, so methionine switches this brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically; it does not need PKM2's glycolytic activity. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
-    "mechanism_beginner": "Methionine sticks to PKM2 and takes it off the brake, a second methionine detector next to SAMTOR.",
+    "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Binding does not inhibit PKM2 as an enzyme: the sensing works independently of its glycolytic activity. What changes is PKM2's interaction with GATOR2: when methionine is present, PKM2 stops restraining GATOR2 (the restraining step is the separate PKM2-GATOR2 edge), so methionine switches that brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
+    "mechanism_beginner": "Methionine sticks to PKM2. This does not switch the enzyme off; it just stops PKM2 from holding the brake on GATOR2. A second methionine detector next to SAMTOR.",
     "context": "Parallel to, not a replacement for, SAM sensing by SAMTOR (SAM-SAMTOR): the two sensors read different molecules and act on different complexes (PKM2 on GATOR2, SAMTOR on GATOR1-KICSTOR). How much each contributes when methionine is restricted in a whole animal is untested.",
     "boundary": "One study in cultured human cells (SANG2026): photoaffinity chemoproteomics plus biochemical validation. No affinity measurement in tissue, no animal or human test, and not yet replicated by another group. The direction (methionine binding relieves PKM2's restraint on GATOR2) is taken from the authors' abstract; the full text was not accessible when this link was written.",
     "boundary_tags": [
