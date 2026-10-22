@@ -3707,6 +3707,16 @@ def main():
         except Exception as exc:
             print("  ! llms.txt: sekce Academy přeskočena (%s)" % exc)
 
+    # 22. 10. 2026: pocty uzlu/interakci/tras se do llms.txt psaly natvrdo
+    # ("88 nodes, 119 interactions") a zastaraly. Ted z pathway/model.json;
+    # kdyz model chybi, zavorka se vynecha misto stareho cisla.
+    _pw_counts = ""
+    try:
+        _pc = json.load(open(os.path.join(HERE, "pathway", "model.json"), encoding="utf-8"))["meta"]["counts"]
+        _pw_counts = " (%d nodes, %d interactions, %d guided routes)" % (
+            _pc["nodes"], _pc["interactions"], _pc["routes"])
+    except Exception as exc:
+        print("  ! llms.txt: pocty drahy nezjisteny (%s)" % exc)
     write(os.path.join(HERE, "llms.txt"), f"""# Oliver's mTOR Atlas
 
 > The mTOR pathway, mapped by what the evidence can actually carry. Every claim \
@@ -3721,7 +3731,7 @@ and reuse with attribution to "Oliver's mTOR Atlas".
 
 ## Start here
 - [Browse the Atlas](https://mtor-atlas.org/browse/): plain-HTML index of every study and topic page
-- [The mTOR pathway, node by node](https://mtor-atlas.org/pathway/): the full pathway model (88 nodes, 119 interactions, 11 guided routes) as text -- the static form of the interactive pathway map
+- [The mTOR pathway, node by node](https://mtor-atlas.org/pathway/): the full pathway model{_pw_counts} as text -- the static form of the interactive pathway map
 - [mTOR conferences & meetings](https://mtor-atlas.org/events/): upcoming and past conferences relevant to mTOR, autophagy and longevity research
 - [About & Methodology](https://mtor-atlas.org/about/): who curates this, how a study is selected and evidence-graded, what the grading doesn't guarantee, correction policy
 - [Full interactive Atlas](https://mtor-atlas.org/): the SPA (pathway map, AI research assistant, timeline) -- requires JavaScript
