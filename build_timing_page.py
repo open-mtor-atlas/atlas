@@ -834,8 +834,8 @@ def render_pattern(m):
     oliver = [x for x in load_oliver_sids() if x in by_sid]
     if oliver:
         on = [x for x in oliver if x in cited]
-        A('<h2 id="reading-list">On Oliver&rsquo;s reading list</h2>')
-        A('<p>This is the question behind the curator&rsquo;s own <a href="%s/author/oliver-barton/">reading '
+        A('<h2 id="reading-list">On my reading list</h2>')
+        A('<p>This is the question behind my own <a href="%s/author/oliver-barton/">reading '
           'list</a>. %d of its %d studies appear on this page: %s.</p>'
           % (SITE, len(on), len(oliver), ", ".join(study_link(by_sid[x]) for x in on)))
 
@@ -1249,7 +1249,7 @@ safe(function(){var b=box('matrix');if(!b||!D.matrix)return;
   if(c===null){s+='<td class="none">none</td>';return;}
   s+='<td>'+c.map(function(x){return '<a href="/study/'+x+'/" class="pv-chip'+(r.model?' mo':'')+(ol.indexOf(x)>-1?' ol':'')+'">'+x+'</a>';}).join('')+'</td>';});s+='</tr>';});
  var t=h('table','pv-mx',s+'</tbody>'),sc=h('div','pv-scroll');sc.appendChild(t);
- if(ol.length){var lab=h('label','pv-toggle','<input type="checkbox" id="pv-ol"> Highlight Oliver&rsquo;s reading list');b.appendChild(lab);
+ if(ol.length){var lab=h('label','pv-toggle','<input type="checkbox" id="pv-ol"> Highlight my reading list');b.appendChild(lab);
   lab.querySelector('input').addEventListener('change',function(){t.classList.toggle('dim',this.checked);});}
  b.appendChild(sc);b.hidden=false;});
 

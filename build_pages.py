@@ -2079,42 +2079,43 @@ def about_page(studies, entities, bio=None):
     research_focus_html = ""
     if bio:
         research_focus_html = (
-            f'\n<p><a href="{SITE}/about/research-focus/">Oliver\'s research focus &rarr;</a> '
-            f'&mdash; the studies he is watching most closely right now, the frontier questions '
+            f'\n<p><a href="{SITE}/about/research-focus/">My research focus &rarr;</a> '
+            f'&mdash; the studies I am watching most closely right now, the frontier questions '
             f'they grow out of, and clinical trials or preprints not yet in the graded corpus.</p>\n')
 
     body = f"""<h1>About Oliver's mTOR Atlas</h1>
 <p class="summary">A curated, evidence-graded database of mTOR pathway
 research -- {n_studies} studies and {n_entities} cross-linked entities
 ({n_entity_pages} with their own page), each claim traced to a primary
-source and labelled by the kind of study behind it. This page explains who
-curates it, how a study earns a place, what those labels do and don't
-guarantee, and how to report an error.</p>
+source and labelled by the kind of study behind it. Here I explain who I
+am, how a study earns a place, what those labels do and don't guarantee,
+and how to report an error.</p>
 
 <h2>What this is</h2>
 <p>Oliver's mTOR Atlas is a narrow, hand-curated corpus -- not an attempt
 to index all of PubMed's roughly sixty thousand mTOR-related records, but
-a smaller set small enough that every entry can be read, graded and
-defended by one person, then connected by hand into a knowledge graph of
-genes, drugs, diseases and outcomes. Every claim carries an explicit
+a set small enough that I can read, grade and defend every entry, and then
+connect them by hand into a knowledge graph of genes, drugs, diseases and
+outcomes. Every claim carries an explicit
 evidence label naming the system it was established in (S = synthesis of
 human data, H = human study, A = animal model, M = molecular/in-vitro,
 R = review), together with the boundary conditions that claim was
 established under -- species, sex, tissue, dose, nutrient state, duration --
-because that is where a finding stops being general. The corpus
-deliberately keeps negative results -- studies where a popular longevity
-compound did <em>not</em> extend lifespan -- with the same visibility as
-positive findings, and names what has not been tested at all.</p>
+because that is where a finding stops being general. I deliberately keep
+negative results -- studies where a popular longevity compound did
+<em>not</em> extend lifespan -- as visible as positive findings, and I
+name what has not been tested at all.</p>
 
 <h2>Who curates it</h2>
 <p><strong><a href="{SITE}/author/oliver-barton/">Oliver Barton</a></strong> -- Creator &amp; Curator, Prague, Czech
-Republic, age 15. A high school student with a self-directed research
-interest in mTOR signaling and evidence-based science curation, who built
-the Atlas to be the structured resource he wished existed when he started
-reading primary literature on the pathway: studies, mechanisms and honest
-evidence grades held side by side, rather than scattered across review
-articles.</p>
-<p>There is no editorial board and no second reviewer.</p>
+Republic, age 15. I am a high school student with a self-directed
+research interest in mTOR signaling and evidence-based science curation.
+I am building the Atlas to be the structured resource I wished existed when
+I started reading primary literature on the pathway: studies, mechanisms
+and honest evidence grades held side by side, rather than scattered across
+review articles.</p>
+<p>There is no editorial board and no second reviewer, so every decision
+here is mine.</p>
 <p><strong>Contact:</strong> oliver.barton1113(at)gmail.com &middot; Bluesky: <a href="https://bsky.app/profile/oliver-barton.bsky.social">@oliver-barton.bsky.social</a>.</p>
 {research_focus_html}
 <h2 id="how-a-study-gets-in">How a study gets in</h2>
