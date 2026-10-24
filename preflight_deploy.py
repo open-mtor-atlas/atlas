@@ -200,10 +200,40 @@ def check_category_tier():
             problems.append("%s: kategorie Human, ale vrstva '%s' (ma byt A nebo B)" % (st.get("sid"), tier))
 
 
+# ---------------------------------------------------------------------------
+# 4) Stav registrovaneho pokusu se nesmi rozchazet mezi poli jednoho zaznamu
+#    (audit 2026-10-24, EVERLAST NCT05835999: Key_Finding "COMPLETED",
+#    ale AI_Effect "ACTIVE_NOT_RECRUITING" a AI_Species/Model "ongoing").
+#    Stav studie a dostupnost vysledku jsou dve ruzne veci: "completed,
+#    no results posted" je konzistentni, "completed" + "ongoing" ne.
+#    Kontrola je vnitrni (bez site); stav proti registru overuje denni kontrola.
+# ---------------------------------------------------------------------------
+TRIAL_DONE = re.compile(r"\b(COMPLETED|TERMINATED|WITHDRAWN)\b|registered,\s*completed", re.I)
+TRIAL_RUNNING = re.compile(r"\b(ACTIVE_NOT_RECRUITING|NOT_YET_RECRUITING|ENROLLING_BY_INVITATION|RECRUITING)\b|\bongoing\b", re.I)
+TRIAL_FIELDS = ("finding", "model", "ai_species", "ai_effect", "ai_intervention",
+                "ai_samplesize", "ai_limitations")
+
+
+def check_trial_status():
+    import json
+    path = os.path.join(ROOT, "atlas_data", "studies_baked.json")
+    if not os.path.exists(path):
+        return
+    for st in json.load(io.open(path, encoding="utf-8")):
+        if not (st.get("registry_id") or (st.get("tier") or "").startswith("Registered")):
+            continue
+        done = [f for f in TRIAL_FIELDS if TRIAL_DONE.search(st.get(f) or "")]
+        running = [f for f in TRIAL_FIELDS if TRIAL_RUNNING.search(st.get(f) or "")]
+        if done and running:
+            problems.append("%s: stav pokusu si odporuje -- ukonceny v %s, probihajici v %s"
+                            % (st.get("sid"), "/".join(done), "/".join(running)))
+
+
 def main():
     check_curated_nodes()
     check_manifest()
     check_category_tier()
+    check_trial_status()
     for n in notes:
         print("  " + n)
     if problems:
