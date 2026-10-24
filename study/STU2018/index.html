@@ -31,10 +31,16 @@ html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4
      (Chrome, 1 stránka, 0 s zapojení, rozlišení 1280x1200 / 1366x1366). Parametry user_agent,
      bot_signals a screen_res jdou do GA4 (vlastní dimenze User agent, Bot signals, Screen res).
      SUPPRESS_BOTS = false: jen sbíráme. Po 3-4 dnech přepnout na true, GA se pak pro
-     označené návštěvy vůbec nenačte. --><script>
+     označené návštěvy vůbec nenačte.
+     2026-10-24: zapnuto. Blokují jen silné znaky (STRONG): webdriver, headless UA a přesná
+     rozlišení flotily z GA4 (1366x1366, 1280x1200, 1280x1280, 800x600). Původní
+     square_screen by chytil i monitor otočený na výšku (1080x1920) a nechytal 1280x1200
+     ani 800x600, proto je jen informativní, stejně jako no_lang. --><script>
   (function () {
     var GA_ID = 'G-420TPC8J46';
-    var SUPPRESS_BOTS = false;
+    var SUPPRESS_BOTS = true;
+    var BOT_RES = ['1366x1366', '1280x1200', '1280x1280', '800x600'];
+    var STRONG = ['webdriver', 'headless_ua', 'bot_res'];
 
     var h = window.location.hostname;
     if (h !== 'mtor-atlas.org' && !/\.mtor-atlas\.org$/.test(h)) return;
@@ -50,8 +56,10 @@ html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4
     if (!n.languages || n.languages.length === 0) signals.push('no_lang');
     // Desktopová obrazovka čtvercová nebo na výšku bez dotyku: skutečné monitory takhle nevypadají.
     if (n.maxTouchPoints === 0 && sw >= 1000 && sw <= sh) signals.push('square_screen');
+    if (BOT_RES.indexOf(sw + 'x' + sh) !== -1) signals.push('bot_res');
 
-    if (SUPPRESS_BOTS && signals.length > 0) return;
+    var strong = signals.some(function (x) { return STRONG.indexOf(x) !== -1; });
+    if (SUPPRESS_BOTS && strong) return;
 
     var s = document.createElement('script');
     s.async = true;
