@@ -40,6 +40,7 @@ const calls = [
   ['search_studies', { query: 'rapamycin lifespan', evidence_code: ['A'], limit: 3 }],
   ['search_studies', { entity: 'Rheb', limit: 3 }],
   ['get_study', { sid: 'sab1994' }],
+  ['get_study', { pmid: '34482522' }],                 // alias: clients send the identifier under its own name
   ['search_entities', { query: 'sirolimus' }],
   ['search_entities', { query: 'raptor', match: 'name', limit: 5 }],
   ['get_entity', { entity: 'Rheb' }],

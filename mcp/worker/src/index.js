@@ -97,7 +97,7 @@ function recordUsage(env, messages, replies, ua, ms) {
       : unknown ? 'unknown-tool'
       : !r ? 'no-reply'
       : r.error ? 'error'
-      : r.result?.isError ? 'tool-error' : 'ok';
+      : r.result?.isError ? (args === '' || args === '{}' ? 'no-args' : 'tool-error') : 'ok';   // a scanner calling a tool with no arguments is not a tool failure
     try {
       ds.writeDataPoint({
         indexes: [clean(m.method)],

@@ -63,9 +63,12 @@ export function createServer(atlas) {
       sid: z.string().optional().describe('Atlas study ID ("SAB1994"), PMID ("23716719"), DOI or PMCID'),
       study_id: z.string().optional().describe('Alias of sid.'),
       id: z.string().optional().describe('Alias of sid.'),
+      pmid: z.string().optional().describe('Alias of sid, for a PMID.'),
+      doi: z.string().optional().describe('Alias of sid, for a DOI.'),
+      pmcid: z.string().optional().describe('Alias of sid, for a PMCID.'),
     },
   }, async (a) => {
-    const sid = a.sid || a.study_id || a.id;
+    const sid = a.sid || a.study_id || a.id || a.pmid || a.doi || a.pmcid;
     if (!sid) return missing('Study (pass sid, e.g. "SAB1994")');
     const hit = await findStudy(atlas, sid);
     const s = hit && await atlas.one('studies', hit.sid);
