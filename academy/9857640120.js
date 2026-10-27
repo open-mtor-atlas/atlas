@@ -92,7 +92,10 @@
   var box = document.getElementById('acResumeText');
   var fork = document.getElementById('acFork');
   var rbox = document.getElementById('acResume');
-  if(fork && started) fork.hidden = true;
+  /* Vracejicimu se zmizi jen "Your first hour"; Qualifying Exam zustava
+     (Petr 27. 10. 2026) -- jako uzky pruh pres celou sirku. */
+  var fh = document.getElementById('acFirst');
+  if(fh && started){ fh.hidden = true; if(fork) fork.classList.add('ac-fork-solo'); }
   if(rbox && started) rbox.hidden = false;
   if(!pa){ var mn = document.querySelector('#acResume .ac-mini'); if(mn) mn.hidden = true; }
   if(box && started){
