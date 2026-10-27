@@ -616,6 +616,8 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-rmeta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);margin:0}
 .ac-rmeta b{color:var(--ink)}
 .ac-rbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ac-rwhere{margin:0 0 6px;color:var(--ink)}
+.ac-mini[hidden]{display:none}
 .ac-mini{flex:0 0 auto}
 .ac-mini svg{display:block;width:150px;height:auto}
 .ac-mini .m-r{fill:var(--soft);opacity:.2}
@@ -625,13 +627,13 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-mini .m-n[data-m="4"]{fill:var(--amber);stroke:var(--amber)}
 .ac-mini .m-c{font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--soft)}
 
-.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
-  gap:14px;margin:0 0 8px}
+.ac-ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+  gap:14px;margin:4px 0 30px}
 .ac-way{border:1px solid var(--line);border-radius:3px;padding:18px 20px 16px;display:flex;
   flex-direction:column;gap:7px}
 .ac-way .ac-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--soft);font-weight:600}
-.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.ac-way h2,.ac-way h3{margin:0;font-size:17px;letter-spacing:-.01em;line-height:1.3;border:0;padding:0}
 .ac-way p{margin:0;font-size:14px;color:var(--soft);line-height:1.55;flex:1}
 .ac-way .ac-state{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink);
   border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
@@ -643,7 +645,31 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
   letter-spacing:.03em;text-decoration:none}
 .ac-sechead{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--soft);font-weight:600;margin:30px 0 12px}
-.ac-first[hidden]{display:none}
+.ac-first[hidden],.ac-resume[hidden],.ac-fork[hidden]{display:none}
+/* Rozcesti novacek / odbornik (27. 10. 2026) */
+.ac-fork{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:14px;margin:0 0 8px}
+@media (max-width:760px){.ac-fork{grid-template-columns:1fr}}
+.ac-fk{border:1px solid var(--line);border-radius:3px;padding:18px 20px;display:flex;flex-direction:column}
+.ac-fkh{font-size:19px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em;line-height:1.3;border:0;padding:0}
+.ac-fkp{font-size:14.5px;color:var(--soft);line-height:1.6;margin:0;flex:1}
+.ac-fkp b{color:var(--ink);font-weight:600}
+.ac-fk .ac-rbtns{margin-top:16px}
+.ac-fk .ac-firstlist{flex:1}
+.ac-sechead-h{border:0;padding:0;line-height:1.4}
+.ac-more{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;
+  align-items:start;margin:0 0 10px}
+.ac-mcard{border:1px solid var(--line);border-radius:3px;padding:16px 18px;min-width:0}
+.ac-mcard h3{font-size:16px;line-height:1.3;margin:0 0 6px;border:0;padding:0}
+.ac-mcard>p{font-size:14px;line-height:1.55;color:var(--soft);margin:0 0 10px}
+.ac-mcard>p.ac-rk{font-size:11px;line-height:1.4;margin:0 0 6px}
+/* Prvni hodina na uzkem displeji: sloveso a popis jako jedna veta, cislo vlevo */
+@media (max-width:560px){
+  .ac-fk .ac-firstlist a{display:block;position:relative;padding-left:30px}
+  .ac-fk .ac-firstlist a:before{position:absolute;left:4px;top:14px}
+}
+.ac-mcard .ac-deeper{margin:0}
+.ac-mcard.ac-poster{margin:0}
+.ac-mcard .ac-poster-thumb{flex:none;margin:0 0 12px}
 .ac-illus{margin:4px 0 30px;padding:14px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ac-illus-lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--soft);margin:0 0 10px}
@@ -670,7 +696,7 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-poster-links a{color:var(--teal);text-decoration:none;font-size:14.5px}
 .ac-poster-links a:hover{text-decoration:underline}
 .ac-poster-text summary{cursor:pointer;font-size:14.5px;color:var(--ink);padding:2px 0}
-.ac-poster-text h3{font-size:15px;margin:14px 0 6px}
+.ac-poster-text h4{font-size:15px;margin:14px 0 6px}
 .ac-poster-text ol{margin:0 0 6px;padding-left:20px}
 .ac-poster-text li{font-size:14.5px;line-height:1.6;margin:0 0 5px;color:var(--ink)}
 @media (max-width:640px){.ac-poster-row{flex-direction:column}.ac-poster-thumb{flex-basis:auto;width:100%;max-width:360px}}
@@ -683,9 +709,7 @@ html[data-theme="dark"] .ac-resume{--ac-tint:rgba(108,168,178,.16)}
 .ac-firstlist a:hover b{color:var(--teal)}
 .ac-firstlist i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--soft);
   white-space:nowrap}
-.ac-expert{margin:16px 0 0;font-size:14px;color:var(--soft);line-height:1.6}
-.ac-expert b{color:var(--ink)}
-.ac-expert a{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;white-space:nowrap}
+
 
 /* entry cards + curriculum -------------------------------------------- */
 .ac-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;
@@ -2062,6 +2086,42 @@ PROGRESS_JS = """
 """
 
 
+# Kde clovek v Academy naposledy byl (Petr 27. 10. 2026: "pro vracejici se
+# pokracovat tam, kde skoncil"). Jeden klic, stejny defenzivni vzorec jako
+# PROGRESS_JS: kazde cteni i zapis obalene, bez uloziste se nic nerozbije.
+# Na lekci si pamatuje i posledni nadpis sekce, ktery clovek prescroloval, aby
+# odkaz "Continue" vedl na to misto, ne na zacatek. Cte ho jen HOME_JS.
+LAST_JS = """
+<script>
+(function(){
+  var KEY='atlas-academy-last', b=document.body, rec=null;
+  var les=b.getAttribute('data-ac-current'), ch=b.getAttribute('data-rc-challenge');
+  var h1=document.querySelector('h1'), t=h1?h1.textContent.trim().slice(0,140):'';
+  if(les) rec={k:'lesson',slug:les,url:location.pathname,t:t};
+  else if(ch) rec={k:'challenge',slug:ch,url:location.pathname,t:t};
+  if(!rec) return;
+  function save(){ rec.ts=Date.now(); try{localStorage.setItem(KEY,JSON.stringify(rec));}catch(e){} }
+  save();
+  if(rec.k!=='lesson') return;
+  var hs=[].slice.call(document.querySelectorAll('h2[id]')).filter(function(h){
+    return !h.classList.contains('ac-vh') && !h.closest('header,footer,nav');
+  });
+  if(!hs.length) return;
+  var timer=null;
+  function mark(){
+    timer=null;
+    var lim=window.innerHeight*0.35, cur=null;
+    for(var i=0;i<hs.length;i++){ if(hs[i].getBoundingClientRect().top<lim) cur=hs[i]; else break; }
+    var id=cur?cur.id:'', st=cur?cur.textContent.trim().slice(0,80):'';
+    if(id===(rec.sec||'')) return;
+    if(id){ rec.sec=id; rec.st=st; } else { delete rec.sec; delete rec.st; }
+    save();
+  }
+  window.addEventListener('scroll',function(){ if(!timer) timer=setTimeout(mark,500); },{passive:true});
+})();
+</script>
+"""
+
 
 # Homepage Academy: pruh "kde jsi" + stavy na ctyrech kartach. Stejny defenzivni
 # vzorec jako PROGRESS_JS -- cte DVA klice (lekce a Practice Arena), oba obalene,
@@ -2111,7 +2171,37 @@ HOME_JS = """
   if(pa){
     for(i=0;i<D.ranks.length;i++){ if(D.ranks[i].n === (pa.rank||1)) rank = D.ranks[i]; }
   }
-  var started = (done > 0) || (pa && pa.xp > 0);
+  var last = read('atlas-academy-last');
+  if(last && (typeof last.url !== 'string' || last.url.indexOf('/academy/') !== 0 ||
+              last.url.indexOf('//') >= 0)) last = null;
+  var started = (done > 0) || (pa && pa.xp > 0) || !!last;
+  var DAY = 86400000;
+  function esc(x){ return String(x).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function ago(ts){
+    var d = Math.floor((Date.now() - (ts||0)) / DAY);
+    return d <= 0 ? 'today' : (d === 1 ? 'yesterday' : d + ' days ago');
+  }
+  /* --- kde clovek skoncil: posledni otevrena lekce, ktera jeste neni
+     oznacena jako prectena, nebo rozehrana vyzva (do 60 dni) ------------- */
+  var resume = null, resumeLesson = null;
+  if(last && (Date.now() - (last.ts||0)) < 60*DAY){
+    if(last.k === 'lesson' && lessons[last.slug] !== 'done'){
+      for(i=0;i<D.lessons.length;i++){ if(D.lessons[i].slug === last.slug) resumeLesson = D.lessons[i]; }
+      if(resumeLesson){
+        var sec = (last.sec && /^[A-Za-z0-9_-]+$/.test(last.sec)) ? '#' + last.sec : '';
+        resume = {href: resumeLesson.url + sec,
+                  title: 'Lesson ' + resumeLesson.n + ' &middot; ' + esc(resumeLesson.t),
+                  where: (sec && last.st ? 'You stopped at &ldquo;' + esc(last.st) + '&rdquo;'
+                                         : 'Opened, not yet marked as read') + ' &middot; ' + ago(last.ts),
+                  btn: 'Continue lesson ' + resumeLesson.n + ' &rarr;'};
+      }
+    } else if(last.k === 'challenge' && last.t){
+      resume = {href: last.url, title: esc(last.t),
+                where: 'Research Challenge &middot; ' + ago(last.ts),
+                btn: 'Continue the challenge &rarr;'};
+    }
+  }
 
   /* --- minimapa ---------------------------------------------------------- */
   if(pa && pa.m){
@@ -2131,8 +2221,11 @@ HOME_JS = """
      petka lekci, vede na lekci -- trenink bez latky je zabavnejsi, ale uci min.
      Pak se poradi obraci a Practice Arena jde dopredu. */
   var box = document.getElementById('acResumeText');
-  var fh = document.getElementById('acFirst');
-  if(fh && started) fh.hidden = true;
+  var fork = document.getElementById('acFork');
+  var rbox = document.getElementById('acResume');
+  if(fork && started) fork.hidden = true;
+  if(rbox && started) rbox.hidden = false;
+  if(!pa){ var mn = document.querySelector('#acResume .ac-mini'); if(mn) mn.hidden = true; }
   if(box && started){
     var lessonBtn = '<a class="ac-cta ac-quiet" href="' + next.url + '">Continue lesson ' +
                     next.n + ' &rarr;</a>';
@@ -2158,25 +2251,42 @@ HOME_JS = """
       meta.push('<b>' + pctM + '%</b> of the pathway mastered');
       meta.push(pct + '% explored');
     }
+    if(resume){
+      /* Druhe tlacitko = doporuceni atlasNext(), jen kdyz vede jinam nez
+         "pokracuj" -- dva odkazy na tutez stranku by byly sum. */
+      var alt = '';
+      if(window.atlasNext){
+        var st2 = window.atlasNext({lessons:D.lessons, pa:pa, practice:D.practice,
+                                    check:(D.next && D.next.check) || 3, rankReady:false});
+        if(st2.href.split('#')[0] !== resume.href.split('#')[0])
+          alt = '<a class="ac-cta ac-quiet" href="' + st2.href + '">' + st2.title + ' &rarr;</a>';
+      }
+      first = '<a class="ac-cta" href="' + resume.href + '">' + resume.btn + '</a>' + alt;
+    }
     box.innerHTML =
-      '<p class="ac-rk">Where you are</p>' +
-      '<p class="ac-rbig">' + (rank ? ('Rank ' + rank.n + ' &middot; ' + rank.name) : 'Reading the course') + '</p>' +
-      '<p class="ac-rmeta">' + meta.join(' &middot; ') + '</p>' +
+      '<p class="ac-rk">' + (resume ? 'Pick up where you left off' : 'Where you are') + '</p>' +
+      (resume ? '<p class="ac-rbig">' + resume.title + '</p><p class="ac-rmeta ac-rwhere">' +
+                resume.where + '</p>' : '') +
+      (resume ? '' : '<p class="ac-rbig">' + (rank ? ('Rank ' + rank.n + ' &middot; ' + rank.name) : 'Reading the course') + '</p>') +
+      '<p class="ac-rmeta">' + (resume && rank ? 'Rank ' + rank.n + ' &middot; ' : '') + meta.join(' &middot; ') + '</p>' +
       '<div class="ac-rbtns">' + first +
       (pa ? '<a class="ac-cta ac-quiet" href="' + D.progress + '">Your map &rarr;</a>' : '') +
       '</div>';
   }
 
   /* --- stavy na kartach --------------------------------------------------- */
-  function setWay(id, state, cta){
+  function setWay(id, state, cta, href){
     var w = document.querySelector('.ac-way[data-way="' + id + '"]'); if(!w) return;
     var st = w.querySelector('.ac-state'); if(st && state) st.innerHTML = state;
     var go = w.querySelector('.ac-go'); if(go && cta) go.innerHTML = cta;
+    if(go && href) go.setAttribute('href', href);
   }
-  if(done > 0)
+  if(done > 0 || resumeLesson){
+    var cl = resumeLesson || next;
     setWay('learn', done + ' / ' + D.lessons.length + ' read<span class="ac-bar"><i style="width:' +
            Math.round(done / D.lessons.length * 100) + '%"></i></span>',
-           'Continue lesson ' + next.n + ' &rarr;');
+           'Continue lesson ' + cl.n + ' &rarr;', resumeLesson ? resume.href : next.url);
+  }
   if(pa && (pa.xp || pa.m))
     setWay('practice', (rank ? 'Rank ' + rank.n + ' &middot; ' : '') + pctM +
            '% mastered <i>&middot; ' + pct + '% explored</i>' +
@@ -2990,7 +3100,7 @@ def lesson_page(les, module, lessons_by_slug, by_sid, ent_url, routes, gaps, pw)
                  extra_css=ACADEMY_CSS + "\n.ac-vh{position:absolute;width:1px;height:1px;"
                                          "overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"
                                          "border:0;padding:0;margin:-1px}",
-                 extra_body=PROGRESS_JS + (QUIZ_JS if les.get("quiz") else "")
+                 extra_body=PROGRESS_JS + LAST_JS + (QUIZ_JS if les.get("quiz") else "")
                             + (EXERCISE_JS if les.get("exercises") else ""),
                  level_switch=bool(les.get("exercises") or les.get("coreIdeaBeginner")))
     page = page.replace("<body>", '<body data-ac-current="%s">' % e(slug), 1)
@@ -3394,9 +3504,9 @@ def academy_home(modules, lessons_by_slug, challenges):
 
     body = ['<div class="ac-hero"><p class="ac-eyebrow">mTOR Academy</p>'
             '<h1>Four ways into mTOR biology.</h1>'
-            '<p class="ac-lede">Read the mechanism, practise it until you can predict it, follow one '
-            'question all the way through the map, or run an investigation of your own. All four are '
-            'built on the same evidence-graded studies as the rest of the Atlas.</p></div>']
+            '<p class="ac-lede">Read the mechanism, practise predicting it, follow one question '
+            'through the map, or run an investigation of your own. All four rest on the same '
+            'evidence-graded studies as the rest of the Atlas.</p></div>']
 
     # ---- pruh "kde jsi" (bez JS: varianta pro noveho navstevnika) ----------
     mini = ""
@@ -3427,52 +3537,31 @@ def academy_home(modules, lessons_by_slug, challenges):
         payload = ('<script type="application/json" id="acHome">%s</script>'
                    % json.dumps(pay, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"))
 
-    body.append('<div class="ac-resume" id="acResume">'
-                '<div class="ac-rl" id="acResumeText">'
-                '<p class="ac-rk">New here</p>'
-                '<p class="ac-rbig">Start with the mechanism.</p>'
-                '<p class="ac-rmeta">The lessons are the way in &mdash; the other three all point '
-                'back at them.</p>'
-                '<div class="ac-rbtns">'
-                '<a class="ac-cta" href="%s/academy/%s/%s/">Lesson %s &middot; %s &middot; %d min</a>'
-                '%s</div></div>%s</div>'
-                % (SITE, mod["slug"], e(first["lesson"]), first["n"], e(first_les["title"]),
-                   first["minutes"],
-                   ('<a class="ac-cta ac-quiet" href="%s/academy/practice/">Or try one game &rarr;</a>'
-                    % SITE) if has_practice else "",
-                   mini))
+    # ---- prestavba 27. 10. 2026 (Petr: stranka byla neprehledna) ------------
+    # Poradi: (1) pruh "pokracuj" jen pro vracejiciho se, (2) ctyri vstupy hned
+    # pod H1, ktery je slibuje, (3) rozcesti novacek / odbornik, (4) dalsi zdroje.
+    # Seznam deseti lekci z teto stranky zmizel -- je na /academy/core/ a karta
+    # Learn na nej vede; lekce 01 se tu nabizi uz jen v rozcesti.
 
-    # ---- prvni hodina + vstup pro odborniky (review 4. 10. 2026, bod 8) ----
-    # Jedna doporucena trasa pro prvni navstevu misto ctyr rovnocennych voleb.
-    # Data jsou v practice.json "next"; HOME_JS blok skryje, jakmile clovek
-    # zacal (precetl lekci nebo odpovedel v Arene).
-    if has_practice and cfg.get("next"):
-        nx = cfg["next"]
-        rows = "".join('<li><a href="%s%s"><b>%s</b> %s <i>&middot; %d min</i></a></li>'
-                       % (SITE, s["href"], e(s["verb"]), e(s["what"]), s["min"])
-                       for s in nx["firstHour"])
-        body.append('<div class="ac-first" id="acFirst"><p class="ac-sechead">Your first hour</p>'
-                    '<ol class="ac-firstlist">%s</ol></div>' % rows)
-        ex = nx.get("expert")
-        if ex:
-            body.append('<p class="ac-expert"><b>%s</b> %s <a href="%s%s">Take the Qualifying Exam &rarr;</a></p>'
-                        % (e(ex["label"]), e(ex["text"]), SITE, ex["href"]))
+    # (1) Bez JS a pri prvni navsteve skryty. HOME_JS ho vyplni a odkryje, jakmile
+    # clovek neco rozecetl; stoji NAD kartami, protoze "pokracuj" je pro
+    # vracejiciho se ta jedna vec, kvuli ktere prisel.
+    body.append('<div class="ac-resume" id="acResume" hidden>'
+                '<div class="ac-rl" id="acResumeText"></div>%s</div>' % mini)
 
-    # ---- ctyri vstupy -----------------------------------------------------
-    body.append('<p class="ac-sechead">Four ways in</p><div class="ac-ways">')
+    # (2) ctyri vstupy
+    body.append('<div class="ac-ways" id="acWays">')
     body.append('<div class="ac-way" data-way="learn"><span class="ac-kind">Course &middot; %d lessons</span>'
-                '<h3>Learn</h3><p>The mental model most mTOR papers assume you already have &mdash; '
+                '<h2>Learn</h2><p>The mental model most mTOR papers assume you already have &mdash; '
                 'one mechanism at a time, with the evidence attached.</p>'
                 '<span class="ac-state">%d&ndash;%d min each <i>&middot; start anywhere</i></span>'
-                '<a class="ac-go" href="%s/academy/%s/%s/">Read lesson %s &rarr;</a>'
-                '<a class="ac-go ac-quiet" href="%s/academy/before-you-start/">'
-                'What you need first &rarr;</a></div>'
+                '<a class="ac-go" href="%s/academy/%s/">See the %s lessons &rarr;</a></div>'
                 % (len(published), min(r["minutes"] for r in published),
-                   max(r["minutes"] for r in published), SITE, mod["slug"], e(first["lesson"]),
-                   first["n"], SITE))
+                   max(r["minutes"] for r in published), SITE, mod["slug"],
+                   "ten" if len(published) == 10 else str(len(published))))
     if has_practice:
         body.append('<div class="ac-way" data-way="practice"><span class="ac-kind">Practice &middot; %d games</span>'
-                    '<h3>Practice Arena</h3><p>Predict a perturbation, rebuild a route, name what a '
+                    '<h2>Practice Arena</h2><p>Predict a perturbation, rebuild a route, name what a '
                     'result does not show. Points reward calibration, not speed.</p>'
                     '<span class="ac-state">%d questions <i>&middot; 3 min a round</i></span>'
                     '<a class="ac-go" href="%s/academy/practice/">Play &rarr;</a></div>'
@@ -3480,53 +3569,60 @@ def academy_home(modules, lessons_by_slug, challenges):
     if pub_ch:
         body.append('<div class="ac-way" data-way="challenge">'
                     '<span class="ac-kind">Investigation &middot; %d challenge%s</span>'
-                    '<h3>Research Challenges</h3><p>Take a question the field has not closed, commit '
+                    '<h2>Research Challenges</h2><p>Take a question the field has not closed, commit '
                     'to a hypothesis, spend a limited research budget, and compare your reasoning '
                     'with what was published.</p>'
                     '<span class="ac-state">~30 min <i>&middot; needs the basics first</i></span>'
                     '<a class="ac-go" href="%s/academy/research-challenges/">Investigate &rarr;</a></div>'
                     % (len(pub_ch), "" if len(pub_ch) == 1 else "s", SITE))
     body.append('<div class="ac-way" data-way="routes"><span class="ac-kind">The map &middot; %d routes</span>'
-                '<h3>Guided Routes</h3><p>Follow one question all the way through the pathway map, '
+                '<h2>Guided Routes</h2><p>Follow one question all the way through the pathway map, '
                 'step by step, in the interactive Atlas.</p>'
                 '<span class="ac-state">No score <i>&middot; just reading</i></span>'
                 '<a class="ac-go" href="%s/#view=map&amp;pw=guided">Explore &rarr;</a></div>'
                 % (routes_n, SITE))
     for cs in modules.get("comingSoon", []):
-        body.append('<div class="ac-way ac-soon"><span class="ac-kind">Planned</span><h3>%s</h3>'
+        body.append('<div class="ac-way ac-soon"><span class="ac-kind">Planned</span><h2>%s</h2>'
                     '<p>%s</p><span class="ac-state"><i>Coming soon</i></span></div>'
                     % (e(cs["title"]), e(cs["blurb"])))
     body.append("</div>")
 
-    # ---- deset lekci jako detail pilíre Learn, ne pater stranky ------------
-    steps = []
-    for row in mod["lessons"]:
-        pub = row["status"] == "published"
-        ttl = lessons_by_slug[row["lesson"]]["title"] if pub else row.get("title", row["lesson"])
-        inner = ('<a href="%s/academy/%s/%s/"><span class="ac-state">○</span>%s'
-                 '<span class="ac-pathttl">%s</span></a>'
-                 % (SITE, mod["slug"], e(row["lesson"]), row["n"], e(ttl))) if pub else (
-            '<span class="ac-row"><span class="ac-state">·</span>%s'
-            '<span class="ac-pathttl">%s</span></span>' % (row["n"], e(ttl)))
-        steps.append('<li%s data-ac-lesson="%s">%s</li>'
-                     % ("" if pub else ' class="ac-planned"', e(row["lesson"]), inner))
-    body.append('<div class="ac-sechead ac-sechead-row"><span>The %s lessons</span>'
-                '<a href="%s/academy/%s/">All lessons &amp; overview &rarr;</a></div>'
-                '<ol class="ac-path">%s</ol>'
-                % ("ten" if len(published) == 10 else str(len(published)),
-                   SITE, mod["slug"], "".join(steps)))
+    # (3) rozcesti. Levy sloupec drzi id acFirst (P17 ve verify_practice.py);
+    # HOME_JS schova cele rozcesti, jakmile clovek zacal.
+    nx = cfg.get("next") if has_practice else None
+    if nx and nx.get("firstHour"):
+        rows = "".join('<li><a href="%s%s"><b>%s</b> %s <i>&middot; %d min</i></a></li>'
+                       % (SITE, s_["href"], e(s_["verb"]), e(s_["what"]), s_["min"])
+                       for s_ in nx["firstHour"])
+        left = ('<p class="ac-rk">New to mTOR?</p><h2 class="ac-fkh">Your first hour</h2>'
+                '<ol class="ac-firstlist">%s</ol>' % rows)
+    else:
+        left = ('<p class="ac-rk">New to mTOR?</p><h2 class="ac-fkh">Start with the mechanism</h2>'
+                '<p class="ac-fkp">The lessons are the way in &mdash; the other three all point back '
+                'at them.</p>')
+    fork = ['<div class="ac-fk ac-first" id="acFirst">%s<div class="ac-rbtns">'
+            '<a class="ac-cta" href="%s/academy/%s/%s/">Start with lesson %s &rarr;</a>'
+            '<a class="ac-cta ac-quiet" href="%s/academy/before-you-start/">What you need first</a>'
+            '</div></div>'
+            % (left, SITE, mod["slug"], e(first["lesson"]), first["n"], SITE)]
+    ex = nx.get("expert") if nx else None
+    if ex:
+        fork.append('<div class="ac-fk ac-expert"><p class="ac-rk">Already know the basics?</p>'
+                    '<h2 class="ac-fkh">Qualifying Exam</h2>'
+                    '<p class="ac-fkp"><b>%s</b> %s</p>'
+                    '<div class="ac-rbtns"><a class="ac-cta ac-quiet" href="%s%s">'
+                    'Take the Qualifying Exam &rarr;</a></div></div>'
+                    % (e(ex["label"]), e(ex["text"]), SITE, ex["href"]))
+    body.append('<div class="ac-fork" id="acFork">%s</div>' % "".join(fork))
 
-    body.append('<p class="ac-sechead">Explore the Atlas</p>'
-                '<p>Every lesson, game and challenge points back into the database it was written from.</p>'
-                '<div class="ac-deeper">'
-                '<a href="%s/browse/">Studies</a>'
-                '<a href="%s/complex/mtorc1/">Pathways</a>'
-                '<a href="%s/#view=authors">Authors</a>'
-                '<a href="%s/gene/mtor/">Proteins</a>'
-                '<a href="%s/#view=questions">Open questions</a>'
-                '%s</div>'
-                % (SITE, SITE, SITE, SITE, SITE,
-                   ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))
+    explore_links = ('<a href="%s/browse/">Studies</a>'
+                     '<a href="%s/complex/mtorc1/">Pathways</a>'
+                     '<a href="%s/#view=authors">Authors</a>'
+                     '<a href="%s/gene/mtor/">Proteins</a>'
+                     '<a href="%s/#view=questions">Open questions</a>'
+                     '%s'
+                     % (SITE, SITE, SITE, SITE, SITE,
+                        ('<a href="%s/academy/progress/">Your pathway</a>' % SITE) if has_practice else ""))
 
     # ---- plakat "The mTOR story" pro zacatecniky a ucitele (2026-10-19) ---
     # Petr 19. 10. 2026: nejdriv velky blok nahore, pak "zmensit, at to neni
@@ -3555,20 +3651,19 @@ def academy_home(modules, lessons_by_slug, challenges):
             "Open research areas include more specific drugs, personalised medicine, healthy ageing, mTOR in the brain, and how mTOR links metabolism and immunity.",
         ]),
     ]
-    txt = "".join('<h3>%s</h3><ol>%s</ol>' % (h, "".join("<li>%s</li>" % e(t) for t in items))
+    txt = "".join('<h4>%s</h4><ol>%s</ol>' % (h, "".join("<li>%s</li>" % e(t) for t in items))
                   for h, items in poster_txt)
-    body.append(
-        '<section class="ac-poster" id="mtor-story" aria-labelledby="acPosterH">'
-        '<p class="ac-sechead">For beginners and teachers</p>'
-        '<div class="ac-poster-row">'
+    # (4) dalsi zdroje: plakat, Atlas a kurzy jinde jako tri rovnocenne karty.
+    more = [
+        '<section class="ac-mcard ac-poster" id="mtor-story" aria-labelledby="acPosterH">'
         '<a class="ac-poster-thumb" href="/img/academy/mtor-story-poster.png" '
         'title="Open the poster at full size">'
         '<img src="/img/academy/mtor-story-poster-480.webp" width="480" height="320" '
         'loading="lazy" decoding="async" alt="Thumbnail of the poster The mTOR story, '
         'three chapters: the discovery of rapamycin and mTOR, how mTOR reads nutrients, growth '
         'factors, energy and stress, and what it means for disease, medicine and ageing."></a>'
-        '<div class="ac-poster-body">'
-        '<h2 id="acPosterH">The mTOR story on one page</h2>'
+        '<p class="ac-rk">For beginners and teachers</p>'
+        '<h3 id="acPosterH">The mTOR story on one page</h3>'
         '<p>A twelve-panel poster for readers meeting mTOR for the first time: from a soil '
         'bacterium on Easter Island to the cell&rsquo;s growth-or-recycle decision and what it '
         'means for medicine and ageing. It simplifies on purpose; the lessons carry the evidence.</p>'
@@ -3577,14 +3672,19 @@ def academy_home(modules, lessons_by_slug, challenges):
         '<a href="/img/academy/mtor-story-poster-A3.pdf" download>PDF for the classroom '
         '(A3 landscape, %s)</a></p>'
         '<details class="ac-poster-text"><summary>Read the poster as text</summary>%s</details>'
-        '</div></div></section>'
-        % (pdf_size, txt))
+        '</section>' % (pdf_size, txt),
+        '<div class="ac-mcard"><p class="ac-rk">In the database</p><h3>Explore the Atlas</h3>'
+        '<p>Every lesson, game and challenge points back into the database it was written from.</p>'
+        '<div class="ac-deeper">%s</div></div>' % explore_links,
+    ]
     if modules.get("furtherLearning"):
-        body.append('<p class="ac-sechead">Beyond the Atlas</p>'
-                    '<p>Free courses and lectures elsewhere, from MIT, Coursera, iBiology and others, '
-                    'each marked with its level, certificate and how much mTOR it covers.</p>'
-                    '<div class="ac-deeper"><a href="%s%s">Free courses and lectures &rarr;</a></div>'
+        more.append('<div class="ac-mcard"><p class="ac-rk">Elsewhere</p><h3>Beyond the Atlas</h3>'
+                    '<p>Free courses and lectures from MIT, Coursera, iBiology and others, each '
+                    'marked with its level, certificate and how much mTOR it covers.</p>'
+                    '<div class="ac-deeper"><a href="%s%s">Free courses and lectures &rarr;</a></div></div>'
                     % (SITE, FREE_URL))
+    body.append('<h2 class="ac-sechead ac-sechead-h">More resources</h2>'
+                '<div class="ac-more">%s</div>' % "".join(more))
 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "mTOR Academy", "url": url, "inLanguage": "en",
@@ -4374,7 +4474,7 @@ def challenge_page(ch, by_sid, ent_url, routes, gaps, pw, lessons_by_slug):
     page = shell("%s | Research Challenges | Oliver's mTOR Atlas" % ch["title"], desc, url,
                  [ld, bc], "".join(body), crumb, active_tab="learn",
                  extra_css=ACADEMY_CSS + CHALLENGE_CSS,
-                 extra_body=EXERCISE_JS + CHALLENGE_JS, level_switch=True)
+                 extra_body=EXERCISE_JS + CHALLENGE_JS + LAST_JS, level_switch=True)
     page = page.replace("<body>", '<body data-rc-challenge="%s">' % e(slug), 1)
     return url, page
 
