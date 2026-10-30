@@ -2095,8 +2095,8 @@ and how to report an error.</p>
 <p>Oliver's mTOR Atlas is a narrow, hand-curated corpus -- not an attempt
 to index all of PubMed's roughly sixty thousand mTOR-related records, but
 a set small enough that I can read, grade and defend every entry, and then
-connect them by hand into a knowledge graph of genes, drugs, diseases and
-outcomes. Every claim carries an explicit
+connect them, by hand or with AI assistance, into a knowledge graph of genes,
+drugs, diseases and outcomes. Every claim carries an explicit
 evidence label naming the system it was established in (S = synthesis of
 human data, H = human study, A = animal model, M = molecular/in-vitro,
 R = review), together with the boundary conditions that claim was
