@@ -313,9 +313,9 @@ EXERCISE_EVIDENCE = [
                 "Protein synthesis", "Nucleotide synthesis", "Autophagy"],
      "gap": "Acute suppression is inferred from the AMPK mechanism, not from a bout measured in "
             "muscle within this corpus."},
-    {"claim": "Muscle growth is set by the post-exercise window, not the bout itself: rapamycin "
-              "given before resistance exercise blocks the rise in muscle protein synthesis in "
-              "humans.",
+    {"claim": "The acute rise in muscle protein synthesis after a resistance bout is rapamycin-sensitive "
+              "in humans: rapamycin given before exercise blocks it (it also blunted ERK1/2 and MNK1). "
+              "Muscle growth over months was not measured.",
      "studies": ["DRU2009"], "covers": ["TRANSL-MUSCLE", "Muscle growth"]},
     {"claim": "Organism-level lean, as in Fasting: lower S6K1 and higher 4E-BP activity are the "
               "directions linked to longer lifespan in animals.",

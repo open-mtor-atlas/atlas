@@ -237,7 +237,7 @@ def render(m):
     # explicitně doložený režim; celkový počet klasifikovaných je v odstavci
     # pod tabulkou.
     n_explicit = len(cls) - sum(len(by_reg.get(k, [])) for k in UNKNOWN)
-    A(_fig(n_explicit, "studies with an explicitly recorded regimen, each with the source line it rests on"))
+    A(_fig(n_explicit, "studies with an explicitly recorded regimen (permanent genetic changes included), each with the source line it rests on"))
     A(_fig(len(by_reg.get("Intermittent", [])), "tested an intermittent schedule rather than continuous dosing"))
     A(_fig(len(m["stops"]), "included stopping the intervention and watching what happened next"))
     A(_fig("%d of %d" % (td.get("Not tested", 0), n_edges), "pathway links carry no recorded time dependence in this Atlas"))

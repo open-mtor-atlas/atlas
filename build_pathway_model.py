@@ -890,7 +890,7 @@ ROUTE_STEPS = {
  "exercise": [
   {"interaction": "LOAD-MTORC1",
    "what": "You lift something heavy, and mTORC1 activity rises in the muscle.",
-   "why": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so mTORC1 signalling is needed for the acute response, not merely present during it. Rapamycin also blunted ERK1/2 in the same volunteers, so the block is not attributable to mTORC1 alone.",
+   "why": "Mechanical loading raises mTORC1 signalling in skeletal muscle. Rapamycin given to human volunteers before resistance exercise BLOCKS the contraction-induced rise in muscle protein synthesis – so rapamycin-sensitive signalling is needed for the acute response, not merely present during it. Rapamycin also blunted ERK1/2 in the same volunteers, so the block is not attributable to mTORC1 alone.",
    "changed": "A physical force has become a molecular signal. The muscle has committed to building.",
    "consequence": "Everything downstream is the pathway you already know, running on a stimulus that is not a hormone.",
    "certainty": "The strongest human evidence in this section: an interventional study in people (DRU2009, H – human), supported by rodent genetics and pharmacology (BOD2001). It shows that the acute response is rapamycin-sensitive in humans. It does not separate mTORC1 from ERK1/2 and MNK1, which rapamycin also blunted in the same volunteers.",
