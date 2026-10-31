@@ -1186,6 +1186,29 @@
       "type": "boolean",
       "description": "True when the Atlas curation status is Contested, i.e. flagged for review. A record can be one without the other, so these two counts need not agree."
      },
+     "conflict": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "Opposing result",
+         "Different context",
+         "Field dispute"
+        ]
+       },
+       "basis": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why the studies on this relation disagree. Opposing result = a comparable system gave the opposite direction or no effect; Different context = the results differ by species, cell type, dose, schedule or nutrient state; Field dispute = two published models for the same step are unreconciled. Null means no type has been assigned; it does NOT mean the relation is undisputed. A type is assigned only where the relation text or the cited study states the reason."
+     },
      "confidence": {
       "type": "object",
       "properties": {

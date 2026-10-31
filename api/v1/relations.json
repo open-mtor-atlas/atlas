@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "3cf343d0d2737626558dbba08fa4025aca48b0fe01e22b18955042394e23149e",
-  "corpus_snapshot": "2026-10-31T10:38:32+0100",
-  "source_commit": "7808427f7c3fe595c17c86c1c74376792fee6f70",
+  "data_fingerprint": "125d217c442b140b3deca749ec92991770a112ba9d97d6f8631c167fe7245d0b",
+  "corpus_snapshot": "2026-10-31T11:55:21+0100",
+  "source_commit": "c083cb448ea471c636aee09db94482feba5d44f6",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -43,6 +43,7 @@
    "context": null,
    "boundary": "Biochemical and cell-culture evidence (in vitro assays, mammalian and mouse cells, plus one review). It establishes the binding switch itself. It does not measure how much translation changes in a given tissue, in whole animals or in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -105,6 +106,7 @@
     "single-species",
     "single-study"
    ],
+   "conflict": null,
    "note": "Boundary condition matters more than the headline here.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -165,6 +167,10 @@
     "nutrient-state-dependent",
     "single-study"
    ],
+   "conflict": {
+    "type": "Different context",
+    "basis": "In mammalian cells 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (MOR2013). In Drosophila under dietary restriction ZID2009 reports the opposite sign: 4E-BP enhances mitochondrial activity."
+   },
    "note": "ZID2009 is recorded as conflicting evidence on this edge (moved out of the supporting list on 2026-08-30): its own title says 4E-BP ENHANCES mitochondrial activity under dietary restriction in flies, which is the opposite sign to this mammalian-cell edge.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -222,6 +228,7 @@
    "context": null,
    "boundary": "Three 2007 studies in cultured mammalian cells. Not tested in whole animals or in people, and how much this branch adds beside Akt's route through TSC2 is not measured.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -282,6 +289,7 @@
     "nutrient-state-dependent",
     "tissue-specific"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -343,6 +351,7 @@
    "context": null,
    "boundary": "Two studies of different kinds: EGA2010 (cells and C. elegans, AMPK-site mutant of ULK1) and ZHU2026 (mouse toxicology model, where LKB1/AMPK loss also went with mitochondrial DNA leakage and liver inflammation; that downstream link is shown only there). The upstream step is disputed: PAR2023 (Park, Lee and Kim, Nat Commun 2023, PMID 37225695, in this corpus) reports that under glucose starvation and mitochondrial energy stress AMPK restrains ULK1 activation and autophagy induction; see AMPK-ULK1, where it is recorded as the conflicting study. PAR2023 measured ULK1 activity, bulk autophagy and aggrephagy rather than mitophagy itself, so it bears on the upstream step and not directly on the mitophagy readout here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -408,6 +417,7 @@
    "context": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
    "boundary": "Cell biochemistry in human and mouse cells (GWI2008) plus one study in aged mice (YAN2026B). Direct Raptor phosphorylation is shown in cells; how much it adds beside the TSC route in living tissue, and in people, is not shown.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -464,6 +474,7 @@
    "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
    "boundary": "Mammalian cell biochemistry (INO2003, INO2006). Not tested in whole animals or in people by the cited studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -523,6 +534,10 @@
    "boundary_tags": [
     "direction-contested"
    ],
+   "conflict": {
+    "type": "Opposing result",
+    "basis": "EGA2010 and KIM2011 report that AMPK activates ULK1 by phosphorylation; PAR2023 reports that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction."
+   },
    "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
    "consensus_contested": true,
    "curation_contested": true,
@@ -591,6 +606,7 @@
    "context": null,
    "boundary": "Human cells and structural work (CHA2016, SAX2016, VAL2025, JAN2025). The 2025 structures show how arginine binding changes CASTOR1 so that it lets go of GATOR2. Shows how arginine is sensed in cells and in purified proteins. Whether this sensor matters for arginine supply in a whole animal or a person is not tested here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -649,6 +665,7 @@
    "context": null,
    "boundary": "Human cell biochemistry and structure (CHA2016, SAX2016), plus 2025 cryo-EM structures of CASTOR1 bound to GATOR2 (VAL2025, JAN2025). The binding is shown in cells and in purified proteins; there is no whole-animal or human test in the cited studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -709,6 +726,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -764,6 +782,7 @@
    "context": null,
    "boundary": "Biochemical and cell-based evidence (mouse cells with ribosome profiling, mouse models with human prostate cancer data in one study) plus a review. How much a given tissue depends on eIF4E-driven translation is not settled by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Not every mRNA is equally sensitive - HSI2012 shows a specific translational program, not a uniform increase.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -823,6 +842,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Added 2026-07-29. The graph previously had no MAPK input to mTORC1 at all.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -878,6 +898,7 @@
    "context": null,
    "boundary": "Progression-free survival, in combination with exemestane - overall survival was not significantly improved.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Say PFS, not survival. The distinction is the whole argument of this Atlas.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -939,6 +960,10 @@
     "single-study",
     "time-dependent"
    ],
+   "conflict": {
+    "type": "Different context",
+    "basis": "The direction depends on dose and schedule: transplant-level everolimus is immunosuppressive, while intermittent low dosing improved vaccine responses in older adults (MAN2014). MAN2021 used a different drug in phase 3 and a different dose and population in phase 2b, and did not show benefit."
+   },
    "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
    "consensus_contested": true,
    "curation_contested": true,
@@ -998,6 +1023,7 @@
    "boundary_tags": [
     "tissue-specific"
    ],
+   "conflict": null,
    "note": "Rescoped 2026-07-29: this edge previously read as though everolimus had been shown to treat LAM.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1054,6 +1080,7 @@
    "context": null,
    "boundary": "Clinical evidence from phase 3 trials of everolimus in specific diseases (kidney cancer, breast cancer, pancreatic neuroendocrine tumours, TSC and LAM) at the doses used for those diseases. It does not speak to low-dose use in healthy ageing.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Six trials behind one arrow. They establish the clinical effect of the drug; the allosteric mechanism itself rests on the rapamycin biochemistry.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1117,6 +1144,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1174,6 +1202,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1231,6 +1260,7 @@
    "boundary_tags": [
     "reversible-on-withdrawal"
    ],
+   "conflict": null,
    "note": "The purest case in the Atlas: known gene, known pathway, matched drug, randomised evidence.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1290,6 +1320,7 @@
    "context": null,
    "boundary": "Biochemical and structural work on rat and bovine brain extracts, rodent and T cells, and a cryo-EM structure of human mTORC1. It defines how the drug-bound complex docks. FKBP12 alone does not inhibit mTORC1, and effects in whole animals are carried by the rapamycin edges, not this one.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1350,6 +1381,7 @@
    "context": null,
    "boundary": "FLCN's direct effect is substrate-specific: losing it blocks mTORC1 phosphorylation of TFEB/TFE3 while leaving S6K1 and 4E-BP1 largely intact in the short term (NAP2020). That is not the whole of Birt-Hogg-Dube, though. Constitutively active TFEB/TFE3 drive a feedback loop that hyperactivates mTORC1, and in kidney and lung that mTORC1 hyperactivation is itself a key driver of cyst and tumour formation (Di Malta 2023, EMBO Mol Med, PMID 36987696; Ferniani 2026, FER2026 in corpus; Cao 2026, JCI, PMID 41697734, 3 BHD patient lungs + mouse). So the regulation is tissue- and time-dependent, not a flat absence of hyperactivation.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "2026-10-10: beginner text still said FLCN 'only changes one specific output (TFEB), not the whole pathway', the overstatement that audit A02 corrected in the expert layer. Now matches the boundary: direct effect substrate-specific (TFEB/TFE3), feedback hyperactivation of mTORC1 in kidney and lung.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1424,6 +1456,7 @@
    "context": null,
    "boundary": "Human cell biochemistry with cancer genomics (BAR2013) and a cryo-EM structure (SHE2018). GAP activity is shown on purified and cellular Rags; the cited studies do not test it in whole animals or in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1480,6 +1513,7 @@
    "context": null,
    "boundary": "The epistasis is solid. VAL2022 resolved GATOR2's architecture by cryo-EM - a 1.1 MDa cage - and mapped where the sensors dock, but exactly how GATOR2 suppresses GATOR1's GAP activity is still not settled.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Good candidate for a 'mechanism gap' flag - textbook arrow, thin mechanistic evidence.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1541,6 +1575,10 @@
     "single-study",
     "tissue-specific"
    ],
+   "conflict": {
+    "type": "Different context",
+    "basis": "The edge is narrow and cell-type dependent (DUR2012). Its curation status is Contested while the field consensus is emerging; the Rag-independent glutamine route is carried by a separate edge (GLN-MTORC1-ARF1)."
+   },
    "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence. 2026-10-10: this edge's curation status (Contested) and its field consensus (emerging) deliberately differ, and the evidence-audit page now labels the two dimensions separately instead of presenting either count as the number of disputed claims.",
    "consensus_contested": false,
    "curation_contested": true,
@@ -1596,6 +1634,7 @@
    "context": null,
    "boundary": "Two mammalian cell studies (HSU2011, YUX2011). The feedback is shown in cultured cells. Its size in living tissue and in people, and how it compares with the S6K1-IRS-1 loop, are not measured.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "ORE2006 and ROD2011 were removed from this edge on 2026-09-21: neither measured Grb10. ORE2006 belongs to the S6K1-IRS-1 arm and ROD2011 shows relief of receptor tyrosine kinase feedback in general.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1654,6 +1693,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Thin - one supporting study.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1709,6 +1749,7 @@
    "context": null,
    "boundary": "Compressed on purpose: growth hormone and IGF-1 are one node here, but they are not one molecule and they do not share a receptor. GH signals GHR-JAK2-STAT5b and acts on this arm largely by inducing hepatic IGF-1; patients with a homozygous STAT5b mutation have GH insensitivity with low IGF-1 and low IGFBP-3 (Kofoed 2003, PMID 13679528, outside this corpus). The dwarf-mouse lifespan evidence on this axis lowers GH and IGF-1 together, so it does not tell the two apart. Insulin enters the same arm through its own receptor and is drawn separately (INS-PI3K).",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1774,6 +1815,7 @@
    "context": null,
    "boundary": "Cell studies (TSC1/TSC2-null mouse cells and human cells) plus a review. An adaptor relationship shown in cultured cells; differences between IRS-1 and IRS-2 by tissue are not resolved by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1833,6 +1875,7 @@
     "single-species",
     "single-study"
    ],
+   "conflict": null,
    "note": "Thin and species-limited, but it is a genuinely different input route - worth showing as such.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -1888,6 +1931,7 @@
    "context": null,
    "boundary": "Mammalian cell genetics (WOL2017, PEN2017). The dependency is shown in cultured cells; whole-animal and human relevance are not tested in the cited work.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -1948,6 +1992,10 @@
     "direction-contested",
     "single-study"
    ],
+   "conflict": {
+    "type": "Field dispute",
+    "basis": "HAN2012 assigns GAP activity on RagC/D to LARS. The Atlas assigns the same reaction to FLCN, and the two assignments have not been reconciled head-to-head."
+   },
    "note": "See LEU-LARS.",
    "consensus_contested": true,
    "curation_contested": true,
@@ -2006,6 +2054,10 @@
     "direction-contested",
     "single-study"
    ],
+   "conflict": {
+    "type": "Field dispute",
+    "basis": "LARS (HAN2012) and Sestrin2 are two published leucine sensors that have not been compared head-to-head. See LEU-SESN2."
+   },
    "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
    "consensus_contested": true,
    "curation_contested": true,
@@ -2062,6 +2114,7 @@
    "context": null,
    "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested. VAL2025 (2025 cryo-EM) shows the leucine-induced shape change in Sestrin2 that releases GATOR2, again in purified protein and cultured cells. SHIM2026 is a 2026 rat study (dexamethasone-induced muscle atrophy, not an ageing model) with human myotubes; it tests a leucine-mimetic prodrug and supports Sestrin2-dependent mTORC1 activation, not the 20 uM leucine setpoint.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2122,6 +2175,7 @@
    "boundary_tags": [
     "cell-line-only"
    ],
+   "conflict": null,
    "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2197,6 +2251,7 @@
    "boundary_tags": [
     "nutrient-state-dependent"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2258,6 +2313,10 @@
    "boundary_tags": [
     "direction-contested"
    ],
+   "conflict": {
+    "type": "Field dispute",
+    "basis": "How much of metformin's effect runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010)."
+   },
    "note": null,
    "consensus_contested": true,
    "curation_contested": true,
@@ -2320,6 +2379,10 @@
     "direction-contested",
     "single-study"
    ],
+   "conflict": {
+    "type": "Different context",
+    "basis": "Dose is the main issue: concentrations used in cell culture are typically far above plasma levels at clinical doses, so the in vitro mechanism may not describe what metformin does in a patient. The relative weight of this route and the AMPK route in humans is unresolved."
+   },
    "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK. 2026-10-10: beginner text given the dose and species caveat that the expert text carries.",
    "consensus_contested": true,
    "curation_contested": true,
@@ -2375,6 +2438,7 @@
    "context": null,
    "boundary": "Knockout mice (GUE2006) and human cell biochemistry (KIM2003). The separation of the two complexes is shown in mouse tissue; whether it holds in human tissue is not tested by these studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The cleanest genetic argument that the two complexes are truly separate machines.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2432,6 +2496,7 @@
    "context": null,
    "boundary": "Cryo-EM structures of the complex from human cells and yeast (CHE2018, SCA2020, STU2018, KAR2017). Structural evidence shows how the complex is built, not how often or where it forms in living tissue.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Three independent structures - unusually well supported for this corpus.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2490,6 +2555,7 @@
    "context": null,
    "boundary": "Cell and in vitro evidence (human and mouse cells, with C. elegans RNAi in one study). Rapamycin blocks this phosphorylation only partly, and individual sites differ in how sensitive they are (KAN2013). Not shown in people by these studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2555,6 +2621,7 @@
    "boundary_tags": [
     "cell-line-only"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2611,6 +2678,7 @@
    "context": "Strongly modified by sex, strain, diet and the age at which inhibition starts. Effect direction is reproducible; effect size is not transferable between models.",
    "boundary": "No human hard-endpoint evidence. This is the Atlas's flagged 'human endpoint desert'.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Links to ATLAS_FINDINGS human-endpoint desert.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2676,6 +2744,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "CAR2008 was already in the corpus but carried no edge until 2026-07-29.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2731,6 +2800,7 @@
    "context": null,
    "boundary": "Shown in cultured cells and skeletal muscle (CUN2007) and mammalian cell lines (MOR2013). One organismal result points the other way: adipose-specific Raptor deletion raised mitochondrial respiration (POL2008), see MTORC1-OXPHOS.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2788,6 +2858,7 @@
    "context": null,
    "boundary": "Cancer cell and mammalian cell studies, including xenograft tumours (VAL2017, BEN2016, ALI2022). The evidence comes mostly from dividing or tumour cells; whether non-dividing tissues use the same route is not shown.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -2849,6 +2920,7 @@
     "single-study",
     "tissue-specific"
    ],
+   "conflict": null,
    "note": "The arrow means mTORC1 inhibition reversed a pre-cancerous prostate lesion in a mouse model. It is not a claim that mTORC1 drives established prostate cancer.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2904,6 +2976,7 @@
    "context": null,
    "boundary": "Correlative, plus two randomised human trials showing the tumour responds to mTOR inhibitors: overall survival in poor-prognosis first-line RCC with temsirolimus (HUD2007), progression-free survival only after VEGF-targeted therapy with everolimus (MOT2008). This is response to treatment, not a demonstration that mTORC1 activation initiates RCC. The bladder-cancer responder case IYE2012 was removed from this edge on 2026-10-09 as a citation-population mismatch (it describes bladder, not kidney).",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Replaces TUMOR-RCC, which asserted 'Tumor growth activates RCC' - a category error, since RCC is an instance of tumour growth, not a downstream target. 2026-10-09: IYE2012 (metastatic bladder cancer) removed as a supporting study and from the mechanism text; it was a citation-population mismatch. Human relevance now rests on the two RCC phase III trials MOT2008 and HUD2007. 2026-10-09 (later): corrected 'both trials extended survival' - only HUD2007 showed overall survival; MOT2008 (RECORD-1) showed progression-free survival. 2026-10-10: this record is typed as an association, but the published data still carried the causal sign 'activates', and several surfaces built their wording from that sign rather than from the type. A first attempt the same day fixed the API claim string and the relation-page heading, and this note then claimed the problem was solved. It was not: the static pathway table, the link labels on both supporting study pages, four Practice Arena questions and the arrowhead on the map all still read causally. 2026-10-10 (second pass): fixed in the data instead of in one renderer. The published effect for a non-causal relation type is now 'associated-with' with causal=false, and the curatorial Airtable sign is kept separately as sign_curatorial, so every surface follows from one value. The map draws an open circle rather than an arrowhead. A new build gate fails if a non-causal type ever carries a causal sign again. What this edge does and does not claim: lesions in the pathway are frequent in renal cell carcinoma and mTOR inhibitors benefit defined patient populations, but no study here establishes that mTORC1 activity drives the disease. Whether to split the record into a molecular mechanism plus a separate clinical-outcome record is an open editorial question.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -2960,6 +3033,7 @@
    "context": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
    "boundary": "Caution: p-S6K is a proxy, not the phenotype. Many 'mTORC1 activity' claims rest on this single band.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Worth flagging on the page: readout != outcome.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3023,6 +3097,7 @@
    "context": null,
    "boundary": "Three studies, all in cells or a rat disease model. LAB2015 and NAR2011 measure the secretory output of cells that are already senescent (IL1A translation; IL-6/IL-8 production fuelled by mTOR at the TASCC). CHEN2026C (human disc cells, rat needle-puncture model) shows mTORC1 hyperactivation after TSC2 loss together with senescence and SASP, both blocked by rapamycin - a disease-model result, not a general demonstration that mTORC1 drives cells into senescence. That is why this arrow lands on the secretory programme and not on senescence itself.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The arrow means mTORC1 sustains the secretory output (SASP) of senescent cells. Whether mTORC1 also pushes cells into senescence in the first place (geroconversion) is a separate and weaker claim that this edge does not make.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3081,6 +3156,7 @@
    "context": null,
    "boundary": "Mammalian cell studies (POR2008, PET2011) and an emerging rather than settled consensus. Cultured cells; the size of the effect in whole animals and in people is not measured by these studies. KID2013 adds primary mouse T cells: rapamycin blocked SREBP processing and nuclear entry after T-cell activation, and Scap-deleted T cells could not raise sterol synthesis. Still no human tissue data.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3139,6 +3215,7 @@
    "context": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
    "boundary": "RagD specifically (more than RagC) promotes TFEB/TFE3 phosphorylation via tighter LAMTOR binding — GOL2022 shows this is paralogue-specific, not a generic Rag-dimer property.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Four independent studies - one of the best-supported output edges.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3204,6 +3281,7 @@
    "context": null,
    "boundary": "Context-dependent: shown in genetically driven mouse tumour models and cancer cell lines with hyperactive mTORC1 (PTEN loss, TSC loss), not as a general property of tumours. OKI2021 (mouse AML) is not cited as support: mTORC1 activity fell as the leukaemia progressed and rose during the chemotherapy response, so it bears on when to inhibit mTORC1, not on mTORC1 driving growth.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The arrow means hyperactive mTORC1 promotes tumour growth where the pathway is already unleashed - PTEN-loss and TSC-loss backgrounds. It is not a claim that mTORC1 activity causes tumours generally, and normal mTORC1 signalling is not a tumour driver here.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3265,6 +3343,7 @@
    "context": null,
    "boundary": "Mammalian and human/mouse cell studies (HOS2009, GAN2009, KIM2011, NAZ2013). Cell-culture biochemistry; the whole-animal and human consequence is not shown by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3324,6 +3403,7 @@
    "context": null,
    "boundary": "Mammalian cells, yeast, Drosophila and conditional Rictor-knockout mice (JAC2004, SAR2004, LOE2002, HUA2013). The cytoskeleton phenotype was defined in cell lines and yeast; its role in intact tissue is less tested.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The two-complex model itself came from biochemistry (LOE2002, JAC2004, SAR2004).",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3382,6 +3462,7 @@
    "context": "S473 contribution to Akt output is substrate-dependent: some Akt substrates are strongly mTORC2-dependent, others barely.",
    "boundary": "Mammalian cell studies, cancer cells and one mouse and rat liver study (ARI2015). Ser473 phosphorylation is shown in cells. The glucose consequence of losing it comes from mouse work (LAM2012) and has not been measured in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Bridge edge between the growth-factor route and the rapamycin route.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3448,6 +3529,7 @@
     "single-species",
     "time-dependent"
    ],
+   "conflict": null,
    "note": "Feeds hypothesis H2 in Knowledge_Gaps.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3507,6 +3589,7 @@
     "single-species",
     "tissue-specific"
    ],
+   "conflict": null,
    "note": "The arrow means mTORC2 drove de novo lipid synthesis in one hepatic tumour model. It is not a claim that mTORC2 controls lipid synthesis generally, or in people. 2026-10-10: beginner text said 'not measured in patients'; GUR2017 (abstract, PMID 29232555) does report a correlation in human HCC. Wording corrected to correlative.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3576,6 +3659,7 @@
     "single-study",
     "tissue-specific"
    ],
+   "conflict": null,
    "note": "The arrow means mTORC2 is required for Pten-loss-driven prostate cancer to develop in mice. It does not claim that mTORC2 causes prostate cancer, and it says nothing about human disease.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3633,6 +3717,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3690,6 +3775,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3745,6 +3831,7 @@
    "context": "PIP3 recruits Akt; recruitment alone does not activate it. Full activation additionally needs PDK1 (T308) and mTORC2 (S473), so the strength of this link depends on the activity of both of those.",
    "boundary": "Mammalian cell study (LIU2015) plus a review (CAN2002). Cell biochemistry; not tested in whole animals or in people by the cited sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3801,6 +3888,7 @@
    "context": null,
    "boundary": "Growth-factor dependence of mTORC2 assembly and activity, shown in mammalian cells. The ribosome requirement (ZIN2011) means the readout is not a clean separation of PI3K input from translational state.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Drawn as canonical because four independent studies in this corpus support it; the open part is how much of the effect is PI3K input versus ribosome association.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3859,6 +3947,7 @@
    "context": null,
    "boundary": "Human cell biochemistry and a cryo-EM structure (SAN2007, YAN2017). Shows the plug mechanism in cells and in structure; its effect in whole animals and in people is not tested here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -3917,6 +4006,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "2026-10-09: Causal directness changed direct -> indirect to match the prose. PTEN removes PI3K's product (PIP3) rather than acting on PI3K itself, so 'direct' was inconsistent with the mechanism and context text. Interaction type stays 'dephosphorylation' (what PTEN does to PIP3). 2026-10-10: Interaction type changed dephosphorylation -> functional-consequence. Leaving a reaction type on an edge whose target is the PI3K protein made the machine-readable claim 'PTEN dephosphorylates PI3K', which the prose had always contradicted. The edge is now typed as what it is, a compressed functional opposition, with PIP3 named as the hidden intermediate.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -3981,6 +4071,7 @@
    "context": null,
    "boundary": "Rag paralogues are not interchangeable: RagC/D sets substrate specificity downstream (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding, while both Rags are involved for non-lysosomal substrates like S6K), and RagA/B sets the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even when starved) — GOL2022.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The conceptual crux of the whole route: teach recruitment vs activation as two separate ideas.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4045,6 +4136,7 @@
    "context": null,
    "boundary": "Human cells, Drosophila and purified recombinant proteins (BAR2012, SAN2010, SHE2018B). The exchange activity was first assigned to RagA/B and later to RagC, so the exact step is still being refined. Whole-animal and human relevance are not tested here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4102,6 +4194,7 @@
    "context": null,
    "boundary": "X-ray crystallography and in vitro work on bovine, rat and mouse material (CHO1996, BRO1994, SAB1995). Describes drug binding in purified systems; it says nothing about dose or effect in patients.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The molecular-glue concept - genuinely surprising to newcomers.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4162,6 +4255,7 @@
     "reversible-on-withdrawal",
     "single-study"
    ],
+   "conflict": null,
    "note": "Added 2026-07-29. EVE-LAM previously carried this claim on a trial whose endpoint was renal angiomyolipoma.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4221,6 +4315,7 @@
     "sex-specific",
     "single-species"
    ],
+   "conflict": null,
    "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4284,6 +4379,7 @@
     "time-dependent",
     "tissue-specific"
    ],
+   "conflict": null,
    "note": "THE key context-dependent edge. Should render dashed with an explicit 'chronic only' label. 2026-10-09: Interaction type changed complex-disassembly -> complex-assembly. Prolonged rapamycin prevents assembly of NEW mTORC2 (SAR2006); it does not disassemble existing complexes, so 'disassembly' was the wrong mechanism word. Sign stays 'inhibits' (it inhibits assembly).",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4340,6 +4436,7 @@
    "context": null,
    "boundary": "Mostly cell and in vitro work (human cells, C. elegans RNAi, rodent cell lines). One muscle-specific knockout in mice (BEN2008) shows lifelong total loss, which is not the same as partial inhibition by a drug. Not tested in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4399,6 +4496,7 @@
    "context": null,
    "boundary": "One study in mammalian cells (BRU2004). A single study, not replicated in this corpus, and not tested in whole animals or in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4455,6 +4553,7 @@
    "context": "Rheb must be GTP-loaded and co-located with mTORC1. Rheb is also distributed across the ER and Golgi, and which pool supplies the activating Rheb is unresolved.",
    "boundary": "Cryo-EM structures, in vitro biochemistry, Drosophila and one mouse study (INOK2003, SAU2003, YAN2017, CUI2025, DEL2011). Defines how Rheb activates mTORC1 in reconstituted and cellular systems; not measured directly in human tissue.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Convergence point: the amino-acid route delivers mTORC1 here, the growth-factor route delivers Rheb. Both required.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4514,6 +4613,7 @@
    "context": null,
    "boundary": "Mammalian cells, Drosophila and conditional Rictor-knockout mice (SAR2004, JAC2004, HUA2013). Shows that the complex needs Rictor; relevance in human tissue is not tested by these studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4572,6 +4672,7 @@
    "context": null,
    "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4634,6 +4735,7 @@
     "single-species",
     "single-study"
    ],
+   "conflict": null,
    "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps. 2026-10-10: UMX2004 no longer cited as support for the lifespan arrow; it measured obesity and insulin sensitivity, not lifespan.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4689,6 +4791,7 @@
    "context": null,
    "boundary": "Mammalian cell studies including xenograft tumours (BEN2013, ROB2013, ALI2022). The evidence comes from cultured and tumour cells; whether non-dividing tissues use the same route is not shown.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4748,6 +4851,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Thin - one supporting study.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4806,6 +4910,7 @@
     "single-species",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -4863,6 +4968,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Only one supporting study in the corpus - flag as thin.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4920,6 +5026,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Only one supporting study in the corpus.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -4978,6 +5085,7 @@
     "single-species",
     "single-study"
    ],
+   "conflict": null,
    "note": "Added 2026-07-29. Gap H1 previously asserted the sensors link to ZERO ageing outcomes, which was true of the corpus but not of the literature.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5033,6 +5141,7 @@
    "context": null,
    "boundary": "Mammalian cell studies (CHA2014, PAR2014, WOL2015) and a cryo-EM structure of the Sestrin2-GATOR2 complex (VAL2025). Shows leucine sensing in cultured cells and where the sensor docks on GATOR2; the importance of this sensor in whole animals and people is not tested by these studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5091,6 +5200,7 @@
    "context": null,
    "boundary": "Mammalian cell studies and a cryo-EM structure (JAC2006, FRI2006, YAN2006, STU2018). Cell and structural evidence; not tested in people by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5149,6 +5259,7 @@
    "context": null,
    "boundary": "Mammalian cell studies and purified-protein work (REB2015, WAN2015, JUN2015, WYA2017, SHE2018B). Cell and biochemical evidence; whole-animal and human relevance are not tested here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Five independent studies - one of the best-supported edges in the sensor branch.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5208,6 +5319,7 @@
    "context": null,
    "boundary": "Mammalian cell studies and a review (POR2008, PET2011, SHI2014). SREBP's role in lipid synthesis rests on cell-based work and does not measure it in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5267,6 +5379,7 @@
    "context": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
    "boundary": "XIA2011 (crystal structure and biochemistry of mammalian AMPK) demonstrates that AMP binding to the gamma regulatory domain promotes phosphorylation and protects against dephosphorylation, and that ADP binds too. GWI2008 and ZHO2001 show downstream consequences. DEM2026 (IDH3 and citrate in AML stem cells) does not test AMP/ADP binding; its place on this edge needs the curator's decision.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5325,6 +5438,7 @@
    "context": null,
    "boundary": "Mammalian cell studies (DEM2016, MEN2014). Relocation of TSC2 to the lysosome is shown in cultured cells under several stresses; not tested in tissue or in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "Nice parallel to RAG-MTORC1 in the amino-acid route: both branches work by moving a protein to the lysosome.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5383,6 +5497,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5440,6 +5555,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "2026-10-10: beginner text hedged to match the expert text ('to our knowledge'); boundary added that the cited trial is clinical, not pharmacodynamic.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5497,6 +5613,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "Overall survival, not a surrogate. Worth pointing at.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5552,6 +5669,7 @@
    "context": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
    "boundary": "Human and mouse cell studies (SET2011, ROC2012, SET2012). The gene programme is shown in cells; its contribution to autophagy in living tissue and in people is not measured here.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "The transcriptional arm of autophagy, distinct from the fast ULK1 arm.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5610,6 +5728,7 @@
    "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
    "boundary": "Mouse (BOD2001) and cultured myotubes (ROM2001). The human study DRU2009 is cited on the step before this one (LOAD-MTORC1): rapamycin blocked the rise in muscle protein synthesis 1-2 h after one bout of contractions (and also blocked ERK1/2). It did not measure muscle growth, so it is not evidence for this arrow.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "2026-10-10: DRU2009 moved off this arrow. It measured short-term protein synthesis, not muscle growth, and stays cited on LOAD-MTORC1. Human relevance plausible.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5669,6 +5788,7 @@
    "context": "Deliberately compressed: TSC acts on Rheb rather than directly on mTORC1. Kept as one link so the overview reads cleanly.",
    "boundary": "Human cell lines, Drosophila, mouse and cell studies, one open-label human trial (KRU2010) and human disease genetics. The human evidence comes from disease caused by TSC loss, not from healthy tissue.",
    "boundary_tags": [],
+   "conflict": null,
    "note": "This is the edge that turns the biochemistry into a disease.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -5738,6 +5858,7 @@
    "context": null,
    "boundary": "In vitro, Drosophila and mammalian cell biochemistry (INOK2003, GAR2003). GAP activity is shown in cells and in vitro; not measured in human tissue by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5796,6 +5917,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5851,6 +5973,7 @@
    "context": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
    "boundary": "Mammalian cell studies (GAN2009, HOS2009, EGA2010). Autophagosome initiation is shown in cultured cells. Whether autophagy carries the benefits of mTOR inhibition in whole animals is not tested by these sources.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5910,6 +6033,7 @@
    "context": null,
    "boundary": "The 'inside-out' model requires amino acids to accumulate inside the lysosome first; how they get there for every amino acid is not fully mapped.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -5966,6 +6090,7 @@
    "context": null,
    "boundary": "Directness is graded indirect because the mechanism requires FKBP12, as for everolimus and the bi-sterics. Acute effect only; the chronic effect on mTORC2 is the separate RAPA-MTORC2 edge.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6038,6 +6163,10 @@
     "single-study",
     "tissue-specific"
    ],
+   "conflict": {
+    "type": "Different context",
+    "basis": "The effect is cell-type dependent and has not been uniformly reproduced across labs. JEW2015 is the supporting study; the Rag-dependent route is the separate edge GLN-RAG."
+   },
    "note": null,
    "consensus_contested": true,
    "curation_contested": true,
@@ -6094,6 +6223,7 @@
    "context": null,
    "boundary": "Compressed: load reaches mTORC1 through several routes, only some of which need IGF-1, and the map draws one arrow. The human evidence (DRU2009) is one acute bout, measured 1-2 h later: it shows that rapamycin-sensitive signalling takes part in the early rise in protein synthesis. It does not show that mTORC1 is the only required mediator, which upstream route carries the signal, or that muscle growth changes; muscle growth was not measured.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6150,6 +6280,7 @@
    "context": null,
    "boundary": "Supporting evidence is thinner than the claim's reputation. ROM2016 (two-year caloric restriction is tolerable in non-obese humans) and MAT2017 (rhesus survival) were removed as support in the 2026-09-21 audit because neither measured mTORC1; they belong to the CR-LONGEVITY edge. That leaves SOL2014, which is an ad-libitum 25-diet study whose own title states that the ratio of macronutrients, not caloric intake, dictates the outcome, and whose mTOR observation is correlative and confined to liver. Re-audit 2026-10-10: consensus was downgraded from established to emerging and the evidence kind from genetic epistasis to correlative, because neither matched what SOL2014 actually did. The edge is retained because the mechanistic expectation is sound and well motivated by the sensor arms, but it is an expectation, not a measured result in this corpus. 2026-10-18: YIL2012 added. In mouse intestine, calorie restriction lowered mTORC1 activity in Paneth cells, and rapamycin or Paneth-cell genetics reproduced the stem-cell effect, so the corpus now has one direct mTORC1 measurement under restriction. It is a single tissue in mice and does not show the same in people.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6209,6 +6340,10 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": {
+    "type": "Opposing result",
+    "basis": "SOL2014 found that energy restriction by dietary dilution in ad libitum-fed animals does not extend lifespan; lifespan tracked the protein-to-carbohydrate ratio, not calorie intake."
+   },
    "note": "2026-10-10: SOL2014 moved from supporting to conflicting. Full text: 'energy restriction achieved by dietary dilution in ad libitum-fed animals does not extend life-span'; lifespan tracked the protein:carbohydrate ratio, not calorie intake. It cannot support a calories-extend-life arrow.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -6266,6 +6401,7 @@
    "context": null,
    "boundary": "Cell-line pharmacology. Clinical development of this class has been limited by toxicity attributed to simultaneous mTORC2 inhibition, which is precisely what the bi-steric design tries to avoid.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6327,6 +6463,7 @@
    "context": null,
    "boundary": "Explains the metabolic and immunological toxicity of this class relative to rapalogs; the magnitude in patients is not established from these cell-line studies.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6388,6 +6525,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6444,6 +6582,7 @@
    "context": null,
    "boundary": "Transcriptional output measured as gene expression and lysosomal markers; how much the compartment actually expands varies with cell type and starvation depth.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6502,6 +6641,7 @@
    "context": null,
    "boundary": "SET2012 establishes lysosome-to-nucleus signalling via mTOR and TFEB; the quantitative effect of compartment size on mTORC1 output is not resolved.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6560,6 +6700,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6615,6 +6756,7 @@
    "context": null,
    "boundary": "Effect size varies strongly by tissue; the transcriptional and translational arms have not been cleanly separated in vivo. OVERLAP (audit 2026-09-04): this edge and MTORC1-MITO assert overlapping biology from overlapping citations (CUN2007, MOR2013) at different tiers and different consensus levels. Read them together; they are not independent support.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6676,6 +6818,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6733,6 +6876,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6790,6 +6934,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6847,6 +6992,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6904,6 +7050,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -6959,6 +7106,7 @@
    "context": null,
    "boundary": "Mouse prostate model with pharmacological mTOR inhibition; HIF-1α is one of several pathways implicated in the same experiment. DUV2010 adds cultured-cell evidence (Tsc2-null fibroblasts with rapamycin) that mTORC1 drives HIF1α target genes such as glycolytic enzymes; still no human tissue data.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7017,6 +7165,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7074,6 +7223,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7132,6 +7282,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7189,6 +7340,7 @@
    "boundary_tags": [
     "single-species"
    ],
+   "conflict": null,
    "note": "2026-10-10: Interaction type signal-relay -> functional-consequence. The target is a lifespan outcome, not a signalling node, and mTOR signalling was not measured in either study.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -7248,6 +7400,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7306,6 +7459,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": "2026-10-10: Interaction type complex-disassembly -> complex-assembly. WANG2026B: PDCD4 binding to Rictor 'disrupted mTORC2 complex assembly'; it prevents formation rather than taking apart existing complexes. Same convention as RAPA-MTORC2 (audit A10). Sign stays 'inhibits'.",
    "consensus_contested": false,
    "curation_contested": false,
@@ -7363,6 +7517,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7420,6 +7575,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7476,6 +7632,7 @@
    "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
    "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7535,6 +7692,7 @@
    "context": null,
    "boundary": "Insulin and IGF-1 share this receptor arm; growth hormone does not, and is kept separate for that reason. The amplitude and the time pattern of the insulin signal are not interchangeable: KUB2012 shows the AKT pathway multiplexes insulin's temporal pattern, so a single arrow understates what the cell reads. Cell and genetic work, plus human physiology for the insulin-resistance end of it.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7595,6 +7753,7 @@
    "context": null,
    "boundary": "The two polymerase steps that carry most of this output are NOT measured by any study in this corpus. mTOR controls rRNA transcription through RNA polymerase I via TIF-IA (Mayer 2004, PMID 15004009, outside this corpus) and tRNA and 5S transcription through RNA polymerase III via Maf1 (Shor 2010, PMID 20233713, outside this corpus). Until those are curated here the edge rests on a yeast cell-cycle study, a mammalian ribosome-profiling study and a reverse-direction survival study, so read it as the existence of the output rather than as its mechanism.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7670,6 +7829,7 @@
    "context": null,
    "boundary": "The selectivity is from ribosome profiling in cancer cell lines (HSI2012); the lifespan link is Drosophila only (WAN2026); PLEDGER2026 shows the same arm being repressed in chronically activated human CD8+ T cells. No human in vivo measurement of 5'TOP translation under an mTOR inhibitor in this corpus. Which of the 5'TOP transcripts matter for which phenotype is not resolved.",
    "boundary_tags": [],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7730,6 +7890,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7812,6 +7973,7 @@
    "boundary_tags": [
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7887,6 +8049,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -7945,6 +8108,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -8003,6 +8167,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -8061,6 +8226,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -8119,6 +8285,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
@@ -8177,6 +8344,7 @@
     "cell-line-only",
     "single-study"
    ],
+   "conflict": null,
    "note": null,
    "consensus_contested": false,
    "curation_contested": false,
