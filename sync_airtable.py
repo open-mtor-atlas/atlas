@@ -165,6 +165,11 @@ def fetch_entities():
             # Doplní se níž, až budou studie načtené.
             "studies": f.get("Studies", []) or [],
             "desc_beginner": g(f, "Description_Beginner"),
+            # 31. 10. 2026 (konkurenční audit, bod 4): externí identifikátory.
+            # Airtable je zdroj pravdy, proto se NEPŘENÁŠEJÍ z předchozího bake:
+            # prázdné pole v Airtable znamená "není jednoznačný gen".
+            "hgnc": g(f, "HGNC_ID"),
+            "uniprot": g(f, "UniProt_ID"),
         }
         old = prev.get(row["id"])
         if old:

@@ -41,11 +41,16 @@ MAP = {
     'flduckIR0kzKzAlkD': 'synonyms',
     'fldXAPRr4EpWg5nln': 'studies',
     'fldJuq0IWDdSSlbMS': 'desc_beginner',
+    'fldgo8Ms9RqxTl2sg': 'hgnc',      # HGNC_ID, 31. 10. 2026
+    'fld80p2VIHUkzI45K': 'uniprot',   # UniProt_ID, 31. 10. 2026
 }
 # The exact key set (and order) ATLAS_ENTITIES rows carry. Asserted on output so
 # a shape drift is a hard failure here, not a silent blank in the browser.
-KEYS = ['id', 'name', 'type', 'desc', 'synonyms', 'studies', 'desc_beginner']
-CARRYABLE = ('desc', 'desc_beginner')
+KEYS = ['id', 'name', 'type', 'desc', 'synonyms', 'studies', 'desc_beginner',
+        'hgnc', 'uniprot']
+# hgnc/uniprot se přenášejí jen u dumpu, který ta pole vůbec neobsahuje (viz
+# níže); s --strict se prázdná hodnota z Airtable bere doslova.
+CARRYABLE = ('desc', 'desc_beginner', 'hgnc', 'uniprot')
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "atlas_data", "entities_baked.json")
@@ -99,7 +104,8 @@ def main():
     for r in records:
         cells = r.get("cellValuesByFieldId", r.get("fields", {}))
         row = {"id": r["id"], "name": "", "type": "", "desc": "",
-               "synonyms": "", "studies": [], "desc_beginner": ""}
+               "synonyms": "", "studies": [], "desc_beginner": "",
+               "hgnc": "", "uniprot": ""}
         for fid, key in MAP.items():
             if fid in cells:
                 row[key] = unwrap(cells[fid])
