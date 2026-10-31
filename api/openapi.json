@@ -770,6 +770,30 @@
      "study_count": {
       "type": "integer"
      },
+     "identifiers": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "properties": {
+       "hgnc": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "uniprot": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "taxon": {
+        "type": "string"
+       }
+      },
+      "description": "Standard identifiers (HGNC, UniProtKB, NCBI Taxonomy), present only when the entity is a single human gene/protein. Null for groups, complexes, drugs, diseases and metabolites."
+     },
      "relation_count": {
       "type": "integer"
      },
