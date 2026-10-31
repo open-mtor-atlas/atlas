@@ -789,6 +789,8 @@ if exist "atlas_data\entities_baked.json" git add atlas_data\entities_baked.json
 if exist "atlas_data\events_baked.json" git add atlas_data\events_baked.json
 REM  2026-10-09: rucne kurovany JSON pro /pipeline/ (Atlas_v2 sync_data.py ho cte z origin/main).
 if exist "atlas_data\drug_pipeline.json" git add atlas_data\drug_pipeline.json
+REM  2026-10-31: verejny screening log (Atlas_v2 /about/screening/ ho cte z origin/main).
+if exist "atlas_data\screening_log.json" git add atlas_data\screening_log.json
 REM  2026-10-17: verzovani datasetu (externi audit, BLOCKING) - viz krok Release status.
 if exist "release_status.py" git add release_status.py
 if exist "atlas_data\releases.json" git add atlas_data\releases.json

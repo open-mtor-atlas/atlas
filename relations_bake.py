@@ -87,6 +87,9 @@ F = {
     "checked_on": "fldyoWgjJABvTG9Be",
     "check_outcome": "fldUEmizcX4mBvO2X",
     "check_consent": "fldXEbhgCUTlsKHic",
+    # 31. 10. 2026 (konkurenční audit): PROČ se studie o hraně neshodují.
+    "conflict_type": "fldORHtP7Od6lv7DK",   # Opposing result / Different context / Field dispute
+    "conflict_basis": "fldJyh7EdGFPosSqf",  # 1-2 věty, povinné při vyplněném typu
 }
 F_STUDY_SID = "fldnmqtOHZ0luHRiI"
 F_ENTITY_NAME = "fldh3zgrLDjLi1szC"
@@ -198,6 +201,8 @@ def normalize(records, sid_by_rec=None, entity_by_rec=None):
             "context": _name(g("context")) or "",
             "reviewed_by": _name(g("reviewed_by")) or "",
             "reviewed_on": _name(g("reviewed_on")) or "",
+            "conflict_type": _name(g("conflict_type")) or None,
+            "conflict_basis": _name(g("conflict_basis")) or "",
             # Bez vyslovneho souhlasu se o externi kontrole nepublikuje nic.
             "checked": ({"by": _name(g("checked_by")).strip(),
                          "affiliation": (_name(g("checked_aff")) or "").strip() or None,

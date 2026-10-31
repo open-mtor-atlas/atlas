@@ -1,0 +1,452 @@
+{
+ "_about": "Public screening log of the Atlas. Hand-maintained in the repo by the daily check (not in Airtable), like negative_results.json. Each run records where and when the search looked and what it found; each decision records one candidate with the reason. Only what the check actually recorded is entered; counts that were not recorded are null. Currently covers the 'On the horizon' watch only; screening of the main corpus is added as the daily check starts writing candidate-level entries.",
+ "updated": "2026-10-31",
+ "scopes": [
+  {
+   "id": "horizon",
+   "title": "On the horizon: trials and preprints",
+   "bar": "A trial or preprint is listed only if it asks about the temporal dynamics of mTOR: oscillation, pulses, time courses, circadian regulation, or dosing schedule as the question. Studies of mTOR with standard continuous dosing, and studies of other pathways, do not qualify.",
+   "in_use_since": "2026-09-30",
+   "query": "ClinicalTrials.gov: rapamycin, sirolimus, everolimus or mTOR combined with autophagy, ageing or longevity, active recruiting statuses. bioRxiv and medRxiv: cell biology and molecular biology preprints in a rolling window of 3 to 30 days."
+  }
+ ],
+ "not_yet_logged": [
+  "Weekly screening of the bims-auttor digest (biomed.news) for the main corpus: only issue dates are kept, not per-paper decisions.",
+  "Daily PubMed check for the main corpus: new studies are added to the Atlas, but rejected candidates and reasons have not been recorded."
+ ],
+ "runs": [
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "First run of the watch: candidate trials and preprints on the temporal dynamics of mTOR",
+   "trials_returned": null,
+   "trials_new": null,
+   "preprints_scanned": null,
+   "window": null,
+   "added": [
+    "10.64898/2026.08.28.747564"
+   ],
+   "outcome": "1 preprint added, 8 trials rejected, 3 trials already on the list."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov; bioRxiv; medRxiv",
+   "scope": "Trials plus cell-biology and molecular-biology preprints, last 14 days",
+   "trials_returned": null,
+   "trials_new": 5,
+   "preprints_scanned": null,
+   "window": "14 days",
+   "added": [],
+   "outcome": "5 new trials rejected; no new preprint cleared the bar."
+  },
+  {
+   "date": "2026-10-02",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Trials plus cell-biology and molecular-biology preprints, last 30 days",
+   "trials_returned": null,
+   "trials_new": 1,
+   "preprints_scanned": null,
+   "window": "30 days",
+   "added": [
+    "NCT07774676"
+   ],
+   "outcome": "1 trial added; no preprint cleared the bar."
+  },
+  {
+   "date": "2026-10-03",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Rapamycin, sirolimus, everolimus or mTOR with autophagy, ageing or longevity, active statuses; plus a circadian and chronotherapy search; preprints in cell and molecular biology",
+   "trials_returned": 16,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "10 days",
+   "added": [],
+   "outcome": "No new trial. The circadian search returned no results. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-05",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell and molecular biology preprints",
+   "trials_returned": 16,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-07",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell and molecular biology preprints",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar; the nearest preprint concerned circadian timing of AMPK, not mTOR."
+  },
+  {
+   "date": "2026-10-08",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints directly, molecular biology through the bioRxiv API after the first route failed",
+   "trials_returned": 16,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-09",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell and molecular biology preprints",
+   "trials_returned": 14,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-10",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell and molecular biology preprints",
+   "trials_returned": 16,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-12",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; bioRxiv API, 5 to 11 October",
+   "trials_returned": 16,
+   "trials_new": 0,
+   "preprints_scanned": null,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-13",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints, 10 to 12 October",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": null,
+   "window": "3 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-17",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell and molecular biology preprints",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 60,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-18",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints, 12 to 14 October",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "3 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-19",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; bioRxiv search without a keyword",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": null,
+   "window": null,
+   "added": [],
+   "outcome": "No new trial. The preprint search returned only older cell-biology papers, none on the topic."
+  },
+  {
+   "date": "2026-10-21",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints, 14 to 16 October",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "3 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-23",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints, 16 to 19 October",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "4 days",
+   "added": [],
+   "outcome": "No new trial; NCT07443826 was assessed again and rejected. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-25",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": null,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-28",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-29",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "7 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  },
+  {
+   "date": "2026-10-30",
+   "source": "ClinicalTrials.gov; bioRxiv",
+   "scope": "Same trial query; cell biology preprints (run twice that day with the same result)",
+   "trials_returned": 15,
+   "trials_new": 0,
+   "preprints_scanned": 30,
+   "window": "3 days",
+   "added": [],
+   "outcome": "No new trial. Nothing cleared the bar."
+  }
+ ],
+ "decisions": [
+  {
+   "date": "2026-09-30",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.08.28.747564",
+   "title": "The mTOR pathway drives daily physiology",
+   "decision": "added",
+   "reason": "Strong match to the bar: mTOR and daily physiology. Added under the standing instruction to add strong matches automatically."
+  },
+  {
+   "date": "2026-10-02",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07774676",
+   "title": "Understanding the Effects of Obesity on Autophagic and mTORC1 Signalling Following Resistance Exercise and Protein Ingestion in Skeletal Muscle",
+   "decision": "added",
+   "reason": "Tracks mTORC1 movement to the lysosome and autophagic flux at several time points after a stimulus, in lean and obese people."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT06658093",
+   "title": null,
+   "decision": "already_listed",
+   "reason": "Already on the list with its own entry; not evaluated again."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT05949658",
+   "title": null,
+   "decision": "already_listed",
+   "reason": "Already on the list with its own entry; not evaluated again."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT06727305",
+   "title": null,
+   "decision": "already_listed",
+   "reason": "Already on the list with its own entry; not evaluated again."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07058974",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT06682767",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07354620",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07191353",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07475546",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT05836025",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07092618",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar."
+  },
+  {
+   "date": "2026-09-30",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT07443826",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. Assessed again on 2026-10-23: a gene-therapy trial (AAV-follistatin with a VEGF plasmid, Unlimited Biotechnology), not an mTOR trial."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT06133634",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. A fisetin senolytic trial, not an mTOR trial."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT05036226",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. An autophagy-combination oncology trial (COAST) with standard continuous dosing."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT04742777",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. mTOR inhibition in older adults with standard dosing and no timing or schedule question."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT06789900",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. Everolimus with exercise for bone (RapaLoad), standard continuous dosing."
+  },
+  {
+   "date": "2026-10-01",
+   "source": "ClinicalTrials.gov",
+   "id_type": "NCT",
+   "id": "NCT05237687",
+   "title": null,
+   "decision": "rejected",
+   "reason": "Did not clear the temporal-dynamics bar. Sirolimus in older adults, a biomarker trial with standard dosing."
+  },
+  {
+   "date": "2026-10-13",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.06.16.732532",
+   "title": "TRPML1 and AMPK in diabetes",
+   "decision": "rejected",
+   "reason": "Not about the time course of mTOR."
+  },
+  {
+   "date": "2026-10-17",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.10.09.757842",
+   "title": "ERK FLIM biosensor",
+   "decision": "rejected",
+   "reason": "Measures ERK, not mTOR."
+  },
+  {
+   "date": "2026-10-18",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.10.09.757844",
+   "title": "Plakoglobin and insulin/PI3K/AKT/FoxO signalling",
+   "decision": "rejected",
+   "reason": "Not about the time course of mTOR."
+  },
+  {
+   "date": "2026-10-23",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.10.16.759620",
+   "title": "PPTC7, NIX and BNIP3 in mitophagy",
+   "decision": "rejected",
+   "reason": "Not about mTOR."
+  },
+  {
+   "date": "2026-10-30",
+   "source": "bioRxiv",
+   "id_type": "DOI",
+   "id": "10.64898/2026.10.27.762351",
+   "title": "Tryptophan and hlh-30 in C. elegans",
+   "decision": "rejected",
+   "reason": "Not about the dynamics of mTOR."
+  }
+ ]
+}
