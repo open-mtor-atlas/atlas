@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "125d217c442b140b3deca749ec92991770a112ba9d97d6f8631c167fe7245d0b",
-  "corpus_snapshot": "2026-11-01T10:52:42+0100",
-  "source_commit": "f15d71c86d688dafd7b2fdde76e13e3f6893d86c",
+  "data_fingerprint": "ef11bce8836642f77eb39d518489732eccd33e90f310d6d036f854144306220b",
+  "corpus_snapshot": "2026-11-01T15:19:51+0100",
+  "source_commit": "df4225e0220c08a47823746800ac16286ba14a7d",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -169,7 +169,7 @@
    ],
    "conflict": {
     "type": "Different context",
-    "basis": "In mammalian cells 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (MOR2013). In Drosophila under dietary restriction ZID2009 reports the opposite sign: 4E-BP enhances mitochondrial activity."
+    "basis": "In mammalian cells mTORC1 promotes translation of nucleus-encoded mitochondria-related mRNAs by inhibiting 4E-BP (MOR2013). In Drosophila under dietary restriction ZID2009 reports the opposite sign: 4E-BP is upregulated and enhances mitochondrial activity."
    },
    "note": "ZID2009 is recorded as conflicting evidence on this edge (moved out of the supporting list on 2026-08-30): its own title says 4E-BP ENHANCES mitochondrial activity under dietary restriction in flies, which is the opposite sign to this mammalian-cell edge.",
    "consensus_contested": false,
@@ -536,7 +536,7 @@
    ],
    "conflict": {
     "type": "Opposing result",
-    "basis": "EGA2010 and KIM2011 report that AMPK activates ULK1 by phosphorylation; PAR2023 reports that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction."
+    "basis": "EGA2010 and KIM2011 report that AMPK phosphorylates ULK1 and thereby promotes autophagy. PAR2023 reports that under glucose starvation and mitochondrial energy stress the LKB1-AMPK axis inhibits ULK1 activation and autophagy induction."
    },
    "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
    "consensus_contested": true,
@@ -962,7 +962,7 @@
    ],
    "conflict": {
     "type": "Different context",
-    "basis": "The direction depends on dose and schedule: transplant-level everolimus is immunosuppressive, while intermittent low dosing improved vaccine responses in older adults (MAN2014). MAN2021 used a different drug in phase 3 and a different dose and population in phase 2b, and did not show benefit."
+    "basis": "Low-dose everolimus (0.5 mg daily or 5 mg weekly) raised the influenza vaccine response of older adults by about 20% (MAN2014); the transplant dose is immunosuppressive. MAN2021 measured respiratory infections, not vaccine response: RTB101 alone in phase 3, and RTB101 with everolimus 0.1 mg daily in phase 2b, did not show a significant reduction."
    },
    "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
    "consensus_contested": true,
@@ -1576,8 +1576,8 @@
     "tissue-specific"
    ],
    "conflict": {
-    "type": "Different context",
-    "basis": "The edge is narrow and cell-type dependent (DUR2012). Its curation status is Contested while the field consensus is emerging; the Rag-independent glutamine route is carried by a separate edge (GLN-MTORC1-ARF1)."
+    "type": "Field dispute",
+    "basis": "DUR2012 reports that glutamine, with leucine, acts through glutaminolysis and alpha-ketoglutarate to raise RagB GTP loading and mTORC1 translocation to the lysosome. JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB. The Atlas carries the two routes as separate edges (this one and GLN-MTORC1-ARF1) and does not settle whether they act in parallel or in different settings."
    },
    "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence. 2026-10-10: this edge's curation status (Contested) and its field consensus (emerging) deliberately differ, and the evidence-audit page now labels the two dimensions separately instead of presenting either count as the number of disputed claims.",
    "consensus_contested": false,
@@ -1994,7 +1994,7 @@
    ],
    "conflict": {
     "type": "Field dispute",
-    "basis": "HAN2012 assigns GAP activity on RagC/D to LARS. The Atlas assigns the same reaction to FLCN, and the two assignments have not been reconciled head-to-head."
+    "basis": "HAN2012 reports that leucyl-tRNA synthetase binds the Rag GTPases and acts as a GAP for them. The Atlas assigns GAP activity on RagC/D to FLCN/FNIP (FLCN-RAG) and does not reconcile the two assignments."
    },
    "note": "See LEU-LARS.",
    "consensus_contested": true,
@@ -2056,7 +2056,7 @@
    ],
    "conflict": {
     "type": "Field dispute",
-    "basis": "LARS (HAN2012) and Sestrin2 are two published leucine sensors that have not been compared head-to-head. See LEU-SESN2."
+    "basis": "HAN2012 proposes leucyl-tRNA synthetase as the intracellular leucine sensor for mTORC1. WOL2015 and SAX2015 identify Sestrin2 as a leucine sensor (LEU-SESN2). The Atlas does not reconcile the two models."
    },
    "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
    "consensus_contested": true,
@@ -2315,7 +2315,7 @@
    ],
    "conflict": {
     "type": "Field dispute",
-    "basis": "How much of metformin's effect runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010)."
+    "basis": "Metformin activates AMPK (ZHO2001; also seen in KAL2010), but whether AMPK mediates its effects is disputed. FOR2010 found that mice lacking AMPK in the liver kept the glucose-lowering effect of metformin, and that hepatocytes lacking AMPK or LKB1 still showed metformin-induced inhibition of glucose production. KAL2010 found that mTORC1 inhibition by metformin persists in cells lacking AMPK."
    },
    "note": null,
    "consensus_contested": true,
@@ -2380,8 +2380,8 @@
     "single-study"
    ],
    "conflict": {
-    "type": "Different context",
-    "basis": "Dose is the main issue: concentrations used in cell culture are typically far above plasma levels at clinical doses, so the in vitro mechanism may not describe what metformin does in a patient. The relative weight of this route and the AMPK route in humans is unresolved."
+    "type": "Field dispute",
+    "basis": "KAL2010 reports that metformin and phenformin inhibit mTORC1 in cells lacking AMPK or TSC1/2, through the Rag GTPases. This conflicts with the usual account in which AMPK mediates the effect (METFORMIN-AMPK). The Atlas records the relative weight of the two routes in people as unresolved."
    },
    "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK. 2026-10-10: beginner text given the dose and species caveat that the expert text carries.",
    "consensus_contested": true,
@@ -6164,8 +6164,8 @@
     "tissue-specific"
    ],
    "conflict": {
-    "type": "Different context",
-    "basis": "The effect is cell-type dependent and has not been uniformly reproduced across labs. JEW2015 is the supporting study; the Rag-dependent route is the separate edge GLN-RAG."
+    "type": "Field dispute",
+    "basis": "JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB (MEFs and HEK293A), through Arf1. DUR2012 reports that glutamine acts through glutaminolysis and alpha-ketoglutarate upstream of the Rag GTPases (GLN-RAG). The Atlas carries the two routes as separate edges and does not settle whether they act in parallel or in different settings."
    },
    "note": null,
    "consensus_contested": true,
@@ -6342,7 +6342,7 @@
    ],
    "conflict": {
     "type": "Opposing result",
-    "basis": "SOL2014 found that energy restriction by dietary dilution in ad libitum-fed animals does not extend lifespan; lifespan tracked the protein-to-carbohydrate ratio, not calorie intake."
+    "basis": "In mice fed 25 diets ad libitum, calorie restriction achieved by dietary dilution or by high-protein diets had no beneficial effect on lifespan; lifespan followed the protein-to-carbohydrate ratio (SOL2014)."
    },
    "note": "2026-10-10: SOL2014 moved from supporting to conflicting. Full text: 'energy restriction achieved by dietary dilution in ad libitum-fed animals does not extend life-span'; lifespan tracked the protein:carbohydrate ratio, not calorie intake. It cannot support a calories-extend-life arrow.",
    "consensus_contested": false,
