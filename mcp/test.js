@@ -54,6 +54,8 @@ const calls = [
   ['list_questions', {}],
   ['list_questions', { kind: 'frontier', limit: 2, offset: 1, brief: false }],
   ['get_question', { id: 'H1' }],
+  ['get_author', { author: 'Sabatini DM' }],
+  ['get_author', { author: 'Wang H' }],               // ambiguous author-list form: candidates, not an error
   ['get_study', { sid: 'NOPE0000' }],
 ];
 let fail = 0;

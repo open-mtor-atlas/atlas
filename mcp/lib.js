@@ -413,8 +413,24 @@ export async function getAuthor(atlas, q) {
   const n = norm(q).trim();
   let a = au.find((x) => x.id === q || x.orcid === q || norm(x.name) === n || norm(x.corpus_name) === n);
   if (!a) {
-    const r = await searchAuthors(atlas, { query: q, limit: 2 });
+    const r = await searchAuthors(atlas, { query: q, limit: 10 });
     if (r.total_matches === 1) a = r.results[0];
+    else if (r.total_matches > 1 || r.in_author_lists?.length) {
+      // Ambiguous name ("Wang H") or a name with no profile page: answer with the candidates
+      // instead of an error, so the caller can pick one and call get_author again with its id.
+      return {
+        query: q,
+        resolved: false,
+        candidates: r.results.map((x) => ({ id: x.id, name: x.name, corpus_name: x.corpus_name, orcid: x.orcid, lab: x.lab, study_count: x.study_count })),
+        candidates_total: r.total_matches,
+        in_author_lists: r.in_author_lists,
+        ...(r.in_author_lists_total ? { in_author_lists_total: r.in_author_lists_total } : {}),
+        note: r.total_matches > 1
+          ? `"${q}" matches ${r.total_matches} profiled authors. Call get_author again with one candidate id.`
+          : `"${q}" has no profile page; the name appears only in study author lists (in_author_lists). `
+            + 'One author-list form can stand for several people.',
+      };
+    }
   }
   if (!a) return null;
   return { ...a, study_count: a.studies.length, study_cards: await studyCards(atlas, a.studies) };

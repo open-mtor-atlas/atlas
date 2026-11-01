@@ -174,7 +174,7 @@ export function createServer(atlas) {
 
   server.registerTool('get_author', {
     title: 'Get one author', annotations: { ...RO, title: 'Get one author' },
-    description: 'One profiled author by profile id ("claudio-de-virgilio"), full name, author-list form or ORCID: lab, role, profile URL and short cards of their studies in the Atlas.',
+    description: 'One profiled author by profile id ("claudio-de-virgilio"), full name, author-list form or ORCID: lab, role, profile URL and short cards of their studies in the Atlas. If the name fits several people or has no profile page, the answer lists candidates (resolved: false) instead.',
     inputSchema: {
       author: z.string().optional().describe('e.g. "Claudio De Virgilio", "De Virgilio C", "claudio-de-virgilio"'),
       id: z.string().optional().describe('Alias of author.'),
