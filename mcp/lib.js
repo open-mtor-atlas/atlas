@@ -407,30 +407,76 @@ export async function searchAuthors(atlas, { query, limit = 20, offset = 0 }) {
   return out;
 }
 
+/**
+ * "Wang H" / "Wang HW" -> surname "wang", initial "h"; "Hui Wang" -> the same.
+ * null when the query does not look like a person's name.
+ */
+function personKey(q) {
+  const parts = String(q).trim().split(/\s+/);
+  if (parts.length < 2 || parts.some((t) => /\d/.test(t))) return null;
+  const last = parts[parts.length - 1];
+  if (/^[A-Z]{1,3}$/.test(last)) return { sur: norm(parts.slice(0, -1).join(' ')).trim(), init: last[0].toLowerCase() };
+  return { sur: norm(parts[parts.length - 1]).trim(), init: norm(parts[0])[0] };
+}
+
+/**
+ * Answer for a name that is not one profiled person. Profiles whose surname and
+ * first initial both fit come first; when none fits, say so plainly instead of
+ * offering everyone with the same surname.
+ */
+function authorCandidates(q, r) {
+  const k = personKey(q);
+  const fits = (x) => {
+    if (!k) return true;
+    const cn = norm(x.corpus_name ?? '').trim();
+    if (cn === `${k.sur} ${k.init}` || cn.startsWith(`${k.sur} ${k.init}`)) return true;
+    const nm = norm(x.name ?? '').trim().split(/\s+/);
+    return nm.length > 1 && nm[nm.length - 1] === k.sur && nm[0][0] === k.init;
+  };
+  const short = (x) => ({ id: x.id, name: x.name, corpus_name: x.corpus_name, orcid: x.orcid, lab: x.lab, study_count: x.study_count });
+  const exact = r.results.filter(fits);
+  const lists = [...(r.in_author_lists ?? [])];
+  if (k) lists.sort((x, y) => Number(fits(y)) - Number(fits(x)));
+  const listHits = lists.filter(fits);
+  let note;
+  if (exact.length > 1) note = `"${q}" fits ${exact.length} profiled authors. Call get_author again with one candidate id.`;
+  else if (exact.length === 1) note = `One profiled author fits "${q}", but the same author-list form can belong to other people too; check the studies before assuming it is this person.`;
+  else if (listHits.length) note = `No profiled author fits "${q}". The name appears only in study author lists (in_author_lists, the closest forms first); one such form can stand for several people.`;
+  else note = `No profiled author fits "${q}".`;
+  const out = {
+    query: q,
+    resolved: false,
+    candidates: exact.slice(0, 10).map(short),
+    candidates_total: exact.length,
+    in_author_lists: lists.slice(0, 20),
+    ...(r.in_author_lists_total ? { in_author_lists_total: r.in_author_lists_total } : {}),
+    note,
+  };
+  if (k && !exact.length && r.total_matches) {
+    out.other_profiles_same_surname = r.results.slice(0, 10).map(short);
+    out.other_profiles_same_surname_total = r.total_matches;
+  }
+  return out;
+}
+
 /** One profiled author by id, full name, corpus form or ORCID, with study cards. */
 export async function getAuthor(atlas, q) {
   const au = await atlas.optList('authors');
   const n = norm(q).trim();
-  let a = au.find((x) => x.id === q || x.orcid === q || norm(x.name) === n || norm(x.corpus_name) === n);
+  let a = au.find((x) => x.id === q || x.orcid === q || norm(x.name) === n);
   if (!a) {
-    const r = await searchAuthors(atlas, { query: q, limit: 10 });
-    if (r.total_matches === 1) a = r.results[0];
-    else if (r.total_matches > 1 || r.in_author_lists?.length) {
-      // Ambiguous name ("Wang H") or a name with no profile page: answer with the candidates
-      // instead of an error, so the caller can pick one and call get_author again with its id.
-      return {
-        query: q,
-        resolved: false,
-        candidates: r.results.map((x) => ({ id: x.id, name: x.name, corpus_name: x.corpus_name, orcid: x.orcid, lab: x.lab, study_count: x.study_count })),
-        candidates_total: r.total_matches,
-        in_author_lists: r.in_author_lists,
-        ...(r.in_author_lists_total ? { in_author_lists_total: r.in_author_lists_total } : {}),
-        note: r.total_matches > 1
-          ? `"${q}" matches ${r.total_matches} profiled authors. Call get_author again with one candidate id.`
-          : `"${q}" has no profile page; the name appears only in study author lists (in_author_lists). `
-            + 'One author-list form can stand for several people.',
-      };
+    // The author-list form ("Wang J") can belong to several profiled people: never pick one silently.
+    const same = au.filter((x) => norm(x.corpus_name) === n);
+    if (same.length === 1) a = same[0];
+    else if (same.length > 1) {
+      const r = await searchAuthors(atlas, { query: q, limit: 50 });
+      return authorCandidates(q, r);
     }
+  }
+  if (!a) {
+    const r = await searchAuthors(atlas, { query: q, limit: 50 });
+    if (r.total_matches === 1) a = r.results[0];
+    else if (r.total_matches > 1 || r.in_author_lists?.length) return authorCandidates(q, r);
   }
   if (!a) return null;
   return { ...a, study_count: a.studies.length, study_cards: await studyCards(atlas, a.studies) };

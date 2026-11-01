@@ -56,6 +56,7 @@ const calls = [
   ['get_question', { id: 'H1' }],
   ['get_author', { author: 'Sabatini DM' }],
   ['get_author', { author: 'Wang H' }],               // ambiguous author-list form: candidates, not an error
+  ['get_author', { author: 'Wang J' }],               // two profiled people share this form: candidates, never the first one
   ['get_study', { sid: 'NOPE0000' }],
 ];
 let fail = 0;
