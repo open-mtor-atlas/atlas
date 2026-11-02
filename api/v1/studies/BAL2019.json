@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "21bd609b55973b7b5b84e545fdde629d79115243854f1595680c534e6e1ef96f",
+  "corpus_snapshot": "2026-11-02T19:05:06+0100",
+  "source_commit": "1e9de0d56d4ea503818c4095460addc4a0c7f4a3",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAL2019",
+  "title": "Dissecting the genetic basis of focal cortical dysplasia: a large cohort study.",
+  "authors": "Baldassari S; Ribierre T; Marsan E; Adle-Biassette H; Ferrand-Sorbets S; Bulteau C; Dorison N; Fohlen M; Polivka M; Weckhuysen S; Dorfmüller G; Chipaux M; Baulac S",
+  "year": 2019,
+  "journal": "Acta Neuropathologica",
+  "doi": "10.1007/s00401-019-02061-5",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "31444548",
+  "pmcid": "PMC6851393",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Human (80 children with drug-resistant epilepsy; post-surgical brain tissue with matched blood)",
+  "peer_reviewed": true,
+  "finding": "In 80 children operated for drug-resistant epilepsy, deep sequencing of brain and matched blood found brain-restricted gain-of-function variants in mTOR-pathway activators (MTOR, AKT3, PIK3CA and RHEB) only in focal cortical dysplasia type 2 (FCD2) and hemimegalencephaly (HME): 29 of 62 cases (47%). Loss-of-function variants in repressors (DEPDC5, TSC1, TSC2) were found in FCD2 as well. All 25 FCD2 cases examined showed strong pS6 staining, a readout of mTOR activity, in dysmorphic neurons and balloon cells, including cases with no variant found. RHEB is one of four activator genes reported here; the RHEB-specific case count sits in the paper's tables and is not recorded in this entry. Observational, single centre, and the variants were not tested for function in this paper.",
+  "url": "https://mtor-atlas.org/study/BAL2019/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAL2019.json",
+  "abstract_excerpt": "Genetic malformations of cortical development (MCDs), such as mild MCDs (mMCD), focal cortical dysplasia (FCD), and hemimegalencephaly (HME), are major causes of severe pediatric refractory epilepsies subjected to neurosurgery. FCD2 are characterized by neuropathological hallmarks that include enlarged dysmorphic neurons (DNs) and balloon cells (BCs). Here, we provide a comprehensive assessment of the contribution of germline and somatic variants in a large cohort of surgical MCD cases.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "None (observational genetic cohort)",
+   "target": "mTOR pathway activators (MTOR, AKT3, PIK3CA, RHEB) and repressors (DEPDC5, TSC1, TSC2)",
+   "species": "Human",
+   "effect": "Somatic gain-of-function activator variants in FCD2/HME; strong pS6 in dysmorphic neurons and balloon cells",
+   "sample_size": "80 children enrolled; 29 of 62 FCD2/HME cases carried an activator variant; 25 FCD2 cases analysed for pS6",
+   "limitations": "Single centre. Observational: variants not functionally tested here. pS6 is a downstream readout. RHEB-specific case count and allele frequencies were not extracted (gene names were lost in the text conversion); see the paper's tables."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RHEB-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DEM2014",
+   "SHA2004",
+   "TEE2003",
+   "YIL2012"
+  ]
+ }
+}

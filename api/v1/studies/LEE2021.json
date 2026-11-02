@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "21bd609b55973b7b5b84e545fdde629d79115243854f1595680c534e6e1ef96f",
+  "corpus_snapshot": "2026-11-02T19:05:06+0100",
+  "source_commit": "1e9de0d56d4ea503818c4095460addc4a0c7f4a3",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LEE2021",
+  "title": "Gradient of brain mosaic RHEB variants causes a continuum of cortical dysplasia.",
+  "authors": "Lee WS; Baldassari S; Chipaux M; Adle-Biassette H; Stephenson SEM; Maixner W; Harvey AS; Lockhart PJ; Baulac S; Leventer RJ",
+  "year": 2021,
+  "journal": "Annals of Clinical and Translational Neurology",
+  "doi": "10.1002/acn3.51286",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "33434304",
+  "pmcid": "PMC7886042",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Human (3 patients with focal cortical dysplasia or hemimegalencephaly; resected brain tissue)",
+  "peer_reviewed": true,
+  "finding": "Three patients with cortical malformations carried brain-restricted somatic RHEB variants (p.Y35L in two, p.E40V in one) that were absent from blood. The size of the malformation followed the variant load: 2.6% in a small transmantle FCD, 8.9% in a lobar FCD, 17.6% in hemimegalencephaly. Dysmorphic neurons and balloon cells stained strongly for pS6, a readout of raised mTOR activity, while non-mTOR FCD type I and control tissue did not. In the two patients with enough tissue, laser capture microdissection found the variants enriched in these abnormal cells. Only three patients, two of them reported earlier; the effect of the variants on Rheb itself was not tested in this paper.",
+  "url": "https://mtor-atlas.org/study/LEE2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LEE2021.json",
+  "abstract_excerpt": "Focal cortical dysplasia (FCD) and hemimegalencephaly (HME) are related malformations with shared etiologies. We report three patients with a spectrum of cortical malformations associated with pathogenic brain-specific somatic Ras homolog enriched in brain (RHEB) variants. The somatic variant load directly correlated with the size of the malformation, with upregulated mTOR activity confirmed in dysplastic tissues. Laser capture microdissection showed enrichment of RHEB variants in dysmorphic neurons and balloon cells.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "None (observational case series)",
+   "target": "RHEB (somatic gain-of-function variants) / mTOR activity in dysplastic brain",
+   "species": "Human",
+   "effect": "Lesion size tracked RHEB variant load (2.6%, 8.9%, 17.6%); strong pS6 in dysmorphic neurons and balloon cells",
+   "sample_size": "3 patients (1 new, 2 previously described)",
+   "limitations": "Three patients only. Variant effect on Rheb function not tested here. pS6 is an indirect readout of mTOR activity. No microdissection in patient 1 (insufficient tissue); pS6 cell density could not be compared for patient 1."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RHEB-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BAL2019",
+   "CUI2025",
+   "DEL2011",
+   "DEM2014"
+  ]
+ }
+}

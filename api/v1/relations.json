@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "ef11bce8836642f77eb39d518489732eccd33e90f310d6d036f854144306220b",
-  "corpus_snapshot": "2026-11-02T15:22:39+0100",
-  "source_commit": "c46ff8a4fae379631c451b4504a94a5b75f27712",
+  "data_fingerprint": "21bd609b55973b7b5b84e545fdde629d79115243854f1595680c534e6e1ef96f",
+  "corpus_snapshot": "2026-11-02T19:05:06+0100",
+  "source_commit": "1e9de0d56d4ea503818c4095460addc4a0c7f4a3",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -4546,12 +4546,13 @@
    "compartment": "lyso",
    "map_band": "lyso",
    "species": [
-    "mammalian cells"
+    "mammalian cells",
+    "human brain tissue (somatic RHEB variants)"
    ],
    "mechanism": "GTP-loaded Rheb binds mTORC1 at the lysosome and physically re-shapes its active site into the working conformation.",
    "mechanism_beginner": "Switched-on Rheb docks onto mTORC1 and physically reshapes it into its working form – the actual \"on\" switch.",
    "context": "Rheb must be GTP-loaded and co-located with mTORC1. Rheb is also distributed across the ER and Golgi, and which pool supplies the activating Rheb is unresolved.",
-   "boundary": "Cryo-EM structures, in vitro biochemistry, Drosophila and one mouse study (INOK2003, SAU2003, YAN2017, CUI2025, DEL2011). Defines how Rheb activates mTORC1 in reconstituted and cellular systems; not measured directly in human tissue.",
+   "boundary": "Cryo-EM structures, in vitro biochemistry, Drosophila and one mouse study (INOK2003, SAU2003, YAN2017, CUI2025, DEL2011) define how Rheb activates mTORC1 in reconstituted and cellular systems. Human tissue evidence is genetic and indirect: brain-restricted somatic RHEB variants in focal cortical dysplasia and hemimegalencephaly go with strong pS6 staining in the lesions (BAL2019, a cohort of 80 children in which RHEB is one of four activator genes; LEE2021, three patients). That shows the pathway running hot when Rheb is altered; it does not measure Rheb-GTP loading or mTORC1 activity directly in human tissue.",
    "boundary_tags": [],
    "conflict": null,
    "note": "Convergence point: the amino-acid route delivers mTORC1 here, the growth-factor route delivers Rheb. Both required.",
@@ -4566,15 +4567,17 @@
    "evidence": {
     "kind": "Structural",
     "strongest": {
-     "code": "A",
-     "label": "Animal model"
+     "code": "H",
+     "label": "Human study"
     },
     "supporting": [
      "INOK2003",
      "SAU2003",
      "YAN2017",
      "CUI2025",
-     "DEL2011"
+     "DEL2011",
+     "BAL2019",
+     "LEE2021"
     ],
     "conflicting": []
    },
