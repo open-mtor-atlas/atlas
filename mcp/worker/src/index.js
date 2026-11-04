@@ -79,7 +79,36 @@ function argText(a) {
 
 const KNOWN_TOOLS = new Set(TOOL_NAMES);
 
-function recordUsage(env, messages, replies, ua, ms) {
+// Anonymous per-user ids that some hosts send in a tool call's params._meta, used only to count
+// distinct users. The value is never stored: only a salted SHA-256 prefix (secret USAGE_SALT), so
+// the stored key cannot be traced back to the host's id or to a person.
+// [_meta key, short label]. ChatGPT / Codex plugins send "openai/subject" ("v1/<uuid>").
+// When another host (e.g. the Claude connector directory) turns out to send such an id, add its
+// key here; blob8 below records which _meta keys each host sends, to find it.
+const USER_META_KEYS = [
+  ['openai/subject', 'oa'],
+];
+
+async function userKey(meta, salt) {
+  if (!salt || !meta || typeof meta !== 'object') return '';
+  for (const [key, label] of USER_META_KEYS) {
+    const v = meta[key];
+    if (typeof v !== 'string' || !v) continue;
+    try {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${salt}|${label}|${v}`));
+      return `${label}:` + [...new Uint8Array(buf)].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join('');
+    } catch { return ''; }
+  }
+  return '';
+}
+
+// Names (never values) of the _meta keys a host sends, e.g. "openai/locale,openai/subject".
+function metaKeys(meta) {
+  if (!meta || typeof meta !== 'object') return '';
+  return Object.keys(meta).map((k) => clean(k, 40)).sort().join(',').slice(0, 160);
+}
+
+async function recordUsage(env, messages, replies, ua, ms) {
   const ds = env?.USAGE;
   if (!ds?.writeDataPoint) return;
   const byId = new Map((replies || []).map((r) => [r?.id, r]));
@@ -98,10 +127,13 @@ function recordUsage(env, messages, replies, ua, ms) {
       : !r ? 'no-reply'
       : r.error ? 'error'
       : r.result?.isError ? (args === '' || args === '{}' ? 'no-args' : 'tool-error') : 'ok';   // a scanner calling a tool with no arguments is not a tool failure
+    const meta = m.params?._meta;
+    const user = m.method === 'tools/call' && !unknown ? await userKey(meta, env?.USAGE_SALT) : '';
     try {
       ds.writeDataPoint({
         indexes: [clean(m.method)],
-        blobs: [clean(m.method), tool, client, fam, outcome, args],
+        // blob7 = anonymous user key (salted hash, or empty), blob8 = names of the _meta keys sent
+        blobs: [clean(m.method), tool, client, fam, outcome, args, user, metaKeys(meta)],
         doubles: [1, ms],
       });
     } catch { /* counting must never break a request */ }
@@ -109,7 +141,7 @@ function recordUsage(env, messages, replies, ua, ms) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
 
@@ -175,7 +207,8 @@ export default {
             const out = await res.clone().json();
             replies = Array.isArray(out) ? out : [out];
           } catch { /* 202 Accepted for notifications has no body */ }
-          recordUsage(env, messages, replies, request.headers.get('user-agent'), Date.now() - t0);
+          const done = recordUsage(env, messages, replies, request.headers.get('user-agent'), Date.now() - t0).catch(() => {});
+          if (ctx?.waitUntil) ctx.waitUntil(done); else await done;
         }
         return withCors(res);
       } finally {

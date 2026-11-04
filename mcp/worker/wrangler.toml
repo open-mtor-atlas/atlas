@@ -13,11 +13,14 @@ enabled = false
 
 # Anonymous usage counts: method, tool name, client kind, outcome, duration.
 # No IPs, no raw User-Agent. Tool arguments are stored (blob6, max 200 chars) since 10 Oct 2026 and never shown by /stats. Query with ../usage.mjs.
+# blob7 (since 4 Nov 2026): salted SHA-256 prefix of the host's anonymous user id (ChatGPT/Codex "openai/subject"), to count
+# distinct users; empty without the secret USAGE_SALT. blob8: names (not values) of the _meta keys the host sends.
 [[analytics_engine_datasets]]
 binding = "USAGE"
 dataset = "mtor_atlas_mcp_usage"
 
 [vars]
 CF_ACCOUNT_ID = "28737ccd742e4db6af4ea76764219a6f"   # for /stats (Analytics Engine SQL API)
-# Secret, not in this file: npx wrangler secret put ANALYTICS_TOKEN  (Account Analytics: Read)
+# Secrets, not in this file: npx wrangler secret put ANALYTICS_TOKEN  (Account Analytics: Read)
+#                            npx wrangler secret put USAGE_SALT       (any long random string; keep it, changing it resets user counts)
 # ATLAS_API_BASE = "https://mtor-atlas.org/api/v1"   # default, override only for testing

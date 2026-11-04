@@ -22,7 +22,7 @@ if (argv[0] === '--worker') {
   const worker = (await import('./worker/src/index.js')).default;
   // Fake Analytics Engine binding: collects the anonymous usage data points.
   globalThis.__usage = [];
-  const env = { ATLAS_API_BASE: process.env.ATLAS_API_BASE, USAGE: { writeDataPoint: (p) => globalThis.__usage.push(p) } };
+  const env = { ATLAS_API_BASE: process.env.ATLAS_API_BASE, USAGE_SALT: 'test-salt', USAGE: { writeDataPoint: (p) => globalThis.__usage.push(p) } };
   t = new StreamableHTTPClientTransport(new URL('https://worker.test/mcp'),
     { fetch: (u, init) => worker.fetch(new Request(u, init), env) });
 } else if (argv[0] === '--url') {
@@ -75,13 +75,20 @@ for (const [name, args] of calls) {
   console.log((r.isError ? 'ERR ' : 'ok  ') + name.padEnd(20) + JSON.stringify(args).slice(0, 60).padEnd(62) + summary);
 }
 try { await c.callTool({ name: 'zzz__no_such_tool', arguments: {} }); } catch { /* expected: unknown tool */ }
+// A ChatGPT-style call with an anonymous user id in _meta (worker mode checks that only a salted hash is stored).
+const SUBJECT = 'v1/00000000-test-4000-8000-000000000000';
+await c.callTool({ name: 'atlas_about', arguments: {}, _meta: { 'openai/subject': SUBJECT, 'openai/locale': 'en-US' } });
 await c.close();
 if (globalThis.__usage) {
   const pts = globalThis.__usage;
   const toolCalls = pts.filter((p) => p.blobs[0] === 'tools/call');
   const init = pts.find((p) => p.blobs[0] === 'initialize');
   const probe = toolCalls.filter((p) => p.blobs[1] === 'unknown-tool');
-  const bad = toolCalls.length !== calls.length + 1
+  const withUser = toolCalls.filter((p) => p.blobs[6]);
+  const bad = toolCalls.length !== calls.length + 2
+    || withUser.length !== 1 || !/^oa:[0-9a-f]{16}$/.test(withUser[0].blobs[6])                    // one call carried an id: stored as a salted hash only
+    || withUser[0].blobs[7] !== 'openai/locale,openai/subject'                                    // _meta key names, no values
+    || JSON.stringify(pts).includes('00000000-test')                                              // the raw id is never stored
     || probe.length !== 1 || probe[0].blobs[4] !== 'unknown-tool' || probe[0].blobs[5] !== ''                // invented tool name: one label, no arguments
     || JSON.stringify(pts).includes('no_such_tool')
     || init?.blobs[2] !== 'atlas-test'

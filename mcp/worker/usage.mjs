@@ -31,3 +31,7 @@ table('Tool calls by tool (calls, errors, tool_errors, no_args, avg ms)', r.by_t
 table('Connections (initialize) by client name', r.by_client_name);
 table('Tool calls by client family (User-Agent)', r.by_client_family);
 table('Per day (connections, tool calls)', r.by_day);
+if (r.unique_users) {
+  console.log(`\nDistinct anonymous users in period: ${JSON.stringify(r.unique_users.in_period)}`);
+  table('Distinct anonymous users per day (day, family, users, calls)', r.unique_users.by_day);
+}
