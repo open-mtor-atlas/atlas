@@ -29,7 +29,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   evidence grades, `curation_status` and `review_status`. A
   `review_status` of `unreviewed` means no named curator has signed the
   link off yet.
-- **entities.csv / entities.json** -- 169 pathway
+- **entities.csv / entities.json** -- 170 pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a

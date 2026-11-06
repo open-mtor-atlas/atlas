@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "204cbe3fb53dacf2c2d5f07b8c53263ee1beb16c34204405bd9593b2a1765df1",
-  "corpus_snapshot": "2026-11-05T20:37:29+0100",
-  "source_commit": "96b6114a1da3c66afd7cbaf795a92231ade9f163",
+  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
+  "corpus_snapshot": "2026-11-06T19:32:35+0100",
+  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -159,8 +159,8 @@
      "tissue-specific"
     ],
     "conflict": {
-     "type": "Field dispute",
-     "basis": "DUR2012 reports that glutamine, with leucine, acts through glutaminolysis and alpha-ketoglutarate to raise RagB GTP loading and mTORC1 translocation to the lysosome. JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB. The Atlas carries the two routes as separate edges (this one and GLN-MTORC1-ARF1) and does not settle whether they act in parallel or in different settings."
+     "type": "Opposing result",
+     "basis": "The two studies asked the same question - is glutamine's activation of mTORC1 Rag-dependent? - and answered it oppositely in comparable systems. DUR2012 reports that glutamine, with leucine, acts through glutaminolysis and alpha-ketoglutarate upstream of the Rags: inhibiting glutaminolysis prevented RagB GTP loading and lysosomal translocation of mTORC1, and a constitutively active Rag heterodimer activated mTORC1 without glutaminolysis. JEW2015 reports that glutamine promoted mTORC1 translocation in RagA and RagB knockout cells, requiring the v-ATPase and Arf1 but not Ragulator. Both are mammalian cell work, so this is a head-to-head disagreement rather than two different contexts. The Atlas carries the two routes as separate edges (this one and GLN-MTORC1-ARF1), each listing the other's study as conflicting, and does not settle whether they act in parallel or in different settings."
     },
     "note": "Split from the Rag-independent claim on 2026-09-13 after external review: one edge was asserting a Rag-dependent mechanism and describing a Rag-independent one in the same sentence. 2026-10-10: this edge's curation status (Contested) and its field consensus (emerging) deliberately differ, and the evidence-audit page now labels the two dimensions separately instead of presenting either count as the number of disputed claims.",
     "consensus_contested": false,
@@ -180,7 +180,9 @@
      "supporting": [
       "DUR2012"
      ],
-     "conflicting": []
+     "conflicting": [
+      "JEW2015"
+     ]
     },
     "external_refs": [],
     "reviewed": null,
@@ -222,8 +224,8 @@
      "tissue-specific"
     ],
     "conflict": {
-     "type": "Field dispute",
-     "basis": "JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB (MEFs and HEK293A), through Arf1. DUR2012 reports that glutamine acts through glutaminolysis and alpha-ketoglutarate upstream of the Rag GTPases (GLN-RAG). The Atlas carries the two routes as separate edges and does not settle whether they act in parallel or in different settings."
+     "type": "Opposing result",
+     "basis": "The mirror of GLN-RAG, and a head-to-head disagreement rather than two different contexts. JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB (MEFs and HEK293A), through Arf1 and the v-ATPase but not Ragulator. DUR2012 reports the opposite dependence in comparable mammalian cells: inhibiting glutaminolysis prevented RagB GTP loading and mTORC1 translocation, placing the glutamine signal upstream of the Rags (GLN-RAG). Each edge lists the other's study as conflicting. The Atlas does not settle whether the two routes act in parallel or in different settings."
     },
     "note": null,
     "consensus_contested": true,
@@ -243,7 +245,9 @@
      "supporting": [
       "JEW2015"
      ],
-     "conflicting": []
+     "conflicting": [
+      "DUR2012"
+     ]
     },
     "external_refs": [],
     "reviewed": null,

@@ -1,0 +1,65 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
+  "corpus_snapshot": "2026-11-06T19:32:35+0100",
+  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "atp6v1b2",
+  "name": "ATP6V1B2",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "ATP6V1B2",
+   "V-ATPase B2 subunit",
+   "vacuolar ATPase B2",
+   "V1 subunit B2"
+  ],
+  "identifiers": null,
+  "description": "The B2 subunit of the V1 domain of the vacuolar H+-ATPase. It is recorded separately from the pump as a whole (v-ATPase) because it is where a specific disease link lands: ESP2026 reports recurrent ATP6V1B2 mutations in patients with follicular lymphoma that constitutively switch on the nutrient-independent lysosomal-stress route to TFEB (v-ATPase to TAX1BP1 to TBK1/ULK1 to FNIP1), hyperactivating TFEB and promoting lymphoma proliferation. Two cautions. The mutations act on the stress route; the same pump also carries the separate amino-acid-sensing function assigned to the v-ATPase entity, and ESP2026 does not establish that these mutations alter that one. And the evidence is one study, in human cell lines plus patient samples, so the disease link is reported rather than replicated here.",
+  "study_count": 1,
+  "relation_count": 0,
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/atp6v1b2.json",
+  "description_beginner": "One of the protein parts that make up the lysosome's acid pump. It has its own entry because of where it shows up in disease: in some patients with follicular lymphoma, a blood cancer, this part of the pump carries mutations that jam a lysosomal stress signal permanently on, which over-activates TFEB and helps the cancer cells grow. The pump has a second, separate job in sensing amino acids, and that study does not show these mutations affect that one. It rests on a single paper so far.",
+  "reading_levels": null,
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   }
+  ],
+  "relations": []
+ }
+}

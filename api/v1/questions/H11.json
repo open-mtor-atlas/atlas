@@ -1,0 +1,46 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
+  "corpus_snapshot": "2026-11-06T19:32:35+0100",
+  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "H11",
+  "kind": "open-question",
+  "title": "When does TBK1 carry the lysosomal-stress signal to TFEB, and when does ULK1?",
+  "category": "Mechanism-to-outcome gap",
+  "confidence": 0.6,
+  "evidence_stands_at": "Mechanism in cells",
+  "gap": "ESP2026 (Nature 2026) reports a nutrient-independent lysosomal route to TFEB: lysosomal stress acting through the v-ATPase recruits TBK1 or ULK1 to the lysosome via the TAX1BP1 adaptor, either kinase phosphorylates FNIP1 at S296, FLCN:FNIP is inhibited, and TFEB enters the nucleus. The Atlas carries this as four links (VATPASE-TAX1BP1, TAX1BP1-TBK1, TAX1BP1-ULK1, TBK1-FNIP1) alongside the pre-existing ULK1-FNIP1. The gap is in the word 'or'. Two different kinases are reported as competent at the same substrate site on the same adaptor, and the study does not establish what selects between them - cell type, the kind of lysosomal stress, the duration of it, or the relative abundance of the two kinases. Nor does it establish whether they are redundant (either suffices), additive, or sequential. That matters beyond bookkeeping, because the two kinases are not interchangeable elsewhere: ULK1 is the autophagy-initiating kinase that mTORC1 itself holds off through an inhibitory site (MTORC1-ULK1), while TBK1 sits in innate-immune signalling. If ULK1 carries this route, the stress input and the autophagy machinery share a node and mTORC1 can act on both sides of it; if TBK1 carries it, the lysosomal-stress arm is wired to immune signalling instead. Each reading predicts a different drug target and a different set of off-pathway consequences. All four links rest on this one study, in human cell lines plus ATP6V1B2-mutant follicular lymphoma samples, and none of them is independently reviewed.",
+  "gap_beginner": "A 2026 study found a new way the cell switches on TFEB, the master switch for lysosome and cleanup genes. When the lysosome is stressed (rather than when food runs low), an adaptor protein called TAX1BP1 pulls a kinase to the lysosome, and that kinase tags FNIP1 - which releases TFEB to go to the nucleus. The catch: the study says either of two kinases, TBK1 or ULK1, can do the tagging, and it does not say what decides which one does it. That is not a small detail, because the two belong to different parts of cell biology. ULK1 is the protein that starts autophagy, and mTORC1 normally keeps it switched off; TBK1 works in immune signalling. So if it is ULK1, this stress route and the cleanup machinery share a component; if it is TBK1, the route is tied to the immune system instead. The two answers point at different drugs and different side effects, and right now the evidence does not choose between them.",
+  "changed_since_written": "Posed 2026-11-06 on the strength of ESP2026, so there is nothing yet to record as a change since. The adjacent canonical step was already held: mTORC1 inhibits ULK1 at an inhibitory site (MTORC1-ULK1, on HOS2009, GAN2009, KIM2011, NAZ2013), which is what makes a ULK1-carried stress route a shared-node question rather than a bookkeeping one.",
+  "still_open": "What selects TBK1 against ULK1 on this adaptor, and whether they are redundant, additive or sequential. Untested as far as this corpus holds: the one study reporting the route reports both kinases as competent without separating them, no single or double loss-of-function comparison is held here, and the route has not been shown outside the one paper. Also open, and separate: whether this route operates in any tissue in a living animal, and whether it operates in people outside the lymphoma context where the pump is mutated.",
+  "hypothesis": "Framed as a selection question with a null, because 'both can' is already reported. Null: the two kinases are functionally redundant at FNIP1 S296, so losing either one alone leaves stress-induced TFEB translocation intact, and only losing both abolishes it. If instead one kinase is required in a given cell type while the other is dispensable there, the route is selected rather than redundant, and the selector is the thing to identify. A second, sharper form: if the kinase used tracks the KIND of lysosomal stress (membrane damage against osmotic or pH stress against a cargo load) rather than the cell type, then the adaptor is reading the kind of stress and not simply what is available to bind.",
+  "hypothesis_beginner": "Turned into something that can fail. If the two kinases are interchangeable, then removing just one should leave the stress response working, and only removing both should break it. If removing one breaks it in a particular cell type, they are not interchangeable there, and the next job is to find out what chooses between them - the cell type, or the kind of stress the lysosome is under.",
+  "how_to_test": "Single and double loss-of-function against the same readout, in more than one cell type. Delete or inhibit TBK1 alone, ULK1 alone, and both, then measure FNIP1 S296 phosphorylation and TFEB nuclear translocation under lysosomal stress. Redundancy predicts that only the double loss abolishes the response. Do it in at least two unrelated cell types, because a single-cell-type answer cannot separate 'this kinase is the one' from 'this kinase is the abundant one here', and include the ATP6V1B2-mutant lymphoma background where the route is reported constitutively on. Then vary the stress rather than the cell: membrane-damaging agents, osmotic stress and a protein-cargo load, with the kinase requirement read out for each, which is what tells a stress-selective adaptor from an abundance-driven one. Separating this from autophagy needs care: ULK1 loss removes autophagy initiation as well, so a ULK1-dependent result has to be checked against a kinase-dead ULK1 knock-in and against an FNIP1 S296 phospho-mutant, or the TFEB effect cannot be attributed to this step rather than to the loss of autophagy around it.",
+  "studies": [
+   "ESP2026",
+   "NAP2020",
+   "ABU2017",
+   "ZON2011"
+  ],
+  "external_refs": [],
+  "revision_log": [
+   "2026-11-06: Card created. The four ESP2026 links had been in the pathway model since 2026-10-20 with the TBK1/ULK1 alternative stated in their mechanism text and nowhere recorded as an open question, so the ambiguity was visible to a reader of the links and invisible as a gap."
+  ],
+  "url": "https://mtor-atlas.org/question/when-does-tbk1-carry-the-lysosomal-stress-signal-to-tfeb-and-when-does-ulk1/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/H11.json"
+ }
+}
