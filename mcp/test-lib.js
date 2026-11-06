@@ -254,6 +254,18 @@ check('limit above the maximum is capped, not an error', !tb.err && tb.j.results
   check('breakdown counts curation-only relations', fc.breakdown.flagged_curation_or_consensus_only === 1 && fc.total === 6, fc.breakdown);
   check('named_in_text present, data_note says a mention is not evidence', cur.named_in_text?.[0]?.id === 'LEU-LARS' && /not mean/.test(cur.data_note), cur);
 
+  // 2026-11-06: an empty conflicting_studies list means two different things.
+  at = fresh();
+  site.relations = [...relations,
+    rel('FIELD-DISPUTE', { contested: true, conflict: { type: 'Field dispute', basis: 'Two published models for the same step.' } }),
+    rel('OPPOSING-GAP', { contested: true, conflict: { type: 'Opposing result', basis: 'A study reports the other direction.' } })];
+  const fc2 = await findContradictions(at, {});
+  const fd = fc2.results.find((r) => r.id === 'FIELD-DISPUTE');
+  const og = fc2.results.find((r) => r.id === 'OPPOSING-GAP');
+  check('conflict type and basis reach find_contradictions', fd?.conflict?.type === 'Field dispute' && /Two published models/.test(fd.conflict.basis), fd);
+  check('field dispute with no conflicting study is not reported as a gap', fd.conflicting_studies_missing === true && /recorded state rather than a gap/.test(fd.data_note), fd.data_note);
+  check('opposing result with no conflicting study is still reported as a gap', og.conflicting_studies_missing === true && /not in the structured data/.test(og.data_note) && !/recorded state/.test(og.data_note), og.data_note);
+
   at = fresh();
   site.meta = { ...META, counts: { ...META.counts, contested_or_conflicting_relations: 5 } };
   const ab = await atlasAbout(at);

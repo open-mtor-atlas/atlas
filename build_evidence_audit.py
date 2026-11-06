@@ -104,15 +104,43 @@ def best_tier(edge):
 # --------------------------------------------------------------------------
 # Metriky. Každá vrací dict; žádná netiskne ani nic nevymýšlí.
 # --------------------------------------------------------------------------
+def code_of(rec):
+    """Reader-facing evidence code for a study, from the one place that decides it.
+
+    2026-11-06: this page used to print "M - molecular / in vitro / review" as a
+    single row, so a narrative review and a primary molecular experiment were the
+    same number -- and that number was the headline of the page. The split already
+    existed in the data (Pyramid_Level) and in the display layer, and is taken from
+    chrome_shared.tier_bits so this file does not become a second place that decides
+    what a code means.
+    """
+    import chrome_shared
+    return chrome_shared.tier_bits(rec.get("tier"), rec.get("pyramid"))[0]
+
+
+# Kódy, jak je vidí čtenář, v pořadí síly pro tvrzení o člověku. M a R sedí
+# na stejné příčce (oba jsou uvnitř tieru D), ale nejsou to stejné důkazy.
+CODE_ORDER = ["S", "H", "A", "M", "R"]
+CODE_LABEL = {
+    "S": "S &mdash; synthesis of human data",
+    "H": "H &mdash; human study",
+    "A": "A &mdash; animal model",
+    "M": "M &mdash; molecular (cells, biochemistry, structure)",
+    "R": "R &mdash; review, secondary literature",
+}
+HUMAN_CODES = ("S", "H")
+
+
 def corpus_mix(studies):
-    c = collections.Counter(tier_of(s) or "?" for s in studies)
+    c = collections.Counter(code_of(s) or "?" for s in studies)
     n = len(studies)
-    rows = [(t, TIER_LABEL[t], c.get(t, 0), 100.0 * c.get(t, 0) / n)
-            for t in TIER_ORDER]
-    off = n - sum(c.get(t, 0) for t in TIER_ORDER)
-    human = sum(c.get(t, 0) for t in HUMAN_TIERS)
+    rows = [(t, CODE_LABEL[t], c.get(t, 0), 100.0 * c.get(t, 0) / n)
+            for t in CODE_ORDER]
+    off = n - sum(c.get(t, 0) for t in CODE_ORDER)
+    human = sum(c.get(t, 0) for t in HUMAN_CODES)
     return {"n": n, "rows": rows, "off_ladder": off,
-            "human": human, "human_pct": 100.0 * human / n}
+            "human": human, "human_pct": 100.0 * human / n,
+            "molecular": c.get("M", 0), "review": c.get("R", 0)}
 
 
 def human_over_time(studies):
@@ -191,9 +219,17 @@ def boundary_coverage(edges):
                      if (set(x.get("tags") or []) - DERIVED_TAGS)
                      and not (x.get("ctx") or "").strip())
 
+    # Hranice napsaná větou a hranice strojově dotazovatelná nejsou totéž.
+    # Do 2026-11-06 stránka tvrdila, že každá zaznamenaná hranice nese i
+    # strojový typ; ve skutečnosti ho nese menšina hran, a u části z nich
+    # jen tagy odvozené ze stavu korpusu, ne z prózy. Obě čísla se teď
+    # počítají a tisknou, aby text nemohl tvrdit víc, než data nesou.
+    hand_tagged = [x for x in edges if (set(x.get("tags") or []) - DERIVED_TAGS)]
+
     return {"n": len(with_ctx), "total": len(edges),
             "pct": 100.0 * len(with_ctx) / len(edges),
-            "tagged": len(tagged), "by_tag": dict(by_tag), "orphans": orphans}
+            "tagged": len(tagged), "hand_tagged": len(hand_tagged),
+            "by_tag": dict(by_tag), "orphans": orphans}
 
 
 def curation_state(edges):
@@ -373,6 +409,15 @@ def render(cfg, m):
       % (mix["human"], mix["n"], mix["human_pct"],
          (" (the %d off-ladder records are preprints and registered trials, which can "
           "include human studies not yet reported)" % mix["off_ladder"]) if mix["off_ladder"] else ""))
+    A('<p>M and R are listed apart on purpose. Both sit on the same rung of the '
+      'internal grade, but a primary molecular experiment and a narrative review are '
+      'not the same kind of evidence: one reports a measurement, the other reports '
+      'what other papers measured. The corpus holds <strong>%d molecular studies and '
+      '%d reviews</strong>. Where this page grades a pathway <em>link</em> rather than '
+      'a study, the two cannot be separated, because a link can cite both and is '
+      'graded by the strongest study behind it &mdash; so a link shown at that rung '
+      'may rest on primary work, on a review, or on both.</p>'
+      % (mix["molecular"], mix["review"]))
 
     # --- 2. over time ---
     A('<h2 id="does-it-reach-people">Is this corpus&rsquo;s human share rising over time?</h2>')
@@ -447,10 +492,19 @@ def render(cfg, m):
         A('<h3 id="boundary-kinds">What kind of boundary</h3>')
         A('<p>The sentence is for a reader; the tag is what makes it answerable. '
           '"Female mice only in SEL2009" is clear to anyone and invisible to a '
-          'query, so each recorded boundary also carries a machine-readable kind. '
+          'query, which is why recorded boundaries are also given a '
+          'machine-readable kind &mdash; but that tagging is still partial, and '
+          'the numbers below say how partial. '
+          '<strong>%d of %d links (%.0f&nbsp;%%) carry at least one kind, and %d '
+          'carry a hand-written one</strong>; the rest state their boundary in '
+          'prose only. A tag is only added where the boundary sentence actually '
+          'carries that condition, so the gap closes as the prose is written, not '
+          'by labelling links more confidently than they were measured. '
           'The first group below describes the biology; the second records a '
           'curator&rsquo;s judgement that the link is disputed; the third is computed '
-          'from the state of the corpus rather than written by hand.</p>')
+          'from the state of the corpus rather than written by hand.</p>'
+          % (bnd["tagged"], bnd["total"],
+             100.0 * bnd["tagged"] / bnd["total"], bnd["hand_tagged"]))
         for heading, keys in (
             ("Boundaries on the biology",
              [t for t in sorted(bnd["by_tag"]) if t not in DERIVED_TAGS]),
@@ -560,6 +614,22 @@ def render(cfg, m):
     A('<p><b>Checked by a researcher outside the project: %d of %d links.</b> '
       'When a scientist whose own work supports a link checks it, their name is '
       'listed here and on the link\'s page, only with their permission.</p>' % (len(chk), cur["total"]))
+    # 2026-11-06: a zero here read as "nobody has ever looked", which is not what
+    # the record says. One external scientific review did happen; it was never
+    # written back as per-link sign-off, so it cannot appear in the counts above.
+    # Naming it next to the zero is the honest form -- and it must not be turned
+    # into sign-off on links that did not exist when it ran.
+    A('<p>That zero means no link currently carries a recorded external sign-off. '
+      'It does not mean the map has never been read by anyone outside the project. '
+      'On 29 July 2026 an external scientific review went through the %d links the '
+      'map held at that date, sign by sign, and reported no incorrect signs; its '
+      'other findings were corrected and are listed in the '
+      '<a href="%s/changelog/">method changelog</a>. That pass was never written '
+      'back onto the individual links as sign-off, which is why it is absent from '
+      'the table. The map now holds %d links, so at least %d of them post-date that '
+      'review entirely, and the links it did cover have been edited since. Read it '
+      'as a historical check on an earlier state of the map, not as current '
+      'verification of these claims.</p>' % (93, SITE, cur["total"], cur["total"] - 93))
     if chk:
         A('<ul>')
         for rid, c in chk:

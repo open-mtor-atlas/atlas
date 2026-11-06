@@ -598,6 +598,14 @@ function mentionedRelations(r, byId) {
 }
 
 /**
+ * Conflict types where an empty conflicting_studies list is the recorded state,
+ * not missing data: the disagreement is between published models or between
+ * scopes, so no single study reports the opposite of the relation's claim.
+ * "Opposing result" is deliberately absent - there the missing study IS a gap.
+ */
+const COMPETING_MODEL_CONFLICT = new Set(['Field dispute', 'Different context']);
+
+/**
  * Relations that are flagged contested or carry conflicting studies.
  * `breakdown` says how the total splits, so it can be compared with the
  * Atlas's own contested count. `only_contested` keeps just the flagged ones.
@@ -628,11 +636,20 @@ export async function findContradictions(atlas, { entity, limit = 20, offset = 0
     };
     if (r.curation_contested !== undefined) item.curation_contested = !!r.curation_contested;
     if (r.consensus_contested !== undefined) item.consensus_contested = !!r.consensus_contested;
+    // 2026-11-06: WHY the studies disagree (Relations.Conflict_Type/Conflict_Basis).
+    // Without it an empty conflicting_studies list read as a data hole on every
+    // contested relation, including the ones where two published MODELS compete
+    // and no study reports the opposite of the claim. Those are different states
+    // and they need different next steps, so the type travels with the flag.
+    if (r.conflict?.type) item.conflict = { type: r.conflict.type, basis: r.conflict.basis ?? null };
     if (boundary.truncated || note.truncated) item.text_truncated = true;
     if ((r.contested || curated(r)) && !conflicting.length) {
       item.conflicting_studies_missing = true;
-      item.data_note = 'Flagged as contested, but the Atlas lists no conflicting study on this relation, so the other side is not in the structured data. '
-        + 'Other relations named in its note or boundary are listed in named_in_text; being named there does not mean they hold the missing evidence.';
+      item.data_note = COMPETING_MODEL_CONFLICT.has(String(r.conflict?.type ?? ''))
+        ? `Flagged as contested with no conflicting study listed, and for this relation that is the recorded state rather than a gap: conflict type is "${r.conflict.type}", meaning two published models or scopes compete and no study in the corpus reports the opposite of this claim. See conflict.basis. `
+          + 'Other relations named in its note or boundary are listed in named_in_text; being named there does not mean they hold the missing evidence.'
+        : 'Flagged as contested, but the Atlas lists no conflicting study on this relation, so the other side is not in the structured data. '
+          + 'Other relations named in its note or boundary are listed in named_in_text; being named there does not mean they hold the missing evidence.';
     }
     const named = mentionedRelations(r, byId);
     if (named.length) item.named_in_text = named;

@@ -133,7 +133,7 @@ export function createServer(atlas) {
 
   server.registerTool('find_contradictions', {
     title: 'Find contested claims', annotations: { ...RO, title: 'Find contested claims' },
-    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. status says which; breakdown splits the total. A contested relation with no conflicting study listed is flagged conflicting_studies_missing; relations named in its note or boundary are shown in named_in_text (a mention is not evidence). Paged: pass next_offset as offset for the rest. Optionally limited to one entity.',
+    description: 'Relations the Atlas marks as contested or that carry conflicting studies, with both sides of the evidence. status says which; breakdown splits the total. conflict carries WHY the studies disagree (Opposing result / Different context / Field dispute) with its basis. A contested relation with no conflicting study listed is flagged conflicting_studies_missing, and data_note says whether that is a real gap (Opposing result) or the recorded state because two published models compete (Field dispute, Different context); relations named in its note or boundary are shown in named_in_text (a mention is not evidence). Paged: pass next_offset as offset for the rest. Optionally limited to one entity.',
     inputSchema: {
       entity: z.string().optional(),
       only_contested: z.boolean().default(false).describe('Keep only relations the Atlas flags contested, not those that merely carry conflicting studies.'),
