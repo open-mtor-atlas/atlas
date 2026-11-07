@@ -46,6 +46,22 @@ import re
 import sys
 import datetime
 
+# 7. 11. 2026 (externi audit R3): panel hrany a vedene cesty vypisovaly holé
+# "plausible", i kdyz 107 ze 138 hran je jen molekularni nebo review dukaz.
+# Cteni na jednom miste je src/lib/vocab.ts ve V2; tyhle dve mapy jsou jeho
+# zrcadlo pro model.json a brana K12 (Atlas_v2/scripts/gates.py) porovnava
+# oba zdroje, takze se nemuzou tise rozejit.
+HUMAN_RELEVANCE_LABEL = {
+    "established": "shown in people",
+    "plausible": "plausible in people, not shown directly",
+    "untested": "not tested in people",
+}
+CONSENSUS_LABEL = {
+    "established": "settled in the literature",
+    "emerging": "emerging, few independent studies",
+    "contested": "disputed: at least one study points the other way",
+}
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(ROOT, "pathway")
 OUT = os.path.join(OUT_DIR, "model.json")
@@ -643,7 +659,7 @@ ROUTE_STEPS = {
    "why": "TSC1/TSC2 is the pathway's master brake. Akt phosphorylation inhibits it – partly by changing its activity, substantially by moving it away from where its target sits.",
    "changed": "The brake stops being applied. Nothing has been pushed yet; something has stopped being held back.",
    "consequence": "Whatever the brake was suppressing is now free to act. That target is Rheb.",
-   "certainty": "This is one of the two papers the route's Journey header names as its breakthrough (INO2002). High mechanistic confidence; cell-line evidence, so human relevance plausible – though TSC loss in people is the one place this pathway's causality is established.",
+   "certainty": "This is one of the two papers the route's Journey header names as its breakthrough (INO2002). High mechanistic confidence; cell-line evidence, so human relevance plausible in people, not shown directly – though TSC loss in people is the one place this pathway's causality is established.",
    "matters": "Double-negative logic again, exactly as in the nutrient arm. Growth signals in this pathway overwhelmingly work by removing inhibition rather than adding stimulation. Once you see that pattern you stop being surprised by it."},
   {"interaction": "TSC-RHEB",
    "what": "Released from Akt's inhibition, TSC would switch Rheb off – so inhibiting TSC leaves Rheb loaded.",
@@ -689,7 +705,7 @@ ROUTE_STEPS = {
    "why": "AMP and ADP bind the AMPK gamma subunit, which both activates the kinase allosterically and protects its activating phosphorylation from being removed. The cell is not reading 'low ATP' – it is reading the RATIO.",
    "changed": "AMPK becomes active within seconds of the energy charge dropping.",
    "consequence": "A kinase is now running whose entire job is to stop expensive processes and start cheap ones.",
-   "certainty": "High mechanistic confidence, well replicated; cell-line evidence, so human relevance plausible.",
+   "certainty": "High mechanistic confidence, well replicated; cell-line evidence, so human relevance plausible in people, not shown directly.",
    "matters": "Reading a ratio rather than an absolute is what makes this a sensor rather than a thermometer. A cell with genuinely low but stable ATP is not in trouble; a cell whose ATP is falling is. The ratio distinguishes them."},
   {"interaction": "AMPK-TSC",
    "what": "AMPK phosphorylates and activates the TSC complex.",
@@ -724,7 +740,7 @@ ROUTE_STEPS = {
    "why": "AMPK promotes mitophagy, the targeted autophagy of mitochondria – which is both a quality-control mechanism and a way to reclaim material.",
    "changed": "Dysfunctional mitochondria are cleared rather than left to leak.",
    "consequence": "Over longer timescales this shapes mitochondrial quality, and it is one of the arms through which energy stress is proposed to influence ageing.",
-   "certainty": "Medium mechanistic confidence, indirect, and measured largely with reporter mice – so quantitative claims are model-bound. Mouse evidence, human relevance plausible at best.",
+   "certainty": "Medium mechanistic confidence, indirect, and measured largely with reporter mice – so quantitative claims are model-bound. Mouse evidence, human relevance plausible at best, not shown directly.",
    "matters": "The route began with a question about affordability and ends with quality control. That is not a digression: a cell short of energy is usually a cell with failing mitochondria, so the same signal that stops growth is the right signal to trigger repair of the cause. Energy sensing is not a thermostat – it is a diagnostic."},
  ],
 
@@ -795,14 +811,14 @@ ROUTE_STEPS = {
    "why": "Ribosome profiling showed mTORC1 does not raise all translation equally. It selectively promotes a specific class of transcripts.",
    "changed": "The composition of what the cell is making changes, not just the amount.",
    "consequence": "Which proteins increase determines which phenotype follows – and those transcripts are enriched for growth and invasion programmes.",
-   "certainty": "This is the route's breakthrough paper (HSI2012). High mechanistic confidence; cancer cell lines, so human relevance plausible.",
+   "certainty": "This is the route's breakthrough paper (HSI2012). High mechanistic confidence; cancer cell lines, so human relevance plausible in people, not shown directly.",
    "matters": "'mTORC1 increases protein synthesis' is the summary that hides the actual biology. The regulated variable is transcript CHOICE. Anyone reasoning about mTOR from the summary will predict the wrong consequences, because a uniform increase and a selective one have different phenotypes."},
   {"interaction": "TRANSL-MUSCLE",
    "what": "In muscle, that translation supports hypertrophy.",
    "why": "Load-driven growth requires mTORC1: Raptor-null muscle is dystrophic, and rapamycin blocks overload-induced hypertrophy.",
    "changed": "Muscle fibres grow – over days, not minutes.",
    "consequence": "The step just before this one has been tested in people; this one has not.",
-   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes (ROM2001); human relevance plausible. The human study in this area, DRU2009, measured protein synthesis 1–2 h after one bout of exercise, not muscle growth, so it supports the previous step rather than this arrow.",
+   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes (ROM2001); human relevance plausible in people, not shown directly. The human study in this area, DRU2009, measured protein synthesis 1–2 h after one bout of exercise, not muscle growth, so it supports the previous step rather than this arrow.",
    "matters": "Worth pausing on, because the human evidence sits one step upstream of where it is usually quoted. A human intervention shows mTORC1 is needed for the acute rise in protein synthesis; that more synthesis becomes more muscle over weeks is shown in mice. It also carries a caveat: mTORC1 activation is NECESSARY for healthy hypertrophy but not sufficient – constitutive activation alone does not build good muscle."},
   {"interaction": "MTORC1-ULK1",
    "what": "At the same time, mTORC1 is holding recycling down.",
@@ -907,7 +923,7 @@ ROUTE_STEPS = {
    "why": "Akt binds PIP3 and is then phosphorylated by PDK1 and mTORC2. Recruitment is not activation; both phosphorylations are required.",
    "changed": "Akt becomes active at the membrane.",
    "consequence": "The brake downstream can now be released.",
-   "certainty": "High mechanistic confidence; cell-line evidence, human relevance plausible.",
+   "certainty": "High mechanistic confidence; cell-line evidence, human relevance plausible in people, not shown directly.",
    "matters": "The same recruitment-versus-activation distinction that runs through the whole map. In a muscle context it also means mTORC2 function is quietly required for a hypertrophy response – a dependency invisible in most exercise-physiology accounts."},
   {"interaction": "AKT-TSC",
    "what": "Akt inhibits the TSC complex.",
@@ -956,7 +972,7 @@ ROUTE_STEPS = {
    "why": "Repeated bouts of elevated synthesis, exceeding breakdown, produce hypertrophy. Raptor-null muscle is dystrophic; rapamycin blocks overload-induced growth.",
    "changed": "Fibre cross-sectional area increases.",
    "consequence": "The adaptation that the training was for.",
-   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes; human relevance plausible. The human study in this route (DRU2009) measured the acute protein-synthesis step, not growth. Timescale: days – this is the slowest step in the route by two orders of magnitude.",
+   "certainty": "Mouse genetics and pharmacology (BOD2001) and cultured myotubes; human relevance plausible in people, not shown directly. The human study in this route (DRU2009) measured the acute protein-synthesis step, not growth. Timescale: days – this is the slowest step in the route by two orders of magnitude.",
    "matters": "One honest limit to end on. mTORC1 activation is NECESSARY for healthy hypertrophy but not SUFFICIENT: constitutively activating mTORC1 in muscle does not produce good muscle, it produces inflammation and dysfunction. The signal has to be intermittent. That is a general lesson about this pathway – it is a switch that is meant to be thrown, not held."},
  ],
 
@@ -1022,7 +1038,7 @@ ROUTE_STEPS = {
    "why": "Nuclear TFEB switches on autophagy and lysosomal genes as one coordinated module.",
    "changed": "The cell now has MORE autophagy machinery, not just active machinery.",
    "consequence": "The response becomes sustainable rather than a burst.",
-   "certainty": "High mechanistic confidence; cell-line evidence, human relevance plausible.",
+   "certainty": "High mechanistic confidence; cell-line evidence, human relevance plausible in people, not shown directly.",
    "matters": "This is the difference between a short fast and a long one, and it is a difference in kind. The first hour reallocates existing machinery. Later hours build more of it. Any claim that a 16-hour and a 48-hour fast do 'the same thing more' is ignoring this step."},
   {"interaction": "TFEB-LYSOBIO",
    "what": "The lysosomal compartment itself expands.",
@@ -1774,7 +1790,9 @@ def main():
             "confidence": {
                 "mechanistic": mc,
                 "human_relevance": hr,
+                "human_relevance_label": HUMAN_RELEVANCE_LABEL.get(hr, ""),
                 "consensus": cons,
+                "consensus_label": CONSENSUS_LABEL.get(cons, ""),
             },
             # 2026-10-03: no fallback date or reviewer any more. Until then every
             # edge claimed "reviewed 2026-07-29 by the curation team", including

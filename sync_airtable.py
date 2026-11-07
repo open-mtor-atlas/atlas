@@ -170,6 +170,9 @@ def fetch_entities():
             # prázdné pole v Airtable znamená "není jednoznačný gen".
             "hgnc": g(f, "HGNC_ID"),
             "uniprot": g(f, "UniProt_ID"),
+            # 7. 11. 2026 (externi audit R4): single | group | non-human. Rika, jestli
+            # prazdne HGNC/UniProt znamena "dohledani ceka" nebo "jedno ID nedava smysl".
+            "id_scope": g(f, "Identifier_Scope"),
         }
         old = prev.get(row["id"])
         if old:

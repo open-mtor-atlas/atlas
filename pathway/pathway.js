@@ -776,7 +776,9 @@
     return '<div class="k">Confidence — three separate things</div><div class="pw-conf">'
       + meter("Mechanism", c.mechanistic, CONF_W[c.mechanistic], CONF_C[c.mechanistic])
       + meter("Human relevance", c.human_relevance, HR_W[c.human_relevance], HR_C[c.human_relevance])
+      + (c.human_relevance_label ? '<div class="pw-confgloss">' + esc(c.human_relevance_label) + "</div>" : "")
       + '<div class="pw-confrow"><span>Field consensus</span><span><b>' + esc(c.consensus) + "</b></span></div>"
+      + (c.consensus_label ? '<div class="pw-confgloss">' + esc(c.consensus_label) + "</div>" : "")
       + '<div class="pw-confrow"><span>Strongest study</span><span>' + tierPhrase(storedCode(e.evidence.best_tier))
       + "</span></div>"
       + '<div class="pw-confrow"><span>How it was shown</span><span>' + esc(e.evidence.kind) + "</span></div></div>"
@@ -1055,8 +1057,9 @@
         ? "Because " + B.label + " changed, the next event becomes possible: "
           + nodeById(nextE.source).label + " → " + nodeById(nextE.target).label + "."
         : (B.explain[S.level] || ""),
-      certainty: "Mechanistic confidence " + e.confidence.mechanistic + "; human relevance "
-        + e.confidence.human_relevance + "; field consensus " + e.confidence.consensus
+      certainty: "Mechanistic confidence " + e.confidence.mechanistic + "; human relevance: "
+        + (e.confidence.human_relevance_label || e.confidence.human_relevance) + "; field consensus: "
+        + (e.confidence.consensus_label || e.confidence.consensus)
         + ". Closest-to-human supporting study is " + (storedCode(e.evidence.best_tier) || e.evidence.best_tier) + " (" + e.evidence.kind
         + ", " + (e.species.join(", ") || "model not stated") + ")."
         + (e.boundary ? " Boundary conditions: " + e.boundary : ""),

@@ -40,6 +40,9 @@ OUT_CSV = os.path.join(HERE, "atlas_data", "entity_ids_proposed.csv")
 
 # Název entity v Airtable (přesně) -> schválený symbol lidského genu (HGNC).
 NAME_TO_SYMBOL = {
+    "TIF-IA (RRN3)": "RRN3",      # 7. 11. 2026, overeno proti UniProtu
+    "Maf1": "MAF1",
+    "ATP6V1B2": "ATP6V1B2",
     "mTOR": "MTOR",
     "Raptor": "RPTOR",
     "Rictor": "RICTOR",
