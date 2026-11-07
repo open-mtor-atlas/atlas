@@ -1,0 +1,73 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "9b89530de8a049bcbcf35ac18e8fd794dd61b16ef07d4fc5a11c8c9db2c03f2d",
+  "corpus_snapshot": "2026-11-07T07:38:13+0100",
+  "source_commit": "988dafa2da2d8aa38ed6079f94bf6c792302c580",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "tif-ia-rrn3",
+  "name": "TIF-IA (RRN3)",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "TIF-IA",
+   "TIF-IA/RRN3",
+   "RRN3",
+   "RNA polymerase I transcription factor Rrn3"
+  ],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "pending",
+   "reason": "No HGNC or UniProt identifier recorded yet. A record naming a complex or a protein family (rather than one gene product) may never get a single identifier; identifiers are filled from UniProt by a script, never from memory."
+  },
+  "description": "The RNA polymerase I transcription factor through which mTOR reaches ribosomal RNA synthesis. MAY2004 reports that rapamycin inactivates TIF-IA, blocks formation of the Pol I initiation complex, lowers phosphorylation of the activating Ser44 while raising the inhibitory Ser199, weakens the TIF-IA interaction with Pol I, and after two hours moves TIF-IA out of the nucleus, with 45S pre-rRNA synthesis almost abolished. Caution on the kinase step: the same paper reports that immunoprecipitated mTOR and S6K1 failed to phosphorylate TIF-IA in vitro, Ser44 is phosphorylated by Cdk2/cyclin E, the Ser199 kinase was not identified, and PP2A is proposed as the phosphatase. So mTOR controls TIF-IA activity in cells without any study here showing it phosphorylates TIF-IA. Recorded as data only, on one study, in mouse and human cell lines.",
+  "study_count": 1,
+  "relation_count": 0,
+  "page_status": {
+   "state": "data-only",
+   "reason": "By design: fewer than three linked studies and not a node on the pathway map, so no page is generated. The record is still served here and in the bulk exports."
+  },
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/tif-ia-rrn3.json",
+  "description_beginner": "The switch that lets one of the cell's two nuclear copying machines make the big RNA core of a ribosome. When mTOR is blocked, this switch goes off, moves out of the nucleus, and the copying almost stops. Nobody has shown mTOR flipping the switch itself, so there is at least one unknown step in between. All of it comes from cultured cell lines, some from mice and some from people.",
+  "reading_levels": null,
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "MAY2004",
+    "title": "mTOR-dependent activation of the transcription factor TIF-IA links rRNA synthesis to nutrient availability",
+    "authors": "Mayer C; Zhao J; Yuan X; Grummt I",
+    "year": 2004,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.285504",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15004009",
+    "pmcid": "PMC359396",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse FM3A nuclear extracts and NIH3T3 reporter assays; human HeLa and HEK293T cells; rapamycin; in vitro transcription, 2D phosphopeptide mapping, immunofluorescence",
+    "peer_reviewed": true,
+    "finding": "Places mTOR on the RNA polymerase I branch of ribosome building. In HeLa cells, rapamycin (20 or 80 nM for 60 min) almost abolished synthesis of the 45S pre-rRNA precursor while the amounts of Pol I, UBF, TIF-IA and TIF-IB stayed the same, so mTOR acts on the activity of the transcription factor TIF-IA, not on how much machinery the cell has. Rapamycin lowered phosphorylation of TIF-IA at Ser44 and raised it at Ser199, two sites with opposite effects, weakened the TIF-IA interaction with Pol I, and after 2 h shifted TIF-IA out of the nucleus (nuclear TIF-IA roughly halved). Boundary: the authors write that mTOR activates TIF-IA either directly or indirectly, and report as data not shown that immunoprecipitated mTOR and S6K1 did NOT phosphorylate TIF-IA in vitro; Cdk2/cyclin E phosphorylates Ser44, the Ser199 kinase was not identified, and PP2A is proposed as the phosphatase that rapamycin unleashes. The nutrient link rests on a single experiment: nuclear extract from amino-acid-starved cells lost the Ser44 signal in the same way as extract from rapamycin-treated cells. Cell lines only; no animal or human data, and mTORC1 versus mTORC2 was not separated (the complexes were not yet defined in 2004).",
+    "url": "https://mtor-atlas.org/study/MAY2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAY2004.json"
+   }
+  ],
+  "relations": []
+ }
+}

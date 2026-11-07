@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
-  "corpus_snapshot": "2026-11-06T19:32:35+0100",
-  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "data_fingerprint": "9b89530de8a049bcbcf35ac18e8fd794dd61b16ef07d4fc5a11c8c9db2c03f2d",
+  "corpus_snapshot": "2026-11-07T07:38:13+0100",
+  "source_commit": "988dafa2da2d8aa38ed6079f94bf6c792302c580",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -28,9 +28,17 @@
    "LDL-derived cholesterol"
   ],
   "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "reason": "Gene and protein identifiers do not apply to the type \"Nutrient/Metabolite\"."
+  },
   "description": "A membrane sterol that mTORC1 treats as a nutrient input, read at the lysosome rather than at the cell surface. Two routes into the same machinery are described: cholesterol binds the permease-like region of LYCHOS, which then sequesters GATOR1 (SHI2022), and it acts through SLC38A9 independently of that transporter's arginine-sensing function, with NPC1 restraining the signal as it exports cholesterol from the lumen (CAS2017). Both rest on human cell lines and biochemistry. How the two routes divide the signal, and whether either matters at the level of an organism, is not measured in this corpus.",
   "study_count": 3,
   "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
   "url": "https://mtor-atlas.org/nutrient/cholesterol/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/cholesterol.json",
   "description_beginner": "Cholesterol is a fat the cell needs as a building material for its membranes, so it makes sense that the cell checks how much it has before deciding to grow. The checking happens at the lysosome, the recycling compartment, not at the cell's outer surface. There are two known ways the message gets through, and nobody has measured how much of the work each one does.",
@@ -147,7 +155,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "plausible",
-     "consensus": "emerging"
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
     },
     "evidence": {
      "kind": "Direct biochemical",

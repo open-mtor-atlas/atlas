@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
-  "corpus_snapshot": "2026-11-06T19:32:35+0100",
-  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "data_fingerprint": "9b89530de8a049bcbcf35ac18e8fd794dd61b16ef07d4fc5a11c8c9db2c03f2d",
+  "corpus_snapshot": "2026-11-07T07:38:13+0100",
+  "source_commit": "988dafa2da2d8aa38ed6079f94bf6c792302c580",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -35,12 +35,13 @@
   "map_band": "nucleus",
   "species": [
    "budding yeast",
-   "human cells"
+   "human cells",
+   "mouse cells"
   ],
-  "mechanism": "TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome's own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).",
-  "mechanism_beginner": "A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. That was followed through the cell cycle in yeast, and in mammalian cells the programme mTORC1 controls turns out to be dominated by the ribosome's own parts. The link runs in both directions: block ribosome building and the cell turns mTOR down to cope.",
+  "mechanism": "mTORC1 drives ribosome production through both nuclear polymerases, and the corpus now carries one primary study for each branch. RNA polymerase I: rapamycin inactivates the Pol I transcription factor TIF-IA within an hour and nearly abolishes 45S pre-rRNA synthesis, with no change in the amount of Pol I, UBF, TIF-IA or TIF-IB, so the control is over activity rather than abundance (MAY2004). RNA polymerase III: mTOR inhibition dephosphorylates the Pol III repressor Maf1 at Ser75, Maf1 then accumulates in the nucleus and occupies Pol III genes while Pol III and Brf1 binding falls, and pre-tRNA levels drop by 53 to 80 percent; raptor siRNA reproduces it and rictor siRNA barely does, which places the step on mTORC1 (SHO2010). Around these two steps, TORC1 activity towards ribosome biogenesis oscillates with the cell cycle in budding yeast (GUE2022) and the mammalian translational programme mTORC1 controls is dominated by the ribosome's own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).",
+  "mechanism_beginner": "A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. The parts of a ribosome are copied out by two different machines in the nucleus, and mTORC1 reaches both: it keeps a switch called TIF-IA on, so one machine copies the large RNA core, and it keeps a brake called Maf1 off, so the other copies the small RNAs and transfer RNAs. Add a drug that blocks mTOR and both lines slow down within an hour or two. In neither case has anyone caught mTOR touching the switch or the brake itself, so something unidentified sits in between. The link also runs backwards: block ribosome building and the cell turns mTOR down to cope. Some of this was followed in budding yeast, the rest in human and mouse cells grown in a dish, not in whole animals and not in people.",
   "context": null,
-  "boundary": "The two polymerase steps that carry most of this output are NOT measured by any study in this corpus. mTOR controls rRNA transcription through RNA polymerase I via TIF-IA (Mayer 2004, PMID 15004009, outside this corpus) and tRNA and 5S transcription through RNA polymerase III via Maf1 (Shor 2010, PMID 20233713, outside this corpus). Until those are curated here the edge rests on a yeast cell-cycle study, a mammalian ribosome-profiling study and a reverse-direction survival study, so read it as the existence of the output rather than as its mechanism.",
+  "boundary": "Both polymerase branches are in the corpus as of 7 November 2026, and both are indirect: neither paper could show mTOR phosphorylating its target. MAY2004 writes that mTOR activates TIF-IA directly or indirectly and reports that immunoprecipitated mTOR and S6K1 did not phosphorylate TIF-IA in vitro; Cdk2/cyclin E phosphorylates the activating Ser44, the Ser199 kinase was not identified, and PP2A is proposed as the phosphatase. SHO2010 likewise did not detect direct phosphorylation of Maf1 and points at S6K1 or another kinase in between. Scope: cultured cells only on both branches (mouse and human lines in MAY2004; human cancer lines plus HEK293 in SHO2010), acute drug treatment over hours, and no animal or human data on either. MAY2004 predates the mTORC1/mTORC2 distinction, so its complex assignment rests on rapamycin sensitivity alone, while SHO2010 separates the complexes with raptor and rictor siRNA. The 5S rRNA part of the Pol III claim comes from Maf1 phospho-mutants in supplementary data, not from drug treatment. The ribosomal-protein mRNA arm of this output is covered by the separate 5'TOP mRNA edges, not here.",
   "boundary_tags": [],
   "conflict": null,
   "note": null,
@@ -50,7 +51,9 @@
   "confidence": {
    "mechanistic": "medium",
    "human_relevance": "plausible",
-   "consensus": "emerging"
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "emerging",
+   "consensus_label": "emerging, few independent studies"
   },
   "evidence": {
    "kind": "Genetic epistasis",
@@ -59,30 +62,15 @@
     "label": "Molecular — cells, biochemistry, structure"
    },
    "supporting": [
+    "MAY2004",
+    "SHO2010",
     "GUE2022",
     "HSI2012",
     "FAN2026"
    ],
    "conflicting": []
   },
-  "external_refs": [
-   {
-    "pmid": "15004009",
-    "cited_in": [
-     "boundary"
-    ],
-    "in_corpus": false,
-    "url": "https://pubmed.ncbi.nlm.nih.gov/15004009/"
-   },
-   {
-    "pmid": "20233713",
-    "cited_in": [
-     "boundary"
-    ],
-    "in_corpus": false,
-    "url": "https://pubmed.ncbi.nlm.nih.gov/20233713/"
-   }
-  ],
+  "external_refs": [],
   "reviewed": null,
   "updated": null,
   "checked": null,

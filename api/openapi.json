@@ -794,8 +794,48 @@
       },
       "description": "Standard identifiers (HGNC, UniProtKB, NCBI Taxonomy), present only when the entity is a single human gene/protein. Null for groups, complexes, drugs, diseases and metabolites."
      },
+     "identifiers_status": {
+      "type": "object",
+      "properties": {
+       "state": {
+        "type": "string",
+        "enum": [
+         "present",
+         "pending",
+         "not-applicable"
+        ]
+       },
+       "reason": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why identifiers are null. pending = a gene/protein record still awaiting lookup, or one naming a complex or family that may never have a single identifier; not-applicable = the entity type has no gene/protein identifier."
+     },
      "relation_count": {
       "type": "integer"
+     },
+     "page_status": {
+      "type": "object",
+      "properties": {
+       "state": {
+        "type": "string",
+        "enum": [
+         "published",
+         "data-only",
+         "missing"
+        ]
+       },
+       "reason": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why url is null. A page is generated for an entity with three or more linked studies or one that is a node on the pathway map. data-only = no page by that rule; missing = a page is expected and the build produced none, which is a defect."
      },
      "url": {
       "type": [
@@ -1224,13 +1264,26 @@
          "null"
         ]
        },
+       "human_relevance_label": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
        "consensus": {
         "type": [
          "string",
          "null"
         ]
+       },
+       "consensus_label": {
+        "type": [
+         "string",
+         "null"
+        ]
        }
-      }
+      },
+      "description": "Three independent axes, never one score. human_relevance is a graded reach into people, not a claim of human evidence: \"plausible\" means mechanistically plausible and NOT shown directly in people. The *_label fields carry the same wording the website shows, from one shared vocabulary; read them next to evidence.strongest, which says what kind of study the grade rests on."
      },
      "evidence": {
       "type": "object",

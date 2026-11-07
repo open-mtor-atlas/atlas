@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
-  "corpus_snapshot": "2026-11-06T19:32:35+0100",
-  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "data_fingerprint": "9b89530de8a049bcbcf35ac18e8fd794dd61b16ef07d4fc5a11c8c9db2c03f2d",
+  "corpus_snapshot": "2026-11-07T07:38:13+0100",
+  "source_commit": "988dafa2da2d8aa38ed6079f94bf6c792302c580",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -39,21 +39,26 @@
   "mechanism": "Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.",
   "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
   "context": null,
-  "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
+  "boundary": "The lifespan result is mouse only. No human lifespan or healthspan trial is held in this corpus and EVERLAST has no results yet; the closest human survival data here, STE2026, is observational, at immunosuppressive doses in kidney transplant recipients, and found no benefit, which is why it sits on this edge as a conflicting study rather than as support. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
   "boundary_tags": [
    "dose-dependent",
    "sex-specific",
    "single-species"
   ],
-  "conflict": null,
-  "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
+  "conflict": {
+   "type": "Different context",
+   "basis": "The lifespan evidence on this edge is mouse, at low or intermittent doses, in healthy animals (HAR2009, BIT2016, ARR2016). STE2026 is human: in a US registry of 11,474 kidney transplant recipients alive at one year, rapamycin at immunosuppressive doses alongside other immunosuppressants gave no survival benefit (median survival age 64.6 against 64.3 years, 95% CI for the difference -1.6 to 2.0). Different species, dose, population and endpoint, so it bounds the human reach of the claim rather than reversing the mouse result."
+  },
+  "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint. 2026-11-07: STE2026 recorded as a conflicting study, human registry survival data at immunosuppressive doses, which bounds how far the mouse result reaches into people; the boundary no longer says that no human endpoint exists at all.",
   "consensus_contested": false,
   "curation_contested": false,
   "contested": false,
   "confidence": {
    "mechanistic": "medium",
    "human_relevance": "untested",
-   "consensus": "established"
+   "human_relevance_label": "not tested in people",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
   },
   "evidence": {
    "kind": "Pharmacological",
@@ -69,7 +74,9 @@
     "ARR2016",
     "ANI2011"
    ],
-   "conflicting": []
+   "conflicting": [
+    "STE2026"
+   ]
   },
   "external_refs": [],
   "reviewed": null,

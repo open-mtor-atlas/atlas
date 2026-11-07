@@ -9,9 +9,9 @@
    "date": "2026-10-01",
    "studies": 428
   },
-  "data_fingerprint": "9a07b47ee7fa20b744034702edc5f59f6713aad6ad6d914b0e72b6f8d5df0559",
-  "corpus_snapshot": "2026-11-06T19:32:35+0100",
-  "source_commit": "c8016f59a18e7b9319caf80f88b80d58ad221d0d",
+  "data_fingerprint": "9b89530de8a049bcbcf35ac18e8fd794dd61b16ef07d4fc5a11c8c9db2c03f2d",
+  "corpus_snapshot": "2026-11-07T07:38:13+0100",
+  "source_commit": "988dafa2da2d8aa38ed6079f94bf6c792302c580",
   "license": "CC-BY-4.0",
   "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
   "docs": "https://mtor-atlas.org/api/"
@@ -22,9 +22,17 @@
   "type": "Outcome",
   "synonyms": [],
   "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "reason": "Gene and protein identifiers do not apply to the type \"Outcome\"."
+  },
   "description": "Lifespan extension; the key outcome tracked across mTOR-targeting interventions.",
-  "study_count": 61,
+  "study_count": 62,
   "relation_count": 7,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
   "url": "https://mtor-atlas.org/outcome/longevity/",
   "api_url": "https://mtor-atlas.org/api/v1/entities/longevity.json",
   "description_beginner": "How long an organism lives - the single outcome most often measured across every mTOR-targeting intervention in this Atlas.",
@@ -1437,6 +1445,29 @@
     "finding": "In the worm C. elegans, loss of the mTORC2 component RICTOR (rict-1) extended lifespan and raised osmotic-stress tolerance only on vitamin B12-rich bacterial diets with optimal methionine. The benefit required two B12-dependent enzymes, METR-1 (methionine cycle) and MMCM-1 (propionate breakdown), and a rise in succinate that fragments mitochondria and switches on mitophagy, which the authors found indispensable for the longevity. Evidence is from one invertebrate species and genetic loss of function; it does not show that mTORC2 inhibition extends lifespan in mammals or humans.",
     "url": "https://mtor-atlas.org/study/MOT2026/",
     "api_url": "https://mtor-atlas.org/api/v1/studies/MOT2026.json"
+   },
+   {
+    "sid": "STE2026",
+    "title": "Rapamycin and human longevity among kidney transplant recipients surviving the first year.",
+    "authors": "Stewart DE; Fitzsimmons WE",
+    "year": 2026,
+    "journal": "GeroScience",
+    "doi": "10.1007/s11357-026-02643-8",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42989006",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Negative_result",
+    "model_system": "Human (US national organ transplant registry: 4,885 kidney transplant recipients prescribed rapamycin vs 6,589 not prescribed; alive with functioning graft at 1 year; median follow-up 11 years)",
+    "peer_reviewed": true,
+    "finding": "In a US registry cohort of 11,474 kidney transplant recipients who were alive with a functioning graft at one year, 4,885 were prescribed rapamycin and 6,589 were not; 6,443 died during a median follow-up of 11 years. After propensity-score weighting for age, BMI, diabetes and 15 other factors, median survival age was 64.6 years with rapamycin and 64.3 years without (95% CI for the difference -1.6 to 2.0 years), so no meaningful survival benefit was seen. Boundary: observational registry data in transplant recipients who are also on other immunosuppressants and who entered the cohort only by having survived twelve months after transplant, rapamycin given at immunosuppressive doses by clinician choice; it does not test low-dose or intermittent rapamycin in healthy older adults.",
+    "url": "https://mtor-atlas.org/study/STE2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/STE2026.json"
    }
   ],
   "relations": [
@@ -1477,7 +1508,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "emerging"
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
     },
     "evidence": {
      "kind": "Genetic epistasis",
@@ -1533,7 +1566,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "established"
+     "human_relevance_label": "not tested in people",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
     },
     "evidence": {
      "kind": "Genetic epistasis",
@@ -1585,21 +1620,26 @@
     "mechanism": "Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.",
     "mechanism_beginner": "Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole \"this pathway and ageing\" idea.",
     "context": null,
-    "boundary": "Mouse only. No human lifespan or healthspan endpoint exists; EVERLAST has no results yet. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
+    "boundary": "The lifespan result is mouse only. No human lifespan or healthspan trial is held in this corpus and EVERLAST has no results yet; the closest human survival data here, STE2026, is observational, at immunosuppressive doses in kidney transplant recipients, and found no benefit, which is why it sits on this edge as a conflicting study rather than as support. BIT2016 shows a non-continuous schedule can still extend post-treatment life expectancy, but the result is dose- and route-specific: in the 8 mg/kg/day intraperitoneal arm males gained +60% post-treatment life expectancy (p=0.02) while females showed no survival benefit (p=0.261) and a shift toward aggressive haematopoietic cancers (16/16 vs 6/12, p=0.002); in the same paper's 126 ppm dietary encapsulated-rapamycin arm survival rose significantly in BOTH sexes, with a Cox model finding no evidence that sex modified the treatment effect (p=0.904). Cite the arm, not just the paper. ARR2016: an intermittent regimen (2 mg/kg every 5 days) started as late as 20 months of age extended lifespan in female C57BL/6J mice; the abstract reports the effect in females only.",
     "boundary_tags": [
      "dose-dependent",
      "sex-specific",
      "single-species"
     ],
-    "conflict": null,
-    "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint.",
+    "conflict": {
+     "type": "Different context",
+     "basis": "The lifespan evidence on this edge is mouse, at low or intermittent doses, in healthy animals (HAR2009, BIT2016, ARR2016). STE2026 is human: in a US registry of 11,474 kidney transplant recipients alive at one year, rapamycin at immunosuppressive doses alongside other immunosuppressants gave no survival benefit (median survival age 64.6 against 64.3 years, 95% CI for the difference -1.6 to 2.0). Different species, dose, population and endpoint, so it bounds the human reach of the claim rather than reversing the mouse result."
+    },
+    "note": "ARR2015 was removed from this edge on 2026-07-29: that study measured side effects only and has no survival endpoint. 2026-11-07: STE2026 recorded as a conflicting study, human registry survival data at immunosuppressive doses, which bounds how far the mouse result reaches into people; the boundary no longer says that no human endpoint exists at all.",
     "consensus_contested": false,
     "curation_contested": false,
     "contested": false,
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "established"
+     "human_relevance_label": "not tested in people",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
     },
     "evidence": {
      "kind": "Pharmacological",
@@ -1615,7 +1655,9 @@
       "ARR2016",
       "ANI2011"
      ],
-     "conflicting": []
+     "conflicting": [
+      "STE2026"
+     ]
     },
     "external_refs": [],
     "reviewed": null,
@@ -1664,7 +1706,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "emerging"
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
     },
     "evidence": {
      "kind": "Genetic epistasis",
@@ -1726,7 +1770,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "emerging"
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
     },
     "evidence": {
      "kind": "Genetic epistasis",
@@ -1786,7 +1832,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "untested",
-     "consensus": "emerging"
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
     },
     "evidence": {
      "kind": "Genetic epistasis",
@@ -1844,7 +1892,9 @@
     "confidence": {
      "mechanistic": "medium",
      "human_relevance": "plausible",
-     "consensus": "established"
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
     },
     "evidence": {
      "kind": "Genetic epistasis",
