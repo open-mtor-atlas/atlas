@@ -2205,7 +2205,7 @@ the kind of study; it is not a quality score.</p>
 <p>An honest limitation, now partly addressed. Since 31 October 2026 one
 part of the search keeps a dated record of what it examined and why each
 candidate was taken in or turned down: the scan for registered trials and
-preprints, published as the <a href="/about/screening/">screening log</a>.
+preprints, published as the screening log under About.
 The rest of the selection -- the daily screen of new papers, and the
 retrospective passes that added foundational work -- leaves no record per
 candidate. So no overall exclusion count can be quoted or inferred, and an

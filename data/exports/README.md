@@ -8,7 +8,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
 
 ## Files
 
-- **studies.csv / studies.json** -- 521 hand-curated
+- **studies.csv / studies.json** -- 524 hand-curated
   primary studies on the mTOR signaling pathway. Each row: Atlas ID
   (`sid`), `evidence_code` and `evidence_label` (the displayed study
   type: S synthesis of human data, H human study, A animal model, M
@@ -29,7 +29,7 @@ downloaded copy, check https://mtor-atlas.org/data/ for the current version.
   evidence grades, `curation_status` and `review_status`. A
   `review_status` of `unreviewed` means no named curator has signed the
   link off yet.
-- **entities.csv / entities.json** -- 170 pathway
+- **entities.csv / entities.json** -- 172 pathway
   entities (genes/proteins, complexes, drugs, interventions, biological
   processes, diseases, outcomes, organelles, nutrients/metabolites,
   conditions) referenced across the corpus, with a technical and a

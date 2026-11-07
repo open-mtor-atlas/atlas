@@ -71,42 +71,42 @@
     "name": "studies.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.csv",
-    "contentSize": "1182083"
+    "contentSize": "1188280"
    },
    {
     "@type": "DataDownload",
     "name": "studies.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/studies.json",
-    "contentSize": "1446858"
+    "contentSize": "1454586"
    },
    {
     "@type": "DataDownload",
     "name": "entities.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.csv",
-    "contentSize": "92354"
+    "contentSize": "95395"
    },
    {
     "@type": "DataDownload",
     "name": "entities.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/entities.json",
-    "contentSize": "123552"
+    "contentSize": "126959"
    },
    {
     "@type": "DataDownload",
     "name": "relations.csv",
     "encodingFormat": "text/csv",
     "contentUrl": "https://mtor-atlas.org/data/exports/relations.csv",
-    "contentSize": "120302"
+    "contentSize": "122328"
    },
    {
     "@type": "DataDownload",
     "name": "relations.json",
     "encodingFormat": "application/json",
     "contentUrl": "https://mtor-atlas.org/data/exports/relations.json",
-    "contentSize": "181672"
+    "contentSize": "183698"
    }
   ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -124,7 +124,7 @@
    "evidence-based research"
   ],
   "version": "2.0.1+unreleased",
-  "dateModified": "2026-11-06"
+  "dateModified": "2026-11-07"
  }
 }
 </script>
@@ -1637,7 +1637,7 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Type">functional-consequence</td>
 <td data-l="Mechanism"><span class="lv-beginner">Rapamycin makes mice live longer, even when given late in life – the single biggest result behind the whole &quot;this pathway and ageing&quot; idea.</span><span class="lv-student">Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.</span><span class="lv-research">Rapamycin extends lifespan in genetically heterogeneous mice even when started late in life - one of the most influential results in the geroscience arm of this Atlas.</span></td>
 <td data-l="Evidence"><span class="tier t-A" title="Animal model — this describes the kind of study, not its quality" aria-label="Evidence type A: Animal model — this describes the kind of study, not its quality">A</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2009/">HAR2009</a>, <a href="https://mtor-atlas.org/study/BIT2016/">BIT2016</a>, <a href="https://mtor-atlas.org/study/KHA2014/">KHA2014</a>, <a href="https://mtor-atlas.org/study/CHE2009/">CHE2009</a>, <a href="https://mtor-atlas.org/study/ARR2016/">ARR2016</a>, <a href="https://mtor-atlas.org/study/ANI2011/">ANI2011</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/HAR2009/">HAR2009</a>, <a href="https://mtor-atlas.org/study/BIT2016/">BIT2016</a>, <a href="https://mtor-atlas.org/study/KHA2014/">KHA2014</a>, <a href="https://mtor-atlas.org/study/CHE2009/">CHE2009</a>, <a href="https://mtor-atlas.org/study/ARR2016/">ARR2016</a>, <a href="https://mtor-atlas.org/study/ANI2011/">ANI2011</a> <span class="tier-why">(conflicting: STE2026)</span></td>
 </tr><tr id="int-rapa-mtorc2">
 <td data-l="Source"><a href="/drug/rapamycin/">Rapamycin</a></td>
 <td data-l="Effect">inhibits</td>
@@ -2099,9 +2099,9 @@ eleven routes above walk through, cross-referenced by each step's
 <td data-l="Effect">activates</td>
 <td data-l="Target"><a href="/process/ribosome-biogenesis/">Ribosome biogenesis</a></td>
 <td data-l="Type">functional-consequence</td>
-<td data-l="Mechanism"><span class="lv-beginner">A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. That was followed through the cell cycle in yeast, and in mammalian cells the programme mTORC1 controls turns out to be dominated by the ribosome&#x27;s own parts. The link runs in both directions: block ribosome building and the cell turns mTOR down to cope.</span><span class="lv-student">TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span><span class="lv-research">TORC1 activity tracks ribosome biogenesis: in budding yeast TORC1 and PKA activity towards ribosome biogenesis oscillates with the cell cycle (GUE2022), and in mammalian cells the translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span></td>
+<td data-l="Mechanism"><span class="lv-beginner">A growing cell needs more ribosomes, not just busier ones, and mTORC1 has a say in how many get built. The parts of a ribosome are copied out by two different machines in the nucleus, and mTORC1 reaches both: it keeps a switch called TIF-IA on, so one machine copies the large RNA core, and it keeps a brake called Maf1 off, so the other copies the small RNAs and transfer RNAs. Add a drug that blocks mTOR and both lines slow down within an hour or two. In neither case has anyone caught mTOR touching the switch or the brake itself, so something unidentified sits in between. The link also runs backwards: block ribosome building and the cell turns mTOR down to cope. Some of this was followed in budding yeast, the rest in human and mouse cells grown in a dish, not in whole animals and not in people.</span><span class="lv-student">mTORC1 drives ribosome production through both nuclear polymerases, and the corpus now carries one primary study for each branch. RNA polymerase I: rapamycin inactivates the Pol I transcription factor TIF-IA within an hour and nearly abolishes 45S pre-rRNA synthesis, with no change in the amount of Pol I, UBF, TIF-IA or TIF-IB, so the control is over activity rather than abundance (MAY2004). RNA polymerase III: mTOR inhibition dephosphorylates the Pol III repressor Maf1 at Ser75, Maf1 then accumulates in the nucleus and occupies Pol III genes while Pol III and Brf1 binding falls, and pre-tRNA levels drop by 53 to 80 percent; raptor siRNA reproduces it and rictor siRNA barely does, which places the step on mTORC1 (SHO2010). Around these two steps, TORC1 activity towards ribosome biogenesis oscillates with the cell cycle in budding yeast (GUE2022) and the mammalian translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span><span class="lv-research">mTORC1 drives ribosome production through both nuclear polymerases, and the corpus now carries one primary study for each branch. RNA polymerase I: rapamycin inactivates the Pol I transcription factor TIF-IA within an hour and nearly abolishes 45S pre-rRNA synthesis, with no change in the amount of Pol I, UBF, TIF-IA or TIF-IB, so the control is over activity rather than abundance (MAY2004). RNA polymerase III: mTOR inhibition dephosphorylates the Pol III repressor Maf1 at Ser75, Maf1 then accumulates in the nucleus and occupies Pol III genes while Pol III and Brf1 binding falls, and pre-tRNA levels drop by 53 to 80 percent; raptor siRNA reproduces it and rictor siRNA barely does, which places the step on mTORC1 (SHO2010). Around these two steps, TORC1 activity towards ribosome biogenesis oscillates with the cell cycle in budding yeast (GUE2022) and the mammalian translational programme mTORC1 controls is dominated by the ribosome&#x27;s own components (HSI2012). The dependency also runs the other way: when ribosome biogenesis fails, mTOR inactivation is what lets cells survive it (FAN2026).</span></td>
 <td data-l="Evidence"><span class="tier t-M" title="Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality" aria-label="Evidence type M: Molecular — cells, biochemistry, structure — this describes the kind of study, not its quality">M</span></td>
-<td data-l="Studies"><a href="https://mtor-atlas.org/study/GUE2022/">GUE2022</a>, <a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/FAN2026/">FAN2026</a></td>
+<td data-l="Studies"><a href="https://mtor-atlas.org/study/MAY2004/">MAY2004</a>, <a href="https://mtor-atlas.org/study/SHO2010/">SHO2010</a>, <a href="https://mtor-atlas.org/study/GUE2022/">GUE2022</a>, <a href="https://mtor-atlas.org/study/HSI2012/">HSI2012</a>, <a href="https://mtor-atlas.org/study/FAN2026/">FAN2026</a></td>
 </tr><tr id="int-mtorc1-topmrna">
 <td data-l="Source"><a href="/complex/mtorc1/">mTORC1</a></td>
 <td data-l="Effect">activates</td>
@@ -2183,7 +2183,7 @@ Curated by <a href="https://mtor-atlas.org/author/oliver-barton/">Oliver Barton<
 <div class="oma-footer-links">
 <a href="https://mtor-atlas.org/">Full interactive Atlas</a> · <a href="https://mtor-atlas.org/browse/">Browse the Atlas</a> · <a href="https://mtor-atlas.org/authors/">Researchers</a> · <a href="https://mtor-atlas.org/questions/">Open Questions</a> · <a href="https://mtor-atlas.org/academy/">Academy</a> · <a href="https://mtor-atlas.org/answers/">Answers</a> · <a href="https://mtor-atlas.org/glossary/">Glossary</a> · <a href="https://mtor-atlas.org/about/">About &amp; Methodology</a> · <a href="https://mtor-atlas.org/data/">Data &amp; Citation</a>
 </div>
-<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-11-06 19:32 Prague time</div>
+<div class="oma-footer-meta">Oliver&#39;s mTOR Atlas &middot; last updated 2026-11-07 07:33 Prague time</div>
 </footer>
 </div>
 </body>

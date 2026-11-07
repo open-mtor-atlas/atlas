@@ -70,6 +70,16 @@
    "relation_role": null,
    "null_edge": false,
    "reason": "A null result on one biomarker (blood DNA methylation age), not a pathway step. It does not show that rapamycin has no effect on aging in marmosets, only that these clocks did not register one, so it is not filed as a no-effect edge."
+  },
+  {
+   "sid": "STE2026",
+   "tested_claim": "Rapamycin prescribed as maintenance immunosuppression is associated with longer survival in kidney transplant recipients.",
+   "model": "Human, US national organ transplant registry: 11,474 recipients alive with a functioning graft at one year (4,885 prescribed rapamycin, 6,589 not), median follow-up 11 years, propensity-score weighting on 18 factors",
+   "endpoint": "Median survival age 64.6 years with rapamycin against 64.3 years without (95% CI for the difference -1.6 to 2.0 years); 6,443 deaths.",
+   "relation": "RAPA-LONGEVITY",
+   "relation_role": "conflicting_study",
+   "null_edge": false,
+   "reason": "Recorded as conflicting evidence on RAPA-LONGEVITY, not as a no-effect edge. The edge's support is mouse lifespan at low or intermittent doses in healthy animals; this is human observational data at immunosuppressive doses, in people on other immunosuppressants who entered the cohort by surviving twelve months after transplant. It bounds how far the mouse result reaches into people, and a no-effect sign would read as a tested-and-null pathway step, which a confounded registry comparison cannot establish."
   }
  ]
 }

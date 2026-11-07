@@ -77,6 +77,17 @@
     "atlas_url": ""
   },
   {
+    "id": "tif-ia-rrn3",
+    "name": "TIF-IA (RRN3)",
+    "type": "Gene/Protein",
+    "description": "The RNA polymerase I transcription factor through which mTOR reaches ribosomal RNA synthesis. MAY2004 reports that rapamycin inactivates TIF-IA, blocks formation of the Pol I initiation complex, lowers phosphorylation of the activating Ser44 while raising the inhibitory Ser199, weakens the TIF-IA interaction with Pol I, and after two hours moves TIF-IA out of the nucleus, with 45S pre-rRNA synthesis almost abolished. Caution on the kinase step: the same paper reports that immunoprecipitated mTOR and S6K1 failed to phosphorylate TIF-IA in vitro, Ser44 is phosphorylated by Cdk2/cyclin E, the Ser199 kinase was not identified, and PP2A is proposed as the phosphatase. So mTOR controls TIF-IA activity in cells without any study here showing it phosphorylates TIF-IA. Recorded as data only, on one study, in mouse and human cell lines.",
+    "description_beginner": "The switch that lets one of the cell's two nuclear copying machines make the big RNA core of a ribosome. When mTOR is blocked, this switch goes off, moves out of the nucleus, and the copying almost stops. Nobody has shown mTOR flipping the switch itself, so there is at least one unknown step in between. All of it comes from cultured cell lines, some from mice and some from people.",
+    "synonyms": "TIF-IA; TIF-IA/RRN3; RRN3; RNA polymerase I transcription factor Rrn3",
+    "n_linked_studies": 1,
+    "has_page": "false",
+    "atlas_url": ""
+  },
+  {
     "id": "lysosome",
     "name": "Lysosome",
     "type": "Organelle",
@@ -314,7 +325,7 @@
     "description": "Lifespan extension; the key outcome tracked across mTOR-targeting interventions.",
     "description_beginner": "How long an organism lives - the single outcome most often measured across every mTOR-targeting intervention in this Atlas.",
     "synonyms": "",
-    "n_linked_studies": 61,
+    "n_linked_studies": 62,
     "has_page": "true",
     "atlas_url": "https://mtor-atlas.org/outcome/longevity/"
   },
@@ -501,7 +512,7 @@
     "description": "Sirolimus; mTORC1 inhibitor that acts as a complex with FKBP12. With chronic dosing it can also disrupt mTORC2 assembly in some cell types and tissues (SAR2006; mouse liver in LAM2012), a time- and cell-type-dependent effect. Immunosuppressant; extends lifespan in mice.",
     "description_beginner": "Also called sirolimus. The original mTOR-blocking drug (mainly hits mTORC1; with long-term use it can also affect mTORC2 in some tissues). Used to prevent organ-transplant rejection, and the most reproducibly lifespan-extending drug in mice across the testing sites of the NIA programme.",
     "synonyms": "Sirolimus; RAPA; AY-22989",
-    "n_linked_studies": 113,
+    "n_linked_studies": 114,
     "has_page": "true",
     "atlas_url": "https://mtor-atlas.org/drug/rapamycin/"
   },
@@ -696,10 +707,10 @@
     "id": "ribosome-biogenesis",
     "name": "Ribosome biogenesis",
     "type": "Biological process",
-    "description": "Making new ribosomes: rRNA transcription by RNA polymerase I, 5S and tRNA transcription by RNA polymerase III, and the translation of ribosomal-protein mRNAs. Distinct from how efficiently existing ribosomes work. Added 2026-10-10 after an audit found the Atlas had no node for it, although the 5'TOP mRNA entity already asserted that this output is canonical for mTORC1.",
+    "description": "Making new ribosomes: rRNA transcription by RNA polymerase I, 5S and tRNA transcription by RNA polymerase III, and the translation of ribosomal-protein mRNAs. Distinct from how efficiently existing ribosomes work. Added 2026-10-10 after an audit found the Atlas had no node for it, although the 5'TOP mRNA entity already asserted that this output is canonical for mTORC1. Both polymerase branches gained a primary study on 2026-11-07: Pol I through TIF-IA (MAY2004) and Pol III through Maf1 (SHO2010). In neither case did the paper detect mTOR phosphorylating the target itself, so the branches are evidenced while the kinase step into them is not.",
     "description_beginner": "Building new ribosomes, the machines that make proteins. This is different from making the ribosomes a cell already has work faster. A growing cell has to do both, and mTORC1 has a say in each.",
     "synonyms": "rRNA synthesis; ribosome assembly; nucleolar function",
-    "n_linked_studies": 3,
+    "n_linked_studies": 5,
     "has_page": "true",
     "atlas_url": "https://mtor-atlas.org/process/ribosome-biogenesis/"
   },
@@ -1122,6 +1133,17 @@
     "atlas_url": "https://mtor-atlas.org/gene/rag-gtpases/"
   },
   {
+    "id": "maf1",
+    "name": "Maf1",
+    "type": "Gene/Protein",
+    "description": "The repressor of RNA polymerase III transcription, and the point where mTOR reaches tRNA and 5S rRNA synthesis. SHO2010 reports that mTOR inhibition dephosphorylates Maf1 at Ser75, after which Maf1 accumulates in the nucleus and occupies Pol III genes while Pol III and Brf1 binding falls and pre-tRNA levels drop by 53 to 80 percent across cancer lines. Depleting Maf1 raises basal pre-tRNA and makes tRNA synthesis insensitive to mTOR inhibitors, and Maf1 mutants that cannot be phosphorylated blunt the roughly threefold rise in pre-tRNA on amino-acid refeeding. Raptor siRNA reproduces the drug effect and rictor siRNA barely does, which assigns the step to mTORC1. Caution on the kinase step: direct phosphorylation of Maf1 by mTOR was not detected, and a rapamycin-resistant S6K1 partly protected Maf1, so an intervening kinase is likely. Recorded as data only, on one study, in human cancer cell lines plus HEK293.",
+    "description_beginner": "The brake on the second of the cell's two nuclear copying machines, the one that makes transfer RNAs and a small ribosome part. mTOR normally keeps that brake off. Block mTOR and the brake comes on within hours, moves onto those genes, and production drops by well over half. Here too, nobody caught mTOR acting on the brake directly. All of it comes from cultured human cancer cell lines.",
+    "synonyms": "MAF1; Maf1 homolog; repressor of RNA polymerase III transcription MAF1",
+    "n_linked_studies": 1,
+    "has_page": "false",
+    "atlas_url": ""
+  },
+  {
     "id": "alzheimers-disease",
     "name": "Alzheimer's disease",
     "type": "Disease",
@@ -1315,7 +1337,7 @@
     "description": "The original clinical use of rapamycin (as sirolimus), preventing organ rejection by suppressing T cell activation. It is no longer standard first-line maintenance; today it is used in selected regimens, often to spare calcineurin inhibitors.",
     "description_beginner": "The original medical use of rapamycin: preventing the immune system from rejecting a transplanted organ by suppressing T-cell activation. It is not the standard first choice today, but it is still used in selected patients, often to cut down the dose of the harsher usual drugs.",
     "synonyms": "",
-    "n_linked_studies": 1,
+    "n_linked_studies": 2,
     "has_page": "false",
     "atlas_url": ""
   },
