@@ -805,6 +805,18 @@
          "not-applicable"
         ]
        },
+       "scope": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "enum": [
+         "single",
+         "group",
+         "non-human",
+         null
+        ]
+       },
        "reason": {
         "type": [
          "string",
@@ -812,7 +824,7 @@
         ]
        }
       },
-      "description": "Why identifiers are null. pending = a gene/protein record still awaiting lookup, or one naming a complex or family that may never have a single identifier; not-applicable = the entity type has no gene/protein identifier."
+      "description": "Why identifiers are null. scope says what kind of record it is: single = one human gene product, group = a complex, family or pair of proteins, non-human = not a human gene. pending = a single human gene product whose lookup has not been done yet (or a record not yet classified, scope null); not-applicable = no single identifier applies, because the record is a group, a non-human gene or an entity type without gene/protein identifiers (scope null)."
      },
      "relation_count": {
       "type": "integer"
