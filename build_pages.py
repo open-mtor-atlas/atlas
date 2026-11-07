@@ -1671,6 +1671,17 @@ def changelog_page(studies):
     # tooltip not reaching the static pages). Those belong in commit
     # messages / build handover docs, not here.
     method_changes = [
+        ("2026-10-31",
+         "Part of the screening is now logged, so some of the selection can be checked from outside",
+         "The selection policy had said plainly that no screening log existed, "
+         "which meant no reader could check what the search had passed over. "
+         "One scope now keeps a dated record: the scan for registered trials and "
+         "preprints logs each search run and each decision, with the reason and a "
+         "link to the paper or trial, at /about/screening/. The log covers that "
+         "scope only, and says so on the page: the daily screen of new papers and "
+         "the retrospective passes still leave no record per candidate, so no "
+         "overall exclusion count is quoted, and an empty space in the log is not "
+         "evidence that nothing was turned down."),
         ("2026-10-18",
          "One-off retrospective pass adding foundational papers",
          "The corpus had grown mostly from the daily screen of new papers, so "
@@ -2191,15 +2202,20 @@ and carry the PP or RT marker instead of an S/H/A/M/R code. A code names
 the kind of study; it is not a quality score.</p>
 
 <h2>What this doesn't guarantee</h2>
-<p>An honest limitation: the Atlas does not keep a screening log. Candidates
-that were considered and rejected leave no record, so no exclusion count
-can be quoted or inferred. That's a real weakness compared with a
-systematic review, where the screening flow is itself evidence that the
-search was unbiased -- here it isn't. Selection is a judgement call, made
-paper by paper, and it is not currently auditable from the outside. The
-Atlas should be read as a curated reading list with grades attached, not
-as a systematic review of the mTOR literature. Logging rejected candidates
-and the reason is a planned change.</p>
+<p>An honest limitation, now partly addressed. Since 31 October 2026 one
+part of the search keeps a dated record of what it examined and why each
+candidate was taken in or turned down: the scan for registered trials and
+preprints, published as the <a href="/about/screening/">screening log</a>.
+The rest of the selection -- the daily screen of new papers, and the
+retrospective passes that added foundational work -- leaves no record per
+candidate. So no overall exclusion count can be quoted or inferred, and an
+empty space in the log does not mean nothing was turned down. That remains
+a real weakness compared with a systematic review, where the screening flow
+is itself evidence that the search was unbiased. Selection is still a
+judgement call made paper by paper by one curator, and it is auditable from
+the outside only for the scope the log covers. The Atlas should be read as a
+curated reading list with grades attached, not as a systematic review of the
+mTOR literature. Extending the log to the daily screen is a planned change.</p>
 <p><strong>Who reviews the selection:</strong> one person, the curator.
 There is no second reviewer or independent adjudication of borderline
 calls -- the usual safeguard against a single reader's blind spots is

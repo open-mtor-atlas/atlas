@@ -657,6 +657,24 @@ export async function findContradictions(atlas, { entity, limit = 20, offset = 0
   }
   if (dedupe) dedupeCards(out, ['supporting_studies', 'conflicting_studies'], (e) => e.id);
   const res = { total: p.total_matches, returned: out.length, offset: p.offset, next_offset: p.next_offset, breakdown, results: out };
+  // 2026-11-06 (external audit M2): atlas_about said 12, this tool said 13.
+  // Both were right about different sets: meta's contested_or_conflicting
+  // leaves out relations the curator flagged Contested whose consensus is not
+  // contested and that list no conflicting study (GLN-RAG). The Atlas now
+  // reports this tool's set as contradiction_layer_relations; say whether the
+  // unfiltered total matches it instead of leaving the reader to reconcile.
+  if (!entity && !only_contested) {
+    try {
+      const m = await atlas.meta();
+      const c = m?.counts?.contradiction_layer_relations;
+      if (c !== undefined) {
+        res.atlas_count = {
+          contradiction_layer_relations: c, matches: c === p.total_matches,
+          note: 'total counts consensus-contested, curation-contested and conflicting-study relations together. atlas_about counts.contested_or_conflicting_relations leaves out the curation flag, so it can be smaller.',
+        };
+      }
+    } catch { /* meta unavailable: total stands on its own */ }
+  }
   if (brief && out.some((x) => x.text_truncated)) res.note = 'boundary and note are shortened (text_truncated). Use get_relation for the full text, or pass brief=false.';
   return res;
 }

@@ -270,6 +270,19 @@ check('limit above the maximum is capped, not an error', !tb.err && tb.j.results
   site.meta = { ...META, counts: { ...META.counts, contested_or_conflicting_relations: 5 } };
   const ab = await atlasAbout(at);
   check('atlas_about does not repeat counts the Atlas reports itself', ab.derived_counts === undefined && ab.counts.contested_or_conflicting_relations === 5, ab);
+
+  // 2026-11-06 (audit M2): find_contradictions says whether its total matches the Atlas's own contradiction-layer count.
+  at = fresh();
+  site.relations = [...relations, rel('CUR-ONLY', { contested: false, curation_contested: true, consensus_contested: false })];
+  site.meta = { ...META, counts: { ...META.counts, contested_or_conflicting_relations: 5, contradiction_layer_relations: 6 } };
+  const fm = await findContradictions(at, {});
+  check('atlas_count matches when the sets agree', fm.total === 6 && fm.atlas_count?.contradiction_layer_relations === 6 && fm.atlas_count.matches === true, fm.atlas_count);
+  at = fresh(); site.meta = { ...META, counts: { ...META.counts, contradiction_layer_relations: 7 } };
+  const fm2 = await findContradictions(at, {});
+  check('atlas_count reports a mismatch instead of hiding it', fm2.atlas_count?.matches === false, fm2.atlas_count);
+  at = fresh();
+  const fm3 = await findContradictions(at, { only_contested: true });
+  check('atlas_count absent on filtered calls', fm3.atlas_count === undefined, fm3.atlas_count);
 }
 await c.close();
 

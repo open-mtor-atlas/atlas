@@ -449,7 +449,7 @@ NODES = {
     # vykonnost existujicich ribozomu, ne jejich pocet.
     "Ribosome biogenesis": ("nucleus", "process", "Building new protein factories.",
                             "Making new ribosomes: rRNA by Pol I, 5S and tRNA by Pol III, plus the ribosomal-protein mRNAs.",
-                            "Distinct from translational efficiency. The two polymerase steps that carry most of this output are not measured by any study in this corpus: mTOR controls Pol I through TIF-IA and Pol III through Maf1, both outside the corpus, so read this node as the existence of the output rather than as its mechanism."),
+                            "Distinct from translational efficiency. Both polymerase steps now have a primary study in the corpus (7. 11. 2026): mTOR controls Pol I through TIF-IA (MAY2004) and Pol III through Maf1 (SHO2010). Neither is a direct phosphorylation - both papers looked for mTOR acting on the target itself and did not find it - so the output and its two branches are evidenced, the kinase step into them is not."),
     "5'TOP mRNA": ("cytosol", "process", "The messages that build the factory parts.",
                    "mRNAs with a 5' terminal oligopyrimidine tract, encoding ribosomal proteins and translation factors.",
                    "Ribosome profiling showed the mTORC1 response here is transcript-selective rather than uniform, which is why 'mTORC1 increases protein synthesis' is a summary that hides the actual biology: the output is transcript choice."),
