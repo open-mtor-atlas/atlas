@@ -49,6 +49,21 @@ MAP = {
     'fldm6p7U6VWzSTcEY': 'ai_target',
     'fld9TFn1dlFKdEZD0': 'ai_species',
     'fldtDNasqhy7uT3dw': 'ai_effect',
+    # Fix 2026-11-07: tato pole byla v sync_airtable.py::fetch_studies, ale ne tady,
+    # takze kazdy bake pres MCP cestu je smazal u vsech studii (regimen, readout,
+    # ai_dose, oliver_note...). Drz synchronne se sync_airtable.py.
+    'fldhnBr39hgo1vJTW': 'ai_dose',
+    'fldet5gS7PvtLEaF6': 'ai_samplesize',
+    'fldyzOau2488dy6BU': 'ai_effectsize',
+    'fldmDrV1vgJgJ2j9M': 'ai_limitations',
+    'fldqaIu3bJOFdlgao': 'regimen',
+    'fldgL4zNXTYfmQnoF': 'regimen_evidence',
+    'fldLuUjgUd4Gom6T0': 'exposure',
+    'fldK5woVNUc9b3gsZ': 'washout',          # checkbox -> bool
+    'fldQKf3TjRtWIegqu': 'readout',          # multipleSelects -> list
+    'fld7C7i2xXY4E4TvL': 'readout_evidence',
+    'fldzPjjtzIwsAgpy2': 'oliver_note',
+    'fld3eFqG8aiCcmvKZ': 'oliver_note_date',
 }
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -73,7 +88,12 @@ def main():
         row = {"id": r["id"]}
         cv = r.get("cellValuesByFieldId", {})
         for fid, key in MAP.items():
-            row[key] = unwrap(cv.get(fid, ""))
+            if key == 'washout':
+                row[key] = bool(cv.get(fid))
+            elif key == 'readout':
+                row[key] = [x['name'] if isinstance(x, dict) else x for x in (cv.get(fid) or [])]
+            else:
+                row[key] = unwrap(cv.get(fid, ""))
         out.append(row)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     content = json.dumps(out, ensure_ascii=False)
