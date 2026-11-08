@@ -2,7 +2,15 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
+<!-- Personal review page: reachable only through the link Oliver sends.
+     Not linked from the site, not in any sitemap, not pinged to IndexNow.
+     Do NOT add /review/ to robots.txt: a crawler blocked there cannot read
+     these tags, and a URL seen elsewhere (e.g. a public Bluesky reply) could
+     then still be listed without its content. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
 <title>4 statements for Rosalie E. Lawrence · Oliver's mTOR Atlas</title>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
@@ -55,7 +63,7 @@ button:disabled{opacity:.4;cursor:default}
 </head><body><div class="wrap">
 <div class="brand"><a href="https://mtor-atlas.org/" target="_blank" rel="noopener">Oliver's mTOR Atlas</a></div>
 <h1>Dr. Lawrence, would you check four statements?</h1>
-<p class="lede">These four statements are about the Rag GTPases and folliculin at the lysosome. Two rest on your papers, one is an open dispute about which protein does the same reaction, and one lists studies that point the other way. None has been checked by anyone outside the project.</p>
+<p class="lede">I am trying to make sure I understand how folliculin and the Rag GTPases control mTORC1 at the lysosome. Two of these four statements rest on your papers; one asks which protein is the GAP for RagC/D, and one lists studies that seem to point the other way. Did I get them right?</p>
 <p class="how">Each card shows one statement exactly as it appears in the Atlas: a headline, a short explanation, the limits it states and the studies behind it. Your verdict is on that whole statement. The shaded box below it is the point we are least sure about; you can answer it in the comment box that opens after you pick a verdict. If something is off, a corrected sentence or a few words is plenty. You can skip any statement. It should take about two minutes. When you press Send, your answers go straight to Oliver.</p>
 <form id="f" novalidate>
 
@@ -220,11 +228,11 @@ button:disabled{opacity:.4;cursor:default}
   <p class="note">Changed your mind about something? Reply to Oliver on Bluesky, or send this page again and Oliver will use your latest answer. <a href="#" id="copy2">Copy what you sent</a></p>
   <p class="note"><a href="https://mtor-atlas.org/" target="_blank" rel="noopener">Back to Oliver's mTOR Atlas</a></p>
 </section>
-<p class="note">Snapshot 2026-11-07T16:59:24+0100 · source commit ac62efb0f1 · dataset 2.0.1+unreleased. If the wording on the live page has changed since, the wording code on a card will differ, and your verdict applies to the version shown here.</p>
+<p class="note">Snapshot 2026-11-08T11:24:38+0100 · source commit ac62efb0f1 · dataset 2.0.1+unreleased. If the wording on the live page has changed since, the wording code on a card will differ, and your verdict applies to the version shown here.</p>
 </div>
 <script>
 (function(){
-var PAGE={"slug": "lawrence-5r8n", "snap": "2026-11-07T16:59:24+0100", "commit": "ac62efb0f1195dc126c92425512a4530605c5bd0", "mail": "oliver.barton1113@gmail.com", "bsky": "oliver-barton.bsky.social"};
+var PAGE={"slug": "lawrence-5r8n", "snap": "2026-11-08T11:24:38+0100", "commit": "ac62efb0f1195dc126c92425512a4530605c5bd0", "mail": "oliver.barton1113@gmail.com", "bsky": "oliver-barton.bsky.social"};
 var HOOK='https://hooks.airtable.com/workflows/v1/genericWebhook/appt2U6ObDHUcRlrj/wfldaW6XhvJTRSw7M/wtrJN3TZS5CGqCtQB';
 var LABEL={ok:'Correct as written',edit:'Needs a change',wrong:'Wrong',skip:'Outside my area'};
 var f=document.getElementById('f'),send=document.getElementById('send'),out=document.getElementById('out'),hint=document.getElementById('hint'),b2=document.getElementById('b2');
