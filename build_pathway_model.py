@@ -380,6 +380,12 @@ NODES = {
     "Ragulator": ("lyso", "complex", "The bolt holding the taxi to the membrane.",
                   "LAMTOR1–5 complex tethering the Rags to the lysosomal surface.",
                   "First reported as a RagA/B GEF (BAR2012); later work places its exchange activity on RagC, with SLC38A9 loading RagA with GTP. The tethering role is the better-established one; LAMTOR1 lipidation anchors the whole assembly."),
+    # 2026-11-23: own node for the Ragulator subunit Lamtor5 (HBXIP), so the
+    # cGAS edge (RAGULATOR-CGASSTING, LV2026) starts at the subunit that was
+    # actually manipulated; membership in Ragulator is LAMTOR5-RAGULATOR (BAR2012).
+    "LAMTOR5": ("lyso", "protein", "One of the five pieces of Ragulator, with a second job on the side.",
+                "Ragulator subunit (HBXIP) needed for amino-acid activation of mTORC1; in aged mouse macrophages it also binds cGAS and routes it for degradation.",
+                "Identified as a Ragulator component with C7orf59/LAMTOR4 (BAR2012). LV2026 shows direct Lamtor5-cGAS binding and ESCRT-dependent cGAS degradation in macrophages, with no mTORC1/mTORC2 readout for that step and no test of whether assembled Ragulator is needed for it."),
     "TAX1BP1": ("lyso", "protein", "A connector that brings kinases to stressed lysosomes.",
                 "Autophagy adaptor linking the v-ATPase to TBK1 and ULK1 on the lysosome.",
                 "ESP2026: v-ATPase-driven recruitment of TBK1/ULK1 to lysosomes runs through TAX1BP1; recurrent ATP6V1B2 mutations in follicular lymphoma keep the route on. How the pump engages TAX1BP1 is not resolved in the abstract."),
@@ -531,7 +537,7 @@ NODES = {
     "cGAS-STING pathway": ("cytosol", "complex",
         "An immune alarm system that goes off when it detects DNA where it shouldn't be – floating loose in the cell, not tucked inside the nucleus.",
         "Innate-immune DNA-sensing pathway (cGAS binds cytosolic DNA, signals through STING) driving an inflammatory secretory programme; in aged mouse macrophages kept in check by the Ragulator subunit Lamtor5, which binds cGAS directly and routes it for degradation.",
-        "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages the Ragulator subunit Lamtor5 binds cGAS directly and routes it for ESCRT-mediated degradation; its age-related decline leaves cGAS stabilised, which is sufficient to trigger cGAS-mediated paracrine inflammatory senescence, and restoring Lamtor5 reverses the phenotype (LV2026). Lamtor5 sits in the complex that recruits mTORC1 to the lysosome, but LV2026 measured no mTORC1 or mTORC2 readout for the cGAS step, so whether mTOR signalling contributes at all is untested rather than established. Single mouse study – human relevance of the Lamtor5–cGAS/STING link is untested."),
+        "cGAS binds cytosolic double-stranded DNA and synthesises cGAMP, which activates STING to drive type-I-interferon and NF-κB-dependent inflammatory gene expression. In aged mouse macrophages the Ragulator subunit Lamtor5 binds cGAS directly and routes it for ESCRT-mediated degradation; its age-related decline leaves cGAS stabilised, which is sufficient to trigger cGAS-mediated paracrine inflammatory senescence; young-macrophage transplantation, senolytics, cGAS siRNA or a peptide blocking the Lamtor5/cGAS interface reverse the phenotype (LV2026). Lamtor5 sits in the complex that recruits mTORC1 to the lysosome, but LV2026 measured no mTORC1 or mTORC2 readout for the cGAS step, so whether mTOR signalling contributes at all is untested rather than established. Single mouse study – human relevance of the Lamtor5–cGAS/STING link is untested."),
 }
 
 # ---------------------------------------------------------------------------
