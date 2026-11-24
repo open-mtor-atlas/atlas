@@ -968,8 +968,8 @@
       + " are compressed multi-step links, contested claims or organism-level outcomes — all real, "
       + "all cited, all one click away under <b>VIEW → Pathway</b>. Nothing is withheld without saying so.</p>"
       + '<div class="k">The one thing to notice</div>'
-      + '<p class="pw-empty">Nearly every arrow into mTORC1 lands on the lysosomal band. mTORC1 is only switched on '
-      + "there. Nutrient sensing is not chemistry happening in free solution — it is a set of mechanisms for getting "
+      + '<p class="pw-empty">Nearly every arrow into mTORC1 lands on the lysosomal band. In the amino-acid route mTORC1 is switched on '
+      + "there, though other pools elsewhere in the cell are active too. Nutrient sensing is not chemistry happening in free solution — it is a set of mechanisms for getting "
       + "one kinase onto one membrane.</p>", true);
   }
 
