@@ -158,6 +158,7 @@ DATASET_REF = {
         "https://bio.tools/olivers_mtor_atlas",
         "https://fairsharing.org/8905",
         "https://doi.org/10.25504/FAIRsharing.691885",
+        "https://ngdc.cncb.ac.cn/databasecommons/database/id/10866",
     ],
     "creator": {"@type": "Person", "name": "Oliver Barton",
                 "url": "https://orcid.org/0009-0008-2025-2148",
@@ -2245,8 +2246,9 @@ if the page's content did not change.</p>
 4.0</a> -- free to cite and reuse with attribution to "Oliver's mTOR
 Atlas". The dataset is archived and citable via Zenodo, concept DOI
 <a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.
-Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>
-and <a href="https://fairsharing.org/8905">FAIRsharing</a>)
+Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>,
+<a href="https://fairsharing.org/8905">FAIRsharing</a>
+and <a href="https://ngdc.cncb.ac.cn/databasecommons/database/id/10866">Database Commons</a>)
 and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
 """
     return url, shell(
@@ -2308,6 +2310,9 @@ def data_page(studies, entities):
         {"@type": "PropertyValue", "propertyID": "FAIRsharing DOI",
          "value": "10.25504/FAIRsharing.691885",
          "url": "https://doi.org/10.25504/FAIRsharing.691885"},
+        {"@type": "PropertyValue", "propertyID": "Database Commons",
+         "value": "10866",
+         "url": "https://ngdc.cncb.ac.cn/databasecommons/database/id/10866"},
     ]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -2347,6 +2352,11 @@ biology.</td></tr>
 FAIRsharing.org8905) &mdash; a curated registry of databases, standards and
 policies for the life sciences &mdash; listed as a Database resource under
 Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
+<tr><td>Database Commons</td><td>Oliver's mTOR Atlas is listed in
+<a href="https://ngdc.cncb.ac.cn/databasecommons/database/id/10866">Database Commons</a> (record 10866) &mdash; the catalogue of
+biological databases kept by the National Genomics Data Center, China
+National Center for Bioinformation &mdash; under the Literature and Pathway
+categories.</td></tr>
 </table>
 
 <h2>Identifiers</h2>
@@ -2425,7 +2435,7 @@ for how a study earns a place and how the grading works.</p>
 """
     return url, shell(
         "Data & Citation | Oliver's mTOR Atlas",
-        "Where Oliver's mTOR Atlas is registered (bio.tools, FAIRsharing), its "
+        "Where Oliver's mTOR Atlas is registered (bio.tools, FAIRsharing, Database Commons), its "
         "dataset DOI, curator ORCID, license, and how to cite it.",
         url, [ld_page, bc], body, crumb, active_tab=None)
 
