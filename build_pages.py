@@ -159,6 +159,7 @@ DATASET_REF = {
         "https://fairsharing.org/8905",
         "https://doi.org/10.25504/FAIRsharing.691885",
         "https://ngdc.cncb.ac.cn/databasecommons/database/id/10866",
+        "https://scicrunch.org/resolver/RRID:SCR_028924",
     ],
     "creator": {"@type": "Person", "name": "Oliver Barton",
                 "url": "https://orcid.org/0009-0008-2025-2148",
@@ -2247,8 +2248,9 @@ if the page's content did not change.</p>
 Atlas". The dataset is archived and citable via Zenodo, concept DOI
 <a href="https://doi.org/10.5281/zenodo.22059963">10.5281/zenodo.22059963</a>.
 Full identifiers, registrations (including <a href="https://bio.tools/olivers_mtor_atlas">bio.tools</a>,
-<a href="https://fairsharing.org/8905">FAIRsharing</a>
-and <a href="https://ngdc.cncb.ac.cn/databasecommons/database/id/10866">Database Commons</a>)
+<a href="https://fairsharing.org/8905">FAIRsharing</a>,
+<a href="https://ngdc.cncb.ac.cn/databasecommons/database/id/10866">Database Commons</a>
+and <a href="https://scicrunch.org/resolver/RRID:SCR_028924">SciCrunch</a>, RRID:SCR_028924)
 and a ready-to-use citation are on the <a href="{SITE}/data/">Data &amp; Citation</a> page.</p>
 """
     return url, shell(
@@ -2313,6 +2315,9 @@ def data_page(studies, entities):
         {"@type": "PropertyValue", "propertyID": "Database Commons",
          "value": "10866",
          "url": "https://ngdc.cncb.ac.cn/databasecommons/database/id/10866"},
+        {"@type": "PropertyValue", "propertyID": "RRID",
+         "value": "RRID:SCR_028924",
+         "url": "https://scicrunch.org/resolver/RRID:SCR_028924"},
     ]
     ld_page = {
         "@context": "https://schema.org", "@type": "CollectionPage",
@@ -2357,6 +2362,10 @@ Molecular Biology, Biochemistry, Bioinformatics and Aging.</td></tr>
 biological databases kept by the National Genomics Data Center, China
 National Center for Bioinformation &mdash; under the Literature and Pathway
 categories.</td></tr>
+<tr><td>SciCrunch</td><td>Oliver's mTOR Atlas is registered with the
+<a href="https://scicrunch.org/resolver/RRID:SCR_028924">SciCrunch Registry</a> as RRID:SCR_028924 &mdash; the Research
+Resource Identifier that journals ask authors to cite. Cite it in a methods
+section as: Oliver's mTOR Atlas (RRID:SCR_028924).</td></tr>
 </table>
 
 <h2>Identifiers</h2>
@@ -2435,7 +2444,7 @@ for how a study earns a place and how the grading works.</p>
 """
     return url, shell(
         "Data & Citation | Oliver's mTOR Atlas",
-        "Where Oliver's mTOR Atlas is registered (bio.tools, FAIRsharing, Database Commons), its "
+        "Where Oliver's mTOR Atlas is registered (bio.tools, FAIRsharing, Database Commons, SciCrunch RRID), its "
         "dataset DOI, curator ORCID, license, and how to cite it.",
         url, [ld_page, bc], body, crumb, active_tab=None)
 
