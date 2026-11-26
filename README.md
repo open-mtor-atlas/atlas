@@ -5,6 +5,7 @@ A curated, evidence-graded database of mTOR pathway research in which every clai
 **Live site:** https://mtor-atlas.org
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22059963.svg)](https://doi.org/10.5281/zenodo.22059963)
+[![open-mtor-atlas/atlas MCP server](https://glama.ai/mcp/servers/open-mtor-atlas/atlas/badges/score.svg)](https://glama.ai/mcp/servers/open-mtor-atlas/atlas)
 
 ## What's inside
 
