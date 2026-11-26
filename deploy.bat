@@ -808,7 +808,14 @@ REM  before it ever shipped -- added here in the same commit as the page itself.
 REM  Pre-rendered pages from build_pages.py - the version of the Atlas that AI
 REM  crawlers actually read, since they do not run the SPA's JavaScript.
 echo    including pre-rendered pages and sitemaps
-for %%D in (study gene complex drug disease outcome process intervention nutrient organelle condition author authors question questions evidence browse answers glossary about data academy academy_data changelog events pathway img assets) do (
+REM  2026-11-26: study/ a author/ uz NEJSOU v gitu (.gitignore). build_pages.py je
+REM  dal generuje na disk - verify_prerender a brany je kontroluji tady - ale
+REM  krok 2 (Atlas_v2) je z main necte: studie i medailonky stavi Astro z dat.
+REM  Kazdy deploy je prepisoval a jejich stare verze tvorily 408 z 667 MB
+REM  historie main (doporuceny strop GitHub Pages repa je 1 GB). Nevracet je
+REM  do teto smycky; kdyz je nekdo bude potrebovat ze snimku, prvni to ukaze
+REM  sync_data.py / sync_prose.py chybou "chybi".
+for %%D in (gene complex drug disease outcome process intervention nutrient organelle condition authors question questions evidence browse answers glossary about data academy academy_data changelog events pathway img assets) do (
   if exist "%%D" git add "%%D"
 )
 if exist "sitemap.xml" git add sitemap.xml
