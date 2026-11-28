@@ -1,0 +1,1313 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "s6k1",
+  "name": "S6K1",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "p70 S6K",
+   "p70 S6 kinase",
+   "S6 kinase 1",
+   "RPS6KB1",
+   "p70S6K"
+  ],
+  "identifiers": {
+   "hgnc": "HGNC:10436",
+   "uniprot": "P23443",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Direct downstream effector of mTORC1 controlling protein synthesis, and the source of the pathway's best-characterised negative feedback: S6K1 phosphorylates and represses IRS-1, uncoupling the insulin receptor from PI3K (HAR2004, SHA2004). Its deletion extends lifespan in FEMALE mice (+19% median, not significant in males; SEL2009) and protects against diet-induced obesity.",
+  "study_count": 41,
+  "relation_count": 5,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/s6k1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/s6k1.json",
+  "description_beginner": "A direct downstream partner of mTORC1 that helps control protein building, and the source of the pathway's best-known feedback brake: it tags the insulin-signaling adaptor IRS-1 for shutdown, disconnecting the insulin receptor from the rest of the pathway. Removing it extends lifespan in female mice (not clearly in males) and protects against diet-driven weight gain.",
+  "reading_levels": {
+   "beginner": "mTORC1's best-known output kinase.",
+   "student": "Ribosomal protein S6 kinase; the standard readout of mTORC1 activity.",
+   "research": "T389 phosphorylation by mTORC1 is rapamycin-sensitive, which is why S6K1 became the field's default assay – and why the field long over-read rapamycin as a complete mTORC1 inhibitor."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SEL2009",
+    "title": "Ribosomal protein S6 kinase 1 signaling regulates mammalian life span",
+    "authors": "Selman C; Tullet JM; Wieser D; Irvine E; Lingard SJ; Choudhury AI; Claret M; Al-Qassab H; Carmignac D; Ramadani F; Woods A; Robinson IC; Schuster E; Batterham RL; Kozma SC; Thomas G; Carling D; Okkenhaug K; Thornton JM; Partridge L; Gems D; Withers DJ",
+    "year": 2009,
+    "journal": "Science",
+    "doi": "10.1126/science.1177221",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19797661",
+    "pmcid": "PMC4954603",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (S6K1 knockout)",
+    "peer_reviewed": true,
+    "finding": "Deleting S6K1 (a direct mTORC1 effector) extended lifespan in FEMALE mice (+19% median); the effect was not significant in males. It also protected against age-related bone, immune and motor decline. One of the clearest cases of the sex dimorphism catalogued in gap H6 - and a reminder that a single downstream branch, not mTORC1 as a whole, can carry much of the ageing signal.",
+    "url": "https://mtor-atlas.org/study/SEL2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SEL2009.json"
+   },
+   {
+    "sid": "KIM2002",
+    "title": "mTOR interacts with raptor to form a nutrient-sensitive complex that signals to the cell growth machinery",
+    "authors": "Kim DH; Sarbassov DD; Ali SM; King JE; Latek RR; Erdjument-Bromage H; Tempst P; Sabatini DM",
+    "year": 2002,
+    "journal": "Cell",
+    "doi": "10.1016/s0092-8674(02)00808-5",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12150925",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/rodent cell lines (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Discovery of Raptor as the defining partner of mTOR in mTORC1. This is the paper that gives mTORC1 its identity: Raptor is the scaffold that lets mTOR find and phosphorylate its targets (S6K1), and the complex is stabilized under starvation. Companion paper to Hara 2002.",
+    "url": "https://mtor-atlas.org/study/KIM2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2002.json"
+   },
+   {
+    "sid": "HARA2002",
+    "title": "Raptor, a binding partner of target of rapamycin (TOR), mediates TOR action",
+    "authors": "Hara K; Maruki Y; Long X; Yoshino K; Oshiro N; Hidayat S; Tokunaga C; Avruch J; Yonezawa K",
+    "year": 2002,
+    "journal": "Cell",
+    "doi": "10.1016/s0092-8674(02)00833-4",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12150926",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + C. elegans RNAi",
+    "peer_reviewed": true,
+    "finding": "Independent co-discovery of Raptor (same issue of Cell as Kim 2002). Showed Raptor is essential for mTOR to phosphorylate 4E-BP1 and S6K1, and that knocking it down in worms mimics loss of TOR - confirming Raptor as a core, conserved mediator of TOR action.",
+    "url": "https://mtor-atlas.org/study/HARA2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HARA2002.json"
+   },
+   {
+    "sid": "SCH2025",
+    "title": "The Bi-steric, mTORC1-Selective Inhibitor, RMC-5552, in Advanced Solid Tumors: A Phase 1 Trial",
+    "authors": "Schram AM; Naqash AR; Haura EB; Riess JW; Ulahannan SV; Ou SI; Munster PN; Cheng ML; Gustafson WC; Bitman B; Friedman R; Penn R; Kar S; Seshadri V; Wang Z; Tao L; Yang YC; Singh M; Burris HA; Meyerowitz JG",
+    "year": 2025,
+    "journal": "Clinical Cancer Research",
+    "doi": "10.1158/1078-0432.CCR-25-2112",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "41056387",
+    "pmcid": "PMC12666311",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human (Phase 1 dose escalation, n=57, advanced solid tumors, NCT04774952)",
+    "peer_reviewed": true,
+    "finding": "First-in-human, open-label dose-escalation trial (n=57, advanced solid tumors, no comparator arm) of a bi-steric mTORC1-selective inhibitor. Treatment-related hyperglycemia was low (4%) and not dose-limiting, alongside a 64% disease control rate. Because the trial was uncontrolled and made no head-to-head comparison against rapamycin or an ATP-site inhibitor, this is encouraging early clinical evidence consistent with the hypothesis that sparing mTORC2 reduces metabolic toxicity -- it does not establish mTORC2 sparing as the cause.",
+    "url": "https://mtor-atlas.org/study/SCH2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2025.json"
+   },
+   {
+    "sid": "DOR2006",
+    "title": "S6K1- and betaTRCP-mediated degradation of PDCD4 promotes protein translation and cell growth",
+    "authors": "Dorrello NV; Peschiaroli A; Guardavaccaro D; Colburn NH; Sherman NE; Pagano M",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1130276",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17053147",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "S6K1 triggers betaTRCP-mediated degradation of the tumour suppressor PDCD4 to promote translation.",
+    "url": "https://mtor-atlas.org/study/DOR2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DOR2006.json"
+   },
+   {
+    "sid": "KUO1992",
+    "title": "Rapamycin selectively inhibits interleukin-2 activation of p70 S6 kinase",
+    "authors": "Kuo CJ; Chung J; Fiorentino DF; Flanagan WM; Blenis J; Crabtree GR",
+    "year": 1992,
+    "journal": "Nature",
+    "doi": "10.1038/358070a0",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "1614535",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "T cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "Rapamycin selectively inhibits IL-2-driven activation of p70 S6 kinase during T-cell proliferation.",
+    "url": "https://mtor-atlas.org/study/KUO1992/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUO1992.json"
+   },
+   {
+    "sid": "PRI1992",
+    "title": "Rapamycin-induced inhibition of the 70-kilodalton S6 protein kinase",
+    "authors": "Price DJ; Grove JR; Calvo V; Avruch J; Bierer BE",
+    "year": 1992,
+    "journal": "Science",
+    "doi": "10.1126/science.1380182",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "1380182",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "Rapamycin induces dephosphorylation/inactivation of the 70 kDa S6 kinase, defining an early readout of TOR signalling.",
+    "url": "https://mtor-atlas.org/study/PRI1992/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PRI1992.json"
+   },
+   {
+    "sid": "UMX2004",
+    "title": "Absence of S6K1 protects against age- and diet-induced obesity while enhancing insulin sensitivity",
+    "authors": "Um SH; Frigerio F; Watanabe M; Picard F; Joaquin M; Sticker M; Fumagalli S; Allegrini PR; Kozma SC; Auwerx J; Thomas G",
+    "year": 2004,
+    "journal": "Nature",
+    "doi": "10.1038/nature02866",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15306821",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (S6K1 KO)",
+    "peer_reviewed": true,
+    "finding": "S6K1 deletion protects mice from age- and diet-induced obesity and enhances insulin sensitivity.",
+    "url": "https://mtor-atlas.org/study/UMX2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/UMX2004.json"
+   },
+   {
+    "sid": "KRISTIANSEN2026",
+    "title": "Aging preserves mTORC1 but attenuates JNK-SMAD2L signaling sensitivity to passive stretch-induced tension development in isolated mouse skeletal muscle.",
+    "authors": "Kristiansen JB; Andresen J; Jakobsgaard JE; Vissing K",
+    "year": 2026,
+    "journal": "Experimental Gerontology",
+    "doi": "10.1016/j.exger.2026.113265",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42551770",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (ex vivo EDL muscle, adult 16-week vs old 24-month female mice)",
+    "peer_reviewed": true,
+    "finding": "Passive mechanical stretch activated mTORC1 signalling (mTOR, p70S6K, rpS6, 4E-BP1) to a similar degree in ex vivo muscle from adult and old female mice, whereas JNK-SMAD2L activation by the same stretch was blunted with age, suggesting mTORC1 mechanosensitivity itself is preserved in this model.",
+    "url": "https://mtor-atlas.org/study/KRISTIANSEN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KRISTIANSEN2026.json"
+   },
+   {
+    "sid": "KUB2012",
+    "title": "Temporal coding of insulin action through multiplexing of the AKT pathway",
+    "authors": "Kubota H; Noguchi R; Toyoshima Y; Ozaki YI; Uda S; Watanabe K; Ogawa W; Kuroda S",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.04.018",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22633957",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat hepatoma cells (Fao); pulse vs sustained insulin, time-course phosphorylation plus kinetic modelling",
+    "peer_reviewed": true,
+    "finding": "The same pathway can carry different messages in the shape of its signal over time. A short insulin pulse produced transient AKT phosphorylation and a sustained dose produced sustained AKT phosphorylation. S6K read only the transient part, G6Pase only the sustained part and GSK3-beta both. Which output responds depends on the pattern, not just the amount - the clearest cell-level case in the atlas that timing carries information in this pathway.",
+    "url": "https://mtor-atlas.org/study/KUB2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2012.json"
+   },
+   {
+    "sid": "KUB2018",
+    "title": "In Vivo Decoding Mechanisms of the Temporal Patterns of Blood Insulin by the Insulin-AKT Pathway in the Liver",
+    "authors": "Kubota H; Uda S; Matsuzaki F; Yamauchi Y; Kuroda S",
+    "year": 2018,
+    "journal": "Cell Systems",
+    "doi": "10.1016/j.cels.2018.05.013",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29960883",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat liver in vivo (hyperinsulinemic-euglycemic clamp with different insulin time patterns) plus mathematical model",
+    "peer_reviewed": true,
+    "finding": "The in-vivo follow-up to KUB2012. In rat liver, all temporal patterns of blood insulin were encoded at the insulin receptor, and downstream molecules decoded them selectively through AKT: S6K read the additional (pulse-like) secretion, G6Pase the basal secretion via FoxO1, GSK3-beta all of it. Modelling tied the selectivity to network structure, sensitivity and time constants. Shows that pattern decoding is not only a cell-culture effect.",
+    "url": "https://mtor-atlas.org/study/KUB2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2018.json"
+   },
+   {
+    "sid": "DAL2012",
+    "title": "A dynamic network model of mTOR signaling reveals TSC-independent mTORC2 regulation",
+    "authors": "Dalle Pezze P; Sonntag AG; Thien A; Prentzell MT; Gödel M; Fischer S; Neumann-Haefelin E; Huber TB; Baumeister R; Shanley DP; Thedieck K",
+    "year": 2012,
+    "journal": "Science Signaling",
+    "doi": "10.1126/scisignal.2002469",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22457331",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Data-driven dynamic model of the insulin-mTOR network, tested in HeLa and other cell lines",
+    "peer_reviewed": true,
+    "finding": "A time-resolved, data-fitted model of the whole core insulin-mTOR network, including the mTORC1 negative feedback loop onto PI3K. Perturbing it in silico and in cells showed that TSC1-TSC2 is not a regulator of mTORC2, directly or through the feedback loop, and that mTORC2 activation runs through a PI3K variant insensitive to that loop. One of the few places where the feedback loops in the atlas are treated as a dynamical system rather than a diagram.",
+    "url": "https://mtor-atlas.org/study/DAL2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2012.json"
+   },
+   {
+    "sid": "LIP2015",
+    "title": "The Circadian Protein BMAL1 Regulates Translation in Response to S6K1-Mediated Phosphorylation",
+    "authors": "Lipton JO; Yuan ED; Boyle LM; Ebrahimi-Fakhari D; Kwiatkowski E; Nathan A; Güttler T; Davis F; Asara JM; Sahin M",
+    "year": 2015,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2015.04.002",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25981667",
+    "pmcid": "PMC4447213",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse tissues and cultured cells",
+    "peer_reviewed": true,
+    "finding": "S6K1, a main output of mTORC1, phosphorylates the clock protein BMAL1 rhythmically, and that phosphorylation lets BMAL1 join the translation machinery and drive protein synthesis. Protein synthesis rates oscillated over the day in a BMAL1-dependent way. A direct molecular bridge between mTORC1 output and the 24-hour clock.",
+    "url": "https://mtor-atlas.org/study/LIP2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LIP2015.json"
+   },
+   {
+    "sid": "BYF2005",
+    "title": "hVps34 is a nutrient-regulated lipid kinase required for activation of p70 S6 kinase",
+    "authors": "Byfield MP; Murray JT; Backer JM",
+    "year": 2005,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.M507201200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16049009",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and hamster cell lines (HeLa, CHO)",
+    "peer_reviewed": true,
+    "finding": "Opens a second, non-canonical route by which amino acids reach mTORC1. The class III PI 3-kinase hVps34 is switched off by amino acid or glucose starvation and by AMPK activation, and is required for S6K1 and 4E-BP1 phosphorylation, yet it sits outside the insulin/class I PI3K input (it does not affect Akt or TSC2 phosphorylation). Boundary: cell lines and knockdown/overexpression only; the step is nutrient-regulated but the sensor itself is not identified.",
+    "url": "https://mtor-atlas.org/study/BYF2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BYF2005.json"
+   },
+   {
+    "sid": "HE2026",
+    "title": "An ANGPTL8-AKT2-mTOR Axis Drives Adipose Senescence and Aging-Related Functional Decline",
+    "authors": "He Y; Pan L; Ping W; Meng C; Meng X; Guo Y; Kan R; Xiang Y; Mao B; Wang S; Li D; Yu X",
+    "year": 2026,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.70671",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42605193",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Human cohort (correlation) + mouse (Angptl8-/- knockout, lifespan) + primary adipocyte/cell studies",
+    "peer_reviewed": true,
+    "finding": "Identifies ANGPTL8 as an endocrine driver of adipose-tissue aging: circulating ANGPTL8 tracked with biological age and mortality risk in a large human cohort, and genetic deletion of Angptl8 in mice extended lifespan and reduced senescence markers. Mechanistically, ANGPTL8 binds AKT2 and drives the AKT-mTOR-S6K axis to promote adipocyte senescence; blocking that axis abolished the pro-senescent effect.",
+    "url": "https://mtor-atlas.org/study/HE2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HE2026.json"
+   },
+   {
+    "sid": "TAO2026",
+    "title": "Impaired mTOR/SREBP1-Mediated Lipogenesis as a Mechanism of Hepatic Glycogen Accumulation in a Carnivorous Fish Model, Largemouth Bass (Micropterus salmoides)",
+    "authors": "Tao J; Chen S; Liu N; Gong Y; Zhang S; He J; Huang X; Chen N; Li S",
+    "year": 2026,
+    "journal": "The FASEB Journal",
+    "doi": "10.1096/fj.202602519R",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42606523",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Carnivorous fish (hepatic glycogen accumulation model)",
+    "peer_reviewed": true,
+    "finding": "mTOR/SREBP1 signaling governs hepatic glucose partitioning; the insulin-responsive mTOR/SREBP1 axis promotes lipogenesis versus glycogen accumulation. In this model -- a carnivorous fish -- impairment of the axis is associated with hepatic glycogen overload mimicking glucose intolerance.",
+    "url": "https://mtor-atlas.org/study/TAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TAO2026.json"
+   },
+   {
+    "sid": "TAN2026",
+    "title": "SPOP-mediated ZMYND8 ubiquitination and phase separation exclusion drives mTOR inhibitor resistance in kidney cancer",
+    "authors": "Tang B; Sun R; Shao J; Wu QY; Yan Y; Wang D; Yu Z; Hu L; Chen Y; Liao C; Wei Q; Bao Y; Huang H",
+    "year": 2026,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-026-77043-9",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42778578",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "ccRCC cell lines (in vitro); mouse xenograft tumors treated with a NEK7-targeting PROTAC",
+    "peer_reviewed": true,
+    "finding": "Identifies a mechanism of mTOR-inhibitor (everolimus/temsirolimus) resistance in clear cell renal cell carcinoma: SPOP-driven K63-linked ubiquitination of ZMYND8 excludes it from phase-separation compartments, enabling a ZMYND8-ZHX2 complex that drives NEK7 transcription and alternative p70S6K activation independent of mTOR inhibition. A NEK7-targeting PROTAC restored everolimus sensitivity in ccRCC cells and mouse tumors, nominating NEK7 as a target to overcome mTOR-inhibitor resistance.",
+    "url": "https://mtor-atlas.org/study/TAN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2026.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "FIN2002",
+    "title": "Mammalian cell size is controlled by mTOR and its downstream targets S6K1 and 4EBP1/eIF4E",
+    "authors": "Fingar DC; Salama S; Tsou C; Harlow E; Blenis J",
+    "year": 2002,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.995802",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12080086",
+    "pmcid": "PMC186342",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTOR controls mammalian cell size through its downstream translational targets S6K1 and 4E-BP1/eIF4E.",
+    "url": "https://mtor-atlas.org/study/FIN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FIN2002.json"
+   },
+   {
+    "sid": "GIN2026",
+    "title": "Inferring feedback regulation from static snapshots of a single signal",
+    "authors": "Ginzberg M; Tan C; Patel N; Kafri R",
+    "year": 2026,
+    "journal": "Biochemistry and Biophysics Reports",
+    "doi": "10.1016/j.bbrep.2026.102747",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42643853",
+    "pmcid": "PMC13505498",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mammalian cultured cells (fixed-cell single-cell imaging, ergodic rate analysis)",
+    "peer_reviewed": true,
+    "finding": "Introduces AoF (Assay of Feedback), a perturbation-free single-cell imaging method that reconstructs how a signal CHANGES OVER TIME from fixed-cell snapshots, using DNA content and Geminin to order cells along the cell cycle. Applied to Akt phosphorylation, it uncovers a negative feedback loop that is active only in a narrow window at the G1/S transition; biochemistry points to mTORC1/S6K1-dependent inhibitory phosphorylation of IRS1 as the likely source, though the authors state this edge is not uniquely established. Directly relevant to the question of whether mTOR pathway activity is better described as a time-varying pattern than a fixed level.",
+    "url": "https://mtor-atlas.org/study/GIN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GIN2026.json"
+   },
+   {
+    "sid": "HAR1998",
+    "title": "Amino acid sufficiency and mTOR regulate p70 S6 kinase and eIF-4E BP1 through a common effector mechanism",
+    "authors": "Hara K; Yonezawa K; Weng QP; Kozlowski MT; Belham C; Avruch J",
+    "year": 1998,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.273.23.14484",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9603962",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "CHO cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "Amino acid sufficiency signals through mTOR to p70 S6K and 4E-BP1 via a common effector, first linking nutrients to mTOR.",
+    "url": "https://mtor-atlas.org/study/HAR1998/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAR1998.json"
+   },
+   {
+    "sid": "ALI2022",
+    "title": "The mTORC1-SLC4A7 axis stimulates bicarbonate import to enhance de novo nucleotide synthesis",
+    "authors": "Ali ES; Lipońska A; O'Hara BP; Amici DR; Torno MD; Gao P; Asara JM; Yap MF; Mendillo ML; Ben-Sahra I",
+    "year": 2022,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2022.06.008",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "35772404",
+    "pmcid": "PMC9444906",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; xenograft tumors",
+    "peer_reviewed": true,
+    "finding": "Building a nucleotide needs a carbon donor, and cells get it from bicarbonate dissolved in their surroundings. This study shows mTORC1 does not just switch on the nucleotide enzymes - it also arranges the delivery of the raw material. Through S6K and the translation factor eIF4B, mTORC1 selectively increases translation of the mRNA for SLC4A7, a sodium-bicarbonate cotransporter, so more bicarbonate is pulled into the cell. Removing SLC4A7 from cells with hyperactive mTORC1 cut flux through both de novo purine and pyrimidine synthesis and slowed cell and tumor growth, without changing intracellular pH - so the transporter matters as a supply line, not as a pH regulator. A fourth distinct route by which mTORC1 feeds nucleotide synthesis, alongside CAD (BEN2013), the mitochondrial folate cycle (BEN2016) and demand coupling (VAL2017).",
+    "url": "https://mtor-atlas.org/study/ALI2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2022.json"
+   },
+   {
+    "sid": "NOJ2003",
+    "title": "The mammalian target of rapamycin (mTOR) partner, raptor, binds the mTOR substrates p70 S6 kinase and 4E-BP1 through their TOR signaling (TOS) motif",
+    "authors": "Nojima H; Tokunaga C; Eguchi S; Oshiro N; Hidayat S; Yoshino K; Hara K; Tanaka N; Avruch J; Yonezawa K",
+    "year": 2003,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.C200665200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12604610",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro",
+    "peer_reviewed": true,
+    "finding": "Raptor binds mTOR substrates via their TOS motifs, acting as the substrate-presenting scaffold of mTORC1.",
+    "url": "https://mtor-atlas.org/study/NOJ2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOJ2003.json"
+   },
+   {
+    "sid": "SHA2004",
+    "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+    "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.08.026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15380067",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+    "url": "https://mtor-atlas.org/study/SHA2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
+   },
+   {
+    "sid": "MAN2002",
+    "title": "Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/akt pathway",
+    "authors": "Manning BD; Tee AR; Logsdon MN; Blenis J; Cantley LC",
+    "year": 2002,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/s1097-2765(02)00568-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12150915",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (mouse 3T3 cells, human cells) and PTEN-null tumour-derived cell lines; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The authors combined biochemistry with a search for Akt consensus motifs and picked out tuberin, the TSC2 tumour suppressor protein, as a likely Akt substrate. They showed that activating PI3K leads to phosphorylation of tuberin at sites matching the Akt motif, and that Akt can phosphorylate tuberin both in vitro and in cells. Two of these sites, S939 and T1462, were regulated by PI3K, and T1462 stayed phosphorylated in tumour cell lines lacking PTEN. A tuberin mutant without the main PI3K-dependent sites blocked activation of S6K1. Together with papers from other labs in the same months, this was one of the early papers to link growth-factor signalling through Akt to the TSC complex and mTORC1 output. Boundary: cultured mammalian cells and in vitro kinase assays, with overexpressed tuberin mutants; no whole-animal or human tissue data.",
+    "url": "https://mtor-atlas.org/study/MAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2002.json"
+   },
+   {
+    "sid": "GAO2002",
+    "title": "Tsc tumour suppressor proteins antagonize amino-acid-TOR signalling",
+    "authors": "Gao X; Zhang Y; Arrazola P; Hino O; Kobayashi T; Yeung RS; Ru B; Pan D",
+    "year": 2002,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb847",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12172555",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster genetics (Tsc1/Tsc2 mutants); Tsc-deficient mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the Tsc1 and Tsc2 tumour suppressors relate to TOR, the nutrient-sensing kinase. They showed that Tsc1 and Tsc2 can physically associate with TOR and act upstream of TOR in fly genetic tests. In fly and mammalian cells lacking Tsc1 or Tsc2, S6K activity rose, and this increase depended on TOR. S6K normally switches off when cells are starved of amino acids, but cells without Tsc1-Tsc2 stayed resistant to that starvation. The authors proposed that the Tsc1-Tsc2 complex restrains the TOR response to amino acids. Boundary: Drosophila and cultured mammalian cells; S6K activity is used as the readout of TOR. Later work placed amino acid sensing mainly on the Rag GTPase arm rather than through TSC, so the amino acid part of the model is not the current consensus.",
+    "url": "https://mtor-atlas.org/study/GAO2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2002.json"
+   },
+   {
+    "sid": "TEE2002",
+    "title": "Tuberous sclerosis complex-1 and -2 gene products function together to inhibit mammalian target of rapamycin (mTOR)-mediated downstream signaling",
+    "authors": "Tee AR; Fingar DC; Manning BD; Kwiatkowski DJ; Cantley LC; Blenis J",
+    "year": 2002,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.202476899",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12271141",
+    "pmcid": "PMC129715",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured mammalian cells (HEK293-type transfection system per MeSH 'Cell Line'); coexpression of TSC1/TSC2, patient-derived TSC2 mutant, rapamycin-resistant S6K1 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors coexpressed hamartin (TSC1) and tuberin (TSC2) in cultured cells and followed two main outputs of mTOR. Together, the two proteins reduced phosphorylation of 4E-BP1, so more 4E-BP1 stayed bound to the translation factor eIF4E; a TSC2 mutant found in TSC patients was defective at this. Hamartin plus tuberin also lowered S6K1 activity, but did not affect S6K1 mutants that resist rapamycin, which points to mTOR as the step being blocked. In nutrient-deprived cells, hamartin and tuberin prevented amino acids from switching S6K1 back on. The authors concluded that the TSC1-TSC2 complex acts as an inhibitor of mTOR signalling and suggested that TSC tumours may come from too much mTOR activity. Boundary: overexpression in cultured mammalian cells; the link to tumours in TSC patients is a proposal, not tested in patient tissue here.",
+    "url": "https://mtor-atlas.org/study/TEE2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TEE2002.json"
+   },
+   {
+    "sid": "DEN2001",
+    "title": "Mammalian TOR: a homeostatic ATP sensor",
+    "authors": "Dennis PB; Jaeschke A; Saitoh M; Fowler B; Kozma SC; Thomas G",
+    "year": 2001,
+    "journal": "Science",
+    "doi": "10.1126/science.1063518",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11691993",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured human cells (HEK293-type per MeSH 'Cell Line'); ATP lowering with 2-deoxyglucose and rotenone (per MeSH); in vitro mTOR kinase assays",
+    "peer_reviewed": true,
+    "finding": "The authors tested whether mTOR signalling responds to the cell's energy level, not only to amino acids. They reported that lowering intracellular ATP reduced signalling through the mTOR pathway, and that this happened independently of amino acid levels. Based on the kinase properties of mTOR, they proposed that mTOR itself senses ATP. Later work showed that much of the energy signal reaches mTORC1 through AMPK and TSC2, so the direct ATP-sensor model is one part of a larger picture. Boundary: cultured cells and in vitro kinase measurements; the ATP-sensor interpretation is the authors' model and has been revised by later AMPK work.",
+    "url": "https://mtor-atlas.org/study/DEN2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2001.json"
+   },
+   {
+    "sid": "MON1999",
+    "title": "Drosophila S6 kinase: a regulator of cell size",
+    "authors": "Montagne J; Stewart MJ; Stocker H; Hafen E; Kozma SC; Thomas G",
+    "year": 1999,
+    "journal": "Science",
+    "doi": "10.1126/science.285.5436.2126",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "10497130",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila melanogaster dS6K-deficient mutants; mosaic (clonal) analysis of wing and larval cells",
+    "peer_reviewed": true,
+    "finding": "The authors made fruit flies lacking the S6 kinase gene (dS6K) and followed their development. These flies developed with a strong delay and ended up much smaller. The smaller body came from smaller cells, not from fewer cells. The effect was cell-autonomous, seen across larval development, and differed from the phenotype of ribosomal protein (Minute) mutants. The authors concluded that S6K controls cell size in flies without changing cell number. Boundary: Drosophila only; genetic loss of S6K from the start of development, so it does not show what happens when S6K is lowered in adult animals or in mammals.",
+    "url": "https://mtor-atlas.org/study/MON1999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MON1999.json"
+   },
+   {
+    "sid": "OLD2000",
+    "title": "Genetic and biochemical characterization of dTOR, the Drosophila homolog of the target of rapamycin",
+    "authors": "Oldham S; Montagne J; Radimerski T; Thomas G; Hafen E",
+    "year": 2000,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.845700",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11069885",
+    "pmcid": "PMC317036",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster dTOR mutants (partial and full loss), genetic interaction with insulin pathway; biochemistry of dS6K",
+    "peer_reviewed": true,
+    "finding": "The authors identified and characterised dTOR, the fruit fly version of TOR. Genetic and biochemical experiments indicated that dTOR affects growth in a cell-autonomous way by changing the activity of the fly S6 kinase, dS6K, and so connects to the insulin signalling pathway. Unlike other insulin pathway components, partial loss of dTOR reduced growth mainly in endoreplicating tissues, which copy their DNA without dividing. The authors read this as evidence that dTOR sits on a parallel pathway that senses amino acids. Boundary: Drosophila genetics and biochemistry; the parallel amino acid pathway is an interpretation from fly phenotypes, not a direct measurement of amino acid sensing.",
+    "url": "https://mtor-atlas.org/study/OLD2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/OLD2000.json"
+   },
+   {
+    "sid": "ZHA2000",
+    "title": "Regulation of cellular growth by the Drosophila target of rapamycin dTOR",
+    "authors": "Zhang H; Stallock JP; Ng JC; Reinhard C; Neufeld TP",
+    "year": 2000,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.835000",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11069888",
+    "pmcid": "PMC317034",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster dTOR mutants and mosaic clones; PI3K activation in vivo; in vitro dTOR kinase assays on p70S6K; S6K and cyclin E overexpression rescue",
+    "peer_reviewed": true,
+    "finding": "The authors showed that fly TOR (dTOR) is needed inside each cell for normal growth and proliferation during larval development. dTOR was also needed for the extra cell growth caused by activating PI3K signalling. As in mammalian cells, dTOR kinase activity was needed for growth factor-dependent phosphorylation of S6 kinase in vitro, and overexpressing S6 kinase rescued dTOR mutant flies to viability. dTOR loss also produced signs of amino acid starvation, such as smaller nucleoli and lipid droplet clumping in the fat body, plus a cell-type-specific cell cycle arrest that cyclin E could bypass. The authors proposed that dTOR links growth factor signalling to nutrient availability during development. Boundary: Drosophila larvae and in vitro kinase assays; rescue relied on overexpression of S6 kinase, and results are not shown in mammals here.",
+    "url": "https://mtor-atlas.org/study/ZHA2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHA2000.json"
+   },
+   {
+    "sid": "KWI2002",
+    "title": "A mouse model of TSC1 reveals sex-dependent lethality from liver hemangiomas, and up-regulation of p70S6 kinase activity in Tsc1 null cells",
+    "authors": "Kwiatkowski DJ; Zhang H; Bandura JL; Heiberger KM; Glogauer M; el-Hashemite N; Onda H",
+    "year": 2002,
+    "journal": "Human Molecular Genetics",
+    "doi": "10.1093/hmg/11.5.525",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11875047",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Tsc1 knockout mice (null embryos, heterozygotes); Tsc1-null mouse embryonic fibroblasts; rapamycin treatment of cells",
+    "peer_reviewed": true,
+    "finding": "The authors built a Tsc1 knockout mouse to model tuberous sclerosis. Embryos lacking both copies of Tsc1 died at mid-gestation because the liver failed to develop. Mice with one copy often developed kidney cystadenomas and liver hemangiomas; the hemangiomas were more common, more severe and more often fatal in females. Fibroblasts lacking Tsc1 showed persistent phosphorylation of S6K and its substrate S6 that rapamycin could reverse, and S6 phosphorylation was also high in kidney tumours from the mice. The authors suggested that blocking this pathway might help control TSC tumours. Boundary: mouse model and mouse cells; the rapamycin result is in cultured cells, and treatment of the mouse tumours was not tested here.",
+    "url": "https://mtor-atlas.org/study/KWI2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KWI2002.json"
+   },
+   {
+    "sid": "DUV2010",
+    "title": "Activation of a metabolic gene regulatory network downstream of mTOR complex 1",
+    "authors": "Düvel K; Yecies JL; Menon S; Raman P; Lipovsky AI; Souza AL; Triantafellow E; Ma Q; Gorski R; Cleaver S; Vander Heiden MG; MacKeigan JP; Finan PM; Clish CB; Murphy LO; Manning BD",
+    "year": 2010,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2010.06.022",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20670887",
+    "pmcid": "PMC2946786",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- mouse embryonic fibroblasts and other cells with rapamycin; transcriptomics, metabolomics, RNAi",
+    "peer_reviewed": true,
+    "finding": "Used cells with constitutively active mTORC1 (TSC2 loss) and rapamycin to map what mTORC1 switches on besides protein synthesis. Gene expression and metabolite profiling showed that mTORC1 activation is enough to drive glycolysis, the oxidative pentose phosphate pathway and de novo lipid synthesis. This ran through a transcriptional program of HIF1alpha and SREBP1/2 target genes; SREBP1 and 2 were needed for proliferation downstream of mTORC1, and their activation required S6K1. Boundary: cultured cells, mostly mouse fibroblasts with genetic mTORC1 activation; tissue and human relevance not tested here.",
+    "url": "https://mtor-atlas.org/study/DUV2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DUV2010.json"
+   },
+   {
+    "sid": "PEN2000",
+    "title": "Hypoinsulinaemia, glucose intolerance and diminished beta-cell size in S6K1-deficient mice",
+    "authors": "Pende M; Kozma SC; Jaquet M; Oorschot V; Burcelin R; Le Marchand-Brustel Y; Klumperman J; Thorens B; Thomas G",
+    "year": 2000,
+    "journal": "Nature",
+    "doi": "10.1038/35050135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11140689",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "S6K1 knockout mice; isolated muscle insulin sensitivity; pancreatic islet morphometry and insulin secretion",
+    "peer_reviewed": true,
+    "finding": "Mice lacking S6 kinase 1 had low blood insulin and were glucose intolerant. Isolated muscle from these mice did not show insulin resistance; instead, glucose-stimulated insulin secretion and pancreatic insulin content were sharply reduced. Glucose sensing and insulin production per se were intact: the defect was a smaller pancreatic endocrine mass, explained by a selective decrease in beta-cell size. The authors noted that the phenotype resembles preclinical type 2 diabetes in which poor nutrition early in life leads to low insulin. Boundary: Mouse genetic knockout with lifelong S6K1 loss. Not tested in people. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/PEN2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2000.json"
+   },
+   {
+    "sid": "SHI1998",
+    "title": "Disruption of the p70(s6k)/p85(s6k) gene reveals a small mouse phenotype and a new functional S6 kinase",
+    "authors": "Shima H; Pende M; Chen Y; Fumagalli S; Thomas G; Kozma SC",
+    "year": 1998,
+    "journal": "The EMBO Journal",
+    "doi": "10.1093/emboj/17.22.6649",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9822608",
+    "pmcid": "PMC1171010",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "p70/p85 S6K1 knockout mice; embryonic fibroblasts and liver from knockout mice; S6K2 cloning and kinase assays",
+    "peer_reviewed": true,
+    "finding": "Mice with the S6K1 gene disrupted were viable and fertile but smaller, with the growth effect strongest during embryonic development. Unexpectedly, ribosomal protein S6 was still phosphorylated normally after mitogen stimulation in knockout liver and fibroblasts, and in knockout fibroblasts S6 phosphorylation and the rise in 5'TOP mRNA translation were as sensitive to rapamycin as in wild-type cells. A database search identified a second S6 kinase, S6K2, which had mitogen-dependent and rapamycin-sensitive S6 kinase activity and was up-regulated in all tissues of the knockout mice examined, most of all in thymus. S6K2 can therefore partly compensate for loss of S6K1. Boundary: Mouse knockout and mouse cells. Body size and S6 signalling only; the 5'TOP result means S6K1 alone is not required in these cells, not that S6 kinases are irrelevant. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/SHI1998/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHI1998.json"
+   },
+   {
+    "sid": "JEF1997",
+    "title": "Rapamycin suppresses 5'TOP mRNA translation through inhibition of p70s6k",
+    "authors": "Jefferies HB; Fumagalli S; Dennis PB; Reinhard C; Pearson RB; Thomas G",
+    "year": 1997,
+    "journal": "The EMBO Journal",
+    "doi": "10.1093/emboj/16.12.3693",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9218810",
+    "pmcid": "PMC1169993",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (mouse 3T3 cells per MeSH); chimeric reporter mRNAs with intact or disrupted 5'TOP; dominant-interfering and rapamycin-resistant (T389E) p70s6k mutants",
+    "peer_reviewed": true,
+    "finding": "In mammalian cells, rapamycin selectively blocked the mitogen-induced increase in translation of 5'TOP mRNAs, which encode ribosomal proteins and elongation factors, and in parallel blocked activation of p70 S6 kinase. Using reporter mRNAs, the authors showed that an intact 5'TOP tract was required for the rapamycin effect. A dominant-interfering p70s6k reduced translation of the reporter with the intact 5'TOP but not the disrupted one, and a rapamycin-resistant p70s6k (Thr389 changed to an acidic residue) removed the inhibitory effect of rapamycin on 5'TOP translation. The authors concluded that rapamycin suppresses 5'TOP translation through p70s6k. Boundary: Cell lines with overexpressed kinase mutants and reporter mRNAs. Later genetic work (S6K knockouts, rpS6 knock-in) found 5'TOP control persisting without S6K1 or rpS6 phosphorylation, so the S6K step proposed here is not the current consensus. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/JEF1997/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JEF1997.json"
+   },
+   {
+    "sid": "HAN2007",
+    "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+    "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+    "year": 2007,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2006.00267.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17266679",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+    "peer_reviewed": true,
+    "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+    "url": "https://mtor-atlas.org/study/HAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+   },
+   {
+    "sid": "MAJ2012",
+    "title": "Lifelong rapamycin administration ameliorates age-dependent cognitive deficits by reducing IL-1β and enhancing NMDA signaling",
+    "authors": "Majumder S; Caccamo A; Medina DX; Benavides AD; Javors MA; Kraig E; Strong R; Richardson A; Oddo S",
+    "year": 2012,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2011.00791.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22212527",
+    "pmcid": "PMC3306461",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "C57BL6/129svj mice (n=20 per group): encapsulated rapamycin in food (14 mg/kg food) from 2 to 18 months, from 15 to 18 months, or control diet; Morris water maze; brain cytokines, p-S6K, NR2B and CREB phosphorylation",
+    "peer_reviewed": true,
+    "finding": "Mice were fed rapamycin in their food either from 2 months of age or only from 15 months, when age-related memory deficits were already present, and all were tested at 18 months in a water maze (20 mice per group). Mice treated from 2 months learned the hidden-platform location faster and spent more time in the target quadrant in the memory test (28.7 vs 21.3 seconds for controls), while mice started at 15 months did no better than controls. Both rapamycin groups had lower phosphorylation of S6K in the brain, a marker of mTOR activity. The improvement in the early-treated mice went together with lower IL-1beta in brain and hippocampus and higher phosphorylation of the NMDA receptor subunit NR2B and of CREB, which the authors propose as the route. Boundary: Mice of one mixed strain, normal ageing (not an Alzheimer model); the late-start arm showed no reversal of existing deficits, and the IL-1beta and NMDA links are correlations, not tested by blocking them.",
+    "url": "https://mtor-atlas.org/study/MAJ2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAJ2012.json"
+   },
+   {
+    "sid": "RAO2010",
+    "title": "The mTOR kinase determines effector versus memory CD8+ T cell fate by regulating the expression of transcription factors T-bet and Eomesodermin",
+    "authors": "Rao RR; Li Q; Odunsi K; Shrikant PA",
+    "year": 2010,
+    "journal": "Immunity",
+    "doi": "10.1016/j.immuni.2009.10.010",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20060330",
+    "pmcid": "PMC5836496",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Naive mouse OT-I CD8 T cells (and STAT4-deficient OT-I) stimulated in vitro with antigen plus B7.1 and IL-12, with rapamycin, PI3K inhibition, insulin or 2-deoxyglucose; adoptive transfer into C57BL/6 recipients and E.G7 tumour challenge",
+    "peer_reviewed": true,
+    "finding": "Working with naive OT-I CD8 T cells stimulated by antigen plus B7.1, the authors showed that IL-12 both raised and prolonged mTOR phosphorylation and S6K1 Thr389 phosphorylation out to 48 hours, and that this required PI3K throughout and STAT4 for the late phase. Rapamycin, added at the start or only at 12 hours, blocked the sustained expression of T-bet and with it the heritable type I effector programme, while raising Eomesodermin and producing cells with a memory-precursor phenotype (CD62L high, KLRG1 low, Bcl-2 high). Restoring T-bet by a tamoxifen-inducible construct brought back IFN-gamma production and lowered Eomesodermin, which places T-bet downstream of mTOR in this system. After transfer, the rapamycin-treated cells persisted better, gave stronger antigen-recall responses, and more than 78 percent of recipients stayed tumour-free to day 120 against 50 percent fatality with IL-12-conditioned effector cells. Boundary: mouse CD8 T cells, one TCR-transgenic system with pharmacological mTOR inhibition in vitro before transfer; the transplantable E.G7 tumour is a model, not a treatment result in people, and the memory-precursor phenotype faded by day 40 after transfer.",
+    "url": "https://mtor-atlas.org/study/RAO2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2010.json"
+   },
+   {
+    "sid": "COT2006",
+    "title": "Hypothalamic mTOR signaling regulates food intake",
+    "authors": "Cota D; Proulx K; Smith KA; Kozma SC; Thomas G; Woods SC; Seeley RJ",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1124147",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16690869",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rats (Long-Evans): fasting/refeeding, intracerebroventricular leucine, leptin and rapamycin; hypothalamic immunostaining and Western blot",
+    "peer_reviewed": true,
+    "finding": "In rats, hypothalamic mTOR signalling (phosphorylated S6K1 and S6) changed with energy status in specific hypothalamic regions and was found in NPY and POMC neurons of the arcuate nucleus. Injecting leucine into the brain ventricles raised hypothalamic mTOR signalling and lowered food intake and body weight. Leptin also raised hypothalamic mTOR activity, and blocking mTOR with rapamycin in the brain blunted leptin's effect on reducing food intake. The authors proposed that hypothalamic mTOR acts as a fuel sensor linked to how much an animal eats. Boundary: rats, direct brain (intracerebroventricular) dosing, short-term food intake; drawn from the abstract only, so doses and effect sizes are not given here.",
+    "url": "https://mtor-atlas.org/study/COT2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COT2006.json"
+   },
+   {
+    "sid": "ROU2004",
+    "title": "Tumor-promoting phorbol esters and activated Ras inactivate the tuberous sclerosis tumor suppressor complex via p90 ribosomal S6 kinase.",
+    "authors": "Roux PP; Ballif BA; Anjum R; Gygi SP; Blenis J",
+    "year": 2004,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.0405659101",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15342917",
+    "pmcid": "PMC518784",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The RSK arm of the MAPK input to the TSC complex. Phorbol esters and activated Ras induce phosphorylation of tuberin (TSC2) in the absence of Akt activation; RSK1 interacts with tuberin and phosphorylates Ser-1798 at its conserved C terminus, inhibiting the tumour-suppressor function of the tuberin/hamartin complex and increasing mTOR signalling to S6K1. Together with ERK phosphorylation of TSC2 (MA2005) this is the second arm that justifies drawing one grouped ERK / RSK input to the TSC brake.",
+    "url": "https://mtor-atlas.org/study/ROU2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROU2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-S6K1",
+    "claim": "mTORC1 activates S6K1",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTORC1 phosphorylates S6K1, switching on the translation machinery. This is the classic rapamycin-sensitive output and the readout most papers actually measure.",
+    "mechanism_beginner": "mTORC1 switches on S6K1, which turns on the cell's protein-building machinery – the classic effect most studies of this drug class measure.",
+    "context": "Standard mTORC1 readout, but a readout is not the whole output. S6K1 phosphorylation is fully rapamycin-sensitive while 4E-BP1 is not, so 'mTORC1 activity' measured by S6K1 alone systematically overstates how much rapamycin inhibits mTORC1.",
+    "boundary": "Caution: p-S6K is a proxy, not the phenotype. Many 'mTORC1 activity' claims rest on this single band.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": "Worth flagging on the page: readout != outcome.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "BUR1998",
+      "CHU1992",
+      "HOL2005",
+      "KAN2013",
+      "HAR1998",
+      "NOJ2003",
+      "POD2001",
+      "JEF1997",
+      "RAO2010"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-S6K1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-S6K1.json"
+   },
+   {
+    "id": "S6K1-IRS1",
+    "claim": "S6K1 inhibits IRS-1 / IRS-2",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "IRS-1 / IRS-2",
+     "entity": "irs-1-irs-2"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "One of the pathway's major negative feedback loops, and the best studied. Sustained S6K1 activity, as in obesity and nutrient excess, phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is a major reason blocking mTORC1 paradoxically RAISES Akt activity (the Grb10 arm adds to it). Rapalog-associated insulin resistance runs mainly through a different route, disruption of mTORC2 (LAM2012, in mice).",
+    "mechanism_beginner": "This is one of the pathway's main self-limiting \"off switches\": strong, sustained S6K1 activity shuts down IRS-1, cutting the insulin signal off. That is how too much food can blunt the insulin signal. It also runs the other way: block mTOR and IRS-1 survives, so Akt can paradoxically become MORE active – which is why the insulin resistance seen on these drugs is blamed, on evidence from mice, on a different mechanism (loss of mTORC2), not on this loop.",
+    "context": null,
+    "boundary": "Established in cells and mouse genetics. The size of this arm's contribution to rapalog dysglycaemia in humans, relative to mTORC2 loss, has not been apportioned.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": "Added 2026-07-29 after external review found this canonical loop missing from the graph.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "HAR2004",
+      "SHA2004",
+      "UMX2004",
+      "ORE2006"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/S6K1-IRS1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-IRS1.json"
+   },
+   {
+    "id": "S6K1-LONGEVITY",
+    "claim": "S6K1 inhibits Longevity",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "Longevity",
+     "entity": "longevity"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": null,
+    "map_band": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Deleting S6K1 extends median lifespan in FEMALE mice (+19% in SEL2009); the effect was not significant in males. A separate study found that S6K1 loss protects against diet-induced obesity (UMX2004, which did not measure lifespan). Read the sex qualifier as part of the claim: this is the clearest evidence that one downstream branch, rather than mTORC1 as a whole, carries much of the ageing signal, and it is also the result whose qualifier is most often dropped in retelling.",
+    "mechanism_beginner": "Removing S6K1 makes FEMALE mice live longer (about a fifth longer) and resist obesity. In male mice the same change did not significantly extend life – that difference is part of the result, not a footnote. Still strong evidence that one branch, not the whole pathway, drives much of the ageing effect.",
+    "context": null,
+    "boundary": "Female mice only in SEL2009 - the lifespan extension was not significant in males.",
+    "boundary_tags": [
+     "sex-specific",
+     "single-species",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "Feeds the sex-dimorphism hypothesis H6 in Knowledge_Gaps. 2026-10-10: UMX2004 no longer cited as support for the lifespan arrow; it measured obesity and insulin sensitivity, not lifespan.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "SEL2009"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/S6K1-LONGEVITY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-LONGEVITY.json"
+   },
+   {
+    "id": "S6K1-NUCL",
+    "claim": "S6K1 activates Nucleotide synthesis",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "Nucleotide synthesis",
+     "entity": "nucleotide-synthesis"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "S6K1 phosphorylates CAD, the enzyme that starts de novo pyrimidine synthesis - a direct line from growth signal to DNA building blocks.",
+    "mechanism_beginner": "S6K1 switches on an enzyme that starts building the raw materials for DNA – a direct line from growth signal to DNA parts.",
+    "context": null,
+    "boundary": "Mammalian cell studies including xenograft tumours (BEN2013, ROB2013, ALI2022). The evidence comes from cultured and tumour cells; whether non-dividing tissues use the same route is not shown.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BEN2013",
+      "ROB2013",
+      "ALI2022"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/S6K1-NUCL/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-NUCL.json"
+   },
+   {
+    "id": "S6K1-PDCD4",
+    "claim": "S6K1 inhibits PDCD4",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "S6K1 tags PDCD4 for destruction. PDCD4 is itself a translation inhibitor, so removing it is a second, parallel way mTORC1 lifts a brake on protein synthesis.",
+    "mechanism_beginner": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "Thin - one supporting study.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DOR2006"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/S6K1-PDCD4/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+   }
+  ]
+ }
+}

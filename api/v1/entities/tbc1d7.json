@@ -1,0 +1,138 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "tbc1d7",
+  "name": "TBC1D7",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:21066",
+   "uniprot": "Q9P0N9",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Third constitutive subunit of the TSC complex; its loss weakens but does not abolish TSC1-TSC2 function.",
+  "study_count": 1,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/tbc1d7/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/tbc1d7.json",
+  "description_beginner": "A third, less essential building block of the TSC brake complex. Losing it weakens the TSC1/TSC2 brake on mTORC1 but doesn't fully knock it out.",
+  "reading_levels": {
+   "beginner": "The third, easily forgotten subunit of the brake.",
+   "student": "Obligate TSC complex subunit needed for complex stability.",
+   "research": "Loss produces a mild megalencephaly phenotype far weaker than TSC1/TSC2 loss, so it is a stabiliser rather than a catalytic component."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "DIB2012",
+    "title": "TBC1D7 is a third subunit of the TSC1-TSC2 complex upstream of mTORC1",
+    "authors": "Dibble CC; Elis W; Menon S; Qin W; Klekota J; Asara JM; Finan PM; Kwiatkowski DJ; Murphy LO; Manning BD",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.06.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22795129",
+    "pmcid": "PMC3693578",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "TBC1D7 is the third core subunit of the TSC1-TSC2 complex regulating Rheb/mTORC1.",
+    "url": "https://mtor-atlas.org/study/DIB2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DIB2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "TBC1D7-TSC",
+    "claim": "TBC1D7 required-for TSC1/TSC2",
+    "source": {
+     "name": "TBC1D7",
+     "entity": "tbc1d7"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "required-for",
+    "type": "complex-assembly",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "TBC1D7 is the third, often-forgotten subunit of the TSC complex; losing it weakens the brake without removing it.",
+    "mechanism_beginner": "TBC1D7 is a smaller, easy-to-miss third piece of the TSC brake; losing it weakens the brake without removing it.",
+    "context": null,
+    "boundary": "One study in human cells (DIB2012). A single study; consequences beyond cell-level complex assembly are not tested in whole animals or in people.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DIB2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TBC1D7-TSC/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TBC1D7-TSC.json"
+   }
+  ]
+ }
+}

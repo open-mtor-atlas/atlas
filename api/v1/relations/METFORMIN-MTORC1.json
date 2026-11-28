@@ -1,0 +1,84 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "METFORMIN-MTORC1",
+  "claim": "Metformin inhibits mTORC1",
+  "source": {
+   "name": "Metformin",
+   "entity": "metformin"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "inhibits",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "hours",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells",
+   "mouse liver"
+  ],
+  "mechanism": "Metformin also inhibits mTORC1 WITHOUT going through AMPK: the effect survives in AMPK-null and TSC1/2-null cells and instead requires the Rag GTPases. This is the arm usually left out of the 'metformin works via AMPK' summary.",
+  "mechanism_beginner": "Metformin can also block mTORC1 through a separate route that doesn't need AMPK – a route often left out of the simple \"metformin works via AMPK\" story. This was shown in cells and mice, often at doses higher than patients take, and how much each route matters in people is not known.",
+  "context": "Dose is the whole argument. Concentrations used in cell culture are typically far above plasma levels achieved at clinical doses, so in vitro mechanism may not describe what metformin does in a patient.",
+  "boundary": "Runs in parallel with METFORMIN-AMPK, not instead of it. The relative weight of the two routes in humans is unresolved.",
+  "boundary_tags": [
+   "direction-contested",
+   "single-study"
+  ],
+  "conflict": {
+   "type": "Field dispute",
+   "basis": "A dispute about the relative weight of two routes, not an opposing result on this claim - hence no conflicting study. KAL2010 reports that metformin and phenformin inhibit mTORC1 in cells lacking AMPK or TSC1/2, through the Rag GTPases. The usual account, in which AMPK mediates the effect, is carried by METFORMIN-AMPK (ZHO2001, PEA2009). No study in this corpus read out mTORC1 and found metformin's inhibition to require AMPK, so nothing here contradicts KAL2010's measurement; what is unresolved is how much each route carries in people, and at what dose. FOR2010 is sometimes cited against this edge but measured hepatic gluconeogenesis rather than mTORC1, and was removed from it on 2026-09-21 for that reason."
+  },
+  "note": "FOR2010 was removed from this edge on 2026-09-21: it measured hepatic gluconeogenesis and never read out mTORC1. It remains correctly cited in the boundary of METFORMIN-AMPK. 2026-10-10: beginner text given the dose and species caveat that the expert text carries.",
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "KAL2010"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/METFORMIN-MTORC1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-MTORC1.json"
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ALI2020",
+  "title": "ERK2 phosphorylates PFAS to mediate posttranslational control of de novo purine synthesis",
+  "authors": "Ali ES; Sahu U; Villa E; O'Hara BP; Gao P; Beaudet C; Wood AW; Asara JM; Ben-Sahra I",
+  "year": 2020,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2020.05.001",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "32485148",
+  "pmcid": "PMC7306006",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cancer cells; tumor",
+  "peer_reviewed": true,
+  "finding": "The Atlas records several routes by which mTORC1 drives purine synthesis. This study shows mTORC1 is not the only growth pathway with that power: RAS-ERK signalling stimulates purine synthesis directly and within minutes, because ERK2 - but not ERK1 - phosphorylates the purine synthesis enzyme PFAS at Thr619. Cells expressing a PFAS that cannot be phosphorylated make fewer purines, form fewer colonies and grow smaller tumors. Two points bound the mTOR claim: the control is posttranslational, so it acts far faster than transcription or translation, and it is a parallel input, so purine synthesis in a RAS-driven tumor is not read out from mTORC1 activity alone.",
+  "url": "https://mtor-atlas.org/study/ALI2020/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2020.json",
+  "abstract_excerpt": "The RAS-ERK/MAPK (RAS-extracellular signal-regulated kinase/mitogen-activated protein kinase) pathway integrates growth-promoting signals to stimulate cell growth and proliferation, at least in part, through alterations in metabolic gene expression. However, examples of direct and rapid regulation of the metabolic pathways by the RAS-ERK pathway remain elusive.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (PFAS T619A); ERK pathway activation",
+   "target": "RAS / ERK2 / PFAS (de novo purine synthesis)",
+   "species": "Human cancer cells; mouse tumors",
+   "effect": "ERK2 phosphorylates PFAS at T619 to stimulate de novo purine synthesis, supporting cell proliferation and tumor growth"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "nucleotide-synthesis",
+    "name": "Nucleotide synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "erk-rsk-mapk",
+    "name": "ERK / RSK (MAPK)",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ERK-NUCL"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CAR2008",
+   "MA2005",
+   "ROU2004",
+   "SUN2026B"
+  ]
+ }
+}

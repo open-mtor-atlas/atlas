@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "IGF1-PI3K",
+  "claim": "Growth hormone / IGF-1 axis activates PI3K",
+  "source": {
+   "name": "Growth hormone / IGF-1 axis",
+   "entity": "growth-hormone-igf-1-axis"
+  },
+  "target": {
+   "name": "PI3K",
+   "entity": "pi3k"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "seconds",
+  "compartment": "pm",
+  "map_band": "pm",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "IGF-1 docks on the IGF-1 receptor, which recruits IRS proteins and switches on PI3K to make the lipid messenger PIP3. Growth hormone does not use this receptor: it signals through its own receptor and JAK2/STAT5b, and reaches this arm mostly by inducing hepatic IGF-1. The node is drawn as one axis because the Atlas's lifespan evidence comes from interventions that lower the whole axis at once.",
+  "mechanism_beginner": "IGF-1 latches onto its own receptor and switches on PI3K, which builds a signalling lipid. Growth hormone works one step further back: it does not land on this receptor itself, it makes the liver release IGF-1, which then does. Insulin takes a receptor of its own into the same arm.",
+  "context": null,
+  "boundary": "Compressed on purpose: growth hormone and IGF-1 are one node here, but they are not one molecule and they do not share a receptor. GH signals GHR-JAK2-STAT5b and acts on this arm largely by inducing hepatic IGF-1; patients with a homozygous STAT5b mutation have GH insensitivity with low IGF-1 and low IGFBP-3 (Kofoed 2003, PMID 13679528, outside this corpus). The dwarf-mouse lifespan evidence on this axis lowers GH and IGF-1 together, so it does not tell the two apart. Insulin enters the same arm through its own receptor and is drawn separately (INS-PI3K).",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "CAN2002",
+    "ROM2001"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [
+   {
+    "pmid": "13679528",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/13679528/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/IGF1-PI3K/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/IGF1-PI3K.json"
+ }
+}

@@ -1,0 +1,273 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "arginine",
+  "name": "Arginine",
+  "type": "Nutrient/Metabolite",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": null,
+   "reason": "Gene and protein identifiers do not apply to the type \"Nutrient/Metabolite\"."
+  },
+  "description": "Conditionally essential amino acid sensed by two separate routes: cytosolic arginine binds CASTOR1, and lysosomal arginine is read by the transporter-like protein SLC38A9.",
+  "study_count": 7,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/nutrient/arginine/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/arginine.json",
+  "description_beginner": "A conditionally essential amino acid (the body can make some, but not always enough) that the cell senses through two separate paths - a sensor inside the cell (CASTOR1) reads free-floating arginine, while a transporter-like protein on the lysosome (SLC38A9) reads arginine stored inside the lysosome.",
+  "reading_levels": {
+   "beginner": "A second amino acid the cell counts.",
+   "student": "Sensed twice: by cytosolic CASTOR1 and by the lysosomal transporter SLC38A9.",
+   "research": "Two-sensor architecture lets the cell distinguish cytosolic from lysosomal arginine pools; the functional division of labour is still argued."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "CHA2016",
+    "title": "The CASTOR Proteins Are Arginine Sensors for the mTORC1 Pathway",
+    "authors": "Chantranupong L; Scaria SM; Saxton RA; Gygi MP; Shen K; Wyant GA; Wang T; Harper JW; Gygi SP; Sabatini DM",
+    "year": 2016,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2016.02.035",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "26972053",
+    "pmcid": "PMC4808398",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Identified CASTOR1 as the direct arginine sensor: when arginine binds CASTOR1, it lets go of GATOR2, switching mTORC1 on. Together with Sestrin2 (leucine) this built the picture of mTORC1 as a cell that literally tastes individual amino acids.",
+    "url": "https://mtor-atlas.org/study/CHA2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2016.json"
+   },
+   {
+    "sid": "SAX2016",
+    "title": "Mechanism of arginine sensing by CASTOR1 upstream of mTORC1",
+    "authors": "Saxton RA; Chantranupong L; Knockenhauer KE; Schwartz TU; Sabatini DM",
+    "year": 2016,
+    "journal": "Nature",
+    "doi": "10.1038/nature19079",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27487210",
+    "pmcid": "PMC4988899",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Structure; cells",
+    "peer_reviewed": true,
+    "finding": "CASTOR1 is a direct arginine sensor upstream of mTORC1; structure reveals the arginine-binding mechanism.",
+    "url": "https://mtor-atlas.org/study/SAX2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAX2016.json"
+   },
+   {
+    "sid": "WAN2015",
+    "title": "Metabolism. Lysosomal amino acid transporter SLC38A9 signals arginine sufficiency to mTORC1",
+    "authors": "Wang S; Tsun ZY; Wolfson RL; Shen K; Wyant GA; Plovanich ME; Yuan ED; Jones TD; Chantranupong L; Comb W; Wang T; Bar-Peled L; Zoncu R; Straub C; Kim C; Park J; Sabatini BL; Sabatini DM",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.1257132",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25567906",
+    "pmcid": "PMC4295826",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The lysosomal transporter SLC38A9 signals arginine sufficiency to mTORC1.",
+    "url": "https://mtor-atlas.org/study/WAN2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2015.json"
+   },
+   {
+    "sid": "REB2015",
+    "title": "SLC38A9 is a component of the lysosomal amino acid sensing machinery that controls mTORC1",
+    "authors": "Rebsamen M; Pochini L; Stasyk T; de Araújo ME; Galluccio M; Kandasamy RK; Snijder B; Fauster A; Rudashevskaya EL; Bruckner M; Scorzoni S; Filipek PA; Huber KV; Bigenzahn JW; Heinz LX; Kraft C; Bennett KL; Indiveri C; Huber LA; Superti-Furga G",
+    "year": 2015,
+    "journal": "Nature",
+    "doi": "10.1038/nature14107",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25561175",
+    "pmcid": "PMC4376665",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "SLC38A9 is a component of the lysosomal amino-acid sensing machinery controlling mTORC1.",
+    "url": "https://mtor-atlas.org/study/REB2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/REB2015.json"
+   },
+   {
+    "sid": "LEI2018",
+    "title": "Crystal structure of arginine-bound lysosomal transporter SLC38A9 in the cytosol-open state",
+    "authors": "Lei HT; Ma J; Sanchez Martinez S; Gonen T",
+    "year": 2018,
+    "journal": "Nature Structural & Molecular Biology",
+    "doi": "10.1038/s41594-018-0072-2",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29872228",
+    "pmcid": "PMC7346717",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Structure; in vitro",
+    "peer_reviewed": true,
+    "finding": "Crystal structure of arginine-bound SLC38A9 reveals the basis of lysosomal arginine sensing.",
+    "url": "https://mtor-atlas.org/study/LEI2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LEI2018.json"
+   },
+   {
+    "sid": "SHE2018B",
+    "title": "Ragulator and SLC38A9 activate the Rag GTPases through noncanonical GEF mechanisms",
+    "authors": "Shen K; Sabatini DM",
+    "year": 2018,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.1811727115",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "30181260",
+    "pmcid": "PMC6156610",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Purified recombinant proteins; HEK293 cells",
+    "peer_reviewed": true,
+    "finding": "Ragulator and SLC38A9 each act as an unusual guanine-nucleotide exchange factor on the Rag heterodimer, and together they push it into its active state. Ragulator triggers GTP release from RagC, which unlocks the inactive configuration; arginine-bound SLC38A9 converts RagA from the GDP- to the GTP-loaded state. Boundary: purified proteins and cultured human cells. This is the biochemistry of the switch, not a measurement in tissue.",
+    "url": "https://mtor-atlas.org/study/SHE2018B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHE2018B.json"
+   },
+   {
+    "sid": "GEI2016",
+    "title": "L-Arginine Modulates T Cell Metabolism and Enhances Survival and Anti-tumor Activity",
+    "authors": "Geiger R; Rieckmann JC; Wolf T; Basso C; Feng Y; Fuhrer T; Kogadeeva M; Picotti P; Meissner F; Mann M; Zamboni N; Sallusto F; Lanzavecchia A",
+    "year": 2016,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2016.09.031",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27745970",
+    "pmcid": "PMC5075284",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human primary naive CD4 and CD8 T cells with high-resolution metabolomics, proteomics and limited-proteolysis mass spectrometry, plus CRISPR knockout T-cell clones; mouse HA-TCR transgenic transfers with oral L-arginine, and B16-OVA melanoma with OT-I transfer",
+    "peer_reviewed": true,
+    "finding": "Tracking metabolites and proteins in activated human T cells, the authors found intracellular L-arginine falls sharply after activation even in 1 mM medium, because uptake and conversion to ornithine, proline and spermidine rise. Raising L-arginine shifted metabolism from glycolysis towards oxidative phosphorylation, increased oxygen consumption and spare respiratory capacity, and produced central-memory-like cells (CCR7 and CD62L high, less IFN-gamma) with greater survival capacity; blocking arginase gave the same survival gain at physiological 150 uM L-arginine. Limited-proteolysis mass spectrometry plus knockout clones identified three nuclear proteins, BAZ1B, PSIP1 and TSN, that sense L-arginine and contribute to the survival programme. In mice, oral L-arginine raised serum levels from about 160 uM to 700 uM and roughly doubled intracellular L-arginine in activated T cells, and L-arginine-treated OT-I cells slowed B16-OVA growth and extended survival. The authors report explicitly that the survival effect was independent of mTOR: L-arginine did not change S6K1 or 4E-BP phosphorylation, and rapamycin, while also improving survival, changed metabolism in an entirely different way. Boundary: mostly human T cells in culture plus mouse transfer and transplantable-tumour models; the dietary arm is a mouse supplementation experiment, not a human trial, and mTOR enters only as a negative control.",
+    "url": "https://mtor-atlas.org/study/GEI2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GEI2016.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "ARG-CASTOR1",
+    "claim": "Arginine inhibits CASTOR1",
+    "source": {
+     "name": "Arginine",
+     "entity": "arginine"
+    },
+    "target": {
+     "name": "CASTOR1",
+     "entity": "castor1"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Cytosolic arginine binds CASTOR1 and breaks its grip on GATOR2 - the same trick as leucine/Sestrin2, but for a different amino acid.",
+    "mechanism_beginner": "Arginine sticks to CASTOR1 the same way leucine sticks to Sestrin2 – the same trick, for a different amino acid.",
+    "context": null,
+    "boundary": "Human cells and structural work (CHA2016, SAX2016, VAL2025, JAN2025). The 2025 structures show how arginine binding changes CASTOR1 so that it lets go of GATOR2. Shows how arginine is sensed in cells and in purified proteins. Whether this sensor matters for arginine supply in a whole animal or a person is not tested here.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CHA2016",
+      "SAX2016",
+      "VAL2025",
+      "JAN2025"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ARG-CASTOR1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ARG-CASTOR1.json"
+   }
+  ]
+ }
+}

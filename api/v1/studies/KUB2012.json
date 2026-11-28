@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KUB2012",
+  "title": "Temporal coding of insulin action through multiplexing of the AKT pathway",
+  "authors": "Kubota H; Noguchi R; Toyoshima Y; Ozaki YI; Uda S; Watanabe K; Ogawa W; Kuroda S",
+  "year": 2012,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2012.04.018",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22633957",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Rat hepatoma cells (Fao); pulse vs sustained insulin, time-course phosphorylation plus kinetic modelling",
+  "peer_reviewed": true,
+  "finding": "The same pathway can carry different messages in the shape of its signal over time. A short insulin pulse produced transient AKT phosphorylation and a sustained dose produced sustained AKT phosphorylation. S6K read only the transient part, G6Pase only the sustained part and GSK3-beta both. Which output responds depends on the pattern, not just the amount - the clearest cell-level case in the atlas that timing carries information in this pathway.",
+  "url": "https://mtor-atlas.org/study/KUB2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2012.json",
+  "abstract_excerpt": "One of the unique characteristics of cellular signaling pathways is that a common signaling pathway can selectively regulate multiple cellular functions of a hormone; however, this selective downstream control through a common signaling pathway is poorly understood. Here we show that the insulin-dependent AKT pathway uses temporal patterns multiplexing for selective regulation of downstream molecules. Pulse and sustained insulin stimulations were simultaneously encoded into transient and sustained AKT phosphorylation, respectively.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Pulse versus sustained insulin stimulation",
+   "target": "AKT; S6K; G6Pase; GSK3-beta",
+   "species": "Rat (hepatoma cell line)",
+   "effect": "S6K selectively decodes transient AKT signalling; G6Pase decodes sustained; GSK3-beta decodes both"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "insulin",
+    "name": "Insulin",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "OLD2000",
+   "PEN2000",
+   "SHA2004",
+   "POT2002"
+  ]
+ }
+}

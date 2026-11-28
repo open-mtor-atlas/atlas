@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "FER2024",
+  "title": "Spatial and functional separation of mTORC1 signalling in response to different amino acid sources",
+  "authors": "Fernandes SA; Angelidaki DD; Nüchel J; Pan J; Gollwitzer P; Elkis Y; Artoni F; Wilhelm S; Kovacevic-Sarmiento M; Demetriades C",
+  "year": 2024,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/s41556-024-01523-7",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "39385049",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells (HEK293FT, WI-26 SV40 lung fibroblasts) + mouse MEFs (WT and RagA/B-KO)",
+  "peer_reviewed": true,
+  "finding": "mTORC1 regulation and downstream substrate phosphorylation are spatially separated: lysosomal mTORC1 (fed by local lysosomal proteolysis) and cytoplasmic mTORC1 (fed by exogenous amino acids) phosphorylate distinct substrates depending on amino acid source, challenging the single lysosomal-hub model.",
+  "url": "https://mtor-atlas.org/study/FER2024/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/FER2024.json",
+  "abstract_excerpt": "Amino acid (AA) availability is a robust determinant of cell growth through controlling mechanistic/mammalian target of rapamycin complex 1 (mTORC1) activity. According to the predominant model in the field, AA sufficiency drives the recruitment and activation of mTORC1 on the lysosomal surface by the heterodimeric Rag GTPases, from where it coordinates the majority of cellular processes. Importantly, however, the teleonomy of the proposed lysosomal regulation of mTORC1 and where mTORC1 acts on its effector proteins remain enigmatic.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Pharmacological and genetic perturbation of lysosomal amino-acid sensing (Rag pathway) and lysosomal proteolysis",
+   "target": "Lysosomal vs non-lysosomal mTORC1 pools",
+   "species": "Human cell lines (HEK293FT, WI-26 SV40 fibroblasts); mouse embryonic fibroblasts (WT, RagA/B-KO)",
+   "effect": "Lysosomal mTORC1 is fed by local lysosomal proteolysis and cytoplasmic mTORC1 by external amino acids, and the two phosphorylate distinct substrates."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LYSO-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ABU2017",
+   "ARI2015",
+   "BAR2012",
+   "BETZ2013"
+  ]
+ }
+}

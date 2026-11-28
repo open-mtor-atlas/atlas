@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "deptor",
+  "name": "DEPTOR",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:22953",
+   "uniprot": "Q8TB45",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Endogenous inhibitor of both mTORC1 and mTORC2; paradoxically overexpressed in a subset of multiple myelomas, which depend on high DEPTOR: partial mTORC1 suppression relieves S6K1-IRS1 feedback and sustains PI3K/Akt survival signalling (Peterson 2009).",
+  "study_count": 2,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/deptor/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/deptor.json",
+  "description_beginner": "A natural brake on both mTOR complexes at once. Oddly, some multiple myeloma (bone marrow cancer) cells make extra amounts of it and depend on having it: damping mTORC1 releases a feedback loop and keeps PI3K/Akt survival signaling switched on.",
+  "reading_levels": {
+   "beginner": "An in-built damper on both complexes.",
+   "student": "mTOR-binding inhibitor of mTORC1 and mTORC2.",
+   "research": "Overexpressed in a subset of multiple myeloma, and those cells need it: knockdown kills them (PET2009). An inhibitor of the pathway that the tumour is nonetheless addicted to."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "PET2009",
+    "title": "DEPTOR is an mTOR inhibitor frequently overexpressed in multiple myeloma cells and required for their survival",
+    "authors": "Peterson TR; Laplante M; Thoreen CC; Sancak Y; Kang SA; Kuehl WM; Gray NS; Sabatini DM",
+    "year": 2009,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2009.03.046",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19446321",
+    "pmcid": "PMC2758791",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines",
+    "peer_reviewed": true,
+    "finding": "Identified DEPTOR as a built-in brake on BOTH mTOR complexes. The twist: in some multiple myelomas DEPTOR is overexpressed, which by relieving a feedback loop actually keeps pro-survival Akt signaling ON - a neat example of how an 'inhibitor' can be co-opted by cancer.",
+    "url": "https://mtor-atlas.org/study/PET2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PET2009.json"
+   },
+   {
+    "sid": "SUN2026B",
+    "title": "Phosphorylation of OTUB1 promotes autophagy initiation under starvation",
+    "authors": "Sun L; He M; Liu D; Liu J; Shan M; Yang M; Zhang Y; Dai X; Yao J; Zhang Y; Xiong H; He F; Lian J",
+    "year": 2026,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-026-76796-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42736303",
+    "pmcid": "PMC13574767",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (Western diet / MASLD model); cultured cells (starvation)",
+    "peer_reviewed": true,
+    "finding": "Under starvation, ERK phosphorylates the deubiquitinase OTUB1 at S118, which stabilizes it by letting it out-compete TRIM29 for binding to ANXA2. Stabilized OTUB1 upregulates DEPTOR, a natural mTOR inhibitor, which suppresses mTOR and triggers autophagy. In mice, restoring this fasting-triggered ERK-OTUB1-DEPTOR-mTOR axis countered the mTOR-activating effect of a Western diet and eased MASLD (fatty liver disease) progression, giving a mechanistic account of how fasting benefits the liver.",
+    "url": "https://mtor-atlas.org/study/SUN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SUN2026B.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "DEPTOR-MTOR",
+    "claim": "DEPTOR inhibits mTOR",
+    "source": {
+     "name": "DEPTOR",
+     "entity": "deptor"
+    },
+    "target": {
+     "name": "mTOR",
+     "entity": "mtor"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "DEPTOR sits on mTOR and damps both complexes; myeloma cells overexpress it and depend on that damping.",
+    "mechanism_beginner": "DEPTOR sits on mTOR and dampens both complexes; some cancer cells (myeloma) make extra DEPTOR and come to depend on that damping.",
+    "context": null,
+    "boundary": "One study in human cancer cell lines (PET2009), centred on myeloma. Not replicated in this corpus and not shown in other cell types, in animals or in patients.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "PET2009"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/DEPTOR-MTOR/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/DEPTOR-MTOR.json"
+   }
+  ]
+ }
+}

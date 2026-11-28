@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "METFORMIN-AMPK",
+  "claim": "Metformin activates AMPK",
+  "source": {
+   "name": "Metformin",
+   "entity": "metformin"
+  },
+  "target": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "Metformin shifts the cell's energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.",
+  "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
+  "context": null,
+  "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+  "boundary_tags": [
+   "direction-contested"
+  ],
+  "conflict": {
+   "type": "Field dispute",
+   "basis": "Metformin activates AMPK (ZHO2001; also seen in KAL2010), but whether AMPK mediates its effects is disputed. FOR2010 found that mice lacking AMPK in the liver kept the glucose-lowering effect of metformin, and that hepatocytes lacking AMPK or LKB1 still showed metformin-induced inhibition of glucose production. KAL2010 found that mTORC1 inhibition by metformin persists in cells lacking AMPK."
+  },
+  "note": null,
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "ZHO2001",
+    "PEA2009"
+   ],
+   "conflicting": [
+    "KAL2010"
+   ]
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/METFORMIN-AMPK/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-AMPK.json"
+ }
+}

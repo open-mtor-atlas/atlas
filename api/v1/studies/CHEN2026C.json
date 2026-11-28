@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CHEN2026C",
+  "title": "Impaired Chaperone-Mediated Autophagy Accelerates Intervertebral Disc Degeneration by Inducing MIDN Accumulation to Target TSC2 for Proteasomal Degradation",
+  "authors": "Chen Xianglong; Gao H; Wu W; Shi P; Chen Yuhang; Zhang A; Cheng Z; Wu W; Yu Z; Zhang Y",
+  "year": 2026,
+  "journal": "Advanced Science",
+  "doi": "10.1002/advs.77428",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42658647",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human nucleus pulposus cells; rat caudal needle-puncture model",
+  "peer_reviewed": true,
+  "finding": "Loss of chaperone-mediated autophagy lets its substrate midnolin (MIDN) accumulate; MIDN binds TSC2 and drives its proteasomal degradation independently of ubiquitination, de-repressing mTORC1 and causing senescence, SASP and matrix loss in disc cells. MIDN knockdown, LAMP2A overexpression or rapamycin each blocked the degeneration - a new upstream route to mTORC1 hyperactivation.",
+  "url": "https://mtor-atlas.org/study/CHEN2026C/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026C.json",
+  "abstract_excerpt": "Intervertebral disc degeneration (IDD) is a leading cause of low back pain with incompletely understood mechanisms. Although autophagy dysfunction is a documented contributor to IDD, the precise pathobiological role of chaperone-mediated autophagy (CMA) remains poorly understood. Here, we demonstrate that CMA activity is downregulated in nucleus pulposus cells (NPCs) from IDD patients and IL-1beta-induced rat intervertebral disc cell models, causing cytoplasmic accumulation of a novel CMA substrate, Midnolin (MIDN).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "MIDN knockdown (shRNA), LAMP2A overexpression (CMA activation), rapamycin",
+   "target": "TSC2 / mTORC1 (via midnolin, MIDN)",
+   "species": "Human cells; rat",
+   "effect": "Impaired CMA -> MIDN accumulation -> TSC2 degradation -> mTORC1 hyperactivation -> senescence, SASP and matrix loss; blocked by MIDN knockdown, LAMP2A overexpression or rapamycin"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "chaperone-mediated-autophagy",
+    "name": "Chaperone-mediated autophagy",
+    "type": "Biological process"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "senescence-associated-secretory-phenotype-sasp",
+    "name": "Senescence-associated secretory phenotype (SASP)",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-SENESCENCE",
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ARI2015",
+   "LAB2015",
+   "NAR2011",
+   "TRI2026"
+  ]
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "sgk1",
+  "name": "SGK1",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:10810",
+   "uniprot": "O00141",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Serum- and glucocorticoid-regulated kinase 1; a second major AGC kinase phosphorylated and activated by mTORC2 at its hydrophobic motif. Controls ion transport, cell survival, and glucose metabolism. mTORC2→SGK1 signaling is a key output branch of mTORC2 parallel to the mTORC2→Akt axis.",
+  "study_count": 2,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/sgk1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/sgk1.json",
+  "description_beginner": "A signaling protein activated by mTORC2 (the second mTOR complex). It's a lesser-known cousin of Akt and helps control things like salt/water balance in cells, cell survival, and how cells handle sugar.",
+  "reading_levels": {
+   "beginner": "Another kinase mTORC2 switches on.",
+   "student": "AGC kinase phosphorylated by mTORC2; controls ion transport and survival.",
+   "research": "Shares substrate motifs with Akt (e.g. NDRG1, used as the standard mTORC2 readout because it is Akt-independent)."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "GAR2009",
+    "title": "Ku-0063794 is a specific inhibitor of the mammalian target of rapamycin (mTOR)",
+    "authors": "Garcia-Martinez JM; Moran J; Clarke RG; Gray A; Cosulich SC; Chresta CM; Alessi DR",
+    "year": 2009,
+    "journal": "Biochemical Journal",
+    "doi": "10.1042/BJ20090489",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19402821",
+    "pmcid": "PMC2708931",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro; cells",
+    "peer_reviewed": true,
+    "finding": "Ku-0063794 is a specific ATP-competitive mTOR inhibitor blocking mTORC1 and mTORC2.",
+    "url": "https://mtor-atlas.org/study/GAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2009.json"
+   },
+   {
+    "sid": "GAR2008",
+    "title": "mTOR complex 2 (mTORC2) controls hydrophobic motif phosphorylation and activation of serum- and glucocorticoid-induced protein kinase 1 (SGK1)",
+    "authors": "Garcia-Martinez JM; Alessi DR",
+    "year": 2008,
+    "journal": "Biochemical Journal",
+    "doi": "10.1042/BJ20081668",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18925875",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTORC2 controls hydrophobic-motif phosphorylation and activity of SGK1 in addition to Akt.",
+    "url": "https://mtor-atlas.org/study/GAR2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2008.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-SGK1",
+    "claim": "mTORC2 activates SGK1",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "SGK1",
+     "entity": "sgk1"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "SGK1 is a second mTORC2 substrate alongside Akt, and it carries some of the functions usually credited to Akt.",
+    "mechanism_beginner": "SGK1 is a second target of mTORC2 alongside Akt, and it shares some of Akt's jobs.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GAR2008"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC2-SGK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-SGK1.json"
+   }
+  ]
+ }
+}

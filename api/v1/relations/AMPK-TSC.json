@@ -1,0 +1,79 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-TSC",
+  "claim": "AMPK activates TSC1/TSC2",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "TSC1/TSC2",
+   "entity": "tsc1-tsc2"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "When energy runs low, AMPK phosphorylates TSC2 and strengthens the brake on Rheb.",
+  "mechanism_beginner": "When energy is low, AMPK tags TSC2 and makes the brake on Rheb stronger.",
+  "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
+  "boundary": "Mammalian cell biochemistry (INO2003, INO2006). Not tested in whole animals or in people by the cited studies.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "INO2003",
+    "INO2006",
+    "BUD2008"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/AMPK-TSC/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-TSC.json"
+ }
+}

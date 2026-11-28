@@ -1,0 +1,157 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pgc-1alpha-yy1",
+  "name": "PGC-1α / YY1",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "group",
+   "reason": "This record names a complex, a protein family or a pair of proteins, so one gene identifier would claim more than the Atlas knows."
+  },
+  "description": "Transcriptional complex through which mTORC1 drives mitochondrial gene expression.",
+  "study_count": 2,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/pgc-1alpha-yy1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pgc-1alpha-yy1.json",
+  "description_beginner": "The switch that builds power plants.",
+  "reading_levels": {
+   "beginner": "The switch that builds power plants.",
+   "student": "Transcriptional complex through which mTORC1 drives mitochondrial gene expression.",
+   "research": "mTOR interacts with YY1 and is required for YY1–PGC-1α function; rapamycin lowers mitochondrial gene expression and oxygen consumption (CUN2007). One of the clearest cases of mTORC1 acting through transcription rather than translation."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "CUN2007",
+    "title": "mTOR controls mitochondrial oxidative function through a YY1-PGC-1alpha transcriptional complex",
+    "authors": "Cunningham JT; Rodgers JT; Arlow DH; Vazquez F; Mootha VK; Puigserver P",
+    "year": 2007,
+    "journal": "Nature",
+    "doi": "10.1038/nature06322",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18046414",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Skeletal muscle cells + tissue",
+    "peer_reviewed": true,
+    "finding": "Showed mTOR isn't just about building proteins - it also runs the cell's POWER plants. mTORC1 drives mitochondrial gene expression and oxygen consumption through a YY1-PGC-1alpha transcriptional program; block mTOR with rapamycin and mitochondrial output falls. Explains part of why mTOR inhibition reshapes metabolism.",
+    "url": "https://mtor-atlas.org/study/CUN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUN2007.json"
+   },
+   {
+    "sid": "SET2013",
+    "title": "TFEB controls cellular lipid metabolism through a starvation-induced autoregulatory loop",
+    "authors": "Settembre C; De Cegli R; Mansueto G; Saha PK; Vetrini F; Visvikis O; Huynh T; Carissimo A; Palmer D; Klisch TJ; Wollenberg AC; Di Bernardo D; Chan L; Irazoqui JE; Ballabio A",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2718",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23604321",
+    "pmcid": "PMC3699877",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: 24 h fasting, liver-specific Tfeb knockout, liver-directed TFEB overexpression (helper-dependent adenovirus), high-fat diet and ob/ob obesity, liver Pgc1a and Atg7 deletion, Ppara knockout; HeLa cells, MEFs and primary hepatocytes; C. elegans hlh-30 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors found that fasting switches on the TFEB gene in mouse liver, muscle and kidney, and that TFEB drives its own transcription by binding CLEAR sites in its promoter, an autoregulatory loop that starvation strengthens. Liver TFEB overexpression changed 773 genes up and 611 down, with lipid catabolism as the top category, and acted largely through PGC-1alpha and PPARalpha: 74% of TFEB-induced genes failed to rise in mice lacking PPARalpha. Mice lacking liver TFEB built up liver fat and mobilised fat poorly during fasting and gained more weight on a high-fat diet, while liver TFEB overexpression prevented and halted diet-induced obesity and improved glucose tolerance in obese ob/ob mice; the lipid effect required autophagy (lost in Atg7-deleted liver). In C. elegans, the TFEB homologue HLH-30 was needed for lipid mobilisation and survival during starvation. Boundary: Mice and worms, with TFEB delivered by virus at overexpression levels. mTORC1 was not manipulated or measured; its role is inferred from earlier work. Not tested in people.",
+    "url": "https://mtor-atlas.org/study/SET2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2013.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-PGC1A",
+    "claim": "mTORC1 activates PGC-1α / YY1",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "PGC-1α / YY1",
+     "entity": "pgc-1alpha-yy1"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "map_band": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTOR interacts with YY1 and is required for the YY1–PGC-1α complex to drive mitochondrial gene expression; rapamycin lowers both the transcripts and oxygen consumption.",
+    "mechanism_beginner": "mTOR works together with a gene-activating team to switch on mitochondrial genes – a rare example of this pathway acting inside the nucleus rather than at the cell's outer edges. The direct interaction rests on a single study in this Atlas.",
+    "context": null,
+    "boundary": "Single-study support in this corpus for the direct interaction; the downstream respiratory phenotype is better replicated than the binding itself.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CUN2007"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-PGC1A/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-PGC1A.json"
+   }
+  ]
+ }
+}

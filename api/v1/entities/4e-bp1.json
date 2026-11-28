@@ -1,0 +1,824 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "4e-bp1",
+  "name": "4E-BP1",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "4E-BP",
+   "4EBP1",
+   "EIF4EBP1",
+   "PHAS-I"
+  ],
+  "identifiers": {
+   "hgnc": "HGNC:3288",
+   "uniprot": "Q13541",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Translational repressor; the master effector through which mTORC1 controls protein synthesis. mTORC1 phosphorylates 4E-BP1 to release eIF4E and switch translation ON.",
+  "study_count": 22,
+  "relation_count": 4,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/4e-bp1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/4e-bp1.json",
+  "description_beginner": "A protein that holds the translation-starter eIF4E hostage - until mTORC1 phosphorylates it, releasing eIF4E and switching protein production on. It's the main effector through which mTORC1 controls how much protein a cell makes.",
+  "reading_levels": {
+   "beginner": "A cap on protein-making that mTORC1 removes.",
+   "student": "Translational repressor released from eIF4E upon multi-site phosphorylation.",
+   "research": "Only partially rapamycin-sensitive. This goes a long way to explain the rapalog/Torin discrepancy and was a main motivation for ATP-competitive inhibitors."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "THO2012",
+    "title": "A unifying model for mTORC1-mediated regulation of mRNA translation",
+    "authors": "Thoreen CC; Chantranupong L; Keys HR; Wang T; Gray NS; Sabatini DM",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature11083",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22552098",
+    "pmcid": "PMC3347774",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse cells (ribosome profiling)",
+    "peer_reviewed": true,
+    "finding": "Used ribosome profiling with the complete inhibitor Torin1 to address a long-standing debate: in these cells, mTORC1's translational control runs largely through the 4E-BP family acting on a specific class of mRNAs (TOP motifs). Losing just the 4E-BPs makes translation of TOP mRNAs resistant to mTOR inhibition - naming them the master effectors.",
+    "url": "https://mtor-atlas.org/study/THO2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/THO2012.json"
+   },
+   {
+    "sid": "HSI2012",
+    "title": "The translational landscape of mTOR signalling steers cancer initiation and metastasis",
+    "authors": "Hsieh AC; Liu Yi; Edlind MP; Ingolia NT; Janes MR; Sher A; Shi EY; Stumpf CR; Christensen C; Bonham MJ; Wang S; Ren P; Martin M; Jessen K; Feldman ME; Weissman JS; Shokat KM; Rommel C; Ruggero D",
+    "year": 2012,
+    "journal": "Nature",
+    "doi": "10.1038/nature10912",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22367541",
+    "pmcid": "PMC3663483",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse models + human prostate cancer",
+    "peer_reviewed": true,
+    "finding": "Showed WHY mTOR-driven translation matters for cancer: in prostate cancer, oncogenic mTOR selectively translates a specific set of pro-invasion mRNAs that drive metastasis. An ATP-competitive mTOR inhibitor (INK128) reversed that signature - an early preclinical rationale from mouse models and cell lines, not a clinical result.",
+    "url": "https://mtor-atlas.org/study/HSI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HSI2012.json"
+   },
+   {
+    "sid": "THO2009",
+    "title": "An ATP-competitive mammalian target of rapamycin inhibitor reveals rapamycin-resistant functions of mTORC1",
+    "authors": "Thoreen CC; Kang SA; Chang JW; Liu Q; Zhang Jianming; Gao Y; Reichling LJ; Sim T; Sabatini DM; Gray NS",
+    "year": 2009,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.M900301200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19150980",
+    "pmcid": "PMC2658096",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse/human cells",
+    "peer_reviewed": true,
+    "finding": "Dropped a bombshell: rapamycin does NOT fully block mTORC1. Using Torin1 (which jams the active site directly), the authors showed rapamycin leaves important mTORC1 jobs running - notably 4E-BP1 phosphorylation and autophagy suppression. This reframed a decade of rapamycin experiments and launched the search for complete inhibitors.",
+    "url": "https://mtor-atlas.org/study/THO2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/THO2009.json"
+   },
+   {
+    "sid": "LAB2015",
+    "title": "mTOR regulates the pro-tumorigenic senescence-associated secretory phenotype by promoting IL1A translation",
+    "authors": "Laberge RM; Sun Y; Orjalo AV; Patil CK; Freund A; Zhou L; Curran SC; Davalos AR; Wilson-Edell KA; Liu S; Limbad C; Demaria M; Li P; Hubbard GB; Ikeno Y; Javors M; Desprez PY; Benz CC; Kapahi P; Nelson PS; Campisi J",
+    "year": 2015,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb3195",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "26147250",
+    "pmcid": "PMC4691706",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + mouse xenografts",
+    "peer_reviewed": true,
+    "finding": "Explained HOW rapamycin calms 'inflammaging'. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytokine at the top of the cascade. Rapamycin selectively shuts it down - and blocked senescent cells from fueling prostate tumor growth in mice.",
+    "url": "https://mtor-atlas.org/study/LAB2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAB2015.json"
+   },
+   {
+    "sid": "ZID2009",
+    "title": "4E-BP extends lifespan upon dietary restriction by enhancing mitochondrial activity in Drosophila",
+    "authors": "Zid BM; Rogers AN; Katewa SD; Vargas MA; Kolipinski MC; Lu TA; Benzer S; Kapahi P",
+    "year": 2009,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2009.07.034",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19804760",
+    "pmcid": "PMC2759400",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila (fruit fly)",
+    "peer_reviewed": true,
+    "finding": "Connected the dots between diet, mTOR, and lifespan. 4E-BP, an mTOR target, is upregulated on dietary restriction and here was shown to be REQUIRED for the lifespan boost, working by selectively boosting translation of mitochondrial genes. A rare case pinning a specific mTOR effector to the longevity benefit of eating less.",
+    "url": "https://mtor-atlas.org/study/ZID2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZID2009.json"
+   },
+   {
+    "sid": "SCH2025",
+    "title": "The Bi-steric, mTORC1-Selective Inhibitor, RMC-5552, in Advanced Solid Tumors: A Phase 1 Trial",
+    "authors": "Schram AM; Naqash AR; Haura EB; Riess JW; Ulahannan SV; Ou SI; Munster PN; Cheng ML; Gustafson WC; Bitman B; Friedman R; Penn R; Kar S; Seshadri V; Wang Z; Tao L; Yang YC; Singh M; Burris HA; Meyerowitz JG",
+    "year": 2025,
+    "journal": "Clinical Cancer Research",
+    "doi": "10.1158/1078-0432.CCR-25-2112",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "41056387",
+    "pmcid": "PMC12666311",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human (Phase 1 dose escalation, n=57, advanced solid tumors, NCT04774952)",
+    "peer_reviewed": true,
+    "finding": "First-in-human, open-label dose-escalation trial (n=57, advanced solid tumors, no comparator arm) of a bi-steric mTORC1-selective inhibitor. Treatment-related hyperglycemia was low (4%) and not dose-limiting, alongside a 64% disease control rate. Because the trial was uncontrolled and made no head-to-head comparison against rapamycin or an ATP-site inhibitor, this is encouraging early clinical evidence consistent with the hypothesis that sparing mTORC2 reduces metabolic toxicity -- it does not establish mTORC2 sparing as the cause.",
+    "url": "https://mtor-atlas.org/study/SCH2025/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SCH2025.json"
+   },
+   {
+    "sid": "MEN2023",
+    "title": "A bi-steric mTORC1-selective inhibitor overcomes drug resistance in breast cancer",
+    "authors": "Meng D; Zhao X; Yang YC; Navickas A; Helland C; Goodarzi H; Singh M; Bandyopadhyay S",
+    "year": 2023,
+    "journal": "Oncogene",
+    "doi": "10.1038/s41388-023-02737-z",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "37264081",
+    "pmcid": "PMC10328828",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Human ER+/HER2- breast cancer cell lines; mouse patient-derived xenografts (PDX)",
+    "peer_reviewed": true,
+    "finding": "RMC-6272, a bi-steric molecule with >25-fold selectivity for mTORC1 over mTORC2, completely suppresses mTORC1 (hitting the rapamycin-resistant substrate 4E-BP1) and overcomes hormone- and CDK4/6-inhibitor resistance in breast cancer cell lines and PDX -- the preclinical basis for the RMC-5552 selective-inhibitor clinical program.",
+    "url": "https://mtor-atlas.org/study/MEN2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MEN2023.json"
+   },
+   {
+    "sid": "SHIMADA2026",
+    "title": "Sexual Dimorphism in Placental mTORC1 Signaling, Amino Acid Transport, and Mitochondrial Respiration at Term.",
+    "authors": "Shimada H; Sakuragi T; Zaegel V; Kramer A; Boyle KE; Powell TL; Jansson T; Rosario FJ",
+    "year": 2026,
+    "journal": "Antioxidants",
+    "doi": "10.3390/antiox15080977",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42650242",
+    "pmcid": "PMC13509233",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human placenta at term (n=46)",
+    "peer_reviewed": true,
+    "finding": "In 46 term placentas, male placentas showed higher mTORC1 signalling (increased S6RP phosphorylation, reduced 4E-BP1), greater System A amino acid transport and higher mitochondrial respiratory capacity than female placentas, and male pregnancies had a higher birth-weight-to-placental-weight ratio. Observational: a cross-sectional association at a single timepoint, with no intervention and no randomisation, so the direction of the relationship between mTORC1 signalling and growth is not established here and residual confounding by maternal and obstetric factors cannot be excluded.",
+    "url": "https://mtor-atlas.org/study/SHIMADA2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIMADA2026.json"
+   },
+   {
+    "sid": "GAR2009",
+    "title": "Ku-0063794 is a specific inhibitor of the mammalian target of rapamycin (mTOR)",
+    "authors": "Garcia-Martinez JM; Moran J; Clarke RG; Gray A; Cosulich SC; Chresta CM; Alessi DR",
+    "year": 2009,
+    "journal": "Biochemical Journal",
+    "doi": "10.1042/BJ20090489",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19402821",
+    "pmcid": "PMC2708931",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro; cells",
+    "peer_reviewed": true,
+    "finding": "Ku-0063794 is a specific ATP-competitive mTOR inhibitor blocking mTORC1 and mTORC2.",
+    "url": "https://mtor-atlas.org/study/GAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2009.json"
+   },
+   {
+    "sid": "WAN2026",
+    "title": "Lsp2 links mTORC1 to TOP mRNA translation and lifespan in Drosophila",
+    "authors": "Wang J; Cai Z; Gu J; Xiong S; Yi J; Yang M; Chang K; Ning X; Wen Y; Yan Y; Lu J; Wang Y; Zhai Z",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11029-x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42778591",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Drosophila melanogaster — Lsp2 genetic ablation, lifespan assay, translatomic (ribosome profiling) analysis",
+    "peer_reviewed": true,
+    "finding": "Identifies Lsp2, a Drosophila fat-body storage protein, as an amino-acid-induced feedback activator of mTORC1 that specifically boosts translation of TOP-motif mRNAs (mostly ribosomal proteins) via 4E-BP — a rapamycin-resistant arm of mTORC1 output. Genetic loss of Lsp2 reduces TOP mRNA translation and robustly extends lifespan without cost to reproduction, revealing a rapamycin-independent route from mTORC1 activity to organismal longevity.",
+    "url": "https://mtor-atlas.org/study/WAN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WAN2026.json"
+   },
+   {
+    "sid": "GIN1999",
+    "title": "Regulation of 4E-BP1 phosphorylation: a novel two-step mechanism",
+    "authors": "Gingras AC; Gygi SP; Raught B; Polakiewicz RD; Abraham RT; Hoekstra MF; Aebersold R; Sonenberg N",
+    "year": 1999,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.13.11.1422",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "10364159",
+    "pmcid": "PMC316780",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "4E-BP1 is phosphorylated by an ordered, priming two-step mechanism that controls its release of eIF4E.",
+    "url": "https://mtor-atlas.org/study/GIN1999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GIN1999.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "FIN2002",
+    "title": "Mammalian cell size is controlled by mTOR and its downstream targets S6K1 and 4EBP1/eIF4E",
+    "authors": "Fingar DC; Salama S; Tsou C; Harlow E; Blenis J",
+    "year": 2002,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.995802",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12080086",
+    "pmcid": "PMC186342",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "mTOR controls mammalian cell size through its downstream translational targets S6K1 and 4E-BP1/eIF4E.",
+    "url": "https://mtor-atlas.org/study/FIN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FIN2002.json"
+   },
+   {
+    "sid": "HAR1998",
+    "title": "Amino acid sufficiency and mTOR regulate p70 S6 kinase and eIF-4E BP1 through a common effector mechanism",
+    "authors": "Hara K; Yonezawa K; Weng QP; Kozlowski MT; Belham C; Avruch J",
+    "year": 1998,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.273.23.14484",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9603962",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "CHO cells; in vitro",
+    "peer_reviewed": true,
+    "finding": "Amino acid sufficiency signals through mTOR to p70 S6K and 4E-BP1 via a common effector, first linking nutrients to mTOR.",
+    "url": "https://mtor-atlas.org/study/HAR1998/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAR1998.json"
+   },
+   {
+    "sid": "BRU1997",
+    "title": "Phosphorylation of the translational repressor PHAS-I by the mammalian target of rapamycin",
+    "authors": "Brunn GJ; Hudson CC; Sekulić A; Williams JM; Hosoi H; Houghton PJ; Lawrence JC; Abraham RT",
+    "year": 1997,
+    "journal": "Science",
+    "doi": "10.1126/science.277.5322.99",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "9204908",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293; in vitro",
+    "peer_reviewed": true,
+    "finding": "mTOR directly phosphorylates 4E-BP1 (PHAS-I), releasing eIF4E and establishing mTOR's role in translational control.",
+    "url": "https://mtor-atlas.org/study/BRU1997/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRU1997.json"
+   },
+   {
+    "sid": "NOJ2003",
+    "title": "The mammalian target of rapamycin (mTOR) partner, raptor, binds the mTOR substrates p70 S6 kinase and 4E-BP1 through their TOR signaling (TOS) motif",
+    "authors": "Nojima H; Tokunaga C; Eguchi S; Oshiro N; Hidayat S; Yoshino K; Hara K; Tanaka N; Avruch J; Yonezawa K",
+    "year": 2003,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.C200665200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12604610",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "In vitro",
+    "peer_reviewed": true,
+    "finding": "Raptor binds mTOR substrates via their TOS motifs, acting as the substrate-presenting scaffold of mTORC1.",
+    "url": "https://mtor-atlas.org/study/NOJ2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NOJ2003.json"
+   },
+   {
+    "sid": "TEE2002",
+    "title": "Tuberous sclerosis complex-1 and -2 gene products function together to inhibit mammalian target of rapamycin (mTOR)-mediated downstream signaling",
+    "authors": "Tee AR; Fingar DC; Manning BD; Kwiatkowski DJ; Cantley LC; Blenis J",
+    "year": 2002,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.202476899",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12271141",
+    "pmcid": "PMC129715",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cultured mammalian cells (HEK293-type transfection system per MeSH 'Cell Line'); coexpression of TSC1/TSC2, patient-derived TSC2 mutant, rapamycin-resistant S6K1 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors coexpressed hamartin (TSC1) and tuberin (TSC2) in cultured cells and followed two main outputs of mTOR. Together, the two proteins reduced phosphorylation of 4E-BP1, so more 4E-BP1 stayed bound to the translation factor eIF4E; a TSC2 mutant found in TSC patients was defective at this. Hamartin plus tuberin also lowered S6K1 activity, but did not affect S6K1 mutants that resist rapamycin, which points to mTOR as the step being blocked. In nutrient-deprived cells, hamartin and tuberin prevented amino acids from switching S6K1 back on. The authors concluded that the TSC1-TSC2 complex acts as an inhibitor of mTOR signalling and suggested that TSC tumours may come from too much mTOR activity. Boundary: overexpression in cultured mammalian cells; the link to tumours in TSC patients is a proposal, not tested in patient tissue here.",
+    "url": "https://mtor-atlas.org/study/TEE2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TEE2002.json"
+   },
+   {
+    "sid": "SAT2010",
+    "title": "Single amino-acid changes that confer constitutive activation of mTOR are discovered in human cancer",
+    "authors": "Sato T; Nakashima A; Guo L; Coffman K; Tamanoi F",
+    "year": 2010,
+    "journal": "Oncogene",
+    "doi": "10.1038/onc.2010.28",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20190810",
+    "pmcid": "PMC2953941",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cells expressing mTOR point mutants found in cancer genome databases; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "Screened point mutations from cancer genome databases and found two, S2215Y (large intestine adenocarcinoma) and R2505P (renal cell carcinoma), that kept mTOR signalling on even under nutrient starvation. mTORC1 purified from starved cells carrying the mutants still phosphorylated 4E-BP1 in vitro. Mutant cells had more S-phase cells (42.0% vs 28.2% for S2215Y) and resisted the shrinkage caused by amino-acid withdrawal. The mutants stayed sensitive to rapamycin. Boundary: overexpressed mutants in cultured cells; the mutations were found in tumour databases, their driver role in patients was not tested.",
+    "url": "https://mtor-atlas.org/study/SAT2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAT2010.json"
+   },
+   {
+    "sid": "LAR2012",
+    "title": "Distinct perturbation of the translatome by the antidiabetic drug metformin",
+    "authors": "Larsson O; Morita M; Topisirovic I; Alain T; Blouin MJ; Pollak M; Sonenberg N",
+    "year": 2012,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.1201689109",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22611195",
+    "pmcid": "PMC3384216",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell line (per MeSH); genome-wide polysome microarray translatome analysis comparing metformin, rapamycin and PP242",
+    "peer_reviewed": true,
+    "finding": "The authors compared genome-wide changes in mRNA translation caused by metformin with those caused by the mTOR inhibitors rapamycin and PP242 in cancer cells. Metformin changed gene expression at the level of translation to an extent comparable to the classic mTOR inhibitors. Its antiproliferative effect could be explained by selective suppression of translation of mRNAs encoding cell-cycle regulators, acting through the mTORC1 / 4E-BP pathway. The paper provided evidence that metformin's effect on cell growth in vitro goes through selective translational control rather than a general drop in protein synthesis. Boundary: Cultured cancer cells at drug concentrations used in vitro; does not show that metformin at clinical doses acts this way in patients. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/LAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAR2012.json"
+   },
+   {
+    "sid": "COS2009",
+    "title": "Translational control of long-lasting synaptic plasticity and memory",
+    "authors": "Costa-Mattioli M; Sossin WS; Klann E; Sonenberg N",
+    "year": 2009,
+    "journal": "Neuron",
+    "doi": "10.1016/j.neuron.2008.10.055",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19146809",
+    "pmcid": "PMC5154738",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative review (no new data): genetic, physiological, pharmacological and biochemical studies in rodents, Aplysia and Drosophila",
+    "peer_reviewed": true,
+    "finding": "This review gathers evidence that long-lasting synaptic plasticity and long-term memory depend on new protein synthesis, and that the step where mRNA translation starts is a main control point. It covers two arms: the mTORC1 arm (4E-BP2, eIF4E, S6K) that controls cap-dependent translation, and the eIF2alpha arm (GCN2, PKR, ATF4) that controls general translation and specific mRNAs. It also discusses how faulty translational control is linked to disorders such as fragile X syndrome and tuberous sclerosis. It is a summary of work by many labs and gives the field a shared framework rather than new data. Boundary: narrative review; the cited evidence is mainly from rodent slices, rodent behaviour and invertebrate models, not from people.",
+    "url": "https://mtor-atlas.org/study/COS2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COS2009.json"
+   },
+   {
+    "sid": "TAN2002",
+    "title": "A rapamycin-sensitive signaling pathway contributes to long-term synaptic plasticity in the hippocampus",
+    "authors": "Tang SJ; Reis G; Kang H; Gingras AC; Sonenberg N; Schuman EM",
+    "year": 2002,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.012605299",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11756682",
+    "pmcid": "PMC117583",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat and mouse hippocampal slices (field recordings, immunostaining); cultured rat hippocampal neurons; Western blot of rat hippocampus",
+    "peer_reviewed": true,
+    "finding": "The authors showed that mTOR, 4E-BP1, 4E-BP2 and eIF4E are present in rat hippocampus and sit in dendrites, close to synapses, where their staining overlapped with the postsynaptic protein PSD-95. Blocking mTOR with rapamycin in hippocampal slices reduced late-phase long-term potentiation (LTP) after high-frequency stimulation, while early-phase LTP was unaffected. Rapamycin also blocked the synaptic potentiation induced by the growth factor BDNF. This was one of the early papers to tie a rapamycin-sensitive pathway to the protein-synthesis-dependent phase of synaptic plasticity and to suggest it controls local translation at synapses. Boundary: rodent brain slices and cultured neurons; mTOR targets were localised but their phosphorylation during LTP was not reported in the abstract; no behaviour or memory test.",
+    "url": "https://mtor-atlas.org/study/TAN2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/TAN2002.json"
+   },
+   {
+    "sid": "GKO2013",
+    "title": "Autism-related deficits via dysregulated eIF4E-dependent translational control",
+    "authors": "Gkogkas CG; Khoutorsky A; Ran I; Rampakakis E; Nevarko T; Weatherill DB; Vasuta C; Yee S; Truitt M; Dallaire P; Major F; Lasko P; Ruggero D; Nader K; Lacaille JC; Sonenberg N",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature11628",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23172145",
+    "pmcid": "PMC4133997",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Eif4ebp2 knockout mice and betaT-Eif4e (eIF4E-overexpressing) mice; hippocampal slices and slice cultures; MEF reporter assays; icv 4EGI-1 and lentiviral shRNA",
+    "peer_reviewed": true,
+    "finding": "Mice lacking 4E-BP2, the main brain brake on eIF4E downstream of mTORC1, showed autism-like behaviours: reduced social approach in the three-chamber test, more self-grooming and marble burying, and more ultrasonic calls as pups. Polysome profiling of hippocampus showed that, of 24 autism-linked mRNAs tested, only the neuroligin 1-4 mRNAs shifted to heavier polysomes in the knockout, with no change in their mRNA levels or in global protein synthesis; eIF4E-overexpressing mice showed the same neuroligin shift. Knockout neurons had larger excitatory than inhibitory synaptic charge transfer, raising the excitation/inhibition ratio. Five days of brain infusion of 4EGI-1, which blocks eIF4E binding to eIF4G, brought cap-bound eIF4E/eIF4G and neuroligin levels back to normal and reversed the social deficit, and knocking down neuroligin 1 (but not neuroligin 2) partly restored social behaviour. Boundary: mouse genetic models (male mice for behaviour); mTOR itself was not manipulated; the link to human autism is by analogy.",
+    "url": "https://mtor-atlas.org/study/GKO2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GKO2013.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "4EBP1-EIF4E",
+    "claim": "4E-BP1 inhibits eIF4E",
+    "source": {
+     "name": "4E-BP1",
+     "entity": "4e-bp1"
+    },
+    "target": {
+     "name": "eIF4E",
+     "entity": "eif4e"
+    },
+    "effect": "inhibits",
+    "type": "competitive-inhibition",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Unphosphorylated 4E-BP1 clamps onto eIF4E and stops it assembling the cap-binding complex. mTORC1 phosphorylates 4E-BP1 to release that grip - so the brake on translation is released, not the accelerator pressed.",
+    "mechanism_beginner": "Untagged 4E-BP1 clamps onto eIF4E and blocks it; mTORC1 tags 4E-BP1 to make it let go – releasing a brake, not pressing an accelerator.",
+    "context": null,
+    "boundary": "Biochemical and cell-culture evidence (in vitro assays, mammalian and mouse cells, plus one review). It establishes the binding switch itself. It does not measure how much translation changes in a given tissue, in whole animals or in people.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MAX2009",
+      "THO2012",
+      "SCH2003",
+      "FIN2002"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/4EBP1-EIF4E/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-EIF4E.json"
+   },
+   {
+    "id": "4EBP1-LONGEVITY",
+    "claim": "4E-BP1 activates Longevity",
+    "source": {
+     "name": "4E-BP1",
+     "entity": "4e-bp1"
+    },
+    "target": {
+     "name": "Longevity",
+     "entity": "longevity"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": null,
+    "map_band": "outcome",
+    "species": [
+     "fly"
+    ],
+    "mechanism": "Keeping 4E-BP active extends lifespan under dietary restriction in flies, by enhancing mitochondrial activity. One of the few places where a single downstream node, not the whole pathway, carries the lifespan effect.",
+    "mechanism_beginner": "Keeping 4E-BP switched on extends lifespan in fruit flies on a restricted diet, by protecting their mitochondria.",
+    "context": null,
+    "boundary": "Fly only, and only under dietary restriction - the effect was not seen on a full diet.",
+    "boundary_tags": [
+     "diet-dependent",
+     "single-species",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "Boundary condition matters more than the headline here.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "ZID2009"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/4EBP1-LONGEVITY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-LONGEVITY.json"
+   },
+   {
+    "id": "4EBP1-MITO",
+    "claim": "4E-BP1 context-dependent Mitochondrial biogenesis",
+    "source": {
+     "name": "4E-BP1",
+     "entity": "4e-bp1"
+    },
+    "target": {
+     "name": "Mitochondrial biogenesis",
+     "entity": "mitochondrial-biogenesis"
+    },
+    "effect": "context-dependent",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "mito",
+    "map_band": "mito",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "In mammalian cells (MOR2013) 4E-BPs repress translation of nucleus-encoded mitochondrial mRNAs, so mTORC1 raises mitochondrial output by inhibiting them; this arm is less rapamycin-sensitive than the S6K arm. In flies on dietary restriction (ZID2009) upregulated 4E-BP instead enhances translation of mitochondrial respiratory mRNAs. The sign depends on organism and nutrient state, so it is drawn as conditional.",
+    "mechanism_beginner": "The 4E-BP branch helps set how many mitochondrial proteins get built. In mammalian cells it holds them back; in fruit flies on a restricted diet it boosts them, so the direction depends on the organism and the diet.",
+    "context": null,
+    "boundary": "Scope: mammalian cells, MOR2013. The sign holds where 4E-BP represses translation of nuclear-encoded mitochondrial mRNAs (TFAM, mitochondrial ribosomal proteins), which is why this branch survives rapamycin better than the S6K arm. It does NOT hold universally across species and nutrient states: in Drosophila under dietary restriction, ZID2009 reports that 4E-BP ENHANCES mitochondrial activity, and that this is how it extends lifespan. Treat the mammalian-cell direction as scoped, not general.",
+    "boundary_tags": [
+     "cell-line-only",
+     "diet-dependent",
+     "nutrient-state-dependent",
+     "single-study"
+    ],
+    "conflict": {
+     "type": "Different context",
+     "basis": "In mammalian cells mTORC1 promotes translation of nucleus-encoded mitochondria-related mRNAs by inhibiting 4E-BP (MOR2013). In Drosophila under dietary restriction ZID2009 reports the opposite sign: 4E-BP is upregulated and enhances mitochondrial activity."
+    },
+    "note": "ZID2009 is recorded as conflicting evidence on this edge (moved out of the supporting list on 2026-08-30): its own title says 4E-BP ENHANCES mitochondrial activity under dietary restriction in flies, which is the opposite sign to this mammalian-cell edge.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MOR2013"
+     ],
+     "conflicting": [
+      "ZID2009"
+     ]
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/4EBP1-MITO/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/4EBP1-MITO.json"
+   },
+   {
+    "id": "MTORC1-4EBP1",
+    "claim": "mTORC1 inhibits 4E-BP1",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "4E-BP1",
+     "entity": "4e-bp1"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "mTORC1 phosphorylates 4E-BP1, which lets go of eIF4E and frees cap-dependent translation. Rapamycin blocks this arm only partially - the origin of the whole 'rapamycin-resistant output' problem.",
+    "mechanism_beginner": "mTORC1 tags 4E-BP1 so it lets go of another protein, freeing up protein-building – but the standard drug (rapamycin) only partly blocks this step.",
+    "context": null,
+    "boundary": "Cell and in vitro evidence (human and mouse cells, with C. elegans RNAi in one study). Rapamycin blocks this phosphorylation only partly, and individual sites differ in how sensitive they are (KAN2013). Not shown in people by these studies.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BUR1998",
+      "HARA2002",
+      "FEL2009",
+      "GIN1999",
+      "KAN2013",
+      "HAR1998",
+      "BRU1997",
+      "NOJ2003",
+      "SAT2010",
+      "SCH2003"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-4EBP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-4EBP1.json"
+   }
+  ]
+ }
+}

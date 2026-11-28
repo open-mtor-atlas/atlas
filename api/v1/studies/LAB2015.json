@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LAB2015",
+  "title": "mTOR regulates the pro-tumorigenic senescence-associated secretory phenotype by promoting IL1A translation",
+  "authors": "Laberge RM; Sun Y; Orjalo AV; Patil CK; Freund A; Zhou L; Curran SC; Davalos AR; Wilson-Edell KA; Liu S; Limbad C; Demaria M; Li P; Hubbard GB; Ikeno Y; Javors M; Desprez PY; Benz CC; Kapahi P; Nelson PS; Campisi J",
+  "year": 2015,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb3195",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "26147250",
+  "pmcid": "PMC4691706",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells + mouse xenografts",
+  "peer_reviewed": true,
+  "finding": "Explained HOW rapamycin calms 'inflammaging'. Senescent cells spew inflammatory signals (the SASP) that damage surrounding tissue and even feed tumors. mTOR powers this by translating IL1A, the cytokine at the top of the cascade. Rapamycin selectively shuts it down - and blocked senescent cells from fueling prostate tumor growth in mice.",
+  "url": "https://mtor-atlas.org/study/LAB2015/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LAB2015.json",
+  "abstract_excerpt": "The TOR (target of rapamycin) kinase limits longevity by poorly understood mechanisms. Rapamycin suppresses the mammalian TORC1 complex, which regulates translation, and extends lifespan in diverse species, including mice. We show that rapamycin selectively blunts the pro-inflammatory phenotype of senescent cells. Cellular senescence suppresses cancer by preventing cell proliferation. However, as senescent cells accumulate with age, the senescence-associated secretory phenotype (SASP) can disrupt tissues and contribute to age-related pathologies, including cancer.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (mTORC1 inhibition)",
+   "target": "mTORC1 / IL1A / SASP",
+   "species": "Human cells + mouse xenografts",
+   "effect": "Rapamycin blunts the pro-tumorigenic senescence-associated secretory phenotype by suppressing IL1A translation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "senescence-associated-secretory-phenotype-sasp",
+    "name": "Senescence-associated secretory phenotype (SASP)",
+    "type": "Biological process"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-SENESCENCE"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H10"
+  ],
+  "related_studies": [
+   "CHEN2026C",
+   "NAR2011",
+   "TRI2026",
+   "WAN2017"
+  ]
+ }
+}

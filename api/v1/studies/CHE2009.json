@@ -1,0 +1,101 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CHE2009",
+  "title": "mTOR regulation and therapeutic rejuvenation of aging hematopoietic stem cells",
+  "authors": "Chen C; Liu Y; Liu Y; Zheng P",
+  "year": 2009,
+  "journal": "Science Signaling",
+  "doi": "10.1126/scisignal.2000559",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19934433",
+  "pmcid": "PMC4020596",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (HSC)",
+  "peer_reviewed": true,
+  "finding": "mTOR hyperactivation drives HSC aging; rapamycin restores hematopoietic stem-cell function.",
+  "url": "https://mtor-atlas.org/study/CHE2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CHE2009.json",
+  "abstract_excerpt": "Age-related declines in hematopoietic stem cell (HSC) function may contribute to anemia, poor response to vaccination, and tumorigenesis. Here, we show that mammalian target of rapamycin (mTOR) activity is increased in HSCs from old mice compared to those from young mice. mTOR activation through conditional deletion of Tsc1 in the HSCs of young mice mimicked the phenotype of HSCs from aged mice in various ways.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic (Tsc1 deletion) + rapamycin",
+   "target": "mTOR / TSC1",
+   "species": "Mouse (hematopoietic stem cells)",
+   "effect": "mTOR is elevated in aged HSCs; rapamycin rejuvenates HSC function and immune response",
+   "dose": "4 mg/kg rapamycin by i.p. injection every other day for 6 weeks",
+   "sample_size": "9/12 vehicle-treated old mice succumbed to infection",
+   "effect_size": "Pretreatment with rapamycin increased antigen-specific IgG by approximately 10 times; all rapamycin-treated mice were protected from lethal influenza infection, compared to 75% mortality in vehicle-treated old mice.",
+   "limitations": "not stated"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "cellular-senescence",
+    "name": "Cellular senescence",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H7"
+  ],
+  "related_studies": [
+   "JIN2026C",
+   "KEL2026",
+   "CHEN2026C",
+   "WEI2008"
+  ]
+ }
+}

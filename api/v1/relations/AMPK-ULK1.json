@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-ULK1",
+  "claim": "AMPK activates ULK1",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "ULK1",
+   "entity": "ulk1"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "AMPK phosphorylates ULK1 at sites distinct from mTORC1's inhibitory S757 site. The classic reading is that low energy therefore switches autophagy on directly, not only by releasing the mTORC1 brake; that reading is now disputed (see boundary).",
+  "mechanism_beginner": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
+  "context": null,
+  "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. PAR2023 (Park, Lee and Kim, Nat Commun 2023, PMID 37225695) reports that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
+  "boundary_tags": [
+   "direction-contested"
+  ],
+  "conflict": {
+   "type": "Opposing result",
+   "basis": "EGA2010 and KIM2011 report that AMPK phosphorylates ULK1 and thereby promotes autophagy. PAR2023 reports that under glucose starvation and mitochondrial energy stress the LKB1-AMPK axis inhibits ULK1 activation and autophagy induction."
+  },
+  "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "EGA2010",
+    "KIM2011",
+    "DAL2016"
+   ],
+   "conflicting": [
+    "PAR2023"
+   ]
+  },
+  "external_refs": [
+   {
+    "pmid": "37225695",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/37225695/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/AMPK-ULK1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-ULK1.json"
+ }
+}

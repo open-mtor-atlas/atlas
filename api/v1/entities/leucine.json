@@ -1,0 +1,476 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "leucine",
+  "name": "Leucine",
+  "type": "Nutrient/Metabolite",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": null,
+   "reason": "Gene and protein identifiers do not apply to the type \"Nutrient/Metabolite\"."
+  },
+  "description": "Branched-chain essential amino acid and the best-characterised nutrient input to mTORC1. Free leucine binds Sestrin2, releasing the GATOR2 brake; a competing model has leucyl-tRNA synthetase as the sensor instead.",
+  "study_count": 13,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/nutrient/leucine/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/leucine.json",
+  "description_beginner": "An essential amino acid and the best-understood dietary trigger for mTORC1. Free leucine binds to the sensor Sestrin2, releasing its brake on GATOR2; a rival idea says the real sensor is actually an enzyme called leucyl-tRNA synthetase (LARS) instead.",
+  "reading_levels": {
+   "beginner": "The amino acid the cell watches most closely.",
+   "student": "Essential BCAA; its cytosolic concentration is read by Sestrin2 and (contested) by LARS.",
+   "research": "Binds Sestrin2 with ~20 µM Kd – within the range over which intracellular leucine actually fluctuates, which is the main argument that Sestrin2 is a physiological sensor rather than a binder."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "WOL2015",
+    "title": "Sestrin2 is a leucine sensor for the mTORC1 pathway",
+    "authors": "Wolfson RL; Chantranupong L; Saxton RA; Shen K; Scaria SM; Cantor JR; Sabatini DM",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aab2674",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "26449471",
+    "pmcid": "PMC4698017",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Sestrin2 is a direct leucine sensor whose leucine binding releases GATOR2 to activate mTORC1.",
+    "url": "https://mtor-atlas.org/study/WOL2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WOL2015.json"
+   },
+   {
+    "sid": "SAX2015",
+    "title": "Structural basis for leucine sensing by the Sestrin2-mTORC1 pathway",
+    "authors": "Saxton RA; Knockenhauer KE; Wolfson RL; Chantranupong L; Pacold ME; Wang T; Schwartz TU; Sabatini DM",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.aad2087",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "26586190",
+    "pmcid": "PMC4698039",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines (crystal structure)",
+    "peer_reviewed": true,
+    "finding": "Solves the crystal structure of Sestrin2 bound to leucine, revealing the molecular pocket that lets it act as mTORC1's dedicated leucine sensor.",
+    "url": "https://mtor-atlas.org/study/SAX2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAX2015.json"
+   },
+   {
+    "sid": "HAN2012",
+    "title": "Leucyl-tRNA synthetase is an intracellular leucine sensor for the mTORC1-signaling pathway",
+    "authors": "Han JM; Jeong SJ; Park MC; Kim G; Kwon NH; Kim HK; Ha SH; Ryu SH; Kim S",
+    "year": 2012,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2012.02.044",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424946",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Leucyl-tRNA synthetase acts as an intracellular leucine sensor activating mTORC1 via the Rag pathway.",
+    "url": "https://mtor-atlas.org/study/HAN2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2012.json"
+   },
+   {
+    "sid": "JEW2015",
+    "title": "Metabolism. Differential regulation of mTORC1 by leucine and glutamine",
+    "authors": "Jewell JL; Kim YC; Russell RC; Yu FX; Park HW; Plouffe SW; Tagliabracci VS; Guan KL",
+    "year": 2015,
+    "journal": "Science",
+    "doi": "10.1126/science.1259472",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25567907",
+    "pmcid": "PMC4384888",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Glutamine activates mTORC1 via a Rag-independent, Arf1-dependent route distinct from leucine.",
+    "url": "https://mtor-atlas.org/study/JEW2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JEW2015.json"
+   },
+   {
+    "sid": "WYA2017",
+    "title": "mTORC1 Activator SLC38A9 Is Required to Efflux Essential Amino Acids from Lysosomes and Use Protein as a Nutrient",
+    "authors": "Wyant GA; Abu-Remaileh M; Wolfson RL; Chen WW; Freinkman E; Danai LV; Vander Heiden MG; Sabatini DM",
+    "year": 2017,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2017.09.046",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29053970",
+    "pmcid": "PMC5704964",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "SLC38A9 effluxes essential amino acids (e.g. leucine) from lysosomes to activate mTORC1.",
+    "url": "https://mtor-atlas.org/study/WYA2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WYA2017.json"
+   },
+   {
+    "sid": "ZHO2015",
+    "title": "Dynamic Visualization of mTORC1 Activity in Living Cells",
+    "authors": "Zhou X; Clister TL; Lowry PR; Seldin MM; Wong GW; Zhang J",
+    "year": 2015,
+    "journal": "Cell Reports",
+    "doi": "10.1016/j.celrep.2015.02.031",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25772363",
+    "pmcid": "PMC4567530",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines (live-cell FRET imaging, subcellularly targeted reporter)",
+    "peer_reviewed": true,
+    "finding": "TORCAR, described by its authors as the first genetically encoded FRET reporter of mTORC1 activity, lets mTORC1 be watched in living cells as it changes. It showed mTORC1 activity not only at the lysosome but also in the cytosol, nucleus and at the plasma membrane; growth factor spread activity widely, while a leucine surrogate kept it at the lysosome and nucleus. A growth-factor-induced calcium transient contributed to mTORC1 activity. The earliest live reader of mTORC1 held in the atlas.",
+    "url": "https://mtor-atlas.org/study/ZHO2015/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2015.json"
+   },
+   {
+    "sid": "SIN2013",
+    "title": "Control of amino-acid transport by antigen receptors coordinates the metabolic reprogramming essential for T cell differentiation",
+    "authors": "Sinclair LV; Rolf J; Emslie E; Shi YB; Taylor PM; Cantrell DA",
+    "year": 2013,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2556",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23525088",
+    "pmcid": "PMC3672957",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse T cells",
+    "peer_reviewed": true,
+    "finding": "Antigen-receptor-driven System-L (SLC7A5) amino-acid transport controls mTORC1 and T-cell differentiation.",
+    "url": "https://mtor-atlas.org/study/SIN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIN2013.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Smith M; Rotondo S; Walker S; Niewczas I; Zoncu R; Clark J; Ktistakis NT",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "RAO2026",
+    "title": "An SLC7A5-dependent nutrient-sensing circuit overcomes cisplatin tolerance via mTOR-autophagy signaling.",
+    "authors": "Rao P; Zhang T; Li Ju; Wei W; Xia X; Chen Q; Xu X; Feng X",
+    "year": 2026,
+    "journal": "Biochemical and Biophysical Research Communications",
+    "doi": "10.1016/j.bbrc.2026.154478",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42664821",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cell lines (genome-wide CRISPR-Cas9 screen)",
+    "peer_reviewed": true,
+    "finding": "A genome-wide CRISPR screen found that mTOR inhibition promotes cisplatin tolerance by activating cytoprotective autophagy — the opposite of the canonical view. SLC7A5 integrates this mTOR-autophagy axis, and leucine supplementation resensitises SLC7A5-expressing tumour cells to cisplatin.",
+    "url": "https://mtor-atlas.org/study/RAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RAO2026.json"
+   },
+   {
+    "sid": "SHIM2026",
+    "title": "D-Amino Acid Prodrug DLMEH Activates mTORC1 via Sestrin2 to Restore Muscle Protein Synthesis in Sarcopenia.",
+    "authors": "Shim JH; Lee JY; Ahn BK; Woo SW; Han J; Kim HS",
+    "year": 2026,
+    "journal": "Molecular Therapy",
+    "doi": "10.1016/j.ymthe.2026.09.007",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42723280",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat (dexamethasone-induced muscle atrophy); human primary myotubes",
+    "peer_reviewed": true,
+    "finding": "DLMEH, a D-leucine ester prodrug, binds Sestrin2 with leucine-like potency (Kd 28.3 uM, equivalent to L-leucine) and activates mTORC1 in a Sestrin2-dependent way. It restored protein synthesis in human myotubes and preserved muscle mass, grip strength and endurance in a rat dexamethasone-induced atrophy model (not an ageing sarcopenia model).",
+    "url": "https://mtor-atlas.org/study/SHIM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHIM2026.json"
+   },
+   {
+    "sid": "DAL2016",
+    "title": "A systems study reveals concurrent activation of AMPK and mTOR by amino acids",
+    "authors": "Dalle Pezze P; Ruf S; Sonntag AG; Langelaar-Makkinje M; Hall P; Heberle AM; Razquin Navas P; van Eunen K; Tölle RC; Schwarz JJ; Wiese H; Warscheid B; Deitersen J; Stork B; Fäßler E; Schäuble S; Hahn U; Horvatovich P; Shanley DP; Thedieck K",
+    "year": 2016,
+    "journal": "Nature Communications",
+    "doi": "10.1038/ncomms13254",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27869123",
+    "pmcid": "PMC5121333",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; amino acid re-addition time courses, quantitative proteomics and dynamic modelling",
+    "peer_reviewed": true,
+    "finding": "Adding amino acids back to starved cells switched on AMPK, PI3K and mTORC2 acutely and independently of mTORC1, at the same time as mTOR. AMPK activation ran through CaMKK-beta and, under amino acid sufficiency, AMPK kept autophagy going via ULK1. So the textbook picture of AMPK and mTORC1 as simple opposites does not hold in the first minutes after feeding - which matters for how the AMPK-ULK1 feedback arm behaves over time.",
+    "url": "https://mtor-atlas.org/study/DAL2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2016.json"
+   },
+   {
+    "sid": "BON2012",
+    "title": "Leucyl-tRNA synthetase controls TORC1 via the EGO complex",
+    "authors": "Bonfils G; Jaquenoud M; Bontron S; Ostrowicz C; Ungermann C; De Virgilio C",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.02.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424774",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae) genetics and biochemistry; LeuRS Cdc60 and EGO complex (Gtr1) interaction assays",
+    "peer_reviewed": true,
+    "finding": "In budding yeast, the leucyl-tRNA synthetase Cdc60 bound the Rag GTPase Gtr1, part of the EGO complex that activates TORC1, and this binding depended on leucine. The authors reported that the interaction was both necessary and sufficient to pass the leucine signal on to TORC1. When Cdc60 was busy editing wrongly charged tRNA(Leu), the interaction with Gtr1 was lost. The model is that TORC1 reads how well tRNA(Leu) is being charged as a stand-in for how much leucine the cell has. Together with Han et al. 2012 in human cells, it was one of the early papers to propose a tRNA synthetase as a leucine sensor upstream of the Rags. Boundary: Yeast only. The mammalian leucine sensor most widely accepted today is Sestrin2, and this yeast mechanism has not been reconciled with it. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/BON2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BON2012.json"
+   },
+   {
+    "sid": "COT2006",
+    "title": "Hypothalamic mTOR signaling regulates food intake",
+    "authors": "Cota D; Proulx K; Smith KA; Kozma SC; Thomas G; Woods SC; Seeley RJ",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1124147",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16690869",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rats (Long-Evans): fasting/refeeding, intracerebroventricular leucine, leptin and rapamycin; hypothalamic immunostaining and Western blot",
+    "peer_reviewed": true,
+    "finding": "In rats, hypothalamic mTOR signalling (phosphorylated S6K1 and S6) changed with energy status in specific hypothalamic regions and was found in NPY and POMC neurons of the arcuate nucleus. Injecting leucine into the brain ventricles raised hypothalamic mTOR signalling and lowered food intake and body weight. Leptin also raised hypothalamic mTOR activity, and blocking mTOR with rapamycin in the brain blunted leptin's effect on reducing food intake. The authors proposed that hypothalamic mTOR acts as a fuel sensor linked to how much an animal eats. Boundary: rats, direct brain (intracerebroventricular) dosing, short-term food intake; drawn from the abstract only, so doses and effect sizes are not given here.",
+    "url": "https://mtor-atlas.org/study/COT2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COT2006.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "LEU-LARS",
+    "claim": "Leucine activates LARS (leucyl-tRNA synthetase)",
+    "source": {
+     "name": "Leucine",
+     "entity": "leucine"
+    },
+    "target": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.",
+    "mechanism_beginner": "One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.",
+    "context": null,
+    "boundary": "Proposed before the Sestrin2 model and never cleanly reconciled with it.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study"
+    ],
+    "conflict": {
+     "type": "Field dispute",
+     "basis": "A competing model, not an opposing result, and the distinction is the reason the conflicting-studies list here is empty. HAN2012 proposes leucyl-tRNA synthetase as the intracellular leucine sensor for mTORC1. WOL2015 and SAX2015 identify Sestrin2 as a leucine sensor and are carried on their own edge (LEU-SESN2). Neither of those studies tested LARS and found it not to bind leucine, so neither is a conflicting result on this claim; they establish a second candidate sensor that the field has never reconciled with the first head-to-head. No study in this corpus has tested the two models against each other, which is why this edge is marked contested while listing no conflicting study."
+    },
+    "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/LEU-LARS/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-LARS.json"
+   },
+   {
+    "id": "LEU-SESN2",
+    "claim": "Leucine inhibits Sestrin2",
+    "source": {
+     "name": "Leucine",
+     "entity": "leucine"
+    },
+    "target": {
+     "name": "Sestrin2",
+     "entity": "sestrin2"
+    },
+    "effect": "inhibits",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells",
+     "rat"
+    ],
+    "mechanism": "Leucine binds a pocket inside Sestrin2 with roughly 20 uM affinity - close to the concentration at which cells actually feel leucine coming and going. The bound sensor can no longer hold GATOR2, so leucine effectively switches the brake off.",
+    "mechanism_beginner": "Leucine sticks to a pocket inside Sestrin2 and makes it let go of the next protein in line – that's how the cell notices leucine is around.",
+    "context": null,
+    "boundary": "Affinity was measured in vitro; whether the same 20 uM setpoint holds in tissues with different leucine transport is untested. VAL2025 (2025 cryo-EM) shows the leucine-induced shape change in Sestrin2 that releases GATOR2, again in purified protein and cultured cells. SHIM2026 is a 2026 rat study (dexamethasone-induced muscle atrophy, not an ageing model) with human myotubes; it tests a leucine-mimetic prodrug and supports Sestrin2-dependent mTORC1 activation, not the 20 uM leucine setpoint.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Structural",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "WOL2015",
+      "SAX2015",
+      "SHIM2026",
+      "VAL2025"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/LEU-SESN2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-SESN2.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAN2016",
+  "title": "Dynamics of mTORC1 activation in response to amino acids",
+  "authors": "Manifava M; Smith M; Rotondo S; Walker S; Niewczas I; Zoncu R; Clark J; Ktistakis NT",
+  "year": 2016,
+  "journal": "eLife",
+  "doi": "10.7554/eLife.19960",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "27725083",
+  "pmcid": "PMC5059141",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+  "peer_reviewed": true,
+  "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+  "url": "https://mtor-atlas.org/study/MAN2016/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json",
+  "abstract_excerpt": "Amino acids are essential activators of mTORC1 via a complex containing RAG GTPases, RAGULATOR and the vacuolar ATPase. Sensing of amino acids causes translocation of mTORC1 to lysosomes, an obligate step for activation. To examine the spatial and temporal dynamics of this translocation, we used live imaging of the mTORC1 component RAPTOR and a cell permeant fluorescent analogue of di-leucine methyl ester. Translocation to lysosomes is a transient event, occurring within 2 min of aa addition and peaking within 5 min.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Amino acid add-back",
+   "target": "mTORC1 / RAPTOR lysosomal translocation",
+   "species": "Human cell line",
+   "effect": "mTORC1 lysosomal translocation is transient (2-5 min) and precedes target phosphorylation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "leucine",
+    "name": "Leucine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ABU2017",
+   "ESP2026",
+   "ZON2011",
+   "PEN2011"
+  ]
+ }
+}

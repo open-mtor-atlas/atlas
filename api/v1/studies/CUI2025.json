@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CUI2025",
+  "title": "Structural basis for mTORC1 activation on the lysosomal membrane",
+  "authors": "Cui Z; Esposito A; Napolitano G; Ballabio A; Hurley JH",
+  "year": 2025,
+  "journal": "Nature",
+  "doi": "10.1038/s41586-025-09545-3",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "40963021",
+  "pmcid": "PMC12448111",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cryo-EM structure (human proteins, reconstituted on membranes) + validation in inducible RAPTOR-KO MEFs",
+  "peer_reviewed": true,
+  "finding": "Resolves how mTORC1 flips from 'parked on the lysosome' to 'catalytically switched on'. Reconstituting the whole assembly on membranes from purified Rheb, Rag GTPases, Ragulator and mTORC1, cryo-EM shows the kinase reaches full activity only after two separate anchoring steps: Rag-Ragulator first pulls it to within about 100 angstroms of the membrane, then Rheb pulls it to within about 40 angstroms, and only when Raptor and mTOR itself also touch the membrane directly do the catalytic residues line up for full activity. Growth-factor input (via Rheb) and nutrient input (via the Rags) are shown converging on the same physical docking event rather than acting through separate switches. Boundary: reconstituted on synthetic membranes from purified components — a structural/biochemical model, not a measurement inside a living cell.",
+  "url": "https://mtor-atlas.org/study/CUI2025/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2025.json",
+  "abstract_excerpt": "The mechanistic target of rapamycin complex 1 (mTORC1) integrates growth factor (GF) and nutrient signals to stimulate anabolic processes connected to cell growth and inhibit catabolic processes such as autophagy. GF signalling through the tuberous sclerosis complex regulates the lysosomally localized small GTPase RAS homologue enriched in brain (RHEB). Direct binding of RHEB-GTP to the mTOR kinase subunit of mTORC1 allosterically activates the kinase by inducing a large-scale conformational change. Here we reconstituted mTORC1 activation on membranes by RHEB, RAGs and Ragulator.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Structural/biochemical reconstitution (cryo-EM, membrane-bound complex)",
+   "target": "mTORC1-Rheb-Rag-Ragulator activation complex on membranes",
+   "species": "Human proteins, cell-free reconstitution on synthetic membranes; validation in inducible RAPTOR-knockout mouse embryonic fibroblasts",
+   "effect": "Four-step model of mTORC1 recruitment and activation on the lysosomal membrane, integrating growth-factor (Rheb) and nutrient (Rag-Ragulator) signals into one docking/activation mechanism"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LYSO-MTORC1",
+    "RAG-MTORC1",
+    "RHEB-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ROG2019",
+   "SAN2010",
+   "CUI2023",
+   "GOL2022"
+  ]
+ }
+}

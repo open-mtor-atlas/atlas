@@ -1,0 +1,230 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lars-leucyl-trna-synthetase",
+  "name": "LARS (leucyl-tRNA synthetase)",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:6512",
+   "uniprot": "Q9P2J5",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Enzyme that charges tRNA with leucine, proposed as an alternative intracellular leucine sensor acting as a GAP for RagD. Competes with the Sestrin2 model - an unresolved question in the field.",
+  "study_count": 2,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/lars-leucyl-trna-synthetase/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lars-leucyl-trna-synthetase.json",
+  "description_beginner": "An enzyme that loads the amino acid leucine onto its transport molecule (tRNA) so cells can build proteins. Some scientists think it might also work as a second sensor that tells mTORC1 when leucine is available - a rival idea to the more established Sestrin2 sensor, and the two ideas haven't been fully reconciled.",
+  "reading_levels": {
+   "beginner": "A contested second leucine detector.",
+   "student": "Proposed leucine sensor acting as a GAP for RagD.",
+   "research": "The moonlighting-GAP model has not reproduced cleanly across labs and competes with the Sestrin2 model; shown here as contested rather than omitted."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "HAN2012",
+    "title": "Leucyl-tRNA synthetase is an intracellular leucine sensor for the mTORC1-signaling pathway",
+    "authors": "Han JM; Jeong SJ; Park MC; Kim G; Kwon NH; Kim HK; Ha SH; Ryu SH; Kim S",
+    "year": 2012,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2012.02.044",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424946",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Leucyl-tRNA synthetase acts as an intracellular leucine sensor activating mTORC1 via the Rag pathway.",
+    "url": "https://mtor-atlas.org/study/HAN2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2012.json"
+   },
+   {
+    "sid": "BON2012",
+    "title": "Leucyl-tRNA synthetase controls TORC1 via the EGO complex",
+    "authors": "Bonfils G; Jaquenoud M; Bontron S; Ostrowicz C; Ungermann C; De Virgilio C",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.02.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22424774",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Budding yeast (Saccharomyces cerevisiae) genetics and biochemistry; LeuRS Cdc60 and EGO complex (Gtr1) interaction assays",
+    "peer_reviewed": true,
+    "finding": "In budding yeast, the leucyl-tRNA synthetase Cdc60 bound the Rag GTPase Gtr1, part of the EGO complex that activates TORC1, and this binding depended on leucine. The authors reported that the interaction was both necessary and sufficient to pass the leucine signal on to TORC1. When Cdc60 was busy editing wrongly charged tRNA(Leu), the interaction with Gtr1 was lost. The model is that TORC1 reads how well tRNA(Leu) is being charged as a stand-in for how much leucine the cell has. Together with Han et al. 2012 in human cells, it was one of the early papers to propose a tRNA synthetase as a leucine sensor upstream of the Rags. Boundary: Yeast only. The mammalian leucine sensor most widely accepted today is Sestrin2, and this yeast mechanism has not been reconciled with it. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/BON2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BON2012.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "LARS-RAG",
+    "claim": "LARS (leucyl-tRNA synthetase) activates Rag GTPases",
+    "source": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "target": {
+     "name": "Rag GTPases",
+     "entity": "rag-gtpases"
+    },
+    "effect": "activates",
+    "type": "gap-activity",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "In this model LARS acts as a GAP for RagD, doing for the RagC/D half what FLCN does - an alternative route from leucine to the Rags.",
+    "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
+    "context": null,
+    "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+    "boundary_tags": [
+     "cell-line-only",
+     "direction-contested",
+     "single-study"
+    ],
+    "conflict": {
+     "type": "Field dispute",
+     "basis": "A competing assignment of the same reaction, not an opposing result - which is why no conflicting study is listed. HAN2012 reports that leucyl-tRNA synthetase binds the Rag GTPases and acts as a GAP for RagD. The Atlas assigns GAP activity on the RagC/D half to FLCN/FNIP (FLCN-RAG, on LAW2019, SHE2019 and NAP2020). Those studies characterise FLCN as the RagC/D GAP but did not test LARS, so none of them reports the opposite of what this edge claims; the two assignments have simply never been reconciled against each other. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input."
+    },
+    "note": "See LEU-LARS.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/LARS-RAG/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LARS-RAG.json"
+   },
+   {
+    "id": "LEU-LARS",
+    "claim": "Leucine activates LARS (leucyl-tRNA synthetase)",
+    "source": {
+     "name": "Leucine",
+     "entity": "leucine"
+    },
+    "target": {
+     "name": "LARS (leucyl-tRNA synthetase)",
+     "entity": "lars-leucyl-trna-synthetase"
+    },
+    "effect": "activates",
+    "type": "binding",
+    "directness": "unresolved",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "A competing model: the enzyme that loads leucine onto tRNA doubles as the leucine sensor, binding free leucine directly.",
+    "mechanism_beginner": "One competing idea: the enzyme that loads leucine onto its transport molecule for protein-building doubles as the leucine sensor.",
+    "context": null,
+    "boundary": "Proposed before the Sestrin2 model and never cleanly reconciled with it.",
+    "boundary_tags": [
+     "direction-contested",
+     "single-study"
+    ],
+    "conflict": {
+     "type": "Field dispute",
+     "basis": "A competing model, not an opposing result, and the distinction is the reason the conflicting-studies list here is empty. HAN2012 proposes leucyl-tRNA synthetase as the intracellular leucine sensor for mTORC1. WOL2015 and SAX2015 identify Sestrin2 as a leucine sensor and are carried on their own edge (LEU-SESN2). Neither of those studies tested LARS and found it not to bind leucine, so neither is a conflicting result on this claim; they establish a second candidate sensor that the field has never reconciled with the first head-to-head. No study in this corpus has tested the two models against each other, which is why this edge is marked contested while listing no conflicting study."
+    },
+    "note": "CONTESTED with LEU-SESN2. Two published leucine sensors, both from strong labs, never resolved head-to-head. Prime Contradiction Engine seed.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAN2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/LEU-LARS/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LEU-LARS.json"
+   }
+  ]
+ }
+}

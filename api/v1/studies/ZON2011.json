@@ -1,0 +1,98 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZON2011",
+  "title": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase",
+  "authors": "Zoncu R; Bar-Peled L; Efeyan A; Wang S; Sancak Y; Sabatini DM",
+  "year": 2011,
+  "journal": "Science",
+  "doi": "10.1126/science.1207056",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22053050",
+  "pmcid": "PMC3211112",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells + cell-free reconstitution",
+  "peer_reviewed": true,
+  "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
+  "url": "https://mtor-atlas.org/study/ZON2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json",
+  "abstract_excerpt": "The mTOR complex 1 (mTORC1) protein kinase is a master growth regulator that is stimulated by amino acids. Amino acids activate the Rag guanosine triphosphatases (GTPases), which promote the translocation of mTORC1 to the lysosomal surface, the site of mTORC1 activation. We found that the vacuolar H(+)-adenosine triphosphatase ATPase (v-ATPase) is necessary for amino acids to activate mTORC1. The v-ATPase engages in extensive amino acid-sensitive interactions with the Ragulator, a scaffolding complex that anchors the Rag GTPases to the lysosome.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (v-ATPase)",
+   "target": "v-ATPase / Rag-Ragulator / mTORC1",
+   "species": "Human cells + cell-free reconstitution",
+   "effect": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LYSO-MTORC1",
+    "VATPASE-RAGULATOR"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H11"
+  ],
+  "related_studies": [
+   "ABU2017",
+   "ESP2026",
+   "MAN2016",
+   "PEN2011"
+  ]
+ }
+}

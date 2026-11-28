@@ -1,0 +1,196 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "spalt-related-salr",
+  "name": "Spalt-related (Salr)",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "non-human",
+   "reason": "This is not a human gene, so the human HGNC and UniProt identifiers do not apply."
+  },
+  "description": "Transcription factor in Drosophila identified as a novel inhibitor of mTORC1-mediated growth, activated by the integrated stress response to restrict anabolic processes during nutrient stress.",
+  "study_count": 1,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/spalt-related-salr/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/spalt-related-salr.json",
+  "description_beginner": "A gene switch found in fruit flies that blocks mTORC1-driven growth. It's turned on by the cell's stress-alarm system to slow down growth-related processes when nutrients are scarce.",
+  "reading_levels": {
+   "beginner": "A fly-only relay in this map.",
+   "student": "Drosophila transcription factor linking the ISR to TOR suppression.",
+   "research": "No established mammalian orthologue in this role; kept visible so the fly-derived longevity evidence is not silently generalised."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "DEN2026",
+    "title": "Spalt-related is an inhibitor of mTORC1-mediated growth activated by the integrated stress response",
+    "authors": "Deniz O; Liu Y; Kirkinen T; Kokki K; Gaertner K; Clavell-Revelles P; Mattila J; Hietakangas V",
+    "year": 2026,
+    "journal": "The EMBO Journal",
+    "doi": "10.1038/s44318-026-00858-1",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42436355",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster",
+    "peer_reviewed": true,
+    "finding": "Transcription factor Spalt-related (Salr) is a novel mTORC1 inhibitor in Drosophila activated by the integrated stress response, restricting anabolic growth and lipid storage during nutrient stress. Salr responds to a distinct, ISR-driven cue, acting convergently with FoxO rather than downstream of it.",
+    "url": "https://mtor-atlas.org/study/DEN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "ISR-SALR",
+    "claim": "Integrated stress response activates Spalt-related (Salr)",
+    "source": {
+     "name": "Integrated stress response",
+     "entity": "integrated-stress-response"
+    },
+    "target": {
+     "name": "Spalt-related (Salr)",
+     "entity": "spalt-related-salr"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "map_band": "nucleus",
+    "species": [
+     "fly"
+    ],
+    "mechanism": "The integrated stress response switches on Salr, a growth inhibitor - a route into mTORC1 that bypasses TSC and AMPK entirely.",
+    "mechanism_beginner": "The cell's stress-response system switches on a growth-blocking gene – a route to shutting down mTORC1 that skips right past TSC and AMPK.",
+    "context": null,
+    "boundary": "Fly only, and newly reported.",
+    "boundary_tags": [
+     "single-species",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "Thin and species-limited, but it is a genuinely different input route - worth showing as such.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "DEN2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ISR-SALR/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ISR-SALR.json"
+   },
+   {
+    "id": "SALR-MTORC1",
+    "claim": "Spalt-related (Salr) inhibits mTORC1",
+    "source": {
+     "name": "Spalt-related (Salr)",
+     "entity": "spalt-related-salr"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "unresolved",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "fly"
+    ],
+    "mechanism": "Salr suppresses mTORC1-driven growth downstream of stress signalling.",
+    "mechanism_beginner": "This stress-induced protein suppresses mTORC1-driven growth once stress signalling turns it on.",
+    "context": null,
+    "boundary": "One Drosophila study (DEN2026). Fly only and a single study; no mammalian or human data are cited for this edge.",
+    "boundary_tags": [
+     "single-species",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "DEN2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/SALR-MTORC1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/SALR-MTORC1.json"
+   }
+  ]
+ }
+}

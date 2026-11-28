@@ -1,0 +1,79 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "LOAD-MTORC1",
+  "claim": "Resistance exercise / mechanical load activates mTORC1",
+  "source": {
+   "name": "Resistance exercise / mechanical load",
+   "entity": "resistance-exercise-mechanical-load"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "hours",
+  "compartment": "lyso",
+  "map_band": "lyso",
+  "species": [
+   "human",
+   "mouse"
+  ],
+  "mechanism": "Mechanical loading raises mTORC1 signalling in skeletal muscle. In human volunteers, rapamycin blocked the early rise in muscle protein synthesis after one bout of contractions (DRU2009), so rapamycin-sensitive signalling takes part in this acute response. Rapamycin also lowered ERK1/2 and MNK1 signalling in the same volunteers, so the result does not show that mTORC1 alone carries the response.",
+  "mechanism_beginner": "Working a muscle raises mTORC1 activity in it. When volunteers took rapamycin, the early rise in muscle protein building after one workout was blocked, so in people, and not only in cell dishes, rapamycin-sensitive signalling takes part in that response. The drug also dampened a second signal (ERK1/2), so this does not prove that mTORC1 alone does the job. The map draws one arrow, but load reaches mTORC1 by several routes, and the study did not measure muscle growth.",
+  "context": null,
+  "boundary": "Compressed: load reaches mTORC1 through several routes, only some of which need IGF-1, and the map draws one arrow. The human evidence (DRU2009) is one acute bout, measured 1-2 h later: it shows that rapamycin-sensitive signalling takes part in the early rise in protein synthesis. It does not show that mTORC1 is the only required mediator, which upstream route carries the signal, or that muscle growth changes; muscle growth was not measured.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "established",
+   "human_relevance_label": "shown in people",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "DRU2009",
+    "BOD2001"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/LOAD-MTORC1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/LOAD-MTORC1.json"
+ }
+}

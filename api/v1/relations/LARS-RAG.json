@@ -1,0 +1,84 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "LARS-RAG",
+  "claim": "LARS (leucyl-tRNA synthetase) activates Rag GTPases",
+  "source": {
+   "name": "LARS (leucyl-tRNA synthetase)",
+   "entity": "lars-leucyl-trna-synthetase"
+  },
+  "target": {
+   "name": "Rag GTPases",
+   "entity": "rag-gtpases"
+  },
+  "effect": "activates",
+  "type": "gap-activity",
+  "directness": "unresolved",
+  "timescale": "seconds",
+  "compartment": "lyso",
+  "map_band": "lyso",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "In this model LARS acts as a GAP for RagD, doing for the RagC/D half what FLCN does - an alternative route from leucine to the Rags.",
+  "mechanism_beginner": "In that model, this enzyme flips the other Rag protein into its working shape – an alternative route from leucine to the Rags.",
+  "context": null,
+  "boundary": "Human cell biochemistry only, and cell-type dependence was never mapped. The reaction it claims - GAP activity on the RagC/D half - is the same reaction this Atlas assigns to FLCN, and the two assignments have never been reconciled head-to-head. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input.",
+  "boundary_tags": [
+   "cell-line-only",
+   "direction-contested",
+   "single-study"
+  ],
+  "conflict": {
+   "type": "Field dispute",
+   "basis": "A competing assignment of the same reaction, not an opposing result - which is why no conflicting study is listed. HAN2012 reports that leucyl-tRNA synthetase binds the Rag GTPases and acts as a GAP for RagD. The Atlas assigns GAP activity on the RagC/D half to FLCN/FNIP (FLCN-RAG, on LAW2019, SHE2019 and NAP2020). Those studies characterise FLCN as the RagC/D GAP but did not test LARS, so none of them reports the opposite of what this edge claims; the two assignments have simply never been reconciled against each other. Read together with LEU-LARS: if the upstream leucine-sensing claim does not hold, this edge loses its input."
+  },
+  "note": "See LEU-LARS.",
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "untested",
+   "human_relevance_label": "not tested in people",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "HAN2012"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/LARS-RAG/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/LARS-RAG.json"
+ }
+}

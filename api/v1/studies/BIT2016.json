@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BIT2016",
+  "title": "Transient rapamycin treatment can increase lifespan and healthspan in middle-aged mice",
+  "authors": "Bitto A; Ito TK; Pineda VV; LeTexier NJ; Huang HZ; Sutlief E; Tung H; Vizzini N; Chen B; Smith K; Meza D; Yajima M; Beyer RP; Kerr KF; Davis DJ; Gillespie CH; Snyder JM; Treuting PM; Kaeberlein M",
+  "year": 2016,
+  "journal": "eLife",
+  "doi": "10.7554/eLife.16351",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "27549339",
+  "pmcid": "PMC4996648",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (middle-aged)",
+  "peer_reviewed": true,
+  "finding": "Mice got rapamycin for only 3 months, starting at 20 to 21 months of age, and were then taken off it. A high injected dose (8 mg/kg a day) raised the males' remaining life expectancy after treatment by 60% (p = 0.02), which is a 16% longer median lifespan counted from birth. In females the same dose did not extend life (p = 0.26), and all 16 treated females examined had aggressive blood-cell tumours of the lymphoma type, against 6 of 12 controls, while other tumour types became rarer. A lower dose in the diet (126 ppm; the injected dose was estimated to equal about 378 ppm) raised post-treatment life expectancy by 42% in both sexes together and median lifespan by 13%, improved grip strength and rotarod performance, and changed the gut bacteria (more segmented filamentous bacteria). Boundary: mice only. The tumour counts come from small groups (12 to 16 per arm), side effects such as cataracts or testis changes were not tested at the dietary dose, and 'life expectancy' is counted from the end of treatment, so it makes the gain look larger than the change in total lifespan.",
+  "url": "https://mtor-atlas.org/study/BIT2016/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BIT2016.json",
+  "abstract_excerpt": "The FDA approved drug rapamycin increases lifespan in rodents and delays age-related dysfunction in rodents and humans. Nevertheless, important questions remain regarding the optimal dose, duration, and mechanisms of action in the context of healthy aging. Here we show that 3 months of rapamycin treatment is sufficient to increase life expectancy by up to 60% and improve measures of healthspan in middle-aged mice. This transient treatment is also associated with a remodeling of the microbiome, including dramatically increased prevalence of segmented filamentous bacteria in the small intestine.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (transient, 3 months)",
+   "target": "mTOR",
+   "species": "Mouse (middle-aged)",
+   "effect": "A 3-month rapamycin course in middle-aged mice, dose- and sex-dependent: the high injected dose (8 mg/kg) raised male life expectancy up to 60% but did NOT extend female lifespan (and shifted female cancers toward aggressive hematopoietic types); a lower dietary dose (126 ppm) raised survival in both sexes. Healthspan (grip, Rotarod) improved after treatment.",
+   "dose": "8 mg/kg rapamycin via intraperitoneal (i.p.) injections daily for 90 days, starting at 20–21 months of age.",
+   "sample_size": "Males: N=18 vehicle, N=17 rapamycin; Females: N=20 vehicle, N=20 rapamycin for survival analysis.",
+   "effect_size": "Male mice: 60% increase in median life expectancy from end of treatment (p=0.02) and 16% increase in overall median lifespan from birth (p=0.03). Female mice: no significant increase in survival (p=0.261), but increased incidence of aggressive hematopoietic cancers (16/16 vs 6/12 controls, p=0.002) and decreased non-hematopoietic neoplasms (1/16 vs 7/12 controls, p=0.004).",
+   "limitations": "No data on animals that may have died prior to receipt from NIA for lifespan curves."
+  },
+  "extracted_findings_review": {
+   "status": "corrected",
+   "reviewed_by": "Cowork session, 2026-10-09 (full text PMC4996648): extraction had lost the sex and dose limits that the curated text carried; corrected.",
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H3",
+   "H6"
+  ],
+  "related_studies": []
+ }
+}

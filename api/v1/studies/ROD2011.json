@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ROD2011",
+  "title": "mTOR kinase inhibition causes feedback-dependent biphasic regulation of AKT signaling",
+  "authors": "Rodrik-Outmezguine VS; Chandarlapaty S; Pagano NC; Poulikakos PI; Scaltriti M; Moskatel E; Baselga J; Guichard S; Rosen N",
+  "year": 2011,
+  "journal": "Cancer Discovery",
+  "doi": "10.1158/2159-8290.CD-11-0085",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22140653",
+  "pmcid": "PMC3227125",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cancer cells",
+  "peer_reviewed": true,
+  "finding": "mTOR kinase inhibition triggers feedback-dependent biphasic AKT reactivation, informing resistance.",
+  "url": "https://mtor-atlas.org/study/ROD2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ROD2011.json",
+  "abstract_excerpt": "mTOR kinase inhibitors block mTORC1 and mTORC2 and thus do not cause the mTORC2 activation of AKT observed with rapamycin. We now show, however, that these drugs have a biphasic effect on AKT. Inhibition of mTORC2 leads to AKT serine 473 (S473) dephosphorylation and a rapid but transient inhibition of AKT T308 phosphorylation and AKT signaling. However, inhibition of mTOR kinase also relieves feedback inhibition of receptor tyrosine kinases (RTK), leading to subsequent phosphoinositide 3-kinase activation and rephosphorylation of AKT T308 sufficient to reactivate AKT activity and signaling.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "ATP-competitive mTOR kinase inhibitors",
+   "target": "mTORC1/2 / AKT / RTK",
+   "species": "Cancer cells",
+   "effect": "In cancer cell lines, mTOR kinase inhibition causes feedback-dependent biphasic AKT regulation (transient inhibition then RTK-driven rebound)"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "atp-competitive-mtor-inhibitors",
+    "name": "ATP-competitive mTOR inhibitors",
+    "type": "Drug"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC2-AKT",
+    "TORIN-MTORC1",
+    "TORIN-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "FEL2009",
+   "GAR2009",
+   "JAN2010",
+   "CHR2009"
+  ]
+ }
+}

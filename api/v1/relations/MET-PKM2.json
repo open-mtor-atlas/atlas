@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MET-PKM2",
+  "claim": "Methionine binds PKM2",
+  "source": {
+   "name": "Methionine",
+   "entity": "methionine"
+  },
+  "target": {
+   "name": "PKM2",
+   "entity": "pkm2"
+  },
+  "effect": "binds",
+  "type": "binding",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "human cells"
+  ],
+  "mechanism": "Free methionine binds PKM2 in a recognition pocket separate from its catalytic site. Binding does not inhibit PKM2 as an enzyme: the sensing works independently of its glycolytic activity. What changes is PKM2's interaction with GATOR2: when methionine is present, PKM2 stops restraining GATOR2 (the restraining step is the separate PKM2-GATOR2 edge), so methionine switches that brake off. The binding was captured in living human cells with a photoaffinity methionine analogue and confirmed biochemically. This reads methionine itself, unlike SAMTOR, which reads the metabolite SAM.",
+  "mechanism_beginner": "Methionine sticks to PKM2. This does not switch the enzyme off; it just stops PKM2 from holding the brake on GATOR2. A second methionine detector next to SAMTOR.",
+  "context": "Parallel to, not a replacement for, SAM sensing by SAMTOR (SAM-SAMTOR): the two sensors read different molecules and act on different complexes (PKM2 on GATOR2, SAMTOR on GATOR1-KICSTOR). How much each contributes when methionine is restricted in a whole animal is untested.",
+  "boundary": "One study in cultured human cells (SANG2026): photoaffinity chemoproteomics plus biochemical validation. No affinity measurement in tissue, no animal or human test, and not yet replicated by another group. The direction (methionine binding relieves PKM2's restraint on GATOR2) is taken from the authors' abstract; the full text was not accessible when this link was written.",
+  "boundary_tags": [
+   "cell-line-only",
+   "single-study"
+  ],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "emerging",
+   "consensus_label": "emerging, few independent studies"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SANG2026"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/MET-PKM2/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MET-PKM2.json"
+ }
+}

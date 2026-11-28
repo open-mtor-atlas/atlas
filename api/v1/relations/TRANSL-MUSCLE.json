@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "TRANSL-MUSCLE",
+  "claim": "Protein synthesis activates Muscle growth",
+  "source": {
+   "name": "Protein synthesis",
+   "entity": "protein-synthesis"
+  },
+  "target": {
+   "name": "Muscle growth",
+   "entity": "muscle-growth"
+  },
+  "effect": "activates",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "days",
+  "compartment": null,
+  "map_band": "outcome",
+  "species": [
+   "mouse",
+   "mouse myotubes"
+  ],
+  "mechanism": "Sustained protein synthesis is what physically builds muscle; in mice, Akt/mTOR signalling is necessary and sufficient for hypertrophy (BOD2001). In people, blocking mTOR blunts the short-term rise in muscle protein synthesis after exercise (DRU2009); whether that changes how much muscle is gained over months was not measured.",
+  "mechanism_beginner": "Ongoing protein-building is what physically builds muscle; in mice, the signals that drive it are needed for muscle growth and are enough to cause it. In people, blocking mTOR blunts the rise in muscle protein-building after a single bout of exercise, but how much muscle is gained over months under the drug was not measured.",
+  "context": "Requires mechanical load. mTORC1 activation without loading does not reproduce healthy hypertrophy, and constitutive activation alone is not sufficient.",
+  "boundary": "Mouse (BOD2001) and cultured myotubes (ROM2001). The human study DRU2009 is cited on the step before this one (LOAD-MTORC1): rapamycin blocked the rise in muscle protein synthesis 1-2 h after one bout of contractions (and also blocked ERK1/2). It did not measure muscle growth, so it is not evidence for this arrow.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": "2026-10-10: DRU2009 moved off this arrow. It measured short-term protein synthesis, not muscle growth, and stays cited on LOAD-MTORC1. Human relevance plausible.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "BOD2001",
+    "ROM2001"
+   ],
+   "conflicting": [
+    "LAP2026"
+   ]
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/TRANSL-MUSCLE/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/TRANSL-MUSCLE.json"
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAR2013",
+  "title": "A Tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1",
+  "authors": "Bar-Peled L; Chantranupong L; Cherniack AD; Chen WW; Ottina KA; Grabiner BC; Spear ED; Carter SL; Meyerson M; Sabatini DM",
+  "year": 2013,
+  "journal": "Science",
+  "doi": "10.1126/science.1232044",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "23723238",
+  "pmcid": "PMC3728654",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells + cancer genomics",
+  "peer_reviewed": true,
+  "finding": "Found the OFF switch for amino acid signaling: the GATOR1 complex is a GAP that shuts the Rag GTPases (and thus mTORC1) down when amino acids run low, while GATOR2 opposes it. GATOR1 genes are mutated in cancers, making those tumors 'blind' to starvation and hypersensitive to rapamycin.",
+  "url": "https://mtor-atlas.org/study/BAR2013/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2013.json",
+  "abstract_excerpt": "The mTOR complex 1 (mTORC1) pathway promotes cell growth in response to many cues, including amino acids, which act through the Rag guanosine triphosphatases (GTPases) to promote mTORC1 translocation to the lysosomal surface, its site of activation. Although progress has been made in identifying positive regulators of the Rags, it is unknown if negative factors also exist. Here, we identify GATOR as a complex that interacts with the Rags and is composed of two subcomplexes we call GATOR1 and -2.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (GATOR1/GATOR2)",
+   "target": "GATOR / Rag GTPases / mTORC1",
+   "species": "Human cells + cancer genomics",
+   "effect": "GATOR1 is a GAP for RagA/B (negative regulator); GATOR2 acts positively; GATOR1 lost in some cancers"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "gator2",
+    "name": "GATOR2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "gator1",
+    "name": "GATOR1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "GATOR1-RAG",
+    "GATOR2-GATOR1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHA2016",
+   "JAN2025",
+   "SANG2026",
+   "VAL2022"
+  ]
+ }
+}

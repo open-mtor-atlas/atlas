@@ -1,0 +1,1186 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ampk",
+  "name": "AMPK",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "AMP-activated protein kinase",
+   "AMPK alpha",
+   "PRKAA1",
+   "PRKAA2",
+   "AMPKα1",
+   "AMPKα2"
+  ],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "group",
+   "reason": "This record names a complex, a protein family or a pair of proteins, so one gene identifier would claim more than the Atlas knows."
+  },
+  "description": "AMP-activated protein kinase; cellular energy sensor; inhibits mTORC1 under low-energy conditions.",
+  "study_count": 26,
+  "relation_count": 8,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/ampk/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/ampk.json",
+  "description_beginner": "The cell's energy-shortage alarm. When energy is running low, it switches on and puts the brakes on mTORC1.",
+  "reading_levels": {
+   "beginner": "The low-fuel sensor.",
+   "student": "Energy-stress kinase that both activates TSC2 and directly inhibits Raptor.",
+   "research": "αβγ heterotrimer. Two independent arms onto mTORC1 plus a direct arm onto ULK1, classically read as activating; whether AMPK activates or restrains ULK1 under energy stress is now disputed (see AMPK-ULK1)."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "ZHO2001",
+    "title": "Role of AMP-activated protein kinase in mechanism of metformin action",
+    "authors": "Zhou G; Myers R; Li Y; Chen Y; Shen X; Fenyk-Melody J; Wu M; Ventre J; Doebber T; Fujii N; Musi N; Hirshman MF; Goodyear LJ; Moller DE",
+    "year": 2001,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI13505",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11602624",
+    "pmcid": "PMC209533",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat; hepatocytes; skeletal muscle",
+    "peer_reviewed": true,
+    "finding": "Metformin activates AMPK, suppressing hepatic gluconeogenesis and lipogenesis.",
+    "url": "https://mtor-atlas.org/study/ZHO2001/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2001.json"
+   },
+   {
+    "sid": "LOF2011",
+    "title": "Ulk1-mediated phosphorylation of AMPK constitutes a negative regulatory feedback loop",
+    "authors": "Löffler AS; Alers S; Dieterle AM; Keppeler H; Franz-Wachtel M; Kundu M; Campbell DG; Wesselborg S; Alessi DR; Stork B",
+    "year": 2011,
+    "journal": "Autophagy",
+    "doi": "10.4161/auto.7.7.15451",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21460634",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse",
+    "peer_reviewed": true,
+    "finding": "ULK1 phosphorylates and inhibits AMPK in return, showing autophagy signaling is a bidirectional feedback loop, not a one-way switch.",
+    "url": "https://mtor-atlas.org/study/LOF2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LOF2011.json"
+   },
+   {
+    "sid": "KIM2011",
+    "title": "AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1",
+    "authors": "Kim J; Kundu M; Viollet B; Guan KL",
+    "year": 2011,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2152",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21258367",
+    "pmcid": "PMC3987946",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells",
+    "peer_reviewed": true,
+    "finding": "Revealed the tug-of-war over ULK1: the energy sensor AMPK phosphorylates ULK1 at activating sites to turn autophagy ON when energy is low, while mTORC1 phosphorylates a different site (Ser757) to keep it OFF and even blocks AMPK from reaching ULK1. Two opposing kinases wired to the same switch.",
+    "url": "https://mtor-atlas.org/study/KIM2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2011.json"
+   },
+   {
+    "sid": "GWI2008",
+    "title": "AMPK phosphorylation of raptor mediates a metabolic checkpoint",
+    "authors": "Gwinn DM; Shackelford DB; Egan DF; Mihaylova MM; Mery A; Vasquez DS; Turk BE; Shaw RJ",
+    "year": 2008,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2008.03.003",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18439900",
+    "pmcid": "PMC2674027",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Found a SECOND way the energy sensor AMPK shuts mTORC1 down. Besides acting through TSC2, AMPK directly phosphorylates Raptor - the core mTORC1 subunit - to halt growth when energy runs low. This 'metabolic checkpoint' is exactly the switch that drugs like metformin and exercise tap into.",
+    "url": "https://mtor-atlas.org/study/GWI2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GWI2008.json"
+   },
+   {
+    "sid": "HOW2017",
+    "title": "Metformin Inhibits Hepatic mTORC1 Signaling via Dose-Dependent Mechanisms Involving AMPK and the TSC Complex",
+    "authors": "Howell JJ; Hellberg K; Turner M; Talbott G; Kolar MJ; Ross DS; Hoxhaj G; Saghatelian A; Shaw RJ; Manning BD",
+    "year": 2017,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2016.12.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28089566",
+    "pmcid": "PMC5299044",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse liver + primary hepatocytes",
+    "peer_reviewed": true,
+    "finding": "Pinned down HOW the diabetes drug metformin - a major longevity candidate - actually reaches mTOR. In the liver, metformin lowers cellular energy, and at low doses this shuts down mTORC1 specifically through AMPK and the TSC complex. Direct mechanistic bridge between a widely-used drug, energy sensing, and the mTOR pathway.",
+    "url": "https://mtor-atlas.org/study/HOW2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HOW2017.json"
+   },
+   {
+    "sid": "INO2003",
+    "title": "TSC2 mediates cellular energy response to control cell growth and survival",
+    "authors": "Inoki K; Zhu T; Guan KL",
+    "year": 2003,
+    "journal": "Cell",
+    "doi": "10.1016/s0092-8674(03)00929-2",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "14651849",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Established the energy-sensing arm of the pathway. When energy runs low, AMPK phosphorylates TSC2, boosting its ability to shut mTOR down - protecting the cell from burning through resources and from starvation-induced death. One of the founding papers for how mTOR reads the cell's fuel gauge (complements the Akt-TSC2 growth-factor arm).",
+    "url": "https://mtor-atlas.org/study/INO2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/INO2003.json"
+   },
+   {
+    "sid": "SONH2026",
+    "title": "Urolithin A activates mitophagy via the AMPK-mTOR axis and modulates the gut-ceramide axis to ameliorate cardiac remodeling in HFpEF",
+    "authors": "Song H; Yun C; Choi Y; Jeong W; Kim Y; Kim J; Lee JY; Ryu D; Park SW; Oh CM",
+    "year": 2026,
+    "journal": "Experimental and Molecular Medicine",
+    "doi": "10.1038/s12276-026-01776-2",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42432192",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (HFpEF two-hit model)",
+    "peer_reviewed": true,
+    "finding": "Urolithin A ameliorates HFpEF cardiac remodeling in mice by activating AMPK and inhibiting mTOR to restore mitophagic flux, while simultaneously remodeling the gut microbiome-ceramide axis to reduce lipotoxic stress.",
+    "url": "https://mtor-atlas.org/study/SONH2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SONH2026.json"
+   },
+   {
+    "sid": "ZHU2026",
+    "title": "LKB1/AMPK deficiency aggravates mitochondrial DNA leakage via mTOR-dependent mitophagy damage in liver injury sensitized by trichloroethylene.",
+    "authors": "Zhu L; Wan C; Li Z; Fan X; Liu D; Jia X; Li H; Zhang J",
+    "year": 2026,
+    "journal": "Chemico-Biological Interactions",
+    "doi": "10.1016/j.cbi.2026.112261",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42462870",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "LKB1/AMPK deficiency exacerbates trichloroethylene-induced liver injury by impairing mTOR-regulated mitophagy and causing mitochondrial DNA leakage; rapamycin and AMPK activation are protective, nominating the LKB1/AMPK/mTOR axis as a candidate therapeutic target in mice; no human data.",
+    "url": "https://mtor-atlas.org/study/ZHU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHU2026.json"
+   },
+   {
+    "sid": "XIA2026",
+    "title": "Nutrient-sensing pathways in adult stem cells: Orchestrating homeostasis, aging, and disease",
+    "authors": "Xiao T; Xie Z; Yao L; Zhao K; Zeng YA; Hu C",
+    "year": 2026,
+    "journal": "Seminars in Cell & Developmental Biology",
+    "doi": "10.1016/j.semcdb.2026.103690",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42546460",
+    "pmcid": null,
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review (adult stem cells, multiple tissue systems)",
+    "peer_reviewed": true,
+    "finding": "Proposes an integrated framework in which mTOR, AMPK, sirtuins, and insulin/IGF-1 signaling jointly govern adult stem cell transitions between quiescence, activation, and differentiation; age-related dysregulation of this nutrient-sensing network drives stem cell exhaustion and tissue degeneration, and interventions (mTOR inhibitors, AMPK activators, NAD+ precursors, dietary strategies) can restore ASC function.",
+    "url": "https://mtor-atlas.org/study/XIA2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/XIA2026.json"
+   },
+   {
+    "sid": "DAL2016",
+    "title": "A systems study reveals concurrent activation of AMPK and mTOR by amino acids",
+    "authors": "Dalle Pezze P; Ruf S; Sonntag AG; Langelaar-Makkinje M; Hall P; Heberle AM; Razquin Navas P; van Eunen K; Tölle RC; Schwarz JJ; Wiese H; Warscheid B; Deitersen J; Stork B; Fäßler E; Schäuble S; Hahn U; Horvatovich P; Shanley DP; Thedieck K",
+    "year": 2016,
+    "journal": "Nature Communications",
+    "doi": "10.1038/ncomms13254",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27869123",
+    "pmcid": "PMC5121333",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; amino acid re-addition time courses, quantitative proteomics and dynamic modelling",
+    "peer_reviewed": true,
+    "finding": "Adding amino acids back to starved cells switched on AMPK, PI3K and mTORC2 acutely and independently of mTORC1, at the same time as mTOR. AMPK activation ran through CaMKK-beta and, under amino acid sufficiency, AMPK kept autophagy going via ULK1. So the textbook picture of AMPK and mTORC1 as simple opposites does not hold in the first minutes after feeding - which matters for how the AMPK-ULK1 feedback arm behaves over time.",
+    "url": "https://mtor-atlas.org/study/DAL2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2016.json"
+   },
+   {
+    "sid": "XIE2026",
+    "title": "Glutamine alleviates bisphenol A-induced jejunal injury in piglets involving mitochondrial function restoration and AMPK-mTOR signaling regulation.",
+    "authors": "Xie J; Liu Z; Liu W; Qin P; Liu M; Wang H; Di Y; Liu R; Yang W; Jiao N",
+    "year": 2026,
+    "journal": "Ecotoxicology and Environmental Safety",
+    "doi": "10.1016/j.ecoenv.2026.120698",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42660031",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Piglet; porcine intestinal epithelial cells",
+    "peer_reviewed": true,
+    "finding": "Glutamine supplementation alleviated bisphenol A-induced jejunal injury in piglets, restoring mitochondrial energy metabolism and barrier integrity alongside modulation of AMPK-mTOR signalling.",
+    "url": "https://mtor-atlas.org/study/XIE2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/XIE2026.json"
+   },
+   {
+    "sid": "YAN2026B",
+    "title": "Hepassocin prevents age-related liver senescence and facilitates liver regeneration by activating AMPK",
+    "authors": "Yang Y; Chen H; Xiang S; Wei Y; Zhang L; Sun A; E X; Wu F; Luo N; Liang F; Wu X; Wang C; Chen Z; Zhang Q; Chen X; Wu Q; Han Z; Li C; Yin R; Ren G; Li J; Zhao K; Gao H; Wang R; Yu M; Yang X",
+    "year": 2026,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "doi": "10.1038/s41392-026-02773-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42736285",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Aged mice (12-month-old) and Hepassocin(Fgl1)-knockout mice, partial-hepatectomy liver regeneration model; correlative human liver tissue (aged vs young)",
+    "peer_reviewed": true,
+    "finding": "Hepassocin (HPS/FGL1), a hepatokine, activates AMPK via an ANXA2-ERK-p90RSK-LKB1 cascade, restraining mTOR activity. Aged HPS-knockout mice show reduced LKB1/AMPK activation and elevated mTOR activity, impaired autophagy, exacerbated cellular senescence, and severely compromised liver regeneration after partial hepatectomy. AMPK agonist AICAR or exogenous HPS rescued the aging/regeneration phenotype.",
+    "url": "https://mtor-atlas.org/study/YAN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/YAN2026B.json"
+   },
+   {
+    "sid": "INO2006",
+    "title": "TSC2 integrates Wnt and energy signals via a coordinated phosphorylation by AMPK and GSK3 to regulate cell growth",
+    "authors": "Inoki K; Ouyang H; Zhu T; Lindvall C; Wang Y; Zhang X; Yang Q; Bennett C; Harada Y; Stankunas K; Wang CY; He X; MacDougald OA; You M; Williams BO; Guan KL",
+    "year": 2006,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2006.06.055",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16959574",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "TSC2 integrates Wnt and energy signals through coordinated AMPK and GSK3 phosphorylation.",
+    "url": "https://mtor-atlas.org/study/INO2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/INO2006.json"
+   },
+   {
+    "sid": "SPA2023",
+    "title": "Continuous sensing of nutrients and growth factors by the mTORC1-TFEB axis",
+    "authors": "Sparta B; Kosaisawe N; Pargett M; Patankar M; DeCuzzi N; Albeck JG",
+    "year": 2023,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.74903",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "37698461",
+    "pmcid": "PMC10547473",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MCF10A cells (live single-cell imaging, fluorescent TFEB fusions)",
+    "peer_reviewed": true,
+    "finding": "Live imaging of single MCF10A cells shows mTORC1-TFEB signalling adjusts continuously to amino acids and insulin, given alone, one after another or together; at physiological amino acid levels TFEB, AMPK and AKT activity fluctuate in step, and these graded changes track protein synthesis rate through a distributed set of mTORC1 effectors.",
+    "url": "https://mtor-atlas.org/study/SPA2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SPA2023.json"
+   },
+   {
+    "sid": "FOR2010",
+    "title": "Metformin inhibits hepatic gluconeogenesis in mice independently of the LKB1/AMPK pathway via a decrease in hepatic energy state",
+    "authors": "Foretz M; Hebrard S; Leclerc J; Zarrinpashneh E; Soty M; Mithieux G; Sakamoto K; Andreelli F; Viollet B",
+    "year": 2010,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI40671",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20577053",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (liver-specific AMPK-null and LKB1-null); primary hepatocytes",
+    "peer_reviewed": true,
+    "finding": "The paper that broke the simple 'metformin works through AMPK' story. Metformin still suppressed hepatic glucose production in mice and hepatocytes lacking AMPK or LKB1, acting instead through a fall in hepatic energy charge. Any claim that metformin's benefit is AMPK-mediated has to answer this result.",
+    "url": "https://mtor-atlas.org/study/FOR2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FOR2010.json"
+   },
+   {
+    "sid": "DEM2026",
+    "title": "IDH3 regulates citrate homeostasis to control metabolic fitness and venetoclax resistance of AML stem cells",
+    "authors": "Demir A; Mönnig M; Aroua N; Besiridou E; Schmidt V; Müller K; Renders S; Schulte F; Pouya A; Waclawiczek A; Leppä AM; Stumpf K; Sohn M; Depke D; Wuchter P; Karpova D; Donato E; Bonig H; Andresen C; Büttner M; Poschet G; Hübschmann D; Zamboni N; Sauer T; Trumpp A; Müller-Tidow C; Raffel S",
+    "year": 2026,
+    "journal": "Blood",
+    "doi": "10.1182/blood.2026034181",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42752592",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human AML patient samples, bone marrow organoids, xenograft mice",
+    "peer_reviewed": true,
+    "finding": "IDH3A loss in AML leukemic stem cells reduces TCA cycle flux and raises intracellular citrate, activating AMPK and suppressing mTORC1 (lowering translation), which sensitizes cells to BCL2 inhibition by venetoclax - nominating the IDH3A-citrate-AMPK-mTORC1 axis as a target to overcome venetoclax/azacitidine resistance.",
+    "url": "https://mtor-atlas.org/study/DEM2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2026.json"
+   },
+   {
+    "sid": "HAL2026",
+    "title": "5-Fluorouracil-based chemotherapy disrupts autophagy flux and protein synthesis in cultured myotubes: a role for mTORC1 signaling",
+    "authors": "Halle JL; Zhang Q; Jenkins T; Carson JA",
+    "year": 2026,
+    "journal": "American Journal of Physiology-Cell Physiology",
+    "doi": "10.1152/ajpcell.00321.2026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42734427",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C2C12 mouse myotubes (in vitro), with and without CT26 colon-tumor-cell-conditioned media",
+    "peer_reviewed": true,
+    "finding": "FOLFOX and oxaliplatin disrupted mTORC1/AMPK regulation of autophagy flux and protein synthesis in cultured myotubes; the effect was not easily reversible on drug withdrawal. Rapamycin (but not metformin) restored autophagy flux and AMPK phosphorylation, though without restoring protein synthesis.",
+    "url": "https://mtor-atlas.org/study/HAL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAL2026.json"
+   },
+   {
+    "sid": "SHW2004",
+    "title": "The tumor suppressor LKB1 kinase directly activates AMP-activated kinase and regulates apoptosis in response to energy stress",
+    "authors": "Shaw RJ; Kosmatka M; Bardeesy N; Hurley RL; Witters LA; DePinho RA; Cantley LC",
+    "year": 2004,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.0308061100",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "14985505",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "LKB1-null MEFs; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The paper that identified LKB1 as the upstream kinase for AMPK: LKB1 directly phosphorylates AMPK-alpha on Thr172, and LKB1-null cells cannot activate AMPK under energy stress. This is the canonical source for the LKB1 -> AMPK step that gates the whole energy-sensing arm upstream of mTORC1.",
+    "url": "https://mtor-atlas.org/study/SHW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHW2004.json"
+   },
+   {
+    "sid": "KAL2010",
+    "title": "Metformin, independent of AMPK, inhibits mTORC1 in a rag GTPase-dependent manner",
+    "authors": "Kalender A; Selvaraj A; Kim SY; Gulati P; Brûlé S; Viollet B; Kemp BE; Bardeesy N; Dennis P; Schlager JJ; Marette A; Kozma SC; Thomas G",
+    "year": 2010,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2010.03.014",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20444419",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells (AMPK-null and TSC1/2-null)",
+    "peer_reviewed": true,
+    "finding": "Metformin inhibits mTORC1 even in cells lacking AMPK or TSC1/TSC2, and the effect requires the Rag GTPases instead. Together with Foretz 2010 this places a large part of metformin's action outside the AMPK axis it is usually credited to.",
+    "url": "https://mtor-atlas.org/study/KAL2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAL2010.json"
+   },
+   {
+    "sid": "COR2004",
+    "title": "Regulation of the TSC pathway by LKB1: evidence of a molecular link between tuberous sclerosis complex and Peutz-Jeghers syndrome",
+    "authors": "Corradetti MN; Inoki K; Bardeesy N; DePinho RA; Guan KL",
+    "year": 2004,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.1199104",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15231735",
+    "pmcid": "PMC443516",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HeLa (LKB1-null) and HEK293 cells; Lkb1-null mouse embryonic fibroblasts; RNAi",
+    "peer_reviewed": true,
+    "finding": "Asked why two inherited tumour syndromes, tuberous sclerosis and Peutz-Jeghers syndrome, look so alike under the microscope. Re-expressing LKB1 in LKB1-null HeLa cells raised AMPK activation-loop phosphorylation and lowered phosphorylation of S6K and 4E-BP1, while knocking LKB1 down did the opposite. The effect on mTOR outputs needed both AMPK and TSC2, placing LKB1 upstream of the TSC2-mTOR axis through AMPK. Together with Shaw et al. 2004 this is one of the two papers that tied energy stress, via LKB1 and AMPK, to TSC2. Boundary: cultured cell lines with overexpression and knockdown; the tumour-syndrome link is an interpretation, not a test in patients.",
+    "url": "https://mtor-atlas.org/study/COR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/COR2004.json"
+   },
+   {
+    "sid": "SHAW2004",
+    "title": "The LKB1 tumor suppressor negatively regulates mTOR signaling",
+    "authors": "Shaw RJ; Bardeesy N; Manning BD; Lopez L; Kosmatka M; DePinho RA; Cantley LC",
+    "year": 2004,
+    "journal": "Cancer Cell",
+    "doi": "10.1016/j.ccr.2004.06.007",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15261145",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Lkb1-null mouse embryonic fibroblasts; cultured cells under low ATP; gastrointestinal polyps from Lkb1 mutant mice",
+    "peer_reviewed": true,
+    "finding": "Reported that LKB1 is needed to switch mTOR signalling off when cellular ATP falls, and that this requires AMPK and TSC2. Lkb1-null fibroblasts and the hamartomatous gut polyps of Lkb1 mutant mice showed raised signalling downstream of mTOR. The authors proposed mTOR inhibitors as a treatment idea for Peutz-Jeghers syndrome. Published alongside Corradetti et al. 2004, which reached the same LKB1-AMPK-TSC2 link independently. Boundary: worked from the abstract only (no PMC full text); cell and mouse data, the treatment suggestion was not tested here.",
+    "url": "https://mtor-atlas.org/study/SHAW2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHAW2004.json"
+   },
+   {
+    "sid": "BUD2008",
+    "title": "p53 target genes sestrin1 and sestrin2 connect genotoxic stress and mTOR signaling",
+    "authors": "Budanov AV; Karin M",
+    "year": 2008,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2008.06.028",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18692468",
+    "pmcid": "PMC2758522",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; Sesn2-deficient mice challenged with DNA damage",
+    "peer_reviewed": true,
+    "finding": "Connected DNA damage to mTOR. Two p53 target genes, Sestrin1 and Sestrin2, bound and activated AMPK and steered it to phosphorylate TSC2, which raised TSC2 GAP activity and lowered mTOR signalling. Sesn2-deficient mice failed to inhibit mTOR signalling after genotoxic challenge. This describes the stress-induced arm of Sestrin biology; the later leucine-sensing role of Sestrin2 through GATOR2 is a separate mechanism. Boundary: cell lines and mice under acute genotoxic stress; no human data.",
+    "url": "https://mtor-atlas.org/study/BUD2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BUD2008.json"
+   },
+   {
+    "sid": "JON2005",
+    "title": "AMP-activated protein kinase induces a p53-dependent metabolic checkpoint",
+    "authors": "Jones RG; Plas DR; Kubek S; Buzzai M; Mu J; Xu Y; Birnbaum MJ; Thompson CB",
+    "year": 2005,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2005.03.027",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15866171",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Proliferating mammalian cells under glucose deprivation; p53 serine-15 mutant cells",
+    "peer_reviewed": true,
+    "finding": "Described a glucose checkpoint at the G1/S boundary run by AMPK. Cells arrested when glucose ran short even though amino acids were present and mTOR stayed active, so this arrest works in parallel to mTOR rather than through it. AMPK phosphorylated p53 on serine 15, which was needed for the arrest; arrested cells re-entered the cycle when glucose returned, while persistent AMPK activation pushed them into p53-dependent senescence. Boundary: worked from the abstract only (no PMC full text); cultured cells.",
+    "url": "https://mtor-atlas.org/study/JON2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JON2005.json"
+   },
+   {
+    "sid": "ALE2010",
+    "title": "ATM signals to TSC2 in the cytoplasm to regulate mTORC1 in response to ROS",
+    "authors": "Alexander A; Cai SL; Kim J; Nanez A; Sahin M; MacLean KH; Inoki K; Guan KL; Shen J; Person MD; Kusewitt D; Mills GB; Kastan MB; Walker CL",
+    "year": 2010,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.0913860107",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "20160076",
+    "pmcid": "PMC2840158",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cell lines with ATM loss or ROS exposure; Atm-deficient mice treated with rapamycin",
+    "peer_reviewed": true,
+    "finding": "Described a cytoplasmic job for the DNA-damage kinase ATM. In response to raised ROS, ATM activated TSC2 through LKB1 and AMPK, which repressed mTORC1 and induced autophagy. ATM-deficient cells had high ROS and poorly controlled mTORC1, and rapamycin lowered both and delayed lymphoma formation in Atm-deficient mice. Boundary: worked from the abstract only (PMC record without retrievable text); cell lines and mice. Note that the Atlas edge ROS-MTORC1 describes the opposite sign in another context, so the effect of ROS on mTORC1 depends on source and setting.",
+    "url": "https://mtor-atlas.org/study/ALE2010/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALE2010.json"
+   },
+   {
+    "sid": "PEA2009",
+    "title": "Enhancing CD8 T-cell memory by modulating fatty acid metabolism",
+    "authors": "Pearce EL; Walsh MC; Cejas PJ; Harms GM; Shen H; Wang LS; Jones RG; Choi Y",
+    "year": 2009,
+    "journal": "Nature",
+    "doi": "10.1038/nature08097",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19494812",
+    "pmcid": "PMC2803086",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice with T-cell-specific TRAF6 deletion (CD4-cre), OT-I TCR-transgenic adoptive transfer, Listeria monocytogenes-OVA infection, EL4-OVA tumour vaccine model, and activated mouse CD8 T cells in vitro after IL-2 withdrawal",
+    "peer_reviewed": true,
+    "finding": "Mice whose T cells lacked the adaptor protein TRAF6 mounted a normal effector CD8 T-cell response to Listeria infection, but the antigen-specific cells vanished during contraction and almost no memory cells formed. The TRAF6-deficient cells failed to activate AMPK and mitochondrial fatty acid oxidation when the growth factor IL-2 was withdrawn. Daily metformin restored fatty acid oxidation and memory formation, and also raised memory CD8 T-cell numbers in normal mice: in a tumour vaccine model 6 of 9 metformin-treated mice survived beyond day 33 against 1 of 8 controls. Daily rapamycin (1.5 mg/kg), used as a second drug that promotes fatty acid oxidation, likewise increased memory CD8 T-cell development and recall responses. Boundary: mouse only, one bacterial infection model and one transplantable tumour; the rapamycin arm is a secondary experiment and mTOR activity itself was not measured in these cells.",
+    "url": "https://mtor-atlas.org/study/PEA2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEA2009.json"
+   },
+   {
+    "sid": "MIC2011",
+    "title": "Cutting edge: distinct glycolytic and lipid oxidative metabolic programs are essential for effector and regulatory CD4+ T cell subsets",
+    "authors": "Michalek RD; Gerriets VA; Jacobs SR; Macintyre AN; MacIver NJ; Mason EF; Sullivan SA; Nichols AG; Rathmell JC",
+    "year": 2011,
+    "journal": "Journal of Immunology",
+    "doi": "10.4049/jimmunol.1003613",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21317389",
+    "pmcid": "PMC3198034",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Primary mouse CD4 T cells polarised in vitro to Th1, Th2, Th17 and inducible Treg, with rapamycin, metformin or the CPT1 inhibitor etomoxir; Glut1-transgenic and Glut1-myc knock-in mice; OVA-driven allergic asthma model with metformin",
+    "peer_reviewed": true,
+    "finding": "Comparing CD4 T cells grown under effector and regulatory conditions, the authors showed that Th1, Th2 and Th17 cells carry high surface Glut1 and are strongly glycolytic, while inducible Treg carry little Glut1, oxidise lipid at a higher rate and have more phosphorylated AMPK. Blocking lipid oxidation with etomoxir selectively suppressed Treg generation and left effector differentiation intact, whereas removing glucose blocked Th17 but not Treg. Both rapamycin and metformin raised fatty acid oxidation in stimulated CD4 T cells, and etomoxir prevented the Treg increase produced by rapamycin or TGF-beta, which ties the pro-Treg effect of mTOR inhibition to lipid oxidation. In a mouse asthma model, metformin lowered Glut1 on activated CD4 T cells and increased the proportion and number of Treg in draining lymph nodes, although airway responsiveness itself did not change significantly. Boundary: mouse cells and one mouse allergic-airway model; mTOR inhibition is pharmacological (rapamycin) and mTOR activity was not measured directly, so the mTOR arm is inferred from drug effects.",
+    "url": "https://mtor-atlas.org/study/MIC2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MIC2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "AMPK-MITOPHAGY",
+    "claim": "AMPK activates Mitophagy",
+    "source": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "target": {
+     "name": "Mitophagy",
+     "entity": "mitophagy"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "mito",
+    "map_band": "mito",
+    "species": [
+     "mammalian cells",
+     "C. elegans",
+     "mouse"
+    ],
+    "mechanism": "AMPK can promote the clearance of damaged mitochondria, in part by phosphorylating ULK1: cells whose ULK1 cannot be phosphorylated by AMPK show defective mitophagy under starvation. How much AMPK contributes depends on the cell type and on the kind of energy stress.",
+    "mechanism_beginner": "The cell's energy sensor can help clear out damaged mitochondria, partly by switching on an autophagy starter kinase. How much it matters depends on the cell and on the kind of stress.",
+    "context": null,
+    "boundary": "Two studies of different kinds: EGA2010 (cells and C. elegans, AMPK-site mutant of ULK1) and ZHU2026 (mouse toxicology model, where LKB1/AMPK loss also went with mitochondrial DNA leakage and liver inflammation; that downstream link is shown only there). The upstream step is disputed: PAR2023 (Park, Lee and Kim, Nat Commun 2023, PMID 37225695, in this corpus) reports that under glucose starvation and mitochondrial energy stress AMPK restrains ULK1 activation and autophagy induction; see AMPK-ULK1, where it is recorded as the conflicting study. PAR2023 measured ULK1 activity, bulk autophagy and aggrephagy rather than mitophagy itself, so it bears on the upstream step and not directly on the mitophagy readout here.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "EGA2010",
+      "ZHU2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "37225695",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37225695/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/AMPK-MITOPHAGY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MITOPHAGY.json"
+   },
+   {
+    "id": "AMPK-MTORC1",
+    "claim": "AMPK inhibits mTORC1",
+    "source": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "target": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "AMPK also hits mTORC1 directly by phosphorylating Raptor, imposing a metabolic checkpoint independent of TSC.",
+    "mechanism_beginner": "AMPK also hits mTORC1 directly, adding a second, energy-based checkpoint on top of TSC.",
+    "context": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
+    "boundary": "Cell biochemistry in human and mouse cells (GWI2008) plus one study in aged mice (YAN2026B). Direct Raptor phosphorylation is shown in cells; how much it adds beside the TSC route in living tissue, and in people, is not shown.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "GWI2008",
+      "YAN2026B"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/AMPK-MTORC1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MTORC1.json"
+   },
+   {
+    "id": "AMPK-TSC",
+    "claim": "AMPK activates TSC1/TSC2",
+    "source": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "When energy runs low, AMPK phosphorylates TSC2 and strengthens the brake on Rheb.",
+    "mechanism_beginner": "When energy is low, AMPK tags TSC2 and makes the brake on Rheb stronger.",
+    "context": "Relative weight of this arm is cell-type dependent. AMPK reaches mTORC1 two ways – activating TSC2 and directly phosphorylating Raptor – and TSC2-null cells still suppress mTORC1 under energy stress, so the TSC2 arm is not universally the dominant one. Which arm carries the signal depends on TSC status, LKB1 status and the severity and duration of the energy stress.",
+    "boundary": "Mammalian cell biochemistry (INO2003, INO2006). Not tested in whole animals or in people by the cited studies.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "INO2003",
+      "INO2006",
+      "BUD2008"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/AMPK-TSC/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-TSC.json"
+   },
+   {
+    "id": "AMPK-ULK1",
+    "claim": "AMPK activates ULK1",
+    "source": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "AMPK phosphorylates ULK1 at sites distinct from mTORC1's inhibitory S757 site. The classic reading is that low energy therefore switches autophagy on directly, not only by releasing the mTORC1 brake; that reading is now disputed (see boundary).",
+    "mechanism_beginner": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
+    "context": null,
+    "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. PAR2023 (Park, Lee and Kim, Nat Commun 2023, PMID 37225695) reports that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
+    "boundary_tags": [
+     "direction-contested"
+    ],
+    "conflict": {
+     "type": "Opposing result",
+     "basis": "EGA2010 and KIM2011 report that AMPK phosphorylates ULK1 and thereby promotes autophagy. PAR2023 reports that under glucose starvation and mitochondrial energy stress the LKB1-AMPK axis inhibits ULK1 activation and autophagy induction."
+    },
+    "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "EGA2010",
+      "KIM2011",
+      "DAL2016"
+     ],
+     "conflicting": [
+      "PAR2023"
+     ]
+    },
+    "external_refs": [
+     {
+      "pmid": "37225695",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37225695/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/AMPK-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-ULK1.json"
+   },
+   {
+    "id": "LKB1-AMPK",
+    "claim": "LKB1 (STK11) activates AMPK",
+    "source": {
+     "name": "LKB1 (STK11)",
+     "entity": "lkb1-stk11"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "LKB1 is the main kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; in LKB1-null cells AMPK no longer responds to energy stress (SHW2004). It is not the only upstream kinase: CaMKK2 phosphorylates the same site when calcium rises, and LKB1-deficient cells keep some basal AMPK activity (Hawley 2005, PMID 16054095; Woods 2005, PMID 16054096; outside this corpus).",
+    "mechanism_beginner": "LKB1 is the main switch that turns AMPK on when energy runs low; in cells without it, AMPK no longer responds to low energy. A second kinase can still switch AMPK on when calcium rises, so AMPK is not completely silent.",
+    "context": null,
+    "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
+    "boundary_tags": [
+     "cell-line-only"
+    ],
+    "conflict": null,
+    "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SHW2004",
+      "COR2004"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [
+     {
+      "pmid": "16054095",
+      "cited_in": [
+       "mechanism"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16054095/"
+     },
+     {
+      "pmid": "16054096",
+      "cited_in": [
+       "mechanism"
+      ],
+      "in_corpus": false,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16054096/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/LKB1-AMPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LKB1-AMPK.json"
+   },
+   {
+    "id": "METFORMIN-AMPK",
+    "claim": "Metformin activates AMPK",
+    "source": {
+     "name": "Metformin",
+     "entity": "metformin"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Metformin shifts the cell's energy balance and AMPK switches on - the route it is usually credited to, and why it keeps appearing next to rapamycin in longevity discussions.",
+    "mechanism_beginner": "Metformin shifts the cell's energy balance and switches AMPK on – its best-known route to affecting this pathway.",
+    "context": null,
+    "boundary": "How much of metformin's effect actually runs through AMPK is disputed: it still suppresses hepatic gluconeogenesis in AMPK-null and LKB1-null mouse liver (FOR2010) and still inhibits mTORC1 in AMPK-null cells (KAL2010). See the parallel METFORMIN-MTORC1 edge.",
+    "boundary_tags": [
+     "direction-contested"
+    ],
+    "conflict": {
+     "type": "Field dispute",
+     "basis": "Metformin activates AMPK (ZHO2001; also seen in KAL2010), but whether AMPK mediates its effects is disputed. FOR2010 found that mice lacking AMPK in the liver kept the glucose-lowering effect of metformin, and that hepatocytes lacking AMPK or LKB1 still showed metformin-induced inhibition of glucose production. KAL2010 found that mTORC1 inhibition by metformin persists in cells lacking AMPK."
+    },
+    "note": null,
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "low",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "ZHO2001",
+      "PEA2009"
+     ],
+     "conflicting": [
+      "KAL2010"
+     ]
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/METFORMIN-AMPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/METFORMIN-AMPK.json"
+   },
+   {
+    "id": "STRESS-AMPK",
+    "claim": "Energy & cellular stress activates AMPK",
+    "source": {
+     "name": "Energy & cellular stress",
+     "entity": "energy-cellular-stress"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "activates",
+    "type": "allosteric-activation",
+    "directness": "direct",
+    "timescale": "seconds",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "AMPK does not read ATP directly - it reads the ratio of AMP and ADP to ATP. As ATP is consumed, AMP and ADP accumulate and bind the gamma subunit, which is the actual switch: it activates AMPK allosterically and protects the activating Thr172 phosphate from removal. AMPK is the cell's low-fuel sensor, and mTORC1 is one of the first things it shuts off.",
+    "mechanism_beginner": "When the cell's fuel runs low, AMPK switches on – it's the cell's low-battery alarm, and one of the first things it does is shut mTORC1 off.",
+    "context": "Drawn as a fuel-gauge for readability. The proximal trigger is the AMP(ADP)/ATP ratio binding the AMPK gamma subunit, not 'ATP running down' as a single variable - AMP and ADP both compete with ATP for the same regulatory sites.",
+    "boundary": "XIA2011 (crystal structure and biochemistry of mammalian AMPK) demonstrates that AMP binding to the gamma regulatory domain promotes phosphorylation and protects against dephosphorylation, and that ADP binds too. GWI2008 and ZHO2001 show downstream consequences. DEM2026 (IDH3 and citrate in AML stem cells) does not test AMP/ADP binding; its place on this edge needs the curator's decision.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GWI2008",
+      "ZHO2001",
+      "DEM2026",
+      "XIA2011"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/STRESS-AMPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/STRESS-AMPK.json"
+   },
+   {
+    "id": "ULK1-AMPK",
+    "claim": "ULK1 inhibits AMPK",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "ULK1 phosphorylates AMPK back, damping the signal that activated it - a negative feedback loop that stops autophagy running away.",
+    "mechanism_beginner": "ULK1 tags AMPK back and calms it down – a feedback loop that keeps cleanup from running out of control.",
+    "context": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
+    "boundary": "One study in human cells and mouse (LOF2011). A single study. The feedback loop is shown in cell models, and the relation in the other direction (AMPK-ULK1) is contested.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "LOF2011"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ULK1-AMPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AMPK.json"
+   }
+  ]
+ }
+}

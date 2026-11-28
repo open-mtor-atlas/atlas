@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LEE2010",
+  "title": "Sestrin as a feedback inhibitor of TOR that prevents age-related pathologies",
+  "authors": "Lee JH; Budanov AV; Park EJ; Birse R; Kim TE; Perkins GA; Ocorr K; Ellisman MH; Bodmer R; Bier E; Karin M",
+  "year": 2010,
+  "journal": "Science",
+  "doi": "10.1126/science.1182228",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20203043",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Drosophila melanogaster (dSesn loss-of-function)",
+  "peer_reviewed": true,
+  "finding": "An early study linking Sestrin, later identified as a leucine sensor in mammals, to age-associated pathology in flies (fat accumulation, mitochondrial dysfunction, muscle and cardiac decline), prevented by TOR inhibition or AMPK activation. Sestrin sits in a negative feedback loop: TOR activity drives Sestrin expression, and Sestrin inhibits TOR back.",
+  "url": "https://mtor-atlas.org/study/LEE2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LEE2010.json",
+  "abstract_excerpt": "Sestrins are conserved proteins that accumulate in cells exposed to stress, potentiate adenosine monophosphate-activated protein kinase (AMPK), and inhibit activation of target of rapamycin (TOR). We show that the abundance of Drosophila sestrin (dSesn) is increased upon chronic TOR activation through accumulation of reactive oxygen species that cause activation of c-Jun amino-terminal kinase and transcription factor Forkhead box O (FoxO).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "dSesn loss of function; rapamycin; AMPK activation",
+   "target": "Sestrin -> AMPK/TOR feedback loop",
+   "species": "Drosophila",
+   "effect": "Sestrin loss causes age-related muscle, cardiac and metabolic pathology in flies; rescued by TOR inhibition or AMPK activation"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "age-related-pathology",
+    "name": "Age-related pathology",
+    "type": "Outcome"
+   },
+   {
+    "id": "sestrin2",
+    "name": "Sestrin2",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "SESN2-AGING"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H1"
+  ],
+  "related_studies": [
+   "ABD2026",
+   "COR2018",
+   "FIS2015",
+   "BUD2008"
+  ]
+ }
+}

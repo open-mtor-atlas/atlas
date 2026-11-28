@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MCC2011",
+  "title": "Efficacy and safety of sirolimus in lymphangioleiomyomatosis (MILES)",
+  "authors": "McCormack FX; Inoue Y; Moss J; Singer LG; Strange C; Nakata K; Barker AF; Chapman JT; Brantly ML; Stocks JM; Brown KK; Lynch JP; Goldberg HJ; Young LR; Kinder BW; Downey GP; Sullivan EJ; Colby TV; McKay RT; Cohen MM; Korbee L; Taveira-DaSilva AM; Lee HS; Krischer JP; Trapnell BC",
+  "year": 2011,
+  "journal": "New England Journal of Medicine",
+  "doi": "10.1056/NEJMoa1100391",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "21410393",
+  "pmcid": "PMC3118601",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, RCT (n=89, women with LAM)",
+  "peer_reviewed": true,
+  "finding": "MILES was a 12-month placebo-controlled trial of sirolimus in 89 women with lymphangioleiomyomatosis (LAM), a rare lung disease driven by overactive mTOR. On placebo, lung function (FEV1) fell by about 12 ml a month. On sirolimus it held steady (+1 ml a month), a 153 ml difference over the year. In the next year nobody took the drug, and the sirolimus group's decline resumed in parallel with placebo, so the benefit lasted only while the drug was taken. Walking distance and gas-transfer capacity did not improve. Boundary: patients had fairly advanced disease (average FEV1 about 48% of predicted), many dropped out of the observation year, and mouth ulcers and rashes may have revealed who was on the drug. Sirolimus was held at a blood level of 5 to 15 ng/ml, so this was continuous dosing, not intermittent.",
+  "url": "https://mtor-atlas.org/study/MCC2011/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MCC2011.json",
+  "abstract_excerpt": "Lymphangioleiomyomatosis (LAM) is a progressive, cystic lung disease in women; it is associated with inappropriate activation of mammalian target of rapamycin (mTOR) signaling, which regulates cellular growth and lymphangiogenesis. Sirolimus (also called rapamycin) inhibits mTOR and has shown promise in phase 1-2 trials involving patients with LAM.\n\nWe conducted a two-stage trial of sirolimus involving 89 patients with LAM who had moderate lung impairment--a 12-month randomized, double-blind comparison of sirolimus with placebo, followed by a 12-month observation period.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Sirolimus (rapamycin)",
+   "target": "mTOR",
+   "species": "Human – RCT (MILES, n=89, women with LAM)",
+   "effect": "Sirolimus stabilized lung function (FEV1) in lymphangioleiomyomatosis during treatment",
+   "dose": "Oral sirolimus, initial 2 mg/day titrated to trough 5-15 ng/ml; 12-month double-blind treatment + 12-month observation off-drug; 1:1 vs placebo (MILES).",
+   "sample_size": "111 consented, 89 randomized (43 placebo / 46 sirolimus); women with LAM, FEV1 <=70% predicted.",
+   "effect_size": "Primary outcome FEV1 slope (mL/month): sirolimus stabilized lung function during treatment while placebo declined; benefit waned after stopping the drug.",
+   "limitations": "Interim analysis delayed by site/contracting issues; other health-symptom measures not significantly different; benefit tied to continued dosing."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lymphangioleiomyomatosis",
+    "name": "Lymphangioleiomyomatosis",
+    "type": "Disease"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-LAM"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BIS2013"
+  ]
+ }
+}

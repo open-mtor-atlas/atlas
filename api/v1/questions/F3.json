@@ -1,0 +1,98 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "F3",
+  "kind": "frontier",
+  "title": "Is mTOR signalling decided by where the complex is active, rather than by how much of it is active?",
+  "category": "Framing gap",
+  "evidence_stands_at": "Mechanism in cells",
+  "gap": "The lysosome is usually described as the place mTORC1 sits. The 2025 structures show that full activation there is a stepwise assembly: Rag and Ragulator bring the complex to the membrane, Rheb brings it closer, and direct membrane contacts by mTOR and Raptor complete activation. Structure alone does not show that position changes what the kinase phosphorylates. There is functional evidence that at least one substrate depends on the route, though: TFEB phosphorylation requires amino-acid activation of RagC/D and is insensitive to Rheb activity, unlike S6K1 and 4E-BP1 (NAP2020). If access is positional more generally, two cells with identical total mTORC1 activity can be running different programmes, and no lysate will tell them apart.",
+  "gap_beginner": "The lysosome is normally described as mTOR's parking space. There are reasons to think it is more like a workbench, where what the enzyme can reach depends on where and how it is docked. One of its targets, TFEB, is only switched off by mTORC1 when a particular docking route through the Rag proteins is active, while other targets do not need that route (Napolitano 2020). If location matters more broadly, two cells with the same amount of activity could be doing different jobs, and grinding them up to measure the total would hide exactly that.",
+  "changed_since_written": "Structures published in 2025 resolved both the assembly on the lysosomal membrane (Cui et al., CUI2025) and the dynamic regulation by amino acids through the GATOR2, Sestrin2 and CASTOR1 interfaces (Valenstein et al., VAL2025; Jansen et al., JAN2025). Sestrin2 and CASTOR1 sit on separate sites of GATOR2 and let go of it when their amino acid binds, so the physical hand-off from sensor to GATOR2 is now defined in detail. The VAL2025 authors name the structures of KICSTOR and SAMTOR as still missing. The mechanism is now detailed enough to generate positional predictions, and those predictions are untested.",
+  "still_open": "Whether substrate identity actually depends on location in a living cell, as opposed to in a reconstituted system. The specific unanswered question: does the same amount of active mTORC1 produce a different substrate profile when it is tethered to the lysosome than when it is tethered elsewhere?",
+  "why_it_matters": "It decides whether pathway-activity biomarkers can mean anything. A blood panel reports how much, and if the biology runs on where, the panel is measuring a quantity the cell does not use.",
+  "how_to_test": "Forced relocalisation. Tether active mTORC1 to the lysosomal membrane, to the trans-Golgi and to the plasma membrane at matched activity, and read the substrate profile at each — S6K1, 4E-BP1, ULK1, TFEB. A differing profile at equal activity establishes that position is an independent variable; an identical profile retires the idea.",
+  "related_questions": [
+   "H5",
+   "H1"
+  ],
+  "relation_note": null,
+  "gap_status": {
+   "status": "not-documented",
+   "label": "Gap not yet confirmed by a logged literature search",
+   "basis": "The text states that the comparison was not found, but the literature search behind that statement is not logged.",
+   "checked": "2026-10-15"
+  },
+  "studies": [
+   "NAP2020",
+   "CUI2025",
+   "VAL2025",
+   "JAN2025"
+  ],
+  "references": [
+   {
+    "role": "direct",
+    "label": "Napolitano et al. 2020",
+    "supports": "TFEB phosphorylation needs amino-acid activation of RagC/D and is insensitive to Rheb activity, unlike S6K1 and 4E-BP1. This is the functional evidence that a substrate depends on the route.",
+    "sid": "NAP2020",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/NAP2020/"
+   },
+   {
+    "role": "related",
+    "label": "Cui et al. 2025",
+    "supports": "Full activation on the lysosomal membrane is a stepwise assembly (Rag-Ragulator, then Rheb, then direct membrane contacts by mTOR and Raptor). A reconstituted structure, not a measurement in a living cell.",
+    "sid": "CUI2025",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/CUI2025/"
+   },
+   {
+    "role": "related",
+    "label": "Valenstein et al. 2025",
+    "supports": "Sestrin2 and CASTOR1 occupy separate sites on GATOR2 and release it when their amino acid binds. Purified proteins and HEK293T cells.",
+    "sid": "VAL2025",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/VAL2025/"
+   },
+   {
+    "role": "related",
+    "label": "Jansen et al. 2025",
+    "supports": "Structure of GATOR2 bound to arginine-free CASTOR1, showing how arginine releases it. Purified proteins and HEK293T cells.",
+    "sid": "JAN2025",
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/JAN2025/"
+   }
+  ],
+  "external_refs": [],
+  "url": "https://mtor-atlas.org/questions/frontier/is-mtor-signalling-decided-by-where-not-how-much/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/F3.json"
+ }
+}

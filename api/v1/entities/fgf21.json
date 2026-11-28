@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "fgf21",
+  "name": "FGF21",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:3678",
+   "uniprot": "Q9NSA1",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Fibroblast growth factor 21, a metabolic hormone regulating glucose metabolism. The one study in this Atlas does not show it activating mTOR: engineered FGF21-overexpressing exosomes activated AMPK and SUPPRESSED mTOR signalling while upregulating PFKFB3, reprogramming fibroblast glycolysis and accelerating wound closure in mice (Chen 2026, PMID 42551612). That is an engineered exosome preparation, not the endogenous hormone, and the direction of the mTOR effect should not be generalised from it.",
+  "study_count": 1,
+  "relation_count": 0,
+  "page_status": {
+   "state": "data-only",
+   "reason": "By design: fewer than three linked studies and not a node on the pathway map, so no page is generated. The record is still served here and in the bulk exports."
+  },
+  "url": null,
+  "api_url": "https://mtor-atlas.org/api/v1/entities/fgf21.json",
+  "description_beginner": "A hormone released mostly by the liver that helps regulate blood sugar and metabolism. In the one study here, an engineered version packaged into cell-derived vesicles switched AMPK on and mTOR DOWN, which pushed skin cells to burn glucose faster and helped wounds close in mice. That is a lab-built preparation, so it does not tell us what the body's own FGF21 does to mTOR.",
+  "reading_levels": null,
+  "external_refs": [
+   {
+    "pmid": "42551612",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/42551612/"
+   }
+  ],
+  "studies": [
+   {
+    "sid": "CHEN2026",
+    "title": "FGF21-modified adipose stem cell-derived exosomes promote wound healing by activating fibroblast glycolysis through AMPK/mTOR signaling.",
+    "authors": "Chen K; Chen X; Wen C; Chen W; Liao Z; Chen Y; Li L",
+    "year": 2026,
+    "journal": "Cellular Signalling",
+    "doi": "10.1016/j.cellsig.2026.112742",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42551612",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse + Human fibroblasts",
+    "peer_reviewed": true,
+    "finding": "FGF21-enriched exosomes from engineered ADSCs promote chronic wound healing by activating fibroblast glycolysis, with AMPK activated and mTOR signaling suppressed, improving proliferation, migration, and tissue repair in a mouse model.",
+    "url": "https://mtor-atlas.org/study/CHEN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026.json"
+   }
+  ],
+  "relations": []
+ }
+}

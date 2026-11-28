@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AMPK-MTORC1",
+  "claim": "AMPK inhibits mTORC1",
+  "source": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "lyso",
+  "map_band": "lyso",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "AMPK also hits mTORC1 directly by phosphorylating Raptor, imposing a metabolic checkpoint independent of TSC.",
+  "mechanism_beginner": "AMPK also hits mTORC1 directly, adding a second, energy-based checkpoint on top of TSC.",
+  "context": "The Raptor arm is the TSC2-independent route, which is why it is measurable in TSC-null cells. Its relative contribution versus the TSC2 arm varies by cell type and by how deep the energy stress is.",
+  "boundary": "Cell biochemistry in human and mouse cells (GWI2008) plus one study in aged mice (YAN2026B). Direct Raptor phosphorylation is shown in cells; how much it adds beside the TSC route in living tissue, and in people, is not shown.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "GWI2008",
+    "YAN2026B"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/AMPK-MTORC1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-MTORC1.json"
+ }
+}

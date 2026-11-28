@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "JAN2010",
+  "title": "Effective and selective targeting of leukemia cells using a TORC1/2 kinase inhibitor",
+  "authors": "Janes MR; Limon JJ; So L; Chen J; Lim RJ; Chavez MA; Vu C; Lilly MB; Mallya S; Ong ST; Konopleva M; Martin MB; Ren P; Liu Y; Rommel C; Fruman DA",
+  "year": 2010,
+  "journal": "Nature Medicine",
+  "doi": "10.1038/nm.2091",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20072130",
+  "pmcid": "PMC4017764",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Leukemia cells; mouse",
+  "peer_reviewed": true,
+  "finding": "The ATP-competitive TORC1/2 inhibitor PP242 selectively kills leukemia cells, with much weaker effects on the proliferation and function of normal lymphocytes.",
+  "url": "https://mtor-atlas.org/study/JAN2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/JAN2010.json",
+  "abstract_excerpt": "Targeting the mammalian target of rapamycin (mTOR) protein is a promising strategy for cancer therapy. The mTOR kinase functions in two complexes, TORC1 (target of rapamycin complex-1) and TORC2 (target of rapamycin complex-2); however, neither of these complexes is fully inhibited by the allosteric inhibitor rapamycin or its analogs. We compared rapamycin with PP242, an inhibitor of the active site of mTOR in both TORC1 and TORC2 (hereafter referred to as TORC1/2), in models of acute leukemia harboring the Philadelphia chromosome (Ph) translocation.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "PP242 (ATP-competitive TORC1/2 inhibitor) vs rapamycin",
+   "target": "mTORC1 & mTORC2",
+   "species": "Leukemia cells; mouse (Ph+ ALL)",
+   "effect": "TORC1/2 active-site inhibition selectively targets leukemia cells more effectively than rapamycin"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "pp242",
+    "name": "PP242",
+    "type": "Drug"
+   },
+   {
+    "id": "atp-competitive-mtor-inhibitors",
+    "name": "ATP-competitive mTOR inhibitors",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TORIN-MTORC1",
+    "TORIN-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "FEL2009",
+   "LAR2012",
+   "GAR2009",
+   "ROD2011"
+  ]
+ }
+}

@@ -1,0 +1,355 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "erk-rsk-mapk",
+  "name": "ERK / RSK (MAPK)",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "ERK",
+   "ERK1/2",
+   "MAPK",
+   "RSK",
+   "p90RSK",
+   "Ras-MAPK"
+  ],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "group",
+   "reason": "This record names a complex, a protein family or a pair of proteins, so one gene identifier would claim more than the Atlas knows."
+  },
+  "description": "The Ras-MAPK growth-signalling arm. ERK and its effector RSK phosphorylate TSC2 and inactivate the TSC complex, so MAPK signalling converges on the same brake that Akt releases (MA2005). This is the third major upstream input to mTORC1 alongside PI3K/Akt and AMPK, and it is a route to mTORC1 activation that PI3K inhibitors do not close. mTORC1 inhibition also feeds back to activate MAPK (CAR2008).",
+  "study_count": 5,
+  "relation_count": 3,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/erk-rsk-mapk/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/erk-rsk-mapk.json",
+  "description_beginner": "A separate growth-signaling chain that reaches mTORC1 through its own route. Two of its members disable the TSC brake, the same brake that Akt also releases - so this is a third major way to switch mTORC1 on, one that drugs blocking PI3K don't touch. mTORC1 can also feed back and switch this chain on.",
+  "reading_levels": {
+   "beginner": "A second growth pathway that presses the same brake.",
+   "student": "ERK and RSK phosphorylate TSC2 to inhibit it, and are activated when mTORC1 is blocked.",
+   "research": "ERK S664 and RSK S1798 on TSC2. mTORC1 inhibition relieves feedback and activates MAPK PI3K-dependently – the basis for combined mTOR/MEK strategies."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "MA2005",
+    "title": "Phosphorylation and functional inactivation of TSC2 by Erk implications for tuberous sclerosis and cancer pathogenesis",
+    "authors": "Ma L; Chen Z; Erdjument-Bromage H; Tempst P; Pandolfi PP",
+    "year": 2005,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2005.02.031",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15851026",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The MAPK input to mTORC1. In mammalian cells, ERK phosphorylates TSC2 and inactivates the TSC complex, so growth signalling through Ras/ERK converges on the same brake that Akt releases. This is the third major upstream arm alongside PI3K/Akt and AMPK. Its practical significance is that it offers a route to mTORC1 activation that PI3K inhibitors do not close - though that inference is mechanistic; no human data here.",
+    "url": "https://mtor-atlas.org/study/MA2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MA2005.json"
+   },
+   {
+    "sid": "CAR2008",
+    "title": "Inhibition of mTORC1 leads to MAPK pathway activation through a PI3K-dependent feedback loop in human cancer",
+    "authors": "Carracedo A; Ma L; Teruya-Feldstein J; Rojo F; Salmena L; Alimonti A; Egia A; Sasaki AT; Thomas G; Kozma SC; Papa A; Nardella C; Cantley LC; Baselga J; Pandolfi PP",
+    "year": 2008,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI34739",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18725988",
+    "pmcid": "PMC2518073",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Patient tumour biopsies (advanced solid tumours, RAD001); mouse prostate cancer model; xenografts; human cancer and normal cell lines",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibition activates the MAPK pathway via a PI3K-dependent feedback loop. Seen in tumour biopsies from patients with advanced solid tumours treated with RAD001 (everolimus), where the rise depended on the dosing schedule, and in a mouse prostate cancer model, xenografts and cell lines.",
+    "url": "https://mtor-atlas.org/study/CAR2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAR2008.json"
+   },
+   {
+    "sid": "ALI2020",
+    "title": "ERK2 phosphorylates PFAS to mediate posttranslational control of de novo purine synthesis",
+    "authors": "Ali ES; Sahu U; Villa E; O'Hara BP; Gao P; Beaudet C; Wood AW; Asara JM; Ben-Sahra I",
+    "year": 2020,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2020.05.001",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "32485148",
+    "pmcid": "PMC7306006",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cancer cells; tumor",
+    "peer_reviewed": true,
+    "finding": "The Atlas records several routes by which mTORC1 drives purine synthesis. This study shows mTORC1 is not the only growth pathway with that power: RAS-ERK signalling stimulates purine synthesis directly and within minutes, because ERK2 - but not ERK1 - phosphorylates the purine synthesis enzyme PFAS at Thr619. Cells expressing a PFAS that cannot be phosphorylated make fewer purines, form fewer colonies and grow smaller tumors. Two points bound the mTOR claim: the control is posttranslational, so it acts far faster than transcription or translation, and it is a parallel input, so purine synthesis in a RAS-driven tumor is not read out from mTORC1 activity alone.",
+    "url": "https://mtor-atlas.org/study/ALI2020/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ALI2020.json"
+   },
+   {
+    "sid": "SUN2026B",
+    "title": "Phosphorylation of OTUB1 promotes autophagy initiation under starvation",
+    "authors": "Sun L; He M; Liu D; Liu J; Shan M; Yang M; Zhang Y; Dai X; Yao J; Zhang Y; Xiong H; He F; Lian J",
+    "year": 2026,
+    "journal": "Nature Communications",
+    "doi": "10.1038/s41467-026-76796-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42736303",
+    "pmcid": "PMC13574767",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (Western diet / MASLD model); cultured cells (starvation)",
+    "peer_reviewed": true,
+    "finding": "Under starvation, ERK phosphorylates the deubiquitinase OTUB1 at S118, which stabilizes it by letting it out-compete TRIM29 for binding to ANXA2. Stabilized OTUB1 upregulates DEPTOR, a natural mTOR inhibitor, which suppresses mTOR and triggers autophagy. In mice, restoring this fasting-triggered ERK-OTUB1-DEPTOR-mTOR axis countered the mTOR-activating effect of a Western diet and eased MASLD (fatty liver disease) progression, giving a mechanistic account of how fasting benefits the liver.",
+    "url": "https://mtor-atlas.org/study/SUN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SUN2026B.json"
+   },
+   {
+    "sid": "ROU2004",
+    "title": "Tumor-promoting phorbol esters and activated Ras inactivate the tuberous sclerosis tumor suppressor complex via p90 ribosomal S6 kinase.",
+    "authors": "Roux PP; Ballif BA; Anjum R; Gygi SP; Blenis J",
+    "year": 2004,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "doi": "10.1073/pnas.0405659101",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15342917",
+    "pmcid": "PMC518784",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines; in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "The RSK arm of the MAPK input to the TSC complex. Phorbol esters and activated Ras induce phosphorylation of tuberin (TSC2) in the absence of Akt activation; RSK1 interacts with tuberin and phosphorylates Ser-1798 at its conserved C terminus, inhibiting the tumour-suppressor function of the tuberin/hamartin complex and increasing mTOR signalling to S6K1. Together with ERK phosphorylation of TSC2 (MA2005) this is the second arm that justifies drawing one grouped ERK / RSK input to the TSC brake.",
+    "url": "https://mtor-atlas.org/study/ROU2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ROU2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "ERK-TSC",
+    "claim": "ERK / RSK (MAPK) inhibits TSC1/TSC2",
+    "source": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "target": {
+     "name": "TSC1/TSC2",
+     "entity": "tsc1-tsc2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Ras-MAPK growth signalling converges on the same brake that Akt releases, through two kinases: ERK phosphorylates TSC2 (MA2005) and RSK1 binds tuberin and phosphorylates Ser-1798 at its conserved C terminus (ROU2004). Either phosphorylation inactivates the TSC complex. This is the third upstream arm alongside PI3K/Akt and AMPK, and clinically it is a route to mTORC1 activation that PI3K inhibitors do not close.",
+    "mechanism_beginner": "A separate growth pathway also disables the TSC brake – a third route into mTORC1 that drugs blocking only PI3K/Akt can't shut down.",
+    "context": "The source node groups ERK and RSK, and both arms are now held in this corpus: MA2005 for ERK phosphorylating TSC2, ROU2004 for RSK1 phosphorylating tuberin at Ser-1798. Both were measured in mammalian cell lines, and neither study establishes which of the two kinases carries the signal in a given cell type or tissue.",
+    "boundary": "Two studies in mammalian cell lines, one for each kinase in the grouped source node: ERK to TSC2 (MA2005) and RSK1 to TSC2 Ser-1798 (ROU2004). Neither was tested in whole animals or in people, and neither measures the relative weight of the two arms.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": "Added 2026-07-29. The graph previously had no MAPK input to mTORC1 at all.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "MA2005",
+      "ROU2004"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ERK-TSC/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-TSC.json"
+   },
+   {
+    "id": "MTORC1-MAPK",
+    "claim": "mTORC1 inhibits ERK / RSK (MAPK)",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "effect": "inhibits",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "hours",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "patient tumour biopsies (RAD001)",
+     "mouse",
+     "human cells"
+    ],
+    "mechanism": "A second feedback arm: inhibiting mTORC1 releases a PI3K-dependent brake and MAPK signalling goes up. Together with S6K1-IRS1 this is why single-agent mTOR inhibition tends to be met by compensatory growth signalling.",
+    "mechanism_beginner": "Blocking mTORC1 can backfire by releasing a brake on a different growth pathway (MAPK) – one reason mTOR-blocking drugs alone often aren't enough.",
+    "context": "The arrow records a feedback, not a direct action of active mTORC1 on ERK. What CAR2008 measured is that inhibiting mTORC1 raises MAPK signalling through a PI3K-dependent loop, and in patient tumours the rise depended on the dosing schedule.",
+    "boundary": "Single-study edge in this corpus, which says nothing about how replicated the loop is in the wider literature. CAR2008 includes tumour biopsies from patients with advanced solid tumours treated with RAD001 (everolimus), in which MAPK activation depended on the dosing schedule, plus a mouse prostate cancer model, xenografts and cell lines. The rise in MAPK is a response to mTORC1 inhibition; no study here measures what active mTORC1 does to ERK at steady state.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "CAR2008 was already in the corpus but carried no edge until 2026-07-29.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "established",
+     "human_relevance_label": "shown in people",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "CAR2008"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-MAPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-MAPK.json"
+   },
+   {
+    "id": "ERK-NUCL",
+    "claim": "ERK / RSK (MAPK) activates Nucleotide synthesis",
+    "source": {
+     "name": "ERK / RSK (MAPK)",
+     "entity": "erk-rsk-mapk"
+    },
+    "target": {
+     "name": "Nucleotide synthesis",
+     "entity": "nucleotide-synthesis"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells",
+     "mouse xenograft"
+    ],
+    "mechanism": "ERK2 directly phosphorylates the purine-making enzyme PFAS within minutes, speeding de novo purine synthesis. This growth signal for DNA and RNA building blocks runs in parallel to mTORC1's own routes.",
+    "mechanism_beginner": "ERK2 switches on an enzyme that makes purines.",
+    "context": null,
+    "boundary": "Human cancer cell lines and xenograft tumours; ERK2, not ERK1; post-translational and parallel to mTORC1. Single study.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ALI2020"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ERK-NUCL/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ERK-NUCL.json"
+   }
+  ]
+ }
+}

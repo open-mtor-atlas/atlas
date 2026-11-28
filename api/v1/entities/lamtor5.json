@@ -1,0 +1,249 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "lamtor5",
+  "name": "LAMTOR5",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "Lamtor5",
+   "HBXIP",
+   "XIP",
+   "HBV X-interacting protein",
+   "Late endosomal/lysosomal adaptor, MAPK and MTOR activator 5"
+  ],
+  "identifiers": {
+   "hgnc": "HGNC:17955",
+   "uniprot": "O43504",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Ragulator subunit, also known as HBXIP (late endosomal/lysosomal adaptor, MAPK and MTOR activator 5). BAR2012 identified it, together with C7orf59 (LAMTOR4), as a Ragulator component required for amino-acid activation of mTORC1. LV2026 reports a second role in aged mouse macrophages: Lamtor5 binds cGAS directly and promotes its ESCRT-dependent degradation, and its age-related decline drives cGAS-mediated paracrine inflammation. That study reports no mTORC1 or mTORC2 readout for the cGAS step, and it does not test whether Lamtor5 acts there as part of assembled Ragulator.",
+  "study_count": 3,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/lamtor5/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/lamtor5.json",
+  "description_beginner": "One of the five pieces of Ragulator, the platform on the lysosome that holds the Rag proteins in place so mTORC1 can be switched on. One mouse study found it also has a second job: it grabs cGAS, an alarm protein that triggers inflammation, and sends it for disposal. When Lamtor5 drops with age in immune cells, cGAS builds up and inflammation spreads. Whether that second job has anything to do with mTOR is not known.",
+  "reading_levels": {
+   "beginner": "One of the five pieces of Ragulator, with a second job on the side.",
+   "student": "Ragulator subunit (HBXIP) needed for amino-acid activation of mTORC1; in aged mouse macrophages it also binds cGAS and routes it for degradation.",
+   "research": "Identified as a Ragulator component with C7orf59/LAMTOR4 (BAR2012). LV2026 shows direct Lamtor5-cGAS binding and ESCRT-dependent cGAS degradation in macrophages, with no mTORC1/mTORC2 readout for that step and no test of whether assembled Ragulator is needed for it."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "LV2026",
+    "title": "Age-associated decline of Lamtor5 drives immunosenescence and systemic aging via cGAS-mediated paracrine inflammation.",
+    "authors": "Lv N; Tang Y; Zhang W; Zhang Q; Zhang H; Gao H; Cui S; Krasny S; Shi L",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01823-5",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42463581",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "Macrophages lacking Lamtor5 (myeloid conditional knockout mice) show senescent, metabolic, transcriptomic and epigenetic features that match macrophages from naturally aged mice. Transferring these senescent macrophages into young mice accelerated ageing, while transplanting young macrophages or clearing senescent cells corrected the ageing features of the knockout mice. Mechanistically, Lamtor5 binds cGAS and promotes its ESCRT-dependent degradation; macrophage-targeted cGAS siRNA or a peptide blocking the Lamtor5/cGAS interface reduced ageing-associated inflammation and tissue dysfunction in aged mice. The abstract reports no mTOR measurement and no experiment restoring Lamtor5 itself.",
+    "url": "https://mtor-atlas.org/study/LV2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LV2026.json"
+   },
+   {
+    "sid": "BAR2012",
+    "title": "Ragulator is a GEF for the rag GTPases that signal amino acid levels to mTORC1",
+    "authors": "Bar-Peled L; Schweitzer LD; Zoncu R; Sabatini DM",
+    "year": 2012,
+    "journal": "Cell",
+    "doi": "10.1016/j.cell.2012.07.032",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22980980",
+    "pmcid": "PMC3517996",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Ragulator was reported as a guanine-nucleotide exchange factor for RagA/B on the lysosome; later work places Ragulator's exchange activity on RagC and assigns RagA GTP loading to SLC38A9, so the tethering role is the better-established one.",
+    "url": "https://mtor-atlas.org/study/BAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2012.json"
+   },
+   {
+    "sid": "SUX2017",
+    "title": "Hybrid Structure of the RagA/C-Ragulator mTORC1 Activation Complex",
+    "authors": "Su MY; Morris KL; Kim DJ; Fu Y; Lawrence R; Stjepanovic G; Zoncu R; Hurley JH",
+    "year": 2017,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2017.10.016",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29107538",
+    "pmcid": "PMC5722659",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Hybrid structure",
+    "peer_reviewed": true,
+    "finding": "Hybrid structural model of the RagA/C-Ragulator mTORC1 activation complex.",
+    "url": "https://mtor-atlas.org/study/SUX2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SUX2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "RAGULATOR-CGASSTING",
+    "claim": "LAMTOR5 inhibits cGAS-STING pathway",
+    "source": {
+     "name": "LAMTOR5",
+     "entity": "lamtor5"
+    },
+    "target": {
+     "name": "cGAS-STING pathway",
+     "entity": "cgas-sting-pathway"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "chronic",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Lamtor5 binds cGAS directly and routes it for degradation through the ESCRT machinery, so the Ragulator subunit acts as a physical brake on the sensor itself. Age-related decline of Lamtor5 in macrophages leaves cGAS stabilised, and that is sufficient to unleash cGAS-mediated paracrine inflammatory signalling: transferring Lamtor5-deficient macrophages accelerates ageing in young mice, while restoring young macrophages, clearing senescent cells, or applying a small peptide that blocks the Lamtor5/cGAS interface alleviates the phenotype in aged mice.",
+    "mechanism_beginner": "Lamtor5 belongs to Ragulator, the lysosome complex that switches mTORC1 on, but this link does not run through mTORC1 as far as the source shows. Lamtor5 grabs the inflammation sensor cGAS and sends it for disposal. When Lamtor5 falls with age in immune cells called macrophages, cGAS builds up and drives inflammation that spreads to neighbouring cells; in mice, moving such macrophages into young animals sped up their ageing. This is one mouse study, so it is not known whether the same happens in people, or whether mTORC1 plays any part.",
+    "context": "Shown for the Lamtor5 subunit, which LV2026 manipulated alone. Whether Lamtor5 binds cGAS as part of assembled Ragulator or on its own is not tested, which is why the edge starts at LAMTOR5 rather than at the Ragulator complex (its membership is drawn separately as LAMTOR5-RAGULATOR).",
+    "boundary": "One mouse study (LV2026), A - animal, and no human data for this link. The abstract reports no mTORC1 or mTORC2 measurement for the cGAS step, so whether mTORC1 signalling contributes at all is untested here rather than established. Macrophage-specific: the conditional knockout is myeloid, and the ageing phenotypes are read out at the organismal level, which is a long inferential chain from one protein interaction.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LV2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/RAGULATOR-CGASSTING/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/RAGULATOR-CGASSTING.json"
+   },
+   {
+    "id": "LAMTOR5-RAGULATOR",
+    "claim": "LAMTOR5 required-for Ragulator",
+    "source": {
+     "name": "LAMTOR5",
+     "entity": "lamtor5"
+    },
+    "target": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "effect": "required-for",
+    "type": "complex-assembly",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Lamtor5 (HBXIP) is one of the five Ragulator subunits. BAR2012 identified it, with C7orf59 (LAMTOR4), as an additional Ragulator component required for amino-acid activation of mTORC1. The crystal structure of human Ragulator (SUX2017) shows the Lamtor4:Lamtor5 pair under the Lamtor2:Lamtor3 pair, together forming the platform the Rags bind to, with Lamtor1 wrapped around all four.",
+    "mechanism_beginner": "Lamtor5 is one of the five pieces that make up Ragulator, the platform on the lysosome that holds the Rag proteins. Without it, amino acids can no longer switch mTORC1 on.",
+    "context": null,
+    "boundary": "Human cell lines (BAR2012) and a structure of purified human proteins (SUX2017). Shows that Lamtor5 is part of Ragulator and needed for the amino-acid signal to mTORC1; it does not show that every function of Lamtor5 runs through the complex (see RAGULATOR-CGASSTING).",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "BAR2012",
+      "SUX2017"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/LAMTOR5-RAGULATOR/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/LAMTOR5-RAGULATOR.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KUB2018",
+  "title": "In Vivo Decoding Mechanisms of the Temporal Patterns of Blood Insulin by the Insulin-AKT Pathway in the Liver",
+  "authors": "Kubota H; Uda S; Matsuzaki F; Yamauchi Y; Kuroda S",
+  "year": 2018,
+  "journal": "Cell Systems",
+  "doi": "10.1016/j.cels.2018.05.013",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "29960883",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Rat liver in vivo (hyperinsulinemic-euglycemic clamp with different insulin time patterns) plus mathematical model",
+  "peer_reviewed": true,
+  "finding": "The in-vivo follow-up to KUB2012. In rat liver, all temporal patterns of blood insulin were encoded at the insulin receptor, and downstream molecules decoded them selectively through AKT: S6K read the additional (pulse-like) secretion, G6Pase the basal secretion via FoxO1, GSK3-beta all of it. Modelling tied the selectivity to network structure, sensitivity and time constants. Shows that pattern decoding is not only a cell-culture effect.",
+  "url": "https://mtor-atlas.org/study/KUB2018/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2018.json",
+  "abstract_excerpt": "Cells respond to various extracellular stimuli through a limited number of signaling pathways. One strategy to process such stimuli is to code the information into the temporal patterns of molecules. Although we showed that insulin selectively regulated molecules depending on its temporal patterns using Fao cells, the in vivo mechanism remains unknown. Here, we show how the insulin-AKT pathway processes the information encoded into the temporal patterns of blood insulin.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Insulin delivered in different temporal patterns under clamp",
+   "target": "Insulin receptor; AKT; S6K; FoxO1/G6Pase; GSK3-beta",
+   "species": "Rat",
+   "effect": "S6K selectively decodes additional insulin secretion in vivo"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "foxo",
+    "name": "FoxO",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "HAN2007",
+   "BRU1999",
+   "DAB2026",
+   "DEN2026"
+  ]
+ }
+}

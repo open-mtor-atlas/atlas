@@ -1,0 +1,102 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SAN2007",
+  "title": "PRAS40 is an insulin-regulated inhibitor of the mTORC1 protein kinase",
+  "authors": "Sancak Y; Thoreen CC; Peterson TR; Lindquist RA; Kang SA; Spooner E; Carr SA; Sabatini DM",
+  "year": 2007,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2007.03.003",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "17386266",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells (biochemistry)",
+  "peer_reviewed": true,
+  "finding": "Identified PRAS40 as the missing insulin-controlled brake INSIDE mTORC1. When insulin is absent PRAS40 clamps the complex shut; insulin makes Akt phosphorylate PRAS40, releasing the brake so Rheb can fully switch mTORC1 on. Explained how hormone signals set the exact strength of mTORC1 activity.",
+  "url": "https://mtor-atlas.org/study/SAN2007/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2007.json",
+  "abstract_excerpt": "The heterotrimeric mTORC1 protein kinase nucleates a signaling network that promotes cell growth in response to insulin and becomes constitutively active in cells missing the TSC1 or TSC2 tumor suppressors. Insulin stimulates the phosphorylation of S6K1, an mTORC1 substrate, but it is not known how mTORC1 kinase activity is regulated. We identify PRAS40 as a raptor-interacting protein that binds to mTORC1 in insulin-deprived cells and whose in vitro interaction with mTORC1 is disrupted by high salt concentrations.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (PRAS40)",
+   "target": "mTORC1 / PRAS40",
+   "species": "Human cells (biochemistry)",
+   "effect": "PRAS40 is an insulin-regulated inhibitor of the mTORC1 kinase (raptor-binding)"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "pras40",
+    "name": "PRAS40",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "insulin",
+    "name": "Insulin",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-PRAS40",
+    "PRAS40-MTORC1",
+    "INS-PI3K"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "OSH2007",
+   "VAN2007",
+   "YAN2017",
+   "ZHO2026"
+  ]
+ }
+}

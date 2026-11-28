@@ -1,0 +1,95 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "VIL2021",
+  "title": "mTORC1 stimulates cell growth through SAM synthesis and m6A mRNA-dependent control of protein synthesis",
+  "authors": "Villa E; Sahu U; O'Hara BP; Ali ES; Helmin KA; Asara JM; Gao P; Singer BD; Ben-Sahra I",
+  "year": 2021,
+  "journal": "Molecular Cell",
+  "doi": "10.1016/j.molcel.2021.03.009",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "33756106",
+  "pmcid": "PMC8141029",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells; mouse xenograft tumors",
+  "peer_reviewed": true,
+  "finding": "SAMTOR (GU2017) showed the cell can sense S-adenosylmethionine and report it to mTORC1. This study runs the arrow the other way: mTORC1 controls how much SAM the cell makes. Downstream of mTORC1, c-MYC binds intron 1 of MAT2A and raises expression of the enzyme that produces SAM, the cell's main methyl donor; mTORC1 separately increases the protein level of WTAP, the regulatory subunit of the m6A RNA methyltransferase complex. Together these raise m6A methylation of mRNA, which primes the translation machinery for growth. Blocking MAT2A lowers SAM, m6A, protein synthesis rate and tumor growth.",
+  "url": "https://mtor-atlas.org/study/VIL2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/VIL2021.json",
+  "abstract_excerpt": "The mechanistic target of rapamycin complex 1 (mTORC1) regulates metabolism and cell growth in response to nutrient, growth, and oncogenic signals. We found that mTORC1 stimulates the synthesis of the major methyl donor, S-adenosylmethionine (SAM), through the control of methionine adenosyltransferase 2 alpha (MAT2A) expression. The transcription factor c-MYC, downstream of mTORC1, directly binds to intron 1 of MAT2A and promotes its expression.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic/pharmacologic (mTORC1, MAT2A inhibition)",
+   "target": "mTORC1 / c-MYC / MAT2A / SAM / WTAP / m6A",
+   "species": "Human cells; mouse xenograft tumors",
+   "effect": "mTORC1 raises SAM production and WTAP levels, increasing m6A mRNA modification and protein synthesis to support cell growth"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "s-adenosylmethionine-sam",
+    "name": "S-adenosylmethionine (SAM)",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "methionine",
+    "name": "Methionine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-SAM"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "GU2017",
+   "KNO2026",
+   "MOT2026",
+   "SANG2026"
+  ]
+ }
+}

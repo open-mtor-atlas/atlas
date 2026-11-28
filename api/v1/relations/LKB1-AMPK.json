@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "LKB1-AMPK",
+  "claim": "LKB1 (STK11) activates AMPK",
+  "source": {
+   "name": "LKB1 (STK11)",
+   "entity": "lkb1-stk11"
+  },
+  "target": {
+   "name": "AMPK",
+   "entity": "ampk"
+  },
+  "effect": "activates",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "seconds",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "LKB1 is the main kinase that primes AMPK, phosphorylating AMPK-alpha directly on Thr172; in LKB1-null cells AMPK no longer responds to energy stress (SHW2004). It is not the only upstream kinase: CaMKK2 phosphorylates the same site when calcium rises, and LKB1-deficient cells keep some basal AMPK activity (Hawley 2005, PMID 16054095; Woods 2005, PMID 16054096; outside this corpus).",
+  "mechanism_beginner": "LKB1 is the main switch that turns AMPK on when energy runs low; in cells without it, AMPK no longer responds to low energy. A second kinase can still switch AMPK on when calcium rises, so AMPK is not completely silent.",
+  "context": null,
+  "boundary": "Canonical step, established in LKB1-null cells and in vitro kinase assays (SHW2004). Coded M – molecular – because that is what the supporting evidence is: cell and in vitro biochemistry, not an organismal phenotype.",
+  "boundary_tags": [
+   "cell-line-only"
+  ],
+  "conflict": null,
+  "note": "2026-10-10: 'without it the whole energy-stress arm is deaf' / 'the whole alarm system goes silent' narrowed. LKB1 loss removes the response to energy stress, not all AMPK activity (CaMKK2 arm, Hawley 2005 / Woods 2005).",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SHW2004",
+    "COR2004"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [
+   {
+    "pmid": "16054095",
+    "cited_in": [
+     "mechanism"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/16054095/"
+   },
+   {
+    "pmid": "16054096",
+    "cited_in": [
+     "mechanism"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/16054096/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/LKB1-AMPK/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/LKB1-AMPK.json"
+ }
+}

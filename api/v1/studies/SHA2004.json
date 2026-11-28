@@ -1,0 +1,101 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SHA2004",
+  "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+  "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+  "year": 2004,
+  "journal": "Current Biology",
+  "doi": "10.1016/j.cub.2004.08.026",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "15380067",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells",
+  "peer_reviewed": true,
+  "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+  "url": "https://mtor-atlas.org/study/SHA2004/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json",
+  "abstract_excerpt": "Tuberous sclerosis is a largely benign tumor syndrome derived from the acquisition of somatic lesions in genes encoding the tumor suppressor products, TSC1 or TSC2. Loss of function of the TSC1-TSC2 complex, which acts as a Rheb GAP, yields constitutive, unrestrained signaling from the cell growth machinery comprised of Rheb, mTOR, and S6K. We demonstrate herein that constitutive activation of the Rheb/mTOR/S6K cassette, whether by genetic deletion of TSC1 or TSC2 or by ectopic expression of Rheb, is sufficient to induce insulin resistance.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "TSC1 or TSC2 deletion; ectopic Rheb expression",
+   "target": "Rheb/mTOR/S6K -> IRS1/IRS2",
+   "species": "Mammalian cells",
+   "effect": "Constitutive Rheb/mTOR/S6K signalling depletes IRS1/2, causing cellular insulin resistance and weaker survival signalling"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "insulin",
+    "name": "Insulin",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "irs-1-irs-2",
+    "name": "IRS-1 / IRS-2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "insulin-resistance",
+    "name": "Insulin resistance",
+    "type": "Outcome"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "S6K1-IRS1",
+    "INS-PI3K"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "HAR2004",
+   "GIN2026",
+   "UMX2004",
+   "ORE2006"
+  ]
+ }
+}

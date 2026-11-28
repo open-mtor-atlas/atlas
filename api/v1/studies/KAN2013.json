@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KAN2013",
+  "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+  "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+  "year": 2013,
+  "journal": "Science",
+  "doi": "10.1126/science.1236566",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "23888043",
+  "pmcid": "PMC3771538",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+  "peer_reviewed": true,
+  "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+  "url": "https://mtor-atlas.org/study/KAN2013/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json",
+  "abstract_excerpt": "The mechanistic target of rapamycin (mTOR) complex 1 (mTORC1) protein kinase promotes growth and is the target of rapamycin, a clinically useful drug that also prolongs life span in model organisms. A persistent mystery is why the phosphorylation of many bona fide mTORC1 substrates is resistant to rapamycin. We find that the in vitro kinase activity of mTORC1 toward peptides encompassing established phosphorylation sites varies widely and correlates strongly with the resistance of the sites to rapamycin, as well as to nutrient and growth factor starvation within cells.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin; Torin1; amino-acid and growth-factor starvation; point mutations around phosphorylation sites",
+   "target": "mTORC1 substrate sites (S6K1, 4E-BP1, ULK1 and others)",
+   "species": "Human and mouse cell lines; in vitro",
+   "effect": "Site-intrinsic substrate quality predicts which mTORC1 outputs are rapamycin- and starvation-resistant"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "4e-bp1",
+    "name": "4E-BP1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-4EBP1",
+    "MTORC1-S6K1",
+    "RAPA-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H5"
+  ],
+  "related_studies": [
+   "RUS2013",
+   "THO2009",
+   "ABU2017",
+   "MAR2013"
+  ]
+ }
+}

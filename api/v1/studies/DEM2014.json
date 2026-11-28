@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DEM2014",
+  "title": "Regulation of TORC1 in response to amino acid starvation via lysosomal recruitment of TSC2",
+  "authors": "Demetriades C; Doumpas N; Teleman AA",
+  "year": 2014,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2014.01.024",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "24529380",
+  "pmcid": "PMC4346203",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells",
+  "peer_reviewed": true,
+  "finding": "Amino-acid starvation recruits TSC2 to the lysosome to inhibit Rheb and TORC1.",
+  "url": "https://mtor-atlas.org/study/DEM2014/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DEM2014.json",
+  "abstract_excerpt": "TOR complex 1 (TORC1) is a potent anabolic regulator of cellular growth and metabolism. When cells have sufficient amino acids, TORC1 is active due to its lysosomal localization mediated via the Rag GTPases. Upon amino acid removal, the Rag GTPases release TORC1, causing it to become cytoplasmic and inactive. We show here that, upon amino acid removal, the Rag GTPases also recruit TSC2 to the lysosome, where it can act on Rheb. Only when both the Rag GTPases and Rheb are inactive is TORC1 fully released from the lysosome.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (Rag / TSC2)",
+   "target": "TORC1 / Rag GTPases / TSC2",
+   "species": "Mammalian cells",
+   "effect": "Upon amino-acid starvation the Rag GTPases recruit TSC2 to the lysosome to inactivate TORC1"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "rheb",
+    "name": "Rheb",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1",
+    "RAG-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SAN2010",
+   "CUI2025",
+   "ROG2019",
+   "BAL2019"
+  ]
+ }
+}

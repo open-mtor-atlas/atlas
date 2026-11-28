@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ROU2004",
+  "title": "Tumor-promoting phorbol esters and activated Ras inactivate the tuberous sclerosis tumor suppressor complex via p90 ribosomal S6 kinase.",
+  "authors": "Roux PP; Ballif BA; Anjum R; Gygi SP; Blenis J",
+  "year": 2004,
+  "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+  "doi": "10.1073/pnas.0405659101",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "15342917",
+  "pmcid": "PMC518784",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cell lines; in vitro kinase assays",
+  "peer_reviewed": true,
+  "finding": "The RSK arm of the MAPK input to the TSC complex. Phorbol esters and activated Ras induce phosphorylation of tuberin (TSC2) in the absence of Akt activation; RSK1 interacts with tuberin and phosphorylates Ser-1798 at its conserved C terminus, inhibiting the tumour-suppressor function of the tuberin/hamartin complex and increasing mTOR signalling to S6K1. Together with ERK phosphorylation of TSC2 (MA2005) this is the second arm that justifies drawing one grouped ERK / RSK input to the TSC brake.",
+  "url": "https://mtor-atlas.org/study/ROU2004/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ROU2004.json",
+  "abstract_excerpt": "Tuberous sclerosis complex (TSC) is a genetic disorder caused by mutations in either of the two tumor suppressor genes TSC1 or TSC2, which encode hamartin and tuberin, respectively. Tuberin and hamartin form a complex that inhibits signaling by the mammalian target of rapamycin (mTOR), a critical nutrient sensor and regulator of cell growth and proliferation. Phosphatidylinositol 3-kinase (PI3K) inactivates the tumor suppressor complex and enhances mTOR signaling by means of phosphorylation of tuberin by Akt.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Phorbol esters and activated Ras; RSK1; TSC2 Ser-1798 regulatory site",
+   "target": "RSK1 -> TSC2 (Ser-1798) -> mTOR signalling to S6K1",
+   "species": "Mammalian cell lines",
+   "effect": "RSK1 interacts with and phosphorylates tuberin at Ser-1798, inhibiting the tuberin/hamartin complex and increasing mTOR signalling to S6K1"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "erk-rsk-mapk",
+    "name": "ERK / RSK (MAPK)",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ERK-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "MA2005",
+   "ALI2020",
+   "CAR2008",
+   "SUN2026B"
+  ]
+ }
+}

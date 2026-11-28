@@ -1,0 +1,156 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "kicstor",
+  "name": "KICSTOR",
+  "type": "Pathway/Complex",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": null,
+   "reason": "Gene and protein identifiers do not apply to the type \"Pathway/Complex\"."
+  },
+  "description": "A lysosomal scaffold complex (composed of KAPTIN, ITFG2, C12orf66, and SZT2) that recruits GATOR1 to the lysosomal surface. Required for amino-acid-deprivation-dependent suppression of mTORC1; without KICSTOR, GATOR1 cannot reach the Rag GTPases and mTORC1 remains inappropriately active during starvation.",
+  "study_count": 2,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/complex/kicstor/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/kicstor.json",
+  "description_beginner": "A docking complex on the lysosome that helps station the GATOR1 'brake' where it can reach and switch off mTORC1. Without it, GATOR1 can't do its job, so mTORC1 stays on even when nutrients are scarce.",
+  "reading_levels": {
+   "beginner": "The dock GATOR1 needs.",
+   "student": "KPTN–ITFG2–C12orf66–SZT2; tethers GATOR1 to the lysosome.",
+   "research": "Loss uncouples mTORC1 from nutrient status; SZT2 mutations cause a human epileptic encephalopathy."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "PEN2017",
+    "title": "SZT2 dictates GATOR control of mTORC1 signalling",
+    "authors": "Peng M; Yin N; Li MO",
+    "year": 2017,
+    "journal": "Nature",
+    "doi": "10.1038/nature21378",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28199315",
+    "pmcid": "PMC5570594",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "SZT2 organizes GATOR1/GATOR2 to dictate amino-acid control of mTORC1.",
+    "url": "https://mtor-atlas.org/study/PEN2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2017.json"
+   },
+   {
+    "sid": "WOL2017",
+    "title": "KICSTOR recruits GATOR1 to the lysosome and is necessary for nutrients to regulate mTORC1",
+    "authors": "Wolfson RL; Chantranupong L; Wyant GA; Gu X; Orozco JM; Shen K; Condon KJ; Petri S; Kedir J; Scaria SM; Abu-Remaileh M; Frankel WN; Sabatini DM",
+    "year": 2017,
+    "journal": "Nature",
+    "doi": "10.1038/nature21423",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "28199306",
+    "pmcid": "PMC5360989",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "KICSTOR tethers GATOR1 to the lysosome, required for nutrient control of mTORC1.",
+    "url": "https://mtor-atlas.org/study/WOL2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WOL2017.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "KICSTOR-GATOR1",
+    "claim": "KICSTOR required-for GATOR1",
+    "source": {
+     "name": "KICSTOR",
+     "entity": "kicstor"
+    },
+    "target": {
+     "name": "GATOR1",
+     "entity": "gator1"
+    },
+    "effect": "required-for",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "KICSTOR is the dock that holds GATOR1 on the lysosomal surface. Without it, GATOR1 cannot reach its target and nutrient control of mTORC1 is lost.",
+    "mechanism_beginner": "KICSTOR works like a docking clamp that holds GATOR1 in place on the lysosome; without it, GATOR1 can't reach its target.",
+    "context": null,
+    "boundary": "Mammalian cell genetics (WOL2017, PEN2017). The dependency is shown in cultured cells; whole-animal and human relevance are not tested in the cited work.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WOL2017",
+      "PEN2017"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/KICSTOR-GATOR1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/KICSTOR-GATOR1.json"
+   }
+  ]
+ }
+}

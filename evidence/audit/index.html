@@ -1,0 +1,468 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evidence audit of the Atlas&#39;s mTOR corpus — Oliver&#39;s mTOR Atlas</title><meta name="description" content="What this Atlas's mTOR corpus is built on: 10% of the corpus is human evidence, 60% of pathway links rest on mechanistic or review papers alone, and 37% are carried by a single paper. Recomputed from the corpus on every build."><meta name="robots" content="index, follow"><link rel="canonical" href="https://mtor-atlas.org/evidence/audit/"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="Evidence audit of the Atlas's mTOR corpus — Oliver's mTOR Atlas"><meta property="og:description" content="What this Atlas's mTOR corpus is built on: 10% of the corpus is human evidence, 60% of pathway links rest on mechanistic or review papers alone, and 37% are carried by a single paper. Recomputed from the corpus on every build."><meta property="og:image" content="https://mtor-atlas.org/og-image.png"><!-- Pisma z vlastniho serveru (2026-10-07): Google Fonts blokovaly vykreslení (PSI: ~2,2 s). Latin + latin-ext, font-display: swap. --><link rel="preload" href="/assets/fonts/dm-sans-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><style>/* Vlastni hosting pisem (7. 10. 2026): nahrazuje Google Fonts, ktere blokovaly vykreslení. */
+/* Zdroj: Fontsource (SIL OFL). Latin + latin-ext (ceska diakritika). */
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/dm-sans-latin-opsz-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/dm-sans-latin-ext-opsz-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/cormorant-garamond-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/cormorant-garamond-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+</style><script>
+  // FOUC guard — před prvním vykreslením, proto is:inline.
+  try { var t = localStorage.getItem('atlas-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+        var l = localStorage.getItem('atlas-level');
+        if (l && l !== 'student') document.documentElement.setAttribute('data-level', l);
+  } catch (e) {}
+</script><style>:root{--t-s:#4951C8; --t-h:#226870; --t-a:#3B6A20; --t-m:#9632A6; --t-pp:#484E57; --t-rt:#6B5413; --t-r:#9632A6;}
+html[data-theme="dark"]{--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}
+@media (prefers-color-scheme: dark){html:not([data-theme="light"]){--t-s:#AEB1E0; --t-h:#74C0C9; --t-a:#8AC469; --t-m:#D4A4DC; --t-r:#D4A4DC; --t-pp:#A7AEBA; --t-rt:#D3AD43;}}</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Evidence audit of the Atlas’s mTOR corpus","url":"https://mtor-atlas.org/evidence/audit/","isPartOf":{"@id":"https://mtor-atlas.org/#dataset"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Oliver's mTOR Atlas","item":"https://mtor-atlas.org/"},{"@type":"ListItem","position":2,"name":"Studies","item":"https://mtor-atlas.org/browse/"},{"@type":"ListItem","position":3,"name":"Evidence audit of the Atlas’s mTOR corpus"}]}</script><!-- GA4 — stejné property/ID jako V1 (build_pages.shell()), aby data navazovala.
+     Tag se natáhne JEN na produkční doméně. Lokální testování (localhost na
+     libovolném portu, `astro preview`) se jinak zapisovalo do property jako
+     referral `localhost:8080` — za 90 dnů 25 relací s nejvyšším zapojením ze
+     všech kanálů, což zkreslovalo každé čtení čísel. Musí to být kontrola
+     za běhu v prohlížeči, ne ve frontmatteru: ten běží při buildu, kdy doména
+     ještě není známá, a `import.meta.env.PROD` je true i u lokálního preview. --><!-- Bot filtr (2026-10-13): od 8. 10. chodí ze Singapuru desítky až stovky návštěv denně
+     (Chrome, 1 stránka, 0 s zapojení, rozlišení 1280x1200 / 1366x1366). Parametry user_agent,
+     bot_signals a screen_res jdou do GA4 (vlastní dimenze User agent, Bot signals, Screen res).
+     SUPPRESS_BOTS = false: jen sbíráme. Po 3-4 dnech přepnout na true, GA se pak pro
+     označené návštěvy vůbec nenačte.
+     2026-10-24: zapnuto. Blokují jen silné znaky (STRONG): webdriver, headless UA a přesná
+     rozlišení flotily z GA4 (1366x1366, 1280x1200, 1280x1280, 800x600). Původní
+     square_screen by chytil i monitor otočený na výšku (1080x1920) a nechytal 1280x1200
+     ani 800x600, proto je jen informativní, stejně jako no_lang. --><script>
+  (function () {
+    var GA_ID = 'G-420TPC8J46';
+    var SUPPRESS_BOTS = true;
+    var BOT_RES = ['1366x1366', '1280x1200', '1280x1280', '800x600'];
+    var STRONG = ['webdriver', 'headless_ua', 'bot_res'];
+
+    var h = window.location.hostname;
+    if (h !== 'mtor-atlas.org' && !/\.mtor-atlas\.org$/.test(h)) return;
+
+    var n = navigator;
+    var ua = n.userAgent || '';
+    var sw = (window.screen && screen.width) || 0;
+    var sh = (window.screen && screen.height) || 0;
+    var signals = [];
+
+    if (n.webdriver === true) signals.push('webdriver');
+    if (/HeadlessChrome|PhantomJS|Puppeteer|Playwright/i.test(ua)) signals.push('headless_ua');
+    if (!n.languages || n.languages.length === 0) signals.push('no_lang');
+    // Desktopová obrazovka čtvercová nebo na výšku bez dotyku: skutečné monitory takhle nevypadají.
+    if (n.maxTouchPoints === 0 && sw >= 1000 && sw <= sh) signals.push('square_screen');
+    if (BOT_RES.indexOf(sw + 'x' + sh) !== -1) signals.push('bot_res');
+
+    var strong = signals.some(function (x) { return STRONG.indexOf(x) !== -1; });
+    if (SUPPRESS_BOTS && strong) return;
+
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID, {
+      user_agent: ua.slice(0, 100),
+      bot_signals: signals.join(',') || 'none',
+      screen_res: sw + 'x' + sh
+    });
+  })();
+</script><!-- atlasFold()/atlasKey(): hledání bez ohledu na diakritiku (Rüegg = Ruegg), src/lib/search.ts --><script>function atlasFold(s){var M={'ß':'ss','ı':'i','ø':'o','Ø':'o','æ':'ae','Æ':'ae','œ':'oe','Œ':'oe','ł':'l','Ł':'l','đ':'d','Đ':'d','ð':'d','þ':'th'};return String(s||'').replace(/[ßıøØæÆœŒłŁđĐðþ]/g,function(c){return M[c]||c;}).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}function atlasKey(s){s=String(s||'');var b=atlasFold(s),d=atlasFold(s.replace(/[üÜ]/g,'ue').replace(/[öÖ]/g,'oe').replace(/[äÄ]/g,'ae'));return d===b?b:b+' '+d;}</script><style>:root{--paper:#fff;--ink:#0A0A0A;--soft:#55524C;--line:rgba(0,0,0,.13);--line-strong:rgba(0,0,0,.34);--teal:#A31F34;--teal-deep:#7A1626;--amber:#A56827;--paper-raised:#fff;--on-ink:#fff;--on-teal:#fff;--muted-count:#7C7569;--prose-ink:#26241F;--label:#403D38;--wash:#faf9f7;--font-text:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;--font-ui:"DM Sans",var(--font-text);--font-mono:"IBM Plex Mono",ui-monospace,monospace;--font-display:"Cormorant Garamond",Georgia,serif;--fs-micro:11px;--fs-caption:13px;--fs-small:15px;--fs-body:16px;--fs-lead:17px;--fs-h3:18px;--fs-h2:21px;--fs-h1:clamp(26px,3.4vw,34px);--fs-display:clamp(30px,4.2vw,42px);--lh-tight:1.2;--lh-snug:1.4;--lh-body:1.62;--lh-loose:1.7;--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:18px;--sp-5:26px;--sp-6:34px;--sp-7:48px;--measure:68ch;--measure-wide:1100px}html[data-theme=dark]{--paper:#0e1219;--ink:#d4dfe8;--soft:#94adc0;--line:rgba(108,168,178,.1);--line-strong:rgba(108,168,178,.2);--teal:#6ca8b2;--teal-deep:#8fc3cc;--amber:#c4955e;--paper-raised:#141a22;--on-ink:#0e1219;--on-teal:#0e1219;--muted-count:#94adc0;--prose-ink:#d4dfe8;--label:#b6c7d4;--wash:#141a22}@media(prefers-color-scheme:dark){html:not([data-theme=light]){--paper:#0e1219;--ink:#d4dfe8;--soft:#94adc0;--line:rgba(108,168,178,.1);--line-strong:rgba(108,168,178,.2);--teal:#6ca8b2;--teal-deep:#8fc3cc;--amber:#c4955e;--paper-raised:#141a22;--on-ink:#0e1219;--on-teal:#0e1219;--muted-count:#94adc0;--prose-ink:#d4dfe8;--label:#b6c7d4;--wash:#141a22}}*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:var(--paper);color:var(--ink);font:var(--fs-body)/var(--lh-body) var(--font-text)}a{color:var(--teal)}[hidden]{display:none!important}.oma-topbar{border-bottom:2px solid var(--ink)}.oma-topbar-inner{max-width:1100px;margin:0 auto;padding:22px 26px 16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}.oma-wordmark{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);flex-shrink:0}.oma-wordmark:hover{opacity:.75}.oma-emblem{width:34px;height:34px;flex-shrink:0;align-self:center;color:var(--teal)}.oma-name{font-family:DM Sans,-apple-system,sans-serif;font-weight:700;font-size:19px;letter-spacing:-.01em;white-space:nowrap}.oma-tag{font-family:IBM Plex Mono,monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);border-left:1px solid var(--line);padding-left:9px;white-space:nowrap}.topbar-controls{margin-left:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}.topbar-switch-group{display:flex;align-items:center;gap:7px}.topbar-switch-label{font-family:IBM Plex Mono,monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}.theme-toggle{background:none;border:1px solid var(--line-strong);padding:5px 12px;cursor:pointer;color:var(--soft);font-family:IBM Plex Mono,monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;flex-shrink:0;border-radius:0;line-height:1.4}.theme-toggle:hover{border-color:var(--teal);color:var(--teal)}.theme-toggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.oma-tabs-row{border-bottom:2px solid var(--ink)}.oma-tabs-inner{max-width:1100px;margin:0 auto;padding:0 26px}.oma-tabs{display:flex;gap:3px;flex-wrap:wrap}.oma-tabs a,.oma-tabs span.tab{font-family:IBM Plex Mono,monospace;font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:11px 13px;color:var(--ink);text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}.oma-tabs a:hover{background:#a31f3414;color:var(--teal)}html[data-theme=dark] .oma-tabs a:hover{background:#6ca8b21f}.oma-tabs a.active{color:var(--on-teal);background:var(--teal);border-bottom-color:var(--teal);font-weight:700}.oma-tabs span.tab{opacity:.35;cursor:default}.oma-subnav{border-bottom:1px solid var(--line)}.oma-subnav-inner{max-width:1100px;margin:0 auto;padding:5px 26px;display:flex;flex-wrap:wrap;gap:18px;font-family:IBM Plex Mono,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}.oma-subnav-inner a{color:var(--soft);text-decoration:none;padding:6px 0;display:inline-block}.oma-subnav-inner a:hover{color:var(--teal)}.oma-subnav-inner a[aria-current]{color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--teal)}main.wrap{max-width:var(--measure-wide);margin:0 auto;padding:26px 22px 70px;overflow-wrap:break-word}nav.crumb{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 var(--sp-3);padding:0}nav.crumb a{color:inherit;text-decoration:none}nav.crumb a:hover{color:var(--teal)}.intro nav.crumb{margin-bottom:var(--sp-3)}.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 10px}h1{font-family:var(--font-display);font-size:clamp(29px,3.7vw,37px);line-height:1.14;letter-spacing:-.01em;font-weight:700;margin:0 0 var(--sp-3);max-width:var(--measure)}h1 em{font-style:italic;color:var(--teal-deep)}h2{font-family:var(--font-ui);font-size:var(--fs-h2);line-height:var(--lh-snug);letter-spacing:-.01em;font-weight:700;margin:var(--sp-6) 0 var(--sp-2)}h3{font-family:var(--font-ui);font-size:var(--fs-h3);line-height:var(--lh-snug);font-weight:600;margin:var(--sp-5) 0 var(--sp-2)}p{margin:0 0 var(--sp-3);max-width:var(--measure)}.lede{font-size:var(--fs-lead);line-height:var(--lh-body);color:var(--soft);max-width:var(--measure);margin:0 0 var(--sp-5)}p.meta{font-family:var(--font-mono);font-size:var(--fs-caption);letter-spacing:.02em;color:var(--soft);margin:0 0 var(--sp-4);max-width:none}p.summary{font-size:var(--fs-lead)}p.tier-why{font-family:var(--font-ui);font-size:14px;line-height:var(--lh-snug);color:var(--soft);border-left:2px solid var(--line);padding-left:var(--sp-3);margin:var(--sp-3) 0 var(--sp-4)}pre{max-width:100%;overflow-x:auto}.bx-search:focus-within{box-shadow:0 0 0 2px var(--teal)}code{font-family:var(--font-mono);font-size:13px;background:var(--wash);border:1px solid var(--line);border-radius:3px;padding:0 5px}ul,ol{padding-left:20px;max-width:var(--measure)}li{margin:var(--sp-1) 0}table.kv{border-collapse:collapse;width:100%;margin:var(--sp-2) 0 var(--sp-4)}table.kv td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:var(--fs-small);overflow-wrap:anywhere}@media(max-width:400px){table.kv td{padding:8px 6px}}table.kv td:first-child{width:34%;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}.scroll{overflow-x:auto;margin:var(--sp-2) 0 var(--sp-4)}table.idx{border-collapse:collapse;width:100%;font-size:var(--fs-small);min-width:560px}table.idx th{text-align:left;padding:9px 10px;border-bottom:2px solid var(--ink);font-family:var(--font-mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft);font-weight:600;white-space:nowrap}table.idx td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}table.idx tr:hover td{background:var(--wash)}table.idx a{text-decoration:none;color:var(--teal);font-weight:500}table.idx a:hover{text-decoration:underline}table.idx .who{font-family:var(--font-mono);font-size:11.5px;color:var(--soft);white-space:nowrap}table.idx td.c-year{font-family:var(--font-mono);font-size:12px;color:var(--soft);white-space:nowrap;width:1%}table.idx td.c-ev{width:1%;white-space:nowrap}table.idx .s-title{display:block;font-family:var(--font-ui);font-size:15px;font-weight:600;line-height:1.35}table.idx .s-sub{display:block;margin-top:3px;font-size:13px;line-height:1.55;color:var(--soft);max-width:78ch}table.idx .ef-bound{border-left:2px solid var(--line-strong);padding-left:9px;margin-top:6px}table.idx .ef-bound b{color:var(--ink-soft);font-weight:600}table.idx .ef-grade{margin-top:5px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.02em;color:var(--soft)}.skip-link{position:absolute;left:-9999px;top:0;z-index:100}.skip-link:focus,.skip-link:focus-visible{left:8px;top:8px;width:auto;height:auto;padding:10px 14px;background:var(--paper-raised);color:var(--ink);border:1px solid var(--teal);border-radius:3px;font-family:var(--font-ui);font-size:14px;text-decoration:none;outline:2px solid var(--teal);outline-offset:2px}table.idx .s-sid{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;color:var(--soft);margin-left:7px;font-weight:400}.cards{display:grid;gap:14px;margin:var(--sp-3) 0 var(--sp-5)}.cards.c3{grid-template-columns:repeat(3,1fr)}.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:3px;padding:16px 18px;text-decoration:none;color:inherit;background:var(--paper)}.card:hover{border-color:var(--teal)}.card b{color:var(--teal)}.card b{font-family:var(--font-ui);font-size:16px;font-weight:700;margin-bottom:5px}.card em{font-style:normal;font-size:13.5px;color:var(--soft);line-height:1.55;flex:1}.card .count{margin-top:12px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);font-weight:600}@media(max-width:860px){.cards.c3{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.cards.c3{grid-template-columns:1fr}}.intro{max-width:760px}.intro h1,.intro p{max-width:none}.intro-headline{font-size:clamp(26px,3.4vw,32px);margin:0 0 14px;color:var(--ink)}.intro-headline em{font-style:italic;color:var(--teal-deep)}.intro-lede{font-size:var(--fs-lead);line-height:var(--lh-body);color:var(--ink);margin-bottom:22px}.intro-lede p{margin:0 0 14px}@media(max-width:640px){.intro-headline{font-size:clamp(20px,5.6vw,24px)}}.intro-stats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 30px}.intro-stat{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:10px 16px;min-width:120px}.intro-stat .num{font-family:var(--font-ui);font-weight:700;font-size:var(--fs-h2);color:var(--teal-deep);line-height:1}.intro-stat .lbl{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;color:var(--soft);letter-spacing:.04em;margin-top:5px}.intro-stat .lbl a{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}@media(max-width:640px){.intro-stat{flex:1 1 calc(50% - 5px);min-width:0;padding:9px 12px}}.ipy-panel{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;padding:24px 24px 20px}.ipy-grid{display:grid;grid-template-columns:220px minmax(0,1fr) 190px;row-gap:3px;align-items:center}.ipy-label{grid-column:1;display:flex;gap:10px;align-items:center;padding-right:14px;line-height:1.2}.ipy-label .tier{flex-shrink:0}.ipy-label .n{display:block;font-weight:600;font-size:14px}.ipy-label .s{display:block;font-family:var(--font-mono);font-size:11px;color:var(--soft);margin-top:1px}.ipy-track{grid-column:2;height:40px;display:flex;justify-content:center;align-items:stretch;background:var(--wash);position:relative;text-decoration:none;color:inherit}.ipy-fill{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:14px;color:var(--paper);transition:filter .15s}a.ipy-track:hover .ipy-fill{outline:2px solid var(--ink);outline-offset:1px}a.ipy-track:hover .ipy-c-outside{text-decoration:underline}.ipy-c-outside{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap}.ipy-note{font-weight:400;font-size:11px;color:var(--teal);margin-left:8px}.ipy-hatch,.ipy-label .tier.ipy-hatch{background-image:repeating-linear-gradient(135deg,transparent 0 4px,rgba(255,255,255,.4) 4px 7px)}html[data-theme=dark] .ipy-hatch,html[data-theme=dark] .ipy-label .tier.ipy-hatch{background-image:repeating-linear-gradient(135deg,transparent 0 4px,rgba(14,18,25,.45) 4px 7px)}@media(prefers-color-scheme:dark){html:not([data-theme=light]) .ipy-hatch{background-image:repeating-linear-gradient(135deg,transparent 0 4px,rgba(14,18,25,.45) 4px 7px)}}.ipy-br{grid-column:3;align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:3px;margin-left:16px;padding:4px 0 4px 14px;border-left:2px solid;text-decoration:none;color:inherit}.ipy-br.human{grid-row:1/4;border-color:var(--t-h)}.ipy-br.other{grid-row:4/6;border-color:var(--t-m)}.ipy-br:hover .pct{color:var(--teal)}.ipy-br .pct{font-family:var(--font-ui);font-weight:700;font-size:30px;line-height:1}.ipy-br .glbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}.ipy-br .gnote{font-size:12px;color:var(--soft);line-height:1.4}.ipy-whole{margin-top:22px;padding-top:16px;border-top:1px dashed var(--line-strong)}.ipy-whole-hd{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin-bottom:7px}.ipy-strip{display:flex;gap:2px;height:14px}.ipy-strip span{min-width:3px}.ipy-strip .ipy-out{outline:1.5px solid currentColor;outline-offset:-1.5px}.ipy-outside{list-style:none;padding:0;display:flex;gap:22px;flex-wrap:wrap;margin:10px 0 0}.ipy-outside li{font-size:var(--fs-caption)}.ipy-outside li a{text-decoration:none;color:inherit;display:inline-flex;align-items:baseline}.ipy-outside li a:hover{color:var(--teal)}.ipy-outside .n{font-family:var(--font-ui);font-weight:700;font-size:18px;color:var(--ink);margin-right:6px}.ipy-outside .sw{display:inline-block;width:10px;height:10px;margin-right:6px;outline:1.5px solid currentColor;outline-offset:-1.5px}.ipy-outside-note{font-size:12px;color:var(--soft);margin:6px 0 0}@media(max-width:640px){.ipy-panel{padding:16px 12px}.ipy-grid{grid-template-columns:minmax(0,1fr);row-gap:0}.ipy-label,.ipy-track{grid-row:auto!important;grid-column:1}.ipy-label{margin-top:10px;margin-bottom:4px}.ipy-label .s{display:inline;margin-left:6px}.ipy-track{height:30px}.ipy-br{grid-column:1;grid-row:auto!important;margin:14px 0 0;padding:2px 0 2px 12px}.ipy-br .pct{font-size:24px}.ipy-outside{gap:0 18px}.ipy-outside li a{min-height:36px;align-items:center}}.tags{display:flex;flex-wrap:wrap;gap:6px;margin:var(--sp-2) 0 var(--sp-4)}.tags a{font-family:var(--font-ui);font-size:13px;border:1px solid var(--line);border-radius:20px;padding:4px 11px;text-decoration:none;color:var(--teal)}.tags span{font-family:var(--font-ui);font-size:13px;border:1px solid var(--line);border-radius:20px;padding:4px 11px}.tags span{color:var(--soft)}.tags a:hover{border-color:var(--teal);color:var(--teal)}p.abstract{font-size:var(--fs-small);color:var(--prose-ink)}details.disc{border-top:1px solid var(--line);margin:var(--sp-4) 0 0}details.disc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:var(--sp-3) 0 0}details.disc>summary::-webkit-details-marker{display:none}details.disc>summary:after{content:"";width:7px;height:7px;flex:none;border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg);margin-top:-3px;transition:transform .15s}details.disc[open]>summary:after{transform:rotate(-135deg);margin-top:2px}details.disc>summary:hover:after{border-color:var(--teal)}details.disc>summary h2,details.disc>summary h3{margin:0}details.disc>summary .hint{margin-left:auto;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}details.disc>summary:hover .hint{color:var(--teal)}ul.revlog{margin:var(--sp-2) 0 0 1.1em;padding:0;font-size:var(--fs-small,14px);color:var(--muted-count)}ul.revlog li{margin:4px 0;line-height:1.5}details.disc>summary .h-hide,details.disc[open]>summary .h-show{display:none}details.disc[open]>summary .h-hide{display:inline}details.disc .disc-body{padding:var(--sp-2) 0 var(--sp-3)}.fulltext-link{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;display:block;margin-top:var(--sp-2)}pre.cite{background:var(--wash);border:1px solid var(--line);border-radius:3px;padding:var(--sp-3);overflow-x:auto;font-family:var(--font-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}footer.oma-footer{margin-top:44px;padding:22px 22px 26px;border-top:1px solid var(--line);font-family:IBM Plex Mono,monospace;font-size:12px;color:var(--soft);text-align:center}footer.oma-footer p{max-width:640px;margin:0 auto 8px;font-family:var(--font-text);font-size:13px;line-height:1.55}footer.oma-footer .oma-footer-links{margin-top:10px;display:flex;flex-wrap:wrap;justify-content:center;gap:2px 16px}footer.oma-footer .oma-footer-links a{color:var(--soft);text-decoration:none;display:inline-block;padding:3px 0}footer.oma-footer .oma-footer-links a:hover{color:var(--teal)}footer.oma-footer .oma-footer-meta{margin-top:10px;color:var(--muted-count)}footer.oma-footer .oma-footer-follow{margin-top:14px}footer.oma-footer .oma-btn{display:inline-block;margin:4px 3px;padding:4px 12px;border:1px solid var(--line-strong);border-radius:4px;color:var(--ink);text-decoration:none;font-family:var(--font-ui);font-size:13px}footer.oma-footer .oma-btn:hover{border-color:var(--teal);color:var(--teal)}footer.oma-footer .oma-btn .oma-bsky{vertical-align:-2px;margin-left:3px;color:#0085ff}@media print{footer.oma-footer .oma-footer-follow{display:none}}.lvsw-btns{display:flex;border:1px solid var(--line-strong);flex-shrink:0}.lvsw-btns button{font-family:IBM Plex Mono,monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:none;border:none;border-right:1px solid var(--line-strong);padding:5px 9px;cursor:pointer;color:var(--soft);line-height:1.4}.lvsw-btns button:last-child{border-right:none}.lvsw-btns button:hover{color:var(--teal)}.lvsw-btns button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}.lvsw-btns button[aria-pressed=true]{background:var(--ink);color:var(--on-ink);font-weight:600}.lv-beginner,.lv-research{display:none}[data-level=beginner] .lv-beginner{display:block}[data-level=beginner] .lv-student{display:none}[data-level=research] .lv-research{display:block}[data-level=research] .lv-student,[data-level=beginner] .lv-hide-beginner{display:none}@media(max-width:768px){.oma-topbar-inner{padding:16px 18px 12px}.topbar-controls{margin-left:0}.theme-toggle{min-height:44px;padding:0 14px}.lvsw-btns button{min-height:44px;padding:0 11px}main.wrap{padding:20px 16px 56px}nav.crumb{font-size:10.5px;line-height:1.9}}@media(max-width:380px){.oma-tag{display:none}}table.idx th.th-sort{cursor:pointer;user-select:none;-webkit-user-select:none;white-space:nowrap}table.idx th.th-sort:after{content:"↕";margin-left:6px;font-size:9px;opacity:0;transition:opacity .12s}table.idx th.th-sort:hover{color:var(--teal)}table.idx th.th-sort:hover:after{opacity:.5}table.idx th.th-sort:focus-visible{outline:2px solid var(--teal);outline-offset:2px}table.idx th.is-asc,table.idx th.is-desc{color:var(--teal)}table.idx th.is-asc:after{content:"↑";opacity:1}table.idx th.is-desc:after{content:"↓";opacity:1}@media(max-width:640px){.oma-topbar-inner{padding:10px 16px 8px}.topbar-controls{gap:8px 12px}.oma-tabs-inner,.oma-subnav{position:relative}.oma-tabs,.oma-subnav-inner{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}.oma-tabs::-webkit-scrollbar,.oma-subnav-inner::-webkit-scrollbar{display:none}.oma-tabs a,.oma-tabs span.tab,.oma-subnav-inner a{flex:0 0 auto;white-space:nowrap}.oma-tabs-inner{padding:0 0 0 16px}.oma-subnav-inner{padding:9px 16px}.oma-tabs-inner:after,.oma-subnav:after{content:"";position:absolute;top:0;right:0;bottom:0;width:28px;pointer-events:none;background:linear-gradient(to right,transparent,var(--paper,#fff))}}.ef-provenance{font-size:.9rem;line-height:1.55;max-width:62ch;opacity:.85;border-left:3px solid var(--line-strong,#bbb);padding-left:12px;margin:10px 0 14px}.oma-fb[data-astro-cid-ukalbhrz]{margin:40px 0 0;padding:14px 0 0;border-top:1px solid var(--line);min-height:56px;font-family:var(--font-ui);font-size:var(--fs-small);color:var(--soft);visibility:hidden;opacity:0;transition:opacity .35s}.oma-fb[data-astro-cid-ukalbhrz].is-on{visibility:visible;opacity:1}.oma-fb[data-astro-cid-ukalbhrz].is-off{display:none}.oma-fb-ask[data-astro-cid-ukalbhrz]{display:flex;align-items:center;flex-wrap:wrap;gap:var(--sp-3)}.oma-fb-ask[data-astro-cid-ukalbhrz][hidden],.oma-fb-thanks[data-astro-cid-ukalbhrz][hidden]{display:none}.oma-fb-btns[data-astro-cid-ukalbhrz]{display:inline-flex;gap:var(--sp-2)}.oma-fb[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]{font:inherit;color:var(--ink);background:transparent;cursor:pointer;border:1px solid var(--line-strong);border-radius:4px;padding:5px 16px}.oma-fb[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]:hover{border-color:var(--teal);color:var(--teal)}.oma-fb[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.oma-fb-thanks[data-astro-cid-ukalbhrz]{margin:0}.oma-fb-fix[data-astro-cid-ukalbhrz].is-first{margin:40px 0 0;padding:14px 0 0;border-top:1px solid var(--line)}.oma-fb-fix[data-astro-cid-ukalbhrz].is-first+.oma-fb[data-astro-cid-ukalbhrz]{margin-top:var(--sp-3);padding-top:0;border-top:0}.oma-fb-fix[data-astro-cid-ukalbhrz]{margin:var(--sp-3) 0 0;font-family:var(--font-ui);font-size:var(--fs-small);color:var(--soft)}.oma-fb-fix-ask[data-astro-cid-ukalbhrz]{display:flex;align-items:center;flex-wrap:wrap;gap:var(--sp-3)}.oma-fb-fix-ask[data-astro-cid-ukalbhrz][hidden],.oma-fb-fix-form[data-astro-cid-ukalbhrz][hidden],.oma-fb-fix-thanks[data-astro-cid-ukalbhrz][hidden],.oma-fb-fix-open[data-astro-cid-ukalbhrz][hidden],.oma-fb-fix-ok[data-astro-cid-ukalbhrz][hidden],.oma-fb-fix-okthanks[data-astro-cid-ukalbhrz][hidden]{display:none}.oma-fb-fix-okthanks[data-astro-cid-ukalbhrz]{margin:var(--sp-2) 0 0}.oma-fb-fix[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]{font:inherit;color:var(--ink);background:transparent;cursor:pointer;border:1px solid var(--line-strong);border-radius:4px;padding:5px 16px}.oma-fb-fix[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]:hover{border-color:var(--teal);color:var(--teal)}.oma-fb-fix[data-astro-cid-ukalbhrz] button[data-astro-cid-ukalbhrz]:focus-visible,.oma-fb-fix[data-astro-cid-ukalbhrz] input[data-astro-cid-ukalbhrz]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.oma-fb-fix-form[data-astro-cid-ukalbhrz]{display:flex;flex-direction:column;gap:var(--sp-2);max-width:560px}.oma-fb-fix-row[data-astro-cid-ukalbhrz]{display:flex;gap:var(--sp-2)}.oma-fb-fix[data-astro-cid-ukalbhrz] input[data-astro-cid-ukalbhrz]{flex:1;min-width:0;font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line-strong);border-radius:4px;padding:5px 10px}.oma-fb-fix-count[data-astro-cid-ukalbhrz]{font-size:11px;color:var(--soft)}.oma-fb-fix-thanks[data-astro-cid-ukalbhrz]{margin:0}@media(prefers-reduced-motion:reduce){.oma-fb[data-astro-cid-ukalbhrz]{transition:none}}@media print{.oma-fb[data-astro-cid-ukalbhrz],.oma-fb-fix[data-astro-cid-ukalbhrz]{display:none}}.tier{display:inline-flex;min-width:22px;height:21px;align-items:center;justify-content:center;padding:0 6px;border-radius:3px;font-family:var(--font-mono);font-size:11.5px;font-weight:600;color:#fff;vertical-align:middle;letter-spacing:.02em}.tier.t-S{background:var(--t-s)}.tier.t-H{background:var(--t-h)}.tier.t-A{background:var(--t-a)}.tier.t-M{background:var(--t-m)}.tier.t-R{background:var(--t-r)}.tier.t-PP{background:var(--t-pp)}.tier.t-RT{background:var(--t-rt)}.tier.out{background:transparent;border:1.5px solid currentColor}.tier.out.t-S{color:var(--t-s)}.tier.out.t-H{color:var(--t-h)}.tier.out.t-A{color:var(--t-a)}.tier.out.t-M{color:var(--t-m)}.tier.out.t-R{color:var(--t-r)}.tier.out.t-PP{color:var(--t-pp)}.tier.out.t-RT{color:var(--t-rt)}.tier-word{font-family:var(--font-ui);font-size:13px;color:var(--soft);margin-left:6px}
+.hub-lede{max-width:var(--measure);margin:var(--sp-4) 0 var(--sp-5)}.hub-lede p{font-size:16.5px;line-height:1.62;margin:0 0 10px}.hub-lede .numbers{font-size:15px;color:var(--soft)}.hub-lede .numbers b{color:var(--ink)}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.hub{list-style:none;padding:0;margin:0;display:grid;gap:14px;max-width:none;grid-template-columns:repeat(2,minmax(0,1fr))}.hub.c3{grid-template-columns:repeat(3,minmax(0,1fr))}.hub.c4{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}@media(max-width:900px){.hub.c3,.hub.c4{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.hub,.hub.c3,.hub.c4{grid-template-columns:1fr}}.hub-item{border:1px solid var(--line);border-radius:3px;background:var(--paper);display:flex;flex-direction:column;transition:border-color .15s;min-width:0}.hub-item:hover{border-color:var(--line-strong)}.hub-item.wide{grid-column:1/-1}.hub-item.w2{grid-column:span 2}@media(max-width:640px){.hub-item.w2{grid-column:auto}}.hub-item.here{border-color:var(--teal);box-shadow:inset 0 3px 0 var(--teal)}.hub-link{display:flex;flex-direction:column;gap:6px;padding:15px 17px 16px;color:inherit;text-decoration:none;flex:1}.hub.c4 .hub-link{padding:12px 14px 13px;gap:5px}.hub-link:hover b{color:var(--teal);text-decoration:underline;text-underline-offset:3px}.hub-no{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:var(--teal);font-weight:600}.hub-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}.hub-head b{font-family:var(--font-ui);font-size:18px;font-weight:700;line-height:1.25}.hub.c4 .hub-head b{font-size:16px}.hub-count{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}.hub-blurb{font-size:14.5px;line-height:1.58;color:var(--soft);max-width:62ch}.hub.c4 .hub-blurb{font-size:13.5px;line-height:1.5}.hub-more{font-size:13px;margin-top:auto;padding-top:4px;color:var(--soft)}.cq{display:inline-block;width:12px;height:12px;border-radius:1px;flex:none}.cq.k-S,.seg.k-S{background:var(--t-s)}.cq.k-H,.seg.k-H{background:var(--t-h)}.cq.k-A,.seg.k-A{background:var(--t-a)}.cq.k-M,.seg.k-M{background:var(--t-m)}.cq.k-R,.seg.k-R{box-shadow:inset 0 0 0 1.5px var(--t-r)}.cq.k-PP,.seg.k-PP{box-shadow:inset 0 0 0 1.5px var(--t-pp)}.cq.k-RT,.seg.k-RT{box-shadow:inset 0 0 0 1.5px var(--t-rt)}.segbar{display:flex;gap:2px;height:12px;margin-top:6px}.segbar .seg{display:block;border-radius:1px;min-width:3px}.codekey{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--font-mono);font-size:10.5px;color:var(--soft)}.codekey span{display:inline-flex;align-items:center;gap:5px}.codekey .cq{width:10px;height:10px}.codekey b{color:var(--ink);font-weight:600}.quote{display:block;margin-top:6px;padding:9px 12px;background:var(--wash);border-left:2px solid var(--teal);font-size:15px;line-height:1.45;font-weight:600}.quote small{display:block;font-family:var(--font-mono);font-size:10px;font-weight:400;color:var(--soft);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.about-hub[data-astro-cid-rsjtw4ac]{margin:var(--sp-4) 0 var(--sp-6)}.pts[data-astro-cid-rsjtw4ac]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}@media(max-width:640px){.pts[data-astro-cid-rsjtw4ac]{grid-template-columns:1fr}}.pts[data-astro-cid-rsjtw4ac] span[data-astro-cid-rsjtw4ac]{font-size:13.5px;line-height:1.45;border-top:2px solid var(--teal);padding-top:7px;color:var(--soft)}.pts[data-astro-cid-rsjtw4ac] b[data-astro-cid-rsjtw4ac]{display:block;font-size:14px;margin-bottom:2px;color:var(--ink)}.person[data-astro-cid-rsjtw4ac]{display:flex;gap:14px;align-items:center;margin-top:6px;font-size:13.5px;color:var(--soft);line-height:1.45}.person[data-astro-cid-rsjtw4ac] img[data-astro-cid-rsjtw4ac]{width:72px;height:90px;object-fit:cover;border-radius:2px;border:1px solid var(--line);flex:none}.person[data-astro-cid-rsjtw4ac] b[data-astro-cid-rsjtw4ac]{font-size:16px;color:var(--ink)}.hub-link[data-astro-cid-rsjtw4ac]:hover .person[data-astro-cid-rsjtw4ac] b[data-astro-cid-rsjtw4ac]{text-decoration:none;color:var(--ink)}.mlist[data-astro-cid-rsjtw4ac]{list-style:none;padding:0;margin:4px 0 0;font-size:13.5px;line-height:1.4}.mlist[data-astro-cid-rsjtw4ac] li[data-astro-cid-rsjtw4ac]{padding:5px 0;border-top:1px solid var(--line)}.sec[data-astro-cid-rsjtw4ac]{display:flex;flex-direction:column;gap:10px;min-width:0}.sl[data-astro-cid-rsjtw4ac]{display:flex;flex-direction:column;gap:4px;padding:11px 13px;background:var(--wash);border-radius:3px;text-decoration:none;color:inherit}.sl[data-astro-cid-rsjtw4ac]:hover .m[data-astro-cid-rsjtw4ac]{color:var(--teal)}.sl[data-astro-cid-rsjtw4ac] .m[data-astro-cid-rsjtw4ac]{font-family:var(--font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}.sl[data-astro-cid-rsjtw4ac] .t[data-astro-cid-rsjtw4ac]{font-size:13px;line-height:1.45;color:var(--soft);overflow-wrap:anywhere}.prose-body .v2-jump{font-family:var(--font-mono);font-size:12.5px;line-height:1.7;color:var(--soft);border-left:2px solid var(--line-strong);padding-left:12px;margin:var(--sp-3) 0;max-width:var(--measure)}.prose-body table{border-collapse:collapse;width:100%;font-size:14px}@media(max-width:600px){.prose-body table{display:block;overflow-x:auto;max-width:100%}}.prose-body table td,.prose-body table th{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.prose-body h2{font-family:var(--font-ui)}.prose-body a{color:var(--teal)}.project-logo{margin:0 0 var(--sp-4)}.project-logo img{width:180px;height:auto;display:block}.prose-body .paper-dl{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;font-family:var(--font-mono);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:11px 20px;border-radius:3px;margin:4px 0 2px}.prose-body .paper-dl:hover{opacity:.85;color:#fff}.prose-body .paper-byline{font-size:15px;margin:0 0 4px}.prose-body .paper-rec th{white-space:nowrap;vertical-align:top;width:170px}.prose-body .paper-cite{font-family:var(--font-mono);font-size:13px;line-height:1.65;background:var(--line-soft,rgba(0,0,0,.04));border-left:3px solid var(--line);padding:12px 15px;margin:6px 0 18px;overflow-wrap:anywhere}
+</style></head> <body> <!-- Audit 2026-10-10 (OWN-01): žádná z 1226 stránek neměla skip link, přitom
+     každá začíná asi 19 navigačními odkazy před <main>. Pro čtenáře s klávesnicí
+     nebo čtečkou to znamenalo projít celou navigaci na každé stránce, a nejvíc
+     právě tam, kde Atlas očekává procházení: 442 studií, 462 autorů, 127 vazeb.
+     WCAG 2.1 SC 2.4.1 Bypass Blocks. --> <a href="#main" class="skip-link">Skip to content</a> <div class="oma-topbar"><div class="oma-topbar-inner"> <a class="oma-wordmark" href="/" title="Oliver's mTOR Atlas — home"> <svg class="oma-emblem" viewBox="0 0 64 64" role="img" aria-label="Oliver's mTOR Atlas emblem"><path d="M40.89 7.57 A26 26 0 1 1 23.11 7.57" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"></path><circle cx="32" cy="15" r="9" fill="currentColor"></circle></svg> <span class="oma-name">Oliver's mTOR Atlas</span> <span class="oma-tag">Evidence Platform</span> </a> <div class="topbar-controls"> <div class="topbar-switch-group"> <span class="topbar-switch-label">Reading level</span> <span class="lvsw-btns" role="group" aria-label="Reading level"> <button type="button" data-level="beginner" aria-pressed="false">Beginner</button> <button type="button" data-level="student" aria-pressed="true">Student</button> <button type="button" data-level="research" aria-pressed="false">Research</button> </span> </div> <script>
+(function(){
+  var btns = document.querySelectorAll('.lvsw-btns button');
+  if(!btns.length) return;
+  function apply(lv, persist){
+    if(lv === 'student') document.documentElement.removeAttribute('data-level');
+    else document.documentElement.setAttribute('data-level', lv);
+    Array.prototype.forEach.call(btns, function(b){
+      b.setAttribute('aria-pressed', String(b.dataset.level === lv));
+    });
+    if(persist){ try{ localStorage.setItem('atlas-level', lv); }catch(e){} }
+    // Stránky, které na úroveň reagují víc než skrytím sekce, poslouchají tohle.
+    document.dispatchEvent(new CustomEvent('atlas:level', { detail: lv }));
+    // Produkční pathway explorer (pathway/pathway.js) poslouchá tenhle název
+    // a tenhle tvar detailu — nesahat na něj, je to jeho veřejné rozhraní.
+    document.dispatchEvent(new CustomEvent('atlas-level-change', { detail: { level: lv } }));
+  }
+  var saved = 'student';
+  try { saved = localStorage.getItem('atlas-level') || 'student'; } catch(e){}
+  apply(saved, false);
+  Array.prototype.forEach.call(btns, function(b){
+    b.addEventListener('click', function(){ apply(b.dataset.level, true); });
+  });
+})();
+</script> <div class="topbar-switch-group"> <span class="topbar-switch-label">Mode</span> <button class="theme-toggle" id="themeToggle" type="button" title="Switch theme"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> <span id="themeLabel">Dark</span> </button> </div> <script>
+(function(){
+  var SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+  var MOON='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  function updateBtn(theme){
+    var btn=document.getElementById('themeToggle'),lbl=document.getElementById('themeLabel');
+    if(!btn||!lbl)return;
+    btn.querySelector('svg').innerHTML = theme==='dark'?SUN:MOON;
+    lbl.textContent = theme==='dark'?'Light':'Dark';
+  }
+  function current(){
+    return document.documentElement.getAttribute('data-theme')
+      || (window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  }
+  var btn=document.getElementById('themeToggle');
+  if(btn) btn.addEventListener('click',function(){
+    var next = current()==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('atlas-theme',next);}catch(e){}
+    updateBtn(next);
+  });
+  updateBtn(current());
+})();
+</script> </div> </div></div> <div class="oma-tabs-row"><div class="oma-tabs-inner"> <nav class="oma-tabs" aria-label="Main"> <a href="/">Welcome</a><a href="/academy/">Academy</a><a href="/ask/">Answers</a><a href="/pathway/">Pathway</a><a href="/browse/" class="active" aria-current="page">Studies</a><a href="/authors/">Researchers</a><a href="/questions/">Open Questions</a><a href="/field/">The Field</a><a href="/events/">Events</a><a href="/about/">About</a> </nav> </div></div> <script>
+/* A16: na uzkem displeji je menu posuvny pas; aktivni polozku posunout do
+   zaberu (jen scrollLeft pasu, stranka se nehne). */
+(function(){try{if(!matchMedia('(max-width:640px)').matches)return;
+  document.querySelectorAll('.oma-tabs,.oma-subnav-inner').forEach(function(bar){
+    var a=bar.querySelector('a.active,a[aria-current]'); if(!a)return;
+    var x=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2; if(x>0)bar.scrollLeft=x;});
+}catch(e){}})();
+</script> <div class="oma-subnav"><nav class="oma-subnav-inner" aria-label="Section"><a href="/browse/">All studies</a><a href="/topics/">Topics</a><a href="/evidence/">Evidence codes</a><a href="/evidence/audit/" aria-current="page">Evidence audit</a><a href="/evidence/audit/paper/">The paper</a><a href="/about/methodology/">How a study gets in</a></nav></div> <main class="wrap" id="main"> <nav class="crumb"><a href="https://mtor-atlas.org/">Oliver's mTOR Atlas</a> · <a href="/browse/">Studies</a> · Evidence audit of the Atlas’s mTOR corpus</nav>   <link rel="stylesheet" href="/assets/type.css"> <div class="prose-body"><h1>Evidence audit of the Atlas&rsquo;s mTOR corpus</h1>
+<p class="aud-lead">This page measures the Atlas against itself. Not how many studies it holds &mdash; that number says nothing about the field &mdash; but what kind of evidence this Atlas&rsquo;s mTOR pathway map is built on: how much of it reaches a human, which parts of the map have no human study cited behind them, how many links in the map rest on a single paper, and how much of what is claimed carries a recorded boundary.</p>
+<p class="aud-lead">Every number below is computed from the corpus at build time, never written by hand. The method is at the bottom, so anyone can recompute them or apply the same audit to a different pathway.</p>
+<div class="aud-figure">
+<div class="aud-fig"><div class="n">10&nbsp;%</div><div class="l">of the corpus is human evidence (53 of 534 studies)</div></div>
+<div class="aud-fig"><div class="n">60&nbsp;%</div><div class="l">of pathway links rest on mechanistic or review papers alone</div></div>
+<div class="aud-fig"><div class="n">37&nbsp;%</div><div class="l">of pathway links are carried by a single paper</div></div>
+<div class="aud-fig"><div class="n">100&nbsp;%</div><div class="l">of links record the conditions they hold under</div></div>
+</div>
+<h2 id="what-the-corpus-is-made-of">What the corpus is made of</h2>
+<p>Each study carries a code for the <em>kind of claim it can support</em>, not for how good it is. A mechanistic paper is not worse than a trial; it answers a different question. The distribution matters because a pathway described almost entirely by molecular work supports conclusions about molecules, not about people.</p>
+<table class="aud"><thead><tr><th>Evidence code</th><th class="num">Studies</th><th class="num">Share</th><th>&nbsp;</th></tr></thead><tbody>
+<tr><td>S &mdash; synthesis of human data</td><td class="num">3</td><td class="num">0.6&nbsp;%</td><td><span class="aud-bar" style="width:0.6%"></span></td></tr>
+<tr><td>H &mdash; human study</td><td class="num">50</td><td class="num">9.4&nbsp;%</td><td><span class="aud-bar" style="width:9.4%"></span></td></tr>
+<tr><td>A &mdash; animal model</td><td class="num">157</td><td class="num">29.4&nbsp;%</td><td><span class="aud-bar" style="width:29.4%"></span></td></tr>
+<tr><td>M &mdash; molecular (cells, biochemistry, structure)</td><td class="num">273</td><td class="num">51.1&nbsp;%</td><td><span class="aud-bar" style="width:51.1%"></span></td></tr>
+<tr><td>R &mdash; review, secondary literature</td><td class="num">44</td><td class="num">8.2&nbsp;%</td><td><span class="aud-bar" style="width:8.2%"></span></td></tr>
+<tr><td>Off the ladder (preprint, registered trial)</td><td class="num">7</td><td class="num">1.3&nbsp;%</td><td><span class="aud-bar" style="width:1.3%"></span></td></tr>
+</tbody></table>
+<p><strong>53 of 534 studies &mdash; 9.9&nbsp;% &mdash; are human evidence.</strong> Almost everything else is animal, cellular or theoretical (the 7 off-ladder records are preprints and registered trials, which can include human studies not yet reported). That is the single most important number on this page, and it is a fact about this collection, not a measurement of the field. Read it as a count of study LABELS: each record carries one code for the kind of study it mainly is, so a paper that mixes a human component with animal or cell work is counted once, under its main code. <a class="study-ref" href="/study/ORE2006/" title="mTOR inhibition induces upstream receptor tyrosine kinase signaling and activates Akt (2006)">ORE2006</a> and <a class="study-ref" href="/study/CAR2008/" title="Inhibition of mTORC1 leads to MAPK pathway activation through a PI3K-dependent feedback loop in human cancer (2008)">CAR2008</a> are the clearest examples -- both include patient material alongside experimental work, and a single code hides that. The number is therefore a floor on human experimental components, not an exhaustive count of them.</p>
+<p>M and R are listed apart on purpose. Both sit on the same rung of the internal grade, but a primary molecular experiment and a narrative review are not the same kind of evidence: one reports a measurement, the other reports what other papers measured. The corpus holds <strong>273 molecular studies and 44 reviews</strong>. Where this page grades a pathway <em>link</em> rather than a study, the two cannot be separated, because a link can cite both and is graded by the strongest study behind it &mdash; so a link shown at that rung may rest on primary work, on a review, or on both.</p>
+<h2 id="does-it-reach-people">Is this corpus&rsquo;s human share rising over time?</h2>
+<p>If the pathway were maturing towards clinical use, the share of human work would rise over time. Here is what the corpus shows, by five-year window.</p>
+<table class="aud"><thead><tr><th>Period</th><th class="num">Studies</th><th class="num">Human</th><th class="num">Share</th><th>&nbsp;</th></tr></thead><tbody>
+<tr><td>1975&ndash;1979</td><td class="num">1</td><td class="num">0</td><td class="num">0&nbsp;%</td><td><span class="aud-bar" style="width:0.0%"></span></td></tr>
+<tr><td>1990&ndash;1994</td><td class="num">7</td><td class="num">0</td><td class="num">0&nbsp;%</td><td><span class="aud-bar" style="width:0.0%"></span></td></tr>
+<tr><td>1995&ndash;1999</td><td class="num">11</td><td class="num">0</td><td class="num">0&nbsp;%</td><td><span class="aud-bar" style="width:0.0%"></span></td></tr>
+<tr><td>2000&ndash;2004</td><td class="num">49</td><td class="num">2</td><td class="num">4&nbsp;%</td><td><span class="aud-bar" style="width:10.2%"></span></td></tr>
+<tr><td>2005&ndash;2009</td><td class="num">76</td><td class="num">5</td><td class="num">7&nbsp;%</td><td><span class="aud-bar" style="width:16.4%"></span></td></tr>
+<tr><td>2010&ndash;2014</td><td class="num">123</td><td class="num">13</td><td class="num">11&nbsp;%</td><td><span class="aud-bar" style="width:26.4%"></span></td></tr>
+<tr><td>2015&ndash;2019</td><td class="num">78</td><td class="num">6</td><td class="num">8&nbsp;%</td><td><span class="aud-bar" style="width:19.2%"></span></td></tr>
+<tr><td>2020&ndash;2024</td><td class="num">34</td><td class="num">3</td><td class="num">9&nbsp;%</td><td><span class="aud-bar" style="width:22.1%"></span></td></tr>
+<tr><td>2025&ndash;2029</td><td class="num">154</td><td class="num">24</td><td class="num">16&nbsp;%</td><td><span class="aud-bar" style="width:39.0%"></span></td></tr>
+</tbody></table>
+<div class="aud-caveat"><b>Read this row-count with care.</b> The number of studies per period is a fact about <em>this corpus</em>, not about the field. Curation began with landmark papers, which cluster in the years a discovery was made, and then continued with current literature as it appeared. A thin period means the Atlas has not covered it, not that the field was quiet. The human <em>share</em> within a period is the more meaningful column, and even that is only as representative as the selection behind it.</div>
+<h2 id="pathway-coverage">Which parts of the pathway reach a human</h2>
+<p>The map holds 139 causal links, each of which must cite at least one study in the corpus. Grading every link by the strongest evidence behind it shows where the pathway is understood in people and where it is understood only in cells.</p>
+<table class="aud"><thead><tr><th>Strongest evidence behind the link</th><th class="num">Links</th><th class="num">Share</th><th>&nbsp;</th></tr></thead><tbody>
+<tr><td>H &mdash; human study</td><td class="num">15</td><td class="num">11&nbsp;%</td><td><span class="aud-bar" style="width:10.8%"></span></td></tr>
+<tr><td>A &mdash; animal model</td><td class="num">40</td><td class="num">29&nbsp;%</td><td><span class="aud-bar" style="width:28.8%"></span></td></tr>
+<tr><td>M &mdash; molecular / in vitro / review</td><td class="num">84</td><td class="num">60&nbsp;%</td><td><span class="aud-bar" style="width:60.4%"></span></td></tr>
+</tbody></table>
+<p><strong>15 of 139 links (11&nbsp;%) have any human evidence behind them; 84 (60&nbsp;%) rest on mechanistic or review papers alone.</strong> This is the quantified form of what the Atlas elsewhere calls the human endpoint desert.</p>
+<h2 id="single-study-links">How much rests on one paper</h2>
+<p>A link cited by one study is not wrong. It is supported by one indexed publication in this corpus, which is a different thing, and it is the first place to look when a result fails to reproduce. Note what that count is not: it counts publications indexed here, so it does not establish that the field holds no replication, and a single paper often carries several independent experiments.</p>
+<p><strong>52 of 139 links (37&nbsp;%) are carried by a single paper in this corpus.</strong> Some of those papers are definitive structures; others are one result nobody has repeated. The Atlas does not currently distinguish the two, and that is itself a gap.</p>
+<p class="aud-ids">4EBP1-LONGEVITY, 4EBP1-MITO, BISTERIC-MTORC1, CGASSTING-SENESCENCE, CHOL-LYCHOS, CR-LONGEVITY, DEPTOR-MTOR, ERK-NUCL, EVE-IMMUNE, EVE-PNET, EVE-RCC, FOXO-LONGEVITY, GLN-MTORC1-ARF1, GLN-RAG, HYPOXIA-REDD1, ISR-SALR, LARS-RAG, LEU-LARS, LYCHOS-GATOR1, MET-PKM2, METFORMIN-MTORC1, MITODYS-MTORC1, MTORC1-MAPK, MTORC1-PGC1A, MTORC1-PROSTATE, MTORC1-ROS, MTORC1-SAM, MTORC2-MAM, MTORC2-SGK1, PDCD4-MTORC2, PDCD4-TRANSL, PKM2-GATOR2, PTEN-PI3K, RAG-TSC, RAGULATOR-CGASSTING, RAPA-LAM, ROS-MTORC1, S6K1-LONGEVITY, S6K1-PDCD4, SALR-MTORC1, SAM-SAMTOR, SAMTOR-GATOR1, SESN2-AGING, TAX1BP1-TBK1, TAX1BP1-ULK1, TBC1D7-TSC, TBK1-FNIP1, TEM-MTORC1, TEM-RCC, ULK1-AMPK, ULK1-FNIP1, VATPASE-TAX1BP1</p>
+<h2 id="boundary-layer">How much carries its boundary</h2>
+<p>A claim without its conditions is a claim that has quietly been generalised. The Atlas records, for each link, the species, tissue, dose, nutrient state or duration the finding was established under &mdash; the point where it stops being universal.</p>
+<p><strong>139 of 139 links (100&nbsp;%) carry a recorded boundary condition.</strong> The remainder are not thereby unconditional: they are links where the boundary has not yet been written down. Treating a blank as "holds everywhere" is the exact error this layer exists to prevent.</p>
+<h3 id="boundary-kinds">What kind of boundary</h3>
+<p>The sentence is for a reader; the tag is what makes it answerable. "Female mice only in <a class="study-ref" href="/study/SEL2009/" title="Ribosomal protein S6 kinase 1 signaling regulates mammalian life span (2009)">SEL2009</a>" is clear to anyone and invisible to a query, which is why recorded boundaries are also given a machine-readable kind &mdash; but that tagging is still partial, and the numbers below say how partial. <strong>66 of 139 links (47&nbsp;%) carry at least one kind, and 28 carry a hand-written one</strong>; the rest state their boundary in prose only. A tag is only added where the boundary sentence actually carries that condition, so the gap closes as the prose is written, not by labelling links more confidently than they were measured. The first group below describes the biology; the second records a curator&rsquo;s judgement that the link is disputed; the third is computed from the state of the corpus rather than written by hand.</p>
+<p><strong>Boundaries on the biology</strong></p>
+<table class="aud"><thead><tr><th>Kind</th><th class="num">Links</th><th>Which</th></tr></thead><tbody>
+<tr><td><strong>cell-line-only</strong><br><span style="font-size:.87rem;opacity:.8">the studies cited for this link used cell culture only</span></td><td class="num">10</td><td><code>4EBP1-MITO</code>, <code>LARS-RAG</code>, <code>LKB1-AMPK</code>, <code>MET-PKM2</code>, <code>MTORC1-GRB10</code>, <code>PKM2-GATOR2</code>, <code>TAX1BP1-TBK1</code>, <code>TAX1BP1-ULK1</code> and 2 more</td></tr>
+<tr><td><strong>diet-dependent</strong><br><span style="font-size:.87rem;opacity:.8">depends on the diet the animal was on</span></td><td class="num">2</td><td><code>4EBP1-LONGEVITY</code>, <code>4EBP1-MITO</code></td></tr>
+<tr><td><strong>dose-dependent</strong><br><span style="font-size:.87rem;opacity:.8">depends on the dose, not merely on the drug being present</span></td><td class="num">2</td><td><code>EVE-IMMUNE</code>, <code>RAPA-LONGEVITY</code></td></tr>
+<tr><td><strong>nutrient-state-dependent</strong><br><span style="font-size:.87rem;opacity:.8">depends on whether the cell is fed or starved</span></td><td class="num">3</td><td><code>4EBP1-MITO</code>, <code>AKT-TSC</code>, <code>LYSO-MTORC1</code></td></tr>
+<tr><td><strong>sex-specific</strong><br><span style="font-size:.87rem;opacity:.8">shown in one sex only</span></td><td class="num">2</td><td><code>RAPA-LONGEVITY</code>, <code>S6K1-LONGEVITY</code></td></tr>
+<tr><td><strong>single-species</strong><br><span style="font-size:.87rem;opacity:.8">shown in one species and not tested elsewhere</span></td><td class="num">11</td><td><code>4EBP1-LONGEVITY</code>, <code>GHIGF1-LONGEVITY</code>, <code>ISR-SALR</code>, <code>MTORC1-PROSTATE</code>, <code>MTORC2-INSULINRES</code>, <code>MTORC2-LIPID</code>, <code>MTORC2-PROSTATE</code>, <code>RAPA-LONGEVITY</code> and 3 more</td></tr>
+<tr><td><strong>tissue-specific</strong><br><span style="font-size:.87rem;opacity:.8">holds in particular tissues or cell types</span></td><td class="num">8</td><td><code>AKT-TSC</code>, <code>EVE-LAM</code>, <code>GLN-MTORC1-ARF1</code>, <code>GLN-RAG</code>, <code>MTORC1-PROSTATE</code>, <code>MTORC2-LIPID</code>, <code>MTORC2-PROSTATE</code>, <code>RAPA-MTORC2</code></td></tr>
+</tbody></table>
+<p><strong>Set by the curator</strong></p>
+<table class="aud"><thead><tr><th>Kind</th><th class="num">Links</th><th>Which</th></tr></thead><tbody>
+<tr><td><strong>contested</strong><br><span style="font-size:.87rem;opacity:.8">the Atlas records the direction, mechanism or scope of this link as disputed</span></td><td class="num">8</td><td><code>AMPK-ULK1</code>, <code>EVE-IMMUNE</code>, <code>GLN-MTORC1-ARF1</code>, <code>GLN-RAG</code>, <code>LARS-RAG</code>, <code>LEU-LARS</code>, <code>METFORMIN-AMPK</code>, <code>METFORMIN-MTORC1</code></td></tr>
+</tbody></table>
+<p><strong>Computed from the corpus</strong></p>
+<table class="aud"><thead><tr><th>Kind</th><th class="num">Links</th><th>Which</th></tr></thead><tbody>
+<tr><td><strong>reversible-on-withdrawal</strong><br><span style="font-size:.87rem;opacity:.8">the effect goes away when the intervention stops</span></td><td class="num">2</td><td><code>EVE-TSC</code>, <code>RAPA-LAM</code></td></tr>
+<tr><td><strong>single-study</strong><br><span style="font-size:.87rem;opacity:.8">the whole link rests on one paper in this corpus</span></td><td class="num">52</td><td><code>4EBP1-LONGEVITY</code>, <code>4EBP1-MITO</code>, <code>BISTERIC-MTORC1</code>, <code>CGASSTING-SENESCENCE</code>, <code>CHOL-LYCHOS</code>, <code>CR-LONGEVITY</code>, <code>DEPTOR-MTOR</code>, <code>ERK-NUCL</code> and 44 more</td></tr>
+<tr><td><strong>time-dependent</strong><br><span style="font-size:.87rem;opacity:.8">depends on how long the exposure lasted</span></td><td class="num">3</td><td><code>EVE-IMMUNE</code>, <code>MTORC2-INSULINRES</code>, <code>RAPA-MTORC2</code></td></tr>
+</tbody></table>
+<p>This is the query no other resource can answer. Reactome, KEGG, SIGNOR and Open Targets record the interaction; none of them record that it was only ever shown in one sex, or only in cell culture, in a form you can query across a whole pathway. The two time-related kinds have a page of their own: <a href="/pathway/timing/">how long the exposure lasted, and what happens when it stops</a>.</p>
+<h2 id="null-results">What has been tested and failed</h2>
+<p>Findings that did not replicate, and compounds that did not extend lifespan, are kept with the same visibility as positive results.</p>
+<p>The corpus holds <strong>8 studies whose curated category is <code>Negative_result</code></strong> (<a class="study-ref" href="/study/HOR2021/" title="DNA methylation age analysis of rapamycin in common marmosets. (2021)">HOR2021</a>, <a class="study-ref" href="/study/JIB2026/" title="Rapamycin co-exposure fails to reduce cisplatin-induced damage in GC6-spg spermatogonial cell line. (2026)">JIB2026</a>, <a class="study-ref" href="/study/MAN2021/" title="Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials (2021)">MAN2021</a>, <a class="study-ref" href="/study/MIL2011/" title="Rapamycin, but not resveratrol or simvastatin, extends life span of genetically heterogeneous mice (2011)">MIL2011</a>, <a class="study-ref" href="/study/POU2013/" title="High-dose resveratrol supplementation in obese men: an investigator-initiated, randomized, placebo-controlled clinical trial of substrate metabolism, insulin sensitivity, and body composition (2013)">POU2013</a>, <a class="study-ref" href="/study/SIL2018/" title="Long-term treatment with the mTOR inhibitor rapamycin has minor effect on clinical laboratory markers in middle-aged marmosets. (2018)">SIL2018</a>, <a class="study-ref" href="/study/STE2026/" title="Rapamycin and human longevity among kidney transplant recipients surviving the first year. (2026)">STE2026</a>, <a class="study-ref" href="/study/STR2012/" title="Evaluation of resveratrol, green tea extract, curcumin, oxaloacetic acid, and medium-chain triglyceride oil on life span of genetically heterogeneous mice (2012)">STR2012</a>). The label marks studies whose headline result was null; a trial with a null pre-registered primary endpoint may carry another category (<a class="study-ref" href="/study/MOE2025/" title="Influence of rapamycin on safety and healthspan metrics after one year: PEARL trial results (2025)">MOE2025</a>, the PEARL trial, is filed as Human). The pathway map also has a dedicated sign for a tested-and-null link (<code>no-effect</code>), and it is currently used <strong>0 times</strong>. That gap is real: null relationships are being recorded at the level of the study but not yet at the level of the map.</p>
+<p>Why that gap is smaller than it looks: for each of those studies the table below states the claim that was actually tested. A no-effect link is only created when the test was of a link between two nodes of the map; a null result about a compound that is not on the map, or about a clinical outcome, is recorded here instead.</p>
+<div class="tbl-wrap"><table class="atlas-table"><thead><tr><th>Study</th><th>Claim tested</th><th>Model</th><th>Edge</th><th>Why</th></tr></thead><tbody><tr><td data-l="Study"><a href="/study/MAN2021/">MAN2021</a></td><td data-l="Claim tested">Low-dose TORC1 inhibition with RTB101 reduces clinically symptomatic respiratory illness in adults aged 65 and older.</td><td data-l="Model">Phase 2b and phase 3 randomised trials in older adults (phase 3 n=1024)</td><td data-l="Edge"><a href="/relation/EVE-IMMUNE/">EVE-IMMUNE</a> (conflicting study)</td><td data-l="Why">Recorded as conflicting evidence on EVE-IMMUNE. A separate no-effect edge would misstate the tested link: the trial tested a drug (RTB101, not rapamycin-like) against a clinical outcome, not an interaction between two pathway nodes.</td></tr><tr><td data-l="Study"><a href="/study/STR2012/">STR2012</a></td><td data-l="Claim tested">Resveratrol, green tea extract, curcumin, oxaloacetic acid or medium-chain triglyceride oil extends lifespan in genetically heterogeneous mice.</td><td data-l="Model">Mouse, genetically heterogeneous (Interventions Testing Program, three sites)</td><td data-l="Edge">none</td><td data-l="Why">None of the tested compounds is a node of the pathway map, so there is no edge that could carry a no-effect sign.</td></tr><tr><td data-l="Study"><a href="/study/MIL2011/">MIL2011</a></td><td data-l="Claim tested">Resveratrol or simvastatin extends lifespan in genetically heterogeneous mice (negative arms of a study in which rapamycin extended lifespan).</td><td data-l="Model">Mouse, genetically heterogeneous (Interventions Testing Program, three sites)</td><td data-l="Edge">none</td><td data-l="Why">The negative arms concern compounds that are not nodes of the pathway map. The positive rapamycin arm of the same study is evidence for lifespan edges, not a null result.</td></tr><tr><td data-l="Study"><a href="/study/POU2013/">POU2013</a></td><td data-l="Claim tested">Four weeks of high-dose resveratrol improves insulin sensitivity, substrate metabolism or body composition in obese men.</td><td data-l="Model">Humans, randomised placebo-controlled trial, obese men (n=24)</td><td data-l="Edge">none</td><td data-l="Why">Resveratrol is not a node of the pathway map, and the tested link (compound to metabolic outcome in people) is not a step between two mapped nodes.</td></tr><tr><td data-l="Study"><a href="/study/JIB2026/">JIB2026</a></td><td data-l="Claim tested">Rapamycin co-exposure protects a mouse spermatogonial cell line (GC6-spg) from cisplatin-induced damage.</td><td data-l="Model">GC6-spg spermatogonial cell line, in vitro</td><td data-l="Edge">none</td><td data-l="Why">One cell line and a cell-damage endpoint, not a pathway step. It limits a protective claim made in female fertility models; it is not a tested-and-null pathway link.</td></tr><tr><td data-l="Study"><a href="/study/SIL2018/">SIL2018</a></td><td data-l="Claim tested">Long-term daily rapamycin causes hematological or clinical laboratory side effects in middle-aged common marmosets.</td><td data-l="Model">Common marmoset (Callithrix jacchus), middle-aged, daily oral rapamycin for 9 months</td><td data-l="Edge">none</td><td data-l="Why">A tolerability result for a drug in one primate species, not a tested link between two mapped pathway nodes, so there is no edge that could carry a no-effect sign.</td></tr><tr><td data-l="Study"><a href="/study/HOR2021/">HOR2021</a></td><td data-l="Claim tested">Rapamycin slows epigenetic (DNA methylation) age in the blood of common marmosets.</td><td data-l="Model">Common marmoset (Callithrix jacchus), whole-blood DNA methylation, rapamycin-treated cohort; clocks built with array data</td><td data-l="Edge">none</td><td data-l="Why">A null result on one biomarker (blood DNA methylation age), not a pathway step. It does not show that rapamycin has no effect on aging in marmosets, only that these clocks did not register one, so it is not filed as a no-effect edge.</td></tr><tr><td data-l="Study"><a href="/study/STE2026/">STE2026</a></td><td data-l="Claim tested">Rapamycin prescribed as maintenance immunosuppression is associated with longer survival in kidney transplant recipients.</td><td data-l="Model">Human, US national organ transplant registry: 11,474 recipients alive with a functioning graft at one year (4,885 prescribed rapamycin, 6,589 not), median follow-up 11 years, propensity-score weighting on 18 factors</td><td data-l="Edge"><a href="/relation/RAPA-LONGEVITY/">RAPA-LONGEVITY</a> (conflicting study)</td><td data-l="Why">Recorded as conflicting evidence on RAPA-LONGEVITY, not as a no-effect edge. The edge&#x27;s support is mouse lifespan at low or intermittent doses in healthy animals; this is human observational data at immunosuppressive doses, in people on other immunosuppressants who entered the cohort by surviving twelve months after transplant. It bounds how far the mouse result reaches into people, and a no-effect sign would read as a tested-and-null pathway step, which a confounded registry comparison cannot establish.</td></tr></tbody></table></div>
+<h2 id="curation-state">Who has checked this</h2>
+<p>Each link in the map has a curation state. <em>Proposed</em> means it was drafted and cited but has not been signed off by a second reader; <em>Contested</em> means the Atlas records the direction, mechanism or scope of the link as disputed, which is a statement about the literature, not about review; <em>Confirmed</em> means a reviewer has checked the claim against the cited papers.</p>
+<div class="aud-note"><b>Two different axes, counted from two different fields.</b> The table below counts the curation field <em>Status</em>: how far a link has got through this project's own review. The API's <code>contested</code> flag and its <code>contested_relations</code> count come from a different field, <em>Consensus</em>, which records the state of agreement in the literature. A link can be awaiting review while the underlying biology is settled, and it can be disputed in the field while nobody here has reviewed it, so the two numbers are not expected to match and neither is the number of disputed claims on its own. Where they disagree for a specific link, the reason is written on that link's own page rather than averaged away -- GLN-RAG is the current case.</div>
+<table class="aud"><thead><tr><th>State</th><th class="num">Links</th><th class="num">Share</th></tr></thead><tbody>
+<tr><td>Proposed</td><td class="num">131</td><td class="num">94&nbsp;%</td></tr>
+<tr><td>Contested</td><td class="num">8</td><td class="num">6&nbsp;%</td></tr>
+</tbody></table>
+<div class="aud-caveat"><b>139 of 139 links have not been reviewed by a second reader &mdash; and they are displayed anyway.</b> That count includes the 8 <em>Contested</em> links as well as the 131 <em>Proposed</em> ones. There is no second reader on this project, so both states here mean drafted and cited by the curator, not independently verified. Both counts in this sentence come from the curation field <em>Status</em>, not from the literature-consensus field. The map does not hide those links behind their status, because hiding most of the pathway would be a worse answer than labelling it. Every link, reviewed or not, names the studies it stands on, so the claim can be checked against the papers rather than taken on trust.</div>
+<p><b>Checked by a researcher outside the project: 0 of 139 links.</b> When a scientist whose own work supports a link checks it, their name is listed here and on the link's page, only with their permission.</p>
+<p>That zero means no link currently carries a recorded external sign-off. It does not mean the map has never been read by anyone outside the project. On 29 July 2026 an external scientific review went through the 93 links the map held at that date, sign by sign, and reported no incorrect signs; its other findings were corrected and are listed in the <a href="/changelog/">method changelog</a>. That pass was never written back onto the individual links as sign-off, which is why it is absent from the table. The map now holds 139 links, so at least 46 of them post-date that review entirely, and the links it did cover have been edited since. Read it as a historical check on an earlier state of the map, not as current verification of these claims.</p>
+<h2 id="limits">What this audit does not measure</h2>
+<ul>
+<li><strong>It measures the corpus, not the literature.</strong> The Atlas is a hand-picked subset. Every proportion here is conditional on what one curator selected, and selection is the largest uncertainty on this page.</li>
+<li><strong>It says nothing about quality.</strong> An evidence code is a statement about the kind of claim a study can support. A badly run trial still codes as human evidence; an excellent structure still codes as molecular.</li>
+<li><strong>It does not weight by size or replication.</strong> A trial of twenty people and one of a thousand count the same here.</li>
+<li><strong>It cannot see what was never published.</strong> Negative results that never reached a journal are invisible to any audit of the published record, including this one.</li>
+</ul>
+<h2 id="method">Method</h2>
+<p>Figures are recomputed on every build by <code>build_evidence_audit.py</code> from two sources: the study corpus (<code>atlas_data/studies_baked.json</code>) and the pathway links baked into the map. No number on this page is typed by hand, so a change in the data changes the page and nothing else has to be remembered.</p>
+<p>Link grading takes the strongest evidence code among the studies citing that link. Human evidence means codes S and H. Period counts use five-year windows by publication year; undated records (1) are excluded from that table only.</p>
+<p>The audit is written to be pathway-agnostic: the same script, pointed at a different corpus and map, produces the same measurements for any signalling pathway. The interesting comparison is not this page in isolation but two of them side by side.</p>
+<p>Data and code are CC&nbsp;BY&nbsp;4.0 &mdash; see <a href="/data/">Data &amp; Citation</a>. Corrections are welcome and are logged; see <a href="/about/">About &amp; Methodology</a>.</p>
+<p>The write-up of this audit is a preprint: <a href="/evidence/audit/paper/"><em>Ten percent human: an evidence-graded audit of the mTOR literature and the pathway's translational gap</em></a> (PDF, DOI, how to cite). It is a fixed snapshot; the numbers on this page are recomputed on every build and will drift from it as the corpus grows.</p></div>  <section class="oma-fb" id="oma-fb" aria-label="Page feedback" data-astro-cid-ukalbhrz> <div class="oma-fb-ask" data-astro-cid-ukalbhrz> <span class="oma-fb-q" id="oma-fb-q" data-astro-cid-ukalbhrz>Was this page useful?</span> <span class="oma-fb-btns" role="group" aria-labelledby="oma-fb-q" data-astro-cid-ukalbhrz> <button type="button" data-vote="yes" data-astro-cid-ukalbhrz>Yes</button> <button type="button" data-vote="no" data-astro-cid-ukalbhrz>No</button> </span> </div> <p class="oma-fb-thanks" role="status" hidden data-astro-cid-ukalbhrz>Thank you. Your answer was counted anonymously.</p> </section> <noscript><style>.oma-fb,.oma-fb-fix{display:none}</style></noscript> <script>
+(function () {
+  var seg = (location.pathname.split('/')[1] || 'home')
+    .replace(/[^a-z0-9_-]/gi, '').toLowerCase().slice(0, 40) || 'home';
+  function send(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params); } catch (e) {}
+  }
+
+  // Kliky na Follow / Share na Bluesky (patička).
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('[data-cta]') : null;
+    if (a) send('bluesky_cta', { cta: a.getAttribute('data-cta'), page_type: seg });
+  });
+
+  // "Report an error": krátký text → GA4 event correction_report.
+  var fix = document.getElementById('oma-fb-fix');
+  if (fix) {
+    var open = fix.querySelector('.oma-fb-fix-open');
+    var form = fix.querySelector('.oma-fb-fix-form');
+    var input = fix.querySelector('#oma-fb-fix-text');
+    var count = fix.querySelector('.oma-fb-fix-count');
+    var ok = fix.querySelector('.oma-fb-fix-ok');
+    var okKey = 'atlas-ok:' + location.pathname;
+    try { if (localStorage.getItem(okKey)) ok.hidden = true; } catch (e) {}
+    ok.addEventListener('click', function () {
+      send('looks_right', { page_type: seg, page_path: location.pathname });
+      try { localStorage.setItem(okKey, '1'); } catch (e) {}
+      ok.hidden = true;
+      fix.querySelector('.oma-fb-fix-okthanks').hidden = false;
+    });
+    open.addEventListener('click', function () {
+      form.hidden = false;
+      open.hidden = true;
+      open.setAttribute('aria-expanded', 'true');
+      input.focus();
+      send('correction_open', { page_type: seg });
+    });
+    input.addEventListener('input', function () {
+      count.textContent = input.value.length + ' / 100';
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = input.value.replace(/\s+/g, ' ').trim().slice(0, 100);
+      if (!text) return;
+      send('correction_report', { report_text: text, page_type: seg, page_path: location.pathname });
+      form.hidden = true;
+      fix.querySelector('.oma-fb-fix-ask').hidden = true;
+      fix.querySelector('.oma-fb-fix-thanks').hidden = false;
+    });
+  }
+
+  var box = document.getElementById('oma-fb');
+  if (!box) return;
+
+  var key = 'atlas-fb:' + location.pathname;
+  try { if (localStorage.getItem(key)) { box.classList.add('is-off'); return; } } catch (e) {}
+
+  var on = false, seconds = 0;
+  function reveal() {
+    if (on) return;
+    on = true;
+    box.classList.add('is-on');
+    window.removeEventListener('scroll', check);
+    clearInterval(timer);
+  }
+  function check() {
+    var h = document.documentElement;
+    var longPage = h.scrollHeight > window.innerHeight * 1.5;
+    var seen = (window.scrollY + window.innerHeight) / Math.max(h.scrollHeight, 1);
+    if (longPage && seen >= 0.6) reveal();
+  }
+  var timer = setInterval(function () {
+    if (!document.hidden && ++seconds >= 25) reveal();
+  }, 1000);
+  window.addEventListener('scroll', check, { passive: true });
+
+  box.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('button[data-vote]') : null;
+    if (!b) return;
+    var vote = b.getAttribute('data-vote');
+    send('page_feedback', { vote: vote, page_type: seg });
+    try { localStorage.setItem(key, vote); } catch (err) {}
+    box.querySelector('.oma-fb-ask').hidden = true;
+    box.querySelector('.oma-fb-thanks').hidden = false;
+  });
+})();
+</script>  <script>
+(function () {
+  var seg = (location.pathname.split('/')[1] || 'home')
+    .replace(/[^a-z0-9_-]/gi, '').toLowerCase().slice(0, 40) || 'home';
+  function send(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params); } catch (e) {}
+  }
+
+  var interacted = false;
+  ['pointerdown', 'pointermove', 'keydown', 'touchstart', 'wheel', 'scroll'].forEach(function (t) {
+    window.addEventListener(t, function () { interacted = true; }, { passive: true, once: true });
+  });
+
+  // deep_read: viditelný čas + scroll + skutečná interakce, jednou za stránku.
+  var visibleMs = 0, last = null, doneRead = false;
+  function tick() {
+    var now = Date.now();
+    if (document.visibilityState === 'visible') {
+      if (last !== null) visibleMs += now - last;
+      last = now;
+    } else { last = null; }
+    check();
+  }
+  function scrolled() {
+    var de = document.documentElement;
+    var total = Math.max(de.scrollHeight, document.body.scrollHeight);
+    var seen = (window.scrollY || de.scrollTop || 0) + window.innerHeight;
+    if (total <= window.innerHeight * 1.15) return 1;
+    return seen / total;
+  }
+  function check() {
+    if (doneRead || !interacted) return;
+    if (visibleMs >= 45000 && scrolled() >= 0.7) {
+      doneRead = true;
+      send('deep_read', { page_type: seg });
+    }
+  }
+  document.addEventListener('visibilitychange', tick);
+  window.addEventListener('scroll', check, { passive: true });
+  setInterval(tick, 1000);
+
+  // second_step + source_click.
+  var doneStep = false;
+  var SOURCES = /(^|\.)(pubmed\.ncbi\.nlm\.nih\.gov|ncbi\.nlm\.nih\.gov|doi\.org|biorxiv\.org|medrxiv\.org|clinicaltrials\.gov|europepmc\.org|nature\.com|science\.org|cell\.com|zenodo\.org)$/i;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var u;
+    try { u = new URL(a.href, location.href); } catch (err) { return; }
+    if (u.origin === location.origin) {
+      if (doneStep || u.pathname === location.pathname) return;
+      doneStep = true;
+      var next = (u.pathname.split('/')[1] || 'home')
+        .replace(/[^a-z0-9_-]/gi, '').toLowerCase().slice(0, 40) || 'home';
+      send('second_step', { page_type: seg, next_type: next });
+    } else if (SOURCES.test(u.hostname)) {
+      send('source_click', { page_type: seg, source_host: u.hostname.replace(/^www\./, '').slice(0, 60) });
+    }
+  });
+})();
+</script> </main> <footer class="oma-footer"> <p><strong>Oliver's mTOR Atlas</strong> — an evidence-graded database of the mTOR
+  pathway. Every entry traces to a primary paper and is labelled by the kind of study
+  behind it. Curated by <a href="/author/oliver-barton/">Oliver Barton</a>, Prague.</p> <p class="oma-footer-follow">Does the Atlas help you?
+<a class="oma-btn" href="https://bsky.app/profile/oliver-barton.bsky.social" target="_blank" rel="noopener noreferrer" data-cta="follow" aria-label="Follow me on Bluesky" title="Follow me on Bluesky">Follow me <svg class="oma-bsky" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"></path></svg></a> <a class="oma-btn" href="https://bsky.app/intent/compose?text=Evidence%20audit%20of%20the%20Atlas's%20mTOR%20corpus%0A%0Ahttps%3A%2F%2Fmtor-atlas.org%2Fevidence%2Faudit%2F%0A%0Avia%20%40oliver-barton.bsky.social" target="_blank" rel="noopener noreferrer" data-cta="share" aria-label="Share on Bluesky" title="Share on Bluesky">Share <svg class="oma-bsky" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"></path></svg></a> </p> <div class="oma-footer-links"> <a href="/">Full interactive Atlas</a><a href="/browse/">Browse the Atlas</a><a href="/authors/">Researchers</a><a href="/questions/">Open Questions</a><a href="/academy/">Academy</a><a href="/answers/">Answers</a><a href="/glossary/">Glossary</a><a href="/about/">About</a><a href="/about/methodology/">Methodology</a><a href="/data/">Data &amp; Citation</a><a href="/api/">API</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a> </div> <div class="oma-footer-meta">
+Page last updated <time datetime="2026-11-27T08:52:40.000Z">27 Nov 2026, 09:52</time> Prague time
+</div> </footer> <!-- Řazení rejstříků kliknutím na záhlaví sloupce. Platí pro každou
+     table.idx na webu — /browse/, entitní stránky, medailonky, odpovědi na
+     otázky, tabulka interakcí na /pathway/ — takže se to nemusí zapínat
+     stránku po stránce a nemůže se rozejít.
+
+     Tři věci, které to dělá jinak než obyčejný sort:
+     · evidence kód se řadí podle SÍLY důkazu (S → H → A → M → R), ne
+       abecedně; jinak by „A - Animal" předběhlo „H - Human", což je přesně
+       ta záměna, které se celý Atlas vyhýbá;
+     · rok a jiná čísla číselně, ne jako text („2009" před „98");
+     · buňka může nést vlastní klíč v data-sort, když se zobrazená hodnota
+       liší od té, podle které se má řadit.
+
+     Bez JS zůstává tabulka v pořadí, ve kterém ji vygeneroval build —
+     to je pořád smysluplné pořadí, ne náhodné. --> <script>
+(function(){
+  var TIER = {S:1, H:2, A:3, M:4, R:5, PP:6, RT:7};
+  var MISS = {};   // chybějící hodnota — patří na konec v obou směrech,
+                   // ne nahoru jen proto, že „—" je v abecedě před číslicí
+  function key(td){
+    if(!td) return '';
+    if(td.dataset && td.dataset.sort !== undefined) return td.dataset.sort;
+    var badge = td.querySelector && td.querySelector('.tier');
+    if(badge) return TIER[badge.textContent.trim()] || 99;
+    var s = (td.textContent || '').trim();
+    var n = s.replace(/[\s,\u00a0]/g, '');
+    if(/^-?\d+(\.\d+)?$/.test(n)) return parseFloat(n);
+    if(!s || s === '\u2014' || s === '\u2013' || s === '-') return MISS;
+    return s.toLowerCase();
+  }
+  function cmp(a, b){
+    if(typeof a === 'number' && typeof b === 'number') return a - b;
+    return String(a).localeCompare(String(b), 'en');
+  }
+  function enhance(table){
+    var head = table.tHead && table.tHead.rows[0];
+    var body = table.tBodies && table.tBodies[0];
+    if(!head || !body || body.rows.length < 3) return;
+    var ths = Array.prototype.slice.call(head.cells);
+    ths.forEach(function(th, i){
+      if(th.dataset && th.dataset.nosort !== undefined) return;
+      th.className += (th.className ? ' ' : '') + 'th-sort';
+      th.tabIndex = 0;
+      th.setAttribute('role', 'button');
+      th.title = 'Sort by ' + (th.textContent || '').trim();
+      var asc = true;
+      function run(){
+        var rows = Array.prototype.slice.call(body.rows);
+        var dec = rows.map(function(r, n){ return {r: r, k: key(r.cells[i]), n: n}; });
+        var dir = asc ? 1 : -1;
+        dec.sort(function(x, y){
+          if((x.k === MISS) !== (y.k === MISS)) return x.k === MISS ? 1 : -1;
+          if(x.k === MISS) return x.n - y.n;
+          var c = cmp(x.k, y.k);
+          return c ? c * dir : x.n - y.n;
+        });
+        var frag = document.createDocumentFragment();
+        dec.forEach(function(d){ frag.appendChild(d.r); });
+        body.appendChild(frag);
+        ths.forEach(function(o){
+          o.removeAttribute('aria-sort');
+          o.className = o.className.replace(/\s*is-(asc|desc)/g, '');
+        });
+        th.setAttribute('aria-sort', asc ? 'ascending' : 'descending');
+        th.className += ' is-' + (asc ? 'asc' : 'desc');
+      }
+      th.addEventListener('click', function(){ run(); asc = !asc; });
+      th.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); run(); asc = !asc; }
+      });
+    });
+  }
+  function boot(){
+    Array.prototype.forEach.call(document.querySelectorAll('table.idx'), enhance);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script> </body> </html> 

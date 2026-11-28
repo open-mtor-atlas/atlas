@@ -1,0 +1,99 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LAP2026",
+  "title": "Feeding-Induced Muscle mTORC1 Signaling Regulates Postprandial Protein Synthesis and Endurance but Not Muscle Size",
+  "authors": "Lapp SC; Kalafut KC; Cissé MY; Tighanimine K; Rosenthal DM; Doxsey W; Hui S; Inouye KE; Morrow CE; Cormerais Y; Manning BD",
+  "year": 2026,
+  "journal": "JCI Insight",
+  "doi": "10.1172/jci.insight.210523",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42720990",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "SkM-TSC2-5A knock-in mice (AKT-phosphorylation-resistant TSC2, skeletal muscle-specific) vs SkM-TSC2-WT littermates, both sexes",
+  "peer_reviewed": true,
+  "finding": "Using a mouse model expressing an AKT-nonphosphorylatable TSC2 mutant specifically in skeletal muscle, the Manning lab genetically separated feeding-induced from contraction-induced mTORC1 activation. AKT-mediated TSC2 phosphorylation is required for feeding (but not contraction) to activate muscle mTORC1 and drive postprandial protein synthesis — yet mice lacking this feeding-induced signal have normal muscle mass and myofiber size, and instead show improved maximal endurance capacity with a modest rise in mitochondrial content. The finding dissociates mTORC1's role in postprandial anabolism from its role in maintaining steady-state muscle mass, and is a directly relevant data point for whether the pattern/source of mTORC1 activation (feeding vs. mechanical) — not just its average level — shapes downstream outcomes.",
+  "url": "https://mtor-atlas.org/study/LAP2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LAP2026.json",
+  "abstract_excerpt": "Activation of the mechanistic target of rapamycin (mTOR) complex1 (mTORC1) promotes muscle protein synthesis, mass, and function. Muscle mTORC1 can be activated by feeding and contraction. Here, muscle mTORC1 signaling, protein synthesis, mass, and function are characterized in a genetic mouse model that separates these two major modes of muscle mTORC1 regulation.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic knock-in of AKT-phosphorylation-resistant TSC2 (5A mutant), muscle-specific – separates feeding- from contraction-induced mTORC1 activation",
+   "target": "AKT-TSC2-mTORC1 axis in skeletal muscle",
+   "species": "Mouse (skeletal muscle-specific knock-in, both sexes)",
+   "effect": "Blocked feeding-induced (not contraction-induced) mTORC1 activation and postprandial protein synthesis; muscle mass/myofiber size unchanged; improved maximal endurance and modestly increased mitochondrial content"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "muscle-growth",
+    "name": "Muscle growth",
+    "type": "Biological process"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-TSC"
+   ],
+   "conflicts_with": [
+    "TRANSL-MUSCLE"
+   ]
+  },
+  "questions": [
+   "H3"
+  ],
+  "related_studies": [
+   "DRU2009",
+   "SHIM2026",
+   "ROM2001",
+   "ANC2026"
+  ]
+ }
+}

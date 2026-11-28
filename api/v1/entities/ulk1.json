@@ -1,0 +1,712 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "ulk1",
+  "name": "ULK1",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:12558",
+   "uniprot": "O75385",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Initiator of autophagy and a direct mTORC1 substrate: mTORC1 phosphorylates ULK1 at S757 to hold it back. The AMPK arm is contested rather than settled - the classic reading is that AMPK phosphorylates ULK1 at other sites to switch autophagy on directly, but under glucose starvation and mitochondrial energy stress AMPK has been reported to inhibit ULK1 activation while protecting the machinery from degradation. See the AMPK-ULK1 link for which effect dominates under which kind of energy stress.",
+  "study_count": 12,
+  "relation_count": 6,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/ulk1/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/ulk1.json",
+  "description_beginner": "The kick-starter protein for autophagy (cellular cleanup). mTORC1 normally holds it back, and when mTORC1 switches off it is released and cleanup begins. What AMPK does to it is still argued over: the long-standing view is that AMPK switches it on, but newer work says that in a sharp energy crisis AMPK holds it back instead while keeping it safe.",
+  "reading_levels": {
+   "beginner": "The switch that starts self-digestion.",
+   "student": "Autophagy-initiating kinase, inhibited by mTORC1 and activated by AMPK.",
+   "research": "mTORC1 phosphorylates S757 to block the AMPK–ULK1 interaction; ULK1 also feeds back to phosphorylate and dampen AMPK, making this a closed loop rather than a switch."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "LOF2011",
+    "title": "Ulk1-mediated phosphorylation of AMPK constitutes a negative regulatory feedback loop",
+    "authors": "Löffler AS; Alers S; Dieterle AM; Keppeler H; Franz-Wachtel M; Kundu M; Campbell DG; Wesselborg S; Alessi DR; Stork B",
+    "year": 2011,
+    "journal": "Autophagy",
+    "doi": "10.4161/auto.7.7.15451",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21460634",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells; mouse",
+    "peer_reviewed": true,
+    "finding": "ULK1 phosphorylates and inhibits AMPK in return, showing autophagy signaling is a bidirectional feedback loop, not a one-way switch.",
+    "url": "https://mtor-atlas.org/study/LOF2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LOF2011.json"
+   },
+   {
+    "sid": "HOS2009",
+    "title": "Nutrient-dependent mTORC1 association with the ULK1-Atg13-FIP200 complex required for autophagy",
+    "authors": "Hosokawa N; Hara T; Kaizuka T; Kishi C; Takamura A; Miura Y; Iemura S; Natsume T; Takehana K; Yamada N; Guan JL; Oshiro N; Mizushima N",
+    "year": 2009,
+    "journal": "Molecular Biology of the Cell",
+    "doi": "10.1091/mbc.e08-12-1248",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19211835",
+    "pmcid": "PMC2663915",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Showed the DIRECT brake mTORC1 uses on autophagy: when nutrients are plentiful, mTORC1 physically joins the ULK1-Atg13-FIP200 complex (the autophagy-starter kinase) and phosphorylates ULK1 to keep it off. Starvation or rapamycin releases this brake and autophagy begins.",
+    "url": "https://mtor-atlas.org/study/HOS2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HOS2009.json"
+   },
+   {
+    "sid": "KIM2011",
+    "title": "AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1",
+    "authors": "Kim J; Kundu M; Viollet B; Guan KL",
+    "year": 2011,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2152",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21258367",
+    "pmcid": "PMC3987946",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells",
+    "peer_reviewed": true,
+    "finding": "Revealed the tug-of-war over ULK1: the energy sensor AMPK phosphorylates ULK1 at activating sites to turn autophagy ON when energy is low, while mTORC1 phosphorylates a different site (Ser757) to keep it OFF and even blocks AMPK from reaching ULK1. Two opposing kinases wired to the same switch.",
+    "url": "https://mtor-atlas.org/study/KIM2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KIM2011.json"
+   },
+   {
+    "sid": "SONH2026",
+    "title": "Urolithin A activates mitophagy via the AMPK-mTOR axis and modulates the gut-ceramide axis to ameliorate cardiac remodeling in HFpEF",
+    "authors": "Song H; Yun C; Choi Y; Jeong W; Kim Y; Kim J; Lee JY; Ryu D; Park SW; Oh CM",
+    "year": 2026,
+    "journal": "Experimental and Molecular Medicine",
+    "doi": "10.1038/s12276-026-01776-2",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42432192",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (HFpEF two-hit model)",
+    "peer_reviewed": true,
+    "finding": "Urolithin A ameliorates HFpEF cardiac remodeling in mice by activating AMPK and inhibiting mTOR to restore mitophagic flux, while simultaneously remodeling the gut microbiome-ceramide axis to reduce lipotoxic stress.",
+    "url": "https://mtor-atlas.org/study/SONH2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SONH2026.json"
+   },
+   {
+    "sid": "DAL2016",
+    "title": "A systems study reveals concurrent activation of AMPK and mTOR by amino acids",
+    "authors": "Dalle Pezze P; Ruf S; Sonntag AG; Langelaar-Makkinje M; Hall P; Heberle AM; Razquin Navas P; van Eunen K; Tölle RC; Schwarz JJ; Wiese H; Warscheid B; Deitersen J; Stork B; Fäßler E; Schäuble S; Hahn U; Horvatovich P; Shanley DP; Thedieck K",
+    "year": 2016,
+    "journal": "Nature Communications",
+    "doi": "10.1038/ncomms13254",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27869123",
+    "pmcid": "PMC5121333",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; amino acid re-addition time courses, quantitative proteomics and dynamic modelling",
+    "peer_reviewed": true,
+    "finding": "Adding amino acids back to starved cells switched on AMPK, PI3K and mTORC2 acutely and independently of mTORC1, at the same time as mTOR. AMPK activation ran through CaMKK-beta and, under amino acid sufficiency, AMPK kept autophagy going via ULK1. So the textbook picture of AMPK and mTORC1 as simple opposites does not hold in the first minutes after feeding - which matters for how the AMPK-ULK1 feedback arm behaves over time.",
+    "url": "https://mtor-atlas.org/study/DAL2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAL2016.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "KAM2000",
+    "title": "Tor-mediated induction of autophagy via an Apg1 protein kinase complex",
+    "authors": "Kamada Y; Funakoshi T; Shintani T; Nagano K; Ohsumi M; Ohsumi Y",
+    "year": 2000,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.150.6.1507",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "10995454",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Saccharomyces cerevisiae (yeast)",
+    "peer_reviewed": true,
+    "finding": "The founding experiment of the whole TOR-to-autophagy axis. Starvation or rapamycin raises the kinase activity of Apg1 (the yeast counterpart of ULK1), and TOR keeps autophagy off by holding Apg13 hyperphosphorylated so that it cannot bind and activate Apg1. Boundary: yeast only, and the mammalian version of the same step (ULK1-ATG13-FIP200) was shown separately nine years later.",
+    "url": "https://mtor-atlas.org/study/KAM2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAM2000.json"
+   },
+   {
+    "sid": "KAN2013",
+    "title": "mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin",
+    "authors": "Kang SA; Pacold ME; Cervantes CL; Lim D; Lou HJ; Ottina K; Gray NS; Turk BE; Yaffe MB; Sabatini DM",
+    "year": 2013,
+    "journal": "Science",
+    "doi": "10.1126/science.1236566",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23888043",
+    "pmcid": "PMC3771538",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human and mouse cell lines; in vitro mTORC1 kinase assays on peptide substrates",
+    "peer_reviewed": true,
+    "finding": "Each mTORC1 phosphorylation site has its own intrinsic 'substrate quality'. Good substrates stay phosphorylated when mTORC1 is partly inhibited by rapamycin or starvation, poor ones drop out first, and changing a few residues around a site shifts its sensitivity in cells. One level of mTORC1 activity can therefore produce different output profiles.",
+    "url": "https://mtor-atlas.org/study/KAN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KAN2013.json"
+   },
+   {
+    "sid": "HAL2026",
+    "title": "5-Fluorouracil-based chemotherapy disrupts autophagy flux and protein synthesis in cultured myotubes: a role for mTORC1 signaling",
+    "authors": "Halle JL; Zhang Q; Jenkins T; Carson JA",
+    "year": 2026,
+    "journal": "American Journal of Physiology-Cell Physiology",
+    "doi": "10.1152/ajpcell.00321.2026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42734427",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "C2C12 mouse myotubes (in vitro), with and without CT26 colon-tumor-cell-conditioned media",
+    "peer_reviewed": true,
+    "finding": "FOLFOX and oxaliplatin disrupted mTORC1/AMPK regulation of autophagy flux and protein synthesis in cultured myotubes; the effect was not easily reversible on drug withdrawal. Rapamycin (but not metformin) restored autophagy flux and AMPK phosphorylation, though without restoring protein synthesis.",
+    "url": "https://mtor-atlas.org/study/HAL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAL2026.json"
+   },
+   {
+    "sid": "CHA2007",
+    "title": "siRNA screening of the kinome identifies ULK1 as a multidomain modulator of autophagy",
+    "authors": "Chan EY; Kir S; Tooze SA",
+    "year": 2007,
+    "journal": "Journal of Biological Chemistry",
+    "doi": "10.1074/jbc.m703663200",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17595159",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells (GFP-LC3 lipidation assay, kinome siRNA library); HeLa cells; rat ULK1 constructs",
+    "peer_reviewed": true,
+    "finding": "The authors screened a kinase-targeted siRNA library in human HEK293 cells, using lipidation of the autophagy marker GFP-LC3 after amino-acid starvation as the readout. ULK1 came out of the screen: knocking it down blocked starvation-induced autophagy, while knocking down the related kinase ULK2 did not. ULK1 knockdown also blocked autophagy induced by rapamycin, which fits ULK1 acting downstream of mTOR. Overexpressed ULK1 inhibited autophagy independently of its kinase activity, and the dominant-negative effect mapped to residues 1-351, while the conserved C-terminal domain was needed for ULK1 to reach cytoplasmic structures, some of them LC3-positive. One of the early papers to place ULK1 as a required kinase for starvation-induced autophagy in mammalian cells. Boundary: Cultured human cell lines with siRNA and overexpression; no whole-animal data. The link to mTOR rests on rapamycin-induced autophagy, not on a measurement of mTORC1 acting on ULK1. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/CHA2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHA2007.json"
+   },
+   {
+    "sid": "RUS2013",
+    "title": "ULK1 induces autophagy by phosphorylating Beclin-1 and activating VPS34 lipid kinase",
+    "authors": "Russell RC; Tian Y; Yuan H; Park HW; Chang YY; Kim J; Kim H; Neufeld TP; Dillin A; Guan KL",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2757",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23685627",
+    "pmcid": "PMC3885611",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Wild-type, ULK-deficient (ULK1-/- with ULK2 knockdown) and FIP200-/- MEFs; HEK293 and HeLa Beclin-1 knockdown-reconstitution lines; in vitro kinase assays with insect-cell ULK1/ULK2; C. elegans bec-1 S6A transgenic embryos",
+    "peer_reviewed": true,
+    "finding": "The authors asked how the ULK1 kinase switches on autophagy when amino acids are withdrawn. In mouse fibroblasts, amino-acid starvation raised the lipid-kinase activity of VPS34 complexes that contain ATG14L while lowering other VPS34 complexes, and the activation needed ULK kinase activity (lost in ULK-deficient and FIP200-null cells). ULK1 directly phosphorylated Beclin-1 at serine 14 (serine 15 in human), shown with purified kinase, mass spectrometry and a phospho-specific antibody; the mTOR inhibitor Torin1 or amino-acid withdrawal raised this phosphorylation only in cells with ULK activity. Cells reconstituted with non-phosphorylatable Beclin-1 S14A did not increase autophagosomes on amino-acid starvation, and the matching worm mutant (BEC-1 S6A) failed to fully rescue autophagic clearance in C. elegans embryos. The work provided evidence for a signalling chain from mTORC1 inhibition to ULK1, Beclin-1 and the ATG14L-VPS34 complex. Boundary: Mouse and human cell lines, in vitro kinase assays and C. elegans embryos; the mTOR step relies on Torin1 (which blocks mTORC1 and mTORC2) and amino-acid withdrawal. Not tested in mammalian tissues or in people.",
+    "url": "https://mtor-atlas.org/study/RUS2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUS2013.json"
+   },
+   {
+    "sid": "ZHO2026",
+    "title": "Genetically targeted mTORC1 inhibitor reveals transcriptional control by nuclear mTORC1.",
+    "authors": "Zhong Y; Sahan AZ; Shao Z; Zhang QY; Zhou X; Haggett JG; Koshizuka K; Myers SA; Gutkind JS; Zhang J",
+    "year": 2026,
+    "journal": "Nature Chemical Biology",
+    "doi": "10.1038/s41589-026-02188-z",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42135521",
+    "pmcid": "PMC13401988",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse NIH3T3 fibroblasts; human HEK293T, HeLa and Cal33 oral squamous cell carcinoma cells",
+    "peer_reviewed": true,
+    "finding": "A genetically encoded, subcellularly targetable mTORC1 inhibitor separates mTORC1 by location. TerminaTOR, built from a PRAS40 fragment stripped of its regulatory phosphorylation sites, inhibits mTORC1 while sparing mTORC2, Akt, PKA and PKC. Targeted to the lysosome it inhibits lysosomal mTORC1, lowers ULK1 and TFEB phosphorylation and induces autophagy. Targeted to the nucleus it inhibits nuclear mTORC1 without touching cytosolic or lysosomal activity and without changing autophagy, and instead reduces transcription of CCAAT-motif genes through p300 acetyltransferase activity, lowering cell number in fibroblasts and viability and colony formation in one HNSCC line.",
+    "url": "https://mtor-atlas.org/study/ZHO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "AMPK-ULK1",
+    "claim": "AMPK activates ULK1",
+    "source": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "activates",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "AMPK phosphorylates ULK1 at sites distinct from mTORC1's inhibitory S757 site. The classic reading is that low energy therefore switches autophagy on directly, not only by releasing the mTORC1 brake; that reading is now disputed (see boundary).",
+    "mechanism_beginner": "AMPK also tags ULK1 directly. The long-standing view is that this switches cleanup on; newer work suggests that during a sharp energy crisis AMPK instead holds ULK1 back while protecting it, so the direction is now debated.",
+    "context": null,
+    "boundary": "Contested direction. EGA2010 and KIM2011 report activating phosphorylation. PAR2023 (Park, Lee and Kim, Nat Commun 2023, PMID 37225695) reports that under glucose starvation and mitochondrial energy stress AMPK inhibits ULK1 activation and autophagy induction while protecting the ULK1 machinery from degradation. Which effect dominates appears to depend on the kind and depth of the energy stress.",
+    "boundary_tags": [
+     "direction-contested"
+    ],
+    "conflict": {
+     "type": "Opposing result",
+     "basis": "EGA2010 and KIM2011 report that AMPK phosphorylates ULK1 and thereby promotes autophagy. PAR2023 reports that under glucose starvation and mitochondrial energy stress the LKB1-AMPK axis inhibits ULK1 activation and autophagy induction."
+    },
+    "note": "Two opposing inputs land on the same protein: this is where the pathway does arithmetic, not just relay.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "EGA2010",
+      "KIM2011",
+      "DAL2016"
+     ],
+     "conflicting": [
+      "PAR2023"
+     ]
+    },
+    "external_refs": [
+     {
+      "pmid": "37225695",
+      "cited_in": [
+       "boundary"
+      ],
+      "in_corpus": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37225695/"
+     }
+    ],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/AMPK-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AMPK-ULK1.json"
+   },
+   {
+    "id": "MTORC1-ULK1",
+    "claim": "mTORC1 inhibits ULK1",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Active mTORC1 phosphorylates ULK1 at an inhibitory site, holding autophagy shut while nutrients are plentiful.",
+    "mechanism_beginner": "Active mTORC1 tags ULK1 to hold it back, keeping the cell's self-cleanup process (autophagy) switched off while nutrients are plentiful.",
+    "context": null,
+    "boundary": "Mammalian and human/mouse cell studies (HOS2009, GAN2009, KIM2011, NAZ2013, ZHO2026). Cell-culture biochemistry; the whole-animal and human consequence is not shown by these sources. ZHO2026 adds the spatial qualifier: inhibiting mTORC1 specifically at the lysosome lowers ULK1 phosphorylation, while inhibiting the nuclear pool does not.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HOS2009",
+      "GAN2009",
+      "KIM2011",
+      "NAZ2013",
+      "ZHO2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-ULK1.json"
+   },
+   {
+    "id": "ULK1-AMPK",
+    "claim": "ULK1 inhibits AMPK",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "AMPK",
+     "entity": "ampk"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "ULK1 phosphorylates AMPK back, damping the signal that activated it - a negative feedback loop that stops autophagy running away.",
+    "mechanism_beginner": "ULK1 tags AMPK back and calms it down – a feedback loop that keeps cleanup from running out of control.",
+    "context": "Closes a loop rather than acting as a one-way arrow; steady-state behaviour depends on the relative strength of both directions.",
+    "boundary": "One study in human cells and mouse (LOF2011). A single study. The feedback loop is shown in cell models, and the relation in the other direction (AMPK-ULK1) is contested.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "LOF2011"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ULK1-AMPK/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AMPK.json"
+   },
+   {
+    "id": "ULK1-AUTOPHAGY",
+    "claim": "ULK1 activates Autophagy",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "Autophagy",
+     "entity": "autophagy"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": null,
+    "map_band": "autophagy",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Freed ULK1 nucleates the autophagosome - the self-eating programme that recycles damaged parts and is the leading candidate mechanism for mTOR inhibition's benefits.",
+    "mechanism_beginner": "Freed ULK1 kicks off autophagy – the cell's recycling programme, and the leading idea for why blocking this pathway might be beneficial.",
+    "context": "LC3-II accumulation, the standard readout for this step, marks autophagosome number, not flux: it rises whether autophagosomes are being made faster or degraded slower (e.g. under lysosomal/fusion block), so it cannot alone distinguish increased autophagy from stalled autophagy. A flux assay (e.g. LC3-II with and without a degradation blocker, or p62 turnover) is needed to tell the two apart.",
+    "boundary": "Mammalian cell studies (GAN2009, HOS2009, EGA2010). Autophagosome initiation is shown in cultured cells. Whether autophagy carries the benefits of mTOR inhibition in whole animals is not tested by these sources.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GAN2009",
+      "HOS2009",
+      "EGA2010",
+      "CHA2007",
+      "RUS2013"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ULK1-AUTOPHAGY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-AUTOPHAGY.json"
+   },
+   {
+    "id": "ULK1-FNIP1",
+    "claim": "ULK1 inhibits FLCN / FNIP1/2",
+    "source": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "target": {
+     "name": "FLCN / FNIP1/2",
+     "entity": "flcn-fnip1-2"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "When lysosomes are stressed, ULK1 brought in by the adaptor TAX1BP1 (TAX1BP1-ULK1) phosphorylates FNIP1 at S296 on the lysosome. This switches the FLCN-FNIP complex off, so mTORC1 can no longer hold TFEB in the cytoplasm and TFEB moves into the nucleus. TBK1 does the same job on this route and has its own link (TBK1-FNIP1).",
+    "mechanism_beginner": "ULK1 tags FNIP1, which turns FLCN off and lets TFEB escape mTORC1's grip.",
+    "context": "A parallel input to TFEB, not a refutation of canonical TFEB control by mTORC1 (MTORC1-TFEB): it acts by removing FLCN, which mTORC1 needs in order to reach TFEB. This is separate from ULK1's better-known role starting autophagy (ULK1-AUTOPHAGY).",
+    "boundary": "Human cell lines and ATP6V1B2-mutant follicular lymphoma samples (ESP2026); a nutrient-independent lysosomal-stress route in which TBK1 is an alternative kinase. Single study, not yet replicated.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/ULK1-FNIP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/ULK1-FNIP1.json"
+   },
+   {
+    "id": "TAX1BP1-ULK1",
+    "claim": "TAX1BP1 recruits ULK1",
+    "source": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "target": {
+     "name": "ULK1",
+     "entity": "ulk1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The same adaptor, TAX1BP1, can bring ULK1 instead of TBK1 to stressed lysosomes; either kinase then phosphorylates FNIP1.",
+    "mechanism_beginner": "TAX1BP1 can bring ULK1 to the lysosome instead of TBK1.",
+    "context": "Conditional on lysosomal stress, not on nutrients, exactly as for TBK1 (TAX1BP1-TBK1). The two kinases are drawn as alternatives on the same adaptor because ESP2026 reports both as competent to phosphorylate FNIP1 at S296, and nothing in it establishes a division of labour between them: which one dominates in which cell type, under which kind of lysosomal stress, and whether they are redundant or additive, is untested (question H11). Treat the pair as one route with two possible kinases rather than two independently established routes.",
+    "boundary": "One study in human cell lines (ESP2026). Which kinase dominates in which cell type is not stated in the abstract. Full text not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TAX1BP1-ULK1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TAX1BP1-ULK1.json"
+   }
+  ]
+ }
+}

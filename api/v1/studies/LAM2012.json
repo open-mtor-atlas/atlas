@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LAM2012",
+  "title": "Rapamycin-induced insulin resistance is mediated by mTORC2 loss and uncoupled from longevity",
+  "authors": "Lamming DW; Ye L; Katajisto P; Goncalves MD; Saitoh M; Stevens DM; Davis JG; Salmon AB; Richardson A; Ahima RS; Guertin DA; Sabatini DM; Baur JA",
+  "year": 2012,
+  "journal": "Science",
+  "doi": "10.1126/science.1215135",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22461615",
+  "pmcid": "PMC3324089",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Side effect",
+  "model_system": "Mouse (in vivo glucose and insulin tolerance)",
+  "peer_reviewed": true,
+  "finding": "Chronic rapamycin (about 2 mg/kg a day, close to the lifespan-extending dose) made mice glucose intolerant and insulin resistant. A clamp test placed the problem in the liver, which kept making glucose, while muscle and fat took up glucose normally. Removing mTORC1 from the liver did not cause this. Rapamycin did break up mTORC2 (it separated mTOR from Rictor) in liver, fat and muscle, and deleting Rictor in the liver alone reproduced the glucose problem. In the genetic part, female mice with one working copy each of mTOR and mLST8 had about 50% less mTORC1 signalling in the liver, normal mTORC2 signalling and normal glucose tolerance, and lived 14.4% longer on average (p = 0.046). Males did not. Boundary: mouse drug and genetics work, not people, and the lifespan gain is female-only. It supports separating the two effects, but the paper does not test a drug that blocks mTORC1 without touching mTORC2.",
+  "url": "https://mtor-atlas.org/study/LAM2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LAM2012.json",
+  "abstract_excerpt": "Rapamycin, an inhibitor of mechanistic target of rapamycin complex 1 (mTORC1), extends the life spans of yeast, flies, and mice. Calorie restriction, which increases life span and insulin sensitivity, is proposed to function by inhibition of mTORC1, yet paradoxically, chronic administration of rapamycin substantially impairs glucose tolerance and insulin action. We demonstrate that rapamycin disrupted a second mTOR complex, mTORC2, in vivo and that mTORC2 was required for the insulin-mediated suppression of hepatic gluconeogenesis.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (chronic)",
+   "target": "mTORC1 vs mTORC2",
+   "species": "Mouse",
+   "effect": "In mice, chronic rapamycin causes insulin resistance via disruption of mTORC2, uncoupled from its longevity effect"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "insulin-resistance",
+    "name": "Insulin resistance",
+    "type": "Outcome"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-LONGEVITY",
+    "MTORC2-INSULINRES",
+    "RAPA-MTORC2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H1",
+   "H2",
+   "H8"
+  ],
+  "related_studies": [
+   "DUR2026",
+   "KEN2016",
+   "MARCHANT2026",
+   "NCT05835999"
+  ]
+ }
+}

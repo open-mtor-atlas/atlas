@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "JAN2025",
+  "title": "Structural basis for mTORC1 regulation by the CASTOR1-GATOR2 complex",
+  "authors": "Jansen RM; Maghe C; Tapia K; Wu S; Yang S; Ren X; Zoncu R; Hurley JH",
+  "year": 2025,
+  "journal": "Nature Structural & Molecular Biology",
+  "doi": "10.1038/s41594-025-01635-0",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "40715445",
+  "pmcid": "PMC12477443",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human GATOR2 with an arginine-free (apo-locked) CASTOR1 mutant (cryo-EM, purified proteins); validation by mutants in HEK293T cells",
+  "peer_reviewed": true,
+  "finding": "Cryo-EM structure of human GATOR2 bound to the arginine-free state of CASTOR1 (3.89 A overall, 3.02-3.72 A after local refinement). Two MIOS beta-propellers of the GATOR2 cage each grip one subunit of the CASTOR1 dimer through a negatively charged surface far from the arginine pocket. Comparing with earlier CASTOR1 structures, arginine binding makes a loop in CASTOR1 fold over that surface, so CASTOR1 can no longer hold GATOR2 and the signal passes on to mTORC1. In HEK293T cells, point mutations on either side of the interface weakened the CASTOR1-GATOR2 interaction, and CASTOR1 mutants could not restore arginine-dependent control of S6K1 phosphorylation. Boundary: purified human proteins, an arginine-free state mimicked by a mutant CASTOR1, and HEK293T cells — a structural and biochemical model, not a measurement in animals or people.",
+  "url": "https://mtor-atlas.org/study/JAN2025/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/JAN2025.json",
+  "abstract_excerpt": null,
+  "abstract_truncated": false,
+  "extracted_findings": {
+   "intervention": "None (structural study); CASTOR1 and MIOS interface point mutants for validation",
+   "target": "CASTOR1-GATOR2 interface (MIOS beta-propellers)",
+   "species": "Human proteins (cryo-EM); HEK293T cells (mutant validation)",
+   "effect": "Arginine binding closes the MIOS-binding surface of CASTOR1, releasing it from GATOR2"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "gator2",
+    "name": "GATOR2",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "castor1",
+    "name": "CASTOR1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "ARG-CASTOR1",
+    "CASTOR1-GATOR2"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHA2016",
+   "VAL2022",
+   "VAL2025",
+   "BAR2013"
+  ]
+ }
+}

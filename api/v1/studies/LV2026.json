@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "LV2026",
+  "title": "Age-associated decline of Lamtor5 drives immunosenescence and systemic aging via cGAS-mediated paracrine inflammation.",
+  "authors": "Lv N; Tang Y; Zhang W; Zhang Q; Zhang H; Gao H; Cui S; Krasny S; Shi L",
+  "year": 2026,
+  "journal": "Cell Death and Differentiation",
+  "doi": "10.1038/s41418-026-01823-5",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42463581",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse",
+  "peer_reviewed": true,
+  "finding": "Macrophages lacking Lamtor5 (myeloid conditional knockout mice) show senescent, metabolic, transcriptomic and epigenetic features that match macrophages from naturally aged mice. Transferring these senescent macrophages into young mice accelerated ageing, while transplanting young macrophages or clearing senescent cells corrected the ageing features of the knockout mice. Mechanistically, Lamtor5 binds cGAS and promotes its ESCRT-dependent degradation; macrophage-targeted cGAS siRNA or a peptide blocking the Lamtor5/cGAS interface reduced ageing-associated inflammation and tissue dysfunction in aged mice. The abstract reports no mTOR measurement and no experiment restoring Lamtor5 itself.",
+  "url": "https://mtor-atlas.org/study/LV2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/LV2026.json",
+  "abstract_excerpt": "Despite emerging evidences showing the close link between immunosenescence and organismal aging, whether and how aged innate immune system drives systemic aging remains an enigma, and importantly, how primary senescence is initiated and regulated needs to be addressed. Herein we identified late endosomal/lysosomal adapter, MAPK and mTOR activator 5 (Lamtor5) as an age-dependent factor that controlled macrophage senescence and peripheral aging.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Myeloid Lamtor5 conditional knockout; transfer of Lamtor5-deficient senescent macrophages into young mice; young-macrophage transplantation; senolytics; macrophage-targeted cGAS siRNA; peptide blocking the Lamtor5/cGAS interface",
+   "target": "Lamtor5 (Ragulator subunit) / cGAS-STING",
+   "species": "Mouse (myeloid Lamtor5 conditional knockout; naturally aged mice)",
+   "effect": "Loss of Lamtor5 in macrophages leaves cGAS undegraded and drives macrophage senescence and systemic ageing features; blocking cGAS or the Lamtor5/cGAS interface reduces ageing-associated inflammation in aged mice. No mTOR readout is reported in the abstract."
+  },
+  "extracted_findings_review": {
+   "status": "corrected",
+   "reviewed_by": "Claude, against the PubMed abstract (PMID 42463581), 2026-11-23; full text not open access",
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "cgas-sting-pathway",
+    "name": "cGAS-STING pathway",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "lamtor5",
+    "name": "LAMTOR5",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAGULATOR-CGASSTING",
+    "CGASSTING-SENESCENCE"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H10",
+   "H7"
+  ],
+  "related_studies": [
+   "BAR2012",
+   "SUX2017"
+  ]
+ }
+}

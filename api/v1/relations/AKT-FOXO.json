@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "AKT-FOXO",
+  "claim": "Akt/PKB inhibits FOXO1/3",
+  "source": {
+   "name": "Akt/PKB",
+   "entity": "akt-pkb"
+  },
+  "target": {
+   "name": "FOXO1/3",
+   "entity": "foxo"
+  },
+  "effect": "inhibits",
+  "type": "phosphorylation",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "nucleus",
+  "map_band": "nucleus",
+  "species": [
+   "mouse",
+   "mammalian cells"
+  ],
+  "mechanism": "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
+  "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
+  "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
+  "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "GUE2006",
+    "JAC2006",
+    "BRU1999"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/AKT-FOXO/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-FOXO.json"
+ }
+}

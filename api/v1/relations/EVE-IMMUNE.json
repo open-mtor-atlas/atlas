@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "EVE-IMMUNE",
+  "claim": "Everolimus context-dependent Immune function",
+  "source": {
+   "name": "Everolimus",
+   "entity": "everolimus"
+  },
+  "target": {
+   "name": "Immune function",
+   "entity": "immune-function"
+  },
+  "effect": "context-dependent",
+  "type": "clinical-outcome",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": null,
+  "map_band": "outcome",
+  "species": [
+   "human"
+  ],
+  "mechanism": "Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.",
+  "mechanism_beginner": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
+  "context": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
+  "boundary": "Dose-dependent and duration-dependent: this is not the immunosuppressive regimen. The corpus supports an improved vaccine response under one regimen, not improved immune function in general. MAN2021 is recorded as conflicting for two reasons, and the earlier wording here got the first one wrong. Its phase 3 arm tested RTB101 monotherapy - a different drug, ATP-competitive rather than rapamycin-like - and found no reduction in clinically symptomatic respiratory illness. But the same paper's phase 2b part 2 DID include everolimus: 115 participants were randomised to RTB101 10 mg plus everolimus 0.1 mg daily, and that arm did not reach significance in the first prespecified analysis of the primary endpoint. So the randomised everolimus-containing evidence in MAN2021 points away from benefit as well, at a different dose and in a different population from MAN2014, rather than being irrelevant to this edge. Note also that the positive RTB101 10 mg result in that paper comes from a second prespecified analysis pooling parts 1 and 2, not from the first.",
+  "boundary_tags": [
+   "direction-contested",
+   "dose-dependent",
+   "single-study",
+   "time-dependent"
+  ],
+  "conflict": {
+   "type": "Different context",
+   "basis": "Low-dose everolimus (0.5 mg daily or 5 mg weekly) raised the influenza vaccine response of older adults by about 20% (MAN2014); the transplant dose is immunosuppressive. MAN2021 measured respiratory infections, not vaccine response: RTB101 alone in phase 3, and RTB101 with everolimus 0.1 mg daily in phase 2b, did not show a significant reduction."
+  },
+  "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "established",
+   "human_relevance_label": "shown in people",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Pharmacological",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "MAN2014"
+   ],
+   "conflicting": [
+    "MAN2021"
+   ]
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/EVE-IMMUNE/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-IMMUNE.json"
+ }
+}

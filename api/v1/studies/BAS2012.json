@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAS2012",
+  "title": "Everolimus in postmenopausal hormone-receptor-positive advanced breast cancer (BOLERO-2)",
+  "authors": "Baselga J; Campone M; Piccart M; Burris HA; Rugo HS; Sahmoud T; Noguchi S; Gnant M; Pritchard KI; Lebrun F; Beck JT; Ito Y; Yardley D; Deleu I; Perez A; Bachelot T; Vittori L; Xu Z; Mukhopadhyay P; Lebwohl D; Hortobagyi GN",
+  "year": 2012,
+  "journal": "New England Journal of Medicine",
+  "doi": "10.1056/NEJMoa1109653",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22149876",
+  "pmcid": "PMC5705195",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, phase 3 RCT (n=724)",
+  "peer_reviewed": true,
+  "finding": "A phase 3 RCT (n=724) proving mTOR matters in a common cancer. Resistance to hormone therapy in breast cancer is associated with mTOR activation. Adding everolimus more than doubled progression-free survival (10.6 vs 4.1 months by central review) - leading to FDA approval. Main toxicity was stomatitis.",
+  "url": "https://mtor-atlas.org/study/BAS2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAS2012.json",
+  "abstract_excerpt": "Resistance to endocrine therapy in breast cancer is associated with activation of the mammalian target of rapamycin (mTOR) intracellular signaling pathway. In early studies, the mTOR inhibitor everolimus added to endocrine therapy showed antitumor activity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Everolimus + exemestane",
+   "target": "mTORC1",
+   "species": "Human – phase 3 RCT (BOLERO-2, n=724, HR+ breast cancer)",
+   "effect": "Adding everolimus to exemestane improved progression-free survival in HR+ advanced breast cancer",
+   "dose": "Everolimus 10 mg once daily + exemestane vs placebo + exemestane; oral; international double-blind phase 3, 2:1 randomization (BOLERO-2).",
+   "sample_size": "724 women, 189 centers, 24 countries (485 everolimus-combination / 239 control); PK subgroup n=80.",
+   "effect_size": "Primary endpoint progression-free survival; adding everolimus significantly improved PFS vs exemestane alone (log-rank, stratified).",
+   "limitations": "Kaplan-Meier estimates beyond week 36 to be interpreted with caution (few patients at risk, limited follow-up)."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "everolimus",
+    "name": "Everolimus",
+    "type": "Drug"
+   },
+   {
+    "id": "breast-cancer",
+    "name": "Breast cancer",
+    "type": "Disease"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "EVE-BREAST",
+    "EVE-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H5"
+  ],
+  "related_studies": [
+   "MAR2026",
+   "PIC2014",
+   "DEOLIVEIRA2026",
+   "MEN2023"
+  ]
+ }
+}

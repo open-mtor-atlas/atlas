@@ -1,0 +1,602 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "immune-function",
+  "name": "Immune function",
+  "type": "Outcome",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": null,
+   "reason": "Gene and protein identifiers do not apply to the type \"Outcome\"."
+  },
+  "description": "Function of the immune system, especially vaccine response. Low-dose everolimus improved the influenza-vaccine response of older adults (MAN2014), but the phase 3 trial of low-dose TORC1 inhibition with RTB101 did not reduce respiratory illness (MAN2021): the biomarker moved, the clinical outcome did not.",
+  "study_count": 21,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/outcome/immune-function/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/immune-function.json",
+  "description_beginner": "How well the immune system works, especially how strongly it responds to vaccines. Low-dose everolimus improved older adults' response to a flu vaccine in an early trial, but a large later trial of a related drug did not reduce respiratory illness.",
+  "reading_levels": {
+   "beginner": "How well the immune system works.",
+   "student": "mTOR inhibition reshapes rather than simply suppresses immunity.",
+   "research": "Rapalogs are immunosuppressants at transplant doses, yet low-dose everolimus improved influenza vaccine responses in the elderly (Mannick 2014/2018) – dose and schedule determine the direction."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "MAN2014",
+    "title": "mTOR inhibition improves immune function in the elderly",
+    "authors": "Mannick JB; Del Giudice G; Lattanzi M; Valiante NM; Praestgaard J; Huang B; Lonetto MA; Maecker HT; Kovarik J; Carson S; Glass DJ; Klickstein LB",
+    "year": 2014,
+    "journal": "Science Translational Medicine",
+    "doi": "10.1126/scitranslmed.3009892",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "25540326",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, RCT, older adults",
+    "peer_reviewed": true,
+    "finding": "Older volunteers took the rapalog everolimus (RAD001) before a flu shot, and their antibody response to the vaccine rose by about 20% at doses that were fairly well tolerated. The share of T cells carrying the exhaustion marker PD-1 also fell. The PEARL authors summarise the doses as 0.5 mg daily or 5 mg weekly for 6 weeks. This is the human result behind the weekly low-dose idea. Boundary: a stronger vaccine response is a lab marker, not fewer infections, and the later RTB101 trial (MAN2021) shows how that gap can matter.",
+    "url": "https://mtor-atlas.org/study/MAN2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2014.json"
+   },
+   {
+    "sid": "LEE2024",
+    "title": "Targeting ageing with rapamycin and its derivatives in humans: a systematic review",
+    "authors": "Lee DJW; Hodzic Kuerec A; Maier AB",
+    "year": 2024,
+    "journal": "Lancet Healthy Longevity",
+    "doi": "10.1016/S2666-7568(23)00258-1",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "38310895",
+    "pmcid": null,
+    "evidence": {
+     "code": "S",
+     "label": "Synthesis of human data",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Systematic review (19 human studies, 5 databases)",
+    "peer_reviewed": true,
+    "finding": "Described by its authors as the first systematic review of rapamycin/rapalogs in humans for aging. Screened 18,400 articles, included 19 studies. Found improvements in immune, cardiovascular, and skin (integumentary) parameters; NO significant effect on endocrine, muscular, or neurological systems. No serious adverse events in healthy people, but more infections and raised cholesterol/triglycerides in people with age-related disease. This is the highest-tier human-evidence summary in the whole Atlas - it aggregates many individual human studies rather than reporting one.",
+    "url": "https://mtor-atlas.org/study/LEE2024/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LEE2024.json"
+   },
+   {
+    "sid": "MAN2018",
+    "title": "TORC1 inhibition enhances immune function and reduces infections in the elderly",
+    "authors": "Mannick JB; Morris M; Hockey HP; Roma G; Beibel M; Kulmatycki K; Watkins M; Shavlakadze T; Zhou W; Quinn D; Glass DJ; Klickstein LB",
+    "year": 2018,
+    "journal": "Science Translational Medicine",
+    "doi": "10.1126/scitranslmed.aaq1564",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29997249",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, phase 2a RCT (n=264, elderly)",
+    "peer_reviewed": true,
+    "finding": "A phase 2a RCT in 264 older adults: 6 weeks of a low-dose combination of BEZ235 (a catalytic PI3K/mTOR inhibitor) and everolimus (RAD001) was associated with fewer reported infections over the following year, plus higher antiviral gene expression and a better flu-vaccine response. The later phase 3 trial of RTB101 (BEZ235) alone (MAN2021) did not confirm a clinical benefit.",
+    "url": "https://mtor-atlas.org/study/MAN2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2018.json"
+   },
+   {
+    "sid": "MAN2021",
+    "title": "Targeting the biology of ageing with mTOR inhibitors to improve immune function in older adults: phase 2b and phase 3 randomised trials",
+    "authors": "Mannick JB; Teo G; Bernardo P; Quinn D; Russell K; Klickstein L; Marshall W; Shergill S",
+    "year": 2021,
+    "journal": "Lancet Healthy Longevity",
+    "doi": "10.1016/S2666-7568(21)00062-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "33977284",
+    "pmcid": "PMC8102040",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Negative_result",
+    "model_system": "Humans, phase 2b + phase 3 RCT (n=1024 phase 3)",
+    "peer_reviewed": true,
+    "finding": "This paper reports two trials of RTB101, a drug that blocks mTOR, taken once a day for 16 weeks by adults over 65. In the phase 2b trial (652 people), fewer people on 10 mg had a lab-confirmed respiratory infection than on placebo (19% against 28%), but that result comes from a pooled analysis the authors did not correct for multiple testing, and the corrected analysis did not reach significance. The phase 3 trial (1,024 people) used a different main endpoint, set with the FDA: symptoms with or without a lab test. It found no difference (26% against 25%, p = 0.65), although blood tests still showed more antiviral genes switched on in both trials. In phase 2b, twice-daily dosing and a combination with everolimus did not reach significance, which the authors read as a hint that on-off inhibition may beat constant inhibition. Those numbers are \"data not shown\" in the paper. Boundary: RTB101 is not rapamycin or everolimus, the phase 3 group was healthier (no COPD, no smokers), and that trial was too small to test the lab-confirmed endpoint. The only everolimus arm (RTB101 plus everolimus 0.1 mg daily) was a combination and did not reach significance, which is why this paper is listed against the everolimus and immune function link on the pathway map. It cannot show what everolimus alone does.",
+    "url": "https://mtor-atlas.org/study/MAN2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2021.json"
+   },
+   {
+    "sid": "KRA2018",
+    "title": "A randomized control trial to establish the feasibility and safety of rapamycin treatment in an older human cohort: Immunological, physical performance, and cognitive effects.",
+    "authors": "Kraig E; Linehan LA; Liang H; Romo TQ; Liu Q; Wu Y; Benavides AD; Curiel TJ; Javors MA; Musi N; Chiodo L; Koek W; Gelfond JAL; Kellogg DL",
+    "year": 2018,
+    "journal": "Experimental Gerontology",
+    "doi": "10.1016/j.exger.2017.12.026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29408453",
+    "pmcid": "PMC5869166",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Humans, pilot RCT (n=25, ages 70-95)",
+    "peer_reviewed": true,
+    "finding": "A safety-first pilot RCT (n=25, ages 70-95) asking the basic question before any longevity trial: is daily rapamycin safe in healthy older people? Over 8+ weeks it was well tolerated with only minor red-blood-cell changes and - importantly - NO rise in blood glucose or insulin resistance in this short window. Groundwork for larger aging trials like PEARL.",
+    "url": "https://mtor-atlas.org/study/KRA2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KRA2018.json"
+   },
+   {
+    "sid": "JIN2026C",
+    "title": "Therapeutic Immune Reprogramming by Rapamycin Attenuates Plaque Inflammation and Lymphoid Immune Responses in Aged Atherosclerotic Mice",
+    "authors": "de Mol J; de Korte DH; Depuydt MAC; Smit V; Kleijn MNAB; van Santbrink PJ; Binder CJ; Porsch F; Schaftenaar FH; Foks AC",
+    "year": 2026,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.70730",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42775680",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Aged (80-90 wk) male Ldlr-/- mice with established atherosclerosis; rapamycin i.p. triweekly x 8 weeks vs. control",
+    "peer_reviewed": true,
+    "finding": "In aged atherosclerotic mice, rapamycin (mTORC1 inhibition) reduced plaque macrophage content and total T cell numbers, shifted CD8 T cells from effector to central-memory phenotype, enriched aortic regulatory T cells (higher Foxp3/Tgfb1), reduced Tfh cells, germinal-center B cells, plasma cells and autoantibody levels, diminished age-associated B cells, and lowered senescence-enrichment scores in aortic leukocytes -- consistent with rapamycin acting as an immune-rejuvenation therapeutic that mitigates age-related atherogenic inflammation.",
+    "url": "https://mtor-atlas.org/study/JIN2026C/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/JIN2026C.json"
+   },
+   {
+    "sid": "SIL2026",
+    "title": "Enforcing mTORC1 activity in therapeutic CD4+ T cells promotes persistence but eventual immune exhaustion",
+    "authors": "Sillito F; Armbrecht E; O'Neill AT; McIntyre A; Nyatondo M; Holler A; Callender LA; Henson SM; Stauss H; Chakraverty R",
+    "year": 2026,
+    "journal": "Journal of Immunology",
+    "doi": "10.1093/jimmun/vkag206",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42566506",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse CD4+ T cells, adoptive transfer tumor model",
+    "peer_reviewed": true,
+    "finding": "Enforced RHEB overexpression (mTORC1 hyperactivation) in therapeutic CD4+ T cells boosts initial proliferation/persistence after adoptive transfer, but drives cells toward an exhausted phenotype (co-inhibitory receptors, impaired re-proliferation on rechallenge) -- a double-edged sword for CAR/TCR-T cell engineering, distinct from the CD8 response to the same manipulation.",
+    "url": "https://mtor-atlas.org/study/SIL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SIL2026.json"
+   },
+   {
+    "sid": "RIV2026",
+    "title": "Leniolisib and rapamycin in Activated PI3-Kinase-δ-syndrome: a retrospective ESID registry-based analysis",
+    "authors": "Rivalta B; Wolkewitz M; Kusters M; Uhlmann A; Guarnieri V; Abou-Chahla W; Adjaoud D; Aladjidi N; Armari-Alla C; Azarnoush S; Baris S; Barlogis V; Barzaghi F; Baumann U; Bloomfield M; Bodet D; Boutboul D; Boz V; Bozkurt S; Bucciol G; Cancrini C; Catherinot E; Cavazzana M; Cheminant M; Chinello M; Ciznar P; Conti F; Costagliola G; Dalm V; D'Aveni-Piney M; Ekwall O; Eren E; Eric Z; Farmaki E; Fasth A; Fieschi C; Fischer A; Fournier B; Galicier L; Ghosh S; Gkantaras A; Hatchuel Y; Hilfanova A; Hoenig M; Jeziorski E; Jolles S; Karakoc-Aydiner E; Kilic SS; Kiykim A; Körholz J; Le Guenno G; Licciardi F; Lodi L; Lougaris V; Lucena JM; Malphettes M; Marzollo A; Masmas TN; Meinhardt A; Merlin E; Meyts I; Milota T; Moratti M; Moussouni N; Neth O; Nunes-Gomes C; Ocak S; Olbrich P; Yücel EÖ; Özen A; Schmid JP; Palma P; Pellier-Landreau I; Perlat A; Picard C; Prader S; Ricci S; Riviere J; Santilli V; Sarrot-Reynauld F; Schleinitz N; Schrijvers R; Schulz A; Schuetz C; Sediva A; Semeraro M; Sharapova S; Sogkas G; Soomann M; Palacín PS; Suarez F; Tessarin G; Tommasini A; Trück J; van Aerde K; van Montfrans J; Vermont C; Wustrau K; Zharankova Y; Moshous D; Neven B; Seidel MG; Chandra A; Thalhammer J; Kracker S; Ehl S; Mahlaoui N; Elfeky R; Maccari ME",
+    "year": 2026,
+    "journal": "Journal of Allergy and Clinical Immunology",
+    "doi": "10.1016/j.jaci.2026.09.014",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42805311",
+    "pmcid": null,
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human (retrospective multicenter registry, n=95 APDS patients)",
+    "peer_reviewed": true,
+    "finding": "In a 95-patient ESID registry of Activated PI3Kδ Syndrome (APDS), rapamycin and the targeted PI3Kδ inhibitor leniolisib produced comparable overall response rates for lymphoproliferation (67% vs 64%), but treatment-limiting adverse events occurred only in the rapamycin-treated group; lymphoma cases were observed during follow-up in the cohort.",
+    "url": "https://mtor-atlas.org/study/RIV2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RIV2026.json"
+   },
+   {
+    "sid": "CHI2012",
+    "title": "Regulation and function of mTOR signalling in T cell fate decisions",
+    "authors": "Chi H",
+    "year": 2012,
+    "journal": "Nature Reviews Immunology",
+    "doi": "10.1038/nri3198",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22517423",
+    "pmcid": "PMC3417069",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review",
+    "peer_reviewed": true,
+    "finding": "Review of mTOR signalling in T-cell fate decisions.",
+    "url": "https://mtor-atlas.org/study/CHI2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHI2012.json"
+   },
+   {
+    "sid": "WANG2026",
+    "title": "Amino acid homeostasis by CORVET/HOPS: A metabolic and stress resilience checkpoint for T cells",
+    "authors": "Wang J; Ni Z; Zhang Xinxin; He L; Cheng X; Huang L; Ye H; Li P; Zhao TJ; Du X",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2601318123",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42647134",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse T cells (conditional VPS18 / VPS11 knockout, in vitro and in vivo)",
+    "peer_reviewed": true,
+    "finding": "Identifies the CORVET and HOPS endolysosomal tethering complexes as upstream suppliers of intracellular amino acids in activated T cells, acquired via macropinocytosis. Loss of the core subunits VPS18 or VPS11 starves the cell of amino acids, switches on the integrated stress response and shuts down mTORC1; enforced mTORC1 activity rescues the proliferative defect while BIM deletion rescues survival, separating the two failure modes. Places vesicular nutrient acquisition upstream of the canonical lysosomal amino-acid-sensing arm of mTORC1.",
+    "url": "https://mtor-atlas.org/study/WANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026.json"
+   },
+   {
+    "sid": "CHEN2026B",
+    "title": "IGF2BP3-Mediated m6A Modification of OLR1 mRNA Promotes Immune Evasion in CRC via the PI3K/AKT/mTOR Pathway",
+    "authors": "Chen W",
+    "year": 2026,
+    "journal": "Journal of Immunotherapy",
+    "doi": "10.1097/CJI.0000000000000613",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42592954",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "CRC cell lines (human); TCGA dataset",
+    "peer_reviewed": true,
+    "finding": "IGF2BP3 stabilizes OLR1 via m6A RNA modification, activating PI3K/AKT/mTOR signaling which suppresses CD8+ T cell anti-tumor activity and drives immune evasion in colorectal cancer.",
+    "url": "https://mtor-atlas.org/study/CHEN2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHEN2026B.json"
+   },
+   {
+    "sid": "DEL2011",
+    "title": "The kinase mTOR regulates the differentiation of helper T cells through the selective activation of signaling by mTORC1 and mTORC2",
+    "authors": "Delgoffe GM; Pollizzi KN; Waickman AT; Heikamp E; Meyers DJ; Horton MR; Xiao B; Worley PF; Powell JD",
+    "year": 2011,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2005",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21358638",
+    "pmcid": "PMC3077821",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 and mTORC2 selectively program distinct CD4 helper T-cell lineages.",
+    "url": "https://mtor-atlas.org/study/DEL2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEL2011.json"
+   },
+   {
+    "sid": "WEI2008",
+    "title": "The TSC-mTOR signaling pathway regulates the innate inflammatory response",
+    "authors": "Weichhart T; Costantino G; Poglitsch M; Rosner M; Zeyda M; Stuhlmeier KM; Kolbe T; Stulnig TM; Hörl WH; Hengstschläger M; Müller M; Säemann MD",
+    "year": 2008,
+    "journal": "Immunity",
+    "doi": "10.1016/j.immuni.2008.08.012",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18848473",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse/human monocytes",
+    "peer_reviewed": true,
+    "finding": "The TSC-mTOR pathway controls the innate inflammatory response of monocytes/macrophages.",
+    "url": "https://mtor-atlas.org/study/WEI2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WEI2008.json"
+   },
+   {
+    "sid": "KEL2026",
+    "title": "Rapamycin Exerts Its Geroprotective Effects in the Ageing Human Immune System by Enhancing Resilience Against DNA Damage",
+    "authors": "Kell L; Jones EJ; Gharahdaghi N; Wilkinson DJ; Smith K; Atherton PJ; Simon AK; Cox LS; Alsaleh G",
+    "year": 2026,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.70364",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "41524558",
+    "pmcid": "PMC12794675",
+    "evidence": {
+     "code": "H",
+     "label": "Human study",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Human",
+    "model_system": "Human T cells (ex vivo, genotoxic stress); ex vivo aged human immune cells; placebo-controlled experimental medicine study in older adults (low-dose oral rapamycin, in vivo)",
+    "peer_reviewed": true,
+    "finding": "Proposes a geroprotective mechanism for rapamycin that the authors call direct genoprotection. In human T cells exposed to acute genotoxic stress, rapamycin and other mTOR inhibitors suppressed senescence not by slowing protein synthesis, halting cell division, or stimulating autophagy, but by reducing DNA lesion burden and improving cell survival. Ex vivo aged human immune cells showed elevated DNA damage, senescence and mTORC-hyperactivation markers. In a placebo-controlled experimental medicine study, low-dose rapamycin significantly reduced p21 (a DNA-damage-induced senescence marker) in immune cells of older adults versus placebo. Boundary: what was measured is reduced DNA lesion burden under acute genotoxic stress ex vivo, plus one marker (p21) in vivo. 'Genoprotection' as a general property of rapamycin is the authors' interpretation, and no clinical endpoint was measured.",
+    "url": "https://mtor-atlas.org/study/KEL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KEL2026.json"
+   },
+   {
+    "sid": "XU2026B",
+    "title": "The role of mTORC2/RICTOR in immune cells and inflammatory diseases.",
+    "authors": "Xu J; Zhong W; Xin F; Xu F; Zheng Z; Guo F",
+    "year": 2026,
+    "journal": "Inflammation Research",
+    "doi": "10.1007/s00011-026-02365-9",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42752901",
+    "pmcid": "PMC13586041",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review of immune cell subsets (T cells, B cells, macrophages, dendritic cells, NK cells) and mouse conditional-knockout models",
+    "peer_reviewed": true,
+    "finding": "mTORC2/RICTOR signaling (via AKT, SGK1, PKC) shapes Th1/Th2 differentiation, Treg stability, memory T cell formation, BCR signaling and plasma cell survival, and macrophage/DC/NK function; its role in tissue inflammation is context-dependent (exacerbating osteoarthritis and pancreatitis but restraining pro-inflammatory polarization in colorectal cancer), and dual mTORC1/2 inhibitors (e.g. AZD2014) show early but complicated promise.",
+    "url": "https://mtor-atlas.org/study/XU2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/XU2026B.json"
+   },
+   {
+    "sid": "KUS2026",
+    "title": "CASTOR1 regulates humoral immune responses and contributes to the pathogenesis of systemic lupus erythematosus",
+    "authors": "Kusuda T; Komai T; Itamiya T; Abe T; Okamura T; Fujio K",
+    "year": 2026,
+    "journal": "Arthritis & Rheumatology",
+    "doi": "10.1002/art.70314",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42695806",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human B cells (ImmuNexUT transcriptomes, n=136 SLE patients) + whole-body and B cell-specific Castor1-knockout mice",
+    "peer_reviewed": true,
+    "finding": "Gives the arginine sensor CASTOR1 a defined physiological job upstream of mTORC1: losing it de-represses mTORC1 in B cells and drives plasma-cell expansion, IgG and anti-dsDNA autoantibodies, and lupus-like glomerulonephritis. In human SLE, CASTOR1 expression in plasmablasts was inversely correlated with disease activity (r = -0.32, p = 0.00031). One of the few studies to tie a specific upstream amino-acid sensor to a human autoimmune phenotype rather than to cancer or growth.",
+    "url": "https://mtor-atlas.org/study/KUS2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUS2026.json"
+   },
+   {
+    "sid": "CHE2009",
+    "title": "mTOR regulation and therapeutic rejuvenation of aging hematopoietic stem cells",
+    "authors": "Chen C; Liu Y; Liu Y; Zheng P",
+    "year": 2009,
+    "journal": "Science Signaling",
+    "doi": "10.1126/scisignal.2000559",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19934433",
+    "pmcid": "PMC4020596",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (HSC)",
+    "peer_reviewed": true,
+    "finding": "mTOR hyperactivation drives HSC aging; rapamycin restores hematopoietic stem-cell function.",
+    "url": "https://mtor-atlas.org/study/CHE2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CHE2009.json"
+   },
+   {
+    "sid": "ZEN2013",
+    "title": "mTORC1 couples immune signals and metabolic programming to establish T(reg)-cell function",
+    "authors": "Zeng H; Yang K; Cloer C; Neale G; Vogel P; Chi H",
+    "year": 2013,
+    "journal": "Nature",
+    "doi": "10.1038/nature12297",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23812589",
+    "pmcid": "PMC3759242",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "mTORC1 couples immune signals and metabolism to establish regulatory T-cell function.",
+    "url": "https://mtor-atlas.org/study/ZEN2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZEN2013.json"
+   },
+   {
+    "sid": "LAI2026",
+    "title": "Sex-stratified immune patterns across the canine lifespan and short-term responses to geroprotective interventions",
+    "authors": "Lai M; Xu F; Xu Y; Mironenkov A; Jin Y; Zhang S; Pan J; Li M; Deng B; Zhu JK; Lyu YX",
+    "year": 2026,
+    "journal": "Biogerontology",
+    "doi": "10.1007/s10522-026-10518-w",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42837017",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Dog (intact laboratory Beagles: 80-dog cross-sectional cohort ages 1-11; 24 young dogs for a 90-day intervention arm)",
+    "peer_reviewed": true,
+    "finding": "In 24 young Beagles given a 90-day course of rapamycin, the SGLT2 inhibitor canagliflozin, or dietary restriction, rapamycin produced the broadest shift in blood cytokines of the three, while a separate cross-sectional cohort of 80 Beagles aged 1-11 showed that immune aging in dogs is non-linear and sex-stratified rather than a steady decline. Dogs are an increasingly used translational model for geroscience because of their size and lifespan diversity, so this adds a rare canine data point to the rapamycin-immune-aging picture; the authors flag the intervention findings as exploratory given small group sizes and endpoint-only measurements.",
+    "url": "https://mtor-atlas.org/study/LAI2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAI2026.json"
+   },
+   {
+    "sid": "MAR2014",
+    "title": "The metabolic checkpoint kinase mTOR is essential for IL-15 signaling during the development and activation of NK cells",
+    "authors": "Marcais A; Cherfils-Vicini J; Viant C; Degouve S; Viel S; Fenis A; Rabilloud J; Mayol K; Tavares A; Bienvenu J; Gangloff YG; Gilson E; Vivier E; Walzer T",
+    "year": 2014,
+    "journal": "Nature Immunology",
+    "doi": "10.1038/ni.2936",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "24973821",
+    "pmcid": "PMC4110708",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "NKp46-cre x Mtor-flox mice (NK-cell-specific mTOR deletion) plus acute TAT-Cre deletion and adoptive transfer; poly(I:C) and MCMV or influenza infection; oral rapamycin (sirolimus, 100 ug/day) with an in vivo missing-self rejection assay; Seahorse metabolic profiling; human NK cells from healthy donors stimulated with IL-2 plus rapamycin, PP242 or Ku-0063794",
+    "peer_reviewed": true,
+    "finding": "This study separated two arms of IL-15 signalling in NK cells by dose: low IL-15 mainly phosphorylated STAT5 (EC50 about 1.5 ng/ml), while higher IL-15 was needed to switch on mTOR (EC50 about 5.3 ng/ml for S6 phosphorylation), and IL-15 was the only one of many tested stimuli that strongly raised pS6. Deleting mTOR in NK cells left bone-marrow numbers normal but blocked the CD11b-low to double-positive transition, cut proliferation about three-fold and left almost no mature NK cells in the periphery, with lower CD71, glucose uptake and about half the surface CD122 and CD132, so the receptor feedback is itself mTOR-dependent. In activation, mTOR-deficient NK cells failed to grow or raise nutrient uptake after poly(I:C) and made about half as much granzyme B, while IFN-gamma production in response to IL-12 plus IL-18 stayed normal. Oral rapamycin lowered pS6 and granzyme B in vivo and made rejection of MHC-class-I-negative target cells significantly less efficient, and mTOR inhibitors also blocked IL-2-driven granzyme B induction in human NK cells. Boundary: mouse genetics and mouse in vivo pharmacology, with the human arm limited to healthy-donor NK cells stimulated in culture; the clinical implication for patients on rapalogs is inference, not a measured patient outcome.",
+    "url": "https://mtor-atlas.org/study/MAR2014/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2014.json"
+   },
+   {
+    "sid": "INO2021",
+    "title": "Exit from germinal center to become quiescent memory B cells depends on metabolic reprograming and provision of a survival signal",
+    "authors": "Inoue T; Shinnakasu R; Kawai C; Ise W; Kawakami E; Sax N; Oki T; Kitamura T; Yamashita K; Fukuyama H; Kurosaki T",
+    "year": 2021,
+    "journal": "J Exp Med",
+    "doi": "10.1084/jem.20200866",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "33045065",
+    "pmcid": "PMC7555411",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse; NP-CGG/alum immunization, adoptive transfer of B1-8 transgenic B cells, inducible knockouts (Bach2/Blimp1, Bcl6, Bim, BCR) and rapamycin in rapamycin-resistant hosts",
+    "peer_reviewed": true,
+    "finding": "In immunized mice, a small population of germinal-center B cells with lower mTORC1 activity (CD38int Bcl6hi/int Efnb1+, called pro-memory cells) was the one that went on to become memory B cells. Constitutively high mTORC1 activity (Bach2/Blimp1 double-deficient B cells) impaired formation of this population, and rapamycin given to B cells that could respond to it shifted the balance toward memory-prone cells and raised memory B cell numbers (about threefold in the double-deficient cells). Memory B cells made under rapamycin gave similar recall antibody responses. Low mTORC1 was necessary but not sufficient: survival also depended on higher Bcl2 and surface BCR. Boundary: one immunization model (NP-CGG/alum) in mouse spleen, using transferred transgenic B cells; no human data. Rapamycin was tested at one dose and schedule, and the study does not show that lowering mTORC1 improves vaccine responses.",
+    "url": "https://mtor-atlas.org/study/INO2021/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/INO2021.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "EVE-IMMUNE",
+    "claim": "Everolimus context-dependent Immune function",
+    "source": {
+     "name": "Everolimus",
+     "entity": "everolimus"
+    },
+    "target": {
+     "name": "Immune function",
+     "entity": "immune-function"
+    },
+    "effect": "context-dependent",
+    "type": "clinical-outcome",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": null,
+    "map_band": "outcome",
+    "species": [
+     "human"
+    ],
+    "mechanism": "Dose and schedule set the direction here, not the target. Intermittent low-dose everolimus improved influenza vaccine responses in older adults (MAN2014), while continuous transplant-level dosing of the same drug class is immunosuppressive. A larger phase 3 trial of a different mTOR inhibitor, RTB101 (an ATP-competitive PI3K/mTOR inhibitor), did not reduce respiratory illness (MAN2021), although it still switched on antiviral genes. The edge carries a conditional sign because the supported claim is regimen-specific rather than a net benefit to immune function.",
+    "mechanism_beginner": "At a low, occasional dose, an mTOR-blocking drug helped older people respond better to a flu vaccine. At the high continuous dose used after transplants, mTOR inhibitors damp the immune system down. A larger phase 3 trial of a DIFFERENT mTOR inhibitor (RTB101, which blocks the kinase itself rather than working like rapamycin) found no reduction in respiratory illness – so what this arrow means depends on the dose, the schedule and the drug.",
+    "context": "Direction depends on dose and schedule. Transplant-level dosing is immunosuppressive; intermittent low dosing improved vaccine responses in older adults. Treating this as one effect with one sign is the error.",
+    "boundary": "Dose-dependent and duration-dependent: this is not the immunosuppressive regimen. The corpus supports an improved vaccine response under one regimen, not improved immune function in general. MAN2021 is recorded as conflicting for two reasons, and the earlier wording here got the first one wrong. Its phase 3 arm tested RTB101 monotherapy - a different drug, ATP-competitive rather than rapamycin-like - and found no reduction in clinically symptomatic respiratory illness. But the same paper's phase 2b part 2 DID include everolimus: 115 participants were randomised to RTB101 10 mg plus everolimus 0.1 mg daily, and that arm did not reach significance in the first prespecified analysis of the primary endpoint. So the randomised everolimus-containing evidence in MAN2021 points away from benefit as well, at a different dose and in a different population from MAN2014, rather than being irrelevant to this edge. Note also that the positive RTB101 10 mg result in that paper comes from a second prespecified analysis pooling parts 1 and 2, not from the first.",
+    "boundary_tags": [
+     "direction-contested",
+     "dose-dependent",
+     "single-study",
+     "time-dependent"
+    ],
+    "conflict": {
+     "type": "Different context",
+     "basis": "Low-dose everolimus (0.5 mg daily or 5 mg weekly) raised the influenza vaccine response of older adults by about 20% (MAN2014); the transplant dose is immunosuppressive. MAN2021 measured respiratory infections, not vaccine response: RTB101 alone in phase 3, and RTB101 with everolimus 0.1 mg daily in phase 2b, did not show a significant reduction."
+    },
+    "note": "THE dose-dependence case study, and a genuine apparent contradiction with the drug's immunosuppressant label. Prime Contradiction Engine seed.",
+    "consensus_contested": true,
+    "curation_contested": true,
+    "contested": true,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "established",
+     "human_relevance_label": "shown in people",
+     "consensus": "contested",
+     "consensus_label": "disputed: at least one study points the other way"
+    },
+    "evidence": {
+     "kind": "Pharmacological",
+     "strongest": {
+      "code": "H",
+      "label": "Human study"
+     },
+     "supporting": [
+      "MAN2014"
+     ],
+     "conflicting": [
+      "MAN2021"
+     ]
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Contested",
+    "url": "https://mtor-atlas.org/relation/EVE-IMMUNE/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/EVE-IMMUNE.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "name": "Oliver's mTOR Atlas API",
+ "description": "Read-only, static JSON access to the curated corpus of Oliver's mTOR Atlas: studies labelled by the kind of study behind them, entities, evidence-linked pathway relations and open questions. The same data that builds the website.",
+ "api_version": "1.0.0",
+ "dataset_version": "2.0.1+unreleased",
+ "live_matches_release": false,
+ "archived_release": {
+  "version": "2.0.1",
+  "version_doi": "10.5281/zenodo.23090261",
+  "date": "2026-10-01",
+  "studies": 428
+ },
+ "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+ "corpus_snapshot": "2026-11-28T17:02:45+0100",
+ "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+ "license": "CC-BY-4.0",
+ "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+ "docs": "https://mtor-atlas.org/api/",
+ "counts": {
+  "studies": 534,
+  "entities": 173,
+  "relations": 139,
+  "consensus_contested_relations": 7,
+  "curation_contested_relations": 8,
+  "contested_or_conflicting_relations": 14,
+  "contradiction_layer_relations": 14,
+  "contested_relations": 7,
+  "contested_relations_note": "Deprecated alias of consensus_contested_relations. consensus_contested = the field is divided (Consensus = contested); curation_contested = the curator marked the record Contested; contested_or_conflicting = consensus-contested or at least one conflicting study (a separate count from the curation flag); contradiction_layer = consensus-contested OR curation-contested OR at least one conflicting study, the set the MCP find_contradictions tool returns.",
+  "questions": 18,
+  "authors": 960
+ },
+ "evidence_codes": [
+  {
+   "code": "S",
+   "label": "Synthesis of human data"
+  },
+  {
+   "code": "H",
+   "label": "Human study"
+  },
+  {
+   "code": "A",
+   "label": "Animal model"
+  },
+  {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure"
+  },
+  {
+   "code": "PP",
+   "label": "Preprint, not peer-reviewed"
+  },
+  {
+   "code": "RT",
+   "label": "Registered trial, no results yet"
+  },
+  {
+   "code": "R",
+   "label": "Review — secondary literature, not a new result"
+  }
+ ],
+ "evidence_note": "this describes the kind of study, not its quality",
+ "endpoints": {
+  "meta": "https://mtor-atlas.org/api/v1/meta.json",
+  "studies": "https://mtor-atlas.org/api/v1/studies.json",
+  "study": "https://mtor-atlas.org/api/v1/studies/{sid}.json",
+  "entities": "https://mtor-atlas.org/api/v1/entities.json",
+  "entity": "https://mtor-atlas.org/api/v1/entities/{id}.json",
+  "relations": "https://mtor-atlas.org/api/v1/relations.json",
+  "relation": "https://mtor-atlas.org/api/v1/relations/{id}.json",
+  "questions": "https://mtor-atlas.org/api/v1/questions.json",
+  "question": "https://mtor-atlas.org/api/v1/questions/{id}.json",
+  "authors": "https://mtor-atlas.org/api/v1/authors.json",
+  "search_index": "https://mtor-atlas.org/api/v1/search-index.json",
+  "openapi": "https://mtor-atlas.org/api/openapi.json",
+  "bulk_exports": "https://mtor-atlas.org/data/"
+ },
+ "limits": "Static files: no query parameters, no authentication, no rate limit. Download a list endpoint and filter locally. Responses carry ETag/Last-Modified from the host."
+}

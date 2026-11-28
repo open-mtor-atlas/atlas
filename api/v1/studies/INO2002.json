@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "INO2002",
+  "title": "TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling",
+  "authors": "Inoki K; Li Y; Zhu T; Wu J; Guan KL",
+  "year": 2002,
+  "journal": "Nature Cell Biology",
+  "doi": "10.1038/ncb839",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "12172553",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cell lines",
+  "peer_reviewed": true,
+  "finding": "Akt directly phosphorylates and inactivates TSC2, disrupting the TSC1-TSC2 complex and releasing its inhibition of mTOR - the link between growth-factor/insulin signaling and mTORC1 activation.",
+  "url": "https://mtor-atlas.org/study/INO2002/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/INO2002.json",
+  "abstract_excerpt": "Tuberous sclerosis (TSC) is an autosomal dominant disorder characterized by the formation of hamartomas in a wide range of human tissues. Mutation in either the TSC1 or TSC2 tumour suppressor gene is responsible for both the familial and sporadic forms of this disease. TSC1 and TSC2 proteins form a physical and functional complex in vivo. Here, we show that TSC1-TSC2 inhibits the p70 ribosomal protein S6 kinase 1 (an activator of translation) and activates the eukaryotic initiation factor 4E binding protein 1 (4E-BP1, an inhibitor of translational initiation).",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (Akt phosphorylation of TSC2)",
+   "target": "TSC2 / Akt / mTOR",
+   "species": "Human cell lines",
+   "effect": "Akt phosphorylates and inactivates TSC2 → relieves mTOR inhibition (links insulin/growth factors to mTORC1)"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "pi3k",
+    "name": "PI3K",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "AKT-TSC"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "DAL2012",
+   "MAN2002",
+   "CAN2002",
+   "CHEN2026B"
+  ]
+ }
+}

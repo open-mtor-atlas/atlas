@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MAN2014",
+  "title": "mTOR inhibition improves immune function in the elderly",
+  "authors": "Mannick JB; Del Giudice G; Lattanzi M; Valiante NM; Praestgaard J; Huang B; Lonetto MA; Maecker HT; Kovarik J; Carson S; Glass DJ; Klickstein LB",
+  "year": 2014,
+  "journal": "Science Translational Medicine",
+  "doi": "10.1126/scitranslmed.3009892",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "25540326",
+  "pmcid": null,
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, RCT, older adults",
+  "peer_reviewed": true,
+  "finding": "Older volunteers took the rapalog everolimus (RAD001) before a flu shot, and their antibody response to the vaccine rose by about 20% at doses that were fairly well tolerated. The share of T cells carrying the exhaustion marker PD-1 also fell. The PEARL authors summarise the doses as 0.5 mg daily or 5 mg weekly for 6 weeks. This is the human result behind the weekly low-dose idea. Boundary: a stronger vaccine response is a lab marker, not fewer infections, and the later RTB101 trial (MAN2021) shows how that gap can matter.",
+  "url": "https://mtor-atlas.org/study/MAN2014/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2014.json",
+  "abstract_excerpt": "Inhibition of the mammalian target of rapamycin (mTOR) pathway extends life span in all species studied to date, and in mice delays the onset of age-related diseases and comorbidities. However, it is unknown if mTOR inhibition affects aging or its consequences in humans. To begin to assess the effects of mTOR inhibition on human aging-related conditions, we evaluated whether the mTOR inhibitor RAD001 ameliorated immunosenescence (the decline in immune function during aging) in elderly volunteers, as assessed by their response to influenza vaccination.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Everolimus (RAD001), low dose",
+   "target": "mTORC1",
+   "species": "Human – elderly adults, RCT",
+   "effect": "Improved influenza vaccine response (~20%) and reduced PD-1 expression on T cells"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "everolimus",
+    "name": "Everolimus",
+    "type": "Drug"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "EVE-IMMUNE"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H5",
+   "H7"
+  ],
+  "related_studies": [
+   "LEE2024",
+   "MAN2018",
+   "CHE2009",
+   "CHEN2026B"
+  ]
+ }
+}

@@ -1,0 +1,101 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "DRU2009",
+  "title": "Rapamycin administration in humans blocks the contraction-induced increase in skeletal muscle protein synthesis",
+  "authors": "Drummond MJ; Fry CS; Glynn EL; Dreyer HC; Dhanani S; Timmerman KL; Volpi E; Rasmussen BB",
+  "year": 2009,
+  "journal": "The Journal of Physiology",
+  "doi": "10.1113/jphysiol.2008.163816",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19188252",
+  "pmcid": "PMC2678224",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, controlled trial",
+  "peer_reviewed": true,
+  "finding": "Rapamycin given before resistance exercise blocked the early (1–2 h) post-exercise rise in human muscle protein synthesis, which was about 40% in the control group. Rapamycin also blocked the rise in ERK1/2 phosphorylation and blunted MNK1, so the authors conclude that mTORC1 drives the response only in part. The study measured acute protein synthesis, not muscle growth.",
+  "url": "https://mtor-atlas.org/study/DRU2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/DRU2009.json",
+  "abstract_excerpt": "Muscle protein synthesis and mTORC1 signalling are concurrently stimulated following muscle contraction in humans. In an effort to determine whether mTORC1 signalling is essential for regulating muscle protein synthesis in humans, we treated subjects with a potent mTORC1 inhibitor (rapamycin) prior to performing a series of high-intensity muscle contractions. Here we show that rapamycin treatment blocks the early (1-2 h) acute contraction-induced increase ( approximately 40%) in human muscle protein synthesis.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (pre-exercise)",
+   "target": "mTORC1",
+   "species": "Human – controlled trial",
+   "effect": "Rapamycin blocks the contraction-induced increase in human skeletal muscle protein synthesis",
+   "dose": "Rapamycin, single oral dose before a bout of high-intensity resistance exercise (exact mg not captured; full text not retrievable via PMC).",
+   "sample_size": "Small human controlled trial (full text unavailable; abstract-level).",
+   "effect_size": "Rapamycin blocked the early (1-2 h) ~40% contraction-induced increase in human muscle protein synthesis; downstream mTORC1 signaling (S6K1) blunted.",
+   "limitations": "Small sample; full text not retrievable via PMC, so dose/n taken from abstract only."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "muscle-growth",
+    "name": "Muscle growth",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "protein-synthesis",
+    "name": "Protein synthesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "resistance-exercise-mechanical-load",
+    "name": "Resistance exercise / mechanical load",
+    "type": "Intervention"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LOAD-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H3"
+  ],
+  "related_studies": [
+   "BOD2001",
+   "LAP2026",
+   "SHIM2026",
+   "ANC2026"
+  ]
+ }
+}

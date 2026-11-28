@@ -1,0 +1,68 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "TID2026",
+  "title": "Genome-wide CRISPRi screen in human iNeurons identifies novel negative mTOR regulator genes associated with focal cortical dysplasia",
+  "authors": "Tidball AM; Luo J; Walker JC; Takla TN; Carvill GL; Parent JM",
+  "year": 2026,
+  "journal": "Neurobiology of Disease",
+  "doi": "10.1016/j.nbd.2026.107602",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42731765",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human iPSC-derived neurons (genome-wide CRISPRi screen)",
+  "peer_reviewed": true,
+  "finding": "First unbiased genome-wide functional screen for negative regulators of mTOR signalling carried out in human neurons rather than in cancer lines or non-neural cells. Six genes (LRRC4, EIF3A, TSN, HIP1, PIK3R3, URI1) raise phospho-S6 when knocked down; only PIK3R3 and HIP1 raise phosphorylation across the whole AKT/mTOR/S6 axis, and each of those two has an independently reported candidate pathogenic variant in resected FCD brain tissue, which gives the screen external validity. Boundary: pS6 is a readout of mTORC1 output, not of mTORC1 itself, and four of the six hits did not show pathway-wide hyperphosphorylation, so their placement relative to mTORC1 is unresolved. The screen is in vitro in iPSC-derived neurons; no animal or human causal test of these genes in FCD is included. Relevant to the Atlas as an expansion of the upstream regulator set, and because the GDNF-withdrawal result shows the hits uncouple mTOR output from growth-factor input.",
+  "url": "https://mtor-atlas.org/study/TID2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/TID2026.json",
+  "abstract_excerpt": "Focal cortical dysplasia (FCD) is a common cause of focal epilepsy that typically results from brain mosaic mutations in the mTOR cell signaling pathway. To identify new potential FCD genes, we developed an in vitro CRISPRi screen in human neurons and used FACS enrichment based on the FCD biomarker, phosphorylated S6 ribosomal protein (pS6). Using whole-genome (110,000 gRNAs) and candidate (129 gRNAs) libraries, we discovered 6 new genes in which loss of function significantly increases pS6 levels: LRRC4, EIF3A, TSN, HIP1, PIK3R3, and URI1.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "CRISPR interference (CRISPRi) knockdown; FACS enrichment on phospho-S6 (pS6); GDNF withdrawal",
+   "target": "Negative regulators of neuronal mTOR signalling (LRRC4, EIF3A, TSN, HIP1, PIK3R3, URI1)",
+   "species": "Human iPSC-derived neurons (iNeurons)",
+   "effect": "A genome-wide CRISPRi screen in human iNeurons identifies six genes whose loss raises pS6; two of them (PIK3R3, HIP1) raise phosphorylation throughout the AKT/mTOR/S6 axis, and knockdown of all six makes mTOR signalling resistant to GDNF withdrawal"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": []
+ }
+}

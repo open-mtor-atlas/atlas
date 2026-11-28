@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HAN2008",
+  "title": "A role for autophagy in the extension of lifespan by dietary restriction in C. elegans",
+  "authors": "Hansen M; Chandra A; Mitic LL; Onken B; Driscoll M; Kenyon C",
+  "year": 2008,
+  "journal": "PLOS Genetics",
+  "doi": "10.1371/journal.pgen.0040024",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "18282106",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Caenorhabditis elegans",
+  "peer_reviewed": true,
+  "finding": "Makes autophagy a necessary step between dietary restriction and a longer life, not a side effect of it: blocking autophagy genes abolishes the lifespan extension produced both by dietary restriction and by TOR inhibition. The paper is equally careful about what autophagy cannot do on its own, because autophagy still runs in animals lacking DAF-16/FOXO and yet those animals are not long-lived. Boundary: worms; necessity was shown, sufficiency was not.",
+  "url": "https://mtor-atlas.org/study/HAN2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2008.json",
+  "abstract_excerpt": "In many organisms, dietary restriction appears to extend lifespan, at least in part, by down-regulating the nutrient-sensor TOR (Target Of Rapamycin). TOR inhibition elicits autophagy, the large-scale recycling of cytoplasmic macromolecules and organelles. In this study, we asked whether autophagy might contribute to the lifespan extension induced by dietary restriction in C. elegans. We find that dietary restriction and TOR inhibition produce an autophagic phenotype and that inhibiting genes required for autophagy prevents dietary restriction and TOR inhibition from extending lifespan.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Dietary restriction (eat-2), TOR RNAi, RNAi against autophagy genes; daf-2 mutants",
+   "target": "TOR / autophagy / PHA-4 / DAF-16",
+   "species": "Caenorhabditis elegans",
+   "effect": "Autophagy is required for lifespan extension by dietary restriction and TOR inhibition but is not sufficient on its own."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "foxo",
+    "name": "FoxO",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "caloric-restriction",
+    "name": "Caloric restriction",
+    "type": "Intervention"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H4"
+  ],
+  "related_studies": [
+   "HAN2007",
+   "BRU1999",
+   "DAB2026",
+   "DEN2026"
+  ]
+ }
+}

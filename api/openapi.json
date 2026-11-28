@@ -1,0 +1,1540 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Oliver's mTOR Atlas API",
+  "version": "1.0.0",
+  "summary": "Static, read-only JSON over the curated mTOR corpus.",
+  "description": "Every endpoint is a pre-built JSON file generated from the same data as the website. There are no query parameters: fetch a list and filter locally. Evidence codes describe the kind of study behind a finding, not its quality. Data: CC BY 4.0, cite doi:10.5281/zenodo.22059963.",
+  "license": {
+   "name": "CC BY 4.0",
+   "identifier": "CC-BY-4.0"
+  },
+  "contact": {
+   "name": "Oliver's mTOR Atlas",
+   "url": "https://mtor-atlas.org/about/"
+  }
+ },
+ "externalDocs": {
+  "url": "https://mtor-atlas.org/api/",
+  "description": "Human-readable documentation with examples"
+ },
+ "servers": [
+  {
+   "url": "https://mtor-atlas.org/api/v1"
+  }
+ ],
+ "paths": {
+  "/meta.json": {
+   "get": {
+    "operationId": "getMeta",
+    "summary": "Dataset version, counts, evidence codes, endpoint list",
+    "responses": {
+     "200": {
+      "description": "Metadata",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/studies.json": {
+   "get": {
+    "operationId": "listStudies",
+    "summary": "All studies (summary records)",
+    "responses": {
+     "200": {
+      "description": "List of studies",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/StudySummary"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/studies/{sid}.json": {
+   "get": {
+    "operationId": "getStudy",
+    "summary": "One study with its entities, relations and questions",
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "description": "Atlas study ID",
+      "schema": {
+       "type": "string"
+      },
+      "example": "SAB1994"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Study",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Study"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/entities.json": {
+   "get": {
+    "operationId": "listEntities",
+    "summary": "All entities (genes, drugs, diseases, processes…)",
+    "responses": {
+     "200": {
+      "description": "List of entities",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/EntitySummary"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/entities/{id}.json": {
+   "get": {
+    "operationId": "getEntity",
+    "summary": "One entity with its studies and pathway relations",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Entity ID (slug of the name)",
+      "schema": {
+       "type": "string"
+      },
+      "example": "mtorc1"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Entity"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/relations.json": {
+   "get": {
+    "operationId": "listRelations",
+    "summary": "All evidence-linked pathway relations (claims)",
+    "responses": {
+     "200": {
+      "description": "List of relations",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Relation"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/relations/{id}.json": {
+   "get": {
+    "operationId": "getRelation",
+    "summary": "One relation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Relation ID",
+      "schema": {
+       "type": "string"
+      },
+      "example": "4EBP1-EIF4E"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Relation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Relation"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/questions.json": {
+   "get": {
+    "operationId": "listQuestions",
+    "summary": "Open questions and frontier questions",
+    "responses": {
+     "200": {
+      "description": "List of questions",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Question"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/questions/{id}.json": {
+   "get": {
+    "operationId": "getQuestion",
+    "summary": "One question",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "description": "Question ID (H… open question, F… frontier)",
+      "schema": {
+       "type": "string"
+      },
+      "example": "H1"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Question",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+           "$ref": "#/components/schemas/Question"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/authors.json": {
+   "get": {
+    "operationId": "listAuthors",
+    "summary": "People with a profile page: full name, the name as it appears in study author lists, ORCID, lab and their studies",
+    "responses": {
+     "200": {
+      "description": "List of profiled authors",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Author"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/search-index.json": {
+   "get": {
+    "operationId": "getSearchIndex",
+    "summary": "Per study: linked entity ids, profiled authors and abstract/extracted text, for local search",
+    "responses": {
+     "200": {
+      "description": "One entry per study",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "meta",
+          "count",
+          "data"
+         ],
+         "properties": {
+          "meta": {
+           "$ref": "#/components/schemas/Meta"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "data": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/SearchIndexEntry"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Meta": {
+    "type": "object",
+    "description": "Provenance of the response",
+    "properties": {
+     "api_version": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "dataset_version": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "A plain release number (e.g. 2.0.1) only when the live data are identical to that archived Zenodo release (content fingerprint). Otherwise \"<latest release>+unreleased\": the live data have changed since that release and are not archived yet; cite corpus_snapshot and source_commit for the exact state."
+     },
+     "live_matches_release": {
+      "type": [
+       "boolean",
+       "null"
+      ],
+      "description": "True when the live data equal the archived release in archived_release."
+     },
+     "archived_release": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "The latest immutable release on Zenodo, which may be older than the live data.",
+      "properties": {
+       "version": {
+        "type": "string"
+       },
+       "version_doi": {
+        "type": "string"
+       },
+       "date": {
+        "type": "string"
+       },
+       "studies": {
+        "type": [
+         "integer",
+         "null"
+        ]
+       }
+      }
+     },
+     "data_fingerprint": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "sha256 over the served content (studies, entities, questions, relations, pathway model), without generator timestamps. Equal fingerprints mean equal data."
+     },
+     "corpus_snapshot": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "source_commit": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "license": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "cite": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "docs": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
+   "Evidence": {
+    "type": "object",
+    "required": [
+     "code",
+     "label",
+     "note"
+    ],
+    "properties": {
+     "code": {
+      "type": "string",
+      "enum": [
+       "S",
+       "H",
+       "A",
+       "M",
+       "PP",
+       "RT",
+       "R",
+       "—"
+      ]
+     },
+     "label": {
+      "type": "string"
+     },
+     "note": {
+      "type": "string"
+     }
+    }
+   },
+   "StudySummary": {
+    "type": "object",
+    "required": [
+     "sid",
+     "evidence",
+     "url"
+    ],
+    "properties": {
+     "sid": {
+      "type": "string"
+     },
+     "title": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "authors": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "year": {
+      "type": [
+       "integer",
+       "string",
+       "null"
+      ]
+     },
+     "journal": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "doi": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "registry_id": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "registry_url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmcid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "extracted_findings_review": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Review status of the AI-assisted extracted fields. status is unreviewed unless a named reviewer checked them."
+     },
+     "evidence": {
+      "$ref": "#/components/schemas/Evidence"
+     },
+     "category": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "model_system": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "peer_reviewed": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     },
+     "finding": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "url": {
+      "type": "string"
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Study": {
+    "allOf": [
+     {
+      "$ref": "#/components/schemas/StudySummary"
+     },
+     {
+      "type": "object",
+      "properties": {
+       "abstract_excerpt": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "abstract_truncated": {
+        "type": [
+         "boolean",
+         "null"
+        ]
+       },
+       "extracted_findings": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "additionalProperties": {
+         "type": "string"
+        }
+       },
+       "entities": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "string"
+          },
+          "name": {
+           "type": "string"
+          },
+          "type": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "relations": {
+        "type": "object",
+        "properties": {
+         "supports": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "conflicts_with": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         }
+        }
+       },
+       "questions": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "related_studies": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    ]
+   },
+   "EntitySummary": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "type"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "synonyms": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "description": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "study_count": {
+      "type": "integer"
+     },
+     "identifiers": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "properties": {
+       "hgnc": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "uniprot": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "taxon": {
+        "type": "string"
+       }
+      },
+      "description": "Standard identifiers (HGNC, UniProtKB, NCBI Taxonomy), present only when the entity is a single human gene/protein. Null for groups, complexes, drugs, diseases and metabolites."
+     },
+     "identifiers_status": {
+      "type": "object",
+      "properties": {
+       "state": {
+        "type": "string",
+        "enum": [
+         "present",
+         "pending",
+         "not-applicable"
+        ]
+       },
+       "scope": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "enum": [
+         "single",
+         "group",
+         "non-human",
+         null
+        ]
+       },
+       "reason": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why identifiers are null. scope says what kind of record it is: single = one human gene product, group = a complex, family or pair of proteins, non-human = not a human gene. pending = a single human gene product whose lookup has not been done yet (or a record not yet classified, scope null); not-applicable = no single identifier applies, because the record is a group, a non-human gene or an entity type without gene/protein identifiers (scope null)."
+     },
+     "relation_count": {
+      "type": "integer"
+     },
+     "page_status": {
+      "type": "object",
+      "properties": {
+       "state": {
+        "type": "string",
+        "enum": [
+         "published",
+         "data-only",
+         "missing"
+        ]
+       },
+       "reason": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why url is null. A page is generated for an entity with three or more linked studies or one that is a node on the pathway map. data-only = no page by that rule; missing = a page is expected and the build produced none, which is a defect."
+     },
+     "url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Entity": {
+    "allOf": [
+     {
+      "$ref": "#/components/schemas/EntitySummary"
+     },
+     {
+      "type": "object",
+      "properties": {
+       "description_beginner": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "reading_levels": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "properties": {
+         "beginner": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "student": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "research": {
+          "type": [
+           "string",
+           "null"
+          ]
+         }
+        },
+        "description": "The three reading levels the pathway map carries for this entity. Added 2026-10-10: the website rendered these and the API did not, so an API or MCP consumer saw less of the Atlas than a reader of the site."
+       },
+       "external_refs": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/ExternalRef"
+        },
+        "description": "Papers cited in this entity's description prose."
+       },
+       "studies": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/StudySummary"
+        }
+       },
+       "relations": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/Relation"
+        }
+       }
+      }
+     }
+    ]
+   },
+   "QuestionReference": {
+    "type": "object",
+    "required": [
+     "role",
+     "label",
+     "supports",
+     "in_corpus"
+    ],
+    "properties": {
+     "role": {
+      "type": "string",
+      "enum": [
+       "direct",
+       "related",
+       "inference",
+       "assumption"
+      ],
+      "description": "direct = direct evidence for a premise; related = related evidence; inference = indirect mechanistic inference; assumption = a premise with no verified citation yet."
+     },
+     "label": {
+      "type": "string"
+     },
+     "supports": {
+      "type": "string"
+     },
+     "sid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "pmid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "doi": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "registry": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "in_corpus": {
+      "type": "boolean",
+      "description": "True when the Atlas holds the paper as a study (sid is set)."
+     },
+     "url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
+   "ExternalRef": {
+    "type": "object",
+    "required": [
+     "pmid",
+     "cited_in",
+     "in_corpus"
+    ],
+    "properties": {
+     "pmid": {
+      "type": "string"
+     },
+     "cited_in": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Which prose fields of this record cite the paper."
+     },
+     "in_corpus": {
+      "type": "boolean",
+      "description": "False means the Atlas names this paper in its prose but does not hold it as a study, so it carries no evidence code and never appears in evidence.supporting or evidence.conflicting. Several of the Atlas's own corrections rest on papers like this."
+     },
+     "url": {
+      "type": "string"
+     }
+    }
+   },
+   "Author": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "corpus_name",
+     "studies",
+     "url"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string",
+      "description": "Full name, as on the profile page."
+     },
+     "corpus_name": {
+      "type": "string",
+      "description": "The same person as written in study author lists (surname + initials, e.g. \"De Virgilio C\"). Search authors by this form or by name."
+     },
+     "orcid": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "lab": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "lab_url": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "role": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "studies": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Study IDs shown on the profile page (verified against PubMed where the corpus name is shared by several people)."
+     },
+     "url": {
+      "type": "string"
+     }
+    }
+   },
+   "SearchIndexEntry": {
+    "type": "object",
+    "required": [
+     "sid",
+     "entities",
+     "authors",
+     "author_names"
+    ],
+    "properties": {
+     "sid": {
+      "type": "string"
+     },
+     "entities": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Ids of the entities linked to the study (see /entities.json for names and synonyms)."
+     },
+     "authors": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Ids of profiled authors of the study (see /authors.json)."
+     },
+     "author_names": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "text": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Abstract excerpt and AI-assisted extracted fields, joined. For matching only; the curated finding in the study record takes precedence."
+     }
+    }
+   },
+   "NodeRef": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "entity": {
+      "type": [
+       "string",
+       "null"
+      ]
+     }
+    }
+   },
+   "Relation": {
+    "type": "object",
+    "required": [
+     "id",
+     "source",
+     "target",
+     "evidence"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "claim": {
+      "type": "string"
+     },
+     "source": {
+      "$ref": "#/components/schemas/NodeRef"
+     },
+     "target": {
+      "$ref": "#/components/schemas/NodeRef"
+     },
+     "effect": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "type": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "directness": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "timescale": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "compartment": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Where in the cell the step happens (lyso, cytosol, nucleus, pm, mito, ...). Null when the step has no cellular location, such as a step that ends in an outcome."
+     },
+     "map_band": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The band the step is drawn in on the pathway map. Equals compartment for cellular steps; also takes the values outcome and autophagy, which are map bands, not places in the cell."
+     },
+     "species": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "mechanism": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "mechanism_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "context": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "boundary": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "note": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "boundary_tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Machine-readable limits on where the relation holds, e.g. sex-specific, dose-dependent, cell-line-only, tissue-specific, nutrient-state-dependent, single-study, single-species, direction-contested. An empty list means no tag has been recorded; it does NOT mean the relation holds without limits. The free-text boundary is the complete statement and is present on every relation."
+     },
+     "contested": {
+      "type": "boolean",
+      "description": "Deprecated alias of consensus_contested, kept for compatibility. Read consensus_contested or curation_contested instead - they are different axes."
+     },
+     "consensus_contested": {
+      "type": "boolean",
+      "description": "True when the FIELD is divided about this claim (Consensus = contested)."
+     },
+     "curation_contested": {
+      "type": "boolean",
+      "description": "True when the Atlas curation status is Contested, i.e. flagged for review. A record can be one without the other, so these two counts need not agree."
+     },
+     "conflict": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "properties": {
+       "type": {
+        "type": "string",
+        "enum": [
+         "Opposing result",
+         "Different context",
+         "Field dispute"
+        ]
+       },
+       "basis": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Why the studies on this relation disagree. Opposing result = a comparable system gave the opposite direction or no effect; Different context = the results differ by species, cell type, dose, schedule or nutrient state; Field dispute = two published models for the same step are unreconciled. Null means no type has been assigned; it does NOT mean the relation is undisputed. A type is assigned only where the relation text or the cited study states the reason."
+     },
+     "confidence": {
+      "type": "object",
+      "properties": {
+       "mechanistic": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "human_relevance": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "human_relevance_label": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "consensus": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "consensus_label": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "description": "Three independent axes, never one score. human_relevance is a graded reach into people, not a claim of human evidence: \"plausible\" means mechanistically plausible and NOT shown directly in people. The *_label fields carry the same wording the website shows, from one shared vocabulary; read them next to evidence.strongest, which says what kind of study the grade rests on."
+     },
+     "evidence": {
+      "type": "object",
+      "properties": {
+       "kind": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "strongest": {
+        "type": [
+         "object",
+         "null"
+        ],
+        "properties": {
+         "code": {
+          "type": "string"
+         },
+         "label": {
+          "type": "string"
+         }
+        }
+       },
+       "supporting": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "conflicting": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "external_refs": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ExternalRef"
+      },
+      "description": "Papers cited in this relation's prose. Added 2026-10-10: a PMID written into a boundary or mechanism had no machine-readable form, so a paper that reverses a relation's direction was visible only to a human reading the text."
+     },
+     "reviewed": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "updated": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "review_status": {
+      "type": "string",
+      "enum": [
+       "reviewed",
+       "unreviewed"
+      ],
+      "description": "unreviewed = no named curator has signed this relation off yet. Missing review is never treated as reviewed."
+     },
+     "reviewer": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "curation_status": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Curation state (Proposed, Contested, Confirmed). Not the same as confidence.consensus, which describes agreement in the field."
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   },
+   "Question": {
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "title"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "open-question",
+       "frontier"
+      ]
+     },
+     "title": {
+      "type": "string"
+     },
+     "category": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "confidence": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "description": "Editorial confidence 0-1: the curator's judgement of how likely the hypothesis is to hold. Set by hand, not computed, not a calibrated probability."
+     },
+     "evidence_stands_at": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "gap": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "gap_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "changed_since_written": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "still_open": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "hypothesis": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "hypothesis_beginner": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "why_it_matters": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "how_to_test": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "studies": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "related_questions": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "revision_log": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "relation_note": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Frontier questions only. How this question relates to the other frontier questions, so overlapping questions are not read as variants of one."
+     },
+     "gap_status": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "description": "Frontier questions only. Whether the claimed gap in the literature has been confirmed by a logged search. status is probable-gap, partly-answered or not-documented; basis says what was searched.",
+      "properties": {
+       "status": {
+        "type": "string"
+       },
+       "label": {
+        "type": "string"
+       },
+       "basis": {
+        "type": "string"
+       },
+       "checked": {
+        "type": "string"
+       }
+      }
+     },
+     "references": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/QuestionReference"
+      },
+      "description": "Frontier questions only. The papers the question rests on, each with the role it plays. The role is the curator's reading and has not been checked by a second reader."
+     },
+     "external_refs": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ExternalRef"
+      },
+      "description": "Papers cited in this question's prose, most often in changed_since_written - the field recording what moved in the outside literature since the question was set."
+     },
+     "url": {
+      "type": "string"
+     },
+     "api_url": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

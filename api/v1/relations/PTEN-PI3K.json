@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "PTEN-PI3K",
+  "claim": "PTEN inhibits PI3K",
+  "source": {
+   "name": "PTEN",
+   "entity": "pten"
+  },
+  "target": {
+   "name": "PI3K",
+   "entity": "pi3k"
+  },
+  "effect": "inhibits",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "seconds",
+  "compartment": "pm",
+  "map_band": "pm",
+  "species": [
+   "mouse"
+  ],
+  "mechanism": "PTEN erases PIP3, undoing PI3K. Losing PTEN is one of the commonest ways a tumour leaves this whole axis switched on without an upstream signal.",
+  "mechanism_beginner": "PTEN erases the lipid signal that PI3K makes. Losing PTEN is one of the most common ways cancers keep this whole pathway switched on without any signal from outside.",
+  "context": "The 'inhibits' label describes the net effect on signalling, not the enzyme itself: PTEN does not inhibit PI3K catalytically, and Maehama & Dixon reported PI3K activation itself unchanged. PTEN dephosphorylates PIP3, PI3K's lipid product, erasing the signal downstream of the enzyme rather than blocking the enzyme's activity.",
+  "boundary": "The arrow is drawn PTEN -> PI3K for readability, but PTEN does not act on the PI3K enzyme. It dephosphorylates PIP3, PI3K's lipid product, so the effect on PI3K signalling is indirect and the edge is a compressed one whose hidden intermediate is PIP3. The canonical biochemical demonstration (Maehama & Dixon, J Biol Chem 1998, PMID 9593664) sits outside this corpus: purified recombinant PTEN dephosphorylates PtdIns(3,4,5)P3 specifically at position 3, and in the same paper PTEN overexpression reduced insulin-induced PIP3 without affecting insulin-induced PI3K activation. The cancer-genetics support in-corpus is mouse (GUE2009).",
+  "boundary_tags": [
+   "single-study"
+  ],
+  "conflict": null,
+  "note": "2026-10-09: Causal directness changed direct -> indirect to match the prose. PTEN removes PI3K's product (PIP3) rather than acting on PI3K itself, so 'direct' was inconsistent with the mechanism and context text. Interaction type stays 'dephosphorylation' (what PTEN does to PIP3). 2026-10-10: Interaction type changed dephosphorylation -> functional-consequence. Leaving a reaction type on an edge whose target is the PI3K protein made the machine-readable claim 'PTEN dephosphorylates PI3K', which the prose had always contradicted. The edge is now typed as what it is, a compressed functional opposition, with PIP3 named as the hidden intermediate.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "GUE2009"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [
+   {
+    "pmid": "9593664",
+    "cited_in": [
+     "boundary"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/9593664/"
+   }
+  ],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/PTEN-PI3K/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/PTEN-PI3K.json"
+ }
+}

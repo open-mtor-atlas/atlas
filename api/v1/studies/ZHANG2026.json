@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZHANG2026",
+  "title": "Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.",
+  "authors": "Zhang C; Chao X; Williams SN; Wei X; DiGirolamo AM; Bajracharya A; Ma L; Huang M; Dunn N; Liu W; Ueda K; Sugimoto M; Ballabio A; Ni HM; Ding WX",
+  "year": 2026,
+  "journal": "Journal of Clinical Investigation",
+  "doi": "10.1172/JCI206334",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42560776",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse + Human (HCC)",
+  "peer_reviewed": true,
+  "finding": "Loss of TSC1 in mouse liver drives non-canonical mTORC1-mediated TFEB nuclear translocation, hepatocyte-to-biliary plasticity and spontaneous aggressive HCC at 8-12 months; additional deletion of Tfeb dampened the metabolic reprogramming and fate changes and inhibited tumour progression. In human HCC, higher TFEB activity was associated with YAP and SOX9 expression and high-grade malignancy (correlative).",
+  "url": "https://mtor-atlas.org/study/ZHANG2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026.json",
+  "abstract_excerpt": "Hepatocellular carcinoma (HCC) is heterogeneous, and hepatocyte plasticity is linked to poorer patient outcomes. A subset of human HCC harboring tuberous sclerosis complex 1 (TSC1) mutations exhibits more aggressive behavior. Transcription factor EB (TFEB) is a master regulator of lysosomal biogenesis and cell fate. We analyzed human normal and HCC tissue arrays for TFEB and CK19 expression, as well as bulk and single-cell RNA-seq datasets from mouse and human HCC, to define TFEB-associated transcriptional programs.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Tsc1 knockout (mTORC1 hyperactivation)",
+   "target": "mTORC1-TFEB",
+   "species": "Mouse + Human",
+   "effect": "Promotes hepatocyte plasticity and high-grade HCC malignancy"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "TSC-MTORC1"
+   ],
+   "conflicts_with": [
+    "MTORC1-TFEB"
+   ]
+  },
+  "questions": [],
+  "related_studies": [
+   "FER2026",
+   "DEY2008",
+   "INO2006",
+   "BOU2026"
+  ]
+ }
+}

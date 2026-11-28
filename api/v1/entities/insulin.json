@@ -1,0 +1,352 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "insulin",
+  "name": "Insulin",
+  "type": "Gene/Protein",
+  "synonyms": [
+   "INS",
+   "insulin signalling"
+  ],
+  "identifiers": {
+   "hgnc": "HGNC:6081",
+   "uniprot": "P01308",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Pancreatic peptide hormone; the growth-factor input that reaches mTORC1 through the insulin receptor, IRS proteins, PI3K and Akt. Added 2026-10-10 after an audit found the Atlas modelled a single 'Growth hormone / IGF-1 axis' input whose edge text described insulin docking on its receptor, while insulin itself had no node and growth hormone does not use that receptor.",
+  "study_count": 10,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/insulin/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/insulin.json",
+  "description_beginner": "The hormone the pancreas releases after a meal. It is one of the two main 'go' signals mTORC1 listens to: it lands on its own receptor and the message travels inward through IRS proteins, PI3K and Akt. The other kind of signal is the nutrients themselves.",
+  "reading_levels": {
+   "beginner": "The after-a-meal hormone.",
+   "student": "Pancreatic peptide hormone reaching mTORC1 through its own receptor, IRS proteins, PI3K and Akt.",
+   "research": "Distinct from the GH/IGF-1 node: insulin binds InsR directly, while GH acts through GHR-JAK2-STAT5b and reaches this arm largely by inducing hepatic IGF-1. The AKT pathway multiplexes the temporal pattern of the insulin signal, so amplitude and time course are not interchangeable."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "HAR2004",
+    "title": "The TSC1-2 tumor suppressor controls insulin-PI3K signaling via regulation of IRS proteins",
+    "authors": "Harrington LS; Findlay GM; Gray A; Tolkacheva T; Wigfield S; Rebholz H; Barnett J; Leslie NR; Cheng S; Shepherd PR; Gout I; Downes CP; Lamb RF",
+    "year": 2004,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.200403069",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15249583",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells (TSC1/TSC2-null MEFs, human cells)",
+    "peer_reviewed": true,
+    "finding": "One of two 2004 papers that placed mTORC1's main negative feedback loop downstream of TSC-Rheb-S6K1 (rapamycin-sensitive IRS-1 degradation had been reported earlier, Haruta 2000). When mTORC1/S6K1 activity is left switched on, S6K1 phosphorylates IRS-1 and represses its expression, so the insulin receptor can no longer signal to PI3K. This is the textbook explanation for why blocking mTORC1 paradoxically raises Akt activity, and it contributes to insulin resistance when mTORC1 is chronically overactive (for example with TSC loss or nutrient excess). The insulin resistance seen with chronic rapamycin is instead attributed mainly to mTORC2 disruption (LAM2012).",
+    "url": "https://mtor-atlas.org/study/HAR2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAR2004.json"
+   },
+   {
+    "sid": "GAR2003",
+    "title": "Insulin activation of Rheb, a mediator of mTOR/S6K/4E-BP signaling, is inhibited by TSC1 and 2",
+    "authors": "Garami A; Zwartkruis FJ; Nobukuni T; Joaquin M; Roccio M; Stocker H; Kozma SC; Hafen E; Bos JL; Thomas G",
+    "year": 2003,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/s1097-2765(03)00220-x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12820960",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila & mammalian cells",
+    "peer_reviewed": true,
+    "finding": "Insulin activates Rheb-GTP, inhibited by TSC1/2, positioning Rheb as the direct upstream activator of TOR.",
+    "url": "https://mtor-atlas.org/study/GAR2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAR2003.json"
+   },
+   {
+    "sid": "SAU2003",
+    "title": "Rheb promotes cell growth as a component of the insulin/TOR signalling network",
+    "authors": "Saucedo LJ; Gao X; Chiarelli DA; Li L; Pan D; Edgar BA",
+    "year": 2003,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb996",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12766776",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila",
+    "peer_reviewed": true,
+    "finding": "Rheb promotes cell growth as a component of the insulin/TOR network in Drosophila.",
+    "url": "https://mtor-atlas.org/study/SAU2003/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAU2003.json"
+   },
+   {
+    "sid": "SAN2007",
+    "title": "PRAS40 is an insulin-regulated inhibitor of the mTORC1 protein kinase",
+    "authors": "Sancak Y; Thoreen CC; Peterson TR; Lindquist RA; Kang SA; Spooner E; Carr SA; Sabatini DM",
+    "year": 2007,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2007.03.003",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17386266",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (biochemistry)",
+    "peer_reviewed": true,
+    "finding": "Identified PRAS40 as the missing insulin-controlled brake INSIDE mTORC1. When insulin is absent PRAS40 clamps the complex shut; insulin makes Akt phosphorylate PRAS40, releasing the brake so Rheb can fully switch mTORC1 on. Explained how hormone signals set the exact strength of mTORC1 activity.",
+    "url": "https://mtor-atlas.org/study/SAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAN2007.json"
+   },
+   {
+    "sid": "KUB2012",
+    "title": "Temporal coding of insulin action through multiplexing of the AKT pathway",
+    "authors": "Kubota H; Noguchi R; Toyoshima Y; Ozaki YI; Uda S; Watanabe K; Ogawa W; Kuroda S",
+    "year": 2012,
+    "journal": "Molecular Cell",
+    "doi": "10.1016/j.molcel.2012.04.018",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22633957",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Rat hepatoma cells (Fao); pulse vs sustained insulin, time-course phosphorylation plus kinetic modelling",
+    "peer_reviewed": true,
+    "finding": "The same pathway can carry different messages in the shape of its signal over time. A short insulin pulse produced transient AKT phosphorylation and a sustained dose produced sustained AKT phosphorylation. S6K read only the transient part, G6Pase only the sustained part and GSK3-beta both. Which output responds depends on the pattern, not just the amount - the clearest cell-level case in the atlas that timing carries information in this pathway.",
+    "url": "https://mtor-atlas.org/study/KUB2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2012.json"
+   },
+   {
+    "sid": "SHA2004",
+    "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+    "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.08.026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15380067",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+    "url": "https://mtor-atlas.org/study/SHA2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
+   },
+   {
+    "sid": "POT2002",
+    "title": "Akt regulates growth by directly phosphorylating Tsc2",
+    "authors": "Potter CJ; Pedraza LG; Xu T",
+    "year": 2002,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb840",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "12172554",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster genetics (eye/tissue growth, Akt overexpression, Tsc2 site mutants); in vitro kinase assays",
+    "peer_reviewed": true,
+    "finding": "Working in fruit flies, the authors showed that Akt directly phosphorylates the Drosophila Tsc2 protein in vitro at two conserved residues, Ser924 and Thr1518. Tsc2 with these sites mutated no longer responded to Akt signalling, and its complex with Tsc1 became more stable. Turning up Akt signalling in fly tissue increased cell size, broke up the Tsc1-Tsc2 complex and changed where the two proteins sat in the cell. Expressing a Tsc2 mutant that Akt cannot phosphorylate blocked the growth signals from Akt, which led the authors to propose Tsc2 as the key Akt target for growth in the insulin pathway. Boundary: Drosophila tissues and in vitro biochemistry with overexpressed mutant proteins; the claim that Tsc2 carries all Akt growth signals was tested in flies, not in mammals.",
+    "url": "https://mtor-atlas.org/study/POT2002/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/POT2002.json"
+   },
+   {
+    "sid": "OLD2000",
+    "title": "Genetic and biochemical characterization of dTOR, the Drosophila homolog of the target of rapamycin",
+    "authors": "Oldham S; Montagne J; Radimerski T; Thomas G; Hafen E",
+    "year": 2000,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.845700",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11069885",
+    "pmcid": "PMC317036",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster dTOR mutants (partial and full loss), genetic interaction with insulin pathway; biochemistry of dS6K",
+    "peer_reviewed": true,
+    "finding": "The authors identified and characterised dTOR, the fruit fly version of TOR. Genetic and biochemical experiments indicated that dTOR affects growth in a cell-autonomous way by changing the activity of the fly S6 kinase, dS6K, and so connects to the insulin signalling pathway. Unlike other insulin pathway components, partial loss of dTOR reduced growth mainly in endoreplicating tissues, which copy their DNA without dividing. The authors read this as evidence that dTOR sits on a parallel pathway that senses amino acids. Boundary: Drosophila genetics and biochemistry; the parallel amino acid pathway is an interpretation from fly phenotypes, not a direct measurement of amino acid sensing.",
+    "url": "https://mtor-atlas.org/study/OLD2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/OLD2000.json"
+   },
+   {
+    "sid": "PEN2000",
+    "title": "Hypoinsulinaemia, glucose intolerance and diminished beta-cell size in S6K1-deficient mice",
+    "authors": "Pende M; Kozma SC; Jaquet M; Oorschot V; Burcelin R; Le Marchand-Brustel Y; Klumperman J; Thorens B; Thomas G",
+    "year": 2000,
+    "journal": "Nature",
+    "doi": "10.1038/35050135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "11140689",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "S6K1 knockout mice; isolated muscle insulin sensitivity; pancreatic islet morphometry and insulin secretion",
+    "peer_reviewed": true,
+    "finding": "Mice lacking S6 kinase 1 had low blood insulin and were glucose intolerant. Isolated muscle from these mice did not show insulin resistance; instead, glucose-stimulated insulin secretion and pancreatic insulin content were sharply reduced. Glucose sensing and insulin production per se were intact: the defect was a smaller pancreatic endocrine mass, explained by a selective decrease in beta-cell size. The authors noted that the phenotype resembles preclinical type 2 diabetes in which poor nutrition early in life leads to low insulin. Boundary: Mouse genetic knockout with lifelong S6K1 loss. Not tested in people. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/PEN2000/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2000.json"
+   },
+   {
+    "sid": "RUV2005",
+    "title": "Ribosomal protein S6 phosphorylation is a determinant of cell size and glucose homeostasis",
+    "authors": "Ruvinsky I; Sharon N; Lerer T; Cohen H; Stolovich-Rain M; Nir T; Dor Y; Zisman P; Meyuhas O",
+    "year": 2005,
+    "journal": "Genes & Development",
+    "doi": "10.1101/gad.351605",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "16166381",
+    "pmcid": "PMC1221890",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Knock-in mice with all five rpS6 phosphorylation sites mutated to alanine (rpS6P-/-); embryonic fibroblasts; pancreatic beta-cells; glucose tolerance tests",
+    "peer_reviewed": true,
+    "finding": "The authors made knock-in mice in which all five phosphorylatable serines of ribosomal protein S6 were replaced by alanine, so rpS6 could not be phosphorylated. Contrary to the then widely accepted model, translational control of 5'TOP mRNAs was unaffected. Fibroblasts from these mice made protein faster and divided faster, yet were smaller than wild-type cells, and rapamycin did not shrink them further, which points to rpS6 phosphorylation as a downstream effector of mTOR in cell-size control. Adult mutant mice also had smaller pancreatic beta-cells, less pancreatic insulin, low blood insulin and impaired glucose tolerance. Boundary: Mouse knock-in and mouse cells. Separates rpS6 phosphorylation from 5'TOP control in these systems; not tested in people. Drafted from the abstract only.",
+    "url": "https://mtor-atlas.org/study/RUV2005/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/RUV2005.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "INS-PI3K",
+    "claim": "Insulin activates PI3K",
+    "source": {
+     "name": "Insulin",
+     "entity": "insulin"
+    },
+    "target": {
+     "name": "PI3K",
+     "entity": "pi3k"
+    },
+    "effect": "activates",
+    "type": "signal-relay",
+    "directness": "indirect",
+    "timescale": "minutes",
+    "compartment": "pm",
+    "map_band": "pm",
+    "species": [
+     "human",
+     "mammalian cells",
+     "Drosophila"
+    ],
+    "mechanism": "Insulin binds the insulin receptor, which phosphorylates IRS proteins; those recruit PI3K, which makes PIP3 and so starts the arm that reaches mTORC1 through Akt. The step is also where the pathway's best-known feedback lands: S6K1 depletes IRS1/2 and the cell goes deaf to insulin (SHA2004).",
+    "mechanism_beginner": "Insulin lands on its own receptor on the cell surface. The message is passed inward by IRS proteins to PI3K, which builds a signalling lipid, and that is the beginning of the route to mTORC1. This is also the step that breaks when the pathway is overactive for too long.",
+    "context": null,
+    "boundary": "Insulin and IGF-1 share this receptor arm; growth hormone does not, and is kept separate for that reason. The amplitude and the time pattern of the insulin signal are not interchangeable: KUB2012 shows the AKT pathway multiplexes insulin's temporal pattern, so a single arrow understates what the cell reads. Cell and genetic work, plus human physiology for the insulin-resistance end of it.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "HAR2004",
+      "GAR2003",
+      "SAU2003",
+      "SAN2007",
+      "SHA2004"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/INS-PI3K/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/INS-PI3K.json"
+   }
+  ]
+ }
+}

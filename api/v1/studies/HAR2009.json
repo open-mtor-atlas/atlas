@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "HAR2009",
+  "title": "Rapamycin fed late in life extends lifespan in genetically heterogeneous mice",
+  "authors": "Harrison DE; Strong R; Sharp ZD; Nelson JF; Astle CM; Flurkey K; Nadon NL; Wilkinson JE; Frenkel K; Carter CS; Pahor M; Javors MA; Fernandez E; Miller RA",
+  "year": 2009,
+  "journal": "Nature",
+  "doi": "10.1038/nature08221",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19587680",
+  "pmcid": "PMC2786175",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (genetically heterogeneous, 3 sites)",
+  "peer_reviewed": true,
+  "finding": "Rapamycin fed from 600 days of age extended median and maximal lifespan in both sexes; age at 90% mortality rose 14% in females and 9% in males.",
+  "url": "https://mtor-atlas.org/study/HAR2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/HAR2009.json",
+  "abstract_excerpt": "Inhibition of the TOR signalling pathway by genetic or pharmacological intervention extends lifespan in invertebrates, including yeast, nematodes and fruitflies; however, whether inhibition of mTOR signalling can extend lifespan in a mammalian species was unknown. Here we report that rapamycin, an inhibitor of the mTOR pathway, extends median and maximal lifespan of both male and female mice when fed beginning at 600 days of age. On the basis of age at 90% mortality, rapamycin led to an increase of 14% for females and 9% for males.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (late-life feeding)",
+   "target": "mTOR",
+   "species": "Mouse (genetically heterogeneous, 3 sites)",
+   "effect": "Rapamycin fed from 600 days extended median and maximal lifespan in both sexes – first pharmacological lifespan extension in a mammal",
+   "dose": "Dietary encapsulated rapamycin, initiated at 600 days of age (or 270 days in a separate study), resulting in blood levels of 60-70 ng/ml.",
+   "sample_size": "1901 mice (38 still alive at analysis date).",
+   "effect_size": "Pooled mean lifespan increased by 9% for males and 13% for females; life expectancy at 600 days increased by 28% for males and 38% for females (p < 0.0001).",
+   "limitations": "Improved survival among males at UT and UM might reflect pre-treatment nutritional/health differences, not solely rapamycin effects; additional data needed for accurate effect size and maximal longevity for 270-day start."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-LONGEVITY",
+    "RAPA-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H6"
+  ],
+  "related_studies": []
+ }
+}

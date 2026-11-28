@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KAL2010",
+  "title": "Metformin, independent of AMPK, inhibits mTORC1 in a rag GTPase-dependent manner",
+  "authors": "Kalender A; Selvaraj A; Kim SY; Gulati P; Brûlé S; Viollet B; Kemp BE; Bardeesy N; Dennis P; Schlager JJ; Marette A; Kozma SC; Thomas G",
+  "year": 2010,
+  "journal": "Cell Metabolism",
+  "doi": "10.1016/j.cmet.2010.03.014",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "20444419",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells (AMPK-null and TSC1/2-null)",
+  "peer_reviewed": true,
+  "finding": "Metformin inhibits mTORC1 even in cells lacking AMPK or TSC1/TSC2, and the effect requires the Rag GTPases instead. Together with Foretz 2010 this places a large part of metformin's action outside the AMPK axis it is usually credited to.",
+  "url": "https://mtor-atlas.org/study/KAL2010/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KAL2010.json",
+  "abstract_excerpt": "Dysfunctional mTORC1 signaling is associated with a number of human pathologies owing to its central role in controlling cell growth, proliferation, and metabolism. Regulation of mTORC1 is achieved by the integration of multiple inputs, including those of mitogens, nutrients, and energy. It is thought that agents that increase the cellular AMP/ATP ratio, such as the antidiabetic biguanides metformin and phenformin, inhibit mTORC1 through AMPK activation of TSC1/2-dependent or -independent mechanisms.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Metformin and phenformin (biguanides)",
+   "target": "mTORC1 via Rag GTPases (AMPK- and TSC-independent)",
+   "species": "Mammalian cells (AMPK-null and TSC1/2-null); preclinical models",
+   "effect": "Biguanides inhibit mTORC1 without AMPK or TSC1/2; the effect requires the Rag GTPases"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "metformin",
+    "name": "Metformin",
+    "type": "Drug"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "ampk",
+    "name": "AMPK",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "METFORMIN-MTORC1"
+   ],
+   "conflicts_with": [
+    "METFORMIN-AMPK"
+   ]
+  },
+  "questions": [],
+  "related_studies": [
+   "FOR2010",
+   "HOW2017",
+   "MIC2011",
+   "PEA2009"
+  ]
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "INO2021",
+  "title": "Exit from germinal center to become quiescent memory B cells depends on metabolic reprograming and provision of a survival signal",
+  "authors": "Inoue T; Shinnakasu R; Kawai C; Ise W; Kawakami E; Sax N; Oki T; Kitamura T; Yamashita K; Fukuyama H; Kurosaki T",
+  "year": 2021,
+  "journal": "J Exp Med",
+  "doi": "10.1084/jem.20200866",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "33045065",
+  "pmcid": "PMC7555411",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse; NP-CGG/alum immunization, adoptive transfer of B1-8 transgenic B cells, inducible knockouts (Bach2/Blimp1, Bcl6, Bim, BCR) and rapamycin in rapamycin-resistant hosts",
+  "peer_reviewed": true,
+  "finding": "In immunized mice, a small population of germinal-center B cells with lower mTORC1 activity (CD38int Bcl6hi/int Efnb1+, called pro-memory cells) was the one that went on to become memory B cells. Constitutively high mTORC1 activity (Bach2/Blimp1 double-deficient B cells) impaired formation of this population, and rapamycin given to B cells that could respond to it shifted the balance toward memory-prone cells and raised memory B cell numbers (about threefold in the double-deficient cells). Memory B cells made under rapamycin gave similar recall antibody responses. Low mTORC1 was necessary but not sufficient: survival also depended on higher Bcl2 and surface BCR. Boundary: one immunization model (NP-CGG/alum) in mouse spleen, using transferred transgenic B cells; no human data. Rapamycin was tested at one dose and schedule, and the study does not show that lowering mTORC1 improves vaccine responses.",
+  "url": "https://mtor-atlas.org/study/INO2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/INO2021.json",
+  "abstract_excerpt": "A still unanswered question is what drives the small fraction of activated germinal center (GC) B cells to become long-lived quiescent memory B cells. We found here that a small population of GC-derived CD38intBcl6hi/intEfnb1+ cells with lower mTORC1 activity favored the memory B cell fate. Constitutively high mTORC1 activity led to defects in formation of the CD38intBcl6hi/intEfnb1+ cells; conversely, decreasing mTORC1 activity resulted in relative enrichment of this memory-prone population over the recycling-prone one.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin (0.16 mg/kg i.p. daily, days 4-11 or 4-13 after immunization); inducible deletion of Bach2/Blimp1, Bcl6 (haploinsufficiency), Bim (haploinsufficiency) and BCR in B cells",
+   "target": "mTORC1 activity in germinal-center B cells (memory vs recycling fate)",
+   "species": "Mouse (C57BL/6, B1-8 transgenic B cells)",
+   "effect": "Lower mTORC1 activity favors the memory B cell fate; high mTORC1 impairs it; rapamycin enriches memory-prone cells and increases memory B cell numbers",
+   "dose": "Rapamycin 0.16 mg/kg i.p. once daily, days 4-11 (Bach2/Blimp1 knockout experiment) or days 4-13 (competitive cotransfer experiment) after NP-CGG/alum immunization",
+   "sample_size": "Typically n = 3-9 mice per group, 2-4 independent experiments",
+   "effect_size": "Rapamycin in Bach2/Blimp1 double-deficient B cells: about threefold more IgG1+ memory B cells (P < 0.05 to < 0.01, unpaired t test)",
+   "limitations": "Single immunization model; small n; pS6 and c-Myc did not differ between Fr.3 and Fr.5 cells, so low mTORC1 is necessary but not sufficient; rapamycin only partly rescued memory cell numbers in knockout cells (c-Myc also involved); Bcl6 downregulation in pro-memory cells is small"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "immune-function",
+    "name": "Immune function",
+    "type": "Outcome"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHE2009",
+   "CHEN2026B",
+   "CHI2012",
+   "DEL2011"
+  ]
+ }
+}

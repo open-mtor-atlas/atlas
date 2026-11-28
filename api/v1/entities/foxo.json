@@ -1,0 +1,310 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "foxo",
+  "name": "FoxO",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "group",
+   "reason": "This record names a complex, a protein family or a pair of proteins, so one gene identifier would claim more than the Atlas knows."
+  },
+  "description": "Forkhead box O transcription factors (FOXO1/3/4) that act as key downstream targets of PI3K/Akt and mTOR signalling; they are excluded from the nucleus by Akt, with an mTORC2/SGK contribution, so catalytic or mTORC2-directed inhibition promotes nuclear entry and transcription of stress-response and longevity genes, whereas rapamycin can raise Akt activity through feedback relief and leave them cytoplasmic.",
+  "study_count": 6,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/foxo/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/foxo.json",
+  "description_beginner": "A family of 'stress-response' gene switches that Akt normally keeps locked out of the nucleus. When Akt activity drops they move into the nucleus and turn on genes linked to stress resistance and longevity. Rapamycin does not reliably do this: by releasing a feedback loop it can even raise Akt activity, leaving these switches outside the nucleus.",
+  "reading_levels": {
+   "beginner": "The stress-resistance programme mTOR switches off.",
+   "student": "Transcription factors excluded from the nucleus by Akt, opposing much of the mTORC1 programme.",
+   "research": "mTORC2 is required for signalling to Akt–FOXO but not to S6K1 (GUE2006), which is the genetic evidence that this arm belongs to mTORC2 rather than mTORC1. In C. elegans, TOR and rapamycin extend lifespan through SKN-1/Nrf and DAF-16/FoxO (ROB2012) – invertebrate evidence, not human."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "DEN2026",
+    "title": "Spalt-related is an inhibitor of mTORC1-mediated growth activated by the integrated stress response",
+    "authors": "Deniz O; Liu Y; Kirkinen T; Kokki K; Gaertner K; Clavell-Revelles P; Mattila J; Hietakangas V",
+    "year": 2026,
+    "journal": "The EMBO Journal",
+    "doi": "10.1038/s44318-026-00858-1",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42436355",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Drosophila melanogaster",
+    "peer_reviewed": true,
+    "finding": "Transcription factor Spalt-related (Salr) is a novel mTORC1 inhibitor in Drosophila activated by the integrated stress response, restricting anabolic growth and lipid storage during nutrient stress. Salr responds to a distinct, ISR-driven cue, acting convergently with FoxO rather than downstream of it.",
+    "url": "https://mtor-atlas.org/study/DEN2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DEN2026.json"
+   },
+   {
+    "sid": "DAB2026",
+    "title": "mTORC1 inhibition upregulates CD20 and enhances anti-CD20 antibody efficacy in B-cell precursor acute lymphoblastic leukemia",
+    "authors": "Dąbkowska A; Janowska M; Pastorczak A; Domka K; Nowicka Z; Urbanska Z; Zając W; Bugajewski M; Grzybowska J; Pruchniak P; Fidyt K; Fendler W; Taslim J; Crump NT; Ushmorov A; Patkowska E; Firczuk M",
+    "year": 2026,
+    "journal": "Leukemia",
+    "doi": "10.1038/s41375-026-03093-z",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42618701",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "BCP-ALL cell lines; patient-derived and in vivo models",
+    "peer_reviewed": true,
+    "finding": "mTORC1 inhibitors upregulate CD20 via the AKT-FOXO1 axis and promote B-lineage maturation in B-cell precursor ALL, enhancing the antitumor efficacy of anti-CD20 monoclonal antibodies -- including in high-risk IKZF1-deleted disease -- providing a rationale for combining mTORC1 inhibition with CD20-directed immunotherapy.",
+    "url": "https://mtor-atlas.org/study/DAB2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DAB2026.json"
+   },
+   {
+    "sid": "BRU1999",
+    "title": "Akt promotes cell survival by phosphorylating and inhibiting a Forkhead transcription factor",
+    "authors": "Brunet A; Bonni A; Zigmond MJ; Lin MZ; Juo P; Hu LS; Anderson MJ; Arden KC; Blenis J; Greenberg ME",
+    "year": 1999,
+    "journal": "Cell",
+    "doi": "10.1016/S0092-8674(00)80595-4",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "10102273",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cell lines; primary neurons (in vitro)",
+    "peer_reviewed": true,
+    "finding": "Akt phosphorylates the Forkhead transcription factor FKHRL1 (a FOXO family member), driving its cytoplasmic retention via 14-3-3 binding and blocking Fas-ligand-driven apoptosis — the discovery that placed FOXO transcription factors downstream of Akt/PI3K survival signalling.",
+    "url": "https://mtor-atlas.org/study/BRU1999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BRU1999.json"
+   },
+   {
+    "sid": "HAN2008",
+    "title": "A role for autophagy in the extension of lifespan by dietary restriction in C. elegans",
+    "authors": "Hansen M; Chandra A; Mitic LL; Onken B; Driscoll M; Kenyon C",
+    "year": 2008,
+    "journal": "PLOS Genetics",
+    "doi": "10.1371/journal.pgen.0040024",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "18282106",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans",
+    "peer_reviewed": true,
+    "finding": "Makes autophagy a necessary step between dietary restriction and a longer life, not a side effect of it: blocking autophagy genes abolishes the lifespan extension produced both by dietary restriction and by TOR inhibition. The paper is equally careful about what autophagy cannot do on its own, because autophagy still runs in animals lacking DAF-16/FOXO and yet those animals are not long-lived. Boundary: worms; necessity was shown, sufficiency was not.",
+    "url": "https://mtor-atlas.org/study/HAN2008/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2008.json"
+   },
+   {
+    "sid": "KUB2018",
+    "title": "In Vivo Decoding Mechanisms of the Temporal Patterns of Blood Insulin by the Insulin-AKT Pathway in the Liver",
+    "authors": "Kubota H; Uda S; Matsuzaki F; Yamauchi Y; Kuroda S",
+    "year": 2018,
+    "journal": "Cell Systems",
+    "doi": "10.1016/j.cels.2018.05.013",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29960883",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Rat liver in vivo (hyperinsulinemic-euglycemic clamp with different insulin time patterns) plus mathematical model",
+    "peer_reviewed": true,
+    "finding": "The in-vivo follow-up to KUB2012. In rat liver, all temporal patterns of blood insulin were encoded at the insulin receptor, and downstream molecules decoded them selectively through AKT: S6K read the additional (pulse-like) secretion, G6Pase the basal secretion via FoxO1, GSK3-beta all of it. Modelling tied the selectivity to network structure, sensitivity and time constants. Shows that pattern decoding is not only a cell-culture effect.",
+    "url": "https://mtor-atlas.org/study/KUB2018/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KUB2018.json"
+   },
+   {
+    "sid": "HAN2007",
+    "title": "Lifespan extension by conditions that inhibit translation in Caenorhabditis elegans",
+    "authors": "Hansen M; Taubert S; Crawford D; Libina N; Lee SJ; Kenyon C",
+    "year": 2007,
+    "journal": "Aging Cell",
+    "doi": "10.1111/j.1474-9726.2006.00267.x",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17266679",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Caenorhabditis elegans: RNAi and mutants against ribosomal proteins, rsks-1 (S6 kinase), translation-initiation factors and TOR (let-363); daf-16 and eat-2 (dietary restriction) backgrounds; lifespan and thermal-stress assays",
+    "peer_reviewed": true,
+    "finding": "The authors systematically tested whether lowering protein synthesis extends lifespan in the worm C. elegans. Reducing ribosomal proteins, the S6 kinase homologue rsks-1 or translation-initiation factors increased lifespan, and these perturbations, like TOR inhibition, increased resistance to heat stress. Different kinds of translation inhibition split into two groups: one that needed the FOXO transcription factor DAF-16 for the lifespan and stress effects and one that did not. The results linked TOR, but not sir-2.1, to the lifespan extension caused by dietary restriction in worms, and suggested that neither TOR inhibition nor dietary restriction works simply by reducing total protein synthesis. Boundary: Nematode only, with gene knockdown by RNAi or mutation; drafted from the abstract only, so effect sizes and which TOR experiments were new in this paper are not given here.",
+    "url": "https://mtor-atlas.org/study/HAN2007/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HAN2007.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "FOXO-LONGEVITY",
+    "claim": "FOXO1/3 activates Longevity",
+    "source": {
+     "name": "FOXO1/3",
+     "entity": "foxo"
+    },
+    "target": {
+     "name": "Longevity",
+     "entity": "longevity"
+    },
+    "effect": "activates",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": null,
+    "map_band": "outcome",
+    "species": [
+     "C. elegans"
+    ],
+    "mechanism": "Genetic TORC1 inhibition in C. elegans extends lifespan through BOTH SKN-1/Nrf and DAF-16/FoxO, which activate protective genes and raise stress resistance. Rapamycin does NOT work the same way: it triggers a similar protective response but extends worm lifespan dependent on SKN-1 and NOT on DAF-16, apparently by interfering with TORC2 alongside TORC1 (ROB2012). This FoxO arrow therefore holds for the genetic arm, not for the drug.",
+    "mechanism_beginner": "Part of how this pathway affects lifespan runs through stress-resistance genes switched on by FOXO – so far shown mainly in simple animals like worms, not yet in mammals.",
+    "context": null,
+    "boundary": "An invertebrate result, and the two arms must not be merged. ROB2012's title reads 'TOR signaling and rapamycin influence longevity by regulating SKN-1/Nrf and DAF-16/FoxO', but its own abstract splits them: the DAF-16/FoxO requirement belongs to genetic TORC1 inhibition, while the rapamycin effect is SKN-1-dependent and DAF-16-INDEPENDENT. Not shown in mammals in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "untested",
+     "human_relevance_label": "not tested in people",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "ROB2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/FOXO-LONGEVITY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/FOXO-LONGEVITY.json"
+   },
+   {
+    "id": "AKT-FOXO",
+    "claim": "Akt/PKB inhibits FOXO1/3",
+    "source": {
+     "name": "Akt/PKB",
+     "entity": "akt-pkb"
+    },
+    "target": {
+     "name": "FOXO1/3",
+     "entity": "foxo"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "nucleus",
+    "map_band": "nucleus",
+    "species": [
+     "mouse",
+     "mammalian cells"
+    ],
+    "mechanism": "Akt phosphorylates FOXO transcription factors and excludes them from the nucleus. Rictor or mLST8 deletion abolishes signalling to Akt–FOXO while sparing S6K1.",
+    "mechanism_beginner": "Akt tags FOXO proteins and keeps them out of the nucleus; this specific link belongs to mTORC2, not mTORC1.",
+    "context": "This Akt output depends on mTORC2. Deleting rictor or mLST8 in mice removed Akt signalling to FOXO while S6K1 was spared (GUE2006), and SIN1, an essential mTORC2 subunit, controls Akt Ser473 phosphorylation and which substrates Akt reaches (JAC2006). The mTORC2-to-Akt step itself is the separate edge MTORC2-AKT.",
+    "boundary": "Mouse knockouts and cell lines; FOXO isoform contributions differ by tissue.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "GUE2006",
+      "JAC2006",
+      "BRU1999"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/AKT-FOXO/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/AKT-FOXO.json"
+   }
+  ]
+ }
+}

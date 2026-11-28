@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "MOE2025",
+  "title": "Influence of rapamycin on safety and healthspan metrics after one year: PEARL trial results",
+  "authors": "Moel M; Harinath G; Lee V; Nyquist A; Morgan SL; Isman A; Zalzala S",
+  "year": 2025,
+  "journal": "Aging",
+  "doi": "10.18632/aging.206235",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "40188830",
+  "pmcid": "PMC12074816",
+  "evidence": {
+   "code": "H",
+   "label": "Human study",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Human",
+  "model_system": "Humans, RCT, ages 50-85 (n=114 completed)",
+  "peer_reviewed": true,
+  "finding": "The authors describe PEARL as the longest trial of rapamycin for healthy ageing so far: 48 weeks, once a week, ages 50 to 85, 114 people finished (40 on 5 mg, 35 on 10 mg, 39 on placebo). The question the trial was built to answer was visceral fat on a DXA scan, and that did not change. Most of what gets quoted comes from secondary results. Lean mass rose in women on 10 mg, and these women also reported less pain, but pain came from a questionnaire the authors did not list as an endpoint, and only eight women were in the 10 mg group, hence the very wide interval (odds ratio 28, 95% CI 2.4 to 324). Side effects were similar to placebo, with more stomach complaints on rapamycin. Bone density was the one signal pointing the wrong way: in the 5 mg group the odds of an improvement in bone mineral density were lower than on placebo (odds ratio 0.24, 95% CI 0.06 to 0.93, p = 0.04), but 10 mg showed no change (odds ratio 1.00) and the comparisons between groups were not significant. Boundary: the capsules were compounded, and the authors found they reached about a third of the blood level of the commercial drug, so 10 mg here is closer to 3 mg of generic sirolimus. Dosing was self-reported, and the group was about two thirds men and health-conscious.",
+  "url": "https://mtor-atlas.org/study/MOE2025/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/MOE2025.json",
+  "abstract_excerpt": "This 48-week decentralized, double-blinded, randomized, placebo-controlled trial (NCT04488601) evaluated the long-term safety of intermittent low-dose rapamycin in a healthy, normative-aging human cohort. Participants received placebo, 5 mg or 10 mg compounded rapamycin weekly. The primary outcome measure was visceral adiposity (by DXA scan), secondary outcomes were blood biomarkers, and lean tissue and bone mineral content (by DXA scan). Established surveys were utilized to evaluate health and well-being. Safety was assessed through adverse events and blood biomarker monitoring.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Intermittent low-dose rapamycin (5/10 mg weekly, 48 wk)",
+   "target": "mTOR",
+   "species": "Human – RCT (PEARL, ages 50-85, n=114 completed)",
+   "effect": "Intermittent low-dose rapamycin was safe over 1 year; some healthspan gains (e.g. lean tissue in women at 10 mg)",
+   "dose": "Rapamycin (compounded), 5 mg/week or 10 mg/week orally, 48 weeks; randomized double-blind placebo-controlled. Note: compounded effective dose ~66% lower than the advertised dose.",
+   "sample_size": "114 completed: 40 at 5 mg/wk, 35 at 10 mg/wk, 39 placebo. Low female enrollment (35.1%).",
+   "effect_size": "Primary endpoint (visceral adipose tissue) NOT met. Secondary: decreased bone mineral density (OR 0.24, 95% CI 0.06-0.93, p=0.04); increased lean tissue (esp. women at 10 mg); small HbA1c rise in 5 mg males (p=0.010). Overall safe/well tolerated over 1 year.",
+   "limitations": "Small n -> wide 95% CIs / underpowered; low female enrollment; compounded-dose uncertainty; minor changes in RBC / BUN / HbA1c; human gerotherapeutic data still limited."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "muscle-growth",
+    "name": "Muscle growth",
+    "type": "Biological process"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H2",
+   "H3",
+   "H5",
+   "H9"
+  ],
+  "related_studies": [
+   "ANC2026",
+   "DRU2009",
+   "LAP2026",
+   "ROM2001"
+  ]
+ }
+}

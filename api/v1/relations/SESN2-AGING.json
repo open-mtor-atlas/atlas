@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "SESN2-AGING",
+  "claim": "Sestrin2 inhibits Age-related pathology",
+  "source": {
+   "name": "Sestrin2",
+   "entity": "sestrin2"
+  },
+  "target": {
+   "name": "Age-related pathology",
+   "entity": "age-related-pathology"
+  },
+  "effect": "inhibits",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": null,
+  "map_band": "outcome",
+  "species": [
+   "fly"
+  ],
+  "mechanism": "Losing Drosophila Sestrin produces fat accumulation, mitochondrial dysfunction, muscle degeneration and cardiac malfunction, all prevented by inhibiting TOR or activating AMPK. Sestrin therefore limits age-associated pathology in the fly.",
+  "mechanism_beginner": "The only case in this atlas linking a nutrient sensor to ageing of a whole animal: fruit flies without this sensor build up fat and develop muscle and heart problems, and blocking this pathway or switching on AMPK prevents it. So the sensor holds age-related damage back. Watch what was measured – how sick the flies got, not how long they lived.",
+  "context": null,
+  "boundary": "Fly only, and the readout is age-related pathology: survival was never measured. No mammalian sensor-to-ageing evidence exists in this corpus.",
+  "boundary_tags": [
+   "single-species",
+   "single-study"
+  ],
+  "conflict": null,
+  "note": "Added 2026-07-29. Gap H1 previously asserted the sensors link to ZERO ageing outcomes, which was true of the corpus but not of the literature.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "medium",
+   "human_relevance": "untested",
+   "human_relevance_label": "not tested in people",
+   "consensus": "emerging",
+   "consensus_label": "emerging, few independent studies"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "LEE2010"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/SESN2-AGING/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/SESN2-AGING.json"
+ }
+}

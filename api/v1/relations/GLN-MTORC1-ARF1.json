@@ -1,0 +1,86 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "GLN-MTORC1-ARF1",
+  "claim": "Glutamine activates mTORC1",
+  "source": {
+   "name": "Glutamine",
+   "entity": "glutamine"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "activates",
+  "type": "signal-relay",
+  "directness": "unresolved",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "A second and contested way in: JEW2015 reports that glutamine activates mTORC1 without the Rag GTPases, through Arf1, and that leucine and glutamine therefore do not share one entry point. If it holds, Rag-dependent lysosomal recruitment is not the only route to the kinase.",
+  "mechanism_beginner": "Some experiments say glutamine has a second way in that skips the Rag proteins entirely. If that is right, the lysosome story is not the whole story – which is a big claim resting on thin evidence.",
+  "context": null,
+  "boundary": "Cell-type dependent and not uniformly reproduced across labs. The Rag-dependent route is the separate GLN-RAG edge; neither edge should be read as covering the other.",
+  "boundary_tags": [
+   "direction-contested",
+   "single-study",
+   "tissue-specific"
+  ],
+  "conflict": {
+   "type": "Opposing result",
+   "basis": "The mirror of GLN-RAG, and a head-to-head disagreement rather than two different contexts. JEW2015 reports that glutamine activates mTORC1 in cells lacking RagA and RagB (MEFs and HEK293A), through Arf1 and the v-ATPase but not Ragulator. DUR2012 reports the opposite dependence in comparable mammalian cells: inhibiting glutaminolysis prevented RagB GTP loading and mTORC1 translocation, placing the glutamine signal upstream of the Rags (GLN-RAG). Each edge lists the other's study as conflicting. The Atlas does not settle whether the two routes act in parallel or in different settings."
+  },
+  "note": null,
+  "consensus_contested": true,
+  "curation_contested": true,
+  "contested": true,
+  "confidence": {
+   "mechanistic": "low",
+   "human_relevance": "untested",
+   "human_relevance_label": "not tested in people",
+   "consensus": "contested",
+   "consensus_label": "disputed: at least one study points the other way"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "JEW2015"
+   ],
+   "conflicting": [
+    "DUR2012"
+   ]
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Contested",
+  "url": "https://mtor-atlas.org/relation/GLN-MTORC1-ARF1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/GLN-MTORC1-ARF1.json"
+ }
+}

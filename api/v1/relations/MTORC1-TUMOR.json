@@ -1,0 +1,84 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MTORC1-TUMOR",
+  "claim": "mTORC1 activates Tumor growth",
+  "source": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "target": {
+   "name": "Tumor growth",
+   "entity": "tumor-growth"
+  },
+  "effect": "activates",
+  "type": "functional-consequence",
+  "directness": "indirect",
+  "timescale": "chronic",
+  "compartment": null,
+  "map_band": "outcome",
+  "species": [
+   "mouse",
+   "human cells"
+  ],
+  "mechanism": "Hyperactive mTORC1 reprograms translation toward a specific set of pro-growth and pro-metastasis mRNAs (HSI2012, prostate models) and couples nucleotide synthesis to demand, creating a targetable vulnerability in TSC-deficient cells (VAL2017).",
+  "mechanism_beginner": "In mouse tumour models and cancer cells where the pathway is already over-active, hyperactive mTORC1 pushes cells to build a specific set of growth- and spread-promoting proteins, and the tumour becomes dependent on that programme.",
+  "context": null,
+  "boundary": "Context-dependent: shown in genetically driven mouse tumour models and cancer cell lines with hyperactive mTORC1 (PTEN loss, TSC loss), not as a general property of tumours. OKI2021 (mouse AML) is not cited as support: mTORC1 activity fell as the leukaemia progressed and rose during the chemotherapy response, so it bears on when to inhibit mTORC1, not on mTORC1 driving growth.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": "The arrow means hyperactive mTORC1 promotes tumour growth where the pathway is already unleashed - PTEN-loss and TSC-loss backgrounds. It is not a claim that mTORC1 activity causes tumours generally, and normal mTORC1 signalling is not a tumour driver here.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "A",
+    "label": "Animal model"
+   },
+   "supporting": [
+    "HSI2010",
+    "HSI2012",
+    "VAL2017",
+    "INO2006",
+    "FER2026",
+    "NES2001",
+    "POD2001"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/MTORC1-TUMOR/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TUMOR.json"
+ }
+}

@@ -1,0 +1,251 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "insulin-resistance",
+  "name": "Insulin resistance",
+  "type": "Outcome",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": null,
+   "reason": "Gene and protein identifiers do not apply to the type \"Outcome\"."
+  },
+  "description": "Metabolic side effect of chronic mTOR inhibition. In mice, mTORC2 disruption is a major contributor (LAM2012). In humans the relative contributions are not resolved: mTORC2 loss, S6K1-IRS-1 feedback relief (HAR2004, SHA2004) and direct beta-cell effects are all plausible, and no study has apportioned them.",
+  "study_count": 6,
+  "relation_count": 1,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/outcome/insulin-resistance/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/insulin-resistance.json",
+  "description_beginner": "A metabolic side effect sometimes seen with long-term mTOR blocking. In mice this is mostly traced to disrupting mTORC2; in humans it's less clear-cut, since mTORC2 loss, a feedback loop involving S6K1/IRS-1, and direct effects on insulin-making cells could all be contributing, and no study has yet worked out how much each one matters.",
+  "reading_levels": {
+   "beginner": "The body responding less well to insulin.",
+   "student": "Metabolic side effect of chronic mTOR inhibition.",
+   "research": "Under chronic mTOR inhibition, mouse data point to mTORC2 disruption as a major contributor (LAM2012) – not to the S6K1–IRS-1 loop, which the drug relieves rather than engages. In humans the relative contributions of mTORC2 loss and direct β-cell effects are unresolved."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "LAM2012",
+    "title": "Rapamycin-induced insulin resistance is mediated by mTORC2 loss and uncoupled from longevity",
+    "authors": "Lamming DW; Ye L; Katajisto P; Goncalves MD; Saitoh M; Stevens DM; Davis JG; Salmon AB; Richardson A; Ahima RS; Guertin DA; Sabatini DM; Baur JA",
+    "year": 2012,
+    "journal": "Science",
+    "doi": "10.1126/science.1215135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22461615",
+    "pmcid": "PMC3324089",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Side effect",
+    "model_system": "Mouse (in vivo glucose and insulin tolerance)",
+    "peer_reviewed": true,
+    "finding": "Chronic rapamycin (about 2 mg/kg a day, close to the lifespan-extending dose) made mice glucose intolerant and insulin resistant. A clamp test placed the problem in the liver, which kept making glucose, while muscle and fat took up glucose normally. Removing mTORC1 from the liver did not cause this. Rapamycin did break up mTORC2 (it separated mTOR from Rictor) in liver, fat and muscle, and deleting Rictor in the liver alone reproduced the glucose problem. In the genetic part, female mice with one working copy each of mTOR and mLST8 had about 50% less mTORC1 signalling in the liver, normal mTORC2 signalling and normal glucose tolerance, and lived 14.4% longer on average (p = 0.046). Males did not. Boundary: mouse drug and genetics work, not people, and the lifespan gain is female-only. It supports separating the two effects, but the paper does not test a drug that blocks mTORC1 without touching mTORC2.",
+    "url": "https://mtor-atlas.org/study/LAM2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/LAM2012.json"
+   },
+   {
+    "sid": "NCT05835999",
+    "title": "Everolimus Aging Study (EVERLAST): Clinical Evaluation of mTORC1 Inhibition for Geroprotection",
+    "authors": "University of Wisconsin, Madison (registered trial)",
+    "year": null,
+    "journal": "ClinicalTrials.gov (registration)",
+    "doi": null,
+    "registry_id": "NCT05835999",
+    "registry_url": "https://clinicaltrials.gov/study/NCT05835999",
+    "pmid": null,
+    "pmcid": null,
+    "evidence": {
+     "code": "RT",
+     "label": "Registered trial, no results yet",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Ongoing_Trial",
+    "model_system": "Humans, RCT (registered, completed; no results posted)",
+    "peer_reviewed": false,
+    "finding": "Phase 2 trial (NCT05835999, EVERLAST) testing this Atlas's open dosing hypothesis directly: whether daily low-dose (0.5 mg/day) or weekly (5 mg/week) everolimus for 24 weeks can improve physiological and molecular hallmarks of aging in insulin-resistant or prediabetic adults aged 55-80, without the metabolic penalty seen with continuous higher-dose rapalog use. Double-blind and placebo-controlled with four arms (everolimus daily, everolimus weekly, and a matching placebo for each), n=106, plus a separate untreated 18-35 cohort for comparison. Primary endpoint is peripheral insulin sensitivity by dual-tracer OGTT; mTORC1 and mTORC2 signalling are secondary endpoints in muscle and blood cells. STATUS: the registry records the trial as COMPLETED, with primary completion 2026-06-30 and completion 2026-07-22. No results are posted yet, so there is nothing to read into the outcome either way.",
+    "url": "https://mtor-atlas.org/study/NCT05835999/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/NCT05835999.json"
+   },
+   {
+    "sid": "KEN2016",
+    "title": "The Mechanistic Target of Rapamycin: The Grand ConducTOR of Metabolism and Aging",
+    "authors": "Kennedy BK; Lamming DW",
+    "year": 2016,
+    "journal": "Cell Metabolism",
+    "doi": "10.1016/j.cmet.2016.05.009",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27304501",
+    "pmcid": "PMC4910876",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Review (metabolism/aging)",
+    "peer_reviewed": true,
+    "finding": "A Cell Metabolism review framing mTOR as the 'grand conductor' that coordinates whole-body metabolism, tissue by tissue. Especially valuable for its clear-eyed section on WHY rapamycin causes metabolic side effects (the mTORC2 problem) - which is the main barrier to using it against aging. Pairs perfectly with Lamming's own 2012 mechanism paper.",
+    "url": "https://mtor-atlas.org/study/KEN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/KEN2016.json"
+   },
+   {
+    "sid": "MARCHANT2026",
+    "title": "Constitutive mTORC1 Activation in Skeletal Muscle Increases Inflammation but is not Sufficient to Impair Glucose Tolerance.",
+    "authors": "Marchant ED; Kalenta H; Kilroe SP; May J; Martini WZ; Weldon KS; Lai Z; Rasmussen BB",
+    "year": 2026,
+    "journal": "Function",
+    "doi": "10.1152/function.039.2026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42468920",
+    "pmcid": "PMC13459988",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse",
+    "peer_reviewed": true,
+    "finding": "Constitutive mTORC1 activation in mouse skeletal muscle (via GATOR1 complex KO) increases inflammatory markers but is not sufficient to impair glucose tolerance, indicating that additional metabolic inputs beyond muscle mTORC1 hyperactivation are required to drive glucose intolerance.",
+    "url": "https://mtor-atlas.org/study/MARCHANT2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MARCHANT2026.json"
+   },
+   {
+    "sid": "DUR2026",
+    "title": "Midlife Growth Hormone Receptor Ablation Extends Healthy Lifespan and Induces Sex-Specific Hepatic Transcriptional Changes at Single-Cell Resolution",
+    "authors": "Duran-Ortiz S; List EO; Young JA; Ikeno Y; Zhu S; McHugh T; O'Connor PM; Kim M; Benayoun BA; Benencia F; Basu R; Gotte EA; Berryman DE; Kopchick JJ",
+    "year": 2026,
+    "journal": "Aging Cell",
+    "doi": "10.1111/acel.70695",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42698366",
+    "pmcid": "PMC13545643",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Tamoxifen-inducible whole-body Ghr knockout mice induced at 12 months of age (12mGHRKO), both sexes; liver single-nucleus RNA-seq",
+    "peer_reviewed": true,
+    "finding": "Deleting the growth hormone receptor in mice at 12 months of age, in middle age and long after development is complete, still significantly extended lifespan in both sexes without major effects on body growth. Males showed improved insulin sensitivity and were protected against age-related decline in neuromuscular performance and bone microarchitecture despite increased adiposity. Liver snRNA-seq revealed sex-dimorphic remodelling, including a shift toward feminised gene expression in male hepatocytes consistent with loss of pulsatile GH-STAT5 signalling. Important because most GH/IGF-1 longevity models are congenital: this shows a midlife start is still sufficient, which matters for translating growth-signalling (and by extension mTOR-adjacent) interventions to adults.",
+    "url": "https://mtor-atlas.org/study/DUR2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DUR2026.json"
+   },
+   {
+    "sid": "SHA2004",
+    "title": "Inappropriate activation of the TSC/Rheb/mTOR/S6K cassette induces IRS1/2 depletion, insulin resistance, and cell survival deficiencies",
+    "authors": "Shah OJ; Wang Zhiyong; Hunter T",
+    "year": 2004,
+    "journal": "Current Biology",
+    "doi": "10.1016/j.cub.2004.08.026",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "15380067",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "The companion paper to Harrington 2004, published two months later. In cultured mammalian cells, constitutive Rheb/mTOR/S6K activity depletes IRS1 and IRS2, producing cellular insulin resistance and impaired survival signalling. Together the two papers establish the S6K1 -> IRS negative feedback arm.",
+    "url": "https://mtor-atlas.org/study/SHA2004/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SHA2004.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC2-INSULINRES",
+    "claim": "mTORC2 inhibits Insulin resistance",
+    "source": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "target": {
+     "name": "Insulin resistance",
+     "entity": "insulin-resistance"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "indirect",
+    "timescale": "chronic",
+    "compartment": null,
+    "map_band": "outcome",
+    "species": [
+     "mouse"
+    ],
+    "mechanism": "Losing mTORC2 uncouples Akt from insulin signalling and produces glucose intolerance - and this is separable from the lifespan benefit.",
+    "mechanism_beginner": "Losing mTORC2 disconnects Akt from insulin signalling and can cause blood-sugar problems – a separate effect from any lifespan benefit.",
+    "context": null,
+    "boundary": "In mice, intermittent dosing largely spared glucose tolerance while keeping mTORC1 inhibition (ARR2015); not tested against this endpoint in humans.",
+    "boundary_tags": [
+     "single-species",
+     "time-dependent"
+    ],
+    "conflict": null,
+    "note": "Feeds hypothesis H2 in Knowledge_Gaps.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "A",
+      "label": "Animal model"
+     },
+     "supporting": [
+      "LAM2012",
+      "ARR2015"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC2-INSULINRES/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC2-INSULINRES.json"
+   }
+  ]
+ }
+}

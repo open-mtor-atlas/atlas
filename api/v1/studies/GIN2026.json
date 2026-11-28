@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "GIN2026",
+  "title": "Inferring feedback regulation from static snapshots of a single signal",
+  "authors": "Ginzberg M; Tan C; Patel N; Kafri R",
+  "year": 2026,
+  "journal": "Biochemistry and Biophysics Reports",
+  "doi": "10.1016/j.bbrep.2026.102747",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42643853",
+  "pmcid": "PMC13505498",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human/mammalian cultured cells (fixed-cell single-cell imaging, ergodic rate analysis)",
+  "peer_reviewed": true,
+  "finding": "Introduces AoF (Assay of Feedback), a perturbation-free single-cell imaging method that reconstructs how a signal CHANGES OVER TIME from fixed-cell snapshots, using DNA content and Geminin to order cells along the cell cycle. Applied to Akt phosphorylation, it uncovers a negative feedback loop that is active only in a narrow window at the G1/S transition; biochemistry points to mTORC1/S6K1-dependent inhibitory phosphorylation of IRS1 as the likely source, though the authors state this edge is not uniquely established. Directly relevant to the question of whether mTOR pathway activity is better described as a time-varying pattern than a fixed level.",
+  "url": "https://mtor-atlas.org/study/GIN2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/GIN2026.json",
+  "abstract_excerpt": "Direct measurement of feedback regulation remains difficult because it usually relies on pathway perturbations and prior knowledge of circuit topology. We introduce AoF (Assay of Feedback), a single-cell imaging framework that combines fixed-cell measurements of a target (together with DNA and Geminin as cell-cycle ordering markers) with ergodic rate analysis to reconstruct target dynamics in steady-state proliferating populations and quantify how a target's inferred rate of change depends on its own level.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "None (observational imaging assay); mTORC1/S6K1 inhibition used in supporting biochemistry",
+   "target": "AKT phosphorylation; mTORC1-S6K1-IRS1 negative feedback",
+   "species": "Cultured mammalian cells",
+   "effect": "Reveals cell-cycle-localized negative feedback on AKT at G1/S, attributed to mTORC1/S6K1-IRS1"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "irs-1-irs-2",
+    "name": "IRS-1 / IRS-2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "s6k1",
+    "name": "S6K1",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SHA2004",
+   "UMX2004",
+   "ORE2006",
+   "HAR2004"
+  ]
+ }
+}

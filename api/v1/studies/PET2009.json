@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "PET2009",
+  "title": "DEPTOR is an mTOR inhibitor frequently overexpressed in multiple myeloma cells and required for their survival",
+  "authors": "Peterson TR; Laplante M; Thoreen CC; Sancak Y; Kang SA; Kuehl WM; Gray NS; Sabatini DM",
+  "year": 2009,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2009.03.046",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19446321",
+  "pmcid": "PMC2758791",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cancer cell lines",
+  "peer_reviewed": true,
+  "finding": "Identified DEPTOR as a built-in brake on BOTH mTOR complexes. The twist: in some multiple myelomas DEPTOR is overexpressed, which by relieving a feedback loop actually keeps pro-survival Akt signaling ON - a neat example of how an 'inhibitor' can be co-opted by cancer.",
+  "url": "https://mtor-atlas.org/study/PET2009/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/PET2009.json",
+  "abstract_excerpt": "The mTORC1 and mTORC2 pathways regulate cell growth, proliferation, and survival. We identify DEPTOR as an mTOR-interacting protein whose expression is negatively regulated by mTORC1 and mTORC2. Loss of DEPTOR activates S6K1, Akt, and SGK1, promotes cell growth and survival, and activates mTORC1 and mTORC2 kinase activities. DEPTOR overexpression suppresses S6K1 but, by relieving feedback inhibition from mTORC1 to PI3K signaling, activates Akt. Consistent with many human cancers having activated mTORC1 and mTORC2 pathways, DEPTOR expression is low in most cancers.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic/biochemical (DEPTOR)",
+   "target": "DEPTOR / mTORC1 & mTORC2",
+   "species": "Human cancer cell lines",
+   "effect": "DEPTOR is an mTOR inhibitor overexpressed in multiple myeloma and required for myeloma-cell survival"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "deptor",
+    "name": "DEPTOR",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc2",
+    "name": "mTORC2",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "DEPTOR-MTOR"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "SUN2026B",
+   "ARI2015",
+   "DAL2012",
+   "FAC2008"
+  ]
+ }
+}

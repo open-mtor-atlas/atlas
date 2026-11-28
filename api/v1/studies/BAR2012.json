@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BAR2012",
+  "title": "Ragulator is a GEF for the rag GTPases that signal amino acid levels to mTORC1",
+  "authors": "Bar-Peled L; Schweitzer LD; Zoncu R; Sabatini DM",
+  "year": 2012,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2012.07.032",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "22980980",
+  "pmcid": "PMC3517996",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mammalian cells",
+  "peer_reviewed": true,
+  "finding": "Ragulator was reported as a guanine-nucleotide exchange factor for RagA/B on the lysosome; later work places Ragulator's exchange activity on RagC and assigns RagA GTP loading to SLC38A9, so the tethering role is the better-established one.",
+  "url": "https://mtor-atlas.org/study/BAR2012/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BAR2012.json",
+  "abstract_excerpt": "The mTOR Complex 1 (mTORC1) pathway regulates cell growth in response to numerous cues, including amino acids, which promote mTORC1 translocation to the lysosomal surface, its site of activation. The heterodimeric RagA/B-RagC/D GTPases, the Ragulator complex that tethers the Rags to the lysosome, and the v-ATPase form a signaling system that is necessary for amino acid sensing by mTORC1. Amino acids stimulate the binding of guanosine triphosphate to RagA and RagB but the factors that regulate Rag nucleotide loading are unknown.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical/genetic (Ragulator)",
+   "target": "Ragulator / Rag GTPases / mTORC1",
+   "species": "Mammalian cells",
+   "effect": "Ragulator is a GEF for RagA/B, activating the Rags to signal amino-acid levels to mTORC1 at the lysosome"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "lamtor5",
+    "name": "LAMTOR5",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAGULATOR-RAG",
+    "VATPASE-RAGULATOR",
+    "LAMTOR5-RAGULATOR"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "LV2026",
+   "SUX2017",
+   "ABU2017",
+   "ARI2015"
+  ]
+ }
+}

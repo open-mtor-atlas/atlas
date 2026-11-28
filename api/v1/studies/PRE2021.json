@@ -1,0 +1,88 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "PRE2021",
+  "title": "G3BPs tether the TSC complex to lysosomes and suppress mTORC1 signaling",
+  "authors": "Prentzell MT; Rehbein U; Cadena Sandoval M; De Meulemeester AS; Baumeister R; Brohée L; Berdel B; Bockwoldt M; Carroll B; Chowdhury SR; von Deimling A; Demetriades C; Figlia G; de Araujo MEG; Heberle AM; Heiland I; Holzwarth B; Huber LA; Jaworski J; Kedra M; Kern K; Kopach A; Korolchuk VI; van 't Land-Kuper I; Macias M; Nellist M; Palm W; Pusch S; Ramos Pittol JM; Reil M; Reintjes A; Reuter F; Sampson JR; Scheldeman C; Siekierska A; Stefan E; Teleman AA; Thomas LE; Torres-Quesada O; Trump S; West HD; de Witte P; Woltering S; Yordanov TE; Zmorzynska J; Opitz CA; Thedieck K",
+  "year": 2021,
+  "journal": "Cell",
+  "doi": "10.1016/j.cell.2020.12.024",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "33497611",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human and mouse cells; breast cancer patient data; zebrafish",
+  "peer_reviewed": true,
+  "finding": "Adds a physical brake upstream of mTORC1. G3BP1 and G3BP2, known until then as core stress-granule proteins, also sit on the cytoplasmic face of the lysosome and are what holds the TSC complex there; without them TSC cannot reach its target and mTORC1 becomes over-responsive to amino acids and insulin. Loss of G3BP1 reproduces TSC-like hyperactivity phenotypes: faster mTORC1-driven motility in breast cancer cells, with low G3BP1 correlating with worse patient outcome, and disturbed neuronal development in zebrafish. Relevant to the Atlas because it is a lysosomal tethering step that the canonical Rheb/TSC diagram does not show.",
+  "url": "https://mtor-atlas.org/study/PRE2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/PRE2021.json",
+  "abstract_excerpt": "Ras GTPase-activating protein-binding proteins 1 and 2 (G3BP1 and G3BP2, respectively) are widely recognized as core components of stress granules (SGs). We report that G3BPs reside at the cytoplasmic surface of lysosomes. They act in a non-redundant manner to anchor the tuberous sclerosis complex (TSC) protein complex to lysosomes and suppress activation of the metabolic master regulator mechanistic target of rapamycin complex 1 (mTORC1) by amino acids and insulin. Like the TSC complex, G3BP1 deficiency elicits phenotypes related to mTORC1 hyperactivity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "G3BP1/G3BP2 knockout/knockdown; G3bp1 inhibition in zebrafish",
+   "target": "G3BP1/2 tethering of the TSC complex to lysosomes; mTORC1",
+   "species": "Human and mouse cells; zebrafish; breast cancer patient data (correlative)",
+   "effect": "Loss of G3BPs releases TSC from lysosomes and makes mTORC1 hyperactive to amino acids and insulin."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "tsc1-tsc2",
+    "name": "TSC1/TSC2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "breast-cancer",
+    "name": "Breast cancer",
+    "type": "Disease"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "BAS2012",
+   "DEOLIVEIRA2026",
+   "MAR2026",
+   "MEN2023"
+  ]
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "BEN2008",
+  "title": "Skeletal muscle-specific ablation of raptor, but not of rictor, causes metabolic changes and results in muscle dystrophy",
+  "authors": "Bentzinger CF; Romanino K; Cloëtta D; Lin S; Mascarenhas JB; Oliveri F; Xia J; Casanova E; Costa CF; Brink M; Zorzato F; Hall MN; Rüegg MA",
+  "year": 2008,
+  "journal": "Cell Metabolism",
+  "doi": "10.1016/j.cmet.2008.10.002",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "19046572",
+  "pmcid": null,
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (muscle raptor/rictor KO)",
+  "peer_reviewed": true,
+  "finding": "In mice, muscle-specific raptor loss (not rictor) causes dystrophy, showing mTORC1 is essential for muscle homeostasis.",
+  "url": "https://mtor-atlas.org/study/BEN2008/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/BEN2008.json",
+  "abstract_excerpt": "Mammalian target of rapamycin (mTOR) is a central controller of cell growth. mTOR assembles into two distinct multiprotein complexes called mTOR complex 1 (mTORC1) and mTORC2. Here we show that the mTORC1 component raptor is critical for muscle function and prolonged survival. In contrast, muscles lacking the mTORC2 component rictor are indistinguishable from wild-type controls. Raptor-deficient muscles become progressively dystrophic, are impaired in their oxidative capacity, and contain increased glycogen stores, but they express structural components indicative of oxidative muscle fibers.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Genetic – muscle-specific raptor KO (and rictor KO)",
+   "target": "mTORC1 (raptor) vs mTORC2 (rictor)",
+   "species": "Mouse (muscle raptor/rictor KO)",
+   "effect": "In mice, raptor loss (not rictor) causes progressive muscular dystrophy and metabolic changes – mTORC1 essential for muscle"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mitochondrial-biogenesis",
+    "name": "Mitochondrial biogenesis",
+    "type": "Biological process"
+   },
+   {
+    "id": "rictor",
+    "name": "Rictor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "akt-pkb",
+    "name": "Akt/PKB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-MITO",
+    "RAPTOR-MTORC1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H3"
+  ],
+  "related_studies": [
+   "CUN2007",
+   "SRI2026",
+   "GUE2006",
+   "EVA2026"
+  ]
+ }
+}

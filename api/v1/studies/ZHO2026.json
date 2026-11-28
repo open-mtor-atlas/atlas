@@ -1,0 +1,106 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ZHO2026",
+  "title": "Genetically targeted mTORC1 inhibitor reveals transcriptional control by nuclear mTORC1.",
+  "authors": "Zhong Y; Sahan AZ; Shao Z; Zhang QY; Zhou X; Haggett JG; Koshizuka K; Myers SA; Gutkind JS; Zhang J",
+  "year": 2026,
+  "journal": "Nature Chemical Biology",
+  "doi": "10.1038/s41589-026-02188-z",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42135521",
+  "pmcid": "PMC13401988",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse NIH3T3 fibroblasts; human HEK293T, HeLa and Cal33 oral squamous cell carcinoma cells",
+  "peer_reviewed": true,
+  "finding": "A genetically encoded, subcellularly targetable mTORC1 inhibitor separates mTORC1 by location. TerminaTOR, built from a PRAS40 fragment stripped of its regulatory phosphorylation sites, inhibits mTORC1 while sparing mTORC2, Akt, PKA and PKC. Targeted to the lysosome it inhibits lysosomal mTORC1, lowers ULK1 and TFEB phosphorylation and induces autophagy. Targeted to the nucleus it inhibits nuclear mTORC1 without touching cytosolic or lysosomal activity and without changing autophagy, and instead reduces transcription of CCAAT-motif genes through p300 acetyltransferase activity, lowering cell number in fibroblasts and viability and colony formation in one HNSCC line.",
+  "url": "https://mtor-atlas.org/study/ZHO2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2026.json",
+  "abstract_excerpt": "Mechanistic target of rapamycin complex 1 (mTORC1) is a nutrient sensor that integrates diverse inputs to regulate protein translation and cell growth. While mTORC1 is activated on the lysosome in the classical model, it has become increasingly clear that this multifaceted signaling complex is active at various subcellular locations, such as the nucleus. However, what specific functions mTORC1 serves at these locations and how its signaling is compartmentalized are unclear.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "TerminaTOR, a PRAS40(114-245, S183A)-derived genetically encoded mTORC1 inhibitor, targeted to the lysosome (Lyso-TerminaTOR) or the nucleus (Nuc-TerminaTOR)",
+   "target": "Lysosomal and nuclear mTORC1 pools; S6K1, 4E-BP1, ULK1, TFEB; p300 and H3K56 acetylation; CCAAT-motif gene transcription",
+   "species": "Mouse NIH3T3 fibroblasts; human HEK293T, HeLa and Cal33 cells",
+   "effect": "Inhibiting the lysosomal pool induces autophagy; inhibiting the nuclear pool leaves autophagy unchanged and instead lowers CCAAT-motif gene expression through p300, reducing cell number, viability and colony formation",
+   "dose": "Torin 1 1 µM (30 min pretreatment) and rapamycin as comparators; doxycycline 100 ng/ml to induce TerminaTOR expression; PDGF 50 ng/ml stimulation",
+   "sample_size": "Per-condition cell counts given in the figures (for example 23 control vs 35 Nuc-TerminaTOR cells for nuclear TORCAR); at least three independent experiments unless stated otherwise",
+   "effect_size": "Nuclear mTORC1 activity (TORCAR-NLS emission-ratio change) 6.3% ± 0.7% control vs 1.7% ± 0.4% with Nuc-TerminaTOR; LC3 puncta 4 ± 1 vs 22 ± 3 per cell with Lyso-TerminaTOR; Cal33 colony formation 100% ± 1.4% vs 36.8% ± 2.7%",
+   "limitations": "Cell lines only. The cancer effect is shown in one HNSCC line (Cal33), and the authors state that further cell types and additional HNSCC models remain to be examined."
+  },
+  "extracted_findings_review": {
+   "status": "reviewed",
+   "reviewed_by": "Claude (checked against the PMC full text, 2026-11-25)",
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "pras40",
+    "name": "PRAS40",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ulk1",
+    "name": "ULK1",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "autophagy",
+    "name": "Autophagy",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "LYSO-MTORC1",
+    "MTORC1-TFEB",
+    "MTORC1-ULK1"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "OSH2007",
+   "SAN2007",
+   "VAN2007",
+   "YAN2017"
+  ]
+ }
+}

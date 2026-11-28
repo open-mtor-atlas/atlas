@@ -1,0 +1,682 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "tfeb",
+  "name": "TFEB",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:11753",
+   "uniprot": "P19484",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Master transcription factor for lysosome biogenesis and autophagy. mTORC1 phosphorylates TFEB to trap it in the cytosol; when mTORC1 is off, TFEB enters the nucleus and turns on the cell's recycling program.",
+  "study_count": 19,
+  "relation_count": 3,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/tfeb/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/tfeb.json",
+  "description_beginner": "The master control switch for making new lysosomes and ramping up cellular cleanup. mTORC1 normally keeps it locked out of the nucleus; once mTORC1 turns off, it moves in and switches on the cell's recycling genes.",
+  "reading_levels": {
+   "beginner": "The master switch for recycling genes.",
+   "student": "Transcription factor for lysosomal and autophagy genes; excluded from the nucleus when phosphorylated by mTORC1.",
+   "research": "Phosphorylated on S211 in a Rag- and FLCN-dependent, substrate-selective manner; this is the clearest case where mTORC1 substrate choice – not overall activity – is the regulated variable."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "SET2011",
+    "title": "TFEB links autophagy to lysosomal biogenesis",
+    "authors": "Settembre C; Di Malta C; Polito VA; Garcia Arencibia M; Vetrini F; Erdin S; Erdin SU; Huynh T; Medina D; Colella P; Sardiello M; Rubinsztein DC; Ballabio A",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1204592",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21617040",
+    "pmcid": "PMC3638014",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human/mouse cells",
+    "peer_reviewed": true,
+    "finding": "Showed that TFEB drives a coordinated autophagy and lysosomal gene programme during starvation. In this paper TFEB was regulated by ERK2 phosphorylation; its control by mTORC1 at the lysosome was established in later work (SET2012).",
+    "url": "https://mtor-atlas.org/study/SET2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2011.json"
+   },
+   {
+    "sid": "MAR2012",
+    "title": "MTORC1 functions as a transcriptional regulator of autophagy by preventing nuclear transport of TFEB",
+    "authors": "Martina JA; Chen Yong; Gucek M; Puertollano R",
+    "year": 2012,
+    "journal": "Autophagy",
+    "doi": "10.4161/auto.19653",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22576015",
+    "pmcid": "PMC3427256",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells",
+    "peer_reviewed": true,
+    "finding": "Showed mTORC1-dependent TFEB Ser211 phosphorylation: mTORC1 (docked at the lysosome via Ragulator) phosphorylates TFEB on Ser211, which traps it in the cytosol via 14-3-3 proteins. Inhibit mTORC1 and TFEB rushes to the nucleus to switch on autophagy - explaining how mTORC1 controls recycling at the level of gene transcription.",
+    "url": "https://mtor-atlas.org/study/MAR2012/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2012.json"
+   },
+   {
+    "sid": "GAO2026",
+    "title": "Astragaloside IV Mitigates Tacrolimus-Induced Chronic Nephrotoxicity by Regulating the mTOR-TFEB-GADD45α Pathway.",
+    "authors": "Gao P; Cheng X; Xu R; Huang X; Wang J; Liu M; Wu X; Guan X; Chen Y; Qiu Z",
+    "year": 2026,
+    "journal": "Journal of Agricultural and Food Chemistry",
+    "doi": "10.1021/acs.jafc.5c17921",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42438242",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse (tacrolimus-induced chronic nephrotoxicity model) + renal cell lines",
+    "peer_reviewed": true,
+    "finding": "Astragaloside IV protects against tacrolimus-induced nephrotoxicity by inhibiting mTOR to activate TFEB and restore autophagy, nominating the mTOR-TFEB-GADD45alpha axis as a calcineurin-independent candidate therapeutic target (preclinical; no human data) in TICN.",
+    "url": "https://mtor-atlas.org/study/GAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GAO2026.json"
+   },
+   {
+    "sid": "ULL2026",
+    "title": "FLCN loss is characterized by SQSTM1/p62 accumulation despite functional autophagy flux in Birt-Hogg-Dubé syndrome-associated kidney cancer",
+    "authors": "Ullern H; Johannessen JA; Kasikci F; Formica M; Karimi Melve N; Andresen S; Brech A; Axcrona K; Jørgensen K; Farkas L; Enserink JM; Knævelsrud H",
+    "year": 2026,
+    "journal": "Autophagy Reports",
+    "doi": "10.1080/27694127.2026.2705631",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42569319",
+    "pmcid": "PMC13449739",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "BHD patient-derived kidney cancer cell line; Norwegian BHD patient tumor cohort",
+    "peer_reviewed": true,
+    "finding": "In BHD patient-derived kidney cancer cells, FLCN loss causes constitutive nuclear TFEB localization and mTORC1 hyperactivation, but leaves bulk autophagy flux and LC3 lipidation unaffected; however, the autophagy receptor SQSTM1/p62 accumulates in enlarged puncta, a finding replicated in a Norwegian cohort of BHD patient kidney tumors, showing p62 accumulation is dissociable from bulk autophagic flux.",
+    "url": "https://mtor-atlas.org/study/ULL2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ULL2026.json"
+   },
+   {
+    "sid": "CUI2023",
+    "title": "Structure of the lysosomal mTORC1-TFEB-Rag-Ragulator megacomplex",
+    "authors": "Cui Z; Napolitano G; de Araujo MEG; Esposito A; Monfregola J; Huber LA; Ballabio A; Hurley JH",
+    "year": 2023,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-022-05652-7",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "36697823",
+    "pmcid": "PMC9931586",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution)",
+    "peer_reviewed": true,
+    "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way the authors report for no other mTORC1 substrate. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
+    "url": "https://mtor-atlas.org/study/CUI2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "ZHANG2026",
+    "title": "Non-canonical mTORC1-TFEB activation promotes hepatocyte plasticity and high-grade malignancy in hepatocellular carcinoma.",
+    "authors": "Zhang C; Chao X; Williams SN; Wei X; DiGirolamo AM; Bajracharya A; Ma L; Huang M; Dunn N; Liu W; Ueda K; Sugimoto M; Ballabio A; Ni HM; Ding WX",
+    "year": 2026,
+    "journal": "Journal of Clinical Investigation",
+    "doi": "10.1172/JCI206334",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42560776",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse + Human (HCC)",
+    "peer_reviewed": true,
+    "finding": "Loss of TSC1 in mouse liver drives non-canonical mTORC1-mediated TFEB nuclear translocation, hepatocyte-to-biliary plasticity and spontaneous aggressive HCC at 8-12 months; additional deletion of Tfeb dampened the metabolic reprogramming and fate changes and inhibited tumour progression. In human HCC, higher TFEB activity was associated with YAP and SOX9 expression and high-grade malignancy (correlative).",
+    "url": "https://mtor-atlas.org/study/ZHANG2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHANG2026.json"
+   },
+   {
+    "sid": "HON2026",
+    "title": "Structure and function of TM6SF1 reveals role in mTORC1 signaling",
+    "authors": "Hong S; Jia L; Wang R; Elghobashi-Meinhardt N; Hobbs HH; Li X",
+    "year": 2026,
+    "journal": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.2622424123",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42735304",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Cryo-EM structure; HEK293 cells",
+    "peer_reviewed": true,
+    "finding": "Cryo-EM structure of TM6SF1 identifies it as a lysosomal cholesterol-binding protein that directly engages LAMTOR1 (Ragulator) to regulate mTORC1 signaling in a cholesterol-dependent manner.",
+    "url": "https://mtor-atlas.org/study/HON2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/HON2026.json"
+   },
+   {
+    "sid": "ZAU2026",
+    "title": "mTORC1-TFEB/TFE3 signaling is associated with bile acid diversification during hepatic metabolic adaptation",
+    "authors": "Zaufel A; Sun W; Pastore N; Taschler U; Wagner C; Hackl H; Sommer J; Silbert-Wagner D; Hengstler JG; Begher-Tibbe B; Stauber R; Kolb D; Troetzmueller M; Gottschalk B; Thorsheim C; Stange EL; Hornef MW; Pivovarova-Ramich O; Pfeiffer AFH; Matchett KP; Loft A; Herzig S; Henderson NC; Ballabio A; Arany Z; Wolfrum C; Fickert P; Moustafa T",
+    "year": 2026,
+    "journal": "Science Advances",
+    "doi": "10.1126/sciadv.aee1905",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42789715",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mouse (liver-specific genetic mTORC1/TFEB manipulation, rapamycin treatment, dietary protein restriction); correlative human MASLD patient cohort",
+    "peer_reviewed": true,
+    "finding": "Establishes a new mTORC1-TFEB/TFE3 signaling axis controlling hepatic bile acid metabolism. Depending on mTORC1 signaling state, mice show coordinated shifts in bile-acid species (non-12-OH vs 12-OH) via altered enzyme expression and cholesterol trafficking; these shifts are reversed by mTORC1 pathway deletion or rapamycin treatment. Dietary protein restriction (which inhibits mTORC1) produces a similar bile-acid shift in mice and correlates with improved metabolic outcomes in human MASLD patients, linking mTORC1 nutrient sensing directly to bile-acid homeostasis and fatty liver disease.",
+    "url": "https://mtor-atlas.org/study/ZAU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZAU2026.json"
+   },
+   {
+    "sid": "FER2026",
+    "title": "Synergistic role of TFEB/TFE3 and mTORC1 in kidney cystogenesis and tumorigenesis",
+    "authors": "Ferniani M; Sambri I; Huynh T; Pennella R; Tufano G; Herz NJ; Rossi B; Iannaccone A; Trepiccione F; Calcagnì A; Ballabio A",
+    "year": 2026,
+    "journal": "Cell Death and Differentiation",
+    "doi": "10.1038/s41418-026-01881-9",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816660",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Kidney-specific conditional knockout mice: Depdc5-KO, RagC-KO, and Flcn/RagC double-KO (models of Birt-Hogg-Dube and Tuberous Sclerosis Complex)",
+    "peer_reviewed": true,
+    "finding": "Using kidney-specific mouse models that genetically uncouple mTORC1 activity from TFEB/TFE3 activity (Depdc5-KO, RagC-KO, and Flcn/RagC double-KO), the authors show mTORC1 hyperactivation -- not TFEB/TFE3 activation alone -- is the primary driver of kidney cystogenesis and tumorigenesis in Birt-Hogg-Dube and Tuberous Sclerosis Complex models. Constitutive TFEB/TFE3 activity further accelerates disease on top of mTORC1-driven pathology.",
+    "url": "https://mtor-atlas.org/study/FER2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/FER2026.json"
+   },
+   {
+    "sid": "SPA2023",
+    "title": "Continuous sensing of nutrients and growth factors by the mTORC1-TFEB axis",
+    "authors": "Sparta B; Kosaisawe N; Pargett M; Patankar M; DeCuzzi N; Albeck JG",
+    "year": 2023,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.74903",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "37698461",
+    "pmcid": "PMC10547473",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human MCF10A cells (live single-cell imaging, fluorescent TFEB fusions)",
+    "peer_reviewed": true,
+    "finding": "Live imaging of single MCF10A cells shows mTORC1-TFEB signalling adjusts continuously to amino acids and insulin, given alone, one after another or together; at physiological amino acid levels TFEB, AMPK and AKT activity fluctuate in step, and these graded changes track protein synthesis rate through a distributed set of mTORC1 effectors.",
+    "url": "https://mtor-atlas.org/study/SPA2023/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SPA2023.json"
+   },
+   {
+    "sid": "CAO2026",
+    "title": "Substrate-selective mTORC1 regulation and gene dosage-dependent tissue divergence in Birt-Hogg-Dubé syndrome",
+    "authors": "Cao ZL; Zhao SC; Lin F; Liu YH; Hong XT; Hong LY; Xu LQ; Li FP; Yu HY; Yao WG; Chen WY",
+    "year": 2026,
+    "journal": "Frontiers in Oncology",
+    "doi": "10.3389/fonc.2026.1848740",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42558438",
+    "pmcid": "PMC13437482",
+    "evidence": {
+     "code": "R",
+     "label": "Review — secondary literature, not a new result",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Review",
+    "model_system": "Narrative synthesis (human genetics + mouse mechanistic data)",
+    "peer_reviewed": true,
+    "finding": "Reframes Birt-Hogg-Dube (BHD) syndrome beyond the classic 'global mTORC1 hyperactivation' model: FLCN acts as a GAP for RagC/D, giving substrate-selective (not global) mTORC1 control. Biallelic FLCN loss drives kidney tumors via MiT/TFE nuclear accumulation, while haploinsufficiency alone is sufficient for lung and skin lesions -- resolving the 'mTORC1 paradox' via gene dosage and signaling timing. Narrative synthesis of human genetics and mouse mechanistic data.",
+    "url": "https://mtor-atlas.org/study/CAO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/CAO2026.json"
+   },
+   {
+    "sid": "GOL2022",
+    "title": "A Rag GTPase dimer code defines the regulation of mTORC1 by amino acids",
+    "authors": "Gollwitzer P; Grützmacher N; Wilhelm S; Kümmel D; Demetriades C",
+    "year": 2022,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/s41556-022-00976-y",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "36097072",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (genetically modified Rag-paralogue cell lines)",
+    "peer_reviewed": true,
+    "finding": "The four mammalian Rag GTPase paralogues are not functionally interchangeable: RagC/D determines substrate specificity (RagD favors TFEB/TFE3 phosphorylation via tighter LAMTOR binding), while RagA/B determines the response to amino acid withdrawal (RagB-expressing cells keep mTORC1 lysosomal and active even upon starvation). Author correction issued 2023 (PMID 36536178, no change to conclusions).",
+    "url": "https://mtor-atlas.org/study/GOL2022/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/GOL2022.json"
+   },
+   {
+    "sid": "SAR2009",
+    "title": "A gene network regulating lysosomal biogenesis and function",
+    "authors": "Sardiello M; Palmieri M; di Ronza A; Medina DL; Valenza M; Gennarino VA; Di Malta C; Donaudy F; Embrione V; Polishchuk RS; Banfi S; Parenti G; Cattaneo E; Ballabio A",
+    "year": 2009,
+    "journal": "Science",
+    "doi": "10.1126/science.1174447",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "19556463",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Promoter/expression analysis of lysosomal genes; cultured human (HeLa) and mouse cells with TFEB overexpression; lysosomal storage conditions (sucrose loading)",
+    "peer_reviewed": true,
+    "finding": "The authors found that most lysosomal genes show coordinated expression and share a promoter motif (later called the CLEAR element) that is bound and regulated by the transcription factor TFEB. Under conditions of abnormal lysosomal storage, TFEB moved from the cytoplasm to the nucleus and switched on its target genes. Overexpressing TFEB in cultured cells increased the number of lysosomes and the cells' capacity to degrade complex molecules, including glycosaminoglycans and the mutant huntingtin protein. The paper provided evidence that lysosome production is run by a transcriptional programme with TFEB at its centre, which later work tied to mTORC1 control. Boundary: Cultured cells with TFEB overexpression; mTOR was not studied in this paper. Therapeutic potential for storage and neurodegenerative disease is proposed, not tested. Drafted from the abstract only (no PMC full text).",
+    "url": "https://mtor-atlas.org/study/SAR2009/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SAR2009.json"
+   },
+   {
+    "sid": "PEN2011",
+    "title": "Regulation of TFEB and V-ATPases by mTORC1",
+    "authors": "Peña-Llopis S; Vega-Rubin-de-Celis S; Schwartz JC; Wolff NC; Tran TA; Zou L; Xie XJ; Corey DR; Brugarolas J",
+    "year": 2011,
+    "journal": "The EMBO Journal",
+    "doi": "10.1038/emboj.2011.257",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21804531",
+    "pmcid": "PMC3160667",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- vs Tsc2+/+ immortalized MEFs (serum-deprived, +/- rapamycin) with microarrays; Tsc1 floxed primary MEFs and mouse liver (Ad-Cre); myr-Akt prostate model with everolimus (public data); HeLa cells with TSC2/Raptor knockdown",
+    "peer_reviewed": true,
+    "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
+    "url": "https://mtor-atlas.org/study/PEN2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json"
+   },
+   {
+    "sid": "MAR2013",
+    "title": "Rag GTPases mediate amino acid-dependent recruitment of TFEB and MITF to lysosomes",
+    "authors": "Martina JA; Puertollano R",
+    "year": 2013,
+    "journal": "Journal of Cell Biology",
+    "doi": "10.1083/jcb.201209135",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23401004",
+    "pmcid": "PMC3575543",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human ARPE-19, HeLa, HEK-293T cells; siRNA against Raptor, RagA/B, RagC/D, p18 (LAMTOR1); active/inactive Rag mutants; TFEB and MITF deletion/point mutants; Torin1 and amino-acid starvation",
+    "peer_reviewed": true,
+    "finding": "The authors asked how TFEB reaches the lysosome, where mTORC1 phosphorylates it. In human cells, depleting Raptor inactivated mTORC1 and sent TFEB to the nucleus but did not stop TFEB binding lysosomes (82.5% of cells still showed lysosomal TFEB), whereas depleting the Rag GTPases or the Ragulator subunit p18 abolished it (under 4% of Rag-depleted cells kept the S211A mutant on lysosomes, against about 80% of controls). TFEB bound only active Rag heterodimers through its first 30 amino acids, and active Rags were enough to bring TFEB to lysosomes; TFEB mutants that could not bind Rags lost S211 phosphorylation and stayed in the nucleus. Endogenous TFEB accumulated in the nucleus after Torin1 or amino-acid starvation and moved back to the cytosol and lysosomes when amino acids were added again. Some MITF isoforms behaved the same way. Boundary: Human cell lines, mostly with overexpressed or mutant proteins; not tested in tissues or whole animals.",
+    "url": "https://mtor-atlas.org/study/MAR2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAR2013.json"
+   },
+   {
+    "sid": "SET2013",
+    "title": "TFEB controls cellular lipid metabolism through a starvation-induced autoregulatory loop",
+    "authors": "Settembre C; De Cegli R; Mansueto G; Saha PK; Vetrini F; Visvikis O; Huynh T; Carissimo A; Palmer D; Klisch TJ; Wollenberg AC; Di Bernardo D; Chan L; Irazoqui JE; Ballabio A",
+    "year": 2013,
+    "journal": "Nature Cell Biology",
+    "doi": "10.1038/ncb2718",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "23604321",
+    "pmcid": "PMC3699877",
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Mice: 24 h fasting, liver-specific Tfeb knockout, liver-directed TFEB overexpression (helper-dependent adenovirus), high-fat diet and ob/ob obesity, liver Pgc1a and Atg7 deletion, Ppara knockout; HeLa cells, MEFs and primary hepatocytes; C. elegans hlh-30 mutants",
+    "peer_reviewed": true,
+    "finding": "The authors found that fasting switches on the TFEB gene in mouse liver, muscle and kidney, and that TFEB drives its own transcription by binding CLEAR sites in its promoter, an autoregulatory loop that starvation strengthens. Liver TFEB overexpression changed 773 genes up and 611 down, with lipid catabolism as the top category, and acted largely through PGC-1alpha and PPARalpha: 74% of TFEB-induced genes failed to rise in mice lacking PPARalpha. Mice lacking liver TFEB built up liver fat and mobilised fat poorly during fasting and gained more weight on a high-fat diet, while liver TFEB overexpression prevented and halted diet-induced obesity and improved glucose tolerance in obese ob/ob mice; the lipid effect required autophagy (lost in Atg7-deleted liver). In C. elegans, the TFEB homologue HLH-30 was needed for lipid mobilisation and survival during starvation. Boundary: Mice and worms, with TFEB delivered by virus at overexpression levels. mTORC1 was not manipulated or measured; its role is inferred from earlier work. Not tested in people.",
+    "url": "https://mtor-atlas.org/study/SET2013/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/SET2013.json"
+   },
+   {
+    "sid": "BOU2026",
+    "title": "TSC2-Mutant Yucatan Minipig Cardiac Rhabdomyoma Model Reveals mTORC1 Activation and MITF/TFE Expression Signature",
+    "authors": "Bou Farhat E; Du H; Carreon CK; Halawi J; Kudler S; Losko M; Herbert ZT; Watson AL; Carlson D; Webster DA; Korpela DM; Meredith DM; Henske EP; Kwiatkowski DJ",
+    "year": 2026,
+    "journal": "JCI Insight",
+    "doi": "10.1172/jci.insight.211025",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42986687",
+    "pmcid": null,
+    "evidence": {
+     "code": "A",
+     "label": "Animal model",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Animal",
+    "model_system": "Heterozygous TSC2-mutant Yucatan minipig (p.Arg505*)",
+    "peer_reviewed": true,
+    "finding": "A heterozygous TSC2 p.Arg505\\* minipig developed cardiac rhabdomyomas resembling the human lesions, with mTORC1 signalling activation and an MITF/TFE-regulated lysosomal gene signature shared with human tumours. Animal model only; other TSC manifestations were not seen up to one year of age.",
+    "url": "https://mtor-atlas.org/study/BOU2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/BOU2026.json"
+   },
+   {
+    "sid": "ZHO2026",
+    "title": "Genetically targeted mTORC1 inhibitor reveals transcriptional control by nuclear mTORC1.",
+    "authors": "Zhong Y; Sahan AZ; Shao Z; Zhang QY; Zhou X; Haggett JG; Koshizuka K; Myers SA; Gutkind JS; Zhang J",
+    "year": 2026,
+    "journal": "Nature Chemical Biology",
+    "doi": "10.1038/s41589-026-02188-z",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42135521",
+    "pmcid": "PMC13401988",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mouse NIH3T3 fibroblasts; human HEK293T, HeLa and Cal33 oral squamous cell carcinoma cells",
+    "peer_reviewed": true,
+    "finding": "A genetically encoded, subcellularly targetable mTORC1 inhibitor separates mTORC1 by location. TerminaTOR, built from a PRAS40 fragment stripped of its regulatory phosphorylation sites, inhibits mTORC1 while sparing mTORC2, Akt, PKA and PKC. Targeted to the lysosome it inhibits lysosomal mTORC1, lowers ULK1 and TFEB phosphorylation and induces autophagy. Targeted to the nucleus it inhibits nuclear mTORC1 without touching cytosolic or lysosomal activity and without changing autophagy, and instead reduces transcription of CCAAT-motif genes through p300 acetyltransferase activity, lowering cell number in fibroblasts and viability and colony formation in one HNSCC line.",
+    "url": "https://mtor-atlas.org/study/ZHO2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZHO2026.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "MTORC1-TFEB",
+    "claim": "mTORC1 inhibits TFEB",
+    "source": {
+     "name": "mTORC1",
+     "entity": "mtorc1"
+    },
+    "target": {
+     "name": "TFEB",
+     "entity": "tfeb"
+    },
+    "effect": "inhibits",
+    "type": "phosphorylation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "Active mTORC1 phosphorylates TFEB right on the lysosomal surface, trapping it in the cytoplasm. Switch mTORC1 off and TFEB walks into the nucleus.",
+    "mechanism_beginner": "Active mTORC1 tags TFEB and traps it outside the nucleus; switch mTORC1 off and TFEB moves in.",
+    "context": "Substrate-selective. Depends on FLCN/FNIP RagC/D status, so mTORC1 can be active on S6K1 while not phosphorylating TFEB.",
+    "boundary": "RagD specifically (more than RagC) promotes TFEB/TFE3 phosphorylation via tighter LAMTOR binding — GOL2022 shows this is paralogue-specific, not a generic Rag-dimer property.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": "Four independent studies - one of the best-supported output edges.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ROC2012",
+      "SET2012",
+      "MAR2012",
+      "SET2011",
+      "GOL2022",
+      "CUI2023",
+      "MAR2013",
+      "ZHO2026"
+     ],
+     "conflicting": [
+      "ZHANG2026",
+      "PEN2011"
+     ]
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/MTORC1-TFEB/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/MTORC1-TFEB.json"
+   },
+   {
+    "id": "TFEB-AUTOPHAGY",
+    "claim": "TFEB activates Autophagy",
+    "source": {
+     "name": "TFEB",
+     "entity": "tfeb"
+    },
+    "target": {
+     "name": "Autophagy",
+     "entity": "autophagy"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "map_band": "nucleus",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "In the nucleus TFEB switches on a whole gene programme for autophagy and for building new lysosomes - the cell's recycling capacity, not just a single step.",
+    "mechanism_beginner": "Once inside the nucleus, TFEB switches on a whole set of genes for cleanup and for building new lysosomes.",
+    "context": "Same flux caveat as ULK1-AUTOPHAGY: TFEB target-gene induction (more lysosomes, more autophagy machinery transcribed) is not itself proof that degradative flux increased - it raises capacity, which still needs to be confirmed with a flux readout rather than assumed from expression alone.",
+    "boundary": "Human and mouse cell studies (SET2011, ROC2012, SET2012). The gene programme is shown in cells; its contribution to autophagy in living tissue and in people is not measured here.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": "The transcriptional arm of autophagy, distinct from the fast ULK1 arm.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SET2011",
+      "ROC2012",
+      "SET2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TFEB-AUTOPHAGY/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-AUTOPHAGY.json"
+   },
+   {
+    "id": "TFEB-LYSOBIO",
+    "claim": "TFEB activates Lysosomal biogenesis",
+    "source": {
+     "name": "TFEB",
+     "entity": "tfeb"
+    },
+    "target": {
+     "name": "Lysosomal biogenesis",
+     "entity": "lysosomal-biogenesis"
+    },
+    "effect": "activates",
+    "type": "transcriptional",
+    "directness": "direct",
+    "timescale": "hours",
+    "compartment": "nucleus",
+    "map_band": "nucleus",
+    "species": [
+     "human cells",
+     "mouse cells"
+    ],
+    "mechanism": "Nuclear TFEB switches on the lysosomal and autophagy gene programme as a single coordinated module, expanding the lysosomal compartment.",
+    "mechanism_beginner": "In the nucleus, TFEB switches on a whole gene package for cleanup and for building new lysosomes.",
+    "context": null,
+    "boundary": "Transcriptional output measured as gene expression and lysosomal markers; how much the compartment actually expands varies with cell type and starvation depth.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SET2011",
+      "ROC2012",
+      "SAR2009",
+      "PEN2011"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/TFEB-LYSOBIO/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/TFEB-LYSOBIO.json"
+   }
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "MLST8-MTORC2",
+  "claim": "mLST8 required-for mTORC2",
+  "source": {
+   "name": "mLST8",
+   "entity": "mlst8"
+  },
+  "target": {
+   "name": "mTORC2",
+   "entity": "mtorc2"
+  },
+  "effect": "required-for",
+  "type": "complex-assembly",
+  "directness": "direct",
+  "timescale": "constitutive",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mouse"
+  ],
+  "mechanism": "mLST8 is dispensable for mTORC1 in vivo but essential for mTORC2 - a rare clean genetic separation of the two complexes.",
+  "mechanism_beginner": "This protein isn't needed for mTORC1 in a living animal, but mTORC2 can't work without it – a clean genetic way to tell the two complexes apart.",
+  "context": null,
+  "boundary": "Knockout mice (GUE2006) and human cell biochemistry (KIM2003). The separation of the two complexes is shown in mouse tissue; whether it holds in human tissue is not tested by these studies.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": "The cleanest genetic argument that the two complexes are truly separate machines.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "GUE2006",
+    "KIM2003"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/MLST8-MTORC2/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/MLST8-MTORC2.json"
+ }
+}

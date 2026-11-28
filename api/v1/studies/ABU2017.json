@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ABU2017",
+  "title": "Lysosomal metabolomics reveals V-ATPase- and mTOR-dependent regulation of amino acid efflux from lysosomes",
+  "authors": "Abu-Remaileh M; Wyant GA; Kim C; Laqtom NN; Abbasi M; Chan SH; Freinkman E; Sabatini DM",
+  "year": 2017,
+  "journal": "Science",
+  "doi": "10.1126/science.aan6298",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "29074583",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Human cells (HEK293)",
+  "peer_reviewed": true,
+  "finding": "Turns the lysosome from a place where mTORC1 is switched on into something mTORC1 also controls: inhibiting mTOR strongly reduces the efflux of most essential amino acids out of the lysosome, so the organelle becomes a store rather than a source. Measured directly by rapidly isolating lysosomes and profiling their contents, which is why the claim is about concentrations inside the organelle and not inferred from signalling readouts. Boundary: one human cell line, acute pharmacological inhibition.",
+  "url": "https://mtor-atlas.org/study/ABU2017/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ABU2017.json",
+  "abstract_excerpt": "The lysosome degrades and recycles macromolecules, signals to the cytosol and nucleus, and is implicated in many diseases. Here, we describe a method for the rapid isolation of mammalian lysosomes and use it to quantitatively profile lysosomal metabolites under various cell states. Under nutrient-replete conditions, many lysosomal amino acids are in rapid exchange with those in the cytosol.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "v-ATPase inhibition; mTOR inhibition; nutrient starvation",
+   "target": "Lysosomal amino-acid efflux, mTOR pathway",
+   "species": "Human HEK293 cells",
+   "effect": "Inhibiting mTOR strongly reduced lysosomal efflux of most essential amino acids, converting the lysosome into a depot for them."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "lysosome",
+    "name": "Lysosome",
+    "type": "Organelle"
+   },
+   {
+    "id": "torin1",
+    "name": "Torin1",
+    "type": "Drug"
+   },
+   {
+    "id": "v-atpase",
+    "name": "v-ATPase",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtor",
+    "name": "mTOR",
+    "type": "Gene/Protein"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H11"
+  ],
+  "related_studies": [
+   "ESP2026",
+   "MAN2016",
+   "ZON2011",
+   "MAR2013"
+  ]
+ }
+}

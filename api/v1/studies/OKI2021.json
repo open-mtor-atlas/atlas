@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "OKI2021",
+  "title": "Imaging dynamic mTORC1 pathway activity in vivo reveals marked shifts that support time-specific inhibitor therapy in AML",
+  "authors": "Oki T; Mercier F; Kato H; Jung Y; McDonald TO; Spencer JA; Mazzola MC; van Gastel N; Lin CP; Michor F; Kitamura T; Scadden DT",
+  "year": 2021,
+  "journal": "Nature Communications",
+  "doi": "10.1038/s41467-020-20491-8",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "33431855",
+  "pmcid": "PMC7801403",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse AML model; intravital imaging of bone marrow with fluorescent probes",
+  "peer_reviewed": true,
+  "finding": "Fluorescent probes imaged in the bone marrow of live mice show mTORC1 activity in AML cells falls as the disease progresses but is high at the moment of maximal chemotherapy response, where it is induced rather than selected; inhibiting mTORC1 at that time improved killing of AML cells.",
+  "url": "https://mtor-atlas.org/study/OKI2021/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/OKI2021.json",
+  "abstract_excerpt": "Acute myeloid leukemia (AML) is a high remission, high relapse fatal blood cancer. Although mTORC1 is a master regulator of cell proliferation and survival, its inhibitors have not performed well as AML treatments. To uncover the dynamics of mTORC1 activity in vivo, fluorescent probes are developed to track single cell proliferation, apoptosis and mTORC1 activity of AML cells in the bone marrow of live animals and to quantify these activities in the context of microanatomical localization and intra-tumoral heterogeneity.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Chemotherapy; timed mTORC1 inhibition",
+   "target": "mTORC1 (AML cells in vivo)",
+   "species": "Mouse",
+   "effect": "mTORC1 activity in AML shifts over the course of disease and treatment; timed inhibition works better"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "tumor-growth",
+    "name": "Tumor growth",
+    "type": "Biological process"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "ANI2011",
+   "DEY2008",
+   "FER2026",
+   "HSI2010"
+  ]
+ }
+}

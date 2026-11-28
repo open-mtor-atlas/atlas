@@ -1,0 +1,79 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "PDCD4-TRANSL",
+  "claim": "PDCD4 inhibits Protein synthesis",
+  "source": {
+   "name": "PDCD4",
+   "entity": "pdcd4"
+  },
+  "target": {
+   "name": "Protein synthesis",
+   "entity": "protein-synthesis"
+  },
+  "effect": "inhibits",
+  "type": "functional-consequence",
+  "directness": "direct",
+  "timescale": "minutes",
+  "compartment": "cytosol",
+  "map_band": "cytosol",
+  "species": [
+   "mammalian cells"
+  ],
+  "mechanism": "PDCD4 blocks the eIF4A helicase, so mRNAs with structured 5' ends cannot be unwound and translated.",
+  "mechanism_beginner": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
+  "context": null,
+  "boundary": "SUZ2008 shows by structure and binding assays that PDCD4 binds the N-terminal domain of eIF4A and displaces eIF4G and RNA, which is the step asserted here. Cell-level evidence that PDCD4 loss changes translation of structured mRNAs is not in this corpus.",
+  "boundary_tags": [
+   "single-study"
+  ],
+  "conflict": null,
+  "note": null,
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "plausible",
+   "human_relevance_label": "plausible in people, not shown directly",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Direct biochemical",
+   "strongest": {
+    "code": "M",
+    "label": "Molecular — cells, biochemistry, structure"
+   },
+   "supporting": [
+    "SUZ2008"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/PDCD4-TRANSL/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
+ }
+}

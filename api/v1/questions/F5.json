@@ -1,0 +1,141 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "F5",
+  "kind": "frontier",
+  "title": "Which human ageing phenotypes are causally reversible by mTOR modulation — and is it the same mechanism in each tissue?",
+  "category": "Human-endpoint gap",
+  "evidence_stands_at": "Clinical outcome in humans — mixed and partly negative",
+  "gap": "Does rapamycin extend human lifespan is not a testable question on any useful timescale, and treating it as the goal has let a set of much sharper questions go unasked. Immune ageing, sarcopenia, metabolic dysfunction, neurodegeneration, fibrosis and stem-cell exhaustion are separate phenotypes with separate readouts, and there is no reason to assume one drug reaches them all or reaches them by the same route.",
+  "gap_beginner": "Asking whether a drug makes people live longer cannot be answered in any reasonable amount of time, and aiming at it has crowded out better questions. Ageing is not one thing: the immune system, muscle, metabolism and the brain each age in their own way, and a drug might reach some of them and miss others entirely.",
+  "changed_since_written": "The human results that have arrived are tissue-specific and they do not agree with each other. Four things have to be kept apart in every one of them: whether the drug reached the tissue (exposure), whether TORC1 was measurably inhibited there (target engagement), whether anything downstream moved (pharmacodynamics), and whether a clinical endpoint improved (efficacy). In blood, low-dose TORC1 inhibition with RTB101 moved the pharmacodynamic layer - it upregulated interferon-induced antiviral genes in both the phase 2b and phase 3 trials - and met the phase 2b primary endpoint of laboratory-confirmed respiratory infections, but it did not reduce clinically symptomatic respiratory illness, the prespecified phase 3 primary endpoint, in older adults (Mannick, Lancet Healthy Longev 2021, PMID 33977284). A distal gene-expression response in blood is not a quantified measure of how much TORC1 was inhibited in any tissue, so engagement there is inferred rather than measured. The authors set out several competing explanations for the divergence and did not settle on one: the changed primary endpoint and the way symptoms were collected, respiratory symptoms from non-infectious causes, a healthier phase 3 population with less attenuated interferon responses, benefit confined to a subset of viruses, an effect on severity rather than incidence, and - stated explicitly in the paper - that the antiviral gene response may be insufficient to prevent infections and that the positive phase 2b result was a type I error. In the brain the gap sits at the first step instead: one 2025 trial found rapamycin undetectable in cerebrospinal fluid, with no cognitive change, while CSF p-tau181, GFAP and neurofilament light rose (Gonzales, Commun Med 2025, PMID 40394335), and a second found no change in cerebral glucose metabolism on FDG-PET (Svensson, medRxiv 2025, preprint). Neither demonstrated brain exposure, which leaves exposure unresolved rather than proven absent, and does not establish it as the reason for the null results. In muscle, 48 weeks of intermittent dosing raised lean mass in women rather than lowering it (Moel, Aging 2025, PMID 40188830). These are not one molecule: RTB101 is a distinct compound, not rapamycin. Three tissues, three different kinds of answer. A fourth tissue has since reported in the other direction: in six men aged 70 to 76 given 1 mg rapamycin daily for eight weeks, transmitral blood flow, peak flow rate and maximal blood acceleration on cardiac MRI improved significantly, as did cutaneous endothelial function on laser-Doppler flowmetry (Moody, GeroScience 2025, PMID 40971115). The design carries almost no weight on its own - open-label, no placebo arm, n=6, men only - but it is, to our knowledge, the first human functional phenotype to move favourably under mTOR inhibition, rather than a marker or a null.",
+  "still_open": "Which phenotypes replicate under placebo control, and whether the mechanism is shared. The cardiovascular signal (Moody, GeroScience 2025, PMID 40971115) is the only candidate so far and it is unreplicated, open-label and male-only, so the question has moved from no candidate phenotype to one that a powered trial has yet to confirm. The failures do not all have the same shape, and that distinction matters: in the brain trials the drug was not shown to reach the tissue, so exposure, engagement and efficacy all remain open there, whereas the immune trial produced a downstream biological response and still missed its clinical endpoint. Neither case has a settled cause. So two separate questions remain open: what counts as demonstrated mTOR target engagement in a given human tissue, measured rather than inferred from a distal marker (the brain question), and which clinical endpoint and which responders a trial should use once engagement is in hand (the immune question).",
+  "why_it_matters": "It replaces one unanswerable question with several answerable ones. For the brain trials it separates the layers: because exposure was never demonstrated, those negatives leave the biology untested rather than refuted - though that is not the same as showing the drug failed to arrive, and inadequate exposure has not been established as the cause. That reading does not stretch to every negative trial. The immune trial produced a measurable downstream response and still missed its prespecified clinical endpoint, and the paper's own list of candidate explanations includes insufficient biological efficacy, so there the open issues are target engagement, the endpoint and the responder population rather than exposure.",
+  "how_to_test": "Phenotype-first rather than drug-first. Pick one tissue where target engagement can be demonstrated directly — skin, blood or muscle, all biopsiable — fix the regimen against a measured pharmacodynamic endpoint in that tissue, and only then test a functional outcome. Run the same design across tissues and compare the pharmacodynamic signature that accompanies benefit in each. Whether the signature is shared answers the mechanism half.",
+  "related_questions": [
+   "H5",
+   "H7",
+   "H8"
+  ],
+  "relation_note": null,
+  "gap_status": {
+   "status": "partly-answered",
+   "label": "Partly answered",
+   "basis": "Human trials exist in blood, brain, muscle and heart (see the references). The open part is placebo-controlled replication and measured target engagement.",
+   "checked": "2026-10-15"
+  },
+  "studies": [
+   "MAN2021",
+   "MOE2025"
+  ],
+  "references": [
+   {
+    "role": "direct",
+    "label": "Mannick et al. 2021",
+    "supports": "RTB101 (not rapamycin) upregulated interferon-induced antiviral genes and met the phase 2b infection endpoint, but did not reduce symptomatic respiratory illness in phase 3.",
+    "sid": "MAN2021",
+    "pmid": "33977284",
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/MAN2021/"
+   },
+   {
+    "role": "direct",
+    "label": "Gonzales et al. 2025",
+    "supports": "Rapamycin was undetectable in cerebrospinal fluid, with no cognitive change.",
+    "sid": null,
+    "pmid": "40394335",
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40394335/"
+   },
+   {
+    "role": "related",
+    "label": "Svensson et al. 2025 (preprint)",
+    "supports": "No change in cerebral glucose metabolism on FDG-PET. Preprint; identifier still to be added.",
+    "sid": null,
+    "pmid": null,
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": null
+   },
+   {
+    "role": "direct",
+    "label": "Moel et al. 2025",
+    "supports": "48 weeks of intermittent rapamycin raised lean mass in women.",
+    "sid": "MOE2025",
+    "pmid": "40188830",
+    "doi": null,
+    "registry": null,
+    "in_corpus": true,
+    "url": "https://mtor-atlas.org/study/MOE2025/"
+   },
+   {
+    "role": "direct",
+    "label": "Moody et al. 2025",
+    "supports": "Six men aged 70 to 76 on 1 mg rapamycin daily for eight weeks showed improved cardiac MRI flow measures and skin endothelial function. Open-label, no placebo arm, men only.",
+    "sid": null,
+    "pmid": "40971115",
+    "doi": null,
+    "registry": null,
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40971115/"
+   }
+  ],
+  "external_refs": [
+   {
+    "pmid": "33977284",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/33977284/"
+   },
+   {
+    "pmid": "40394335",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40394335/"
+   },
+   {
+    "pmid": "40188830",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40188830/"
+   },
+   {
+    "pmid": "40971115",
+    "cited_in": [
+     "references"
+    ],
+    "in_corpus": false,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40971115/"
+   }
+  ],
+  "url": "https://mtor-atlas.org/questions/frontier/which-human-ageing-phenotypes-are-causally-reversible/",
+  "api_url": "https://mtor-atlas.org/api/v1/questions/F5.json"
+ }
+}

@@ -1,0 +1,100 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "CUI2023",
+  "title": "Structure of the lysosomal mTORC1-TFEB-Rag-Ragulator megacomplex",
+  "authors": "Cui Z; Napolitano G; de Araujo MEG; Esposito A; Monfregola J; Huber LA; Ballabio A; Hurley JH",
+  "year": 2023,
+  "journal": "Nature",
+  "doi": "10.1038/s41586-022-05652-7",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "36697823",
+  "pmcid": "PMC9931586",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Cryo-EM structure (human proteins, cell-free reconstitution)",
+  "peer_reviewed": true,
+  "finding": "First structural view of how mTORC1 actually reaches TFEB to phosphorylate it: two full Rag-Ragulator complexes present a single TFEB molecule to the mTOR active site, one in the normal Raptor-docking arrangement and a second, non-canonical one that grips TFEB's own first helix. Mutating that grip point drives TFEB straight into the nucleus (turning on autophagy/lysosome genes) without disturbing where mTORC1 itself sits. Explains, at the level of atoms, why TFEB phosphorylation needs the tumour suppressor FLCN and the GDP-loaded state of RagC in a way the authors report for no other mTORC1 substrate. Boundary: cryo-EM of a complex reconstituted from purified human proteins — a static structural snapshot, not a live cell or a real-time measurement.",
+  "url": "https://mtor-atlas.org/study/CUI2023/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/CUI2023.json",
+  "abstract_excerpt": "The transcription factor TFEB is a master regulator of lysosomal biogenesis and autophagy. The phosphorylation of TFEB by the mechanistic target of rapamycin complex 1 (mTORC1) is unique in its mTORC1 substrate recruitment mechanism, which is strictly dependent on the amino acid-mediated activation of the RagC GTPase activating protein FLCN. TFEB lacks the TOR signalling motif responsible for the recruitment of other mTORC1 substrates. We used cryogenic-electron microscopy to determine the structure of TFEB as presented to mTORC1 for phosphorylation, which we refer to as the 'megacomplex'.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Structural (cryo-EM, reconstituted complex)",
+   "target": "mTORC1-TFEB-Rag-Ragulator megacomplex",
+   "species": "Human proteins, cell-free reconstitution",
+   "effect": "Structure of TFEB captured between two Rag-Ragulator complexes for mTORC1-mediated phosphorylation; non-canonical Rag dimer grips TFEB's N-terminal helix via a RagC-GDP-dependent clamp"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "tfeb",
+    "name": "TFEB",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "raptor",
+    "name": "Raptor",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   },
+   {
+    "id": "flcn-fnip1-2",
+    "name": "FLCN / FNIP1/2",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "MTORC1-TFEB"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CAO2026",
+   "FER2026",
+   "ESP2026",
+   "ULL2026"
+  ]
+ }
+}

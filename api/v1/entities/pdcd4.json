@@ -1,0 +1,282 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "pdcd4",
+  "name": "PDCD4",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": {
+   "hgnc": "HGNC:8763",
+   "uniprot": "Q53EL6",
+   "taxon": "NCBITaxon:9606"
+  },
+  "identifiers_status": {
+   "state": "present",
+   "scope": "single",
+   "reason": null
+  },
+  "description": "Translation inhibitor that blocks the eIF4A helicase. S6K1 marks it for degradation, giving mTORC1 a second, 4E-BP-independent route to raising protein synthesis.",
+  "study_count": 2,
+  "relation_count": 3,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/pdcd4/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/pdcd4.json",
+  "description_beginner": "A protein that blocks the translation helper eIF4A. mTORC1's downstream partner S6K1 tags it for destruction, giving the pathway a second way - separate from 4E-BP1 - to boost protein production.",
+  "reading_levels": {
+   "beginner": "Another brake on protein-making.",
+   "student": "Inhibits eIF4A; degraded after S6K1 phosphorylation.",
+   "research": "S6K1 phosphorylates S67, creating a βTRCP degron – an mTORC1 output that works by destroying a repressor rather than activating an enzyme."
+  },
+  "external_refs": [],
+  "studies": [
+   {
+    "sid": "DOR2006",
+    "title": "S6K1- and betaTRCP-mediated degradation of PDCD4 promotes protein translation and cell growth",
+    "authors": "Dorrello NV; Peschiaroli A; Guardavaccaro D; Colburn NH; Sherman NE; Pagano M",
+    "year": 2006,
+    "journal": "Science",
+    "doi": "10.1126/science.1130276",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "17053147",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Mammalian cells",
+    "peer_reviewed": true,
+    "finding": "S6K1 triggers betaTRCP-mediated degradation of the tumour suppressor PDCD4 to promote translation.",
+    "url": "https://mtor-atlas.org/study/DOR2006/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/DOR2006.json"
+   },
+   {
+    "sid": "WANG2026B",
+    "title": "Pdcd4-Rictor interaction suppresses mTORC2-PFKFB3 axis and tumorigenesis in NSCLC.",
+    "authors": "Wang Q; Xin Y; Zokaei E; Zeng L; Piecoro D; Chen M; Zhang Y; Yang KS; Wang C; Liu X; Yang HS",
+    "year": 2026,
+    "journal": "Neoplasia",
+    "doi": "10.1016/j.neo.2026.101354",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42648032",
+    "pmcid": "PMC13544097",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "NSCLC cell lines; mouse xenograft; human tumour tissue",
+    "peer_reviewed": true,
+    "finding": "Pdcd4 binds Rictor via residues R105/K108/R110 to disrupt mTORC2 assembly and kinase activity, lowering PFKFB3 levels and suppressing glycolysis and NSCLC tumour growth.",
+    "url": "https://mtor-atlas.org/study/WANG2026B/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/WANG2026B.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "PDCD4-TRANSL",
+    "claim": "PDCD4 inhibits Protein synthesis",
+    "source": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "target": {
+     "name": "Protein synthesis",
+     "entity": "protein-synthesis"
+    },
+    "effect": "inhibits",
+    "type": "functional-consequence",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "PDCD4 blocks the eIF4A helicase, so mRNAs with structured 5' ends cannot be unwound and translated.",
+    "mechanism_beginner": "PDCD4 jams a helper enzyme so some mRNAs can't be unwound and read.",
+    "context": null,
+    "boundary": "SUZ2008 shows by structure and binding assays that PDCD4 binds the N-terminal domain of eIF4A and displaces eIF4G and RNA, which is the step asserted here. Cell-level evidence that PDCD4 loss changes translation of structured mRNAs is not in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "established",
+     "consensus_label": "settled in the literature"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "SUZ2008"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/PDCD4-TRANSL/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-TRANSL.json"
+   },
+   {
+    "id": "S6K1-PDCD4",
+    "claim": "S6K1 inhibits PDCD4",
+    "source": {
+     "name": "S6K1",
+     "entity": "s6k1"
+    },
+    "target": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "effect": "inhibits",
+    "type": "degradation",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "mammalian cells"
+    ],
+    "mechanism": "S6K1 tags PDCD4 for destruction. PDCD4 is itself a translation inhibitor, so removing it is a second, parallel way mTORC1 lifts a brake on protein synthesis.",
+    "mechanism_beginner": "S6K1 marks PDCD4, itself a brake on protein-building, for destruction – a second way mTORC1 releases the brake.",
+    "context": null,
+    "boundary": "Single-study edge in this corpus.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "Thin - one supporting study.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "high",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "DOR2006"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/S6K1-PDCD4/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/S6K1-PDCD4.json"
+   },
+   {
+    "id": "PDCD4-MTORC2",
+    "claim": "PDCD4 inhibits mTORC2",
+    "source": {
+     "name": "PDCD4",
+     "entity": "pdcd4"
+    },
+    "target": {
+     "name": "mTORC2",
+     "entity": "mtorc2"
+    },
+    "effect": "inhibits",
+    "type": "complex-assembly",
+    "directness": "direct",
+    "timescale": "minutes",
+    "compartment": "cytosol",
+    "map_band": "cytosol",
+    "species": [
+     "human cells",
+     "mouse"
+    ],
+    "mechanism": "PDCD4 binds the mTORC2 subunit Rictor through three basic residues, which stops mTORC2 from assembling properly and lowers its kinase activity.",
+    "mechanism_beginner": "PDCD4 grabs Rictor and keeps mTORC2 from working.",
+    "context": null,
+    "boundary": "Human NSCLC cell lines and mouse xenografts; not shown in normal tissue. Single study.",
+    "boundary_tags": [
+     "single-study"
+    ],
+    "conflict": null,
+    "note": "2026-10-10: Interaction type complex-disassembly -> complex-assembly. WANG2026B: PDCD4 binding to Rictor 'disrupted mTORC2 complex assembly'; it prevents formation rather than taking apart existing complexes. Same convention as RAPA-MTORC2 (audit A10). Sign stays 'inhibits'.",
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Direct biochemical",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "WANG2026B"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/PDCD4-MTORC2/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/PDCD4-MTORC2.json"
+   }
+  ]
+ }
+}

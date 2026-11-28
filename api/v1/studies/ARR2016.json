@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "ARR2016",
+  "title": "Intermittent Administration of Rapamycin Extends the Life Span of Female C57BL/6J Mice",
+  "authors": "Arriola Apelo SI; Pumper CP; Baar EL; Cummings NE; Lamming DW",
+  "year": 2016,
+  "journal": "The Journals of Gerontology, Series A",
+  "doi": "10.1093/gerona/glw064",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "27091134",
+  "pmcid": "PMC4906329",
+  "evidence": {
+   "code": "A",
+   "label": "Animal model",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Animal",
+  "model_system": "Mouse (C57BL/6J, treatment started in late life)",
+  "peer_reviewed": true,
+  "finding": "Female C57BL/6J mice that started rapamycin at 20 months of age, 2 mg/kg once every 5 days, lived longer than control females. This is the schedule that the same group had earlier shown to have a smaller effect on glucose tolerance and T cells than daily dosing (ARR2015), so the authors argue that rapamycin's effect on lifespan can be separated from many of its side effects. Boundary: this record rests on the abstract only. The size of the lifespan gain, any male data and any side-effect measurements in these old mice are not extracted yet. The separation claim comes from combining two mouse studies (ARR2015 used young males), not from a single experiment.",
+  "url": "https://mtor-atlas.org/study/ARR2016/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/ARR2016.json",
+  "abstract_excerpt": "Inhibition of the mTOR (mechanistic target of rapamycin) signaling pathway by the FDA-approved drug rapamycin promotes life span in numerous model organisms and delays age-related disease in mice. However, the utilization of rapamycin as a therapy for age-related diseases will likely prove challenging due to the serious metabolic and immunological side effects of rapamycin in humans.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Rapamycin, intermittent (2 mg/kg every 5 days)",
+   "target": "mTOR",
+   "species": "Mouse (C57BL/6J)",
+   "effect": "Intermittent rapamycin started at 20 months of age extended female lifespan",
+   "dose": "2 mg/kg rapamycin every 5 days, starting as late as 20 months of age (route not stated in abstract)."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "longevity",
+    "name": "Longevity",
+    "type": "Outcome"
+   },
+   {
+    "id": "rapamycin",
+    "name": "Rapamycin",
+    "type": "Drug"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAPA-LONGEVITY"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [
+   "H2"
+  ],
+  "related_studies": []
+ }
+}

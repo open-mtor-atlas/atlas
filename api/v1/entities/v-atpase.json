@@ -1,0 +1,295 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "v-atpase",
+  "name": "v-ATPase",
+  "type": "Gene/Protein",
+  "synonyms": [],
+  "identifiers": null,
+  "identifiers_status": {
+   "state": "not-applicable",
+   "scope": "group",
+   "reason": "This record names a complex, a protein family or a pair of proteins, so one gene identifier would claim more than the Atlas knows."
+  },
+  "description": "Vacuolar H+-ATPase. Necessary for amino acids to activate mTORC1, and it makes extensive amino-acid-sensitive contacts with Ragulator, but it is not itself the sensor: the Atlas assigns that role to SLC38A9, Sestrin2 and SAMTOR for their respective inputs. ATP hydrolysis by the pump is required for amino acids to regulate the v-ATPase-Ragulator interaction, which is the evidence the signal begins inside the lysosomal lumen (Zoncu 2011, PMID 22053050).",
+  "study_count": 5,
+  "relation_count": 2,
+  "page_status": {
+   "state": "published",
+   "reason": null
+  },
+  "url": "https://mtor-atlas.org/gene/v-atpase/",
+  "api_url": "https://mtor-atlas.org/api/v1/entities/v-atpase.json",
+  "description_beginner": "A proton pump on the lysosome. Amino acids cannot switch mTORC1 on without it, and it touches the Ragulator machinery in a way that changes with amino-acid levels - but it is not the thing that reads the amino acids. Other proteins do the reading; this one has to be working for the message to get out.",
+  "reading_levels": {
+   "beginner": "The pump the sensing machinery is built on.",
+   "student": "Lysosomal proton pump physically and functionally coupled to Ragulator.",
+   "research": "Required for amino-acid signalling; inhibitor experiments cannot fully separate the signalling role from loss of lysosomal acidification."
+  },
+  "external_refs": [
+   {
+    "pmid": "22053050",
+    "cited_in": [
+     "description"
+    ],
+    "in_corpus": true,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/22053050/"
+   }
+  ],
+  "studies": [
+   {
+    "sid": "ZON2011",
+    "title": "mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H(+)-ATPase",
+    "authors": "Zoncu R; Bar-Peled L; Efeyan A; Wang S; Sancak Y; Sabatini DM",
+    "year": 2011,
+    "journal": "Science",
+    "doi": "10.1126/science.1207056",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "22053050",
+    "pmcid": "PMC3211112",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells + cell-free reconstitution",
+    "peer_reviewed": true,
+    "finding": "Showed amino acid sensing starts INSIDE the lysosome: amino acids accumulate in the lumen and the v-ATPase relays that signal outward ('inside-out') to Ragulator-Rag. A surprising twist on where the cell measures its nutrient status.",
+    "url": "https://mtor-atlas.org/study/ZON2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ZON2011.json"
+   },
+   {
+    "sid": "ESP2026",
+    "title": "A TBK1/ULK1 signalling axis couples lysosomal stress to TFEB activation.",
+    "authors": "Esposito A; Bayramoglu I; Varriale C; Cavaliere MP; Brunetti ME; Agostinis R; Jansen RM; Tudorica DA; Duan Y; Spacci M; Calcagnì A; Strobl CD; Passerini V; Andreone F; Monfregola J; Richter J; Sacco F; Klapper W; Weigert O; Ballabio A; Zoncu R; Hurley JH; Dengjel J; Napolitano G",
+    "year": 2026,
+    "journal": "Nature",
+    "doi": "10.1038/s41586-026-11093-3",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "42816627",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cell lines; ATP6V1B2-mutant follicular lymphoma patient samples",
+    "peer_reviewed": true,
+    "finding": "Identifies a nutrient-independent lysosomal pathway in which v-ATPase recruits TBK1/ULK1 to phosphorylate FNIP1, inhibiting the FLCN:FNIP complex and releasing TFEB for nuclear translocation; recurrent ATP6V1B2 mutations found in follicular lymphoma patients constitutively hyperactivate this axis, driving TFEB-dependent tumor proliferation.",
+    "url": "https://mtor-atlas.org/study/ESP2026/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ESP2026.json"
+   },
+   {
+    "sid": "MAN2016",
+    "title": "Dynamics of mTORC1 activation in response to amino acids",
+    "authors": "Manifava M; Smith M; Rotondo S; Walker S; Niewczas I; Zoncu R; Clark J; Ktistakis NT",
+    "year": 2016,
+    "journal": "eLife",
+    "doi": "10.7554/eLife.19960",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "27725083",
+    "pmcid": "PMC5059141",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "HEK293 cells; live imaging of RAPTOR and a fluorescent di-leucine analogue",
+    "peer_reviewed": true,
+    "finding": "Live imaging shows mTORC1 moves to lysosomes within 2 minutes of amino acid addition and peaks by 5 minutes, in step with leucine arriving in lysosomes; phosphorylation of classic mTORC1 targets lags behind, suggesting mTORC1 passes briefly through the lysosome before acting on substrates elsewhere.",
+    "url": "https://mtor-atlas.org/study/MAN2016/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/MAN2016.json"
+   },
+   {
+    "sid": "ABU2017",
+    "title": "Lysosomal metabolomics reveals V-ATPase- and mTOR-dependent regulation of amino acid efflux from lysosomes",
+    "authors": "Abu-Remaileh M; Wyant GA; Kim C; Laqtom NN; Abbasi M; Chan SH; Freinkman E; Sabatini DM",
+    "year": 2017,
+    "journal": "Science",
+    "doi": "10.1126/science.aan6298",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "29074583",
+    "pmcid": null,
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Human cells (HEK293)",
+    "peer_reviewed": true,
+    "finding": "Turns the lysosome from a place where mTORC1 is switched on into something mTORC1 also controls: inhibiting mTOR strongly reduces the efflux of most essential amino acids out of the lysosome, so the organelle becomes a store rather than a source. Measured directly by rapidly isolating lysosomes and profiling their contents, which is why the claim is about concentrations inside the organelle and not inferred from signalling readouts. Boundary: one human cell line, acute pharmacological inhibition.",
+    "url": "https://mtor-atlas.org/study/ABU2017/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/ABU2017.json"
+   },
+   {
+    "sid": "PEN2011",
+    "title": "Regulation of TFEB and V-ATPases by mTORC1",
+    "authors": "Peña-Llopis S; Vega-Rubin-de-Celis S; Schwartz JC; Wolff NC; Tran TA; Zou L; Xie XJ; Corey DR; Brugarolas J",
+    "year": 2011,
+    "journal": "The EMBO Journal",
+    "doi": "10.1038/emboj.2011.257",
+    "registry_id": null,
+    "registry_url": null,
+    "pmid": "21804531",
+    "pmcid": "PMC3160667",
+    "evidence": {
+     "code": "M",
+     "label": "Molecular — cells, biochemistry, structure",
+     "note": "this describes the kind of study, not its quality"
+    },
+    "category": "Mechanism",
+    "model_system": "Tsc2-/- vs Tsc2+/+ immortalized MEFs (serum-deprived, +/- rapamycin) with microarrays; Tsc1 floxed primary MEFs and mouse liver (Ad-Cre); myr-Akt prostate model with everolimus (public data); HeLa cells with TSC2/Raptor knockdown",
+    "peer_reviewed": true,
+    "finding": "Using Tsc2-null and wild-type mouse fibroblasts with and without rapamycin, the authors looked for genes whose expression follows mTORC1 activity and found 75 genes, enriched for subunits of the lysosomal proton pump (V-ATPase). mTORC1 also raised V-ATPase expression in mouse liver after Tsc1 deletion and in a prostate tumour model, through a transcriptional mechanism that needed the transcription factor TFEB: knocking down Tfeb cut the number of mTORC1-induced genes from 1146 to 424 probes, and about a quarter of mTORC1-induced genes depended on Tfeb. mTORC1 promoted albumin uptake (endocytosis) in a Tfeb- and V-ATPase-dependent way. In these serum-deprived cells, active mTORC1 (TSC loss) increased nuclear TFEB and rapamycin or Raptor knockdown reduced it, which is the opposite direction to the TFEB inhibition reported by later studies in fed or starved cells. Boundary: Mostly mouse and human cell lines under low serum; liver and prostate data are expression measurements. The direction of mTORC1 control over TFEB localisation here differs from later work and is condition-dependent.",
+    "url": "https://mtor-atlas.org/study/PEN2011/",
+    "api_url": "https://mtor-atlas.org/api/v1/studies/PEN2011.json"
+   }
+  ],
+  "relations": [
+   {
+    "id": "VATPASE-RAGULATOR",
+    "claim": "v-ATPase required-for Ragulator",
+    "source": {
+     "name": "v-ATPase",
+     "entity": "v-atpase"
+    },
+    "target": {
+     "name": "Ragulator",
+     "entity": "ragulator"
+    },
+    "effect": "required-for",
+    "type": "binding",
+    "directness": "direct",
+    "timescale": "constitutive",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "The lysosome's proton pump talks to Ragulator from the inside out: amino acids inside the lysosome change v-ATPase, which changes Ragulator, which changes the Rags.",
+    "mechanism_beginner": "The lysosome's acid pump senses amino acids from the inside and passes that information out to Ragulator, which passes it on to the Rag proteins.",
+    "context": null,
+    "boundary": "The 'inside-out' model requires amino acids to accumulate inside the lysosome first; how they get there for every amino acid is not fully mapped.",
+    "boundary_tags": [],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic epistasis",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ZON2011",
+      "BAR2012"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/VATPASE-RAGULATOR/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-RAGULATOR.json"
+   },
+   {
+    "id": "VATPASE-TAX1BP1",
+    "claim": "v-ATPase recruits TAX1BP1",
+    "source": {
+     "name": "v-ATPase",
+     "entity": "v-atpase"
+    },
+    "target": {
+     "name": "TAX1BP1",
+     "entity": "tax1bp1"
+    },
+    "effect": "recruits",
+    "type": "recruitment",
+    "directness": "unresolved",
+    "timescale": "minutes",
+    "compartment": "lyso",
+    "map_band": "lyso",
+    "species": [
+     "human cells"
+    ],
+    "mechanism": "Lysosomal stress acting through the v-ATPase proton pump brings the adaptor TAX1BP1 to the lysosome, where it docks the kinases TBK1 and ULK1. Recurrent ATP6V1B2 mutations in this pump, found in follicular lymphoma, keep the route switched on. This route is independent of nutrients and runs in parallel to amino-acid signalling through the same pump.",
+    "mechanism_beginner": "A stressed lysosome's proton pump calls in the helper protein TAX1BP1.",
+    "context": "A stress route separate from the v-ATPase's role in amino-acid sensing (VATPASE-RAGULATOR).",
+    "boundary": "One study (ESP2026) in human cell lines and ATP6V1B2-mutant follicular lymphoma samples. How the v-ATPase recruits TAX1BP1 (direct contact or an intermediate) is not stated in the abstract, so the step is marked unresolved. Full text not accessible when this link was written.",
+    "boundary_tags": [
+     "cell-line-only",
+     "single-study"
+    ],
+    "conflict": null,
+    "note": null,
+    "consensus_contested": false,
+    "curation_contested": false,
+    "contested": false,
+    "confidence": {
+     "mechanistic": "medium",
+     "human_relevance": "plausible",
+     "human_relevance_label": "plausible in people, not shown directly",
+     "consensus": "emerging",
+     "consensus_label": "emerging, few independent studies"
+    },
+    "evidence": {
+     "kind": "Genetic loss-of-function / rescue",
+     "strongest": {
+      "code": "M",
+      "label": "Molecular — cells, biochemistry, structure"
+     },
+     "supporting": [
+      "ESP2026"
+     ],
+     "conflicting": []
+    },
+    "external_refs": [],
+    "reviewed": null,
+    "updated": null,
+    "checked": null,
+    "review_status": "unreviewed",
+    "reviewer": null,
+    "curation_status": "Proposed",
+    "url": "https://mtor-atlas.org/relation/VATPASE-TAX1BP1/",
+    "api_url": "https://mtor-atlas.org/api/v1/relations/VATPASE-TAX1BP1.json"
+   }
+  ]
+ }
+}

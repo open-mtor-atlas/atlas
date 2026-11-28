@@ -1,0 +1,78 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "KIN2026",
+  "title": "TCR-mTORC1 signaling promotes epigenetic stabilization of Foxp3 expression in regulatory T cells via TET protein translation",
+  "authors": "Kinoshita T; Nakajima A; Kobayashi T; Ohno M; Wei Y; Hasegawa T; Hayatsu N; Hirayama S; Tsukada YI; Hirao A; Murata S; Hori S",
+  "year": 2026,
+  "journal": "Proceedings of the National Academy of Sciences",
+  "doi": "10.1073/pnas.2612904123",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "42809396",
+  "pmcid": null,
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Mouse; in vitro-induced regulatory T cells (iTreg)",
+  "peer_reviewed": true,
+  "finding": "Sustained TCR signaling activates mTORC1, which boosts translation of the TET2 (and likely TET3) DNA-demethylation enzymes; this demethylates the Foxp3 TSDR enhancer and epigenetically locks in stable Foxp3 expression in regulatory T cells. In vivo mTORC1 inactivation increases methylated-TSDR Foxp3+ T cells, confirming the pathway's physiological relevance.",
+  "url": "https://mtor-atlas.org/study/KIN2026/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/KIN2026.json",
+  "abstract_excerpt": "Regulatory T (Treg) cell differentiation and function rely on stable expression of the master transcription factor Foxp3. While Foxp3 expression is epigenetically stabilized through DNA demethylation of an enhancer (the Treg-specific demethylated region, TSDR), the mechanisms underlying this process remain unclear. Here, we show that strong and sustained T cell receptor (TCR) signaling promotes TSDR demethylation, stabilizes Foxp3 expression, and confers suppressive activity in in vitro-induced Treg (iTreg) cells through activation of mTORC1.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "mTORC1 inactivation (genetic/pharmacological) and TET2/TET3 deficiency in TCR-stimulated iTreg cells",
+   "target": "mTORC1 -> translational control of TET2/TET3 -> Foxp3 TSDR demethylation",
+   "species": "Mouse (in vitro-induced regulatory T cells, with in vivo confirmation)",
+   "effect": "TCR-driven mTORC1 raises TET2/TET3 translation to demethylate the Foxp3 TSDR enhancer and epigenetically stabilize Foxp3 expression; mTORC1 inactivation increases methylated-TSDR Foxp3+ T cells."
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "t-cell-differentiation",
+    "name": "T cell differentiation",
+    "type": "Biological process"
+   },
+   {
+    "id": "mtorc1",
+    "name": "mTORC1",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "CHI2012",
+   "DEL2009",
+   "DEL2011",
+   "GEI2016"
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "sid": "SHE2018B",
+  "title": "Ragulator and SLC38A9 activate the Rag GTPases through noncanonical GEF mechanisms",
+  "authors": "Shen K; Sabatini DM",
+  "year": 2018,
+  "journal": "Proceedings of the National Academy of Sciences",
+  "doi": "10.1073/pnas.1811727115",
+  "registry_id": null,
+  "registry_url": null,
+  "pmid": "30181260",
+  "pmcid": "PMC6156610",
+  "evidence": {
+   "code": "M",
+   "label": "Molecular — cells, biochemistry, structure",
+   "note": "this describes the kind of study, not its quality"
+  },
+  "category": "Mechanism",
+  "model_system": "Purified recombinant proteins; HEK293 cells",
+  "peer_reviewed": true,
+  "finding": "Ragulator and SLC38A9 each act as an unusual guanine-nucleotide exchange factor on the Rag heterodimer, and together they push it into its active state. Ragulator triggers GTP release from RagC, which unlocks the inactive configuration; arginine-bound SLC38A9 converts RagA from the GDP- to the GTP-loaded state. Boundary: purified proteins and cultured human cells. This is the biochemistry of the switch, not a measurement in tissue.",
+  "url": "https://mtor-atlas.org/study/SHE2018B/",
+  "api_url": "https://mtor-atlas.org/api/v1/studies/SHE2018B.json",
+  "abstract_excerpt": "The mechanistic target of rapamycin complex 1 (mTORC1) growth pathway detects nutrients through a variety of sensors and regulators that converge on the Rag GTPases, which form heterodimers consisting of RagA or RagB tightly bound to RagC or RagD and control the subcellular localization of mTORC1. The Rag heterodimer uses a unique \"locking\" mechanism to stabilize its active (RagA(GTP)-RagC(GDP)) or inactive (RagA(GDP)-RagC(GTP)) nucleotide states.",
+  "abstract_truncated": true,
+  "extracted_findings": {
+   "intervention": "Biochemical nucleotide-exchange assays (Ragulator, SLC38A9)",
+   "target": "Ragulator / SLC38A9 / Rag GTPases / mTORC1",
+   "species": "Purified proteins; human cells (HEK293)",
+   "effect": "Ragulator releases GTP from RagC and arginine-bound SLC38A9 loads RagA with GTP; together they activate the Rag heterodimer"
+  },
+  "extracted_findings_review": {
+   "status": "unreviewed",
+   "reviewed_by": null,
+   "note": "AI-assisted extraction from the paper. The curated finding takes precedence where the two disagree."
+  },
+  "entities": [
+   {
+    "id": "arginine",
+    "name": "Arginine",
+    "type": "Nutrient/Metabolite"
+   },
+   {
+    "id": "rag-gtpases",
+    "name": "Rag GTPases",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "slc38a9",
+    "name": "SLC38A9",
+    "type": "Gene/Protein"
+   },
+   {
+    "id": "ragulator",
+    "name": "Ragulator",
+    "type": "Pathway/Complex"
+   }
+  ],
+  "relations": {
+   "supports": [
+    "RAGULATOR-RAG",
+    "SLC38A9-RAG"
+   ],
+   "conflicts_with": []
+  },
+  "questions": [],
+  "related_studies": [
+   "LEI2018",
+   "REB2015",
+   "WAN2015",
+   "CHA2016"
+  ]
+ }
+}

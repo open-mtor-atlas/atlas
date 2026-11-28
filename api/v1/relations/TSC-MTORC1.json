@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "api_version": "1.0.0",
+  "dataset_version": "2.0.1+unreleased",
+  "live_matches_release": false,
+  "archived_release": {
+   "version": "2.0.1",
+   "version_doi": "10.5281/zenodo.23090261",
+   "date": "2026-10-01",
+   "studies": 428
+  },
+  "data_fingerprint": "45e4b41432253b5b31377433fa76dcf0654c9451fd207ae5032e280a1cd25b7b",
+  "corpus_snapshot": "2026-11-28T17:02:45+0100",
+  "source_commit": "2d0b62369644c57d39d3e0faf41ee4a135a56a3e",
+  "license": "CC-BY-4.0",
+  "cite": "Barton O. Oliver's mTOR Atlas (live data, not an archived version; give corpus_snapshot and source_commit). doi:10.5281/zenodo.22059963",
+  "docs": "https://mtor-atlas.org/api/"
+ },
+ "data": {
+  "id": "TSC-MTORC1",
+  "claim": "TSC1/TSC2 inhibits mTORC1",
+  "source": {
+   "name": "TSC1/TSC2",
+   "entity": "tsc1-tsc2"
+  },
+  "target": {
+   "name": "mTORC1",
+   "entity": "mtorc1"
+  },
+  "effect": "inhibits",
+  "type": "signal-relay",
+  "directness": "indirect",
+  "timescale": "seconds",
+  "compartment": "lyso",
+  "map_band": "lyso",
+  "species": [
+   "human",
+   "mammalian cells"
+  ],
+  "mechanism": "The TSC complex is the pathway's main tumour suppressor. Inherit one broken copy and lesions grow wherever the second copy is lost - the clearest human evidence that mTORC1 activity drives tissue overgrowth.",
+  "mechanism_beginner": "The TSC brake is the pathway's main tumour-suppressor. Inherit one broken copy of the gene and growths appear wherever the second copy is also lost. (This arrow skips a step for simplicity – TSC actually acts through Rheb first.)",
+  "context": "Deliberately compressed: TSC acts on Rheb rather than directly on mTORC1. Kept as one link so the overview reads cleanly.",
+  "boundary": "Human cell lines, Drosophila, mouse and cell studies, one open-label human trial (KRU2010) and human disease genetics. The human evidence comes from disease caused by TSC loss, not from healthy tissue.",
+  "boundary_tags": [],
+  "conflict": null,
+  "note": "This is the edge that turns the biochemistry into a disease.",
+  "consensus_contested": false,
+  "curation_contested": false,
+  "contested": false,
+  "confidence": {
+   "mechanistic": "high",
+   "human_relevance": "established",
+   "human_relevance_label": "shown in people",
+   "consensus": "established",
+   "consensus_label": "settled in the literature"
+  },
+  "evidence": {
+   "kind": "Genetic epistasis",
+   "strongest": {
+    "code": "H",
+    "label": "Human study"
+   },
+   "supporting": [
+    "TEE2003",
+    "INOK2003",
+    "KRU2010",
+    "CHEN2026C",
+    "ZHANG2026",
+    "DEM2014",
+    "SEN2010",
+    "GAO2002",
+    "TEE2002",
+    "KWI2002",
+    "DEY2008",
+    "POL2015",
+    "TSA2012",
+    "BAT2013",
+    "ZEN2008"
+   ],
+   "conflicting": []
+  },
+  "external_refs": [],
+  "reviewed": null,
+  "updated": null,
+  "checked": null,
+  "review_status": "unreviewed",
+  "reviewer": null,
+  "curation_status": "Proposed",
+  "url": "https://mtor-atlas.org/relation/TSC-MTORC1/",
+  "api_url": "https://mtor-atlas.org/api/v1/relations/TSC-MTORC1.json"
+ }
+}
